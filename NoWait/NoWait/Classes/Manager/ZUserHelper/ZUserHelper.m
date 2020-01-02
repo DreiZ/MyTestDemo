@@ -37,7 +37,7 @@
 //    _user = user;
 //    ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
 //    if (![userStore updateUser:user]) {
-//        DDLogError(@"登录数据存库失败");
+//        DLog(@"登录数据存库失败");
 //    }
 //    
 //    [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"loginUserID"];
@@ -50,7 +50,7 @@
 //    _user = user;
 //    ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
 //    if (![userStore deleteUsersByUid:user.userID]) {
-//        DDLogError(@"登录数据存库失败");
+//        DLog(@"登录数据存库失败");
 //    }
 //    [ZUserHelper sharedHelper].user = nil;
 //    [[ZDBManager sharedInstance] loginout];

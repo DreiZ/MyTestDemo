@@ -10,4 +10,16 @@
 
 @implementation ZLaunchManager
 
+#pragma mark - # Getters
+- (TLTabBarController *)tabBarController
+{
+    if (!_tabBarController) {
+        TLTabBarController *tabbarController = [[TLTabBarController alloc] init];
+        [tabbarController.tabBar setBackgroundColor:[UIColor colorGrayBG]];
+        [tabbarController.tabBar setTintColor:[UIColor colorGreenDefault]];
+        _tabBarController = tabbarController;
+    }
+    return _tabBarController;
+}
+
 @end
