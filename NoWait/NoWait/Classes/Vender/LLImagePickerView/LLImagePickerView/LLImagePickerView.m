@@ -371,14 +371,7 @@ static NSInteger countOfRow;
     
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//        picker.delegate = self;
-        [picker setBk_didFinishPickingMediaBlock:^(UIImagePickerController *tempPicker, NSDictionary *info) {
-            [self imagePickerController:tempPicker didFinishPickingMediaWithInfo:info];
-        }];
-        
-        [picker setBk_didCancelBlock:^(UIImagePickerController *tempPicker) {
-            [tempPicker dismissViewControllerAnimated:YES completion:nil];
-        }];
+        picker.delegate = self;
         //设置拍照后的图片可被编辑
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;

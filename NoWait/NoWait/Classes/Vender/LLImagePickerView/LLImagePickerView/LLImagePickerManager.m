@@ -23,13 +23,13 @@
     //图片名
     NSString *imageName = [self getMediaNameWithPHAsset:asset extensionName:@"IMG.PNG"];
     NSData *imageData;
-//    if (UIImagePNGRepresentation(image) == nil)
-//    {
-        imageData = UIImageJPEGRepresentation(image, 0.2);
-//    } else
-//    {
-//        imageData = UIImagePNGRepresentation(image);
-//    }
+    if (UIImagePNGRepresentation(image) == nil)
+    {
+        imageData = UIImageJPEGRepresentation(image, 1);
+    } else
+    {
+        imageData = UIImagePNGRepresentation(image);
+    }
     !completion ?  : completion(imageName, imageData);
 }
 
