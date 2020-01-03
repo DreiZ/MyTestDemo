@@ -47,20 +47,20 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-//    if ([ZUserHelper sharedHelper].isLogin) {      // 已登录
+    if ([ZUserHelper sharedHelper].isLogin) {      // 已登录
         [self showMainTab];
-//    }
-//    else
-//    {  // 未登录
-//        ZAccountViewController *accountVC = [[ZAccountViewController alloc] init];
-//        @weakify(self);
-//        [accountVC setLoginSuccess:^{
-//            @strongify(self);
-//            [self launchInWindow:window];
-//        }];
-//        UINavigationController *navc = addNavigationController(accountVC);
-//        [self setCurRootVC:navc];
-//    }
+    }
+    else
+    {  // 未登录
+        ZAccountViewController *accountVC = [[ZAccountViewController alloc] init];
+        @weakify(self);
+        [accountVC setLoginSuccess:^{
+            @strongify(self);
+            [self launchInWindow:window];
+        }];
+        UINavigationController *navc = addNavigationController(accountVC);
+        [self setCurRootVC:navc];
+    }
 }
 
 - (void)showMainTab {

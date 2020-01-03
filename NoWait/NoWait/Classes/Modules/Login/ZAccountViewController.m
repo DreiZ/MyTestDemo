@@ -229,7 +229,7 @@ static NSTimer *retrieveTimer = nil;
         make.centerX.equalTo(self.loginBtn.mas_centerX);
         make.top.equalTo(self.loginBtn.mas_bottom).offset(CGFloatIn750(32));
     }];
-    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"我已阅读并同意遵守《幻轻服务条款》和《隐私协议》"];
+    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"我已阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
     text.lineSpacing = 0;
     text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
     text.color = KFont9Color;
@@ -237,7 +237,7 @@ static NSTimer *retrieveTimer = nil;
     
     [text setTextHighlightRange:NSMakeRange(9, 8) color:KMainColor backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-        avc.navTitle = @"幻轻服务条款";
+        avc.navTitle = @"莫等闲服务条款";
         avc.type = @"service_agreement";
         [self.navigationController pushViewController:avc animated:YES];
     }];
@@ -297,7 +297,7 @@ static NSTimer *retrieveTimer = nil;
 #pragma mark lazy loading
 - (UITextField *)userNameTF {
     if (!_userNameTF ) {
-        
+        __weak typeof(self) weakSelf = self;
         UIView *leftView = [self leftHintView:@"loginTel" title:@"手机号码"];
         _userNameTF  = [[UITextField alloc] init];
         _userNameTF.tag = 101;
@@ -312,9 +312,9 @@ static NSTimer *retrieveTimer = nil;
         [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
             if (x.length > 11) {
                 x = [x substringWithRange:NSMakeRange(0, 11)];
-                _userNameTF.text = x;
+                weakSelf.userNameTF.text = x;
             }
-            self.loginViewModel.loginModel.tel = x;
+            weakSelf.loginViewModel.loginModel.tel = x;
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
@@ -413,7 +413,7 @@ static NSTimer *retrieveTimer = nil;
             [self.codeTF resignFirstResponder];
             [self.userNameTF resignFirstResponder];
             if (!self.isAgree) {
-                [TLUIUtility showErrorHint:@"请阅读并同意遵守《幻轻服务条款》和《隐私协议》"];
+                [TLUIUtility showErrorHint:@"请阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
                 return ;
             }
             

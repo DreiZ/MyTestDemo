@@ -22,7 +22,7 @@
     
     //初始化UI
     [[ZLaunchManager sharedInstance] launchInWindow:self.window];
-//    [[ZLaunchManager sharedInstance] showIntroductionOrAdvertise];
+    [[ZLaunchManager sharedInstance] showIntroductionOrAdvertise];
 //
     
     return YES;

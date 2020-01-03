@@ -180,6 +180,7 @@
 		B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780D923BED6B100407BF0 /* ZIntroductryPagesView.m */; };
 		B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780DE23BED9B500407BF0 /* Student.xcassets */; };
 		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
+		B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,7 +202,7 @@
 
 /* Begin PBXFileReference section */
 		3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.debug.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.debug.xcconfig"; sourceTree = "<group>"; };
-		B2A77E1B23BDA38400407BF0 /* NoWait.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoWait.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2A77E1B23BDA38400407BF0 /* 莫等闲.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "莫等闲.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoWaitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -525,6 +526,7 @@
 		B2A780DE23BED9B500407BF0 /* Student.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Student.xcassets; sourceTree = "<group>"; };
 		B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineVC.h; sourceTree = "<group>"; };
 		B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineVC.m; sourceTree = "<group>"; };
+		B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -580,7 +582,7 @@
 		B2A77E1C23BDA38400407BF0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B2A77E1B23BDA38400407BF0 /* NoWait.app */,
+				B2A77E1B23BDA38400407BF0 /* 莫等闲.app */,
 				B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */,
 				B2A77E4123BDA38600407BF0 /* NoWaitUITests.xctest */,
 			);
@@ -625,6 +627,7 @@
 				B2A77E5F23BDC83300407BF0 /* AppDelegate.h */,
 				B2A77E5E23BDC83300407BF0 /* AppDelegate.m */,
 				B2A77E7F23BDD4AB00407BF0 /* PrefixHeader.pch */,
+				B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -1572,7 +1575,7 @@
 			);
 			name = NoWait;
 			productName = NoWait;
-			productReference = B2A77E1B23BDA38400407BF0 /* NoWait.app */;
+			productReference = B2A77E1B23BDA38400407BF0 /* 莫等闲.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B2A77E3523BDA38600407BF0 /* NoWaitTests */ = {
@@ -1676,6 +1679,7 @@
 				B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */,
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
+				B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
 				B2A77EEE23BDE2B000407BF0 /* UIBarButtonItemGrid@3x.png in Resources */,
@@ -2052,7 +2056,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "莫等闲";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2071,7 +2075,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "莫等闲";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
