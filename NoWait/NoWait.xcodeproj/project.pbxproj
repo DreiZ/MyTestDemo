@@ -182,6 +182,9 @@
 		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
 		B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */; };
 		B2A780ED23BF06FD00407BF0 /* PooCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780EB23BF06FD00407BF0 /* PooCodeView.m */; };
+		B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F023BF0BE700407BF0 /* ZLoginView.m */; };
+		B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F323BF0CC800407BF0 /* ZRegisterView.m */; };
+		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -530,6 +533,11 @@
 		B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B2A780EB23BF06FD00407BF0 /* PooCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PooCodeView.m; sourceTree = "<group>"; };
 		B2A780EC23BF06FD00407BF0 /* PooCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PooCodeView.h; sourceTree = "<group>"; };
+		B2A780EF23BF0BE700407BF0 /* ZLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginView.h; sourceTree = "<group>"; };
+		B2A780F023BF0BE700407BF0 /* ZLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginView.m; sourceTree = "<group>"; };
+		B2A780F223BF0CC800407BF0 /* ZRegisterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRegisterView.h; sourceTree = "<group>"; };
+		B2A780F323BF0CC800407BF0 /* ZRegisterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRegisterView.m; sourceTree = "<group>"; };
+		B2A780F623BF11D300407BF0 /* login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = login.xcassets; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1409,6 +1417,8 @@
 		B2A780B323BECD9100407BF0 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				B2A780F523BF11B200407BF0 /* Resources */,
+				B2A780EE23BF0A9000407BF0 /* View */,
 				B2A780BF23BED04100407BF0 /* ViewController */,
 				B2A780B823BECE2000407BF0 /* ViewModels */,
 				B2A780B723BECE0800407BF0 /* Models */,
@@ -1560,6 +1570,25 @@
 			path = PooCodeView;
 			sourceTree = "<group>";
 		};
+		B2A780EE23BF0A9000407BF0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780EF23BF0BE700407BF0 /* ZLoginView.h */,
+				B2A780F023BF0BE700407BF0 /* ZLoginView.m */,
+				B2A780F223BF0CC800407BF0 /* ZRegisterView.h */,
+				B2A780F323BF0CC800407BF0 /* ZRegisterView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2A780F523BF11B200407BF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780F623BF11D300407BF0 /* login.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1691,6 +1720,7 @@
 				B2A77EFF23BDE2B000407BF0 /* VideoOverlay@3x.png in Resources */,
 				B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */,
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
+				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
@@ -1794,6 +1824,7 @@
 				B2A780A023BDFB0100407BF0 /* FSMStateUtil.m in Sources */,
 				B2A780A923BDFB0100407BF0 /* TLNetworkStatusManager.m in Sources */,
 				B2A77F2923BDE37A00407BF0 /* LLImagePickerModel.m in Sources */,
+				B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */,
 				B2A77FC523BDEAA100407BF0 /* ZBaseNetworkBackModel.m in Sources */,
 				B2A77EC923BDE29E00407BF0 /* MWGridCell.m in Sources */,
 				B2A77FD123BDEAA100407BF0 /* ZMenuItemCell.m in Sources */,
@@ -1829,6 +1860,7 @@
 				B2A7809023BDFB0100407BF0 /* NSMutableURLRequest+TLNetwork.m in Sources */,
 				B2A77E7523BDCCFE00407BF0 /* main.m in Sources */,
 				B2A77FCA23BDEAA100407BF0 /* ZServerCompleteAlertView.m in Sources */,
+				B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */,
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
 				B2A77F6623BDE5B900407BF0 /* ZShortcutMethod.m in Sources */,
 				B2A77EC823BDE29E00407BF0 /* MWPhotoBrowser.m in Sources */,

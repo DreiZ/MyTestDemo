@@ -67,6 +67,10 @@
         
         self.changeString = (NSMutableString *)[self.changeString stringByAppendingString:getStr];
     }
+    
+    if (_changBlock) {
+        _changBlock(self.changeString);
+    }
 }
 
 - (void)drawRect:(CGRect)rect

@@ -25,7 +25,7 @@ PooCodeView:1.随机内容(默认由0~9与26个大小写字母随机组合);2.�
 @property (nonatomic, strong) UIColor *textColor;             // 文本颜色
 @property (nonatomic, assign) int textSize;                   // 字体大小
 @property (nonatomic, retain) NSMutableString * changeString; // 验证码
-
+@property (nonatomic, strong) void (^changBlock)(NSString *);
 // 刷新随机验证码
 - (void)changeCode;
 

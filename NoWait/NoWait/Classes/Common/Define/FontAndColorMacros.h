@@ -17,7 +17,7 @@
 
 #pragma mark -  颜色区
 //主题色
-#define KMainColor [UIColor colorWithHexString:@"ff3d6f"]
+#define KMainColor [UIColor colorWithHexString:@"0AD89B"]
 #define KMainSubColor [UIColor colorWithHexString:@"ffd0dc"]
 //导航栏颜色
 #define CNavBgColor  [UIColor colorWithHexString:@"ffffff"]
