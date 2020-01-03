@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ZLaunchManager.h"
+
 
 @interface AppDelegate ()
 
@@ -19,19 +21,10 @@
     
     
     //初始化UI
-//    [[ZLaunchManager sharedInstance] launchInWindow:self.window];
+    [[ZLaunchManager sharedInstance] launchInWindow:self.window];
 //    [[ZLaunchManager sharedInstance] showIntroductionOrAdvertise];
 //
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window setBackgroundColor:[UIColor whiteColor]];
-//    [self setupViewControllers];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    UIViewController *vv = [[UIViewController alloc] init];
-    vv.view.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = vv;
-    
-    [self.window makeKeyAndVisible];
     return YES;
 }
 

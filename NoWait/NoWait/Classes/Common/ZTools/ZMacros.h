@@ -26,4 +26,24 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 // 默认头像
 #define     DEFAULT_AVATAR_PATH         @"defaultHead"
 
+
+#pragma mark - ——————— 用户相关 ————————
+//app登录过
+#define kHadAppLogin  @"userHadLogin"
+//appy启动过
+#define kHadInApp    @"userHadEnterApp"
+
+//healthkit启动过
+#define kHadHealthKit    @"kHadHealthKit"
+
+//appstore id
+#define kStoreAppId    @"1450127914" //@"1095204149"
+
+//登录状态改变通知
+#define KNotificationLoginStateChange @"loginStateChange"
+
+//自动登录成功
+#define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
+
+
 #endif /* ZMacros_h */

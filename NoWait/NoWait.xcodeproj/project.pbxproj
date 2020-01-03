@@ -169,6 +169,17 @@
 		B2A780AA23BDFB0100407BF0 /* TLNetworkUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7808723BDFB0100407BF0 /* TLNetworkUtility.m */; };
 		B2A780AE23BDFB1F00407BF0 /* ZRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780AC23BDFB1F00407BF0 /* ZRouteManager.m */; };
 		B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780B023BDFC7800407BF0 /* ZAppConfig.m */; };
+		B2A780B623BECDAF00407BF0 /* ZAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */; };
+		B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780BA23BECF3600407BF0 /* ZLoginViewModel.m */; };
+		B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780BD23BECF9A00407BF0 /* ZLoginModel.m */; };
+		B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780C123BED08300407BF0 /* ZAgreementVC.m */; };
+		B2A780CA23BED36400407BF0 /* ZStudentMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780C923BED36400407BF0 /* ZStudentMainVC.m */; };
+		B2A780CF23BED3C800407BF0 /* ZStudentMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780CE23BED3C800407BF0 /* ZStudentMessageVC.m */; };
+		B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780D323BED47200407BF0 /* ZStudentMineVC.m */; };
+		B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780D623BED6B100407BF0 /* ZIntroductryPagesManager.m */; };
+		B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780D923BED6B100407BF0 /* ZIntroductryPagesView.m */; };
+		B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780DE23BED9B500407BF0 /* Student.xcassets */; };
+		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -493,6 +504,27 @@
 		B2A780AD23BDFB1F00407BF0 /* ZRouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRouteManager.h; sourceTree = "<group>"; };
 		B2A780B023BDFC7800407BF0 /* ZAppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAppConfig.m; sourceTree = "<group>"; };
 		B2A780B123BDFC7800407BF0 /* ZAppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAppConfig.h; sourceTree = "<group>"; };
+		B2A780B423BECDAF00407BF0 /* ZAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAccountViewController.h; sourceTree = "<group>"; };
+		B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAccountViewController.m; sourceTree = "<group>"; };
+		B2A780B923BECF3600407BF0 /* ZLoginViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginViewModel.h; sourceTree = "<group>"; };
+		B2A780BA23BECF3600407BF0 /* ZLoginViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginViewModel.m; sourceTree = "<group>"; };
+		B2A780BC23BECF9A00407BF0 /* ZLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginModel.h; sourceTree = "<group>"; };
+		B2A780BD23BECF9A00407BF0 /* ZLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginModel.m; sourceTree = "<group>"; };
+		B2A780C023BED08300407BF0 /* ZAgreementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAgreementVC.h; sourceTree = "<group>"; };
+		B2A780C123BED08300407BF0 /* ZAgreementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAgreementVC.m; sourceTree = "<group>"; };
+		B2A780C823BED36400407BF0 /* ZStudentMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainVC.h; sourceTree = "<group>"; };
+		B2A780C923BED36400407BF0 /* ZStudentMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainVC.m; sourceTree = "<group>"; };
+		B2A780CD23BED3C800407BF0 /* ZStudentMessageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMessageVC.h; sourceTree = "<group>"; };
+		B2A780CE23BED3C800407BF0 /* ZStudentMessageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMessageVC.m; sourceTree = "<group>"; };
+		B2A780D223BED47200407BF0 /* ZStudentMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineVC.h; sourceTree = "<group>"; };
+		B2A780D323BED47200407BF0 /* ZStudentMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineVC.m; sourceTree = "<group>"; };
+		B2A780D623BED6B100407BF0 /* ZIntroductryPagesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZIntroductryPagesManager.m; sourceTree = "<group>"; };
+		B2A780D723BED6B100407BF0 /* ZIntroductryPagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZIntroductryPagesView.h; sourceTree = "<group>"; };
+		B2A780D823BED6B100407BF0 /* ZIntroductryPagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZIntroductryPagesManager.h; sourceTree = "<group>"; };
+		B2A780D923BED6B100407BF0 /* ZIntroductryPagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZIntroductryPagesView.m; sourceTree = "<group>"; };
+		B2A780DE23BED9B500407BF0 /* Student.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Student.xcassets; sourceTree = "<group>"; };
+		B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineVC.h; sourceTree = "<group>"; };
+		B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineVC.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -659,6 +691,7 @@
 		B2A77E8A23BDD90600407BF0 /* ZLaunchManger */ = {
 			isa = PBXGroup;
 			children = (
+				B2A780D523BED6B100407BF0 /* IntroductryPages */,
 				B2A7801323BDF8B200407BF0 /* ZAdvertiseHelper */,
 				B2A77E8B23BDD93A00407BF0 /* ZLaunchManager.h */,
 				B2A77E8C23BDD93A00407BF0 /* ZLaunchManager.m */,
@@ -1023,6 +1056,9 @@
 		B2A77FED23BDEC0100407BF0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B2A780C523BED2FF00407BF0 /* Student */,
+				B2A780C323BED24C00407BF0 /* Organization */,
+				B2A780B323BECD9100407BF0 /* Login */,
 				B2A77FEE23BDEC1600407BF0 /* Web */,
 			);
 			path = Modules;
@@ -1363,6 +1399,151 @@
 			path = ZAppConfig;
 			sourceTree = "<group>";
 		};
+		B2A780B323BECD9100407BF0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780BF23BED04100407BF0 /* ViewController */,
+				B2A780B823BECE2000407BF0 /* ViewModels */,
+				B2A780B723BECE0800407BF0 /* Models */,
+				B2A780B423BECDAF00407BF0 /* ZAccountViewController.h */,
+				B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B2A780B723BECE0800407BF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780BC23BECF9A00407BF0 /* ZLoginModel.h */,
+				B2A780BD23BECF9A00407BF0 /* ZLoginModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B2A780B823BECE2000407BF0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780B923BECF3600407BF0 /* ZLoginViewModel.h */,
+				B2A780BA23BECF3600407BF0 /* ZLoginViewModel.m */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B2A780BF23BED04100407BF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780C023BED08300407BF0 /* ZAgreementVC.h */,
+				B2A780C123BED08300407BF0 /* ZAgreementVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B2A780C323BED24C00407BF0 /* Organization */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780E023BED9CE00407BF0 /* SMine */,
+			);
+			path = Organization;
+			sourceTree = "<group>";
+		};
+		B2A780C523BED2FF00407BF0 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780DD23BED99200407BF0 /* Resources */,
+				B2A780D023BED42A00407BF0 /* SMine */,
+				B2A780CB23BED37200407BF0 /* SMessage */,
+				B2A780C623BED31500407BF0 /* SMain */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		B2A780C623BED31500407BF0 /* SMain */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780C723BED32900407BF0 /* ViewController */,
+			);
+			path = SMain;
+			sourceTree = "<group>";
+		};
+		B2A780C723BED32900407BF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780C823BED36400407BF0 /* ZStudentMainVC.h */,
+				B2A780C923BED36400407BF0 /* ZStudentMainVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B2A780CB23BED37200407BF0 /* SMessage */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780CC23BED39300407BF0 /* ViewController */,
+			);
+			path = SMessage;
+			sourceTree = "<group>";
+		};
+		B2A780CC23BED39300407BF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780CD23BED3C800407BF0 /* ZStudentMessageVC.h */,
+				B2A780CE23BED3C800407BF0 /* ZStudentMessageVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B2A780D023BED42A00407BF0 /* SMine */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780D123BED43800407BF0 /* ViewController */,
+			);
+			path = SMine;
+			sourceTree = "<group>";
+		};
+		B2A780D123BED43800407BF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780D223BED47200407BF0 /* ZStudentMineVC.h */,
+				B2A780D323BED47200407BF0 /* ZStudentMineVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B2A780D523BED6B100407BF0 /* IntroductryPages */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780D623BED6B100407BF0 /* ZIntroductryPagesManager.m */,
+				B2A780D723BED6B100407BF0 /* ZIntroductryPagesView.h */,
+				B2A780D823BED6B100407BF0 /* ZIntroductryPagesManager.h */,
+				B2A780D923BED6B100407BF0 /* ZIntroductryPagesView.m */,
+			);
+			path = IntroductryPages;
+			sourceTree = "<group>";
+		};
+		B2A780DD23BED99200407BF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780DE23BED9B500407BF0 /* Student.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B2A780E023BED9CE00407BF0 /* SMine */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780E123BED9E400407BF0 /* ViewController */,
+			);
+			path = SMine;
+			sourceTree = "<group>";
+		};
+		B2A780E123BED9E400407BF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */,
+				B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1492,6 +1673,7 @@
 				B2A77EF123BDE2B000407BF0 /* VideoOverlay.png in Resources */,
 				B2A77F0223BDE2B000407BF0 /* ImageError@3x.png in Resources */,
 				B2A77EFF23BDE2B000407BF0 /* VideoOverlay@3x.png in Resources */,
+				B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */,
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
@@ -1606,6 +1788,7 @@
 				B2A7801F23BDF8B200407BF0 /* ZAdvertiserModel.m in Sources */,
 				B2A77F5923BDE42E00407BF0 /* TZPhotoPreviewController.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
+				B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */,
 				B2A7800723BDEDD300407BF0 /* UITableViewCell+ZCategory.m in Sources */,
 				B2A77F5823BDE42E00407BF0 /* UIView+Layout.m in Sources */,
 				B2A77FCD23BDEAA100407BF0 /* DSCallInfo.m in Sources */,
@@ -1621,6 +1804,7 @@
 				B2A7808B23BDFB0100407BF0 /* UIScrollView+ZRefreshHeader.m in Sources */,
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
+				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
@@ -1630,10 +1814,12 @@
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
 				B2A77F6623BDE5B900407BF0 /* ZShortcutMethod.m in Sources */,
 				B2A77EC823BDE29E00407BF0 /* MWPhotoBrowser.m in Sources */,
+				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,
+				B2A780CF23BED3C800407BF0 /* ZStudentMessageVC.m in Sources */,
 				B2A77F7123BDE89C00407BF0 /* AppDelegate+AppService.m in Sources */,
 				B2A7809123BDFB0100407BF0 /* TLNetworking.m in Sources */,
 				B2A77F2F23BDE37A00407BF0 /* UIView+LLExtension.m in Sources */,
@@ -1670,12 +1856,15 @@
 				B2A77EC723BDE29E00407BF0 /* MWTapDetectingView.m in Sources */,
 				B2A77F5C23BDE42E00407BF0 /* TZImageManager.m in Sources */,
 				B2A77EA523BDE1AB00407BF0 /* NSArray+LYNil.m in Sources */,
+				B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */,
 				B2A77EC323BDE29E00407BF0 /* MWCaptionView.m in Sources */,
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
 				B2A77F2D23BDE37A00407BF0 /* UIImage+LLGif.m in Sources */,
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,
+				B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */,
 				B2A77F6223BDE42E00407BF0 /* TZImageRequestOperation.m in Sources */,
 				B2A7808A23BDFB0100407BF0 /* UIScrollView+ZLoadMoreFooter.m in Sources */,
+				B2A780B623BECDAF00407BF0 /* ZAccountViewController.m in Sources */,
 				B2A77F6923BDE61100407BF0 /* ZPublicTool.m in Sources */,
 				B2A7803123BDFA3800407BF0 /* NSString+Message.m in Sources */,
 				B2A780A223BDFB0100407BF0 /* RealReachability.m in Sources */,
@@ -1686,7 +1875,9 @@
 				B2A77F5423BDE42E00407BF0 /* TZAssetCell.m in Sources */,
 				B2A7809923BDFB0100407BF0 /* LocalConnection.m in Sources */,
 				B2A7808F23BDFB0100407BF0 /* NSHTTPURLResponse+TLNetwork.m in Sources */,
+				B2A780CA23BED36400407BF0 /* ZStudentMainVC.m in Sources */,
 				B2A77F2A23BDE37A00407BF0 /* LLImagePickerView.m in Sources */,
+				B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */,
 				B2A77ECA23BDE29E00407BF0 /* UIImage+MWPhotoBrowser.m in Sources */,
 				B2A780A123BDFB0100407BF0 /* ReachStateWIFI.m in Sources */,
 				B2A77F3023BDE37A00407BF0 /* UIViewController+LLExtension.m in Sources */,
@@ -1695,6 +1886,7 @@
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
 				B2A7809C23BDFB0100407BF0 /* ReachStateUnReachable.m in Sources */,
 				B2A7803223BDFA3800407BF0 /* NSFileManager+ZChat.m in Sources */,
+				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
 				B2A77FD623BDEAA100407BF0 /* UIViewController+PopGesture.m in Sources */,
 				B2A77FC823BDEAA100407BF0 /* ZPhoneAlertView.m in Sources */,

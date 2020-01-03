@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <TLTabBarController.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLaunchManager : NSObject
 
@@ -33,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 //广告页
 - (void)showAdvertise;
 
-- (void)showSaveUserInfo;
 
 - (void)showLoginVC;
 
@@ -44,4 +42,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)new NS_UNAVAILABLE;
 @end
 
-NS_ASSUME_NONNULL_END
