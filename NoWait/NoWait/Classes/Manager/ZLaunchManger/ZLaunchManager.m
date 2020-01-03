@@ -108,7 +108,7 @@
         UIWindow *window = self.window ? self.window : [UIApplication sharedApplication].keyWindow;
         [window removeAllSubviews];
         [window setRootViewController:curRootVC];
-        [window addSubview:curRootVC.view];
+//        [window addSubview:curRootVC.view];
         [window makeKeyAndVisible];
     }
 }
