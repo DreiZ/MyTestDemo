@@ -8,6 +8,8 @@
 
 #import "ZLoginView.h"
 #import "PooCodeView.h"
+#import "ZLoginViewModel.h"
+#import "ZLoginModel.h"
 
 
 @interface ZLoginView ()<UITextFieldDelegate>
@@ -21,6 +23,7 @@
 @property (nonatomic,strong) UITextField *codeTF;
 @property (nonatomic,strong) PooCodeView *pooCodeView;
 @property (nonatomic,strong) NSString *codeString;
+@property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 
 
 @property (nonatomic,assign) BOOL isAgree;
@@ -44,6 +47,7 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
+    _loginViewModel = [[ZLoginViewModel alloc] init];
     
     UIView *contView = [[UIView alloc] init];
     contView.backgroundColor = [UIColor whiteColor];
@@ -244,6 +248,10 @@
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(-80));
     }];
+    
+    
+    // 是否可以登录
+   RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 }
         
 #pragma mark lazy loading
@@ -275,6 +283,7 @@
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(0, x);
             }
+            weakSelf.loginViewModel.loginModel.tel = x;
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
@@ -308,9 +317,11 @@
         [_passwordTF setSecureTextEntry:YES];
         
         [_passwordTF.rac_textSignal subscribeNext:^(NSString *x) {
+            weakSelf.passwordTF.text = x;
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(1, x);
             }
+            weakSelf.loginViewModel.loginModel.pwd = x;
         }];
     }
     return _passwordTF;
@@ -336,9 +347,14 @@
         [_codeTF setTextAlignment:NSTextAlignmentLeft];
         [_codeTF setPlaceholder:@"请输入图形验证码"];
        [_codeTF.rac_textSignal subscribeNext:^(NSString *x) {
+            if (x.length > 4) {
+                x = [x substringWithRange:NSMakeRange(0, 4)];
+                weakSelf.codeTF.text = x;
+            }
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(2, x);
             }
+            weakSelf.loginViewModel.loginModel.code = x;
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;

@@ -18,11 +18,11 @@
     self = [super init];
     if (self) {
         _loginModel = [[ZLoginModel alloc] init];
-        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),
+        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),RACObserve(self, self.loginModel.pwd),
                                                              RACObserve(self, self.loginModel.code)]]
         map:^id(id value) {
-        RACTupleUnpack(NSString *tel, NSString *code) = value;
-            return @(tel && tel.length == 11 && code && code.length == 6);
+        RACTupleUnpack(NSString *tel, NSString *pwd, NSString *code) = value;
+            return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && code && code.length == 4);
         }];
     }
     return self;

@@ -14,6 +14,5 @@
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 
 - (void)inputResignFirstResponder;
-- (void)changeCode;
 @end
 
