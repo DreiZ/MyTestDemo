@@ -18,12 +18,20 @@
     self = [super init];
     if (self) {
         _loginModel = [[ZLoginModel alloc] init];
+        _registerModel = [[ZRegisterModel alloc] init];
         RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),RACObserve(self, self.loginModel.pwd),
                                                              RACObserve(self, self.loginModel.code)]]
         map:^id(id value) {
         RACTupleUnpack(NSString *tel, NSString *pwd, NSString *code) = value;
             return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && code && code.length == 4);
         }];
+        
+        RAC(self, isRegisterEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),RACObserve(self, self.registerModel.pwd),RACObserve(self, self.registerModel.messageCode),
+                                                                    RACObserve(self, self.registerModel.code)]]
+               map:^id(id value) {
+               RACTupleUnpack(NSString *tel, NSString *pwd,NSString *messageCode, NSString *code) = value;
+                   return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && messageCode && messageCode.length == 6 && code && code.length == 4);
+               }];
     }
     return self;
 }

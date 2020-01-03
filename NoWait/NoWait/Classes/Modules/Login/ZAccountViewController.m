@@ -80,7 +80,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KBackColor;
+    self.view.backgroundColor = KWhiteColor;
     
     UIImageView *logoImageView = [[UIImageView alloc] init];
     logoImageView.image = [UIImage imageNamed:@"loginLogo"];

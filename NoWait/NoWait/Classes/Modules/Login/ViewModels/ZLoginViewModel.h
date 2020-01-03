@@ -19,7 +19,9 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
  判断是否可以登录
  */
 @property (nonatomic, assign) BOOL isLoginEnable;
+@property (nonatomic, assign) BOOL isRegisterEnable;
 @property (nonatomic, strong) ZLoginModel *loginModel;
+@property (nonatomic, strong) ZRegisterModel *registerModel;
 
 /**
  *  登陆后返回用户信息

@@ -8,6 +8,10 @@
 
 #import "ZLoginModel.h"
 
+@implementation ZRegisterModel
+
+@end
+
 @implementation ZLoginModel
 
 @end

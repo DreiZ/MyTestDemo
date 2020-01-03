@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ZRegisterModel : NSObject
+@property (nonatomic,copy) NSString *tel;
+@property (nonatomic,copy) NSString *pwd;
+@property (nonatomic,copy) NSString *code;
+@property (nonatomic,copy) NSString *messageCode;
+@end
+
 @interface ZLoginModel : NSObject
 @property (nonatomic,copy) NSString *tel;
 @property (nonatomic,copy) NSString *pwd;
