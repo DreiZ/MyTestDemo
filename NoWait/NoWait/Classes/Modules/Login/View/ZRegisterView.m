@@ -53,7 +53,7 @@ static NSTimer *retrieveTimer = nil;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
-    
+ 
     UIView *contView = [[UIView alloc] init];
     contView.backgroundColor = [UIColor whiteColor];
     contView.layer.masksToBounds = YES;
@@ -187,30 +187,6 @@ static NSTimer *retrieveTimer = nil;
     
     self.messageCodeTF.rightView = getCodeView;
     self.messageCodeTF.rightViewMode = UITextFieldViewModeAlways;
-    
-    
-    contView.alpha = 0;
-    self.loginBtn.alpha = 0;
-    
-    contView.transform = CGAffineTransformMakeTranslation(KScreenWidth, 0);
-    self.loginBtn.transform = CGAffineTransformMakeTranslation(KScreenWidth, 0);
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        contView.alpha = 1;
-        contView.transform = CGAffineTransformMakeTranslation(0, 0);
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    [UIView animateWithDuration:.5 delay:0.2 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.loginBtn.alpha = 1;
-        self.loginBtn.transform = CGAffineTransformMakeTranslation(0, 0);
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;

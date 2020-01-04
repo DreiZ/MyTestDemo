@@ -48,7 +48,7 @@
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
-    
+   
     UIView *contView = [[UIView alloc] init];
     contView.backgroundColor = [UIColor whiteColor];
     contView.layer.masksToBounds = YES;
@@ -127,7 +127,7 @@
         make.right.equalTo(self.codeTF.mas_right).offset(-CGFloatIn750(0));
         make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(4));
     }];
-    
+   
     
     [self addSubview:self.loginBtn];
     [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -136,7 +136,7 @@
         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(10));
         make.height.mas_equalTo(CGFloatIn750(80));
     }];
-    
+     
     __weak typeof(self) weakSelf = self;
     //1.默认
     _pooCodeView = [[PooCodeView alloc] initWithFrame:CGRectMake(10, 100, 68, 28) andChangeArray:nil];
@@ -150,30 +150,6 @@
     _pooCodeView.textColor = KMainColor;
     self.codeTF.rightView = _pooCodeView;
     self.codeTF.rightViewMode = UITextFieldViewModeAlways;
-    
-    
-    contView.alpha = 0;
-    self.loginBtn.alpha = 0;
-    
-    contView.transform = CGAffineTransformMakeTranslation(KScreenWidth, 0);
-    self.loginBtn.transform = CGAffineTransformMakeTranslation(KScreenWidth, 0);
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        contView.alpha = 1;
-        contView.transform = CGAffineTransformMakeTranslation(0, 0);
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    [UIView animateWithDuration:.5 delay:0.2 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.loginBtn.alpha = 1;
-        self.loginBtn.transform = CGAffineTransformMakeTranslation(0, 0);
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
-    
-    
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
@@ -248,8 +224,31 @@
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(-80));
     }];
-    
-    
+//    
+//   contView.alpha = 0;
+//   self.loginBtn.alpha = 0;
+//   
+//   contView.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(50)*2, 0);
+//    
+//    
+//   self.loginBtn.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(60)*2, 0);
+//    
+//    
+//   [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//       contView.alpha = 1;
+//       contView.transform = CGAffineTransformMakeTranslation(0, 0);
+//       [self layoutIfNeeded];
+//   } completion:^(BOOL finished) {
+//       
+//   }];
+//    
+//   [UIView animateWithDuration:.5 delay:0.2 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//       self.loginBtn.alpha = 1;
+//       self.loginBtn.transform = CGAffineTransformMakeTranslation(0, 0);
+//       [self layoutIfNeeded];
+//   } completion:^(BOOL finished) {
+//       
+//   }];
     // 是否可以登录
    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 }

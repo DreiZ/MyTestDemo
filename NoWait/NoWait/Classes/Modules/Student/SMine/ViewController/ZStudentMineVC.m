@@ -9,12 +9,15 @@
 #import "ZStudentMineVC.h"
 #import "ZMineHeaderView.h"
 #import "ZBaseCell.h"
+#import "ZMineMenuCell.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
 @interface ZStudentMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZMineHeaderView *headerView;
+
+@property (nonatomic,strong) NSMutableArray *topchannelList;
 
 @end
 
@@ -52,18 +55,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setData];
     [self setupMainView];
 }
 
+- (void)setData {
+    _topchannelList = @[].mutableCopy;
+    NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
+    
+    for (int i = 0; i < list.count; i++) {
+        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
+        model.name = list[i][0];
+        model.imageName = list[i][1];
+        [_topchannelList addObject:model];
+    }
+}
+
 - (void)setupMainView {
-    
-    
+    self.view.backgroundColor = KWhiteColor;
     [self.view addSubview:self.iTableView];
+    
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.view.mas_left).offset(20);
         make.left.top.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
+    
     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];
     [self.iTableView addSubview:self.headerView];
 }
@@ -71,7 +88,7 @@
 #pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
@@ -108,14 +125,19 @@
 
 #pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 100;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        ZMineMenuCell *cell = [ZMineMenuCell z_cellWithTableView:tableView];
+        cell.topChannelList = _topchannelList;
+        return cell;
+    }
     ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     return cell;
@@ -124,6 +146,9 @@
 
 #pragma mark - tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return [ZMineMenuCell z_getCellHeight:nil];
+    }
     return 40;
 }
 

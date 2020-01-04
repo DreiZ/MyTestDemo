@@ -187,6 +187,9 @@
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
 		B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F923C02F2200407BF0 /* Modules.xcassets */; };
 		B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */; };
+		B2A7810123C0732B00407BF0 /* ZMineMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7810023C0732B00407BF0 /* ZMineMenuCell.m */; };
+		B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7810423C073B200407BF0 /* ZStudentMineModel.m */; };
+		B2A7810823C0749A00407BF0 /* ZMineMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7810723C0749A00407BF0 /* ZMineMenuItemCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -543,6 +546,12 @@
 		B2A780F923C02F2200407BF0 /* Modules.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Modules.xcassets; sourceTree = "<group>"; };
 		B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineHeaderView.h; sourceTree = "<group>"; };
 		B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineHeaderView.m; sourceTree = "<group>"; };
+		B2A780FF23C0732B00407BF0 /* ZMineMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineMenuCell.h; sourceTree = "<group>"; };
+		B2A7810023C0732B00407BF0 /* ZMineMenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineMenuCell.m; sourceTree = "<group>"; };
+		B2A7810323C073B200407BF0 /* ZStudentMineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineModel.h; sourceTree = "<group>"; };
+		B2A7810423C073B200407BF0 /* ZStudentMineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineModel.m; sourceTree = "<group>"; };
+		B2A7810623C0749A00407BF0 /* ZMineMenuItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineMenuItemCell.h; sourceTree = "<group>"; };
+		B2A7810723C0749A00407BF0 /* ZMineMenuItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineMenuItemCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1517,6 +1526,7 @@
 		B2A780D023BED42A00407BF0 /* SMine */ = {
 			isa = PBXGroup;
 			children = (
+				B2A7810223C0738100407BF0 /* Model */,
 				B2A780FB23C0343C00407BF0 /* View */,
 				B2A780D123BED43800407BF0 /* ViewController */,
 			);
@@ -1609,8 +1619,21 @@
 			children = (
 				B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */,
 				B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */,
+				B2A780FF23C0732B00407BF0 /* ZMineMenuCell.h */,
+				B2A7810023C0732B00407BF0 /* ZMineMenuCell.m */,
+				B2A7810623C0749A00407BF0 /* ZMineMenuItemCell.h */,
+				B2A7810723C0749A00407BF0 /* ZMineMenuItemCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B2A7810223C0738100407BF0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2A7810323C073B200407BF0 /* ZStudentMineModel.h */,
+				B2A7810423C073B200407BF0 /* ZStudentMineModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
@@ -1871,6 +1894,7 @@
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
+				B2A7810823C0749A00407BF0 /* ZMineMenuItemCell.m in Sources */,
 				B2A77FE123BDEAA100407BF0 /* ZSpaceEmptyCell.m in Sources */,
 				B2A7809723BDFB0100407BF0 /* PingFoundation.m in Sources */,
 				B2A77F5623BDE42E00407BF0 /* TZAssetModel.m in Sources */,
@@ -1892,6 +1916,7 @@
 				B2A77EC823BDE29E00407BF0 /* MWPhotoBrowser.m in Sources */,
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
+				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,
@@ -1921,6 +1946,7 @@
 				B2A77F6123BDE42E00407BF0 /* TZGifPhotoPreviewController.m in Sources */,
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
 				B2A77E6023BDC83300407BF0 /* AppDelegate.m in Sources */,
+				B2A7810123C0732B00407BF0 /* ZMineMenuCell.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,
 				B2A77FCC23BDEAA100407BF0 /* ZBaseViewModel.m in Sources */,
 				B2A780A823BDFB0100407BF0 /* TLNetworkConfig.m in Sources */,
