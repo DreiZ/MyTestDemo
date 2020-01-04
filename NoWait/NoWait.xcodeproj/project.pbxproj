@@ -185,6 +185,7 @@
 		B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F023BF0BE700407BF0 /* ZLoginView.m */; };
 		B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F323BF0CC800407BF0 /* ZRegisterView.m */; };
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
+		B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F923C02F2200407BF0 /* Modules.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -538,6 +539,7 @@
 		B2A780F223BF0CC800407BF0 /* ZRegisterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRegisterView.h; sourceTree = "<group>"; };
 		B2A780F323BF0CC800407BF0 /* ZRegisterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRegisterView.m; sourceTree = "<group>"; };
 		B2A780F623BF11D300407BF0 /* login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = login.xcassets; sourceTree = "<group>"; };
+		B2A780F923C02F2200407BF0 /* Modules.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Modules.xcassets; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1071,6 +1073,7 @@
 		B2A77FED23BDEC0100407BF0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B2A780F823C02F0800407BF0 /* Resources */,
 				B2A780C523BED2FF00407BF0 /* Student */,
 				B2A780C323BED24C00407BF0 /* Organization */,
 				B2A780B323BECD9100407BF0 /* Login */,
@@ -1589,6 +1592,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B2A780F823C02F0800407BF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780F923C02F2200407BF0 /* Modules.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1732,6 +1743,7 @@
 				B2A77EF523BDE2B000407BF0 /* ImageSelectedSmallOn@2x.png in Resources */,
 				B2A77F0123BDE2B000407BF0 /* PlayButtonOverlayLargeTap@2x.png in Resources */,
 				B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */,
+				B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */,
 				B2A7800923BDEDD300407BF0 /* Common.xcassets in Resources */,
 				B2A77F0B23BDE2B000407BF0 /* UIBarButtonItemArrowRight.png in Resources */,
 				B2A77F0623BDE2B000407BF0 /* UIBarButtonItemArrowLeft@2x.png in Resources */,
