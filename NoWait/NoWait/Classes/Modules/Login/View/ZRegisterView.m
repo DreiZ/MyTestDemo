@@ -340,7 +340,7 @@ static NSTimer *retrieveTimer = nil;
         [hintView addSubview:hintImageView];
         
         _passwordTF = [[UITextField alloc] init];
-        _passwordTF.tag = 103;
+        _passwordTF.tag = 104;
         _passwordTF.leftView = hintView;
         _passwordTF.leftViewMode = UITextFieldViewModeAlways;
         _passwordTF.delegate = self;
@@ -376,7 +376,7 @@ static NSTimer *retrieveTimer = nil;
         [hintView addSubview:hintImageView];
         
         _messageCodeTF = [[UITextField alloc] init];
-        _messageCodeTF.tag = 103;
+        _messageCodeTF.tag = 102;
         _messageCodeTF.leftView = hintView;
         _messageCodeTF.leftViewMode = UITextFieldViewModeAlways;
         [_messageCodeTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
@@ -385,8 +385,8 @@ static NSTimer *retrieveTimer = nil;
         [_messageCodeTF setTextAlignment:NSTextAlignmentLeft];
         [_messageCodeTF setPlaceholder:@"请输入验证码"];
         [_messageCodeTF.rac_textSignal subscribeNext:^(NSString *x) {
-            if (x.length > 4) {
-                x = [x substringWithRange:NSMakeRange(0, 4)];
+            if (x.length > 6) {
+                x = [x substringWithRange:NSMakeRange(0, 6)];
                 weakSelf.codeTF.text = x;
             }
             if (weakSelf.editBlock) {
@@ -395,7 +395,7 @@ static NSTimer *retrieveTimer = nil;
             weakSelf.loginViewModel.loginModel.code = x;
         }];
         _messageCodeTF.delegate = self;
-        _messageCodeTF.keyboardType = UIKeyboardTypeDefault;
+        _messageCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _messageCodeTF;
 }
@@ -425,7 +425,7 @@ static NSTimer *retrieveTimer = nil;
                 weakSelf.codeTF.text = x;
             }
             if (weakSelf.editBlock) {
-                weakSelf.editBlock(2, x);
+                weakSelf.editBlock(3, x);
             }
             weakSelf.loginViewModel.loginModel.code = x;
         }];
@@ -549,9 +549,12 @@ static NSTimer *retrieveTimer = nil;
     NSString *regexString;
     if (textField.tag == 101) {
         regexString = @"^\\d{0,11}$";
-    }else if (textField.tag == 103) {
-        
+    }else if (textField.tag == 102) {
         regexString = @"^\\d*$";
+    }else if (textField.tag == 103 ){
+        regexString = @"^[a-zA-Z0-9]*$";
+    }else{
+        return YES;
     }
     
     NSString *currentText = [textField.text stringByReplacingCharactersInRange:range withString:string];
