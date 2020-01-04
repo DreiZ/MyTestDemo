@@ -7,6 +7,8 @@
 //
 
 #import "ZAccountViewController.h"
+#import <IQKeyboardReturnKeyHandler.h>
+
 #import "ZLaunchManager.h"
 #import "ZLoginViewModel.h"
 #import "ZUserHelper.h"
@@ -53,8 +55,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [self.userNameTF resignFirstResponder];
-//    [self.codeTF resignFirstResponder];
+    [self.loginView inputResignFirstResponder];
+    [self.registerView inputResignFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,11 +70,6 @@
     self.isHidenNaviBar = YES;
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-//    [self addRightBarButtonWithTitle:@"取消" actionBlick:^{
-//        [[ZLaunchManager sharedInstance] showMainTab];
-//    }];
-//
 }
 
 - (void)initData {

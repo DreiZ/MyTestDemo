@@ -535,10 +535,8 @@ static NSTimer *retrieveTimer = nil;
     _isAgree = isAgree;
     
     if (isAgree) {
-        //        ViewBorderRadius(self.agreementView, CGFloatIn750(13), 0, [UIColor clearColor]);
         self.agreementView.image = [UIImage imageNamed:@"seletBtnyes"];
     }else{
-        //        ViewBorderRadius(self.agreementView , CGFloatIn750(13), 0.5, KLineColor);
         self.agreementView.image = [UIImage imageNamed:@"seletBtnno"];
     }
 }
@@ -582,19 +580,18 @@ static NSTimer *retrieveTimer = nil;
         retrieveTimer = nil;
         myRetrieveTime = CountTimer;
         self.getCodeBtn.enabled = YES;
-        
         [self.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateDisabled];
         return;
     }
     
     [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ld秒",myRetrieveTime] forState:UIControlStateDisabled];
     myRetrieveTime --;
-    
 }
 
 - (void)inputResignFirstResponder {
     [self.userNameTF resignFirstResponder];
     [self.passwordTF resignFirstResponder];
     [self.codeTF resignFirstResponder];
+    [self.messageCodeTF resignFirstResponder];
 }
 @end
