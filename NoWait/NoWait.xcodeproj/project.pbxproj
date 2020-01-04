@@ -186,6 +186,7 @@
 		B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F323BF0CC800407BF0 /* ZRegisterView.m */; };
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
 		B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F923C02F2200407BF0 /* Modules.xcassets */; };
+		B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -540,6 +541,8 @@
 		B2A780F323BF0CC800407BF0 /* ZRegisterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRegisterView.m; sourceTree = "<group>"; };
 		B2A780F623BF11D300407BF0 /* login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = login.xcassets; sourceTree = "<group>"; };
 		B2A780F923C02F2200407BF0 /* Modules.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Modules.xcassets; sourceTree = "<group>"; };
+		B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineHeaderView.h; sourceTree = "<group>"; };
+		B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineHeaderView.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1514,6 +1517,7 @@
 		B2A780D023BED42A00407BF0 /* SMine */ = {
 			isa = PBXGroup;
 			children = (
+				B2A780FB23C0343C00407BF0 /* View */,
 				B2A780D123BED43800407BF0 /* ViewController */,
 			);
 			path = SMine;
@@ -1598,6 +1602,15 @@
 				B2A780F923C02F2200407BF0 /* Modules.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B2A780FB23C0343C00407BF0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */,
+				B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
@@ -1853,6 +1866,7 @@
 				B2A7800723BDEDD300407BF0 /* UITableViewCell+ZCategory.m in Sources */,
 				B2A77F5823BDE42E00407BF0 /* UIView+Layout.m in Sources */,
 				B2A77FCD23BDEAA100407BF0 /* DSCallInfo.m in Sources */,
+				B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */,
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
