@@ -132,8 +132,8 @@
     [self addSubview:self.loginBtn];
     [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(162));
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(80));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(80));
+        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(10));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(10));
         make.height.mas_equalTo(CGFloatIn750(80));
     }];
     

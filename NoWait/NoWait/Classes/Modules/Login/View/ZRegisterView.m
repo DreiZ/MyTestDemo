@@ -11,12 +11,16 @@
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
 
+#define CountTimer 59
+static NSUInteger myRetrieveTime = 59;
+static NSTimer *retrieveTimer = nil;
 
 @interface ZRegisterView ()<UITextFieldDelegate>
 @property (nonatomic,strong) UIImageView *agreementView;
 @property (nonatomic,strong) YYLabel *protocolLabel;
 
 @property (nonatomic,strong) UIButton *loginBtn;
+@property (nonatomic,strong) UIButton *getCodeBtn;
 
 @property (nonatomic,strong) UITextField *userNameTF;
 @property (nonatomic,strong) UITextField *passwordTF;
@@ -42,7 +46,7 @@
     return self;
 }
 
-#pragma mark 初始化view
+#pragma mark --初始化view----------------
 - (void)initMainView {
     self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
@@ -79,24 +83,25 @@
         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
         make.bottom.equalTo(nLineView.mas_top);
     }];
-
-    UIView *pLineView = [[UIView alloc] init];
-    pLineView.backgroundColor = KMainColor;
-    [contView addSubview:pLineView];
-    [pLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(0.5);
-        make.left.right.equalTo(contView);
-        make.top.equalTo(nLineView.mas_bottom).offset(CGFloatIn750(96));
-    }];
     
-   
-    [contView addSubview:self.passwordTF];
-    [self.passwordTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
-        make.bottom.equalTo(pLineView.mas_top);
-    }];
+    UIView *mcLineView = [[UIView alloc] init];
+     mcLineView.backgroundColor = KMainColor;
+     [contView addSubview:mcLineView];
+     [mcLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.height.mas_equalTo(0.5);
+         make.left.right.equalTo(contView);
+         make.top.equalTo(nLineView.mas_bottom).offset(CGFloatIn750(96));
+     }];
+     
+    
+     [contView addSubview:self.messageCodeTF];
+     [self.messageCodeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.height.mas_equalTo(CGFloatIn750(80));
+         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
+         make.bottom.equalTo(mcLineView.mas_top);
+     }];
+
 
     UIView *tLineView = [[UIView alloc] init];
     tLineView.backgroundColor = KMainColor;
@@ -104,7 +109,7 @@
     [tLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(0.5);
         make.left.right.equalTo(contView);
-        make.top.equalTo(pLineView.mas_bottom).offset(CGFloatIn750(96));
+        make.top.equalTo(mcLineView.mas_bottom).offset(CGFloatIn750(96));
     }];
     
    
@@ -116,6 +121,24 @@
         make.bottom.equalTo(tLineView.mas_top);
     }];
     
+    UIView *pLineView = [[UIView alloc] init];
+     pLineView.backgroundColor = KMainColor;
+     [contView addSubview:pLineView];
+     [pLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.height.mas_equalTo(0.5);
+         make.left.right.equalTo(contView);
+         make.top.equalTo(tLineView.mas_bottom).offset(CGFloatIn750(96));
+     }];
+     
+    
+     [contView addSubview:self.passwordTF];
+     [self.passwordTF mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.height.mas_equalTo(CGFloatIn750(80));
+         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
+         make.bottom.equalTo(pLineView.mas_top);
+     }];
+    
     UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [forgetBtn setTitle:@"忘记密码？" forState:UIControlStateNormal];
     [forgetBtn setTitleColor:KLineColor forState:UIControlStateNormal];
@@ -126,15 +149,15 @@
         make.width.mas_equalTo(CGFloatIn750(140));
         make.height.mas_equalTo(CGFloatIn750(70));
         make.right.equalTo(self.codeTF.mas_right).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(4));
+        make.top.equalTo(self.passwordTF.mas_bottom).offset(CGFloatIn750(4));
     }];
     
     
     [self addSubview:self.loginBtn];
     [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(162));
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(80));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(80));
+        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(10));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(10));
         make.height.mas_equalTo(CGFloatIn750(80));
     }];
     
@@ -151,6 +174,19 @@
     _pooCodeView.textColor = KMainColor;
     self.codeTF.rightView = _pooCodeView;
     self.codeTF.rightViewMode = UITextFieldViewModeAlways;
+    
+    //获取验证码
+    UIView *getCodeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(172+12), CGFloatIn750(70))];
+    ViewBorderRadius(self.getCodeBtn, 5, 0.5, KMainColor);
+    
+    [getCodeView addSubview:self.getCodeBtn];
+    [self.getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.equalTo(getCodeView);
+        make.left.equalTo(getCodeView.mas_left).offset(CGFloatIn750(12));
+    }];
+    
+    self.messageCodeTF.rightView = getCodeView;
+    self.messageCodeTF.rightViewMode = UITextFieldViewModeAlways;
     
     
     contView.alpha = 0;
@@ -347,7 +383,7 @@
         [_messageCodeTF setBorderStyle:UITextBorderStyleNone];
         [_messageCodeTF setBackgroundColor:[UIColor clearColor]];
         [_messageCodeTF setTextAlignment:NSTextAlignmentLeft];
-        [_messageCodeTF setPlaceholder:@"请输入图形验证码"];
+        [_messageCodeTF setPlaceholder:@"请输入验证码"];
         [_messageCodeTF.rac_textSignal subscribeNext:^(NSString *x) {
             if (x.length > 4) {
                 x = [x substringWithRange:NSMakeRange(0, 4)];
@@ -440,13 +476,48 @@
         _loginBtn.layer.masksToBounds = YES;
         _loginBtn.layer.cornerRadius = CGFloatIn750(40);
         //        _loginBtn.backgroundColor = [UIColor colorWithHexString:@"302d38"];
-        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_loginBtn setTitle:@"注册" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:KMainColor] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:KBorderColor] forState:UIControlStateDisabled];
         [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(34)]];
     }
     return _loginBtn;
+}
+
+
+- (UIButton *)getCodeBtn {
+    if (!_getCodeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _getCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_getCodeBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.userNameTF.text.length != 11) {
+                [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
+                //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+                return;
+            }
+//            [self.loginViewModel codeWithTel:self.userNameTF.text block:^(BOOL isSuccess, NSString *message) {
+//                if (isSuccess) {
+//                    [TLUIUtility showSuccessHint:message];
+//                    [weakSelf.codeTF becomeFirstResponder];
+//                    DLog(@"login message %@",message);
+                    if (myRetrieveTime == CountTimer) {
+                        [self.getCodeBtn setTitle:@"60秒" forState:UIControlStateDisabled];
+                        [self startTimer];
+                        self.getCodeBtn.enabled = NO;
+                    }
+//                }else{
+//                    [TLUIUtility showErrorHint:message];
+//                }
+//            }];
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_getCodeBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_getCodeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+    }
+    return _getCodeBtn;
 }
 
 - (UIImageView *)agreementView {
@@ -458,6 +529,8 @@
     return _agreementView;
 }
 
+
+#pragma mark --setting----------------
 - (void)setIsAgree:(BOOL)isAgree {
     _isAgree = isAgree;
     
@@ -488,6 +561,33 @@
     return [regexTest evaluateWithObject:currentText] || currentText.length == 0;
 }
 
+#pragma mark --按钮 click
+- (void)startTimer {
+    [retrieveTimer invalidate];
+    retrieveTimer = nil;
+    if (!retrieveTimer) {
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerChange) userInfo:nil repeats:YES];
+        retrieveTimer = timer;
+        [[NSRunLoop mainRunLoop] addTimer:retrieveTimer forMode:NSRunLoopCommonModes];
+    }
+}
+
+// 定时器方法
+- (void)timerChange{
+    if (myRetrieveTime == -1) {
+        [retrieveTimer invalidate];
+        retrieveTimer = nil;
+        myRetrieveTime = CountTimer;
+        self.getCodeBtn.enabled = YES;
+        
+        [self.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateDisabled];
+        return;
+    }
+    
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ld秒",myRetrieveTime] forState:UIControlStateDisabled];
+    myRetrieveTime --;
+    
+}
 
 - (void)inputResignFirstResponder {
     [self.userNameTF resignFirstResponder];

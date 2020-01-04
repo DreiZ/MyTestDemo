@@ -82,6 +82,18 @@
 - (void)setupMainView {
     self.view.backgroundColor = KWhiteColor;
     
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [closeBtn bk_whenTapped:^{
+        [[ZLaunchManager sharedInstance] showMainTab];
+    }];
+    [closeBtn setImage:[UIImage imageNamed:@"LoginClose"] forState:UIControlStateNormal];
+    [self.view addSubview:closeBtn];
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(120));
+        make.right.equalTo(self.view.mas_right).offset(-10);
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(kTopHeight + 20));
+    }];
+    
     UIImageView *logoImageView = [[UIImageView alloc] init];
     logoImageView.image = [UIImage imageNamed:@"loginLogo"];
     logoImageView.layer.masksToBounds = YES;
@@ -111,7 +123,7 @@
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(100));
         make.right.equalTo(self.view.mas_centerX);
         make.height.mas_equalTo(CGFloatIn750(80));
-        make.top.equalTo(hintLabel.mas_bottom).offset(CGFloatIn750(104));
+        make.top.equalTo(hintLabel.mas_bottom).offset(CGFloatIn750(80));
     }];
     
     [self.view addSubview:self.resignBtn];
