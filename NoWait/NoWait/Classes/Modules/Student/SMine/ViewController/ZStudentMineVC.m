@@ -10,6 +10,7 @@
 #import "ZMineHeaderView.h"
 #import "ZBaseCell.h"
 #import "ZMineMenuCell.h"
+#import "ZStudentMineAdverCell.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
@@ -125,7 +126,7 @@
 
 #pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -136,6 +137,9 @@
     if (indexPath.section == 0) {
         ZMineMenuCell *cell = [ZMineMenuCell z_cellWithTableView:tableView];
         cell.topChannelList = _topchannelList;
+        return cell;
+    }else if (indexPath.section == 1){
+        ZStudentMineAdverCell *cell = [ZStudentMineAdverCell z_cellWithTableView:tableView];
         return cell;
     }
     ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
@@ -148,6 +152,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return [ZMineMenuCell z_getCellHeight:nil];
+    }else if (indexPath.section == 1){
+        return [ZStudentMineAdverCell z_getCellHeight:nil];
     }
     return 40;
 }
