@@ -47,10 +47,17 @@
         make.height.width.mas_equalTo(CGFloatIn750(44));
     }];
     
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.headImageView.mas_centerY);
+        make.left.equalTo(self.headImageView.mas_right).offset(CGFloatIn750(20));
+    }];
+    
     [self addSubview:self.userInfoBtn];
     [self.userInfoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.userInfoBtn);
     }];
+    
+    
     
     
     [self setSubViewFrame];
@@ -60,9 +67,27 @@
 - (void)setSubViewFrame {
     self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(30) - headImageHeight, headImageHeight, headImageHeight);
     
-    self.nameLabel.frame = CGRectMake(self.headImageView.right + CGFloatIn750(30), self.headImageView.centerY - CGFloatIn750(37), CGFloatIn750(500), CGFloatIn750(74));
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)), CGFloatIn750(90), CGFloatIn750(90));
+    
+    self.nameLabel.font = [UIFont systemFontOfSize:CGFloatIn750(36)];
+    self.nameLabel.alpha = 1;
+    self.headImageView.layer.cornerRadius = CGFloatIn750(41);
+}
+
+- (void)setAnimationSubViewFrame {
+
+    self.nameLabel.alpha = (self.height-kTopHeight)/(44);
+    
+    self.nameLabel.font = [UIFont systemFontOfSize:(CGFloatIn750(36) - (1 - self.nameLabel.alpha)*CGFloatIn750(10))];
+    
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30) + (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2), self.height - CGFloatIn750(30) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(12), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
+    
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)) + (1 - self.nameLabel.alpha)*CGFloatIn750(30) , CGFloatIn750(90), CGFloatIn750(90));
+    
+    self.headImageView.layer.cornerRadius = self.headImageView.height/2;
+    self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
+
 }
 
 #pragma mark --懒加载---
@@ -121,5 +146,11 @@
 #pragma mark - 更新frame
 - (void)updateSubViewFrame {
     [self setSubViewFrame];
+    if (self.height > kTopHeight + kStatusBarHeight) {
+        [self setSubViewFrame];
+    }else {
+//        NSLog(@"------xia--%f",self.height);
+        [self setAnimationSubViewFrame];
+    }
 }
 @end

@@ -89,6 +89,7 @@
         _iTableView.backgroundColor = KBackColor;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
+        
     }
     return _iTableView;
 }
@@ -128,7 +129,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return CGFloatIn750(20);
+        return CGFloatIn750(0.1);
     }
     return 0.01f;
 }
@@ -139,7 +140,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    sectionView.backgroundColor = KBackColor;
+    sectionView.backgroundColor = KMainColor;
     return sectionView;
 }
 
