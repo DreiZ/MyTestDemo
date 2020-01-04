@@ -10,6 +10,6 @@
 
 
 @interface ZMineHeaderView : UIView
-
+- (void)updateSubViewFrame;
 @end
 

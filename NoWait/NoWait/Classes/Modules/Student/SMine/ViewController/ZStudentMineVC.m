@@ -10,7 +10,7 @@
 #import "ZMineHeaderView.h"
 #import "ZBaseCell.h"
 
-#define kHeaderHeight (170+kStatusBarHeight)
+#define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
 @interface ZStudentMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -128,7 +128,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return CGFloatIn750(0);
+        return CGFloatIn750(20);
     }
     return 0.01f;
 }
@@ -137,24 +137,31 @@
     return 0.01f;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
+    sectionView.backgroundColor = KBackColor;
+    return sectionView;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
 }
 
 
+#pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"-%f-%f-%f--  %f",kTopHeight,kStatusBarHeight,kHeaderHeight, scrollView.contentOffset.y);
     // 获取到tableView偏移量
     CGFloat Offset_y = scrollView.contentOffset.y;
     // 下拉 纵向偏移量变小 变成负的
-      if ( Offset_y < 0) {
-        // 拉伸后图片的高度
-        CGFloat totalOffset = - Offset_y;
-          NSLog(@"kkkk---%f",totalOffset);
-        // 拉伸后图片位置
-        _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
-      }else{
-          
-      }
+    if ( Offset_y < -(kTopHeight)) {
+    // 拉伸后图片的高度
+    CGFloat totalOffset = - Offset_y;
+    // 拉伸后图片位置
+    _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
+    }else{
+      _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, kTopHeight);
+    }
+    
+    [_headerView updateSubViewFrame];
 }
 @end

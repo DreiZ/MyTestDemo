@@ -8,7 +8,15 @@
 
 #import "ZMineHeaderView.h"
 
+#define headImageHeight CGFloatIn750(82)
+
 @interface ZMineHeaderView ()
+@property (nonatomic,strong) UIImageView *headImageView;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UIView *settingView;
+@property (nonatomic,strong) UIImageView *settingImageView;
+
+@property (nonatomic,strong) UIButton *userInfoBtn;
 
 @end
 
@@ -24,9 +32,94 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor orangeColor];
+    self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
+    
+    [self addSubview:self.headImageView];
+    [self addSubview:self.nameLabel];
+    [self addSubview:self.settingView];
+    [self.settingView addSubview:self.settingImageView];
+    
+    [self.settingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.settingView);
+        make.height.width.mas_equalTo(CGFloatIn750(44));
+    }];
+    
+    [self addSubview:self.userInfoBtn];
+    [self.userInfoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.userInfoBtn);
+    }];
+    
+    
+    [self setSubViewFrame];
+}
+
+#pragma mark -设置frame
+- (void)setSubViewFrame {
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(30) - headImageHeight, headImageHeight, headImageHeight);
+    
+    self.nameLabel.frame = CGRectMake(self.headImageView.right + CGFloatIn750(30), self.headImageView.centerY - CGFloatIn750(37), CGFloatIn750(500), CGFloatIn750(74));
+    
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)), CGFloatIn750(90), CGFloatIn750(90));
+}
+
+#pragma mark --懒加载---
+- (UIImageView *)headImageView {
+    if (!_headImageView) {
+        _headImageView = [[UIImageView alloc] init];
+        _headImageView.image = [UIImage imageNamed:@"headImage"];
+        _headImageView.layer.masksToBounds = YES;
+        _headImageView.layer.cornerRadius = CGFloatIn750(41);
+        _headImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _headImageView;
+}
+
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nameLabel.textColor = KFont2Color;
+        _nameLabel.text = @"尖耳朵的兔子";
+        _nameLabel.numberOfLines = 1;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
+        [_nameLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+    }
+    return _nameLabel;
+}
+
+- (UIImageView *)settingImageView {
+    if (!_settingImageView) {
+        _settingImageView = [[UIImageView alloc] init];
+        _settingImageView.image = [UIImage imageNamed:@"mineSetting"];
+        _settingImageView.layer.masksToBounds = YES;
+        _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _settingImageView;
+}
+
+- (UIButton *)userInfoBtn {
+    if (!_userInfoBtn) {
+        _userInfoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        
+    }
+    return _userInfoBtn;
+}
+
+
+- (UIView *)settingView {
+    if (!_settingView) {
+        _settingView = [[UIView alloc] init];
+        _settingView.layer.masksToBounds = YES;
+        _settingView.backgroundColor =KWhiteColor;
+    }
+    return _settingView;
+}
+
+
+#pragma mark - 更新frame
+- (void)updateSubViewFrame {
+    [self setSubViewFrame];
 }
 @end
