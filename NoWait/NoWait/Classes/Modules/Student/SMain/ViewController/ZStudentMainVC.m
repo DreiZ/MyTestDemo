@@ -9,12 +9,15 @@
 #import "ZStudentMainVC.h"
 #import "ZStudentMainTopSearchView.h"
 
+#import "ZStudentBannerCell.h"
+
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZStudentMainTopSearchView *searchView;
 
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
 
 @implementation ZStudentMainVC
@@ -50,7 +53,17 @@
 
 
 - (void)setData {
+    _cellConfigArr = @[].mutableCopy;
     
+    [self resetData];
+}
+
+
+- (void)resetData {
+    [_cellConfigArr removeAllObjects];
+    
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:nil heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:topCellConfig];
 }
 
 - (void)setupMainView {
@@ -106,31 +119,31 @@
 }
 
 
-#pragma mark - tableView -------datasource-----
+#pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    return cell;
-    
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr.count;
 }
 
-#pragma mark - tableView ------delegate-----
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseCell *cell;
+    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+
+    return cell;
+}
+
+#pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return CGFloatIn750(0.1);
-    }
     return 0.01f;
 }
 
@@ -138,15 +151,10 @@
     return 0.01f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    sectionView.backgroundColor = KMainColor;
-    return sectionView;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-}
 
 
 #pragma mark - scrollview delegate

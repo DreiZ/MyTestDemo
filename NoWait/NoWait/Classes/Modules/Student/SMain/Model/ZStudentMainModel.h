@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@interface ZStudentBannerModel : NSObject
+@property (nonatomic,strong) NSString *image;
+
+@end
 
 @interface ZStudentMainModel : NSObject
 
 @end
 
-NS_ASSUME_NONNULL_END
+

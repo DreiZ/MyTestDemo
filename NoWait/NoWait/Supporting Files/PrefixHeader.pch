@@ -43,5 +43,6 @@
 #import "NSMutableDictionary+LYNil.h"
 
 #import "ZBaseCell.h"
+#import "ZCellConfig.h"
 
 #endif /* PrefixHeader_pch */

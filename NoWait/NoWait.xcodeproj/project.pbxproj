@@ -196,6 +196,7 @@
 		B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811923C2E55900407BF0 /* ZStudentMainModel.m */; };
 		B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */; };
 		B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */; };
+		B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812223C309ED00407BF0 /* ZStudentBannerCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -570,6 +571,8 @@
 		B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainTopSearchView.m; sourceTree = "<group>"; };
 		B2A7811E23C2E59D00407BF0 /* ZStudentMainViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainViewModel.h; sourceTree = "<group>"; };
 		B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainViewModel.m; sourceTree = "<group>"; };
+		B2A7812123C309ED00407BF0 /* ZStudentBannerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentBannerCell.h; sourceTree = "<group>"; };
+		B2A7812223C309ED00407BF0 /* ZStudentBannerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentBannerCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1668,6 +1671,8 @@
 			children = (
 				B2A7811B23C2E57D00407BF0 /* ZStudentMainTopSearchView.h */,
 				B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */,
+				B2A7812123C309ED00407BF0 /* ZStudentBannerCell.h */,
+				B2A7812223C309ED00407BF0 /* ZStudentBannerCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1950,6 +1955,7 @@
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
+				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
