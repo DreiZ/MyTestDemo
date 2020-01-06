@@ -8,6 +8,11 @@
 
 #import "ZStudentMainModel.h"
 
+@implementation ZStudentPhotoWallItemModel
+
+
+@end
+
 @implementation ZStudentEnteryItemModel
 
 

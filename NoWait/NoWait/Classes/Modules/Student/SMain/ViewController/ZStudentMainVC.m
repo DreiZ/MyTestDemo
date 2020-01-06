@@ -11,6 +11,7 @@
 
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
+#import "ZStudentMainPhotoWallCell.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -20,6 +21,7 @@
 
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @property (nonatomic,strong) NSMutableArray *enteryArr;
+@property (nonatomic,strong) NSMutableArray *photoWallArr;
 
 @end
 
@@ -58,14 +60,24 @@
 - (void)setData {
     _cellConfigArr = @[].mutableCopy;
     _enteryArr = @[].mutableCopy;
+    _photoWallArr = @[].mutableCopy;
     
     NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"],@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"]];
+    
     for (int i = 0; i < entryArr.count; i++) {
         ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
         model.imageName = entryArr[i][1];
         model.name = entryArr[i][0];
         [_enteryArr addObject:model];
+        
     }
+    
+    for (int i = 0; i < 2; i++) {
+        ZStudentPhotoWallItemModel *photoWallModel = [[ZStudentPhotoWallItemModel alloc] init];
+        photoWallModel.imageName = @"serverTopbg";
+        [_photoWallArr addObject:photoWallModel];
+    }
+    
     [self resetData];
 }
 
@@ -78,6 +90,9 @@
     
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
     [self.cellConfigArr addObject:enteryCellConfig];
+    
+    ZCellConfig *photoWallCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainPhotoWallCell className] title:@"ZStudentMainPhotoWallCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainPhotoWallCell z_getCellHeight:_photoWallArr] cellType:ZCellTypeClass dataModel:_photoWallArr];
+    [self.cellConfigArr addObject:photoWallCellConfig];
     
     
 }

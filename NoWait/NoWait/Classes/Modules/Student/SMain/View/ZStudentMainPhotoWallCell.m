@@ -1,22 +1,22 @@
 //
-//  ZStudentMainEnteryCell.m
+//  ZStudentMainPhotoWallCell.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/6.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMainEnteryCell.h"
-#import "ZStudentMainEntryItemCell.h"
+#import "ZStudentMainPhotoWallCell.h"
+#import "ZStudentMainPhotoWallItemCell.h"
 
-@interface ZStudentMainEnteryCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface ZStudentMainPhotoWallCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 
 @end
 
-@implementation ZStudentMainEnteryCell
+@implementation ZStudentMainPhotoWallCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -34,16 +34,15 @@
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left);
-        make.right.equalTo(self.contentView.mas_right);
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(0));
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-0));
+        make.edges.equalTo(self.contentView);
     }];
+    
     
     [self.contentView addSubview:self.iCollectionView];
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.funBackView);
     }];
+    
 }
 
 
@@ -53,7 +52,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = [UIColor whiteColor];
+        _funBackView.backgroundColor = KBackColor;
     }
     return _funBackView;
 }
@@ -61,21 +60,17 @@
 
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing= 0;
-        layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
-        [_iCollectionView setShowsVerticalScrollIndicator:NO];
-        [_iCollectionView setShowsHorizontalScrollIndicator:NO];
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
-//        [_iCollectionView setBounces:NO];
-        _iCollectionView.clipsToBounds = YES;
-        [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
-        [_iCollectionView setBackgroundColor:[UIColor whiteColor]];
-        _iCollectionView.delegate = self;
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentMainPhotoWallCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
+        _iCollectionView.backgroundColor = KBackColor;
         _iCollectionView.dataSource = self;
+        _iCollectionView.delegate = self;
+        _iCollectionView.scrollEnabled = NO;
+        _iCollectionView.showsHorizontalScrollIndicator = NO;
+        
+        [_iCollectionView registerClass:[ZStudentMainPhotoWallItemCell class] forCellWithReuseIdentifier:[ZStudentMainPhotoWallItemCell className]];
     }
     
     return _iCollectionView;
@@ -112,11 +107,9 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZStudentMainEntryItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainEntryItemCell className] forIndexPath:indexPath];
-    ZStudentEnteryItemModel *model = _channelList[indexPath.row];
-    cell.titleLabel.text = model.name;
-    cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = KMainColor;
+    ZStudentMainPhotoWallItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainPhotoWallItemCell className] forIndexPath:indexPath];
+    ZStudentPhotoWallItemModel *model = _channelList[indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:model.imageName];
     return cell;
 }
 
@@ -126,21 +119,33 @@
     }
 }
 
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(20), CGFloatIn750(20), CGFloatIn750(20));
+}
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (_channelList.count < 5 && _channelList.count > 0) {
-        return CGSizeMake(KScreenWidth/_channelList.count, CGFloatIn750(128));
-    }
-    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(20);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(20);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(140));
 }
 
 #pragma mark 类型
--(void)setChannelList:(NSArray<ZStudentEnteryItemModel *> *)channelList {
+-(void)setChannelList:(NSArray<ZStudentPhotoWallItemModel *> *)channelList {
     _channelList = channelList;
     [self.iCollectionView reloadData];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(130);
+    NSArray *list = sender;
+    if (list.count%2 > 0) {
+        return (list.count/2 + 1) * CGFloatIn750(140) + ((list.count/2) * CGFloatIn750(20))+ CGFloatIn750(40);
+    }
+    return list.count/2  * CGFloatIn750(140) + (list.count/2 - 1)  * CGFloatIn750(20) + CGFloatIn750(40);
 }
 @end

@@ -199,6 +199,8 @@
 		B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812223C309ED00407BF0 /* ZStudentBannerCell.m */; };
 		B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812523C311E000407BF0 /* ZStudentMainEnteryCell.m */; };
 		B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812823C3120100407BF0 /* ZStudentMainEntryItemCell.m */; };
+		B2A7812C23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */; };
+		B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -579,6 +581,10 @@
 		B2A7812523C311E000407BF0 /* ZStudentMainEnteryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainEnteryCell.m; sourceTree = "<group>"; };
 		B2A7812723C3120100407BF0 /* ZStudentMainEntryItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainEntryItemCell.h; sourceTree = "<group>"; };
 		B2A7812823C3120100407BF0 /* ZStudentMainEntryItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainEntryItemCell.m; sourceTree = "<group>"; };
+		B2A7812A23C31B4900407BF0 /* ZStudentMainPhotoWallCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainPhotoWallCell.h; sourceTree = "<group>"; };
+		B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainPhotoWallCell.m; sourceTree = "<group>"; };
+		B2A7812D23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainPhotoWallItemCell.h; sourceTree = "<group>"; };
+		B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainPhotoWallItemCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1683,6 +1689,10 @@
 				B2A7812523C311E000407BF0 /* ZStudentMainEnteryCell.m */,
 				B2A7812723C3120100407BF0 /* ZStudentMainEntryItemCell.h */,
 				B2A7812823C3120100407BF0 /* ZStudentMainEntryItemCell.m */,
+				B2A7812A23C31B4900407BF0 /* ZStudentMainPhotoWallCell.h */,
+				B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */,
+				B2A7812D23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.h */,
+				B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1955,6 +1965,7 @@
 				B2A7802723BDF9B100407BF0 /* ZDBManager.m in Sources */,
 				B2A7801F23BDF8B200407BF0 /* ZAdvertiserModel.m in Sources */,
 				B2A77F5923BDE42E00407BF0 /* TZPhotoPreviewController.m in Sources */,
+				B2A7812C23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m in Sources */,
 				B2A7810B23C0840900407BF0 /* ZStudentMineAdverCell.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
 				B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */,
@@ -1983,6 +1994,7 @@
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
+				B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */,
 				B2A7809023BDFB0100407BF0 /* NSMutableURLRequest+TLNetwork.m in Sources */,
 				B2A77E7523BDCCFE00407BF0 /* main.m in Sources */,
 				B2A77FCA23BDEAA100407BF0 /* ZServerCompleteAlertView.m in Sources */,
