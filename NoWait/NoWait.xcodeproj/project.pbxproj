@@ -193,6 +193,9 @@
 		B2A7810B23C0840900407BF0 /* ZStudentMineAdverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7810A23C0840900407BF0 /* ZStudentMineAdverCell.m */; };
 		B2A7810E23C084C300407BF0 /* ZStudentMineLessonProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7810D23C084C300407BF0 /* ZStudentMineLessonProgressCell.m */; };
 		B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811023C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m */; };
+		B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811923C2E55900407BF0 /* ZStudentMainModel.m */; };
+		B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */; };
+		B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -561,6 +564,12 @@
 		B2A7810D23C084C300407BF0 /* ZStudentMineLessonProgressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineLessonProgressCell.m; sourceTree = "<group>"; };
 		B2A7810F23C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentLessonProgressListCell.h; sourceTree = "<group>"; };
 		B2A7811023C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentLessonProgressListCell.m; sourceTree = "<group>"; };
+		B2A7811823C2E55900407BF0 /* ZStudentMainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainModel.h; sourceTree = "<group>"; };
+		B2A7811923C2E55900407BF0 /* ZStudentMainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainModel.m; sourceTree = "<group>"; };
+		B2A7811B23C2E57D00407BF0 /* ZStudentMainTopSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainTopSearchView.h; sourceTree = "<group>"; };
+		B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainTopSearchView.m; sourceTree = "<group>"; };
+		B2A7811E23C2E59D00407BF0 /* ZStudentMainViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainViewModel.h; sourceTree = "<group>"; };
+		B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainViewModel.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1501,6 +1510,9 @@
 		B2A780C623BED31500407BF0 /* SMain */ = {
 			isa = PBXGroup;
 			children = (
+				B2A7811423C2E50800407BF0 /* ViewModel */,
+				B2A7811323C2E4FF00407BF0 /* Model */,
+				B2A7811223C2E4E900407BF0 /* View */,
 				B2A780C723BED32900407BF0 /* ViewController */,
 			);
 			path = SMain;
@@ -1649,6 +1661,33 @@
 				B2A7810423C073B200407BF0 /* ZStudentMineModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B2A7811223C2E4E900407BF0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2A7811B23C2E57D00407BF0 /* ZStudentMainTopSearchView.h */,
+				B2A7811C23C2E57D00407BF0 /* ZStudentMainTopSearchView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2A7811323C2E4FF00407BF0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2A7811823C2E55900407BF0 /* ZStudentMainModel.h */,
+				B2A7811923C2E55900407BF0 /* ZStudentMainModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B2A7811423C2E50800407BF0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B2A7811E23C2E59D00407BF0 /* ZStudentMainViewModel.h */,
+				B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
@@ -1885,6 +1924,7 @@
 				B2A7800823BDEDD300407BF0 /* UINavigationController+ZChat.m in Sources */,
 				B2A7809823BDFB0100407BF0 /* PingHelper.m in Sources */,
 				B2A780A023BDFB0100407BF0 /* FSMStateUtil.m in Sources */,
+				B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */,
 				B2A780A923BDFB0100407BF0 /* TLNetworkStatusManager.m in Sources */,
 				B2A77F2923BDE37A00407BF0 /* LLImagePickerModel.m in Sources */,
 				B2A7810E23C084C300407BF0 /* ZStudentMineLessonProgressCell.m in Sources */,
@@ -1911,6 +1951,7 @@
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
+				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
 				B2A7810823C0749A00407BF0 /* ZMineMenuItemCell.m in Sources */,
 				B2A77FE123BDEAA100407BF0 /* ZSpaceEmptyCell.m in Sources */,
@@ -1947,6 +1988,7 @@
 				B2A77F7B23BDE9DB00407BF0 /* XYTransition.m in Sources */,
 				B2A77FF523BDEC1600407BF0 /* UIBarButtonItem+Back.m in Sources */,
 				B2A77F5D23BDE42E00407BF0 /* TZPhotoPickerController.m in Sources */,
+				B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */,
 				B2A77EAA23BDE20200407BF0 /* ZVideoPlayerManager.m in Sources */,
 				B2A7809A23BDFB0100407BF0 /* ReachState.m in Sources */,
 				B2A77EC523BDE29E00407BF0 /* MWTapDetectingImageView.m in Sources */,
