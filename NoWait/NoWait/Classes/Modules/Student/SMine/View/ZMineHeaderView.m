@@ -128,7 +128,8 @@
 - (UIImageView *)settingImageView {
     if (!_settingImageView) {
         _settingImageView = [[UIImageView alloc] init];
-        _settingImageView.image = [UIImage imageNamed:@"mineSetting"];
+        _settingImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _settingImageView.tintColor = KMainColor;
         _settingImageView.layer.masksToBounds = YES;
         _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
     }

@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+@interface ZStudentLessonModel : NSObject
+@property (nonatomic,strong) NSString *lessonName;
+@property (nonatomic,strong) NSString *allCount;
+
+@end
+
+
+
 @interface ZStudentMenuItemModel : NSObject
 @property (nonatomic,copy) NSString *channel_id;
 @property (nonatomic,copy) NSString *name;

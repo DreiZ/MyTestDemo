@@ -114,7 +114,8 @@
     ZMineMenuItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZMineMenuItemCell className] forIndexPath:indexPath];
     ZStudentMenuItemModel *model = _topChannelList[indexPath.row];
     cell.titleLabel.text = model.name;
-    cell.imageView.image = [UIImage imageNamed:model.imageName];
+    cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    cell.imageView.tintColor = KMainColor;
     return cell;
 }
 

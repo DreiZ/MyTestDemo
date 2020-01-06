@@ -7,11 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZStudentMineModel.h"
 
 @interface ZStudentMineLessonProgressCell : ZBaseCell
+@property (nonatomic,strong) NSArray<ZStudentLessonModel*> *list;
 
 @end
 
-NS_ASSUME_NONNULL_END

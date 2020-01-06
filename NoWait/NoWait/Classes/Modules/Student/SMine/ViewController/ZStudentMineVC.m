@@ -11,6 +11,7 @@
 #import "ZBaseCell.h"
 #import "ZMineMenuCell.h"
 #import "ZStudentMineAdverCell.h"
+#import "ZStudentMineLessonProgressCell.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
@@ -19,6 +20,7 @@
 @property (nonatomic,strong) ZMineHeaderView *headerView;
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
+@property (nonatomic,strong) NSMutableArray *lessonList;
 
 @end
 
@@ -62,6 +64,8 @@
 
 - (void)setData {
     _topchannelList = @[].mutableCopy;
+    _lessonList = @[].mutableCopy;
+    
     NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
     
     for (int i = 0; i < list.count; i++) {
@@ -69,6 +73,8 @@
         model.name = list[i][0];
         model.imageName = list[i][1];
         [_topchannelList addObject:model];
+        
+        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
     }
 }
 
@@ -138,6 +144,10 @@
     }else if (indexPath.section == 1){
         ZStudentMineAdverCell *cell = [ZStudentMineAdverCell z_cellWithTableView:tableView];
         return cell;
+    }else if (indexPath.section == 2){
+        ZStudentMineLessonProgressCell *cell = [ZStudentMineLessonProgressCell z_cellWithTableView:tableView];
+        cell.list = _lessonList;
+        return cell;
     }
     ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
@@ -151,6 +161,8 @@
         return [ZMineMenuCell z_getCellHeight:nil];
     }else if (indexPath.section == 1){
         return [ZStudentMineAdverCell z_getCellHeight:nil];
+    }else if (indexPath.section == 2){
+        return [ZStudentMineLessonProgressCell z_getCellHeight:self.lessonList];
     }
     return 40;
 }

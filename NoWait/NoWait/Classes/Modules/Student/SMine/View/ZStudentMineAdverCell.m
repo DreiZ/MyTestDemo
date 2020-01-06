@@ -35,6 +35,7 @@
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(0));
         make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(-20));
     }];
+    
 }
 
 - (UIImageView *)adverImageView {
@@ -42,7 +43,10 @@
         _adverImageView = [[UIImageView alloc] init];
         _adverImageView.image = [UIImage imageNamed:@"adverImage"];
         _adverImageView.layer.masksToBounds = YES;
+        _adverImageView.clipsToBounds = YES;
+        _adverImageView.layer.cornerRadius = 4;
         _adverImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _adverImageView.backgroundColor = KMainColor;
     }
     return _adverImageView;
 }

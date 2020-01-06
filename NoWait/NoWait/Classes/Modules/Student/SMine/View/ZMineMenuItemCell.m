@@ -19,8 +19,9 @@
 }
 
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = KWhiteColor;
     self.clipsToBounds = YES;
+    
     
     [self.contentView addSubview:self.imageView];
     [self.contentView addSubview:self.titleLabel];
