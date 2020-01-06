@@ -116,9 +116,6 @@
     if (!_headerView) {
 //        __weak typeof(self) weakSelf = self;
         _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, 200, 2)];
-        lineView.backgroundColor = KRedColor;
-        [_headerView addSubview:lineView];
     }
     return _headerView;
 }

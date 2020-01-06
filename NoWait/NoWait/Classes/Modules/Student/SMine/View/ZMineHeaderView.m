@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong) UIButton *userInfoBtn;
 
+@property (nonatomic,strong) UIView *backView;
+
 @end
 
 @implementation ZMineHeaderView
@@ -36,11 +38,16 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    
+    [self addSubview:self.backView];
     [self addSubview:self.headImageView];
     [self addSubview:self.nameLabel];
     [self addSubview:self.settingView];
     [self.settingView addSubview:self.settingImageView];
+    
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self);
+    }];
+    
     
     [self.settingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.settingView);
@@ -73,6 +80,8 @@
     self.nameLabel.font = [UIFont systemFontOfSize:CGFloatIn750(36)];
     self.nameLabel.alpha = 1;
     self.headImageView.layer.cornerRadius = CGFloatIn750(41);
+    
+    self.backView.alpha = 0;
 }
 
 - (void)setAnimationSubViewFrame {
@@ -87,7 +96,9 @@
     
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
-
+    
+    self.backView.alpha = (1 - self.nameLabel.alpha);
+    
 }
 
 #pragma mark --懒加载---
@@ -137,12 +148,18 @@
     if (!_settingView) {
         _settingView = [[UIView alloc] init];
         _settingView.layer.masksToBounds = YES;
-        _settingView.backgroundColor =KWhiteColor;
+//        _settingView.backgroundColor =KWhiteColor;
     }
     return _settingView;
 }
 
-
+- (UIView *)backView {
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = KMainColor;
+    }
+    return _backView;
+}
 #pragma mark - 更新frame
 - (void)updateSubViewFrame {
     [self setSubViewFrame];
