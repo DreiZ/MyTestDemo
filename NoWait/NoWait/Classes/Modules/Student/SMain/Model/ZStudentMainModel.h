@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ZStudentEnteryItemModel : NSObject
+@property (nonatomic,strong) NSString *imageName;
+@property (nonatomic,strong) NSString *name;
+
+@end
+
 @interface ZStudentBannerModel : NSObject
 @property (nonatomic,strong) NSString *image;
 

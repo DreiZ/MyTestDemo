@@ -10,6 +10,7 @@
 #import "ZStudentMainTopSearchView.h"
 
 #import "ZStudentBannerCell.h"
+#import "ZStudentMainEnteryCell.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -18,6 +19,8 @@
 @property (nonatomic,strong) ZStudentMainTopSearchView *searchView;
 
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) NSMutableArray *enteryArr;
+
 @end
 
 @implementation ZStudentMainVC
@@ -54,7 +57,15 @@
 
 - (void)setData {
     _cellConfigArr = @[].mutableCopy;
+    _enteryArr = @[].mutableCopy;
     
+    NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"],@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"]];
+    for (int i = 0; i < entryArr.count; i++) {
+        ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
+        model.imageName = entryArr[i][1];
+        model.name = entryArr[i][0];
+        [_enteryArr addObject:model];
+    }
     [self resetData];
 }
 
@@ -64,6 +75,11 @@
     
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:nil heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:topCellConfig];
+    
+    ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
+    [self.cellConfigArr addObject:enteryCellConfig];
+    
+    
 }
 
 - (void)setupMainView {
