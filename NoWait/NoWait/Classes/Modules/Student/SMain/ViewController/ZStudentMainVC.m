@@ -109,6 +109,18 @@
     [section1Arr addObject:photoWallCellCon1fig];
     [section1Arr addObject:photoWallCellCon1fig];
     [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
     
     [_cellConfigArr addObject:section1Arr];
     
@@ -170,7 +182,16 @@
 
 - (ZStudentMainFiltrateSectionView *)sectionView {
     if (!_sectionView) {
-        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
+        __weak typeof(self) weakSelf = self;
+        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
+        _sectionView.titleSelect = ^(NSInteger index) {
+            if (weakSelf.iTableView.contentOffset.y < [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.iTableView setContentOffset:CGPointMake(0, [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:weakSelf.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:weakSelf.photoWallArr]) animated:YES];
+                });
+                
+            }
+        };
     }
     return _sectionView;
 }

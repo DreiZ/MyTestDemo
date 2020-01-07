@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ZStudentMainFiltrateSectionView : UIView
-
+@property (nonatomic,strong) void (^titleSelect)(NSInteger);
 @end
 
-NS_ASSUME_NONNULL_END
+

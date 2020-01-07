@@ -7,10 +7,13 @@
 //
 
 #import "ZStudentMainFiltrateSectionView.h"
-#import "WMZDropDownMenu.h"
+#import "ZHFilterMenuView.h"
+#import "FilterDataUtil.h"
 
-@interface ZStudentMainFiltrateSectionView ()<WMZDropMenuDelegate>
-@property(nonatomic,strong)NSDictionary *dataDic;
+@interface ZStudentMainFiltrateSectionView ()<ZHFilterMenuViewDelegate,ZHFilterMenuViewDetaSource>
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) ZHFilterMenuView *menuView;
+
 @end
 
 @implementation ZStudentMainFiltrateSectionView
@@ -31,16 +34,10 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    WMZDropMenuParam *param =
-    MenuParam()
-    .wMainRadiusSet(10)
-    .wCollectionViewCellSelectTitleColorSet(KMainColor)
-    .wCollectionViewSectionRecycleCountSet(8)
-    .wMaxHeightScaleSet(0.5);
-    
-    WMZDropDownMenu *menu = [[WMZDropDownMenu alloc] initWithFrame:CGRectMake(0, 0, Menu_Width, CGFloatIn750(88)) withParam:param];
-    menu.delegate = self;
-    [self addSubview:menu];
+   FilterDataUtil *dataUtil = [[FilterDataUtil alloc] init];
+   self.menuView.filterDataArr = [dataUtil getTabDataByType:FilterTypeSecondHandHouse];
+   //开始显示
+   [self.menuView beginShowMenuView];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = KMainColor;
@@ -51,135 +48,60 @@
     }];
 }
 
-- (NSArray*)titleArrInMenu:(WMZDropDownMenu *)menu{
-    return @[
-         @{@"name":@"综合排序",@"normalImage":@"mineLessonDown",@"selectImage":@"mineLessonSelectDown"},
-         @{@"name":@"附近",@"normalImage":@"mineLessonDown",@"selectImage":@"mineLessonSelectDown"},
-         @{@"name":@"机构",@"normalImage":@"mineLessonDown",@"selectImage":@"mineLessonSelectDown"},
-         @{@"name":@"筛选",@"normalImage":@"mineLessonDown",@"selectImage":@"mineLessonSelectDown"},
-    ];
+
+/** 确定回调 */
+- (void)menuView:(ZHFilterMenuView *)menuView didSelectConfirmAtSelectedModelArr:(NSArray *)selectedModelArr
+{
+    NSArray *dictArr = [ZHFilterItemModel mj_keyValuesArrayWithObjectArray:selectedModelArr];
+    NSLog(@"结果回调：%@",dictArr.mj_JSONString);
 }
 
-
-- (NSInteger)menu:(WMZDropDownMenu *)menu numberOfRowsInSection:(NSInteger)section{
-   if (section == 1){
-        return 2;
-    }else if (section == 3){
-        return 5;
-    }
-
-    return 1;
-}
-
-- (NSArray *)menu:(WMZDropDownMenu *)menu dataForRowAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-      if (dropIndexPath.section == 0){
-          return @[@"综合排序",@"销量优先",@"速度优先",@"评分优先",
-                   @"综合排序",@"销量优先",@"速度优先",@"评分优先"];
-
-      }else if (dropIndexPath.section == 1){
-          if (dropIndexPath.row == 0) return @[@"全城",@"附近",@"推荐商圈",@"鼓楼区",
-                                               @"云龙区",@"泉山区",@"贾汪区"];
-          if (dropIndexPath.row == 1) return @[];
-      }else if (dropIndexPath.section == 2){
-           return @[@"全部",@"体育竞技",@"兴趣爱好",@"艺术舞蹈",@"游泳健身",@"教育培训",@"球类",@"舞蹈"];
-      }else if (dropIndexPath.section == 3){
-           if (dropIndexPath.row == 0) return @[@"四星以上",@"品牌商家"];
-           if (dropIndexPath.row == 1) return @[@"专送",@"到店自取"];
-           if (dropIndexPath.row == 2) return @[@"优惠商家",@"满减优惠",@"近端领券",@"折扣商品",
-                                                @"优惠商家",@"满减优惠",@"近端领券",@"折扣商品",
-                                                @"优惠商家",@"满减优惠",@"近端领券",@"折扣商品"];
-           if (dropIndexPath.row == 3) return @[@"跨天预定",@"开发票",
-                                                @{@"name":@"赠准时宝",@"image":@"menu_xinyong"},
-                                                @{@"name":@"极速退款",@"image":@"menu_xinyong"}];
-          if (dropIndexPath.row == 4) return @[@"30分钟内",@"40分钟内",@"50分钟内",@"60分钟内",
-                                               @"30km内",@"40km内",@"50km内",@"60km内"];
-      }
-      return @[];
-}
-
-#define titleArr2 @[@"品质",@"配送",@"优惠活动",@"商家特色",@"速度"]
-- (NSString *)menu:(WMZDropDownMenu *)menu titleForHeadViewAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section == 3){
-        return titleArr2[dropIndexPath.row];
-    }
-    return nil;
-}
-
-- (CGFloat)menu:(WMZDropDownMenu *)menu heightAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath AtIndexPath:(NSIndexPath *)indexpath{
-    if (dropIndexPath.section == 0 || dropIndexPath.section == 1) {
-        return 40;
-    }
-    return 35;
-}
-- (CGFloat)menu:(WMZDropDownMenu *)menu heightForFootViewAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section ==3) {
-        return 20;
-    }
-    return 0;
-}
-
-- (CGFloat)menu:(WMZDropDownMenu *)menu heightForHeadViewAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section == 3) {
-        return 35;
-    }
-    return 0;
-}
-
-- (MenuShowAnimalStyle)menu:(WMZDropDownMenu *)menu showAnimalStyleForRowInSection:(NSInteger)section{
-    return MenuShowAnimalBottom;
-}
-- (MenuHideAnimalStyle)menu:(WMZDropDownMenu *)menu hideAnimalStyleForRowInSection:(NSInteger)section{
-    return MenuHideAnimalTop;
-}
-
-- (MenuUIStyle)menu:(WMZDropDownMenu *)menu uiStyleForRowIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section == 2||dropIndexPath.section == 3) {
-        return MenuUICollectionView;
-    }
-    return MenuUITableView;
-}
-
-- (BOOL)menu:(WMZDropDownMenu *)menu showExpandAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section == 3 && dropIndexPath.row == 2) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)menu:(WMZDropDownMenu *)menu closeWithTapAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
-    if (dropIndexPath.section == 1&&dropIndexPath.row == 1)  return YES;
-    else if (dropIndexPath.section == 0) return YES;
-    return NO;
-}
-
-- (void)menu:(WMZDropDownMenu *)menu didSelectRowAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath dataIndexPath:(NSIndexPath *)indexpath data:(WMZDropTree*)data{
-    //手动更新二级联动数据
-    if (dropIndexPath.section == 1) {
-        if (dropIndexPath.row == 0) {
-            [menu updateData:self.dataDic[data.name] ForRowAtDropIndexPath:dropIndexPath];
-        }
+/** 警告回调(用于错误提示) */
+- (void)menuView:(ZHFilterMenuView *)menuView wangType:(ZHFilterMenuViewWangType)wangType
+{
+    if (wangType == ZHFilterMenuViewWangTypeInput) {
+        NSLog(@"请输入正确的价格区间！");
     }
 }
 
-- (void)menu:(WMZDropDownMenu *)menu customDefauultCollectionFootView:(WMZDropConfirmView *)confirmView{
-    confirmView.showBorder = YES;
-    confirmView.confirmBtn.backgroundColor = KMainColor;
-    [confirmView.confirmBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+/** 返回每个 tabIndex 下的确定类型 */
+- (ZHFilterMenuConfirmType)menuView:(ZHFilterMenuView *)menuView confirmTypeInTabIndex:(NSInteger)tabIndex
+{
+    if (tabIndex == 4) {
+        return ZHFilterMenuConfirmTypeSpeedConfirm;
+    }
+    return ZHFilterMenuConfirmTypeBottomConfirm;
 }
 
-- (NSDictionary*)dataDic{
-    if (!_dataDic) {
-        _dataDic = @{
-                  @"全城":@[],
-                  @"附近":@[@"附近",@"500m",@"1km",@"3km",@"5km",@"10km"],
-                  @"推荐商圈":@[@"滨湖",@"段庄广场",@"矿业大学",@"万达广场",@"苹果汇邻边"],
-                  @"鼓楼区":@[@"全部",@"彭城广场",@"金地国际",@"彭城一号"],
-                  @"云龙区":@[@"全部",@"绿地世纪城",@"世贸广场",@"老东门",@"青年路"],
-                  @"泉山区":@[@"全部",@"滨湖",@"玉龙湖",@"公园一号",@"端庄广场",@"矿业大学"],
-                  @"贾汪区":@[@"全部",@"高铁站",@"月星环球港",@"中心城区",@"高铁时代广场"],
-        };
+/** 返回每个 tabIndex 下的下拉展示类型 */
+- (ZHFilterMenuDownType)menuView:(ZHFilterMenuView *)menuView downTypeInTabIndex:(NSInteger)tabIndex
+{
+    if (tabIndex == 0) {
+        return ZHFilterMenuDownTypeTwoLists;
+    } else if (tabIndex == 1) {
+        return ZHFilterMenuDownTypeItemInput;
+    } else if (tabIndex == 2) {
+       return ZHFilterMenuDownTypeOnlyItem;
+    } else if (tabIndex == 3) {
+        return ZHFilterMenuDownTypeOnlyItem;
+    } else if (tabIndex == 4) {
+        return ZHFilterMenuDownTypeOnlyList;
     }
-    return _dataDic;
+    return ZHFilterMenuDownTypeOnlyList;
+}
+
+
+- (ZHFilterMenuView *)menuView
+{
+    if (!_menuView) {
+        _menuView = [[ZHFilterMenuView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88)) maxHeight:CGRectGetHeight(self.frame) - CGFloatIn750(88)];
+        _menuView.zh_delegate = self;
+        _menuView.zh_dataSource = self;
+       _menuView.titleArr = @[@"区域",@"价格",@"房型",@"更多",@"排序"];
+        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"x_arrow"];
+        [self addSubview:_menuView];
+    }
+    return _menuView;
 }
 
 @end
