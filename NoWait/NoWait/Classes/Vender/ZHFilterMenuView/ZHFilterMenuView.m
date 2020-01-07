@@ -318,7 +318,6 @@
     if (self.menuTapBlock) {
         self.menuTapBlock(sender.tag);
     }
-    
     if (self.zh_dataSource == nil) {
         return;
     }

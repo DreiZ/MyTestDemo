@@ -78,6 +78,7 @@
     if (!_goodsImageView) {
         _goodsImageView = [[UIImageView alloc] init];
         _goodsImageView.image = [UIImage imageNamed:@"serverTopbg"];
+        _goodsImageView.contentMode = UIViewContentModeScaleAspectFill;
         _goodsImageView.clipsToBounds = YES;
     }
     

@@ -18,6 +18,7 @@
 - (NSMutableArray *)getTabDataByType:(FilterType)type
 {
     NSMutableArray *dataArr = [NSMutableArray array];
+    
     NSMutableArray *areaArr = [NSMutableArray array];
     NSMutableArray *roomTypeArr = [NSMutableArray array];
     NSMutableArray *moreArr = [NSMutableArray array];

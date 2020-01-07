@@ -83,10 +83,10 @@
         return ZHFilterMenuDownTypeTwoLists;
     }  else if (tabIndex == 1) {
        return ZHFilterMenuDownTypeOnlyItem;
-    } else if (tabIndex == 3) {
-        return ZHFilterMenuDownTypeOnlyItem;
     } else if (tabIndex == 2) {
         return ZHFilterMenuDownTypeOnlyList;
+    } else if (tabIndex == 3) {
+        return ZHFilterMenuDownTypeOnlyItem;
     }
     return ZHFilterMenuDownTypeOnlyList;
 }
