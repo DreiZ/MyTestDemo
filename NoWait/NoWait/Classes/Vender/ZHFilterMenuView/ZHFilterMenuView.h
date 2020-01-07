@@ -62,7 +62,6 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
     ZHFilterMenuViewWangTypeInput,    //输入框价格区间不正确
 };
 
-NS_ASSUME_NONNULL_BEGIN
 
 @protocol ZHFilterMenuViewDelegate <NSObject>
 
@@ -95,6 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ZHFilterMenuView : UIView
+@property (nonatomic, strong) void (^ _Nullable menuTapBlock)(NSInteger);
 
 @property (nonatomic, weak) id<ZHFilterMenuViewDelegate> zh_delegate;
 @property (nonatomic, weak) id<ZHFilterMenuViewDetaSource> zh_dataSource;
@@ -142,4 +142,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+

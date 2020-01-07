@@ -210,7 +210,6 @@
 		B2A7816823C4517800407BF0 /* ZHFilterItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7816223C4517800407BF0 /* ZHFilterItemModel.m */; };
 		B2A7816923C4517800407BF0 /* ZHFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7816323C4517800407BF0 /* ZHFilterModel.m */; };
 		B2A7816C23C4540000407BF0 /* FilterDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7816A23C453FF00407BF0 /* FilterDataUtil.m */; };
-		B2A7816E23C4617D00407BF0 /* FilterData.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2A7816D23C4617D00407BF0 /* FilterData.geojson */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -612,7 +611,6 @@
 		B2A7816323C4517800407BF0 /* ZHFilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFilterModel.m; sourceTree = "<group>"; };
 		B2A7816A23C453FF00407BF0 /* FilterDataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDataUtil.m; sourceTree = "<group>"; };
 		B2A7816B23C4540000407BF0 /* FilterDataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDataUtil.h; sourceTree = "<group>"; };
-		B2A7816D23C4617D00407BF0 /* FilterData.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FilterData.geojson; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1751,7 +1749,6 @@
 		B2A7815823C4517800407BF0 /* ZHFilterMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				B2A7816D23C4617D00407BF0 /* FilterData.geojson */,
 				B2A7816B23C4540000407BF0 /* FilterDataUtil.h */,
 				B2A7816A23C453FF00407BF0 /* FilterDataUtil.m */,
 				B2A7815923C4517800407BF0 /* ZHFilterTitleTableViewCell.m */,
@@ -1892,7 +1889,6 @@
 				B2A77F0823BDE2B000407BF0 /* UIBarButtonItemArrowLeft@3x.png in Resources */,
 				B2A77EF423BDE2B000407BF0 /* UIBarButtonItemArrowRight@3x.png in Resources */,
 				B2A77F0923BDE2B000407BF0 /* ImageSelectedOn@2x.png in Resources */,
-				B2A7816E23C4617D00407BF0 /* FilterData.geojson in Resources */,
 				B2A77EF823BDE2B000407BF0 /* ImageSelectedOn.png in Resources */,
 				B2A77F0723BDE2B000407BF0 /* PlayButtonOverlayLarge@3x.png in Resources */,
 				B2A77F0A23BDE2B000407BF0 /* ImageError.png in Resources */,

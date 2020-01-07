@@ -34,10 +34,13 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-   FilterDataUtil *dataUtil = [[FilterDataUtil alloc] init];
-   self.menuView.filterDataArr = [dataUtil getTabDataByType:FilterTypeSecondHandHouse];
-   //开始显示
-   [self.menuView beginShowMenuView];
+    [self addSubview:self.menuView];
+    
+    FilterDataUtil *dataUtil = [[FilterDataUtil alloc] init];
+    self.menuView.filterDataArr = [dataUtil getTabDataByType:FilterTypeFilterMain];
+    //开始显示
+    [self.menuView beginShowMenuView];
+    
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = KMainColor;
@@ -60,14 +63,14 @@
 - (void)menuView:(ZHFilterMenuView *)menuView wangType:(ZHFilterMenuViewWangType)wangType
 {
     if (wangType == ZHFilterMenuViewWangTypeInput) {
-        NSLog(@"请输入正确的价格区间！");
+        NSLog(@"请输入正确的数据区间！");
     }
 }
 
 /** 返回每个 tabIndex 下的确定类型 */
 - (ZHFilterMenuConfirmType)menuView:(ZHFilterMenuView *)menuView confirmTypeInTabIndex:(NSInteger)tabIndex
 {
-    if (tabIndex == 4) {
+    if (tabIndex == 2) {
         return ZHFilterMenuConfirmTypeSpeedConfirm;
     }
     return ZHFilterMenuConfirmTypeBottomConfirm;
@@ -78,13 +81,11 @@
 {
     if (tabIndex == 0) {
         return ZHFilterMenuDownTypeTwoLists;
-    } else if (tabIndex == 1) {
-        return ZHFilterMenuDownTypeItemInput;
-    } else if (tabIndex == 2) {
+    }  else if (tabIndex == 1) {
        return ZHFilterMenuDownTypeOnlyItem;
     } else if (tabIndex == 3) {
         return ZHFilterMenuDownTypeOnlyItem;
-    } else if (tabIndex == 4) {
+    } else if (tabIndex == 2) {
         return ZHFilterMenuDownTypeOnlyList;
     }
     return ZHFilterMenuDownTypeOnlyList;
@@ -94,12 +95,17 @@
 - (ZHFilterMenuView *)menuView
 {
     if (!_menuView) {
+        __weak typeof(self) weakSelf = self;
         _menuView = [[ZHFilterMenuView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88)) maxHeight:CGRectGetHeight(self.frame) - CGFloatIn750(88)];
         _menuView.zh_delegate = self;
         _menuView.zh_dataSource = self;
-       _menuView.titleArr = @[@"区域",@"价格",@"房型",@"更多",@"排序"];
-        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"x_arrow"];
-        [self addSubview:_menuView];
+       _menuView.titleArr = @[@"区域",@"机构",@"综合排序",@"筛选"];
+        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"mineLessonDown"];
+        _menuView.menuTapBlock = ^(NSInteger index) {
+            if (weakSelf.titleSelect) {
+                weakSelf.titleSelect(index);
+            }
+        };
     }
     return _menuView;
 }

@@ -23,11 +23,11 @@
         self.resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.resetButton.frame = CGRectMake(20, 20, CGRectGetWidth(self.frame) / 2 - 40, CGRectGetHeight(self.frame) - 40);
         [self.resetButton setTitle:@"重置" forState:UIControlStateNormal];
-        [self.resetButton setTitleColor:KTitleSelectedColor forState:UIControlStateNormal];
+        [self.resetButton setTitleColor:KMainColor forState:UIControlStateNormal];
         [self.resetButton setBackgroundColor:[UIColor whiteColor]];
         self.resetButton.layer.masksToBounds = YES;
         self.resetButton.layer.cornerRadius = 2;
-        self.resetButton.layer.borderColor = KTitleSelectedColor.CGColor;
+        self.resetButton.layer.borderColor = KMainColor.CGColor;
         self.resetButton.layer.borderWidth = 1;
         self.resetButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self.resetButton addTarget:target action:resetAction forControlEvents:UIControlEventTouchUpInside];
@@ -38,7 +38,7 @@
         [self.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
         [self.confirmButton addTarget:target action:confirmAction forControlEvents:UIControlEventTouchUpInside];
         [self.confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.confirmButton setBackgroundColor:KTitleSelectedColor];
+        [self.confirmButton setBackgroundColor:KMainColor];
         self.confirmButton.layer.masksToBounds = YES;
         self.confirmButton.layer.cornerRadius = 2;
         self.confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -82,7 +82,7 @@
         
         self.selectedTabIndex = -1;
         self.titleColor = KTitleColor;
-        self.titleSelectedColor = KTitleSelectedColor;
+        self.titleSelectedColor = KMainColor;
         self.lineColor = KLineColor;
         self.titleFontSize = 15;
         self.showLine = YES;
@@ -315,6 +315,10 @@
 
 #pragma mark - 顶部菜单点击
 - (void)menuTapped:(UIButton *)sender {
+    if (self.menuTapBlock) {
+        self.menuTapBlock(sender.tag);
+    }
+    
     if (self.zh_dataSource == nil) {
         return;
     }
@@ -447,7 +451,7 @@
                 self.leftTableView.frame = CGRectMake(0, 0, self.frame.size.width / 3, viewHeight);
                 self.rightTableView.frame = CGRectMake(self.frame.size.width / 3, 0, self.frame.size.width / 3 * 2, viewHeight);
             } else {
-                self.leftTableView.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, viewHeight);
+                self.leftTableView.frame = CGRectMake(self.frame.origin.x, 0, self.frame.size.width, viewHeight);
             }
             if (confirmType == ZHFilterMenuConfirmTypeBottomConfirm) {
                 self.bottomView.frame = CGRectMake(0, CGRectGetMaxY(self.leftTableView.frame), KScreenWidth, bottomHeight);
@@ -462,8 +466,8 @@
     } else {
         [UIView animateWithDuration:0.3 animations:^{
             self.backGroundView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.f];
-            self.leftTableView.frame = CGRectMake(self.leftTableView.frame.origin.x, self.leftTableView.frame.origin.y, self.leftTableView.frame.size.width, 0);
-            self.rightTableView.frame = CGRectMake(self.rightTableView.frame.origin.x, self.rightTableView.frame.origin.y, self.rightTableView.frame.size.width, 0);
+            self.leftTableView.frame = CGRectMake(0, 0, self.leftTableView.frame.size.width, 0);
+            self.rightTableView.frame = CGRectMake(self.rightTableView.frame.origin.x, 0, self.rightTableView.frame.size.width, 0);
             if (confirmType == ZHFilterMenuConfirmTypeBottomConfirm) {
                 self.bottomView.hidden = YES;
                 self.bottomView.frame = CGRectMake(0, CGRectGetMaxY(self.leftTableView.frame), KScreenWidth, 0);
