@@ -680,17 +680,23 @@
                 return [[self getSelectedTabIndexFilterModelArr] count];
             } else if (tableView == self.rightTableView) {
                 return [[self getSelectedFilterModel].itemArr count];
+            }else{
+                return 0;
             }
         } else if (downType == ZHFilterMenuDownTypeOnlyList){
             return [[self getSelectedFilterModel].itemArr count];
+        }if (tableView == self.rightTableView) {
+            return 0;
+        }else{
+            return [[self getSelectedTabIndexFilterModelArr] count];
         }
-        return [[self getSelectedTabIndexFilterModelArr] count];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZHFilterMenuDownType downType = [self getDownTypeBySelectedTabIndex:self.selectedTabIndex];
+  
     if (downType == ZHFilterMenuDownTypeTwoLists || downType == ZHFilterMenuDownTypeOnlyList) {
         ZHFilterTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ZHFilterTitleTableViewCell class]) forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -709,6 +715,7 @@
         }
         return cell;
     } else {
+        
         if (tableView == self.leftTableView) {
             ZHFilterItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ZHFilterItemTableViewCell class]) forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
