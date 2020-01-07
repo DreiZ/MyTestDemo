@@ -34,6 +34,7 @@
         _imageView = [[UIImageView alloc] init];
         _imageView.layer.masksToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.layer.cornerRadius = 4;
     }
     return _imageView;
 }
