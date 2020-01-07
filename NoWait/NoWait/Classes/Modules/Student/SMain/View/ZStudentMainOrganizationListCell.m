@@ -53,7 +53,7 @@
     
     [self.payPeopleNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(8));
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(10));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
     
@@ -63,6 +63,14 @@
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
     
+    [self.contentView addSubview:self.activityView];
+    [self.activityView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(30));
+    }];
+    
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = KLineColor;
     [self.contentView addSubview:bottomLineView];
@@ -70,6 +78,8 @@
         make.left.right.bottom.equalTo(self);
         make.height.mas_equalTo(0.5);
     }];
+    
+    [self setActivityData];
 }
 
 
@@ -143,5 +153,36 @@
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(200);
+}
+
+
+- (void)setActivityData {
+    [self.activityView removeAllSubviews];
+    NSArray *textArr = @[@"满减10", @"收单优惠"];
+    
+    CGFloat leftX = 0;
+    for (int i = 0; i < textArr.count; i++) {
+        UIView *label = [self getViewWithText:textArr[i] leftX:leftX];
+        [self.activityView addSubview:label];
+        leftX = label.right + CGFloatIn750(8);
+    }
+}
+
+- (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX{
+     CGSize tempSize = [text tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
+    
+    UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
+    actLabel.textColor = kHN_OrangeHColor;
+    actLabel.layer.masksToBounds = YES;
+    actLabel.layer.cornerRadius = 2;
+    actLabel.layer.borderColor = kHN_OrangeHColor.CGColor;
+    actLabel.layer.borderWidth = 0.5;
+    actLabel.text = text;
+    actLabel.numberOfLines = 0;
+    actLabel.textAlignment = NSTextAlignmentCenter;
+    [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+    
+    
+    return actLabel;
 }
 @end

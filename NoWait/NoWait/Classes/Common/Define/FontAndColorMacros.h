@@ -59,6 +59,6 @@
 #define KFontCColor KLineColor   //204 204 204
 #define KLineColor [UIColor colorWithHexString:@"cccccc"]   //204 204 204
 #define KBackLightColor [UIColor colorWithHexString:@"f2f2f2"]   //242 242 242
-
+#define kHN_OrangeHColor [UIColor colorWithHexString:@"eb7400"] 
 
 #endif /* FontAndColorMacros_h */
