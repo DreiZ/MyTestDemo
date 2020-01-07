@@ -201,6 +201,17 @@
 		B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812823C3120100407BF0 /* ZStudentMainEntryItemCell.m */; };
 		B2A7812C23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */; };
 		B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */; };
+		B2A7813523C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7813423C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m */; };
+		B2A7814A23C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7813A23C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.m */; };
+		B2A7814B23C32E8F00407BF0 /* WMZDropMenuBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7813F23C32E8F00407BF0 /* WMZDropMenuBtn.m */; };
+		B2A7814C23C32E8F00407BF0 /* WMZDropMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2A7814023C32E8F00407BF0 /* WMZDropMenu.bundle */; };
+		B2A7814D23C32E8F00407BF0 /* WMZDropMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814223C32E8F00407BF0 /* WMZDropMenuTool.m */; };
+		B2A7814E23C32E8F00407BF0 /* WMZDropCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814323C32E8F00407BF0 /* WMZDropCustomView.m */; };
+		B2A7814F23C32E8F00407BF0 /* WMZDropMenuParam.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814423C32E8F00407BF0 /* WMZDropMenuParam.m */; };
+		B2A7815023C32E8F00407BF0 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814523C32E8F00407BF0 /* Aspects.m */; };
+		B2A7815123C32E8F00407BF0 /* WMZDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814623C32E8F00407BF0 /* WMZDropDownMenu.m */; };
+		B2A7815223C32E8F00407BF0 /* WMZDropMenuBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7814923C32E8F00407BF0 /* WMZDropMenuBase.m */; };
+		B2A7815523C3349E00407BF0 /* ZStudentMainOrganizationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7815423C3349E00407BF0 /* ZStudentMainOrganizationListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -585,6 +596,29 @@
 		B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainPhotoWallCell.m; sourceTree = "<group>"; };
 		B2A7812D23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainPhotoWallItemCell.h; sourceTree = "<group>"; };
 		B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainPhotoWallItemCell.m; sourceTree = "<group>"; };
+		B2A7813323C32B1400407BF0 /* ZStudentMainFiltrateSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainFiltrateSectionView.h; sourceTree = "<group>"; };
+		B2A7813423C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainFiltrateSectionView.m; sourceTree = "<group>"; };
+		B2A7813723C32E8F00407BF0 /* WMZDropDwonMenuConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropDwonMenuConfig.h; sourceTree = "<group>"; };
+		B2A7813823C32E8F00407BF0 /* WMZDropMenuTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropMenuTool.h; sourceTree = "<group>"; };
+		B2A7813923C32E8F00407BF0 /* WMZDropCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropCustomView.h; sourceTree = "<group>"; };
+		B2A7813A23C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMZDropDownMenu+DealDelegate.m"; sourceTree = "<group>"; };
+		B2A7813B23C32E8F00407BF0 /* WMZDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropDownMenu.h; sourceTree = "<group>"; };
+		B2A7813C23C32E8F00407BF0 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		B2A7813D23C32E8F00407BF0 /* WMZDropMenuParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropMenuParam.h; sourceTree = "<group>"; };
+		B2A7813E23C32E8F00407BF0 /* WMZDropMenuBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropMenuBase.h; sourceTree = "<group>"; };
+		B2A7813F23C32E8F00407BF0 /* WMZDropMenuBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropMenuBtn.m; sourceTree = "<group>"; };
+		B2A7814023C32E8F00407BF0 /* WMZDropMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMZDropMenu.bundle; sourceTree = "<group>"; };
+		B2A7814123C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMZDropDownMenu+DealDelegate.h"; sourceTree = "<group>"; };
+		B2A7814223C32E8F00407BF0 /* WMZDropMenuTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropMenuTool.m; sourceTree = "<group>"; };
+		B2A7814323C32E8F00407BF0 /* WMZDropCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropCustomView.m; sourceTree = "<group>"; };
+		B2A7814423C32E8F00407BF0 /* WMZDropMenuParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropMenuParam.m; sourceTree = "<group>"; };
+		B2A7814523C32E8F00407BF0 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
+		B2A7814623C32E8F00407BF0 /* WMZDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropDownMenu.m; sourceTree = "<group>"; };
+		B2A7814723C32E8F00407BF0 /* WMZDropMenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropMenuDelegate.h; sourceTree = "<group>"; };
+		B2A7814823C32E8F00407BF0 /* WMZDropMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZDropMenuBtn.h; sourceTree = "<group>"; };
+		B2A7814923C32E8F00407BF0 /* WMZDropMenuBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZDropMenuBase.m; sourceTree = "<group>"; };
+		B2A7815323C3349E00407BF0 /* ZStudentMainOrganizationListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainOrganizationListCell.h; sourceTree = "<group>"; };
+		B2A7815423C3349E00407BF0 /* ZStudentMainOrganizationListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainOrganizationListCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -705,6 +739,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2A7813623C32E8F00407BF0 /* WMZDropDownMenu */,
 				B2A780EA23BF06FD00407BF0 /* PooCodeView */,
 				B2A77F7723BDE9DB00407BF0 /* XYTransition */,
 				B2A77F3323BDE42E00407BF0 /* TZImagePickerController */,
@@ -1693,6 +1728,10 @@
 				B2A7812B23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m */,
 				B2A7812D23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.h */,
 				B2A7812E23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m */,
+				B2A7813323C32B1400407BF0 /* ZStudentMainFiltrateSectionView.h */,
+				B2A7813423C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m */,
+				B2A7815323C3349E00407BF0 /* ZStudentMainOrganizationListCell.h */,
+				B2A7815423C3349E00407BF0 /* ZStudentMainOrganizationListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1713,6 +1752,32 @@
 				B2A7811F23C2E59D00407BF0 /* ZStudentMainViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B2A7813623C32E8F00407BF0 /* WMZDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B2A7813723C32E8F00407BF0 /* WMZDropDwonMenuConfig.h */,
+				B2A7813823C32E8F00407BF0 /* WMZDropMenuTool.h */,
+				B2A7813923C32E8F00407BF0 /* WMZDropCustomView.h */,
+				B2A7813A23C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.m */,
+				B2A7813B23C32E8F00407BF0 /* WMZDropDownMenu.h */,
+				B2A7813C23C32E8F00407BF0 /* Aspects.h */,
+				B2A7813D23C32E8F00407BF0 /* WMZDropMenuParam.h */,
+				B2A7813E23C32E8F00407BF0 /* WMZDropMenuBase.h */,
+				B2A7813F23C32E8F00407BF0 /* WMZDropMenuBtn.m */,
+				B2A7814023C32E8F00407BF0 /* WMZDropMenu.bundle */,
+				B2A7814123C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.h */,
+				B2A7814223C32E8F00407BF0 /* WMZDropMenuTool.m */,
+				B2A7814323C32E8F00407BF0 /* WMZDropCustomView.m */,
+				B2A7814423C32E8F00407BF0 /* WMZDropMenuParam.m */,
+				B2A7814523C32E8F00407BF0 /* Aspects.m */,
+				B2A7814623C32E8F00407BF0 /* WMZDropDownMenu.m */,
+				B2A7814723C32E8F00407BF0 /* WMZDropMenuDelegate.h */,
+				B2A7814823C32E8F00407BF0 /* WMZDropMenuBtn.h */,
+				B2A7814923C32E8F00407BF0 /* WMZDropMenuBase.m */,
+			);
+			path = WMZDropDownMenu;
 			sourceTree = "<group>";
 		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {
@@ -1848,6 +1913,7 @@
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
+				B2A7814C23C32E8F00407BF0 /* WMZDropMenu.bundle in Resources */,
 				B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
@@ -1944,14 +2010,17 @@
 				B2A7809323BDFB0100407BF0 /* TLNetworkAgent.m in Sources */,
 				B2A7800623BDEDD300407BF0 /* UIFont+ZChat.m in Sources */,
 				B2A77F5723BDE42E00407BF0 /* NSBundle+TZImagePicker.m in Sources */,
+				B2A7814A23C32E8F00407BF0 /* WMZDropDownMenu+DealDelegate.m in Sources */,
 				B2A7800B23BDEDD300407BF0 /* UIColor+ZChat.m in Sources */,
 				B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */,
+				B2A7815023C32E8F00407BF0 /* Aspects.m in Sources */,
 				B2A7800823BDEDD300407BF0 /* UINavigationController+ZChat.m in Sources */,
 				B2A7809823BDFB0100407BF0 /* PingHelper.m in Sources */,
 				B2A780A023BDFB0100407BF0 /* FSMStateUtil.m in Sources */,
 				B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */,
 				B2A780A923BDFB0100407BF0 /* TLNetworkStatusManager.m in Sources */,
 				B2A77F2923BDE37A00407BF0 /* LLImagePickerModel.m in Sources */,
+				B2A7814F23C32E8F00407BF0 /* WMZDropMenuParam.m in Sources */,
 				B2A7810E23C084C300407BF0 /* ZStudentMineLessonProgressCell.m in Sources */,
 				B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */,
 				B2A77FC523BDEAA100407BF0 /* ZBaseNetworkBackModel.m in Sources */,
@@ -1981,6 +2050,7 @@
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
 				B2A7810823C0749A00407BF0 /* ZMineMenuItemCell.m in Sources */,
+				B2A7815223C32E8F00407BF0 /* WMZDropMenuBase.m in Sources */,
 				B2A77FE123BDEAA100407BF0 /* ZSpaceEmptyCell.m in Sources */,
 				B2A7809723BDFB0100407BF0 /* PingFoundation.m in Sources */,
 				B2A77F5623BDE42E00407BF0 /* TZAssetModel.m in Sources */,
@@ -1988,6 +2058,7 @@
 				B2A77F5E23BDE42E00407BF0 /* TZPhotoPreviewCell.m in Sources */,
 				B2A7808B23BDFB0100407BF0 /* UIScrollView+ZRefreshHeader.m in Sources */,
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
+				B2A7814E23C32E8F00407BF0 /* WMZDropCustomView.m in Sources */,
 				B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */,
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
@@ -2005,7 +2076,9 @@
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,
+				B2A7815123C32E8F00407BF0 /* WMZDropDownMenu.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
+				B2A7813523C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,
 				B2A780CF23BED3C800407BF0 /* ZStudentMessageVC.m in Sources */,
@@ -2030,6 +2103,7 @@
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */,
 				B2A780AA23BDFB0100407BF0 /* TLNetworkUtility.m in Sources */,
+				B2A7815523C3349E00407BF0 /* ZStudentMainOrganizationListCell.m in Sources */,
 				B2A7802123BDF8B200407BF0 /* ZAdvertiseHelper.m in Sources */,
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
 				B2A780A523BDFB0100407BF0 /* TLBaseRequest.m in Sources */,
@@ -2069,6 +2143,7 @@
 				B2A7808F23BDFB0100407BF0 /* NSHTTPURLResponse+TLNetwork.m in Sources */,
 				B2A780CA23BED36400407BF0 /* ZStudentMainVC.m in Sources */,
 				B2A77F2A23BDE37A00407BF0 /* LLImagePickerView.m in Sources */,
+				B2A7814B23C32E8F00407BF0 /* WMZDropMenuBtn.m in Sources */,
 				B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */,
 				B2A77ECA23BDE29E00407BF0 /* UIImage+MWPhotoBrowser.m in Sources */,
 				B2A780A123BDFB0100407BF0 /* ReachStateWIFI.m in Sources */,
@@ -2080,6 +2155,7 @@
 				B2A7803223BDFA3800407BF0 /* NSFileManager+ZChat.m in Sources */,
 				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
+				B2A7814D23C32E8F00407BF0 /* WMZDropMenuTool.m in Sources */,
 				B2A77FD623BDEAA100407BF0 /* UIViewController+PopGesture.m in Sources */,
 				B2A77FC823BDEAA100407BF0 /* ZPhoneAlertView.m in Sources */,
 				B2A77FEB23BDEB7000407BF0 /* UIButton+ZWebImage.m in Sources */,

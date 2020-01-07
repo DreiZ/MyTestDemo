@@ -224,31 +224,31 @@
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(-80));
     }];
-//    
-//   contView.alpha = 0;
-//   self.loginBtn.alpha = 0;
-//   
-//   contView.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(50)*2, 0);
-//    
-//    
-//   self.loginBtn.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(60)*2, 0);
-//    
-//    
-//   [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//       contView.alpha = 1;
-//       contView.transform = CGAffineTransformMakeTranslation(0, 0);
-//       [self layoutIfNeeded];
-//   } completion:^(BOOL finished) {
-//       
-//   }];
-//    
-//   [UIView animateWithDuration:.5 delay:0.2 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//       self.loginBtn.alpha = 1;
-//       self.loginBtn.transform = CGAffineTransformMakeTranslation(0, 0);
-//       [self layoutIfNeeded];
-//   } completion:^(BOOL finished) {
-//       
-//   }];
+    
+   contView.alpha = 0;
+   self.loginBtn.alpha = 0;
+   
+   contView.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(50)*2, 0);
+    
+    
+   self.loginBtn.transform = CGAffineTransformMakeTranslation(KScreenWidth - CGFloatIn750(60)*2, 0);
+    
+    
+   [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       contView.alpha = 1;
+       contView.transform = CGAffineTransformMakeTranslation(0, 0);
+       [self layoutIfNeeded];
+   } completion:^(BOOL finished) {
+       
+   }];
+    
+   [UIView animateWithDuration:.5 delay:0.2 usingSpringWithDamping:0.4 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.loginBtn.alpha = 1;
+       self.loginBtn.transform = CGAffineTransformMakeTranslation(0, 0);
+       [self layoutIfNeeded];
+   } completion:^(BOOL finished) {
+       
+   }];
     // 是否可以登录
    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 }

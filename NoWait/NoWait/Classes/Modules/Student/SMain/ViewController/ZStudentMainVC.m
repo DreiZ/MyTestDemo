@@ -12,14 +12,17 @@
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
 #import "ZStudentMainPhotoWallCell.h"
+#import "ZStudentMainOrganizationListCell.h"
+#import "ZStudentMainFiltrateSectionView.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZStudentMainTopSearchView *searchView;
+@property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
 
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) NSMutableArray <NSArray *>*cellConfigArr;
 @property (nonatomic,strong) NSMutableArray *enteryArr;
 @property (nonatomic,strong) NSMutableArray *photoWallArr;
 
@@ -84,15 +87,31 @@
 
 - (void)resetData {
     [_cellConfigArr removeAllObjects];
+    NSMutableArray *sectionArr = @[].mutableCopy;
     
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:nil heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:topCellConfig];
+    [sectionArr addObject:topCellConfig];
     
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
-    [self.cellConfigArr addObject:enteryCellConfig];
+    [sectionArr addObject:enteryCellConfig];
     
     ZCellConfig *photoWallCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainPhotoWallCell className] title:@"ZStudentMainPhotoWallCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainPhotoWallCell z_getCellHeight:_photoWallArr] cellType:ZCellTypeClass dataModel:_photoWallArr];
-    [self.cellConfigArr addObject:photoWallCellConfig];
+    [sectionArr addObject:photoWallCellConfig];
+    
+    [_cellConfigArr addObject:sectionArr];
+    
+    
+    NSMutableArray *section1Arr = @[].mutableCopy;
+    ZCellConfig *photoWallCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:nil heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    [section1Arr addObject:photoWallCellCon1fig];
+    
+    [_cellConfigArr addObject:section1Arr];
+    
     
     
 }
@@ -118,7 +137,7 @@
 #pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
@@ -149,18 +168,25 @@
     return _searchView;
 }
 
+- (ZStudentMainFiltrateSectionView *)sectionView {
+    if (!_sectionView) {
+        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
+    }
+    return _sectionView;
+}
+
 
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _cellConfigArr.count;
 }
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr[section].count;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
 
@@ -169,17 +195,24 @@
 
 #pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.section][indexPath.row];
     CGFloat cellHeight =  cellConfig.heightOfCell;
     return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return CGFloatIn750(88);
+    }
     return 0.01f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return self.sectionView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
