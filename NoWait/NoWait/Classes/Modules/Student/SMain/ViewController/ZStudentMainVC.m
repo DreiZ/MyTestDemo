@@ -15,6 +15,8 @@
 #import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentMainFiltrateSectionView.h"
 
+#import "ZStudentOrganizationDetailVC.h"
+
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -240,7 +242,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (indexPath.section == 1) {
+        ZStudentOrganizationDetailVC *dvc = [[ZStudentOrganizationDetailVC alloc] init];
+        
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
 }
 
 
