@@ -10,6 +10,8 @@
 #import "ZCellConfig.h"
 
 #import "ZSpaceEmptyCell.h"
+#import "ZStudentOrganizationDetailBannerCell.h"
+#import "ZStudentOrganizationDetailDesCell.h"
 
 @interface ZStudentOrganizationDetailDesVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -36,10 +38,17 @@
 }
 
 - (void)initCellConfigArr {
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:KBackColor];
-    [self.cellConfigArr addObject:spacCellConfig];
+    [self.cellConfigArr removeAllObjects];
+//    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:KBackColor];
+//    [self.cellConfigArr addObject:spacCellConfig];
+    
+    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailBannerCell className] title:[ZStudentOrganizationDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:bannerCellConfig];
+    
+    ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailDesCell className] title:[ZStudentOrganizationDetailDesCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:desCellConfig];
+    
 }
-
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
@@ -47,13 +56,13 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KMainColor;
+    self.view.backgroundColor = KBackColor;
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(kTopHeight);
+        make.top.equalTo(self.view.mas_top).offset(1);
     }];
 }
 
