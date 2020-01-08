@@ -10,13 +10,14 @@
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentOrganizationDetailCoachVC.h"
 #import "ZStudentOrganizationDetailQualificationVC.h"
+#import "ZStudentOrganizationDetailVideoVC.h"
 
 @interface ZStudentOrganizationDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) ZStudentOrganizationDetailQualificationVC *qualificationVC;
 @property (nonatomic,strong) ZStudentOrganizationDetailDesVC *desVC;
 @property (nonatomic,strong) ZStudentOrganizationDetailCoachVC *coachVC;
-@property (nonatomic,strong) ZStudentOrganizationDetailCoachVC *studentVC;
+@property (nonatomic,strong) ZStudentOrganizationDetailVideoVC *studentVC;
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
@@ -63,7 +64,7 @@
 #pragma mark - lazying --
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"环境", @"资质", @"教练", @"学员"].mutableCopy;
+        _titleArr = @[@"环境", @"资质", @"教练", @"视频"].mutableCopy;
     }
     return _titleArr;
 }
@@ -121,9 +122,9 @@
     return _coachVC;
 }
 
--(ZStudentOrganizationDetailCoachVC *)studentVC {
+-(ZStudentOrganizationDetailVideoVC *)studentVC {
     if (!_studentVC) {
-        _studentVC = [[ZStudentOrganizationDetailCoachVC alloc] init];
+        _studentVC = [[ZStudentOrganizationDetailVideoVC alloc] init];
     }
     
     return _studentVC;

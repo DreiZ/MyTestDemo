@@ -223,6 +223,8 @@
 		B2A7819023C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7818F23C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m */; };
 		B2A7819323C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */; };
 		B2A7819623C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */; };
+		B2A7819923C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819823C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m */; };
+		B2A7819C23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819B23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -650,6 +652,10 @@
 		B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationLessonMoreCell.m; sourceTree = "<group>"; };
 		B2A7819423C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailImageCell.h; sourceTree = "<group>"; };
 		B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailImageCell.m; sourceTree = "<group>"; };
+		B2A7819723C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailIVideoCell.h; sourceTree = "<group>"; };
+		B2A7819823C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailIVideoCell.m; sourceTree = "<group>"; };
+		B2A7819A23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailVideoVC.h; sourceTree = "<group>"; };
+		B2A7819B23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailVideoVC.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1612,6 +1618,8 @@
 				B2A7817623C5680D00407BF0 /* ZStudentOrganizationDetailQualificationVC.m */,
 				B2A7817823C5685500407BF0 /* ZStudentOrganizationDetailCoachVC.h */,
 				B2A7817923C5685500407BF0 /* ZStudentOrganizationDetailCoachVC.m */,
+				B2A7819A23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.h */,
+				B2A7819B23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1835,6 +1843,8 @@
 				B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */,
 				B2A7819423C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.h */,
 				B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */,
+				B2A7819723C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.h */,
+				B2A7819823C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m */,
 			);
 			path = organizationDetail;
 			sourceTree = "<group>";
@@ -2092,6 +2102,7 @@
 				B2A77E8D23BDD93A00407BF0 /* ZLaunchManager.m in Sources */,
 				B2A7803023BDFA3800407BF0 /* NSDate+ZChat.m in Sources */,
 				B2A77F2C23BDE37A00407BF0 /* LLActionSheetView.m in Sources */,
+				B2A7819923C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m in Sources */,
 				B2A780ED23BF06FD00407BF0 /* PooCodeView.m in Sources */,
 				B2A7802723BDF9B100407BF0 /* ZDBManager.m in Sources */,
 				B2A7816723C4517800407BF0 /* ZHFilterMenuView.m in Sources */,
@@ -2102,6 +2113,7 @@
 				B2A7810B23C0840900407BF0 /* ZStudentMineAdverCell.m in Sources */,
 				B2A7818123C5780A00407BF0 /* ZStudentDetailModel.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
+				B2A7819C23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m in Sources */,
 				B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */,
 				B2A7800723BDEDD300407BF0 /* UITableViewCell+ZCategory.m in Sources */,
 				B2A77F5823BDE42E00407BF0 /* UIView+Layout.m in Sources */,
