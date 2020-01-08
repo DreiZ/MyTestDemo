@@ -222,6 +222,7 @@
 		B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7818C23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m */; };
 		B2A7819023C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7818F23C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m */; };
 		B2A7819323C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */; };
+		B2A7819623C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -647,6 +648,8 @@
 		B2A7818F23C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationPersonnelListItemCell.m; sourceTree = "<group>"; };
 		B2A7819123C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationLessonMoreCell.h; sourceTree = "<group>"; };
 		B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationLessonMoreCell.m; sourceTree = "<group>"; };
+		B2A7819423C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailImageCell.h; sourceTree = "<group>"; };
+		B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailImageCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1830,6 +1833,8 @@
 				B2A7818F23C5A27D00407BF0 /* ZStudentOrganizationPersonnelListItemCell.m */,
 				B2A7819123C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.h */,
 				B2A7819223C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m */,
+				B2A7819423C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.h */,
+				B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */,
 			);
 			path = organizationDetail;
 			sourceTree = "<group>";
@@ -2184,6 +2189,7 @@
 				B2A77FCB23BDEAA100407BF0 /* ZAlertView.m in Sources */,
 				B2A77EC723BDE29E00407BF0 /* MWTapDetectingView.m in Sources */,
 				B2A77F5C23BDE42E00407BF0 /* TZImageManager.m in Sources */,
+				B2A7819623C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m in Sources */,
 				B2A77EA523BDE1AB00407BF0 /* NSArray+LYNil.m in Sources */,
 				B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */,
 				B2A77EC323BDE29E00407BF0 /* MWCaptionView.m in Sources */,

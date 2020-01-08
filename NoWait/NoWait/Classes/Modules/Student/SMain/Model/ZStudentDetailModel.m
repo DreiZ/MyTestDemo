@@ -7,6 +7,9 @@
 //
 
 #import "ZStudentDetailModel.h"
+@implementation ZStudentDetailContentListModel
+
+@end
 
 @implementation ZStudentDetailBannerModel
 

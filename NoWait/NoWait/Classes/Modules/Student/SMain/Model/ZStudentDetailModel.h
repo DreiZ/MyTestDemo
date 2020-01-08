@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@interface ZStudentDetailContentListModel : NSObject
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *image;
+
+@end
 
 @interface ZStudentDetailBannerModel : NSObject
 
