@@ -7,10 +7,9 @@
 //
 
 #import "ZStudentBannerCell.h"
-#import "SDCycleScrollView.h"
+
 
 @interface ZStudentBannerCell ()<SDCycleScrollViewDelegate>
-@property (nonatomic,strong) SDCycleScrollView *iCycleScrollView;
 @end
 
 @implementation ZStudentBannerCell

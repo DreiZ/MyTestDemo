@@ -8,8 +8,10 @@
 
 #import "ZBaseCell.h"
 #import "ZStudentMainModel.h"
+#import "SDCycleScrollView.h"
 
 @interface ZStudentBannerCell : ZBaseCell
+@property (nonatomic,strong) SDCycleScrollView *iCycleScrollView;
 @property (nonatomic,strong) NSArray <ZStudentBannerModel *>*list;
 @property (nonatomic,strong) void (^bannerBlock)(ZStudentBannerModel *);
 @end

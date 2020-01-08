@@ -124,10 +124,7 @@
     [section1Arr addObject:photoWallCellCon1fig];
     [section1Arr addObject:photoWallCellCon1fig];
     
-    [_cellConfigArr addObject:section1Arr];
-    
-    
-    
+    [_cellConfigArr addObject:section1Arr]; 
 }
 
 - (void)setupMainView {
@@ -154,6 +151,8 @@
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _iTableView.showsHorizontalScrollIndicator = NO;
+        _iTableView.showsVerticalScrollIndicator = NO;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
             _iTableView.estimatedRowHeight = 0;
             _iTableView.estimatedSectionHeaderHeight = 0;

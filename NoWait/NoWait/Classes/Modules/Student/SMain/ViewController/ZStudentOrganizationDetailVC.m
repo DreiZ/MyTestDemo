@@ -46,8 +46,8 @@
     self.titleColorSelected = KMainColor;
     self.titleColorNormal = KFont6Color;
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleSizeSelected = CGFloatIn750(28);
-    self.titleSizeNormal = CGFloatIn750(28);
+    self.titleSizeSelected = CGFloatIn750(32);
+    self.titleSizeNormal = CGFloatIn750(32);
     self.progressWidth = CGFloatIn750(140);
     self.progressViewIsNaughty = YES;
     self.scrollEnable = YES;

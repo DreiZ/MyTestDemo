@@ -1,5 +1,5 @@
 //
-//  ZStudentOrganizationDetailVideoVC.h
+//  ZStudentOrganizationLessonDetailVC.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/8.
@@ -9,6 +9,7 @@
 #import "ZViewController.h"
 
 
-@interface ZStudentOrganizationDetailVideoVC : ZViewController
+@interface ZStudentOrganizationLessonDetailVC : ZViewController
 
 @end
+

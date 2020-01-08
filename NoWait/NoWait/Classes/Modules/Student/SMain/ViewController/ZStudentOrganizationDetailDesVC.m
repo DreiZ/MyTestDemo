@@ -16,6 +16,8 @@
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZStudentOrganizationLessonMoreCell.h"
+//
+//#import "ZStudentOrganizationLessonDetailVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -176,7 +178,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
         
     }
     return cell;
@@ -199,8 +201,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
-        
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
+//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+//        
+//        [self.navigationController pushViewController:lessond_vc animated:YES];
     }
 }
 
