@@ -12,6 +12,13 @@
 
 @end
 
+@interface ZStudentDetailPersonnelModel : NSObject
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *skill;
+
+@end
+
 @interface ZStudentDetailModel : NSObject
 
 @end

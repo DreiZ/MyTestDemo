@@ -12,6 +12,10 @@
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentOrganizationDetailBannerCell.h"
 #import "ZStudentOrganizationDetailDesCell.h"
+#import "ZStudentOrganizationLessonListCell.h"
+#import "ZStudentOrganizationPersonnelMoreCell.h"
+#import "ZStudentOrganizationPersonnelListCell.h"
+#import "ZStudentOrganizationLessonMoreCell.h"
 
 @interface ZStudentOrganizationDetailDesVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -39,8 +43,6 @@
 
 - (void)initCellConfigArr {
     [self.cellConfigArr removeAllObjects];
-//    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:KBackColor];
-//    [self.cellConfigArr addObject:spacCellConfig];
     
     ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailBannerCell className] title:[ZStudentOrganizationDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:bannerCellConfig];
@@ -48,6 +50,71 @@
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailDesCell className] title:[ZStudentOrganizationDetailDesCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:desCellConfig];
     
+    {
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+        
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:lessonMoreCellConfig];
+        
+        NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
+        
+        NSMutableArray *peoples = @[].mutableCopy;
+        for (int i = 0; i < entryArr.count; i++) {
+            ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+            model.image = entryArr[i][1];
+            model.name = entryArr[i][0];
+            model.skill = entryArr[i][0];
+            [peoples addObject:model];
+        }
+        
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:[ZStudentOrganizationPersonnelListCell className] showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+        [self.cellConfigArr addObject:coachCellConfig];
+    }
+    
+    {
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+        
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:lessonMoreCellConfig];
+        
+        NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
+        
+        NSMutableArray *peoples = @[].mutableCopy;
+        for (int i = 0; i < entryArr.count; i++) {
+            ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+            model.image = entryArr[i][1];
+            model.name = entryArr[i][0];
+            model.skill = entryArr[i][0];
+            [peoples addObject:model];
+        }
+        
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:[ZStudentOrganizationPersonnelListCell className] showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+        [self.cellConfigArr addObject:coachCellConfig];
+    }
+    
+    {
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+        
+        
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:lessonMoreCellConfig];
+        
+        ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        [self.cellConfigArr addObject:lessonCellConfig];
+        
+        ZCellConfig *moreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonMoreCell className] title:[ZStudentOrganizationLessonMoreCell className] showInfoMethod:@selector(setMoreTitle:) heightOfCell:[ZStudentOrganizationLessonMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"初学者课程"];
+        [self.cellConfigArr addObject:moreCellConfig];
+    }
 }
 
 - (void)setNavigation {
@@ -61,7 +128,7 @@
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(100));
         make.top.equalTo(self.view.mas_top).offset(1);
     }];
 }
@@ -72,6 +139,8 @@
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _iTableView.showsHorizontalScrollIndicator = NO;
+        _iTableView.showsVerticalScrollIndicator = NO;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
             _iTableView.estimatedRowHeight = 0;
             _iTableView.estimatedSectionHeaderHeight = 0;
@@ -86,7 +155,8 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
-        } _iTableView.delegate = self;
+        }
+        _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }
     return _iTableView;

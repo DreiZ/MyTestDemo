@@ -10,6 +10,9 @@
 
 @implementation ZStudentDetailBannerModel
 
+@end
+
+@implementation ZStudentDetailPersonnelModel
 
 @end
 

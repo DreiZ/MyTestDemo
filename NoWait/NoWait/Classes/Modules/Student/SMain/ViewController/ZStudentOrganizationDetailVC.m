@@ -149,7 +149,7 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGFloatIn750(100);
-    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY);
+    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kStatusBarHeight);
 }
 
 

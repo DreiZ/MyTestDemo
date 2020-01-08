@@ -37,28 +37,28 @@
     
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(20));
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(40));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(40));
     }];
     
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.equalTo(self.titleLabel.mas_left);
            make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(16));
-           make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+           make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(40));
     }];
     
     [self.businessHoursLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_left);
         make.top.equalTo(self.addressLabel.mas_bottom).offset(CGFloatIn750(16));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(40));
     }];
     
    [self.contentView addSubview:self.introductionView ];
    [self.introductionView mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(self.titleLabel.mas_left);
        make.top.equalTo(self.businessHoursLabel.mas_bottom).offset(CGFloatIn750(18));
-       make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+       make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(40));
        make.height.mas_equalTo(CGFloatIn750(30));
    }];
     
@@ -66,7 +66,7 @@
     [self.activityView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_left);
         make.top.equalTo(self.introductionView.mas_bottom).offset(CGFloatIn750(18));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(40));
         make.height.mas_equalTo(CGFloatIn750(30));
     }];
     
