@@ -11,8 +11,8 @@
 #import "ZCellConfig.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentOrganizationDetailIVideoCell.h"
-//#import "ZStudentLessonDetailBannerCell.h"
+#import "ZStudentLessonDetailMainCell.h"
+#import "ZStudentLessonDetailBannerCell.h"
 
 #import "ZStudentLessonEvaView.h"
 #import "ZStudentLessonDetailView.h"
@@ -24,12 +24,33 @@
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIScrollView *subScrollView;
 @property (nonatomic,strong) ZMenuSelectdView *menuSelectedView;
+@property (nonatomic,strong) UIButton *bottomBtn;
 
+@property (nonatomic,strong) ZStudentLessonDetailView *iDetilView;
+@property (nonatomic,strong) ZStudentLessonNoticeView *iNoticeView;
+@property (nonatomic,strong) ZStudentLessonEvaView *iEvaView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray <NSArray *>*cellConfigArr;
 @end
 @implementation ZStudentOrganizationLessonDetailVC
+
+#pragma mark vc delegate-------------------
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,18 +78,20 @@
         ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
         [section1Arr addObject:spacCellConfig];
         
-//        ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailBannerCell className] title:[ZStudentLessonDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-//        [section1Arr addObject:bannerCellConfig];
+        ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailBannerCell className] title:[ZStudentLessonDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [section1Arr addObject:bannerCellConfig];
 
         [self.cellConfigArr addObject:section1Arr];
     }
-//
-//    {
-//        NSMutableArray *section2Arr = @[].mutableCopy;
-//        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
-//        [section2Arr addObject:spacCellConfig];
-//        [self.cellConfigArr addObject:section2Arr];
-//    }
+
+    {
+        NSMutableArray *section2Arr = @[].mutableCopy;
+        ZCellConfig *mainCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailMainCell className] title:[ZStudentLessonDetailMainCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailMainCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [section2Arr addObject:mainCellConfig];
+        [self.cellConfigArr addObject:section2Arr];
+        
+        
+    }
 }
 
 - (void)setNavigation {
@@ -84,6 +107,12 @@
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(100));
         make.top.equalTo(self.view.mas_top).offset(1);
+    }];
+    
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(100));
     }];
 }
 
@@ -121,13 +150,24 @@
 - (ZMenuSelectdView *)menuSelectedView {
     if (!_menuSelectedView) {
         __weak typeof(self) weakSelf = self;
-        _menuSelectedView = [[ZMenuSelectdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, CGFloatIn750(98)) withTitleArr:@[@"体重", @"饮食", @"运动"] topIndex:@"0"];
+        _menuSelectedView = [[ZMenuSelectdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, CGFloatIn750(98)) withTitleArr:@[@"详情", @"须知", @"评价"] topIndex:@"0"];
         _menuSelectedView.selectBlock = ^(NSInteger index) {
             [weakSelf.subScrollView setContentOffset:CGPointMake(KScreenWidth*index, 0)];
 //            [weakSelf refreshTypeData:index];
         };
     }
     return _menuSelectedView;
+}
+
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_bottomBtn setTitle:@"立即预约" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
+        [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+    }
+    return _bottomBtn;
 }
 
 #pragma mark tableView -------datasource-----
@@ -143,8 +183,31 @@
     ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+    if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailMainCell"]){
+        ZStudentLessonDetailMainCell *mainCell = (ZStudentLessonDetailMainCell *)cell;
+        mainCell.mainVC = self;
+//        mainCell.bodyData = self.mainViewModel.mainNetModel.body_data;
+//        mainCell.mealData = self.mainViewModel.mainMealModel;
+//        mainCell.sportModel = self.mainViewModel.sportModel;
+        
+        self.subScrollView = mainCell.iScrollView;
+        self.iDetilView = mainCell.iDetilView;
+        self.iNoticeView = mainCell.iNoticeView ;
+        self.iEvaView = mainCell.iEvaView;
+        self.subScrollView.delegate = self;
+        
+//        __weak typeof(self) weakSelf = self;
+//        self.iWeightView.refreshDataBlock = ^{
+//            [weakSelf refreshTypeData:0];
+//        };
+//
+//        self.iDietView.refreshDataBlock = ^{
+//            [weakSelf refreshTypeData:1];
+//        };
+//
+//        self.iSportView.refreshDataBlock = ^{
+//            [weakSelf refreshTypeData:2];
+//        };
         
     }
     return cell;
@@ -165,6 +228,17 @@
     return 0.01f;
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+//        return self.levelListView;
+        return self.menuSelectedView;
+    }
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = KBackColor;
+    return view;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIVideoCell"]) {
@@ -172,21 +246,72 @@
     }
 }
 
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([scrollView isEqual:self.subScrollView]) {
+        self.iDetilView.iTableView.scrollEnabled = NO;
+        self.iNoticeView.iTableView.scrollEnabled = NO;
+        self.iEvaView.iTableView.scrollEnabled = NO;
+    }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if ([scrollView isEqual:self.subScrollView]) {
+        self.iDetilView.iTableView.scrollEnabled = YES;
+        self.iNoticeView.iTableView.scrollEnabled = YES;
+        self.iEvaView.iTableView.scrollEnabled = YES;
+        
+        [self refreshTypeData:(long)(self.subScrollView.contentOffset.x/KScreenWidth)+1];
+    }
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if ([scrollView isEqual:self.iTableView]) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height-scrollView.size.height-0.5)) {
+            self.offsetType = OffsetTypeMax;
+        } else if (scrollView.contentOffset.y <= 0) {
+            self.offsetType = OffsetTypeMin;
+        } else {
+            self.offsetType = OffsetTypeCenter;
+        }
+        
+        if ([self.menuSelectedView.topIndex integerValue] == 0 && self.iDetilView.offsetType == OffsetTypeCenter) {
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentSize.height-scrollView.size.height);
+        }
+        
+        if ([self.menuSelectedView.topIndex integerValue] == 1 && self.iNoticeView.offsetType == OffsetTypeCenter) {
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentSize.height-scrollView.size.height);
+        }
+        
+        if ([self.menuSelectedView.topIndex integerValue] == 2 && self.iEvaView.offsetType == OffsetTypeCenter) {
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentSize.height-scrollView.size.height);
+        }
+        
+    } else if ([scrollView isEqual:self.subScrollView]) {
+        
+//        [self.levelListView configAnimationOffsetX:self.subScrollView.contentOffset.x];
+        [self.menuSelectedView setOffset:self.subScrollView.contentOffset.x];
+    }
+}
+
+
+
+#pragma mark 刷新数据
+- (void)refreshTypeData:(NSInteger)index {
+//    if (index == 0) {
+//        [self refreshData];
+//    }else if (index == 1){
+//        [self refreshDietData];
+//    }else{
+//        [self refreshSportData];
+//    }
 }
 @end
 

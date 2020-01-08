@@ -41,7 +41,7 @@
 #pragma mark - lazy loading
 - (SDCycleScrollView *)iCycleScrollView {
     if (!_iCycleScrollView) {
-        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(20), CGFloatIn750(20), KScreenWidth-CGFloatIn750(40), CGFloatIn750(276)) delegate:self placeholderImage:[UIImage imageNamed:@"serverTopbg"]];
+        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(10), CGFloatIn750(10), KScreenWidth-CGFloatIn750(20), CGFloatIn750(276)) delegate:self placeholderImage:[UIImage imageNamed:@"lessonDetail"]];
         _iCycleScrollView.autoScrollTimeInterval = 1;
         _iCycleScrollView.currentPageDotImage =  [UIImage imageNamed:@"pageControlCurrentDot"];
         _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];

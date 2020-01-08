@@ -8,8 +8,14 @@
 
 #import "ZViewController.h"
 
+//tableview偏移类型
+typedef NS_ENUM(NSInteger, OffsetType) {
+    OffsetTypeMin,
+    OffsetTypeCenter,
+    OffsetTypeMax,
+};
 
 @interface ZStudentOrganizationLessonDetailVC : ZViewController
-
+@property (nonatomic, assign) OffsetType offsetType;
 @end
 

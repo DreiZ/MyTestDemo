@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZStudentLessonDetailBaseView.h"
+#import "ZStudentOrganizationLessonDetailVC.h"
+#import "ZStudentLessonTableView.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZStudentLessonDetailView : UIView
+@interface ZStudentLessonDetailView : ZStudentLessonDetailBaseView
+@property (nonatomic,weak) ZStudentOrganizationLessonDetailVC *mainVC;
+@property (nonatomic,strong) ZStudentLessonTableView *iTableView;
+@property (nonatomic,assign) OffsetType offsetType;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

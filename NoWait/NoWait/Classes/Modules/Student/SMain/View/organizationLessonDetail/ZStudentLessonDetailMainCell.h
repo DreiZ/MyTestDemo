@@ -7,9 +7,18 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZStudentLessonDetailView.h"
+#import "ZStudentLessonNoticeView.h"
+#import "ZStudentLessonEvaView.h"
+#import "ZStudentOrganizationLessonDetailVC.h"
 
 @interface ZStudentLessonDetailMainCell : ZBaseCell
+@property (nonatomic,weak) ZStudentOrganizationLessonDetailVC *mainVC;
+
+@property (nonatomic,strong) UIScrollView *iScrollView;
+@property (nonatomic,strong) ZStudentLessonDetailView *iDetilView;
+@property (nonatomic,strong) ZStudentLessonNoticeView *iNoticeView;
+@property (nonatomic,strong) ZStudentLessonEvaView *iEvaView;
 
 @end
 

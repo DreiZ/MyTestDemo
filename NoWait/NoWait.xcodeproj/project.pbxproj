@@ -228,10 +228,11 @@
 		B2A781A323C5C93400407BF0 /* ZStudentLessonDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781A223C5C93400407BF0 /* ZStudentLessonDetailView.m */; };
 		B2A781A623C5C95300407BF0 /* ZStudentLessonNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781A523C5C95300407BF0 /* ZStudentLessonNoticeView.m */; };
 		B2A781A923C5C96900407BF0 /* ZStudentLessonEvaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781A823C5C96900407BF0 /* ZStudentLessonEvaView.m */; };
-		B2A781AC23C5CB2700407BF0 /* ZMenuSelectdView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781AB23C5CB2700407BF0 /* ZMenuSelectdView.m */; };
 		B2A781B723C5D24800407BF0 /* ZStudentLessonDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781B423C5D24800407BF0 /* ZStudentLessonDetailMainCell.m */; };
 		B2A781B823C5D24800407BF0 /* ZStudentLessonDetailBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781B623C5D24800407BF0 /* ZStudentLessonDetailBannerCell.m */; };
 		B2A781BB23C5D27900407BF0 /* ZStudentOrganizationLessonDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781BA23C5D27900407BF0 /* ZStudentOrganizationLessonDetailVC.m */; };
+		B2A781BE23C5E04E00407BF0 /* ZStudentLessonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781BD23C5E04E00407BF0 /* ZStudentLessonTableView.m */; };
+		B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -669,14 +670,16 @@
 		B2A781A523C5C95300407BF0 /* ZStudentLessonNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonNoticeView.m; sourceTree = "<group>"; };
 		B2A781A723C5C96900407BF0 /* ZStudentLessonEvaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonEvaView.h; sourceTree = "<group>"; };
 		B2A781A823C5C96900407BF0 /* ZStudentLessonEvaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonEvaView.m; sourceTree = "<group>"; };
-		B2A781AA23C5CB2700407BF0 /* ZMenuSelectdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMenuSelectdView.h; sourceTree = "<group>"; };
-		B2A781AB23C5CB2700407BF0 /* ZMenuSelectdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMenuSelectdView.m; sourceTree = "<group>"; };
 		B2A781B323C5D24800407BF0 /* ZStudentLessonDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailMainCell.h; sourceTree = "<group>"; };
 		B2A781B423C5D24800407BF0 /* ZStudentLessonDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailMainCell.m; sourceTree = "<group>"; };
 		B2A781B523C5D24800407BF0 /* ZStudentLessonDetailBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailBannerCell.h; sourceTree = "<group>"; };
 		B2A781B623C5D24800407BF0 /* ZStudentLessonDetailBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailBannerCell.m; sourceTree = "<group>"; };
 		B2A781B923C5D27900407BF0 /* ZStudentOrganizationLessonDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationLessonDetailVC.h; sourceTree = "<group>"; };
 		B2A781BA23C5D27900407BF0 /* ZStudentOrganizationLessonDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationLessonDetailVC.m; sourceTree = "<group>"; };
+		B2A781BC23C5E04E00407BF0 /* ZStudentLessonTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonTableView.h; sourceTree = "<group>"; };
+		B2A781BD23C5E04E00407BF0 /* ZStudentLessonTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonTableView.m; sourceTree = "<group>"; };
+		B2A781BF23C5E2D600407BF0 /* ZStudentLessonDetailBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailBaseView.h; sourceTree = "<group>"; };
+		B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailBaseView.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1886,8 +1889,10 @@
 				B2A781A523C5C95300407BF0 /* ZStudentLessonNoticeView.m */,
 				B2A781A723C5C96900407BF0 /* ZStudentLessonEvaView.h */,
 				B2A781A823C5C96900407BF0 /* ZStudentLessonEvaView.m */,
-				B2A781AA23C5CB2700407BF0 /* ZMenuSelectdView.h */,
-				B2A781AB23C5CB2700407BF0 /* ZMenuSelectdView.m */,
+				B2A781BC23C5E04E00407BF0 /* ZStudentLessonTableView.h */,
+				B2A781BD23C5E04E00407BF0 /* ZStudentLessonTableView.m */,
+				B2A781BF23C5E2D600407BF0 /* ZStudentLessonDetailBaseView.h */,
+				B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */,
 			);
 			path = organizationLessonDetail;
 			sourceTree = "<group>";
@@ -2183,6 +2188,7 @@
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
 				B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */,
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
+				B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */,
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
@@ -2207,7 +2213,6 @@
 				B2A77F7123BDE89C00407BF0 /* AppDelegate+AppService.m in Sources */,
 				B2A7809123BDFB0100407BF0 /* TLNetworking.m in Sources */,
 				B2A77F2F23BDE37A00407BF0 /* UIView+LLExtension.m in Sources */,
-				B2A781AC23C5CB2700407BF0 /* ZMenuSelectdView.m in Sources */,
 				B2A77F2E23BDE37A00407BF0 /* UIImageView+LLExtension.m in Sources */,
 				B2A7800A23BDEDD300407BF0 /* ZCellConfig.m in Sources */,
 				B2A77F7B23BDE9DB00407BF0 /* XYTransition.m in Sources */,
@@ -2254,6 +2259,7 @@
 				B2A77EA523BDE1AB00407BF0 /* NSArray+LYNil.m in Sources */,
 				B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */,
 				B2A77EC323BDE29E00407BF0 /* MWCaptionView.m in Sources */,
+				B2A781BE23C5E04E00407BF0 /* ZStudentLessonTableView.m in Sources */,
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
 				B2A77F2D23BDE37A00407BF0 /* UIImage+LLGif.m in Sources */,
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,

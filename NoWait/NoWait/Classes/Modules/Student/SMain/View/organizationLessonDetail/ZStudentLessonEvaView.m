@@ -10,12 +10,21 @@
 
 @implementation ZStudentLessonEvaView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initMainView];
+    }
+    return self;
 }
-*/
+
+#pragma mark 初始化view
+- (void)initMainView {
+    self.backgroundColor = [UIColor purpleColor];
+    self.clipsToBounds = YES;
+    self.layer.masksToBounds = YES;
+    
+}
 
 @end

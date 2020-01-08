@@ -16,6 +16,8 @@
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZStudentOrganizationLessonMoreCell.h"
+
+#import "ZStudentOrganizationLessonDetailVC.h"
 //
 //#import "ZStudentOrganizationLessonDetailVC.h"
 
@@ -202,9 +204,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//        
-//        [self.navigationController pushViewController:lessond_vc animated:YES];
+        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+        
+        [self.navigationController pushViewController:lessond_vc animated:YES];
     }
 }
 

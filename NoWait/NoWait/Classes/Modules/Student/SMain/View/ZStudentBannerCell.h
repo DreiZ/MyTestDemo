@@ -14,4 +14,6 @@
 @property (nonatomic,strong) SDCycleScrollView *iCycleScrollView;
 @property (nonatomic,strong) NSArray <ZStudentBannerModel *>*list;
 @property (nonatomic,strong) void (^bannerBlock)(ZStudentBannerModel *);
+
+-(void)setupView;
 @end
