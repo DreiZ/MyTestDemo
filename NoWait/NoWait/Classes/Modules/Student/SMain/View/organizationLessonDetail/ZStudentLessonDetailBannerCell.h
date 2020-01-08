@@ -6,10 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentBannerCell.h"
+#import "ZBaseCell.h"
+#import "ZStudentDetailModel.h"
 
 
-@interface ZStudentLessonDetailBannerCell : ZStudentBannerCell
+@interface ZStudentLessonDetailBannerCell : ZBaseCell
 
+@property (nonatomic,strong) NSArray <ZStudentDetailBannerModel *>*list;
+@property (nonatomic,strong) void (^bannerBlock)(ZStudentDetailBannerModel *);
 @end
 

@@ -13,6 +13,7 @@
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonDetailMainCell.h"
 #import "ZStudentLessonDetailBannerCell.h"
+#import "ZStudentLessonDetailOrgazaitionNameCell.h"
 
 #import "ZStudentLessonEvaView.h"
 #import "ZStudentLessonDetailView.h"
@@ -80,6 +81,10 @@
         
         ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailBannerCell className] title:[ZStudentLessonDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [section1Arr addObject:bannerCellConfig];
+        
+        ZCellConfig *orgCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailOrgazaitionNameCell className] title:[ZStudentLessonDetailOrgazaitionNameCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailOrgazaitionNameCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [section1Arr addObject:orgCellConfig];
+        [section1Arr addObject:spacCellConfig];
 
         [self.cellConfigArr addObject:section1Arr];
     }
@@ -116,7 +121,7 @@
     }];
 }
 
-#pragma mark lazy loading...
+#pragma mark -- lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
