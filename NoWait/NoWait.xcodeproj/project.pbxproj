@@ -11,6 +11,9 @@
 		B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */; };
 		B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */; };
 		B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */; };
+		B223BCC223C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCC123C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m */; };
+		B223BCC523C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCC423C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m */; };
+		B223BCC823C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCC723C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m */; };
 		B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */; };
 		B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A77E2A23BDA38600407BF0 /* Assets.xcassets */; };
 		B2A77E3B23BDA38600407BF0 /* NoWaitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E3A23BDA38600407BF0 /* NoWaitTests.m */; };
@@ -265,6 +268,12 @@
 		B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailLessonItemCell.m; sourceTree = "<group>"; };
 		B223BCBD23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonSubtitleCell.h; sourceTree = "<group>"; };
 		B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailLessonSubtitleCell.m; sourceTree = "<group>"; };
+		B223BCC023C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailPeoplesCell.h; sourceTree = "<group>"; };
+		B223BCC123C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailPeoplesCell.m; sourceTree = "<group>"; };
+		B223BCC323C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailPeoplesItemCell.h; sourceTree = "<group>"; };
+		B223BCC423C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailPeoplesItemCell.m; sourceTree = "<group>"; };
+		B223BCC623C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLesssonDetailImageCell.h; sourceTree = "<group>"; };
+		B223BCC723C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLesssonDetailImageCell.m; sourceTree = "<group>"; };
 		B24DD51A23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSectionTitleCell.h; sourceTree = "<group>"; };
 		B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSectionTitleCell.m; sourceTree = "<group>"; };
 		B2A77E1B23BDA38400407BF0 /* 莫等闲.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "莫等闲.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1918,6 +1927,12 @@
 				B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */,
 				B223BCBD23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.h */,
 				B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */,
+				B223BCC023C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.h */,
+				B223BCC123C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m */,
+				B223BCC323C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.h */,
+				B223BCC423C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m */,
+				B223BCC623C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.h */,
+				B223BCC723C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m */,
 			);
 			path = organizationLessonDetail;
 			sourceTree = "<group>";
@@ -2218,6 +2233,7 @@
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
 				B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */,
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
+				B223BCC223C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m in Sources */,
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
@@ -2275,6 +2291,7 @@
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
 				B2A77E6023BDC83300407BF0 /* AppDelegate.m in Sources */,
 				B2A7810123C0732B00407BF0 /* ZMineMenuCell.m in Sources */,
+				B223BCC523C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,
 				B2A77FCC23BDEAA100407BF0 /* ZBaseViewModel.m in Sources */,
 				B2A780A823BDFB0100407BF0 /* TLNetworkConfig.m in Sources */,
@@ -2293,6 +2310,7 @@
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
 				B2A77F2D23BDE37A00407BF0 /* UIImage+LLGif.m in Sources */,
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,
+				B223BCC823C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m in Sources */,
 				B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */,
 				B2A7816523C4517800407BF0 /* ZHFilterItemTableViewCell.m in Sources */,
 				B2A77F6223BDE42E00407BF0 /* TZImageRequestOperation.m in Sources */,

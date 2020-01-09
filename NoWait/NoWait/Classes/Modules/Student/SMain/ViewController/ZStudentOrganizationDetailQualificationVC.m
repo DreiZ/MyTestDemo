@@ -42,6 +42,7 @@
     {
         ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
         [self.cellConfigArr addObject:spacCellConfig];
+        
         for (int i = 0; i < 18; i++) {
             ZStudentDetailContentListModel *model = [[ZStudentDetailContentListModel alloc] init];
             model.image = [NSString stringWithFormat:@"wallhaven%u",arc4random_uniform(4)+1];

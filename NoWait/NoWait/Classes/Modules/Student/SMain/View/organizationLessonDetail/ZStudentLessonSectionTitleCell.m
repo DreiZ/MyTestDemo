@@ -76,7 +76,7 @@
 - (UILabel *)moreLabel {
     if (!_moreLabel) {
         _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = KFont3Color;
+        _moreLabel.textColor = KFont9Color;
         _moreLabel.text = @"";
         _moreLabel.numberOfLines = 1;
         _moreLabel.textAlignment = NSTextAlignmentRight;
@@ -95,7 +95,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(76);
+    return CGFloatIn750(80);
 }
 
 - (void)setModel:(ZStudentDetailSectionModel *)model {

@@ -54,7 +54,7 @@
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
     }
     return _titleLabel;
 }
@@ -75,7 +75,7 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(88);
+    return CGFloatIn750(90);
 }
 
 @end
