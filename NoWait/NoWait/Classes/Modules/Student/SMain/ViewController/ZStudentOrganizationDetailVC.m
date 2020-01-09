@@ -12,12 +12,19 @@
 #import "ZStudentOrganizationDetailQualificationVC.h"
 #import "ZStudentOrganizationDetailVideoVC.h"
 
+#import "ZStudentLessonSelectMainView.h"
+
 @interface ZStudentOrganizationDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) UIButton *subscribeBtn;
+@property (nonatomic,strong) UIButton *buyBtn;
 @property (nonatomic,strong) ZStudentOrganizationDetailQualificationVC *qualificationVC;
 @property (nonatomic,strong) ZStudentOrganizationDetailDesVC *desVC;
 @property (nonatomic,strong) ZStudentOrganizationDetailCoachVC *coachVC;
 @property (nonatomic,strong) ZStudentOrganizationDetailVideoVC *studentVC;
+
+@property (nonatomic,strong) ZStudentLessonSelectMainView *selectView;
+
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
@@ -36,6 +43,20 @@
     [super viewDidLoad];
     
     [self setNavgation];
+    
+    [self.view addSubview:self.subscribeBtn];
+    [self.subscribeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(220));
+        make.right.equalTo(self.view.mas_right);
+    }];
+    
+    [self.view addSubview:self.buyBtn];
+    [self.buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(120));
+        make.right.equalTo(self.view.mas_right);
+    }];
 }
 
 
@@ -61,7 +82,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-#pragma mark - lazying --
+#pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
         _titleArr = @[@"环境", @"资质", @"教练", @"视频"].mutableCopy;
@@ -95,6 +116,38 @@
     }
     return _navLeftBtn;
 }
+
+- (UIButton *)subscribeBtn {
+    if (!_subscribeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _subscribeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _subscribeBtn.layer.masksToBounds = YES;
+        _subscribeBtn.layer.cornerRadius = CGFloatIn750(44);
+        _subscribeBtn.backgroundColor = KMainColor;
+        [_subscribeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
+        [_subscribeBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_subscribeBtn bk_whenTapped:^{
+            [weakSelf.selectView showSelectView];
+        }];
+    }
+    return _subscribeBtn;
+}
+
+
+- (UIButton *)buyBtn {
+    if (!_buyBtn) {
+        _buyBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _buyBtn.layer.masksToBounds = YES;
+        _buyBtn.layer.cornerRadius = CGFloatIn750(44);
+        _buyBtn.backgroundColor = KMainColor;
+        [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
+        [_buyBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    }
+    return _buyBtn;
+}
+
 
 -(ZStudentOrganizationDetailDesVC *)desVC {
     if (!_desVC) {
@@ -131,6 +184,13 @@
 }
 
 
+- (ZStudentLessonSelectMainView *)selectView {
+    if (!_selectView) {
+        _selectView = [[ZStudentLessonSelectMainView alloc] init];
+    }
+    return _selectView;
+}
+
 #pragma mark - Datasource & Delegate
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     return self.vcArr.count;
@@ -152,6 +212,5 @@
     CGFloat originY = CGFloatIn750(100);
     return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kStatusBarHeight);
 }
-
 
 @end

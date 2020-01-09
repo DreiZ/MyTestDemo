@@ -24,7 +24,7 @@
     
     
     [self.contentView addSubview:self.userImageView];
-    [self.contentView addSubview:self.titleLabel];
+    
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
@@ -37,7 +37,7 @@
         make.left.right.bottom.equalTo(self.userImageView);
         make.height.mas_equalTo(CGFloatIn750(46));
     }];
-    
+    [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(titelBack);
     }];
@@ -57,7 +57,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont2Color;
+        _titleLabel.textColor = KFont3Color;
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;

@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ZStudentDetailLessonListModel : NSObject
+@property (nonatomic,strong) NSString *lessonTitle;
+@property (nonatomic,strong) NSString *lessonNum;
+@property (nonatomic,strong) NSString *lessonTime;
+@property (nonatomic,strong) NSString *lessonStudentNum;
+@property (nonatomic,strong) NSString *lessonPrice;
+@property (nonatomic,assign) BOOL isLessonSelected;
+@end
+
 @interface ZStudentDetailEvaListModel : NSObject
 @property (nonatomic,strong) NSString *userImage;
 @property (nonatomic,strong) NSString *userName;
