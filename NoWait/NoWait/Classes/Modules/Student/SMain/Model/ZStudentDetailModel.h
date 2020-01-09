@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+
+@interface ZStudentDetailDesListModel : NSObject
+@property (nonatomic,strong) NSString *desTitle;
+@property (nonatomic,strong) NSString *desSub;
+
+@end
+
 @interface ZStudentDetailDesModel : NSObject
 
 @end

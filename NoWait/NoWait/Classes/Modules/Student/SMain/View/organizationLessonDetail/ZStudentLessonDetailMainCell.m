@@ -108,7 +108,7 @@
 
 - (void)setDesModel:(ZStudentDetailDesModel *)desModel {
     _desModel = desModel;
-    self.desModel = desModel;
+    self.iDetilView.desModel = desModel;
 }
 
 - (void)setNoticeModel:(ZStudentDetailNoticeModel *)noticeModel {

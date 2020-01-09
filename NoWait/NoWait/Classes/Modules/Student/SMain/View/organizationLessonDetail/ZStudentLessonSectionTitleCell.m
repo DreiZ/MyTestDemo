@@ -27,12 +27,12 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KRedColor;
+    self.contentView.backgroundColor = KWhiteColor;
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [self.contentView addSubview:self.moreLabel];
-    [self.moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentView addSubview:self.titleLabel];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(24));
         make.centerY.equalTo(self.mas_centerY);
     }];
@@ -40,7 +40,7 @@
     [self.contentView addSubview:self.moreImageView];
     [self.moreImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(24));
-        make.centerY.equalTo(self.moreLabel.mas_centerY);
+        make.centerY.equalTo(self.titleLabel.mas_centerY);
     }];
     
     [self.contentView addSubview:self.moreLabel];
@@ -50,7 +50,7 @@
     }];
   
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KBackColor;
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
@@ -64,8 +64,8 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont6Color;
-        _titleLabel.text = @"课程简介";
+        _titleLabel.textColor = KFont2Color;
+        _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];

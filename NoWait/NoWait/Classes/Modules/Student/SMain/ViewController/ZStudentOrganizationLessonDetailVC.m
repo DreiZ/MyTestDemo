@@ -226,6 +226,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return self.menuSelectedView.height;
+    }
     return 0.01f;
 }
 

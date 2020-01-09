@@ -110,6 +110,15 @@
     [topView addSubview:_selectedLineView];
     _topIndex = [NSString stringWithFormat:@"%ld",_selectedIndex];
     [self selectedBtnOnClick:_lastSelectedBtn];
+    
+    
+//    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+//    bottomLineView.backgroundColor = KLineColor;
+//    [self addSubview:bottomLineView];
+//    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(self);
+//        make.height.mas_equalTo(0.5);
+//    }];
 }
 
 

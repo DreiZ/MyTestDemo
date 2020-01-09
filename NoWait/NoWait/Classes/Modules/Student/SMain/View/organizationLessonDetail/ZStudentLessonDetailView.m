@@ -9,6 +9,7 @@
 #import "ZStudentLessonDetailView.h"
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonSectionTitleCell.h"
+#import "ZStudentLessonDetailLessonListCell.h"
 
 @interface ZStudentLessonDetailView ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -27,14 +28,14 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor orangeColor];
+    self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
     [self addSubview:self.iTableView];
       [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
           make.left.bottom.right.equalTo(self);
-          make.top.equalTo(self.mas_top);
+          make.top.equalTo(self.mas_top).offset(CGFloatIn750(0));
       }];
     
     [self setData];
@@ -144,9 +145,9 @@
 - (void)resetData {
     [_cellConfigArr removeAllObjects];
 
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
-    [_cellConfigArr addObject:spacCellConfig];
-    
+//    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+//    [_cellConfigArr addObject:spacCellConfig];
+//    
     
     ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
     model.title = @"课程简介";
@@ -154,6 +155,40 @@
     ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [_cellConfigArr addObject:lessonTitleCellConfig];
     
+    NSMutableArray *list = @[].mutableCopy;
+    NSArray *des = @[@"瑜伽月卡：3234234",@"课程类别：对方电商大师傅介绍介绍介绍计算机技术",@"打分数档搭嘎搭嘎"];
+    for (int i = 0; i < des.count; i++) {
+        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
+        model.desSub = des[i];
+        [list addObject:model];
+    }
+    
+    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
+    [_cellConfigArr addObject:lessonDesCellConfig];
+    
+    
+    {
+        //须知
+        ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
+        model.title = @"须知";
+        model.isShowRight = NO;
+        ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [_cellConfigArr addObject:lessonTitleCellConfig];
+        
+        NSMutableArray *list = @[].mutableCopy;
+        NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"],
+                                    @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
+        for (int i = 0; i < des.count; i++) {
+            ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
+            model.desTitle = des[i][0];
+            model.desSub = des[i][1];
+            [list addObject:model];
+        }
+        
+        ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
+        [_cellConfigArr addObject:lessonDesCellConfig];
+        
+    }
     
     [self.iTableView reloadData];
 }
@@ -162,5 +197,6 @@
 -(void)setDesModel:(ZStudentDetailDesModel *)desModel {
     _desModel = desModel;
     [self resetData];
+    [self.iTableView reloadData];
 }
 @end
