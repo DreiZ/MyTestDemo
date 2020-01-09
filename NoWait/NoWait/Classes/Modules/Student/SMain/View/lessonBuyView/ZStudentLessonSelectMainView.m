@@ -52,7 +52,7 @@
     [self addSubview:self.lessonView];
     [self.lessonView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(KScreenHeight/2.0f);
+        make.height.mas_equalTo(KScreenHeight/5.0f * 3);
     }];
     
     NSMutableArray *list = @[].mutableCopy;
