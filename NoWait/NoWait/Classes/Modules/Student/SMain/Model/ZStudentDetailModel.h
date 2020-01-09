@@ -7,6 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+
+@interface ZStudentDetailDesModel : NSObject
+
+@end
+
+@interface ZStudentDetailNoticeModel : NSObject
+
+@end
+
+@interface ZStudentDetailEvaModel : NSObject
+
+@end
+
+@interface ZStudentDetailSectionModel : NSObject
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *right;
+@property (nonatomic,assign) BOOL isShowRight;
+@end
+
 @interface ZStudentDetailContentListModel : NSObject
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image;

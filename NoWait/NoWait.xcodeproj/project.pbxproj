@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A2E774EE0D9ED8DE2FF9684 /* libPods-NoWait.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */; };
+		B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */; };
 		B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A77E2A23BDA38600407BF0 /* Assets.xcassets */; };
 		B2A77E3B23BDA38600407BF0 /* NoWaitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E3A23BDA38600407BF0 /* NoWaitTests.m */; };
 		B2A77E4623BDA38600407BF0 /* NoWaitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E4523BDA38600407BF0 /* NoWaitUITests.m */; };
@@ -255,6 +256,8 @@
 
 /* Begin PBXFileReference section */
 		3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.debug.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.debug.xcconfig"; sourceTree = "<group>"; };
+		B24DD51A23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSectionTitleCell.h; sourceTree = "<group>"; };
+		B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSectionTitleCell.m; sourceTree = "<group>"; };
 		B2A77E1B23BDA38400407BF0 /* 莫等闲.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "莫等闲.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1898,6 +1901,8 @@
 				B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */,
 				B2A781C223C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.h */,
 				B2A781C323C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m */,
+				B24DD51A23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.h */,
+				B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */,
 			);
 			path = organizationLessonDetail;
 			sourceTree = "<group>";
@@ -2212,6 +2217,7 @@
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
+				B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */,
 				B2A7813523C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,

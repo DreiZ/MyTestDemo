@@ -106,4 +106,17 @@
     self.iEvaView.mainVC = self.mainVC;
 }
 
+- (void)setDesModel:(ZStudentDetailDesModel *)desModel {
+    _desModel = desModel;
+    self.desModel = desModel;
+}
+
+- (void)setNoticeModel:(ZStudentDetailNoticeModel *)noticeModel {
+    _noticeModel = noticeModel;
+    
+}
+
+- (void)setEvaModel:(ZStudentDetailEvaModel *)evaModel {
+    _evaModel = evaModel;
+}
 @end

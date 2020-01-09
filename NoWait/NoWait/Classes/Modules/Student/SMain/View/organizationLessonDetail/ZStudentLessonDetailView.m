@@ -1,4 +1,4 @@
-//
+		//
 //  ZStudentLessonDetailView.m
 //  NoWait
 //
@@ -8,6 +8,7 @@
 
 #import "ZStudentLessonDetailView.h"
 #import "ZSpaceEmptyCell.h"
+#import "ZStudentLessonSectionTitleCell.h"
 
 @interface ZStudentLessonDetailView ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -35,6 +36,8 @@
           make.left.bottom.right.equalTo(self);
           make.top.equalTo(self.mas_top);
       }];
+    
+    [self setData];
 }
 
 - (void)setData {
@@ -62,7 +65,7 @@
         _iTableView.alwaysBounceVertical = YES;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = kHN_OrangeHColor;
         _iTableView.emptyDataSetSource = self;
         _iTableView.emptyDataSetDelegate = self;
 //        _iTableView.tableHeaderView = self.menuView;
@@ -137,12 +140,27 @@
 }
 
 
+#pragma mark -- setdata--
 - (void)resetData {
     [_cellConfigArr removeAllObjects];
 
     ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
     [_cellConfigArr addObject:spacCellConfig];
     
+    
+    ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
+    model.title = @"课程简介";
+    model.isShowRight = NO;
+    ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+    [_cellConfigArr addObject:lessonTitleCellConfig];
+    
+    
     [self.iTableView reloadData];
+}
+
+
+-(void)setDesModel:(ZStudentDetailDesModel *)desModel {
+    _desModel = desModel;
+    [self resetData];
 }
 @end

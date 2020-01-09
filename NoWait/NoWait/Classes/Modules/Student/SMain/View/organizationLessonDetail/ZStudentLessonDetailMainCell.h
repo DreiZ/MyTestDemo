@@ -7,6 +7,8 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZStudentDetailModel.h"
+
 #import "ZStudentLessonDetailView.h"
 #import "ZStudentLessonNoticeView.h"
 #import "ZStudentLessonEvaView.h"
@@ -19,6 +21,10 @@
 @property (nonatomic,strong) ZStudentLessonDetailView *iDetilView;
 @property (nonatomic,strong) ZStudentLessonNoticeView *iNoticeView;
 @property (nonatomic,strong) ZStudentLessonEvaView *iEvaView;
+
+@property (nonatomic,strong) ZStudentDetailEvaModel *evaModel;
+@property (nonatomic,strong) ZStudentDetailNoticeModel *noticeModel;
+@property (nonatomic,strong) ZStudentDetailDesModel *desModel;
 
 @end
 

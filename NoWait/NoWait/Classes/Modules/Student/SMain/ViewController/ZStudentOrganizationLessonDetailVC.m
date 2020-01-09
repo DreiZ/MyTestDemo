@@ -191,7 +191,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailMainCell"]){
         ZStudentLessonDetailMainCell *mainCell = (ZStudentLessonDetailMainCell *)cell;
         mainCell.mainVC = self;
-//        mainCell.bodyData = self.mainViewModel.mainNetModel.body_data;
+        mainCell.desModel = [[ZStudentDetailDesModel alloc] init];
 //        mainCell.mealData = self.mainViewModel.mainMealModel;
 //        mainCell.sportModel = self.mainViewModel.sportModel;
         

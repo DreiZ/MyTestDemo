@@ -53,6 +53,7 @@
 
 #define FFont1 [UIFont systemFontOfSize:12.0f]
 #define KFont2Color [UIColor colorWithHexString:@"222222"]  //30 30 30
+#define KFont3Color [UIColor colorWithHexString:@"333333"]  //30 30 30
 #define KFont6Color [UIColor colorWithHexString:@"666666"]  //102 102 102
 #define KFont9Color [UIColor colorWithHexString:@"999999"]  //153 153 153
 #define KFont8Color [UIColor colorWithHexString:@"888888"]  //153 153 153
