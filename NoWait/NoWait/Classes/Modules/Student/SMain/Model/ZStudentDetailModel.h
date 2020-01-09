@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ZStudentDetailEvaListModel : NSObject
+@property (nonatomic,strong) NSString *userImage;
+@property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,strong) NSString *star;
+@property (nonatomic,strong) NSString *evaDes;
+@end
 
 @interface ZStudentDetailDesListModel : NSObject
 @property (nonatomic,strong) NSString *desTitle;

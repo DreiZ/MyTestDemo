@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZStudentDetailModel.h"
+#import "ZStudentLessonDetailBaseView.h"
 #import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentLessonTableView.h"
 
-@interface ZStudentLessonNoticeView : UIView
+@interface ZStudentLessonNoticeView : ZStudentLessonDetailBaseView
 @property (nonatomic,weak) ZStudentOrganizationLessonDetailVC *mainVC;
 @property (nonatomic,strong) ZStudentLessonTableView *iTableView;
 @property (nonatomic,assign) OffsetType offsetType;
+
+@property (nonatomic,strong) ZStudentDetailNoticeModel *noticeModel;
 @end
 

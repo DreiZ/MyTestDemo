@@ -202,6 +202,9 @@
     }
     
     {
+        ZCellConfig *topSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10) cellType:ZCellTypeClass dataModel:KWhiteColor];
+        [_cellConfigArr addObject:topSpaceCellConfig];
+        
         //图文详情
         ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
         model.title = @"图文详情";

@@ -113,7 +113,7 @@
 
 - (void)setNoticeModel:(ZStudentDetailNoticeModel *)noticeModel {
     _noticeModel = noticeModel;
-    
+    self.noticeModel = noticeModel;
 }
 
 - (void)setEvaModel:(ZStudentDetailEvaModel *)evaModel {

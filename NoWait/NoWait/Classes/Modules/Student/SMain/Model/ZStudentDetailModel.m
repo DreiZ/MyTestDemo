@@ -7,6 +7,11 @@
 //
 
 #import "ZStudentDetailModel.h"
+
+@implementation ZStudentDetailEvaListModel
+
+@end
+
 @implementation ZStudentDetailDesListModel
 
 @end
