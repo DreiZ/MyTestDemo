@@ -93,6 +93,8 @@
         _lessonImageView.image = [UIImage imageNamed:@"wallhaven5"];
         _lessonImageView.contentMode = UIViewContentModeScaleAspectFill;
         _lessonImageView.clipsToBounds = YES;
+        _lessonImageView.layer.cornerRadius = 3;
+        _lessonImageView.layer.masksToBounds = YES;
     }
     
     return _lessonImageView;
