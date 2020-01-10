@@ -174,23 +174,6 @@
     return _iCollectionView;
 }
 
-- (UIImageView *)getImageviewWithImageName:(NSString *)name {
-    UIImageView *tempImageView = [[UIImageView alloc] init];
-    tempImageView.image = [UIImage imageNamed:name];
-    tempImageView.layer.masksToBounds = YES;
-    tempImageView.backgroundColor = KGrayColor;
-    return tempImageView;
-}
-
-- (UILabel *)getLabelWithTitle:(NSString *)title {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.textColor = KFont6Color;
-    label.text = title;
-    label.numberOfLines = 1;
-    label.textAlignment = NSTextAlignmentCenter;
-    [label setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
-    return label;
-}
 
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {

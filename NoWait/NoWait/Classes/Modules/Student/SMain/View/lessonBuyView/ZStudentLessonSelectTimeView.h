@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZStudentDetailModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLessonSelectTimeView : UIView
-
+@property (nonatomic,assign) lessonBuyType buyType;
+@property (nonatomic,strong) NSArray <ZStudentDetailLessonTimeModel *>*list;
+@property (nonatomic,strong) void (^timeBlock)(ZStudentDetailLessonTimeModel *);
+@property (nonatomic,strong) void (^closeBlock)(void);
+@property (nonatomic,strong) void (^bottomBlock)(void);
+@property (nonatomic,strong) void (^lastStepBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END

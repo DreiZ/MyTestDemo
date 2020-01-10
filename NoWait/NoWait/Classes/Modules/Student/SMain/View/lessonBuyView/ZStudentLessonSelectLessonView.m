@@ -153,24 +153,6 @@
     return _iCollectionView;
 }
 
-- (UIImageView *)getImageviewWithImageName:(NSString *)name {
-    UIImageView *tempImageView = [[UIImageView alloc] init];
-    tempImageView.image = [UIImage imageNamed:name];
-    tempImageView.layer.masksToBounds = YES;
-    tempImageView.backgroundColor = KGrayColor;
-    return tempImageView;
-}
-
-- (UILabel *)getLabelWithTitle:(NSString *)title {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.textColor = KFont6Color;
-    label.text = title;
-    label.numberOfLines = 1;
-    label.textAlignment = NSTextAlignmentCenter;
-    [label setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
-    return label;
-}
-
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -233,7 +215,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(226));
+    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(216));
 }
 
 #pragma mark 类型

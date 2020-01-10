@@ -17,6 +17,7 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) ZStudentLessonSelectLessonView *lessonView;
 @property (nonatomic,strong) ZStudentLessonSelectCoachView *coachView;
+@property (nonatomic,strong) ZStudentLessonSelectTimeView *timeView;
 
 @end
 
@@ -97,12 +98,37 @@
                
             }
         };
+        _coachView.bottomBlock = ^{
+            [weakSelf coachToTime];
+        };
     }
     
     return _coachView;
 }
 
 
+- (ZStudentLessonSelectTimeView *)timeView {
+    if (!_timeView) {
+        __weak typeof(self) weakSelf = self;
+        _timeView = [[ZStudentLessonSelectTimeView alloc] init];
+        _timeView.buyType = self.buyType;
+        _timeView.timeBlock = ^(ZStudentDetailLessonTimeModel *model) {
+            
+        };
+        _timeView.closeBlock = ^{
+            [weakSelf removeFromSuperview];
+        };
+        _timeView.lastStepBlock = ^{
+            if (weakSelf.buyType == lessonBuyTypeSubscribeInitial || weakSelf.buyType == lessonBuyTypeSubscribeInitial) {
+                [weakSelf coachLastStep];
+            }else{
+               
+            }
+        };
+    }
+    
+    return _timeView;
+}
 #pragma mark --切换显示
 - (void)showSelectViewWithType:(lessonBuyType )type {
     
@@ -181,6 +207,36 @@
     [UIView animateWithDuration:.5 delay:0  options:UIViewAnimationOptionCurveEaseInOut animations:^{
        self.lessonView.frame = CGRectMake(0 , KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
         self.coachView.frame = CGRectMake(KScreenWidth, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
+        [self layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+- (void)coachToTime{
+    NSMutableArray *list = @[].mutableCopy;
+    for (int i = 0; i < 10; i++) {
+        ZStudentDetailLessonTimeModel *model = [[ZStudentDetailLessonTimeModel alloc] init];
+        model.time = @"周五 10-25日";
+        NSArray *subTimeArr = @[@"09:00", @"10:00",@"11:00", @"12:00",@"13:00", @"14:00",@"15:00", @"16:00",@"17:00", @"18:00",@"19:00", @"20:00",@"21:00", @"22:00",@"23:00", @"24:00"];
+        NSMutableArray *subArr = @[].mutableCopy;
+        for (int j = 0; j < subTimeArr.count; j++) {
+            ZStudentDetailLessonTimeSubModel *subModel = [[ZStudentDetailLessonTimeSubModel alloc] init];
+            subModel.subTime = subTimeArr[j];
+            [subArr addObject:subModel];
+        }
+        model.subTimes = subArr;
+        [list addObject:model];
+    }
+    self.timeView.list = list;
+    [self addSubview:self.timeView];
+    
+     self.timeView.frame = CGRectMake(KScreenWidth, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
+    
+    [UIView animateWithDuration:.5 delay:0  options:UIViewAnimationOptionCurveEaseInOut animations:^{
+       self.coachView.frame = CGRectMake(-KScreenWidth , KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
+        self.timeView.frame = CGRectMake(0, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         

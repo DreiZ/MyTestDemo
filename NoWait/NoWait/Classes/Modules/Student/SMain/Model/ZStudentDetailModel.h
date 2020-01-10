@@ -16,6 +16,17 @@ typedef NS_ENUM(NSInteger, lessonBuyType) {
     lessonBuyTypeBuyBeginLesson,  //从课程开始购买
 };
 
+@interface ZStudentDetailLessonTimeSubModel : NSObject
+@property (nonatomic,strong) NSString *subTime;
+@property (nonatomic,assign) BOOL isSubTimeSelected;
+@end
+
+@interface ZStudentDetailLessonTimeModel : NSObject
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,strong) NSArray <ZStudentDetailLessonTimeSubModel *>*subTimes;
+@property (nonatomic,assign) BOOL isTimeSelected;
+@end
+
 @interface ZStudentDetailLessonCoachModel : NSObject
 @property (nonatomic,strong) NSString *coachName;
 @property (nonatomic,strong) NSString *coachImage;
