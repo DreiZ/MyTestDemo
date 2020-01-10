@@ -8,6 +8,11 @@
 
 #import "ZStudentDetailModel.h"
 
+@implementation ZStudentDetailOrderSubmitListModel
+
+
+@end
+
 @implementation ZStudentDetailLessonTimeSubModel
 
 @end

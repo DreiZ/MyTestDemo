@@ -12,8 +12,7 @@
 
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonOrderNormalCell.h"
-#import "ZStudentLessonDetailLessonListCell.h"
-#import "ZStudentLessonSectionTitleCell.h"
+#import "ZStudentLessonOrderCompleteCell.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -44,44 +43,90 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:KBackColor];
-    [self.cellConfigArr addObject:spacCellConfig];
-    
-    NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
-    NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
-    NSArray *rightArrowArr = @[@"", @"yes", @"", @""];
-    NSArray *rightColorArr = @[KFont6Color, KFont6Color, KRedColor, KFont6Color];
-    NSArray *cellTitleArr = @[@"lesson", @"you", @"price",@"tel"];
-    
-    for (int i = 0; i < titleArr.count; i++) {
-        NSString *titleCell = cellTitleArr[i];
-        NSDictionary *dataDict = @{@"title" : titleArr[i], @"right":rightTitleArr[i], @"arrow":rightArrowArr[i], @"color":rightColorArr[i]};
-
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:titleCell showInfoMethod:@selector(setData:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:dataDict];
+    {
+        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model.leftImage = @"orderOrgLesson";
+        model.leftTitle = @"才玩俱乐部";
+        model.rightImage = @"orderTelLesson";
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+           [self.cellConfigArr addObject:spacCellConfig];
     }
+    
+    {
+           ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+           model.leftImage = @"orderCoachLesson";
+           model.leftTitle = @"教练";
+           ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+           [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+           
+    }
+    
+    {
+       ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+       model.leftImage = @"orderOrgLessonH";
+       model.leftTitle = @"课程";
+       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+       [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZStudentDetailOrderSubmitListModel *model1 = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model1.leftTitle = @"单人游泳教学";
+        ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model1];
+        [self.cellConfigArr addObject:menu1CellConfig];
+        
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+           
+    }
+    
+    {
+       ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+       model.leftImage = @"orderRevlLesson";
+       model.leftTitle = @"预约到校时间";
+       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+       [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZStudentDetailOrderSubmitListModel *model1 = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model1.leftTitle = @"10月26日 周六 14：00";
+        model1.rightImage = @"mineLessonRight";
+        
+        ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model1];
+        [self.cellConfigArr addObject:menu1CellConfig];
+        
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+    }
+    
+    {
+       ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+       model.leftImage = @"orderUserlLesson";
+       model.leftTitle = @"姓名";
+       model.rightTitle = @"韩丽";
+       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+       [self.cellConfigArr addObject:menuCellConfig];
+
+       ZStudentDetailOrderSubmitListModel *model2 = [[ZStudentDetailOrderSubmitListModel alloc] init];
+       model2.leftImage = @"orderPhonelLesson";
+       model2.leftTitle = @"手机号码";
+       model2.rightTitle = @"1393223432";
+       ZCellConfig *menuCellConfig2 = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model2];
+       [self.cellConfigArr addObject:menuCellConfig2];
+        
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacCellConfig];
+    }
+    
+    
+    
     
     ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
     [self.cellConfigArr addObject:spacSectionCellConfig];
-    
-    //须知
-    ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
-    model.title = @"须知";
-    model.isShowRight = NO;
-    ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-    [_cellConfigArr addObject:lessonTitleCellConfig];
-    
-    NSMutableArray *list = @[].mutableCopy;
-    NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"], @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
-    for (int i = 0; i < des.count; i++) {
-        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-        model.desTitle = des[i][0];
-        model.desSub = des[i][1];
-        [list addObject:model];
-    }
-    
-    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
-    [_cellConfigArr addObject:lessonDesCellConfig];
 }
 
 

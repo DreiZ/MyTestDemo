@@ -16,6 +16,19 @@ typedef NS_ENUM(NSInteger, lessonBuyType) {
     lessonBuyTypeBuyBeginLesson,  //从课程开始购买
 };
 
+@interface ZStudentDetailOrderSubmitListModel : NSObject
+@property (nonatomic,strong) NSString *leftImage;
+@property (nonatomic,strong) NSString *leftTitle;
+@property (nonatomic,strong) NSString *rightTitle;
+@property (nonatomic,strong) NSString *rightImage;
+@property (nonatomic,strong) NSString *cellTitle;
+@property (nonatomic,strong) UIColor *leftColor;
+@property (nonatomic,strong) UIColor *rightColor;
+
+
+@property (nonatomic,assign) BOOL isHiddenBottomLine;
+@end
+
 @interface ZStudentDetailLessonTimeSubModel : NSObject
 @property (nonatomic,strong) NSString *subTime;
 @property (nonatomic,assign) BOOL isSubTimeSelected;

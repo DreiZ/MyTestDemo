@@ -49,16 +49,21 @@
     
     NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
     NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
-    NSArray *rightArrowArr = @[@"", @"yes", @"", @""];
+    NSArray *rightArrowArr = @[@"", @"mineLessonRight", @"", @""];
     NSArray *rightColorArr = @[KFont6Color, KFont6Color, KRedColor, KFont6Color];
     NSArray *cellTitleArr = @[@"lesson", @"you", @"price",@"tel"];
     
     for (int i = 0; i < titleArr.count; i++) {
-        NSString *titleCell = cellTitleArr[i];
-        NSDictionary *dataDict = @{@"title" : titleArr[i], @"right":rightTitleArr[i], @"arrow":rightArrowArr[i], @"color":rightColorArr[i]};
-
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:titleCell showInfoMethod:@selector(setData:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:dataDict];
+        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model.leftTitle = titleArr[i];
+        model.rightTitle = rightTitleArr[i];
+        model.rightColor = rightColorArr[i];
+        model.cellTitle = cellTitleArr[i];
+        model.rightImage = rightArrowArr[i];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
+
     }
     
     ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];

@@ -1,14 +1,14 @@
 //
-//  ZStudentLessonOrderNormalCell.m
+//  ZStudentLessonOrderCompleteCell.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/10.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentLessonOrderNormalCell.h"
+#import "ZStudentLessonOrderCompleteCell.h"
 
-@interface ZStudentLessonOrderNormalCell ()
+@interface ZStudentLessonOrderCompleteCell ()
 @property (nonatomic,strong) UIImageView *rightImageView;
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UILabel *leftTitleLabel;
@@ -19,7 +19,7 @@
 @property (nonatomic,strong) NSDictionary *data;
 @end
 
-@implementation ZStudentLessonOrderNormalCell
+@implementation ZStudentLessonOrderCompleteCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -99,7 +99,7 @@
         _leftTitleLabel.text = @"标题";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_leftTitleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
     }
     return _leftTitleLabel;
 }
@@ -111,7 +111,7 @@
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentRight;
-        [_rightTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_rightTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
     }
     return _rightTitleLabel;
 }
