@@ -11,7 +11,8 @@
 
 @interface ZStudentLessonSelectMainView : UIView
 @property (nonatomic,assign) lessonBuyType buyType;
-
+@property (nonatomic,strong) void (^completeBlock)(lessonBuyType);
 - (void)showSelectViewWithType:(lessonBuyType)type;
+
 @end
 

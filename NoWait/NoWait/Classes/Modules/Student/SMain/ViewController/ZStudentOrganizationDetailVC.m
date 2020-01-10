@@ -13,6 +13,8 @@
 #import "ZStudentOrganizationDetailVideoVC.h"
 
 #import "ZStudentLessonSelectMainView.h"
+#import "ZStudentLessonSureOrderVC.h"
+#import "ZStudentLessonSubscribeSureOrderVC.h"
 
 @interface ZStudentOrganizationDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -190,7 +192,17 @@
 
 - (ZStudentLessonSelectMainView *)selectView {
     if (!_selectView) {
+        __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainView alloc] init];
+        _selectView.completeBlock = ^(lessonBuyType type) {
+            if (type == lessonBuyTypeBuyInitial || type == lessonBuyTypeBuyBeginLesson) {
+                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+                [weakSelf.navigationController pushViewController:order animated:YES];
+            }else{
+                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+                [weakSelf.navigationController pushViewController:order animated:YES];
+            }
+        };
     }
     return _selectView;
 }

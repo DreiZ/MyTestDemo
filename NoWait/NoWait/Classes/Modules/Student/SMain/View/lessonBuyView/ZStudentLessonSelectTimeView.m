@@ -362,7 +362,7 @@
 }
 
 - (void)resetLeftArr {
-    [_cellConfigArr removeAllObjects];
+    [self.cellConfigArr removeAllObjects];
     for (int i = 0; i < _list.count; i++) {
         ZStudentDetailLessonTimeModel *model = _list[i];
     
@@ -375,7 +375,7 @@
 }
 
 - (void)resetRightArr {
-    [_rightCellConfigArr removeAllObjects];
+    [self.rightCellConfigArr removeAllObjects];
     for (int i = 0; i < _list.count; i++) {
         ZStudentDetailLessonTimeModel *model = _list[i];
         if (model.isTimeSelected) {

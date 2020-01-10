@@ -19,7 +19,11 @@
 #import "ZStudentLessonDetailView.h"
 #import "ZStudentLessonNoticeView.h"
 
+#import "ZStudentLessonSelectMainView.h"
 #import "ZMenuSelectdView.h"
+
+#import "ZStudentLessonSureOrderVC.h"
+#import "ZStudentLessonSubscribeSureOrderVC.h"
 
 @interface ZStudentOrganizationLessonDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -30,6 +34,8 @@
 @property (nonatomic,strong) ZStudentLessonDetailView *iDetilView;
 @property (nonatomic,strong) ZStudentLessonNoticeView *iNoticeView;
 @property (nonatomic,strong) ZStudentLessonEvaView *iEvaView;
+@property (nonatomic,strong) ZStudentLessonSelectMainView *selectView;
+
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray <NSArray *>*cellConfigArr;
@@ -166,13 +172,35 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"立即预约" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
         [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeBuyBeginLesson];
+        }];
     }
     return _bottomBtn;
+}
+
+
+- (ZStudentLessonSelectMainView *)selectView {
+    if (!_selectView) {
+        __weak typeof(self) weakSelf = self;
+        _selectView = [[ZStudentLessonSelectMainView alloc] init];
+        _selectView.completeBlock = ^(lessonBuyType type) {
+            if (type == lessonBuyTypeBuyInitial || type == lessonBuyTypeBuyBeginLesson) {
+                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+                [weakSelf.navigationController pushViewController:order animated:YES];
+            }else{
+                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+                [weakSelf.navigationController pushViewController:order animated:YES];
+            }
+        };
+    }
+    return _selectView;
 }
 
 #pragma mark tableView -------datasource-----
