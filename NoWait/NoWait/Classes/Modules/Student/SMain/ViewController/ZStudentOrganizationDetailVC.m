@@ -128,7 +128,7 @@
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
         [_subscribeBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
         [_subscribeBtn bk_whenTapped:^{
-            [weakSelf.selectView showSelectView];
+            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeSubscribeInitial];
         }];
     }
     return _subscribeBtn;
@@ -137,6 +137,7 @@
 
 - (UIButton *)buyBtn {
     if (!_buyBtn) {
+        __weak typeof(self) weakSelf = self;
         _buyBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _buyBtn.layer.masksToBounds = YES;
         _buyBtn.layer.cornerRadius = CGFloatIn750(44);
@@ -144,6 +145,9 @@
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_buyBtn bk_whenTapped:^{
+            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeBuyInitial];
+        }];
     }
     return _buyBtn;
 }

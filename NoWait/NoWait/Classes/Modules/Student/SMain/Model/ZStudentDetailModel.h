@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+//购买课程流程
+typedef NS_ENUM(NSInteger, lessonBuyType) {
+    lessonBuyTypeSubscribeInitial,  //从机构开始预约
+    lessonBuyTypeSubscribeBeginLesson,  //从课程开始选择预约
+    lessonBuyTypeBuyInitial,  //从机构开始购买
+    lessonBuyTypeBuyBeginLesson,  //从课程开始购买
+};
+
+@interface ZStudentDetailLessonCoachModel : NSObject
+@property (nonatomic,strong) NSString *coachName;
+@property (nonatomic,strong) NSString *coachImage;
+@property (nonatomic,strong) NSString *coachPrice;
+@property (nonatomic,assign) BOOL isCoachSelected;
+@property (nonatomic,assign) BOOL isgold;
+@end
+
 @interface ZStudentDetailLessonListModel : NSObject
 @property (nonatomic,strong) NSString *lessonTitle;
 @property (nonatomic,strong) NSString *lessonNum;

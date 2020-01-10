@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZStudentDetailModel.h"
 
 @interface ZStudentLessonSelectCoachView : UIView
-
+@property (nonatomic,assign) lessonBuyType buyType;
+@property (nonatomic,strong) NSArray <ZStudentDetailLessonCoachModel *>*list;
+@property (nonatomic,strong) void (^coachBlock)(ZStudentDetailLessonCoachModel *);
+@property (nonatomic,strong) void (^closeBlock)(void);
+@property (nonatomic,strong) void (^bottomBlock)(void);
+@property (nonatomic,strong) void (^lastStepBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END

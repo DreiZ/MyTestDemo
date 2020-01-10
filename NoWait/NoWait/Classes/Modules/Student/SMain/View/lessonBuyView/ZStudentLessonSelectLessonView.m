@@ -116,11 +116,17 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"立即预约" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
         [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+            if (weakSelf.bottomBlock) {
+                weakSelf.bottomBlock();
+            }
+        }];
     }
     return _bottomBtn;
 }
@@ -227,7 +233,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(206));
+    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(226));
 }
 
 #pragma mark 类型

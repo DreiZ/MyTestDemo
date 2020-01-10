@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZStudentDetailModel.h"
 
 @interface ZStudentLessonSelectMainView : UIView
-- (void)showSelectView;
+@property (nonatomic,assign) lessonBuyType buyType;
+
+- (void)showSelectViewWithType:(lessonBuyType)type;
 @end
 

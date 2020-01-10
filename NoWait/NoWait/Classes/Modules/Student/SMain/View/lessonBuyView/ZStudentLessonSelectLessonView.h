@@ -10,8 +10,10 @@
 #import "ZStudentDetailModel.h"
 
 @interface ZStudentLessonSelectLessonView : UIView
-@property (nonatomic,strong) NSMutableArray <ZStudentDetailLessonListModel *>*list;
+@property (nonatomic,assign) lessonBuyType buyType;
+@property (nonatomic,strong) NSArray <ZStudentDetailLessonListModel *>*list;
 @property (nonatomic,strong) void (^lessonBlock)(ZStudentDetailLessonListModel *);
 @property (nonatomic,strong) void (^closeBlock)(void);
+@property (nonatomic,strong) void (^bottomBlock)(void);
 @end
 
