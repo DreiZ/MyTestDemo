@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentLessonOrderSuccessVC.h"
+#import "ZStudentLessonOrderLessonVC.h"
 
 @interface ZStudentLessonOrderSuccessVC ()
 @property (nonatomic,strong) UIImageView *hintImageView;
@@ -137,6 +138,10 @@
         [_detailBtn setTitle:@"查看预约详情" forState:UIControlStateNormal];
         [_detailBtn setTitleColor:KMainColor forState:UIControlStateNormal];
         [_detailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_detailBtn bk_whenTapped:^{
+            ZStudentLessonOrderLessonVC *orderLessonVC = [[ZStudentLessonOrderLessonVC alloc] init];
+            [self.navigationController pushViewController:orderLessonVC animated:YES];
+        }];
     }
     return _detailBtn;
 }

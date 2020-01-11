@@ -8,6 +8,20 @@
 
 #import "ZStudentDetailModel.h"
 
+@implementation ZStudentLessonOrganizationModel
+
+
+@end
+
+@implementation ZStudentLessonOrderInfoCellModel
+
+@end
+
+@implementation ZStudentLessonOrderInfoModel
+
+
+@end
+
 @implementation ZStudentDetailLessonOrderCoachModel
 
 
