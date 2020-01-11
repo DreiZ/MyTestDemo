@@ -13,6 +13,7 @@
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonOrderNormalCell.h"
 #import "ZStudentLessonOrderCompleteCell.h"
+#import "ZStudentLessonOrderMoreInputCell.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -123,10 +124,18 @@
     }
     
     
-    
-    
-    ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+    {
+        ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+        [self.cellConfigArr addObject:spacSectionCellConfig];
+        
+        ZCellConfig *moreIntputCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderMoreInputCell className] title:[ZStudentLessonOrderMoreInputCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonOrderMoreInputCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:moreIntputCellConfig];
+        
+        
+    }
+    ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
     [self.cellConfigArr addObject:spacSectionCellConfig];
+    
 }
 
 
