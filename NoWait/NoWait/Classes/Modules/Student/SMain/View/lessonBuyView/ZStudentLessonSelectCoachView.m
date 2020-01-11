@@ -243,7 +243,7 @@
 #pragma mark 类型
 -(void)setList:(NSArray<ZStudentDetailLessonCoachModel *> *)list {
     _list = list;
-    if (_buyType == lessonBuyTypeSubscribeInitial || _buyType == lessonBuyTypeSubscribeInitial) {
+    if (_buyType == ZLessonBuyTypeSubscribeInitial || _buyType == ZLessonBuyTypeSubscribeInitial) {
         self.lastStepBtn.hidden = NO;
     }else{
         self.lastStepBtn.hidden = YES;
@@ -252,9 +252,9 @@
     
 }
 
-- (void)setBuyType:(lessonBuyType)buyType {
+- (void)setBuyType:(ZLessonBuyType)buyType {
     _buyType = buyType;
-    if (_buyType == lessonBuyTypeSubscribeInitial || _buyType == lessonBuyTypeSubscribeInitial) {
+    if (_buyType == ZLessonBuyTypeSubscribeInitial || _buyType == ZLessonBuyTypeSubscribeInitial) {
         self.lastStepBtn.hidden = NO;
     }else{
         self.lastStepBtn.hidden = YES;

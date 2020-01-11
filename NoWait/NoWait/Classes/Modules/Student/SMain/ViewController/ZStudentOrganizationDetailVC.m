@@ -130,7 +130,7 @@
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
         [_subscribeBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
         [_subscribeBtn bk_whenTapped:^{
-            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeSubscribeInitial];
+            [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
         }];
     }
     return _subscribeBtn;
@@ -148,7 +148,7 @@
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
         [_buyBtn bk_whenTapped:^{
-            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeBuyInitial];
+            [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyInitial];
         }];
     }
     return _buyBtn;
@@ -194,8 +194,8 @@
     if (!_selectView) {
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainView alloc] init];
-        _selectView.completeBlock = ^(lessonBuyType type) {
-            if (type == lessonBuyTypeBuyInitial || type == lessonBuyTypeBuyBeginLesson) {
+        _selectView.completeBlock = ^(ZLessonBuyType type) {
+            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
                 ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
                 [weakSelf.navigationController pushViewController:order animated:YES];
             }else{

@@ -9,11 +9,17 @@
 #import <Foundation/Foundation.h>
 
 //购买课程流程
-typedef NS_ENUM(NSInteger, lessonBuyType) {
-    lessonBuyTypeSubscribeInitial,  //从机构开始预约
-    lessonBuyTypeSubscribeBeginLesson,  //从课程开始选择预约
-    lessonBuyTypeBuyInitial,  //从机构开始购买
-    lessonBuyTypeBuyBeginLesson,  //从课程开始购买
+typedef NS_ENUM(NSInteger, ZLessonBuyType) {
+    ZLessonBuyTypeSubscribeInitial,  //从机构开始预约
+    ZLessonBuyTypeSubscribeBeginLesson,  //从课程开始选择预约
+    ZLessonBuyTypeBuyInitial,  //从机构开始购买
+    ZLessonBuyTypeBuyBeginLesson,  //从课程开始购买
+};
+
+//购买课程流程
+typedef NS_ENUM(NSInteger, ZLessonOrderType) {
+    ZLessonOrderTypeWaitPay,  //待支付
+    ZLessonOrderTypeHadPay,  //已支付
 };
 
 @interface ZStudentLessonOrganizationModel : NSObject

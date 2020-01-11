@@ -387,9 +387,9 @@
     [self.rightTableView reloadData];
 }
 
-- (void)setBuyType:(lessonBuyType)buyType {
+- (void)setBuyType:(ZLessonBuyType)buyType {
     _buyType = buyType;
-    if (_buyType == lessonBuyTypeSubscribeInitial || _buyType == lessonBuyTypeSubscribeInitial) {
+    if (_buyType == ZLessonBuyTypeSubscribeInitial || _buyType == ZLessonBuyTypeSubscribeInitial) {
        
     }else{
         

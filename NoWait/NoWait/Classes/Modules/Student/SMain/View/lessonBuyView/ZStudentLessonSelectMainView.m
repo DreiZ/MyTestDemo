@@ -92,14 +92,14 @@
             [weakSelf removeFromSuperview];
         };
         _coachView.lastStepBlock = ^{
-            if (weakSelf.buyType == lessonBuyTypeSubscribeInitial || weakSelf.buyType == lessonBuyTypeSubscribeInitial) {
+            if (weakSelf.buyType == ZLessonBuyTypeSubscribeInitial || weakSelf.buyType == ZLessonBuyTypeSubscribeInitial) {
                 [weakSelf coachLastStep];
             }else{
                
             }
         };
         _coachView.bottomBlock = ^{
-            if (weakSelf.buyType == lessonBuyTypeBuyInitial || weakSelf.buyType == lessonBuyTypeBuyBeginLesson) {
+            if (weakSelf.buyType == ZLessonBuyTypeBuyInitial || weakSelf.buyType == ZLessonBuyTypeBuyBeginLesson) {
                 [weakSelf removeFromSuperview];
                 if (weakSelf.completeBlock) {
                     weakSelf.completeBlock(weakSelf.buyType);
@@ -135,7 +135,7 @@
         };
         
         _timeView.lastStepBlock = ^{
-            if (weakSelf.buyType == lessonBuyTypeSubscribeInitial || weakSelf.buyType == lessonBuyTypeSubscribeInitial) {
+            if (weakSelf.buyType == ZLessonBuyTypeSubscribeInitial || weakSelf.buyType == ZLessonBuyTypeSubscribeInitial) {
                 [weakSelf coachLastStep];
             }else{
                
@@ -146,11 +146,11 @@
     return _timeView;
 }
 #pragma mark --切换显示
-- (void)showSelectViewWithType:(lessonBuyType )type {
+- (void)showSelectViewWithType:(ZLessonBuyType )type {
     
     _buyType = type;
     
-    if (type == lessonBuyTypeSubscribeInitial || type == lessonBuyTypeBuyInitial) {
+    if (type == ZLessonBuyTypeSubscribeInitial || type == ZLessonBuyTypeBuyInitial) {
         [self addSubview:self.lessonView];
         self.lessonView.frame = CGRectMake(0, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
         
@@ -165,7 +165,7 @@
             [list addObject:model];
         }
         self.lessonView.list = list;
-    }else if (type == lessonBuyTypeSubscribeBeginLesson || type == lessonBuyTypeBuyBeginLesson){
+    }else if (type == ZLessonBuyTypeSubscribeBeginLesson || type == ZLessonBuyTypeBuyBeginLesson){
         NSMutableArray *list = @[].mutableCopy;
            for (int i = 0; i < 10; i++) {
                ZStudentDetailLessonCoachModel *model = [[ZStudentDetailLessonCoachModel alloc] init];

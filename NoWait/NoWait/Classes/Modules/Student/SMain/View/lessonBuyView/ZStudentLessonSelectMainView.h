@@ -10,9 +10,9 @@
 #import "ZStudentDetailModel.h"
 
 @interface ZStudentLessonSelectMainView : UIView
-@property (nonatomic,assign) lessonBuyType buyType;
-@property (nonatomic,strong) void (^completeBlock)(lessonBuyType);
-- (void)showSelectViewWithType:(lessonBuyType)type;
+@property (nonatomic,assign) ZLessonBuyType buyType;
+@property (nonatomic,strong) void (^completeBlock)(ZLessonBuyType);
+- (void)showSelectViewWithType:(ZLessonBuyType)type;
 
 @end
 

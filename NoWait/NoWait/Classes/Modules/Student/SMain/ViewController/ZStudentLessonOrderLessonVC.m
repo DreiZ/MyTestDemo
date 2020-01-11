@@ -17,8 +17,12 @@
 #import "ZStudentLessonOrderCoachCell.h"
 #import "ZStudentLessonOrderDetailOrganizationCell.h"
 
+#import "ZStudentLessonBottomView.h"
+
 @interface ZStudentLessonOrderLessonVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) ZStudentLessonBottomView *bottomView;
+
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -108,10 +112,16 @@
 }
 
 - (void)setupMainView {
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(90 + 60));
+    }];
+    
     [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.bottomView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(0);
     }];
 }
@@ -142,6 +152,15 @@
         _iTableView.dataSource = self;
     }
     return _iTableView;
+}
+
+- (ZStudentLessonBottomView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[ZStudentLessonBottomView alloc] init];
+        _bottomView.orderType = ZLessonOrderTypeWaitPay;
+    }
+    
+    return _bottomView;
 }
 
 #pragma mark tableView -------datasource-----

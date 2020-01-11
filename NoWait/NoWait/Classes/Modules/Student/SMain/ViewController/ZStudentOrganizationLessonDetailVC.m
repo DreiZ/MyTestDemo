@@ -179,7 +179,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
         [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            [weakSelf.selectView showSelectViewWithType:lessonBuyTypeBuyBeginLesson];
+            [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
         }];
     }
     return _bottomBtn;
@@ -190,8 +190,8 @@
     if (!_selectView) {
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainView alloc] init];
-        _selectView.completeBlock = ^(lessonBuyType type) {
-            if (type == lessonBuyTypeBuyInitial || type == lessonBuyTypeBuyBeginLesson) {
+        _selectView.completeBlock = ^(ZLessonBuyType type) {
+            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
                 ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
                 [weakSelf.navigationController pushViewController:order animated:YES];
             }else{

@@ -11,7 +11,7 @@
 
 
 @interface ZStudentLessonSelectTimeView : UIView
-@property (nonatomic,assign) lessonBuyType buyType;
+@property (nonatomic,assign) ZLessonBuyType buyType;
 @property (nonatomic,strong) NSArray <ZStudentDetailLessonTimeModel *>*list;
 @property (nonatomic,strong) void (^timeBlock)(ZStudentDetailLessonTimeModel *);
 @property (nonatomic,strong) void (^closeBlock)(void);
