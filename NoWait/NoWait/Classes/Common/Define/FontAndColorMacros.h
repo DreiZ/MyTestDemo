@@ -48,6 +48,7 @@
 #define KBlueColor [UIColor blueColor]
 #define KRedColor [UIColor redColor]
 #define KTabBarColor [UIColor redColor]
+
 #pragma mark -  字体区
 
 
@@ -60,6 +61,8 @@
 #define KFontCColor KLineColor   //204 204 204
 #define KLineColor [UIColor colorWithHexString:@"cccccc"]   //204 204 204
 #define KBackLightColor [UIColor colorWithHexString:@"f2f2f2"]   //242 242 242
-#define kHN_OrangeHColor [UIColor colorWithHexString:@"eb7400"] 
+#define kHN_OrangeHColor [UIColor colorWithHexString:@"eb7400"]
+#define KYellowColor [UIColor colorWithHexString:@"ffcc00"]
+#define KGreenColor [UIColor colorWithHexString:@"007553"]
 
 #endif /* FontAndColorMacros_h */

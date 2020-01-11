@@ -14,6 +14,7 @@
 #import "ZStudentLessonOrderNormalCell.h"
 #import "ZStudentLessonOrderCompleteCell.h"
 #import "ZStudentLessonOrderMoreInputCell.h"
+#import "ZStudentLessonOrderCoachCell.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -58,11 +59,23 @@
     }
     
     {
-           ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-           model.leftImage = @"orderCoachLesson";
-           model.leftTitle = @"教练";
-           ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-           [self.cellConfigArr addObject:menuCellConfig];
+        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model.leftImage = @"orderCoachLesson";
+        model.leftTitle = @"教练";
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZStudentDetailLessonOrderCoachModel *coachModel = [[ZStudentDetailLessonOrderCoachModel alloc] init];
+        coachModel.coachImage = @"orderCoachLesson";
+        coachModel.coachName = @"赵忠";
+        coachModel.auth = @"平台认证教练";
+        coachModel.labelArr = @[@"明星教师", @"明星教师"];
+        coachModel.adeptArr = @[@"蛙泳", @"蝶泳", @"塑性",@"好频率b100%",];
+        coachModel.desStr = @"高傲机构按时间哦给大家哦我按设计工具偶见过的搜啊解耦股建瓯市大家宫颈癌搜";
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCoachCell className] title:[ZStudentLessonOrderCompleteCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCoachCell z_getCellHeight:coachModel] cellType:ZCellTypeClass dataModel:coachModel];
+        [self.cellConfigArr addObject:coachCellConfig];
+        
+        
         
         ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
         [self.cellConfigArr addObject:spacCellConfig];
@@ -159,6 +172,7 @@
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
+        make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
     }];
     
     [self.view addSubview:self.iTableView];
