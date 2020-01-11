@@ -7,6 +7,8 @@
 //
 
 #import "ZStudentLessonSubscribeSureOrderVC.h"
+#import "ZStudentLessonOrderSuccessVC.h"
+
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
@@ -214,7 +216,7 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -223,7 +225,8 @@
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
         [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            ZStudentLessonOrderSuccessVC *successvc = [[ZStudentLessonOrderSuccessVC alloc] init];
+            [weakSelf.navigationController pushViewController:successvc animated:YES];
         }];
     }
     return _bottomBtn;
