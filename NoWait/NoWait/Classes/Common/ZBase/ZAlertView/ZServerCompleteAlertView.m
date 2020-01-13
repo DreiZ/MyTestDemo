@@ -58,13 +58,13 @@ static ZServerCompleteAlertView *sharedManager;
         make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
     }];
     
-//    UIImageView *completeImageView = [[UIImageView alloc] init];
-//    completeImageView.image = [UIImage imageNamed:@"serverCompleteHint"];
-//    completeImageView.layer.masksToBounds = YES;
-//    [self.contView addSubview:completeImageView];
-//    [completeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.contView);
-//    }];
+    UIImageView *completeImageView = [[UIImageView alloc] init];
+    completeImageView.image = [UIImage imageNamed:@"serverCompleteHint"];
+    completeImageView.layer.masksToBounds = YES;
+    [self.contView addSubview:completeImageView];
+    [completeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contView);
+    }];
 }
 
 - (UIImageView *)contView {

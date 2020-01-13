@@ -17,6 +17,13 @@
 
 #import "ZStudentOrganizationDetailVC.h"
 
+
+#import "ZPhoneAlertView.h"
+#import "ZServerCompleteAlertView.h"
+#import "ZAlertUpdateAppView.h"
+#import "ZAlertView.h"
+#import "ZAlertImageView.h"
+
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -241,6 +248,23 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [ZAlertImageView setAlertWithType:ZAlertTypeRepealSubscribeFail handlerBlock:^(NSInteger index) {
+        
+    }];
+
+    return;
+//    [ZPhoneAlertView setAlertName:@"哈哈哈" detail:@"十多个哈啊烦得很" headImage:@"coachSelect1" tel:@"1882111232" handlerBlock:^(NSInteger index) {
+//
+//    }];
+//    return;
+//    [ZServerCompleteAlertView setAlertWithHandlerBlock:^(NSInteger index) {
+//
+//    }];
+//    return;
+//    [ZAlertView setAlertWithTitle:@"放顶顶顶" btnTitle:@"确定" handlerBlock:^(NSInteger index) {
+//
+//    }];
+//    return;
     if (indexPath.section == 1) {
         ZStudentOrganizationDetailVC *dvc = [[ZStudentOrganizationDetailVC alloc] init];
         
