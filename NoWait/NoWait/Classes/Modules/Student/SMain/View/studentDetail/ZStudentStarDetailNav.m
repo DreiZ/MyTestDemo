@@ -65,7 +65,7 @@
 - (UIView *)contView {
     if (!_contView) {
         _contView = [[UIView alloc] init];
-        _contView.backgroundColor = KBlueBackColor;
+//        _contView.backgroundColor = KBlueBackColor;
     }
     return _contView;
 }

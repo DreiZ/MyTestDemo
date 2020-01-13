@@ -1,5 +1,5 @@
 //
-//  ZStudentStarStudentSectionTitleCell.h
+//  ZStudentStarInfoImageCell.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/13.
@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZStudentDetailModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentStarStudentSectionTitleCell : ZBaseCell
-@property (nonatomic,strong) NSString *title;
+@interface ZStudentStarInfoImageCell : ZBaseCell
+@property (nonatomic,strong) ZStudentDetailContentListModel *model;
 
 @end
 

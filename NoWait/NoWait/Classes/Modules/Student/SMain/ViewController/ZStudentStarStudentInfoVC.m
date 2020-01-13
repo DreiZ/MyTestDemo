@@ -7,17 +7,26 @@
 //
 
 #import "ZStudentStarStudentInfoVC.h"
+#import "ZStudentDetailModel.h"
+
 #import "ZStudentStarDetailHeadView.h"
-#import "ZBaseCell.h"
 #import "ZStudentStarDetailNav.h"
 
-#define kHeaderHeight (CGFloatIn750(418)+kStatusBarHeight)
+#import "ZBaseCell.h"
+#import "ZStudentStarStudentInfoCell.h"
+#import "ZStudentStarStudentSectionTitleCell.h"
+#import "ZStudentLessonDetailLessonListCell.h"
+#import "ZStudentStarInfoImageCell.h"
+#import "ZSpaceEmptyCell.h"
+
+#define kHeaderHeight (CGFloatIn750(418)+kTopHeight)
 
 @interface ZStudentStarStudentInfoVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
 @property (nonatomic,strong) ZStudentStarDetailNav *navgationView;
 
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @end
 
@@ -46,11 +55,13 @@
     
     [self setData];
     [self setupMainView];
+    
+    [self initCellConfigArr];
 }
 
 
 - (void)setData {
-
+    _cellConfigArr = @[].mutableCopy;
 }
 
 
@@ -68,8 +79,10 @@
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navgationView.mas_top);
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-0);
     }];
+    
+    [self.view bringSubviewToFront:self.navgationView];
     
     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];
     [self.iTableView addSubview:self.headerView];
@@ -122,32 +135,34 @@
 }
 
 
-#pragma mark - tableView -------datasource-----
+#pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    return cell;
-    
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr.count;
 }
 
-#pragma mark - tableView ------delegate-----
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseCell *cell;
+    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
+//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+        
+    }
+    return cell;
+}
+
+#pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return CGFloatIn750(0.1);
-    }
     return 0.01f;
 }
 
@@ -155,15 +170,13 @@
     return 0.01f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    sectionView.backgroundColor = KMainColor;
-    return sectionView;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
+        
+    }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-}
 
 
 #pragma mark - scrollview delegate
@@ -181,6 +194,49 @@
     }
     
     [_headerView updateSubViewFrame];
+}
+
+
+#pragma mark - 设置数据
+
+- (void)initCellConfigArr {
+    [self.cellConfigArr removeAllObjects];
+    
+    ZCellConfig *infoCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarStudentInfoCell  className] title:[ZStudentStarStudentInfoCell className] showInfoMethod:nil heightOfCell:[ZStudentStarStudentInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:infoCellConfig];
+    
+    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+    [self.cellConfigArr addObject:spacCellConfig];
+    
+    ZCellConfig *title1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarStudentSectionTitleCell className] title:[ZStudentStarStudentSectionTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentStarStudentSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"学习履历"];
+    [self.cellConfigArr addObject:title1CellConfig];
+    
+    NSMutableArray *list = @[].mutableCopy;
+    NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"], @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
+    for (int i = 0; i < des.count; i++) {
+        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
+//        model.desTitle = des[i][0];
+        model.desSub = des[i][1];
+        [list addObject:model];
+    }
+    
+    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
+    [_cellConfigArr addObject:lessonDesCellConfig];
+    
+    
+    ZCellConfig *spac1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KBackColor];
+    [self.cellConfigArr addObject:spac1CellConfig];
+    
+    ZCellConfig *title2CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarStudentSectionTitleCell className] title:[ZStudentStarStudentSectionTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentStarStudentSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"练习相册"];
+    [self.cellConfigArr addObject:title2CellConfig];
+    
+    for (int i = 0; i < 18; i++) {
+       ZStudentDetailContentListModel *model = [[ZStudentDetailContentListModel alloc] init];
+       model.image = [NSString stringWithFormat:@"studentDetailInfo%u",arc4random_uniform(5)];
+       ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarInfoImageCell className] title:[ZStudentStarInfoImageCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentStarInfoImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+       [self.cellConfigArr addObject:lessonCellConfig];
+   }
+    [self.iTableView reloadData];
 }
 @end
 
