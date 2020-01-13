@@ -94,4 +94,10 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(88);
 }
+
+- (void)setModel:(ZStudentDetailOrderSubmitListModel *)model {
+    _model = model;
+    
+    _titleLabel.text = model.leftTitle;
+}
 @end

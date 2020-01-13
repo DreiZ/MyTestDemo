@@ -248,11 +248,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [ZAlertImageView setAlertWithType:ZAlertTypeRepealSubscribeFail handlerBlock:^(NSInteger index) {
-        
-    }];
-
-    return;
+//    [ZAlertImageView setAlertWithType:ZAlertTypeRepealSubscribeFail handlerBlock:^(NSInteger index) {
+//        
+//    }];
+//
+//    return;
 //    [ZPhoneAlertView setAlertName:@"哈哈哈" detail:@"十多个哈啊烦得很" headImage:@"coachSelect1" tel:@"1882111232" handlerBlock:^(NSInteger index) {
 //
 //    }];

@@ -18,6 +18,8 @@
 #import "ZStudentOrganizationLessonMoreCell.h"
 
 #import "ZStudentOrganizationLessonDetailVC.h"
+#import "ZStudentStarStudentListVC.h"
+#import "ZStudentStarCoachListVC.h"
 //
 //#import "ZStudentOrganizationLessonDetailVC.h"
 
@@ -58,7 +60,9 @@
         ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
         [self.cellConfigArr addObject:spacCellConfig];
         
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        moreModel.leftTitle = @"明星教练";
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
         NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
@@ -80,7 +84,9 @@
         ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
         [self.cellConfigArr addObject:spacCellConfig];
         
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        moreModel.leftTitle = @"明星学员";
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarStudent" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
         NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
@@ -207,6 +213,12 @@
         ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
         
         [self.navigationController pushViewController:lessond_vc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
+        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+        [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
+        ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
+        [self.navigationController pushViewController:lvc animated:YES];
     }
 }
 

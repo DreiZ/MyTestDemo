@@ -7,9 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZStudentDetailModel.h"
 
 @interface ZStudentOrganizationPersonnelMoreCell : ZBaseCell
-@property (nonatomic,strong) void (^moreBlock)();
+@property (nonatomic,strong) ZStudentDetailOrderSubmitListModel *model;
+@property (nonatomic,strong) void (^moreBlock)(void);
 @end
 
