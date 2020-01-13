@@ -7,31 +7,34 @@
 //
 
 #import "ZStudentStarStudentInfoVC.h"
-#import "ZMineHeaderView.h"
+#import "ZStudentStarDetailHeadView.h"
 #import "ZBaseCell.h"
-#import "ZMineMenuCell.h"
-#import "ZStudentMineAdverCell.h"
-#import "ZStudentMineLessonProgressCell.h"
+#import "ZStudentStarDetailNav.h"
 
-#define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
+#define kHeaderHeight (CGFloatIn750(418)+kStatusBarHeight)
 
 @interface ZStudentStarStudentInfoVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
-@property (nonatomic,strong) ZMineHeaderView *headerView;
+@property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
+@property (nonatomic,strong) ZStudentStarDetailNav *navgationView;
 
-@property (nonatomic,strong) NSMutableArray *topchannelList;
-@property (nonatomic,strong) NSMutableArray *lessonList;
 
 @end
 
 @implementation ZStudentStarStudentInfoVC
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -45,29 +48,26 @@
     [self setupMainView];
 }
 
+
 - (void)setData {
-    _topchannelList = @[].mutableCopy;
-    _lessonList = @[].mutableCopy;
-    
-    NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
-    
-    for (int i = 0; i < list.count; i++) {
-        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
-        model.name = list[i][0];
-        model.imageName = list[i][1];
-        [_topchannelList addObject:model];
-        
-        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
-    }
+
 }
+
 
 - (void)setupMainView {
     self.view.backgroundColor = KWhiteColor;
+
+    [self.view addSubview:self.navgationView];
+    [self.navgationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.mas_equalTo(kTopHeight);
+    }];
+    
     [self.view addSubview:self.iTableView];
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view.mas_left).offset(20);
-        make.left.top.right.equalTo(self.view);
+        make.top.equalTo(self.navgationView.mas_top);
+        make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
     
@@ -101,12 +101,24 @@
     return _iTableView;
 }
 
-- (ZMineHeaderView *)headerView {
+- (ZStudentStarDetailHeadView *)headerView {
     if (!_headerView) {
 //        __weak typeof(self) weakSelf = self;
-        _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
+        _headerView = [[ZStudentStarDetailHeadView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
     }
     return _headerView;
+}
+
+- (ZStudentStarDetailNav *)navgationView {
+    if (!_navgationView) {
+        __weak typeof(self) weakSelf = self;
+        _navgationView = [[ZStudentStarDetailNav alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, kTopHeight)];
+        _navgationView.backBlock = ^(NSInteger index) {
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+    }
+    
+    return _navgationView;
 }
 
 
@@ -120,18 +132,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        ZMineMenuCell *cell = [ZMineMenuCell z_cellWithTableView:tableView];
-        cell.topChannelList = _topchannelList;
-        return cell;
-    }else if (indexPath.section == 1){
-        ZStudentMineAdverCell *cell = [ZStudentMineAdverCell z_cellWithTableView:tableView];
-        return cell;
-    }else if (indexPath.section == 2){
-        ZStudentMineLessonProgressCell *cell = [ZStudentMineLessonProgressCell z_cellWithTableView:tableView];
-        cell.list = _lessonList;
-        return cell;
-    }
+    
     ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     return cell;
@@ -140,13 +141,6 @@
 
 #pragma mark - tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return [ZMineMenuCell z_getCellHeight:nil];
-    }else if (indexPath.section == 1){
-        return [ZStudentMineAdverCell z_getCellHeight:nil];
-    }else if (indexPath.section == 2){
-        return [ZStudentMineLessonProgressCell z_getCellHeight:self.lessonList];
-    }
     return 40;
 }
 

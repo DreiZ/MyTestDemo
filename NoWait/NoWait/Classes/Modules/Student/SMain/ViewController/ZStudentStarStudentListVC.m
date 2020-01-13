@@ -10,6 +10,8 @@
 #import "ZStudentDetailModel.h"
 #import "ZStudentStarListCollectionViewCell.h"
 
+#import "ZStudentStarStudentInfoVC.h"
+
 @interface ZStudentStarStudentListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -20,10 +22,14 @@
 
 @implementation ZStudentStarStudentListVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+         
     [self setNavigation];
     [self setMainView];
     [self setData];
@@ -99,7 +105,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
+    [self.navigationController pushViewController:ivc animated:YES];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

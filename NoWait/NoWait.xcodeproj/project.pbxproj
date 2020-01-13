@@ -29,6 +29,9 @@
 		B234D0A123CC449A00210CD8 /* ZStudentStarListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0A023CC449A00210CD8 /* ZStudentStarListCollectionViewCell.m */; };
 		B234D0A423CC599200210CD8 /* ZStudentStarDetailNav.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0A323CC599200210CD8 /* ZStudentStarDetailNav.m */; };
 		B234D0A723CC59B900210CD8 /* ZStudentStarDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0A623CC59B900210CD8 /* ZStudentStarDetailHeadView.m */; };
+		B234D0AD23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0AC23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m */; };
+		B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0AF23CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m */; };
+		B234D0B323CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0B223CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m */; };
 		B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */; };
 		B279D03123C722BB00391A33 /* ZStudentLessonSelectMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */; };
 		B279D03423C722F200391A33 /* ZStudentLessonSelectLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03323C722F200391A33 /* ZStudentLessonSelectLessonView.m */; };
@@ -338,6 +341,12 @@
 		B234D0A323CC599200210CD8 /* ZStudentStarDetailNav.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarDetailNav.m; sourceTree = "<group>"; };
 		B234D0A523CC59B900210CD8 /* ZStudentStarDetailHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarDetailHeadView.h; sourceTree = "<group>"; };
 		B234D0A623CC59B900210CD8 /* ZStudentStarDetailHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarDetailHeadView.m; sourceTree = "<group>"; };
+		B234D0AB23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarStudentInfoCell.h; sourceTree = "<group>"; };
+		B234D0AC23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarStudentInfoCell.m; sourceTree = "<group>"; };
+		B234D0AE23CC5A4900210CD8 /* ZStudentStarCoachInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarCoachInfoCell.h; sourceTree = "<group>"; };
+		B234D0AF23CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarCoachInfoCell.m; sourceTree = "<group>"; };
+		B234D0B123CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarStudentSectionTitleCell.h; sourceTree = "<group>"; };
+		B234D0B223CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarStudentSectionTitleCell.m; sourceTree = "<group>"; };
 		B24DD51A23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSectionTitleCell.h; sourceTree = "<group>"; };
 		B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSectionTitleCell.m; sourceTree = "<group>"; };
 		B279D02F23C722BB00391A33 /* ZStudentLessonSelectMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectMainView.h; sourceTree = "<group>"; };
@@ -885,6 +894,12 @@
 				B234D0A323CC599200210CD8 /* ZStudentStarDetailNav.m */,
 				B234D0A523CC59B900210CD8 /* ZStudentStarDetailHeadView.h */,
 				B234D0A623CC59B900210CD8 /* ZStudentStarDetailHeadView.m */,
+				B234D0AB23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.h */,
+				B234D0AC23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m */,
+				B234D0AE23CC5A4900210CD8 /* ZStudentStarCoachInfoCell.h */,
+				B234D0AF23CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m */,
+				B234D0B123CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.h */,
+				B234D0B223CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m */,
 			);
 			path = studentDetail;
 			sourceTree = "<group>";
@@ -2467,6 +2482,7 @@
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
 				B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */,
+				B234D0B323CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m in Sources */,
 				B2A7809023BDFB0100407BF0 /* NSMutableURLRequest+TLNetwork.m in Sources */,
 				B2A77E7523BDCCFE00407BF0 /* main.m in Sources */,
 				B2A77FCA23BDEAA100407BF0 /* ZServerCompleteAlertView.m in Sources */,
@@ -2538,6 +2554,7 @@
 				B223BCC523C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,
 				B279D03723C7232200391A33 /* ZStudentLessonSelectCoachView.m in Sources */,
+				B234D0AD23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m in Sources */,
 				B2A77FCC23BDEAA100407BF0 /* ZBaseViewModel.m in Sources */,
 				B2A780A823BDFB0100407BF0 /* TLNetworkConfig.m in Sources */,
 				B2A7809B23BDFB0100407BF0 /* ReachStateUnloaded.m in Sources */,
@@ -2593,6 +2610,7 @@
 				B2A7803223BDFA3800407BF0 /* NSFileManager+ZChat.m in Sources */,
 				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
+				B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */,
 				B279D07323C9BEA400391A33 /* ZStudentLessonBottomView.m in Sources */,
 				B2A77FD623BDEAA100407BF0 /* UIViewController+PopGesture.m in Sources */,
 				B2A77FC823BDEAA100407BF0 /* ZPhoneAlertView.m in Sources */,
