@@ -106,6 +106,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
+        _iTableView.showsVerticalScrollIndicator = NO;
         _iTableView.backgroundColor = KBackColor;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;

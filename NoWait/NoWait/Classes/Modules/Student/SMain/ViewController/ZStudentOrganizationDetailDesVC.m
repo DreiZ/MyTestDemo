@@ -17,9 +17,12 @@
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZStudentOrganizationLessonMoreCell.h"
 
+
 #import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentStarStudentListVC.h"
 #import "ZStudentStarCoachListVC.h"
+#import "ZStudentStarCoachInfoVC.h"
+#import "ZStudentStarStudentInfoVC.h"
 //
 //#import "ZStudentOrganizationLessonDetailVC.h"
 
@@ -76,7 +79,7 @@
             [peoples addObject:model];
         }
         
-        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:[ZStudentOrganizationPersonnelListCell className] showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starCoach" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
         [self.cellConfigArr addObject:coachCellConfig];
     }
     
@@ -100,7 +103,7 @@
             [peoples addObject:model];
         }
         
-        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:[ZStudentOrganizationPersonnelListCell className] showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starStudent" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
         [self.cellConfigArr addObject:coachCellConfig];
     }
     
@@ -182,11 +185,25 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
+    
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+    if ([cellConfig.title isEqualToString:@"starStudent"]){
+        ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
+        lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
+            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
+            [weakSelf.navigationController pushViewController:ivc animated:YES];
+        };
+ 
+    }else if ([cellConfig.title isEqualToString:@"starCoach"]){
+        ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
+        lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
+            ZStudentStarCoachInfoVC *ivc = [[ZStudentStarCoachInfoVC alloc] init];
+            [weakSelf.navigationController pushViewController:ivc animated:YES];
+        };
+        
         
     }
     return cell;
