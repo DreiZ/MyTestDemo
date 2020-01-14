@@ -8,16 +8,20 @@
 
 #import "ZStudentMineVC.h"
 #import "ZMineHeaderView.h"
-#import "ZBaseCell.h"
+
 #import "ZMineMenuCell.h"
 #import "ZStudentMineAdverCell.h"
 #import "ZStudentMineLessonProgressCell.h"
+
+#import "ZStudentMineEvaListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
 @interface ZStudentMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZMineHeaderView *headerView;
+
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
@@ -60,11 +64,13 @@
     
     [self setData];
     [self setupMainView];
+    [self setCellData];
 }
 
 - (void)setData {
     _topchannelList = @[].mutableCopy;
     _lessonList = @[].mutableCopy;
+    _cellConfigArr = @[].mutableCopy;
     
     NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
     
@@ -129,48 +135,38 @@
 
 #pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        ZMineMenuCell *cell = [ZMineMenuCell z_cellWithTableView:tableView];
-        cell.topChannelList = _topchannelList;
-        return cell;
-    }else if (indexPath.section == 1){
-        ZStudentMineAdverCell *cell = [ZStudentMineAdverCell z_cellWithTableView:tableView];
-        return cell;
-    }else if (indexPath.section == 2){
-        ZStudentMineLessonProgressCell *cell = [ZStudentMineLessonProgressCell z_cellWithTableView:tableView];
-        cell.list = _lessonList;
-        return cell;
-    }
-    ZBaseCell  *cell = [ZBaseCell z_cellWithTableView:tableView];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    return cell;
-    
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr.count;
 }
 
-#pragma mark - tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return [ZMineMenuCell z_getCellHeight:nil];
-    }else if (indexPath.section == 1){
-        return [ZStudentMineAdverCell z_getCellHeight:nil];
-    }else if (indexPath.section == 2){
-        return [ZStudentMineLessonProgressCell z_getCellHeight:self.lessonList];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
+    
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseCell *cell;
+    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
+        ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
+        lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
+            ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+            [self.navigationController pushViewController:elvc animated:YES];
+        };
     }
-    return 40;
+
+    return cell;
+}
+
+#pragma mark tableView ------delegate-----
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return CGFloatIn750(0.1);
-    }
     return 0.01f;
 }
 
@@ -178,15 +174,21 @@
     return 0.01f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    sectionView.backgroundColor = KMainColor;
-    return sectionView;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+//    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
+//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+//
+//        [self.navigationController pushViewController:lessond_vc animated:YES];
+//    }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
+//        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+//        [self.navigationController pushViewController:lvc animated:YES];
+//    }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
+//        ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
+//        [self.navigationController pushViewController:lvc animated:YES];
+//    }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-}
 
 
 #pragma mark - scrollview delegate
@@ -204,5 +206,22 @@
     }
     
     [_headerView updateSubViewFrame];
+}
+
+
+- (void)setCellData {
+    [_cellConfigArr removeAllObjects];
+    
+    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
+    [self.cellConfigArr addObject:channelCellConfig];
+    
+    ZCellConfig *adverCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineAdverCell className] title:[ZStudentMineAdverCell className] showInfoMethod:nil heightOfCell:[ZStudentMineAdverCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:adverCellConfig];
+    
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+       [self.cellConfigArr addObject:progressCellConfig];
+    
+    
+    [self.iTableView reloadData];
 }
 @end

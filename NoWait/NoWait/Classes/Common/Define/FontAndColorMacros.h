@@ -46,7 +46,7 @@
 #define KGrayColor [UIColor grayColor]
 #define KGray2Color [UIColor lightGrayColor]
 #define KBlueColor [UIColor blueColor]
-#define KRedColor [UIColor redColor]
+#define KRedColor [UIColor colorWithHexString:@"ff4848"]
 #define KTabBarColor [UIColor redColor]
 
 #pragma mark -  字体区
