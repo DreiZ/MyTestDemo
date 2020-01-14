@@ -11,6 +11,7 @@
 
 #import "ZSpaceEmptyCell.h"
 #import "ZMineStudentEvaListNoEvaCell.h"
+#import "ZStudentMineEvaEditVC.h"
 
 @interface ZStudentMineEvaListNoVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -102,8 +103,12 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+    if ([cellConfig.title isEqualToString:@"ZMineStudentEvaListNoEvaCell"]){
+        ZMineStudentEvaListNoEvaCell *enteryCell = (ZMineStudentEvaListNoEvaCell *)cell;
+        enteryCell.evaBlock = ^{
+            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+            [self.navigationController pushViewController:evc animated:YES];
+        };
         
     }
     return cell;

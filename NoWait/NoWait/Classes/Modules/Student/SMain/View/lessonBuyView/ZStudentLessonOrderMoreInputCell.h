@@ -11,6 +11,6 @@
 
 @interface ZStudentLessonOrderMoreInputCell : ZBaseCell
 @property (nonatomic,assign) ZFormatterType formatterType;
-
+@property (nonatomic,strong) NSString *isBackColor;
 @end
 

@@ -13,6 +13,7 @@
 @interface ZStudentLessonOrderMoreInputCell ()<UITextViewDelegate>
 @property (nonatomic,strong) UITextView *iTextView;
 @property (nonatomic,strong) UILabel *thintLabel;
+@property (nonatomic,strong) UIView *backView;
 
 @end
 
@@ -33,12 +34,20 @@
     self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
     
+    [self.contentView addSubview:self.backView];
     [self.contentView addSubview:self.iTextView];
     [self.iTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-30));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(20));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-30));
+    }];
+    
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iTextView.mas_left).offset(CGFloatIn750(-10));
+        make.right.equalTo(self.iTextView.mas_right).offset(CGFloatIn750(10));
+        make.top.equalTo(self.iTextView.mas_top).offset(CGFloatIn750(-10));
+        make.bottom.equalTo(self.iTextView.mas_bottom).offset(CGFloatIn750(10));
     }];
    
     [self.contentView addSubview:self.thintLabel];
@@ -47,13 +56,25 @@
         make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-30));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(30));
     }];
+    
+    self.backView.hidden = YES;
+}
+
+- (UIView *)backView {
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+        _backView.layer.masksToBounds = YES;
+        _backView.layer.cornerRadius = 4;
+        _backView.backgroundColor = KBackColor;
+    }
+    return _backView;
 }
 
 - (UITextView *)iTextView {
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
-        _iTextView.backgroundColor = [UIColor whiteColor];
+        _iTextView.backgroundColor = KWhiteColor;
         [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
     }
     return _iTextView;
@@ -107,6 +128,17 @@
         _iTextView.keyboardType = UIKeyboardTypePhonePad;
     }else {
         _iTextView.keyboardType = UIKeyboardTypeDefault;
+    }
+}
+
+- (void)setIsBackColor:(NSString *)isBackColor {
+    _isBackColor = isBackColor;
+    if (_isBackColor) {
+        _iTextView.backgroundColor = KBackColor;
+        _backView.hidden = NO;
+    }else{
+        _iTextView.backgroundColor = KWhiteColor;
+        _backView.hidden = YES;
     }
 }
 @end

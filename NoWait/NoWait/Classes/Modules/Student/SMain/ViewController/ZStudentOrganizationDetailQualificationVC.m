@@ -59,7 +59,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"环境"];
+    [self.navigationItem setTitle:@"预约详情"];
 }
 
 - (void)setupMainView {
