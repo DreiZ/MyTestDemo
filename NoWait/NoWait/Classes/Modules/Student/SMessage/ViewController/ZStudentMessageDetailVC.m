@@ -1,35 +1,26 @@
 //
-//  ZStudentMessageVC.m
+//  ZStudentMessageDetailVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/3.
+//  Created by zhuang zhang on 2020/1/14.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMessageVC.h"
+#import "ZStudentMessageDetailVC.h"
 #import "ZCellConfig.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentMessageListCell.h"
+#import "ZStudentMessageListDetailCell.h"
 
-#import "ZStudentMessageDetailVC.h"
 
-@interface ZStudentMessageVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZStudentMessageDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-@implementation ZStudentMessageVC
+@implementation ZStudentMessageDetailVC
 
-
-- (id)init
-{
-    if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"消息"), @"tabBarMessage_highlighted", @"tabBarMessage_highlighted");
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,14 +42,14 @@
 //    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:KBackColor];
 //    [self.cellConfigArr addObject:spacCellConfig];
     
-    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMessageListCell className] title:[ZStudentMessageListCell className] showInfoMethod:nil heightOfCell:[ZStudentMessageListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMessageListDetailCell className] title:[ZStudentMessageListDetailCell className] showInfoMethod:nil heightOfCell:[ZStudentMessageListDetailCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:messageCellConfig];
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"消息"];
+    [self.navigationItem setTitle:@"课程提醒"];
 }
 
 - (void)setupMainView {
@@ -136,9 +127,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZStudentMessageListCell"]) {
-        ZStudentMessageDetailVC *dvc = [[ZStudentMessageDetailVC alloc] init];
-        [self.navigationController pushViewController:dvc animated:YES];
+    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
+        
     }
 }
 

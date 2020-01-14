@@ -300,6 +300,8 @@
 		B2F7D36223CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36123CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m */; };
 		B2F7D36523CDD53E00F7A17D /* ZMineStudentEvaEditUpdateImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36423CDD53E00F7A17D /* ZMineStudentEvaEditUpdateImageCell.m */; };
 		B2F7D36823CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36723CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m */; };
+		B2F7D36B23CDDD5000F7A17D /* ZStudentMessageDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36A23CDDD5000F7A17D /* ZStudentMessageDetailVC.m */; };
+		B2F7D36E23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -877,6 +879,10 @@
 		B2F7D36423CDD53E00F7A17D /* ZMineStudentEvaEditUpdateImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaEditUpdateImageCell.m; sourceTree = "<group>"; };
 		B2F7D36623CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaEditStarCell.h; sourceTree = "<group>"; };
 		B2F7D36723CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaEditStarCell.m; sourceTree = "<group>"; };
+		B2F7D36923CDDD5000F7A17D /* ZStudentMessageDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMessageDetailVC.h; sourceTree = "<group>"; };
+		B2F7D36A23CDDD5000F7A17D /* ZStudentMessageDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMessageDetailVC.m; sourceTree = "<group>"; };
+		B2F7D36C23CDDE0700F7A17D /* ZStudentMessageListDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMessageListDetailCell.h; sourceTree = "<group>"; };
+		B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMessageListDetailCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -946,6 +952,8 @@
 			children = (
 				B234D08F23CC1A6D00210CD8 /* ZStudentMessageListCell.h */,
 				B234D09023CC1A6D00210CD8 /* ZStudentMessageListCell.m */,
+				B2F7D36C23CDDE0700F7A17D /* ZStudentMessageListDetailCell.h */,
+				B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1986,6 +1994,8 @@
 			children = (
 				B2A780CD23BED3C800407BF0 /* ZStudentMessageVC.h */,
 				B2A780CE23BED3C800407BF0 /* ZStudentMessageVC.m */,
+				B2F7D36923CDDD5000F7A17D /* ZStudentMessageDetailVC.h */,
+				B2F7D36A23CDDD5000F7A17D /* ZStudentMessageDetailVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2653,6 +2663,7 @@
 				B2A780A723BDFB0100407BF0 /* TLUploadRequest.m in Sources */,
 				B2A77EA323BDE1AB00407BF0 /* NSDictionary+LYNil.m in Sources */,
 				B2A780AE23BDFB1F00407BF0 /* ZRouteManager.m in Sources */,
+				B2F7D36B23CDDD5000F7A17D /* ZStudentMessageDetailVC.m in Sources */,
 				B2A7809F23BDFB0100407BF0 /* FSMEngine.m in Sources */,
 				B2A77F2823BDE37A00407BF0 /* LLImagePickerManager.m in Sources */,
 				B279D05B23C97FA800391A33 /* ZStudentLessonOrderSuccessVC.m in Sources */,
@@ -2673,6 +2684,7 @@
 				B2A7818723C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.m in Sources */,
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
 				B2A780A523BDFB0100407BF0 /* TLBaseRequest.m in Sources */,
+				B2F7D36E23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m in Sources */,
 				B2A77F6123BDE42E00407BF0 /* TZGifPhotoPreviewController.m in Sources */,
 				B2F7D35323CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m in Sources */,
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
