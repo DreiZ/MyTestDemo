@@ -58,10 +58,11 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @property (nonatomic,strong) NSString *rightTitle;
 @property (nonatomic,strong) NSString *rightImage;
 @property (nonatomic,strong) NSString *cellTitle;
+
 @property (nonatomic,strong) UIColor *leftColor;
 @property (nonatomic,strong) UIColor *rightColor;
-
-
+@property (nonatomic,strong) UIFont *leftFont;
+@property (nonatomic,strong) UIFont *rightFont;
 @property (nonatomic,assign) BOOL isHiddenBottomLine;
 @end
 

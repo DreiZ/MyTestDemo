@@ -10,6 +10,9 @@
 #import "ZStudentDetailModel.h"
 #import "ZStudentStarListCollectionViewCell.h"
 
+
+#import "ZStudentStarCoachInfoVC.h"
+
 @interface ZStudentStarCoachListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -99,7 +102,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    ZStudentStarCoachInfoVC *ivc = [[ZStudentStarCoachInfoVC alloc] init];
+    [self.navigationController pushViewController:ivc animated:YES];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

@@ -40,8 +40,9 @@
 - (UIImageView *)contentImageView {
     if (!_contentImageView) {
         _contentImageView = [[UIImageView alloc] init];
+        _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
 //        _contentImageView.layer.cornerRadius = 6;
-        _contentImageView.layer.masksToBounds = YES;
+//        _contentImageView.layer.masksToBounds = YES;
     }
     
     return _contentImageView;

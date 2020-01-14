@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A2E774EE0D9ED8DE2FF9684 /* libPods-NoWait.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */; };
+		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */; };
 		B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */; };
 		B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */; };
@@ -304,6 +305,8 @@
 
 /* Begin PBXFileReference section */
 		3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.debug.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.debug.xcconfig"; sourceTree = "<group>"; };
+		B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarInfoCoachMoreEvaCell.h; sourceTree = "<group>"; };
+		B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarInfoCoachMoreEvaCell.m; sourceTree = "<group>"; };
 		B223BCB723C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonListCell.h; sourceTree = "<group>"; };
 		B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailLessonListCell.m; sourceTree = "<group>"; };
 		B223BCBA23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonItemCell.h; sourceTree = "<group>"; };
@@ -888,7 +891,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B234D09E23CC43F800210CD8 /* studentDetail */ = {
+		B234D09E23CC43F800210CD8 /* studentCoachDetail */ = {
 			isa = PBXGroup;
 			children = (
 				B234D09F23CC449A00210CD8 /* ZStudentStarListCollectionViewCell.h */,
@@ -905,8 +908,10 @@
 				B234D0B223CC5A6200210CD8 /* ZStudentStarStudentSectionTitleCell.m */,
 				B234D0B423CC8C8600210CD8 /* ZStudentStarInfoImageCell.h */,
 				B234D0B523CC8C8600210CD8 /* ZStudentStarInfoImageCell.m */,
+				B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */,
+				B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */,
 			);
-			path = studentDetail;
+			path = studentCoachDetail;
 			sourceTree = "<group>";
 		};
 		B279D02E23C7228300391A33 /* lessonBuyView */ = {
@@ -2043,7 +2048,7 @@
 		B2A7811223C2E4E900407BF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B234D09E23CC43F800210CD8 /* studentDetail */,
+				B234D09E23CC43F800210CD8 /* studentCoachDetail */,
 				B279D02E23C7228300391A33 /* lessonBuyView */,
 				B2A781A023C5C4CF00407BF0 /* organizationLessonDetail */,
 				B2A7817B23C5764F00407BF0 /* organizationDetail */,
@@ -2527,6 +2532,7 @@
 				B2A77EC523BDE29E00407BF0 /* MWTapDetectingImageView.m in Sources */,
 				B223BCCB23C7016F00AC0158 /* ZStudentLessonDetailEvaListCell.m in Sources */,
 				B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */,
+				B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */,
 				B279D05523C9578E00391A33 /* ZStudentLessonOrderMoreInputCell.m in Sources */,
 				B234D09123CC1A6D00210CD8 /* ZStudentMessageListCell.m in Sources */,
 				B279D06723C99E6F00391A33 /* ZStudentLessonOrderHintCell.m in Sources */,

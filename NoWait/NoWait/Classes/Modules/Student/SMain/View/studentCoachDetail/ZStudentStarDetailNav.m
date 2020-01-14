@@ -96,4 +96,11 @@
     }
     return _titleLabel;
 }
+
+
+#pragma mark -设置数据
+-(void)setTitle:(NSString *)title {
+    _title = title;
+    _titleLabel.text = title;
+}
 @end

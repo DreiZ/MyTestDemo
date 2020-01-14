@@ -127,6 +127,16 @@
 
 - (void)setModel:(ZStudentDetailOrderSubmitListModel *)model {
     _model = model;
+    _leftTitleLabel.text = model.leftTitle;
+    _rightTitleLabel.text = model.rightTitle;
+    
+    _leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
+    _rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
+    
+    _leftTitleLabel.textColor = model.leftColor ? model.leftColor:KBlackColor;
+    _rightTitleLabel.textColor = model.rightColor ? model.rightColor:KBlackColor;
+    
+    self.bottomLineView.hidden = model.isHiddenBottomLine;
     
     if (model.leftImage && model.leftImage.length > 0) {
         self.leftImageView.image = [UIImage imageNamed:model.leftImage];
@@ -146,8 +156,6 @@
         self.leftImageView.hidden = YES;
     }
     
-    _leftTitleLabel.text = model.leftTitle;
-    _rightTitleLabel.text = model.rightTitle;
     
     if (model.rightImage && model.rightImage.length > 0) {
         self.rightImageView.image = [UIImage imageNamed:model.rightImage];

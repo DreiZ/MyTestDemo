@@ -15,6 +15,8 @@
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
+@property (nonatomic,strong) UIView *bottomLineView;
+
 @end
 
 
@@ -49,6 +51,7 @@
         make.left.right.bottom.equalTo(self);
         make.height.mas_equalTo(0.5);
     }];
+    self.bottomLineView = bottomLineView;
 }
 
 
@@ -119,6 +122,11 @@
     [self setData];
 }
 
+- (void)setNoSpacelist:(NSArray<ZStudentDetailDesListModel *> *)noSpacelist {
+    _list = noSpacelist;
+    [self setDataWithoutSpace];
+}
+
 - (void)setData {
     [_cellConfigArr removeAllObjects];
     
@@ -126,19 +134,7 @@
     [_cellConfigArr addObject:spacCellConfig];
 
 
-    for (int i = 0; i < self.list.count; i++) {
-        ZStudentDetailDesListModel *model = self.list[i];
-        
-        if (model.desTitle) {
-            ZCellConfig *itemCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonSubtitleCell className] title:[ZStudentLessonDetailLessonSubtitleCell className] showInfoMethod:@selector(setDetail:) heightOfCell:[ZStudentLessonDetailLessonSubtitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model.desTitle];
-            [_cellConfigArr addObject:itemCellConfig];
-        }
-        
-        if (model.desSub) {
-            ZCellConfig *itemCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonItemCell className] title:[ZStudentLessonDetailLessonItemCell className] showInfoMethod:@selector(setDetail:) heightOfCell:[ZStudentLessonDetailLessonItemCell z_getCellHeight:model.desSub] cellType:ZCellTypeClass dataModel:model.desSub];
-            [_cellConfigArr addObject:itemCellConfig];
-        }
-    }
+    [self setDataWithoutSpace];
     
     
     ZCellConfig *spacBottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(14) cellType:ZCellTypeClass dataModel:KWhiteColor];
@@ -147,6 +143,26 @@
     [self.iTableView reloadData];
 }
 
+- (void)setDataWithoutSpace {
+    for (int i = 0; i < self.list.count; i++) {
+           ZStudentDetailDesListModel *model = self.list[i];
+           
+           if (model.desTitle) {
+               ZCellConfig *itemCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonSubtitleCell className] title:[ZStudentLessonDetailLessonSubtitleCell className] showInfoMethod:@selector(setDetail:) heightOfCell:[ZStudentLessonDetailLessonSubtitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model.desTitle];
+               [_cellConfigArr addObject:itemCellConfig];
+           }
+           
+           if (model.desSub) {
+               ZCellConfig *itemCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonItemCell className] title:[ZStudentLessonDetailLessonItemCell className] showInfoMethod:@selector(setDetail:) heightOfCell:[ZStudentLessonDetailLessonItemCell z_getCellHeight:model.desSub] cellType:ZCellTypeClass dataModel:model.desSub];
+               [_cellConfigArr addObject:itemCellConfig];
+           }
+       }
+}
+
+- (void)setIsHiddenBottomLine:(BOOL)isHiddenBottomLine {
+    _isHiddenBottomLine = isHiddenBottomLine;
+    self.bottomLineView.hidden = isHiddenBottomLine;
+}
 
 + (CGFloat)z_getCellHeight:(id)sender {
     NSArray *list = sender;

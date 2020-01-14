@@ -12,7 +12,8 @@
 
 @interface ZStudentLessonDetailLessonListCell : ZBaseCell
 @property (nonatomic,strong) NSArray <ZStudentDetailDesListModel *>*list;
-
+@property (nonatomic,strong) NSArray <ZStudentDetailDesListModel *>*noSpacelist;
+@property (nonatomic,assign) BOOL isHiddenBottomLine;
 @end
 
 

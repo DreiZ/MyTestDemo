@@ -163,7 +163,7 @@
 
 +(CGFloat)z_getCellHeight:(id)sender {
     ZStudentDetailEvaListModel *model = sender;
-    CGSize tsize = [model.evaDes tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(130 + 40), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
+    CGSize tsize = [model.evaDes tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(148), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
 
     return CGFloatIn750(135 + 40) + tsize.height;
 }

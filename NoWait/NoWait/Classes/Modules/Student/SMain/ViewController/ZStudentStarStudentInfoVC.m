@@ -212,11 +212,10 @@
     [self.cellConfigArr addObject:title1CellConfig];
     
     NSMutableArray *list = @[].mutableCopy;
-    NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"], @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
+    NSArray *des = @[@"18年报名学习了瑜伽课程，并需取得了优异成绩",@"从业8年，技术精湛，为人和善，得过不少大奖，任驰骋，苏苏苏",@"参加比赛，国际荣誉无数"];
     for (int i = 0; i < des.count; i++) {
         ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-//        model.desTitle = des[i][0];
-        model.desSub = des[i][1];
+        model.desSub = des[i];
         [list addObject:model];
     }
     
