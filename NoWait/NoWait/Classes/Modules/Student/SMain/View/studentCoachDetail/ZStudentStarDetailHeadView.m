@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentStarDetailHeadView.h"
+#import "MGWaterDorpView.h"
 
 @interface ZStudentStarDetailHeadView ()
 @property (nonatomic,strong) UIImageView *headImageView;
@@ -29,10 +30,23 @@
     self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    
+    MGWaterDorpView *waterDropView = [[MGWaterDorpView alloc] initWithFrame:CGRectMake(0,kTopHeight,kScreenWidth ,170 + 3)];
+
+
+    waterDropView.backgroundColor = KBlueBackColor;
+    waterDropView.waveAmplitude = waterDropView.amplitudeMin + (double)0.8 * waterDropView.amplitudeSpan;
+    
+    
 
     [self addSubview:self.headImageView];
+    [self addSubview:waterDropView];
     [self addSubview:self.userHeaderImageView];
     
+    [waterDropView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.height.mas_equalTo(CGFloatIn750(460)+ kTopHeight);
+    }];
     [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         make.height.mas_equalTo(CGFloatIn750(500));
@@ -44,6 +58,7 @@
         make.width.mas_equalTo(CGFloatIn750(532));
         make.height.mas_equalTo(CGFloatIn750(430));
     }];
+    
 }
 
 

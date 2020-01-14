@@ -64,6 +64,6 @@
 #define kHN_OrangeHColor [UIColor colorWithHexString:@"eb7400"]
 #define KYellowColor [UIColor colorWithHexString:@"ffcc00"]
 #define KGreenColor [UIColor colorWithHexString:@"007553"]
-#define KBlueBackColor [UIColor colorWithHexString:@"374afe"] //背景蓝色
+#define KBlueBackColor [UIColor colorWithHexString:@"2337fc"] //背景蓝色
 
 #endif /* FontAndColorMacros_h */

@@ -27,18 +27,18 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KBlueBackColor;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] init];
-    backgroundImageView.image = [UIImage imageNamed:@"studentStarHeaderBack"];
-    backgroundImageView.layer.masksToBounds = YES;
-    [self addSubview:backgroundImageView];
-    [backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(500));
-        make.left.right.top.equalTo(self);
-    }];
+//    UIImageView *backgroundImageView = [[UIImageView alloc] init];
+//    backgroundImageView.image = [UIImage imageNamed:@"studentStarHeaderBack"];
+//    backgroundImageView.layer.masksToBounds = YES;
+//    [self addSubview:backgroundImageView];
+//    [backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo(CGFloatIn750(500));
+//        make.left.right.top.equalTo(self);
+//    }];
     
     
     [self addSubview:self.contView];

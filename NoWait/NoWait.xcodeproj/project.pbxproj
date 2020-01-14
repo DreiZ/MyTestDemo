@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A2E774EE0D9ED8DE2FF9684 /* libPods-NoWait.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */; };
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
+		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
+		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
 		B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */; };
 		B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */; };
 		B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */; };
@@ -307,6 +309,10 @@
 		3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.debug.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.debug.xcconfig"; sourceTree = "<group>"; };
 		B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarInfoCoachMoreEvaCell.h; sourceTree = "<group>"; };
 		B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarInfoCoachMoreEvaCell.m; sourceTree = "<group>"; };
+		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
+		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
+		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
+		B215844023CD6544007618CE /* MGWaterDorpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGWaterDorpView.h; sourceTree = "<group>"; };
 		B223BCB723C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonListCell.h; sourceTree = "<group>"; };
 		B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailLessonListCell.m; sourceTree = "<group>"; };
 		B223BCBA23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonItemCell.h; sourceTree = "<group>"; };
@@ -869,6 +875,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B215843C23CD6503007618CE /* MGWaterDorpView */ = {
+			isa = PBXGroup;
+			children = (
+				B215844023CD6544007618CE /* MGWaterDorpView.h */,
+				B215843E23CD6544007618CE /* MGWaterDorpView.m */,
+				B215843D23CD6544007618CE /* UIColor+MGHexColor.h */,
+				B215843F23CD6544007618CE /* UIColor+MGHexColor.m */,
+			);
+			path = MGWaterDorpView;
+			sourceTree = "<group>";
+		};
 		B223BCCC23C7043F00AC0158 /* StarRatingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,6 +1056,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B215843C23CD6503007618CE /* MGWaterDorpView */,
 				B223BCCC23C7043F00AC0158 /* StarRatingView */,
 				B2A7815823C4517800407BF0 /* ZHFilterMenuView */,
 				B2A780EA23BF06FD00407BF0 /* PooCodeView */,
@@ -2480,6 +2498,7 @@
 				B2A7816923C4517800407BF0 /* ZHFilterModel.m in Sources */,
 				B2A77FD023BDEAA100407BF0 /* DWKWebView.m in Sources */,
 				B2A77F5E23BDE42E00407BF0 /* TZPhotoPreviewCell.m in Sources */,
+				B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */,
 				B2A7808B23BDFB0100407BF0 /* UIScrollView+ZRefreshHeader.m in Sources */,
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
 				B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */,
@@ -2589,6 +2608,7 @@
 				B223BCC823C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m in Sources */,
 				B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */,
 				B234D09D23CC433400210CD8 /* ZStudentStarStudentInfoVC.m in Sources */,
+				B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */,
 				B2A7816523C4517800407BF0 /* ZHFilterItemTableViewCell.m in Sources */,
 				B2A77F6223BDE42E00407BF0 /* TZImageRequestOperation.m in Sources */,
 				B2A7808A23BDFB0100407BF0 /* UIScrollView+ZLoadMoreFooter.m in Sources */,
