@@ -85,8 +85,8 @@
 - (NSMutableArray *)vcArr {
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
-        [_vcArr addObject:self.noEvaVC];
         [_vcArr addObject:self.hadEvaVC];
+        [_vcArr addObject:self.noEvaVC];
     }
     return _vcArr;
 }

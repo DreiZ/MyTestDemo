@@ -44,6 +44,12 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -94,6 +100,7 @@
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
             _iTableView.estimatedRowHeight = 0;
             _iTableView.estimatedSectionHeaderHeight = 0;

@@ -292,6 +292,11 @@
 		B2F7D34923CD7D9400F7A17D /* ZStudentMineEvaListNoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D34823CD7D9400F7A17D /* ZStudentMineEvaListNoVC.m */; };
 		B2F7D34D23CD858A00F7A17D /* ZMineStudentEvaListNoEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D34C23CD858A00F7A17D /* ZMineStudentEvaListNoEvaCell.m */; };
 		B2F7D35023CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D34F23CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m */; };
+		B2F7D35323CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D35223CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m */; };
+		B2F7D35623CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D35523CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m */; };
+		B2F7D35923CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D35823CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m */; };
+		B2F7D35C23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D35B23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m */; };
+		B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D35E23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -853,6 +858,16 @@
 		B2F7D34C23CD858A00F7A17D /* ZMineStudentEvaListNoEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListNoEvaCell.m; sourceTree = "<group>"; };
 		B2F7D34E23CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListHadEvaCell.h; sourceTree = "<group>"; };
 		B2F7D34F23CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListHadEvaCell.m; sourceTree = "<group>"; };
+		B2F7D35123CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListEvaOrderCell.h; sourceTree = "<group>"; };
+		B2F7D35223CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListEvaOrderCell.m; sourceTree = "<group>"; };
+		B2F7D35423CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListEvaCoachCell.h; sourceTree = "<group>"; };
+		B2F7D35523CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListEvaCoachCell.m; sourceTree = "<group>"; };
+		B2F7D35723CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListEvaImageCollectionCell.h; sourceTree = "<group>"; };
+		B2F7D35823CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListEvaImageCollectionCell.m; sourceTree = "<group>"; };
+		B2F7D35A23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListEvaOrderDesCell.h; sourceTree = "<group>"; };
+		B2F7D35B23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListEvaOrderDesCell.m; sourceTree = "<group>"; };
+		B2F7D35D23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineStudentEvaListEvaImageCell.h; sourceTree = "<group>"; };
+		B2F7D35E23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineStudentEvaListEvaImageCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2082,6 +2097,16 @@
 				B2F7D34C23CD858A00F7A17D /* ZMineStudentEvaListNoEvaCell.m */,
 				B2F7D34E23CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.h */,
 				B2F7D34F23CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m */,
+				B2F7D35123CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.h */,
+				B2F7D35223CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m */,
+				B2F7D35423CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.h */,
+				B2F7D35523CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m */,
+				B2F7D35723CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.h */,
+				B2F7D35823CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m */,
+				B2F7D35A23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.h */,
+				B2F7D35B23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m */,
+				B2F7D35D23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.h */,
+				B2F7D35E23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2507,6 +2532,7 @@
 				B2A7819923C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m in Sources */,
 				B2A781C423C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m in Sources */,
 				B2A780ED23BF06FD00407BF0 /* PooCodeView.m in Sources */,
+				B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */,
 				B2A7802723BDF9B100407BF0 /* ZDBManager.m in Sources */,
 				B2A7816723C4517800407BF0 /* ZHFilterMenuView.m in Sources */,
 				B2A781BB23C5D27900407BF0 /* ZStudentOrganizationLessonDetailVC.m in Sources */,
@@ -2532,6 +2558,7 @@
 				B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */,
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
+				B2F7D35C23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m in Sources */,
 				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
@@ -2613,12 +2640,14 @@
 				B2A77F2823BDE37A00407BF0 /* LLImagePickerManager.m in Sources */,
 				B279D05B23C97FA800391A33 /* ZStudentLessonOrderSuccessVC.m in Sources */,
 				B2A77F5523BDE42E00407BF0 /* TZVideoPlayerController.m in Sources */,
+				B2F7D35923CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m in Sources */,
 				B2A7817423C567AE00407BF0 /* ZStudentOrganizationDetailDesVC.m in Sources */,
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
 				B2F7D34923CD7D9400F7A17D /* ZStudentMineEvaListNoVC.m in Sources */,
 				B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */,
 				B2A780AA23BDFB0100407BF0 /* TLNetworkUtility.m in Sources */,
+				B2F7D35623CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m in Sources */,
 				B279D04623C8432000391A33 /* ZStudentLessonSelectTimeSubCell.m in Sources */,
 				B234D0A723CC59B900210CD8 /* ZStudentStarDetailHeadView.m in Sources */,
 				B2A7815523C3349E00407BF0 /* ZStudentMainOrganizationListCell.m in Sources */,
@@ -2628,6 +2657,7 @@
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
 				B2A780A523BDFB0100407BF0 /* TLBaseRequest.m in Sources */,
 				B2A77F6123BDE42E00407BF0 /* TZGifPhotoPreviewController.m in Sources */,
+				B2F7D35323CD994900F7A17D /* ZMineStudentEvaListEvaOrderCell.m in Sources */,
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
 				B2A77E6023BDC83300407BF0 /* AppDelegate.m in Sources */,
 				B2A7810123C0732B00407BF0 /* ZMineMenuCell.m in Sources */,

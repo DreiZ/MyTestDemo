@@ -9,6 +9,23 @@
 #import <Foundation/Foundation.h>
 
 
+
+@interface ZStudentOrderEvaModel : NSObject
+@property (nonatomic,strong) NSString *orderImage;
+@property (nonatomic,strong) NSString *orderNum;
+@property (nonatomic,strong) NSString *lessonTitle;
+@property (nonatomic,strong) NSString *lessonTime;
+@property (nonatomic,strong) NSString *lessonCoach;
+@property (nonatomic,strong) NSString *lessonOrg;
+@property (nonatomic,strong) NSString *coachStar;
+@property (nonatomic,strong) NSString *coachEva;
+@property (nonatomic,strong) NSArray *coachEvaImages;
+
+@property (nonatomic,strong) NSString *orgStar;
+@property (nonatomic,strong) NSString *orgEva;
+@property (nonatomic,strong) NSArray *orgEvaImages;
+@end
+
 @interface ZStudentLessonModel : NSObject
 @property (nonatomic,strong) NSString *lessonName;
 @property (nonatomic,strong) NSString *allCount;

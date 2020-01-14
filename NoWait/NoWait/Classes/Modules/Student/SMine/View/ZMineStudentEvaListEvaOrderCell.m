@@ -1,24 +1,23 @@
 //
-//  ZMineStudentEvaListNoEvaCell.m
+//  ZMineStudentEvaListEvaOrderCell.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/14.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZMineStudentEvaListNoEvaCell.h"
-@interface ZMineStudentEvaListNoEvaCell ()
+#import "ZMineStudentEvaListEvaOrderCell.h"
+@interface ZMineStudentEvaListEvaOrderCell ()
 
 @property (nonatomic,strong) UIImageView *lessonImageVIew;
 @property (nonatomic,strong) UILabel *orderSNLabel;
 @property (nonatomic,strong) UILabel *lessonLabel;
-@property (nonatomic,strong) UILabel *orderStateLabel;
 @property (nonatomic,strong) UILabel *cocahLabel;
-@property (nonatomic,strong) UIButton *evaBtn;
+@property (nonatomic,strong) UIButton *orderDetailBtn;
 
 @end
 
-@implementation ZMineStudentEvaListNoEvaCell
+@implementation ZMineStudentEvaListEvaOrderCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -30,17 +29,12 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KWhiteColor;
     
     UIView *contView = [[UIView alloc] init];
-    contView.layer.masksToBounds = YES;
-    contView.layer.cornerRadius = CGFloatIn750(12);
     [self.contentView addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
-        make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-20));
-        make.top.equalTo(self.contentView);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(30));
+        make.edges.equalTo(self.contentView);
     }];
     
     
@@ -52,31 +46,23 @@
         make.left.right.top.equalTo(contView);
     }];
 
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KWhiteColor;
-    [contView addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(88));
-        make.left.right.bottom.equalTo(contView);
-    }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
     middleView.backgroundColor = KWhiteColor;
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
-        make.bottom.equalTo(bottomView.mas_top);
+        make.bottom.equalTo(self.mas_bottom);
         make.left.right.equalTo(contView);
     }];
 
 
     [topView addSubview:self.orderSNLabel];
-    [bottomView addSubview:self.evaBtn];
+    [topView addSubview:self.orderDetailBtn];
     
     [middleView addSubview:self.lessonImageVIew];
     [middleView addSubview:self.lessonLabel];
     [middleView addSubview:self.cocahLabel];
-    [middleView addSubview:self.orderStateLabel];
     
     [self.orderSNLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
@@ -105,45 +91,18 @@
         make.right.equalTo(middleView.mas_right).offset(-CGFloatIn750(20));
     }];
     
-    [self.orderStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lessonImageVIew.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.lessonLabel.mas_bottom).offset(CGFloatIn750(14));
-    }];
     
     [self.cocahLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageVIew.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.orderStateLabel.mas_bottom).offset(CGFloatIn750(14));
+        make.bottom.equalTo(self.lessonImageVIew.mas_bottom).offset(CGFloatIn750(-10));
 
     }];
     
-    [self.evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(bottomView.mas_right).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(bottomView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(40));
-        make.width.mas_equalTo(CGFloatIn750(100));
+    [self.orderDetailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.equalTo(topView);
+        make.width.mas_equalTo(CGFloatIn750(150));
     }];
-    
-    __weak typeof(self) weakSelf = self;
-    UIButton *eva = [[UIButton alloc] initWithFrame:CGRectZero];
-    [eva bk_whenTapped:^{
-        if (weakSelf.evaBlock) {
-            weakSelf.evaBlock();
-        }
-    }];
-    [bottomView addSubview:eva];
-    [eva mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(CGFloatIn750(160));
-        make.right.top.bottom.equalTo(bottomView);
-    }];
-    
-    
-    UIView *evabottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    evabottomLineView.backgroundColor = KLineColor;
-    [bottomView addSubview:evabottomLineView];
-    [evabottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(bottomView);
-        make.height.mas_equalTo(0.5);
-    }];
+   
 }
 
 
@@ -184,17 +143,6 @@
     return _lessonLabel;
 }
 
-- (UILabel *)orderStateLabel {
-    if (!_orderStateLabel) {
-        _orderStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderStateLabel.textColor = KRedColor;
-        _orderStateLabel.text = @"已支付：233元";
-        _orderStateLabel.numberOfLines = 1;
-        _orderStateLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderStateLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
-    }
-    return _orderStateLabel;
-}
 
 - (UILabel *)cocahLabel {
     if (!_cocahLabel) {
@@ -208,28 +156,26 @@
     return _cocahLabel;
 }
 
-- (UIButton *)evaBtn {
-    if (!_evaBtn) {
-        _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _evaBtn.layer.masksToBounds = YES;
-        _evaBtn.layer.cornerRadius = 3;
-        _evaBtn.layer.borderColor = KMainColor.CGColor;
-        _evaBtn.layer.borderWidth = 1;
-        [_evaBtn setTitle:@"去评价" forState:UIControlStateNormal];
-        [_evaBtn setTitleColor:KMainColor forState:UIControlStateNormal];
-        [_evaBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+- (UIButton *)orderDetailBtn {
+    if (!_orderDetailBtn) {
+        _orderDetailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _orderDetailBtn.layer.masksToBounds = YES;
+        [_orderDetailBtn setTitle:@"查看详情>>" forState:UIControlStateNormal];
+        [_orderDetailBtn setTitleColor:KFont6Color forState:UIControlStateNormal];
+        [_orderDetailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
         
         __weak typeof(self) weakSelf = self;
-        [_evaBtn bk_whenTapped:^{
-            if (weakSelf.evaBlock) {
-                weakSelf.evaBlock();
+        [_orderDetailBtn bk_whenTapped:^{
+            if (weakSelf.detailBlock) {
+                weakSelf.detailBlock();
             }
         }];
     }
-    return _evaBtn;
+    return _orderDetailBtn;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(340+40);
+    return CGFloatIn750(244+40);
 }
 @end
+

@@ -1,5 +1,5 @@
 //
-//  ZMineStudentEvaListNoEvaCell.h
+//  ZMineStudentEvaListEvaOrderCell.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/14.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZMineStudentEvaListNoEvaCell : ZBaseCell
-@property (nonatomic,strong) void (^evaBlock)(void);
+@interface ZMineStudentEvaListEvaOrderCell : ZBaseCell
+@property (nonatomic,strong) void (^detailBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

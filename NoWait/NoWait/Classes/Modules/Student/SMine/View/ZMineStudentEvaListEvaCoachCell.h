@@ -1,5 +1,5 @@
 //
-//  ZMineStudentEvaListHadEvaCell.h
+//  ZMineStudentEvaListEvaCoachCell.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/14.
@@ -9,8 +9,10 @@
 #import "ZBaseCell.h"
 #import "ZStudentMineModel.h"
 
-@interface ZMineStudentEvaListHadEvaCell : ZBaseCell
+
+@interface ZMineStudentEvaListEvaCoachCell : ZBaseCell
 @property (nonatomic,strong) ZStudentOrderEvaModel *model;
 
 @end
+
 
