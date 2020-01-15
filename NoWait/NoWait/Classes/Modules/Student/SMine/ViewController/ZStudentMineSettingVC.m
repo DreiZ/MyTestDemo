@@ -8,6 +8,7 @@
 
 #import "ZStudentMineSettingVC.h"
 #import "ZCellConfig.h"
+#import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentMineSignListCell.h"
@@ -16,7 +17,9 @@
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineVC.h"
-#import "ZStudentDetailModel.h"
+#import "ZStudentMineSettingCommonVC.h"
+#import "ZStudentMineSettingSafeVC.h"
+
 
 
 @interface ZStudentMineSettingVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -68,7 +71,7 @@
     [self.cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"退出登录"];
-       [self.cellConfigArr addObject:loginOutCellConfig];
+    [self.cellConfigArr addObject:loginOutCellConfig];
 }
 
 
@@ -161,7 +164,13 @@
          ZStudentMineSettingMineVC *dvc = [[ZStudentMineSettingMineVC alloc] init];
          
          [self.navigationController pushViewController:dvc animated:YES];
-       }
+     }else if ([cellConfig.title isEqualToString:@"通用"]) {
+         ZStudentMineSettingCommonVC *cvc = [[ZStudentMineSettingCommonVC alloc] init];
+         [self.navigationController pushViewController:cvc animated:YES];
+     }else if ([cellConfig.title isEqualToString:@"账号与安全"]) {
+         ZStudentMineSettingSafeVC *svc = [[ZStudentMineSettingSafeVC alloc] init];
+         [self.navigationController pushViewController:svc animated:YES];
+     }
 }
 
 #pragma mark vc delegate-------------------

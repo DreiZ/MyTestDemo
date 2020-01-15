@@ -1,33 +1,28 @@
 //
-//  ZStudentMineSettingMineVC.m
+//  ZStudentMineSettingCommonVC.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/15.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMineSettingMineVC.h"
+#import "ZStudentMineSettingCommonVC.h"
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentMineSignListCell.h"
-#import "ZStudentLessonOrderCompleteCell.h"
-#import "ZStudentMineSettingUserHeadImageCell.h"
-
-#import "ZStudentMineSignDetailVC.h"
-#import "ZStudentMineSettingMineEditVC.h"
-#import "ZStudentMineSettingSexVC.h"
-#import "ZDatePickerView.h"
+#import "ZStudentMineSettingBottomCell.h"
+#import "ZStudentMineSettingSwitchCell.h"
 
 
-@interface ZStudentMineSettingMineVC ()<UITableViewDelegate, UITableViewDataSource>
+
+@interface ZStudentMineSettingCommonVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-@implementation ZStudentMineSettingMineVC
+@implementation ZStudentMineSettingCommonVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,33 +42,19 @@
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
+    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchCell className] title:[ZStudentMineSettingSwitchCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingSwitchCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"消息推送"];
+    [self.cellConfigArr addObject:messageCellConfig];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KBackColor];
+    [self.cellConfigArr addObject:topCellConfig];
     
-    NSArray <NSArray *>*titleArr = @[@[@"头像", @"studentDetaiUserHead", @""], @[@"昵称", @"mineLessonRight", @"闯红灯的蜗牛"],@[@"性别", @"mineLessonRight", @"男"],@[@"出生日期", @"mineLessonRight", @"1990-2-21"]];
-    
-    for (int i = 0; i < titleArr.count; i++) {
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = titleArr[i][0];
-        model.rightImage = titleArr[i][1];
-        model.rightTitle = titleArr[i][2];
-        model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KFont9Color;
-        model.cellTitle = titleArr[i][0];
-        
-        if (i == 0) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:menuCellConfig];
-            
-        }else{
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
-    }
+    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"清空缓存"];
+    [self.cellConfigArr addObject:loginOutCellConfig];
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"设置"];
+    [self.navigationItem setTitle:@"通用"];
 }
 
 - (void)setupMainView {
@@ -128,12 +109,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
-        ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger type) {
-            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-            
-            [self.navigationController pushViewController:dvc animated:YES];
-        };
+       
         
     }
     return cell;
@@ -157,31 +133,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
      if ([cellConfig.title isEqualToString:@"头像"]){
-//          __weak typeof(self) weakSelf = self;
-            [ZPhotoManager sharedManager].maxImageSelected = 1;
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
-                if (list && list.count > 0) {
-//                    weakSelf.avterImage = list[0].image;
-//                    [weakSelf.iTableView reloadData];
-//                    
-//                    NSString *imageFileName = [NSString stringWithFormat:@"%@.jpg",AliYunUserFilePath];
-//                    [[ZFileUploadManger sharedManager] uploadImage:weakSelf.avterImage fileName:imageFileName complete:^(NSString *url, NSString *content_md5) {
-//                        
-//                    }];
-                }
-            } navgation:self];
-     }else if([cellConfig.title isEqualToString:@"昵称"]){
-         ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
-         [self.navigationController pushViewControllerAndSuicide:edit animated:YES];
-     }else if([cellConfig.title isEqualToString:@"性别"]){
-         ZStudentMineSettingSexVC *edit = [[ZStudentMineSettingSexVC alloc] init];
-         [self.navigationController pushViewControllerAndSuicide:edit animated:YES];
-     } else if([cellConfig.title isEqualToString:@"出生日期"]){
-         [ZDatePickerView showTimePickerInView:self.view date:[NSDate new] dateSelect:^(NSDate *date) {
-             DLog(@"----%f",[date timeIntervalSince1970]);
-//             weakSelf.accountModel.birthday = [NSString stringWithFormat:@"%.0f",[date timeIntervalSince1970]];
-//             [weakSelf.iTableView reloadData];
-         }];
+         
      }
 }
 
@@ -202,6 +154,7 @@
     [super viewDidDisappear:animated];
 }
 @end
+
 
 
 

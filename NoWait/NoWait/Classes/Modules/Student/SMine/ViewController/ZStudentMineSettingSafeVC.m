@@ -1,12 +1,12 @@
 //
-//  ZStudentMineSettingMineVC.m
+//  ZStudentMineSettingSafeVC.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/15.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMineSettingMineVC.h"
+#import "ZStudentMineSettingSafeVC.h"
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
@@ -21,13 +21,13 @@
 #import "ZDatePickerView.h"
 
 
-@interface ZStudentMineSettingMineVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZStudentMineSettingSafeVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-@implementation ZStudentMineSettingMineVC
+@implementation ZStudentMineSettingSafeVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +48,7 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"头像", @"studentDetaiUserHead", @""], @[@"昵称", @"mineLessonRight", @"闯红灯的蜗牛"],@[@"性别", @"mineLessonRight", @"男"],@[@"出生日期", @"mineLessonRight", @"1990-2-21"]];
+    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"mineLessonRight", @"已设置"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
@@ -59,21 +59,15 @@
         model.rightColor = KFont9Color;
         model.cellTitle = titleArr[i][0];
         
-        if (i == 0) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:menuCellConfig];
-            
-        }else{
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
     }
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"设置"];
+    [self.navigationItem setTitle:@"账号与安全"];
 }
 
 - (void)setupMainView {
@@ -163,10 +157,10 @@
                 if (list && list.count > 0) {
 //                    weakSelf.avterImage = list[0].image;
 //                    [weakSelf.iTableView reloadData];
-//                    
+//
 //                    NSString *imageFileName = [NSString stringWithFormat:@"%@.jpg",AliYunUserFilePath];
 //                    [[ZFileUploadManger sharedManager] uploadImage:weakSelf.avterImage fileName:imageFileName complete:^(NSString *url, NSString *content_md5) {
-//                        
+//
 //                    }];
                 }
             } navgation:self];
@@ -202,6 +196,7 @@
     [super viewDidDisappear:animated];
 }
 @end
+
 
 
 
