@@ -15,6 +15,7 @@
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
+#import "ZStudentMineCardListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
@@ -155,11 +156,14 @@
         lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
             if ([model.channel_id isEqualToString:@"eva"]) {
                 ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
-                [self.navigationController pushViewController:elvc animated:YES];
+                [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([model.channel_id isEqualToString:@"order"]){
                 ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
-                [self.navigationController pushViewController:elvc animated:YES];
+                [weakSelf.navigationController pushViewController:elvc animated:YES];
 
+            }else if ([model.channel_id isEqualToString:@"card"]) {
+                ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
     }
