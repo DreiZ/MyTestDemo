@@ -52,6 +52,11 @@
 		B25146A423CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A323CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m */; };
 		B25146A723CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A623CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m */; };
 		B25146AA23CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A923CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m */; };
+		B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146AD23CF0625009A64D4 /* ZStudentMineSettingVC.m */; };
+		B25146B123CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146B023CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m */; };
+		B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146B323CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m */; };
+		B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146B623CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m */; };
+		B25146BB23CF13C2009A64D4 /* ZPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146BA23CF13C2009A64D4 /* ZPhotoManager.m */; };
 		B279D03123C722BB00391A33 /* ZStudentLessonSelectMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */; };
 		B279D03423C722F200391A33 /* ZStudentLessonSelectLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03323C722F200391A33 /* ZStudentLessonSelectLessonView.m */; };
 		B279D03723C7232200391A33 /* ZStudentLessonSelectCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03623C7232200391A33 /* ZStudentLessonSelectCoachView.m */; };
@@ -424,6 +429,16 @@
 		B25146A623CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailHandleCell.m; sourceTree = "<group>"; };
 		B25146A823CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignDetailHandleMainCell.h; sourceTree = "<group>"; };
 		B25146A923CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailHandleMainCell.m; sourceTree = "<group>"; };
+		B25146AC23CF0625009A64D4 /* ZStudentMineSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingVC.h; sourceTree = "<group>"; };
+		B25146AD23CF0625009A64D4 /* ZStudentMineSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingVC.m; sourceTree = "<group>"; };
+		B25146AF23CF0B10009A64D4 /* ZStudentMineSettingBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingBottomCell.h; sourceTree = "<group>"; };
+		B25146B023CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingBottomCell.m; sourceTree = "<group>"; };
+		B25146B223CF0DB1009A64D4 /* ZStudentMineSettingMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingMineVC.h; sourceTree = "<group>"; };
+		B25146B323CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingMineVC.m; sourceTree = "<group>"; };
+		B25146B523CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingUserHeadImageCell.h; sourceTree = "<group>"; };
+		B25146B623CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingUserHeadImageCell.m; sourceTree = "<group>"; };
+		B25146B923CF13C2009A64D4 /* ZPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPhotoManager.h; sourceTree = "<group>"; };
+		B25146BA23CF13C2009A64D4 /* ZPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPhotoManager.m; sourceTree = "<group>"; };
 		B279D02F23C722BB00391A33 /* ZStudentLessonSelectMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectMainView.h; sourceTree = "<group>"; };
 		B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSelectMainView.m; sourceTree = "<group>"; };
 		B279D03223C722F200391A33 /* ZStudentLessonSelectLessonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectLessonView.h; sourceTree = "<group>"; };
@@ -1059,6 +1074,26 @@
 			path = order;
 			sourceTree = "<group>";
 		};
+		B25146AB23CF05DE009A64D4 /* settting */ = {
+			isa = PBXGroup;
+			children = (
+				B25146AF23CF0B10009A64D4 /* ZStudentMineSettingBottomCell.h */,
+				B25146B023CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m */,
+				B25146B523CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.h */,
+				B25146B623CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m */,
+			);
+			path = settting;
+			sourceTree = "<group>";
+		};
+		B25146B823CF13C2009A64D4 /* ZPhotoManager */ = {
+			isa = PBXGroup;
+			children = (
+				B25146B923CF13C2009A64D4 /* ZPhotoManager.h */,
+				B25146BA23CF13C2009A64D4 /* ZPhotoManager.m */,
+			);
+			path = ZPhotoManager;
+			sourceTree = "<group>";
+		};
 		B279D02E23C7228300391A33 /* lessonBuyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1220,6 +1255,7 @@
 		B2A77E8923BDD8C400407BF0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B25146B823CF13C2009A64D4 /* ZPhotoManager */,
 				B2A780AF23BDFC7800407BF0 /* ZAppConfig */,
 				B2A780AB23BDFB1F00407BF0 /* ZRouteManager */,
 				B2A7803323BDFA8D00407BF0 /* ZNetworkingManager */,
@@ -2115,6 +2151,10 @@
 				B251469D23CEDDAE009A64D4 /* ZStudentMineSignListVC.m */,
 				B251469F23CEF0E9009A64D4 /* ZStudentMineSignDetailVC.h */,
 				B25146A023CEF0E9009A64D4 /* ZStudentMineSignDetailVC.m */,
+				B25146AC23CF0625009A64D4 /* ZStudentMineSettingVC.h */,
+				B25146AD23CF0625009A64D4 /* ZStudentMineSettingVC.m */,
+				B25146B223CF0DB1009A64D4 /* ZStudentMineSettingMineVC.h */,
+				B25146B323CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2194,6 +2234,7 @@
 		B2A780FB23C0343C00407BF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B25146AB23CF05DE009A64D4 /* settting */,
 				B251468023CEA017009A64D4 /* order */,
 				B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */,
 				B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */,
@@ -2617,6 +2658,7 @@
 				B2A7816823C4517800407BF0 /* ZHFilterItemModel.m in Sources */,
 				B2A77F3123BDE37A00407BF0 /* NSString+LLExtension.m in Sources */,
 				B2A77F2B23BDE37A00407BF0 /* LLImagePickerCell.m in Sources */,
+				B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */,
 				B2A7809323BDFB0100407BF0 /* TLNetworkAgent.m in Sources */,
 				B2A7800623BDEDD300407BF0 /* UIFont+ZChat.m in Sources */,
 				B2A77F5723BDE42E00407BF0 /* NSBundle+TZImagePicker.m in Sources */,
@@ -2667,6 +2709,7 @@
 				B2A7819323C5B03A00407BF0 /* ZStudentOrganizationLessonMoreCell.m in Sources */,
 				B2A7810B23C0840900407BF0 /* ZStudentMineAdverCell.m in Sources */,
 				B2A7818123C5780A00407BF0 /* ZStudentDetailModel.m in Sources */,
+				B25146B123CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m in Sources */,
 				B251468323CEA09F009A64D4 /* ZStudentMineOrderListCell.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
 				B2A7819C23C5BD2C00407BF0 /* ZStudentOrganizationDetailVideoVC.m in Sources */,
@@ -2681,6 +2724,7 @@
 				B234D08D23CC09CC00210CD8 /* ZAlertImageView.m in Sources */,
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
 				B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */,
+				B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */,
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
 				B2F7D35C23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m in Sources */,
@@ -2704,6 +2748,7 @@
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
 				B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */,
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
+				B25146BB23CF13C2009A64D4 /* ZPhotoManager.m in Sources */,
 				B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */,
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
 				B279D05E23C99CB000391A33 /* ZStudentLessonOrderLessonVC.m in Sources */,
@@ -2792,6 +2837,7 @@
 				B223BCC523C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,
 				B2F7D33F23CD6D0800F7A17D /* ZBaseModel.m in Sources */,
+				B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */,
 				B251469523CEC66C009A64D4 /* ZStudentMineCardListVC.m in Sources */,
 				B279D03723C7232200391A33 /* ZStudentLessonSelectCoachView.m in Sources */,
 				B234D0AD23CC5A2C00210CD8 /* ZStudentStarStudentInfoCell.m in Sources */,

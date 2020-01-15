@@ -64,8 +64,18 @@
         make.edges.equalTo(self.userInfoBtn);
     }];
     
-    
-    
+    __weak typeof(self) weakSelf = self;
+    UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [setBtn bk_whenTapped:^{
+        if (weakSelf.topHandleBlock) {
+            weakSelf.topHandleBlock(1);
+        }
+    }];
+    [self addSubview:setBtn];
+    [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.center.equalTo(self.settingView);
+    }];
     
     [self setSubViewFrame];
 }
@@ -138,8 +148,13 @@
 
 - (UIButton *)userInfoBtn {
     if (!_userInfoBtn) {
+        __weak typeof(self) weakSelf = self;
         _userInfoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        
+        [_userInfoBtn bk_whenTapped:^{
+            if (weakSelf.topHandleBlock) {
+                weakSelf.topHandleBlock(0);
+            }
+        }];
     }
     return _userInfoBtn;
 }

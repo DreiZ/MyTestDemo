@@ -44,4 +44,5 @@
 
 #import "ZBaseCell.h"
 #import "ZCellConfig.h"
+#import "ZPhotoManager.h"
 #endif /* PrefixHeader_pch */

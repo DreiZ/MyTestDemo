@@ -10,6 +10,7 @@
 
 
 @interface ZMineHeaderView : UIView
+@property (nonatomic,strong) void (^topHandleBlock)(NSInteger);
 - (void)updateSubViewFrame;
 @end
 
