@@ -83,7 +83,7 @@
     [closeBtn bk_whenTapped:^{
         [[ZLaunchManager sharedInstance] showMainTab];
     }];
-    [closeBtn setImage:[UIImage imageNamed:@"LoginClose"] forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
     [self.view addSubview:closeBtn];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(120));

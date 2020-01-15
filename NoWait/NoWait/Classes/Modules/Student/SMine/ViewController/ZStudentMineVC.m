@@ -14,6 +14,7 @@
 #import "ZStudentMineLessonProgressCell.h"
 
 #import "ZStudentMineEvaListVC.h"
+#import "ZStudentMineOrderListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
@@ -73,11 +74,12 @@
     _cellConfigArr = @[].mutableCopy;
     
     NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
-    
+    NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
     for (int i = 0; i < list.count; i++) {
         ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
         model.name = list[i][0];
         model.imageName = list[i][1];
+        model.channel_id = channlArr[i];
         [_topchannelList addObject:model];
         
         [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
@@ -151,8 +153,14 @@
     if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
         ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
         lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
-            ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
-            [self.navigationController pushViewController:elvc animated:YES];
+            if ([model.channel_id isEqualToString:@"eva"]) {
+                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+                [self.navigationController pushViewController:elvc animated:YES];
+            }else if ([model.channel_id isEqualToString:@"order"]){
+                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
+                [self.navigationController pushViewController:elvc animated:YES];
+
+            }
         };
     }
 

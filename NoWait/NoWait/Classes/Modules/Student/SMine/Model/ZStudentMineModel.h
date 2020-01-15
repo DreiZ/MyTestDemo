@@ -8,7 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-
+//购买课程流程
+typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
+    ZLessonOrderHandleTypePay,  //支付
+    ZLessonOrderHandleTypeCancel,  //取消
+    ZLessonOrderHandleTypeTel,  //电话
+    ZLessonOrderHandleTypeDetail,  //详情
+};
 
 @interface ZStudentOrderEvaModel : NSObject
 @property (nonatomic,strong) NSString *orderImage;
