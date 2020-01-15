@@ -19,6 +19,7 @@
 #import "ZStudentMineSettingMineVC.h"
 #import "ZStudentMineSettingCommonVC.h"
 #import "ZStudentMineSettingSafeVC.h"
+#import "ZStudentMineSettingAboutUsVC.h"
 
 
 
@@ -170,6 +171,9 @@
      }else if ([cellConfig.title isEqualToString:@"账号与安全"]) {
          ZStudentMineSettingSafeVC *svc = [[ZStudentMineSettingSafeVC alloc] init];
          [self.navigationController pushViewController:svc animated:YES];
+     }else if( [cellConfig.title isEqualToString:@"关于小莫"]){
+         ZStudentMineSettingAboutUsVC *avc = [[ZStudentMineSettingAboutUsVC alloc] init];
+         [self.navigationController pushViewController:avc animated:YES];
      }
 }
 

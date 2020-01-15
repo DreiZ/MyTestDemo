@@ -1,26 +1,30 @@
 //
-//  ZStudentMineSettingSafeVC.m
+//  ZStudentMineSettingAboutUsVC.m
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/1/15.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMineSettingSafeVC.h"
+#import "ZStudentMineSettingAboutUsVC.h"
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonOrderCompleteCell.h"
 
+#import "ZStudentMineFeedbackVC.h"
 
-@interface ZStudentMineSettingSafeVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZStudentMineSettingAboutUsVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIView *topView;
+@property (nonatomic,strong) UILabel *versionLabel;
+
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-@implementation ZStudentMineSettingSafeVC
+@implementation ZStudentMineSettingAboutUsVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,26 +45,30 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"mineLessonRight", @"已设置"]];
+    NSArray <NSArray *>*titleArr = @[@[@"特别声明", @"mineLessonRight"],@[@"使用帮助", @"mineLessonRight"],@[@"给我评分", @"mineLessonRight"],@[@"商务合作", @"mineLessonRight"],@[@"意见反馈", @"mineLessonRight"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
-        model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
         model.rightColor = KFont9Color;
         model.cellTitle = titleArr[i][0];
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
+        
+        if (i == 2) {
+            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+            [self.cellConfigArr addObject:topCellConfig];
+        }
     }
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"账号与安全"];
+    [self.navigationItem setTitle:@"关于"];
 }
 
 - (void)setupMainView {
@@ -68,7 +76,7 @@
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(10);
+        make.top.equalTo(self.view.mas_top).offset(0);
     }];
 }
 
@@ -97,8 +105,59 @@
         _iTableView.backgroundColor = KBackColor;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
+        _iTableView.tableHeaderView = self.topView;
     }
     return _iTableView;
+}
+
+- (UIView *)topView {
+    if (!_topView) {
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(500))];
+        _topView.backgroundColor = KWhiteColor;
+        
+        UIImageView *logoImageView = [[UIImageView alloc] init];
+        logoImageView.image = [UIImage imageNamed:@"loginLogo"];
+        logoImageView.layer.masksToBounds = YES;
+        [_topView addSubview:logoImageView];
+        [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.topView);
+            make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(90));
+        }];
+        
+        
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        nameLabel.textColor = KFont3Color;
+        nameLabel.text = @"艺动";
+        nameLabel.numberOfLines = 0;
+        nameLabel.textAlignment = NSTextAlignmentLeft;
+        [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
+        [_topView addSubview:nameLabel];
+        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.topView);
+            make.top.equalTo(logoImageView.mas_bottom).offset(CGFloatIn750(28));
+        }];
+        
+        [_topView addSubview:self.versionLabel];
+        [self.versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.topView);
+            make.top.equalTo(nameLabel.mas_bottom).offset(CGFloatIn750(28));
+        }];
+        
+    }
+    
+    return _topView;
+}
+
+- (UILabel *)versionLabel {
+    if (!_versionLabel) {
+        _versionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _versionLabel.textColor = KMainColor;
+        _versionLabel.text = @"V12.1";
+        _versionLabel.numberOfLines = 1;
+        _versionLabel.textAlignment = NSTextAlignmentCenter;
+        [_versionLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+    }
+    return _versionLabel;
 }
 
 #pragma mark tableView -------datasource-----
@@ -114,7 +173,9 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    
+    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+       
+    }
     return cell;
 }
 
@@ -134,8 +195,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
- 
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    if ([cellConfig.title isEqualToString:@"意见反馈"]) {
+        ZStudentMineFeedbackVC *fvc = [[ZStudentMineFeedbackVC alloc] init];
+        [self.navigationController pushViewController:fvc animated:YES];
+    }
+   
 }
 
 #pragma mark vc delegate-------------------
@@ -155,6 +220,7 @@
     [super viewDidDisappear:animated];
 }
 @end
+
 
 
 
