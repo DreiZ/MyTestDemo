@@ -16,6 +16,7 @@
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
 #import "ZStudentMineCardListVC.h"
+#import "ZStudentMineSignListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
@@ -163,6 +164,9 @@
 
             }else if ([model.channel_id isEqualToString:@"card"]) {
                 ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }else if ([model.channel_id isEqualToString:@"lesson"]) {
+                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
