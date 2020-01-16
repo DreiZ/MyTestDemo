@@ -21,6 +21,9 @@
 #import <UIView+ZZFLEX.h>
 #import <ZZFLEXAngel+UITableView.h>
 
-
+#import "ZBaseCellModel.h"
+#import "ZBaseCell.h"
+#import "ZSingleLineCell.h"
+#import "ZMultiseriateLineCell.h"
 
 #endif /* CommonMacros_h */

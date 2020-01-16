@@ -65,6 +65,9 @@
 		B25146CE23CF2931009A64D4 /* ZStudentMineSettingSafeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146CD23CF2931009A64D4 /* ZStudentMineSettingSafeVC.m */; };
 		B25146D123CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146D023CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m */; };
 		B25146D423CF32B2009A64D4 /* ZStudentMineFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146D323CF32B2009A64D4 /* ZStudentMineFeedbackVC.m */; };
+		B25146D723CFFD9E009A64D4 /* ZBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146D623CFFD9E009A64D4 /* ZBaseCellModel.m */; };
+		B25146DA23CFFF0F009A64D4 /* ZSingleLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146D923CFFF0F009A64D4 /* ZSingleLineCell.m */; };
+		B25146DD23D01207009A64D4 /* ZMultiseriateLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146DC23D01207009A64D4 /* ZMultiseriateLineCell.m */; };
 		B279D03123C722BB00391A33 /* ZStudentLessonSelectMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */; };
 		B279D03423C722F200391A33 /* ZStudentLessonSelectLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03323C722F200391A33 /* ZStudentLessonSelectLessonView.m */; };
 		B279D03723C7232200391A33 /* ZStudentLessonSelectCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03623C7232200391A33 /* ZStudentLessonSelectCoachView.m */; };
@@ -463,6 +466,12 @@
 		B25146D023CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingAboutUsVC.m; sourceTree = "<group>"; };
 		B25146D223CF32B2009A64D4 /* ZStudentMineFeedbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineFeedbackVC.h; sourceTree = "<group>"; };
 		B25146D323CF32B2009A64D4 /* ZStudentMineFeedbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineFeedbackVC.m; sourceTree = "<group>"; };
+		B25146D523CFFD9E009A64D4 /* ZBaseCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBaseCellModel.h; sourceTree = "<group>"; };
+		B25146D623CFFD9E009A64D4 /* ZBaseCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBaseCellModel.m; sourceTree = "<group>"; };
+		B25146D823CFFF0F009A64D4 /* ZSingleLineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSingleLineCell.h; sourceTree = "<group>"; };
+		B25146D923CFFF0F009A64D4 /* ZSingleLineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSingleLineCell.m; sourceTree = "<group>"; };
+		B25146DB23D01207009A64D4 /* ZMultiseriateLineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMultiseriateLineCell.h; sourceTree = "<group>"; };
+		B25146DC23D01207009A64D4 /* ZMultiseriateLineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMultiseriateLineCell.m; sourceTree = "<group>"; };
 		B279D02F23C722BB00391A33 /* ZStudentLessonSelectMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectMainView.h; sourceTree = "<group>"; };
 		B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSelectMainView.m; sourceTree = "<group>"; };
 		B279D03223C722F200391A33 /* ZStudentLessonSelectLessonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectLessonView.h; sourceTree = "<group>"; };
@@ -1280,6 +1289,8 @@
 		B2A77E8423BDD6AC00407BF0 /* Define */ = {
 			isa = PBXGroup;
 			children = (
+				B2A77F6A23BDE6EA00407BF0 /* UtilsMacros.h */,
+				B2A77F6323BDE5B900407BF0 /* ZMacros.h */,
 				B2A77E8523BDD76000407BF0 /* CommonMacros.h */,
 				B2A77E8623BDD78100407BF0 /* URLMacros.h */,
 				B2A77E8723BDD7A400407BF0 /* FontAndColorMacros.h */,
@@ -1547,10 +1558,8 @@
 		B2A77F7D23BDEA8500407BF0 /* ZTools */ = {
 			isa = PBXGroup;
 			children = (
-				B2A77F6A23BDE6EA00407BF0 /* UtilsMacros.h */,
 				B2A77F6723BDE61100407BF0 /* ZPublicTool.h */,
 				B2A77F6823BDE61100407BF0 /* ZPublicTool.m */,
-				B2A77F6323BDE5B900407BF0 /* ZMacros.h */,
 				B2A77F6423BDE5B900407BF0 /* ZShortcutMethod.h */,
 				B2A77F6523BDE5B900407BF0 /* ZShortcutMethod.m */,
 			);
@@ -1657,6 +1666,12 @@
 				B2A77FC223BDEAA100407BF0 /* ZSpaceEmptyCell.h */,
 				B2A77FC323BDEAA100407BF0 /* ZBaseCell.h */,
 				B2A77FC423BDEAA100407BF0 /* ZSpaceEmptyCell.m */,
+				B25146D523CFFD9E009A64D4 /* ZBaseCellModel.h */,
+				B25146D623CFFD9E009A64D4 /* ZBaseCellModel.m */,
+				B25146D823CFFF0F009A64D4 /* ZSingleLineCell.h */,
+				B25146D923CFFF0F009A64D4 /* ZSingleLineCell.m */,
+				B25146DB23D01207009A64D4 /* ZMultiseriateLineCell.h */,
+				B25146DC23D01207009A64D4 /* ZMultiseriateLineCell.m */,
 			);
 			path = ZBaseCell;
 			sourceTree = "<group>";
@@ -2703,6 +2718,7 @@
 				B2A7816C23C4540000407BF0 /* FilterDataUtil.m in Sources */,
 				B2A77EC423BDE29E00407BF0 /* MWGridViewController.m in Sources */,
 				B25146A723CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m in Sources */,
+				B25146DA23CFFF0F009A64D4 /* ZSingleLineCell.m in Sources */,
 				B2A7816823C4517800407BF0 /* ZHFilterItemModel.m in Sources */,
 				B2A77F3123BDE37A00407BF0 /* NSString+LLExtension.m in Sources */,
 				B25146D123CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m in Sources */,
@@ -2735,6 +2751,7 @@
 				B2A780A423BDFB0100407BF0 /* TLDownloadRequest.m in Sources */,
 				B2F7D37723CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m in Sources */,
 				B25146C723CF1E2C009A64D4 /* ZStudentMineSettingSwitchCell.m in Sources */,
+				B25146DD23D01207009A64D4 /* ZMultiseriateLineCell.m in Sources */,
 				B279D04023C8060400391A33 /* ZStudentLessonListCoachItemCell.m in Sources */,
 				B215844523CD6946007618CE /* ZStudentMineEvaListVC.m in Sources */,
 				B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */,
@@ -2770,6 +2787,7 @@
 				B2A77F5823BDE42E00407BF0 /* UIView+Layout.m in Sources */,
 				B25146A123CEF0E9009A64D4 /* ZStudentMineSignDetailVC.m in Sources */,
 				B2A77FCD23BDEAA100407BF0 /* DSCallInfo.m in Sources */,
+				B25146D723CFFD9E009A64D4 /* ZBaseCellModel.m in Sources */,
 				B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */,
 				B234D08D23CC09CC00210CD8 /* ZAlertImageView.m in Sources */,
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
