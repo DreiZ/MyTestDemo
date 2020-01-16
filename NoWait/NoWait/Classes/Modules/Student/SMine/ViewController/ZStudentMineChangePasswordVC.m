@@ -178,6 +178,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.iTableView endEditing:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
