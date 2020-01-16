@@ -120,6 +120,7 @@
     
     self.leftTitleLabel.text = model.leftTitle;
     self.rightTitleLabel.text = model.rightTitle;
+    self.leftTitleLabel.numberOfLines = 1;
     
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];

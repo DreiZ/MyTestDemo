@@ -55,6 +55,7 @@
     
     
     self.leftTitleLabel.text = mModel.leftTitle;
+    self.leftTitleLabel.numberOfLines = 0;
     self.rightTitleLabel.text = mModel.rightTitle;
     
     self.leftTitleLabel.font = mModel.leftFont ? mModel.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
@@ -162,6 +163,24 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return [super z_getCellHeight:sender];
+    ZBaseMultiseriateCellModel *mModel = sender;
+    
+    CGFloat otherMaxWidth = mModel.leftMargin + mModel.rightMargin;
+    if (mModel.leftImage && mModel.leftImage.length > 0) {
+        otherMaxWidth += mModel.leftImageWidth + mModel.leftContentSpace;
+    }
+    
+    if (mModel.rightImage && mModel.rightImage.length > 0) {
+        otherMaxWidth += mModel.rightImageWidth + mModel.rightContentSpace;
+    }
+    
+    if (mModel.rightTitle && mModel.rightTitle.length > 0) {
+        CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont];
+        otherMaxWidth += rightLabelSize.width + mModel.rightContentSpace;
+    }
+    
+    CGSize leftLabelSize = [SafeStr(mModel.leftTitle) tt_sizeWithFont:mModel.leftFont constrainedToSize:CGSizeMake(mModel.cellWidth - otherMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
+    
+    return leftLabelSize.height + mModel.cellHeight - mModel.leftFont.lineHeight;
 }
 @end

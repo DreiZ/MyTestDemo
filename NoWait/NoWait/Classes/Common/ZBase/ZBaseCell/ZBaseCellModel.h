@@ -60,4 +60,5 @@
 @property (nonatomic,assign) CGFloat leftImageWidth;
 @property (nonatomic,assign) CGFloat rightImageWidth;
 @property (nonatomic,assign) CGFloat singleCellHeight;
+@property (nonatomic,assign) CGFloat cellWidth;
 @end
