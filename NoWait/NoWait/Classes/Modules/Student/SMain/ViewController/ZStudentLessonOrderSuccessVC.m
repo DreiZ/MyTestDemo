@@ -145,4 +145,19 @@
     }
     return _detailBtn;
 }
+
+- (void)setType:(NSInteger)type {
+    _type = type;
+    if (type == 0) {
+        _hintImageView.image = [UIImage imageNamed:@"orderSuccess"];
+        _successLabel.text = @"恭喜您已经成功预约";
+        _statusLabel.text = @"等待商家确认";
+        [_detailBtn setTitle:@"查看预约详情" forState:UIControlStateNormal];
+    }else{
+        _hintImageView.image = [UIImage imageNamed:@"paySuccess"];
+        _successLabel.text = @"订单支付成功";
+        _statusLabel.text = @"订单号SN23958353";
+        [_detailBtn setTitle:@"查看订单详情" forState:UIControlStateNormal];
+    }
+}
 @end

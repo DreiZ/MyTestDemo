@@ -15,6 +15,8 @@
 #import "ZStudentMineOrderDetailtVC.h"
 #import "ZStudentMineOrderDetailHandleBottomView.h"
 
+#import "ZStudentOrderPayVC.h"
+
 @interface ZStudentMineOrderDetailtVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -78,7 +80,14 @@
 #pragma mark lazy loading...
 - (ZStudentMineOrderDetailHandleBottomView *)handleView {
     if (!_handleView) {
+        __weak typeof(self) weakSelf = self;
         _handleView  = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
+        _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
+            if (type == ZLessonOrderHandleTypePay) {
+                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
+                [weakSelf.navigationController pushViewController:pvc animated:YES];
+            }
+        };
         
     }
     return _handleView;
