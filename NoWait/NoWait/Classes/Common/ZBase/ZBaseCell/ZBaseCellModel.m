@@ -20,6 +20,7 @@
 
         self.cellTitle = @"ZBaseCell";
         self.cellHeight = CGFloatIn750(100);
+        self.lineLeftMargin = 0;
     }
     return self;
 }

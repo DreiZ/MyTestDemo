@@ -31,6 +31,7 @@
 @property (nonatomic,strong) NSString *cellTitle;
 
 @property (nonatomic,assign) CGFloat cellHeight;
+@property (nonatomic,assign) CGFloat lineLeftMargin;
 @end
 
 

@@ -1,28 +1,26 @@
 //
-//  ZStudentMineSettingSafeVC.m
+//  ZStudentMineChangePasswordVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/15.
+//  Created by zhuang zhang on 2020/1/16.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMineSettingSafeVC.h"
+#import "ZStudentMineChangePasswordVC.h"
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentLessonOrderCompleteCell.h"
 
-#import "ZStudentMineChangePasswordVC.h"
 
-
-@interface ZStudentMineSettingSafeVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZStudentMineChangePasswordVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-@implementation ZStudentMineSettingSafeVC
+@implementation ZStudentMineChangePasswordVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +50,7 @@
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
         model.rightColor = KFont9Color;
-        model.cellTitle = @"changePassword";
+        model.cellTitle = titleArr[i][0];
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
@@ -62,7 +60,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"账号与安全"];
+    [self.navigationItem setTitle:@"修改密码"];
 }
 
 - (void)setupMainView {
@@ -136,11 +134,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"changePassword"]) {
-        ZStudentMineChangePasswordVC *cpvc = [ZStudentMineChangePasswordVC alloc];
-        [self.navigationController pushViewController:cpvc animated:YES];
-    }
+//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+ 
 }
 
 #pragma mark vc delegate-------------------
@@ -160,6 +155,7 @@
     [super viewDidDisappear:animated];
 }
 @end
+
 
 
 

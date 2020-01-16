@@ -64,7 +64,7 @@
     self.leftTitleLabel.textColor = mModel.leftColor ? mModel.leftColor:KBlackColor;
     self.rightTitleLabel.textColor = mModel.rightColor ? mModel.rightColor:KBlackColor;
     self.bottomLineView.hidden = mModel.isHiddenLine;
-    
+    [ZPublicTool setLineSpacing:mModel.lineSpace label:self.leftTitleLabel];
     
     [self.singleLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(0.5);
@@ -77,7 +77,7 @@
         self.leftImageView.image = [UIImage imageNamed:mModel.leftImage];
         [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.singleLineView.mas_centerY);
-            make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+            make.left.equalTo(self.contentView.mas_left).offset(mModel.rightMargin);
             if (mModel.leftImageWidth > 0.01) {
                 make.width.mas_equalTo(mModel.leftImageWidth);
             }
@@ -86,7 +86,7 @@
     }else{
         [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.singleLineView.mas_centerY);
-            make.right.equalTo(self.contentView.mas_left).offset(-mModel.leftMargin);
+            make.left.equalTo(self.contentView.mas_left).offset(-mModel.leftMargin);
             make.width.mas_equalTo(0);
         }];
         self.leftImageView.hidden = YES;
@@ -146,13 +146,13 @@
             [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.leftFont.lineHeight - 2)/2);
                 make.left.equalTo(self.leftImageView.mas_right).offset(mModel.leftContentSpace);
-                make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                make.right.equalTo(self.rightTitleLabel.mas_left).offset(0);
             }];
         }else{
             [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.leftFont.lineHeight - 2)/2);
                 make.left.equalTo(self.contentView.mas_left).offset(mModel.leftMargin);
-                make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                make.right.equalTo(self.rightTitleLabel.mas_left).offset(0);
             }];
         }
     }

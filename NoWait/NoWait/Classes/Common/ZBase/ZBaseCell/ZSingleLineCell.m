@@ -122,6 +122,12 @@
     self.rightTitleLabel.text = model.rightTitle;
     self.leftTitleLabel.numberOfLines = 1;
     
+    [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
+        make.height.mas_equalTo(0.5);
+    }];
+    
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
