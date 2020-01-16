@@ -123,16 +123,17 @@
     self.leftTitleLabel.numberOfLines = 1;
     
     [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
+        make.bottom.equalTo(self.contentView);
         make.height.mas_equalTo(0.5);
+        make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
+        make.right.equalTo(self.contentView.mas_right).offset(-model.lineRightMargin);
     }];
     
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
-    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:KBlackColor;
-    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:KBlackColor;
+    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:KFont3Color;
+    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:KFont3Color;
     self.bottomLineView.hidden = model.isHiddenLine;
     
     
@@ -200,7 +201,7 @@
 
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    if ([sender isKindOfClass:[ZBaseCellModel class]]) {
+    if (sender && [sender isKindOfClass:[ZBaseCellModel class]]) {
         ZBaseCellModel *cellModel = sender;
         return cellModel.cellHeight;
     }

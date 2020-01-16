@@ -25,5 +25,6 @@
 #import "ZBaseCell.h"
 #import "ZSingleLineCell.h"
 #import "ZMultiseriateLineCell.h"
+#import "ZTextFieldCell.h"
 
 #endif /* CommonMacros_h */

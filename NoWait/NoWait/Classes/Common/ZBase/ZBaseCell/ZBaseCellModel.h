@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UtilsMacros.h"
 
 #define kCellTitleFont CGFloatIn750(30)
 
@@ -30,18 +31,18 @@
 //cellConfig Title
 @property (nonatomic,strong) NSString *cellTitle;
 
-@property (nonatomic,assign) CGFloat cellHeight;
 @property (nonatomic,assign) CGFloat lineLeftMargin;
+@property (nonatomic,assign) CGFloat lineRightMargin;
+@property (nonatomic,assign) CGFloat cellHeight;
+@property (nonatomic,assign) CGFloat cellWidth;//cell的宽度
 @end
 
 
 @interface ZBaseSingleCellModel : ZBaseCellModel
-
 @property (nonatomic,strong) NSString *leftImage;
 @property (nonatomic,strong) NSString *leftTitle;
 @property (nonatomic,strong) UIColor *leftColor;
 @property (nonatomic,strong) UIFont *leftFont;
-
 
 @property (nonatomic,strong) NSString *rightImage;
 @property (nonatomic,strong) UIColor *rightColor;
@@ -61,5 +62,32 @@
 @property (nonatomic,assign) CGFloat leftImageWidth;
 @property (nonatomic,assign) CGFloat rightImageWidth;
 @property (nonatomic,assign) CGFloat singleCellHeight;
-@property (nonatomic,assign) CGFloat cellWidth;
+
+@end
+
+//textField cell model
+@interface ZBaseTextFieldCellModel : ZBaseCellModel
+@property (nonatomic,assign) CGFloat leftContentWidth;
+@property (nonatomic,assign) CGFloat textFieldHeight;
+
+@property (nonatomic,strong) UIColor *textColor;
+@property (nonatomic,strong) UIFont *textFont;
+
+@property (nonatomic,strong) UIColor *leftColor;
+@property (nonatomic,strong) UIFont *leftFont;
+//内容之间间距
+@property (nonatomic,assign) CGFloat contentSpace;
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,assign) NSTextAlignment textAlignment;
+
+@property (nonatomic,strong) UIColor *subTitleColor;
+@property (nonatomic,strong) UIFont *subTitleFont;
+@property (nonatomic,strong) NSString *placeholder;
+@property (nonatomic,strong) NSString *leftTitle;
+@property (nonatomic,strong) NSString *subTitle;
+@property (nonatomic,assign) NSInteger max;
+
+@property (nonatomic,strong) NSString *content;
+@property (nonatomic,assign) BOOL isHiddenInputLine;
+
 @end

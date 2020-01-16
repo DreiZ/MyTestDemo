@@ -11,8 +11,7 @@
 #import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentLessonOrderCompleteCell.h"
-
+#import "ZTextFieldCell.h"
 
 @interface ZStudentMineChangePasswordVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -41,18 +40,21 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"mineLessonRight", @"已设置"]];
+    NSArray <NSArray *>*titleArr = @[@[@"旧密码", @"请填写密码"],@[@"新密码", @"请输入密码"],@[@"确认新密码", @"确认新密码"]];
     
     for (int i = 0; i < titleArr.count; i++) {
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
         model.leftTitle = titleArr[i][0];
-        model.rightImage = titleArr[i][1];
-        model.rightTitle = titleArr[i][2];
-        model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KFont9Color;
-        model.cellTitle = titleArr[i][0];
+        model.placeholder = titleArr[i][1];
+//        model.subTitle = @"(必选)";
+        model.leftContentWidth = CGFloatIn750(226);
+        model.isHiddenInputLine = YES;
+        model.textAlignment = NSTextAlignmentLeft;
+        if (i == titleArr.count - 1) {
+            model.isHiddenLine = YES;
+        }
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
     }
 }
@@ -61,14 +63,41 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"修改密码"];
+    
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    sureBtn.layer.masksToBounds = YES;
+    sureBtn.layer.cornerRadius = 3;
+    sureBtn.backgroundColor = KMainColor;
+    [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
 - (void)setupMainView {
+    self.view.backgroundColor = KBackColor;
+    
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(20));
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
+        make.height.mas_equalTo(kCellNormalHeight * 3);
         make.top.equalTo(self.view.mas_top).offset(10);
+    }];
+    self.iTableView.layer.masksToBounds = YES;
+    self.iTableView.layer.cornerRadius = CGFloatIn750(18);
+    
+    
+    UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    hintLabel.textColor = KFont9Color;
+    hintLabel.text = @"密码长度8-16位字符，而且包含数字和字母";
+    hintLabel.textAlignment = NSTextAlignmentLeft;
+    [hintLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.view addSubview:hintLabel];
+    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iTableView.mas_left).offset(CGFloatIn750(28));
+        make.top.equalTo(self.iTableView.mas_bottom).offset(CGFloatIn750(20));
     }];
 }
 
@@ -94,7 +123,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KWhiteColor;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

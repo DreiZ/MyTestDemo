@@ -64,7 +64,15 @@
     self.leftTitleLabel.textColor = mModel.leftColor ? mModel.leftColor:KBlackColor;
     self.rightTitleLabel.textColor = mModel.rightColor ? mModel.rightColor:KBlackColor;
     self.bottomLineView.hidden = mModel.isHiddenLine;
+    
     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.leftTitleLabel];
+    
+    [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView);
+        make.height.mas_equalTo(0.5);
+        make.left.equalTo(self.contentView.mas_left).offset(mModel.lineLeftMargin);
+        make.right.equalTo(self.contentView.mas_right).offset(-mModel.lineRightMargin);
+    }];
     
     [self.singleLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(0.5);
@@ -164,6 +172,9 @@
 
 +(CGFloat)z_getCellHeight:(id)sender {
     ZBaseMultiseriateCellModel *mModel = sender;
+    if (!mModel) {
+        return kCellNormalHeight;
+    }
     
     CGFloat otherMaxWidth = mModel.leftMargin + mModel.rightMargin;
     if (mModel.leftImage && mModel.leftImage.length > 0) {
