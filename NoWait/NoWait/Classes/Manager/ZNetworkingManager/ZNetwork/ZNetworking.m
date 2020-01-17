@@ -27,6 +27,7 @@
 }
 
 #pragma mark get请求
+
 + (id)getServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler {
     NSString *newUrl = [self getMUrl:path serverType:serverType];
     
@@ -98,16 +99,16 @@
 //        NSLog(@"znetworking data back %@",responseObject);
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
-            if ([backModel.ret integerValue] == 200) {
+            if ([backModel.code integerValue] == 0) {
                 completionHandler(backModel.data, nil);
-            }else if ([backModel.ret integerValue] == 401){
+            }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
                 [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                 [[ZLaunchManager sharedInstance] launchInWindow:nil];
-                NSError *error = [[NSError alloc] initWithDomain:backModel.ret code:[backModel.ret integerValue] userInfo:@{@"msg":backModel.msg}];
+                NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
                 completionHandler(nil, error);
-                [TLUIUtility showErrorHint:backModel.msg];
+                [TLUIUtility showErrorHint:backModel.message];
             }else{
-                NSError *error = [[NSError alloc] initWithDomain:backModel.ret code:[backModel.ret integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+                NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
                 completionHandler(nil, error);
             }
         }else{
@@ -182,14 +183,34 @@
 }
 
 + (NSString*)getMUrl:(NSString*)url serverType:(ZServerType)serverType {
-    if (serverType == ZServerTypeApi) {
-        return [NSString stringWithFormat:@"%@/%@%@",URL_main,URL_Service,url];
-    }else if (serverType == ZServerTypeIM) {
-        return [NSString stringWithFormat:@"%@/%@%@",URL_Socket,URL_Service,url];
-    }else {
-        return [NSString stringWithFormat:@"%@/%@%@",URL_Socket,URL_Service,url];
+    NSString *fullUrl = @"";
+    switch (serverType) {
+        case ZServerTypeCode:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_code,URL_Service,url];
+            break;
+        case ZServerTypeUser:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_user,URL_Service,url];
+            break;
+        case ZServerTypeOrder:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_order,URL_Service,url];
+            break;
+        case ZServerTypeFile:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_file,URL_Service,url];
+            break;
+        case ZServerTypeCoach:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_coach,URL_Service,url];
+            break;
+        case ZServerTypeOrganization:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_organization,URL_Service,url];
+            break;
+            
+            
+        default:
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_user,URL_Service,url];
+            break;
     }
     
+    return fullUrl;
 }
 
 
@@ -212,13 +233,14 @@
     
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:originalDict];
     
-    [newDict setObject:[ZAppConfig sharedConfig].version forKey:@"version"];
-    [newDict setObject:@"customer" forKey:@"identity"];
-    [newDict setObject:SERVICE_APP_KEY forKey:@"app_key"];
-    [newDict setObject:@"ios" forKey:@"terminal"];
-    [newDict setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:@"curtime"];
-    [newDict setObject:[ZNetworking randomStringWithLength:16] forKey:@"nonce"];
-    [newDict setObject:[[NSString stringWithFormat:@"%@%@%@",SERVICE_APP_SECRET,newDict[@"nonce"],newDict[@"curtime"]] sha1String] forKey:@"checksum"];
+//    [newDict setObject:[ZAppConfig sharedConfig].version forKey:@"version"];
+//    [newDict setObject:@"customer" forKey:@"identity"];
+//    [newDict setObject:SERVICE_APP_KEY forKey:@"app_key"];
+//    [newDict setObject:@"ios" forKey:@"terminal"];
+//    [newDict setObject:[ZNetworking randomStringWithLength:16] forKey:@"nonce"];
+//    [newDict setObject:[[NSString stringWithFormat:@"%@%@%@",SERVICE_APP_SECRET,newDict[@"nonce"],newDict[@"curtime"]] sha1String] forKey:@"checksum"];
+    
+    [newDict setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:@"timestamp"];
     return newDict;
 }
 
@@ -237,7 +259,7 @@
 +(NSMutableDictionary*)signTheParameters:(NSString *)urlStr postDic:(NSDictionary *)postDic {
     NSMutableArray *parameters = [[NSMutableArray alloc] init];
     NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] init];
-    [parameterDic setObject:urlStr forKey:@"s"];
+//    [parameterDic setObject:urlStr forKey:@"s"];
     [parameterDic addEntriesFromDictionary:postDic];
     for (NSString *key  in [parameterDic allKeys]) {
         [parameters addObject:[NSString stringWithFormat:@"%@=%@",key,parameterDic[key]]];
@@ -270,14 +292,32 @@
             [resultStr appendString:valueStr];
         }
     }
+    
+    //私钥
+    NSString *appKey = @"";
+    if ([postDic objectForKey:@"identifier"]) {
+        NSString *identifier = postDic[@"identifier"];
+        
+        if([identifier isEqualToString:@"graphic"]){
+            appKey = sign_graphic_appKey;
+        }else if([identifier isEqualToString:@"login"]){
+            appKey = sign_login_appKey;
+        }else if([identifier isEqualToString:@"account"]){
+            appKey = sign_account_appKey;;
+        }else if([identifier isEqualToString:@"upload"]){
+            appKey = sign_upload_appKey;;
+        }
+    }
+    
+    
     // 拼接 私钥
     [resultStr insertString:SERVICE_SIGN atIndex:0];
     // MD5加密
     NSString *MD5Str = [resultStr md5String];
     // 生成sign值
-    [parameterDic setObject:MD5Str forKey:@"sign"];
+    [parameterDic setObject:MD5Str forKey:@"signature"];
     // 去掉service
-    [parameterDic removeObjectForKey:@"s"];
+//    [parameterDic removeObjectForKey:@"s"];
     return parameterDic;
 }
 

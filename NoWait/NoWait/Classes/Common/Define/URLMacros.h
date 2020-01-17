@@ -25,15 +25,32 @@
 
 #define DevelopSever    1
 #define TestSever       0
-#define ProductSever    1
+#define ProductSever    0
 
 // 表情服务器
 #define     IEXPRESSION_HOST_URL        @"http://123.57.155.230/ibiaoqing/admin/"
 
 
+#define sign_graphic_appKey             @"!zmr*9Wxa80Mhj&lBioWpmNC^d&KXK86"
+#define sign_login_appKey               @"rKWGxV7jZeyihoSRY8!8lcxhf!3#D@C^"
+#define sign_account_appKey             @"$NtQa!A*3ChRo9OeqErJJ2x8Q!qSeu1l"
+#define sign_upload_appKey              @"NBTP&XU&yvRiRQOC^^!i4ov62WcjOca^"
+
 #if DevelopSever
 
 #pragma mark - /**开发服务器*/
+//验证码服务器
+#define URL_code                        @"http://yapi.xiangcenter.com/mock/20"
+//用户服务器
+#define URL_user                        @"http://yapi.xiangcenter.com/mock/12"
+//订单服务
+#define URL_order                       @"http://yapi.xiangcenter.com/mock/36"
+//文件服务器
+#define URL_file                        @"http://yapi.xiangcenter.com/mock/28"
+//教练服务器
+#define URL_coach                       @"http://yapi.xiangcenter.com/mock/52"
+//机构服务器
+#define URL_organization                @"http://yapi.xiangcenter.com/mock/44"
 
 //IM服务器
 #define SocketServiceUrl                @"172.17.100.32"
@@ -131,7 +148,7 @@
 
 #pragma mark --------------------------- 详细接口地址 ---------------------------
 
-#define URL_Service                     @"?s="
+#define URL_Service                     @"api/"
 
 //测试接口
 //NSString *const URL_Test = @"api/recharge/price/list";
@@ -142,178 +159,13 @@
 //用户第一次打开app，进行引导
 #define URL_V1_beginning_guidance                   @"V1.Beginning.Guidance"
 
-#pragma mark ---------------------------用户相关 ---------------------------
-//短信接口
-#define URL_sms_send_app_login                      @"Sms.Send_App.Login"
-//登录接口
-#define URL_account_login_smg                       @"Account.Login.Smg"
-//退出登录接口
-#define URL_account_logout_secede                   @"Account.Logout.Secede"
+#pragma mark ---------------------------验证码相关 ---------------------------
+//图形验证码接口
+#define URL_sms_v1_captcha                          @"sms/v1/captcha"
+//获取验证码
+#define URL_sms_v1_send_code                        @"sms/v1/send_code"
 
 
 
-//协议相关
-#define URL_app_page_getInfo                        @"App.Page.GetInfo"
-
-//协议相关
-#define URL_V1_tips_getTips                         @"V1.Tips.GetTips"
-
-
-#pragma mark ---------------------------IM相关---------------------------
-//im登录im服务器
-#define URL_IM_user_login                @"IM.User.Login"
-
-//根据会员ID可获得：我的信息、好友列表、群组列表。直接赋值列表数据
-#define URL_IM_user_getList              @"IM.User.GetList"
-
-//发送消息
-#define URL_IM_msg_sendMsg               @"IM.Msg.SendMsg"
-
-//消息回执
-#define URL_IM_reported_p2pDelivery      @"IM.Reported.P2pDelivery"
-
-//单点聊天消息批量处理消息送达上报.回执
-#define URL_IM_reported_p2pBatching      @"IM.Reported.P2pBatching"
-
-//获取用户离线消息列表
-#define URL_IM_offline_getList           @"IM.Offline.GetList"
-
-//获取当前用户发送人相关离线消息列表
-#define URL_IM_offline_getsrcidList      @"IM.Offline.GetsrcidList"
-
-//根据会员ID可获得：相关会话信息，如当前用户的顾问信息等
-#define URL_IM_user_getCounselorInfo    @"IM.User.GetCounselorInfo"
-
-
-#pragma mark ---------------------------首页接口-------------------------------
-//首页接口
-#define URL_V1_index_index                          @"V1.Index.Index"
-
-//----------------------------------身体记录接口------------------------------
-//获取历史体脂数据
-#define URL_V1_bodyRecord_getBodyHistory            @"V1.BodyRecord.GetBodyHistory"
-
-//获取某一天体脂数据
-#define URL_V1_bodyRecord_getBodySomeDay            @"V1.BodyRecord.GetBodySomeDay"
-
-//获取用户历史体重数据
-#define URL_V1_bodyRecord_getWeightHistory          @"V1.BodyRecord.GetWeightHistory"
-
-//保存/修改用户历史体脂数据
-#define URL_V1_bodyRecord_saveBodyInfo              @"V1.BodyRecord.SaveBodyInfo"
-
-//获取体脂称说明wap
-#define URL_V1_wapUrl_scaleWapUrl                   @"V1.WapUrl.ScaleWapUrl"
-
-//体脂称购买
-#define URL_V1_wapUrl_buyScaleWapUrl                @"V1.WapUrl.BuyScaleWapUrl"
-//----------------------------------健康报告接口--------------------------------
-//获取健康报告详情
-#define URL_V1_healthReport_getHealReport           @"V1.HealthReport.GetHealReport"
-
-//获取健康报告列表
-#define URL_V1_healthReport_getHealReportList       @"V1.HealthReport.GetHealReportList"
-
-//健康报告wap
-#define URL_V1_wapUrl_healthWapUrl                  @"V1.WapUrl.HealthWapUrl"
-
-
-//----------------------------------饮食记录接口------------------------------
-//某天饮食数据
-#define URL_V1_mealRecord_getMealsHistory           @"V1.MealRecord.GetMealsHistory"
-
-//保存/修改用户饮食数据
-#define URL_V1_mealRecord_saveMealsInfo             @"V1.MealRecord.SaveMealsInfo"
-
-//----------------------------------运动记告接口------------------------------
-//获取某天运动历史数据
-#define URL_V1_sportRecord_getSomedaySports         @"V1.SportRecord.GetSomedaySports"
-
-//获取历史运动列表
-#define URL_V1_sportRecord_getSportsList            @"V1.SportRecord.GetSportsList"
-
-//保存/修改用户运动数据
-#define URL_V1_sportRecord_saveSportsInfo           @"V1.SportRecord.SaveSportsInfo"
-
-//保存用户步数
-#define URL_V1_sportRecord_saveWalkNum              @"V1.SportRecord.SaveWalkNum"
-
-//----------------------------------用户数据接口------------------------------
-//保存用户基本信息接口
-#define URL_V1_userData_saveInfo                    @"V1.UserData.SaveInfo"
-//保存用户基本信息接口
-#define URL_V1_userData_updateInfo                  @"V1.UserData.UpdateInfo"
-
-//有则返回用户基本信息
-#define URL_V1_userData_getUserInfo                 @"V1.UserData.GetUserInfo"
-
-//保存减脂计划接口
-#define URL_V1_userData_savePlan                    @"V1.UserData.SavePlan"
-
-#pragma mark ---------------------------资讯-------------------------------
-//资讯首页
-#define URL_V1_cms_channel_cmsIndex                 @"V1.Cms_Channel.CmsIndex"
-//资讯详情
-#define URL_V1_cms_channel_cmsInfo                  @"V1.Cms_Channel.CmsInfo"
-//根据标签获取列表
-#define URL_V1_cms_channel_cmsFlag                  @"V1.Cms_Channel.CmsFlag"
-//某栏目下列表
-#define URL_V1_cms_channel_cmsChannel               @"V1.Cms_Channel.CmsChannel"
-
-
-#pragma mark ---------------------------服务-------------------------------
-//获取当前服务
-#define URL_V1_ser_SerPack_nowSerPack               @"V1.Ser_SerPack.NowSerPack"
-
-//获取当前服务列表
-#define URL_V1_ser_serPack_nowSerPacklist           @"V1.Ser_SerPack.NowSerPacklist"
-
-//取消打卡
-#define URL_V1_ser_serPack_cancelMark               @"V1.Ser_SerPack.CancelMark"
-
-//打卡
-#define URL_V1_ser_serPack_doMark                   @"V1.Ser_SerPack.DoMark"
-
-//调查问卷
-#define URL_V1_question_question_saveAns            @"V1.Question_Question.SaveAns"
-
-//是否填过调查问卷
-#define URL_V1_question_question_isAns              @"V1.Question_Question.IsAns"
-
-#pragma mark ---------------------------个人中心接口-------------------------------
-//添加建议意见
-#define URL_V1_proposal_publishProposal             @"V1.Proposal.PublishProposal"
-//服务评价
-#define URL_V1_ser_serEvaluate_addEvaluate          @"V1.Ser_SerEvaluate.AddEvaluate"
-//获取售后wap地址
-#define URL_V1_wapUrl_afterSaleWapUrl               @"V1.WapUrl.AfterSaleWapUrl"
-
-//订单列表
-#define URL_Order_order_orderList                   @"Order.Order.OrderList"
-//删除订单
-#define URL_Order_order_delOrder                    @"Order.Order.DelOrder"
-
-//订单详情
-#define URL_Order_order_orderInfo                   @"Order.Order.OrderInfo"
-
-
-#pragma mark ------------------------分享相关------------------
-//分享首页
-#define URL_V1_share_shareIndex          @"V1.Share.ShareIndex"
-
-//邀请分享
-#define URL_V1_share_shareInvite         @"V1.Share.ShareInvite"
-
-#pragma mark ------------------------更新相关------------------
-//根据不同终端获取不同版本更新信息
-#define URL_Bug_version_upInfo          @"Bug.Version.UpInfo"
-
-
-#pragma mark - ---------------------支付相关---------------------
-//支付宝支付
-#define URL_Pay_alipay_app               @"Pay.Alipay.App"
-
-//微信支付
-#define URL_Pay_wechat_app               @"Pay.Wechat.App"
 
 #endif /* URLMacros_h */

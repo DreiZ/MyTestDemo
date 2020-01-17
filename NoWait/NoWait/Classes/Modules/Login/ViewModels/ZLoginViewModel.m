@@ -51,8 +51,17 @@
 }
 
 - (void)codeWithTel:(NSString *)tel block:(loginUserResultBlock)block {
-    [ZNetworking postServerType:ZServerTypeApi url:URL_sms_send_app_login params:@{@"mobile":tel} completionHandler:^(id data, NSError *error) {
+    
+}
+
+- (void)imageCodeWith:(NSString *)tel block:(codeResultBlock)block  {
+//    [ZNetworking getTServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{@"identifier":@"graphic"} completionHandler:^(id _Nonnulldata, NSError * error) {
+//        
+//    }];
+//    return;
+    [ZNetworking postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{@"identifier":@"graphic"} completionHandler:^(id data, NSError *error) {
         DLog(@"return login code %@", data);
+        block(YES,data);
 //        if (data && [data isKindOfClass:[NSDictionary class]]) {
 //            ZLoginMsgBackModel *backModel = [ZLoginMsgBackModel mj_objectWithKeyValues:data];
 //            if ([backModel.code integerValue] == 0) {

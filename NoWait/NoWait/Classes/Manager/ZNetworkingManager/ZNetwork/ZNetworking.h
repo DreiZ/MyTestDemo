@@ -16,6 +16,13 @@ typedef enum : NSUInteger {
     ZServerTypeApi,        //31
     ZServerTypeSocket,     //及时通讯会话 32
     ZServerTypeIM,         //登录 32
+    
+    ZServerTypeCode,              //验证码服务器
+    ZServerTypeUser,               //用户服务器
+    ZServerTypeOrder,               //订单服务
+    ZServerTypeFile,                 //文件服务器
+    ZServerTypeCoach,               //教练服务器
+    ZServerTypeOrganization,        //机构服务器
 } ZServerType;
 
 @interface ZNetworking : NSObject

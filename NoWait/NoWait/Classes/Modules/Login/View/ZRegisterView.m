@@ -144,6 +144,29 @@ static NSTimer *retrieveTimer = nil;
     [forgetBtn setTitleColor:KLineColor forState:UIControlStateNormal];
     [forgetBtn setTitleColor:KFont6Color forState:UIControlStateHighlighted];
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [forgetBtn bk_whenTapped:^{
+        [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
+            if (![message isKindOfClass:[NSDictionary class]]) {
+                return ;
+            }
+            NSDictionary *temp = message;
+            if ([temp objectForKey:@"img"]) {
+                NSString *str = temp[@"img"];
+                str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+                str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                str = [str substringFromIndex:@"data:image/png;base64,".length];
+                NSString *encodedImageStr = str;
+                NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *image = [UIImage imageWithData:decodedImgData];
+                UIImageView *ss = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 100, 50)];
+                ss.image = image;
+                [self addSubview:ss];
+            }
+            
+            
+        }];
+    }];
     [contView addSubview:forgetBtn];
     [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(140));

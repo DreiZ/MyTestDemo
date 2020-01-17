@@ -13,7 +13,7 @@
 #import "ZLaunchManager.h"
 
 typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
-
+typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 @interface ZLoginViewModel : ZBaseViewModel
 /**
  判断是否可以登录
@@ -44,5 +44,14 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 - (void)codeWithTel:(NSString *)tel
               block:(loginUserResultBlock)block;
 
+
+/**
+ 验证码图形
+
+ @param tel 电话号码
+ @param block 返回信息
+ */
+- (void)imageCodeWith:(NSString *)tel
+              block:(codeResultBlock)block;
 
 @end

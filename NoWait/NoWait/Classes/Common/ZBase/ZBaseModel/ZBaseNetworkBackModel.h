@@ -47,7 +47,7 @@
 
 @interface ZBaseNetworkBackModel : NSObject
 @property (nonatomic,strong) id data;
-@property (nonatomic,strong) NSString *ret;
-@property (nonatomic,strong) NSString *msg;
+@property (nonatomic,strong) NSString *code;
+@property (nonatomic,strong) NSString *message;
 @end
 
