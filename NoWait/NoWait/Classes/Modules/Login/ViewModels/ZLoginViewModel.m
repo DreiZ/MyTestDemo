@@ -59,7 +59,7 @@
 //        
 //    }];
 //    return;
-    [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{@"identifier":@"graphic"} completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{} completionHandler:^(id data, NSError *error) {
         DLog(@"return login code %@", data);
         block(YES,data);
 //        if (data && [data isKindOfClass:[NSDictionary class]]) {
