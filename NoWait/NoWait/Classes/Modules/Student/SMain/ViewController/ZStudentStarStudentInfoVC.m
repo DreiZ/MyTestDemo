@@ -23,7 +23,7 @@
 
 @interface ZStudentStarStudentInfoVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
-@property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
+
 @property (nonatomic,strong) ZStudentStarDetailNav *navgationView;
 
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;

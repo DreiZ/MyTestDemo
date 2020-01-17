@@ -67,7 +67,17 @@
         make.right.equalTo(self.skillLabel.mas_right).offset(CGFloatIn750(30));
     }];
     
-    
+    __weak typeof(self) weakSelf = self;
+    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [detailBtn bk_whenTapped:^{
+        if (weakSelf.detailBlock) {
+            weakSelf.detailBlock(weakSelf.userImageView);
+        }
+    }];
+    [self.contentView addSubview:detailBtn];
+    [detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
 }
 
 

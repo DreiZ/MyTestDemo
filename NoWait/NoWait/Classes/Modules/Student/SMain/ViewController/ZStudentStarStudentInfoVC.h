@@ -7,11 +7,12 @@
 //
 
 #import "ZViewController.h"
+#import "ZStudentStarDetailHeadView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStarStudentInfoVC : ZViewController
-
+@property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
 @end
 
 NS_ASSUME_NONNULL_END

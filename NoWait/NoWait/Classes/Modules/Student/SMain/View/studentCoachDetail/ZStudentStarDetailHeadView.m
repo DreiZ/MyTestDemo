@@ -11,7 +11,7 @@
 
 @interface ZStudentStarDetailHeadView ()
 @property (nonatomic,strong) UIImageView *headImageView;
-@property (nonatomic,strong) UIImageView *userHeaderImageView;
+
 @end
 
 @implementation ZStudentStarDetailHeadView

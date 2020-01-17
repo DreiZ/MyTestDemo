@@ -101,6 +101,15 @@
     ZStudentStarListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentStarListCollectionViewCell className] forIndexPath:indexPath];
     ZStudentDetailLessonOrderCoachModel *model = _list[indexPath.row];
     cell.model = model;
+    cell.detailBlock = ^(UIImageView *imgView) {
+        ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
+        [self.navigationController wxs_pushViewController:ivc makeTransition:^(WXSTransitionProperty *transition) {
+        transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
+        transition.animationTime = 1;
+        transition.startView  = imgView;
+        transition.targetView = ivc.headerView.userHeaderImageView;
+        }];
+    };
     return cell;
 }
 

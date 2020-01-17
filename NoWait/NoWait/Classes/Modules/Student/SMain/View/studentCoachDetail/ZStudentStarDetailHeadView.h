@@ -10,6 +10,7 @@
 
 
 @interface ZStudentStarDetailHeadView : UIView
+@property (nonatomic,strong) UIImageView *userHeaderImageView;
 - (void)updateSubViewFrame;
 @end
 

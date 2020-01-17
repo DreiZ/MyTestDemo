@@ -16,5 +16,6 @@
 
 @property (nonatomic,strong) ZStudentDetailLessonOrderCoachModel *model;
 
+@property (nonatomic,strong) void (^detailBlock)(UIImageView *);
 @end
 
