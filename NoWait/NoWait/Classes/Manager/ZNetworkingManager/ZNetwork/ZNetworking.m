@@ -27,7 +27,6 @@
 }
 
 #pragma mark get请求
-
 + (id)getServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler {
     NSString *newUrl = [self getMUrl:path serverType:serverType];
     
@@ -67,6 +66,7 @@
     NSMutableDictionary *newParams = [ZNetworking setCommonDict:params];
     
     newParams = [ZNetworking signTheParameters:path postDic:newParams];
+    newParams = [ZNetworking setIdentifierWithCommonDict:newParams serverURL:path];
     
     NSString *newUrl = [ZNetworking getMUrl:path serverType:serverType];
     
@@ -243,6 +243,24 @@
     [newDict setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:@"timestamp"];
     return newDict;
 }
+
+
+#pragma mark -设置identifier
++(NSMutableDictionary *)setIdentifierWithCommonDict:(NSDictionary *)originalDict serverURL:(NSString *)url{
+    
+    NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:originalDict];
+    if ([url isEqualToString:URL_sms_v1_captcha] || [url isEqualToString:URL_sms_v1_send_code]) {
+        [newDict setObject:@"graphic" forKey:@"identifier"];
+    }else if ([url isEqualToString:URL_account_v1_register]|| [url isEqualToString:URL_account_v1_login]|| [url isEqualToString:URL_account_v1_refresh]) {
+        [newDict setObject:@"login" forKey:@"identifier"];
+    }else if ([url isEqualToString:URL_file_v1_upload]) {
+        [newDict setObject:@"upload" forKey:@"identifier"];
+    }else {
+        [newDict setObject:@"account" forKey:@"identifier"];
+    }
+    return newDict;
+}
+
 
 //随机字符串
 + (NSString *)randomStringWithLength:(NSInteger)len {

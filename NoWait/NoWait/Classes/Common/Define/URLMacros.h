@@ -166,6 +166,17 @@
 #define URL_sms_v1_send_code                        @"sms/v1/send_code"
 
 
+#pragma mark -------------------------登录-------------------------------
+//注册接口
+#define URL_account_v1_register                     @"account/v1/register"
+//登录接口
+#define URL_account_v1_login                        @"account/v1/login"
+//刷新token接口
+#define URL_account_v1_refresh                      @"account/v1/refresh"
 
+#define URL_account_v1_logout                       @"account/v1/logout"
+
+#pragma mark ---------------------上传图片-------------------------------------
+#define URL_file_v1_upload                           @"file/v1/upload"
 
 #endif /* URLMacros_h */
