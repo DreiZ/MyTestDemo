@@ -26,29 +26,12 @@ typedef enum : NSUInteger {
 } ZServerType;
 
 @interface ZNetworking : NSObject
++ (AFHTTPSessionManager *)defaultAFManager;
 
-#pragma mark get请求
-+ (id)getServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
-#pragma mark post请求
-+ (id)postServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
-#pragma mark post请求不带userid token
-+ (id)postWithoutUserIDServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
++ (id)getWithUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
 
-#pragma mark post直接请求 不签名
-+ (id)singlePostServerUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
++ (id)postWithUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
 
-//上传图片
-+ (id)postImageServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
-
-
-+ (NSMutableDictionary *)handleData:(NSDictionary *)data;
-
-+ (NSMutableDictionary *)setCommonDict:(NSDictionary *)originalDict;
-
-#pragma mark 获取请求体
-+ (NSDictionary *)getPostParamsServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params;
-
-+ (NSString *)getPostUrlServerType:(ZServerType)serverType url:(NSString *)path;
 @end
 
 NS_ASSUME_NONNULL_END
