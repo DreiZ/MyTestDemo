@@ -85,7 +85,7 @@
 - (void)setNavgation {
     self.isHidenNaviBar = NO;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
-
+    
     [self.navigationItem setLeftBarButtonItem:item];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }

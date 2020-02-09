@@ -19,7 +19,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     
     
@@ -57,7 +57,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont2Color;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -70,7 +70,7 @@
     if (!_skillLabel) {
         _skillLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
         _skillLabel.layer.masksToBounds = YES;
-        _skillLabel.textColor = KWhiteColor;
+        _skillLabel.textColor = KAdaptAndDarkColor(KWhiteColor, KWhiteColor);
         _skillLabel.layer.cornerRadius = 3;
         _skillLabel.backgroundColor = KMainColor;
         _skillLabel.numberOfLines = 0;
@@ -79,7 +79,7 @@
         NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"擅长仰泳"];
         text.lineSpacing = 1;
         text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
-        text.color = KWhiteColor;
+        text.color = KAdaptAndDarkColor(KWhiteColor, KWhiteColor);
         _skillLabel.preferredMaxLayoutWidth = kScreenWidth/4 - CGFloatIn750(44);
         _skillLabel.attributedText = text;
     }

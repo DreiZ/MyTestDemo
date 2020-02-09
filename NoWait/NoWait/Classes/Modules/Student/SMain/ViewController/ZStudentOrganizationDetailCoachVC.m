@@ -40,7 +40,7 @@
     [self.cellConfigArr removeAllObjects];
     
     {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
         [self.cellConfigArr addObject:spacCellConfig];
         for (int i = 0; i < 18; i++) {
             ZStudentDetailContentListModel *model = [[ZStudentDetailContentListModel alloc] init];
@@ -51,7 +51,7 @@
     }
     
     {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
         [self.cellConfigArr addObject:spacCellConfig];
     }
 }
@@ -62,7 +62,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KBackColor;
+    self.view.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,7 +95,7 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
         }
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

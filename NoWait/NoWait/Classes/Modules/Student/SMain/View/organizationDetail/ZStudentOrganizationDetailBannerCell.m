@@ -26,7 +26,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -47,7 +47,7 @@
         _iCycleScrollView.currentPageDotImage =  [UIImage imageNamed:@"pageControlCurrentDot"];
         _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
-        _iCycleScrollView.backgroundColor = KBackColor;
+        _iCycleScrollView.backgroundColor = KAdaptAndDarkColor(KBackColor, K1aBackColor);
     }
     return _iCycleScrollView;
 }

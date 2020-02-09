@@ -30,7 +30,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.lessonImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -103,7 +103,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont2Color;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont2Color, KFont9Color);
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -128,7 +128,7 @@
 - (UILabel *)favourablePriceLabel {
     if (!_favourablePriceLabel) {
         _favourablePriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _favourablePriceLabel.textColor = KFont9Color;
+        _favourablePriceLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont2Color);
         _favourablePriceLabel.text = @"￥256";
         _favourablePriceLabel.numberOfLines = 1;
         _favourablePriceLabel.textAlignment = NSTextAlignmentRight;
@@ -140,7 +140,7 @@
 - (UILabel *)goodReputationLabel {
     if (!_goodReputationLabel) {
         _goodReputationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _goodReputationLabel.textColor = KFont9Color;
+        _goodReputationLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentLeft;
@@ -152,7 +152,7 @@
 - (UILabel *)sellCountLabel {
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _sellCountLabel.textColor = KFont9Color;
+        _sellCountLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         _sellCountLabel.text = @"已售200>";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;
