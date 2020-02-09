@@ -30,7 +30,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor,KLineColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -43,7 +43,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KMainColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KMainColor,K2eBackColor);
     [self addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);

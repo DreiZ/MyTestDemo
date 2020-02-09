@@ -135,7 +135,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KWhiteColor;
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K2eBackColor);
     
     [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +172,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         
@@ -192,6 +192,7 @@
     if (!_sectionView) {
         __weak typeof(self) weakSelf = self;
         _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
+        _sectionView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KLineColor);
         _sectionView.titleSelect = ^(NSInteger index) {
             if (weakSelf.iTableView.contentOffset.y < [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -282,4 +283,34 @@
    
     [self.searchView updateWithOffset:Offset_y];
 }
+
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    [self setupDarkModel];
+}
+
+#pragma mark - setupDarkModel
+- (void)setupDarkModel{
+    if ([DarkModel isDarkMode]) {
+//        [self darkType];
+    }else{
+//        [self lightType];
+    }
+}
+
+
+// darkType
+- (void)darkType{
+    //Dark 模式(黑夜)
+}
+
+// lightType
+- (void)lightType{
+     //Light 模式(白天)
+}
+
 @end

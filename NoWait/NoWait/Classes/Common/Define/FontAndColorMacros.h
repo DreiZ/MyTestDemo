@@ -5,7 +5,9 @@
 //  Created by zhuang zhang on 2020/1/2.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "DarkModel.h"
 #ifndef FontAndColorMacros_h
 #define FontAndColorMacros_h
 
@@ -65,5 +67,13 @@
 #define KYellowColor [UIColor colorWithHexString:@"ffcc00"]
 #define KGreenColor [UIColor colorWithHexString:@"007553"]
 #define KBlueBackColor [UIColor colorWithHexString:@"2337fc"] //背景蓝色
+
+#define K1aBackColor [UIColor colorWithHexString:@"1a1a1a"] //背景色 darkModel
+#define K2eBackColor [UIColor colorWithHexString:@"2e2e2e"] //背景浅色 darkModel
+//颜色dark mode&正常
+//#define KAdaptAndDarkColor(adaptColor,darkColor)
+#define KAdaptAndDarkColor(adapt,dark) [DarkModel adaptColor:adapt darkColor:dark]
+
+#define KIsDarkModel [DarkModel isDarkMode]
 
 #endif /* FontAndColorMacros_h */

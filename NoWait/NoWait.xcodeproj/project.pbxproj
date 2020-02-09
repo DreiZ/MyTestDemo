@@ -12,6 +12,7 @@
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
 		B215844523CD6946007618CE /* ZStudentMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B215844423CD6946007618CE /* ZStudentMineEvaListVC.m */; };
+		B2196AFB23E7D7880013F2A1 /* DarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2196AF923E7D7880013F2A1 /* DarkModel.m */; };
 		B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */; };
 		B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBB23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m */; };
 		B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCBE23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m */; };
@@ -368,6 +369,8 @@
 		B215844023CD6544007618CE /* MGWaterDorpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGWaterDorpView.h; sourceTree = "<group>"; };
 		B215844323CD6946007618CE /* ZStudentMineEvaListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineEvaListVC.h; sourceTree = "<group>"; };
 		B215844423CD6946007618CE /* ZStudentMineEvaListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineEvaListVC.m; sourceTree = "<group>"; };
+		B2196AF923E7D7880013F2A1 /* DarkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DarkModel.m; sourceTree = "<group>"; };
+		B2196AFA23E7D7880013F2A1 /* DarkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkModel.h; sourceTree = "<group>"; };
 		B223BCB723C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonListCell.h; sourceTree = "<group>"; };
 		B223BCB823C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailLessonListCell.m; sourceTree = "<group>"; };
 		B223BCBA23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailLessonItemCell.h; sourceTree = "<group>"; };
@@ -1045,6 +1048,15 @@
 			path = MGWaterDorpView;
 			sourceTree = "<group>";
 		};
+		B2196AF823E7D7880013F2A1 /* DarkModel */ = {
+			isa = PBXGroup;
+			children = (
+				B2196AF923E7D7880013F2A1 /* DarkModel.m */,
+				B2196AFA23E7D7880013F2A1 /* DarkModel.h */,
+			);
+			path = DarkModel;
+			sourceTree = "<group>";
+		};
 		B223BCCC23C7043F00AC0158 /* StarRatingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1275,6 +1287,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2196AF823E7D7880013F2A1 /* DarkModel */,
 				B215843C23CD6503007618CE /* MGWaterDorpView */,
 				B223BCCC23C7043F00AC0158 /* StarRatingView */,
 				B2A7815823C4517800407BF0 /* ZHFilterMenuView */,
@@ -2737,6 +2750,7 @@
 				B2A77FD423BDEAA100407BF0 /* ZNavigationController.m in Sources */,
 				B2A7816C23C4540000407BF0 /* FilterDataUtil.m in Sources */,
 				B2A77EC423BDE29E00407BF0 /* MWGridViewController.m in Sources */,
+				B2196AFB23E7D7880013F2A1 /* DarkModel.m in Sources */,
 				B25146A723CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m in Sources */,
 				B25146DA23CFFF0F009A64D4 /* ZSingleLineCell.m in Sources */,
 				B2A7816823C4517800407BF0 /* ZHFilterItemModel.m in Sources */,
