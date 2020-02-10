@@ -96,6 +96,8 @@
 		B279D06D23C99ED100391A33 /* ZStudentLessonOrderIntroItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D06C23C99ED100391A33 /* ZStudentLessonOrderIntroItemCell.m */; };
 		B279D07023C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D06F23C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m */; };
 		B279D07323C9BEA400391A33 /* ZStudentLessonBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D07223C9BEA400391A33 /* ZStudentLessonBottomView.m */; };
+		B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */; };
+		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A77E2A23BDA38600407BF0 /* Assets.xcassets */; };
 		B2A77E3B23BDA38600407BF0 /* NoWaitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E3A23BDA38600407BF0 /* NoWaitTests.m */; };
 		B2A77E4623BDA38600407BF0 /* NoWaitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E4523BDA38600407BF0 /* NoWaitUITests.m */; };
@@ -205,12 +207,9 @@
 		B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77FF223BDEC1600407BF0 /* ZWebBridgeViewController.m */; };
 		B2A77FF523BDEC1600407BF0 /* UIBarButtonItem+Back.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77FF323BDEC1600407BF0 /* UIBarButtonItem+Back.m */; };
 		B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77FF723BDECA200407BF0 /* ZDSBridgePublicManager.m */; };
-		B2A7800623BDEDD300407BF0 /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77FFC23BDEDD300407BF0 /* UIFont+ZChat.m */; };
 		B2A7800723BDEDD300407BF0 /* UITableViewCell+ZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77FFE23BDEDD300407BF0 /* UITableViewCell+ZCategory.m */; };
-		B2A7800823BDEDD300407BF0 /* UINavigationController+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7800123BDEDD300407BF0 /* UINavigationController+ZChat.m */; };
 		B2A7800923BDEDD300407BF0 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A7800223BDEDD300407BF0 /* Common.xcassets */; };
 		B2A7800A23BDEDD300407BF0 /* ZCellConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7800323BDEDD300407BF0 /* ZCellConfig.m */; };
-		B2A7800B23BDEDD300407BF0 /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7800523BDEDD300407BF0 /* UIColor+ZChat.m */; };
 		B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7800E23BDF08000407BF0 /* ZUserHelper.m */; };
 		B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7801123BDF0D000407BF0 /* ZUser.m */; };
 		B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7801623BDF8B200407BF0 /* ZAdvertiseView.m */; };
@@ -533,6 +532,10 @@
 		B279D06F23C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonOrderDetailOrganizationCell.m; sourceTree = "<group>"; };
 		B279D07123C9BEA400391A33 /* ZStudentLessonBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonBottomView.h; sourceTree = "<group>"; };
 		B279D07223C9BEA400391A33 /* ZStudentLessonBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonBottomView.m; sourceTree = "<group>"; };
+		B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZChat.m"; sourceTree = "<group>"; };
+		B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZChat.m"; sourceTree = "<group>"; };
+		B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZChat.h"; sourceTree = "<group>"; };
+		B29A71CD23F172C8000AEF5F /* UIFont+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ZChat.h"; sourceTree = "<group>"; };
 		B2A77E1B23BDA38400407BF0 /* 莫等闲.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "莫等闲.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -729,17 +732,11 @@
 		B2A77FF323BDEC1600407BF0 /* UIBarButtonItem+Back.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Back.m"; sourceTree = "<group>"; };
 		B2A77FF723BDECA200407BF0 /* ZDSBridgePublicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDSBridgePublicManager.m; sourceTree = "<group>"; };
 		B2A77FF823BDECA200407BF0 /* ZDSBridgePublicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDSBridgePublicManager.h; sourceTree = "<group>"; };
-		B2A77FFB23BDEDD300407BF0 /* UINavigationController+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ZChat.h"; sourceTree = "<group>"; };
-		B2A77FFC23BDEDD300407BF0 /* UIFont+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZChat.m"; sourceTree = "<group>"; };
-		B2A77FFD23BDEDD300407BF0 /* UIColor+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZChat.h"; sourceTree = "<group>"; };
 		B2A77FFE23BDEDD300407BF0 /* UITableViewCell+ZCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZCategory.m"; sourceTree = "<group>"; };
 		B2A77FFF23BDEDD300407BF0 /* ZCellConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCellConfig.h; sourceTree = "<group>"; };
-		B2A7800023BDEDD300407BF0 /* UIFont+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ZChat.h"; sourceTree = "<group>"; };
-		B2A7800123BDEDD300407BF0 /* UINavigationController+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ZChat.m"; sourceTree = "<group>"; };
 		B2A7800223BDEDD300407BF0 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		B2A7800323BDEDD300407BF0 /* ZCellConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCellConfig.m; sourceTree = "<group>"; };
 		B2A7800423BDEDD300407BF0 /* UITableViewCell+ZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZCategory.h"; sourceTree = "<group>"; };
-		B2A7800523BDEDD300407BF0 /* UIColor+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZChat.m"; sourceTree = "<group>"; };
 		B2A7800D23BDF08000407BF0 /* ZUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZUserHelper.h; sourceTree = "<group>"; };
 		B2A7800E23BDF08000407BF0 /* ZUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZUserHelper.m; sourceTree = "<group>"; };
 		B2A7801023BDF0D000407BF0 /* ZUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZUser.h; sourceTree = "<group>"; };
@@ -1759,18 +1756,16 @@
 		B2A77FFA23BDEDD300407BF0 /* UIUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */,
+				B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */,
+				B29A71CD23F172C8000AEF5F /* UIFont+ZChat.h */,
+				B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */,
 				B2F7D34023CD702000F7A17D /* Tool */,
-				B2A77FFB23BDEDD300407BF0 /* UINavigationController+ZChat.h */,
-				B2A77FFC23BDEDD300407BF0 /* UIFont+ZChat.m */,
-				B2A77FFD23BDEDD300407BF0 /* UIColor+ZChat.h */,
 				B2A77FFE23BDEDD300407BF0 /* UITableViewCell+ZCategory.m */,
 				B2A77FFF23BDEDD300407BF0 /* ZCellConfig.h */,
-				B2A7800023BDEDD300407BF0 /* UIFont+ZChat.h */,
-				B2A7800123BDEDD300407BF0 /* UINavigationController+ZChat.m */,
 				B2A7800223BDEDD300407BF0 /* Common.xcassets */,
 				B2A7800323BDEDD300407BF0 /* ZCellConfig.m */,
 				B2A7800423BDEDD300407BF0 /* UITableViewCell+ZCategory.h */,
-				B2A7800523BDEDD300407BF0 /* UIColor+ZChat.m */,
 			);
 			path = UIUtilities;
 			sourceTree = "<group>";
@@ -2759,12 +2754,9 @@
 				B2A77F2B23BDE37A00407BF0 /* LLImagePickerCell.m in Sources */,
 				B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */,
 				B2A7809323BDFB0100407BF0 /* TLNetworkAgent.m in Sources */,
-				B2A7800623BDEDD300407BF0 /* UIFont+ZChat.m in Sources */,
 				B2A77F5723BDE42E00407BF0 /* NSBundle+TZImagePicker.m in Sources */,
-				B2A7800B23BDEDD300407BF0 /* UIColor+ZChat.m in Sources */,
 				B279D06423C99E4500391A33 /* ZStudentLessonOrderIntroCell.m in Sources */,
 				B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */,
-				B2A7800823BDEDD300407BF0 /* UINavigationController+ZChat.m in Sources */,
 				B279D03123C722BB00391A33 /* ZStudentLessonSelectMainView.m in Sources */,
 				B2A7809823BDFB0100407BF0 /* PingHelper.m in Sources */,
 				B2A780A023BDFB0100407BF0 /* FSMStateUtil.m in Sources */,
@@ -2833,6 +2825,7 @@
 				B2F7D35C23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m in Sources */,
 				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
+				B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */,
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
 				B279D06123C99E0600391A33 /* ZStudentLessonOrderStatusCell.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
@@ -2874,6 +2867,7 @@
 				B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */,
 				B2A781A923C5C96900407BF0 /* ZStudentLessonEvaView.m in Sources */,
 				B2A77EC823BDE29E00407BF0 /* MWPhotoBrowser.m in Sources */,
+				B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */,
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,

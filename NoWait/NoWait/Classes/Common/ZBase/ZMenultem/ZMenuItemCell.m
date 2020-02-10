@@ -45,7 +45,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         [self setBackgroundColor:[UIColor whiteColor]];
-        [self setSelectedBackgrounColor:[UIColor colorGrayLine]];
+        [self setSelectedBackgrounColor:KLineColor];
         
         [self p_initSubviews];
     }
