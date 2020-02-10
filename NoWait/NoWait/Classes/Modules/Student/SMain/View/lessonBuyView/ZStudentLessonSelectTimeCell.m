@@ -24,7 +24,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -40,7 +40,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont2Color;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -54,13 +54,13 @@
     
     _titleLabel.text = model.time;
     if (model.isTimeSelected) {
-        _titleLabel.textColor = KWhiteColor;
+        _titleLabel.textColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         _titleLabel.backgroundColor = KMainColor;
         _titleLabel.layer.cornerRadius = CGFloatIn750(27);
         _titleLabel.layer.masksToBounds = YES;
     }else {
-        _titleLabel.textColor = KFont2Color;
-        _titleLabel.backgroundColor = KWhiteColor;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         _titleLabel.layer.cornerRadius = CGFloatIn750(27);
         _titleLabel.layer.masksToBounds = YES;
     }

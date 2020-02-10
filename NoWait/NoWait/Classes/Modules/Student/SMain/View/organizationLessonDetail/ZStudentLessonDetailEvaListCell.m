@@ -31,7 +31,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.userNameLabel];
@@ -105,7 +105,7 @@
 - (UILabel *)userNameLabel {
     if (!_userNameLabel) {
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _userNameLabel.textColor = KFont2Color;
+        _userNameLabel.textColor = KAdaptAndDarkColor(KFont2Color, KFont9Color);
         _userNameLabel.text = @"";
         _userNameLabel.numberOfLines = 1;
         _userNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -118,7 +118,7 @@
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.textColor = KFont9Color;
+        _timeLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -130,7 +130,7 @@
 - (UILabel *)starLabel {
     if (!_starLabel) {
         _starLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _starLabel.textColor = KFont9Color;
+        _starLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         _starLabel.text = @"";
         _starLabel.numberOfLines = 1;
         _starLabel.textAlignment = NSTextAlignmentRight;
@@ -142,7 +142,7 @@
 - (UILabel *)evaLabel {
     if (!_evaLabel) {
         _evaLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaLabel.textColor = KFont2Color;
+        _evaLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont2Color);
         _evaLabel.text = @"";
         _evaLabel.numberOfLines = 0;
         _evaLabel.textAlignment = NSTextAlignmentLeft;

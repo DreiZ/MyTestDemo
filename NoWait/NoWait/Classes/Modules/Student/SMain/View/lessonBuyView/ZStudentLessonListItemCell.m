@@ -29,7 +29,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.contView];
@@ -98,7 +98,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KBlackColor;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -182,7 +182,7 @@
         _contView.layer.borderColor = KMainColor.CGColor;
         _selectImageView.hidden = NO;
     }else{
-        _titleLabel.textColor = KBlackColor;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonLabel.textColor = KFont6Color;
         _timeLabel.textColor = KFont6Color;
         _numLabel.textColor = KFont6Color;

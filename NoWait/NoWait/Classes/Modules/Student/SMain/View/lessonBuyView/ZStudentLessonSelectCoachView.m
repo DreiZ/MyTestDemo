@@ -32,13 +32,13 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KWhiteColor;
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(102));
@@ -115,7 +115,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = [UIColor whiteColor];
+        _funBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     }
     return _funBackView;
 }
@@ -166,7 +166,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentLessonListCoachItemCell class] forCellWithReuseIdentifier:[ZStudentLessonListCoachItemCell className]];
-        [_iCollectionView setBackgroundColor:[UIColor whiteColor]];
+        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }
@@ -178,7 +178,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = KBlackColor;
+        _lessonTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonTitleLabel.text = @"请选择教练";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;

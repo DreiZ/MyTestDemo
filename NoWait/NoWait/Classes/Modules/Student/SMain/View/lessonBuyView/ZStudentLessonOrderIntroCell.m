@@ -30,7 +30,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KBackColor;
+    self.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     self.clipsToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
     
@@ -43,7 +43,7 @@
     }];
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = KWhiteColor;
+    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = CGFloatIn750(18);
     [self.contentView addSubview:contView];
@@ -87,6 +87,7 @@
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
         _iTableView.scrollEnabled = NO;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     }
     return _iTableView;
 }

@@ -31,7 +31,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.backView];
@@ -65,7 +65,7 @@
         _backView = [[UIView alloc] init];
         _backView.layer.masksToBounds = YES;
         _backView.layer.cornerRadius = 4;
-        _backView.backgroundColor = KBackColor;
+        _backView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     }
     return _backView;
 }
@@ -74,8 +74,9 @@
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
-        _iTextView.backgroundColor = KWhiteColor;
+        _iTextView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        _iTextView.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _iTextView;
 }
@@ -86,7 +87,7 @@
         _thintLabel = [[UILabel alloc] init];
         _thintLabel.numberOfLines = 0;
         _thintLabel.textAlignment = NSTextAlignmentLeft;
-        [_thintLabel setTextColor:KFont9Color];
+        [_thintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont3Color)];
         [_thintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_thintLabel setText:@"如果有其他说明，请填写在此处"];
     }
@@ -134,10 +135,10 @@
 - (void)setIsBackColor:(NSString *)isBackColor {
     _isBackColor = isBackColor;
     if (_isBackColor) {
-        _iTextView.backgroundColor = KBackColor;
+        _iTextView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _backView.hidden = NO;
     }else{
-        _iTextView.backgroundColor = KWhiteColor;
+        _iTextView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KBackColor);
         _backView.hidden = YES;
     }
 }

@@ -27,12 +27,12 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UILabel *nameHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    nameHintLabel.textColor = KFont9Color;
+    nameHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
     nameHintLabel.text = @"姓名";
     nameHintLabel.numberOfLines = 1;
     nameHintLabel.textAlignment = NSTextAlignmentCenter;
@@ -40,7 +40,7 @@
     [self addSubview:nameHintLabel];
     
     UILabel *lessonHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    lessonHintLabel.textColor = KFont9Color;
+    lessonHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
     lessonHintLabel.text = @"课程";
     lessonHintLabel.numberOfLines = 1;
     lessonHintLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,7 +48,7 @@
     [self addSubview:lessonHintLabel];
     
     UILabel *cocahHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    cocahHintLabel.textColor = KFont9Color;
+    cocahHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
     cocahHintLabel.text = @"教练";
     cocahHintLabel.numberOfLines = 1;
     cocahHintLabel.textAlignment = NSTextAlignmentCenter;
@@ -95,7 +95,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KFont2Color;
+        _nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _nameLabel.text = @"段世昌";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -107,7 +107,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KFont2Color;
+        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonLabel.text = @"瑜伽";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentCenter;
@@ -120,7 +120,7 @@
 - (UILabel *)cocahLabel {
     if (!_cocahLabel) {
         _cocahLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _cocahLabel.textColor = KFont2Color;
+        _cocahLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _cocahLabel.text = @"王娇";
         _cocahLabel.numberOfLines = 1;
         _cocahLabel.textAlignment = NSTextAlignmentCenter;

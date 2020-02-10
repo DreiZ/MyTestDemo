@@ -34,7 +34,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.coachImageView];
     [self.contentView addSubview:self.nameLabel];
@@ -105,7 +105,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KFont3Color;
+        _nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _nameLabel.text = @"图形俱乐部";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
@@ -118,7 +118,7 @@
 - (UILabel *)adeptLabel {
     if (!_adeptLabel) {
         _adeptLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _adeptLabel.textColor = KFont3Color;
+        _adeptLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _adeptLabel.text = @"";
         _adeptLabel.numberOfLines = 1;
         _adeptLabel.textAlignment = NSTextAlignmentLeft;
@@ -130,7 +130,7 @@
 - (UILabel *)desLabel {
     if (!_desLabel) {
         _desLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _desLabel.textColor = KFont3Color;
+        _desLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _desLabel.text = @"";
         _desLabel.numberOfLines = 0;
         _desLabel.textAlignment = NSTextAlignmentLeft;

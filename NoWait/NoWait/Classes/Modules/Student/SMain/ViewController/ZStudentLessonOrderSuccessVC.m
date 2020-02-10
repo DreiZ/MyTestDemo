@@ -35,7 +35,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KWhiteColor;
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
 
     [self.view addSubview:self.hintImageView];
     [self.view addSubview:self.successLabel];
@@ -88,7 +88,7 @@
 - (UILabel *)successLabel {
     if (!_successLabel) {
         _successLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _successLabel.textColor = KFont3Color;
+        _successLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _successLabel.text = @"恭喜您已经成功预约";
         _successLabel.numberOfLines = 1;
         _successLabel.textAlignment = NSTextAlignmentCenter;

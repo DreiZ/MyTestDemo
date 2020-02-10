@@ -39,7 +39,7 @@
     _numLabelArr = [[NSMutableArray alloc] init];
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, TopViewHeight)];
-    topView.backgroundColor = [UIColor whiteColor];
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self addSubview:topView];
     
     NSString *tempStr = @"";
@@ -58,7 +58,7 @@
         UIButton *tempBtn = [[UIButton alloc] initWithFrame:rc];
         [tempBtn setTitle:atomTempStr forState:UIControlStateNormal];
         [tempBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
-        [tempBtn setTitleColor:KFont6Color forState:UIControlStateNormal];
+        [tempBtn setTitleColor:KAdaptAndDarkColor(KFont6Color, KFont9Color) forState:UIControlStateNormal];
         [tempBtn setTag:i];
         [tempBtn addTarget:self action:@selector(selectedBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         

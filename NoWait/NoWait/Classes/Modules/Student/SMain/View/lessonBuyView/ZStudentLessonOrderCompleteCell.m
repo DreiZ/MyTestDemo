@@ -33,7 +33,7 @@
 
 - (void)initMainView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.rightImageView];
@@ -95,7 +95,7 @@
 - (UILabel *)leftTitleLabel {
     if (!_leftTitleLabel) {
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _leftTitleLabel.textColor = KBlackColor;
+        _leftTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _leftTitleLabel.text = @"标题";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -107,7 +107,7 @@
 - (UILabel *)rightTitleLabel {
     if (!_rightTitleLabel) {
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _rightTitleLabel.textColor = KFont3Color;
+        _rightTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentRight;
@@ -133,8 +133,8 @@
     _leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
     _rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
     
-    _leftTitleLabel.textColor = model.leftColor ? model.leftColor:KBlackColor;
-    _rightTitleLabel.textColor = model.rightColor ? model.rightColor:KBlackColor;
+    _leftTitleLabel.textColor = model.leftColor ? model.leftColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
+    _rightTitleLabel.textColor = model.rightColor ? model.rightColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
     
     self.bottomLineView.hidden = model.isHiddenBottomLine;
     
@@ -182,6 +182,14 @@
 
 + (CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(100);
+}
+
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
 }
 @end
 
