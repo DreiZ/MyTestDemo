@@ -36,6 +36,7 @@
     
     [self setNavgation];
     
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self.view addSubview:self.subscribeBtn];
     [self.subscribeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(88));

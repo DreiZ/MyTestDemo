@@ -50,6 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self setNavgation];
     
     [self.view addSubview:self.subscribeBtn];
