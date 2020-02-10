@@ -44,7 +44,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -66,7 +66,7 @@
         }];
         
         UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        moreLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        moreLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         moreLabel.text = @"更多";
         moreLabel.textAlignment = NSTextAlignmentRight;
         [moreLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];

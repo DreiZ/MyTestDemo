@@ -45,7 +45,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);

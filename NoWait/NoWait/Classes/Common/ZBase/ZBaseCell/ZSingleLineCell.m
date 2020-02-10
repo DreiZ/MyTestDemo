@@ -110,7 +110,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KLineColor;
+        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     }
     return _bottomLineView;
 }
@@ -132,8 +132,8 @@
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
-    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:KFont3Color;
-    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:KFont3Color;
+    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
+    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
     self.bottomLineView.hidden = model.isHiddenLine;
     
     

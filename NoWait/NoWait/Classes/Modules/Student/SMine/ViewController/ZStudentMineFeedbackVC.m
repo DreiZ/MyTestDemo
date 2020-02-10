@@ -107,7 +107,7 @@
 - (UILabel *)hintLabel {
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] init];
-        [_hintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont3Color)];
+        [_hintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont6Color)];
         [_hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_hintLabel setText:@"您有什么意见要反馈给我们？"];
     }

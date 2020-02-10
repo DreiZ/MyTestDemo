@@ -164,7 +164,7 @@
 - (UILabel *)searchPlaceholder {
     if (!_searchPlaceholder) {
         _searchPlaceholder = [[UILabel alloc] initWithFrame:CGRectZero];
-        _searchPlaceholder.textColor = KAdaptAndDarkColor(KFont9Color,KFont9Color);
+        _searchPlaceholder.textColor = KAdaptAndDarkColor(KFont9Color,KFont6Color);
         _searchPlaceholder.text = @"搜索";
         _searchPlaceholder.numberOfLines = 1;
         _searchPlaceholder.textAlignment = NSTextAlignmentLeft;

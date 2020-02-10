@@ -77,7 +77,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);
@@ -118,7 +118,7 @@
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _timeLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -130,7 +130,7 @@
 - (UILabel *)starLabel {
     if (!_starLabel) {
         _starLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _starLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _starLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _starLabel.text = @"";
         _starLabel.numberOfLines = 1;
         _starLabel.textAlignment = NSTextAlignmentRight;
@@ -142,7 +142,7 @@
 - (UILabel *)evaLabel {
     if (!_evaLabel) {
         _evaLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont2Color);
+        _evaLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _evaLabel.text = @"";
         _evaLabel.numberOfLines = 0;
         _evaLabel.textAlignment = NSTextAlignmentLeft;

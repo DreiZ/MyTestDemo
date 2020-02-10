@@ -107,7 +107,7 @@
 - (UILabel *)detailLabel {
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _detailLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _detailLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _detailLabel.text = @"图形俱乐部讽德诵功对方过得舒服个人风格如果太热";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;

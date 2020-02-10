@@ -56,7 +56,7 @@
         model.rightImage = titleArr[i][1];
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        model.rightColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         model.cellTitle = titleArr[i][0];
         
         if (i == 0) {

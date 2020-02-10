@@ -63,7 +63,7 @@
 - (UILabel *)evaDesLabel {
     if (!_evaDesLabel) {
         _evaDesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaDesLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _evaDesLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _evaDesLabel.text = @"好评率：98%";
         _evaDesLabel.numberOfLines = 0;
         _evaDesLabel.textAlignment = NSTextAlignmentRight;

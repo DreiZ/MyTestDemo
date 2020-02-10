@@ -75,7 +75,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);
@@ -128,7 +128,7 @@
 - (UILabel *)favourablePriceLabel {
     if (!_favourablePriceLabel) {
         _favourablePriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _favourablePriceLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont2Color);
+        _favourablePriceLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _favourablePriceLabel.text = @"￥256";
         _favourablePriceLabel.numberOfLines = 1;
         _favourablePriceLabel.textAlignment = NSTextAlignmentRight;
@@ -140,7 +140,7 @@
 - (UILabel *)goodReputationLabel {
     if (!_goodReputationLabel) {
         _goodReputationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _goodReputationLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _goodReputationLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentLeft;
@@ -152,7 +152,7 @@
 - (UILabel *)sellCountLabel {
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _sellCountLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _sellCountLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _sellCountLabel.text = @"已售200>";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;

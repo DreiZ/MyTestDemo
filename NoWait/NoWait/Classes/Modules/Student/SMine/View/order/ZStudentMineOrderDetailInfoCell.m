@@ -90,7 +90,7 @@
     }];
     
     UIView *topBottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topBottomLineView.backgroundColor = KLineColor;
+    topBottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [topView addSubview:topBottomLineView];
     [topBottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -98,7 +98,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [bottomView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(bottomView);

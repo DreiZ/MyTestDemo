@@ -32,7 +32,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UILabel *nameHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    nameHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+    nameHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
     nameHintLabel.text = @"姓名";
     nameHintLabel.numberOfLines = 1;
     nameHintLabel.textAlignment = NSTextAlignmentCenter;
@@ -40,7 +40,7 @@
     [self addSubview:nameHintLabel];
     
     UILabel *lessonHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    lessonHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+    lessonHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
     lessonHintLabel.text = @"课程";
     lessonHintLabel.numberOfLines = 1;
     lessonHintLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,7 +48,7 @@
     [self addSubview:lessonHintLabel];
     
     UILabel *cocahHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    cocahHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+    cocahHintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
     cocahHintLabel.text = @"教练";
     cocahHintLabel.numberOfLines = 1;
     cocahHintLabel.textAlignment = NSTextAlignmentCenter;

@@ -76,7 +76,7 @@
 - (UILabel *)moreLabel {
     if (!_moreLabel) {
         _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _moreLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _moreLabel.text = @"";
         _moreLabel.numberOfLines = 1;
         _moreLabel.textAlignment = NSTextAlignmentRight;

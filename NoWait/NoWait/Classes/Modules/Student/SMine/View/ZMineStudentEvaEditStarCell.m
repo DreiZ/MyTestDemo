@@ -85,7 +85,7 @@
 - (UILabel *)evaDesLabel {
     if (!_evaDesLabel) {
         _evaDesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaDesLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _evaDesLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _evaDesLabel.text = @"很好";
         _evaDesLabel.numberOfLines = 1;
         _evaDesLabel.textAlignment = NSTextAlignmentLeft;

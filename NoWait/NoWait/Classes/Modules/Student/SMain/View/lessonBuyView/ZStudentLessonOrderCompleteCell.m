@@ -120,7 +120,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KLineColor;
+        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     }
     return _bottomLineView;
 }

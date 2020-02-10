@@ -87,7 +87,7 @@
         _thintLabel = [[UILabel alloc] init];
         _thintLabel.numberOfLines = 0;
         _thintLabel.textAlignment = NSTextAlignmentLeft;
-        [_thintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont3Color)];
+        [_thintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont6Color)];
         [_thintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_thintLabel setText:@"如果有其他说明，请填写在此处"];
     }

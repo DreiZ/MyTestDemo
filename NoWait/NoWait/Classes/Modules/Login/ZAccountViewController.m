@@ -142,7 +142,7 @@
     }];
     
     UIView *hintLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    hintLineView.backgroundColor = KLineColor;
+    hintLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [lineView addSubview:hintLineView];
     [hintLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);

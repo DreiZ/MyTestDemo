@@ -99,7 +99,7 @@
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _addressLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _addressLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _addressLabel.text = @"泉山区建国西路锦绣家园7路 0233-2342352";
         _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
@@ -113,7 +113,7 @@
 - (UILabel *)businessHoursLabel {
     if (!_businessHoursLabel) {
         _businessHoursLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _businessHoursLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
+        _businessHoursLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
         _businessHoursLabel.text = @"营业时间：09:00-21:30";
         _businessHoursLabel.numberOfLines = 1;
         _businessHoursLabel.textAlignment = NSTextAlignmentLeft;
