@@ -92,7 +92,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

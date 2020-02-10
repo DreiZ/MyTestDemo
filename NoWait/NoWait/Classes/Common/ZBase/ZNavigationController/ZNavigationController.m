@@ -34,8 +34,8 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:KAdaptAndDarkColor(CNavBgColor,CNavBgFontColor)];
     [navBar setTintColor:KAdaptAndDarkColor(CNavBgFontColor,CNavBgColor)];
-    navBar.backIndicatorImage = [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
     
@@ -57,13 +57,13 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:KAdaptAndDarkColor(CNavBgColor,CNavBgFontColor)];
     [navBar setTintColor:KAdaptAndDarkColor(CNavBgFontColor,CNavBgColor)];
-    navBar.backIndicatorImage = [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"left_arrow"];
-    
+    navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
-    
+
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :KAdaptAndDarkColor(CNavBgFontColor,CNavBgColor), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
-    
+
     [navBar setBackgroundImage:[UIImage imageWithColor:KAdaptAndDarkColor(CNavBgColor,CNavBgFontColor)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 //    [navBar setShadowImage:[UIImage new]];//去掉阴影线
 }

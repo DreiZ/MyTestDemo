@@ -36,7 +36,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -50,7 +50,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KWhiteColor;
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -58,7 +58,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KWhiteColor;
+    bottomView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(88));
@@ -66,7 +66,7 @@
     }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KWhiteColor;
+    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -144,7 +144,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KWhiteColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -156,7 +156,7 @@
 - (UILabel *)orderSNLabel {
     if (!_orderSNLabel) {
         _orderSNLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderSNLabel.textColor = KFont2Color;
+        _orderSNLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
@@ -258,14 +258,14 @@
         [list addObject:model];
     }
 
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KWhiteColor];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
     [_cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
     [_cellConfigArr addObject:lessonDesCellConfig];
 //
 
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KWhiteColor];
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
     [_cellConfigArr addObject:bottomCellConfig];
     
     [self.iTableView reloadData];

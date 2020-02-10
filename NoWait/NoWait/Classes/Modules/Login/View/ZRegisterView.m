@@ -48,14 +48,14 @@ static NSTimer *retrieveTimer = nil;
 
 #pragma mark --初始化view----------------
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
  
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = [UIColor whiteColor];
+    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     contView.layer.masksToBounds = YES;
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -213,7 +213,7 @@ static NSTimer *retrieveTimer = nil;
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
-    _protocolLabel.textColor = KFont9Color;
+    _protocolLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
     _protocolLabel.numberOfLines = 0;
     _protocolLabel.textAlignment = NSTextAlignmentCenter;
     [_protocolLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
@@ -323,6 +323,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
+        _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _userNameTF;
 }
@@ -359,6 +360,7 @@ static NSTimer *retrieveTimer = nil;
             }
             weakSelf.loginViewModel.loginModel.pwd = x;
         }];
+        _passwordTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _passwordTF;
 }
@@ -395,6 +397,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _messageCodeTF.delegate = self;
         _messageCodeTF.keyboardType = UIKeyboardTypeNumberPad;
+        _messageCodeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _messageCodeTF;
 }
@@ -430,6 +433,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;
+        _codeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _codeTF;
 }

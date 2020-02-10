@@ -43,14 +43,14 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
    
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = [UIColor whiteColor];
+    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     contView.layer.masksToBounds = YES;
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,7 +153,7 @@
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
-    _protocolLabel.textColor = KFont9Color;
+    _protocolLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
     _protocolLabel.numberOfLines = 0;
     _protocolLabel.textAlignment = NSTextAlignmentCenter;
     [_protocolLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
@@ -286,6 +286,7 @@
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
+        _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _userNameTF;
 }
@@ -314,7 +315,7 @@
         [_passwordTF setReturnKeyType:UIReturnKeyDone];
         [_passwordTF setPlaceholder:@"请输入密码"];
         [_passwordTF setSecureTextEntry:YES];
-        
+        _passwordTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         [_passwordTF.rac_textSignal subscribeNext:^(NSString *x) {
             weakSelf.passwordTF.text = x;
             if (weakSelf.editBlock) {
@@ -357,6 +358,7 @@
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;
+        _codeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
     return _codeTF;
 }

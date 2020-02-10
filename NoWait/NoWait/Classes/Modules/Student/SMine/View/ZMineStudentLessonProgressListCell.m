@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -100,7 +100,7 @@
 - (UILabel *)lessonCountLabel {
     if (!_lessonCountLabel) {
         _lessonCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonCountLabel.textColor = KFont8Color;
+        _lessonCountLabel.textColor = KAdaptAndDarkColor(KFont8Color, KFont3Color);
         _lessonCountLabel.text = @"20/30节";
         _lessonCountLabel.numberOfLines = 1;
         _lessonCountLabel.textAlignment = NSTextAlignmentLeft;

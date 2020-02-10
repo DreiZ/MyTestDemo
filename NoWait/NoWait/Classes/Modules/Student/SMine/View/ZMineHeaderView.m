@@ -34,7 +34,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -126,7 +126,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KFont2Color;
+        _nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _nameLabel.text = @"尖耳朵的兔子";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;

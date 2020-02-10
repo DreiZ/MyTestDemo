@@ -77,7 +77,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KWhiteColor;
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn bk_whenTapped:^{
@@ -132,7 +132,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    lineView.backgroundColor = KWhiteColor;
+    lineView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self.view addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -235,7 +235,7 @@
     if(!_iScrollView) {
         _iScrollView = [[UIScrollView alloc] init];
         _iScrollView.delegate = self;
-        _iScrollView.backgroundColor = KWhiteColor;
+        _iScrollView.backgroundColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _iScrollView.pagingEnabled = YES;
         _iScrollView.bounces = NO;
         _iScrollView.showsHorizontalScrollIndicator = NO;

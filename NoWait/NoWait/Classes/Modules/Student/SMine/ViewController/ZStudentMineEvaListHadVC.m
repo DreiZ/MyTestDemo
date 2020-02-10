@@ -57,7 +57,7 @@
     
     ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListHadEvaCell className] title:[ZMineStudentEvaListHadEvaCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMineStudentEvaListHadEvaCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
     
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
     [self.cellConfigArr addObject:evaCellConfig];
     
     [self.cellConfigArr addObject:spacCellConfig];
@@ -104,7 +104,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

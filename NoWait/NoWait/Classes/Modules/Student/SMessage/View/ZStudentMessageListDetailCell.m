@@ -29,7 +29,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     
     UIView *contView = [[UIView alloc] init];
     contView.layer.masksToBounds = YES;
@@ -44,7 +44,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KWhiteColor;
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -52,7 +52,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KWhiteColor;
+    bottomView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -62,7 +62,7 @@
 
 
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KWhiteColor;
+    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -84,7 +84,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KLineColor;
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -135,7 +135,7 @@
 - (UILabel *)messageTitleLabel {
     if (!_messageTitleLabel) {
         _messageTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _messageTitleLabel.textColor = KFont2Color;
+        _messageTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _messageTitleLabel.text = @"课程消息";
         _messageTitleLabel.numberOfLines = 1;
         _messageTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -160,7 +160,7 @@
 - (UILabel *)checkLabel {
     if (!_checkLabel) {
         _checkLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _checkLabel.textColor = KFont3Color;
+        _checkLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _checkLabel.text = @"查看详情";
         _checkLabel.numberOfLines = 1;
         _checkLabel.textAlignment = NSTextAlignmentLeft;

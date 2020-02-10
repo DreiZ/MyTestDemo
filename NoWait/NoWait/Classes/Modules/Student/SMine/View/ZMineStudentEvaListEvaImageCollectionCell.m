@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -50,7 +50,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KWhiteColor;
+        _funBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     }
     return _funBackView;
 }
@@ -62,7 +62,7 @@
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
         _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZMineStudentEvaListEvaImageCollectionCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = KWhiteColor;
+        _iCollectionView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = YES;

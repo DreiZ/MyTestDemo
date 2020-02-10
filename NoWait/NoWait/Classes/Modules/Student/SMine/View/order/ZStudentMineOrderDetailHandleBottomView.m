@@ -27,7 +27,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     

@@ -43,7 +43,7 @@
     
     
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = [UIColor whiteColor];
+    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -51,7 +51,7 @@
     }];
     
     UIView *topHanderView = [[UIView alloc] init];
-    topHanderView.backgroundColor = [UIColor whiteColor];
+    topHanderView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:topHanderView];
     [topHanderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(contView);
@@ -86,8 +86,8 @@
     [sureBtn setTitleColor:KMainColor forState:UIControlStateHighlighted];
     [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [sureBtn bk_addEventHandler:^(id sender) {
-        if (_dateSelectBlock) {
-            _dateSelectBlock(self.iDatePicker.date);
+        if (self.dateSelectBlock) {
+            self.dateSelectBlock(self.iDatePicker.date);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];

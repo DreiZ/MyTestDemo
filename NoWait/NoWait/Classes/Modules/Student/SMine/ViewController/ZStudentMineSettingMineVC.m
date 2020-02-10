@@ -56,7 +56,7 @@
         model.rightImage = titleArr[i][1];
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KFont9Color;
+        model.rightColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         model.cellTitle = titleArr[i][0];
         
         if (i == 0) {
@@ -107,7 +107,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

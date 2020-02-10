@@ -24,7 +24,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.evaTitleLabel];
     
@@ -42,7 +42,7 @@
 - (UILabel *)evaTitleLabel {
     if (!_evaTitleLabel) {
         _evaTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaTitleLabel.textColor = KFont3Color;
+        _evaTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _evaTitleLabel.text = @"教练评价";
         _evaTitleLabel.numberOfLines = 0;
         _evaTitleLabel.textAlignment = NSTextAlignmentLeft;

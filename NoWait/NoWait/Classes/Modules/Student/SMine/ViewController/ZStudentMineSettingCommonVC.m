@@ -44,7 +44,7 @@
     [_cellConfigArr removeAllObjects];
     ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchCell className] title:[ZStudentMineSettingSwitchCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingSwitchCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"消息推送"];
     [self.cellConfigArr addObject:messageCellConfig];
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KBackColor];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
     [self.cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"清空缓存"];
@@ -88,7 +88,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

@@ -26,7 +26,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KWhiteColor;
+    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.lessonLabel];
@@ -46,7 +46,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KFont2Color;
+        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonLabel.text = @"利萨斯";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;

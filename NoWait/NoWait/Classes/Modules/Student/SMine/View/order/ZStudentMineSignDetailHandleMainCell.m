@@ -34,14 +34,14 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     
     _cellConfigArr = @[].mutableCopy;
     
     UIView *contView = [[UIView alloc] init];
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = CGFloatIn750(12);
-    contView.backgroundColor = KWhiteColor;
+    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self.contentView addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView);
@@ -52,7 +52,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KWhiteColor;
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(110));
@@ -69,7 +69,7 @@
 
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KWhiteColor;
+    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -114,7 +114,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KWhiteColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -126,7 +126,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KFont2Color;
+        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonLabel.text = @"课程";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;

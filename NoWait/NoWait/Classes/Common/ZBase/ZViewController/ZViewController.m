@@ -24,7 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorGrayBG]];
+    [self.view setBackgroundColor:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 

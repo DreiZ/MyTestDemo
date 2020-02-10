@@ -24,7 +24,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.evaImageView];

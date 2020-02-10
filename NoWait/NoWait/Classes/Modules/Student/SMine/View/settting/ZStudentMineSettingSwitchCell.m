@@ -28,7 +28,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -49,7 +49,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont2Color;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];

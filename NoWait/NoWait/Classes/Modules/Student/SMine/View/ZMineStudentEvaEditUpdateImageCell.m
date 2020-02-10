@@ -27,7 +27,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
    
     
     [self.contentView addSubview:self.cameraImageView];
@@ -66,7 +66,7 @@
         _cameraImageView.image = [UIImage imageNamed:@"uploadCamera"];
         _cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
         _cameraImageView.clipsToBounds = YES;
-        _cameraImageView.backgroundColor = KBackColor;
+        _cameraImageView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     }
     
     return _cameraImageView;
@@ -75,7 +75,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KFont3Color;
+        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _titleLabel.text = @"上传照片";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;

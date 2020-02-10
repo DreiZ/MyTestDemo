@@ -28,7 +28,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     [self.contentView addSubview:self.evaTitleLabel];
     [self.contentView addSubview:self.evaDesLabel];
@@ -85,7 +85,7 @@
 - (UILabel *)evaDesLabel {
     if (!_evaDesLabel) {
         _evaDesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaDesLabel.textColor = KFont9Color;
+        _evaDesLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         _evaDesLabel.text = @"很好";
         _evaDesLabel.numberOfLines = 1;
         _evaDesLabel.textAlignment = NSTextAlignmentLeft;

@@ -49,7 +49,7 @@
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KFont9Color;
+        model.rightColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         model.cellTitle = titleArr[i][0];
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
@@ -106,7 +106,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

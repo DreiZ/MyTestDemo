@@ -24,7 +24,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     

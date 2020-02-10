@@ -29,7 +29,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KWhiteColor;
+    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     
     UIView *contView = [[UIView alloc] init];
     [self.contentView addSubview:contView];
@@ -39,7 +39,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KWhiteColor;
+    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -48,7 +48,7 @@
 
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KWhiteColor;
+    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -121,7 +121,7 @@
 - (UILabel *)orderSNLabel {
     if (!_orderSNLabel) {
         _orderSNLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderSNLabel.textColor = KFont2Color;
+        _orderSNLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
@@ -134,7 +134,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KFont3Color;
+        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         _lessonLabel.text = @"暑期瑜伽班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;

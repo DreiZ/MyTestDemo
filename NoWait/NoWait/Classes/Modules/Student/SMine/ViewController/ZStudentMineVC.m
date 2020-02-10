@@ -90,7 +90,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KWhiteColor;
+    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
     [self.view addSubview:self.iTableView];
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +121,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         

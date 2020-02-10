@@ -52,14 +52,14 @@
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.rightColor = KFont9Color;
+        model.rightColor = KAdaptAndDarkColor(KFont9Color, KFont3Color);
         model.cellTitle = titleArr[i][0];
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
         
         if (i == 2) {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KBackColor];
+            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
             [self.cellConfigArr addObject:topCellConfig];
         }
     }
@@ -102,7 +102,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.tableHeaderView = self.topView;
@@ -113,7 +113,7 @@
 - (UIView *)topView {
     if (!_topView) {
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(500))];
-        _topView.backgroundColor = KWhiteColor;
+        _topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
         
         UIImageView *logoImageView = [[UIImageView alloc] init];
         logoImageView.image = [UIImage imageNamed:@"loginLogo"];
@@ -126,7 +126,7 @@
         
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        nameLabel.textColor = KFont3Color;
+        nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
         nameLabel.text = @"艺动";
         nameLabel.numberOfLines = 0;
         nameLabel.textAlignment = NSTextAlignmentLeft;
