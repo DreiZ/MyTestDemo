@@ -115,9 +115,9 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:KFont2Color forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:KAdaptAndDarkColor(KBlackColor, KWhiteColor) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
-        [_navLeftBtn setImage:[UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+        [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
         [_navLeftBtn bk_whenTapped:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
@@ -233,6 +233,15 @@
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGFloatIn750(100);
     return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kStatusBarHeight);
+}
+
+
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
 }
 
 @end
