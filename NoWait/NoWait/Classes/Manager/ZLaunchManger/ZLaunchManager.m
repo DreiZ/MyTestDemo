@@ -44,9 +44,10 @@
     if (window) {
         self.window = window;
     }
-    
+//    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
+    
     if ([ZUserHelper sharedHelper].isLogin) {      // 已登录
         [self showMainTab];
     }

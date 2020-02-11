@@ -23,20 +23,9 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 @property (nonatomic, strong) ZLoginModel *loginModel;
 @property (nonatomic, strong) ZRegisterModel *registerModel;
 
-/**
- *  登陆后返回用户信息
- *
- *  @param username 用户名
- *  @param password 密码
- *  @param block    是否成功登陆，若成功登陆返回用户信息
- */
--(void)loginWithUsername:(NSString *)username
-                password:(NSString *)password
-                   block:(loginUserResultBlock)block;
-
 
 /**
- 验证码登录
+ 验证码
 
  @param params 电话号码 ckey
  @param block 返回信息
@@ -63,4 +52,13 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 */
 - (void)retrieveWithParams:(NSDictionary *)params
                      block:(loginUserResultBlock)block;
+
+/**
+登录信息
+
+@param params 登录信息
+@param block 返回信息
+*/
+- (void)loginWithParams:(NSDictionary *)params
+                  block:(loginUserResultBlock)block;
 @end

@@ -40,20 +40,6 @@
     return self;
 }
 
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(loginUserResultBlock)block {
-    [[ZUserHelper sharedHelper] loginWithUsername:username password:password block:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            //进入主页
-            [[ZLaunchManager sharedInstance] launchInWindow:nil];
-            [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
-            block(YES, message);
-            return ;
-        }else{
-            block(NO, message);
-        }
-    }];
-}
-
 - (void)codeWithParams:(NSDictionary *)params  block:(loginUserResultBlock)block {
     [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);
@@ -103,5 +89,18 @@
         }
     }];
 }
+
+
+- (void)loginWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [[ZUserHelper sharedHelper] loginWithParams:params block:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            //进入主页
+            [[ZLaunchManager sharedInstance] launchInWindow:nil];
+            [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
+        }
+        block(isSuccess, message);
+    }];
+}
+
 
 @end

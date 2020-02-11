@@ -20,3 +20,9 @@
 @implementation ZImageCodeBackModel
 
 @end
+
+@implementation ZLoginUserBackModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"userID" : @"id"};
+}
+@end

@@ -17,8 +17,6 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 @property (nonatomic, strong, readonly) NSString *user_id;
 
-@property (nonatomic, strong, readonly) NSString *client_id;
-
 @property (nonatomic, strong, readonly) NSString *uuid;
 
 @property (nonatomic, strong) NSString *push_token;
@@ -40,6 +38,6 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 - (void)updateUserInfoWithCompleteBlock:(void(^)(BOOL))completeBlock;
 
 //登录
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password block:(loginUserResultBlock)block ;
+- (void)loginWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
 @end
 

@@ -8,6 +8,7 @@
 
 #import "ZStudentMainVC.h"
 #import "ZStudentMainTopSearchView.h"
+#import "ZUserHelper.h"
 
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
@@ -63,7 +64,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [ZUserHelper sharedHelper].user.nikeName;
     [self setData];
     [self setupMainView];
 }

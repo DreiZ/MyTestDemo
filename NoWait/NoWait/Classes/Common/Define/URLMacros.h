@@ -159,14 +159,14 @@
 //用户第一次打开app，进行引导
 #define URL_V1_beginning_guidance                   @"V1.Beginning.Guidance"
 
-#pragma mark ---------------------------验证码相关 ---------------------------
+#pragma mark ---------------------------验证码相关 URL_code---------------------------
 //图形验证码接口
 #define URL_sms_v1_captcha                          @"sms/v1/captcha"
 //获取验证码
 #define URL_sms_v1_send_code                        @"sms/v1/send_code"
 
 
-#pragma mark -------------------------登录-------------------------------
+#pragma mark -------------------------登录---URL_user----------------------------
 //注册接口
 #define URL_account_v1_register                     @"account/v1/register"
 //登录接口
@@ -176,7 +176,7 @@
 
 #define URL_account_v1_logout                       @"account/v1/logout"
 
-#pragma mark ---------------------上传图片-------------------------------------
+#pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 
 #endif /* URLMacros_h */

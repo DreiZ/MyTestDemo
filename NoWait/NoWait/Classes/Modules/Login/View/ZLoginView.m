@@ -311,7 +311,7 @@
         [hintView addSubview:hintImageView];
         
         _passwordTF = [[UITextField alloc] init];
-        _passwordTF.tag = 103;
+        _passwordTF.tag = 108;
         _passwordTF.leftView = hintView;
         _passwordTF.leftViewMode = UITextFieldViewModeAlways;
         _passwordTF.delegate = self;
@@ -346,7 +346,7 @@
         [hintView addSubview:hintImageView];
         
         _codeTF = [[UITextField alloc] init];
-        _codeTF.tag = 103;
+        _codeTF.tag = 105;
         _codeTF.leftView = hintView;
         _codeTF.leftViewMode = UITextFieldViewModeAlways;
         [_codeTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
@@ -379,18 +379,39 @@
         [_loginBtn bk_addEventHandler:^(id sender) {
             [weakSelf inputResignFirstResponder];
             
+            if (!self.isAgree) {
+                [TLUIUtility showErrorHint:@"请阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
+                return ;
+            }
             
-//            [self.loginViewModel loginWithUsername:self.loginViewModel.loginModel.tel password:self.loginViewModel.loginModel.code block:^(BOOL isSuccess, NSString *message) {
-//                if (isSuccess) {
-//                    [TLUIUtility showSuccessHint:message];
-//                }else{
-//                    [TLUIUtility showErrorHint:message];
-//                }
-//
-//                DLog(@"login message %@",message);
-//                //                ZPerfectUserInfoViewController *prefectVC = [[ZPerfectUserInfoViewController alloc] init];
-//                //                PushVC(prefectVC);
-//            }];
+            NSMutableDictionary *params = @{}.mutableCopy;
+            if (self.loginViewModel.loginModel.tel && self.loginViewModel.loginModel.tel.length == 11) {
+                [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
+            }else{
+                return;
+            }
+            
+            if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length > 5) {
+                [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
+            }else{
+                return;
+            }
+            
+            if (self.loginViewModel.loginModel.code && self.loginViewModel.loginModel.code.length == 4) {
+                [params setObject:self.loginViewModel.loginModel.code forKey:@"code"];
+                [params setObject:self.loginViewModel.loginModel.ckey forKey:@"ckey"];
+            }else{
+                return;
+            }
+
+            [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:message];
+                }else{
+                    [TLUIUtility showErrorHint:message];
+                }
+            }];
+
         } forControlEvents:UIControlEventTouchUpInside];
         
         _loginBtn.layer.masksToBounds = YES;
@@ -409,23 +430,22 @@
     if (!_agreementView) {
         _agreementView = [[UIImageView alloc] init];
         _agreementView.layer.masksToBounds = YES;
-        _agreementView.image = [UIImage imageNamed:@"seletBtnno"];
+        _agreementView.image = [UIImage imageNamed:@"studentNoSelect"];
     }
     return _agreementView;
 }
 
+
+#pragma mark --setting----------------
 - (void)setIsAgree:(BOOL)isAgree {
     _isAgree = isAgree;
     
     if (isAgree) {
-        //        ViewBorderRadius(self.agreementView, CGFloatIn750(13), 0, [UIColor clearColor]);
-        self.agreementView.image = [UIImage imageNamed:@"seletBtnyes"];
+        self.agreementView.image = [UIImage imageNamed:@"studentSelect"];
     }else{
-        //        ViewBorderRadius(self.agreementView , CGFloatIn750(13), 0.5, KLineColor);
-        self.agreementView.image = [UIImage imageNamed:@"seletBtnno"];
+        self.agreementView.image = [UIImage imageNamed:@"studentNoSelect"];
     }
 }
-
 
 #pragma mark textField delegate ---------
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -435,6 +455,8 @@
     }else if (textField.tag == 103) {
         
         regexString = @"^\\d*$";
+    }else{
+        return YES;
     }
     
     NSString *currentText = [textField.text stringByReplacingCharactersInRange:range withString:string];
