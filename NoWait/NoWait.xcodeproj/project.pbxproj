@@ -268,7 +268,6 @@
 		B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780DE23BED9B500407BF0 /* Student.xcassets */; };
 		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
 		B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */; };
-		B2A780ED23BF06FD00407BF0 /* PooCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780EB23BF06FD00407BF0 /* PooCodeView.m */; };
 		B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F023BF0BE700407BF0 /* ZLoginView.m */; };
 		B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F323BF0CC800407BF0 /* ZRegisterView.m */; };
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
@@ -855,8 +854,6 @@
 		B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineVC.h; sourceTree = "<group>"; };
 		B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineVC.m; sourceTree = "<group>"; };
 		B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		B2A780EB23BF06FD00407BF0 /* PooCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PooCodeView.m; sourceTree = "<group>"; };
-		B2A780EC23BF06FD00407BF0 /* PooCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PooCodeView.h; sourceTree = "<group>"; };
 		B2A780EF23BF0BE700407BF0 /* ZLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginView.h; sourceTree = "<group>"; };
 		B2A780F023BF0BE700407BF0 /* ZLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginView.m; sourceTree = "<group>"; };
 		B2A780F223BF0CC800407BF0 /* ZRegisterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRegisterView.h; sourceTree = "<group>"; };
@@ -1288,7 +1285,6 @@
 				B215843C23CD6503007618CE /* MGWaterDorpView */,
 				B223BCCC23C7043F00AC0158 /* StarRatingView */,
 				B2A7815823C4517800407BF0 /* ZHFilterMenuView */,
-				B2A780EA23BF06FD00407BF0 /* PooCodeView */,
 				B2A77F7723BDE9DB00407BF0 /* XYTransition */,
 				B2A77F3323BDE42E00407BF0 /* TZImagePickerController */,
 				B2A77F0E23BDE37A00407BF0 /* LLImagePickerView */,
@@ -2286,15 +2282,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		B2A780EA23BF06FD00407BF0 /* PooCodeView */ = {
-			isa = PBXGroup;
-			children = (
-				B2A780EB23BF06FD00407BF0 /* PooCodeView.m */,
-				B2A780EC23BF06FD00407BF0 /* PooCodeView.h */,
-			);
-			path = PooCodeView;
-			sourceTree = "<group>";
-		};
 		B2A780EE23BF0A9000407BF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2790,7 +2777,6 @@
 				B2A7819923C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m in Sources */,
 				B2A781C423C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m in Sources */,
 				B2F7D36223CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m in Sources */,
-				B2A780ED23BF06FD00407BF0 /* PooCodeView.m in Sources */,
 				B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */,
 				B2A7802723BDF9B100407BF0 /* ZDBManager.m in Sources */,
 				B2A7816723C4517800407BF0 /* ZHFilterMenuView.m in Sources */,

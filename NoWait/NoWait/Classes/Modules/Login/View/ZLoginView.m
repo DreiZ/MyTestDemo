@@ -7,7 +7,6 @@
 //
 
 #import "ZLoginView.h"
-#import "PooCodeView.h"
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
 
@@ -21,7 +20,7 @@
 @property (nonatomic,strong) UITextField *userNameTF;
 @property (nonatomic,strong) UITextField *passwordTF;
 @property (nonatomic,strong) UITextField *codeTF;
-@property (nonatomic,strong) PooCodeView *pooCodeView;
+@property (nonatomic,strong) UIButton *pooCodeView;
 @property (nonatomic,strong) NSString *codeString;
 @property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 
@@ -139,16 +138,34 @@
      
     __weak typeof(self) weakSelf = self;
     //1.默认
-    _pooCodeView = [[PooCodeView alloc] initWithFrame:CGRectMake(10, 100, 68, 28) andChangeArray:nil];
-    //注意:文字高度不能大于poocodeview高度,否则crash
-    _pooCodeView.textSize = 18;
-    _pooCodeView.changBlock = ^(NSString *codeString) {
-        weakSelf.codeString = codeString;
-    };
-    
-    //不设置为blackColor
-    _pooCodeView.textColor = KMainColor;
-    self.codeTF.rightView = _pooCodeView;
+    _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
+    [_pooCodeView bk_whenTapped:^{
+        [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
+            if (![message isKindOfClass:[NSDictionary class]]) {
+                return ;
+            }
+            NSDictionary *temp = message;
+            if ([temp objectForKey:@"img"]) {
+                NSString *str = temp[@"img"];
+                str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+                str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                str = [str substringFromIndex:@"data:image/png;base64,".length];
+                NSString *encodedImageStr = str;
+                NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *image = [UIImage imageWithData:decodedImgData];
+                [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
+            }
+        }];
+    }];
+    [self.codeTF addSubview:self.pooCodeView];
+    [self.pooCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.codeTF.mas_right);
+        make.centerY.equalTo(self.codeTF.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(128));
+        make.height.mas_equalTo(CGFloatIn750(60));
+    }];
+//    self.codeTF.rightView = _pooCodeView;
     self.codeTF.rightViewMode = UITextFieldViewModeAlways;
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
@@ -251,6 +268,26 @@
    }];
     // 是否可以登录
    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
+
+    [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
+        if (![message isKindOfClass:[NSDictionary class]]) {
+            return ;
+        }
+        NSDictionary *temp = message;
+        if ([temp objectForKey:@"img"]) {
+            NSString *str = temp[@"img"];
+            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str substringFromIndex:@"data:image/png;base64,".length];
+            NSString *encodedImageStr = str;
+            NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *image = [UIImage imageWithData:decodedImgData];
+            [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
+        }
+
+
+    }];
 }
         
 #pragma mark lazy loading
@@ -370,22 +407,6 @@
         _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
             [weakSelf inputResignFirstResponder];
-            NSComparisonResult result1 = [weakSelf.pooCodeView.changeString compare:weakSelf.codeTF.text options:NSCaseInsensitiveSearch];
-            
-            if ((weakSelf.pooCodeView.changeString.length == weakSelf.codeTF.text.length ) && (result1 == 0)) {
-                NSLog(@"匹配正确");
-            }
-            else{
-                NSLog(@"验证码错误");
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [weakSelf.pooCodeView changeCode];
-                });
-                return ;
-            }
-            if (!self.isAgree) {
-                [TLUIUtility showErrorHint:@"请阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
-                return ;
-            }
             
             
 //            [self.loginViewModel loginWithUsername:self.loginViewModel.loginModel.tel password:self.loginViewModel.loginModel.code block:^(BOOL isSuccess, NSString *message) {
