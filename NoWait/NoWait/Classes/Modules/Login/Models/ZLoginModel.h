@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *pwd;
 @property (nonatomic,copy) NSString *code;
 @property (nonatomic,copy) NSString *messageCode;
+@property (nonatomic,copy) NSString *ckey;
 @end
 
 @interface ZLoginModel : NSObject
@@ -21,3 +22,9 @@
 @property (nonatomic,copy) NSString *code;
 @end
 
+
+@interface ZImageCodeBackModel : NSObject
+@property (nonatomic,copy) NSString *sensitive;
+@property (nonatomic,copy) NSString *img;
+@property (nonatomic,copy) NSString *ckey;
+@end

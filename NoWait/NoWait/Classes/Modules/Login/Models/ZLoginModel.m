@@ -15,3 +15,8 @@
 @implementation ZLoginModel
 
 @end
+
+
+@implementation ZImageCodeBackModel
+
+@end

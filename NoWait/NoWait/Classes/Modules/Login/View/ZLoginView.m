@@ -110,7 +110,7 @@
     [self.codeTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(190));
         make.bottom.equalTo(tLineView.mas_top);
     }];
     
@@ -123,7 +123,7 @@
     [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(140));
         make.height.mas_equalTo(CGFloatIn750(70));
-        make.right.equalTo(self.codeTF.mas_right).offset(-CGFloatIn750(0));
+        make.right.equalTo(self.userNameTF.mas_right).offset(-CGFloatIn750(0));
         make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(4));
     }];
    
@@ -139,30 +139,19 @@
     __weak typeof(self) weakSelf = self;
     //1.默认
     _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
+    [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
+    [_pooCodeView setTitleColor:KMainColor forState:UIControlStateNormal];
+    [_pooCodeView.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     [_pooCodeView bk_whenTapped:^{
-        [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
-            if (![message isKindOfClass:[NSDictionary class]]) {
-                return ;
-            }
-            NSDictionary *temp = message;
-            if ([temp objectForKey:@"img"]) {
-                NSString *str = temp[@"img"];
-                str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-                str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                str = [str substringFromIndex:@"data:image/png;base64,".length];
-                NSString *encodedImageStr = str;
-                NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                UIImage *image = [UIImage imageWithData:decodedImgData];
-                [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
-            }
-        }];
+        [weakSelf getImageCode];
     }];
-    [self.codeTF addSubview:self.pooCodeView];
+    
+    
+    [contView addSubview:self.pooCodeView];
     [self.pooCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.codeTF.mas_right);
+        make.right.equalTo(contView.mas_right);
         make.centerY.equalTo(self.codeTF.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(128));
+        make.width.mas_equalTo(CGFloatIn750(148));
         make.height.mas_equalTo(CGFloatIn750(60));
     }];
 //    self.codeTF.rightView = _pooCodeView;
@@ -269,25 +258,7 @@
     // 是否可以登录
    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 
-    [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
-        if (![message isKindOfClass:[NSDictionary class]]) {
-            return ;
-        }
-        NSDictionary *temp = message;
-        if ([temp objectForKey:@"img"]) {
-            NSString *str = temp[@"img"];
-            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-            str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            str = [str substringFromIndex:@"data:image/png;base64,".length];
-            NSString *encodedImageStr = str;
-            NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *image = [UIImage imageWithData:decodedImgData];
-            [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
-        }
-
-
-    }];
+    [self getImageCode];
 }
         
 #pragma mark lazy loading
@@ -478,5 +449,29 @@
     [self.userNameTF resignFirstResponder];
     [self.passwordTF resignFirstResponder];
     [self.codeTF resignFirstResponder];
+}
+
+
+- (void)getImageCode {
+    __weak typeof(self) weakSelf = self;
+    [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
+            [weakSelf.pooCodeView setTitle:@"" forState:UIControlStateNormal];
+            ZImageCodeBackModel *model = message;
+            NSString *str = model.img;
+            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str substringFromIndex:@"data:image/png;base64,".length];
+            NSString *encodedImageStr = str;
+            NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *image = [UIImage imageWithData:decodedImgData];
+            [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
+        }else{
+            if ([message isKindOfClass:[NSString class]]) {
+                [TLUIUtility showErrorHint:message];
+            }
+        }
+    }];
 }
 @end

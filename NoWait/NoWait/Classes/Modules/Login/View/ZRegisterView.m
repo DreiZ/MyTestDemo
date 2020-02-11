@@ -93,14 +93,15 @@ static NSTimer *retrieveTimer = nil;
      }];
      
     
-     [contView addSubview:self.messageCodeTF];
-     [self.messageCodeTF mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.height.mas_equalTo(CGFloatIn750(80));
-         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
-         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
-         make.bottom.equalTo(mcLineView.mas_top);
-     }];
+     
 
+    [contView addSubview:self.codeTF];
+    [self.codeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(190));
+        make.bottom.equalTo(mcLineView.mas_top);
+    }];
 
     UIView *tLineView = [[UIView alloc] init];
     tLineView.backgroundColor = KMainColor;
@@ -112,11 +113,11 @@ static NSTimer *retrieveTimer = nil;
     }];
     
    
-    [contView addSubview:self.codeTF];
-    [self.codeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+    [contView addSubview:self.messageCodeTF];
+    [self.messageCodeTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(0));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(0));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(190));
         make.bottom.equalTo(tLineView.mas_top);
     }];
     
@@ -150,14 +151,14 @@ static NSTimer *retrieveTimer = nil;
     [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(140));
         make.height.mas_equalTo(CGFloatIn750(70));
-        make.right.equalTo(self.codeTF.mas_right).offset(-CGFloatIn750(0));
+        make.right.equalTo(self.passwordTF.mas_right).offset(-CGFloatIn750(0));
         make.top.equalTo(self.passwordTF.mas_bottom).offset(CGFloatIn750(4));
     }];
     
     
     [self addSubview:self.loginBtn];
     [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.codeTF.mas_bottom).offset(CGFloatIn750(162));
+        make.top.equalTo(self.passwordTF.mas_bottom).offset(CGFloatIn750(82));
         make.left.equalTo(contView.mas_left).offset(CGFloatIn750(10));
         make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(10));
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -166,33 +167,18 @@ static NSTimer *retrieveTimer = nil;
     __weak typeof(self) weakSelf = self;
     //1.默认
     _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(10, 100, 68, 28)];
+    [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
+    [_pooCodeView.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [_pooCodeView setTitleColor:KMainColor forState:UIControlStateNormal];
     [_pooCodeView bk_whenTapped:^{
-        [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
-            if (![message isKindOfClass:[NSDictionary class]]) {
-                return ;
-            }
-            NSDictionary *temp = message;
-            if ([temp objectForKey:@"img"]) {
-                NSString *str = temp[@"img"];
-                str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-                str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                str = [str substringFromIndex:@"data:image/png;base64,".length];
-                NSString *encodedImageStr = str;
-                NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                UIImage *image = [UIImage imageWithData:decodedImgData];
-                [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
-            }
-            
-            
-        }];
+        [weakSelf getImageCode];
     }];
     
-    [self.codeTF addSubview:self.pooCodeView];
+    [contView addSubview:self.pooCodeView];
     [self.pooCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.codeTF.mas_right);
+        make.right.equalTo(contView.mas_right);
         make.centerY.equalTo(self.codeTF.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(128));
+        make.width.mas_equalTo(CGFloatIn750(148));
         make.height.mas_equalTo(CGFloatIn750(60));
     }];
     self.codeTF.rightViewMode = UITextFieldViewModeAlways;
@@ -206,9 +192,15 @@ static NSTimer *retrieveTimer = nil;
         make.top.right.bottom.equalTo(getCodeView);
         make.left.equalTo(getCodeView.mas_left).offset(CGFloatIn750(12));
     }];
-    
-    self.messageCodeTF.rightView = getCodeView;
-    self.messageCodeTF.rightViewMode = UITextFieldViewModeAlways;
+    [contView addSubview:getCodeView];
+    [getCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(contView.mas_right);
+        make.centerY.equalTo(self.messageCodeTF.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(184));
+        make.height.mas_equalTo(CGFloatIn750(70));
+    }];
+//    self.messageCodeTF.rightView = getCodeView;
+//    self.messageCodeTF.rightViewMode = UITextFieldViewModeAlways;
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
@@ -286,25 +278,10 @@ static NSTimer *retrieveTimer = nil;
     
     
     // 是否可以登录
-   RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
+   RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isRegisterEnable);
     
-    [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
-        if (![message isKindOfClass:[NSDictionary class]]) {
-            return ;
-        }
-        NSDictionary *temp = message;
-        if ([temp objectForKey:@"img"]) {
-            NSString *str = temp[@"img"];
-            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-            str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            str = [str substringFromIndex:@"data:image/png;base64,".length];
-            NSString *encodedImageStr = str;
-            NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *image = [UIImage imageWithData:decodedImgData];
-            [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
-        }
-    }];
+    
+    [self getImageCode];
 }
         
 #pragma mark lazy loading
@@ -336,7 +313,7 @@ static NSTimer *retrieveTimer = nil;
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(0, x);
             }
-            weakSelf.loginViewModel.loginModel.tel = x;
+            weakSelf.loginViewModel.registerModel.tel = x;
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
@@ -375,7 +352,7 @@ static NSTimer *retrieveTimer = nil;
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(1, x);
             }
-            weakSelf.loginViewModel.loginModel.pwd = x;
+            weakSelf.loginViewModel.registerModel.pwd = x;
         }];
         _passwordTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
@@ -405,12 +382,12 @@ static NSTimer *retrieveTimer = nil;
         [_messageCodeTF.rac_textSignal subscribeNext:^(NSString *x) {
             if (x.length > 6) {
                 x = [x substringWithRange:NSMakeRange(0, 6)];
-                weakSelf.codeTF.text = x;
+                weakSelf.messageCodeTF.text = x;
             }
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(2, x);
             }
-            weakSelf.loginViewModel.loginModel.code = x;
+            weakSelf.loginViewModel.registerModel.messageCode = x;
         }];
         _messageCodeTF.delegate = self;
         _messageCodeTF.keyboardType = UIKeyboardTypeNumberPad;
@@ -446,7 +423,7 @@ static NSTimer *retrieveTimer = nil;
             if (weakSelf.editBlock) {
                 weakSelf.editBlock(3, x);
             }
-            weakSelf.loginViewModel.loginModel.code = x;
+            weakSelf.loginViewModel.registerModel.code = x;
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;
@@ -468,18 +445,33 @@ static NSTimer *retrieveTimer = nil;
                 return ;
             }
             
+            NSMutableDictionary *params = @{}.mutableCopy;
+            if (self.loginViewModel.registerModel.tel && self.loginViewModel.registerModel.tel.length == 11) {
+                [params setObject:self.loginViewModel.registerModel.tel forKey:@"phone"];
+            }else{
+                return;
+            }
             
-//            [self.loginViewModel loginWithUsername:self.loginViewModel.loginModel.tel password:self.loginViewModel.loginModel.code block:^(BOOL isSuccess, NSString *message) {
-//                if (isSuccess) {
-//                    [TLUIUtility showSuccessHint:message];
-//                }else{
-//                    [TLUIUtility showErrorHint:message];
-//                }
-//
-//                DLog(@"login message %@",message);
-//                //                ZPerfectUserInfoViewController *prefectVC = [[ZPerfectUserInfoViewController alloc] init];
-//                //                PushVC(prefectVC);
-//            }];
+            if (self.loginViewModel.registerModel.pwd && self.loginViewModel.registerModel.pwd.length > 5) {
+                [params setObject:self.loginViewModel.registerModel.pwd forKey:@"password"];
+            }else{
+                return;
+            }
+            
+            if (self.loginViewModel.registerModel.messageCode && self.loginViewModel.registerModel.messageCode.length == 6) {
+                [params setObject:self.loginViewModel.registerModel.messageCode forKey:@"code"];
+            }else{
+                return;
+            }
+
+            [self.loginViewModel retrieveWithParams:params block:^(BOOL isSuccess, id message) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:message];
+                }else{
+                    [TLUIUtility showErrorHint:message];
+                }
+            }];
+
         } forControlEvents:UIControlEventTouchUpInside];
         
         _loginBtn.layer.masksToBounds = YES;
@@ -500,25 +492,26 @@ static NSTimer *retrieveTimer = nil;
         __weak typeof(self) weakSelf = self;
         _getCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_getCodeBtn bk_addEventHandler:^(id sender) {
-            if (weakSelf.userNameTF.text.length != 11) {
+            if (!weakSelf.loginViewModel.registerModel.tel || weakSelf.loginViewModel.registerModel.tel.length != 11) {
                 [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
                 //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
                 return;
             }
-//            [self.loginViewModel codeWithTel:self.userNameTF.text block:^(BOOL isSuccess, NSString *message) {
-//                if (isSuccess) {
-//                    [TLUIUtility showSuccessHint:message];
-//                    [weakSelf.codeTF becomeFirstResponder];
-//                    DLog(@"login message %@",message);
-                    if (myRetrieveTime == CountTimer) {
-                        [self.getCodeBtn setTitle:@"60秒" forState:UIControlStateDisabled];
-                        [self startTimer];
-                        self.getCodeBtn.enabled = NO;
-                    }
-//                }else{
-//                    [TLUIUtility showErrorHint:message];
-//                }
-//            }];
+            
+            if (!weakSelf.loginViewModel.registerModel.code || weakSelf.loginViewModel.registerModel.code.length != 4) {
+                [TLUIUtility showErrorHint:@"请输入图形验证码" ];
+                //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+                return;
+            }
+            
+            NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.registerModel.ckey,@"captcha":weakSelf.loginViewModel.registerModel.code,@"phone":weakSelf.loginViewModel.registerModel.tel}.mutableCopy;
+            [self.loginViewModel retrieveWithParams:params block:^(BOOL isSuccess, id message) {
+               if (isSuccess) {
+                   [TLUIUtility showSuccessHint:message];
+               }else{
+                   [TLUIUtility showErrorHint:message];
+               }
+            }];
             
         } forControlEvents:UIControlEventTouchUpInside];
         
@@ -533,7 +526,7 @@ static NSTimer *retrieveTimer = nil;
     if (!_agreementView) {
         _agreementView = [[UIImageView alloc] init];
         _agreementView.layer.masksToBounds = YES;
-        _agreementView.image = [UIImage imageNamed:@"seletBtnno"];
+        _agreementView.image = [UIImage imageNamed:@"studentNoSelect"];
     }
     return _agreementView;
 }
@@ -544,9 +537,9 @@ static NSTimer *retrieveTimer = nil;
     _isAgree = isAgree;
     
     if (isAgree) {
-        self.agreementView.image = [UIImage imageNamed:@"seletBtnyes"];
+        self.agreementView.image = [UIImage imageNamed:@"studentSelect"];
     }else{
-        self.agreementView.image = [UIImage imageNamed:@"seletBtnno"];
+        self.agreementView.image = [UIImage imageNamed:@"studentNoSelect"];
     }
 }
 
@@ -602,5 +595,29 @@ static NSTimer *retrieveTimer = nil;
     [self.passwordTF resignFirstResponder];
     [self.codeTF resignFirstResponder];
     [self.messageCodeTF resignFirstResponder];
+}
+
+- (void)getImageCode {
+    __weak typeof(self) weakSelf = self;
+    [self.loginViewModel imageCodeWith:@"" block:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
+            [weakSelf.pooCodeView setTitle:@"" forState:UIControlStateNormal];
+            ZImageCodeBackModel *model = message;
+            NSString *str = model.img;
+            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+            str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            str = [str substringFromIndex:@"data:image/png;base64,".length];
+            NSString *encodedImageStr = str;
+            NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *image = [UIImage imageWithData:decodedImgData];
+            [weakSelf.pooCodeView setBackgroundImage:image forState:UIControlStateNormal];
+            weakSelf.loginViewModel.registerModel.ckey = model.ckey;
+        }else{
+            if ([message isKindOfClass:[NSString class]]) {
+                [TLUIUtility showErrorHint:message];
+            }
+        }
+    }];
 }
 @end

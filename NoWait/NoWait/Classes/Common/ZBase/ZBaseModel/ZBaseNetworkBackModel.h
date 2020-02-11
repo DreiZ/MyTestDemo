@@ -25,7 +25,9 @@
 
 @interface ZBaseNetworkBackDataModel : NSObject
 @property (nonatomic,strong) NSString *code;
-@property (nonatomic,strong) NSString *msg;
+@property (nonatomic,strong) NSString *message;
+@property (nonatomic,strong) id data;
+
 @end
 
 //协议model

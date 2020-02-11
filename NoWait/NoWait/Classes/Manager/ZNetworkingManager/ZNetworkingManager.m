@@ -59,7 +59,7 @@
             ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
             
             if ([backModel.code integerValue] == 0) {
-                completionHandler(backModel.data, nil);
+                completionHandler(backModel, nil);
                 
             }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
                 

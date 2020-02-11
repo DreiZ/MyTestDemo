@@ -38,11 +38,11 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 /**
  验证码登录
 
- @param tel 电话号码
+ @param params 电话号码 ckey
  @param block 返回信息
  */
-- (void)codeWithTel:(NSString *)tel
-              block:(loginUserResultBlock)block;
+- (void)codeWithParams:(NSDictionary *)params
+                 block:(loginUserResultBlock)block;
 
 
 /**
@@ -54,4 +54,13 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 - (void)imageCodeWith:(NSString *)tel
               block:(codeResultBlock)block;
 
+
+/**
+注册
+
+@param params 注册信息
+@param block 返回信息
+*/
+- (void)retrieveWithParams:(NSDictionary *)params
+                     block:(loginUserResultBlock)block;
 @end

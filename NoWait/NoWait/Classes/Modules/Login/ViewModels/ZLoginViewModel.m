@@ -26,8 +26,12 @@
             return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && code && code.length == 4);
         }];
         
-        RAC(self, isRegisterEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),RACObserve(self, self.registerModel.pwd),RACObserve(self, self.registerModel.messageCode),
-                                                                    RACObserve(self, self.registerModel.code)]]
+        RAC(self, isRegisterEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),
+                                                                 
+                                                                 RACObserve(self, self.registerModel.pwd),
+                                                                 RACObserve(self, self.registerModel.messageCode),
+                                                                    
+                                                                 RACObserve(self, self.registerModel.code)]]
                map:^id(id value) {
                RACTupleUnpack(NSString *tel, NSString *pwd,NSString *messageCode, NSString *code) = value;
                    return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && messageCode && messageCode.length == 6 && code && code.length == 4);
@@ -50,40 +54,54 @@
     }];
 }
 
-- (void)codeWithTel:(NSString *)tel block:(loginUserResultBlock)block {
-    
+- (void)codeWithParams:(NSDictionary *)params  block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 ) {
+            block(YES,dataModel.message);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
 }
 
 - (void)imageCodeWith:(NSString *)tel block:(codeResultBlock)block  {
-//    [ZNetworking getTServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{@"identifier":@"graphic"} completionHandler:^(id _Nonnulldata, NSError * error) {
-//        
-//    }];
-//    return;
     [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{} completionHandler:^(id data, NSError *error) {
         DLog(@"return login code %@", data);
-        block(YES,data);
-//        if (data && [data isKindOfClass:[NSDictionary class]]) {
-//            ZLoginMsgBackModel *backModel = [ZLoginMsgBackModel mj_objectWithKeyValues:data];
-//            if ([backModel.code integerValue] == 0) {
-//                block(YES, backModel.msg);
-//                if (backModel.test_code && backModel.test_code.length > 0) {
-//                    [ZAlertView setAlertWithTitle:backModel.test_code  btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-//                        [[ZAlertView sharedManager] removeFromSuperview];
-//                    }];
-//                }
-//
-//                return ;
-//            }else{
-//                block(NO, backModel.msg);
-//                return;
-//            }
-//        }
-        if ([ZPublicTool getNetworkStatus]) {
-            block(NO, @"获取验证码失败");
-        }else{
-            block(NO, @"天呐，您的网络好像出了点小问题...");
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && dataModel.data && [dataModel.data isKindOfClass:[NSDictionary class]]) {
+            ZImageCodeBackModel *imageCodeModel = [ZImageCodeBackModel mj_objectWithKeyValues:dataModel.data];
+            block(YES,imageCodeModel);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
         }
-
     }];
 }
+
+
+- (void)retrieveWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_register params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            block(YES,dataModel.code);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
 @end
