@@ -20,7 +20,7 @@
 #import "ZStudentMineSettingCommonVC.h"
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentMineSettingAboutUsVC.h"
-
+#import "ZUserHelper.h"
 
 
 @interface ZStudentMineSettingVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -71,7 +71,7 @@
     
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"退出登录"];
+    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"loginOut" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"退出登录"];
     [self.cellConfigArr addObject:loginOutCellConfig];
 }
 
@@ -174,6 +174,8 @@
      }else if( [cellConfig.title isEqualToString:@"关于小莫"]){
          ZStudentMineSettingAboutUsVC *avc = [[ZStudentMineSettingAboutUsVC alloc] init];
          [self.navigationController pushViewController:avc animated:YES];
+     }else if ([cellConfig.title isEqualToString:@"loginOut"]){
+         [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
      }
 }
 
