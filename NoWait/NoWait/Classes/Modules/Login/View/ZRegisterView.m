@@ -282,6 +282,12 @@ static NSTimer *retrieveTimer = nil;
     
     
     [self getImageCode];
+    NSString *hadLogin = [[NSUserDefaults standardUserDefaults] objectForKey:@"hadLogin"];
+    if (hadLogin) {
+       self.isAgree = YES;
+    }else{
+       self.isAgree = NO;
+    }
 }
         
 #pragma mark lazy loading

@@ -259,6 +259,12 @@
    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 
     [self getImageCode];
+    NSString *hadLogin = [[NSUserDefaults standardUserDefaults] objectForKey:@"hadLogin"];
+    if (hadLogin) {
+       self.isAgree = YES;
+    }else{
+       self.isAgree = NO;
+    }
 }
         
 #pragma mark lazy loading

@@ -13,7 +13,7 @@
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZStudentMineSettingSwitchCell.h"
-
+#import <SDImageCache.h>
 
 
 @interface ZStudentMineSettingCommonVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -47,7 +47,7 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"清空缓存"];
+    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"cache" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"清空缓存"];
     [self.cellConfigArr addObject:loginOutCellConfig];
 }
 
@@ -132,8 +132,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-     if ([cellConfig.title isEqualToString:@"头像"]){
-         
+     if ([cellConfig.title isEqualToString:@"cache"]){
+         [[SDImageCache sharedImageCache] clearMemory];
+         [TLUIUtility showSuccessHint:@"操作成功"];
      }
 }
 
