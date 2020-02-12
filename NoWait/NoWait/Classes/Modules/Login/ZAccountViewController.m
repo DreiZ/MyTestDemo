@@ -81,7 +81,11 @@
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn bk_whenTapped:^{
-        [[ZLaunchManager sharedInstance] showMainTab];
+        if (self.isSwitch) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [[ZLaunchManager sharedInstance] showMainTab];
+        }
     }];
     [closeBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
     [self.view addSubview:closeBtn];
@@ -253,7 +257,15 @@
 
 - (ZLoginView *)loginView {
     if (!_loginView) {
+        __weak typeof(self) weakSelf = self;
         _loginView = [[ZLoginView alloc] initWithFrame:CGRectZero];
+        _loginView.loginSuccess = ^{
+            if (weakSelf.isSwitch) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            } else {
+                [[ZLaunchManager sharedInstance] showMainTab];
+            }
+        };
     }
     return _loginView;
 }

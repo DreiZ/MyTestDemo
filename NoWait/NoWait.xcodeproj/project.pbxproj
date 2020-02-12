@@ -99,6 +99,7 @@
 		B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */; };
 		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */; };
+		B29A71D723F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D623F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m */; };
 		B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A77E2A23BDA38600407BF0 /* Assets.xcassets */; };
 		B2A77E3B23BDA38600407BF0 /* NoWaitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E3A23BDA38600407BF0 /* NoWaitTests.m */; };
 		B2A77E4623BDA38600407BF0 /* NoWaitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A77E4523BDA38600407BF0 /* NoWaitUITests.m */; };
@@ -539,6 +540,8 @@
 		B29A71D123F2B2FC000AEF5F /* ZDBUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBUserStore.h; sourceTree = "<group>"; };
 		B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDBUserStore.m; sourceTree = "<group>"; };
 		B29A71D323F2B2FC000AEF5F /* ZDBUserStoreSQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBUserStoreSQL.h; sourceTree = "<group>"; };
+		B29A71D523F3A256000AEF5F /* ZStudentMineSwitchAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSwitchAccountVC.h; sourceTree = "<group>"; };
+		B29A71D623F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSwitchAccountVC.m; sourceTree = "<group>"; };
 		B2A77E1B23BDA38400407BF0 /* 莫等闲.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "莫等闲.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2257,6 +2260,8 @@
 				B25146DF23D03CBC009A64D4 /* ZStudentMineChangePasswordVC.m */,
 				B25146E423D07041009A64D4 /* ZStudentOrderPayVC.h */,
 				B25146E523D07041009A64D4 /* ZStudentOrderPayVC.m */,
+				B29A71D523F3A256000AEF5F /* ZStudentMineSwitchAccountVC.h */,
+				B29A71D623F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2998,6 +3003,7 @@
 				B2A7808F23BDFB0100407BF0 /* NSHTTPURLResponse+TLNetwork.m in Sources */,
 				B2A780CA23BED36400407BF0 /* ZStudentMainVC.m in Sources */,
 				B2A77F2A23BDE37A00407BF0 /* LLImagePickerView.m in Sources */,
+				B29A71D723F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m in Sources */,
 				B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */,
 				B25146A423CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m in Sources */,
 				B2A77ECA23BDE29E00407BF0 /* UIImage+MWPhotoBrowser.m in Sources */,

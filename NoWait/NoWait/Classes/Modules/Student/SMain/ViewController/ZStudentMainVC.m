@@ -64,7 +64,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [ZUserHelper sharedHelper].user.nikeName;
     [self setData];
     [self setupMainView];
 }
@@ -268,9 +267,12 @@
 //    }];
 //    return;
     if (indexPath.section == 1) {
-        ZStudentOrganizationDetailVC *dvc = [[ZStudentOrganizationDetailVC alloc] init];
+        [[ZUserHelper sharedHelper] checkLogin:^{
+            ZStudentOrganizationDetailVC *dvc = [[ZStudentOrganizationDetailVC alloc] init];
+            
+            [self.navigationController pushViewController:dvc animated:YES];
+        }];
         
-        [self.navigationController pushViewController:dvc animated:YES];
     }
 }
 

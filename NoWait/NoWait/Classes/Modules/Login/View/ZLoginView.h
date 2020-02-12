@@ -12,6 +12,7 @@
 @interface ZLoginView : UIView
 @property (nonatomic,strong) void (^editBlock)(NSInteger,NSString*);
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic, copy) void (^loginSuccess)(void);
 
 - (void)inputResignFirstResponder;
 @end

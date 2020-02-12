@@ -24,15 +24,19 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 @property (nonatomic, assign, readonly) BOOL isLogin;
 
 + (ZUserHelper *)sharedHelper;
-
-
+// 所有用户
+- (NSArray *)userList;
 //保存用户信息
 - (void)setUser:(ZUser *)user;
 
 //登出
 - (void)loginOutUser:(ZUser *)user;
 
+//切换用户
+- (void)switchUser:(ZUser *)user;
+
 - (void)checkLogin:(void (^)(void))login;
+
 
 //更新用户信息
 - (void)updateUserInfoWithCompleteBlock:(void(^)(BOOL))completeBlock;

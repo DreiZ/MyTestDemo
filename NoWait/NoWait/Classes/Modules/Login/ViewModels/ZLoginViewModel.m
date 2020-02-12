@@ -93,11 +93,6 @@
 
 - (void)loginWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
     [[ZUserHelper sharedHelper] loginWithParams:params block:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            //进入主页
-            [[ZLaunchManager sharedInstance] launchInWindow:nil];
-            [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
-        }
         block(isSuccess, message);
     }];
 }

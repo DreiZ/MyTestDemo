@@ -35,6 +35,8 @@
 @property (nonatomic,assign) CGFloat lineRightMargin;
 @property (nonatomic,assign) CGFloat cellHeight;
 @property (nonatomic,assign) CGFloat cellWidth;//cell的宽度
+@property (nonatomic,strong) id data;
+
 @end
 
 

@@ -406,6 +406,15 @@
 
             [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
                 if (isSuccess) {
+                     [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
+                    if (weakSelf.loginSuccess) {
+                        weakSelf.loginSuccess();
+                    }else{
+                        if (isSuccess) {
+                            //进入主页
+                            [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                        }
+                    }
                     [TLUIUtility showSuccessHint:message];
                 }else{
                     [TLUIUtility showErrorHint:message];

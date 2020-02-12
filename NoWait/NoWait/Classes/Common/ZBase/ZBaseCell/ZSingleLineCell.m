@@ -138,11 +138,20 @@
     
     
     if (model.leftImage && model.leftImage.length > 0) {
-        self.leftImageView.image = [UIImage imageNamed:model.leftImage];
-        [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView.mas_centerY);
-            make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
-        }];
+        if (![model.leftImage tt_isValidUrl]) {
+            self.leftImageView.image = [UIImage imageNamed:model.leftImage];
+            [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView.mas_centerY);
+                make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
+            }];
+        }else{
+            [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.leftImage]];
+            [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView.mas_centerY);
+                make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
+                make.height.width.mas_equalTo(model.cellHeight > 0.001 ? model.cellHeight - CGFloatIn750(10) : kCellNormalHeight - CGFloatIn750(10));
+            }];
+        }
         
         [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView.mas_centerY);
@@ -154,7 +163,7 @@
         [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView.mas_centerY);
             make.left.equalTo(self.contentView.mas_left).offset(-model.leftMargin);
-            
+            make.width.height.mas_equalTo(1);
         }];
         
         [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -167,12 +176,20 @@
     
     
     if (model.rightImage && model.rightImage.length > 0) {
-        self.rightImageView.image = [UIImage imageNamed:model.rightImage];
-        
-        [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView.mas_centerY);
-            make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-        }];
+        if (![model.rightImage tt_isValidUrl]) {
+            self.rightImageView.image = [UIImage imageNamed:model.rightImage];
+            [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView.mas_centerY);
+                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+            }];
+        }else{
+            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:model.rightImage]];
+            [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.contentView.mas_centerY);
+                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+                make.height.width.mas_equalTo(model.cellHeight > 0.001 ? model.cellHeight - CGFloatIn750(10) : kCellNormalHeight - CGFloatIn750(10));
+            }];
+        }
         
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.rightImageView.mas_left).offset(-model.rightContentSpace);
@@ -185,6 +202,7 @@
         [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView.mas_centerY);
             make.right.equalTo(self.contentView.mas_right).offset(model.rightMargin);
+            make.width.height.mas_equalTo(1);
         }];
         
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -203,7 +221,10 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZBaseCellModel class]]) {
         ZBaseCellModel *cellModel = sender;
-        return cellModel.cellHeight;
+        if (cellModel.cellHeight > 0.1) {
+            return cellModel.cellHeight;
+        }
+        return kCellNormalHeight;
     }
     return kCellNormalHeight;
 }

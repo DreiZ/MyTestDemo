@@ -20,6 +20,7 @@
 #import "ZStudentMineSettingCommonVC.h"
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentMineSettingAboutUsVC.h"
+#import "ZStudentMineSwitchAccountVC.h"
 #import "ZUserHelper.h"
 
 
@@ -50,14 +51,14 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"mineLessonRight"], @[@"账号与安全", @"mineLessonRight"],@[@"通用", @"mineLessonRight"],@[@"关于小莫", @"mineLessonRight"]];
+    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"mineLessonRight",@"us"], @[@"账号与安全", @"mineLessonRight",@"safe"],@[@"通用", @"mineLessonRight",@"common"],@[@"关于小莫", @"mineLessonRight",@"about"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
         model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
-        model.cellTitle = titleArr[i][0];
+        model.cellTitle = titleArr[i][2];
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
     }
@@ -66,12 +67,12 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZCellConfig *switchCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"切换账号"];
+    ZCellConfig *switchCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"switch" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"切换账号"];
     [self.cellConfigArr addObject:switchCellConfig];
     
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"loginOut" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"退出登录"];
+    ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"logout" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"退出登录"];
     [self.cellConfigArr addObject:loginOutCellConfig];
 }
 
@@ -161,22 +162,26 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-     if ([cellConfig.title isEqualToString:@"个人信息"]){
+     if ([cellConfig.title isEqualToString:@"us"]){
          ZStudentMineSettingMineVC *dvc = [[ZStudentMineSettingMineVC alloc] init];
-         
          [self.navigationController pushViewController:dvc animated:YES];
-     }else if ([cellConfig.title isEqualToString:@"通用"]) {
+     }else if ([cellConfig.title isEqualToString:@"common"]) {
          ZStudentMineSettingCommonVC *cvc = [[ZStudentMineSettingCommonVC alloc] init];
          [self.navigationController pushViewController:cvc animated:YES];
-     }else if ([cellConfig.title isEqualToString:@"账号与安全"]) {
+     }else if ([cellConfig.title isEqualToString:@"safe"]) {
          ZStudentMineSettingSafeVC *svc = [[ZStudentMineSettingSafeVC alloc] init];
          [self.navigationController pushViewController:svc animated:YES];
-     }else if( [cellConfig.title isEqualToString:@"关于小莫"]){
+     }else if( [cellConfig.title isEqualToString:@"about"]){
          ZStudentMineSettingAboutUsVC *avc = [[ZStudentMineSettingAboutUsVC alloc] init];
          [self.navigationController pushViewController:avc animated:YES];
-     }else if ([cellConfig.title isEqualToString:@"loginOut"]){
+     }else if ([cellConfig.title isEqualToString:@"logout"]){
          [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+     }else if ([cellConfig.title isEqualToString:@"switch"]){
+         ZStudentMineSwitchAccountVC *accountvc = [[ZStudentMineSwitchAccountVC alloc] init];
+         [self.navigationController pushViewController:accountvc animated:YES];
      }
+    
+    
 }
 
 #pragma mark vc delegate-------------------

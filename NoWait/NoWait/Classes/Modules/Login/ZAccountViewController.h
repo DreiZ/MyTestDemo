@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZAccountViewController : ZViewController
+@property (nonatomic, assign) BOOL isSwitch;
 
 @property (nonatomic, copy) void (^loginSuccess)(void);
 

@@ -33,6 +33,9 @@
 
 - (BOOL)updateUser:(ZUser *)user
 {
+    if (!user || user.userID == 0) {
+        return NO;
+    }
     NSString *sqlString = [NSString stringWithFormat:SQL_UPDATE_USER, USER_TABLE_NAME];
     NSArray *arrPara = [NSArray arrayWithObjects:
                         TLNoNilString(user.userID),

@@ -36,6 +36,8 @@
     ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
     if (![userStore updateUser:user]) {
         DLog(@"登录数据存库失败");
+    }else{
+        DLog(@"登录数据存库成功%@ ",user.userID);
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
@@ -44,13 +46,12 @@
 - (void)loginOutUser:(ZUser *)user
 {
     _user = user;
-    ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
-    if (![userStore deleteUsersByUid:user.userID]) {
-        DLog(@"登录数据存库失败");
-    }
+    
+    [self deleteUserStore:user.userID];
     [ZUserHelper sharedHelper].user = nil;
     [[ZDBManager sharedInstance] loginout];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
+    
     
     [self logoutWithParams:@{} block:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
@@ -62,6 +63,18 @@
     }];
 }
 
+- (void)deleteUserStore:(NSString *)userID {
+    ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
+    if (![userStore deleteUsersByUid:userID]) {
+        DLog(@"登录数据存库失败");
+    }
+}
+
+
+- (void)switchUser:(ZUser *)user {
+    _user = user;
+    [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+}
 
 - (ZUser *)user
 {
@@ -75,6 +88,15 @@
         }
     }
     return _user;
+}
+
+- (NSArray *)userList {
+    ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
+    NSArray *userList = [userStore userData];
+    if (userList) {
+        return userList;
+    }
+    return @[];
 }
 
 - (NSString *)user_id
@@ -146,7 +168,7 @@
             
             ZUser *user = [[ZUser alloc] init];
             user.birthday = userModel.birthday? userModel.birthday:@"";
-            user.userID = userModel.userID? userModel.userID:@"";
+            user.userID = userModel.userID? userModel.userID:@"888888";
             user.avatar = userModel.image? userModel.image:@"";
             user.is_new = userModel.is_new? userModel.is_new:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";

@@ -44,7 +44,7 @@
     if (window) {
         self.window = window;
     }
-//    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     
@@ -89,7 +89,7 @@
 
 
 - (void)showLoginVC {
-    if (![ZUserHelper sharedHelper].isLogin) {
+//    if (![ZUserHelper sharedHelper].isLogin) {
         // 未登录
         ZAccountViewController *accountVC = [[ZAccountViewController alloc] init];
         @weakify(self);
@@ -99,7 +99,7 @@
         }];
         UINavigationController *navc = addNavigationController(accountVC);
         [self setCurRootVC:navc];
-    }
+//    }
 }
 
 - (void)setCurRootVC:(__kindof UIViewController *)curRootVC
