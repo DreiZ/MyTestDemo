@@ -107,7 +107,7 @@
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_titleLabel setFont:[UIFont fontTitle]];
     }
     return _titleLabel;
 }
@@ -132,7 +132,7 @@
         _favourablePriceLabel.text = @"￥256";
         _favourablePriceLabel.numberOfLines = 1;
         _favourablePriceLabel.textAlignment = NSTextAlignmentRight;
-        [_favourablePriceLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_favourablePriceLabel setFont:[UIFont fontMin]];
     }
     return _favourablePriceLabel;
 }
@@ -144,7 +144,7 @@
         _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentLeft;
-        [_goodReputationLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_goodReputationLabel setFont:[UIFont fontMin]];
     }
     return _goodReputationLabel;
 }
@@ -156,7 +156,7 @@
         _sellCountLabel.text = @"已售200>";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;
-        [_sellCountLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_sellCountLabel setFont:[UIFont fontMin]];
     }
     return _sellCountLabel;
 }

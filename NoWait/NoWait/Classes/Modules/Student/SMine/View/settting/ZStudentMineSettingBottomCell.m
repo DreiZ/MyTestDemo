@@ -41,7 +41,7 @@
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }

@@ -117,8 +117,8 @@
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
-        [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
+        [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
         [_navLeftBtn bk_whenTapped:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
@@ -133,7 +133,7 @@
         _subscribeBtn.layer.masksToBounds = YES;
         _subscribeBtn.layer.cornerRadius = CGFloatIn750(44);
         _subscribeBtn.backgroundColor = [UIColor  colorMain];
-        [_subscribeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_subscribeBtn.titleLabel setFont:[UIFont fontTitle]];
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
         [_subscribeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_subscribeBtn bk_whenTapped:^{
@@ -151,7 +151,7 @@
         _buyBtn.layer.masksToBounds = YES;
         _buyBtn.layer.cornerRadius = CGFloatIn750(44);
         _buyBtn.backgroundColor = [UIColor  colorMain];
-        [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_buyBtn.titleLabel setFont:[UIFont fontTitle]];
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_buyBtn bk_whenTapped:^{
@@ -242,7 +242,7 @@
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     
-    [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+    [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
 }
 
 @end

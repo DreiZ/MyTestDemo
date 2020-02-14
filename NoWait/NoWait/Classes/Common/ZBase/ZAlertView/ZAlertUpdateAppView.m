@@ -188,7 +188,7 @@ static ZAlertUpdateAppView *sharedManager;
         _titleLabel.text = @"0";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }
@@ -214,7 +214,7 @@ static ZAlertUpdateAppView *sharedManager;
         _subTitleLabel.text = @"";
         _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_subTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_subTitleLabel setFont:[UIFont fontContent]];
     }
     return _subTitleLabel;
 }

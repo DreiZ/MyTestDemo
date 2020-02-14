@@ -12,7 +12,38 @@
 
 + (UIFont *) fontNavBarTitle
 {
-    return [UIFont boldSystemFontOfSize:17.5f];
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+}
+
++ (UIFont *)fontMax1Title
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(38)];
+}
+
++ (UIFont *)fontMaxTitle
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+}
+
+
++ (UIFont *)fontTitle
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+}
+
++ (UIFont *)fontContent
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(28)];
+}
+
++ (UIFont *)fontSmall
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(24)];
+}
+
++ (UIFont *)fontMin
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(20)];
 }
 
 + (UIFont *) fontConversationUsername

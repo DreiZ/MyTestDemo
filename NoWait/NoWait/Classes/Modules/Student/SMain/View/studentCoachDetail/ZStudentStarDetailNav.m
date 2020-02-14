@@ -92,7 +92,7 @@
         _titleLabel.text = @"学员详情";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_titleLabel setFont:[UIFont fontTitle]];
     }
     return _titleLabel;
 }

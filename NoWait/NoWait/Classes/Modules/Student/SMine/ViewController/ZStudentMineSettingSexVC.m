@@ -48,7 +48,7 @@
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
-        model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
+        model.leftFont = [UIFont fontContent];
         model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
         model.cellTitle = titleArr[i][0];
         
@@ -70,7 +70,7 @@
     sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }

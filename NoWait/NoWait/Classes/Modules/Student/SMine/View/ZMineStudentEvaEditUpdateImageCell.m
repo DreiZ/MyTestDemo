@@ -92,7 +92,7 @@
         _hintLabel.text = @"添加照片可以让大家更了解喔~";
         _hintLabel.numberOfLines = 1;
         _hintLabel.textAlignment = NSTextAlignmentLeft;
-        [_hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_hintLabel setFont:[UIFont fontSmall]];
     }
     return _hintLabel;
 }

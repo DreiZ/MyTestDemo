@@ -15,6 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Common
 + (UIFont *)fontNavBarTitle;
++ (UIFont *)fontMax1Title;
++ (UIFont *)fontMaxTitle;
++ (UIFont *)fontTitle;
++ (UIFont *)fontContent;
++ (UIFont *)fontSmall;
++ (UIFont *)fontMin;
 
 #pragma mark - Conversation
 + (UIFont *)fontConversationUsername;

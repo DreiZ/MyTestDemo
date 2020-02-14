@@ -118,7 +118,7 @@
     [forgetBtn setTitle:@"忘记密码？" forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [forgetBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateHighlighted];
-    [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [forgetBtn.titleLabel setFont:[UIFont fontSmall]];
     [contView addSubview:forgetBtn];
     [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(140));
@@ -141,7 +141,7 @@
     _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
     [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
     [_pooCodeView setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-    [_pooCodeView.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [_pooCodeView.titleLabel setFont:[UIFont fontSmall]];
     [_pooCodeView bk_whenTapped:^{
         [weakSelf getImageCode];
     }];
@@ -222,7 +222,7 @@
     } forControlEvents:UIControlEventTouchUpInside];
     [visterBtn setTitle:@"游客模式" forState:UIControlStateNormal];
     [visterBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-    [visterBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [visterBtn.titleLabel setFont:[UIFont fontContent]];
     [self addSubview:visterBtn];
     [visterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(180));
@@ -436,7 +436,7 @@
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor  colorMain]] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorGrayLine]] forState:UIControlStateDisabled];
-        [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(34)]];
+        [_loginBtn.titleLabel setFont:[UIFont fontTitle]];
     }
     return _loginBtn;
 }

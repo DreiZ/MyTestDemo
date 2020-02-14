@@ -99,7 +99,7 @@
         _leftTitleLabel.text = @"标题";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_leftTitleLabel setFont:[UIFont fontContent]];
     }
     return _leftTitleLabel;
 }
@@ -111,7 +111,7 @@
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentRight;
-        [_rightTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_rightTitleLabel setFont:[UIFont fontContent]];
     }
     return _rightTitleLabel;
 }

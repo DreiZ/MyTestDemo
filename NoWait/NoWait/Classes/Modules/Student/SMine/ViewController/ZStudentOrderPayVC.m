@@ -176,7 +176,7 @@
         [doneBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-        [doneBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [doneBtn.titleLabel setFont:[UIFont fontTitle]];
         [_footerView addSubview:doneBtn ];
         [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(CGFloatIn750(80));

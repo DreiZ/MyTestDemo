@@ -90,7 +90,7 @@
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+        [_titleLabel setFont:[UIFont fontMaxTitle]];
     }
     return _titleLabel;
 }
@@ -103,7 +103,7 @@
         _addressLabel.text = @"泉山区建国西路锦绣家园7路 0233-2342352";
         _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        [_addressLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_addressLabel setFont:[UIFont fontContent]];
     }
     return _addressLabel;
 }
@@ -168,7 +168,7 @@
 }
 
 - (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX{
-     CGSize tempSize = [text tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
+     CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
     actLabel.textColor = [UIColor colorOrangeMoment];
@@ -179,7 +179,7 @@
     actLabel.text = text;
     actLabel.numberOfLines = 0;
     actLabel.textAlignment = NSTextAlignmentCenter;
-    [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+    [actLabel setFont:[UIFont fontMin]];
     
     
     return actLabel;

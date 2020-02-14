@@ -155,7 +155,7 @@
         
         [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
         [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_signBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_signBtn.titleLabel setFont:[UIFont fontContent]];
         
         __weak typeof(self) weakSelf = self;
         [_signBtn bk_whenTapped:^{

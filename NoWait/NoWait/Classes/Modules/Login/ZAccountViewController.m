@@ -200,7 +200,7 @@
         _loginBtn.layer.cornerRadius = CGFloatIn750(40);
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_loginBtn.titleLabel setFont:[UIFont fontMax1Title]];
     }
     return _loginBtn;
 }
@@ -221,7 +221,7 @@
         _resignBtn.layer.cornerRadius = CGFloatIn750(40);
         [_resignBtn setTitle:@"注册" forState:UIControlStateNormal];
         [_resignBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_resignBtn.titleLabel setFont:[UIFont fontMax1Title]];
     }
     return _resignBtn;
 }
@@ -287,13 +287,13 @@
         [self.loginBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [self.resignBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
         
-        [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
-        [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [self.loginBtn.titleLabel setFont:[UIFont fontMax1Title]];
+        [self.resignBtn.titleLabel setFont:[UIFont fontTitle]];
     }else if(self.index == 1){
         [self.loginBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
         [self.resignBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
-        [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [self.loginBtn.titleLabel setFont:[UIFont fontTitle]];
+        [self.resignBtn.titleLabel setFont:[UIFont fontMax1Title]];
     }
 }
 

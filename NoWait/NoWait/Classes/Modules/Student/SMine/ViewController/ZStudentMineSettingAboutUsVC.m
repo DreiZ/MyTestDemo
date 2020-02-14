@@ -51,7 +51,7 @@
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
-        model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
+        model.leftFont = [UIFont fontContent];
         model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
         model.cellTitle = titleArr[i][0];
         
@@ -155,7 +155,7 @@
         _versionLabel.text = @"V12.1";
         _versionLabel.numberOfLines = 1;
         _versionLabel.textAlignment = NSTextAlignmentCenter;
-        [_versionLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_versionLabel setFont:[UIFont fontTitle]];
     }
     return _versionLabel;
 }

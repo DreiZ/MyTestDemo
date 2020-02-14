@@ -64,7 +64,7 @@
         _titleLabel.text = @"课程简介";
         _titleLabel.numberOfLines = 0;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }
@@ -76,7 +76,7 @@
 
 + (CGFloat)z_getCellHeight:(id)sender {
     NSString *detail = sender; //80  190
-    CGSize tempSize = [detail tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth- CGFloatIn750(80), MAXFLOAT)];
+    CGSize tempSize = [detail tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth- CGFloatIn750(80), MAXFLOAT)];
     if (tempSize.height < CGFloatIn750(32)) {
         return CGFloatIn750(36);
     }

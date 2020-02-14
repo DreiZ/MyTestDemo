@@ -125,7 +125,7 @@
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderSNLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_orderSNLabel setFont:[UIFont fontContent]];
     }
     return _orderSNLabel;
 }
@@ -138,7 +138,7 @@
         _lessonLabel.text = @"暑期瑜伽班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_lessonLabel setFont:[UIFont fontContent]];
     }
     return _lessonLabel;
 }
@@ -151,7 +151,7 @@
         _cocahLabel.text = @"财源健身房-钟教练";
         _cocahLabel.numberOfLines = 1;
         _cocahLabel.textAlignment = NSTextAlignmentLeft;
-        [_cocahLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_cocahLabel setFont:[UIFont fontSmall]];
     }
     return _cocahLabel;
 }
@@ -162,7 +162,7 @@
         _orderDetailBtn.layer.masksToBounds = YES;
         [_orderDetailBtn setTitle:@"查看详情>>" forState:UIControlStateNormal];
         [_orderDetailBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
-        [_orderDetailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_orderDetailBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_orderDetailBtn bk_whenTapped:^{

@@ -124,7 +124,7 @@
             NSRange netRangeDetailTitle = NSMakeRange([[attributedSting string] rangeOfString:detailTitle].location, [[attributedSting string] rangeOfString:detailTitle].length);
             
             //标题
-            [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(28)] range:netRangeTitle];
+            [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontContent] range:netRangeTitle];
             [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextBlack] range:netRangeTitle];
             NSMutableParagraphStyle * titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [titleParagraphStyle setLineSpacing:CGFloatIn750(40)];
@@ -132,7 +132,7 @@
             [attributedSting addAttribute:NSParagraphStyleAttributeName value:titleParagraphStyle range:netRangeTitle];
             
             //副标题
-            [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(28)] range:netRangeSubtitle];
+            [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontContent] range:netRangeSubtitle];
             [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeSubtitle];
             NSMutableParagraphStyle * subParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [subParagraphStyle setLineSpacing:CGFloatIn750(24)];

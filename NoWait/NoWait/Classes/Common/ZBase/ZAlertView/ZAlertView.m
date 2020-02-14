@@ -76,7 +76,7 @@ static ZAlertView *sharedManager;
     
     [self.contView removeAllSubviews];
     
-    CGSize titleSize = [title sizeForFont:[UIFont systemFontOfSize:CGFloatIn750(28)] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    CGSize titleSize = [title sizeForFont:[UIFont fontContent] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height);
@@ -90,7 +90,7 @@ static ZAlertView *sharedManager;
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [titleLabel setFont:[UIFont fontContent]];
     [self.contView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
@@ -102,7 +102,7 @@ static ZAlertView *sharedManager;
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
@@ -121,7 +121,7 @@ static ZAlertView *sharedManager;
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
@@ -152,7 +152,7 @@ static ZAlertView *sharedManager;
     
     [self.contView removeAllSubviews];
     
-    CGSize titleSize = [title sizeForFont:[UIFont systemFontOfSize:CGFloatIn750(28)] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    CGSize titleSize = [title sizeForFont:[UIFont fontContent] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height);
@@ -166,7 +166,7 @@ static ZAlertView *sharedManager;
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [titleLabel setFont:[UIFont fontContent]];
     [self.contView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
@@ -178,7 +178,7 @@ static ZAlertView *sharedManager;
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:btnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {

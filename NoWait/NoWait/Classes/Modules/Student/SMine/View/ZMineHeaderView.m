@@ -87,7 +87,7 @@
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)), CGFloatIn750(90), CGFloatIn750(90));
     
-    self.nameLabel.font = [UIFont systemFontOfSize:CGFloatIn750(36)];
+    self.nameLabel.font = [UIFont fontMaxTitle];
     self.nameLabel.alpha = 1;
     self.headImageView.layer.cornerRadius = CGFloatIn750(41);
     
@@ -130,7 +130,7 @@
         _nameLabel.text = @"尖耳朵的兔子";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+        [_nameLabel setFont:[UIFont fontMaxTitle]];
     }
     return _nameLabel;
 }

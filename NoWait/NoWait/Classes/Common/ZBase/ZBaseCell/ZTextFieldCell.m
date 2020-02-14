@@ -115,7 +115,7 @@
 - (UITextField *)inputTextField {
     if (!_inputTextField ) {
         _inputTextField = [[UITextField alloc] init];
-        [_inputTextField setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_inputTextField setFont:[UIFont fontSmall]];
         _inputTextField.leftViewMode = UITextFieldViewModeAlways;
         [_inputTextField setBorderStyle:UITextBorderStyleNone];
         [_inputTextField setBackgroundColor:[UIColor clearColor]];

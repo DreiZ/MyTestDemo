@@ -9,7 +9,6 @@
 #import "ZNavigationController.h"
 #import "XYTransitionProtocol.h"
 #import "XYTransition.h"
-#import "FontAndColorMacros.h"
 #import "UIColor+YYAdd.h"
 #import "ZViewController.h"
 
@@ -34,8 +33,8 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
     [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
-    navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
     
@@ -57,8 +56,8 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
     [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
-    navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
 
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
 

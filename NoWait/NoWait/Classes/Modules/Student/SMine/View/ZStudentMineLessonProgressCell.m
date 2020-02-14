@@ -127,7 +127,7 @@
         _moreLabel.text = @"查看更多>>";
         _moreLabel.numberOfLines = 0;
         _moreLabel.textAlignment = NSTextAlignmentRight;
-        [_moreLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_moreLabel setFont:[UIFont fontSmall]];
     }
     return _moreLabel;
 }

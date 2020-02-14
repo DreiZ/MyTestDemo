@@ -57,7 +57,7 @@
         [_ratioWidthArr addObject:[NSNumber numberWithFloat:atomTitleWidth.width + atomWidth]];
         UIButton *tempBtn = [[UIButton alloc] initWithFrame:rc];
         [tempBtn setTitle:atomTempStr forState:UIControlStateNormal];
-        [tempBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [tempBtn.titleLabel setFont:[UIFont fontTitle]];
         [tempBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray1]) forState:UIControlStateNormal];
         [tempBtn setTag:i];
         [tempBtn addTarget:self action:@selector(selectedBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];

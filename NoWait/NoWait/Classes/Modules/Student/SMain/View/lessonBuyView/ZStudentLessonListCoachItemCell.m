@@ -98,7 +98,7 @@
         _nameLabel.text = @"";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        [_nameLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_nameLabel setFont:[UIFont fontSmall]];
     }
     return _nameLabel;
 }

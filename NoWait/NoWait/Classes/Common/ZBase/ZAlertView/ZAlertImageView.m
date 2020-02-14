@@ -120,7 +120,7 @@ static ZAlertImageView *sharedManager;
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
@@ -139,7 +139,7 @@ static ZAlertImageView *sharedManager;
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
@@ -204,7 +204,7 @@ static ZAlertImageView *sharedManager;
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:btnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+    [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {

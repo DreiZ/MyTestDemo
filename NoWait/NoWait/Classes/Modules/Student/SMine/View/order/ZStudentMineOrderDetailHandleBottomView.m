@@ -89,7 +89,7 @@
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_payBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_payBtn bk_whenTapped:^{

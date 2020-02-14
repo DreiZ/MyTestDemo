@@ -122,7 +122,7 @@
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
-        [_timeLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
 }
@@ -134,7 +134,7 @@
         _starLabel.text = @"";
         _starLabel.numberOfLines = 1;
         _starLabel.textAlignment = NSTextAlignmentRight;
-        [_starLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_starLabel setFont:[UIFont fontMin]];
     }
     return _starLabel;
 }
@@ -146,7 +146,7 @@
         _evaLabel.text = @"";
         _evaLabel.numberOfLines = 0;
         _evaLabel.textAlignment = NSTextAlignmentLeft;
-        [_evaLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_evaLabel setFont:[UIFont fontContent]];
     }
     return _evaLabel;
 }
@@ -163,7 +163,7 @@
 
 +(CGFloat)z_getCellHeight:(id)sender {
     ZStudentDetailEvaListModel *model = sender;
-    CGSize tsize = [model.evaDes tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(148), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
+    CGSize tsize = [model.evaDes tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(148), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
 
     return CGFloatIn750(135 + 40) + tsize.height;
 }

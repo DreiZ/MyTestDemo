@@ -58,7 +58,7 @@
         _cancelBtn.backgroundColor = [UIColor  colorMain];
         [_cancelBtn setTitle:@"撤销预约" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+        [_cancelBtn.titleLabel setFont:[UIFont fontMaxTitle]];
     }
     return _cancelBtn;
 }
@@ -72,7 +72,7 @@
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+        [_payBtn.titleLabel setFont:[UIFont fontMaxTitle]];
     }
     return _payBtn;
 }

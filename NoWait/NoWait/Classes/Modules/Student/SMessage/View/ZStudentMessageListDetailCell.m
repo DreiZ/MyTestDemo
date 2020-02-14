@@ -152,7 +152,7 @@
         _detailLabel.text = @"暑期瑜伽班公司接发哦坯价格平均阿婆说价格破解爱唯欧评价安慰法噶是干啥的噶是的";
         _detailLabel.numberOfLines = 0;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        [_detailLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_detailLabel setFont:[UIFont fontContent]];
     }
     return _detailLabel;
 }
@@ -164,7 +164,7 @@
         _checkLabel.text = @"查看详情";
         _checkLabel.numberOfLines = 1;
         _checkLabel.textAlignment = NSTextAlignmentLeft;
-        [_checkLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_checkLabel setFont:[UIFont fontSmall]];
     }
     return _checkLabel;
 }
@@ -184,7 +184,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    CGSize tsize = [@"暑期瑜伽班公司接发哦坯价格平均阿婆说价格破解爱唯欧评价安慰法噶是干啥的噶是的" tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(110), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
+    CGSize tsize = [@"暑期瑜伽班公司接发哦坯价格平均阿婆说价格破解爱唯欧评价安慰法噶是干啥的噶是的" tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(110), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
 
     return CGFloatIn750(180 + 40) + tsize.height;
 

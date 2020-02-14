@@ -70,7 +70,7 @@
     sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+    [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }

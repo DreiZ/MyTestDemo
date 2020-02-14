@@ -111,7 +111,7 @@
         _addressLabel.text = @"徐州";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        [_addressLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
+        [_addressLabel setFont:[UIFont fontTitle]];
     }
     return _addressLabel;
 }
@@ -120,7 +120,7 @@
     if (!_addressHintImageView) {
         _addressHintImageView = [[UIImageView alloc] init];
         _addressHintImageView.image = [[UIImage imageNamed:@"mineLessonDown"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor blackColor];
+        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
         _addressHintImageView.layer.masksToBounds = YES;
         _addressHintImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -154,7 +154,7 @@
 - (UIImageView *)searchImageView {
     if (!_searchImageView) {
         _searchImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"mainSearch"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor colorTextGray1];
+        _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
         _searchImageView.layer.masksToBounds = YES;
         _searchImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -168,7 +168,7 @@
         _searchPlaceholder.text = @"搜索";
         _searchPlaceholder.numberOfLines = 1;
         _searchPlaceholder.textAlignment = NSTextAlignmentLeft;
-        [_searchPlaceholder setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_searchPlaceholder setFont:[UIFont fontSmall]];
     }
     return _searchPlaceholder;
 }
@@ -184,9 +184,9 @@
 
 #pragma mark - 更新背景色
 - (void)updateWithOffset:(CGFloat)offsetY {
-    if (KIsDarkModel) {
-        _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor colorTextGray1];
-        _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor blackColor];
+    if (isDarkModel) {
+        _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
+        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
         return;
     }
     if (offsetY > 0) {
@@ -199,8 +199,8 @@
         self.addressLabel.textColor = [UIColor colorTextBlack];
         _addressHintImageView.tintColor = [UIColor blackColor];
     }
-    _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor blackColor];
+    _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
+    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
 }
 
 
@@ -211,7 +211,7 @@
     
     // darkmodel change
 //    [self setupDarkModel];
-    _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : [UIColor blackColor];
+    _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
+    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
 }
 @end

@@ -166,7 +166,7 @@
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderSNLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_orderSNLabel setFont:[UIFont fontContent]];
     }
     return _orderSNLabel;
 }
@@ -179,7 +179,7 @@
         _lessonLabel.text = @"暑期瑜伽班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_lessonLabel setFont:[UIFont fontContent]];
     }
     return _lessonLabel;
 }
@@ -191,7 +191,7 @@
         _orderStateLabel.text = @"已支付：233元";
         _orderStateLabel.numberOfLines = 1;
         _orderStateLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderStateLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_orderStateLabel setFont:[UIFont fontSmall]];
     }
     return _orderStateLabel;
 }
@@ -203,7 +203,7 @@
         _cocahLabel.text = @"财源健身房-钟教练";
         _cocahLabel.numberOfLines = 1;
         _cocahLabel.textAlignment = NSTextAlignmentLeft;
-        [_cocahLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_cocahLabel setFont:[UIFont fontSmall]];
     }
     return _cocahLabel;
 }
@@ -217,7 +217,7 @@
         _evaBtn.layer.borderWidth = 1;
         [_evaBtn setTitle:@"去评价" forState:UIControlStateNormal];
         [_evaBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_evaBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_evaBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_evaBtn bk_whenTapped:^{

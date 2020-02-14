@@ -178,7 +178,7 @@
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderSNLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_orderSNLabel setFont:[UIFont fontContent]];
     }
     return _orderSNLabel;
 }
@@ -227,7 +227,7 @@
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_payBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_payBtn bk_whenTapped:^{

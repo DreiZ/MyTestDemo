@@ -109,7 +109,7 @@
         _nameLabel.text = @"图形俱乐部";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_nameLabel setFont:[UIFont fontContent]];
     }
     return _nameLabel;
 }
@@ -122,7 +122,7 @@
         _adeptLabel.text = @"";
         _adeptLabel.numberOfLines = 1;
         _adeptLabel.textAlignment = NSTextAlignmentLeft;
-        [_adeptLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_adeptLabel setFont:[UIFont fontContent]];
     }
     return _adeptLabel;
 }
@@ -134,7 +134,7 @@
         _desLabel.text = @"";
         _desLabel.numberOfLines = 0;
         _desLabel.textAlignment = NSTextAlignmentLeft;
-        [_desLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_desLabel setFont:[UIFont fontContent]];
     }
     return _desLabel;
 }
@@ -147,7 +147,7 @@
         _authLabel.text = @"";
         _authLabel.numberOfLines = 1;
         _authLabel.textAlignment = NSTextAlignmentLeft;
-        [_authLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_authLabel setFont:[UIFont fontMin]];
     }
     return _authLabel;
 }
@@ -209,14 +209,14 @@
     ZStudentDetailLessonOrderCoachModel *model = sender;
     CGFloat authWidth = 0;
     if (model.auth && model.auth.length > 0) {
-       CGSize tsize = [model.auth tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(230 ), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
+       CGSize tsize = [model.auth tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(230 ), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
        
        authWidth = CGFloatIn750(tsize.width + 110);
     }
     
     CGFloat nameWidth = CGFloatIn750(70);
     if (model.coachName && model.coachName.length > 0) {
-       CGSize tsize = [model.coachName tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth , MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
+       CGSize tsize = [model.coachName tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth , MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
         
        nameWidth = CGFloatIn750(tsize.width + 10);
     }
@@ -229,7 +229,7 @@
     CGFloat space = CGFloatIn750(10);
 //标签
     for (int i = 0; i < textArr.count; i++) {
-        CGSize tempSize = [textArr[i] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+        CGSize tempSize = [textArr[i] tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
         if (leftX + tempSize.width + CGFloatIn750(16) + space > labelWidth) {
             topY += CGFloatIn750(32) + space;
             leftX = 0;
@@ -250,7 +250,7 @@
         CGFloat space = CGFloatIn750(10);
 
         for (int i = 0; i < adeptArr.count; i++) {
-           CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+           CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
            if (leftX + tempSize.width + CGFloatIn750(16) + space > labelWidth) {
                topY += CGFloatIn750(32) + space;
                leftX = 0;
@@ -262,14 +262,14 @@
         cellHeight += (topY + CGFloatIn750(32)) + CGFloatIn750(32);
     }
         
-   CGSize desSize = [model.desStr tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(210), MAXFLOAT)];
+   CGSize desSize = [model.desStr tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(210), MAXFLOAT)];
     
     return cellHeight + desSize.height + CGFloatIn750(30);
 }
 
 
 - (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX{
-     CGSize tempSize = [text tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
+     CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
     actLabel.textColor = [UIColor colorWhite];
@@ -281,7 +281,7 @@
     actLabel.text = text;
     actLabel.numberOfLines = 1;
     actLabel.textAlignment = NSTextAlignmentCenter;
-    [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+    [actLabel setFont:[UIFont fontMin]];
     
     
     return actLabel;
@@ -298,7 +298,7 @@
     
     CGFloat authWidth = 0;
     if (model.auth && model.auth.length > 0) {
-       CGSize tsize = [model.auth tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(230 ), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
+       CGSize tsize = [model.auth tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(230 ), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
        
        [self.authView mas_remakeConstraints:^(MASConstraintMaker *make) {
            make.top.equalTo(self.coachImageView.mas_top).offset(CGFloatIn750(8));
@@ -318,7 +318,7 @@
     
     CGFloat nameWidth = CGFloatIn750(70);
     if (model.coachName && model.coachName.length > 0) {
-       CGSize tsize = [model.coachName tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(KScreenWidth , MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
+       CGSize tsize = [model.coachName tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth , MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(0)];
        
        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
            make.left.equalTo(self.coachImageView.mas_right).offset(CGFloatIn750(16));
@@ -343,7 +343,7 @@
     CGFloat space = CGFloatIn750(10);
 //标签
     for (int i = 0; i < textArr.count; i++) {
-        CGSize tempSize = [textArr[i] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+        CGSize tempSize = [textArr[i] tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
         if (leftX + tempSize.width + CGFloatIn750(16) + space > labelWidth) {
             topY += CGFloatIn750(32) + space;
             leftX = 0;
@@ -357,7 +357,7 @@
         actLabel.text = textArr[i];
         actLabel.numberOfLines = 1;
         actLabel.textAlignment = NSTextAlignmentCenter;
-        [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [actLabel setFont:[UIFont fontMin]];
         [self.activityView addSubview:actLabel];
         leftX = actLabel.right + space;
     }
@@ -379,7 +379,7 @@
         CGFloat space = CGFloatIn750(10);
 
         for (int i = 0; i < adeptArr.count; i++) {
-           CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(20)] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+           CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
            if (leftX + tempSize.width + CGFloatIn750(16) + space > labelWidth) {
                topY += CGFloatIn750(32) + space;
                leftX = 0;
@@ -394,7 +394,7 @@
             actLabel.layer.borderColor = [UIColor colorMain].CGColor;
             actLabel.layer.borderWidth = 1;
            actLabel.textAlignment = NSTextAlignmentCenter;
-           [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+           [actLabel setFont:[UIFont fontMin]];
            [self.introductionView addSubview:actLabel];
            leftX = actLabel.right + CGFloatIn750(24);
         }

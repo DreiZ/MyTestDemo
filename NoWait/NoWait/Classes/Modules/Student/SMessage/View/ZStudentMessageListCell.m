@@ -99,7 +99,7 @@
         _titleLabel.text = @"小莫通知";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }
@@ -111,7 +111,7 @@
         _detailLabel.text = @"图形俱乐部讽德诵功对方过得舒服个人风格如果太热";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        [_detailLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_detailLabel setFont:[UIFont fontSmall]];
     }
     return _detailLabel;
 }
@@ -123,7 +123,7 @@
         _timeLabel.text = @"10/13";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentRight;
-        [_timeLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
 }
@@ -138,7 +138,7 @@
         _numLabel.layer.masksToBounds = YES;
         _numLabel.layer.cornerRadius = CGFloatIn750(13);
         _numLabel.textAlignment = NSTextAlignmentCenter;
-        [_numLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];
+        [_numLabel setFont:[UIFont fontMin]];
     }
     return _numLabel;
 }

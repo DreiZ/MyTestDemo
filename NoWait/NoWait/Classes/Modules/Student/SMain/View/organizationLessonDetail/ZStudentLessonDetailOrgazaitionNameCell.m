@@ -54,7 +54,7 @@
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
+        [_titleLabel setFont:[UIFont fontMaxTitle]];
     }
     return _titleLabel;
 }
@@ -67,7 +67,7 @@
         _evaDesLabel.text = @"好评率：98%";
         _evaDesLabel.numberOfLines = 0;
         _evaDesLabel.textAlignment = NSTextAlignmentRight;
-        [_evaDesLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_evaDesLabel setFont:[UIFont fontSmall]];
     }
     return _evaDesLabel;
 }

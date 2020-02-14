@@ -92,7 +92,7 @@
         _successLabel.text = @"恭喜您已经成功预约";
         _successLabel.numberOfLines = 1;
         _successLabel.textAlignment = NSTextAlignmentCenter;
-        [_successLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_successLabel setFont:[UIFont fontMax1Title]];
     }
     return _successLabel;
 }
@@ -119,7 +119,7 @@
         [_mainBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_mainBtn setTitle:@"返回首页" forState:UIControlStateNormal];
         [_mainBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_mainBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_mainBtn.titleLabel setFont:[UIFont fontMax1Title]];
         [_mainBtn bk_whenTapped:^{
             [self.navigationController popToRootViewControllerAnimated:YES];
         }];
@@ -137,7 +137,7 @@
         _detailBtn.layer.borderWidth = 1;
         [_detailBtn setTitle:@"查看预约详情" forState:UIControlStateNormal];
         [_detailBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_detailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
+        [_detailBtn.titleLabel setFont:[UIFont fontMax1Title]];
         [_detailBtn bk_whenTapped:^{
             ZStudentLessonOrderLessonVC *orderLessonVC = [[ZStudentLessonOrderLessonVC alloc] init];
             [self.navigationController pushViewController:orderLessonVC animated:YES];

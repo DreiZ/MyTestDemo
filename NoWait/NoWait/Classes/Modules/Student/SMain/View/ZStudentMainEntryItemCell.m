@@ -53,7 +53,7 @@
         _titleLabel.text = @"hahaha";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_titleLabel setFont:[UIFont fontSmall]];
     }
     return _titleLabel;
 }

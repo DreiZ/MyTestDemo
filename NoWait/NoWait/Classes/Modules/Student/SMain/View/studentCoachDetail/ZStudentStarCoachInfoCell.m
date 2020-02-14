@@ -80,7 +80,7 @@
         _lessonLabel.text = @"擅长：瑜伽、蛙泳、蝶泳";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentCenter;
-        [_lessonLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_lessonLabel setFont:[UIFont fontContent]];
     }
     return _lessonLabel;
 }

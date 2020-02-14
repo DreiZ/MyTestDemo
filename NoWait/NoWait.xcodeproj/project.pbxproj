@@ -557,7 +557,6 @@
 		B2A77E7F23BDD4AB00407BF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B2A77E8523BDD76000407BF0 /* CommonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
 		B2A77E8623BDD78100407BF0 /* URLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLMacros.h; sourceTree = "<group>"; };
-		B2A77E8723BDD7A400407BF0 /* FontAndColorMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontAndColorMacros.h; sourceTree = "<group>"; };
 		B2A77E8B23BDD93A00407BF0 /* ZLaunchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLaunchManager.h; sourceTree = "<group>"; };
 		B2A77E8C23BDD93A00407BF0 /* ZLaunchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLaunchManager.m; sourceTree = "<group>"; };
 		B2A77E9B23BDE1AA00407BF0 /* NSMutableDictionary+LYNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+LYNil.h"; sourceTree = "<group>"; };
@@ -1328,7 +1327,6 @@
 				B2A77F6323BDE5B900407BF0 /* ZMacros.h */,
 				B2A77E8523BDD76000407BF0 /* CommonMacros.h */,
 				B2A77E8623BDD78100407BF0 /* URLMacros.h */,
-				B2A77E8723BDD7A400407BF0 /* FontAndColorMacros.h */,
 			);
 			path = Define;
 			sourceTree = "<group>";

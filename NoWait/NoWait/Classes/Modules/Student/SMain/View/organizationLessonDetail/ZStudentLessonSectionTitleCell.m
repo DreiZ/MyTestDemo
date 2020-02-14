@@ -80,7 +80,7 @@
         _moreLabel.text = @"";
         _moreLabel.numberOfLines = 1;
         _moreLabel.textAlignment = NSTextAlignmentRight;
-        [_moreLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_moreLabel setFont:[UIFont fontSmall]];
     }
     return _moreLabel;
 }

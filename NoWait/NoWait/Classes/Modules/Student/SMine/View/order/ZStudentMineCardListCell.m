@@ -179,7 +179,7 @@
         _orderStateLabel.text = @"永久有效";
         _orderStateLabel.numberOfLines = 1;
         _orderStateLabel.textAlignment = NSTextAlignmentRight;
-        [_orderStateLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
+        [_orderStateLabel setFont:[UIFont fontSmall]];
     }
     return _orderStateLabel;
 }
@@ -195,7 +195,7 @@
         
         [_payBtn setTitle:@"去使用" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
+        [_payBtn.titleLabel setFont:[UIFont fontContent]];
         
         __weak typeof(self) weakSelf = self;
         [_payBtn bk_whenTapped:^{

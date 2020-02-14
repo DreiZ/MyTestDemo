@@ -206,7 +206,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
         
     }
     return cell;

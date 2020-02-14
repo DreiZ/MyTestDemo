@@ -57,7 +57,7 @@
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.rightImage = titleArr[i][1];
-        model.leftFont = [UIFont systemFontOfSize:CGFloatIn750(28)];
+        model.leftFont = [UIFont fontContent];
         model.cellTitle = titleArr[i][2];
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
