@@ -74,7 +74,7 @@
     [_cellConfigArr removeAllObjects];
     
     
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
+    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
     [self.cellConfigArr addObject:spacCellConfig];
     
     
@@ -87,7 +87,7 @@
     
     [self.cellConfigArr addObject:menuCellConfig];
     {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
         [self.cellConfigArr addObject:spacCellConfig];
         
         
@@ -156,7 +156,7 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
         }
-        _iTableView.backgroundColor = KBackColor;
+        _iTableView.backgroundColor = [UIColor colorGrayBG];
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }
@@ -173,7 +173,7 @@
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(40);
         [doneBtn setTitle:@"确定提交" forState:UIControlStateNormal];
-        [doneBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [doneBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         [doneBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];

@@ -45,7 +45,7 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
     
     
     ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailInfoCell className] title:[ZStudentMineOrderDetailInfoCell className] showInfoMethod:nil heightOfCell:[ZStudentMineOrderDetailInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
@@ -114,7 +114,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

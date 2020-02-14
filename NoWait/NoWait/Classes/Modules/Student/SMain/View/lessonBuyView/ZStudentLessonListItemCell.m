@@ -29,7 +29,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.contView];
@@ -174,12 +174,12 @@
     _priceLabel.text = model.lessonPrice;
     
     if (model.isLessonSelected) {
-        _titleLabel.textColor = KMainColor;
-        _lessonLabel.textColor = KMainColor;
-        _timeLabel.textColor = KMainColor;
-        _numLabel.textColor = KMainColor;
-        _priceLabel.textColor = KMainColor;
-        _contView.layer.borderColor = KMainColor.CGColor;
+        _titleLabel.textColor = [UIColor  colorMain];
+        _lessonLabel.textColor = [UIColor  colorMain];
+        _timeLabel.textColor = [UIColor  colorMain];
+        _numLabel.textColor = [UIColor  colorMain];
+        _priceLabel.textColor = [UIColor  colorMain];
+        _contView.layer.borderColor = [UIColor  colorMain].CGColor;
         _selectImageView.hidden = NO;
     }else{
         _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);

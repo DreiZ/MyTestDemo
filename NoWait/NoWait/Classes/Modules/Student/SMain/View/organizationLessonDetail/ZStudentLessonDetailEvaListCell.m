@@ -31,7 +31,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.userNameLabel];
@@ -77,7 +77,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);

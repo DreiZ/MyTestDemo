@@ -88,7 +88,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KWhiteColor;
+        _titleLabel.textColor = [UIColor colorWhite];
         _titleLabel.text = @"学员详情";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;

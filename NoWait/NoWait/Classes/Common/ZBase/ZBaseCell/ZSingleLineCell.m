@@ -26,7 +26,7 @@
 
 - (void)initMainView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.rightImageView];
@@ -110,7 +110,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     }
     return _bottomLineView;
 }

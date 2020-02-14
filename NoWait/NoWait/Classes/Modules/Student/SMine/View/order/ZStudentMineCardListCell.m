@@ -36,7 +36,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -53,7 +53,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(90));
@@ -61,7 +61,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    bottomView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(106));
@@ -69,7 +69,7 @@
     }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -100,7 +100,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [bottomView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(bottomView);
@@ -150,7 +150,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -191,10 +191,10 @@
         _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
         _payBtn.layer.cornerRadius = CGFloatIn750(23);
-        _payBtn.backgroundColor = KMainColor;
+        _payBtn.backgroundColor = [UIColor  colorMain];
         
         [_payBtn setTitle:@"去使用" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
         
         __weak typeof(self) weakSelf = self;
@@ -273,14 +273,14 @@
         [list addObject:model];
     }
 
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(96) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(96) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
     [_cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
     [_cellConfigArr addObject:lessonDesCellConfig];
 //
 
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
     [_cellConfigArr addObject:bottomCellConfig];
     
     [self.iTableView reloadData];

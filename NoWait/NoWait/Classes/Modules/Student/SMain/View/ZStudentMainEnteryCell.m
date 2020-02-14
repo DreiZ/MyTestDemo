@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KBackColor;
+    self.contentView.backgroundColor = [UIColor colorGrayBG];
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -73,7 +73,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
-        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor(KWhiteColor,K1aBackColor)];
+        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor([UIColor colorWhite],K1aBackColor)];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }
@@ -99,7 +99,7 @@
     ZStudentEnteryItemModel *model = _channelList[indexPath.row];
     cell.titleLabel.text = model.name;
     cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = KMainColor;
+    cell.imageView.tintColor = [UIColor  colorMain];
     return cell;
 }
 

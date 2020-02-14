@@ -27,7 +27,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -108,7 +108,7 @@
         _telBtn.layer.masksToBounds = YES;
         [_telBtn setImage:[UIImage imageNamed:@"orderRigthtTel"] forState:UIControlStateNormal];
         [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
-        [_telBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_telBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         
         __weak typeof(self) weakSelf = self;

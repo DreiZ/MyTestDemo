@@ -28,7 +28,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KMainColor;
+    self.backgroundColor = [UIColor  colorMain];
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.statusImageView];
@@ -60,7 +60,7 @@
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.textColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _statusLabel.textColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _statusLabel.text = @"等待商家确认";
         _statusLabel.numberOfLines = 1;
         _statusLabel.textAlignment = NSTextAlignmentLeft;

@@ -28,7 +28,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.titleLabel];

@@ -88,7 +88,7 @@
 {
     if (_myProgressView == nil) {
         _myProgressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, 1)];
-        _myProgressView.tintColor = KMainColor;
+        _myProgressView.tintColor = [UIColor  colorMain];
         _myProgressView.trackTintColor = [UIColor whiteColor];
     }
     

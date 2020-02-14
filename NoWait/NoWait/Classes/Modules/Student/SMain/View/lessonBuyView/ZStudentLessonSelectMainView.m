@@ -56,7 +56,7 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
-        _contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     }
     return _contView;
 }

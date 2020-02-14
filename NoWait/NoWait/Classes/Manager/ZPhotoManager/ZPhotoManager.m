@@ -219,8 +219,8 @@ static ZPhotoManager *sharedPhotoManager;
     imagePickController.naviTitleColor = [UIColor blackColor];
     imagePickController.barItemTextColor = [UIColor blackColor];
     imagePickController.statusBarStyle = UIStatusBarStyleDefault;
-    imagePickController.oKButtonTitleColorNormal = KMainColor;
-    imagePickController.oKButtonTitleColorDisabled = KMainSubColor;
+    imagePickController.oKButtonTitleColorNormal = [UIColor  colorMain];
+    imagePickController.oKButtonTitleColorDisabled = [UIColor  colorMainSub];
     imagePickController.allowCrop = _allowCrop;
     //是否 在相册中显示拍照按钮
     imagePickController.allowTakePicture = NO;

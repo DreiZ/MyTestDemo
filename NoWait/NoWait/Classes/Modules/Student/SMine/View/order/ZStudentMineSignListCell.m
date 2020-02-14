@@ -35,7 +35,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -49,7 +49,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(110));
@@ -58,7 +58,7 @@
 
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -124,7 +124,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -151,10 +151,10 @@
         _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _signBtn.layer.masksToBounds = YES;
         _signBtn.layer.cornerRadius = CGFloatIn750(25);
-        _signBtn.backgroundColor = KMainColor;
+        _signBtn.backgroundColor = [UIColor  colorMain];
         
         [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
-        [_signBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
         
         __weak typeof(self) weakSelf = self;
@@ -229,7 +229,7 @@
             [_cellConfigArr addObject:lessonDesCellConfig];
         //
 
-        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(22) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(22) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
         [_cellConfigArr addObject:bottomCellConfig];
     }
     

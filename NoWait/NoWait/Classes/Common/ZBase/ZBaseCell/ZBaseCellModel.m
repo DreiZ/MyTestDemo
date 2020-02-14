@@ -16,7 +16,7 @@
         self.rightMargin = CGFloatIn750(30);
 
         self.isHiddenLine = NO;
-        self.lineColor = KBackColor;
+        self.lineColor = [UIColor colorGrayBG];
 
         self.cellTitle = @"ZBaseCell";
         self.cellHeight = CGFloatIn750(100);

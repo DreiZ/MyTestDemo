@@ -34,7 +34,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     [self.contentView addSubview:self.coachImageView];
     [self.contentView addSubview:self.nameLabel];
@@ -272,7 +272,7 @@
      CGSize tempSize = [text tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
-    actLabel.textColor = KWhiteColor;
+    actLabel.textColor = [UIColor colorWhite];
     actLabel.backgroundColor = KGreenColor;
 //    actLabel.layer.masksToBounds = YES;
 //    actLabel.layer.cornerRadius = 2;
@@ -350,7 +350,7 @@
         }
             
         UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+CGFloatIn750(16), CGFloatIn750(32))];
-        actLabel.textColor = KWhiteColor;
+        actLabel.textColor = [UIColor colorWhite];
         actLabel.backgroundColor = KGreenColor;
         actLabel.layer.masksToBounds = YES;
         actLabel.layer.cornerRadius = 2;

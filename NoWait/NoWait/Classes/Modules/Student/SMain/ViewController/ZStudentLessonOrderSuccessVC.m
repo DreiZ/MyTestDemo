@@ -35,7 +35,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
 
     [self.view addSubview:self.hintImageView];
     [self.view addSubview:self.successLabel];
@@ -116,9 +116,9 @@
         _mainBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _mainBtn.layer.masksToBounds = YES;
         _mainBtn.layer.cornerRadius = CGFloatIn750(47);
-        [_mainBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_mainBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_mainBtn setTitle:@"返回首页" forState:UIControlStateNormal];
-        [_mainBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_mainBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_mainBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
         [_mainBtn bk_whenTapped:^{
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -133,10 +133,10 @@
         _detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _detailBtn.layer.masksToBounds = YES;
         _detailBtn.layer.cornerRadius = CGFloatIn750(47);
-        _detailBtn.layer.borderColor = KMainColor.CGColor;
+        _detailBtn.layer.borderColor = [UIColor  colorMain].CGColor;
         _detailBtn.layer.borderWidth = 1;
         [_detailBtn setTitle:@"查看预约详情" forState:UIControlStateNormal];
-        [_detailBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_detailBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_detailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
         [_detailBtn bk_whenTapped:^{
             ZStudentLessonOrderLessonVC *orderLessonVC = [[ZStudentLessonOrderLessonVC alloc] init];

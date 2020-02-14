@@ -42,14 +42,14 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
    
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     contView.layer.masksToBounds = YES;
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,7 +61,7 @@
         
     
     UIView *nLineView = [[UIView alloc] init];
-    nLineView.backgroundColor = KMainColor;
+    nLineView.backgroundColor = [UIColor  colorMain];
     [contView addSubview:nLineView];
     [nLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(0.5);
@@ -79,7 +79,7 @@
     }];
 
     UIView *pLineView = [[UIView alloc] init];
-    pLineView.backgroundColor = KMainColor;
+    pLineView.backgroundColor = [UIColor  colorMain];
     [contView addSubview:pLineView];
     [pLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(0.5);
@@ -97,7 +97,7 @@
     }];
 
     UIView *tLineView = [[UIView alloc] init];
-    tLineView.backgroundColor = KMainColor;
+    tLineView.backgroundColor = [UIColor  colorMain];
     [contView addSubview:tLineView];
     [tLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(0.5);
@@ -140,7 +140,7 @@
     //1.默认
     _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
     [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
-    [_pooCodeView setTitleColor:KMainColor forState:UIControlStateNormal];
+    [_pooCodeView setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [_pooCodeView.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     [_pooCodeView bk_whenTapped:^{
         [weakSelf getImageCode];
@@ -174,14 +174,14 @@
     text.color = KFont9Color;
     //    __weak typeof(self) weakself = self;
     
-    [text setTextHighlightRange:NSMakeRange(9, 8) color:KMainColor backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+    [text setTextHighlightRange:NSMakeRange(9, 8) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
 //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
 //        avc.navTitle = @"莫等闲服务条款";
 //        avc.type = @"service_agreement";
 //        [self.navigationController pushViewController:avc animated:YES];
     }];
     
-    [text setTextHighlightRange:NSMakeRange(18, 6) color:KMainColor backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+    [text setTextHighlightRange:NSMakeRange(18, 6) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
 //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
 //        avc.navTitle = @"隐私协议";
 //        avc.type = @"privacy_policy";
@@ -215,13 +215,13 @@
     UIButton *visterBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     visterBtn.layer.masksToBounds = YES;
     visterBtn.layer.cornerRadius = CGFloatIn750(40);
-    visterBtn.layer.borderColor = KMainColor.CGColor;
+    visterBtn.layer.borderColor = [UIColor  colorMain].CGColor;
     visterBtn.layer.borderWidth = 1;
     [visterBtn bk_addEventHandler:^(id sender) {
 //        [[ZLaunchManager sharedInstance] showMainTab];
     } forControlEvents:UIControlEventTouchUpInside];
     [visterBtn setTitle:@"游客模式" forState:UIControlStateNormal];
-    [visterBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+    [visterBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [visterBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
     [self addSubview:visterBtn];
     [visterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -434,7 +434,7 @@
         //        _loginBtn.backgroundColor = [UIColor colorWithHexString:@"302d38"];
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_loginBtn setBackgroundImage:[UIImage imageWithColor:KMainColor] forState:UIControlStateNormal];
+        [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor  colorMain]] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:KBorderColor] forState:UIControlStateDisabled];
         [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(34)]];
     }

@@ -7,16 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZShortcutMethod.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (ZChat)
 
+//主题色
++ (UIColor *)colorMain;
++ (UIColor *)colorMainSub;
+
+//导航栏颜色
++ (UIColor *)colorNavBG;
++ (UIColor *)colorNavBGFont;
+
+#pragma mark - 白色
++ (UIColor *)colorWhite;
+
 #pragma mark - # 字体
 + (UIColor *)colorTextBlack;
 + (UIColor *)colorTextGray;
 + (UIColor *)colorTextGray1;
-
+ 
 
 #pragma mark - 灰色
 + (UIColor *)colorGrayBG;           // 浅灰色默认背景

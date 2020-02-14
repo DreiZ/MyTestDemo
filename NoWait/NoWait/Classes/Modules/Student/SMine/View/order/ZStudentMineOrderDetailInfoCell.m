@@ -36,7 +36,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -50,7 +50,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -58,7 +58,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    bottomView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(88));
@@ -66,7 +66,7 @@
     }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -90,7 +90,7 @@
     }];
     
     UIView *topBottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topBottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    topBottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [topView addSubview:topBottomLineView];
     [topBottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -98,7 +98,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [bottomView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(bottomView);
@@ -144,7 +144,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -258,14 +258,14 @@
         [list addObject:model];
     }
 
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
     [_cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
     [_cellConfigArr addObject:lessonDesCellConfig];
 //
 
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
     [_cellConfigArr addObject:bottomCellConfig];
     
     [self.iTableView reloadData];

@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -52,7 +52,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     }
     return _funBackView;
 }
@@ -72,7 +72,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZMineMenuItemCell class] forCellWithReuseIdentifier:[ZMineMenuItemCell className]];
-        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }
@@ -98,7 +98,7 @@
     ZStudentMenuItemModel *model = _topChannelList[indexPath.row];
     cell.titleLabel.text = model.name;
     cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = KMainColor;
+    cell.imageView.tintColor = [UIColor  colorMain];
     return cell;
 }
 

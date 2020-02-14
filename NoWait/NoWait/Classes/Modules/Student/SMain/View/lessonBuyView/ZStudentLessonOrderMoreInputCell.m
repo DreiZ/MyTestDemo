@@ -31,7 +31,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.backView];
@@ -65,7 +65,7 @@
         _backView = [[UIView alloc] init];
         _backView.layer.masksToBounds = YES;
         _backView.layer.cornerRadius = 4;
-        _backView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _backView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     return _backView;
 }
@@ -74,7 +74,7 @@
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
-        _iTextView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         _iTextView.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
     }
@@ -135,10 +135,10 @@
 - (void)setIsBackColor:(NSString *)isBackColor {
     _isBackColor = isBackColor;
     if (_isBackColor) {
-        _iTextView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _backView.hidden = NO;
     }else{
-        _iTextView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KBackColor);
+        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]);
         _backView.hidden = YES;
     }
 }

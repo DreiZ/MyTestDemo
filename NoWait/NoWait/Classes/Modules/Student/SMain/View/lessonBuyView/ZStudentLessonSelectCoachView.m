@@ -32,13 +32,13 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(102));
@@ -67,7 +67,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -115,7 +115,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     }
     return _funBackView;
 }
@@ -126,9 +126,9 @@
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_bottomBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
-        [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.bottomBlock) {
                 weakSelf.bottomBlock();
@@ -166,7 +166,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentLessonListCoachItemCell class] forCellWithReuseIdentifier:[ZStudentLessonListCoachItemCell className]];
-        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor(KWhiteColor, K1aBackColor)];
+        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }

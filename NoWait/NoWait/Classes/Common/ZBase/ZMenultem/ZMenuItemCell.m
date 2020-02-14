@@ -177,7 +177,7 @@
 {
     if (!_badgeView) {
         _badgeView = [[TLBadge alloc] initWithFrame:CGRectMake(0, 0, 0, 18)];
-        _badgeView.backgroundColor = KMainColor;
+        _badgeView.backgroundColor = [UIColor  colorMain];
     }
     return _badgeView;
 }
@@ -203,7 +203,7 @@
 {
     if (!_rightBadgeView) {
         _rightBadgeView = [[TLBadge alloc] initWithFrame:CGRectMake(0, 0, 0, 18)];
-        _rightBadgeView.backgroundColor = KMainColor;
+        _rightBadgeView.backgroundColor = [UIColor  colorMain];
         [_rightBadgeView setBadgeValue:@""];
     }
     return _rightBadgeView;

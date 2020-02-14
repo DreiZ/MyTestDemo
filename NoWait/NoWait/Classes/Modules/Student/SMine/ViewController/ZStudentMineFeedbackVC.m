@@ -38,7 +38,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.navigationItem setTitle:LOCSTR(@"意见反馈")];
     
@@ -138,13 +138,13 @@
 -(UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
-        _footerView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _footerView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         
         UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(40);
         [doneBtn setTitle:@"提交" forState:UIControlStateNormal];
-        [doneBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [doneBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         [doneBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];

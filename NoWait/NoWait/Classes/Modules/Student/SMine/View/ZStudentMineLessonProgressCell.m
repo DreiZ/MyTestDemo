@@ -29,12 +29,12 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = 4;
     [self.contentView addSubview:contView];
@@ -46,7 +46,7 @@
     }];
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
-    topTitleBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topTitleBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topTitleBackView];
     [topTitleBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));

@@ -34,7 +34,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -139,7 +139,7 @@
     if (!_settingImageView) {
         _settingImageView = [[UIImageView alloc] init];
         _settingImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _settingImageView.tintColor = KMainColor;
+        _settingImageView.tintColor = [UIColor  colorMain];
         _settingImageView.layer.masksToBounds = YES;
         _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -164,7 +164,7 @@
     if (!_settingView) {
         _settingView = [[UIView alloc] init];
         _settingView.layer.masksToBounds = YES;
-//        _settingView.backgroundColor =KWhiteColor;
+//        _settingView.backgroundColor =[UIColor colorWhite];
     }
     return _settingView;
 }
@@ -172,7 +172,7 @@
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = KMainColor;
+        _backView.backgroundColor = [UIColor  colorMain];
     }
     return _backView;
 }

@@ -43,7 +43,7 @@
     
     
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -51,7 +51,7 @@
     }];
     
     UIView *topHanderView = [[UIView alloc] init];
-    topHanderView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topHanderView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topHanderView];
     [topHanderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(contView);
@@ -59,7 +59,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [topHanderView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topHanderView);
@@ -71,8 +71,8 @@
     [cancleBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
-    [cancleBtn setTitleColor:KMainColor forState:UIControlStateNormal];
-    [cancleBtn setTitleColor:KMainColor forState:UIControlStateHighlighted];
+    [cancleBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateHighlighted];
     [cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [topHanderView addSubview:cancleBtn];
     [cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,8 +82,8 @@
     
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:KMainColor forState:UIControlStateNormal];
-    [sureBtn setTitleColor:KMainColor forState:UIControlStateHighlighted];
+    [sureBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateHighlighted];
     [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [sureBtn bk_addEventHandler:^(id sender) {
         if (self.dateSelectBlock) {

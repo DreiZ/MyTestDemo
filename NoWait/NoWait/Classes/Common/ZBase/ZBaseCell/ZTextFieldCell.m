@@ -82,7 +82,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _bottomLineView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     return _bottomLineView;
 }

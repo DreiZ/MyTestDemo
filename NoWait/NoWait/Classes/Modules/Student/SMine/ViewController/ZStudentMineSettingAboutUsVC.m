@@ -59,7 +59,7 @@
         [self.cellConfigArr addObject:menuCellConfig];
         
         if (i == 2) {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor(KBackColor, K2eBackColor)];
+            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
             [self.cellConfigArr addObject:topCellConfig];
         }
     }
@@ -102,7 +102,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.tableHeaderView = self.topView;
@@ -113,7 +113,7 @@
 - (UIView *)topView {
     if (!_topView) {
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(500))];
-        _topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         
         UIImageView *logoImageView = [[UIImageView alloc] init];
         logoImageView.image = [UIImage imageNamed:@"loginLogo"];
@@ -151,7 +151,7 @@
 - (UILabel *)versionLabel {
     if (!_versionLabel) {
         _versionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _versionLabel.textColor = KMainColor;
+        _versionLabel.textColor = [UIColor  colorMain];
         _versionLabel.text = @"V12.1";
         _versionLabel.numberOfLines = 1;
         _versionLabel.textAlignment = NSTextAlignmentCenter;

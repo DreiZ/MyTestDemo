@@ -33,7 +33,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor,K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite],K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -99,7 +99,7 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
-//        _contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor,K1aBackColor);
+//        _contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite],K1aBackColor);
     }
     return _contView;
 }
@@ -107,7 +107,7 @@
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _addressLabel.textColor = KAdaptAndDarkColor(KFont2Color,KWhiteColor);
+        _addressLabel.textColor = KAdaptAndDarkColor(KFont2Color,[UIColor colorWhite]);
         _addressLabel.text = @"徐州";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
@@ -120,7 +120,7 @@
     if (!_addressHintImageView) {
         _addressHintImageView = [[UIImageView alloc] init];
         _addressHintImageView.image = [[UIImage imageNamed:@"mineLessonDown"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _addressHintImageView.tintColor = KIsDarkModel ? KWhiteColor : KBlackColor;
+        _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KBlackColor;
         _addressHintImageView.layer.masksToBounds = YES;
         _addressHintImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -131,7 +131,7 @@
     if (!_searhBackView) {
         _searhBackView = [[UIView alloc] init];
         _searhBackView.layer.masksToBounds = YES;
-        _searhBackView.backgroundColor = KAdaptAndDarkColor(CLineColor,K2eBackColor);
+        _searhBackView.backgroundColor = KAdaptAndDarkColor(CLineColor,[UIColor colorBlackBG]);
         _searhBackView.layer.cornerRadius = 4;
         
         [_searhBackView addSubview:self.searchImageView];
@@ -154,7 +154,7 @@
 - (UIImageView *)searchImageView {
     if (!_searchImageView) {
         _searchImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"mainSearch"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        _searchImageView.tintColor = KIsDarkModel ? KWhiteColor : KFont9Color;
+        _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KFont9Color;
         _searchImageView.layer.masksToBounds = YES;
         _searchImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -176,7 +176,7 @@
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = KAdaptAndDarkColor(KMainColor, K1aBackColor);
+        _backView.backgroundColor = KAdaptAndDarkColor([UIColor  colorMain], K1aBackColor);
         _backView.alpha = 0;
     }
     return _backView;
@@ -185,8 +185,8 @@
 #pragma mark - 更新背景色
 - (void)updateWithOffset:(CGFloat)offsetY {
     if (KIsDarkModel) {
-        _searchImageView.tintColor = KIsDarkModel ? KWhiteColor : KFont9Color;
-        _addressHintImageView.tintColor = KIsDarkModel ? KWhiteColor : KBlackColor;
+        _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KFont9Color;
+        _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KBlackColor;
         return;
     }
     if (offsetY > 0) {
@@ -199,8 +199,8 @@
         self.addressLabel.textColor = KFont2Color;
         _addressHintImageView.tintColor = KBlackColor;
     }
-    _searchImageView.tintColor = KIsDarkModel ? KWhiteColor : KFont9Color;
-    _addressHintImageView.tintColor = KIsDarkModel ? KWhiteColor : KBlackColor;
+    _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KFont9Color;
+    _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KBlackColor;
 }
 
 
@@ -211,7 +211,7 @@
     
     // darkmodel change
 //    [self setupDarkModel];
-    _searchImageView.tintColor = KIsDarkModel ? KWhiteColor : KFont9Color;
-    _addressHintImageView.tintColor = KIsDarkModel ? KWhiteColor : KBlackColor;
+    _searchImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KFont9Color;
+    _addressHintImageView.tintColor = KIsDarkModel ? [UIColor colorWhite] : KBlackColor;
 }
 @end

@@ -36,9 +36,9 @@
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = KMainColor;
+    sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
@@ -71,7 +71,7 @@
     //           weakSelf.loginViewModel.loginModel.tel = x;
     }];
     _userNameTF.delegate = self;
-    _userNameTF.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    _userNameTF.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     _userNameTF.keyboardType = UIKeyboardTypeDefault;
     _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
 

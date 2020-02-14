@@ -26,7 +26,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.lessonLabel];
@@ -66,12 +66,12 @@
         _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _signBtn.layer.masksToBounds = YES;
         _signBtn.layer.cornerRadius = CGFloatIn750(23);
-        _signBtn.backgroundColor = KWhiteColor;
-        _signBtn.layer.borderColor = KMainColor.CGColor;
+        _signBtn.backgroundColor = [UIColor colorWhite];
+        _signBtn.layer.borderColor = [UIColor  colorMain].CGColor;
         _signBtn.layer.borderWidth = 1;
         
         [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
-        [_signBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_signBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
         
         __weak typeof(self) weakSelf = self;

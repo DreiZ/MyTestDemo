@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -68,7 +68,7 @@
         _lessonProgressBackView = [[UIView alloc] init];
         _lessonProgressBackView.layer.masksToBounds = YES;
         _lessonProgressBackView.clipsToBounds = YES;
-        _lessonProgressBackView.layer.borderColor = KMainColor.CGColor;
+        _lessonProgressBackView.layer.borderColor = [UIColor  colorMain].CGColor;
         _lessonProgressBackView.layer.borderWidth = 0.5;
         _lessonProgressBackView.backgroundColor = [UIColor whiteColor];
     }
@@ -80,7 +80,7 @@
         _lessonProgressView = [[UIView alloc] init];
         _lessonProgressView.layer.masksToBounds = YES;
         _lessonProgressView.clipsToBounds = YES;
-        _lessonProgressView.backgroundColor = KMainColor;
+        _lessonProgressView.backgroundColor = [UIColor  colorMain];
     }
     return _lessonProgressView;
 }

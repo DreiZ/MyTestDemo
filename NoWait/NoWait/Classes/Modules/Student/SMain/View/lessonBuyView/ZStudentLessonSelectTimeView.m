@@ -38,13 +38,13 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(102));
@@ -73,7 +73,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -122,7 +122,7 @@
     }];
     
     UIView *middleLine = [[UIView alloc] initWithFrame:CGRectZero];
-    middleLine.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    middleLine.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     [self.funBackView addSubview:middleLine];
     [middleLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.funBackView);
@@ -138,7 +138,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     }
     return _funBackView;
 }
@@ -149,9 +149,9 @@
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [_bottomBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
-        [_bottomBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.bottomBlock) {
                 weakSelf.bottomBlock();
@@ -193,7 +193,7 @@
         _leftTableView.alwaysBounceVertical = YES;
         _leftTableView.delegate = self;
         _leftTableView.dataSource = self;
-        _leftTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _leftTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
 //        _iTableView.tableHeaderView = self.menuView;
     }
     return _leftTableView;
@@ -218,7 +218,7 @@
         _rightTableView.alwaysBounceVertical = YES;
         _rightTableView.delegate = self;
         _rightTableView.dataSource = self;
-        _rightTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _rightTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
 //        _iTableView.tableHeaderView = self.menuView;
     }
     return _rightTableView;
@@ -319,14 +319,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
-    sectionView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    sectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     sectionView.layer.masksToBounds = YES;
     return sectionView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
-       sectionView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+       sectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
        sectionView.layer.masksToBounds = YES;
        return sectionView;
 }

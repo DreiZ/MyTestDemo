@@ -27,7 +27,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
    
     
     [self.contentView addSubview:self.cameraImageView];
@@ -66,7 +66,7 @@
         _cameraImageView.image = [UIImage imageNamed:@"uploadCamera"];
         _cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
         _cameraImageView.clipsToBounds = YES;
-        _cameraImageView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _cameraImageView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     
     return _cameraImageView;

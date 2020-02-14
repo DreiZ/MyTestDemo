@@ -29,7 +29,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.contView];
@@ -161,10 +161,10 @@
     _priceLabel.text = model.coachPrice;
     _coachImageView.image = [UIImage imageNamed:model.coachImage];
     if (model.isCoachSelected) {
-        _nameLabel.textColor = KMainColor;
-        _priceLabel.textColor = KMainColor;
+        _nameLabel.textColor = [UIColor  colorMain];
+        _priceLabel.textColor = [UIColor  colorMain];
         _selectTopImageView.image = [UIImage imageNamed:@"studentSelect"];
-        _contView.layer.borderColor = KMainColor.CGColor;
+        _contView.layer.borderColor = [UIColor  colorMain].CGColor;
         _selectImageView.hidden = NO;
     }else{
         _nameLabel.textColor = KFont6Color;

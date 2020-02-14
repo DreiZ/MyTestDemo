@@ -30,7 +30,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     UIView *contView = [[UIView alloc] init];
     contView.layer.masksToBounds = YES;
@@ -45,7 +45,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -53,7 +53,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    bottomView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(88));
@@ -61,7 +61,7 @@
     }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -84,7 +84,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -138,7 +138,7 @@
     
     
     UIView *evabottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    evabottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    evabottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [bottomView addSubview:evabottomLineView];
     [evabottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(bottomView);
@@ -213,10 +213,10 @@
         _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _evaBtn.layer.masksToBounds = YES;
         _evaBtn.layer.cornerRadius = 3;
-        _evaBtn.layer.borderColor = KMainColor.CGColor;
+        _evaBtn.layer.borderColor = [UIColor  colorMain].CGColor;
         _evaBtn.layer.borderWidth = 1;
         [_evaBtn setTitle:@"去评价" forState:UIControlStateNormal];
-        [_evaBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
         
         __weak typeof(self) weakSelf = self;

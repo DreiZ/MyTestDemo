@@ -24,11 +24,11 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     
     UIView *skillBackView = [[UIView alloc] initWithFrame:CGRectZero];
-    skillBackView.backgroundColor = KMainColor;
+    skillBackView.backgroundColor = [UIColor  colorMain];
     skillBackView.layer.cornerRadius = CGFloatIn750(20);
     
     
@@ -86,7 +86,7 @@
     if (!_contBackView) {
         _contBackView = [[UIView alloc] init];
         _contBackView.layer.masksToBounds = YES;
-        _contBackView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _contBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _contBackView.layer.cornerRadius = CGFloatIn750(10);
     }
     return _contBackView;
@@ -118,7 +118,7 @@
     if (!_skillLabel) {
         _skillLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _skillLabel.layer.masksToBounds = YES;
-        _skillLabel.textColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _skillLabel.textColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _skillLabel.numberOfLines = 1;
         _skillLabel.textAlignment = NSTextAlignmentCenter;
         [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];

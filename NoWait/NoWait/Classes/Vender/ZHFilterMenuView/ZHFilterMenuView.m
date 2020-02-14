@@ -18,16 +18,16 @@
                                      confirmAction:(SEL _Nonnull )confirmAction
 {
     if (self = [super init]) {
-        self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KLineColor);
+        self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
         
         self.resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.resetButton.frame = CGRectMake(20, 20, CGRectGetWidth(self.frame) / 2 - 40, CGRectGetHeight(self.frame) - 40);
         [self.resetButton setTitle:@"重置" forState:UIControlStateNormal];
-        [self.resetButton setTitleColor:KAdaptAndDarkColor(KMainColor, KFont9Color) forState:UIControlStateNormal];
+        [self.resetButton setTitleColor:KAdaptAndDarkColor([UIColor  colorMain], KFont9Color) forState:UIControlStateNormal];
         [self.resetButton setBackgroundColor:[UIColor whiteColor]];
         self.resetButton.layer.masksToBounds = YES;
         self.resetButton.layer.cornerRadius = 2;
-        self.resetButton.layer.borderColor = KMainColor.CGColor;
+        self.resetButton.layer.borderColor = [UIColor  colorMain].CGColor;
         self.resetButton.layer.borderWidth = 1;
         self.resetButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self.resetButton addTarget:target action:resetAction forControlEvents:UIControlEventTouchUpInside];
@@ -38,7 +38,7 @@
         [self.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
         [self.confirmButton addTarget:target action:confirmAction forControlEvents:UIControlEventTouchUpInside];
         [self.confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.confirmButton setBackgroundColor:KAdaptAndDarkColor(KMainColor, KMainColor)];
+        [self.confirmButton setBackgroundColor:KAdaptAndDarkColor([UIColor  colorMain], [UIColor  colorMain])];
         self.confirmButton.layer.masksToBounds = YES;
         self.confirmButton.layer.cornerRadius = 2;
         self.confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -74,7 +74,7 @@
 - (instancetype)initWithFrame:(CGRect)frame maxHeight:(CGFloat)maxHeight
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         
         self.itemManager = [[ZHFilterItemManger alloc] init];
         self.itemManager.width = self.frame.size.width;
@@ -82,7 +82,7 @@
         
         self.selectedTabIndex = -1;
         self.titleColor = KAdaptAndDarkColor(KTitleColor, KFont9Color);
-        self.titleSelectedColor = KMainColor;
+        self.titleSelectedColor = [UIColor  colorMain];
         self.lineColor = KLineColor;
         self.titleFontSize = 15;
         self.showLine = YES;
@@ -219,7 +219,7 @@
         [button setTitle:titleString forState:UIControlStateNormal];
         button.tintColor = [UIColor clearColor];
         button.adjustsImageWhenHighlighted = NO;
-        button.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        button.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         [self addSubview:button];
         CGFloat buttonWidth = buttonInterval;
         CGFloat titlePositionX = i * buttonInterval + (i + 1) * 10;
@@ -703,17 +703,17 @@
         if (tableView == self.leftTableView && downType == ZHFilterMenuDownTypeTwoLists) {
             ZHFilterModel *filterModel = [self getSelectedTabIndexFilterModelArr][indexPath.row];
             cell.titleLabel.text = filterModel.title;
-            cell.titleLabel.textColor = filterModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, KWhiteColor);
+            cell.titleLabel.textColor = filterModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
         } else if (tableView == self.rightTableView || downType == ZHFilterMenuDownTypeOnlyList) {
             ZHFilterModel *filterModel = [self getSelectedFilterModel];
             ZHFilterItemModel *itemModel = filterModel.itemArr[indexPath.row];
             cell.titleLabel.text = itemModel.name;
-            cell.titleLabel.textColor = itemModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, KWhiteColor);
+            cell.titleLabel.textColor = itemModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
         }
         if (tableView == self.rightTableView) {
             cell.backgroundColor = KAdaptAndDarkColor(KItemBGColor, KLineColor);
         }else if (tableView == self.leftTableView){
-            cell.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KLineColor);
+            cell.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
         }
         return cell;
     } else {
@@ -730,7 +730,7 @@
             cell.itemManager = self.itemManager;
             cell.modelArr = [self getSelectedTabIndexFilterModelArr];
             cell.filterModel = filterModel;
-            cell.backgroundColor = KAdaptAndDarkColor(KItemBGColor, K2eBackColor);
+            cell.backgroundColor = KAdaptAndDarkColor(KItemBGColor, [UIColor colorBlackBG]);
             return cell;
         }
         return nil;
@@ -815,7 +815,7 @@
         _leftTableView.showsVerticalScrollIndicator = NO;
         [_leftTableView registerClass:[ZHFilterTitleTableViewCell class] forCellReuseIdentifier:NSStringFromClass([ZHFilterTitleTableViewCell class])];
         [_leftTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZHFilterItemTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ZHFilterItemTableViewCell class])];
-        _leftTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, KLineColor);
+        _leftTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
     }
     return _leftTableView;
 }

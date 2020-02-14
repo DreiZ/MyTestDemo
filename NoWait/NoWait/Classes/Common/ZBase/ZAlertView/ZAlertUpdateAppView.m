@@ -254,9 +254,9 @@ static ZAlertUpdateAppView *sharedManager;
     if (!_updateBtn) {
         _updateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_updateBtn setTitle:@"立即更新" forState:UIControlStateNormal];
-        [_updateBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_updateBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_updateBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
-        [_updateBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+        [_updateBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         _updateBtn.layer.masksToBounds = YES;
         _updateBtn.layer.cornerRadius = CGFloatIn750(40);
         [_updateBtn bk_addEventHandler:^(id sender) {

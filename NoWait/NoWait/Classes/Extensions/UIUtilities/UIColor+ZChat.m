@@ -9,6 +9,24 @@
 #import "UIColor+ZChat.h"
 
 @implementation UIColor (ZChat)
+//主题色
++ (UIColor *)colorMain {
+    return RGBAColor(77, 213, 153, 1.0);
+}
+
++ (UIColor *)colorMainSub {
+    return RGBAColor(160, 160, 160, 1.0);
+}
+
+//导航栏颜色
++ (UIColor *)colorNavBG {
+    return RGBAColor(255, 255, 255, 1.0);
+}
+
++ (UIColor *)colorNavBGFont {
+    return RGBAColor(0, 0, 0, 1.0);
+}
+
 
 #pragma mark - # 字体
 + (UIColor *)colorTextBlack {
@@ -25,7 +43,7 @@
 
 #pragma mark - 灰色
 + (UIColor *)colorGrayBG {
-    return RGBAColor(239.0, 239.0, 244.0, 1.0);
+    return RGBAColor(246.0, 246.0, 246.0, 1.0);
 }
 
 + (UIColor *)colorGrayCharcoalBG {
@@ -45,6 +63,10 @@
 }
 
 
+#pragma mark - 白色
++ (UIColor *)colorWhite {
+    return RGBAColor(255, 255, 255, 1.0f);
+}
 
 
 #pragma mark - 绿色
@@ -67,7 +89,7 @@
 }
 
 + (UIColor *)colorBlackBG {
-    return RGBAColor(46.0, 49.0, 50.0, 1.0);
+    return RGBAColor(46.0, 46.0, 46.0, 1.0);
 }
 
 + (UIColor *)colorBlackAlphaScannerBG {

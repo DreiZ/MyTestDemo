@@ -31,7 +31,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.messageImageView];
@@ -70,7 +70,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -131,7 +131,7 @@
 - (UILabel *)numLabel {
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _numLabel.textColor = KWhiteColor;
+        _numLabel.textColor = [UIColor colorWhite];
         _numLabel.text = @"2";
         _numLabel.backgroundColor = KRedColor;
         _numLabel.numberOfLines = 1;

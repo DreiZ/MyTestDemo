@@ -77,7 +77,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn bk_whenTapped:^{
@@ -106,7 +106,7 @@
     }];
     
     UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    hintLabel.textColor = KMainColor;
+    hintLabel.textColor = [UIColor  colorMain];
     hintLabel.text = @"艺动";
     hintLabel.numberOfLines = 0;
     hintLabel.textAlignment = NSTextAlignmentCenter;
@@ -136,7 +136,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    lineView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    lineView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [self.view addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -146,7 +146,7 @@
     }];
     
     UIView *hintLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    hintLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, K2eBackColor);
+    hintLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
     [lineView addSubview:hintLineView];
     [hintLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -199,7 +199,7 @@
         _loginBtn.layer.masksToBounds = YES;
         _loginBtn.layer.cornerRadius = CGFloatIn750(40);
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [_loginBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_loginBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
     }
     return _loginBtn;
@@ -220,7 +220,7 @@
         _resignBtn.layer.masksToBounds = YES;
         _resignBtn.layer.cornerRadius = CGFloatIn750(40);
         [_resignBtn setTitle:@"注册" forState:UIControlStateNormal];
-        [_resignBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_resignBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
     }
     return _resignBtn;
@@ -230,7 +230,7 @@
     if (!_selectLineView) {
         _selectLineView = [[UIView alloc] init];
         _selectLineView.layer.masksToBounds = YES;
-        _selectLineView.backgroundColor = KMainColor;
+        _selectLineView.backgroundColor = [UIColor  colorMain];
     }
     return _selectLineView;
 }
@@ -284,14 +284,14 @@
 - (void )setIndex:(NSInteger)index {
     _index = index;
     if (self.index == 0) {
-        [self.loginBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [self.loginBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [self.resignBtn setTitleColor:KFont9Color forState:UIControlStateNormal];
         
         [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
         [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
     }else if(self.index == 1){
         [self.loginBtn setTitleColor:KFont9Color forState:UIControlStateNormal];
-        [self.resignBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [self.resignBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
         [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
     }

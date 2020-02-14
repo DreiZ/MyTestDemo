@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor,K1aBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG],K1aBackColor);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -52,7 +52,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor(KBackColor,K1aBackColor);
+        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG],K1aBackColor);
     }
     return _funBackView;
 }
@@ -64,7 +64,7 @@
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentMainPhotoWallCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = KAdaptAndDarkColor(KBackColor,K1aBackColor);
+        _iCollectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG],K1aBackColor);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = NO;

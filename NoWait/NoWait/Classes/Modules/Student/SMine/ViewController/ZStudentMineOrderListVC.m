@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     [self setNavgation];
-    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     
     [self.view addSubview:self.subscribeBtn];
     [self.subscribeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,7 +57,7 @@
 - (void)initData {
     
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = KMainColor;
+    self.titleColorSelected = [UIColor  colorMain];
     self.titleColorNormal = KFont6Color;
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(32);

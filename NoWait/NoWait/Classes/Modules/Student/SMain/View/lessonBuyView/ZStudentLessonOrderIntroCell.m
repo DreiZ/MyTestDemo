@@ -30,12 +30,12 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
     
     UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = KMainColor;
+    topLineView.backgroundColor = [UIColor  colorMain];
     [self.contentView addSubview:topLineView];
     [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(82));
@@ -43,7 +43,7 @@
     }];
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = CGFloatIn750(18);
     [self.contentView addSubview:contView];
@@ -87,7 +87,7 @@
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
         _iTableView.scrollEnabled = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     }
     return _iTableView;
 }

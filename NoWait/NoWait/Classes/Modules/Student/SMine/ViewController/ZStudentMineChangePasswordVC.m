@@ -67,16 +67,16 @@
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = KMainColor;
+    sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,7 +123,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

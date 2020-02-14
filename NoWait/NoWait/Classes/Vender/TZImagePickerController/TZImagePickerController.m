@@ -283,7 +283,7 @@
     self.takePictureImageName = @"takePicture80";
     self.photoSelImageName = @"zphoto_sel_photoPickerVc";
     self.photoDefImageName = @"photo_def_photoPickerVc";
-    self.photoNumberIconImage = [self createImageWithColor:KMainColor size:CGSizeMake(24, 24) radius:12]; // @"photo_number_icon";
+    self.photoNumberIconImage = [self createImageWithColor:[UIColor  colorMain] size:CGSizeMake(24, 24) radius:12]; // @"photo_number_icon";
     self.photoPreviewOriginDefImageName = @"preview_original_def";
     self.photoOriginDefImageName = @"photo_original_def";
     self.photoOriginSelImageName = @"zphoto_original_sel";

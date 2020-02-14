@@ -27,7 +27,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -55,9 +55,9 @@
     if (!_cancelBtn) {
         _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _cancelBtn.layer.masksToBounds = YES;
-        _cancelBtn.backgroundColor = KMainColor;
+        _cancelBtn.backgroundColor = [UIColor  colorMain];
         [_cancelBtn setTitle:@"撤销预约" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
     }
     return _cancelBtn;
@@ -68,10 +68,10 @@
     if (!_payBtn) {
         _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
-        _payBtn.layer.borderColor = KMainColor.CGColor;
+        _payBtn.layer.borderColor = [UIColor  colorMain].CGColor;
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:KMainColor forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
     }
     return _payBtn;

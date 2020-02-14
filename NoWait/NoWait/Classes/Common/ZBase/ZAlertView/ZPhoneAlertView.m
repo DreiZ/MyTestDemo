@@ -103,7 +103,7 @@ static ZPhoneAlertView *sharedManager;
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [leftBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
     [leftBtn setBackgroundColor:KLineColor forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
@@ -122,9 +122,9 @@ static ZPhoneAlertView *sharedManager;
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:@"呼叫" forState:UIControlStateNormal];
-    [rightBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
-    [rightBtn setBackgroundColor:KMainColor forState:UIControlStateNormal];
+    [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(1);

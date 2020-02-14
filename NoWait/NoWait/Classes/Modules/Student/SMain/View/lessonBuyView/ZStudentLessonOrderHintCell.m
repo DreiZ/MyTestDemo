@@ -26,7 +26,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KBackColor;
+    self.backgroundColor = [UIColor colorGrayBG];
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.skillLabel];
@@ -68,7 +68,7 @@
        //    __weak typeof(self) weakself = self;
        
        
-       [text setTextHighlightRange:NSMakeRange(model.title.length, model.subTitle.length) color:KRedColor backgroundColor:KBackColor tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+       [text setTextHighlightRange:NSMakeRange(model.title.length, model.subTitle.length) color:KRedColor backgroundColor:[UIColor colorGrayBG] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
    //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
    //        avc.navTitle = @"隐私协议";
    //        avc.type = @"privacy_policy";

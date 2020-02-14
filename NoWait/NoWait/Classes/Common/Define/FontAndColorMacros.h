@@ -7,6 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ZShortcutMethod.h"
 #import "DarkModel.h"
 #ifndef FontAndColorMacros_h
 #define FontAndColorMacros_h
@@ -18,13 +19,6 @@
 #define KNormalSpace 12.0f
 
 #pragma mark -  颜色区
-//主题色
-#define KMainColor [UIColor colorWithHexString:@"0AD89B"]
-#define KMainSubColor [UIColor colorWithHexString:@"ffd0dc"]
-//导航栏颜色
-#define CNavBgColor  [UIColor colorWithHexString:@"ffffff"]
-//#define CNavBgColor  [Ulor colorWithHexString:@"ffffff"]
-#define CNavBgFontColor  [UIColor colorWithHexString:@"000000"]
 
 //默认页面背景色
 #define KBackColor [UIColor colorWithHexString:@"f3f3f3"]
@@ -43,18 +37,12 @@
 
 //颜色
 #define KClearColor [UIColor clearColor]
-#define KWhiteColor [UIColor whiteColor]
 #define KBlackColor [UIColor blackColor]
 #define KGrayColor [UIColor grayColor]
 #define KGray2Color [UIColor lightGrayColor]
 #define KBlueColor [UIColor blueColor]
 #define KRedColor [UIColor colorWithHexString:@"ff4848"]
 #define KTabBarColor [UIColor redColor]
-
-#pragma mark -  字体区
-
-
-#define FFont1 [UIFont systemFontOfSize:12.0f]
 #define KFont2Color [UIColor colorWithHexString:@"222222"]  //30 30 30
 #define KFont3Color [UIColor colorWithHexString:@"333333"]  //30 30 30
 #define KFont6Color [UIColor colorWithHexString:@"666666"]  //102 102 102
@@ -69,7 +57,13 @@
 #define KBlueBackColor [UIColor colorWithHexString:@"2337fc"] //背景蓝色
 
 #define K1aBackColor [UIColor colorWithHexString:@"1a1a1a"] //背景色 darkModel
-#define K2eBackColor [UIColor colorWithHexString:@"2e2e2e"] //背景浅色 darkModel
+#pragma mark -  字体区
+#define FFont1 [UIFont systemFontOfSize:12.0f]
+#define FFontTitle [UIFont systemFontOfSize:CGFloatIn750(32)]
+#define FFontContent [UIFont systemFontOfSize:CGFloatIn750(28)]
+#define FFontSubContent [UIFont systemFontOfSize:CGFloatIn750(24)]
+#define FFontSupplement [UIFont systemFontOfSize:CGFloatIn750(20)]
+
 //颜色dark mode&正常
 //#define KAdaptAndDarkColor(adaptColor,darkColor)
 #define KAdaptAndDarkColor(adapt,dark) [DarkModel adaptColor:adapt darkColor:dark]

@@ -40,7 +40,7 @@ static ZVideoPlayerManager *videoPlayerManager;
         
         __weak typeof(self) weakSelf = self;
         UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];
-        close.backgroundColor = KBackColor;
+        close.backgroundColor = [UIColor colorGrayBG];
         close.layer.masksToBounds = YES;
         close.layer.cornerRadius = CGFloatIn750(35);
         close.imageView.contentMode = UIViewContentModeScaleAspectFit;

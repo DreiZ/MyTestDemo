@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = KAdaptAndDarkColor(KWhiteColor, K1aBackColor);
+    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
     [self setNavgation];
     
     [self.view addSubview:self.subscribeBtn];
@@ -73,7 +73,7 @@
 - (void)initData {
     
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = KMainColor;
+    self.titleColorSelected = [UIColor  colorMain];
     self.titleColorNormal = KFont6Color;
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(32);
@@ -116,7 +116,7 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:KAdaptAndDarkColor(KBlackColor, KWhiteColor) forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:KAdaptAndDarkColor(KBlackColor, [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
         [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
         [_navLeftBtn bk_whenTapped:^{
@@ -132,10 +132,10 @@
         _subscribeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _subscribeBtn.layer.masksToBounds = YES;
         _subscribeBtn.layer.cornerRadius = CGFloatIn750(44);
-        _subscribeBtn.backgroundColor = KMainColor;
+        _subscribeBtn.backgroundColor = [UIColor  colorMain];
         [_subscribeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
-        [_subscribeBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_subscribeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_subscribeBtn bk_whenTapped:^{
             [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
         }];
@@ -150,10 +150,10 @@
         _buyBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _buyBtn.layer.masksToBounds = YES;
         _buyBtn.layer.cornerRadius = CGFloatIn750(44);
-        _buyBtn.backgroundColor = KMainColor;
+        _buyBtn.backgroundColor = [UIColor  colorMain];
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
-        [_buyBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+        [_buyBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_buyBtn bk_whenTapped:^{
             [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyInitial];
         }];

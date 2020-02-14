@@ -67,9 +67,9 @@
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = KMainColor;
+    sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:KWhiteColor forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
@@ -106,7 +106,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

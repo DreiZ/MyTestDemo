@@ -24,7 +24,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor(KBackColor, K2eBackColor);
+    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -46,7 +46,7 @@
         _adverImageView.clipsToBounds = YES;
         _adverImageView.layer.cornerRadius = 4;
         _adverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _adverImageView.backgroundColor = KMainColor;
+        _adverImageView.backgroundColor = [UIColor  colorMain];
     }
     return _adverImageView;
 }
