@@ -15,7 +15,7 @@
 }
 
 + (UIColor *)colorMainSub {
-    return RGBAColor(160, 160, 160, 1.0);
+    return RGBAColor(236, 250, 244, 1.0);
 }
 
 //导航栏颜色
