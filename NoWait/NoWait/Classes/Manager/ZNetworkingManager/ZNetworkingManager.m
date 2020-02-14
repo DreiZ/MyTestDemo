@@ -53,31 +53,46 @@
 
 #pragma mark post请求
 + (id)postWithUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler {
-    
     return [ZNetworking postWithUrl:path params:params completionHandler:^(id responseObject, NSError *error) {
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
             
-            if ([backModel.code integerValue] == 0) {
-                completionHandler(backModel, nil);
-                
-            }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
-                
-                [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
-                [[ZLaunchManager sharedInstance] launchInWindow:nil];
-                NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
-                completionHandler(nil, error);
-                [TLUIUtility showErrorHint:backModel.message];
-                
+            if (backModel && backModel.code) {
+                if ([backModel.code integerValue] == 0) {
+                    completionHandler(backModel, nil);
+                    
+                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
+                    
+                    [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+                    [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
+                    completionHandler(backModel, error);
+                    [TLUIUtility showErrorHint:backModel.message];
+                    
+                }else{
+                    
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+    
+                    if (!backModel.message) {
+                        backModel.message = @"获取服务器数据错误";
+                    }
+                    
+                    completionHandler(backModel, error);
+                    
+                }
             }else{
-                
-                NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
-                completionHandler(nil, error);
-                
+                backModel = [[ZBaseNetworkBackModel alloc] init];
+                backModel.code = @"888888";
+                backModel.message = @"获取服务器数据错误";
+                completionHandler(backModel, error);
             }
+            
         }else{
             NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
-            completionHandler(nil, error);
+            ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
+            backModel.code = @"888888";
+            backModel.message = @"连接服务器失败";
+            completionHandler(backModel, error);
         }
     }];
 }
@@ -111,17 +126,17 @@
 + (NSDictionary *)getPostParamsWithoutUserIDWithUrl:(NSString *)path params:(NSDictionary *)params {
     
     NSMutableDictionary *newParams = [ZNetworkingManager setWithoutIDCommonDict:params];
-    newParams = [ZNetworkingManager signTheParameters:path postDic:newParams];
     newParams = [ZNetworkingManager setIdentifierWithCommonDict:newParams serverURL:path];
-    
+    newParams = [ZNetworkingManager signTheParameters:path postDic:newParams];
+
     return newParams;
 }
 
 
 + (NSDictionary *)getPostParamsWithUrl:(NSString *)path params:(NSDictionary *)params {
     NSMutableDictionary *newParams = [ZNetworkingManager setCommonDict:params];
-    newParams = [ZNetworkingManager signTheParameters:path postDic:newParams];
     newParams = [ZNetworkingManager setIdentifierWithCommonDict:newParams serverURL:path];
+    newParams = [ZNetworkingManager signTheParameters:path postDic:newParams];
     
     return newParams;
 }
@@ -243,8 +258,9 @@
     NSMutableArray *parameters = [[NSMutableArray alloc] init];
     NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] init];
     [parameterDic addEntriesFromDictionary:postDic];
+
     for (NSString *key  in [parameterDic allKeys]) {
-        [parameters addObject:[NSString stringWithFormat:@"%@=%@",key,parameterDic[key]]];
+        [parameters addObject:[NSString stringWithFormat:@"%@%@",key,parameterDic[key]]];
     }
     
     // 根据key排序值
@@ -255,17 +271,17 @@
     
     NSMutableString *resultStr = [[NSMutableString alloc] init];
     for (NSString *key in sortedArray) {
-        NSRange range = [key rangeOfString:@"="];
-        NSString *newKey = [key substringToIndex:range.location];
-        NSString *valueStr;
-        
-        if([parameterDic[newKey] isKindOfClass:[NSArray class]] || [parameterDic[newKey] isKindOfClass:[NSDictionary class]]){
-            valueStr = [ZNetworkingManager toJSONString:parameterDic[newKey]];
-            
-            [parameterDic setObject:valueStr forKey:newKey];;
-        }else{
-            valueStr = parameterDic[newKey];
-        }
+//        NSRange range = [key rangeOfString:@"="];
+//        NSString *newKey = [key substringToIndex:range.location];
+        NSString *valueStr = key;
+//
+//        if([parameterDic[newKey] isKindOfClass:[NSArray class]] || [parameterDic[newKey] isKindOfClass:[NSDictionary class]]){
+//            valueStr = [ZNetworkingManager toJSONString:parameterDic[newKey]];
+//
+//            [parameterDic setObject:valueStr forKey:newKey];;
+//        }else{
+//            valueStr = parameterDic[newKey];
+//        }
         // 拼接值 字符串
         if (valueStr) {
             if ([valueStr isKindOfClass:[NSNumber class]]) {

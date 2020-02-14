@@ -40,17 +40,17 @@
 
 #pragma mark - /**开发服务器*/
 //验证码服务器
-#define URL_code                        @"http://yapi.xiangcenter.com/mock/20"
+#define URL_code                        @"http://api.xiangcenter.com"
 //用户服务器
-#define URL_user                        @"http://yapi.xiangcenter.com/mock/12"
+#define URL_user                        @"http://api.xiangcenter.com"
 //订单服务
-#define URL_order                       @"http://yapi.xiangcenter.com/mock/36"
+#define URL_order                       @"http://api.xiangcenter.com"
 //文件服务器
-#define URL_file                        @"http://yapi.xiangcenter.com/mock/28"
+#define URL_file                        @"http://api.xiangcenter.com"
 //教练服务器
-#define URL_coach                       @"http://yapi.xiangcenter.com/mock/52"
+#define URL_coach                       @"http://api.xiangcenter.com"
 //机构服务器
-#define URL_organization                @"http://yapi.xiangcenter.com/mock/44"
+#define URL_organization                @"http://api.xiangcenter.com"
 
 //IM服务器
 #define SocketServiceUrl                @"172.17.100.32"

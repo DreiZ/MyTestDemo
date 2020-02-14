@@ -34,7 +34,7 @@
                                                                  RACObserve(self, self.registerModel.code)]]
                map:^id(id value) {
                RACTupleUnpack(NSString *tel, NSString *pwd,NSString *messageCode, NSString *code) = value;
-                   return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && messageCode && messageCode.length == 6 && code && code.length == 4);
+                   return @(tel && tel.length == 11 && pwd && pwd.length >= 8 && messageCode && messageCode.length == 6 && code && code.length == 4);
                }];
     }
     return self;
@@ -79,7 +79,7 @@
             DLog(@"return login code %@", data);
         ZBaseNetworkBackModel *dataModel = data;
         if ([dataModel.code intValue] == 0) {
-            block(YES,dataModel.code);
+            block(YES,dataModel.message);
         }else {
             if ([ZPublicTool getNetworkStatus]) {
                 block(NO, dataModel.message);

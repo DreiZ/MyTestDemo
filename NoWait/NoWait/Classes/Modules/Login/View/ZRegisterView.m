@@ -458,9 +458,16 @@ static NSTimer *retrieveTimer = nil;
                 return;
             }
             
-            if (self.loginViewModel.registerModel.pwd && self.loginViewModel.registerModel.pwd.length > 5) {
-                [params setObject:self.loginViewModel.registerModel.pwd forKey:@"password"];
+            if (self.loginViewModel.registerModel.pwd && self.loginViewModel.registerModel.pwd.length > 8) {
+                if ([self checkPassword:self.loginViewModel.registerModel.pwd]) {
+                    [params setObject:self.loginViewModel.registerModel.pwd forKey:@"password"];
+                }else{
+                    [TLUIUtility showErrorHint:@"密码必须大于8位，且包含大小写字母及数字"];
+                    return;
+                }
+                
             }else{
+                [TLUIUtility showErrorHint:@"密码必须大于8位，且包含大小写字母及数字"];
                 return;
             }
             
@@ -511,9 +518,16 @@ static NSTimer *retrieveTimer = nil;
             }
             
             NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.registerModel.ckey,@"captcha":weakSelf.loginViewModel.registerModel.code,@"phone":weakSelf.loginViewModel.registerModel.tel}.mutableCopy;
-            [self.loginViewModel retrieveWithParams:params block:^(BOOL isSuccess, id message) {
+            [self.loginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
                if (isSuccess) {
                    [TLUIUtility showSuccessHint:message];
+                   [weakSelf.messageCodeTF becomeFirstResponder];
+                   DLog(@"login message %@",message);
+                   if (myRetrieveTime == CountTimer) {
+                       [weakSelf.getCodeBtn setTitle:@"60秒" forState:UIControlStateDisabled];
+                       [weakSelf startTimer];
+                       weakSelf.getCodeBtn.enabled = NO;
+                   }
                }else{
                    [TLUIUtility showErrorHint:message];
                }
@@ -625,5 +639,13 @@ static NSTimer *retrieveTimer = nil;
             }
         }
     }];
+}
+
+- (BOOL)checkPassword:(NSString *)password {
+    NSString *newPattern = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",newPattern];
+    
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
 }
 @end
