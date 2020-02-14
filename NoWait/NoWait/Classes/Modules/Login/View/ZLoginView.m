@@ -352,7 +352,7 @@
         [hintView addSubview:hintImageView];
         
         _codeTF = [[UITextField alloc] init];
-        _codeTF.tag = 105;
+        _codeTF.tag = 108;
         _codeTF.leftView = hintView;
         _codeTF.leftViewMode = UITextFieldViewModeAlways;
         [_codeTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
@@ -496,6 +496,7 @@
             [weakSelf.pooCodeView setTitle:@"" forState:UIControlStateNormal];
             ZImageCodeBackModel *model = message;
             NSString *str = model.img;
+            weakSelf.loginViewModel.loginModel.ckey = model.ckey;
             str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
             str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
