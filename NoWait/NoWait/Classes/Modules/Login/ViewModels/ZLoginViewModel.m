@@ -60,7 +60,7 @@
     [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{} completionHandler:^(id data, NSError *error) {
         DLog(@"return login code %@", data);
         ZBaseNetworkBackModel *dataModel = data;
-        if ([dataModel.code intValue] == 0 && dataModel.data && [dataModel.data isKindOfClass:[NSDictionary class]]) {
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZImageCodeBackModel *imageCodeModel = [ZImageCodeBackModel mj_objectWithKeyValues:dataModel.data];
             block(YES,imageCodeModel);
         }else {

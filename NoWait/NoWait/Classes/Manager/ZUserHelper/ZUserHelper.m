@@ -137,7 +137,7 @@
     [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_refresh params:@{} completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);
         ZBaseNetworkBackModel *dataModel = data;
-        if ([dataModel.code intValue] == 0 && dataModel.data && [dataModel.data isKindOfClass:[NSDictionary class]]) {
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             
             ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
             
@@ -162,7 +162,7 @@
     [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_login params:params completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);
         ZBaseNetworkBackModel *dataModel = data;
-        if ([dataModel.code intValue] == 0 && dataModel.data && [dataModel.data isKindOfClass:[NSDictionary class]]) {
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             
             ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
             
