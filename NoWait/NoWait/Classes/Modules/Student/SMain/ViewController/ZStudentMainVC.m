@@ -135,7 +135,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
     
     [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +172,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         
@@ -192,7 +192,7 @@
     if (!_sectionView) {
         __weak typeof(self) weakSelf = self;
         _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
-        _sectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
+        _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         _sectionView.titleSelect = ^(NSInteger index) {
             if (weakSelf.iTableView.contentOffset.y < [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr]) {
                 dispatch_async(dispatch_get_main_queue(), ^{

@@ -26,7 +26,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -48,7 +48,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
     }
     return _funBackView;
 }
@@ -60,7 +60,7 @@
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentOrganizationPersonnelListCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = NO;

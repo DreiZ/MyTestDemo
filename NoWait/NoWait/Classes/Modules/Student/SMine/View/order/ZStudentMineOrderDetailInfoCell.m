@@ -36,7 +36,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -50,7 +50,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -58,7 +58,7 @@
     }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(88));
@@ -66,7 +66,7 @@
     }];
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    middleView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -90,7 +90,7 @@
     }];
     
     UIView *topBottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topBottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    topBottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [topView addSubview:topBottomLineView];
     [topBottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -98,7 +98,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [bottomView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(bottomView);
@@ -144,7 +144,7 @@
         } else {
             
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -156,7 +156,7 @@
 - (UILabel *)orderSNLabel {
     if (!_orderSNLabel) {
         _orderSNLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderSNLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _orderSNLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
@@ -169,7 +169,7 @@
 - (UILabel *)orderStateLabel {
     if (!_orderStateLabel) {
         _orderStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderStateLabel.textColor = KRedColor;
+        _orderStateLabel.textColor = [UIColor colorRedDefault];
         _orderStateLabel.text = @"待支付";
         _orderStateLabel.numberOfLines = 1;
         _orderStateLabel.textAlignment = NSTextAlignmentLeft;
@@ -182,7 +182,7 @@
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceLabel.textColor = KRedColor;
+        _priceLabel.textColor = [UIColor colorRedDefault];
         _priceLabel.text = @"￥4534";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentRight;
@@ -258,14 +258,14 @@
         [list addObject:model];
     }
 
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
     [_cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
     [_cellConfigArr addObject:lessonDesCellConfig];
 //
 
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
     [_cellConfigArr addObject:bottomCellConfig];
     
     [self.iTableView reloadData];

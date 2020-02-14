@@ -105,7 +105,7 @@ static ZPhoneAlertView *sharedManager;
     [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
-    [leftBtn setBackgroundColor:KLineColor forState:UIControlStateNormal];
+    [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(0);
@@ -166,7 +166,7 @@ static ZPhoneAlertView *sharedManager;
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KBlackColor;
+        _nameLabel.textColor = [UIColor blackColor];
         _nameLabel.text = @"0";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
@@ -179,7 +179,7 @@ static ZPhoneAlertView *sharedManager;
 - (UILabel *)detailLabel {
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _detailLabel.textColor = KFont9Color;
+        _detailLabel.textColor = [UIColor colorTextGray1];
         _detailLabel.text = @"0";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
@@ -191,7 +191,7 @@ static ZPhoneAlertView *sharedManager;
 - (UILabel *)telLabel {
     if (!_telLabel) {
         _telLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _telLabel.textColor = KFont9Color;
+        _telLabel.textColor = [UIColor colorTextGray1];
         _telLabel.text = @"";
         _telLabel.numberOfLines = 1;
         _telLabel.textAlignment = NSTextAlignmentLeft;

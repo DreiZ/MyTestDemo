@@ -39,7 +39,7 @@
     _numLabelArr = [[NSMutableArray alloc] init];
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, TopViewHeight)];
-    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [self addSubview:topView];
     
     NSString *tempStr = @"";
@@ -58,7 +58,7 @@
         UIButton *tempBtn = [[UIButton alloc] initWithFrame:rc];
         [tempBtn setTitle:atomTempStr forState:UIControlStateNormal];
         [tempBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
-        [tempBtn setTitleColor:KAdaptAndDarkColor(KFont6Color, KFont9Color) forState:UIControlStateNormal];
+        [tempBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray1]) forState:UIControlStateNormal];
         [tempBtn setTag:i];
         [tempBtn addTarget:self action:@selector(selectedBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -100,7 +100,7 @@
     }
     _selectedLastIndex = _selectedIndex;
 //    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, TopViewHeight - 0.5, KScreenWidth, 0.5f)];
-//    lineView.backgroundColor = KLineColor;
+//    lineView.backgroundColor = [UIColor colorGrayLine];
 //    [topView addSubview:lineView];
     
     [_lastSelectedBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
@@ -113,7 +113,7 @@
     
     
 //    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-//    bottomLineView.backgroundColor = KLineColor;
+//    bottomLineView.backgroundColor = [UIColor colorGrayLine];
 //    [self addSubview:bottomLineView];
 //    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.right.bottom.equalTo(self);
@@ -124,7 +124,7 @@
 
 - (void)selectedBtnOnClick:(UIButton*)sender {
     if (sender  != _lastSelectedBtn) {
-        [_lastSelectedBtn setTitleColor:KFont6Color forState:UIControlStateNormal];
+        [_lastSelectedBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
         _lastSelectedBtn = sender;
         [_lastSelectedBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         
@@ -184,7 +184,7 @@
         _selectedIndex = _selectedBtnArr.count-1;
     }
     UIButton *tempBtn = _selectedBtnArr[_selectedIndex];
-    [_lastSelectedBtn setTitleColor:KFont6Color forState:UIControlStateNormal];
+    [_lastSelectedBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
     [tempBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
     if (_lastSelectedBtn==tempBtn) {
     }else{

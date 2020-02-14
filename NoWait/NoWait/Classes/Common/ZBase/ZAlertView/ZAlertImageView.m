@@ -104,7 +104,7 @@ static ZAlertImageView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = KFont2Color;
+    titleLabel.textColor = [UIColor colorTextBlack];
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -121,7 +121,7 @@ static ZAlertImageView *sharedManager;
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(28)]];
-    [leftBtn setBackgroundColor:KLineColor forState:UIControlStateNormal];
+    [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(0);
@@ -188,7 +188,7 @@ static ZAlertImageView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = KFont2Color;
+    titleLabel.textColor = [UIColor colorTextBlack];
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;

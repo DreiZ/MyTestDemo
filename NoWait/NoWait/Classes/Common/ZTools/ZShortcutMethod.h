@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DarkModel.h"
 
 /**
  * 为ViewController添加navController
@@ -17,6 +18,10 @@ UINavigationController *addNavigationController(UIViewController *viewController
  * 初始化tabBarItem
  */
 void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, NSString *imageHL);
+
+UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark);
+
+BOOL isDarkModel(void);
 
 
 CGFloat CGFloatIn640(CGFloat value);

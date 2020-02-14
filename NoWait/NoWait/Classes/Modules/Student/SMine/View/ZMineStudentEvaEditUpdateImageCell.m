@@ -27,7 +27,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
    
     
     [self.contentView addSubview:self.cameraImageView];
@@ -66,7 +66,7 @@
         _cameraImageView.image = [UIImage imageNamed:@"uploadCamera"];
         _cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
         _cameraImageView.clipsToBounds = YES;
-        _cameraImageView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _cameraImageView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     
     return _cameraImageView;
@@ -75,7 +75,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.text = @"上传照片";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -88,7 +88,7 @@
 - (UILabel *)hintLabel {
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _hintLabel.textColor = KFont6Color;
+        _hintLabel.textColor = [UIColor colorTextGray];
         _hintLabel.text = @"添加照片可以让大家更了解喔~";
         _hintLabel.numberOfLines = 1;
         _hintLabel.textAlignment = NSTextAlignmentLeft;

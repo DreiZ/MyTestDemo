@@ -29,7 +29,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.contView];
@@ -89,7 +89,7 @@
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.layer.borderWidth = 1;
-        _contView.layer.borderColor = KBlackColor.CGColor;
+        _contView.layer.borderColor = [UIColor blackColor].CGColor;
         _contView.layer.cornerRadius = CGFloatIn750(20);
     }
     return _contView;
@@ -98,7 +98,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -110,7 +110,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KFont6Color;
+        _lessonLabel.textColor = [UIColor colorTextGray];
         _lessonLabel.text = @"";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
@@ -122,7 +122,7 @@
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.textColor = KFont6Color;
+        _timeLabel.textColor = [UIColor colorTextGray];
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -134,7 +134,7 @@
 - (UILabel *)numLabel {
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _numLabel.textColor = KFont6Color;
+        _numLabel.textColor = [UIColor colorTextGray];
         _numLabel.text = @"";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentLeft;
@@ -146,7 +146,7 @@
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceLabel.textColor = KFont6Color;
+        _priceLabel.textColor = [UIColor colorTextGray];
         _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
@@ -182,12 +182,12 @@
         _contView.layer.borderColor = [UIColor  colorMain].CGColor;
         _selectImageView.hidden = NO;
     }else{
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
-        _lessonLabel.textColor = KFont6Color;
-        _timeLabel.textColor = KFont6Color;
-        _numLabel.textColor = KFont6Color;
-        _priceLabel.textColor = KFont6Color;
-        _contView.layer.borderColor = KBlackColor.CGColor;
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+        _lessonLabel.textColor = [UIColor colorTextGray];
+        _timeLabel.textColor = [UIColor colorTextGray];
+        _numLabel.textColor = [UIColor colorTextGray];
+        _priceLabel.textColor = [UIColor colorTextGray];
+        _contView.layer.borderColor = [UIColor blackColor].CGColor;
         _selectImageView.hidden = YES;
     }
 }

@@ -49,8 +49,8 @@
         //订单基本信息
 
         NSArray *lists = @[
-                        @[@"课程：",@"暑期瑜伽班",KFont3Color],
-                        @[@"老师：",@"赵东来",KFont3Color],@[@"开课时间：",@"2019-08-21",KFont3Color]];
+                        @[@"课程：",@"暑期瑜伽班",[UIColor colorTextBlack]],
+                        @[@"老师：",@"赵东来",[UIColor colorTextBlack]],@[@"开课时间：",@"2019-08-21",[UIColor colorTextBlack]]];
         
         NSMutableArray *mList = @[].mutableCopy;
         for (int i = 0; i < lists.count; i++) {
@@ -62,19 +62,19 @@
             [mList addObject:cModel];
         }
         
-        ZCellConfig *infoSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+        ZCellConfig *infoSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
         [self.cellConfigArr addObject:infoSpacCellConfig];
         
         for (int i = 0; i < mList.count; i++) {
             ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderIntroItemCell className] title:[ZStudentLessonOrderIntroItemCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderIntroItemCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:mList[i]];
             [self.cellConfigArr addObject:spacCellConfig];
-            ZCellConfig *infoBottomSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+            ZCellConfig *infoBottomSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
             [self.cellConfigArr addObject:infoBottomSpacCellConfig];
         }
-        ZCellConfig *infoBottomSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+        ZCellConfig *infoBottomSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
         [self.cellConfigArr addObject:infoBottomSpacCellConfig];
         
-        ZCellConfig *infoBottomBlackSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
+        ZCellConfig *infoBottomBlackSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
         [self.cellConfigArr addObject:infoBottomBlackSpacCellConfig];
         
     }
@@ -88,7 +88,7 @@
            [self.cellConfigArr addObject:menuCellConfig];
         {
             
-            ZCellConfig *starSpace1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+            ZCellConfig *starSpace1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
             [self.cellConfigArr addObject:starSpace1CellConfig];
             
             
@@ -112,7 +112,7 @@
         [self.cellConfigArr addObject:uploadImageCellConfig];
 
         
-        ZCellConfig *iSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
+        ZCellConfig *iSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
         [self.cellConfigArr addObject:iSpacCellConfig];
     }
     
@@ -124,7 +124,7 @@
             [self.cellConfigArr addObject:menuCellConfig];
          {
              
-             ZCellConfig *starSpace1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+             ZCellConfig *starSpace1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
              [self.cellConfigArr addObject:starSpace1CellConfig];
              
              
@@ -143,7 +143,7 @@
          [self.cellConfigArr addObject:uploadImageCellConfig];
 
          
-         ZCellConfig *iSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
+         ZCellConfig *iSpacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
          [self.cellConfigArr addObject:iSpacCellConfig];
     }
 }

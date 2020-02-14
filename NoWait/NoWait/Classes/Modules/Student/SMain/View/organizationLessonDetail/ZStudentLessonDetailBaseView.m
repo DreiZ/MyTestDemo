@@ -76,7 +76,7 @@
             
             //标题
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(28)] range:netRangeTitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:KFont2Color range:netRangeTitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextBlack] range:netRangeTitle];
             NSMutableParagraphStyle * titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [titleParagraphStyle setLineSpacing:CGFloatIn750(40)];
             [titleParagraphStyle setAlignment:NSTextAlignmentCenter];
@@ -84,7 +84,7 @@
             
             //副标题
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(28)] range:netRangeSubtitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:KFont9Color range:netRangeSubtitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeSubtitle];
             NSMutableParagraphStyle * subParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [subParagraphStyle setLineSpacing:CGFloatIn750(24)];
             [subParagraphStyle setAlignment:NSTextAlignmentLeft];
@@ -92,7 +92,7 @@
             
             //内容
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(22)] range:netRangeDetailTitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:KFont9Color range:netRangeDetailTitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeDetailTitle];
             NSMutableParagraphStyle * detailParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [detailParagraphStyle setLineSpacing:CGFloatIn750(16)];
             [detailParagraphStyle setAlignment:NSTextAlignmentLeft];

@@ -27,7 +27,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     [self.contentView addSubview:self.contentImageView];
     [self.contentImageView  mas_makeConstraints:^(MASConstraintMaker *make) {

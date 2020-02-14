@@ -34,7 +34,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     [self.contentView addSubview:self.coachImageView];
     [self.contentView addSubview:self.nameLabel];
@@ -105,7 +105,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _nameLabel.text = @"图形俱乐部";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
@@ -118,7 +118,7 @@
 - (UILabel *)adeptLabel {
     if (!_adeptLabel) {
         _adeptLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _adeptLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _adeptLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _adeptLabel.text = @"";
         _adeptLabel.numberOfLines = 1;
         _adeptLabel.textAlignment = NSTextAlignmentLeft;
@@ -130,7 +130,7 @@
 - (UILabel *)desLabel {
     if (!_desLabel) {
         _desLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _desLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _desLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _desLabel.text = @"";
         _desLabel.numberOfLines = 0;
         _desLabel.textAlignment = NSTextAlignmentLeft;
@@ -143,7 +143,7 @@
 - (UILabel *)authLabel {
     if (!_authLabel) {
         _authLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _authLabel.textColor = KYellowColor;
+        _authLabel.textColor = [UIColor colorOrangeMoment];
         _authLabel.text = @"";
         _authLabel.numberOfLines = 1;
         _authLabel.textAlignment = NSTextAlignmentLeft;
@@ -176,7 +176,7 @@
         _authView = [[UIView alloc] init];
         _authView.layer.masksToBounds = YES;
         _authView.clipsToBounds = YES;
-        _authView.layer.borderColor = KYellowColor.CGColor;
+        _authView.layer.borderColor = [UIColor colorOrangeMoment].CGColor;
         _authView.layer.cornerRadius = CGFloatIn750(16);
         _authView.layer.borderWidth = 1;
         
@@ -273,10 +273,10 @@
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
     actLabel.textColor = [UIColor colorWhite];
-    actLabel.backgroundColor = KGreenColor;
+    actLabel.backgroundColor = [UIColor colorMain];
 //    actLabel.layer.masksToBounds = YES;
 //    actLabel.layer.cornerRadius = 2;
-//    actLabel.layer.borderColor = kHN_OrangeHColor.CGColor;
+//    actLabel.layer.borderColor = [UIColor colorOrangeMoment].CGColor;
 //    actLabel.layer.borderWidth = 0.5;
     actLabel.text = text;
     actLabel.numberOfLines = 1;
@@ -351,7 +351,7 @@
             
         UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+CGFloatIn750(16), CGFloatIn750(32))];
         actLabel.textColor = [UIColor colorWhite];
-        actLabel.backgroundColor = KGreenColor;
+        actLabel.backgroundColor = [UIColor colorMain];
         actLabel.layer.masksToBounds = YES;
         actLabel.layer.cornerRadius = 2;
         actLabel.text = textArr[i];
@@ -386,12 +386,12 @@
            }
                
            UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+CGFloatIn750(24), CGFloatIn750(32))];
-           actLabel.textColor = KGreenColor;
+           actLabel.textColor = [UIColor colorMain];
            actLabel.text = adeptArr[i];
            actLabel.numberOfLines = 1;
             actLabel.layer.masksToBounds = YES;
             actLabel.layer.cornerRadius = CGFloatIn750(16);
-            actLabel.layer.borderColor = KGreenColor.CGColor;
+            actLabel.layer.borderColor = [UIColor colorMain].CGColor;
             actLabel.layer.borderWidth = 1;
            actLabel.textAlignment = NSTextAlignmentCenter;
            [actLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(20)]];

@@ -184,7 +184,7 @@ static ZAlertUpdateAppView *sharedManager;
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KBlackColor;
+        _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.text = @"0";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -197,7 +197,7 @@ static ZAlertUpdateAppView *sharedManager;
 - (YYLabel *)detailLabel {
     if (!_detailLabel) {
         _detailLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
-        _detailLabel.textColor = KFont6Color;
+        _detailLabel.textColor = [UIColor colorTextGray];
         _detailLabel.text = @"0";
         _detailLabel.numberOfLines = 0;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
@@ -210,7 +210,7 @@ static ZAlertUpdateAppView *sharedManager;
 - (UILabel *)subTitleLabel {
     if (!_subTitleLabel) {
         _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _subTitleLabel.textColor = KBlackColor;
+        _subTitleLabel.textColor = [UIColor blackColor];
         _subTitleLabel.text = @"";
         _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -282,7 +282,7 @@ static ZAlertUpdateAppView *sharedManager;
 //    text.font = [UIFont systemFontOfSize:CGFloatIn750(26)];
 //    text.lineBreakMode = NSLineBreakByWordWrapping;
 //
-//    [text addAttribute:NSForegroundColorAttributeName value:KFont6Color range:NSMakeRange(0, updateModel.content.length)];
+//    [text addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray] range:NSMakeRange(0, updateModel.content.length)];
 //    self.detailLabel.attributedText = text;  //设置富文本
 //
 //

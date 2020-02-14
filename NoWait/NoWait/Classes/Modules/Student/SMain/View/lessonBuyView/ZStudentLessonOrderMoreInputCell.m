@@ -31,7 +31,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.backView];
@@ -65,7 +65,7 @@
         _backView = [[UIView alloc] init];
         _backView.layer.masksToBounds = YES;
         _backView.layer.cornerRadius = 4;
-        _backView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _backView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     return _backView;
 }
@@ -74,9 +74,9 @@
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
-        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
-        _iTextView.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _iTextView.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _iTextView;
 }
@@ -87,7 +87,7 @@
         _thintLabel = [[UILabel alloc] init];
         _thintLabel.numberOfLines = 0;
         _thintLabel.textAlignment = NSTextAlignmentLeft;
-        [_thintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont6Color)];
+        [_thintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray])];
         [_thintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_thintLabel setText:@"如果有其他说明，请填写在此处"];
     }
@@ -135,10 +135,10 @@
 - (void)setIsBackColor:(NSString *)isBackColor {
     _isBackColor = isBackColor;
     if (_isBackColor) {
-        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _backView.hidden = NO;
     }else{
-        _iTextView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]);
+        _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]);
         _backView.hidden = YES;
     }
 }

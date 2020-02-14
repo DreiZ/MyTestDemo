@@ -42,7 +42,7 @@
 }
 
 - (void)setMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.view addSubview:self.iCollectionView];
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,7 +71,7 @@
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = YES;

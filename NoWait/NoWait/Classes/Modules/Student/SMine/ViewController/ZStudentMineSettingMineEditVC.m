@@ -71,9 +71,9 @@
     //           weakSelf.loginViewModel.loginModel.tel = x;
     }];
     _userNameTF.delegate = self;
-    _userNameTF.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     _userNameTF.keyboardType = UIKeyboardTypeDefault;
-    _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+    _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
 
     [self.view addSubview:self.userNameTF];
     [self.userNameTF mas_makeConstraints:^(MASConstraintMaker *make) {

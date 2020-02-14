@@ -36,8 +36,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.minTextField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.maxTextField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-    self.itemView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
-    self.titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+    self.itemView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
+    self.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
 }
 
 - (void)setItemType:(ZHFilterItemType)itemType
@@ -201,7 +201,7 @@
         button.layer.cornerRadius = 2;
         button.tintColor = [UIColor clearColor];
         [button setTitle:model.name forState:UIControlStateNormal];
-        [button setTitleColor:KAdaptAndDarkColor(self.itemManager.titleColor, [UIColor colorWhite])  forState:UIControlStateNormal];
+        [button setTitleColor:adaptAndDarkColor(self.itemManager.titleColor, [UIColor colorWhite])  forState:UIControlStateNormal];
         [button setTitleColor:self.itemManager.titleSelectedColor forState:UIControlStateSelected];
         [button setBackgroundImage:[self imageWithColor:self.itemManager.itemBGColor] forState:UIControlStateNormal];
         [button setBackgroundImage:[self imageWithColor:self.itemManager.itemBGSelectedColor] forState:UIControlStateSelected];

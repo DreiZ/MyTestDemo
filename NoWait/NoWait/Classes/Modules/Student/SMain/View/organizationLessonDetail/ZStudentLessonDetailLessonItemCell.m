@@ -26,7 +26,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -52,7 +52,7 @@
         _dotView = [[UIView alloc] init];
         _dotView.layer.masksToBounds = YES;
         _dotView.layer.cornerRadius = CGFloatIn750(6);
-        _dotView.backgroundColor = KLineColor;
+        _dotView.backgroundColor = [UIColor colorGrayLine];
     }
     return _dotView;
 }
@@ -60,7 +60,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.text = @"课程简介";
         _titleLabel.numberOfLines = 0;
         _titleLabel.textAlignment = NSTextAlignmentLeft;

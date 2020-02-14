@@ -27,7 +27,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KBlueBackColor;
+    self.backgroundColor = [UIColor colorBlueMoment];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -65,7 +65,7 @@
 - (UIView *)contView {
     if (!_contView) {
         _contView = [[UIView alloc] init];
-//        _contView.backgroundColor = KBlueBackColor;
+//        _contView.backgroundColor = [UIColor colorBlueMoment];
     }
     return _contView;
 }

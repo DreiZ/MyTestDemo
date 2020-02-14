@@ -28,7 +28,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.titleLabel];
@@ -49,7 +49,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -61,7 +61,7 @@
 - (UILabel *)subLabel {
     if (!_subLabel) {
         _subLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _subLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _subLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _subLabel.text = @"";
         _subLabel.numberOfLines = 1;
         _subLabel.textAlignment = NSTextAlignmentLeft;

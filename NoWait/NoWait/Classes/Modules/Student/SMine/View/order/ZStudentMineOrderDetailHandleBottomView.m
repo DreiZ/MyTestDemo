@@ -27,7 +27,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -63,10 +63,10 @@
         _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _cancelBtn.layer.masksToBounds = YES;
         _cancelBtn.layer.cornerRadius = 3;
-        _cancelBtn.layer.borderColor = KRedColor.CGColor;
+        _cancelBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
         _cancelBtn.layer.borderWidth = 1;
         [_cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:KRedColor forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
         [_cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
         
         __weak typeof(self) weakSelf = self;
@@ -85,10 +85,10 @@
         _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
         _payBtn.layer.cornerRadius = 3;
-        _payBtn.layer.borderColor = KRedColor.CGColor;
+        _payBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:KRedColor forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
         
         __weak typeof(self) weakSelf = self;

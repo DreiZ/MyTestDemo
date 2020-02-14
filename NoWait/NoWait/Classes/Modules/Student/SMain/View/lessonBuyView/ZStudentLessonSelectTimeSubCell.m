@@ -25,7 +25,7 @@
 }
 
 -(void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -41,7 +41,7 @@
     if (!_timeView) {
         _timeView = [[UIView alloc] init];
         _timeView.layer.masksToBounds = YES;
-        _timeView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _timeView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     return _timeView;
 }
@@ -51,7 +51,7 @@
     __weak typeof(self) weakSelf = self;
     UIButton *timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, CGFloatIn750(120), CGFloatIn750(50))];
     [timeBtn setTitle:text forState:UIControlStateNormal];
-    [timeBtn setTitleColor:KAdaptAndDarkColor(KFont3Color, KFont9Color) forState:UIControlStateNormal];
+    [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]) forState:UIControlStateNormal];
     [timeBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateSelected];
     [timeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
     timeBtn.tag = index;

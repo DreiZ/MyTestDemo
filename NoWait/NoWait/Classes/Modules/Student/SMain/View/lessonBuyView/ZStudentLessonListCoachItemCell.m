@@ -29,7 +29,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.contView];
@@ -85,7 +85,7 @@
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.layer.borderWidth = 1;
-        _contView.layer.borderColor = KFont6Color.CGColor;
+        _contView.layer.borderColor = [UIColor colorTextGray].CGColor;
         _contView.layer.cornerRadius = CGFloatIn750(20);
     }
     return _contView;
@@ -94,7 +94,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KFont6Color;
+        _nameLabel.textColor = [UIColor colorTextGray];
         _nameLabel.text = @"";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -107,7 +107,7 @@
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceLabel.textColor = KFont6Color;
+        _priceLabel.textColor = [UIColor colorTextGray];
         _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
@@ -167,10 +167,10 @@
         _contView.layer.borderColor = [UIColor  colorMain].CGColor;
         _selectImageView.hidden = NO;
     }else{
-        _nameLabel.textColor = KFont6Color;
-        _priceLabel.textColor = KFont6Color;
+        _nameLabel.textColor = [UIColor colorTextGray];
+        _priceLabel.textColor = [UIColor colorTextGray];
         _selectTopImageView.image = [UIImage imageNamed:@"studentNoSelect"];
-        _contView.layer.borderColor = KFont6Color.CGColor;
+        _contView.layer.borderColor = [UIColor colorTextGray].CGColor;
         _selectImageView.hidden = YES;
     }
 }

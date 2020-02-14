@@ -24,7 +24,7 @@
 }
 
 - (void)initMainView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     
     UIView *skillBackView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -86,7 +86,7 @@
     if (!_contBackView) {
         _contBackView = [[UIView alloc] init];
         _contBackView.layer.masksToBounds = YES;
-        _contBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _contBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _contBackView.layer.cornerRadius = CGFloatIn750(10);
     }
     return _contBackView;
@@ -105,7 +105,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -118,7 +118,7 @@
     if (!_skillLabel) {
         _skillLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _skillLabel.layer.masksToBounds = YES;
-        _skillLabel.textColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _skillLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _skillLabel.numberOfLines = 1;
         _skillLabel.textAlignment = NSTextAlignmentCenter;
         [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];

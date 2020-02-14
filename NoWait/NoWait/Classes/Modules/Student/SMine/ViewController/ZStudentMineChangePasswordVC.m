@@ -76,7 +76,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,7 +90,7 @@
     
     
     UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    hintLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont9Color);
+    hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1]);
     hintLabel.text = @"密码长度8-16位字符，而且包含数字和字母";
     hintLabel.textAlignment = NSTextAlignmentLeft;
     [hintLabel setFont:[UIFont systemFontOfSize:14.0f]];
@@ -123,7 +123,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

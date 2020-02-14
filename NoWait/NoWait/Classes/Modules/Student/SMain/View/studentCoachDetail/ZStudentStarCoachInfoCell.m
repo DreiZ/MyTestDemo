@@ -27,7 +27,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
    
@@ -41,7 +41,7 @@
     UIView *lessonBackView = [[UIView alloc] init];
     lessonBackView.layer.masksToBounds = YES;
     lessonBackView.layer.cornerRadius = CGFloatIn750(27);
-    lessonBackView.layer.borderColor = KFont6Color.CGColor;
+    lessonBackView.layer.borderColor = [UIColor colorTextGray].CGColor;
     lessonBackView.layer.borderWidth = 1;
     [self.contentView addSubview:lessonBackView];
     
@@ -64,7 +64,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _nameLabel.text = @"段世昌";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -76,7 +76,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonLabel.text = @"擅长：瑜伽、蛙泳、蝶泳";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentCenter;

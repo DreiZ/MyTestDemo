@@ -26,7 +26,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.lessonLabel];
@@ -46,7 +46,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonLabel.text = @"利萨斯";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
@@ -58,7 +58,7 @@
 - (UILabel *)lessonHintLabel {
     if (!_lessonHintLabel) {
         _lessonHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonHintLabel.textColor = KFont6Color;
+        _lessonHintLabel.textColor = [UIColor colorTextGray];
         _lessonHintLabel.text = @"教练：";
         _lessonHintLabel.numberOfLines = 1;
         _lessonHintLabel.textAlignment = NSTextAlignmentLeft;

@@ -25,7 +25,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -48,7 +48,7 @@
 - (UILabel *)moreLabel {
     if (!_moreLabel) {
         _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = KFont6Color;
+        _moreLabel.textColor = [UIColor colorTextGray];
         _moreLabel.text = @"查看更多初学者课程";
         _moreLabel.numberOfLines = 1;
         _moreLabel.textAlignment = NSTextAlignmentCenter;

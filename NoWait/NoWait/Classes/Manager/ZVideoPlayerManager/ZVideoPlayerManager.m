@@ -36,7 +36,7 @@ static ZVideoPlayerManager *videoPlayerManager;
     if (!_playerView) {
         _playerView = [[UIView alloc] init];
         _playerView.layer.masksToBounds = YES;
-        _playerView.backgroundColor = KBlackColor;
+        _playerView.backgroundColor = [UIColor blackColor];
         
         __weak typeof(self) weakSelf = self;
         UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];

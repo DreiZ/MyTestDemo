@@ -84,7 +84,7 @@
     
     [self.tabBarController setViewControllers:[self p_createTabBarChildViewController]];
     [self setCurRootVC:self.tabBarController];
-    [self.tabBarController.tabBar setBarTintColor:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+    [self.tabBarController.tabBar setBarTintColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
 }
 
 

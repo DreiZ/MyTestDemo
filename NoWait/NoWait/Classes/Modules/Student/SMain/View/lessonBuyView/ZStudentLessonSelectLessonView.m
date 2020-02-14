@@ -31,13 +31,13 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(102));
@@ -59,7 +59,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -108,7 +108,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     return _funBackView;
 }
@@ -148,7 +148,7 @@
         [_iCollectionView setBackgroundColor:[UIColor whiteColor]];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
-        _iCollectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     
     return _iCollectionView;
@@ -157,7 +157,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonTitleLabel.text = @"选择预约课程";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;

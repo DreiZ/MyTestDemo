@@ -34,10 +34,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.leftColor = KFont3Color;
+        self.leftColor = [UIColor colorTextBlack];
         self.leftFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
 
-        self.rightColor = KFont6Color;
+        self.rightColor = [UIColor colorTextGray];
         self.rightFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
  
         self.leftContentSpace = CGFloatIn750(20);
@@ -74,9 +74,9 @@
         self.formatterType = ZFormatterTypeAny;
         self.textAlignment = NSTextAlignmentRight;
   
-        self.leftColor = KFont3Color;
+        self.leftColor = [UIColor colorTextBlack];
         self.leftFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
-        self.subTitleColor = KFont9Color;
+        self.subTitleColor = [UIColor colorTextGray1];
         self.subTitleFont = [UIFont systemFontOfSize:CGFloatIn750(26)];
         
         self.placeholder = @"请输入";
@@ -87,7 +87,7 @@
         
         self.isHiddenInputLine = YES;
         
-        self.textColor = KFont3Color;
+        self.textColor = [UIColor colorTextBlack];
         self.textFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
 
     }

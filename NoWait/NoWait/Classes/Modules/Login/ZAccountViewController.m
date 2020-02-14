@@ -77,7 +77,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn bk_whenTapped:^{
@@ -136,7 +136,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    lineView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [self.view addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -146,7 +146,7 @@
     }];
     
     UIView *hintLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    hintLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    hintLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [lineView addSubview:hintLineView];
     [hintLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -239,7 +239,7 @@
     if(!_iScrollView) {
         _iScrollView = [[UIScrollView alloc] init];
         _iScrollView.delegate = self;
-        _iScrollView.backgroundColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _iScrollView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _iScrollView.pagingEnabled = YES;
         _iScrollView.bounces = NO;
         _iScrollView.showsHorizontalScrollIndicator = NO;
@@ -285,12 +285,12 @@
     _index = index;
     if (self.index == 0) {
         [self.loginBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [self.resignBtn setTitleColor:KFont9Color forState:UIControlStateNormal];
+        [self.resignBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
         
         [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];
         [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
     }else if(self.index == 1){
-        [self.loginBtn setTitleColor:KFont9Color forState:UIControlStateNormal];
+        [self.loginBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
         [self.resignBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [self.loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(32)]];
         [self.resignBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(38)]];

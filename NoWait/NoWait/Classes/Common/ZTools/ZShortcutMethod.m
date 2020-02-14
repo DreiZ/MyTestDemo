@@ -24,6 +24,15 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
     [tabBarItem setSelectedImage:[[UIImage imageNamed:imageHL] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 }
 
+UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark){
+    return [DarkModel adaptColor:adapt darkColor:dark];
+}
+
+BOOL isDarkModel() {
+    return [DarkModel isDarkMode];
+    
+}
+
 CGFloat CGFloatIn640(CGFloat value)
 {
     return  (value/640.)*KScreenWidth;

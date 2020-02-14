@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 白色
 + (UIColor *)colorWhite;
 
+#pragma mark - 红色
++ (UIColor *)colorRedDefault;
+
 #pragma mark - # 字体
 + (UIColor *)colorTextBlack;
 + (UIColor *)colorTextGray;
@@ -47,10 +50,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 蓝色
 + (UIColor *)colorBlueMoment;
 
+#pragma mark - 黄色
++ (UIColor *)colorOrangeMoment;
 
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar;
 + (UIColor *)colorBlackBG;
++ (UIColor *)colorBlackDarkBG;
 + (UIColor *)colorBlackAlphaScannerBG;
 + (UIColor *)colorBlackForAddMenu;
 + (UIColor *)colorBlackForAddMenuHL;

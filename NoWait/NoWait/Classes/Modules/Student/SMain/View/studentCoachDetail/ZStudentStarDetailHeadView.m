@@ -34,7 +34,7 @@
     MGWaterDorpView *waterDropView = [[MGWaterDorpView alloc] initWithFrame:CGRectMake(0,kTopHeight,kScreenWidth ,170 + 3)];
 
 
-    waterDropView.backgroundColor = KBlueBackColor;
+    waterDropView.backgroundColor = [UIColor colorBlueMoment];
     waterDropView.waveAmplitude = waterDropView.amplitudeMin + (double)0.8 * waterDropView.amplitudeSpan;
     
     

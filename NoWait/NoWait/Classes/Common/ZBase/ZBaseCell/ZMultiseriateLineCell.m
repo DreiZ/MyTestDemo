@@ -61,8 +61,8 @@
     self.leftTitleLabel.font = mModel.leftFont ? mModel.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = mModel.rightFont ? mModel.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
-    self.leftTitleLabel.textColor = mModel.leftColor ? mModel.leftColor:KBlackColor;
-    self.rightTitleLabel.textColor = mModel.rightColor ? mModel.rightColor:KBlackColor;
+    self.leftTitleLabel.textColor = mModel.leftColor ? mModel.leftColor:[UIColor blackColor];
+    self.rightTitleLabel.textColor = mModel.rightColor ? mModel.rightColor:[UIColor blackColor];
     self.bottomLineView.hidden = mModel.isHiddenLine;
     
     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.leftTitleLabel];

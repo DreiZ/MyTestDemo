@@ -29,7 +29,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     UIView *contView = [[UIView alloc] init];
     [self.contentView addSubview:contView];
@@ -39,7 +39,7 @@
     
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -48,7 +48,7 @@
 
     
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    middleView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:middleView];
     [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topView.mas_bottom);
@@ -70,7 +70,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -121,7 +121,7 @@
 - (UILabel *)orderSNLabel {
     if (!_orderSNLabel) {
         _orderSNLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderSNLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _orderSNLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _orderSNLabel.text = @"订单号：NS239854385892";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
@@ -134,7 +134,7 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonLabel.text = @"暑期瑜伽班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
@@ -147,7 +147,7 @@
 - (UILabel *)cocahLabel {
     if (!_cocahLabel) {
         _cocahLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _cocahLabel.textColor = KFont6Color;
+        _cocahLabel.textColor = [UIColor colorTextGray];
         _cocahLabel.text = @"财源健身房-钟教练";
         _cocahLabel.numberOfLines = 1;
         _cocahLabel.textAlignment = NSTextAlignmentLeft;
@@ -161,7 +161,7 @@
         _orderDetailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _orderDetailBtn.layer.masksToBounds = YES;
         [_orderDetailBtn setTitle:@"查看详情>>" forState:UIControlStateNormal];
-        [_orderDetailBtn setTitleColor:KFont6Color forState:UIControlStateNormal];
+        [_orderDetailBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
         [_orderDetailBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
         
         __weak typeof(self) weakSelf = self;

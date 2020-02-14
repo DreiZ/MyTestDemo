@@ -60,7 +60,7 @@
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.textColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _statusLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         _statusLabel.text = @"等待商家确认";
         _statusLabel.numberOfLines = 1;
         _statusLabel.textAlignment = NSTextAlignmentLeft;

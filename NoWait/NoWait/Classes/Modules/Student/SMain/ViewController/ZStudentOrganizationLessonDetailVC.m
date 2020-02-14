@@ -82,7 +82,7 @@
     {
         NSMutableArray *section1Arr = @[].mutableCopy;
         
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG])];
         [section1Arr addObject:spacCellConfig];
         
         ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailBannerCell className] title:[ZStudentLessonDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
@@ -111,7 +111,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,7 +150,7 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
         }
-        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

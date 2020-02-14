@@ -31,7 +31,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.userNameLabel];
@@ -77,7 +77,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);
@@ -105,7 +105,7 @@
 - (UILabel *)userNameLabel {
     if (!_userNameLabel) {
         _userNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _userNameLabel.textColor = KAdaptAndDarkColor(KFont2Color, KFont9Color);
+        _userNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _userNameLabel.text = @"";
         _userNameLabel.numberOfLines = 1;
         _userNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -118,7 +118,7 @@
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
+        _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
@@ -130,7 +130,7 @@
 - (UILabel *)starLabel {
     if (!_starLabel) {
         _starLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _starLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
+        _starLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
         _starLabel.text = @"";
         _starLabel.numberOfLines = 1;
         _starLabel.textAlignment = NSTextAlignmentRight;
@@ -142,7 +142,7 @@
 - (UILabel *)evaLabel {
     if (!_evaLabel) {
         _evaLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _evaLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _evaLabel.text = @"";
         _evaLabel.numberOfLines = 0;
         _evaLabel.textAlignment = NSTextAlignmentLeft;

@@ -26,7 +26,7 @@
 
 - (void)initMainView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.rightImageView];
@@ -85,7 +85,7 @@
 - (UILabel *)leftTitleLabel {
     if (!_leftTitleLabel) {
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _leftTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _leftTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _leftTitleLabel.text = @"";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -97,7 +97,7 @@
 - (UILabel *)rightTitleLabel {
     if (!_rightTitleLabel) {
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _rightTitleLabel.textColor = KFont6Color;
+        _rightTitleLabel.textColor = [UIColor colorTextGray];
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentRight;
@@ -110,7 +110,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+        _bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     }
     return _bottomLineView;
 }
@@ -132,8 +132,8 @@
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
-    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
-    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:KAdaptAndDarkColor(KFont3Color, KFont9Color);
+    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     self.bottomLineView.hidden = model.isHiddenLine;
     
     

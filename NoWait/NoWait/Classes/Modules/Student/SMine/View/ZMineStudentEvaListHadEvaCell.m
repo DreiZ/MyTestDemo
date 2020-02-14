@@ -34,7 +34,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -143,13 +143,13 @@
     ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListEvaOrderCell className] title:[ZMineStudentEvaListEvaOrderCell className] showInfoMethod:nil heightOfCell:[ZMineStudentEvaListEvaOrderCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:orderCellConfig];
     
-    ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(14) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+    ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(14) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
     [self.cellConfigArr addObject:coachSpaceCellConfig];
     
     ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListEvaCoachCell className] title:[ZMineStudentEvaListEvaCoachCell className] showInfoMethod:nil heightOfCell:[ZMineStudentEvaListEvaCoachCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:coachCellConfig];
     
-    ZCellConfig *coachBottomSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(14) cellType:ZCellTypeClass dataModel:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+    ZCellConfig *coachBottomSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(14) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
     [self.cellConfigArr addObject:coachBottomSpaceCellConfig];
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListEvaOrderDesCell className] title:[ZMineStudentEvaListEvaOrderDesCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZMineStudentEvaListEvaOrderDesCell z_getCellHeight:self.model.coachEva] cellType:ZCellTypeClass dataModel:self.model.coachEva];

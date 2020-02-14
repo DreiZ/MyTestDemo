@@ -44,7 +44,7 @@
     if (!_skillLabel) {
         _skillLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
         _skillLabel.layer.masksToBounds = YES;
-        _skillLabel.textColor = KFont6Color;
+        _skillLabel.textColor = [UIColor colorTextGray];
         _skillLabel.numberOfLines = 0;
         _skillLabel.textAlignment = NSTextAlignmentLeft;
         [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
@@ -64,11 +64,11 @@
    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",model.title, model.subTitle]];
        text.lineSpacing = 6;
        text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
-       text.color = KFont9Color;
+       text.color = [UIColor colorTextGray1];
        //    __weak typeof(self) weakself = self;
        
        
-       [text setTextHighlightRange:NSMakeRange(model.title.length, model.subTitle.length) color:KRedColor backgroundColor:[UIColor colorGrayBG] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+       [text setTextHighlightRange:NSMakeRange(model.title.length, model.subTitle.length) color:[UIColor colorRedDefault] backgroundColor:[UIColor colorGrayBG] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
    //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
    //        avc.navTitle = @"隐私协议";
    //        avc.type = @"privacy_policy";

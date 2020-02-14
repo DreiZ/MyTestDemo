@@ -42,14 +42,14 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
    
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     contView.layer.masksToBounds = YES;
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,8 +116,8 @@
     
     UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [forgetBtn setTitle:@"忘记密码？" forState:UIControlStateNormal];
-    [forgetBtn setTitleColor:KLineColor forState:UIControlStateNormal];
-    [forgetBtn setTitleColor:KFont6Color forState:UIControlStateHighlighted];
+    [forgetBtn setTitleColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
+    [forgetBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateHighlighted];
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     [contView addSubview:forgetBtn];
     [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,7 +159,7 @@
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
-    _protocolLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
+    _protocolLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
     _protocolLabel.numberOfLines = 0;
     _protocolLabel.textAlignment = NSTextAlignmentCenter;
     [_protocolLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
@@ -171,7 +171,7 @@
     NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"我已阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
     text.lineSpacing = 0;
     text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
-    text.color = KFont9Color;
+    text.color = [UIColor colorTextGray1];
     //    __weak typeof(self) weakself = self;
     
     [text setTextHighlightRange:NSMakeRange(9, 8) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -300,7 +300,7 @@
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
-        _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _userNameTF;
 }
@@ -329,7 +329,7 @@
         [_passwordTF setReturnKeyType:UIReturnKeyDone];
         [_passwordTF setPlaceholder:@"请输入密码"];
         [_passwordTF setSecureTextEntry:YES];
-        _passwordTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _passwordTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         [_passwordTF.rac_textSignal subscribeNext:^(NSString *x) {
             weakSelf.passwordTF.text = x;
             if (weakSelf.editBlock) {
@@ -372,7 +372,7 @@
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;
-        _codeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _codeTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _codeTF;
 }
@@ -435,7 +435,7 @@
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor  colorMain]] forState:UIControlStateNormal];
-        [_loginBtn setBackgroundImage:[UIImage imageWithColor:KBorderColor] forState:UIControlStateDisabled];
+        [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorGrayLine]] forState:UIControlStateDisabled];
         [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(34)]];
     }
     return _loginBtn;

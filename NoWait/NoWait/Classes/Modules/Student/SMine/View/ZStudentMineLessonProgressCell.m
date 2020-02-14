@@ -29,12 +29,12 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = 4;
     [self.contentView addSubview:contView];
@@ -46,7 +46,7 @@
     }];
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
-    topTitleBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topTitleBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [contView addSubview:topTitleBackView];
     [topTitleBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -75,7 +75,7 @@
     }];
     
     UIView *spaceLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    spaceLineView.backgroundColor = CLineColor;
+    spaceLineView.backgroundColor = [UIColor colorGrayLine];
     [contView addSubview:spaceLineView];
     [spaceLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topTitleBackView.mas_bottom);
@@ -123,7 +123,7 @@
 - (UILabel *)moreLabel {
     if (!_moreLabel) {
         _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
+        _moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
         _moreLabel.text = @"查看更多>>";
         _moreLabel.numberOfLines = 0;
         _moreLabel.textAlignment = NSTextAlignmentRight;
@@ -135,7 +135,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonTitleLabel.text = @"课程进度";
         _lessonTitleLabel.numberOfLines = 0;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;

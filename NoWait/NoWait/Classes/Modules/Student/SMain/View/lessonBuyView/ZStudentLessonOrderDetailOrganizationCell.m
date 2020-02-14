@@ -31,7 +31,7 @@
 
 - (void)initMainView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.telImageView];
@@ -91,7 +91,7 @@
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _addressLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _addressLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _addressLabel.text = @"";
         _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
@@ -103,7 +103,7 @@
 - (UILabel *)telLabel {
     if (!_telLabel) {
         _telLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _telLabel.textColor = KRedColor;
+        _telLabel.textColor = [UIColor colorRedDefault];
         _telLabel.text = @"";
         _telLabel.numberOfLines = 1;
         _telLabel.textAlignment = NSTextAlignmentRight;

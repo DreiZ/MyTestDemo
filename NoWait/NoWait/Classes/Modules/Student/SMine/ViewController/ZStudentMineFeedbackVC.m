@@ -38,14 +38,14 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     
     [self.navigationItem setTitle:LOCSTR(@"意见反馈")];
     
     
     
     UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    hintLabel.textColor = KFont6Color;
+    hintLabel.textColor = [UIColor colorTextGray];
     hintLabel.text = @"意见反馈";
     hintLabel.numberOfLines = 0;
     hintLabel.textAlignment = NSTextAlignmentLeft;
@@ -61,7 +61,7 @@
     contBackView.backgroundColor = [UIColor whiteColor];
     contBackView.layer.masksToBounds = YES;
     contBackView.layer.cornerRadius = 3.0f;
-    contBackView.layer.borderColor = KLineColor.CGColor;
+    contBackView.layer.borderColor = [UIColor colorGrayLine].CGColor;
     contBackView.layer.borderWidth = 0.5;
     [self.view addSubview:contBackView];
     [contBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,7 +107,7 @@
 - (UILabel *)hintLabel {
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] init];
-        [_hintLabel setTextColor:KAdaptAndDarkColor(KFont9Color, KFont6Color)];
+        [_hintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray])];
         [_hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_hintLabel setText:@"您有什么意见要反馈给我们？"];
     }
@@ -138,7 +138,7 @@
 -(UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
-        _footerView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _footerView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
         
         UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;

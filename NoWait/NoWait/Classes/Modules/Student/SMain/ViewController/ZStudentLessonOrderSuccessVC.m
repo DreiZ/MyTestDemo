@@ -35,7 +35,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
 
     [self.view addSubview:self.hintImageView];
     [self.view addSubview:self.successLabel];
@@ -88,7 +88,7 @@
 - (UILabel *)successLabel {
     if (!_successLabel) {
         _successLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _successLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _successLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _successLabel.text = @"恭喜您已经成功预约";
         _successLabel.numberOfLines = 1;
         _successLabel.textAlignment = NSTextAlignmentCenter;
@@ -102,7 +102,7 @@
 - (UILabel *)statusLabel {
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _statusLabel.textColor = KFont6Color;
+        _statusLabel.textColor = [UIColor colorTextGray];
         _statusLabel.text = @"等待商家确认";
         _statusLabel.numberOfLines = 1;
         _statusLabel.textAlignment = NSTextAlignmentCenter;

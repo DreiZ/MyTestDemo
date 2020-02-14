@@ -50,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [self setNavgation];
     
     [self.view addSubview:self.subscribeBtn];
@@ -74,7 +74,7 @@
     
     self.automaticallyCalculatesItemWidths = YES;
     self.titleColorSelected = [UIColor  colorMain];
-    self.titleColorNormal = KFont6Color;
+    self.titleColorNormal = [UIColor colorTextGray];
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(32);
     self.titleSizeNormal = CGFloatIn750(32);
@@ -116,7 +116,7 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:KAdaptAndDarkColor(KBlackColor, [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(36)]];
         [_navLeftBtn setImage:KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
         [_navLeftBtn bk_whenTapped:^{

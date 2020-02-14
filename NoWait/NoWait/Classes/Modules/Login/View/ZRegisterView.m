@@ -47,14 +47,14 @@ static NSTimer *retrieveTimer = nil;
 
 #pragma mark --初始化view----------------
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     _loginViewModel = [[ZLoginViewModel alloc] init];
  
     UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     contView.layer.masksToBounds = YES;
     [self addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,8 +141,8 @@ static NSTimer *retrieveTimer = nil;
     
     UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [forgetBtn setTitle:@"忘记密码？" forState:UIControlStateNormal];
-    [forgetBtn setTitleColor:KLineColor forState:UIControlStateNormal];
-    [forgetBtn setTitleColor:KFont6Color forState:UIControlStateHighlighted];
+    [forgetBtn setTitleColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
+    [forgetBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateHighlighted];
     [forgetBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(24)]];
     [forgetBtn bk_whenTapped:^{
         
@@ -204,7 +204,7 @@ static NSTimer *retrieveTimer = nil;
     
     _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
     _protocolLabel.layer.masksToBounds = YES;
-    _protocolLabel.textColor = KAdaptAndDarkColor(KFont9Color, KFont6Color);
+    _protocolLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
     _protocolLabel.numberOfLines = 0;
     _protocolLabel.textAlignment = NSTextAlignmentCenter;
     [_protocolLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
@@ -216,7 +216,7 @@ static NSTimer *retrieveTimer = nil;
     NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"我已阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
     text.lineSpacing = 0;
     text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
-    text.color = KFont9Color;
+    text.color = [UIColor colorTextGray1];
     //    __weak typeof(self) weakself = self;
     
     [text setTextHighlightRange:NSMakeRange(9, 8) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -323,7 +323,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _userNameTF.delegate = self;
         _userNameTF.keyboardType = UIKeyboardTypePhonePad;
-        _userNameTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _userNameTF;
 }
@@ -360,7 +360,7 @@ static NSTimer *retrieveTimer = nil;
             }
             weakSelf.loginViewModel.registerModel.pwd = x;
         }];
-        _passwordTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _passwordTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _passwordTF;
 }
@@ -397,7 +397,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _messageCodeTF.delegate = self;
         _messageCodeTF.keyboardType = UIKeyboardTypeNumberPad;
-        _messageCodeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _messageCodeTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _messageCodeTF;
 }
@@ -433,7 +433,7 @@ static NSTimer *retrieveTimer = nil;
         }];
         _codeTF.delegate = self;
         _codeTF.keyboardType = UIKeyboardTypeDefault;
-        _codeTF.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _codeTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
     }
     return _codeTF;
 }
@@ -493,7 +493,7 @@ static NSTimer *retrieveTimer = nil;
         [_loginBtn setTitle:@"注册" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor  colorMain]] forState:UIControlStateNormal];
-        [_loginBtn setBackgroundImage:[UIImage imageWithColor:KBorderColor] forState:UIControlStateDisabled];
+        [_loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorGrayLine]] forState:UIControlStateDisabled];
         [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(34)]];
     }
     return _loginBtn;

@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -52,7 +52,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     return _funBackView;
 }
@@ -72,7 +72,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZMineMenuItemCell class] forCellWithReuseIdentifier:[ZMineMenuItemCell className]];
-        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor)];
+        [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG])];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }

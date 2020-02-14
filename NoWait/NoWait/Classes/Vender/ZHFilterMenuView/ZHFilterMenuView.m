@@ -18,12 +18,12 @@
                                      confirmAction:(SEL _Nonnull )confirmAction
 {
     if (self = [super init]) {
-        self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
+        self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         
         self.resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.resetButton.frame = CGRectMake(20, 20, CGRectGetWidth(self.frame) / 2 - 40, CGRectGetHeight(self.frame) - 40);
         [self.resetButton setTitle:@"重置" forState:UIControlStateNormal];
-        [self.resetButton setTitleColor:KAdaptAndDarkColor([UIColor  colorMain], KFont9Color) forState:UIControlStateNormal];
+        [self.resetButton setTitleColor:adaptAndDarkColor([UIColor  colorMain], [UIColor colorTextGray1]) forState:UIControlStateNormal];
         [self.resetButton setBackgroundColor:[UIColor whiteColor]];
         self.resetButton.layer.masksToBounds = YES;
         self.resetButton.layer.cornerRadius = 2;
@@ -38,7 +38,7 @@
         [self.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
         [self.confirmButton addTarget:target action:confirmAction forControlEvents:UIControlEventTouchUpInside];
         [self.confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.confirmButton setBackgroundColor:KAdaptAndDarkColor([UIColor  colorMain], [UIColor  colorMain])];
+        [self.confirmButton setBackgroundColor:adaptAndDarkColor([UIColor  colorMain], [UIColor  colorMain])];
         self.confirmButton.layer.masksToBounds = YES;
         self.confirmButton.layer.cornerRadius = 2;
         self.confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -74,16 +74,16 @@
 - (instancetype)initWithFrame:(CGRect)frame maxHeight:(CGFloat)maxHeight
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         
         self.itemManager = [[ZHFilterItemManger alloc] init];
         self.itemManager.width = self.frame.size.width;
         self.itemManager.maxLength = 7;
         
         self.selectedTabIndex = -1;
-        self.titleColor = KAdaptAndDarkColor(KTitleColor, KFont9Color);
+        self.titleColor = adaptAndDarkColor(KTitleColor, [UIColor colorTextGray1]);
         self.titleSelectedColor = [UIColor  colorMain];
-        self.lineColor = KLineColor;
+        self.lineColor = [UIColor colorGrayLine];
         self.titleFontSize = 15;
         self.showLine = YES;
         self.titleLeft = NO;
@@ -91,8 +91,8 @@
         self.listHeight = KTableViewCellHeight;
         self.bottomHeight = KBottomViewHeight;
         self.itemTitleFontSize = 12;
-        self.itemBGColor = KAdaptAndDarkColor(KItemBGColor, KLineColor);
-        self.itemBGSelectedColor = KAdaptAndDarkColor(KItemBGSelectedColor, KLineColor);
+        self.itemBGColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayLine]);
+        self.itemBGSelectedColor = adaptAndDarkColor(KItemBGSelectedColor, [UIColor colorGrayLine]);
         self.space = 15;
         self.itemHeight = 30;
         self.lineNum = 4;
@@ -219,7 +219,7 @@
         [button setTitle:titleString forState:UIControlStateNormal];
         button.tintColor = [UIColor clearColor];
         button.adjustsImageWhenHighlighted = NO;
-        button.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        button.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
         [self addSubview:button];
         CGFloat buttonWidth = buttonInterval;
         CGFloat titlePositionX = i * buttonInterval + (i + 1) * 10;
@@ -703,17 +703,17 @@
         if (tableView == self.leftTableView && downType == ZHFilterMenuDownTypeTwoLists) {
             ZHFilterModel *filterModel = [self getSelectedTabIndexFilterModelArr][indexPath.row];
             cell.titleLabel.text = filterModel.title;
-            cell.titleLabel.textColor = filterModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
+            cell.titleLabel.textColor = filterModel.selected?self.titleSelectedColor:adaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
         } else if (tableView == self.rightTableView || downType == ZHFilterMenuDownTypeOnlyList) {
             ZHFilterModel *filterModel = [self getSelectedFilterModel];
             ZHFilterItemModel *itemModel = filterModel.itemArr[indexPath.row];
             cell.titleLabel.text = itemModel.name;
-            cell.titleLabel.textColor = itemModel.selected?self.titleSelectedColor:KAdaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
+            cell.titleLabel.textColor = itemModel.selected?self.titleSelectedColor:adaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
         }
         if (tableView == self.rightTableView) {
-            cell.backgroundColor = KAdaptAndDarkColor(KItemBGColor, KLineColor);
+            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayLine]);
         }else if (tableView == self.leftTableView){
-            cell.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
+            cell.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         }
         return cell;
     } else {
@@ -730,7 +730,7 @@
             cell.itemManager = self.itemManager;
             cell.modelArr = [self getSelectedTabIndexFilterModelArr];
             cell.filterModel = filterModel;
-            cell.backgroundColor = KAdaptAndDarkColor(KItemBGColor, [UIColor colorBlackBG]);
+            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorBlackBG]);
             return cell;
         }
         return nil;
@@ -809,13 +809,13 @@
         _leftTableView.rowHeight = KTableViewCellHeight;
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
-        _leftTableView.separatorColor = KLineColor;
+        _leftTableView.separatorColor = [UIColor colorGrayLine];
         _leftTableView.separatorInset = UIEdgeInsetsZero;
         _leftTableView.tableFooterView = [[UIView alloc]init];
         _leftTableView.showsVerticalScrollIndicator = NO;
         [_leftTableView registerClass:[ZHFilterTitleTableViewCell class] forCellReuseIdentifier:NSStringFromClass([ZHFilterTitleTableViewCell class])];
         [_leftTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZHFilterItemTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ZHFilterItemTableViewCell class])];
-        _leftTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], KLineColor);
+        _leftTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
     }
     return _leftTableView;
 }
@@ -826,7 +826,7 @@
         _mediumTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _mediumTableView.dataSource = self;
         _mediumTableView.delegate = self;
-        _mediumTableView.separatorColor = KLineColor;
+        _mediumTableView.separatorColor = [UIColor colorGrayLine];
         _mediumTableView.separatorInset = UIEdgeInsetsZero;
         _mediumTableView.tableFooterView = [[UIView alloc]init];
         _mediumTableView.showsVerticalScrollIndicator = NO;
@@ -842,8 +842,8 @@
         _rightTableView.rowHeight = KTableViewCellHeight;
         _rightTableView.dataSource = self;
         _rightTableView.delegate = self;
-        _rightTableView.separatorColor = KLineColor;
-        _rightTableView.backgroundColor = KAdaptAndDarkColor(KItemBGColor, KLineColor);
+        _rightTableView.separatorColor = [UIColor colorGrayLine];
+        _rightTableView.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayLine]);
         _rightTableView.separatorInset = UIEdgeInsetsZero;
         _rightTableView.tableFooterView = [[UIView alloc]init];
         _rightTableView.showsVerticalScrollIndicator = NO;
@@ -876,7 +876,7 @@
 {
     if (!_lineView) {
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame) - 0.5, CGRectGetWidth(self.frame), 0.5)];
-        _lineView.backgroundColor = KLineColor;
+        _lineView.backgroundColor = [UIColor colorGrayLine];
         [self addSubview:_lineView];
     }
     return _lineView;

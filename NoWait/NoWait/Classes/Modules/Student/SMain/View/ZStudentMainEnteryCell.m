@@ -73,7 +73,7 @@
 //        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
-        [_iCollectionView setBackgroundColor:KAdaptAndDarkColor([UIColor colorWhite],K1aBackColor)];
+        [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackDarkBG])];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
     }

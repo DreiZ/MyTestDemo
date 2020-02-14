@@ -38,13 +38,13 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     [self addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(102));
@@ -73,7 +73,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [topView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(topView);
@@ -122,7 +122,7 @@
     }];
     
     UIView *middleLine = [[UIView alloc] initWithFrame:CGRectZero];
-    middleLine.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    middleLine.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     [self.funBackView addSubview:middleLine];
     [middleLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.funBackView);
@@ -138,7 +138,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     return _funBackView;
 }
@@ -193,7 +193,7 @@
         _leftTableView.alwaysBounceVertical = YES;
         _leftTableView.delegate = self;
         _leftTableView.dataSource = self;
-        _leftTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _leftTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
 //        _iTableView.tableHeaderView = self.menuView;
     }
     return _leftTableView;
@@ -218,7 +218,7 @@
         _rightTableView.alwaysBounceVertical = YES;
         _rightTableView.delegate = self;
         _rightTableView.dataSource = self;
-        _rightTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _rightTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
 //        _iTableView.tableHeaderView = self.menuView;
     }
     return _rightTableView;
@@ -227,7 +227,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _lessonTitleLabel.text = @"请选择预约时间";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -319,14 +319,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
-    sectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     sectionView.layer.masksToBounds = YES;
     return sectionView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
-       sectionView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+       sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
        sectionView.layer.masksToBounds = YES;
        return sectionView;
 }

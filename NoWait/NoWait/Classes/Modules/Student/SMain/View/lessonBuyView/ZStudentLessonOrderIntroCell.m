@@ -30,7 +30,7 @@
 -(void)setupView
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     self.clipsToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
     
@@ -43,7 +43,7 @@
     }];
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = CGFloatIn750(18);
     [self.contentView addSubview:contView];
@@ -87,7 +87,7 @@
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
         _iTableView.scrollEnabled = NO;
-        _iTableView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     }
     return _iTableView;
 }
@@ -146,11 +146,11 @@
 - (void)setModel:(ZStudentLessonOrderInfoModel *)model {
     _model = model;
     NSArray *list = @[
-                    @[@"预约信息：",[NSString stringWithFormat:@"%@ %@",model.orderUserName? model.orderUserName:@"",model.orderUserTel? model.orderUserTel:@""],KFont3Color],
-                    @[@"到店时间：",model.orderTime? model.orderTime:@"",KFont3Color],
-                    @[@"订单编号：",model.orderNum? model.orderNum:@"",KFont3Color],
-                    @[@"预约课程：",model.orderLesson? model.orderLesson:@"",KFont3Color],
-                    @[@"预约状态：",model.orderStatus? model.orderStatus:@"",KRedColor]];
+                    @[@"预约信息：",[NSString stringWithFormat:@"%@ %@",model.orderUserName? model.orderUserName:@"",model.orderUserTel? model.orderUserTel:@""],[UIColor colorTextBlack]],
+                    @[@"到店时间：",model.orderTime? model.orderTime:@"",[UIColor colorTextBlack]],
+                    @[@"订单编号：",model.orderNum? model.orderNum:@"",[UIColor colorTextBlack]],
+                    @[@"预约课程：",model.orderLesson? model.orderLesson:@"",[UIColor colorTextBlack]],
+                    @[@"预约状态：",model.orderStatus? model.orderStatus:@"",[UIColor colorRedDefault]]];
     
     NSMutableArray *mList = @[].mutableCopy;
     for (int i = 0; i < list.count; i++) {

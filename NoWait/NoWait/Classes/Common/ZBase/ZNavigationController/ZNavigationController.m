@@ -32,16 +32,16 @@
     UINavigationBar *navBar = [UINavigationBar appearance];
     //导航栏背景图
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
-    [navBar setBarTintColor:KAdaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
-    [navBar setTintColor:KAdaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
+    [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
+    [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
     navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
     navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
     
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :KAdaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     
-    [navBar setBackgroundImage:[UIImage imageWithColor:KAdaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 //    [navBar setShadowImage:[UIImage new]];//去掉阴影线
     
     
@@ -55,16 +55,16 @@
     UINavigationBar *navBar = self.navigationBar;
     //导航栏背景图
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
-    [navBar setBarTintColor:KAdaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
-    [navBar setTintColor:KAdaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
+    [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
+    [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
     navBar.backIndicatorImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
     navBar.backIndicatorTransitionMaskImage = KIsDarkModel ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
 
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
 
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :KAdaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
 
-    [navBar setBackgroundImage:[UIImage imageWithColor:KAdaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 //    [navBar setShadowImage:[UIImage new]];//去掉阴影线
 }
 

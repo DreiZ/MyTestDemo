@@ -32,7 +32,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite],K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackDarkBG]);
     
     [self.contentView addSubview:self.goodsImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -72,7 +72,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = KAdaptAndDarkColor(KLineColor, [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -98,7 +98,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = KAdaptAndDarkColor(KFont2Color,KFont9Color);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextGray1]);
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -111,7 +111,7 @@
 - (UILabel *)payPeopleNumLabel {
     if (!_payPeopleNumLabel) {
         _payPeopleNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _payPeopleNumLabel.textColor = KAdaptAndDarkColor(KFont9Color,KFont6Color);
+        _payPeopleNumLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray]);
         _payPeopleNumLabel.text = @"300人已付款";
         _payPeopleNumLabel.numberOfLines = 1;
         _payPeopleNumLabel.textAlignment = NSTextAlignmentLeft;
@@ -123,7 +123,7 @@
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _addressLabel.textColor = KAdaptAndDarkColor(KFont9Color,KFont6Color);
+        _addressLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray]);
         _addressLabel.text = @"<1.3km";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentRight;
@@ -172,11 +172,11 @@
      CGSize tempSize = [text tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(28)] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
-    actLabel.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBG]);
-    actLabel.textColor = kHN_OrangeHColor;
+    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBG]);
+    actLabel.textColor = [UIColor colorOrangeMoment];
     actLabel.layer.masksToBounds = YES;
     actLabel.layer.cornerRadius = 2;
-    actLabel.layer.borderColor = kHN_OrangeHColor.CGColor;
+    actLabel.layer.borderColor = [UIColor colorOrangeMoment].CGColor;
     actLabel.layer.borderWidth = 0.5;
     actLabel.text = text;
     actLabel.numberOfLines = 0;

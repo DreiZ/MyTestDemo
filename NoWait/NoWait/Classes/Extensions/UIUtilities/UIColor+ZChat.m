@@ -30,15 +30,15 @@
 
 #pragma mark - # 字体
 + (UIColor *)colorTextBlack {
-    return [UIColor blackColor];
+    return RGBAColor(45.0, 45.0, 45.0, 1.0);
 }
 
 + (UIColor *)colorTextGray {
-    return [UIColor grayColor];
+    return RGBAColor(132.0, 132.0, 136.0, 1.0);
 }
 
 + (UIColor *)colorTextGray1 {
-    return RGBAColor(160, 160, 160, 1.0);
+    return RGBAColor(200.0, 200.0, 200.0, 1.0);
 }
 
 #pragma mark - 灰色
@@ -51,7 +51,7 @@
 }
 
 + (UIColor *)colorGrayLine {
-    return [UIColor colorWithWhite:0.5 alpha:0.3];
+    return RGBAColor(246.0, 246.0, 246.0, 1.0);
 }
 
 + (UIColor *)colorGrayForChatBar {
@@ -65,9 +65,14 @@
 
 #pragma mark - 白色
 + (UIColor *)colorWhite {
-    return RGBAColor(255, 255, 255, 1.0f);
+    return RGBAColor(255.0, 255.0, 255.0, 1.0f);
 }
 
+
+#pragma mark - 红色
++ (UIColor *)colorRedDefault {
+    return RGBAColor(255.0, 72.0, 72.0, 1.0f);
+}
 
 #pragma mark - 绿色
 + (UIColor *)colorGreenDefault {
@@ -83,6 +88,10 @@
     return RGBAColor(74.0, 99.0, 141.0, 1.0);
 }
 
+#pragma mark - 黄色
++ (UIColor *)colorOrangeMoment {
+    return RGBAColor(235.0 ,116.0 ,0 , 1.0);
+}
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar {
     return RGBAColor(20.0, 20.0, 20.0, 1.0);
@@ -91,6 +100,12 @@
 + (UIColor *)colorBlackBG {
     return RGBAColor(46.0, 46.0, 46.0, 1.0);
 }
+
+
++ (UIColor *)colorBlackDarkBG {
+    return RGBAColor(26.0, 26.0, 26.0, 1.0);
+}
+
 
 + (UIColor *)colorBlackAlphaScannerBG {
     return [UIColor colorWithWhite:0 alpha:0.6];

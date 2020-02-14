@@ -73,7 +73,7 @@
     if (!_inputLine) {
         _inputLine = [[UIView alloc] init];
         _inputLine.layer.masksToBounds = YES;
-        _inputLine.backgroundColor = KRedColor;
+        _inputLine.backgroundColor = [UIColor colorRedDefault];
     }
     return _inputLine;
 }
@@ -82,7 +82,7 @@
     if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.layer.masksToBounds = YES;
-        _bottomLineView.backgroundColor = KAdaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
     }
     return _bottomLineView;
 }
@@ -90,7 +90,7 @@
 - (UILabel *)leftTitleLabel {
     if (!_leftTitleLabel) {
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _leftTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _leftTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _leftTitleLabel.text = @"";
         _leftTitleLabel.numberOfLines = 0;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -102,7 +102,7 @@
 - (UILabel *)subTitleLabel {
     if (!_subTitleLabel) {
         _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _subTitleLabel.textColor = KAdaptAndDarkColor(KFont3Color, KFont9Color);
+        _subTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
         _subTitleLabel.text = @"";
         _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -122,7 +122,7 @@
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentCenter];
         [_inputTextField setPlaceholder:@""];
-        [_inputTextField setTextColor:KAdaptAndDarkColor(KFont3Color, KFont9Color)];
+        [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1])];
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }

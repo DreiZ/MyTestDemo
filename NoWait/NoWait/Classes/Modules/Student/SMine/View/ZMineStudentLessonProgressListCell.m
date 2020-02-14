@@ -27,7 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = KAdaptAndDarkColor([UIColor colorWhite], K1aBackColor);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -88,7 +88,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = KFont6Color;
+        _lessonTitleLabel.textColor = [UIColor colorTextGray];
         _lessonTitleLabel.text = @"瑜伽";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -100,7 +100,7 @@
 - (UILabel *)lessonCountLabel {
     if (!_lessonCountLabel) {
         _lessonCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonCountLabel.textColor = KAdaptAndDarkColor(KFont8Color, KFont3Color);
+        _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextBlack]);
         _lessonCountLabel.text = @"20/30节";
         _lessonCountLabel.numberOfLines = 1;
         _lessonCountLabel.textAlignment = NSTextAlignmentLeft;

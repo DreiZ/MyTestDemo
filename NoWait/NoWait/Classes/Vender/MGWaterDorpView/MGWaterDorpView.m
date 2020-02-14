@@ -146,7 +146,7 @@ BOOL waving = YES;
 - (void)setupShapeLayer
 {
     // 修改默认线条颜色
-    [KBlueBackColor set];
+    [[UIColor colorBlueMoment] set];
     
     UIBezierPath *path = [UIBezierPath bezierPath];
     
