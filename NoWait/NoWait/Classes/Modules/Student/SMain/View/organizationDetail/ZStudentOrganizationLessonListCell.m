@@ -30,7 +30,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     [self.contentView addSubview:self.lessonImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -75,7 +75,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self);
@@ -103,7 +103,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -128,7 +128,7 @@
 - (UILabel *)favourablePriceLabel {
     if (!_favourablePriceLabel) {
         _favourablePriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _favourablePriceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        _favourablePriceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _favourablePriceLabel.text = @"￥256";
         _favourablePriceLabel.numberOfLines = 1;
         _favourablePriceLabel.textAlignment = NSTextAlignmentRight;
@@ -140,7 +140,7 @@
 - (UILabel *)goodReputationLabel {
     if (!_goodReputationLabel) {
         _goodReputationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _goodReputationLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        _goodReputationLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentLeft;
@@ -152,7 +152,7 @@
 - (UILabel *)sellCountLabel {
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _sellCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        _sellCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _sellCountLabel.text = @"已售200>";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;

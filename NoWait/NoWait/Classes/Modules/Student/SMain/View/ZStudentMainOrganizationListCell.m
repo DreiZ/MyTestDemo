@@ -32,7 +32,7 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackDarkBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     
     [self.contentView addSubview:self.goodsImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -72,7 +72,7 @@
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -172,7 +172,7 @@
      CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
-    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBG]);
+    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBGDark]);
     actLabel.textColor = [UIColor colorOrangeMoment];
     actLabel.layer.masksToBounds = YES;
     actLabel.layer.cornerRadius = 2;

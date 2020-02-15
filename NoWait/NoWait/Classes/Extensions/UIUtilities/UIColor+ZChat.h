@@ -21,27 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)colorNavBG;
 + (UIColor *)colorNavBGFont;
 
-#pragma mark - 白色
-+ (UIColor *)colorWhite;
-
-#pragma mark - 红色
-+ (UIColor *)colorRedDefault;
-
-#pragma mark - # 字体
-+ (UIColor *)colorTextBlack;
-+ (UIColor *)colorTextGray;
-+ (UIColor *)colorTextGray1;
- 
-
-#pragma mark - 灰色
-+ (UIColor *)colorGrayBG;           // 浅灰色默认背景
-+ (UIColor *)colorGrayCharcoalBG;   // 较深灰色背景（聊天窗口, 朋友圈用）
-+ (UIColor *)colorGrayLine;
-+ (UIColor *)colorGrayForChatBar;
-+ (UIColor *)colorGrayForMoment;
-
-
-
 #pragma mark - 绿色
 + (UIColor *)colorGreenDefault;
 + (UIColor *)colorGreenHL;
@@ -55,15 +34,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar;
-+ (UIColor *)colorBlackBG;
-+ (UIColor *)colorBlackDarkBG;
-+ (UIColor *)colorBlackAlphaScannerBG;
-+ (UIColor *)colorBlackForAddMenu;
-+ (UIColor *)colorBlackForAddMenuHL;
 
 #pragma mark - 红色
 + (UIColor *)colorRedForButton;
 + (UIColor *)colorRedForButtonHL;
+
+
+#pragma mark - 白色
++ (UIColor *)colorWhite;
+
++ (UIColor *)colorBlack;
+#pragma mark - 红色
++ (UIColor *)colorRedDefault;
+
+#pragma mark - # 字体
++ (UIColor *)colorTextBlack;
++ (UIColor *)colorTextGray;
++ (UIColor *)colorTextGray1;
+
++ (UIColor *)colorTextBlackDark;
++ (UIColor *)colorTextGrayDark;
++ (UIColor *)colorTextGray1Dark;
+ 
+
+#pragma mark - 灰色
++ (UIColor *)colorGrayBG;           // 浅灰色默认背景
++ (UIColor *)colorGrayLine;
+
++ (UIColor *)colorGrayBGDark;
++ (UIColor *)colorBlackBGDark;
+
 
 @end
 

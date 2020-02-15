@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     [self setNavgation];
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     [self.view addSubview:self.subscribeBtn];
     [self.subscribeBtn mas_makeConstraints:^(MASConstraintMaker *make) {

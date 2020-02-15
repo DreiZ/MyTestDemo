@@ -51,7 +51,7 @@
         model.rightImage = titleArr[i][1];
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont fontContent];
-        model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         model.cellTitle = @"changePassword";
         model.isHiddenBottomLine = YES;
         
@@ -67,7 +67,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
@@ -98,7 +98,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

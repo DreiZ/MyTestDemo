@@ -17,7 +17,7 @@
 
 + (UIFont *)fontMax1Title
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(38)];
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
 }
 
 + (UIFont *)fontMaxTitle

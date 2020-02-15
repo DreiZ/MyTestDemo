@@ -19,6 +19,8 @@
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
+#import "ZOrganizationMineVC.h"
+
 #define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
 
 @interface ZStudentMineVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -90,7 +92,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:self.iTableView];
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +123,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         
@@ -135,6 +137,9 @@
         _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
             if (index == 1) {
+                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
+                [self.navigationController pushViewController:ss animated:YES];
+                return ;
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
             }

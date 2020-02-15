@@ -29,12 +29,12 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     contView.layer.masksToBounds = YES;
     contView.layer.cornerRadius = 4;
     [self.contentView addSubview:contView];
@@ -46,7 +46,7 @@
     }];
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
-    topTitleBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    topTitleBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [contView addSubview:topTitleBackView];
     [topTitleBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
@@ -123,7 +123,7 @@
 - (UILabel *)moreLabel {
     if (!_moreLabel) {
         _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        _moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _moreLabel.text = @"查看更多>>";
         _moreLabel.numberOfLines = 0;
         _moreLabel.textAlignment = NSTextAlignmentRight;
@@ -135,7 +135,7 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _lessonTitleLabel.text = @"课程进度";
         _lessonTitleLabel.numberOfLines = 0;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;

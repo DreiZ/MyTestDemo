@@ -56,7 +56,7 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
-        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _contView;
 }

@@ -36,8 +36,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.minTextField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.maxTextField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-    self.itemView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBG]);
-    self.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+    self.itemView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBGDark]);
+    self.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
 }
 
 - (void)setItemType:(ZHFilterItemType)itemType

@@ -74,7 +74,7 @@
 - (instancetype)initWithFrame:(CGRect)frame maxHeight:(CGFloat)maxHeight
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+        self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
         self.itemManager = [[ZHFilterItemManger alloc] init];
         self.itemManager.width = self.frame.size.width;
@@ -219,7 +219,7 @@
         [button setTitle:titleString forState:UIControlStateNormal];
         button.tintColor = [UIColor clearColor];
         button.adjustsImageWhenHighlighted = NO;
-        button.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+        button.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         [self addSubview:button];
         CGFloat buttonWidth = buttonInterval;
         CGFloat titlePositionX = i * buttonInterval + (i + 1) * 10;
@@ -730,7 +730,7 @@
             cell.itemManager = self.itemManager;
             cell.modelArr = [self getSelectedTabIndexFilterModelArr];
             cell.filterModel = filterModel;
-            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorBlackBG]);
+            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayBGDark]);
             return cell;
         }
         return nil;

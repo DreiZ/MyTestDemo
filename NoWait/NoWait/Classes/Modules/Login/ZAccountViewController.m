@@ -77,7 +77,7 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn bk_whenTapped:^{
@@ -136,7 +136,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackDarkBG]);
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -146,7 +146,7 @@
     }];
     
     UIView *hintLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
-    hintLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorBlackBG]);
+    hintLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
     [lineView addSubview:hintLineView];
     [hintLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.resignBtn.mas_right);
@@ -239,7 +239,7 @@
     if(!_iScrollView) {
         _iScrollView = [[UIScrollView alloc] init];
         _iScrollView.delegate = self;
-        _iScrollView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextGray1]);
+        _iScrollView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _iScrollView.pagingEnabled = YES;
         _iScrollView.bounces = NO;
         _iScrollView.showsHorizontalScrollIndicator = NO;

@@ -38,7 +38,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.navigationItem setTitle:LOCSTR(@"意见反馈")];
     
@@ -107,7 +107,7 @@
 - (UILabel *)hintLabel {
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] init];
-        [_hintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray])];
+        [_hintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
         [_hintLabel setText:@"您有什么意见要反馈给我们？"];
     }
@@ -138,7 +138,7 @@
 -(UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
-        _footerView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _footerView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         
         UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;

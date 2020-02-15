@@ -56,7 +56,7 @@
         model.rightImage = titleArr[i][1];
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont fontContent];
-        model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray]);
+        model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         model.cellTitle = titleArr[i][0];
         
         if (i == 0) {
@@ -107,7 +107,7 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBG]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }

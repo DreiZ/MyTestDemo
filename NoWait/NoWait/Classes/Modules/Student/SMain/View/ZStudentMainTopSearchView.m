@@ -33,7 +33,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackDarkBG]);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -99,7 +99,7 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
-//        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackDarkBG]);
+//        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     }
     return _contView;
 }
@@ -131,7 +131,7 @@
     if (!_searhBackView) {
         _searhBackView = [[UIView alloc] init];
         _searhBackView.layer.masksToBounds = YES;
-        _searhBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine],[UIColor colorBlackBG]);
+        _searhBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine],[UIColor colorGrayBGDark]);
         _searhBackView.layer.cornerRadius = 4;
         
         [_searhBackView addSubview:self.searchImageView];
@@ -176,7 +176,7 @@
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = adaptAndDarkColor([UIColor  colorMain], [UIColor colorBlackDarkBG]);
+        _backView.backgroundColor = adaptAndDarkColor([UIColor  colorMain], [UIColor colorBlackBGDark]);
         _backView.alpha = 0;
     }
     return _backView;
