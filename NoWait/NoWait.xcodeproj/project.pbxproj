@@ -1771,7 +1771,6 @@
 				B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */,
 				B29A71CD23F172C8000AEF5F /* UIFont+ZChat.h */,
 				B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */,
-				B2F7D34023CD702000F7A17D /* Tool */,
 				B2A77FFE23BDEDD300407BF0 /* UITableViewCell+ZCategory.m */,
 				B2A77FFF23BDEDD300407BF0 /* ZCellConfig.h */,
 				B2A7800223BDEDD300407BF0 /* Common.xcassets */,
@@ -2511,13 +2510,6 @@
 			children = (
 			);
 			path = ZTopMenuView;
-			sourceTree = "<group>";
-		};
-		B2F7D34023CD702000F7A17D /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tool;
 			sourceTree = "<group>";
 		};
 		BD89A4E7C09F380472AC6979 /* Pods */ = {

@@ -198,7 +198,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
 //    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
 //        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
 //

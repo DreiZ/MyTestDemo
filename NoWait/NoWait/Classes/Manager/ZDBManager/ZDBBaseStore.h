@@ -12,7 +12,6 @@
 #define     TLTimeStamp(date)   ([NSString stringWithFormat:@"%lf", [date timeIntervalSince1970]])
 
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZDBBaseStore : NSObject
 
@@ -50,4 +49,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addColumnToTable:(NSString *)tableName columnName:(NSString *)columnName;
 @end
 
-NS_ASSUME_NONNULL_END

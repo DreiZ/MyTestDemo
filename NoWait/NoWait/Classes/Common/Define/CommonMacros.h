@@ -9,7 +9,7 @@
 #ifndef CommonMacros_h
 #define CommonMacros_h
 
-
+#import "ZPublicTool.h"
 #import "UIColor+ZChat.h"      // 颜色
 #import "UIFont+ZChat.h"       // 字体
 #import "UIImageView+ZWebImage.h"
@@ -33,6 +33,6 @@
 #import "DarkModel.h"
 
 #import "ZShortcutMethod.h"
-#import "ZPublicTool.h"
+
 
 #endif /* CommonMacros_h */

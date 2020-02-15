@@ -129,15 +129,4 @@ return shared##className; \
 || ([_object respondsToSelector:@selector(count)] && [(NSArray *)_object count] == 0))
 
 
-typedef NS_ENUM(NSUInteger, ZFormatterType) {
-    ZFormatterTypeAny,                 //不过滤
-    ZFormatterTypePhoneNumber,         //11位电话号码
-    ZFormatterTypeNumber,              //数字
-    ZFormatterTypeDecimal,             //小数
-    ZFormatterTypeAlphabet,            //英文字母
-    ZFormatterTypeNumberAndAlphabet,   //数字+英文字母
-    ZFormatterTypeIDCard,              //18位身份证
-    ZFormatterTypeCustom               //自定义
-};
-
 #endif /* define_h */
