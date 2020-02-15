@@ -57,7 +57,7 @@
         _moreView = [[UIView alloc] init];
         
         UIImageView *moreImageView = [[UIImageView alloc] init];
-        moreImageView.image = [UIImage imageNamed:@"mineLessonRight"];
+        moreImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
         moreImageView.layer.masksToBounds = YES;
         [_moreView addSubview:moreImageView];
         [moreImageView mas_makeConstraints:^(MASConstraintMaker *make) {

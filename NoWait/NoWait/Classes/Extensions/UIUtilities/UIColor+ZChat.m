@@ -11,11 +11,11 @@
 @implementation UIColor (ZChat)
 //主题色
 + (UIColor *)colorMain {
-    return RGBAColor(77, 213, 153, 1.0);
+    return RGBAColor(77.0, 213.0, 153.0, 1.0);
 }
 
 + (UIColor *)colorMainSub {
-    return RGBAColor(236, 250, 244, 1.0);
+    return RGBAColor(77.0, 213.0, 153.0, 0.1);
 }
 
 //导航栏颜色
@@ -80,7 +80,7 @@
 }
 
 + (UIColor *)colorGreenHL {
-    return RGBAColor(46, 139, 46, 1.0f);
+    return RGBAColor(46.0, 139.0, 46.0, 1.0f);
 }
 
 #pragma mark - 蓝色

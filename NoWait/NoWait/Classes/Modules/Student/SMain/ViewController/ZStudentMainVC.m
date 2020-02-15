@@ -43,7 +43,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"首页"), @"record_normal", @"record_highlighted");
+        initTabBarItem(self.tabBarItem, LOCSTR(@"首页"), @"tabBarMain_highlighted", @"tabBarMain_highlighted");
         self.analyzeTitle = @"首页";
     }
     return self;

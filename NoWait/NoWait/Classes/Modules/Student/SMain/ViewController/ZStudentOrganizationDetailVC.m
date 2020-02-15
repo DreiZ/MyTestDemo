@@ -118,7 +118,7 @@
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
-        [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+        [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"leftBlackArrow"] forState:UIControlStateNormal];
         [_navLeftBtn bk_whenTapped:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
@@ -242,7 +242,7 @@
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     
-    [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+    [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"leftBlackArrow"] forState:UIControlStateNormal];
 }
 
 @end

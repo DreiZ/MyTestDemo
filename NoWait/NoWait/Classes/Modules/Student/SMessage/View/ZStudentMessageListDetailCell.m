@@ -124,7 +124,7 @@
 -(UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.image = [UIImage imageNamed:@"mineLessonRight"];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
         _arrowImageView.contentMode = UIViewContentModeScaleAspectFill;
         _arrowImageView.clipsToBounds = YES;
     }

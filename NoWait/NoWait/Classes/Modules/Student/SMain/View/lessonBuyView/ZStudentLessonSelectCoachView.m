@@ -142,7 +142,7 @@
     if (!_lastStepBtn) {
         __weak typeof(self) weakSelf = self;
         _lastStepBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_lastStepBtn setImage:[UIImage imageNamed:@"mineLessonLeft"] forState:UIControlStateNormal];
+        [_lastStepBtn setImage:[UIImage imageNamed:@"leftBlackArrow"] forState:UIControlStateNormal];
         [_lastStepBtn bk_whenTapped:^{
             if (weakSelf.lastStepBlock) {
                 weakSelf.lastStepBlock();

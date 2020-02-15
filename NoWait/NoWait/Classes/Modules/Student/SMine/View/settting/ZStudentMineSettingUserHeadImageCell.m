@@ -39,7 +39,7 @@
     self.clipsToBounds = YES;
     
     UIImageView *arrowImageView = [[UIImageView alloc] init];
-    arrowImageView.image = [UIImage imageNamed:@"mineLessonRight"];
+    arrowImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
     arrowImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:arrowImageView];
     [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {

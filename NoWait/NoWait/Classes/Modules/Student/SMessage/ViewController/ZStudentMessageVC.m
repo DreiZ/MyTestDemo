@@ -26,7 +26,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"消息"), @"tabBarMessage_highlighted", @"tabBarMessage_highlighted");
+        initTabBarItem(self.tabBarItem, LOCSTR(@"消息"), @"", @"");
     }
     return self;
 }

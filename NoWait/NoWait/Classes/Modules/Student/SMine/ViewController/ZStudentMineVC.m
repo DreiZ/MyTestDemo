@@ -37,7 +37,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"我的"), @"tabBarMine_highlighted", @"tabBarMine_highlighted");
+        initTabBarItem(self.tabBarItem, LOCSTR(@"我的"), @"", @"");
         self.statusBarStyle = UIStatusBarStyleLightContent;
         self.analyzeTitle = @"个人主页";
     }

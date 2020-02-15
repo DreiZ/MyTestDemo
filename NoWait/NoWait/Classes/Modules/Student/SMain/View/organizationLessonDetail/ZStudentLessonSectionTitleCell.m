@@ -88,7 +88,7 @@
 - (UIImageView *)moreImageView {
     if (!_moreImageView) {
         _moreImageView = [[UIImageView alloc] init];
-        _moreImageView.image = [UIImage imageNamed:@"mineLessonRight"];
+        _moreImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
         _moreImageView.layer.masksToBounds = YES;
     }
     return _moreImageView;

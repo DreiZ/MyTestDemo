@@ -51,7 +51,7 @@
     
     NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
     NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
-    NSArray *rightArrowArr = @[@"", @"mineLessonRight", @"", @""];
+    NSArray *rightArrowArr = @[@"", @"rightBlackArrow", @"", @""];
     NSArray *rightColorArr = @[[UIColor colorTextGray], [UIColor colorTextGray], [UIColor colorRedDefault], [UIColor colorTextGray]];
     NSArray *cellTitleArr = @[@"lesson", @"you", @"price",@"tel"];
     
