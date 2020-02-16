@@ -15,22 +15,22 @@
 }
 
 + (UIColor *)colorMainSub {
-    return HexAColor(0x4dd599, 0.1);
+    return HexAColor(0x4dd599, 1.0);
 }
 
 //导航栏颜色
 + (UIColor *)colorNavBG {
-    return  HexAColor(0xffffff, 0.1);
+    return  HexAColor(0xffffff, 1.0);
 }
 
 + (UIColor *)colorNavBGFont {
-    return HexAColor(0x000000, 0.1);
+    return HexAColor(0x000000, 1.0);
 }
 
 
 #pragma mark - 白色
 + (UIColor *)colorWhite {
-    return HexAColor(0xffffff, 0.1);
+    return HexAColor(0xffffff, 1.0);
 }
 
 #pragma mark - 按钮#
@@ -45,22 +45,22 @@
 
 #pragma mark - 黑色
 + (UIColor *)colorBlack {
-    return HexAColor(0x000000, 0.1);
+    return HexAColor(0x000000, 1.0);
 }
 
 
 #pragma mark - 红色
 + (UIColor *)colorRedDefault {
-    return HexAColor(0xff4848, 0.1);
+    return HexAColor(0xff4848, 1.0);
 }
 
 #pragma mark - 绿色
 + (UIColor *)colorGreenDefault {
-    return HexAColor(0x02bb00, 0.1);
+    return HexAColor(0x02bb00, 1.0);
 }
 
 + (UIColor *)colorGreenHL {
-    return HexAColor(0x2E8B2E, 0.1);
+    return HexAColor(0x2E8B2E, 1.0);
 }
 
 #pragma mark - 蓝色

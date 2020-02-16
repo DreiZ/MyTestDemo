@@ -9,10 +9,10 @@
 #import "ZOrganizationMineVC.h"
 #import "ZOrganizationMineHeaderView.h"
 #import "ZOriganizationClubSelectedCell.h"
+#import "ZOriganizationStatisticsCell.h"
+#import "ZOrganizationMenuCell.h"
 
-#import "ZMineMenuCell.h"
-#import "ZStudentMineAdverCell.h"
-#import "ZStudentMineLessonProgressCell.h"
+#import "ZOrganizationCampusManagementVC.h"
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
@@ -20,7 +20,7 @@
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
-#define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
+#define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
 
 @interface ZOrganizationMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -77,17 +77,17 @@
     _lessonList = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
     
-    NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
-    NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
-    for (int i = 0; i < list.count; i++) {
-        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
-        model.name = list[i][0];
-        model.imageName = list[i][1];
-        model.channel_id = channlArr[i];
-        [_topchannelList addObject:model];
-        
-        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
-    }
+//    NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
+//    NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
+//    for (int i = 0; i < list.count; i++) {
+//        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
+//        model.name = list[i][0];
+//        model.imageName = list[i][1];
+//        model.channel_id = channlArr[i];
+//        [_topchannelList addObject:model];
+//
+//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
+//    }
 }
 
 - (void)setupMainView {
@@ -135,10 +135,11 @@
         __weak typeof(self) weakSelf = self;
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
-            if (index == 1) {
-                ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }
+            [self.navigationController popViewControllerAnimated:YES];
+//            if (index == 1) {
+//                ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
+//                [weakSelf.navigationController pushViewController:svc animated:YES];
+//            }
         };
     }
     return _headerView;
@@ -160,24 +161,32 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+//    ZOrganizationCampusManagementVC
     if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
-        ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
-        lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
-            if ([model.channel_id isEqualToString:@"eva"]) {
-                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([model.channel_id isEqualToString:@"order"]){
-                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-
-            }else if ([model.channel_id isEqualToString:@"card"]) {
-                ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }else if ([model.channel_id isEqualToString:@"lesson"]) {
-                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }
+//        ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
+//        lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
+//            if ([model.channel_id isEqualToString:@"eva"]) {
+//                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+//                [weakSelf.navigationController pushViewController:elvc animated:YES];
+//            }else if ([model.channel_id isEqualToString:@"order"]){
+//                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
+//                [weakSelf.navigationController pushViewController:elvc animated:YES];
+//
+//            }else if ([model.channel_id isEqualToString:@"card"]) {
+//                ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
+//                [weakSelf.navigationController pushViewController:lvc animated:YES];
+//            }else if ([model.channel_id isEqualToString:@"lesson"]) {
+//                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
+//                [weakSelf.navigationController pushViewController:lvc animated:YES];
+//            }
+//        };
+    }else if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
+        ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
+        lcell.menuBlock = ^(ZBaseUnitModel * model) {
+            ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
+            [self.navigationController pushViewController:mvc animated:YES];
         };
+        
     }
 
     return cell;
@@ -247,15 +256,33 @@
     }
     ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
     [self.cellConfigArr addObject:channelCellConfig];
-    //    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
-    //    [self.cellConfigArr addObject:channelCellConfig];
     
-    ZCellConfig *adverCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineAdverCell className] title:[ZStudentMineAdverCell className] showInfoMethod:nil heightOfCell:[ZStudentMineAdverCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:adverCellConfig];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+    ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:statisticsCellConfig];
+    
+    NSMutableArray *menulist = @[].mutableCopy;
+    for (int i = 0; i < 6; i++) {
+        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+        model.name = @"相册管理";
+        model.imageName = @"mineOrderEva";
+        [menulist addObject:model];
+    }
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationMenuCell className] title:[ZOrganizationMenuCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationMenuCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:menulist];
        [self.cellConfigArr addObject:progressCellConfig];
     
+    {
+        NSMutableArray *menulist = @[].mutableCopy;
+        for (int i = 0; i < 4; i++) {
+            ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+            model.name = @"订单管理";
+            model.imageName = @"mineOrderEva";
+            [menulist addObject:model];
+        }
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationMenuCell className] title:[ZOrganizationMenuCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationMenuCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:menulist];
+           [self.cellConfigArr addObject:progressCellConfig];
+        
+    }
     
     [self.iTableView reloadData];
 }

@@ -9,6 +9,8 @@
 #import "ZOrganizationMineHeaderView.h"
 
 #define headImageHeight CGFloatIn750(120)
+#define settingImageHeight CGFloatIn750(90)
+
 
 @interface ZOrganizationMineHeaderView ()
 @property (nonatomic,strong) UIImageView *headImageView;
@@ -78,7 +80,7 @@
     
     [self.switchUserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
-        make.top.equalTo(self.nameLabel.mas_top).offset(CGFloatIn750(8));
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(8));
         make.height.mas_equalTo(CGFloatIn750(54));
     }];
     
@@ -112,27 +114,30 @@
 
 #pragma mark -设置frame
 - (void)setSubViewFrame {
-    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(30) - headImageHeight, headImageHeight, headImageHeight);
+    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(80) - headImageHeight, headImageHeight, headImageHeight);
     
     
-    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)), CGFloatIn750(90), CGFloatIn750(90));
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(20) - settingImageHeight, self.height - (CGFloatIn750(50) + CGFloatIn750(80) + headImageHeight + settingImageHeight), settingImageHeight, settingImageHeight);
     
     self.nameLabel.font = [UIFont fontMaxTitle];
     self.nameLabel.alpha = 1;
     self.headImageView.layer.cornerRadius = CGFloatIn750(41);
     
     self.backView.alpha = 0;
+    self.switchUserBtn.alpha = 1;
 }
 
 - (void)setAnimationSubViewFrame {
 
-    self.nameLabel.alpha = (self.height-kTopHeight)/(44);
+    return;
+    self.nameLabel.alpha = (self.height-kTopHeight-kStatusBarHeight)/(kTopHeight);
+    self.switchUserBtn.alpha = (self.height-kTopHeight-kStatusBarHeight)/(kTopHeight);
     
     self.nameLabel.font = [UIFont systemFontOfSize:(CGFloatIn750(36) - (1 - self.nameLabel.alpha)*CGFloatIn750(10))];
     
-    self.headImageView.frame = CGRectMake((KScreenWidth - headImageHeight -  CGFloatIn750(30)) - (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2), self.height - CGFloatIn750(30) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(12), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
+    self.headImageView.frame = CGRectMake((KScreenWidth - headImageHeight -  CGFloatIn750(30)) - (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2), self.height - CGFloatIn750(80) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(12), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
     
-    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)) + (1 - self.nameLabel.alpha)*CGFloatIn750(30) , CGFloatIn750(90), CGFloatIn750(90));
+    self.settingView.frame = CGRectMake(KScreenWidth - settingImageHeight - CGFloatIn750(20), self.height - (CGFloatIn750(80) + CGFloatIn750(50) + headImageHeight + settingImageHeight) + (1 - self.nameLabel.alpha)*CGFloatIn750(30) , settingImageHeight, settingImageHeight);
     
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
@@ -241,7 +246,7 @@
     if (self.height > kTopHeight + kStatusBarHeight) {
         [self setSubViewFrame];
     }else {
-//        NSLog(@"------xia--%f",self.height);
+        NSLog(@"------xia--%f",self.height);
         [self setAnimationSubViewFrame];
     }
 }

@@ -27,15 +27,15 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = [UIColor colorGrayBG];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(40));
-        make.right.equalTo(self.contentView.mas_right);
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(0));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-0));
     }];
@@ -51,9 +51,9 @@
 - (UIView *)funBackView {
     if (!_funBackView) {
         _funBackView = [[UIView alloc] init];
-        _funBackView.layer.masksToBounds = YES;
-        _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = [UIColor whiteColor];
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+        ViewRadius(_funBackView, CGFloatIn750(16));
+        ViewShadowRadius(_funBackView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
     }
     return _funBackView;
 }
@@ -64,7 +64,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumLineSpacing= 0;
         layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(52));
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
@@ -104,26 +104,83 @@
     if (self.menuBlock) {
         self.menuBlock(_channelList[indexPath.row]);
     }
+    [self selectedWithIndexPath:indexPath];
 }
 
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(CGFloatIn750(0), CGFloatIn750(0), CGFloatIn750(0), CGFloatIn750(0));
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(0);
+}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ( _channelList.count > 0) {
         ZBaseUnitModel *model = _channelList[indexPath.row];
         CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
-        return CGSizeMake(cellSize.width + CGFloatIn750(34), CGFloatIn750(128));
+        return CGSizeMake(cellSize.width + CGFloatIn750(34), CGFloatIn750(52));
     }
-    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(52));
 }
 
 #pragma mark 类型
--(void)setChannelList:(NSArray *)channelList {
+-(void)setChannelList:(NSArray <ZBaseUnitModel *>*)channelList {
     _channelList = channelList;
     [self.iCollectionView reloadData];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(50);
+    return CGFloatIn750(54);
+}
+
+- (void)selectedWithIndexPath:(NSIndexPath *)indexPath {
+    for (int i = 0; i < _channelList.count; i++) {
+        ZBaseUnitModel *model = _channelList[i];
+        if (i == indexPath.row) {
+            model.isSelected = YES;
+        }else{
+            model.isSelected = NO;
+        }
+    }
+    [_iCollectionView reloadData];
+    
+    CGFloat leftX = [self getSelectedLeftXWithIndexPath:indexPath];
+    CGFloat rightX = [self getSelectedRightXWithIndexPath:indexPath];
+    if (rightX - _iCollectionView.width - _iCollectionView.contentOffset.x > 0) {
+        [_iCollectionView setOffsetX:rightX - _iCollectionView.width + CGFloatIn750(70) animated:YES];
+    }else if (leftX - _iCollectionView.contentOffset.x < CGFloatIn750(70)) {
+        if (_iCollectionView.contentOffset.x - leftX - CGFloatIn750(70) > 0) {
+            [_iCollectionView setOffsetX:_iCollectionView.contentOffset.x - leftX - CGFloatIn750(70) animated:YES];
+        }else{
+            [_iCollectionView setOffsetX:_iCollectionView.contentOffset.x - leftX  animated:YES];
+        }
+    }
+}
+
+- (CGFloat)getSelectedLeftXWithIndexPath:(NSIndexPath *)indexPath {
+    CGFloat leftX = 0;
+    for (int i = 0; i < indexPath.row; i++) {
+        ZBaseUnitModel *model = _channelList[i];
+        CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
+        leftX += cellSize.width + CGFloatIn750(34);
+    }
+    
+    return leftX;
+}
+
+- (CGFloat)getSelectedRightXWithIndexPath:(NSIndexPath *)indexPath {
+    CGFloat rightX = [self getSelectedLeftXWithIndexPath:indexPath];
+    ZBaseUnitModel *model = _channelList[indexPath.row];
+    CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
+    rightX += cellSize.width + CGFloatIn750(34);
+    
+    return rightX;
 }
 @end
 

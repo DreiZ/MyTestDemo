@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) void (^menuBlock)(ZBaseUnitModel *);
 
-@property (nonatomic,strong) NSArray *channelList;
+@property (nonatomic,strong) NSArray <ZBaseUnitModel*>*channelList;
 @end
 
 NS_ASSUME_NONNULL_END

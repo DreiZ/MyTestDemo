@@ -10,7 +10,8 @@
 
 @interface ZMineStudentEvaListEvaOrderDesCell ()
 
-@property (nonatomic,strong) UILabel *evaTitleLabel;@end
+@property (nonatomic,strong) UILabel *evaTitleLabel;
+@end
 
 @implementation ZMineStudentEvaListEvaOrderDesCell
 

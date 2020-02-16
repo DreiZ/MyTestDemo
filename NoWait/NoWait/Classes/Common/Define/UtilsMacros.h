@@ -54,6 +54,15 @@
 [View.layer setCornerRadius:(Radius)];\
 [View.layer setMasksToBounds:YES]
 
+// View 阴影
+#define ViewShadowRadius(View, Radius, Offset, Opacity, Color)\
+\
+[View.layer setShadowRadius:(Radius)];\
+[View.layer setShadowOffset:Offset];\
+[View.layer setShadowOpacity:(Opacity)];\
+[View.layer setShadowColor:[Color CGColor]]
+
+
 //property 属性快速声明 别用宏定义了，使用代码块+快捷键实现吧
 
 // 当前系统版本

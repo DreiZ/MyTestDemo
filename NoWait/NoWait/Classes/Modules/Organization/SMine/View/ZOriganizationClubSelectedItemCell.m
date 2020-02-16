@@ -34,13 +34,13 @@
     [self.contentView addSubview:self.hintView];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(20));
         make.top.equalTo(self.mas_top);
     }];
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left);
-        make.top.equalTo(self.mas_top);
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.mas_bottom);
         make.width.mas_equalTo(CGFloatIn750(48));
         make.height.mas_equalTo(CGFloatIn750(8));
     }];
@@ -71,11 +71,13 @@
     _model = model;
     _titleLabel.text = model.name;
     if (model.isSelected) {
+        [_titleLabel setFont:[UIFont boldFontContent]];
         _hintView.hidden = NO;
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     }else{
+        [_titleLabel setFont:[UIFont fontSmall]];
         _hintView.hidden = YES;
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGrayDark], [UIColor colorTextBlack]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextBlack]);
     }
 }
 @end

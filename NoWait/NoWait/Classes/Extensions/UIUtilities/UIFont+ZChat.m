@@ -12,39 +12,89 @@
 
 + (UIFont *) fontNavBarTitle
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+    return [UIFont systemFontOfSize:CGFloatIn750(32)];
+}
+
+
++ (UIFont *)fontMax2Title
+{
+    return [UIFont systemFontOfSize:CGFloatIn750(40)];
 }
 
 + (UIFont *)fontMax1Title
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
+    return [UIFont systemFontOfSize:CGFloatIn750(36)];
 }
 
 + (UIFont *)fontMaxTitle
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+    return [UIFont systemFontOfSize:CGFloatIn750(32)];
 }
 
 
 + (UIFont *)fontTitle
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+    return [UIFont systemFontOfSize:CGFloatIn750(32)];
 }
 
 + (UIFont *)fontContent
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(28)];
+    return [UIFont systemFontOfSize:CGFloatIn750(28)];
 }
 
 + (UIFont *)fontSmall
 {
-    return [UIFont boldSystemFontOfSize:CGFloatIn750(24)];
+    return [UIFont systemFontOfSize:CGFloatIn750(24)];
 }
 
 + (UIFont *)fontMin
 {
+    return [UIFont systemFontOfSize:CGFloatIn750(20)];
+}
+
+
+
++ (UIFont *)boldFontMax2Title
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(40)];
+}
+
++ (UIFont *)boldFontMax1Title
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
+}
+
++ (UIFont *)boldFontMaxTitle
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+}
+
+
++ (UIFont *)boldFontTitle
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
+}
+
++ (UIFont *)boldFontContent
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(28)];
+}
+
++ (UIFont *)boldFontSmall
+{
+    return [UIFont boldSystemFontOfSize:CGFloatIn750(24)];
+}
+
++ (UIFont *)boldFontMin
+{
     return [UIFont boldSystemFontOfSize:CGFloatIn750(20)];
 }
+
+
+
+
+
+
 
 + (UIFont *) fontConversationUsername
 {
