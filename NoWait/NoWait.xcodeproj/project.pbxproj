@@ -330,6 +330,9 @@
 		B2EE5BBA23F7EDB500ECCFF4 /* ZBaseUnitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BB923F7EDB500ECCFF4 /* ZBaseUnitModel.m */; };
 		B2EE5BBD23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BBC23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m */; };
 		B2EE5BC023F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BBF23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m */; };
+		B2EE5BC323F929E800ECCFF4 /* ZOrganizationCampusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BC223F929E800ECCFF4 /* ZOrganizationCampusCell.m */; };
+		B2EE5BC623F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BC523F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m */; };
+		B2EE5BCC23F9416400ECCFF4 /* ZOrganizationRadiusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EE5BCB23F9416400ECCFF4 /* ZOrganizationRadiusCell.m */; };
 		B2F7D33F23CD6D0800F7A17D /* ZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D33D23CD6D0800F7A17D /* ZBaseModel.m */; };
 		B2F7D34623CD7D8000F7A17D /* ZStudentMineEvaListHadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D34523CD7D8000F7A17D /* ZStudentMineEvaListHadVC.m */; };
 		B2F7D34923CD7D9400F7A17D /* ZStudentMineEvaListNoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D34823CD7D9400F7A17D /* ZStudentMineEvaListNoVC.m */; };
@@ -985,6 +988,12 @@
 		B2EE5BBC23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMenuItemCell.m; sourceTree = "<group>"; };
 		B2EE5BBE23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationCampusManagementVC.h; sourceTree = "<group>"; };
 		B2EE5BBF23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationCampusManagementVC.m; sourceTree = "<group>"; };
+		B2EE5BC123F929E800ECCFF4 /* ZOrganizationCampusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationCampusCell.h; sourceTree = "<group>"; };
+		B2EE5BC223F929E800ECCFF4 /* ZOrganizationCampusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationCampusCell.m; sourceTree = "<group>"; };
+		B2EE5BC423F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationCampusTextFieldCell.h; sourceTree = "<group>"; };
+		B2EE5BC523F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationCampusTextFieldCell.m; sourceTree = "<group>"; };
+		B2EE5BCA23F9416400ECCFF4 /* ZOrganizationRadiusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationRadiusCell.h; sourceTree = "<group>"; };
+		B2EE5BCB23F9416400ECCFF4 /* ZOrganizationRadiusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationRadiusCell.m; sourceTree = "<group>"; };
 		B2F7D33D23CD6D0800F7A17D /* ZBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBaseModel.m; sourceTree = "<group>"; };
 		B2F7D33E23CD6D0800F7A17D /* ZBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBaseModel.h; sourceTree = "<group>"; };
 		B2F7D34423CD7D8000F7A17D /* ZStudentMineEvaListHadVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineEvaListHadVC.h; sourceTree = "<group>"; };
@@ -2550,6 +2559,12 @@
 				B2EE5BB523F7EB9E00ECCFF4 /* ZOriganizationClubSelectedItemCell.m */,
 				B2EE5BBB23F9165000ECCFF4 /* ZOrganizationMenuItemCell.h */,
 				B2EE5BBC23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m */,
+				B2EE5BC123F929E800ECCFF4 /* ZOrganizationCampusCell.h */,
+				B2EE5BC223F929E800ECCFF4 /* ZOrganizationCampusCell.m */,
+				B2EE5BC423F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.h */,
+				B2EE5BC523F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m */,
+				B2EE5BCA23F9416400ECCFF4 /* ZOrganizationRadiusCell.h */,
+				B2EE5BCB23F9416400ECCFF4 /* ZOrganizationRadiusCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2871,6 +2886,7 @@
 				B2A77FCD23BDEAA100407BF0 /* DSCallInfo.m in Sources */,
 				B25146D723CFFD9E009A64D4 /* ZBaseCellModel.m in Sources */,
 				B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */,
+				B2EE5BC323F929E800ECCFF4 /* ZOrganizationCampusCell.m in Sources */,
 				B234D08D23CC09CC00210CD8 /* ZAlertImageView.m in Sources */,
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
 				B2EE5BAA23F7DA1A00ECCFF4 /* ZOriganizationClubSelectedCell.m in Sources */,
@@ -2908,6 +2924,7 @@
 				B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */,
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
 				B279D05E23C99CB000391A33 /* ZStudentLessonOrderLessonVC.m in Sources */,
+				B2EE5BCC23F9416400ECCFF4 /* ZOrganizationRadiusCell.m in Sources */,
 				B223BCC223C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m in Sources */,
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
@@ -2928,6 +2945,7 @@
 				B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */,
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
+				B2EE5BC623F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m in Sources */,
 				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
 				B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */,

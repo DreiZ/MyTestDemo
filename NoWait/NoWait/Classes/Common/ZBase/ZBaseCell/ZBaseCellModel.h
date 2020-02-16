@@ -31,6 +31,7 @@
 //cellConfig Title
 @property (nonatomic,strong) NSString *cellTitle;
 
+@property (nonatomic,assign) CGFloat titleWidth;
 @property (nonatomic,assign) CGFloat lineLeftMargin;
 @property (nonatomic,assign) CGFloat lineRightMargin;
 @property (nonatomic,assign) CGFloat cellHeight;
@@ -91,5 +92,5 @@
 
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,assign) BOOL isHiddenInputLine;
-
+@property (nonatomic,assign) BOOL isTextEnabled;
 @end

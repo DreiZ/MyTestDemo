@@ -12,10 +12,11 @@
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
 
+#import "ZOrganizationCampusCell.h"
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentLessonOrderNormalCell.h"
-#import "ZStudentLessonDetailLessonListCell.h"
-#import "ZStudentLessonSectionTitleCell.h"
+#import "ZOrganizationCampusTextFieldCell.h"
+#import "ZOrganizationRadiusCell.h"
+
 
 @interface ZOrganizationCampusManagementVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -46,49 +47,40 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    
+    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:[ZOrganizationCampusCell className] showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:campusCellConfig];
+    
+    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
     [self.cellConfigArr addObject:spacCellConfig];
     
-    NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
-    NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
-    NSArray *rightArrowArr = @[@"", @"rightBlackArrow", @"", @""];
-    NSArray *rightColorArr = @[[UIColor colorTextGray], [UIColor colorTextGray], [UIColor colorRedDefault], [UIColor colorTextGray]];
-    NSArray *cellTitleArr = @[@"lesson", @"you", @"price",@"tel"];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
+    [self.cellConfigArr addObject:topCellConfig];
     
-    for (int i = 0; i < titleArr.count; i++) {
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = titleArr[i];
-        model.rightTitle = rightTitleArr[i];
-        model.rightColor = rightColorArr[i];
-        model.cellTitle = cellTitleArr[i];
-        model.rightImage = rightArrowArr[i];
+    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES],
+                         @[@"校区类型", @"请选择校区类型", @NO],
+                         @[@"校区电话", @"请输入校区电话", @YES],
+                         @[@"校区地址", @"请选择校区地址", @NO],
+                         @[@"校区标签", @"请添加校区标签", @NO],
+                         @[@"营业时间", @"请选择营业时间", @NO],
+                         @[@"基础设置", @"请添加基础设施", @NO],
+                         @[@"机构特色", @"请输入校区名称", @NO]];
+    
+    for (int i = 0; i < textArr.count; i++) {
+        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+        cellModel.leftTitle = textArr[i][0];
+        cellModel.placeholder = textArr[i][1];
+        cellModel.isTextEnabled = [textArr[i][2] boolValue];
+        cellModel.isHiddenLine = YES;
+        cellModel.cellHeight = CGFloatIn750(108);
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:[ZOrganizationCampusTextFieldCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+        [self.cellConfigArr addObject:textCellConfig];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
-
     }
     
-    ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-    [self.cellConfigArr addObject:spacSectionCellConfig];
     
-    //须知
-    ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
-    model.title = @"须知";
-    model.isShowRight = NO;
-    ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-    [_cellConfigArr addObject:lessonTitleCellConfig];
-    
-    NSMutableArray *list = @[].mutableCopy;
-    NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"], @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
-    for (int i = 0; i < des.count; i++) {
-        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-        model.desTitle = des[i][0];
-        model.desSub = des[i][1];
-        [list addObject:model];
-    }
-    
-    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
-    [_cellConfigArr addObject:lessonDesCellConfig];
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:[ZOrganizationRadiusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@""];
+    [self.cellConfigArr addObject:bottomCellConfig];
 }
 
 
@@ -99,27 +91,25 @@
 
 - (void)setupMainView {
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(140))];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self.view addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(140));
-        make.left.right.bottom.equalTo(self.view);
-    }];
+    
     
     [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
+        make.centerY.equalTo(bottomView.mas_centerY);
     }];
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(bottomView.mas_top);
-        make.top.equalTo(self.view.mas_top).offset(0);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.view.mas_top).offset(10);
     }];
+    self.iTableView.tableFooterView = bottomView;
 }
 
 #pragma mark lazy loading...
@@ -157,9 +147,9 @@
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
-        [_bottomBtn setTitle:@"去支付" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
+        [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             ZStudentLessonOrderSuccessVC *successvc = [[ZStudentLessonOrderSuccessVC alloc] init];

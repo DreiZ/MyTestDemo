@@ -1,25 +1,26 @@
 //
-//  ZTextFieldCell.m
+//  ZOrganizationCampusTextFieldCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/16.
+//  Created by zhuang zhang on 2020/2/16.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTextFieldCell.h"
+#import "ZOrganizationCampusTextFieldCell.h"
 #import "ZPublicTool.h"
 
-@interface ZTextFieldCell ()<UITextFieldDelegate>
+@interface ZOrganizationCampusTextFieldCell ()<UITextFieldDelegate>
 @property (nonatomic,strong) UILabel *subTitleLabel;
 @property (nonatomic,strong) UILabel *leftTitleLabel;
 
 @property (nonatomic,strong) UITextField *inputTextField;
 @property (nonatomic,strong) UIView *bottomLineView;
 @property (nonatomic,strong) UIView *inputLine;
-
+@property (nonatomic,strong) UIImageView *arrowImageView;
+@property (nonatomic,strong) UIView *backContentView;
 @end
 
-@implementation ZTextFieldCell
+@implementation ZOrganizationCampusTextFieldCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,28 +33,46 @@
 
 -(void)setupView
 {
-    [self.contentView addSubview:self.leftTitleLabel];
-    [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        make.left.equalTo(self.contentView.mas_left).offset(kCellLeftMargin);
+    
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    [self.contentView addSubview:self.backContentView];
+    
+    [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.top.bottom.equalTo(self.contentView);
     }];
     
-    [self.contentView addSubview:self.subTitleLabel];
+    [self.backContentView addSubview:self.leftTitleLabel];
+    [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.backContentView.mas_centerY);
+        make.left.equalTo(self.backContentView.mas_left).offset(kCellLeftMargin);
+    }];
+    
+    [self.backContentView addSubview:self.subTitleLabel];
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerY.equalTo(self.backContentView.mas_centerY);
         make.left.equalTo(self.leftTitleLabel.mas_right).offset(CGFloatIn750(8));
     }];
     
-    [self.contentView addSubview:self.inputTextField];
+    [self.backContentView addSubview:self.arrowImageView];
+    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.backContentView.mas_centerY);
+        make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(10));
+        make.height.mas_equalTo(CGFloatIn750(18));
+    }];
+    
+    [self.backContentView addSubview:self.inputTextField];
     [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.subTitleLabel.mas_right).offset(kCellContentSpace);
         make.height.mas_equalTo(CGFloatIn750(52));
-        make.right.equalTo(self.contentView.mas_right).offset(-kCellRightMargin);
+        make.right.equalTo(self.arrowImageView.mas_left).offset(-kCellContentSpace);
         make.centerY.equalTo(self.subTitleLabel.mas_centerY);
     }];
     
     
-    [self.contentView addSubview:self.inputLine];
+    [self.backContentView addSubview:self.inputLine];
     [self.inputLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
         make.left.right.equalTo(self.inputTextField);
@@ -63,12 +82,22 @@
     
     [self.contentView addSubview:self.bottomLineView];
     [self.bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.contentView);
+        make.left.right.bottom.equalTo(self.backContentView);
         make.height.mas_equalTo(0.5);
     }];
 }
 
 #pragma mark -懒加载
+- (UIView *)backContentView {
+    if (!_backContentView) {
+        _backContentView = [[UIView alloc] init];
+        _backContentView.layer.masksToBounds = YES;
+        _backContentView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+    }
+    return _backContentView;
+}
+
+
 - (UIView *)inputLine {
     if (!_inputLine) {
         _inputLine = [[UIView alloc] init];
@@ -76,6 +105,14 @@
         _inputLine.backgroundColor = [UIColor colorRedDefault];
     }
     return _inputLine;
+}
+
+- (UIImageView *)arrowImageView {
+    if (!_arrowImageView) {
+        _arrowImageView = [[UIImageView alloc] init];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
+    }
+    return _arrowImageView;
 }
 
 - (UIView *)bottomLineView {
@@ -94,7 +131,7 @@
         _leftTitleLabel.text = @"";
         _leftTitleLabel.numberOfLines = 0;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_leftTitleLabel setFont:[UIFont fontTitle]];
     }
     return _leftTitleLabel;
 }
@@ -106,7 +143,7 @@
         _subTitleLabel.text = @"";
         _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_subTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_subTitleLabel setFont:[UIFont fontContent]];
     }
     return _subTitleLabel;
 }
@@ -122,7 +159,9 @@
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentCenter];
         [_inputTextField setPlaceholder:@""];
+        [_inputTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        [_inputTextField setFont:[UIFont fontContent]];
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
@@ -156,42 +195,50 @@
     _leftTitleLabel.text = model.leftTitle;
     _subTitleLabel.text = model.subTitle;
     
-    _subTitleLabel.font = model.subTitleFont;
-    _subTitleLabel.textColor = model.subTitleColor;
-    
-    _leftTitleLabel.textColor = model.leftColor;
-    _leftTitleLabel.font = model.leftFont;
-    
-    _inputTextField.font = model.textFont;
-    _inputTextField.textColor = model.textColor;
-    
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;
     _inputTextField.textAlignment = model.textAlignment;
     _bottomLineView.hidden = model.isHiddenLine;
     _inputLine.hidden = model.isHiddenInputLine;
     
-    [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView);
-        make.height.mas_equalTo(0.5);
-        make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
-        make.right.equalTo(self.contentView.mas_right).offset(-model.lineRightMargin);
+    CGSize titleSize = [model.leftTitle tt_sizeWithFont:[UIFont fontTitle]];
+    [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.backContentView.mas_centerY);
+        make.left.equalTo(self.backContentView.mas_left).offset(model.contentSpace);
+        make.width.mas_equalTo(model.leftContentWidth > 0 ? model.leftContentWidth : titleSize.width+2);
     }];
     
+    CGSize subTitleSize = [model.subTitle tt_sizeWithFont:[UIFont fontContent]];
+    [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.backContentView.mas_centerY);
+        make.left.equalTo(self.leftTitleLabel.mas_right).offset(CGFloatIn750(8));
+        make.width.mas_equalTo(subTitleSize.width+2);
+    }];
     
-    [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
+    [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.backContentView);
+        make.height.mas_equalTo(0.5);
+        make.left.equalTo(self.backContentView.mas_left).offset(model.lineLeftMargin);
+        make.right.equalTo(self.backContentView.mas_right).offset(-model.lineRightMargin);
     }];
 
-    
-    [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(model.leftContentWidth);
-        make.height.mas_equalTo(model.textFieldHeight);
-        make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-        make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-    }];
-    
+    if (model.isTextEnabled) {
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.backContentView.mas_left).offset(model.leftContentWidth);
+            make.height.mas_equalTo(model.textFieldHeight);
+            make.right.equalTo(self.arrowImageView.mas_right).offset(-model.contentSpace);
+            make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+        }];
+    }else{
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.backContentView.mas_left).offset(model.leftContentWidth);
+            make.height.mas_equalTo(model.textFieldHeight);
+            make.right.equalTo(self.arrowImageView.mas_right).offset(-model.contentSpace);
+            make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+        }];
+    }
+    self.inputTextField.enabled = model.isTextEnabled;
+    self.arrowImageView.hidden = model.isTextEnabled;
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {
@@ -206,5 +253,6 @@
     }
 }
 @end
+
 
 
