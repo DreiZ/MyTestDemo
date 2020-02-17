@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 inhibit_all_warnings!
 #use_frameworks!
@@ -33,6 +34,9 @@ target :NoWait do
     pod 'TLKit', :git => 'https://github.com/tbl00c/TLKit.git', :tag => '0.0.27'
 
 
+    pod 'AMap2DMap'
+    pod 'AMapLocation'
+    pod 'AMapSearch'
 #    pod 'pop', '~> 1.0'
 
 end

@@ -1,27 +1,29 @@
 //
-//  ZStudentMainTopSearchView.m
+//  ZOrganizationAddressSearchTopView.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/6.
+//  Created by zhuang zhang on 2020/2/17.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMainTopSearchView.h"
+#import "ZOrganizationAddressSearchTopView.h"
 
-@interface ZStudentMainTopSearchView ()
+@interface ZOrganizationAddressSearchTopView ()<UITextFieldDelegate>
 @property (nonatomic,strong) UILabel *addressLabel;
 @property (nonatomic,strong) UIImageView *addressHintImageView;
 @property (nonatomic,strong) UIView *searhBackView;
-@property (nonatomic,strong) UILabel *searchPlaceholder;
+@property (nonatomic,strong) UITextField *iTextField;
+
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIImageView *searchImageView;
 
+@property (nonatomic,strong) UIButton *cancleBtn;
 
 @property (nonatomic,strong) UIView *backView;
 
 @end
 
-@implementation ZStudentMainTopSearchView
+@implementation ZOrganizationAddressSearchTopView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -66,11 +68,18 @@
         make.width.height.mas_equalTo(CGFloatIn750(44));
     }];
     
+    [self.contView addSubview:self.cancleBtn];
+    [self.cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contView);
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(90));
+    }];
+    
     [self.contView addSubview:self.searhBackView];
     [self.searhBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.addressHintImageView.mas_right).offset(CGFloatIn750(18));
         make.height.mas_equalTo(CGFloatIn750(64));
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.cancleBtn.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.addressHintImageView);
     }];
     
@@ -132,7 +141,7 @@
         _searhBackView = [[UIView alloc] init];
         _searhBackView.layer.masksToBounds = YES;
         _searhBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine],[UIColor colorGrayBGDark]);
-        _searhBackView.layer.cornerRadius = 4;
+        _searhBackView.layer.cornerRadius = CGFloatIn750(32);
         
         [_searhBackView addSubview:self.searchImageView];
         [_searchImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,14 +150,25 @@
             make.left.mas_equalTo(CGFloatIn750(20));
             make.height.mas_equalTo(self.searchImageView.height);
         }];
-
-        [_searhBackView addSubview:self.searchPlaceholder];
-        [self.searchPlaceholder mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        [_searhBackView addSubview:self.iTextField];
+        [self.iTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.searchImageView.mas_centerY);
             make.left.equalTo(self.searchImageView.mas_right).offset(CGFloatIn750(20));
+            make.top.bottom.equalTo(self.searhBackView);
         }];
     }
     return _searhBackView;
+}
+
+- (UIButton *)cancleBtn {
+    if (!_cancleBtn) {
+        _cancleBtn = [[UIButton alloc] init];
+        [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
+    }
+    return _cancleBtn;
 }
 
 - (UIImageView *)searchImageView {
@@ -161,17 +181,6 @@
     return _searchImageView;
 }
 
-- (UILabel *)searchPlaceholder {
-    if (!_searchPlaceholder) {
-        _searchPlaceholder = [[UILabel alloc] initWithFrame:CGRectZero];
-        _searchPlaceholder.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray]);
-        _searchPlaceholder.text = @"搜索";
-        _searchPlaceholder.numberOfLines = 1;
-        _searchPlaceholder.textAlignment = NSTextAlignmentLeft;
-        [_searchPlaceholder setFont:[UIFont fontSmall]];
-    }
-    return _searchPlaceholder;
-}
 
 - (UIView *)backView {
     if (!_backView) {
@@ -182,27 +191,23 @@
     return _backView;
 }
 
-#pragma mark - 更新背景色
-- (void)updateWithOffset:(CGFloat)offsetY {
-    if (isDarkModel()) {
-        _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
-        return;
+- (UITextField *)iTextField {
+    if (!_iTextField ) {
+        _iTextField = [[UITextField alloc] init];
+        [_iTextField setFont:[UIFont fontSmall]];
+        _iTextField.leftViewMode = UITextFieldViewModeAlways;
+        [_iTextField setBorderStyle:UITextBorderStyleNone];
+        [_iTextField setBackgroundColor:[UIColor clearColor]];
+        [_iTextField setReturnKeyType:UIReturnKeyDone];
+        [_iTextField setTextAlignment:NSTextAlignmentCenter];
+        [_iTextField setPlaceholder:@"请输入地址"];
+        [_iTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        _iTextField.delegate = self;
+        [_iTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        
     }
-    if (offsetY > 0) {
-        CGFloat alpha = offsetY/CGFloatIn750(80);
-        self.backView.alpha = alpha;
-        self.addressLabel.textColor = [UIColor colorWithRed:alpha green:alpha blue:alpha alpha:1];
-        _addressHintImageView.tintColor = [UIColor colorWithRed:alpha green:alpha blue:alpha alpha:1];
-    }else {
-        self.backView.alpha = 0;
-        self.addressLabel.textColor = [UIColor colorTextBlack];
-        _addressHintImageView.tintColor = [UIColor blackColor];
-    }
-    _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+    return _iTextField;
 }
-
 
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
@@ -214,4 +219,11 @@
     _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
     _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
 }
+
+#pragma mark --textField delegate
+- (void)textFieldDidChange:(UITextField *)textField {
+    [ZPublicTool textField:textField maxLenght:30 type:ZFormatterTypeAny];
+ 
+}
 @end
+

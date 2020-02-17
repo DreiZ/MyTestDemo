@@ -45,5 +45,7 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
 
+//高德地图akey
+#define KMapKey @"df2270d15d23397b8fa25b1567766b4c"
 
 #endif /* ZMacros_h */

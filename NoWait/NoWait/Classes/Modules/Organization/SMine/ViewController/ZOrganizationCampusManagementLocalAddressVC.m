@@ -7,8 +7,20 @@
 //
 
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
+#import "ZOrganizationAddressSearchTopView.h"
 
-@interface ZOrganizationCampusManagementLocalAddressVC ()
+#import "ZCellConfig.h"
+
+
+@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) ZOrganizationAddressSearchTopView *topSearchView;
+@property (nonatomic,strong) MKMapView *<#object#>;
+
+@property (nonatomic,strong) NSMutableArray *dataSources;
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
 
 @end
 
@@ -16,17 +28,257 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setNavigation];
+    [self setDataSource];
+    [self initCellConfigArr];
+    [self setupMainView];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setDataSource {
+    _dataSources = @[].mutableCopy;
+    _cellConfigArr = @[].mutableCopy;
+    _items = @[].mutableCopy;
+    [self initCellConfigArr];
 }
-*/
 
+- (void)initCellConfigArr {
+    [_cellConfigArr removeAllObjects];
+    
+    
+    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:campusCellConfig];
+    
+    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    [self.cellConfigArr addObject:spacCellConfig];
+    
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
+    [self.cellConfigArr addObject:topCellConfig];
+    
+    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES, @NO, @"name"],
+                         @[@"校区类型", @"请选择校区类型", @NO, @NO, @"type"],
+                         @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone"],
+                         @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address"],
+                         @[@"校区标签", @"请添加校区标签", @NO, @YES, @"label"],
+                         @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time"],
+                         @[@"基础设置", @"请添加基础设施", @NO, @YES, @"setting"],
+                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic"]];
+    
+    for (int i = 0; i < textArr.count; i++) {
+        if ([textArr[i][3] boolValue]) {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = @"测试测试";
+            cellModel.placeholder = @"请选择标签";
+            cellModel.isTextEnabled = NO;
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+        }else{
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.placeholder = textArr[i][1];
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(108);
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+        }
+    }
+    
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:[ZOrganizationRadiusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@""];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
+
+
+- (void)setNavigation {
+    self.isHidenNaviBar = NO;
+    [self.navigationItem setTitle:@"选择地址"];
+}
+
+- (void)setupMainView {
+    
+    [self.view addSubview:self.topSearchView];
+    [self.topSearchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(100));
+    }];
+    
+    [self.view addSubview:self.iTableView];
+    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.topSearchView.mas_bottom).offset(1);
+    }];
+}
+
+#pragma mark lazy loading...
+-(ZOrganizationAddressSearchTopView *)topSearchView {
+    if (!_topSearchView) {
+        _topSearchView = [[ZOrganizationAddressSearchTopView alloc] init];
+    }
+    return _topSearchView;
+}
+
+-(UITableView *)iTableView {
+    if (!_iTableView) {
+        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
+            _iTableView.estimatedRowHeight = 0;
+            _iTableView.estimatedSectionHeaderHeight = 0;
+            _iTableView.estimatedSectionFooterHeight = 0;
+            if (@available(iOS 11.0, *)) {
+                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            } else {
+                // Fallback on earlier versions
+            }
+        } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            self.automaticallyAdjustsScrollViewInsets = NO;
+#pragma clang diagnostic pop
+        }
+        _iTableView.delegate = self;
+        _iTableView.dataSource = self;
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }
+    return _iTableView;
+}
+
+
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn.layer.masksToBounds = YES;
+        _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
+        [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
+        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+
+        }];
+    }
+    return _bottomBtn;
+}
+
+
+#pragma mark tableView -------datasource-----
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseCell *cell;
+    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
+//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+        
+    }
+    return cell;
+}
+
+#pragma mark tableView ------delegate-----
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    if ([cellConfig.title isEqualToString:@"address"]) {
+        ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
+        [self.navigationController pushViewController:mvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"type"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
+        for (int i = 0; i < temp.count; i++) {
+            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+            model.name = temp[i];
+            
+            NSMutableArray *subItems = @[].mutableCopy;
+            
+            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
+            for (int i = 0; i < temp.count; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = temp[i];
+                [subItems addObject:model];
+            }
+            model.ItemArr = subItems;
+            [items addObject:model];
+        }
+        
+        [self.items removeAllObjects];
+        [self.items addObjectsFromArray:items];
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+            
+        }];
+    }else if ([cellConfig.title isEqualToString:@"school"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
+        for (int i = 0; i < temp.count; i++) {
+            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+            model.name = temp[i];
+            
+            NSMutableArray *subItems = @[].mutableCopy;
+            
+            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
+            for (int i = 0; i < temp.count; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = temp[i];
+                [subItems addObject:model];
+            }
+            model.ItemArr = subItems;
+            [items addObject:model];
+        }
+        
+        [self.items removeAllObjects];
+        [self.items addObjectsFromArray:items];
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+            
+        }];
+    }else if ([cellConfig.title isEqualToString:@"address"]) {
+        
+    }
+    
+}
+
+#pragma mark vc delegate-------------------
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
 @end
+
+
+

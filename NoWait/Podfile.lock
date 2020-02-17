@@ -14,6 +14,13 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AMap2DMap (5.6.1):
+    - AMapFoundation (~> 1.4)
+  - AMapFoundation (1.6.1)
+  - AMapLocation (2.6.4):
+    - AMapFoundation (~> 1.6.1)
+  - AMapSearch (7.1.0):
+    - AMapFoundation (~> 1.4)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -205,6 +212,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - AMap2DMap
+  - AMapLocation
+  - AMapSearch
   - BlocksKit
   - CocoaLumberjack (~> 3.3.0)
   - DACircularProgress
@@ -228,6 +238,11 @@ DEPENDENCIES:
   - ZZFLEX (from `https://github.com/tbl00c/ZZFLEX.git`, tag `0.0.6`)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AMap2DMap
+    - AMapFoundation
+    - AMapLocation
+    - AMapSearch
   trunk:
     - AFNetworking
     - BlocksKit
@@ -280,6 +295,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
+  AMapFoundation: df9a0ceec845ae2b5f57bdf9884666f2ed73bf5b
+  AMapLocation: b4162db67f813508a14ee7e05c7ee4073785221d
+  AMapSearch: 6bd6d361c5eb00110e0bffa4acf88b7bb9f7e059
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
@@ -305,6 +324,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: 2b57b88a387a3238a437b610390e107d81760661
+PODFILE CHECKSUM: 1f1c0a640671806246c7f357f42335fb49bb3941
 
 COCOAPODS: 1.8.4

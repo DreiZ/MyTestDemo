@@ -22,6 +22,7 @@
 #import <BlocksKit+MessageUI.h>
 #import <BlocksKit+UIKit.h>
 #import <ReactiveCocoa.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 #import <ZZFLEX/ZZFlexibleLayoutFramework.h>
 #import <ZZFLEX/ZZFlexibleLayoutViewProtocol.h>

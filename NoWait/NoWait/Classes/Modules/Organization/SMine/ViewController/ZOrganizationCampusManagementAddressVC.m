@@ -8,6 +8,7 @@
 
 #import "ZOrganizationCampusManagementAddressVC.h"
 #import "ZBaseCellModel.h"
+#import "ZOrganizationCampusManagementLocalAddressVC.h"
 
 @interface ZOrganizationCampusManagementAddressVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -44,6 +45,7 @@
 //    [self.cellConfigArr addObject:menuCellConfig];
     
     NSArray *tempArr = @[@"选择地址",@"地标信息", @"所属场所"];
+    NSArray *tempTitleArr = @[@"local",@"text", @"text"];
     for (int i = 0; i < tempArr.count; i++) {
         ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
         model.leftTitle = tempArr[i];
@@ -53,6 +55,7 @@
         model.isHiddenInputLine = YES;
         model.textAlignment = NSTextAlignmentLeft;
         model.cellHeight = CGFloatIn750(120);
+        model.cellTitle = tempTitleArr[i];
         if (i == 0) {
             model.rightImage = @"rightBlackArrow";
             model.rightImageWidth = CGFloatIn750(10);
@@ -135,9 +138,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return CGFloatIn750(80);
-    }
     return 0.01f;
 }
 
@@ -147,9 +147,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    __weak typeof(self) weakSelf = self;
-     if ([cellConfig.title isEqualToString:@"switch"]){
-         
+//    __weak typeof(self) weakSelf = self;
+     if ([cellConfig.title isEqualToString:@"local"]){
+         ZOrganizationCampusManagementLocalAddressVC *avc = [[ZOrganizationCampusManagementLocalAddressVC alloc] init];
+         [self.navigationController pushViewController:avc animated:YES];
      }else if ([cellConfig.title isEqualToString:@"user"]){
         
      }

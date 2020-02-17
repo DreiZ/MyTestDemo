@@ -22,7 +22,8 @@
 //                                                 name:KNotificationLoginStateChange
 //                                               object:nil];
 //
-////    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:kBaidu_Map_key authDelegate:self];
+  
+    [AMapServices sharedServices].apiKey = @"KMapKey";
 //    [[ZUMengShareManager sharedManager] umengShare];
 //    [[ZPayManager sharedManager] wxPayRefisterApp];
 }
