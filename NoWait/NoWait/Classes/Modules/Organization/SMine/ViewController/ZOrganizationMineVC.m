@@ -109,6 +109,8 @@
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _iTableView.showsVerticalScrollIndicator = NO;
+        _iTableView.showsHorizontalScrollIndicator = NO;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
             _iTableView.estimatedRowHeight = 0;

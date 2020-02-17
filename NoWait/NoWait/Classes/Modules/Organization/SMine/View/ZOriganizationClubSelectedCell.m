@@ -53,7 +53,7 @@
         _funBackView = [[UIView alloc] init];
         _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
         ViewRadius(_funBackView, CGFloatIn750(16));
-        ViewShadowRadius(_funBackView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
+        ViewShadowRadius(_funBackView, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
     }
     return _funBackView;
 }
