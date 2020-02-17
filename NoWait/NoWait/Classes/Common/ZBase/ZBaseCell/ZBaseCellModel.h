@@ -89,6 +89,8 @@
 @property (nonatomic,strong) UIFont *subTitleFont;
 @property (nonatomic,strong) NSString *placeholder;
 @property (nonatomic,strong) NSString *leftTitle;
+@property (nonatomic,strong) NSString *rightImage;
+@property (nonatomic,assign) CGFloat rightImageWidth;
 @property (nonatomic,strong) NSString *subTitle;
 @property (nonatomic,assign) NSInteger max;
 

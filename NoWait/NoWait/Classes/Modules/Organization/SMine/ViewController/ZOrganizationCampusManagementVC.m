@@ -7,7 +7,7 @@
 //
 
 #import "ZOrganizationCampusManagementVC.h"
-#import "ZStudentLessonOrderSuccessVC.h"
+#import "ZOrganizationCampusManagementAddressVC.h"
 
 #import "ZCellConfig.h"
 #import "ZStudentDetailModel.h"
@@ -18,6 +18,10 @@
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
 
+#import "ZAlertDataPickerView.h"
+#import "ZAlertDataModel.h"
+
+#import "ZOrganizationCampusManagementAddressVC.h"
 
 @interface ZOrganizationCampusManagementVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -25,6 +29,8 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
+
 @end
 
 @implementation ZOrganizationCampusManagementVC
@@ -41,7 +47,7 @@
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
-    
+    _items = @[].mutableCopy;
     [self initCellConfigArr];
 }
 
@@ -49,7 +55,7 @@
     [_cellConfigArr removeAllObjects];
     
     
-    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:[ZOrganizationCampusCell className] showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:campusCellConfig];
     
     ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
@@ -58,14 +64,14 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
     [self.cellConfigArr addObject:topCellConfig];
     
-    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES, @NO],
-                         @[@"校区类型", @"请选择校区类型", @NO, @NO],
-                         @[@"校区电话", @"请输入校区电话", @YES, @NO],
-                         @[@"校区地址", @"请选择校区地址", @NO, @NO],
-                         @[@"校区标签", @"请添加校区标签", @NO, @YES],
-                         @[@"营业时间", @"请选择营业时间", @NO, @NO],
-                         @[@"基础设置", @"请添加基础设施", @NO, @YES],
-                         @[@"机构特色", @"请输入校区名称", @NO, @YES]];
+    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES, @NO, @"name"],
+                         @[@"校区类型", @"请选择校区类型", @NO, @NO, @"type"],
+                         @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone"],
+                         @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address"],
+                         @[@"校区标签", @"请添加校区标签", @NO, @YES, @"label"],
+                         @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time"],
+                         @[@"基础设置", @"请添加基础设施", @NO, @YES, @"setting"],
+                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic"]];
     
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] boolValue]) {
@@ -76,7 +82,7 @@
             cellModel.isHiddenLine = YES;
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:[ZOrganizationCampusTextLabelCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -85,9 +91,8 @@
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
             cellModel.cellHeight = CGFloatIn750(108);
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:[ZOrganizationCampusTextFieldCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
-            
         }
     }
     
@@ -165,8 +170,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            ZStudentLessonOrderSuccessVC *successvc = [[ZStudentLessonOrderSuccessVC alloc] init];
-            [weakSelf.navigationController pushViewController:successvc animated:YES];
+
         }];
     }
     return _bottomBtn;
@@ -210,9 +214,61 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
+    if ([cellConfig.title isEqualToString:@"address"]) {
+        ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
+        [self.navigationController pushViewController:mvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"type"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
+        for (int i = 0; i < temp.count; i++) {
+            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+            model.name = temp[i];
+            
+            NSMutableArray *subItems = @[].mutableCopy;
+            
+            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
+            for (int i = 0; i < temp.count; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = temp[i];
+                [subItems addObject:model];
+            }
+            model.ItemArr = subItems;
+            [items addObject:model];
+        }
+        
+        [self.items removeAllObjects];
+        [self.items addObjectsFromArray:items];
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+            
+        }];
+    }else if ([cellConfig.title isEqualToString:@"school"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
+        for (int i = 0; i < temp.count; i++) {
+            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+            model.name = temp[i];
+            
+            NSMutableArray *subItems = @[].mutableCopy;
+            
+            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
+            for (int i = 0; i < temp.count; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = temp[i];
+                [subItems addObject:model];
+            }
+            model.ItemArr = subItems;
+            [items addObject:model];
+        }
+        
+        [self.items removeAllObjects];
+        [self.items addObjectsFromArray:items];
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+            
+        }];
+    }else if ([cellConfig.title isEqualToString:@"address"]) {
         
     }
+    
 }
 
 #pragma mark vc delegate-------------------

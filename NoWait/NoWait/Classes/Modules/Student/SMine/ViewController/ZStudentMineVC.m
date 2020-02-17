@@ -137,9 +137,9 @@
         _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
             if (index == 1) {
-//                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
-//                [self.navigationController pushViewController:ss animated:YES];
-//                return ;
+                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
+                [self.navigationController pushViewController:ss animated:YES];
+                return ;
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
             }

@@ -85,7 +85,7 @@
         self.subTitle = @"";
         self.max = 6;
         self.cellHeight = kCellNormalHeight;
-        
+        self.rightImageWidth = CGFloatIn750(10);
         self.isHiddenInputLine = YES;
         
         self.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
