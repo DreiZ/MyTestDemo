@@ -178,20 +178,44 @@
         make.right.equalTo(self.contentView.mas_right).offset(-model.lineRightMargin);
     }];
     
+    if (model.leftContentWidth > 0) {
+        [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView.mas_centerY);
+            make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
+            make.width.mas_equalTo(model.leftContentWidth);
+        }];
+    }else{
+        CGSize titleSize = [model.leftTitle tt_sizeWithFont:model.textFont];
+        [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView.mas_centerY);
+            make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
+            make.width.mas_equalTo(titleSize.width + 2);
+        }];
+    }
     
-    [self.leftTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        make.left.equalTo(self.contentView.mas_left).offset(model.leftMargin);
-    }];
-
-    
-    [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(model.leftContentWidth);
-        make.height.mas_equalTo(model.textFieldHeight);
-        make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-        make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-    }];
-    
+    if (model.subTitle) {
+        self.subTitleLabel.hidden = NO;
+        CGSize titleSize = [model.subTitle tt_sizeWithFont:model.textFont];
+        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView.mas_centerY);
+            make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+            make.width.mas_equalTo(titleSize.width + 2);
+        }];
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+            make.height.mas_equalTo(model.textFieldHeight);
+            make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+            make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+        }];
+    }else{
+        self.subTitleLabel.hidden = YES;
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+            make.height.mas_equalTo(model.textFieldHeight);
+            make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+            make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+        }];
+    }
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {

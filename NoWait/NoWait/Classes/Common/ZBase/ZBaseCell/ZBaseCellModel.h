@@ -70,9 +70,11 @@
 
 //textField cell model
 @interface ZBaseTextFieldCellModel : ZBaseCellModel
+//标题默认宽220
 @property (nonatomic,assign) CGFloat leftContentWidth;
 @property (nonatomic,assign) CGFloat textFieldHeight;
 
+//输入框字体颜色
 @property (nonatomic,strong) UIColor *textColor;
 @property (nonatomic,strong) UIFont *textFont;
 

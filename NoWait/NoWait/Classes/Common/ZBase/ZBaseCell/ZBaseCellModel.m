@@ -70,15 +70,15 @@
     self = [super init];
     if (self) {
         self.leftContentWidth = CGFloatIn750(220);
-        self.textFieldHeight = CGFloatIn750(60);
-        self.contentSpace = CGFloatIn750(30);
+        self.textFieldHeight = CGFloatIn750(70);
+        self.contentSpace = CGFloatIn750(20);
         self.formatterType = ZFormatterTypeAny;
         self.textAlignment = NSTextAlignmentRight;
   
-        self.leftColor = [UIColor colorTextBlack];
-        self.leftFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
-        self.subTitleColor = [UIColor colorTextGray1];
-        self.subTitleFont = [UIFont systemFontOfSize:CGFloatIn750(26)];
+        self.leftColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        self.leftFont = [UIFont fontTitle];
+        self.subTitleColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        self.subTitleFont = [UIFont fontSmall];
         
         self.placeholder = @"请输入";
         self.leftTitle = @"";
@@ -88,8 +88,8 @@
         
         self.isHiddenInputLine = YES;
         
-        self.textColor = [UIColor colorTextBlack];
-        self.textFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
+        self.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        self.textFont = [UIFont fontContent];
 
     }
     return self;

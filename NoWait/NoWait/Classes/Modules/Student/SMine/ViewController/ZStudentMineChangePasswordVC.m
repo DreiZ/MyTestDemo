@@ -46,7 +46,7 @@
         ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.placeholder = titleArr[i][1];
-//        model.subTitle = @"(必选)";
+//        model.subitle = @"(必选)";
         model.leftContentWidth = CGFloatIn750(226);
         model.isHiddenInputLine = YES;
         model.textAlignment = NSTextAlignmentLeft;
