@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationAddressSearchTopView : UIView
-
+@property (nonatomic,strong) UITextField *iTextField;
+@property (nonatomic,strong) void (^cancleBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

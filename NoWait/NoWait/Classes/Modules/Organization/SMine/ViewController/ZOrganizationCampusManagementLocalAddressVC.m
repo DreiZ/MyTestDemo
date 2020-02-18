@@ -11,20 +11,25 @@
 #import "ZAlertDataModel.h"
 #import "ZOrganizationAddressLocationCell.h"
 #import "ZOrganizationRadiusCell.h"
+#import "ZOrganizationAddressSearchView.h"
 
 #import "ZCellConfig.h"
+#import "POIAnnotation.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 
-@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource,MAMapViewDelegate>
+@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource,MAMapViewDelegate,AMapSearchDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) ZOrganizationAddressSearchTopView *topSearchView;
 @property (nonatomic,strong) MAMapView *iMapView;
 @property (nonatomic,strong) UIButton *checkSelfBtn;
+@property (nonatomic,strong) AMapSearchAPI *search;
+@property (nonatomic,strong) ZOrganizationAddressSearchView *searhView;
+
 
 @property (nonatomic,strong) MAUserLocation *cureUserLocation;
 @property (nonatomic,strong) NSMutableArray *dataSources;
@@ -41,6 +46,9 @@
     [self setDataSource];
     [self initCellConfigArr];
     [self setupMainView];
+    
+    self.search.timeout = 30;
+    [self searchPoiByCenterCoordinate];
 }
 
 - (void)setDataSource {
@@ -88,18 +96,35 @@
         make.top.equalTo(self.iMapView.mas_bottom).offset(-10);
     }];
     
+    [self.view addSubview:self.searhView];
+    [_searhView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(self.topSearchView.mas_bottom);
+    }];
+//    self.searhView.alpha = 0;
     
 //    [self.iMapView setZoomLevel:216.1 animated:YES];
-    
     
 }
 
 #pragma mark lazy loading...
 -(ZOrganizationAddressSearchTopView *)topSearchView {
     if (!_topSearchView) {
+        __weak typeof(self) weakSelf = self;
         _topSearchView = [[ZOrganizationAddressSearchTopView alloc] init];
+        _topSearchView.iTextField.delegate = self;
+        _topSearchView.cancleBlock = ^{
+            weakSelf.searhView.hidden = YES;
+        };
     }
     return _topSearchView;
+}
+
+- (ZOrganizationAddressSearchView *)searhView {
+    if (!_searhView) {
+        _searhView = [[ZOrganizationAddressSearchView alloc] init];
+    }
+    return _searhView;
 }
 
 - (UIButton *)checkSelfBtn {
@@ -134,6 +159,15 @@
         }];
     }
     return _iMapView;
+}
+
+- (AMapSearchAPI *)search {
+    if (!_search) {
+        _search = [[AMapSearchAPI alloc] init];
+        _search.delegate = self;
+        
+    }
+    return _search;
 }
 
 -(UITableView *)iTableView {
@@ -294,6 +328,75 @@
 //
 //        [self.view makeToast:[NSString stringWithFormat:@"distance between two pins = %.2f", distance] duration:1.0];
     }
+}
+
+
+
+#pragma mark - AMapSearchDelegate
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
+{
+}
+
+/* POI 搜索回调. */
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
+{
+    if (response.pois.count == 0)
+    {
+        return;
+    }
+    
+    NSMutableArray *poiAnnotations = [NSMutableArray arrayWithCapacity:response.pois.count];
+    
+    [response.pois enumerateObjectsUsingBlock:^(AMapPOI *obj, NSUInteger idx, BOOL *stop) {
+        
+        [poiAnnotations addObject:[[POIAnnotation alloc] initWithPOI:obj]];
+        
+    }];
+    
+    /* 将结果以annotation的形式加载到地图上. */
+    [self.iMapView addAnnotations:poiAnnotations];
+    
+    /* 如果只有一个结果，设置其为中心点. */
+    if (poiAnnotations.count == 1)
+    {
+        [self.iMapView setCenterCoordinate:[poiAnnotations[0] coordinate]];
+    }
+    /* 如果有多个结果, 设置地图使所有的annotation都可见. */
+    else
+    {
+        [self.iMapView showAnnotations:poiAnnotations animated:NO];
+    }
+}
+
+
+/* 根据中心点坐标来搜周边的POI. */
+- (void)searchPoiByCenterCoordinate
+{
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    
+    request.location            = [AMapGeoPoint locationWithLatitude:39.990459 longitude:116.481476];
+//    request.keywords            = @"电影院";
+    /* 按照距离排序. */
+    request.sortrule            = 0;
+    request.requireExtension    = YES;
+    
+    [self.search AMapPOIAroundSearch:request];
+}
+
+
+
+#pragma mark --textField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"donggggs-----");
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.searhView.hidden = NO;
 }
 
 @end

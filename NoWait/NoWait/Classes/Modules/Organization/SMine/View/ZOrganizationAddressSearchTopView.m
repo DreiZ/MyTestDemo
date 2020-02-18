@@ -12,7 +12,6 @@
 @property (nonatomic,strong) UILabel *addressLabel;
 @property (nonatomic,strong) UIImageView *addressHintImageView;
 @property (nonatomic,strong) UIView *searhBackView;
-@property (nonatomic,strong) UITextField *iTextField;
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIImageView *searchImageView;
@@ -90,18 +89,10 @@
     [self.contView addSubview:addressBtn];
     [addressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.contView);
-        make.right.equalTo(self.contView.mas_right);
+        make.right.equalTo(self.searhBackView.mas_left);
     }];
     
-    UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [searchBtn bk_whenTapped:^{
-        
-    }];
-    [self.contView addSubview:searchBtn];
-    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.contView);
-        make.left.equalTo(self.searhBackView.mas_left);
-    }];
+    
 }
 
 - (UIView *)contView {
@@ -155,7 +146,7 @@
         [self.iTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.searchImageView.mas_centerY);
             make.left.equalTo(self.searchImageView.mas_right).offset(CGFloatIn750(20));
-            make.top.bottom.equalTo(self.searhBackView);
+            make.top.bottom.right.equalTo(self.searhBackView);
         }];
     }
     return _searhBackView;
@@ -163,10 +154,17 @@
 
 - (UIButton *)cancleBtn {
     if (!_cancleBtn) {
+        __weak typeof(self) weakSelf = self;
         _cancleBtn = [[UIButton alloc] init];
         [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
+        [_cancleBtn bk_whenTapped:^{
+            [weakSelf.iTextField resignFirstResponder];
+            if (weakSelf.cancleBlock) {
+                weakSelf.cancleBlock();
+            }
+        }];
     }
     return _cancleBtn;
 }
@@ -197,9 +195,9 @@
         [_iTextField setFont:[UIFont fontSmall]];
         _iTextField.leftViewMode = UITextFieldViewModeAlways;
         [_iTextField setBorderStyle:UITextBorderStyleNone];
-        [_iTextField setBackgroundColor:[UIColor clearColor]];
+//        [_iTextField setBackgroundColor:[UIColor redColor]];
         [_iTextField setReturnKeyType:UIReturnKeyDone];
-        [_iTextField setTextAlignment:NSTextAlignmentCenter];
+        [_iTextField setTextAlignment:NSTextAlignmentLeft];
         [_iTextField setPlaceholder:@"请输入地址"];
         [_iTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         _iTextField.delegate = self;
@@ -220,7 +218,6 @@
     _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
 }
 
-#pragma mark --textField delegate
 - (void)textFieldDidChange:(UITextField *)textField {
     [ZPublicTool textField:textField maxLenght:30 type:ZFormatterTypeAny];
  
