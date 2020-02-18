@@ -23,6 +23,7 @@
 
 #import "ZOrganizationCampusManagementAddressVC.h"
 #import "ZOrganizationCampusManageAddLabelVC.h"
+#import "ZOrganizationCampusManageTimeVC.h"
 
 @interface ZOrganizationCampusManagementVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -268,6 +269,9 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"label"]) {
         ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
+        [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"time"]) {
+        ZOrganizationCampusManageTimeVC *lvc = [[ZOrganizationCampusManageTimeVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];
     }
     

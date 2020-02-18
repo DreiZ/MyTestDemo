@@ -41,11 +41,8 @@
     
     
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-    sureBtn.layer.masksToBounds = YES;
-    sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = [UIColor  colorMain];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+    [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];

@@ -56,6 +56,8 @@
 @property (nonatomic,assign) CGFloat leftContentSpace;
 @property (nonatomic,assign) CGFloat rightContentSpace;
 
+@property (nonatomic,strong) id data;
+@property (nonatomic,assign) BOOL isSelected;
 @end
 
 
