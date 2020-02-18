@@ -64,8 +64,21 @@
 //    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
 //    [self.cellConfigArr addObject:campusCellConfig];
 
-    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:campusCellConfig];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        POIAnnotation *annotation = self.dataSources[i];
+        ZLocationModel *model = [[ZLocationModel alloc] init];
+        model.coordinate = annotation.coordinate;
+        model.distance = annotation.poi.distance;
+        model.city = annotation.poi.city;
+        model.province = annotation.poi.province;
+        model.district = annotation.poi.district;
+        model.address = annotation.poi.address;
+        model.name = annotation.poi.name;
+        
+        ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"location" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:campusCellConfig];
+    }
+    
 }
 
 
@@ -354,8 +367,10 @@
     }];
     
     /* 将结果以annotation的形式加载到地图上. */
-    [self.iMapView addAnnotations:poiAnnotations];
-    
+//    [self.iMapView addAnnotations:poiAnnotations];
+    for (int i = 0; i < (poiAnnotations.count > 10 ? 10 : poiAnnotations.count); i++) {
+        [self.dataSources addObject:poiAnnotations[i]];
+    }
     /* 如果只有一个结果，设置其为中心点. */
     if (poiAnnotations.count == 1)
     {
@@ -364,8 +379,11 @@
     /* 如果有多个结果, 设置地图使所有的annotation都可见. */
     else
     {
-        [self.iMapView showAnnotations:poiAnnotations animated:NO];
+//        [self.iMapView showAnnotations:poiAnnotations animated:NO];
     }
+    self.searhView.iPOIAnnotations = poiAnnotations;
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 
 
@@ -375,7 +393,7 @@
     AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
     
     request.location            = [AMapGeoPoint locationWithLatitude:39.990459 longitude:116.481476];
-//    request.keywords            = @"电影院";
+    request.keywords            = @"电影院";
     /* 按照距离排序. */
     request.sortrule            = 0;
     request.requireExtension    = YES;
@@ -383,11 +401,27 @@
     [self.search AMapPOIAroundSearch:request];
 }
 
-
+/* 根据关键字来搜索POI. */
+- (void)searchPoiByKeyword:(NSString *)keyword
+{
+    AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
+    request.keywords = keyword;
+//    request.keywords            = @"北京大学";
+//    request.city                = @"北京";
+//    request.types               = @"高等院校";
+//    request.requireExtension    = YES;
+//
+//    /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
+//    request.cityLimit           = YES;
+    request.requireSubPOIs      = YES;
+    
+    [self.search AMapPOIKeywordsSearch:request];
+}
 
 #pragma mark --textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"donggggs-----");
+    [self searchPoiByKeyword:textField.text];
     return YES;
 }
 

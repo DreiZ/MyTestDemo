@@ -41,6 +41,7 @@
 		B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992423FB98C00078A458 /* POIAnnotation.m */; };
 		B24D992923FBA61F0078A458 /* ZOrganizationAddressSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992823FBA61F0078A458 /* ZOrganizationAddressSearchView.m */; };
 		B24D992C23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992B23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m */; };
+		B24D992F23FBB6F10078A458 /* ZLocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992E23FBB6F10078A458 /* ZLocationModel.m */; };
 		B24DD51C23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */; };
 		B251468323CEA09F009A64D4 /* ZStudentMineOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B251468223CEA09F009A64D4 /* ZStudentMineOrderListCell.m */; };
 		B251468623CEB09C009A64D4 /* ZStudentMineOrderDetailtVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B251468523CEB09C009A64D4 /* ZStudentMineOrderDetailtVC.m */; };
@@ -444,6 +445,8 @@
 		B24D992823FBA61F0078A458 /* ZOrganizationAddressSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationAddressSearchView.m; sourceTree = "<group>"; };
 		B24D992A23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationAddressSearchResultCell.h; sourceTree = "<group>"; };
 		B24D992B23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationAddressSearchResultCell.m; sourceTree = "<group>"; };
+		B24D992D23FBB6F10078A458 /* ZLocationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLocationModel.h; sourceTree = "<group>"; };
+		B24D992E23FBB6F10078A458 /* ZLocationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLocationModel.m; sourceTree = "<group>"; };
 		B24DD51A23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSectionTitleCell.h; sourceTree = "<group>"; };
 		B24DD51B23C6B71A005FC36B /* ZStudentLessonSectionTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSectionTitleCell.m; sourceTree = "<group>"; };
 		B251468123CEA09F009A64D4 /* ZStudentMineOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderListCell.h; sourceTree = "<group>"; };
@@ -2622,6 +2625,8 @@
 			children = (
 				B24D992523FB98C00078A458 /* POIAnnotation.h */,
 				B24D992423FB98C00078A458 /* POIAnnotation.m */,
+				B24D992D23FBB6F10078A458 /* ZLocationModel.h */,
+				B24D992E23FBB6F10078A458 /* ZLocationModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2907,6 +2912,7 @@
 				B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */,
 				B2A7817E23C576A500407BF0 /* ZStudentOrganizationDetailBannerCell.m in Sources */,
 				B2A77E8D23BDD93A00407BF0 /* ZLaunchManager.m in Sources */,
+				B24D992F23FBB6F10078A458 /* ZLocationModel.m in Sources */,
 				B279D05223C8766F00391A33 /* ZStudentLessonOrderCompleteCell.m in Sources */,
 				B2A7803023BDFA3800407BF0 /* NSDate+ZChat.m in Sources */,
 				B2A77F2C23BDE37A00407BF0 /* LLActionSheetView.m in Sources */,
@@ -3321,7 +3327,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait;
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait1;
 				PRODUCT_NAME = "莫等闲";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3340,7 +3346,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait;
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.NoWait1;
 				PRODUCT_NAME = "莫等闲";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -7,10 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZLocationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationAddressSearchResultCell : ZBaseCell
+@property (nonatomic,strong) ZLocationModel *model;
 
 @end
 

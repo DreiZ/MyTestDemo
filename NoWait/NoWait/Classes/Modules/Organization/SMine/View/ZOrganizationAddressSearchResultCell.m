@@ -41,11 +41,13 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.bottom.equalTo(self.contentView.mas_centerY).offset(CGFloatIn750(-12));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_left);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(12));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(120));
     }];
     
 }
@@ -70,7 +72,7 @@
         _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _subTitleLabel.text = @"徐州市鼓楼区和平大道21号";
-        _subTitleLabel.numberOfLines = 1;
+        _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_subTitleLabel setFont:[UIFont fontSmall]];
     }
@@ -90,9 +92,25 @@
     return _addressLabel;
 }
 
+- (void)setModel:(ZLocationModel *)model {
+    _model = model;
+    
+    self.titleLabel.text = model.name;
+    self.subTitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@",model.province,model.city,model.district,model.address];
+    if (model.isSelected) {
+        self.titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+    }else{
+        self.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+    }
+    
+    self.addressLabel.text = [NSString stringWithFormat:@"%ldm",(long)model.distance];
+}
+
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(126);
+    ZLocationModel *model = (ZLocationModel *)sender;
+    CGSize tempSize = [[NSString stringWithFormat:@"%@%@%@%@",model.province,model.city,model.district,model.address] tt_sizeWithFont:[UIFont fontSmall] constrainedToWidth:KScreenWidth - CGFloatIn750(150)];
+    return CGFloatIn750(106) + tempSize.height;
 }
 
 @end

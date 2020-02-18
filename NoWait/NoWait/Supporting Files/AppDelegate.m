@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZLaunchManager.h"
-
+#import "AppDelegate+AppService.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +24,7 @@
     [[ZLaunchManager sharedInstance] launchInWindow:self.window];
 //    [[ZLaunchManager sharedInstance] showIntroductionOrAdvertise];
 //
+    [self initService];
     
     return YES;
 }

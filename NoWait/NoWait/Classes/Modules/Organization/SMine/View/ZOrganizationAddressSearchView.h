@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationAddressSearchView : UIView
+@property (nonatomic,strong) NSMutableArray *iPOIAnnotations;
 
 @end
 

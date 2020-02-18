@@ -23,7 +23,7 @@
 //                                               object:nil];
 //
   
-    [AMapServices sharedServices].apiKey = @"KMapKey";
+    [AMapServices sharedServices].apiKey = KMapKey;
 //    [[ZUMengShareManager sharedManager] umengShare];
 //    [[ZPayManager sharedManager] wxPayRefisterApp];
 }

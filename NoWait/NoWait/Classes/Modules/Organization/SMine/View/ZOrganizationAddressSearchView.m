@@ -8,6 +8,7 @@
 
 #import "ZOrganizationAddressSearchView.h"
 #import "ZOrganizationAddressSearchResultCell.h"
+#import "POIAnnotation.h"
 
 @interface ZOrganizationAddressSearchView ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -45,13 +46,6 @@
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
-//    NSArray *tempArr = @[@"选择地址",@"地标信息", @"所属场所"];
-    NSArray *tempTitleArr = @[@"local",@"text", @"text"];
-    for (int i = 0; i < tempTitleArr.count; i++) {
-
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressSearchResultCell className] title:tempTitleArr[i] showInfoMethod:nil heightOfCell:[ZOrganizationAddressSearchResultCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
 }
 
 
@@ -132,7 +126,26 @@
      }
 }
 
-
+- (void)setIPOIAnnotations:(NSMutableArray *)iPOIAnnotations {
+    _iPOIAnnotations = iPOIAnnotations;
+    
+    [_cellConfigArr removeAllObjects];
+    for (int i = 0; i < self.iPOIAnnotations.count; i++) {
+        POIAnnotation *annotation = self.iPOIAnnotations[i];
+        ZLocationModel *model = [[ZLocationModel alloc] init];
+        model.coordinate = annotation.coordinate;
+        model.distance = annotation.poi.distance;
+        model.city = annotation.poi.city;
+        model.province = annotation.poi.province;
+        model.district = annotation.poi.district;
+        model.address = annotation.poi.address;
+        model.name = annotation.poi.name;
+        
+         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressSearchResultCell className] title:@"result" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressSearchResultCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    [self.iTableView reloadData];
+}
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
