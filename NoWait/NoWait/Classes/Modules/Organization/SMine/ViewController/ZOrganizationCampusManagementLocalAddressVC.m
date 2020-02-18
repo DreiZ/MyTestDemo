@@ -8,19 +8,27 @@
 
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 #import "ZOrganizationAddressSearchTopView.h"
+#import "ZAlertDataModel.h"
+#import "ZOrganizationAddressLocationCell.h"
+#import "ZOrganizationRadiusCell.h"
 
 #import "ZCellConfig.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 
-@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource,MAMapViewDelegate>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) ZOrganizationAddressSearchTopView *topSearchView;
-@property (nonatomic,strong) MKMapView *<#object#>;
+@property (nonatomic,strong) MAMapView *iMapView;
+@property (nonatomic,strong) UIButton *checkSelfBtn;
 
+@property (nonatomic,strong) MAUserLocation *cureUserLocation;
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
-@property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
 
 @end
 
@@ -38,58 +46,18 @@
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
-    _items = @[].mutableCopy;
     [self initCellConfigArr];
 }
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    
-    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+//
+//    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+//    [self.cellConfigArr addObject:campusCellConfig];
+
+    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:campusCellConfig];
-    
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-    [self.cellConfigArr addObject:spacCellConfig];
-    
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
-    [self.cellConfigArr addObject:topCellConfig];
-    
-    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES, @NO, @"name"],
-                         @[@"校区类型", @"请选择校区类型", @NO, @NO, @"type"],
-                         @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone"],
-                         @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address"],
-                         @[@"校区标签", @"请添加校区标签", @NO, @YES, @"label"],
-                         @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time"],
-                         @[@"基础设置", @"请添加基础设施", @NO, @YES, @"setting"],
-                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic"]];
-    
-    for (int i = 0; i < textArr.count; i++) {
-        if ([textArr[i][3] boolValue]) {
-            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = @"测试测试";
-            cellModel.placeholder = @"请选择标签";
-            cellModel.isTextEnabled = NO;
-            cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
-            cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-            [self.cellConfigArr addObject:textCellConfig];
-        }else{
-            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = textArr[i][0];
-            cellModel.placeholder = textArr[i][1];
-            cellModel.isTextEnabled = [textArr[i][2] boolValue];
-            cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-            [self.cellConfigArr addObject:textCellConfig];
-        }
-    }
-    
-    
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:[ZOrganizationRadiusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@""];
-    [self.cellConfigArr addObject:bottomCellConfig];
 }
 
 
@@ -106,12 +74,24 @@
         make.height.mas_equalTo(CGFloatIn750(100));
     }];
     
+    [self.view addSubview:self.iMapView];
+    [self.iMapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.topSearchView.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(460));
+    }];
+    
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.topSearchView.mas_bottom).offset(1);
+        make.top.equalTo(self.iMapView.mas_bottom).offset(-10);
     }];
+    
+    
+//    [self.iMapView setZoomLevel:216.1 animated:YES];
+    
+    
 }
 
 #pragma mark lazy loading...
@@ -120,6 +100,40 @@
         _topSearchView = [[ZOrganizationAddressSearchTopView alloc] init];
     }
     return _topSearchView;
+}
+
+- (UIButton *)checkSelfBtn {
+    if (!_checkSelfBtn) {
+        __weak  typeof(self) weakSelf = self;
+        UIImage *checkSelfImage = [UIImage imageNamed:@"hng_im_lbs_self"];
+        _checkSelfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        [_checkSelfBtn setBackgroundImage:checkSelfImage forState:UIControlStateNormal];
+        [_checkSelfBtn bk_whenTapped:^{
+            [weakSelf.iMapView setCenterCoordinate:weakSelf.cureUserLocation.location.coordinate animated:YES];
+        }];
+    }
+    return _checkSelfBtn;
+}
+
+- (MAMapView *)iMapView {
+    if (!_iMapView) {
+        _iMapView = [[MAMapView alloc] init];
+        _iMapView.delegate = self;
+        MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
+        pin1.coordinate =  CLLocationCoordinate2DMake(39.992520, 116.336170);
+        pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
+        [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
+        [_iMapView addAnnotation:pin1];
+        _iMapView.showsUserLocation = YES;
+        _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _iMapView.zoomLevel = 19;
+        [_iMapView addSubview:self.checkSelfBtn];
+        [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.iMapView.mas_right).offset(CGFloatIn750(-10));
+            make.bottom.equalTo(self.iMapView.mas_bottom).offset(-CGFloatIn750(10));
+        }];
+    }
+    return _iMapView;
 }
 
 -(UITableView *)iTableView {
@@ -144,7 +158,7 @@
         }
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _iTableView.backgroundColor = [UIColor clearColor];
     }
     return _iTableView;
 }
@@ -152,7 +166,7 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-        __weak typeof(self) weakSelf = self;
+//        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -181,9 +195,9 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
-        
+    if ([cellConfig.title isEqualToString:@"ZOrganizationRadiusCell"]){
+        ZOrganizationRadiusCell *enteryCell = (ZOrganizationRadiusCell *)cell;
+        enteryCell.leftMargin = CGFloatIn750(0);
     }
     return cell;
 }
@@ -206,59 +220,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"address"]) {
-        ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
-        [self.navigationController pushViewController:mvc animated:YES];
+        
     }else if ([cellConfig.title isEqualToString:@"type"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
-        for (int i = 0; i < temp.count; i++) {
-            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-            model.name = temp[i];
-            
-            NSMutableArray *subItems = @[].mutableCopy;
-            
-            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
-            for (int i = 0; i < temp.count; i++) {
-                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-                model.name = temp[i];
-                [subItems addObject:model];
-            }
-            model.ItemArr = subItems;
-            [items addObject:model];
-        }
-        
-        [self.items removeAllObjects];
-        [self.items addObjectsFromArray:items];
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
-            
-        }];
-    }else if ([cellConfig.title isEqualToString:@"school"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"舞蹈",@"球类",@"教育",@"书法"];
-        for (int i = 0; i < temp.count; i++) {
-            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-            model.name = temp[i];
-            
-            NSMutableArray *subItems = @[].mutableCopy;
-            
-            NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
-            for (int i = 0; i < temp.count; i++) {
-                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-                model.name = temp[i];
-                [subItems addObject:model];
-            }
-            model.ItemArr = subItems;
-            [items addObject:model];
-        }
-        
-        [self.items removeAllObjects];
-        [self.items addObjectsFromArray:items];
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
-            
-        }];
-    }else if ([cellConfig.title isEqualToString:@"address"]) {
         
     }
+    
     
 }
 
@@ -278,6 +244,58 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
+
+
+#pragma mark - MAMapViewDelegate
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+    _cureUserLocation = userLocation;
+    
+    [_iMapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
+    UIImage *lbsImage = [UIImage imageNamed:@"hng_im_lbs_ann"];
+    UIImageView *lbsImageView = [[UIImageView alloc] initWithImage:lbsImage];
+    lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64-70);
+    [self.iMapView addSubview:lbsImageView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64);
+    }];
+}
+- (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
+//    if ([annotation isKindOfClass:[MAPointAnnotation class]])
+//    {
+//        static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
+//        MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+//        if (annotationView == nil)
+//        {
+//            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndetifier];
+//        }
+//
+//        annotationView.canShowCallout               = YES;
+//        annotationView.animatesDrop                 = YES;
+//        annotationView.draggable                    = YES;
+//        annotationView.rightCalloutAccessoryView    = nil;
+//        annotationView.pinColor                     = MAPinAnnotationColorRed;
+//
+//        return annotationView;
+//    }
+//
+    return nil;
+}
+
+- (void)mapView:(MAMapView *)mapView annotationView:(MAAnnotationView *)view didChangeDragState:(MAAnnotationViewDragState)newState fromOldState:(MAAnnotationViewDragState)oldState {
+    if(newState == MAAnnotationViewDragStateEnding) {
+//        CLLocationCoordinate2D loc1 = self.pin1.coordinate;
+//        CLLocationCoordinate2D loc2 = self.pin2.coordinate;
+//
+//        MAMapPoint p1 = MAMapPointForCoordinate(loc1);
+//        MAMapPoint p2 = MAMapPointForCoordinate(loc2);
+//
+//        CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
+//
+//        [self.view makeToast:[NSString stringWithFormat:@"distance between two pins = %.2f", distance] duration:1.0];
+    }
+}
+
 @end
 
 

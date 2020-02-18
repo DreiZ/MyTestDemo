@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationRadiusCell : ZBaseCell
 @property (nonatomic,strong) NSString *isTop;
-
+@property (nonatomic,assign) CGFloat leftMargin;
 @end
 
 NS_ASSUME_NONNULL_END

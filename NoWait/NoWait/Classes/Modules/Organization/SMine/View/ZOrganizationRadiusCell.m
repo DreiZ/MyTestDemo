@@ -50,6 +50,9 @@
 
 - (void)setIsTop:(NSString *)isTop {
     _isTop = isTop;
+    self.contentView.backgroundColor =
+    adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    
     if (isTop && isTop.length > 0) {
         [_radiusView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
@@ -65,6 +68,26 @@
             make.height.mas_equalTo(32);
         }];
     }
+}
+
+- (void)setLeftMargin:(CGFloat)leftMargin {
+    _leftMargin = leftMargin;
+    if (self.isTop && self.isTop.length > 0) {
+        [_radiusView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.left.equalTo(self.contentView.mas_left).offset(leftMargin);
+            make.right.equalTo(self.contentView.mas_right).offset(-leftMargin);
+            make.height.mas_equalTo(32);
+        }];
+    }else{
+        [_radiusView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self);
+            make.left.equalTo(self.contentView.mas_left).offset(leftMargin);
+            make.right.equalTo(self.contentView.mas_right).offset(-leftMargin);
+            make.height.mas_equalTo(32);
+        }];
+    }
+    self.contentView.backgroundColor = [UIColor clearColor];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

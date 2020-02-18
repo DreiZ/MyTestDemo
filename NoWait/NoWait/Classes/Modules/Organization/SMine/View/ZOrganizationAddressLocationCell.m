@@ -7,18 +7,101 @@
 //
 
 #import "ZOrganizationAddressLocationCell.h"
+@interface ZOrganizationAddressLocationCell ()
+
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *subTitleLabel;
+@property (nonatomic,strong) UIImageView *leftImageView;
+
+@end
 
 @implementation ZOrganizationAddressLocationCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupView];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+-(void)setupView {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorTextBlackDark]);
+    
+    [self.contentView addSubview:self.leftImageView];
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.subTitleLabel];
+    
+    
+    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.bottom.equalTo(self.contentView.mas_centerY).offset(CGFloatIn750(-12));
+        make.width.mas_equalTo(CGFloatIn750(24));
+        make.height.mas_equalTo(CGFloatIn750(26));
+    }];
+    
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(16));
+        make.centerY.equalTo(self.leftImageView.mas_centerY);
+    }];
+    
+    [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel.mas_left);
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(12));
+    }];
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+}
 
-    // Configure the view for the selected state
+
+#pragma mark -Getter
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _titleLabel.text = @"一品香";
+        _titleLabel.numberOfLines = 1;
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        [_titleLabel setFont:[UIFont fontMaxTitle]];
+    }
+    return _titleLabel;
+}
+
+
+- (UILabel *)subTitleLabel {
+    if (!_subTitleLabel) {
+        _subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _subTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _subTitleLabel.text = @"徐州市鼓楼区和平大道21号";
+        _subTitleLabel.numberOfLines = 1;
+        _subTitleLabel.textAlignment = NSTextAlignmentLeft;
+        [_subTitleLabel setFont:[UIFont fontSmall]];
+    }
+    return _subTitleLabel;
+}
+
+- (UIImageView *)leftImageView {
+    if (!_leftImageView) {
+        _leftImageView = [[UIImageView alloc] init];
+        _leftImageView.image = [UIImage imageNamed:@"hnglocaladdress"];
+    }
+    return _leftImageView;
+}
+
+
++(CGFloat)z_getCellHeight:(id)sender {
+    return CGFloatIn750(136);
 }
 
 @end
+
+
+
