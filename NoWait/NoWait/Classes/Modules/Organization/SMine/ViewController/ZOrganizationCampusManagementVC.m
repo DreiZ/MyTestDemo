@@ -22,6 +22,7 @@
 #import "ZAlertDataModel.h"
 
 #import "ZOrganizationCampusManagementAddressVC.h"
+#import "ZOrganizationCampusManageAddLabelVC.h"
 
 @interface ZOrganizationCampusManagementVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -76,9 +77,9 @@
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] boolValue]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = @"测试测试";
-            cellModel.placeholder = @"请选择标签";
-            cellModel.isTextEnabled = NO;
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.placeholder = textArr[i][1];
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
@@ -265,8 +266,9 @@
         [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
             
         }];
-    }else if ([cellConfig.title isEqualToString:@"address"]) {
-        
+    }else if ([cellConfig.title isEqualToString:@"label"]) {
+        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
+        [self.navigationController pushViewController:lvc animated:YES];
     }
     
 }

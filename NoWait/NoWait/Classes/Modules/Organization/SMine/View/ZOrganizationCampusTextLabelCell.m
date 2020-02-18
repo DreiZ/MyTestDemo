@@ -9,7 +9,7 @@
 #import "ZOrganizationCampusTextLabelCell.h"
 #import "ZPublicTool.h"
 #define btnHeight CGFloatIn750(56)
-#define btnAddWidth CGFloatIn750(20)
+#define btnAddWidth CGFloatIn750(40)
 #define leftX CGFloatIn750(20)
 
 @interface ZOrganizationCampusTextLabelCell ()<UITextFieldDelegate>
@@ -361,8 +361,8 @@
     CGFloat offSetY = CGFloatIn750(28);
     for (int i = 0; i < _hotProductArr.count; i++) {
         
-        UIButton *btn = [self getHotSearchBtnItem:i];
-        [btn setTitle:_hotProductArr[i] forState:UIControlStateNormal];
+        UILabel *btn = [self getHotSearchBtnItem:i];
+        btn.text = _hotProductArr[i];
         [self.labelView addSubview:btn];
         CGFloat width = [self getTheStringWidth:_hotProductArr[i] font:[UIFont fontContent]];
         width += btnAddWidth;
@@ -380,17 +380,16 @@
     return  [str sizeWithAttributes:@{NSFontAttributeName: font}].width;
 }
 
--(UIButton*)getHotSearchBtnItem:(NSInteger)index
+-(UILabel*)getHotSearchBtnItem:(NSInteger)index
 {
     if (index >= _hotSearchBtn.count) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UILabel *btn = [[UILabel alloc] init];
         btn.tag = index;
-        btn.titleLabel.font = [UIFont fontContent];
-        [btn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        btn.font = [UIFont fontContent];
+        btn.textAlignment = NSTextAlignmentCenter;
+        btn.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         ViewRadius(btn, btnHeight/2.0);
         btn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        [btn addTarget:self action:@selector(selectedBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
         [_hotSearchBtn addObject:btn];
         
     }

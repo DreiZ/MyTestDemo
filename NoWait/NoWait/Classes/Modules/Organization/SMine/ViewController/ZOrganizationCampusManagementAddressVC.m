@@ -57,7 +57,7 @@
         model.cellHeight = CGFloatIn750(120);
         model.cellTitle = tempTitleArr[i];
         if (i == 0) {
-            model.rightImage = @"rightBlackArrow";
+            model.rightImage = @"hnglocaladdress";
             model.rightImageWidth = CGFloatIn750(10);
             model.isTextEnabled = NO;
         }
@@ -71,6 +71,17 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"校区地址"];
+    
+    
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    sureBtn.layer.masksToBounds = YES;
+    sureBtn.layer.cornerRadius = 3;
+    sureBtn.backgroundColor = [UIColor  colorMain];
+    [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+    [sureBtn.titleLabel setFont:[UIFont fontSmall]];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
 - (void)setupMainView {
