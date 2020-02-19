@@ -2,8 +2,8 @@
 //  ZDBAdvertiserStore.h
 //  ZBigHealth
 //
-//  Created by 承希-开发 on 2018/12/18.
-//  Copyright © 2018 承希-开发. All rights reserved.
+//  Created by zhuang zhang on 2018/12/18.
+//  Copyright © 2018 zhuang zhang. All rights reserved.
 //
 
 #import "ZDBBaseStore.h"

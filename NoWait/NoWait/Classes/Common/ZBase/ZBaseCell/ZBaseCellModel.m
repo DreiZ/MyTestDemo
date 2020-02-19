@@ -80,7 +80,7 @@
         self.leftColor = [UIColor colorTextBlack];
         self.leftDarkColor = [UIColor colorTextBlackDark];
         
-        self.leftFont = [UIFont fontTitle];
+        self.leftFont = [UIFont boldFontTitle];
         self.subTitleColor = [UIColor colorTextGray1];
         self.subTitleDarkColor = [UIColor colorTextGray1Dark];
         self.subTitleFont = [UIFont fontSmall];

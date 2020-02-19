@@ -14,7 +14,7 @@
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) UILabel *titleLabel;
-
+@property (nonatomic,strong) NSArray <ZBaseUnitModel*>*channelList;
 @end
 
 @implementation ZOrganizationMenuCell
@@ -158,7 +158,14 @@
     }
     return CGSizeMake((KScreenWidth - CGFloatIn750(60))/4.0f -1, CGFloatIn750(104));
 }
+
+
 #pragma mark 类型
+- (void)setModel:(ZBaseMenuModel *)model {
+    self.channelList = model.units;
+    self.titleLabel.text = model.name;
+}
+
 -(void)setChannelList:(NSArray <ZBaseUnitModel *>*)channelList {
     _channelList = channelList;
     [self.iCollectionView reloadData];

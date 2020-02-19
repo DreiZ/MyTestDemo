@@ -11,3 +11,8 @@
 @implementation ZBaseUnitModel
 
 @end
+
+@implementation ZBaseMenuModel
+
+
+@end

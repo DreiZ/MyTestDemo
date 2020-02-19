@@ -183,7 +183,6 @@
     if (self.height > kTopHeight + kStatusBarHeight) {
         [self setSubViewFrame];
     }else {
-//        NSLog(@"------xia--%f",self.height);
         [self setAnimationSubViewFrame];
     }
 }

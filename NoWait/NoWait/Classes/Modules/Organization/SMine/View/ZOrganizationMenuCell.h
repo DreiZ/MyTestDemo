@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOrganizationMenuCell : ZBaseCell
 
 @property (nonatomic,strong) void (^menuBlock)(ZBaseUnitModel *);
+@property (nonatomic,strong) ZBaseMenuModel *model;
 
-@property (nonatomic,strong) NSArray <ZBaseUnitModel*>*channelList;
 @end
 
 NS_ASSUME_NONNULL_END

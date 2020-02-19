@@ -2,8 +2,8 @@
 //  UIView+ZEmpty.h
 //  ZBigHealth
 //
-//  Created by 承希-开发 on 2018/10/16.
-//  Copyright © 2018年 承希-开发. All rights reserved.
+//  Created by zhuang zhang on 2018/10/16.
+//  Copyright © 2018年 zhuang zhang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

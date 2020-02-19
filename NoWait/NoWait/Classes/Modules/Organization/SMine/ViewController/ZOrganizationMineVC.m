@@ -13,12 +13,14 @@
 #import "ZOrganizationMenuCell.h"
 
 #import "ZOrganizationCampusManagementVC.h"
+#import "ZOrganizationLessonAddVC.h"
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
+
 
 #define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
 
@@ -185,8 +187,15 @@
     }else if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
-            ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
-            [self.navigationController pushViewController:mvc animated:YES];
+            if ([model.uid isEqualToString:@""]) {
+                ZOrganizationLessonAddVC *mvc = [[ZOrganizationLessonAddVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
+                
+            }else if ([model.uid isEqualToString:@""]){
+                ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }
+            
         };
         
     }
@@ -263,28 +272,37 @@
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:statisticsCellConfig];
     
-    NSMutableArray *menulist = @[].mutableCopy;
-    for (int i = 0; i < 6; i++) {
-        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-        model.name = @"相册管理";
-        model.imageName = @"mineOrderEva";
-        [menulist addObject:model];
-    }
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationMenuCell className] title:[ZOrganizationMenuCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationMenuCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:menulist];
-       [self.cellConfigArr addObject:progressCellConfig];
-    
-    {
+    NSArray *menuArr = @[@[@"财务管理",@[@[@"账户",@"mineOrderEva"],
+                                        @[@"订单",@"mineOrderEva"],
+                                        @[@"退款",@"mineOrderEva"],
+                                        @[@"卡券",@"mineOrderEva"]]],
+                         @[@"人事管理",@[@[@"学员管理",@"mineOrderEva"],
+                                        @[@"教师管理",@"mineOrderEva"],
+                                        @[@"校区管理",@"mineOrderEva"]]],
+                         @[@"后勤管理",@[@[@"相册管理",@"mineOrderEva"],
+                                        @[@"班级管理",@"mineOrderEva"],
+                                        @[@"排课管理",@"mineOrderEva"],
+                                        @[@"课程管理",@"mineOrderEva"],
+                                        @[@"评价管理",@"mineOrderEva"]]]];
+    for (int i = 0; i < menuArr.count; i++) {
+        ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
+        model.name = menuArr[i][0];
+        
         NSMutableArray *menulist = @[].mutableCopy;
-        for (int i = 0; i < 4; i++) {
+        NSArray *tempArr = menuArr[i][1];
+        for (int j = 0; j < tempArr.count; j++) {
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-            model.name = @"订单管理";
-            model.imageName = @"mineOrderEva";
+            model.name = tempArr[j][0];
+            model.imageName = tempArr[j][1];
             [menulist addObject:model];
         }
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationMenuCell className] title:[ZOrganizationMenuCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationMenuCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:menulist];
-           [self.cellConfigArr addObject:progressCellConfig];
         
+        model.units = menulist;
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationMenuCell className] title:[ZOrganizationMenuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationMenuCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:progressCellConfig];
     }
+
     
     [self.iTableView reloadData];
 }
