@@ -139,7 +139,7 @@
         _lessonTitleLabel.text = @"课程进度";
         _lessonTitleLabel.numberOfLines = 0;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_lessonTitleLabel setFont:[UIFont fontContent]];
     }
     return _lessonTitleLabel;
 }

@@ -85,20 +85,29 @@
 @property (nonatomic,strong) UIColor *leftColor;
 @property (nonatomic,strong) UIColor *leftDarkColor;
 @property (nonatomic,strong) UIFont *leftFont;
-//内容之间间距
-@property (nonatomic,assign) CGFloat contentSpace;
-@property (nonatomic,assign) ZFormatterType formatterType;
-@property (nonatomic,assign) NSTextAlignment textAlignment;
+
+@property (nonatomic,strong) UIColor *rightColor;
+@property (nonatomic,strong) UIColor *rightDarkColor;
+@property (nonatomic,strong) UIFont *rightFont;
 
 @property (nonatomic,strong) UIColor *subTitleColor;
 @property (nonatomic,strong) UIColor *subTitleDarkColor;
 @property (nonatomic,strong) UIFont *subTitleFont;
-@property (nonatomic,strong) NSString *placeholder;
-@property (nonatomic,strong) NSString *leftTitle;
-@property (nonatomic,strong) NSString *rightImage;
+
+//内容之间间距
+@property (nonatomic,assign) CGFloat contentSpace;
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,assign) NSTextAlignment textAlignment;
 @property (nonatomic,assign) CGFloat rightImageWidth;
-@property (nonatomic,strong) NSString *subTitle;
+
+@property (nonatomic,strong) NSString *placeholder;
 @property (nonatomic,assign) NSInteger max;
+
+@property (nonatomic,strong) NSString *leftTitle;
+@property (nonatomic,strong) NSString *rightTitle;
+@property (nonatomic,strong) NSString *rightImage;
+@property (nonatomic,strong) NSString *subTitle;
+
 
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,assign) BOOL isHiddenInputLine;

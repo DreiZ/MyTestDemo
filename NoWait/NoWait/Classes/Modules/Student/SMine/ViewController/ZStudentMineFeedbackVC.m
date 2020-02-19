@@ -49,7 +49,7 @@
     hintLabel.text = @"意见反馈";
     hintLabel.numberOfLines = 0;
     hintLabel.textAlignment = NSTextAlignmentLeft;
-    [hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+    [hintLabel setFont:[UIFont fontSmall]];
     [self.view addSubview:hintLabel];
     [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(20));
@@ -98,7 +98,7 @@
         _iTextView = [[UITextView alloc] initWithFrame:CGRectMake(CGFloatIn750(20), 0, KScreenWidth - CGFloatIn750(40), 118)];
         _iTextView.delegate = self;
         _iTextView.backgroundColor = [UIColor whiteColor];
-        [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_iTextView setFont:[UIFont fontSmall]];
     }
     return _iTextView;
 }
@@ -108,7 +108,7 @@
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] init];
         [_hintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
-        [_hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_hintLabel setFont:[UIFont fontSmall]];
         [_hintLabel setText:@"您有什么意见要反馈给我们？"];
     }
     return _hintLabel;

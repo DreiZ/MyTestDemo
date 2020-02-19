@@ -92,7 +92,7 @@
         _lessonTitleLabel.text = @"瑜伽";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_lessonTitleLabel setFont:[UIFont fontSmall]];
     }
     return _lessonTitleLabel;
 }
@@ -104,7 +104,7 @@
         _lessonCountLabel.text = @"20/30节";
         _lessonCountLabel.numberOfLines = 1;
         _lessonCountLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonCountLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_lessonCountLabel setFont:[UIFont fontSmall]];
     }
     return _lessonCountLabel;
 }

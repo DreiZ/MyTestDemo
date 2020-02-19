@@ -12,6 +12,7 @@
 @interface ZTextFieldCell ()<UITextFieldDelegate>
 @property (nonatomic,strong) UILabel *subTitleLabel;
 @property (nonatomic,strong) UILabel *leftTitleLabel;
+@property (nonatomic,strong) UILabel *rightTitleLabel;
 
 @property (nonatomic,strong) UITextField *inputTextField;
 @property (nonatomic,strong) UIView *bottomLineView;
@@ -101,9 +102,21 @@
         _leftTitleLabel.text = @"";
         _leftTitleLabel.numberOfLines = 0;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_leftTitleLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _leftTitleLabel;
+}
+
+- (UILabel *)rightTitleLabel {
+    if (!_rightTitleLabel) {
+        _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _rightTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _rightTitleLabel.text = @"";
+        _rightTitleLabel.numberOfLines = 0;
+        _rightTitleLabel.textAlignment = NSTextAlignmentLeft;
+        [_rightTitleLabel setFont:[UIFont fontContent]];
+    }
+    return _rightTitleLabel;
 }
 
 - (UILabel *)subTitleLabel {
@@ -113,7 +126,7 @@
         _subTitleLabel.text = @"";
         _subTitleLabel.numberOfLines = 0;
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_subTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_subTitleLabel setFont:[UIFont fontContent]];
     }
     return _subTitleLabel;
 }

@@ -47,12 +47,12 @@
         tempStr = [NSString stringWithFormat:@"%@%@",tempStr,_titleArr[i]];
     }
     
-    CGSize titleWidth = [tempStr tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+    CGSize titleWidth = [tempStr tt_sizeWithFont:[UIFont fontContent]];
     CGFloat atomWidth = (KScreenWidth - titleWidth.width)/_titleArr.count;
     CGRect rc = CGRectMake(0, 0, 0, TopViewHeight);
     for (int i = 0; i < _titleArr.count; i++) {
         NSString *atomTempStr = _titleArr[i];
-        CGSize atomTitleWidth = [atomTempStr tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        CGSize atomTitleWidth = [atomTempStr tt_sizeWithFont:[UIFont fontContent]];
         rc.size.width = atomTitleWidth.width + atomWidth;
         [_ratioWidthArr addObject:[NSNumber numberWithFloat:atomTitleWidth.width + atomWidth]];
         UIButton *tempBtn = [[UIButton alloc] initWithFrame:rc];

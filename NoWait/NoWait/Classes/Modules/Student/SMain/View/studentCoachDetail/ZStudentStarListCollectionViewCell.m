@@ -121,7 +121,7 @@
         _skillLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _skillLabel.numberOfLines = 1;
         _skillLabel.textAlignment = NSTextAlignmentCenter;
-        [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_skillLabel setFont:[UIFont fontSmall]];
     }
     return _skillLabel;
 }

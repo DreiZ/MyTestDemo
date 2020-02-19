@@ -173,7 +173,7 @@
         _orderStateLabel.text = @"待支付";
         _orderStateLabel.numberOfLines = 1;
         _orderStateLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderStateLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_orderStateLabel setFont:[UIFont fontSmall]];
     }
     return _orderStateLabel;
 }

@@ -120,7 +120,7 @@
         _priceLabel.text = @"￥543";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_priceLabel setFont:[UIFont fontContent]];
     }
     return _priceLabel;
 }

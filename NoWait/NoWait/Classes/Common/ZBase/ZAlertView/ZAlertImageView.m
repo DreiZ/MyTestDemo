@@ -87,7 +87,7 @@ static ZAlertImageView *sharedManager;
     [self.contView removeAllSubviews];
     self.hintImageView.image = [UIImage imageNamed:image];
     
-    CGSize titleSize = [title sizeForFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    CGSize titleSize = [title sizeForFont:[UIFont boldFontMaxTitle] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110));
@@ -108,7 +108,7 @@ static ZAlertImageView *sharedManager;
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+    [titleLabel setFont:[UIFont boldFontMaxTitle]];
     [self.contView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
@@ -171,7 +171,7 @@ static ZAlertImageView *sharedManager;
     [self.contView removeAllSubviews];
     self.hintImageView.image = [UIImage imageNamed:image];
     
-    CGSize titleSize = [title sizeForFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    CGSize titleSize = [title sizeForFont:[UIFont boldFontMaxTitle] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110));
@@ -192,7 +192,7 @@ static ZAlertImageView *sharedManager;
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+    [titleLabel setFont:[UIFont boldFontMaxTitle]];
     [self.contView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));

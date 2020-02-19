@@ -283,7 +283,7 @@
         _userNameTF.leftViewMode = UITextFieldViewModeAlways;
         _userNameTF.leftView = hintView;
         [_userNameTF setTextAlignment:NSTextAlignmentLeft];
-        [_userNameTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_userNameTF setFont:[UIFont fontContent]];
         [_userNameTF setBorderStyle:UITextBorderStyleNone];
         [_userNameTF setBackgroundColor:[UIColor clearColor]];
         [_userNameTF setReturnKeyType:UIReturnKeyDone];
@@ -322,7 +322,7 @@
         _passwordTF.leftViewMode = UITextFieldViewModeAlways;
         _passwordTF.delegate = self;
         _passwordTF.keyboardType = UIKeyboardTypeDefault;
-        [_passwordTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_passwordTF setFont:[UIFont fontContent]];
         [_userNameTF setTextAlignment:NSTextAlignmentLeft];
         [_passwordTF setBorderStyle:UITextBorderStyleNone];
         [_passwordTF setBackgroundColor:[UIColor clearColor]];
@@ -355,7 +355,7 @@
         _codeTF.tag = 108;
         _codeTF.leftView = hintView;
         _codeTF.leftViewMode = UITextFieldViewModeAlways;
-        [_codeTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_codeTF setFont:[UIFont fontContent]];
         [_codeTF setBorderStyle:UITextBorderStyleNone];
         [_codeTF setBackgroundColor:[UIColor clearColor]];
         [_codeTF setTextAlignment:NSTextAlignmentLeft];

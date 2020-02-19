@@ -64,7 +64,7 @@
         _statusLabel.text = @"等待商家确认";
         _statusLabel.numberOfLines = 1;
         _statusLabel.textAlignment = NSTextAlignmentLeft;
-        [_statusLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_statusLabel setFont:[UIFont fontSmall]];
     }
     return _statusLabel;
 }

@@ -99,7 +99,7 @@
         _leftTitleLabel.text = @"标题";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+        [_leftTitleLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _leftTitleLabel;
 }
@@ -111,7 +111,7 @@
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentRight;
-        [_rightTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_rightTitleLabel setFont:[UIFont fontContent]];
     }
     return _rightTitleLabel;
 }
@@ -130,8 +130,8 @@
     _leftTitleLabel.text = model.leftTitle;
     _rightTitleLabel.text = model.rightTitle;
     
-    _leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
-    _rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)];
+    _leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont boldFontMaxTitle];
+    _rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont boldFontMaxTitle];
     
     _leftTitleLabel.textColor = model.leftColor ? model.leftColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     _rightTitleLabel.textColor = model.rightColor ? model.rightColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);

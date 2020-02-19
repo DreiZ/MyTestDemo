@@ -117,7 +117,7 @@
         _businessHoursLabel.text = @"营业时间：09:00-21:30";
         _businessHoursLabel.numberOfLines = 1;
         _businessHoursLabel.textAlignment = NSTextAlignmentLeft;
-        [_businessHoursLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_businessHoursLabel setFont:[UIFont fontSmall]];
     }
     return _businessHoursLabel;
 }

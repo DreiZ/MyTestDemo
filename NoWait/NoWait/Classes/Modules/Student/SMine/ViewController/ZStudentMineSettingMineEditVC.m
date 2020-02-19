@@ -55,7 +55,7 @@
     _userNameTF.leftViewMode = UITextFieldViewModeAlways;
     _userNameTF.leftView = hintView;
     [_userNameTF setTextAlignment:NSTextAlignmentLeft];
-    [_userNameTF setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+    [_userNameTF setFont:[UIFont fontContent]];
     [_userNameTF setBorderStyle:UITextBorderStyleNone];
     [_userNameTF setBackgroundColor:[UIColor clearColor]];
     [_userNameTF setReturnKeyType:UIReturnKeyDone];

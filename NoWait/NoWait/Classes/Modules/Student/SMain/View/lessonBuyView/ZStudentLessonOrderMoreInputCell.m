@@ -75,7 +75,7 @@
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
         _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        [_iTextView setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_iTextView setFont:[UIFont fontSmall]];
         _iTextView.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }
     return _iTextView;
@@ -88,7 +88,7 @@
         _thintLabel.numberOfLines = 0;
         _thintLabel.textAlignment = NSTextAlignmentLeft;
         [_thintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
-        [_thintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_thintLabel setFont:[UIFont fontSmall]];
         [_thintLabel setText:@"如果有其他说明，请填写在此处"];
     }
     return _thintLabel;

@@ -37,11 +37,11 @@
     if (self) {
         self.leftColor = [UIColor colorTextBlack];
         self.leftDarkColor = [UIColor colorTextBlackDark];
-        self.leftFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
+        self.leftFont = [UIFont fontContent];
 
         self.rightColor = [UIColor colorTextGray];
         self.rightDarkColor = [UIColor colorTextGrayDark];
-        self.rightFont = [UIFont systemFontOfSize:CGFloatIn750(30)];
+        self.rightFont = [UIFont fontContent];
  
         self.leftContentSpace = CGFloatIn750(20);
         self.rightContentSpace = CGFloatIn750(10);
@@ -79,8 +79,12 @@
   
         self.leftColor = [UIColor colorTextBlack];
         self.leftDarkColor = [UIColor colorTextBlackDark];
-        
         self.leftFont = [UIFont boldFontTitle];
+        
+        self.rightColor = [UIColor colorTextBlack];
+        self.rightDarkColor = [UIColor colorTextBlackDark];
+        self.rightFont = [UIFont fontContent];
+        
         self.subTitleColor = [UIColor colorTextGray1];
         self.subTitleDarkColor = [UIColor colorTextGray1Dark];
         self.subTitleFont = [UIFont fontSmall];
@@ -88,6 +92,9 @@
         self.placeholder = @"请输入";
         self.leftTitle = @"";
         self.subTitle = @"";
+        self.rightTitle = @"";
+        
+        
         self.max = 6;
         self.cellHeight = kCellNormalHeight;
         self.rightImageWidth = CGFloatIn750(10);

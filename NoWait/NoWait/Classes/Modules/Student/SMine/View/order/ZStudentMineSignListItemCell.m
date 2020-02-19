@@ -50,7 +50,7 @@
         _lessonLabel.text = @"利萨斯";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+        [_lessonLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _lessonLabel;
 }
@@ -62,7 +62,7 @@
         _lessonHintLabel.text = @"教练：";
         _lessonHintLabel.numberOfLines = 1;
         _lessonHintLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonHintLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+        [_lessonHintLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _lessonHintLabel;
 }

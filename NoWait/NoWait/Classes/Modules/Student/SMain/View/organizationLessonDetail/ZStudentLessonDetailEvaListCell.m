@@ -109,7 +109,7 @@
         _userNameLabel.text = @"";
         _userNameLabel.numberOfLines = 1;
         _userNameLabel.textAlignment = NSTextAlignmentLeft;
-        [_userNameLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_userNameLabel setFont:[UIFont fontContent]];
     }
     return _userNameLabel;
 }

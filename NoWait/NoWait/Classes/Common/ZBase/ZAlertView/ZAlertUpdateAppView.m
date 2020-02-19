@@ -202,7 +202,7 @@ static ZAlertUpdateAppView *sharedManager;
         _detailLabel.numberOfLines = 0;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         _detailLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        [_detailLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_detailLabel setFont:[UIFont fontSmall]];
     }
     return _detailLabel;
 }
@@ -255,7 +255,7 @@ static ZAlertUpdateAppView *sharedManager;
         _updateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_updateBtn setTitle:@"立即更新" forState:UIControlStateNormal];
         [_updateBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_updateBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_updateBtn.titleLabel setFont:[UIFont fontContent]];
         [_updateBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         _updateBtn.layer.masksToBounds = YES;
         _updateBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -279,7 +279,7 @@ static ZAlertUpdateAppView *sharedManager;
 //
 //    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString:updateModel.content];
 //    text.lineSpacing = CGFloatIn750(20);
-//    text.font = [UIFont systemFontOfSize:CGFloatIn750(26)];
+//    text.font = [UIFont fontSmall];
 //    text.lineBreakMode = NSLineBreakByWordWrapping;
 //
 //    [text addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray] range:NSMakeRange(0, updateModel.content.length)];

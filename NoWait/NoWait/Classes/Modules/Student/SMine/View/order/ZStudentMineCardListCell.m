@@ -166,7 +166,7 @@
         _orderSNLabel.text = @"代金券100元";
         _orderSNLabel.numberOfLines = 1;
         _orderSNLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderSNLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(30)]];
+        [_orderSNLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _orderSNLabel;
 }

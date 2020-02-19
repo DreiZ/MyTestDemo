@@ -47,7 +47,7 @@
         _evaTitleLabel.text = @"教练评价";
         _evaTitleLabel.numberOfLines = 0;
         _evaTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_evaTitleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_evaTitleLabel setFont:[UIFont fontSmall]];
     }
     return _evaTitleLabel;
 }

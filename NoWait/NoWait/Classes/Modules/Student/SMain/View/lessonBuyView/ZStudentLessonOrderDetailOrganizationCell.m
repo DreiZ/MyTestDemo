@@ -95,7 +95,7 @@
         _addressLabel.text = @"";
         _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        [_addressLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_addressLabel setFont:[UIFont fontContent]];
     }
     return _addressLabel;
 }
@@ -107,7 +107,7 @@
         _telLabel.text = @"";
         _telLabel.numberOfLines = 1;
         _telLabel.textAlignment = NSTextAlignmentRight;
-        [_telLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
+        [_telLabel setFont:[UIFont fontContent]];
     }
     return _telLabel;
 }

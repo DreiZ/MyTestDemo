@@ -196,7 +196,7 @@
     UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
     hintLabel.text = @"向心力账号";
-    [hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+    [hintLabel setFont:[UIFont fontSmall]];
     [sectionView addSubview:hintLabel];
     [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sectionView.mas_left).offset(CGFloatIn750(30));

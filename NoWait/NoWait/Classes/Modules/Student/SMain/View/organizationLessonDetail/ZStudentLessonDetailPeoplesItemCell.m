@@ -61,7 +61,7 @@
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_titleLabel setFont:[UIFont fontSmall]];
     }
     return _titleLabel;
 }

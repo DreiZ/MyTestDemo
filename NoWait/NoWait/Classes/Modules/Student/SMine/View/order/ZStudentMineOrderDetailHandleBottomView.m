@@ -109,7 +109,7 @@
         [_telBtn setImage:[UIImage imageNamed:@"orderRigthtTel"] forState:UIControlStateNormal];
         [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
         [_telBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
-        [_telBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(26)]];
+        [_telBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
