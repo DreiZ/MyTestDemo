@@ -19,26 +19,29 @@
 
 @implementation ZOrganizationTimeHourCell
 
--(instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self initMainView];
+        [self setupView];
     }
     return self;
 }
 
-- (void)initMainView {
+-(void)setupView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
+    self.data1 = @[].mutableCopy;
+    self.data2 = @[].mutableCopy;
     
     self.proIndex = 0;
     self.cityIndex = 0;
     for (int i = 0; i < 24; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
-            model.name = [NSString stringWithFormat:@"0%d.00",i];
+            model.name = [NSString stringWithFormat:@"0%d:00",i];
         }else{
-            model.name = [NSString stringWithFormat:@"%d.00",i];
+            model.name = [NSString stringWithFormat:@"%d:00",i];
         }
        
        [self.data1 addObject:model];
@@ -47,9 +50,9 @@
     for (int i = 0; i < 24; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
-            model.name = [NSString stringWithFormat:@"0%d.00",i];
+            model.name = [NSString stringWithFormat:@"0%d:00",i];
         }else{
-            model.name = [NSString stringWithFormat:@"%d.00",i];
+            model.name = [NSString stringWithFormat:@"%d:00",i];
         }
        
        [self.data2 addObject:model];
@@ -70,7 +73,8 @@
         _pickView = [[UIPickerView alloc] init];
         _pickView.delegate = self;
         _pickView.dataSource = self;
-        _pickView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+        _pickView.showsSelectionIndicator = YES;
+        _pickView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _pickView;
 }
@@ -89,9 +93,25 @@
 
     UILabel* pickerLabel = [UILabel new];
     pickerLabel.numberOfLines = 0;
-    pickerLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    if (component == 0) {
+        if (row == self.proIndex) {
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+            [pickerLabel setFont:[UIFont fontMax2Title]];
+        }else{
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+            [pickerLabel setFont:[UIFont fontMaxTitle]];
+        }
+    }else{
+        if (row == self.cityIndex) {
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+            [pickerLabel setFont:[UIFont fontMax2Title]];
+        }else{
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+            [pickerLabel setFont:[UIFont fontMaxTitle]];
+        }
+    }
+    
     pickerLabel.textAlignment = NSTextAlignmentCenter;
-    [pickerLabel setFont:[UIFont fontContent]];
     pickerLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
 
     [sectionView addSubview:pickerLabel];
@@ -114,6 +134,7 @@
     if (component == 1) {
         _cityIndex = row;
     }
+    [pickerView reloadAllComponents];
 }
 
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
@@ -141,7 +162,7 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return CGFloatIn750(86);
+    return CGFloatIn750(68);
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
