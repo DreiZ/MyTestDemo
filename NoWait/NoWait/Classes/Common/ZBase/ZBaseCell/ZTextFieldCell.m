@@ -52,11 +52,17 @@
         make.width.mas_equalTo(CGFloatIn750(10));
     }];
     
+    [self.contentView addSubview:self.rightTitleLabel];
+    [self.rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.rightImageView.mas_left).offset(-kCellContentSpace);
+    }];
+    
     [self.contentView addSubview:self.inputTextField];
     [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.subTitleLabel.mas_right).offset(kCellContentSpace);
         make.height.mas_equalTo(CGFloatIn750(52));
-        make.right.equalTo(self.rightImageView.mas_left).offset(-kCellContentSpace);
+        make.right.equalTo(self.rightTitleLabel.mas_left).offset(-kCellContentSpace);
         make.centerY.equalTo(self.subTitleLabel.mas_centerY);
     }];
     
@@ -113,7 +119,7 @@
         _rightTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _rightTitleLabel.text = @"";
         _rightTitleLabel.numberOfLines = 0;
-        _rightTitleLabel.textAlignment = NSTextAlignmentLeft;
+        _rightTitleLabel.textAlignment = NSTextAlignmentRight;
         [_rightTitleLabel setFont:[UIFont fontContent]];
     }
     return _rightTitleLabel;
@@ -184,23 +190,27 @@
     self.formatterType = model.formatterType;
     
     _leftTitleLabel.text = model.leftTitle;
-    _subTitleLabel.text = model.subTitle;
-    
-    _subTitleLabel.font = model.subTitleFont;
-    _subTitleLabel.textColor = adaptAndDarkColor(model.subTitleColor, model.subTitleDarkColor);
-    
     _leftTitleLabel.textColor = adaptAndDarkColor(model.leftColor, model.leftDarkColor);
     _leftTitleLabel.font = model.leftFont;
     
+    _subTitleLabel.text = model.subTitle;
+    _subTitleLabel.font = model.subTitleFont;
+    _subTitleLabel.textColor = adaptAndDarkColor(model.subTitleColor, model.subTitleDarkColor);
+    
+    _rightTitleLabel.text = model.rightTitle;
+    _rightTitleLabel.textColor = adaptAndDarkColor(model.rightColor, model.rightDarkColor);
+    _rightTitleLabel.font = model.rightFont;
+    
+    
     _inputTextField.font = model.textFont;
     _inputTextField.textColor = adaptAndDarkColor(model.textColor, model.textDarkColor);
-    
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;
     _inputTextField.textAlignment = model.textAlignment;
+    _inputTextField.enabled = model.isTextEnabled;
+    
     _bottomLineView.hidden = model.isHiddenLine;
     _inputLine.hidden = model.isHiddenInputLine;
-    _inputTextField.enabled = model.isTextEnabled;
     
     [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);
@@ -225,43 +235,85 @@
     }
     
     
-    if (model.rightImage) {
+    if (model.rightImage && model.rightImage.length > 0) {
         self.rightImageView.image = [UIImage imageNamed:model.rightImage];
         self.rightImageView.hidden = NO;
         
         [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView.mas_centerY);
-            make.right.equalTo(self.contentView.mas_right).offset(-kCellRightMargin);
+            make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
             make.width.mas_equalTo(model.rightImageWidth);
         }];
         
-        if (model.subTitle) {
+        if (model.subTitle && model.subTitle.length > 0) {
             self.subTitleLabel.hidden = NO;
+            
             CGSize titleSize = [model.subTitle tt_sizeWithFont:model.textFont];
             [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.contentView.mas_centerY);
                 make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
                 make.width.mas_equalTo(titleSize.width + 2);
             }];
-            [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
-                make.height.mas_equalTo(model.textFieldHeight);
-                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-                make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-            }];
+            
+            
+            if (model.rightTitle && model.rightTitle.length > 0) {
+                self.rightTitleLabel.hidden = NO;
+                
+                CGSize rightTitleSize = [model.rightTitle tt_sizeWithFont:model.rightFont];
+                [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.contentView.mas_centerY);
+                    make.right.equalTo(self.rightImageView.mas_left).offset(-model.contentSpace);
+                    make.width.mas_equalTo(rightTitleSize.width + 2);
+                }];
+                
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.rightTitleLabel.mas_left).offset(-model.contentSpace);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }else{
+                self.rightTitleLabel.hidden = YES;
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.rightImageView.mas_left).offset(-model.contentSpace);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }
         }else{
             self.subTitleLabel.hidden = YES;
-            [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
-                make.height.mas_equalTo(model.textFieldHeight);
-                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-                make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-            }];
+            
+            if (model.rightTitle && model.rightTitle.length > 0) {
+                self.rightTitleLabel.hidden = NO;
+                
+                CGSize rightTitleSize = [model.rightTitle tt_sizeWithFont:model.rightFont];
+                [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.contentView.mas_centerY);
+                    make.right.equalTo(self.rightImageView.mas_left).offset(-model.contentSpace);
+                    make.width.mas_equalTo(rightTitleSize.width + 2);
+                }];
+                
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.rightTitleLabel.mas_left).offset(-model.contentSpace);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }else{
+                self.rightTitleLabel.hidden = YES;
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.rightImageView.mas_left).offset(-model.contentSpace);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }
         }
     }else{
         self.rightImageView.hidden = YES;
         
-        if (model.subTitle) {
+        if (model.subTitle  && model.subTitle.length > 0) {
             self.subTitleLabel.hidden = NO;
             CGSize titleSize = [model.subTitle tt_sizeWithFont:model.textFont];
             [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -269,20 +321,59 @@
                 make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
                 make.width.mas_equalTo(titleSize.width + 2);
             }];
-            [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
-                make.height.mas_equalTo(model.textFieldHeight);
-                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-                make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-            }];
+            
+            if (model.rightTitle && model.rightTitle.length > 0) {
+                self.rightTitleLabel.hidden = NO;
+                
+                CGSize rightTitleSize = [model.rightTitle tt_sizeWithFont:model.rightFont];
+                [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.contentView.mas_centerY);
+                    make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+                    make.width.mas_equalTo(rightTitleSize.width + 2);
+                }];
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.rightTitleLabel.mas_left).offset(-model.contentSpace);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }else{
+                self.rightTitleLabel.hidden = YES;
+                [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+                    make.height.mas_equalTo(model.textFieldHeight);
+                    make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+                    make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+                }];
+            }
+            
         }else{
             self.subTitleLabel.hidden = YES;
-            [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
-                make.height.mas_equalTo(model.textFieldHeight);
-                make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
-                make.centerY.equalTo(self.subTitleLabel.mas_centerY);
-            }];
+            
+            if (model.rightTitle && model.rightTitle.length > 0) {
+               self.rightTitleLabel.hidden = NO;
+               
+               CGSize rightTitleSize = [model.rightTitle tt_sizeWithFont:model.rightFont];
+               [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.centerY.equalTo(self.contentView.mas_centerY);
+                   make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+                   make.width.mas_equalTo(rightTitleSize.width + 2);
+               }];
+               [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+                   make.height.mas_equalTo(model.textFieldHeight);
+                   make.right.equalTo(self.rightTitleLabel.mas_left).offset(-model.contentSpace);
+                   make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+               }];
+           }else{
+               self.rightTitleLabel.hidden = YES;
+               [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.left.equalTo(self.leftTitleLabel.mas_right).offset(model.contentSpace);
+                   make.height.mas_equalTo(model.textFieldHeight);
+                   make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
+                   make.centerY.equalTo(self.subTitleLabel.mas_centerY);
+               }];
+           }
         }
     }
 }
