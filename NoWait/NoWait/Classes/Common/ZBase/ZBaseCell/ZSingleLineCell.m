@@ -132,8 +132,8 @@
     self.leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
     self.rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont systemFontOfSize:kCellTitleFont];
     
-    self.leftTitleLabel.textColor = model.leftColor ? model.leftColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    self.rightTitleLabel.textColor = model.rightColor ? model.rightColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.leftTitleLabel.textColor = model.leftColor ? adaptAndDarkColor(model.leftColor,model.leftDarkColor):adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.rightTitleLabel.textColor = model.rightColor ? adaptAndDarkColor(model.rightColor,model.rightDarkColor) :adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.bottomLineView.hidden = model.isHiddenLine;
     
     

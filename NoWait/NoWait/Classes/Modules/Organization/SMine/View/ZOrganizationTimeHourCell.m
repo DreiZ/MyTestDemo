@@ -83,13 +83,13 @@
 //自定义每个pickview的label
 -(UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UIView *sectionView = [[UIView alloc] init];
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
-    [sectionView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(sectionView);
-        make.height.mas_equalTo(0.5);
-    }];
+//    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+//    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+//    [sectionView addSubview:bottomLineView];
+//    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(sectionView);
+//        make.height.mas_equalTo(0.5);
+//    }];
 
     UILabel* pickerLabel = [UILabel new];
     pickerLabel.numberOfLines = 0;

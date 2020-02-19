@@ -45,10 +45,12 @@
 @property (nonatomic,strong) NSString *leftImage;
 @property (nonatomic,strong) NSString *leftTitle;
 @property (nonatomic,strong) UIColor *leftColor;
+@property (nonatomic,strong) UIColor *leftDarkColor;
 @property (nonatomic,strong) UIFont *leftFont;
 
 @property (nonatomic,strong) NSString *rightImage;
 @property (nonatomic,strong) UIColor *rightColor;
+@property (nonatomic,strong) UIColor *rightDarkColor;
 @property (nonatomic,strong) UIFont *rightFont;
 @property (nonatomic,strong) NSString *rightTitle;
 
@@ -56,7 +58,6 @@
 @property (nonatomic,assign) CGFloat leftContentSpace;
 @property (nonatomic,assign) CGFloat rightContentSpace;
 
-@property (nonatomic,strong) id data;
 @property (nonatomic,assign) BOOL isSelected;
 @end
 
@@ -78,9 +79,11 @@
 
 //输入框字体颜色
 @property (nonatomic,strong) UIColor *textColor;
+@property (nonatomic,strong) UIColor *textDarkColor;
 @property (nonatomic,strong) UIFont *textFont;
 
 @property (nonatomic,strong) UIColor *leftColor;
+@property (nonatomic,strong) UIColor *leftDarkColor;
 @property (nonatomic,strong) UIFont *leftFont;
 //内容之间间距
 @property (nonatomic,assign) CGFloat contentSpace;
@@ -88,6 +91,7 @@
 @property (nonatomic,assign) NSTextAlignment textAlignment;
 
 @property (nonatomic,strong) UIColor *subTitleColor;
+@property (nonatomic,strong) UIColor *subTitleDarkColor;
 @property (nonatomic,strong) UIFont *subTitleFont;
 @property (nonatomic,strong) NSString *placeholder;
 @property (nonatomic,strong) NSString *leftTitle;

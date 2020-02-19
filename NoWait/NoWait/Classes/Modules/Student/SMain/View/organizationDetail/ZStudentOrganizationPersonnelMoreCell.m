@@ -80,7 +80,7 @@
 - (UIImageView *)moreImageView {
     if (!_moreImageView) {
         _moreImageView = [[UIImageView alloc] init];
-        _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
+        _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightGrayArrowDark"]: [UIImage imageNamed:@"rightGrayArrow"];
         _moreImageView.layer.masksToBounds = YES;
     }
     return _moreImageView;
@@ -112,6 +112,6 @@
     [super traitCollectionDidChange:previousTraitCollection];
     
     // darkmodel change
-    _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+    _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightGrayArrowDark"] : [UIImage imageNamed:@"rightGrayArrow"];
 }
 @end

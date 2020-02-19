@@ -174,13 +174,13 @@
     _subTitleLabel.text = model.subTitle;
     
     _subTitleLabel.font = model.subTitleFont;
-    _subTitleLabel.textColor = model.subTitleColor;
+    _subTitleLabel.textColor = adaptAndDarkColor(model.subTitleColor, model.subTitleDarkColor);
     
-    _leftTitleLabel.textColor = model.leftColor;
+    _leftTitleLabel.textColor = adaptAndDarkColor(model.leftColor, model.leftDarkColor);
     _leftTitleLabel.font = model.leftFont;
     
     _inputTextField.font = model.textFont;
-    _inputTextField.textColor = model.textColor;
+    _inputTextField.textColor = adaptAndDarkColor(model.textColor, model.textDarkColor);
     
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;

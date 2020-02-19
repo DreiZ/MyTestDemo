@@ -34,16 +34,7 @@
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
-    
-//    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-//    model.leftTitle = @"选择地址";
-//    model.cellTitle = @"address";
-//    model.rightImage = @"studentSelect";
-//    
-//    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//
-//    [self.cellConfigArr addObject:menuCellConfig];
-    
+ 
     NSArray *tempArr = @[@"选择地址",@"地标信息", @"所属场所"];
     NSArray *tempTitleArr = @[@"local",@"text", @"text"];
     for (int i = 0; i < tempArr.count; i++) {

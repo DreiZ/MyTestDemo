@@ -50,7 +50,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextGray1]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _titleLabel.text = @"但是公司俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -73,11 +73,11 @@
     if (model.isSelected) {
         [_titleLabel setFont:[UIFont boldFontContent]];
         _hintView.hidden = NO;
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorTextBlackDark]);
     }else{
         [_titleLabel setFont:[UIFont fontSmall]];
         _hintView.hidden = YES;
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextBlack]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGrayDark]);
     }
 }
 @end

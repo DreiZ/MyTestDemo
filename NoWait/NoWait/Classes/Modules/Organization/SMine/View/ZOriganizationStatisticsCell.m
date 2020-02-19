@@ -125,7 +125,7 @@
 - (UILabel *)refreshLabel {
     if (!_refreshLabel) {
         _refreshLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _refreshLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
+        _refreshLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
         _refreshLabel.text = @"图形俱乐部";
         _refreshLabel.numberOfLines = 1;
         _refreshLabel.textAlignment = NSTextAlignmentRight;
@@ -138,7 +138,7 @@
 - (UILabel *)leftContentLabel {
     if (!_leftContentLabel) {
         _leftContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _leftContentLabel.textColor = adaptAndDarkColor([UIColor whiteColor],[UIColor whiteColor]);
+        _leftContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
         _leftContentLabel.text = @"300";
         _leftContentLabel.numberOfLines = 1;
         _leftContentLabel.textAlignment = NSTextAlignmentCenter;
@@ -150,7 +150,7 @@
 - (UILabel *)leftTitleLabel {
     if (!_leftTitleLabel) {
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _leftTitleLabel.textColor = adaptAndDarkColor([UIColor whiteColor],[UIColor whiteColor]);
+        _leftTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
         _leftTitleLabel.text = @"校区访问人数";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -163,7 +163,7 @@
 - (UILabel *)rightTitleLabel {
     if (!_rightTitleLabel) {
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _rightTitleLabel.textColor = adaptAndDarkColor([UIColor whiteColor],[UIColor whiteColor]);
+        _rightTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
         _rightTitleLabel.text = @"校区访问人数";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -175,7 +175,7 @@
 - (UILabel *)rightContentLabel {
     if (!_rightContentLabel) {
         _rightContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _rightContentLabel.textColor = adaptAndDarkColor([UIColor whiteColor],[UIColor whiteColor]);
+        _rightContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
         _rightContentLabel.text = @"300";
         _rightContentLabel.numberOfLines = 1;
         _rightContentLabel.textAlignment = NSTextAlignmentCenter;
@@ -187,8 +187,8 @@
 - (UIView *)menuBackView {
     if (!_menuBackView) {
         _menuBackView = [[UIView alloc] init];
-        _menuBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, [UIColor whiteColor]);
+        _menuBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorTextBlackDark]);
+        ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorWhite]);
     }
     return _menuBackView;
 }
@@ -198,7 +198,7 @@
         _backContentView = [[UIView alloc] init];
         _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
         ViewRadius(_backContentView, CGFloatIn750(16));
-        ViewShadowRadius(_backContentView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
+        ViewShadowRadius(_backContentView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextBlackDark]);
 
     }
     return _backContentView;
@@ -214,7 +214,7 @@
     }];
     menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
     [menuBtn setTitle:text forState:UIControlStateNormal];
-    [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+    [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
     [menuBtn.titleLabel setFont:[UIFont fontSmall]];
     
     return menuBtn;
@@ -228,5 +228,8 @@
     return CGFloatIn750(302);
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
+}
 @end
 
