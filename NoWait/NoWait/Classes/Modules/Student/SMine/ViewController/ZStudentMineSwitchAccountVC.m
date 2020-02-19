@@ -77,7 +77,7 @@
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"换个新账号登录";
-        model.rightImage = isDarkModel() ? @"leftWhiteArrow" : @"rightBlackArrow";
+        model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
         model.cellTitle = @"switch";
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         

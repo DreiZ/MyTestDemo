@@ -165,7 +165,7 @@
     if (!_lastStepBtn) {
         __weak typeof(self) weakSelf = self;
         _lastStepBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_lastStepBtn setImage:[UIImage imageNamed:@"leftBlackArrow"] forState:UIControlStateNormal];
+        [_lastStepBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         [_lastStepBtn bk_whenTapped:^{
             if (weakSelf.lastStepBlock) {
                 weakSelf.lastStepBlock();
@@ -394,6 +394,14 @@
     }else{
         
     }
+}
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    [_lastStepBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
 }
 @end
 

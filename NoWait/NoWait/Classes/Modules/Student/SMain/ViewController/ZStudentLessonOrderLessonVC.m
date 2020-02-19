@@ -71,7 +71,7 @@
     
     ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
     model.leftTitle = @"才玩俱乐部";
-    model.rightImage = @"rightBlackArrow";
+    model.rightImage = @"rightBlackArrowN";
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:menuCellConfig];
     
@@ -90,7 +90,7 @@
     
     ZStudentDetailOrderSubmitListModel *coachHModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
     coachHModel.leftTitle = @"教练";
-    coachHModel.rightImage = @"rightBlackArrow";
+    coachHModel.rightImage = @"rightBlackArrowN";
     ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:coachHModel];
     [self.cellConfigArr addObject:menu1CellConfig];
     

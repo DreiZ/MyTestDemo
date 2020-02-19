@@ -74,7 +74,7 @@
     if (!_arrowBtn) {
         __weak typeof(self) weakSelf = self;
         _arrowBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_arrowBtn setImage:[UIImage imageNamed:@"leftWhiteArrow"] forState:UIControlStateNormal];
+        [_arrowBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBackDark"] forState:UIControlStateNormal];
         [_arrowBtn bk_whenTapped:^{
             if (weakSelf.backBlock) {
                 weakSelf.backBlock(0);

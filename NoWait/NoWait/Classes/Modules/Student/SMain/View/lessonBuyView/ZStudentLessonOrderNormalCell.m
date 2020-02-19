@@ -76,7 +76,7 @@
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
-        _rightImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
+        _rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
         _rightImageView.layer.masksToBounds = YES;
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -174,6 +174,16 @@
 
 + (CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(100);
+}
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        _rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
+    }
 }
 @end
 

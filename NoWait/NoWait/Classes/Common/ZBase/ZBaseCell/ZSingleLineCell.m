@@ -228,4 +228,10 @@
     }
     return kCellNormalHeight;
 }
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+    }
+}
 @end

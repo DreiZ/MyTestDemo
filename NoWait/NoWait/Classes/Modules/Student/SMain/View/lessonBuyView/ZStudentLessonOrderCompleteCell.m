@@ -76,7 +76,7 @@
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
-        _rightImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
+        _rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
         _rightImageView.layer.masksToBounds = YES;
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -189,6 +189,9 @@
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     
+    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+    }
     // darkmodel change
 }
 @end

@@ -110,7 +110,7 @@
         
         ZStudentDetailOrderSubmitListModel *model1 = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model1.leftTitle = @"10月26日 周六 14：00";
-        model1.rightImage = @"rightBlackArrow";
+        model1.rightImage = @"rightBlackArrowN";
         
         ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model1];
         [self.cellConfigArr addObject:menu1CellConfig];

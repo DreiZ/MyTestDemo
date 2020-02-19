@@ -11,6 +11,7 @@
 @interface ZStudentOrganizationPersonnelMoreCell ()
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIView *moreView;
+@property (nonatomic,strong) UIImageView *moreImageView;
 
 @end
 
@@ -56,11 +57,8 @@
     if (!_moreView) {
         _moreView = [[UIView alloc] init];
         
-        UIImageView *moreImageView = [[UIImageView alloc] init];
-        moreImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
-        moreImageView.layer.masksToBounds = YES;
-        [_moreView addSubview:moreImageView];
-        [moreImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_moreView addSubview:self.moreImageView];
+        [_moreImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.moreView.mas_right).offset(-CGFloatIn750(30));
             make.centerY.equalTo(self.moreView.mas_centerY);
         }];
@@ -72,11 +70,20 @@
         [moreLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
         [_moreView addSubview:moreLabel];
         [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(moreImageView.mas_left).offset(-CGFloatIn750(6));
+            make.right.equalTo(self.moreImageView.mas_left).offset(-CGFloatIn750(6));
             make.centerY.equalTo(self.moreView.mas_centerY);
         }];
     }
     return _moreView;
+}
+
+- (UIImageView *)moreImageView {
+    if (!_moreImageView) {
+        _moreImageView = [[UIImageView alloc] init];
+        _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
+        _moreImageView.layer.masksToBounds = YES;
+    }
+    return _moreImageView;
 }
 
 - (UILabel *)titleLabel {
@@ -99,5 +106,12 @@
     _model = model;
     
     _titleLabel.text = model.leftTitle;
+}
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
 }
 @end

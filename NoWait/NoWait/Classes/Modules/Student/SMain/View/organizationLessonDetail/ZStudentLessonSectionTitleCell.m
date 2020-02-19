@@ -88,7 +88,7 @@
 - (UIImageView *)moreImageView {
     if (!_moreImageView) {
         _moreImageView = [[UIImageView alloc] init];
-        _moreImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
+        _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
         _moreImageView.layer.masksToBounds = YES;
     }
     return _moreImageView;
@@ -110,6 +110,14 @@
         _moreLabel.hidden = YES;
         _moreImageView.hidden = YES;
     }
+}
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    _moreImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
 }
 @end
 

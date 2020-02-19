@@ -17,7 +17,6 @@
 @property (nonatomic,strong) UILabel *rightTitleLabel;
 @property (nonatomic,strong) UIView *bottomLineView;
 
-
 @property (nonatomic,strong) NSDictionary *data;
 @end
 
@@ -38,15 +37,11 @@
     self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     
-    UIImageView *arrowImageView = [[UIImageView alloc] init];
-    arrowImageView.image = [UIImage imageNamed:@"rightBlackArrow"];
-    arrowImageView.layer.masksToBounds = YES;
-    [self.contentView addSubview:arrowImageView];
-    [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentView addSubview:self.arrowImageView];
+    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
-    self.arrowImageView = arrowImageView;
     
     [self.contentView addSubview:self.rightImageView];
     [self.contentView addSubview:self.leftImageView];
@@ -56,7 +51,7 @@
     
     [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.right.equalTo(arrowImageView.mas_left).offset(-CGFloatIn750(10));
+        make.right.equalTo(self.arrowImageView.mas_left).offset(-CGFloatIn750(10));
         make.width.height.mas_equalTo(CGFloatIn750(100));
     }];
     
@@ -86,6 +81,14 @@
 
 
 #pragma mark -Getter
+- (UIImageView *)arrowImageView {
+    if (!_arrowImageView) {
+        _arrowImageView = [[UIImageView alloc] init];
+        _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+        _arrowImageView.layer.masksToBounds = YES;
+    }
+    return _arrowImageView;
+}
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
@@ -182,6 +185,15 @@
 
 - (void)setBottomLineHidden:(BOOL)isHidden {
     self.bottomLineView.hidden = isHidden;
+}
+
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // darkmodel change
+    _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

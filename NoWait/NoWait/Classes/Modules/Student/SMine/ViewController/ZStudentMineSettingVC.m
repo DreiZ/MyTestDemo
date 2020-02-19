@@ -51,7 +51,7 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"rightBlackArrow",@"us"], @[@"账号与安全", @"rightBlackArrow",@"safe"],@[@"通用", @"rightBlackArrow",@"common"],@[@"关于小莫", @"rightBlackArrow",@"about"]];
+    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"rightBlackArrowN",@"us"], @[@"账号与安全", @"rightBlackArrowN",@"safe"],@[@"通用", @"rightBlackArrowN",@"common"],@[@"关于小莫", @"rightBlackArrowN",@"about"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];

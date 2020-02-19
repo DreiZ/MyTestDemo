@@ -43,7 +43,7 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrow", @"已设置"]];
+    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];

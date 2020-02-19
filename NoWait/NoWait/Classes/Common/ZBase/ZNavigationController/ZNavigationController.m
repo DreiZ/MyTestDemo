@@ -33,8 +33,8 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
     [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
-    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
     
@@ -56,8 +56,8 @@
     //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
     [navBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
-    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
-    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"leftWhiteArrow"] : [UIImage imageNamed:@"left_arrow"];
+    navBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    navBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
 
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
 
