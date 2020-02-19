@@ -111,7 +111,7 @@
         _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_priceLabel setFont:[UIFont fontSmall]];
     }
     return _priceLabel;
 }

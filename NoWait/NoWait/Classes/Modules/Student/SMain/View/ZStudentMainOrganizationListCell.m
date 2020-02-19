@@ -115,7 +115,7 @@
         _payPeopleNumLabel.text = @"300人已付款";
         _payPeopleNumLabel.numberOfLines = 1;
         _payPeopleNumLabel.textAlignment = NSTextAlignmentLeft;
-        [_payPeopleNumLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_payPeopleNumLabel setFont:[UIFont fontSmall]];
     }
     return _payPeopleNumLabel;
 }

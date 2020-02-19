@@ -110,7 +110,7 @@
     hintLabel.text = @"艺动";
     hintLabel.numberOfLines = 0;
     hintLabel.textAlignment = NSTextAlignmentCenter;
-    [hintLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(42)]];
+    [hintLabel setFont:[UIFont fontMax2Title]];
     [self.view addSubview:hintLabel];
     [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);

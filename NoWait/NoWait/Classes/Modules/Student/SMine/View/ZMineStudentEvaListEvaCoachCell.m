@@ -84,7 +84,7 @@
         _evaDesLabel.text = @"很好";
         _evaDesLabel.numberOfLines = 1;
         _evaDesLabel.textAlignment = NSTextAlignmentRight;
-        [_evaDesLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_evaDesLabel setFont:[UIFont fontSmall]];
     }
     return _evaDesLabel;
 }

@@ -183,7 +183,7 @@ static ZPhoneAlertView *sharedManager;
         _detailLabel.text = @"0";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
-        [_detailLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_detailLabel setFont:[UIFont fontSmall]];
     }
     return _detailLabel;
 }

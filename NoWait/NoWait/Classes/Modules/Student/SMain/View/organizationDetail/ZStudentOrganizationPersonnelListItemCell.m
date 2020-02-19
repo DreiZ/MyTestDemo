@@ -75,10 +75,10 @@
         _skillLabel.backgroundColor = [UIColor  colorMain];
         _skillLabel.numberOfLines = 0;
         _skillLabel.textAlignment = NSTextAlignmentCenter;
-        [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_skillLabel setFont:[UIFont fontSmall]];
         NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"擅长仰泳"];
         text.lineSpacing = 1;
-        text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
+        text.font = [UIFont fontSmall];
         text.color = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
         _skillLabel.preferredMaxLayoutWidth = kScreenWidth/4 - CGFloatIn750(44);
         _skillLabel.attributedText = text;

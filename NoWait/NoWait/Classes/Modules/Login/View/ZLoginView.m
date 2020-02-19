@@ -162,7 +162,7 @@
     _protocolLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
     _protocolLabel.numberOfLines = 0;
     _protocolLabel.textAlignment = NSTextAlignmentCenter;
-    [_protocolLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+    [_protocolLabel setFont:[UIFont fontSmall]];
     [self addSubview:_protocolLabel];
     [_protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.loginBtn.mas_centerX);
@@ -170,7 +170,7 @@
     }];
     NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"我已阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
     text.lineSpacing = 0;
-    text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
+    text.font = [UIFont fontSmall];
     text.color = [UIColor colorTextGray1];
     //    __weak typeof(self) weakself = self;
     

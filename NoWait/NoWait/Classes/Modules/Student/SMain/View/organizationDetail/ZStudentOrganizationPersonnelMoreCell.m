@@ -67,7 +67,7 @@
         moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         moreLabel.text = @"更多";
         moreLabel.textAlignment = NSTextAlignmentRight;
-        [moreLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [moreLabel setFont:[UIFont fontSmall]];
         [_moreView addSubview:moreLabel];
         [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.moreImageView.mas_left).offset(-CGFloatIn750(6));

@@ -140,7 +140,7 @@
             [attributedSting addAttribute:NSParagraphStyleAttributeName value:subParagraphStyle range:netRangeSubtitle];
             
             //内容
-            [attributedSting addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:CGFloatIn750(22)] range:netRangeDetailTitle];
+            [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontSmall] range:netRangeDetailTitle];
             [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeDetailTitle];
             NSMutableParagraphStyle * detailParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [detailParagraphStyle setLineSpacing:CGFloatIn750(16)];

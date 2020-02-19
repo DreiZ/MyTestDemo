@@ -114,7 +114,7 @@
         _lessonLabel.text = @"";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_lessonLabel setFont:[UIFont fontSmall]];
     }
     return _lessonLabel;
 }
@@ -126,7 +126,7 @@
         _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
-        [_timeLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
 }
@@ -138,7 +138,7 @@
         _numLabel.text = @"";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentLeft;
-        [_numLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_numLabel setFont:[UIFont fontSmall]];
     }
     return _numLabel;
 }
@@ -150,7 +150,7 @@
         _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_priceLabel setFont:[UIFont fontSmall]];
     }
     return _priceLabel;
 }

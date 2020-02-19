@@ -47,7 +47,7 @@
         _skillLabel.textColor = [UIColor colorTextGray];
         _skillLabel.numberOfLines = 0;
         _skillLabel.textAlignment = NSTextAlignmentLeft;
-        [_skillLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_skillLabel setFont:[UIFont fontSmall]];
         _skillLabel.preferredMaxLayoutWidth = kScreenWidth - CGFloatIn750(44);
     }
     return _skillLabel;
@@ -63,7 +63,7 @@
     
    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",model.title, model.subTitle]];
        text.lineSpacing = 6;
-       text.font = [UIFont systemFontOfSize:CGFloatIn750(22)];
+       text.font = [UIFont fontSmall];
        text.color = [UIColor colorTextGray1];
        //    __weak typeof(self) weakself = self;
        

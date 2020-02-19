@@ -191,7 +191,7 @@
         _orderStateLabel.text = @"待支付";
         _orderStateLabel.numberOfLines = 1;
         _orderStateLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderStateLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_orderStateLabel setFont:[UIFont fontSmall]];
     }
     return _orderStateLabel;
 }
@@ -205,7 +205,7 @@
         _cancelBtn.layer.borderWidth = 1;
         [_cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+        [_cancelBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_cancelBtn bk_whenTapped:^{

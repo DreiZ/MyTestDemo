@@ -53,7 +53,7 @@
     [timeBtn setTitle:text forState:UIControlStateNormal];
     [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
     [timeBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateSelected];
-    [timeBtn.titleLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(22)]];
+    [timeBtn.titleLabel setFont:[UIFont fontSmall]];
     timeBtn.tag = index;
     timeBtn.selected = model.isSubTimeSelected;
     [timeBtn bk_addEventHandler:^(UIButton *sender) {
