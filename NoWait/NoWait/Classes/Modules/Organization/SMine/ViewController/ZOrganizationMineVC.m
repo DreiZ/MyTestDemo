@@ -187,11 +187,11 @@
     }else if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
-            if ([model.uid isEqualToString:@""]) {
+            if ([model.uid isEqualToString:@"lesson"]) {
                 ZOrganizationLessonAddVC *mvc = [[ZOrganizationLessonAddVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
                 
-            }else if ([model.uid isEqualToString:@""]){
+            }else if ([model.uid isEqualToString:@"school"]){
                 ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
             }
@@ -272,18 +272,18 @@
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:statisticsCellConfig];
     
-    NSArray *menuArr = @[@[@"财务管理",@[@[@"账户",@"mineOrderEva"],
-                                        @[@"订单",@"mineOrderEva"],
-                                        @[@"退款",@"mineOrderEva"],
-                                        @[@"卡券",@"mineOrderEva"]]],
-                         @[@"人事管理",@[@[@"学员管理",@"mineOrderEva"],
-                                        @[@"教师管理",@"mineOrderEva"],
-                                        @[@"校区管理",@"mineOrderEva"]]],
-                         @[@"后勤管理",@[@[@"相册管理",@"mineOrderEva"],
-                                        @[@"班级管理",@"mineOrderEva"],
-                                        @[@"排课管理",@"mineOrderEva"],
-                                        @[@"课程管理",@"mineOrderEva"],
-                                        @[@"评价管理",@"mineOrderEva"]]]];
+    NSArray *menuArr = @[@[@"财务管理",@[@[@"账户",@"mineOrderEva",@"account"],
+                                        @[@"订单",@"mineOrderEva",@"order"],
+                                        @[@"退款",@"mineOrderEva",@"refund"],
+                                        @[@"卡券",@"mineOrderEva",@"cart"]]],
+                         @[@"人事管理",@[@[@"学员管理",@"mineOrderEva",@"student"],
+                                        @[@"教师管理",@"mineOrderEva",@"teacher"],
+                                        @[@"校区管理",@"mineOrderEva",@"school"]]],
+                         @[@"后勤管理",@[@[@"相册管理",@"mineOrderEva",@"photo"],
+                                        @[@"班级管理",@"mineOrderEva",@"class"],
+                                        @[@"排课管理",@"mineOrderEva",@"manageLesson"],
+                                        @[@"课程管理",@"mineOrderEva",@"lesson"],
+                                        @[@"评价管理",@"mineOrderEva",@"eva"]]]];
     for (int i = 0; i < menuArr.count; i++) {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         model.name = menuArr[i][0];
@@ -294,6 +294,7 @@
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
             model.name = tempArr[j][0];
             model.imageName = tempArr[j][1];
+            model.uid = tempArr[j][2];
             [menulist addObject:model];
         }
         
