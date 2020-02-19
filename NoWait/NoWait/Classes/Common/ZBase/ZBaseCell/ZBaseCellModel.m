@@ -99,6 +99,7 @@
         self.cellHeight = kCellNormalHeight;
         self.rightImageWidth = CGFloatIn750(10);
         self.isHiddenInputLine = YES;
+        self.isTextEnabled = YES;
         
         self.textColor = [UIColor colorTextBlack];
         self.textDarkColor = [UIColor colorTextBlackDark];

@@ -88,7 +88,7 @@
     if (!_inputLine) {
         _inputLine = [[UIView alloc] init];
         _inputLine.layer.masksToBounds = YES;
-        _inputLine.backgroundColor = [UIColor colorRedDefault];
+        _inputLine.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);;
     }
     return _inputLine;
 }
