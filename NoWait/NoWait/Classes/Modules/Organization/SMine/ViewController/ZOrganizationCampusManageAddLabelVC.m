@@ -57,7 +57,7 @@
         make.height.mas_equalTo(CGFloatIn750(1));
     }];
     UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = [UIColor colorGrayLine];
+    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
     [self.LabelView addSubview:topLineView];
     [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.LabelView);
@@ -70,7 +70,7 @@
 
     _userNameTF  = [[UITextField alloc] init];
     _userNameTF.tag = 105;
-    _userNameTF.clearButtonMode = UITextFieldViewModeAlways;
+//    _userNameTF.clearButtonMode = UITextFieldViewModeAlways;
     _userNameTF.leftViewMode = UITextFieldViewModeAlways;
     _userNameTF.leftView = hintView;
     [_userNameTF setTextAlignment:NSTextAlignmentLeft];
@@ -94,7 +94,7 @@
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     _userNameTF.keyboardType = UIKeyboardTypeDefault;
     _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
+//    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
     _userNameTF.rightView = self.addBtn;
     _userNameTF.rightViewMode = UITextFieldViewModeWhileEditing;
 
@@ -253,5 +253,9 @@
     }
     labelHeight = offSetY + btnHeight;
     return labelHeight;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+//    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorGrayBGDark]);
 }
 @end
