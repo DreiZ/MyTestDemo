@@ -165,7 +165,7 @@
         model.leftFont = [UIFont boldFontTitle];
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(74);
-        model.rightImage = @"studentSelect";
+        model.rightImage = @"selectedCycle";//unSelectedCycle
         model.rightMargin = CGFloatIn750(50);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];

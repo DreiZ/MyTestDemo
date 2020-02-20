@@ -14,6 +14,8 @@
 @property (nonatomic,strong) UILabel *rightTitleLabel;
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UIImageView *rightImageView;
+@property (nonatomic,strong) UIImageView *hintImageView;
+
 @end
 
 @implementation ZOrganizationLessonTypeCell
@@ -59,8 +61,18 @@
        make.centerY.equalTo(self.mas_centerY);
    }];
     
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+    }];
     
+    __weak typeof(self) weakSelf = self;
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [leftBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(0);
+        }
+    }];
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
@@ -69,12 +81,29 @@
     }];
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    
+    [rightBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(1);
+        }
+    }];
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
         make.left.equalTo(self.rightTitleLabel.mas_left);
         make.right.equalTo(self.rightImageView.mas_right);
+    }];
+    
+    UIButton *hintBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [hintBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(2);
+        }
+    }];
+    [self.contentView addSubview:hintBtn];
+    [hintBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self);
+        make.left.equalTo(self.hintImageView.mas_left).offset(-CGFloatIn750(26));
+        make.right.equalTo(self.contentView.mas_right);
     }];
 }
 
@@ -108,7 +137,7 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"studentSelect"];
+        _leftImageView.image = [UIImage imageNamed:@"selectedCycle"];
     }
     return _leftImageView;
 }
@@ -116,10 +145,20 @@
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
-        _rightImageView.image = [UIImage imageNamed:@"studentSelect"];
+        _rightImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
     }
     return _rightImageView;
 }
+
+- (UIImageView *)hintImageView {
+    if (!_hintImageView) {
+        _hintImageView = [[UIImageView alloc] init];
+        _hintImageView.image = [UIImage imageNamed:@"questionHint"];
+    }
+    return _rightImageView;
+}
+
+
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(112);

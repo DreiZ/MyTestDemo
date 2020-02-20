@@ -197,8 +197,11 @@
 - (UIButton *)switchUserBtn {
     if (!_switchUserBtn) {
         __weak typeof(self) weakSelf = self;
+        UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         _switchUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_switchUserBtn setTitle:@"切换账户" forState:UIControlStateNormal];
+        [_switchUserBtn setImage:image forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchUserBtn.titleLabel setFont:[UIFont fontSmall]];
         [_switchUserBtn bk_whenTapped:^{
@@ -248,5 +251,12 @@
     }else {
         [self setAnimationSubViewFrame];
     }
+}
+
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+    [_switchUserBtn setImage:image forState:UIControlStateNormal];
 }
 @end

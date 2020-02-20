@@ -456,9 +456,9 @@
     _isAgree = isAgree;
     
     if (isAgree) {
-        self.agreementView.image = [UIImage imageNamed:@"studentSelect"];
+        self.agreementView.image = [UIImage imageNamed:@"selectedCycle"];
     }else{
-        self.agreementView.image = [UIImage imageNamed:@"studentNoSelect"];
+        self.agreementView.image = [UIImage imageNamed:@"unSelectedCycle"];
     }
 }
 

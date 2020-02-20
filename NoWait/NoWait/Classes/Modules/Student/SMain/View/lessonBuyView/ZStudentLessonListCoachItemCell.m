@@ -163,13 +163,13 @@
     if (model.isCoachSelected) {
         _nameLabel.textColor = [UIColor  colorMain];
         _priceLabel.textColor = [UIColor  colorMain];
-        _selectTopImageView.image = [UIImage imageNamed:@"studentSelect"];
+        _selectTopImageView.image = [UIImage imageNamed:@"selectedCycle"];
         _contView.layer.borderColor = [UIColor  colorMain].CGColor;
         _selectImageView.hidden = NO;
     }else{
         _nameLabel.textColor = [UIColor colorTextGray];
         _priceLabel.textColor = [UIColor colorTextGray];
-        _selectTopImageView.image = [UIImage imageNamed:@"studentNoSelect"];
+        _selectTopImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
         _contView.layer.borderColor = [UIColor colorTextGray].CGColor;
         _selectImageView.hidden = YES;
     }

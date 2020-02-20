@@ -271,7 +271,7 @@ static ZAlertDateWeekAndHourPickerView *sharedManager;
         model.rightMargin = CGFloatIn750(60);
         model.cellHeight = singleHeight;
         model.leftFont = [UIFont fontMaxTitle];
-        model.rightImage = @"studentSelect";
+        model.rightImage = @"selectedCycle";//unSelectedCycle
         model.isHiddenLine = YES;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];

@@ -42,7 +42,7 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"男", @"studentSelect"], @[@"女", @"studentNoSelect"]];
+    NSArray <NSArray *>*titleArr = @[@[@"男", @"selectedCycle"], @[@"女", @"unSelectedCycle"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];

@@ -103,6 +103,10 @@
         [_switchUserBtn setTitle:@"切换账户" forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchUserBtn.titleLabel setFont:[UIFont fontSmall]];
+        UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+        [_switchUserBtn setImage:image forState:UIControlStateNormal];
+        
         [_switchUserBtn bk_whenTapped:^{
             
         }];
@@ -135,6 +139,11 @@
     return CGFloatIn750(172);
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+    [_switchUserBtn setImage:image forState:UIControlStateNormal];
+}
 @end
 
 

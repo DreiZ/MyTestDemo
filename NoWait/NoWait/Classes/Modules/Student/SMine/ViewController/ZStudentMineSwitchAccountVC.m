@@ -58,9 +58,9 @@
                 model.isHiddenLine = YES;
             }
             if ([user.userID isEqualToString:[ZUserHelper sharedHelper].user_id]) {
-                model.rightImage = @"studentSelect";
+                model.rightImage = @"selectedCycle";
             }else{
-                model.rightImage = nil;
+                model.rightImage = @"unSelectedCycle";
             }
             model.data = user;
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];

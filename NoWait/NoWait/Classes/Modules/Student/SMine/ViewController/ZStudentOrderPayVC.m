@@ -94,7 +94,7 @@
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"微信支付";
         model.leftImage = @"wechatPay";
-        model.rightImage = @"studentSelect";
+        model.rightImage = @"selectedCycle";//unSelectedCycle
         model.isHiddenLine = NO;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -105,7 +105,7 @@
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"支付宝支付";
         model.leftImage = @"alipay";
-        model.rightImage = @"studentSelect";
+        model.rightImage = @"selectedCycle";//unSelectedCycle
         model.isHiddenLine = YES;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
