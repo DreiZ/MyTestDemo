@@ -65,6 +65,18 @@
         make.edges.equalTo(self);
     }];
     [self.pickView reloadAllComponents];
+    
+    
+    UILabel *middleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    middleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    middleLabel.text = @"~";
+    middleLabel.numberOfLines = 0;
+    middleLabel.textAlignment = NSTextAlignmentCenter;
+    [middleLabel setFont:[UIFont fontContent]];
+    [self.pickView addSubview:middleLabel];
+    [middleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.pickView);
+    }];
 }
 
 

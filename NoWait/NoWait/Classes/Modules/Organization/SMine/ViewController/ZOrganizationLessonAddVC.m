@@ -15,7 +15,9 @@
 #import "ZStudentDetailModel.h"
 
 #import "ZAlertDataPickerView.h"
+#import "ZAlertDateHourPickerView.h"
 #import "ZAlertDataSinglePickerView.h"
+#import "ZAlertDateWeekAndHourPickerView.h"
 #import "ZAlertDataModel.h"
 
 @interface ZOrganizationLessonAddVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -172,7 +174,7 @@
         {
             NSArray *textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney"],
                                  @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"min"],
-                                 @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"小时", @"timeToTime"]];
+                                 @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"", @"timeToTime"]];
             
             for (int i = 0; i < textArr.count; i++) {
                 ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -215,7 +217,6 @@
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
-        
     }
     
     {
@@ -269,14 +270,14 @@
 
 - (void)setupMainView {
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(140))];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(170))];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(bottomView.mas_centerY);
+        make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
     }];
     
     [self.view addSubview:self.iTableView];
@@ -398,7 +399,7 @@
         [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
             
         }];
-    }if ([cellConfig.title isEqualToString:@"class"]) {
+    }else if ([cellConfig.title isEqualToString:@"class"]) {
         NSMutableArray *items = @[].mutableCopy;
         NSArray *temp = @[@"初级",@"中级",@"高级"];
         for (int i = 0; i < temp.count; i++) {
@@ -411,6 +412,14 @@
         [self.items addObjectsFromArray:items];
         [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
            
+        }];
+    } else if ([cellConfig.title isEqualToString:@"timeToTime"]) {
+        [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
+            
+        }];
+    } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
+        [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
+            
         }];
     }
     

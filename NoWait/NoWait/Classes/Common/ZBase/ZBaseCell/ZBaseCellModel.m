@@ -89,7 +89,7 @@
         self.subTitleDarkColor = [UIColor colorTextGray1Dark];
         self.subTitleFont = [UIFont fontSmall];
         
-        self.placeholder = @"请输入";
+        self.placeholder = @"";
         self.leftTitle = @"";
         self.subTitle = @"";
         self.rightTitle = @"";
