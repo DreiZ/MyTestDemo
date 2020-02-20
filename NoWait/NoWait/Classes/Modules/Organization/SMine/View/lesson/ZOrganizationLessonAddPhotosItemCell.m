@@ -15,7 +15,7 @@
 @property (nonatomic,strong) UIView *hintView;
 @property (nonatomic,strong) UIImageView *hintImageView;
 @property (nonatomic,strong) UIButton *deleteBtn;
-
+@property (nonatomic,strong) UIButton *deleteBigBtn;
 @end
 
 @implementation ZOrganizationLessonAddPhotosItemCell
@@ -29,13 +29,17 @@
 }
 
 - (void)initMainView {
+    
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
+    
     self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.hintView];
     [self.hintView addSubview:self.hintImageView];
     [self.hintView addSubview:self.titleLabel];
     [self.hintView addSubview:self.subTitleLabel];
+    [self.hintView addSubview:self.deleteBtn];
+    [self.hintView addSubview:self.deleteBigBtn];
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
@@ -57,6 +61,16 @@
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.hintView.mas_centerX);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(6));
+    }];
+    
+    [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.equalTo(self.hintView);
+        make.width.height.mas_equalTo(CGFloatIn750(26));
+    }];
+    
+    [self.deleteBigBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.equalTo(self.hintView);
+        make.width.height.mas_equalTo(CGFloatIn750(80));
     }];
 }
 
@@ -107,8 +121,18 @@
     if (!_deleteBtn) {
         _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _deleteBtn.backgroundColor = [UIColor blackColor];
+        [_deleteBtn setTitle:@"x" forState:UIControlStateNormal];
+        [_deleteBtn.titleLabel setFont:[UIFont fontMin]];
+        ViewRadius(_deleteBtn, CGFloatIn750(8));
     }
     return _deleteBtn;
+}
+
+- (UIButton *)deleteBigBtn {
+    if (!_deleteBigBtn) {
+        _deleteBigBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    }
+    return _deleteBigBtn;
 }
 
 - (void)setModel:(ZBaseUnitModel *)model {

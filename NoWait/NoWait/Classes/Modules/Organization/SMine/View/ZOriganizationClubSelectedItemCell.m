@@ -51,7 +51,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _titleLabel.text = @"但是公司俱乐部";
+        _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont fontSmall]];
