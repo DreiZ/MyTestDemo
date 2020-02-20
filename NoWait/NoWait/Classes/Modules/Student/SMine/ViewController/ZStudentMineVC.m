@@ -136,13 +136,10 @@
         __weak typeof(self) weakSelf = self;
         _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
-            if (index == 1) {
-                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
-                [self.navigationController pushViewController:ss animated:YES];
-                return ;
+//            if (index == 1) {
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
-            }
+//            }
         };
     }
     return _headerView;
@@ -178,6 +175,9 @@
                 ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if ([model.channel_id isEqualToString:@"lesson"]) {
+                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
+                [self.navigationController pushViewController:ss animated:YES];
+                return ;
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }

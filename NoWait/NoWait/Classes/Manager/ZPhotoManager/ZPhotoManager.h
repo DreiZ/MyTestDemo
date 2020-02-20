@@ -34,6 +34,11 @@
  * 是否需要显示添加按钮. Defaults is YES
  */
 @property (nonatomic, assign) BOOL showAddButton;
+/// Single selection mode, valid when maxImagesCount = 1
+/// 单选模式,maxImagesCount为1时才生效
+@property (nonatomic, assign) BOOL showSelectBtn;        ///< 在单选模式下，照片列表页中，显示选择按钮,默认为NO
+@property (nonatomic, assign) BOOL allowCrop;            ///< 允许裁剪,默认为YES，showSelectBtn为NO才生效
+@property (nonatomic, assign) CGRect cropRect;
 
 /**
  * 是否允许 在选择图片的同时可以选择视频文件. default is NO
@@ -56,12 +61,12 @@
 
 //单次选择照片
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete;
-
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController ;
 
 
 //单次选择剪切照片
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete;
+- (void)showSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete;
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController ;
 
 

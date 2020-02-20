@@ -172,15 +172,30 @@
         self.leftImageView.hidden = YES;
     }
     
-    
-    if (model.rightImage && model.rightImage.length > 0) {
-        self.rightImageView.image = [UIImage imageNamed:model.rightImage];
-        
-        self.rightImageView.hidden = NO;
+    if (model.rightImageH) {
+        if (model.rightImageH && [model.rightImageH isKindOfClass:[NSString class]] && ((NSString *)model.rightImageH).length > 0) {
+            self.rightImageView.image = [UIImage imageNamed:model.rightImageH];
+            
+            self.rightImageView.hidden = NO;
+        }else if (model.rightImageH && [model.rightImageH isKindOfClass:[UIImage class]] ){
+            self.rightImageView.image = model.rightImageH;
+            
+            self.rightImageView.hidden = NO;
+        }else{
+            self.rightImageView.hidden = YES;
+        }
     }else{
-        
         self.rightImageView.hidden = YES;
     }
+    
+//    if (model.rightImage && model.rightImage.length > 0) {
+//        self.rightImageView.image = [UIImage imageNamed:model.rightImage];
+//        
+//        self.rightImageView.hidden = NO;
+//    }else{
+//        
+//        self.rightImageView.hidden = YES;
+//    }
 }
 
 - (void)setBottomLineHidden:(BOOL)isHidden {

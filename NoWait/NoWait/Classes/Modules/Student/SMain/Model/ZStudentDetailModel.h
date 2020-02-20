@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @property (nonatomic,strong) UIColor *rightColor;
 @property (nonatomic,strong) UIFont *leftFont;
 @property (nonatomic,strong) UIFont *rightFont;
+@property (nonatomic,strong) id rightImageH;
 @property (nonatomic,assign) BOOL isHiddenBottomLine;
 @end
 

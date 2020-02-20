@@ -23,6 +23,7 @@
 
 @interface ZStudentMineSettingMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIImage *avterImage;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -48,22 +49,24 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    NSArray <NSArray *>*titleArr = @[@[@"头像", @"studentDetaiUserHead", @""], @[@"昵称", @"rightBlackArrowN", @"闯红灯的蜗牛"],@[@"性别", @"rightBlackArrowN", @"男"],@[@"出生日期", @"rightBlackArrowN", @"1990-2-21"]];
+    NSArray <NSArray *>*titleArr = @[@[@"头像", self.avterImage ? self.avterImage:@"", @""], @[@"昵称", @"rightBlackArrowN", @"闯红灯的蜗牛"],@[@"性别", @"rightBlackArrowN", @"男"],@[@"出生日期", @"rightBlackArrowN", @"1990-2-21"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = titleArr[i][0];
-        model.rightImage = titleArr[i][1];
+        
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont fontContent];
         model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         model.cellTitle = titleArr[i][0];
         
         if (i == 0) {
+            model.rightImageH = titleArr[i][1];
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
             
         }else{
+            model.rightImage = titleArr[i][1];
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }
@@ -157,19 +160,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
      if ([cellConfig.title isEqualToString:@"头像"]){
-//          __weak typeof(self) weakSelf = self;
+          __weak typeof(self) weakSelf = self;
             [ZPhotoManager sharedManager].maxImageSelected = 1;
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
-//                    weakSelf.avterImage = list[0].image;
-//                    [weakSelf.iTableView reloadData];
-//                    
+                    weakSelf.avterImage = list[0].image;
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                    
 //                    NSString *imageFileName = [NSString stringWithFormat:@"%@.jpg",AliYunUserFilePath];
 //                    [[ZFileUploadManger sharedManager] uploadImage:weakSelf.avterImage fileName:imageFileName complete:^(NSString *url, NSString *content_md5) {
-//                        
+//
 //                    }];
                 }
-            } navgation:self];
+            }];
      }else if([cellConfig.title isEqualToString:@"昵称"]){
          ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
          [self.navigationController pushViewControllerAndSuicide:edit animated:YES];

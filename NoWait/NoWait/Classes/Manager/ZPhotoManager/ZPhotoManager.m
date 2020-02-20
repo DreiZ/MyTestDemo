@@ -36,8 +36,6 @@
 /** MWPhoto对象数组 */
 @property (nonatomic, strong) NSMutableArray *photos;
 
-@property (nonatomic, assign) BOOL allowCrop;
-
 
 @end
 
@@ -91,7 +89,7 @@ static ZPhotoManager *sharedPhotoManager;
     [_selectedVideoModels removeAllObjects];
     [_selectedImageModels removeAllObjects];
     
-    [self showSelectMenu:complete];
+    [self setSelectMenu:complete];
 }
 
 
@@ -107,12 +105,18 @@ static ZPhotoManager *sharedPhotoManager;
 //单次选择剪切照片
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete{
     _allowCrop = YES;
-    [_mediaArray removeAllObjects];
-    [_selectedImageAssets removeAllObjects];
-    [_selectedVideoModels removeAllObjects];
-    [_selectedImageModels removeAllObjects];
-    
-    [self setSelectMenu:complete];
+    _showSelectBtn = NO;
+    _cropRect = CGRectMake(0, KScreenHeight - (2.0/3.0)*KScreenWidth, KScreenWidth, (2.0/3.0)*KScreenWidth);
+   
+    [self showOriginalSelectMenu:complete];
+}
+
+- (void)showSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
+    _allowCrop = YES;
+    _showSelectBtn = NO;
+    _cropRect = CGRectMake((KScreenWidth - cropSize.width)/2.0, (KScreenHeight - cropSize.height)/2.0, cropSize.width, cropSize.height);
+   
+    [self showOriginalSelectMenu:complete];
 }
 
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController  {
@@ -126,12 +130,15 @@ static ZPhotoManager *sharedPhotoManager;
 }
 
 - (void)showSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController {
-//    self.viewController = viewController;
+////    self.viewController = viewController;
+//    _allowCrop = NO;
+//    _showSelectBtn = YES;
     [self showSelectMenu:complete];
 }
 
 - (void)showSelectMenu:(LLSelecttImageBackBlock)complete {
     _allowCrop = NO;
+    _showSelectBtn = YES;
     [self setSelectMenu:complete];
 }
 
@@ -222,11 +229,13 @@ static ZPhotoManager *sharedPhotoManager;
     imagePickController.oKButtonTitleColorNormal = [UIColor  colorMain];
     imagePickController.oKButtonTitleColorDisabled = [UIColor  colorMainSub];
     imagePickController.allowCrop = _allowCrop;
+    imagePickController.cropRect = _cropRect;
+    
     //是否 在相册中显示拍照按钮
-    imagePickController.allowTakePicture = NO;
+    imagePickController.allowTakePicture = YES;
     //是否可以选择显示原图
     imagePickController.allowPickingOriginalPhoto = NO;
-    imagePickController.showSelectBtn = YES;
+    imagePickController.showSelectBtn = _showSelectBtn;
     //是否 在相册中可以选择视频
     imagePickController.allowPickingVideo = _allowPickingVideo;
     if (!_allowMultipleSelection) {
