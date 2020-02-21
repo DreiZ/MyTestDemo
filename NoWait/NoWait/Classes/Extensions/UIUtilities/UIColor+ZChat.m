@@ -15,7 +15,7 @@
 }
 
 + (UIColor *)colorMainSub {
-    return HexAColor(0x4dd599, 1.0);
+    return HexAColor(0x4dd599, 0.2);
 }
 
 //导航栏颜色
@@ -109,6 +109,11 @@
     return HexAColor(0xf6f6f6, 1.0);
 }
 
++ (UIColor *)colorGrayContentBG {
+    return HexAColor(0xc8c8cf, 1.0);
+}
+
+
 + (UIColor *)colorGrayLine {
     return HexAColor(0xf6f6f6, 1.0);
 }
@@ -117,6 +122,9 @@
     return HexAColor(0x2e2e2e, 1.0);
 }
 
++ (UIColor *)colorGrayContentBGDark {
+    return HexAColor(0x28282f, 1.0);
+}
 
 + (UIColor *)colorBlackBGDark {
     return HexAColor(0x1a1a1a, 1.0);

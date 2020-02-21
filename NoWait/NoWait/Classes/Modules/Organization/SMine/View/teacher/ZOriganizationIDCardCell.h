@@ -1,5 +1,5 @@
 //
-//  ZOriganizationTeachAddHeadImageCell.h
+//  ZOriganizationIDCardCell.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/2/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOriganizationTeachAddHeadImageCell : ZBaseCell
+@interface ZOriganizationIDCardCell : ZBaseCell
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

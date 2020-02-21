@@ -108,13 +108,6 @@
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewRadius(_iTableView, CGFloatIn750(18));
-        UIView *topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(20))];
-        topLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(20))];
-        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.tableHeaderView = topLineView;
-        _iTableView.tableFooterView = bottomLineView;
     }
     return _iTableView;
 }

@@ -10,7 +10,6 @@
 #import "ZOrganizationLessonAddImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOrganizationLessonTypeCell.h"
-#import "ZOrganizationLessonTypeCell.h"
 
 #import "ZStudentDetailModel.h"
 

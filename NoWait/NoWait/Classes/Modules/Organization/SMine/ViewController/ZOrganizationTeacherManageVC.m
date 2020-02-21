@@ -8,6 +8,7 @@
 
 #import "ZOrganizationTeacherManageVC.h"
 #import "ZOrganizationTeacherSearchVC.h"
+#import "ZOrganizationTeacherAddVC.h"
 
 #import "ZOriganizationTeachListCell.h"
 #import "ZOriganizationTeachSwitchView.h"
@@ -20,6 +21,8 @@
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *navRightBtn;
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) UIButton *bottomBtn;
+
 @property (nonatomic,strong) ZOriganizationTeachSwitchView *switchView;
 @property (nonatomic,strong) ZOriganizationTeachSearchTopHintView *searchView;
 
@@ -78,10 +81,17 @@
         make.height.mas_equalTo(CGFloatIn750(126));
     }];
    
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(88));
+        make.bottom.equalTo(self.view).offset(CGFloatIn750(-20));
+    }];
+    
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
         make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(20));
     }];
 }
@@ -99,6 +109,7 @@
 
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = 3;
@@ -106,6 +117,10 @@
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navRightBtn bk_whenTapped:^{
+            ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
+        }];
     }
     return _navRightBtn;
 }
@@ -140,6 +155,22 @@
         };
     }
     return _switchView;
+}
+
+
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+//        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+            
+        }];
+    }
+    return _bottomBtn;
 }
 
 - (ZOriganizationTeachSearchTopHintView *)searchView {

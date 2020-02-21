@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationTextViewCell : ZBaseCell
-
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,strong) NSString *isBackColor;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -59,9 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 灰色
 + (UIColor *)colorGrayBG;           // 浅灰色默认背景
++ (UIColor *)colorGrayContentBG;
 + (UIColor *)colorGrayLine;
 
 + (UIColor *)colorGrayBGDark;
++ (UIColor *)colorGrayContentBGDark;
 + (UIColor *)colorBlackBGDark;
 
 
