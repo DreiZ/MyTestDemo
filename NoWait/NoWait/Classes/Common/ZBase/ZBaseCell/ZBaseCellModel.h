@@ -94,6 +94,8 @@
 @property (nonatomic,strong) UIColor *subTitleDarkColor;
 @property (nonatomic,strong) UIFont *subTitleFont;
 
+//背景之间间距
+@property (nonatomic,assign) CGFloat contBackMargin;
 //内容之间间距
 @property (nonatomic,assign) CGFloat contentSpace;
 @property (nonatomic,assign) ZFormatterType formatterType;

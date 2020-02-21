@@ -12,9 +12,13 @@
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
-
+#import "ZOrganizationCampusTextLabelCell.h"
 
 #import "ZBaseUnitModel.h"
+#import "ZAlertDataSinglePickerView.h"
+#import "ZAlertDataPickerView.h"
+
+#import "ZOrganizationCampusManageAddLabelVC.h"
 
 @interface ZOrganizationTeacherAddVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -61,20 +65,35 @@
                         @[@"特长技能", @"请添加特长技能", @NO, @"rightBlackArrowN", @"skill"]];
     
     for (int i = 0; i < textArr.count; i++) {
-        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-        cellModel.leftTitle = textArr[i][0];
-        cellModel.placeholder = textArr[i][1];
-        cellModel.isTextEnabled = [textArr[i][2] boolValue];
-        cellModel.rightImage = textArr[i][3];
-        cellModel.isHiddenLine = YES;
-        cellModel.cellHeight = CGFloatIn750(108);
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-        [self.cellConfigArr addObject:textCellConfig];
-        
-        
-        if (i == 4) {
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationIDCardCell className] title:@"IDCard" showInfoMethod:nil heightOfCell:[ZOriganizationIDCardCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:cellModel];
+        if (i == 9) {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.placeholder = textArr[i][1];
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            cellModel.rightImage = textArr[i][3];
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.contBackMargin = CGFloatIn750(0);
+            cellModel.contentSpace = CGFloatIn750(30);
+            cellModel.leftFont = [UIFont boldFontTitle];
+            cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
+        }else{
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.placeholder = textArr[i][1];
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            cellModel.rightImage = textArr[i][3];
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(108);
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+            
+            if (i == 4) {
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationIDCardCell className] title:@"IDCard" showInfoMethod:nil heightOfCell:[ZOriganizationIDCardCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:cellModel];
+                [self.cellConfigArr addObject:textCellConfig];
+            }
         }
     }
     
@@ -242,8 +261,55 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"address"]) {
+    if ([cellConfig.title isEqualToString:@"sex"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"男",@"女"];
+        for (int i = 0; i < temp.count; i++) {
+           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+           model.name = temp[i];
+           [items addObject:model];
+        }
         
+        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
+           
+        }];
+    }else if ([cellConfig.title isEqualToString:@"address"]){
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"徐州"];
+        for (int i = 0; i < temp.count; i++) {
+           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+           model.name = temp[i];
+           
+           NSMutableArray *subItems = @[].mutableCopy;
+           
+           NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
+           for (int i = 0; i < temp.count; i++) {
+               ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+               model.name = temp[i];
+               [subItems addObject:model];
+           }
+           model.ItemArr = subItems;
+           [items addObject:model];
+        }
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:items handlerBlock:^(NSInteger index) {
+           
+        }];
+    }else if ([cellConfig.title isEqualToString:@"class"]) {
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"初级教师",@"高级教师"];
+        for (int i = 0; i < temp.count; i++) {
+            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+            model.name = temp[i];
+            [items addObject:model];
+        }
+        
+        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
+            
+        }];
+    }else if ([cellConfig.title isEqualToString:@"skill"]) {
+        ZOrganizationCampusManageAddLabelVC *avc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
+        
+        [self.navigationController pushViewController:avc animated:YES];
     }
 }
 

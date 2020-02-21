@@ -231,7 +231,7 @@
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
         NSArray *_hotProductArr = (NSArray *)model.data;
         CGSize titleSize = [model.leftTitle tt_sizeWithFont:[UIFont fontTitle]];
-        CGFloat labelWidth = KScreenWidth - CGFloatIn750(60) - leftX - (kCellContentSpace +titleSize.width+2 );
+        CGFloat labelWidth = KScreenWidth - 2 * model.contBackMargin - leftX - (kCellContentSpace +titleSize.width+2 );
         
         CGFloat maxWidth = labelWidth - leftX ;
         CGFloat offSetX = labelWidth - leftX;
@@ -260,13 +260,29 @@
     self.formatterType = model.formatterType;
     
     _leftTitleLabel.text = model.leftTitle;
-    _subTitleLabel.text = model.subTitle;
+    _leftTitleLabel.textColor = adaptAndDarkColor(model.leftColor, model.leftDarkColor);
+    _leftTitleLabel.font = model.leftFont;
     
+    _subTitleLabel.text = model.subTitle;
+    _subTitleLabel.font = model.subTitleFont;
+    _subTitleLabel.textColor = adaptAndDarkColor(model.subTitleColor, model.subTitleDarkColor);
+ 
+    _inputTextField.font = model.textFont;
+    _inputTextField.textColor = adaptAndDarkColor(model.textColor, model.textDarkColor);
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;
     _inputTextField.textAlignment = model.textAlignment;
+    _inputTextField.enabled = model.isTextEnabled;
+    
     _bottomLineView.hidden = model.isHiddenLine;
     _inputLine.hidden = model.isHiddenInputLine;
+    
+    [self.backContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(model.contBackMargin);
+        make.right.equalTo(self.contentView.mas_right).offset(-model.contBackMargin);
+        make.top.bottom.equalTo(self.contentView);
+    }];
+
     
     [self.labelView removeAllSubviews];
     
@@ -354,10 +370,10 @@
     }
 
     CGSize titleSize = [self.model.leftTitle tt_sizeWithFont:[UIFont fontTitle]];
-    CGFloat labelWidth = KScreenWidth - CGFloatIn750(60) - leftX - (kCellContentSpace +titleSize.width+2 );
+    CGFloat labelWidth = KScreenWidth - 2 * self.model.contBackMargin - leftX - (kCellContentSpace + titleSize.width + 2);
     
     CGFloat maxWidth = labelWidth - leftX ;
-    CGFloat offSetX = labelWidth - leftX;
+    CGFloat offSetX = labelWidth - leftX - self.model.rightMargin;
     CGFloat offSetY = CGFloatIn750(28);
     for (int i = 0; i < _hotProductArr.count; i++) {
         
@@ -367,7 +383,7 @@
         CGFloat width = [self getTheStringWidth:_hotProductArr[i] font:[UIFont fontContent]];
         width += btnAddWidth;
         if (maxWidth - offSetX + width > maxWidth) {
-            offSetX = labelWidth - leftX;
+            offSetX = labelWidth - leftX - self.model.rightMargin;
             offSetY += CGFloatIn750(20) + btnHeight;
         }
         btn.frame = CGRectMake(offSetX - width, offSetY, width, btnHeight);

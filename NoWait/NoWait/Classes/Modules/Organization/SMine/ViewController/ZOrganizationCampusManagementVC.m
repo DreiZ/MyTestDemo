@@ -82,6 +82,7 @@
             cellModel.placeholder = textArr[i][1];
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
+            cellModel.rightMargin = CGFloatIn750(0);
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.data = @[@"免费停车",@"免费停车",@"免费停车",@"免费停车",@"免费停车"];
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];

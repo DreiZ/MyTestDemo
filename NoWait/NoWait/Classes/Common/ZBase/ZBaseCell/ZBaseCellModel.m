@@ -74,6 +74,7 @@
         self.leftContentWidth = CGFloatIn750(220);
         self.textFieldHeight = CGFloatIn750(70);
         self.contentSpace = CGFloatIn750(20);
+        self.contBackMargin = CGFloatIn750(30);
         self.formatterType = ZFormatterTypeAny;
         self.textAlignment = NSTextAlignmentRight;
   
