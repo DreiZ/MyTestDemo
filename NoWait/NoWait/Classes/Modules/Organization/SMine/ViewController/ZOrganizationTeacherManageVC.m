@@ -7,12 +7,14 @@
 //
 
 #import "ZOrganizationTeacherManageVC.h"
-#import "ZOrganizationCampusManagementAddressVC.h"
+#import "ZOrganizationTeacherSearchVC.h"
 
 #import "ZOriganizationTeachListCell.h"
-
 #import "ZOriganizationTeachSwitchView.h"
 #import "ZOriganizationTeachSearchTopHintView.h"
+
+#import "ZAlertDataModel.h"
+#import "ZAlertDataPickerView.h"
 
 @interface ZOrganizationTeacherManageVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -65,7 +67,7 @@
     [self.view addSubview:self.switchView];
     [self.switchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(146));
+        make.height.mas_equalTo(CGFloatIn750(126));
     }];
     
     [self.view addSubview:self.iTableView];
@@ -73,7 +75,7 @@
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.switchView.mas_bottom);
         make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(116));
+        make.height.mas_equalTo(CGFloatIn750(126));
     }];
    
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,7 +114,29 @@
     if (!_switchView) {
         _switchView = [[ZOriganizationTeachSwitchView alloc] init];
         _switchView.handleBlock = ^(NSInteger index) {
+            NSMutableArray *mainItems = @[].mutableCopy;
+            NSMutableArray *items = @[].mutableCopy;
+            NSArray *temp = @[@"徐州",@"南京"];
+            for (int i = 0; i < temp.count; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = temp[i];
+                
+                NSMutableArray *subItems = @[].mutableCopy;
+                
+                NSArray *temp = @[@"篮球俱乐部",@"排球俱乐部",@"摄氏度",@"足球"];
+                for (int i = 0; i < temp.count; i++) {
+                    ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                    model.name = temp[i];
+                    [subItems addObject:model];
+                }
+                model.ItemArr = subItems;
+                [items addObject:model];
+            }
             
+            [mainItems addObjectsFromArray:items];
+            [ZAlertDataPickerView setAlertName:@"校区选择" items:mainItems handlerBlock:^(NSInteger index) {
+                
+            }];
         };
     }
     return _switchView;
@@ -120,9 +144,11 @@
 
 - (ZOriganizationTeachSearchTopHintView *)searchView {
     if (!_searchView) {
+        __weak typeof(self) weakSelf = self;
         _searchView = [[ZOriganizationTeachSearchTopHintView alloc] init];
         _searchView.handleBlock = ^(NSInteger index) {
-            
+            ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
+            [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
     return _searchView;
@@ -205,8 +231,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"address"]) {
-        ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
-        [self.navigationController pushViewController:mvc animated:YES];
+       
     }
     
     

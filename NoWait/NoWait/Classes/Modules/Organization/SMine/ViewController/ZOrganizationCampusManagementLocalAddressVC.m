@@ -418,7 +418,7 @@
     [self.search AMapPOIKeywordsSearch:request];
 }
 
-#pragma mark --textField delegate
+#pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"donggggs-----");
     [self searchPoiByKeyword:textField.text];

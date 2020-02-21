@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A2E774EE0D9ED8DE2FF9684 /* libPods-NoWait.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */; };
+		B20C47F223FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47F123FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.m */; };
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
@@ -404,6 +405,8 @@
 
 /* Begin PBXFileReference section */
 		3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.debug.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.debug.xcconfig"; sourceTree = "<group>"; };
+		B20C47F023FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTeacherSearchTopView.h; sourceTree = "<group>"; };
+		B20C47F123FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeacherSearchTopView.m; sourceTree = "<group>"; };
 		B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarInfoCoachMoreEvaCell.h; sourceTree = "<group>"; };
 		B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarInfoCoachMoreEvaCell.m; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
@@ -1210,6 +1213,8 @@
 				B2342C8D23FE787000F31C34 /* ZOriganizationTeachSwitchView.m */,
 				B2342C8F23FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.h */,
 				B2342C9023FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.m */,
+				B20C47F023FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.h */,
+				B20C47F123FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.m */,
 			);
 			path = teacher;
 			sourceTree = "<group>";
@@ -3251,6 +3256,7 @@
 				B2A77EC323BDE29E00407BF0 /* MWCaptionView.m in Sources */,
 				B2A781BE23C5E04E00407BF0 /* ZStudentLessonTableView.m in Sources */,
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
+				B20C47F223FF7EBE00E0CE35 /* ZOrganizationTeacherSearchTopView.m in Sources */,
 				B234D09423CC428500210CD8 /* ZStudentStarStudentListVC.m in Sources */,
 				B2A77F2D23BDE37A00407BF0 /* UIImage+LLGif.m in Sources */,
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,

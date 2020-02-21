@@ -85,9 +85,31 @@
         make.centerY.equalTo(self.typeLabel.mas_centerY);
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
     }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [coverBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(0);
+        }
+    }];
+    
+    
+    [self.contView addSubview:coverBtn];
+    [coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contView);
+    }];
+
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+    longPress.minimumPressDuration = 0.5; //定义按的时间
+    [coverBtn addGestureRecognizer:longPress];
 }
 
-
+- (void)btnLong:(id)sender {
+    if (self.handleBlock) {
+        self.handleBlock(1);
+    }
+}
 #pragma mark -Getter
 - (UIView *)contView {
     if (!_contView) {
