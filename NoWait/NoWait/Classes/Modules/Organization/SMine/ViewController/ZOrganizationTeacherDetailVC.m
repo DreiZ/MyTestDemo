@@ -26,6 +26,7 @@
 @interface ZOrganizationTeacherDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UIButton *navRightBtn;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -142,6 +143,8 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"新增教师"];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 - (void)setupMainView {
@@ -172,6 +175,21 @@
 
 
 #pragma mark lazy loading...
+
+- (UIButton *)navRightBtn {
+     if (!_navRightBtn) {
+//         __weak typeof(self) weakSelf = self;
+         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+         [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
+         [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
+         [_navRightBtn bk_whenTapped:^{
+            
+         }];
+     }
+     return _navRightBtn;
+}
+     
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
