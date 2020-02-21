@@ -21,6 +21,7 @@
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
+#import "ZOrganizationTeacherManageVC.h"
 
 
 #define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
@@ -79,18 +80,6 @@
     _topchannelList = @[].mutableCopy;
     _lessonList = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
-    
-//    NSArray *list = @[@[@"评价",@"mineOrderEva"],@[@"订单",@"mineOrderChannel"],@[@"卡券",@"mineOrderCard"],@[@"签课",@"mineOrderLesson"]];
-//    NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
-//    for (int i = 0; i < list.count; i++) {
-//        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
-//        model.name = list[i][0];
-//        model.imageName = list[i][1];
-//        model.channel_id = channlArr[i];
-//        [_topchannelList addObject:model];
-//
-//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
-//    }
 }
 
 - (void)setupMainView {
@@ -195,8 +184,10 @@
             }else if ([model.uid isEqualToString:@"school"]){
                 ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
+            }else if ([model.uid isEqualToString:@"teacher"]){
+                ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
             }
-            
         };
         
     }

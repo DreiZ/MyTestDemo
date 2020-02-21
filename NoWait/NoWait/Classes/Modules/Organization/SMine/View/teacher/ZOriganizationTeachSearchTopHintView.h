@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationTeachSearchTopHintView : UIView
-
+@property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END
