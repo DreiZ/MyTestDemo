@@ -12,6 +12,8 @@
 		B20C47F523FF8CD100E0CE35 /* ZOriganizationTeachAddHeadImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47F423FF8CD100E0CE35 /* ZOriganizationTeachAddHeadImageCell.m */; };
 		B20C47F823FFB69B00E0CE35 /* ZOriganizationTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47F723FFB69B00E0CE35 /* ZOriganizationTextViewCell.m */; };
 		B20C47FB23FFB98500E0CE35 /* ZOriganizationIDCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47FA23FFB98500E0CE35 /* ZOriganizationIDCardCell.m */; };
+		B20C47FE23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47FD23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m */; };
+		B20C480123FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */; };
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
@@ -415,6 +417,10 @@
 		B20C47F723FFB69B00E0CE35 /* ZOriganizationTextViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationTextViewCell.m; sourceTree = "<group>"; };
 		B20C47F923FFB98500E0CE35 /* ZOriganizationIDCardCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationIDCardCell.h; sourceTree = "<group>"; };
 		B20C47FA23FFB98500E0CE35 /* ZOriganizationIDCardCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationIDCardCell.m; sourceTree = "<group>"; };
+		B20C47FC23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTeacherLessonSelectVC.h; sourceTree = "<group>"; };
+		B20C47FD23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeacherLessonSelectVC.m; sourceTree = "<group>"; };
+		B20C47FF23FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTeacherLessonSelectCell.h; sourceTree = "<group>"; };
+		B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeacherLessonSelectCell.m; sourceTree = "<group>"; };
 		B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarInfoCoachMoreEvaCell.h; sourceTree = "<group>"; };
 		B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarInfoCoachMoreEvaCell.m; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
@@ -1225,6 +1231,8 @@
 				B20C47F723FFB69B00E0CE35 /* ZOriganizationTextViewCell.m */,
 				B20C47F923FFB98500E0CE35 /* ZOriganizationIDCardCell.h */,
 				B20C47FA23FFB98500E0CE35 /* ZOriganizationIDCardCell.m */,
+				B20C47FF23FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.h */,
+				B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */,
 			);
 			path = teacher;
 			sourceTree = "<group>";
@@ -2532,6 +2540,8 @@
 				B24D994A23FCD9C10078A458 /* ZOrganizationTeacherDetailVC.m */,
 				B24D994C23FD0E520078A458 /* ZOrganizationLessonAddVC.h */,
 				B24D994D23FD0E520078A458 /* ZOrganizationLessonAddVC.m */,
+				B20C47FC23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.h */,
+				B20C47FD23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3017,6 +3027,7 @@
 				B25146DA23CFFF0F009A64D4 /* ZSingleLineCell.m in Sources */,
 				B2A7816823C4517800407BF0 /* ZHFilterItemModel.m in Sources */,
 				B2A77F3123BDE37A00407BF0 /* NSString+LLExtension.m in Sources */,
+				B20C47FE23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m in Sources */,
 				B25146D123CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m in Sources */,
 				B2A77F2B23BDE37A00407BF0 /* LLImagePickerCell.m in Sources */,
 				B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */,
@@ -3058,6 +3069,7 @@
 				B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */,
 				B2A7817E23C576A500407BF0 /* ZStudentOrganizationDetailBannerCell.m in Sources */,
 				B2A77E8D23BDD93A00407BF0 /* ZLaunchManager.m in Sources */,
+				B20C480123FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m in Sources */,
 				B24D992F23FBB6F10078A458 /* ZLocationModel.m in Sources */,
 				B279D05223C8766F00391A33 /* ZStudentLessonOrderCompleteCell.m in Sources */,
 				B2A7803023BDFA3800407BF0 /* NSDate+ZChat.m in Sources */,

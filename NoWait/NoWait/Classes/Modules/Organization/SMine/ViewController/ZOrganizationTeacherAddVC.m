@@ -19,6 +19,7 @@
 #import "ZAlertDataPickerView.h"
 
 #import "ZOrganizationCampusManageAddLabelVC.h"
+#import "ZOrganizationTeacherLessonSelectVC.h"
 
 @interface ZOrganizationTeacherAddVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -308,6 +309,10 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"skill"]) {
         ZOrganizationCampusManageAddLabelVC *avc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
+        
+        [self.navigationController pushViewController:avc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"lesson"]) {
+        ZOrganizationTeacherLessonSelectVC *avc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
         
         [self.navigationController pushViewController:avc animated:YES];
     }
