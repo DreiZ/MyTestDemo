@@ -16,6 +16,7 @@
 
 - (void)initMainView {
     [super initMainView];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     UIView *singlineView = [[UIView alloc] init];
     self.singleLineView = singlineView;
@@ -55,7 +56,7 @@
     
     
     self.leftTitleLabel.text = mModel.leftTitle;
-    self.leftTitleLabel.numberOfLines = 0;
+    self.rightTitleLabel.numberOfLines = 0;
     self.rightTitleLabel.text = mModel.rightTitle;
     
     self.leftTitleLabel.font = mModel.leftFont ? mModel.leftFont:[UIFont systemFontOfSize:kCellTitleFont];
@@ -65,7 +66,7 @@
     self.rightTitleLabel.textColor = mModel.rightColor ? mModel.rightColor:[UIColor blackColor];
     self.bottomLineView.hidden = mModel.isHiddenLine;
     
-    [ZPublicTool setLineSpacing:mModel.lineSpace label:self.leftTitleLabel];
+    [ZPublicTool setLineSpacing:mModel.lineSpace label:self.rightTitleLabel];
     
     [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);
@@ -115,20 +116,16 @@
         
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
-            make.centerY.equalTo(self.rightImageView.mas_centerY);
+            make.top.equalTo(self.rightImageView.mas_centerY);
             make.width.mas_equalTo(rightLabelSize.width);
         }];
         
         self.rightImageView.hidden = NO;
     }else{
-        [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.singleLineView.mas_centerY);
-            make.right.equalTo(self.contentView.mas_right).offset(mModel.rightMargin);
-        }];
         
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
-            make.centerY.equalTo(self.singleLineView.mas_centerY);
+            make.top.equalTo(self.mas_top).offset((kCellNormalHeight - CGFloatIn750(30))/2);
             make.width.mas_equalTo(rightLabelSize.width);
         }];
         
@@ -185,12 +182,12 @@
         otherMaxWidth += mModel.rightImageWidth + mModel.rightContentSpace;
     }
     
-    if (mModel.rightTitle && mModel.rightTitle.length > 0) {
-        CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont];
+    if (mModel.leftTitle && mModel.leftTitle.length > 0) {
+        CGSize rightLabelSize = [SafeStr(mModel.leftTitle) tt_sizeWithFont:mModel.rightFont];
         otherMaxWidth += rightLabelSize.width + mModel.rightContentSpace;
     }
     
-    CGSize leftLabelSize = [SafeStr(mModel.leftTitle) tt_sizeWithFont:mModel.leftFont constrainedToSize:CGSizeMake(mModel.cellWidth - otherMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
+    CGSize leftLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(mModel.cellWidth - otherMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
     
     return leftLabelSize.height + mModel.cellHeight - mModel.leftFont.lineHeight;
 }

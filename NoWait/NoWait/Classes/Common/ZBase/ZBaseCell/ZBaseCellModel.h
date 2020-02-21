@@ -73,6 +73,7 @@
 
 //textField cell model
 @interface ZBaseTextFieldCellModel : ZBaseCellModel
+
 //标题默认宽220
 @property (nonatomic,assign) CGFloat leftContentWidth;
 @property (nonatomic,assign) CGFloat textFieldHeight;

@@ -14,6 +14,7 @@
 		B20C47FB23FFB98500E0CE35 /* ZOriganizationIDCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47FA23FFB98500E0CE35 /* ZOriganizationIDCardCell.m */; };
 		B20C47FE23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C47FD23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m */; };
 		B20C480123FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */; };
+		B20C480423FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C480323FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m */; };
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
@@ -421,6 +422,8 @@
 		B20C47FD23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeacherLessonSelectVC.m; sourceTree = "<group>"; };
 		B20C47FF23FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTeacherLessonSelectCell.h; sourceTree = "<group>"; };
 		B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeacherLessonSelectCell.m; sourceTree = "<group>"; };
+		B20C480223FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationTeachHeadImageCell.h; sourceTree = "<group>"; };
+		B20C480323FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationTeachHeadImageCell.m; sourceTree = "<group>"; };
 		B215843923CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentStarInfoCoachMoreEvaCell.h; sourceTree = "<group>"; };
 		B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentStarInfoCoachMoreEvaCell.m; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
@@ -1233,6 +1236,8 @@
 				B20C47FA23FFB98500E0CE35 /* ZOriganizationIDCardCell.m */,
 				B20C47FF23FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.h */,
 				B20C480023FFC97C00E0CE35 /* ZOrganizationTeacherLessonSelectCell.m */,
+				B20C480223FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.h */,
+				B20C480323FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m */,
 			);
 			path = teacher;
 			sourceTree = "<group>";
@@ -3332,6 +3337,7 @@
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
 				B2F7D36823CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m in Sources */,
 				B25146AA23CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m in Sources */,
+				B20C480423FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m in Sources */,
 				B2A7809C23BDFB0100407BF0 /* ReachStateUnReachable.m in Sources */,
 				B2A7803223BDFA3800407BF0 /* NSFileManager+ZChat.m in Sources */,
 				B2EE5BC023F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m in Sources */,

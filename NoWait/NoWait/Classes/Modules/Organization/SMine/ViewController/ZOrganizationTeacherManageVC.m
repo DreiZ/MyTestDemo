@@ -17,6 +17,8 @@
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
 
+#import "ZOrganizationTeacherDetailVC.h"
+
 @interface ZOrganizationTeacherManageVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -237,8 +239,15 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
+        ZOriganizationTeachListCell *enteryCell = (ZOriganizationTeachListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }
+        };
         
     }
     return cell;
