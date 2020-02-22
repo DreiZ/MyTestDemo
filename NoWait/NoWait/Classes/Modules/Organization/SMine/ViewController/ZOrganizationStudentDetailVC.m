@@ -22,6 +22,7 @@
 
 #import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationTeacherLessonSelectVC.h"
+#import "ZOrganizationStudentSignDetailVC.h"
 
 @interface ZOrganizationStudentDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -84,14 +85,20 @@
         cellModel.isHiddenLine = YES;
         cellModel.cellHeight = CGFloatIn750(108);
         cellModel.content = textArr[i][1];
+        cellModel.textColor = [UIColor colorTextGray];
+        cellModel.textDarkColor = [UIColor colorTextGrayDark];
+        cellModel.leftContentWidth = CGFloatIn750(324);
         if (i == 17 || i == 18) {
             cellModel.rightImage = @"rightBlackArrowN";
+            if (i == 17) {
+                cellModel.cellTitle = @"sign";
+            }
         }
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:@"content" showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
         
         if(i == 11){
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
             [_cellConfigArr addObject:topCellConfig];
               
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -104,13 +111,84 @@
           [self.cellConfigArr addObject:menuCellConfig];
             
    
-          ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+          ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
           [_cellConfigArr addObject:bottomCellConfig];
         }
     }
     
+    {
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+         [_cellConfigArr addObject:topCellConfig];
+           
+         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+         model.isHiddenLine = NO;
+         model.lineLeftMargin = CGFloatIn750(30);
+         model.lineRightMargin = CGFloatIn750(30);
+         model.cellHeight = CGFloatIn750(1);
+           
+       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+       [self.cellConfigArr addObject:menuCellConfig];
+         
+
+       ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+       [_cellConfigArr addObject:bottomCellConfig];
+    }
     
+    {
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [_cellConfigArr addObject:topCellConfig];
+        
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"学习履历";
+        model.leftFont = [UIFont boldFontTitle];
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(52);
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+      
+        
+        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+        mModel.rightFont = [UIFont fontContent];
+        mModel.rightColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        mModel.singleCellHeight = CGFloatIn750(50);
+        mModel.rightTitle = @"公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV";
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        [self.cellConfigArr addObject:textCellConfig];
+        
+        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [_cellConfigArr addObject:bottomCellConfig];
+    }
+        
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"学员风采";
+        model.leftFont = [UIFont boldFontTitle];
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(92);
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
     
+    {
+        ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
+        
+        NSMutableArray *menulist = @[].mutableCopy;
+        for (int j = 0; j < 9; j++) {
+            ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+//            model.name = tempArr[j][0];
+//            model.imageName = tempArr[j][1];
+//            model.uid = tempArr[j][2];
+            [menulist addObject:model];
+        }
+        
+        model.units = menulist;
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:progressCellConfig];
+    }
 }
 
 - (void)setNavigation {
@@ -246,59 +324,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"sex"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"男",@"女"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           [items addObject:model];
-        }
-        
-        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-           
-        }];
+    if ([cellConfig.title isEqualToString:@"sign"]) {
+        ZOrganizationStudentSignDetailVC *dvc = [[ZOrganizationStudentSignDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"徐州"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           
-           NSMutableArray *subItems = @[].mutableCopy;
-           
-           NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
-           for (int i = 0; i < temp.count; i++) {
-               ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-               model.name = temp[i];
-               [subItems addObject:model];
-           }
-           model.ItemArr = subItems;
-           [items addObject:model];
-        }
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:items handlerBlock:^(NSInteger index) {
-           
-        }];
-    }else if ([cellConfig.title isEqualToString:@"class"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"初级教师",@"高级教师"];
-        for (int i = 0; i < temp.count; i++) {
-            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-            model.name = temp[i];
-            [items addObject:model];
-        }
-        
-        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
-            
-        }];
-    }else if ([cellConfig.title isEqualToString:@"skill"]) {
-        ZOrganizationCampusManageAddLabelVC *avc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"lesson"]) {
-        ZOrganizationTeacherLessonSelectVC *avc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
+       
     }
 }
 

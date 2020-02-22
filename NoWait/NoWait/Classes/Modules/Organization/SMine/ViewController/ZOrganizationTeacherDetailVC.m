@@ -78,6 +78,8 @@
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
             cellModel.leftFont = [UIFont boldFontTitle];
+            cellModel.textColor = [UIColor colorTextGray];
+            cellModel.textDarkColor = [UIColor colorTextGrayDark];
             cellModel.data = @[@"哆咪屋  147元  230元",@"哆咪屋  147元  230元",@"哆咪屋  147元  230元",@"免哆咪屋  147元  230元",@"哆咪屋  147元  230元"];
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:@"content" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
@@ -88,6 +90,8 @@
             cellModel.isHiddenLine = YES;
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.content = textArr[i][1];
+            cellModel.textColor = [UIColor colorTextGray];
+            cellModel.textDarkColor = [UIColor colorTextGrayDark];
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:@"content" showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }
