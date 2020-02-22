@@ -23,6 +23,7 @@
 #import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOrganizationStudentSignDetailVC.h"
+#import "ZOrganizationStudentUpStarVC.h"
 
 @interface ZOrganizationStudentDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -276,12 +277,13 @@
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
-        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"升级明星学员" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            ZOrganizationStudentUpStarVC *uvc = [[ZOrganizationStudentUpStarVC alloc] init];
+            [weakSelf.navigationController pushViewController:uvc animated:YES];
         }];
     }
     return _bottomBtn;
