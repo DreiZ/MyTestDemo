@@ -20,7 +20,6 @@
 
         self.titleWidth = 0;
         self.cellTitle = @"ZBaseCell";
-        self.cellHeight = CGFloatIn750(100);
         self.lineLeftMargin = 0;
         self.lineRightMargin = 0;
         self.cellHeight = CGFloatIn750(88);
@@ -57,7 +56,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.lineSpace = CGFloatIn750(14);
+        self.lineSpace = CGFloatIn750(12);
         self.leftImageWidth = 0;
         self.rightImageWidth = 0;
         self.singleCellHeight = kCellNormalHeight;
