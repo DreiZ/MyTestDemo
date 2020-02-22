@@ -12,7 +12,7 @@
 
 #import "ZOriganizationStudentListCell.h"
 #import "ZOriganizationTeachSwitchView.h"
-#import "ZOriganizationTeachSearchTopHintView.h"
+#import "ZOrganizationStudentTopFilterSeaarchView.h"
 
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
@@ -26,7 +26,7 @@
 @property (nonatomic,strong) UIButton *bottomBtn;
 
 @property (nonatomic,strong) ZOriganizationTeachSwitchView *switchView;
-@property (nonatomic,strong) ZOriganizationTeachSearchTopHintView *searchView;
+@property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *searchView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -78,8 +78,9 @@
     [self.view addSubview:self.iTableView];
     [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.switchView.mas_bottom);
-        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.switchView.mas_bottom).offset(CGFloatIn750(20));
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
         make.height.mas_equalTo(CGFloatIn750(126));
     }];
    
@@ -175,14 +176,13 @@
     return _bottomBtn;
 }
 
-- (ZOriganizationTeachSearchTopHintView *)searchView {
+- (ZOrganizationStudentTopFilterSeaarchView *)searchView {
     if (!_searchView) {
-        __weak typeof(self) weakSelf = self;
-        _searchView = [[ZOriganizationTeachSearchTopHintView alloc] init];
-        _searchView.handleBlock = ^(NSInteger index) {
-            ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
-            [weakSelf.navigationController pushViewController:svc animated:YES];
-        };
+//        __weak typeof(self) weakSelf = self;
+        _searchView = [[ZOrganizationStudentTopFilterSeaarchView alloc] init];
+//        _searchView.handleBlock = ^(NSInteger index) {
+//
+//        };
     }
     return _searchView;
 }
