@@ -8,7 +8,8 @@
 
 #import "ZOrganizationStudentManageVC.h"
 #import "ZOrganizationTeacherSearchVC.h"
-#import "ZOrganizationTeacherAddVC.h"
+#import "ZOrganizationStudentDetailVC.h"
+#import "ZOrganizationStudentAddVC.h"
 
 #import "ZOriganizationStudentListCell.h"
 #import "ZOriganizationTeachSwitchView.h"
@@ -17,7 +18,6 @@
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
 
-#import "ZOrganizationStudentDetailVC.h"
 
 @interface ZOrganizationStudentManageVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -121,7 +121,7 @@
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navRightBtn bk_whenTapped:^{
-            ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
+            ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
@@ -240,7 +240,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
+    if ([cellConfig.title isEqualToString:@"ZOriganizationStudentListCell"]){
         ZOriganizationStudentListCell *enteryCell = (ZOriganizationStudentListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
