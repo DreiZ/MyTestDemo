@@ -22,6 +22,7 @@
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 #import "ZOrganizationTeacherManageVC.h"
+#import "ZOrganizationStudentManageVC.h"
 
 
 #define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
@@ -129,7 +130,7 @@
         __weak typeof(self) weakSelf = self;
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
 //            if (index == 1) {
 //                ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
 //                [weakSelf.navigationController pushViewController:svc animated:YES];
@@ -186,6 +187,9 @@
                 [self.navigationController pushViewController:mvc animated:YES];
             }else if ([model.uid isEqualToString:@"teacher"]){
                 ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }else if ([model.uid isEqualToString:@"student"]){
+                ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
             }
         };
