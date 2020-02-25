@@ -8,14 +8,48 @@
 
 #import "ZOrganizationLessonTopSearchView.h"
 
+@interface ZOrganizationLessonTopSearchView ()
+@property (nonatomic,strong) UIButton *searchBtn;
+
+@end
+
 @implementation ZOrganizationLessonTopSearchView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initMainView];
+    }
+    return self;
+}
+
+#pragma mark 初始化view
+- (void)initMainView {
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    self.clipsToBounds = YES;
+    self.layer.masksToBounds = YES;
+    
+    
+    [self addSubview:self.searchBtn];
+    [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
+        make.height.mas_equalTo(CGFloatIn750(56));
+        make.bottom.equalTo(self.mas_bottom);
+    }];
+}
+
+- (UIButton *)searchBtn {
+    if (!_searchBtn) {
+        _searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+        [_searchBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_searchBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_searchBtn setImage:[UIImage imageNamed:@"mainSearch"] forState:UIControlStateNormal];
+        ViewRadius(_searchBtn, CGFloatIn750(28));
+        _searchBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }
+    return _searchBtn;
+}
 @end

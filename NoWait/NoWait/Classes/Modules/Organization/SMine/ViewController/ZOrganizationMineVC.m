@@ -14,7 +14,7 @@
 #import "ZOrganizationMenuCell.h"
 
 #import "ZOrganizationCampusManagementVC.h"
-#import "ZOrganizationLessonAddVC.h"
+#import "ZOrganizationLessonManageVC.h"
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
@@ -179,7 +179,7 @@
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
             if ([model.uid isEqualToString:@"lesson"]) {
-                ZOrganizationLessonAddVC *mvc = [[ZOrganizationLessonAddVC alloc] init];
+                ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
                 
             }else if ([model.uid isEqualToString:@"school"]){
