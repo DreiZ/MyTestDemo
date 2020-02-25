@@ -7,6 +7,7 @@
 //
 
 #import "ZOrganizationStudentTopFilterSeaarchView.h"
+#import "ZOrganizationTopFilterView.h"
 
 @interface ZOrganizationStudentTopFilterSeaarchView ()
 @property (nonatomic,strong) UIButton *leftBtn;
@@ -106,6 +107,9 @@
         [self.leftArrow mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.leftBtn.titleLabel.mas_right);
             make.centerY.equalTo(self.leftBtn.mas_centerY);
+        }];
+        [_leftBtn bk_whenTapped:^{
+            [ZOrganizationTopFilterView showFilter];
         }];
     }
     return _leftBtn;
