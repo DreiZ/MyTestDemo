@@ -7,11 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "SDCycleScrollView.h"
+#import "ZStudentMainModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonDetailHeaderCell : ZBaseCell
-
+@property (nonatomic,strong) NSArray <ZStudentBannerModel *>*list;
+@property (nonatomic,strong) void (^bannerBlock)(ZStudentBannerModel *);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,9 @@
 
 #import "ZOrganizationLessonManageListVC.h"
 #import "ZOrganizationLessonManageListCell.h"
+#import "ZAlertView.h"
 
+#import "ZOrganizationLessonDetailVC.h"
 
 @interface ZOrganizationLessonManageListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -112,9 +114,13 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
-//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
-        
+    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]){
+        ZOrganizationLessonManageListCell *enteryCell = (ZOrganizationLessonManageListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index) {
+            [ZAlertView setAlertWithTitle:@"确定关闭课程？" leftBtnTitle:@"取消" rightBtnTitle:@"关闭" handlerBlock:^(NSInteger index) {
+                
+            }];
+        };
     }
     return cell;
 }
@@ -136,8 +142,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"sign"]) {
-        
+    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]) {
+        ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
     }
