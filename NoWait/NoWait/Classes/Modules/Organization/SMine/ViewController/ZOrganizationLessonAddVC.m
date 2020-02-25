@@ -18,6 +18,7 @@
 #import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDateWeekAndHourPickerView.h"
 #import "ZAlertDataModel.h"
+#import "ZOrganizationTimeSelectVC.h"
 
 
 @interface ZOrganizationLessonAddVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -418,9 +419,11 @@
             
         }];
     } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
-        [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
-            
-        }];
+//        [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
+//            
+//        }];
+        ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+        [self.navigationController pushViewController:svc animated:YES];
     }
     
     

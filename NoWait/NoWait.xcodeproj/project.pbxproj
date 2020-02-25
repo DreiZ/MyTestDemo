@@ -141,6 +141,9 @@
 		B296E3972404CDBF00507509 /* ZOrganizationLessonDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E3962404CDBF00507509 /* ZOrganizationLessonDetailVC.m */; };
 		B296E39D2404D58F00507509 /* ZOrganizationLessonDetailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E39C2404D58F00507509 /* ZOrganizationLessonDetailHeaderCell.m */; };
 		B296E3A02404ED3600507509 /* ZOrganizationLessonDetailPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E39F2404ED3600507509 /* ZOrganizationLessonDetailPriceCell.m */; };
+		B296E3A32404F7F400507509 /* ZOrganizationTimeSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E3A22404F7F400507509 /* ZOrganizationTimeSelectVC.m */; };
+		B296E3A62404F90700507509 /* ZOrganizationTimeLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E3A52404F90700507509 /* ZOrganizationTimeLeftCell.m */; };
+		B296E3A92404F91900507509 /* ZOrganizationTimeRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B296E3A82404F91900507509 /* ZOrganizationTimeRightCell.m */; };
 		B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */; };
 		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */; };
@@ -686,6 +689,12 @@
 		B296E39C2404D58F00507509 /* ZOrganizationLessonDetailHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationLessonDetailHeaderCell.m; sourceTree = "<group>"; };
 		B296E39E2404ED3600507509 /* ZOrganizationLessonDetailPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonDetailPriceCell.h; sourceTree = "<group>"; };
 		B296E39F2404ED3600507509 /* ZOrganizationLessonDetailPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationLessonDetailPriceCell.m; sourceTree = "<group>"; };
+		B296E3A12404F7F400507509 /* ZOrganizationTimeSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTimeSelectVC.h; sourceTree = "<group>"; };
+		B296E3A22404F7F400507509 /* ZOrganizationTimeSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTimeSelectVC.m; sourceTree = "<group>"; };
+		B296E3A42404F90700507509 /* ZOrganizationTimeLeftCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTimeLeftCell.h; sourceTree = "<group>"; };
+		B296E3A52404F90700507509 /* ZOrganizationTimeLeftCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTimeLeftCell.m; sourceTree = "<group>"; };
+		B296E3A72404F91900507509 /* ZOrganizationTimeRightCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTimeRightCell.h; sourceTree = "<group>"; };
+		B296E3A82404F91900507509 /* ZOrganizationTimeRightCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTimeRightCell.m; sourceTree = "<group>"; };
 		B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZChat.h"; sourceTree = "<group>"; };
@@ -2584,6 +2593,8 @@
 		B2A780E123BED9E400407BF0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B296E3A12404F7F400507509 /* ZOrganizationTimeSelectVC.h */,
+				B296E3A22404F7F400507509 /* ZOrganizationTimeSelectVC.m */,
 				B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */,
 				B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */,
 				B2EE5BBE23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.h */,
@@ -2853,6 +2864,10 @@
 				B2EE5BB523F7EB9E00ECCFF4 /* ZOriganizationClubSelectedItemCell.m */,
 				B2EE5BBB23F9165000ECCFF4 /* ZOrganizationMenuItemCell.h */,
 				B2EE5BBC23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m */,
+				B296E3A42404F90700507509 /* ZOrganizationTimeLeftCell.h */,
+				B296E3A52404F90700507509 /* ZOrganizationTimeLeftCell.m */,
+				B296E3A72404F91900507509 /* ZOrganizationTimeRightCell.h */,
+				B296E3A82404F91900507509 /* ZOrganizationTimeRightCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3115,6 +3130,7 @@
 				B2A77F2B23BDE37A00407BF0 /* LLImagePickerCell.m in Sources */,
 				B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */,
 				B2A7809323BDFB0100407BF0 /* TLNetworkAgent.m in Sources */,
+				B296E3A62404F90700507509 /* ZOrganizationTimeLeftCell.m in Sources */,
 				B2A77F5723BDE42E00407BF0 /* NSBundle+TZImagePicker.m in Sources */,
 				B279D06423C99E4500391A33 /* ZStudentLessonOrderIntroCell.m in Sources */,
 				B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */,
@@ -3201,6 +3217,7 @@
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
 				B2EE5BA723F7D99300ECCFF4 /* ZOrganizationMineHeaderView.m in Sources */,
 				B24D994523FCD6BC0078A458 /* ZOrganizationTeacherSearchVC.m in Sources */,
+				B296E3A32404F7F400507509 /* ZOrganizationTimeSelectVC.m in Sources */,
 				B2F7D35C23CD9FAC00F7A17D /* ZMineStudentEvaListEvaOrderDesCell.m in Sources */,
 				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
@@ -3303,6 +3320,7 @@
 				B223BCBF23C6D12300AC0158 /* ZStudentLessonDetailLessonSubtitleCell.m in Sources */,
 				B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */,
 				B24D994823FCD9AF0078A458 /* ZOrganizationTeacherAddVC.m in Sources */,
+				B296E3A92404F91900507509 /* ZOrganizationTimeRightCell.m in Sources */,
 				B279D05523C9578E00391A33 /* ZStudentLessonOrderMoreInputCell.m in Sources */,
 				B234D09123CC1A6D00210CD8 /* ZStudentMessageListCell.m in Sources */,
 				B279D06723C99E6F00391A33 /* ZStudentLessonOrderHintCell.m in Sources */,
