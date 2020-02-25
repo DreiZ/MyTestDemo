@@ -16,7 +16,6 @@
 @property (nonatomic,strong) UIImageView *rightArrow;
 @property (nonatomic,strong) UIImageView *midArrow;
 
-@property (nonatomic,strong) UIButton *searchBtn;
 @property (nonatomic,strong) UIView *contView;
 
 @end
@@ -41,7 +40,7 @@
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(0));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(0));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-0));
         make.height.mas_equalTo(CGFloatIn750(116));
     }];
@@ -55,18 +54,11 @@
         make.height.mas_equalTo(CGFloatIn750(56));
     }];
     
-    [backView addSubview:self.searchBtn];
-    [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(backView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(backView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(82));
-        make.height.mas_equalTo(CGFloatIn750(60));
-    }];
     
     UIView *filterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.contView addSubview:filterView];
     [filterView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.searchBtn.mas_right);
+        make.left.equalTo(backView.mas_left);
         make.top.bottom.equalTo(backView);
         make.right.equalTo(backView.mas_right);
     }];
@@ -74,22 +66,22 @@
     [filterView addSubview:self.leftBtn];
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(backView);
-        make.left.equalTo(filterView.mas_left).offset(CGFloatIn750(30));
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.left.equalTo(filterView.mas_left).offset(CGFloatIn750(0));
+        make.width.mas_equalTo(CGFloatIn750(160));
     }];
     
     [filterView addSubview:self.midBtn];
     [self.midBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(backView);
         make.centerX.equalTo(filterView.mas_centerX);
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.width.mas_equalTo(CGFloatIn750(160));
     }];
     
     [filterView addSubview:self.rightBtn];
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(backView);
-        make.right.equalTo(filterView.mas_right).offset(CGFloatIn750(-30));
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.right.equalTo(filterView.mas_right).offset(CGFloatIn750(-20));
+        make.width.mas_equalTo(CGFloatIn750(160));
     }];
 }
 
@@ -98,20 +90,11 @@
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewRadius(_contView, CGFloatIn750(16));
+//        ViewRadius(_contView, CGFloatIn750(16));
     }
     return _contView;
 }
 
-- (UIButton *)searchBtn {
-    if (!_searchBtn) {
-        _searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_searchBtn setImage:[UIImage imageNamed:@"mainSearch"] forState:UIControlStateNormal];
-        ViewRadius(_searchBtn, CGFloatIn750(30));
-        _searchBtn.backgroundColor = [UIColor colorGrayBG];
-    }
-    return _searchBtn;
-}
 
 - (UIButton *)leftBtn {
     if (!_leftBtn) {

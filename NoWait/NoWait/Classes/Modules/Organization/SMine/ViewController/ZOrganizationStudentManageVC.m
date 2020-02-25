@@ -14,6 +14,7 @@
 #import "ZOriganizationStudentListCell.h"
 #import "ZOriganizationTeachSwitchView.h"
 #import "ZOrganizationStudentTopFilterSeaarchView.h"
+#import "ZOriganizationTeachSearchTopHintView.h"
 
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
@@ -27,6 +28,7 @@
 
 @property (nonatomic,strong) ZOriganizationTeachSwitchView *switchView;
 @property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *searchView;
+@property (nonatomic,strong) ZOriganizationTeachSearchTopHintView *searchTopView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -76,13 +78,23 @@
     }];
     
     [self.view addSubview:self.iTableView];
-    [self.view addSubview:self.searchView];
-    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.switchView.mas_bottom).offset(CGFloatIn750(20));
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
-        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
+    
+    [self.view addSubview:self.searchTopView];
+    [self.searchTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.switchView.mas_bottom);
+        make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(126));
     }];
+    
+    [self.view addSubview:self.searchView];
+    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.searchTopView.mas_bottom).offset(CGFloatIn750(0));
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
+        make.height.mas_equalTo(CGFloatIn750(106));
+    }];
+    
+    
    
     [self.view addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -161,6 +173,18 @@
 }
 
 
+- (ZOriganizationTeachSearchTopHintView *)searchTopView {
+    if (!_searchTopView) {
+        __weak typeof(self) weakSelf = self;
+        _searchTopView = [[ZOriganizationTeachSearchTopHintView alloc] init];
+        _searchTopView.handleBlock = ^(NSInteger index) {
+            ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
+    }
+    return _searchTopView;
+}
+
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
 //        __weak typeof(self) weakSelf = self;
@@ -175,6 +199,7 @@
     }
     return _bottomBtn;
 }
+
 
 - (ZOrganizationStudentTopFilterSeaarchView *)searchView {
     if (!_searchView) {
