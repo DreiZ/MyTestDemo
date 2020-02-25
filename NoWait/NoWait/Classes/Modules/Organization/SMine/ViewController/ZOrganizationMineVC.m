@@ -23,6 +23,7 @@
 #import "ZStudentMineSettingVC.h"
 #import "ZOrganizationTeacherManageVC.h"
 #import "ZOrganizationStudentManageVC.h"
+#import "ZOrganizationTeachingScheduleVC.h"
 
 
 #define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
@@ -191,6 +192,9 @@
             }else if ([model.uid isEqualToString:@"student"]){
                 ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
+            }else if ([model.uid isEqualToString:@"manageLesson"]){
+                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+                [self.navigationController pushViewController:svc animated:YES];
             }
         };
         
