@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationClassDetailStudentListVC : ZViewController
-
+@property (nonatomic,assign) BOOL isOpen;
 @end
 
 NS_ASSUME_NONNULL_END

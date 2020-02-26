@@ -10,7 +10,7 @@
 #import "ZOrganizationClassManageListCell.h"
 #import "ZAlertView.h"
 
-#import "ZOrganizationLessonDetailVC.h"
+#import "ZOrganizationClassManageDetailVC.h"
 
 @interface ZOrganizationClassManageListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -114,7 +114,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]){
+    if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]){
     }
     return cell;
 }
@@ -136,8 +136,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]) {
-        ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+    if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
+        ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
+        if (indexPath.row % 2 == 1) {
+            dvc.isOpen = YES;
+        }
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
