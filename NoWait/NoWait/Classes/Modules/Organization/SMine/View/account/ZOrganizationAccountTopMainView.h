@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationAccountTopMainView : UIView
-
+@property (nonatomic,assign) BOOL isSchool;
 @end
 
 NS_ASSUME_NONNULL_END
