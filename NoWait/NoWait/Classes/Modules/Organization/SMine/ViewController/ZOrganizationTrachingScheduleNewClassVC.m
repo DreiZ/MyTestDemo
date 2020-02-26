@@ -1,27 +1,26 @@
 //
-//  ZOrganizationTeachingScheduleNoVC.m
+//  ZOrganizationTrachingScheduleNewClassVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/2/25.
+//  Created by zhuang zhang on 2020/2/26.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationTeachingScheduleNoVC.h"
-#import "ZOrganizationTeachingScheduleNoCell.h"
-#import "ZAlertView.h"
-
 #import "ZOrganizationTrachingScheduleNewClassVC.h"
 
-@interface ZOrganizationTeachingScheduleNoVC ()<UITableViewDelegate, UITableViewDataSource>
+#import "ZOrganizationTimeSelectVC.h"
+#import "ZAlertDataCheckBoxView.h"
+
+
+@interface ZOrganizationTrachingScheduleNewClassVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIButton *bottomBtn;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
-@property (nonatomic,strong) UIButton *bottomBtn;
-
 @end
 
-@implementation ZOrganizationTeachingScheduleNoVC
+@implementation ZOrganizationTrachingScheduleNewClassVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,47 +34,61 @@
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
-    
-    [self initCellConfigArr];
 }
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:nil heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
+    
+    {
+        NSArray *textArr = @[@[@"班级名称", @"请输入班级名称", @YES, @"", @"name"],
+                             @[@"上课时间", @"选择", @NO, @"rightBlackArrowN", @"time"],
+                             @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"]];
+        
+        for (int i = 0; i < textArr.count; i++) {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.placeholder = textArr[i][1];
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            cellModel.rightImage = textArr[i][3];
+            cellModel.cellTitle = textArr[i][4];
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(116);
+            cellModel.textColor = [UIColor colorTextGray];
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+        }
+    }
+    
 }
+
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"课程列表"];
+    [self.navigationItem setTitle:@"新增排课"];
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [self.view addSubview:self.bottomBtn];
+    
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(170))];
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(96));
+        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
+        make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
     }];
     
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.view.mas_top).offset(10);
     }];
+    self.iTableView.tableFooterView = bottomView;
 }
-
-
 
 #pragma mark lazy loading...
 -(UITableView *)iTableView {
@@ -102,10 +115,7 @@
         }
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(30))];
-        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        _iTableView.tableFooterView = bottomLineView;
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
     return _iTableView;
 }
@@ -113,15 +123,16 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-        __weak typeof(self) weakSelf = self;
+//        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"新建排课" forState:UIControlStateNormal];
+        _bottomBtn.layer.masksToBounds = YES;
+        _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
+        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
-            [weakSelf.navigationController pushViewController:successvc animated:YES];
+
         }];
     }
     return _bottomBtn;
@@ -141,13 +152,9 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]){
-//        ZOrganizationLessonManageListCell *enteryCell = (ZOrganizationLessonManageListCell *)cell;
-//        enteryCell.handleBlock = ^(NSInteger index) {
-//            [ZAlertView setAlertWithTitle:@"确定关闭课程？" leftBtnTitle:@"取消" rightBtnTitle:@"关闭" handlerBlock:^(NSInteger index) {
-//                
-//            }];
-//        };
+    if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
+//        ZSpaceEmptyCell *enteryCell = (ZSpaceEmptyCell *)cell;
+        
     }
     return cell;
 }
@@ -169,11 +176,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]) {
+    if ([cellConfig.title isEqualToString:@"school"]) {
        
-    }else if ([cellConfig.title isEqualToString:@"address"]){
-       
+    }else if ([cellConfig.title isEqualToString:@"teacher"]) {
+        [ZAlertDataCheckBoxView setAlertName:@"选择教练" handlerBlock:^(NSInteger index) {
+            
+        }];
+    } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
+        ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+        [self.navigationController pushViewController:svc animated:YES];
     }
+    
+    
 }
 
 #pragma mark vc delegate-------------------
@@ -193,9 +207,6 @@
     [super viewDidDisappear:animated];
 }
 @end
-
-
-
 
 
 

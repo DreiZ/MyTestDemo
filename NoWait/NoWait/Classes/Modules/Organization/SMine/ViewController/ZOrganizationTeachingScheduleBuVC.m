@@ -14,6 +14,7 @@
 
 @interface ZOrganizationTeachingScheduleBuVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIButton *bottomBtn;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -60,11 +61,17 @@
 - (void)setupMainView {
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(96));
+    }];
+    
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
         make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
     }];
 }
@@ -97,8 +104,28 @@
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(30))];
+        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _iTableView.tableFooterView = bottomLineView;
     }
     return _iTableView;
+}
+
+
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_bottomBtn setTitle:@"新建排课" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+//            ZStudentLessonOrderSuccessVC *successvc = [[ZStudentLessonOrderSuccessVC alloc] init];
+//            [weakSelf.navigationController pushViewController:successvc animated:YES];
+        }];
+    }
+    return _bottomBtn;
 }
 
 #pragma mark tableView -------datasource-----

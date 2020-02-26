@@ -419,11 +419,11 @@
             
         }];
     } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
-//        [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
-//            
-//        }];
-        ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
-        [self.navigationController pushViewController:svc animated:YES];
+        [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
+            
+        }];
+//        ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+//        [self.navigationController pushViewController:svc animated:YES];
     }
     
     
