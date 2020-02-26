@@ -70,8 +70,13 @@
 
 #pragma mark - 黄色
 + (UIColor *)colorOrangeMoment {
-    return HexAColor(0xEB7400, 1.0);
+    return HexAColor(0xF49015, 1.0);
 }
+
++ (UIColor *)colorOrangeBack {
+    return HexAColor(0xF49015, 0.3);
+}
+
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar {
     return HexAColor(0x141414, 1.0);

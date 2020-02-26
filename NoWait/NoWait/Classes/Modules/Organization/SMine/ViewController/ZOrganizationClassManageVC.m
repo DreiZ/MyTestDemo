@@ -1,27 +1,26 @@
 //
-//  ZOrganizationLessonManageVC.m
+//  ZOrganizationClassManageVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/2/25.
+//  Created by zhuang zhang on 2020/2/26.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationLessonManageVC.h"
-#import "ZOrganizationLessonManageListVC.h"
+#import "ZOrganizationClassManageVC.h"
+#import "ZOrganizationClassManageListVC.h"
 #import "ZOrganizationLessonAddVC.h"
 
 #import "ZOrganizationLessonTopSearchView.h"
 
 
-@interface ZOrganizationLessonManageVC ()
-@property (nonatomic,strong) UIButton *navLeftBtn;
+@interface ZOrganizationClassManageVC ()
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
 @end
 
-@implementation ZOrganizationLessonManageVC
+@implementation ZOrganizationClassManageVC
 
 - (void)loadView
 {
@@ -64,17 +63,14 @@
 }
 
 - (void)setNavgation {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
-
-    [self.navigationItem setRightBarButtonItem:item];
-    [self.navigationItem setTitle:@"课程管理"];
+    [self.navigationItem setTitle:@"班级管理"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"全部", @"开放", @"未开发", @"审核中", @"审核失败"].mutableCopy;
+        _titleArr = @[@"全部", @"待开课", @"已开课", @"已结课"].mutableCopy;
     }
     return _titleArr;
 }
@@ -83,30 +79,13 @@
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
-            ZOrganizationLessonManageListVC *lvc =[[ZOrganizationLessonManageListVC alloc] init];
+            ZOrganizationClassManageListVC *lvc =[[ZOrganizationClassManageListVC alloc] init];
             [_vcArr addObject:lvc];
         }
     }
     return _vcArr;
 }
 
-
-- (UIButton *)navLeftBtn {
-    if (!_navLeftBtn) {
-        __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(50))];
-        [_navLeftBtn setTitle:@"新增课程" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
-        ViewRadius(_navLeftBtn, CGFloatIn750(25));
-        [_navLeftBtn bk_whenTapped:^{
-            ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];
-            [weakSelf.navigationController pushViewController:avc animated:YES];
-        }];
-    }
-    return _navLeftBtn;
-}
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
@@ -139,6 +118,7 @@
 }
 
 @end
+
 
 
 

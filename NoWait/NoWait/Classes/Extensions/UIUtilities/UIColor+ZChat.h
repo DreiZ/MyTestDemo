@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 黄色
 + (UIColor *)colorOrangeMoment;
++ (UIColor *)colorOrangeBack;
 
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar;

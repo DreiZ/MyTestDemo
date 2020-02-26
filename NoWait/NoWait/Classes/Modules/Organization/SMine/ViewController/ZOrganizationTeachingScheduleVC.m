@@ -55,8 +55,8 @@
     self.titleColorSelected = [UIColor colorMain];
     self.titleColorNormal = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleSizeSelected = CGFloatIn750(32);
-    self.titleSizeNormal = CGFloatIn750(32);
+    self.titleSizeSelected = CGFloatIn750(28);
+    self.titleSizeNormal = CGFloatIn750(28);
     self.progressWidth = CGFloatIn750(30);
     self.progressViewIsNaughty = YES;
     self.scrollEnable = YES;
