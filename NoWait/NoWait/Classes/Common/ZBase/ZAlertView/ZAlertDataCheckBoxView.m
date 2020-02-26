@@ -12,7 +12,6 @@
 
 @interface ZAlertDataCheckBoxView ()< UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UIView *contView;
-@property (nonatomic,strong) UIView *bottomContView;
 @property (nonatomic,strong) UILabel *nameLabel;
 
 @property (nonatomic,strong) UITableView *iTableView;

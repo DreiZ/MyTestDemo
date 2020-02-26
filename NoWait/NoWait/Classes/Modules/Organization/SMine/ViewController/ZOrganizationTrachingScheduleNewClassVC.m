@@ -10,6 +10,7 @@
 
 #import "ZOrganizationTimeSelectVC.h"
 #import "ZAlertDataCheckBoxView.h"
+#import "ZTextFieldMultColCell.h"
 
 
 @interface ZOrganizationTrachingScheduleNewClassVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -46,18 +47,59 @@
                              @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"]];
         
         for (int i = 0; i < textArr.count; i++) {
-            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = textArr[i][0];
-            cellModel.placeholder = textArr[i][1];
-            cellModel.isTextEnabled = [textArr[i][2] boolValue];
-            cellModel.rightImage = textArr[i][3];
-            cellModel.cellTitle = textArr[i][4];
-            cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(116);
-            cellModel.textColor = [UIColor colorTextGray];
-            
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-            [self.cellConfigArr addObject:textCellConfig];
+            if (i == 1) {
+                ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+                cellModel.leftTitle = textArr[i][0];
+                cellModel.placeholder = textArr[i][1];
+                cellModel.isTextEnabled = [textArr[i][2] boolValue];
+                cellModel.rightImage = textArr[i][3];
+                cellModel.cellTitle = textArr[i][4];
+                cellModel.isHiddenLine = YES;
+                cellModel.cellHeight = CGFloatIn750(116);
+                cellModel.textColor = [UIColor colorTextGray];
+                cellModel.leftContentWidth = CGFloatIn750(260);
+                
+                NSMutableArray *multArr = @[].mutableCopy;
+                
+                NSArray *tempArr = @[@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"],@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"]];
+                for (int j = 0; j < tempArr.count; j++) {
+                    ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+                    mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;
+                    mModel.rightFont = [UIFont fontSmall];
+                    mModel.leftFont = [UIFont fontSmall];
+                    mModel.rightColor = [UIColor colorTextGray];
+                    mModel.leftColor = [UIColor colorTextGray];
+                    mModel.rightDarkColor = [UIColor colorTextGrayDark];
+                    mModel.leftDarkColor = [UIColor colorTextGrayDark];
+                    mModel.singleCellHeight = CGFloatIn750(44);
+                    mModel.rightTitle = tempArr[j][1];
+                    mModel.leftTitle = tempArr[j][0];
+                    mModel.leftContentSpace = CGFloatIn750(4);
+                    mModel.rightContentSpace = CGFloatIn750(4);
+                    mModel.leftMargin = CGFloatIn750(2);
+                    mModel.rightMargin = CGFloatIn750(2);
+                    mModel.isHiddenLine = YES;
+                    
+                    [multArr addObject:mModel];
+                }
+                cellModel.data = multArr;
+                
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldMultColCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldMultColCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+                [self.cellConfigArr addObject:textCellConfig];
+            }else{
+                ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+                cellModel.leftTitle = textArr[i][0];
+                cellModel.placeholder = textArr[i][1];
+                cellModel.isTextEnabled = [textArr[i][2] boolValue];
+                cellModel.rightImage = textArr[i][3];
+                cellModel.cellTitle = textArr[i][4];
+                cellModel.isHiddenLine = YES;
+                cellModel.cellHeight = CGFloatIn750(116);
+                cellModel.textColor = [UIColor colorTextGray];
+                
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+                [self.cellConfigArr addObject:textCellConfig];
+            }
         }
     }
     
@@ -72,7 +114,7 @@
 - (void)setupMainView {
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(170))];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
@@ -115,7 +157,7 @@
         }
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _iTableView;
 }

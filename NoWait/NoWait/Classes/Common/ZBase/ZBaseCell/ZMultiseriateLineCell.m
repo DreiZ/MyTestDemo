@@ -125,7 +125,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //leftImage leftTitle rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -149,7 +149,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //leftImage leftTitle no-rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -192,7 +192,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //leftImage no-leftTitle rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -216,7 +216,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //leftImage no-leftTitle no-rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin;
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin;
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -270,7 +270,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //no-leftImage no-leftTitle rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -294,7 +294,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //no-leftImage no-leftTitle no-rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -337,7 +337,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //no-leftImage no-leftTitle rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin  - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin  - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -361,7 +361,7 @@
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
                     //no-leftImage no-leftTitle rightImage rightTitle
-                    CGFloat rightMaxWidth = KScreenWidth - mModel.leftMargin - mModel.rightMargin;
+                    CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - mModel.rightMargin;
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -398,31 +398,31 @@
                 CGSize leftLabelSize = [SafeStr(mModel.leftTitle) tt_sizeWithFont:mModel.leftFont];
                 
                 if (mModel.rightImage && mModel.rightImage.length > 0) {
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                 }else{
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
                 }
             }else{
                 if (mModel.rightImage && mModel.rightImage.length > 0) {
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                 }else{
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin;
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - ((mModel.leftImageWidth > 0.01) ? mModel.leftImageWidth : 0) - mModel.leftContentSpace - mModel.rightMargin;
                 }
             }
         }else{
             if (mModel.leftTitle && mModel.leftTitle.length > 0) {
                 CGSize leftLabelSize = [SafeStr(mModel.leftTitle) tt_sizeWithFont:mModel.leftFont];
                 if (mModel.rightImage && mModel.rightImage.length > 0) {
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                 }else{
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin;
                 }
             }else{
                 if (mModel.rightImage && mModel.rightImage.length > 0) {
                     //no-leftImage no-leftTitle rightImage
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin  - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin  - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                 }else{
-                    rightMaxWidth = KScreenWidth - mModel.leftMargin - mModel.rightMargin;
+                    rightMaxWidth = mModel.cellWidth - mModel.leftMargin - mModel.rightMargin;
                 }
             }
         }
