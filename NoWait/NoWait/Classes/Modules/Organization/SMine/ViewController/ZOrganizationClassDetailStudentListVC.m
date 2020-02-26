@@ -10,6 +10,7 @@
 #import "ZOriganizationClassStudentListCell.h"
 
 #import "ZOriganizationClassStudentListTopView.h"
+#import "ZOrganizationClassDetailStudentListAddVC.h"
 @interface ZOrganizationClassDetailStudentListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -127,7 +128,8 @@
         [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
-            
+            ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
     return _navLeftBtn;

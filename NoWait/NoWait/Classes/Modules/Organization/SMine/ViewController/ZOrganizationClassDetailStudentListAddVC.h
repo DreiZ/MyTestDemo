@@ -7,10 +7,10 @@
 //
 
 #import "ZViewController.h"
-
+#import <WMPageController.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationClassDetailStudentListAddVC : ZViewController
+@interface ZOrganizationClassDetailStudentListAddVC : WMPageController
 
 @end
 
