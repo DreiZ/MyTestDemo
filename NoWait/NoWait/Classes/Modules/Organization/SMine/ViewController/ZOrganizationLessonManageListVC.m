@@ -41,7 +41,24 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:nil heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZOriganizationLessonListModel *model = [[ZOriganizationLessonListModel alloc] init];
+    if (self.type == ZOrganizationLessonTypeAll) {
+        model.type = ZOrganizationLessonTypeOpen;
+    }else{
+        model.type = self.type;
+    }
+    model.state = @"开放课程";
+    model.name = @"多米一号";
+    model.price = @"140.00";
+    model.sale = @"32";
+    model.score = @"4.0";
+    model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
+    
+    if (self.type == ZOrganizationLessonTypeExamineFail) {
+        model.fail = @"梵蒂冈山东；联盟打了；买了；购买的法律梵蒂冈地方是；蓝湖；来的舒服了；好；六点十分";
+    }
+    
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:progressCellConfig];
     [self.cellConfigArr addObject:progressCellConfig];
     [self.cellConfigArr addObject:progressCellConfig];
@@ -116,7 +133,7 @@
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]){
         ZOrganizationLessonManageListCell *enteryCell = (ZOrganizationLessonManageListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
+        enteryCell.handleBlock = ^(NSInteger index, ZOriganizationLessonListModel *model) {
             [ZAlertView setAlertWithTitle:@"确定关闭课程？" leftBtnTitle:@"取消" rightBtnTitle:@"关闭" handlerBlock:^(NSInteger index) {
                 
             }];

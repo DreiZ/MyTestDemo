@@ -51,7 +51,7 @@
 
 #pragma mark - 红色
 + (UIColor *)colorRedDefault {
-    return HexAColor(0xff4848, 1.0);
+    return HexAColor(0xf74444, 1.0);
 }
 
 #pragma mark - 绿色

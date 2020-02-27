@@ -12,6 +12,8 @@
 
 #import "ZOrganizationLessonTopSearchView.h"
 
+#import "ZOriganizationLessonModel.h"
+
 
 @interface ZOrganizationLessonManageVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -43,7 +45,7 @@
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:self.searchBtn];
     [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(70));
+        make.height.mas_equalTo(CGFloatIn750(78));
         make.top.equalTo(self.view.mas_top);
         make.left.right.equalTo(self.view);
     }];
@@ -84,6 +86,26 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationLessonManageListVC *lvc =[[ZOrganizationLessonManageListVC alloc] init];
+            switch (i) {
+                case 0:
+                    lvc.type = ZOrganizationLessonTypeAll;
+                    break;
+                case 1:
+                    lvc.type = ZOrganizationLessonTypeOpen;
+                break;
+                case 2:
+                    lvc.type = ZOrganizationLessonTypeClose;
+                break;
+                case 3:
+                    lvc.type = ZOrganizationLessonTypeExamine;
+                break;
+                case 4:
+                    lvc.type = ZOrganizationLessonTypeExamineFail;
+                break;
+                    
+                default:
+                    break;
+            }
             [_vcArr addObject:lvc];
         }
     }
@@ -94,12 +116,12 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(50))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"新增课程" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontMin]];
         [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
-        ViewRadius(_navLeftBtn, CGFloatIn750(25));
+        ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];
             [weakSelf.navigationController pushViewController:avc animated:YES];
@@ -130,11 +152,11 @@
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    return CGRectMake(0, CGFloatIn750(70), KScreenWidth, CGFloatIn750(106));
+    return CGRectMake(0, CGFloatIn750(78), KScreenWidth, CGFloatIn750(106));
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    CGFloat originY = CGFloatIn750(106 + 70);
+    CGFloat originY = CGFloatIn750(106 + 78);
     return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kTopHeight);
 }
 
