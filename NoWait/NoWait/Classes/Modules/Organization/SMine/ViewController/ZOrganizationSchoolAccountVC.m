@@ -11,9 +11,12 @@
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationAccountTopMainView.h"
 
+#import "ZOrganizationSchoolAccountListVC.h"
+
 @interface ZOrganizationSchoolAccountVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZOrganizationAccountTopMainView *topView;
+@property (nonatomic,strong) UIButton *navLeftBtn;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -66,6 +69,8 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"账户信息"];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
 }
 
 - (void)setupMainView {
@@ -126,6 +131,23 @@
     }
     return _topView;
 }
+
+- (UIButton *)navLeftBtn {
+    if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navLeftBtn setTitle:@"账单明细" forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn bk_whenTapped:^{
+            ZOrganizationSchoolAccountListVC *lvc = [[ZOrganizationSchoolAccountListVC alloc] init];
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        }];
+    }
+    return _navLeftBtn;
+}
+
+
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
