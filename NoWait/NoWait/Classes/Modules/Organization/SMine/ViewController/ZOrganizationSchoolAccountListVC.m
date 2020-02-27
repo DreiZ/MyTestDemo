@@ -13,6 +13,9 @@
 @interface ZOrganizationSchoolAccountListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZOriganizationTopTitleView *topView;
+@property (nonatomic,strong) UILabel *accountLabel;
+@property (nonatomic,strong) UILabel *accountDetailLabel;
+
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -70,18 +73,48 @@
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
+    
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [bottomView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(bottomView);
+        make.centerY.equalTo(bottomView.mas_centerY);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    [bottomView addSubview:self.accountLabel];
+    [bottomView addSubview:self.accountDetailLabel];
+    [self.accountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(bottomView.mas_bottom).multipliedBy(1/4.0);
+    }];
+    
+    [self.accountDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(bottomView.mas_bottom).multipliedBy(3/4.0);
+    }];
+    
+    [self.view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(182));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(40));
+    }];
     [self.view addSubview:self.iTableView];
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
          make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
          make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+         make.bottom.equalTo(bottomView.mas_top).offset(-CGFloatIn750(0));
          make.top.equalTo(self.topView.mas_bottom).offset(CGFloatIn750(0));
     }];
 }
 
 
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -118,6 +151,31 @@
     }
     return _topView;
 }
+
+- (UILabel *)accountLabel {
+    if (!_accountLabel) {
+        _accountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _accountLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _accountLabel.text = @"收款信息：023509230598023";
+        _accountLabel.numberOfLines = 1;
+        _accountLabel.textAlignment = NSTextAlignmentLeft;
+        [_accountLabel setFont:[UIFont fontContent]];
+    }
+    return _accountLabel;
+}
+
+- (UILabel *)accountDetailLabel {
+    if (!_accountDetailLabel) {
+        _accountDetailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _accountDetailLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _accountDetailLabel.text = @"账户信息：阿搜狗还是狗效果";
+        _accountDetailLabel.numberOfLines = 1;
+        _accountDetailLabel.textAlignment = NSTextAlignmentLeft;
+        [_accountDetailLabel setFont:[UIFont fontContent]];
+    }
+    return _accountDetailLabel;
+}
+
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -135,7 +193,7 @@
     return cell;
 }
 
-#pragma mark tableView ------delegate-----
+#pragma mark - tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
     CGFloat cellHeight =  cellConfig.heightOfCell;
@@ -157,7 +215,7 @@
     }
 }
 
-#pragma mark vc delegate-------------------
+#pragma mark - vc delegate-------------------
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
