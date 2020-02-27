@@ -11,6 +11,7 @@
 #import "ZDatePickerView.h"
 
 #import "ZOrganizationClassDetailStudentListVC.h"
+#import "ZOrganizationClassDetailStudentListAddVC.h"
 
 @interface ZOrganizationClassManageDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -212,7 +213,8 @@
         [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
-            
+            ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
     return _navLeftBtn;

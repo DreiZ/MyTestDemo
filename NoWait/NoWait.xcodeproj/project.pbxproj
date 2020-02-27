@@ -142,7 +142,6 @@
 		B28D90D52406249F0021E05A /* ZOrganizationClassManageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90D42406249F0021E05A /* ZOrganizationClassManageListCell.m */; };
 		B28D90D82406435F0021E05A /* ZOrganizationClassManageDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90D72406435F0021E05A /* ZOrganizationClassManageDetailVC.m */; };
 		B28D90DB24064EF20021E05A /* ZOrganizationClassDetailStudentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90DA24064EF20021E05A /* ZOrganizationClassDetailStudentListVC.m */; };
-		B28D90DE24064F700021E05A /* ZOriganizationClassStudentListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90DD24064F700021E05A /* ZOriganizationClassStudentListTopView.m */; };
 		B28D90E124064FDC0021E05A /* ZOriganizationClassStudentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90E024064FDC0021E05A /* ZOriganizationClassStudentListCell.m */; };
 		B28D90E424065E630021E05A /* ZOrganizationClassDetailStudentListAddVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90E324065E630021E05A /* ZOrganizationClassDetailStudentListAddVC.m */; };
 		B28D90E724065F780021E05A /* ZOrganizationClassDetailStudentListAddListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90E624065F780021E05A /* ZOrganizationClassDetailStudentListAddListVC.m */; };
@@ -715,8 +714,6 @@
 		B28D90D72406435F0021E05A /* ZOrganizationClassManageDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationClassManageDetailVC.m; sourceTree = "<group>"; };
 		B28D90D924064EF20021E05A /* ZOrganizationClassDetailStudentListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationClassDetailStudentListVC.h; sourceTree = "<group>"; };
 		B28D90DA24064EF20021E05A /* ZOrganizationClassDetailStudentListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationClassDetailStudentListVC.m; sourceTree = "<group>"; };
-		B28D90DC24064F700021E05A /* ZOriganizationClassStudentListTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationClassStudentListTopView.h; sourceTree = "<group>"; };
-		B28D90DD24064F700021E05A /* ZOriganizationClassStudentListTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationClassStudentListTopView.m; sourceTree = "<group>"; };
 		B28D90DF24064FDC0021E05A /* ZOriganizationClassStudentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationClassStudentListCell.h; sourceTree = "<group>"; };
 		B28D90E024064FDC0021E05A /* ZOriganizationClassStudentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationClassStudentListCell.m; sourceTree = "<group>"; };
 		B28D90E224065E630021E05A /* ZOrganizationClassDetailStudentListAddVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationClassDetailStudentListAddVC.h; sourceTree = "<group>"; };
@@ -1576,8 +1573,6 @@
 			children = (
 				B28D90D32406249F0021E05A /* ZOrganizationClassManageListCell.h */,
 				B28D90D42406249F0021E05A /* ZOrganizationClassManageListCell.m */,
-				B28D90DC24064F700021E05A /* ZOriganizationClassStudentListTopView.h */,
-				B28D90DD24064F700021E05A /* ZOriganizationClassStudentListTopView.m */,
 				B28D90DF24064FDC0021E05A /* ZOriganizationClassStudentListCell.h */,
 				B28D90E024064FDC0021E05A /* ZOriganizationClassStudentListCell.m */,
 			);
@@ -3399,7 +3394,6 @@
 				B28D90F724074FE80021E05A /* ZOrganizationSchoolAccountListVC.m in Sources */,
 				B2A77FF923BDECA300407BF0 /* ZDSBridgePublicManager.m in Sources */,
 				B2A7812623C311E000407BF0 /* ZStudentMainEnteryCell.m in Sources */,
-				B28D90DE24064F700021E05A /* ZOriganizationClassStudentListTopView.m in Sources */,
 				B2A77FD323BDEAA100407BF0 /* ZMenuSelectdView.m in Sources */,
 				B25146BB23CF13C2009A64D4 /* ZPhotoManager.m in Sources */,
 				B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */,

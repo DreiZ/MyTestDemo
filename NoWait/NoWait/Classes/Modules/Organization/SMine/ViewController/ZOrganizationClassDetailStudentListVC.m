@@ -9,7 +9,7 @@
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOriganizationClassStudentListCell.h"
 
-#import "ZOriganizationClassStudentListTopView.h"
+#import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 @interface ZOrganizationClassDetailStudentListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -17,7 +17,7 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
-@property (nonatomic,strong) ZOriganizationClassStudentListTopView *topView;
+@property (nonatomic,strong) ZOriganizationTopTitleView *topView;
 
 @end
 
@@ -135,10 +135,14 @@
     return _navLeftBtn;
 }
 
-- (ZOriganizationClassStudentListTopView *)topView {
+- (ZOriganizationTopTitleView *)topView {
     if (!_topView) {
-        _topView = [[ZOriganizationClassStudentListTopView alloc] init];
-        _topView.isOpen = self.isOpen;
+        _topView = [[ZOriganizationTopTitleView alloc] init];
+        if (self.isOpen) {
+            _topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
+        }else{
+            _topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
+        }
     }
     return _topView;
 }
