@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBaseNetworkBackModel.h"
+#import "ZNetworkingManager.h"
 
 typedef void(^completionHandler)(NSError *error);
+typedef void(^resultDataBlock)(BOOL isSuccess, id data);
 
 @protocol BaseViewModelDelegate <NSObject>
 @optional

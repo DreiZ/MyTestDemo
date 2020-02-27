@@ -17,3 +17,9 @@
 
 
 @end
+
+
+@implementation ZOriganizationLessonListNetModel
+
+
+@end

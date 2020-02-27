@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseViewModel.h"
-
+#import "ZOriganizationLessonModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationLessonViewModel : ZBaseViewModel
-
++ (void)getLessonlist:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 @end
 
 NS_ASSUME_NONNULL_END

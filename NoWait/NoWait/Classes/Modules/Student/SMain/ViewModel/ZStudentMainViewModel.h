@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBaseViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMainViewModel : NSObject
+@interface ZStudentMainViewModel : ZBaseViewModel
 
 @end
 

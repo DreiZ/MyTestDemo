@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *emptyImage;
 
 @property (nonatomic, strong) NSString *analyzeTitle;
+@property (nonatomic, assign) NSInteger currentPage;
 
 /// 当前VC stutusBar的状态，仅在viewWillAppear时生效，默认LightContent
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
@@ -33,4 +34,6 @@
 @property (nonatomic, assign) BOOL isTransition;//是否开启转场动画
 
 - (void)refreshData;
+
+
 @end

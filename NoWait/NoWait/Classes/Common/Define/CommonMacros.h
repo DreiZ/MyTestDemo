@@ -16,6 +16,8 @@
 #import "UIBarButtonItem+Back.h"
 
 #import "UITableViewCell+ZCategory.h"
+#import "UIScrollView+ZRefreshHeader.h"
+#import "UIScrollView+ZLoadMoreFooter.h"
 
 #import "ZBaseCellModel.h"
 #import "ZBaseCell.h"
@@ -35,6 +37,7 @@
 
 #import "ZShortcutMethod.h"
 #import "ZDatePickerManager.h"
+
 
 
 #endif /* CommonMacros_h */

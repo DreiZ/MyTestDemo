@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZBaseModel.h"
+#import "ZBaseNetworkBackModel.h"
 
 //课程管理 课程类别
 typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
@@ -33,4 +34,10 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,assign) ZOrganizationLessonType type;
 
 @end
+
+@interface ZOriganizationLessonListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
+@property (nonatomic,copy) NSString *pages;
+@end
+
 

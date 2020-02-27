@@ -12,6 +12,8 @@
 
 #import "ZOrganizationLessonDetailVC.h"
 
+#import "ZOriganizationLessonViewModel.h"
+
 @interface ZOrganizationLessonManageListVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 
@@ -22,6 +24,23 @@
 
 @implementation ZOrganizationLessonManageListVC
 
+#pragma mark - vc delegate
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -31,9 +50,13 @@
     [self setupMainView];
 }
 
+#pragma mark - setdata
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
+    
+    self.currentPage = 1;
+    self.loading = NO;
     
     [self initCellConfigArr];
 }
@@ -84,13 +107,18 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
         make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
     }];
+    
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(40))];
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    _iTableView.tableFooterView = bottomView;
 }
 
 
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
+        __weak typeof(self) weakSelf = self;
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -111,6 +139,15 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
         }
+        _iTableView.emptyDataSetSource = self;
+        _iTableView.emptyDataSetDelegate = self;
+        [_iTableView tt_addRefreshHeaderWithAction:^{
+            [weakSelf refreshData];
+        }];
+        [_iTableView tt_addLoadMoreFooterWithAction:^{
+            [weakSelf refreshMoreData];
+        }];
+        [_iTableView tt_removeLoadMoreFooter];
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -118,7 +155,7 @@
     return _iTableView;
 }
 
-#pragma mark tableView -------datasource-----
+#pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -167,27 +204,60 @@
     }
 }
 
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
 }
 @end
-
-
-
-
-
-
-
