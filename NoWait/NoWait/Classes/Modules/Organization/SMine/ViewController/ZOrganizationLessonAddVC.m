@@ -418,6 +418,9 @@
         [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
             
         }];
+        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+            
+        }];
     } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
         [ZAlertDateWeekAndHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSInteger index) {
             

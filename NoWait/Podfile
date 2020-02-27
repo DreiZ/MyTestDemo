@@ -33,7 +33,7 @@ target :NoWait do
 
     pod 'TLKit', :git => 'https://github.com/tbl00c/TLKit.git', :tag => '0.0.27'
 
-
+    pod 'PGPickerView'
     pod 'AMap2DMap'
     pod 'AMapLocation'
     pod 'AMapSearch'

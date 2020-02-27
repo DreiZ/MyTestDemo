@@ -8,7 +8,6 @@
 
 #import "ZOrganizationClassManageDetailVC.h"
 #import "ZTextFieldMultColCell.h"
-#import "ZDatePickerView.h"
 
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
@@ -274,7 +273,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"openTime"]) {
         if (!self.isOpen) {
-            [ZDatePickerView showTimePickerInView:self.view date:[NSDate new] dateSelect:^(NSDate * date) {
+            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
                 
             }];
         } 

@@ -18,7 +18,6 @@
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 #import "ZStudentMineSettingSexVC.h"
-#import "ZDatePickerView.h"
 
 
 @interface ZStudentMineSettingMineVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -181,10 +180,8 @@
          ZStudentMineSettingSexVC *edit = [[ZStudentMineSettingSexVC alloc] init];
          [self.navigationController pushViewControllerAndSuicide:edit animated:YES];
      } else if([cellConfig.title isEqualToString:@"出生日期"]){
-         [ZDatePickerView showTimePickerInView:self.view date:[NSDate new] dateSelect:^(NSDate *date) {
-             DLog(@"----%f",[date timeIntervalSince1970]);
-//             weakSelf.accountModel.birthday = [NSString stringWithFormat:@"%.0f",[date timeIntervalSince1970]];
-//             [weakSelf.iTableView reloadData];
+         [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+             
          }];
      }
 }
