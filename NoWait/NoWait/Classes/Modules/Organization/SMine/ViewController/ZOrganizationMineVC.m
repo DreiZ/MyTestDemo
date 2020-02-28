@@ -27,7 +27,7 @@
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
 
-#define kHeaderHeight (CGFloatIn750(316)+kStatusBarHeight)
+#define kHeaderHeight CGFloatIn750(270)
 
 @interface ZOrganizationMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -248,10 +248,10 @@
     CGFloat Offset_y = scrollView.contentOffset.y;
     // 下拉 纵向偏移量变小 变成负的
     if ( Offset_y < -(kTopHeight)) {
-    // 拉伸后图片的高度
-    CGFloat totalOffset = - Offset_y;
-    // 拉伸后图片位置
-    _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
+        // 拉伸后图片的高度
+        CGFloat totalOffset = - Offset_y;
+        // 拉伸后图片位置
+        _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
     }else{
       _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, kTopHeight);
     }

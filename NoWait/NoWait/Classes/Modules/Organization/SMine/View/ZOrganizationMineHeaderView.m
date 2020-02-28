@@ -9,7 +9,7 @@
 #import "ZOrganizationMineHeaderView.h"
 
 #define headImageHeight CGFloatIn750(120)
-#define settingImageHeight CGFloatIn750(90)
+#define settingImageHeight CGFloatIn750(80)
 
 
 @interface ZOrganizationMineHeaderView ()
@@ -114,12 +114,13 @@
 
 #pragma mark -设置frame
 - (void)setSubViewFrame {
-    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(80) - headImageHeight, headImageHeight, headImageHeight);
+    self.settingImageView.tintColor = HexAColor(0x000000, 1);
+    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
     
     
-    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(20) - settingImageHeight, self.height - (CGFloatIn750(50) + CGFloatIn750(80) + headImageHeight + settingImageHeight), settingImageHeight, settingImageHeight);
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
-    self.nameLabel.font = [UIFont fontMaxTitle];
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
     self.nameLabel.alpha = 1;
     self.headImageView.layer.cornerRadius = CGFloatIn750(41);
     
@@ -128,22 +129,25 @@
 }
 
 - (void)setAnimationSubViewFrame {
-
-    return;
-    self.nameLabel.alpha = (self.height-kTopHeight-kStatusBarHeight)/(kTopHeight);
-    self.switchUserBtn.alpha = (self.height-kTopHeight-kStatusBarHeight)/(kTopHeight);
+   
+    CGFloat alpha =  1 - ((kTopHeight + kStatusBarHeight * 2) - self.height)/kTopHeight;
     
-    self.nameLabel.font = [UIFont systemFontOfSize:(CGFloatIn750(36) - (1 - self.nameLabel.alpha)*CGFloatIn750(10))];
+    self.nameLabel.alpha = alpha;
+    self.switchUserBtn.alpha = alpha;
     
-    self.headImageView.frame = CGRectMake((KScreenWidth - headImageHeight -  CGFloatIn750(30)) - (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2), self.height - CGFloatIn750(80) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(12), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36) - (1-self.nameLabel.alpha)*CGFloatIn750(20)];
     
-    self.settingView.frame = CGRectMake(KScreenWidth - settingImageHeight - CGFloatIn750(20), self.height - (CGFloatIn750(80) + CGFloatIn750(50) + headImageHeight + settingImageHeight) + (1 - self.nameLabel.alpha)*CGFloatIn750(30) , settingImageHeight, settingImageHeight);
+    CGFloat changeHeadImageHeight = headImageHeight- (1-self.nameLabel.alpha)*CGFloatIn750(60);
+     
+    self.headImageView.frame = CGRectMake(KScreenWidth - changeHeadImageHeight -  CGFloatIn750(30) - (KScreenWidth/2.0 - changeHeadImageHeight/2.0 -  CGFloatIn750(30)) * (1-alpha), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
+    
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
     
-    self.backView.alpha = (1 - self.nameLabel.alpha);
-    
+    self.backView.alpha = (1 - alpha);
+    self.settingImageView.tintColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
 }
 
 #pragma mark --懒加载---
@@ -174,7 +178,7 @@
     if (!_settingImageView) {
         _settingImageView = [[UIImageView alloc] init];
         _settingImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _settingImageView.tintColor = [UIColor  colorMain];
+        _settingImageView.tintColor = HexAColor(0x000000, 1);
         _settingImageView.layer.masksToBounds = YES;
         _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -246,7 +250,7 @@
 #pragma mark - 更新frame
 - (void)updateSubViewFrame {
     [self setSubViewFrame];
-    if (self.height > kTopHeight + kStatusBarHeight) {
+    if (self.height > kTopHeight + kStatusBarHeight * 2) {
         [self setSubViewFrame];
     }else {
         [self setAnimationSubViewFrame];

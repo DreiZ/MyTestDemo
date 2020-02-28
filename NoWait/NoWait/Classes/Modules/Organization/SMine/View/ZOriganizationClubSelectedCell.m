@@ -36,7 +36,7 @@
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(0));
+        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(24));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-0));
     }];
     
@@ -64,7 +64,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumLineSpacing= 0;
         layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(52));
+        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(72));
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
@@ -124,9 +124,9 @@
     if ( _channelList.count > 0) {
         ZBaseUnitModel *model = _channelList[indexPath.row];
         CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
-        return CGSizeMake(cellSize.width + CGFloatIn750(34), CGFloatIn750(52));
+        return CGSizeMake(cellSize.width + CGFloatIn750(34), CGFloatIn750(72));
     }
-    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(52));
+    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(72));
 }
 
 #pragma mark 类型
@@ -136,7 +136,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(54);
+    return CGFloatIn750(98);
 }
 
 - (void)selectedWithIndexPath:(NSIndexPath *)indexPath {

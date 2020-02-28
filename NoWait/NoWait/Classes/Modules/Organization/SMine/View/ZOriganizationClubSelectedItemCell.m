@@ -35,7 +35,7 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(20));
-        make.top.equalTo(self.mas_top);
+        make.centerY.equalTo(self.mas_centerY);
     }];
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
