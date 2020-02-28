@@ -17,6 +17,7 @@
 #import "ZStudentMainVC.h"
 #import "ZStudentMessageVC.h"
 #import "ZStudentMineVC.h"
+#import "ZMineMainVC.h"
 
 @interface ZLaunchManager ()
 
@@ -150,7 +151,7 @@
 {
     ZStudentMainVC *studentMainVC = [[ZStudentMainVC alloc] init];
     ZStudentMessageVC *studentMessageVC = [[ZStudentMessageVC alloc] init];
-    ZStudentMineVC *mineVC = [[ZStudentMineVC alloc] init];
+    ZMineMainVC *mineVC = [[ZMineMainVC alloc] init];
 
     
     

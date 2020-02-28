@@ -20,6 +20,7 @@
 #import "ZStudentMineSettingVC.h"
 
 #import "ZOrganizationMineVC.h"
+#import "ZStudentMineSwitchAccountVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -136,10 +137,13 @@
         __weak typeof(self) weakSelf = self;
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
-//            if (index == 1) {
+            if (index == 1) {
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
-//            }
+            }else if (index == 3){
+                ZStudentMineSwitchAccountVC *avc = [[ZStudentMineSwitchAccountVC alloc] init];
+                [weakSelf.navigationController pushViewController:avc animated:YES];
+            }
         };
     }
     return _headerView;

@@ -250,13 +250,15 @@
      }else if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
          if (cellModel.isSelected) {
+             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
+             [self.navigationController popToRootViewControllerAnimated:YES];
 //             ZUser *user = cellModel.data;
 //             [[ZUserHelper sharedHelper] switchUser:user];
 //             [self initCellConfigArr];
 //             [self.iTableView reloadData];
              
-             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
-             [self.navigationController pushViewController:lvc animated:YES];
+//             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+//             [self.navigationController pushViewController:lvc animated:YES];
          }
          
          
