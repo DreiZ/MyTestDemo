@@ -24,7 +24,6 @@ static ZDBManager *manager;
             //        dispatch_once(&once, ^{
             //
             //        });
-            DLog(@"dbmanager------------------------");
         }
     }
 
