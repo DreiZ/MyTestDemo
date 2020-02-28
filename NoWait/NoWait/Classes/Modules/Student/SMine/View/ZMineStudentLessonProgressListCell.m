@@ -31,20 +31,12 @@
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [self.contentView addSubview:self.lessonTitleLabel];
-    [self.lessonTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(18));
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(130));
-    }];
-    
-    
     [self.contentView addSubview:self.lessonProgressBackView];
     [self.lessonProgressBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lessonTitleLabel.mas_right).offset(CGFloatIn750(24));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(180));
-        make.height.mas_equalTo(CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(86));
     }];
     
     [self.lessonProgressBackView addSubview:self.lessonProgressView];
@@ -53,11 +45,16 @@
         make.width.equalTo(self.lessonProgressBackView).multipliedBy(0.3);
     }];
     
+    [self.contentView addSubview:self.lessonTitleLabel];
+    [self.lessonTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.lessonProgressBackView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.contentView.mas_centerY);
+    }];
+    
     [self.contentView addSubview:self.lessonCountLabel];
     [self.lessonCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lessonProgressBackView.mas_right).offset(CGFloatIn750(120));
+        make.right.equalTo(self.lessonProgressBackView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(130));
     }];
 }
 
@@ -66,11 +63,8 @@
 - (UIView *)lessonProgressBackView {
     if (!_lessonProgressBackView) {
         _lessonProgressBackView = [[UIView alloc] init];
-        _lessonProgressBackView.layer.masksToBounds = YES;
-        _lessonProgressBackView.clipsToBounds = YES;
-        _lessonProgressBackView.layer.borderColor = [UIColor  colorMain].CGColor;
-        _lessonProgressBackView.layer.borderWidth = 0.5;
-        _lessonProgressBackView.backgroundColor = [UIColor whiteColor];
+        _lessonProgressBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        ViewRadius(_lessonProgressBackView, CGFloatIn750(43));
     }
     return _lessonProgressBackView;
 }
@@ -78,8 +72,7 @@
 - (UIView *)lessonProgressView {
     if (!_lessonProgressView) {
         _lessonProgressView = [[UIView alloc] init];
-        _lessonProgressView.layer.masksToBounds = YES;
-        _lessonProgressView.clipsToBounds = YES;
+        ViewRadius(_lessonProgressView, CGFloatIn750(43));
         _lessonProgressView.backgroundColor = [UIColor  colorMain];
     }
     return _lessonProgressView;
@@ -88,11 +81,11 @@
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonTitleLabel.textColor = [UIColor colorTextGray];
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
         _lessonTitleLabel.text = @"瑜伽";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonTitleLabel setFont:[UIFont fontSmall]];
+        [_lessonTitleLabel setFont:[UIFont fontContent]];
     }
     return _lessonTitleLabel;
 }
@@ -100,7 +93,7 @@
 - (UILabel *)lessonCountLabel {
     if (!_lessonCountLabel) {
         _lessonCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextBlack]);
+        _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _lessonCountLabel.text = @"20/30节";
         _lessonCountLabel.numberOfLines = 1;
         _lessonCountLabel.textAlignment = NSTextAlignmentLeft;
@@ -110,6 +103,6 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(54);
+    return CGFloatIn750(106);
 }
 @end

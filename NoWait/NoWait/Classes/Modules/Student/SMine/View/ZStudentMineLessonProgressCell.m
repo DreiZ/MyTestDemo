@@ -12,7 +12,7 @@
 @interface ZStudentMineLessonProgressCell ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UILabel *lessonTitleLabel;
-@property (nonatomic,strong) UILabel *moreLabel;
+@property (nonatomic,strong) UIView *bottomView;
 
 @end
 
@@ -29,37 +29,30 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
     contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    contView.layer.masksToBounds = YES;
-    contView.layer.cornerRadius = 4;
+    contView.layer.cornerRadius = CGFloatIn750(16);
     [self.contentView addSubview:contView];
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.mas_top);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(30));
     }];
+    ViewShadowRadius(contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
     topTitleBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [contView addSubview:topTitleBackView];
     [topTitleBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.left.right.top.equalTo(contView);
-    }];
-    
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [moreBtn bk_whenTapped:^{
-        
-    }];
-    [contView addSubview:moreBtn];
-    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.bottom.equalTo(contView);
+        make.height.mas_equalTo(CGFloatIn750(66));
+        make.right.equalTo(contView);
+        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(contView.mas_top).offset(CGFloatIn750(14));
     }];
     
     [topTitleBackView addSubview:self.lessonTitleLabel];
@@ -68,27 +61,19 @@
         make.left.equalTo(topTitleBackView.mas_left).offset(CGFloatIn750(18));
     }];
     
-    [topTitleBackView addSubview:self.moreLabel];
-    [self.moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(topTitleBackView.mas_centerY);
-        make.right.equalTo(topTitleBackView.mas_right).offset(CGFloatIn750(-18));
-    }];
     
-    UIView *spaceLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    spaceLineView.backgroundColor = [UIColor colorGrayLine];
-    [contView addSubview:spaceLineView];
-    [spaceLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topTitleBackView.mas_bottom);
-        make.left.right.equalTo(contView);
-        make.height.mas_equalTo(0.5);
+    [contView addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(contView);
+        make.height.mas_equalTo(CGFloatIn750(108));
     }];
     
     [contView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(spaceLineView.mas_bottom).offset(CGFloatIn750(8));
+        make.top.equalTo(topTitleBackView.mas_bottom).offset(CGFloatIn750(0));
         make.left.equalTo(contView.mas_left);
         make.right.equalTo(contView.mas_right);
-        make.bottom.equalTo(contView.mas_bottom).offset(CGFloatIn750(-16));
+        make.bottom.equalTo(self.bottomView.mas_top);
     }];
     
 }
@@ -120,18 +105,6 @@
     return _iTableView;
 }
 
-- (UILabel *)moreLabel {
-    if (!_moreLabel) {
-        _moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _moreLabel.text = @"查看更多>>";
-        _moreLabel.numberOfLines = 0;
-        _moreLabel.textAlignment = NSTextAlignmentRight;
-        [_moreLabel setFont:[UIFont fontSmall]];
-    }
-    return _moreLabel;
-}
-
 - (UILabel *)lessonTitleLabel {
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -144,6 +117,33 @@
     return _lessonTitleLabel;
 }
 
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [moreBtn setTitle:@"查看全部课程  >" forState:UIControlStateNormal];
+        [moreBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [moreBtn.titleLabel setFont:[UIFont fontSmall]];
+        [moreBtn bk_whenTapped:^{
+            
+        }];
+        [_bottomView addSubview:moreBtn];
+        [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.bottomView);
+        }];
+        
+        UIView *spaceLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        spaceLineView.backgroundColor = [UIColor colorGrayLine];
+        [_bottomView addSubview:spaceLineView];
+        [spaceLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.bottomView.mas_top);
+            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(30));
+            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
+            make.height.mas_equalTo(0.5);
+        }];
+    }
+    return _bottomView;
+}
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -196,7 +196,7 @@
     if (!list || list.count == 0) {
         return 0.01f;
     }
-    return CGFloatIn750(120) + CGFloatIn750(54) * list.count;
+    return CGFloatIn750(30) + CGFloatIn750(36) + CGFloatIn750(80) + CGFloatIn750(108) + CGFloatIn750(106) * list.count;
 }
 
 

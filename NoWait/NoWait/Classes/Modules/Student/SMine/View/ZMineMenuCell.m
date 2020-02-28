@@ -27,17 +27,18 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left);
-        make.right.equalTo(self.contentView.mas_right);
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(20));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-20));
     }];
+    ViewShadowRadius(self.funBackView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
     
     [self.contentView addSubview:self.iCollectionView];
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -50,8 +51,8 @@
 - (UIView *)funBackView {
     if (!_funBackView) {
         _funBackView = [[UIView alloc] init];
-        _funBackView.layer.masksToBounds = YES;
-        _funBackView.clipsToBounds = YES;
+//        _funBackView.layer.masksToBounds = YES;
+//        _funBackView.clipsToBounds = YES;
         _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _funBackView;
@@ -63,14 +64,14 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumLineSpacing= 0;
         layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+        layout.itemSize = CGSizeMake((KScreenWidth - CGFloatIn750(60))/4.0f, CGFloatIn750(174));
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
         
 //        [_iCollectionView setBounces:NO];
-        _iCollectionView.clipsToBounds = YES;
+//        _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZMineMenuItemCell class] forCellWithReuseIdentifier:[ZMineMenuItemCell className]];
         [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         _iCollectionView.delegate = self;
@@ -111,9 +112,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (_topChannelList.count < 5 && _topChannelList.count > 0) {
-        return CGSizeMake(KScreenWidth/_topChannelList.count, CGFloatIn750(128));
+        return CGSizeMake((KScreenWidth - CGFloatIn750(60))/_topChannelList.count, CGFloatIn750(174));
     }
-    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+    return CGSizeMake((KScreenWidth - CGFloatIn750(60))/4.0f, CGFloatIn750(174));
 }
 
 #pragma mark 类型
@@ -123,6 +124,6 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(170);
+    return CGFloatIn750(216);
 }
 @end

@@ -28,12 +28,12 @@
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView.mas_centerX);
         make.width.height.mas_equalTo(CGFloatIn750(62));
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(16));
+        make.bottom.equalTo(self.contentView.mas_centerY).offset(CGFloatIn750(7));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.imageView.mas_centerX);
-        make.top.equalTo(self.imageView.mas_bottom).offset(CGFloatIn750(8));
+        make.top.equalTo(self.imageView.mas_bottom).offset(CGFloatIn750(18));
     }];
 }
 

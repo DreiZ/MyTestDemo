@@ -159,25 +159,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
 //    ZOrganizationCampusManagementVC
-    if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
-//        ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
-//        lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
-//            if ([model.channel_id isEqualToString:@"eva"]) {
-//                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
-//                [weakSelf.navigationController pushViewController:elvc animated:YES];
-//            }else if ([model.channel_id isEqualToString:@"order"]){
-//                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
-//                [weakSelf.navigationController pushViewController:elvc animated:YES];
-//
-//            }else if ([model.channel_id isEqualToString:@"card"]) {
-//                ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
-//                [weakSelf.navigationController pushViewController:lvc animated:YES];
-//            }else if ([model.channel_id isEqualToString:@"lesson"]) {
-//                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
-//                [weakSelf.navigationController pushViewController:lvc animated:YES];
-//            }
-//        };
-    }else if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
+   if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
             if ([model.uid isEqualToString:@"lesson"]) {

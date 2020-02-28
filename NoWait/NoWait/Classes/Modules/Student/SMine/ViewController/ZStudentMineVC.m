@@ -7,7 +7,7 @@
 //
 
 #import "ZStudentMineVC.h"
-#import "ZMineHeaderView.h"
+#import "ZOrganizationMineHeaderView.h"
 
 #import "ZMineMenuCell.h"
 #import "ZStudentMineAdverCell.h"
@@ -21,11 +21,11 @@
 
 #import "ZOrganizationMineVC.h"
 
-#define kHeaderHeight (CGFloatIn750(160)+kStatusBarHeight)
+#define kHeaderHeight (CGFloatIn750(270))
 
 @interface ZStudentMineVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
-@property (nonatomic,strong) ZMineHeaderView *headerView;
+@property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
 
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
@@ -123,7 +123,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         
@@ -131,10 +131,10 @@
     return _iTableView;
 }
 
-- (ZMineHeaderView *)headerView {
+- (ZOrganizationMineHeaderView *)headerView {
     if (!_headerView) {
         __weak typeof(self) weakSelf = self;
-        _headerView = [[ZMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
+        _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.topHandleBlock = ^(NSInteger index) {
 //            if (index == 1) {
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
@@ -221,19 +221,19 @@
 
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // 获取到tableView偏移量
-    CGFloat Offset_y = scrollView.contentOffset.y;
-    // 下拉 纵向偏移量变小 变成负的
-    if ( Offset_y < -(kTopHeight)) {
-    // 拉伸后图片的高度
-    CGFloat totalOffset = - Offset_y;
-    // 拉伸后图片位置
-    _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
-    }else{
-      _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, kTopHeight);
-    }
-    
-    [_headerView updateSubViewFrame];
+ // 获取到tableView偏移量
+   CGFloat Offset_y = scrollView.contentOffset.y;
+   // 下拉 纵向偏移量变小 变成负的
+   if ( Offset_y < -(kTopHeight)) {
+       // 拉伸后图片的高度
+       CGFloat totalOffset = - Offset_y;
+       // 拉伸后图片位置
+       _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, totalOffset);
+   }else{
+       _headerView.frame = CGRectMake(0, Offset_y, KScreenWidth, kTopHeight);
+   }
+   
+   [_headerView updateSubViewFrame];
 }
 
 
@@ -243,8 +243,8 @@
     ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
     [self.cellConfigArr addObject:channelCellConfig];
     
-    ZCellConfig *adverCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineAdverCell className] title:[ZStudentMineAdverCell className] showInfoMethod:nil heightOfCell:[ZStudentMineAdverCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:adverCellConfig];
+//    ZCellConfig *adverCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineAdverCell className] title:[ZStudentMineAdverCell className] showInfoMethod:nil heightOfCell:[ZStudentMineAdverCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+//    [self.cellConfigArr addObject:adverCellConfig];
     
     ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
        [self.cellConfigArr addObject:progressCellConfig];
