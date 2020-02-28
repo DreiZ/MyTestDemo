@@ -18,6 +18,7 @@
 #import "ZUserHelper.h"
 #import "ZLaunchManager.h"
 #import "ZAccountViewController.h"
+#import "ZStudentMineSwitchAccountLoginVC.h"
 
 @interface ZStudentMineSwitchAccountVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -248,10 +249,18 @@
          [self.navigationController pushViewController:loginvc animated:YES];
      }else if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-         ZUser *user = cellModel.data;
-         [[ZUserHelper sharedHelper] switchUser:user];
-         [self initCellConfigArr];
-         [self.iTableView reloadData];
+         if (cellModel.isSelected) {
+//             ZUser *user = cellModel.data;
+//             [[ZUserHelper sharedHelper] switchUser:user];
+//             [self initCellConfigArr];
+//             [self.iTableView reloadData];
+             
+             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+             [self.navigationController pushViewController:lvc animated:YES];
+         }
+         
+         
+         
      }
 }
 
