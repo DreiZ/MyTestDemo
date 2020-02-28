@@ -100,9 +100,12 @@
     
     self.nameLabel.font = [UIFont systemFontOfSize:(CGFloatIn750(36) - (1 - self.nameLabel.alpha)*CGFloatIn750(10))];
     
-    self.headImageView.frame = CGRectMake(CGFloatIn750(30) + (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2), self.height - CGFloatIn750(30) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(12), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20), headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30) + (1 - self.nameLabel.alpha)*((KScreenWidth - CGFloatIn750(60) - headImageHeight)/2),
+                                          self.height - CGFloatIn750(30) - headImageHeight + (1 - self.nameLabel.alpha)*CGFloatIn750(30),
+                                          headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20),
+                                          headImageHeight - (1 - self.nameLabel.alpha)*CGFloatIn750(20));
     
-    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)) + (1 - self.nameLabel.alpha)*CGFloatIn750(30) , CGFloatIn750(90), CGFloatIn750(90));
+    self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(90), self.height - (CGFloatIn750(90) + CGFloatIn750(50)) + (1 - self.nameLabel.alpha)*CGFloatIn750(50) , CGFloatIn750(90), CGFloatIn750(90));
     
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
@@ -139,7 +142,7 @@
     if (!_settingImageView) {
         _settingImageView = [[UIImageView alloc] init];
         _settingImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _settingImageView.tintColor = [UIColor  colorMain];
+        _settingImageView.tintColor = [UIColor  colorRedDefault];
         _settingImageView.layer.masksToBounds = YES;
         _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
     }

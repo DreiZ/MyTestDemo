@@ -68,7 +68,7 @@
 }
 
 - (void)setupMainView {
-    
+
     [self.view addSubview:self.switchView];
     [self.switchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);

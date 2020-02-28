@@ -24,8 +24,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,6 +37,12 @@
     if ([UIApplication sharedApplication].statusBarStyle != self.statusBarStyle) {
         [UIApplication sharedApplication].statusBarStyle = self.statusBarStyle;
     }
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+     //设置透明的背景图，便于识别底部线条有没有被隐藏
+
+//    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+     //此处使底部线条失效
+     [navigationBar setShadowImage:[UIImage imageWithColor:[UIColor whiteColor]]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
