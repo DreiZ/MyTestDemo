@@ -8,7 +8,7 @@
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZCellConfig.h"
-
+#import "ZAlertQRCodeView.h"
 #import "ZSpaceEmptyCell.h"
 #import "ZStudentMineSignDetailHandleCell.h"
 
@@ -110,7 +110,7 @@
                model.cellHeight = CGFloatIn750(80);
                model.leftFont = [UIFont fontContent];
                
-               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:model.cellHeight cellType:ZCellTypeClass dataModel:model];
+               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:model.cellHeight cellType:ZCellTypeClass dataModel:model];
                
                [self.cellConfigArr addObject:menuCellConfig];
            }
@@ -176,9 +176,15 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
+    
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
-       
+    if ([cellConfig.title isEqualToString:@"ZStudentMineSignDetailHandleCell"]){
+        ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
+        scell.handleBlock = ^(NSInteger index) {
+            [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:@"http://api.k780.com:88/?app=qr.get&data=http://www.baidu.com" handlerBlock:^(NSInteger index) {
+                
+            }];
+        };
     }
     return cell;
 }
