@@ -42,7 +42,6 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:self.iTableView];
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,7 +84,7 @@
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         
@@ -177,17 +176,15 @@
     CGFloat Offset_y = scrollView.contentOffset.y;
     // 下拉 纵向偏移量变小 变成负的
    
-    NSLog(@"-----%f",Offset_y);
     if (Offset_y > CGFloatIn750(420)) {
         self.topNavView.alpha = (Offset_y - CGFloatIn750(420))/CGFloatIn750(50);
     }else {
         self.topNavView.alpha = 0;
     }
-    
-    
 }
 
 
+#pragma mark - setDetailData
 - (void)setCellData {
     [_cellConfigArr removeAllObjects];
     

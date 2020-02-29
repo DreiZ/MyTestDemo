@@ -32,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.isHidenNaviBar = NO;
 //    [MobClick beginLogPageView:self.analyzeTitle];
     if ([UIApplication sharedApplication].statusBarStyle != self.statusBarStyle) {
         [UIApplication sharedApplication].statusBarStyle = self.statusBarStyle;

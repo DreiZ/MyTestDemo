@@ -14,11 +14,17 @@
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
+- (void)setupMainView;
 
+//重写数据方法
 - (void)refreshMoreData;
 - (void)setDataSource;
 - (void)initCellConfigArr;
-- (void)setupMainView;
+
+//设置tableview 刷新数据 空数据代理
+- (void)setTableViewRefreshHeader;
+- (void)setTableViewRefreshFooter;
+- (void)setTableViewEmptyDataDelegate;
 
 #pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;

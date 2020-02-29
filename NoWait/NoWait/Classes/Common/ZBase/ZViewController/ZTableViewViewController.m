@@ -61,12 +61,31 @@
     }];
 }
 
+- (void)setTableViewRefreshHeader {
+    __weak typeof(self) weakSelf = self;
+    [self.iTableView tt_addRefreshHeaderWithAction:^{
+        [weakSelf refreshData];
+    }];
+}
 
+- (void)setTableViewRefreshFooter {
+    __weak typeof(self) weakSelf = self;
+    
+    [self.iTableView tt_addLoadMoreFooterWithAction:^{
+        [weakSelf refreshMoreData];
+    }];
+    
+    [self.iTableView tt_removeLoadMoreFooter];
+}
+
+- (void)setTableViewEmptyDataDelegate {
+    self.iTableView.emptyDataSetSource = self;
+    self.iTableView.emptyDataSetDelegate = self;
+}
 
 #pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {
-        __weak typeof(self) weakSelf = self;
         _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -87,19 +106,9 @@
             self.automaticallyAdjustsScrollViewInsets = NO;
 #pragma clang diagnostic pop
         }
-        _iTableView.emptyDataSetSource = self;
-        _iTableView.emptyDataSetDelegate = self;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        
-        [_iTableView tt_addRefreshHeaderWithAction:^{
-            [weakSelf refreshData];
-        }];
-        [_iTableView tt_addLoadMoreFooterWithAction:^{
-            [weakSelf refreshMoreData];
-        }];
-        [_iTableView tt_removeLoadMoreFooter];
     }
     return _iTableView;
 }
@@ -142,7 +151,7 @@
 }
 
 
-#pragma mark - 数据处理
+#pragma mark - tableview 数据处理
 -(void)zz_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     
 }
@@ -152,6 +161,7 @@
     
 }
 
+#pragma mark - 网络数据请求
 - (void)refreshData {
 //    self.currentPage = 1;
 //    self.loading = YES;
