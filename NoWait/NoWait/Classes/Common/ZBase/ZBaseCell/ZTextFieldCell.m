@@ -170,6 +170,9 @@
     [ZPublicTool textField:textField maxLenght:self.model.max > 0 ? self.model.max:20 type:self.model.formatterType];
  
     _model.content = textField.text;
+    if (self.valueChangeBlock) {
+        self.valueChangeBlock(textField.text);
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

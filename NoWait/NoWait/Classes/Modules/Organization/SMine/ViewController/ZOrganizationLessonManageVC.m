@@ -70,7 +70,6 @@
 
     [self.navigationItem setRightBarButtonItem:item];
     [self.navigationItem setTitle:@"课程管理"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 懒加载--
