@@ -117,7 +117,7 @@
 
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
-    
+    self.bottomLineView.hidden = YES;
     self.leftTitleLabel.text = model.leftTitle;
     self.rightTitleLabel.text = model.rightTitle;
     self.leftTitleLabel.numberOfLines = 1;
@@ -134,6 +134,8 @@
     
     self.leftTitleLabel.textColor = model.leftColor ? adaptAndDarkColor(model.leftColor,model.leftDarkColor):adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.rightTitleLabel.textColor = model.rightColor ? adaptAndDarkColor(model.rightColor,model.rightDarkColor) :adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.bottomLineView.backgroundColor = model.lineColor;
+    
     self.bottomLineView.hidden = model.isHiddenLine;
     
     
@@ -213,8 +215,6 @@
         
         self.rightImageView.hidden = YES;
     }
-    
-    self.bottomLineView.hidden = model.isHiddenLine;
 }
 
 

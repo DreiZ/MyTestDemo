@@ -39,7 +39,7 @@
     
     [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(self.contentView.mas_centerY).offset(CGFloatIn750(4));
+        make.bottom.equalTo(self.priceLabel.mas_bottom);
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +67,7 @@
         _priceLabel.text = @"140";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont fontContent]];
+        [_priceLabel setFont:[UIFont boldFontContent]];
     }
     return _priceLabel;
 }
@@ -80,7 +80,7 @@
         _priceHintLabel.text = @"￥";
         _priceHintLabel.numberOfLines = 1;
         _priceHintLabel.textAlignment = NSTextAlignmentCenter;
-        [_priceHintLabel setFont:[UIFont fontSmall]];
+        [_priceHintLabel setFont:[UIFont boldFontSmall]];
     }
     return _priceHintLabel;
 }
@@ -91,7 +91,7 @@
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         _numLabel.text = @"30人";
         _numLabel.numberOfLines = 1;
-        _numLabel.textAlignment = NSTextAlignmentCenter;
+        _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontSmall]];
     }
     return _numLabel;
@@ -111,7 +111,7 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(90);
+    return CGFloatIn750(112);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
