@@ -26,7 +26,7 @@
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
-#import "ZStudentMineSwitchAccountVC.h"
+#import "ZMineSwitchRoleVC.h"
 
 #define kHeaderHeight CGFloatIn750(270)
 
@@ -137,7 +137,7 @@
                 ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
             }else if (index == 3){
-                ZStudentMineSwitchAccountVC *avc = [[ZStudentMineSwitchAccountVC alloc] init];
+                ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }
         };
