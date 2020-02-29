@@ -90,12 +90,9 @@
 		B251469223CEC638009A64D4 /* ZStudentMineCardListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B251469123CEC638009A64D4 /* ZStudentMineCardListCell.m */; };
 		B251469523CEC66C009A64D4 /* ZStudentMineCardListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B251469423CEC66C009A64D4 /* ZStudentMineCardListVC.m */; };
 		B251469823CEDD60009A64D4 /* ZStudentMineSignListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B251469723CEDD60009A64D4 /* ZStudentMineSignListCell.m */; };
-		B251469B23CEDD8C009A64D4 /* ZStudentMineSignListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B251469A23CEDD8C009A64D4 /* ZStudentMineSignListItemCell.m */; };
 		B251469E23CEDDAE009A64D4 /* ZStudentMineSignListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B251469D23CEDDAE009A64D4 /* ZStudentMineSignListVC.m */; };
 		B25146A123CEF0E9009A64D4 /* ZStudentMineSignDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A023CEF0E9009A64D4 /* ZStudentMineSignDetailVC.m */; };
-		B25146A423CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A323CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m */; };
 		B25146A723CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A623CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m */; };
-		B25146AA23CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146A923CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m */; };
 		B25146AE23CF0625009A64D4 /* ZStudentMineSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146AD23CF0625009A64D4 /* ZStudentMineSettingVC.m */; };
 		B25146B123CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146B023CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m */; };
 		B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25146B323CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m */; };
@@ -644,18 +641,12 @@
 		B251469423CEC66C009A64D4 /* ZStudentMineCardListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineCardListVC.m; sourceTree = "<group>"; };
 		B251469623CEDD60009A64D4 /* ZStudentMineSignListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignListCell.h; sourceTree = "<group>"; };
 		B251469723CEDD60009A64D4 /* ZStudentMineSignListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignListCell.m; sourceTree = "<group>"; };
-		B251469923CEDD8C009A64D4 /* ZStudentMineSignListItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignListItemCell.h; sourceTree = "<group>"; };
-		B251469A23CEDD8C009A64D4 /* ZStudentMineSignListItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignListItemCell.m; sourceTree = "<group>"; };
 		B251469C23CEDDAE009A64D4 /* ZStudentMineSignListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignListVC.h; sourceTree = "<group>"; };
 		B251469D23CEDDAE009A64D4 /* ZStudentMineSignListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignListVC.m; sourceTree = "<group>"; };
 		B251469F23CEF0E9009A64D4 /* ZStudentMineSignDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignDetailVC.h; sourceTree = "<group>"; };
 		B25146A023CEF0E9009A64D4 /* ZStudentMineSignDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailVC.m; sourceTree = "<group>"; };
-		B25146A223CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignDetailInfoCell.h; sourceTree = "<group>"; };
-		B25146A323CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailInfoCell.m; sourceTree = "<group>"; };
 		B25146A523CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignDetailHandleCell.h; sourceTree = "<group>"; };
 		B25146A623CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailHandleCell.m; sourceTree = "<group>"; };
-		B25146A823CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSignDetailHandleMainCell.h; sourceTree = "<group>"; };
-		B25146A923CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSignDetailHandleMainCell.m; sourceTree = "<group>"; };
 		B25146AC23CF0625009A64D4 /* ZStudentMineSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingVC.h; sourceTree = "<group>"; };
 		B25146AD23CF0625009A64D4 /* ZStudentMineSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSettingVC.m; sourceTree = "<group>"; };
 		B25146AF23CF0B10009A64D4 /* ZStudentMineSettingBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSettingBottomCell.h; sourceTree = "<group>"; };
@@ -1647,14 +1638,8 @@
 				B251469123CEC638009A64D4 /* ZStudentMineCardListCell.m */,
 				B251469623CEDD60009A64D4 /* ZStudentMineSignListCell.h */,
 				B251469723CEDD60009A64D4 /* ZStudentMineSignListCell.m */,
-				B251469923CEDD8C009A64D4 /* ZStudentMineSignListItemCell.h */,
-				B251469A23CEDD8C009A64D4 /* ZStudentMineSignListItemCell.m */,
-				B25146A223CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.h */,
-				B25146A323CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m */,
 				B25146A523CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.h */,
 				B25146A623CEF511009A64D4 /* ZStudentMineSignDetailHandleCell.m */,
-				B25146A823CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.h */,
-				B25146A923CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m */,
 			);
 			path = order;
 			sourceTree = "<group>";
@@ -3780,7 +3765,6 @@
 				B20C47F523FF8CD100E0CE35 /* ZOriganizationTeachAddHeadImageCell.m in Sources */,
 				B28D90C8240602370021E05A /* ZAlertDataCheckBoxView.m in Sources */,
 				B2A7809223BDFB0100407BF0 /* AFHTTPRequestSerializer+SGLog.m in Sources */,
-				B251469B23CEDD8C009A64D4 /* ZStudentMineSignListItemCell.m in Sources */,
 				B2A77FCB23BDEAA100407BF0 /* ZAlertView.m in Sources */,
 				B2A77EC723BDE29E00407BF0 /* MWTapDetectingView.m in Sources */,
 				B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */,
@@ -3843,7 +3827,6 @@
 				B2A77F2A23BDE37A00407BF0 /* LLImagePickerView.m in Sources */,
 				B29A71D723F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m in Sources */,
 				B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */,
-				B25146A423CEF250009A64D4 /* ZStudentMineSignDetailInfoCell.m in Sources */,
 				B2A77ECA23BDE29E00407BF0 /* UIImage+MWPhotoBrowser.m in Sources */,
 				B2A780A123BDFB0100407BF0 /* ReachStateWIFI.m in Sources */,
 				B2A77F3023BDE37A00407BF0 /* UIViewController+LLExtension.m in Sources */,
@@ -3859,7 +3842,6 @@
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
 				B28D9130240766940021E05A /* UIColor+PGHex.m in Sources */,
 				B2F7D36823CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m in Sources */,
-				B25146AA23CEF70B009A64D4 /* ZStudentMineSignDetailHandleMainCell.m in Sources */,
 				B20C480423FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m in Sources */,
 				B2A7809C23BDFB0100407BF0 /* ReachStateUnReachable.m in Sources */,
 				B2A7803223BDFA3800407BF0 /* NSFileManager+ZChat.m in Sources */,

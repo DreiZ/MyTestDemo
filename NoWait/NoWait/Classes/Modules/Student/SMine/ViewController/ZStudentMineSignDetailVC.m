@@ -10,8 +10,7 @@
 #import "ZCellConfig.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentMineSignDetailInfoCell.h"
-#import "ZStudentMineSignDetailHandleMainCell.h"
+#import "ZStudentMineSignDetailHandleCell.h"
 
 @interface ZStudentMineSignDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -40,18 +39,85 @@
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
     
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"上课进度";
+        model.rightTitle = @"4/10节";
+        model.isHiddenLine = NO;
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(110);
+        model.leftFont = [UIFont boldFontTitle];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    {
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10)cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        
+        [self.cellConfigArr addObject:topCellConfig];
+        
+        NSArray *tempArr = @[@[@"已签课", @"2节"],@[@"补签", @"2节"],@[@"请假", @"2节"],@[@"旷课", @"2节"],@[@"待签课", @"2节"]];
+        for (int i = 0; i < tempArr.count; i++) {
+            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.leftTitle = tempArr[i][0];
+            model.rightTitle = tempArr[i][1];
+            model.leftMargin = CGFloatIn750(30);
+            model.isHiddenLine = YES;
+            model.cellHeight = CGFloatIn750(66);
+            model.leftFont = [UIFont fontContent];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
+        
+        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:bottomCellConfig];
+    }
+    
+    ZCellConfig *spaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    
+    [self.cellConfigArr addObject:spaceCellConfig];
     
     
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailInfoCell className] title:[ZStudentMineSignDetailInfoCell className] showInfoMethod:nil heightOfCell:[ZStudentMineSignDetailInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:topCellConfig];
-    
-    ZCellConfig *orderHandleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleMainCell className] title:[ZStudentMineSignDetailHandleMainCell className] showInfoMethod:nil heightOfCell:[ZStudentMineSignDetailHandleMainCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:orderHandleCellConfig];
-    [self.cellConfigArr addObject:topCellConfig];
-    
-    
+    {
+           ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+           model.leftTitle = @"多咪屋";
+           model.isHiddenLine = NO;
+           model.lineLeftMargin = CGFloatIn750(30);
+           model.lineRightMargin = CGFloatIn750(30);
+           model.cellHeight = CGFloatIn750(110);
+           model.leftFont = [UIFont boldFontTitle];
+           
+           ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+           
+           [self.cellConfigArr addObject:menuCellConfig];
+       }
+       {
+           ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10)cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+           
+           [self.cellConfigArr addObject:topCellConfig];
+           
+           NSArray *tempArr = @[@[@"已签课", @"2节"],@[@"补签", @"2节"],@[@"请假", @"2节"],@[@"旷课", @"2节"],@[@"待签课", @"2节"]];
+           for (int i = 0; i < tempArr.count; i++) {
+               ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+               model.leftTitle = tempArr[i][0];
+               model.rightTitle = tempArr[i][1];
+               model.leftMargin = CGFloatIn750(30);
+               model.isHiddenLine = YES;
+               model.cellHeight = CGFloatIn750(80);
+               model.leftFont = [UIFont fontContent];
+               
+               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:model.cellHeight cellType:ZCellTypeClass dataModel:model];
+               
+               [self.cellConfigArr addObject:menuCellConfig];
+           }
+           
+           ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+           [self.cellConfigArr addObject:bottomCellConfig];
+       }
 }
 
 
@@ -112,11 +178,7 @@
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
-        ZStudentMineSignDetailInfoCell *enteryCell = (ZStudentMineSignDetailInfoCell *)cell;
-//        enteryCell.handleBlock = ^(NSInteger type) {
-//
-//        };
-        
+       
     }
     return cell;
 }

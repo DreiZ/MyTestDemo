@@ -10,7 +10,8 @@
 @interface ZStudentMineSignDetailHandleCell ()
 @property (nonatomic,strong) UILabel *lessonLabel;
 @property (nonatomic,strong) UIButton *signBtn;
-
+@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UILabel *rightLabel;
 @end
 
 @implementation ZStudentMineSignDetailHandleCell
@@ -31,18 +32,31 @@
     
     [self.contentView addSubview:self.lessonLabel];
     [self.contentView addSubview:self.signBtn];
+    [self.contentView addSubview:self.timeLabel];
+    [self.contentView addSubview:self.rightLabel];
     
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(27));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(200));
     }];
     
     [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(116));
-        make.height.mas_equalTo(CGFloatIn750(46));
+        make.width.mas_equalTo(CGFloatIn750(98));
+        make.height.mas_equalTo(CGFloatIn750(48));
+    }];
+    
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+        make.centerY.equalTo(self.mas_centerY);
+    }];
+    
+    [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.signBtn.mas_left).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.mas_centerY);
     }];
 }
 
@@ -50,29 +64,49 @@
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = [UIColor colorTextGray];
-        _lessonLabel.text = @"瑜伽第一节";
+        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _lessonLabel.text = @"第1节";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(26)]];
+        [_lessonLabel setFont:[UIFont fontContent]];
     }
     return _lessonLabel;
 }
 
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _timeLabel.text = @"2019.05.12 15:30";
+        _timeLabel.numberOfLines = 1;
+        _timeLabel.textAlignment = NSTextAlignmentLeft;
+        [_timeLabel setFont:[UIFont fontSmall]];
+    }
+    return _timeLabel;
+}
+
+- (UILabel *)rightLabel {
+    if (!_rightLabel) {
+        _rightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _rightLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _rightLabel.text = @"已扫码签课";
+        _rightLabel.numberOfLines = 1;
+        _rightLabel.textAlignment = NSTextAlignmentRight;
+        [_rightLabel setFont:[UIFont fontContent]];
+    }
+    return _rightLabel;
+}
 
 
 - (UIButton *)signBtn {
     if (!_signBtn) {
         _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _signBtn.layer.masksToBounds = YES;
-        _signBtn.layer.cornerRadius = CGFloatIn750(23);
-        _signBtn.backgroundColor = [UIColor colorWhite];
-        _signBtn.layer.borderColor = [UIColor  colorMain].CGColor;
-        _signBtn.layer.borderWidth = 1;
+        ViewRadius(_signBtn, CGFloatIn750(24));
         
-        [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
-        [_signBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
+        [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
+        _signBtn.backgroundColor = [UIColor colorMain];
         
         __weak typeof(self) weakSelf = self;
         [_signBtn bk_whenTapped:^{

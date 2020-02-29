@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineSignDetailHandleCell : ZBaseCell
+@property (nonatomic,strong) ZBaseSingleCellModel *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
