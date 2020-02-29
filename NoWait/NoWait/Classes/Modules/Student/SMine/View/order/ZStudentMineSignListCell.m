@@ -7,20 +7,20 @@
 //
 
 #import "ZStudentMineSignListCell.h"
-#import "ZStudentMineSignListItemCell.h"
-#import "ZSpaceEmptyCell.h"
 
-#import "ZStudentDetailModel.h"
+@interface ZStudentMineSignListCell ()
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic,strong) UILabel *lessonNameLabel;
+@property (nonatomic,strong) UILabel *stateLabel;
+@property (nonatomic,strong) UILabel *classNameLabel;
 
+@property (nonatomic,strong) UIImageView *userImageView;
+@property (nonatomic,strong) UILabel *userLabel;
 
-@interface ZStudentMineSignListCell ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
-
-@property (nonatomic,strong) UILabel *lessonLabel;
+@property (nonatomic,strong) UIView *contView;
+@property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *signBtn;
-
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
-
 @end
 
 @implementation ZStudentMineSignListCell
@@ -35,206 +35,227 @@
 
 -(void)setupView {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    self.clipsToBounds = YES;
     
-    _cellConfigArr = @[].mutableCopy;
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     
-    UIView *contView = [[UIView alloc] init];
-    contView.layer.masksToBounds = YES;
-    [self.contentView addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.contentView);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(20));
+    [self.contentView addSubview:self.contView];
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
     }];
     
+    [self.contView addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.contView.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(136));
+    }];
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:topView];
+    [self.contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(110));
-        make.left.right.top.equalTo(contView);
+        make.left.top.right.equalTo(self.contView);
+        make.bottom.equalTo(self.bottomView.mas_top);
     }];
-
-    
-    UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:middleView];
-    [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topView.mas_bottom);
-        make.bottom.equalTo(contView.mas_bottom);
-        make.left.right.equalTo(contView);
-    }];
-
-
-    [topView addSubview:self.lessonLabel];
-    [topView addSubview:self.signBtn];
     
     
-    [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [topView addSubview:self.userImageView];
+    [topView addSubview:self.nameLabel];
+    [topView addSubview:self.userLabel];
+    [topView addSubview:self.stateLabel];
+    [topView addSubview:self.numLabel];
+    [topView addSubview:self.classNameLabel];
+    
+    
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(topView.mas_centerY);
+        make.top.equalTo(topView.mas_top).offset(CGFloatIn750(30));
     }];
     
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+    }];
+    
+    [topView addSubview:self.lessonNameLabel];
+    [self.lessonNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(topView.mas_top).offset(CGFloatIn750(88));
+    }];
 
-    [middleView addSubview:self.iTableView];
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(middleView);
+    [self.stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.lessonNameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
-    [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(topView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(50));
-        make.width.mas_equalTo(CGFloatIn750(130));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
+    }];
+
+    [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.userLabel.mas_left).offset(-CGFloatIn750(10));
+        make.bottom.equalTo(topView.mas_bottom);
+        make.width.height.mas_equalTo(CGFloatIn750(44));
     }];
     
-    __weak typeof(self) weakSelf = self;
-    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [detailBtn bk_whenTapped:^{
-        if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(1);
-        }
-    }];
-    [self.contentView addSubview:detailBtn];
-    [detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(middleView);
+    
+    [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
-    [self setData];
+    [self.bottomView addSubview:self.signBtn];
+    [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.bottomView);
+        make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(116));
+        make.height.mas_equalTo(CGFloatIn750(56));
+    }];
+    
+    
 }
 
 
-#pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.backgroundColor = [UIColor whiteColor];
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            
-        }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        _iTableView.layer.masksToBounds = YES;
-        _iTableView.scrollEnabled = NO;
+#pragma mark - Getter
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _bottomView.layer.cornerRadius = CGFloatIn750(20);
+        _bottomView.layer.masksToBounds = YES;
     }
-    return _iTableView;
+    return _bottomView;
 }
 
-- (UILabel *)lessonLabel {
-    if (!_lessonLabel) {
-        _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonLabel.text = @"仰泳班1023期";
-        _lessonLabel.numberOfLines = 1;
-        _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(34)]];
+- (UIView *)contView {
+    if (!_contView) {
+        _contView = [[UIView alloc] init];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _contView.layer.cornerRadius = CGFloatIn750(20);
+        ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
     }
-    return _lessonLabel;
+    return _contView;
+}
+
+- (UILabel *)stateLabel {
+    if (!_stateLabel) {
+        _stateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _stateLabel.text = @"待开课";
+        _stateLabel.numberOfLines = 1;
+        _stateLabel.textAlignment = NSTextAlignmentRight;
+        [_stateLabel setFont:[UIFont fontSmall]];
+    }
+    return _stateLabel;
+}
+
+
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _nameLabel.text = @"才玩俱乐部";
+        _nameLabel.numberOfLines = 1;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
+        [_nameLabel setFont:[UIFont boldFontSmall]];
+    }
+    return _nameLabel;
+}
+
+- (UIImageView *)userImageView {
+    if (!_userImageView) {
+        _userImageView = [[UIImageView alloc] init];
+        _userImageView.image = [UIImage imageNamed:@"serverTopbg"];
+        ViewRadius(_userImageView, CGFloatIn750(22));
+    }
+    return _userImageView;
+}
+
+
+- (UILabel *)userLabel {
+    if (!_userLabel) {
+        _userLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _userLabel.text = @"香香老师";
+        _userLabel.numberOfLines = 1;
+        _userLabel.textAlignment = NSTextAlignmentRight;
+        [_userLabel setFont:[UIFont fontSmall]];
+    }
+    return _userLabel;
+}
+
+
+- (UILabel *)numLabel {
+    if (!_numLabel) {
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _numLabel.text = @"已开课5/10";
+        _numLabel.numberOfLines = 1;
+        _numLabel.textAlignment = NSTextAlignmentRight;
+        [_numLabel setFont:[UIFont fontSmall]];
+    }
+    return _numLabel;
+}
+
+- (UILabel *)classNameLabel {
+    if (!_classNameLabel) {
+        _classNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _classNameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _classNameLabel.text = @"初级班级";
+        _classNameLabel.numberOfLines = 1;
+        _classNameLabel.textAlignment = NSTextAlignmentLeft;
+        [_classNameLabel setFont:[UIFont fontContent]];
+    }
+    return _classNameLabel;
+}
+
+- (UILabel *)lessonNameLabel {
+    if (!_lessonNameLabel) {
+        _lessonNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _lessonNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _lessonNameLabel.text = @"克城市的高斯公安问过他问过特";
+        _lessonNameLabel.numberOfLines = 1;
+        _lessonNameLabel.textAlignment = NSTextAlignmentLeft;
+        [_lessonNameLabel setFont:[UIFont boldFontTitle]];
+    }
+    return _lessonNameLabel;
 }
 
 
 - (UIButton *)signBtn {
     if (!_signBtn) {
-        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _signBtn.layer.masksToBounds = YES;
-        _signBtn.layer.cornerRadius = CGFloatIn750(25);
-        _signBtn.backgroundColor = [UIColor  colorMain];
-        
-        [_signBtn setTitle:@"签到" forState:UIControlStateNormal];
-        [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_signBtn.titleLabel setFont:[UIFont fontContent]];
-        
         __weak typeof(self) weakSelf = self;
+        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_signBtn setTitle:@"去签课" forState:UIControlStateNormal];
+        [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_signBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
         [_signBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
-            }
+                weakSelf.handleBlock(0);
+            };
         }];
     }
     return _signBtn;
 }
 
-#pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
++(CGFloat)z_getCellHeight:(id)sender {
+    return CGFloatIn750(348);
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailLessonListCell"]) {
-//        ZStudentMineSignListItemCell *listCell = (ZStudentMineSignListItemCell *)cell;
-//        listCell.isHiddenBottomLine = YES;
-    }
-   
-    return cell;
-}
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZRecordWeightMoreCell"]) {
-       
-    }
-}
-
-
-+ (CGFloat)z_getCellHeight:(id)sender {
-    NSArray *list = @[@"单笔消费满100元试用",@"单笔消费满100元试用",@"单笔消费满100元试用"];
-    return CGFloatIn750(144) + [ZStudentMineSignListItemCell z_getCellHeight:nil] * list.count + CGFloatIn750(22) * list.count;
-}
-
-
-- (void)setData {
-    [_cellConfigArr removeAllObjects];
-    
-    
-    NSMutableArray *list = @[].mutableCopy;
-    NSArray *des = @[@"单笔消费满100元试用",@"单笔消费满100元试用",@"单笔消费满100元试用"];
-    
-    for (int i = 0; i < des.count; i++) {
-        ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignListItemCell className] title:[ZStudentMineSignListItemCell className] showInfoMethod:nil heightOfCell:[ZStudentMineSignListItemCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:list];
-            [_cellConfigArr addObject:lessonDesCellConfig];
-        //
-
-        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(22) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
-    }
-    
-    [self.iTableView reloadData];
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
 }
 @end
+
+
+
+
+
 
 

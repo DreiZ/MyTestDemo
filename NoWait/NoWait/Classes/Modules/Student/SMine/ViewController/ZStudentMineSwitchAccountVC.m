@@ -13,28 +13,23 @@
 #import "ZStudentDetailModel.h"
 
 #import "ZSpaceEmptyCell.h"
-#import "ZStudentMineSettingSwitchUserCell.h"
 
 #import "ZUserHelper.h"
 #import "ZLaunchManager.h"
 #import "ZAccountViewController.h"
-#import "ZStudentMineSwitchAccountLoginVC.h"
 
 @interface ZStudentMineSwitchAccountVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
-@property (nonatomic,strong) UIView *navView;
-@property (nonatomic,strong) UIImageView *backImageView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
-
 @implementation ZStudentMineSwitchAccountVC
+
 
 #pragma mark vc delegate-------------------
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -43,7 +38,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -59,7 +53,6 @@
     [self setupMainView];
 }
 
-#pragma mark - set data
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
@@ -70,33 +63,25 @@
     
     NSArray *userList = [[ZUserHelper sharedHelper] userList];
     
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"切换账号";
-        model.cellTitle = @"title";
-        model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
-        model.leftMargin = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(126);
-        
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:titleCellConfig];
-    }
-    
     for (int i = 0; i < userList.count; i++) {
         if ([userList[i] isKindOfClass:[ZUser class]]) {
             ZUser *user = userList[i];
-            user.avatar = @"http://ww1.sinaimg.cn/mw600/bdd98093gy1gbp87csne1j20go0gotbs.jpg";
+            
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.cellHeight = CGFloatIn750(106);
+            model.leftTitle = user.phone;
             model.cellTitle = @"user";
+            model.leftImage = @"http://ww1.sinaimg.cn/mw600/bdd98093gy1gbp87csne1j20go0gotbs.jpg";
+            if (i == userList.count-1) {
+                model.isHiddenLine = YES;
+            }
             if ([user.userID isEqualToString:[ZUserHelper sharedHelper].user_id]) {
-                model.isSelected = YES;
+                model.rightImage = @"selectedCycle";
             }else{
-                model.isSelected = NO;
+                model.rightImage = @"unSelectedCycle";
             }
             model.data = user;
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
             [self.cellConfigArr addObject:menuCellConfig];
         }
@@ -120,14 +105,7 @@
 
 
 - (void)setNavigation {
-    self.isHidenNaviBar = YES;
-    
-    [self.view addSubview:self.navView];
-    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
-        make.height.mas_equalTo(CGFloatIn750(88));
-    }];
+    self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"切换账号"];
 }
 
@@ -136,7 +114,7 @@
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.navView.mas_bottom).offset(0);
+        make.top.equalTo(self.view.mas_top).offset(10);
     }];
 }
 
@@ -162,47 +140,14 @@
 #pragma clang diagnostic pop
         }
         _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }
     return _iTableView;
 }
 
-- (UIView *)navView {
-    if (!_navView) {
-        _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
-        __weak typeof(self) weakSelf  = self;
-        
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
-        [_navView addSubview:backBtn];
-        [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(CGFloatIn750(98));
-            make.top.bottom.left.equalTo(self.navView);
-        }];
-        
-        [backBtn addSubview:self.backImageView];
-        [self.backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(backBtn);
-        }];
-    }
-    
-    return _navView;
-}
-
-- (UIImageView *)backImageView {
-    if (!_backImageView) {
-        _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [UIImage imageNamed:@"navleftBack"];
-        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
-    }
-    return _backImageView;
-}
-
-#pragma mark tableView -------datasource-----
+#pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -229,6 +174,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGFloatIn750(80);
+    }
     return 0.01f;
 }
 
@@ -249,28 +197,37 @@
          [self.navigationController pushViewController:loginvc animated:YES];
      }else if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-         if (cellModel.isSelected) {
-             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
-             [self.navigationController popToRootViewControllerAnimated:YES];
-//             ZUser *user = cellModel.data;
-//             [[ZUserHelper sharedHelper] switchUser:user];
-//             [self initCellConfigArr];
-//             [self.iTableView reloadData];
-             
-//             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
-//             [self.navigationController pushViewController:lvc animated:YES];
-         }
-         
-         
-         
+         ZUser *user = cellModel.data;
+         [[ZUserHelper sharedHelper] switchUser:user];
+         [self initCellConfigArr];
+         [self.iTableView reloadData];
      }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section != 0) {
+        return nil;
+    }
+    UIView *sectionView = [[UIView alloc] init];
+    sectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    
+    UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+    hintLabel.text = @"向心力账号";
+    [hintLabel setFont:[UIFont fontSmall]];
+    [sectionView addSubview:hintLabel];
+    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(sectionView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(sectionView.mas_centerY);
+    }];
+    return sectionView;
 }
 
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
-    _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+    
     // darkmodel change
     [self initCellConfigArr];
     [self.iTableView reloadData];

@@ -179,9 +179,6 @@
                 ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if ([model.channel_id isEqualToString:@"lesson"]) {
-                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
-                [self.navigationController pushViewController:ss animated:YES];
-                return ;
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
