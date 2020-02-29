@@ -27,3 +27,8 @@ BOOL isDarkModel(void);
 CGFloat CGFloatIn640(CGFloat value);
 
 CGFloat CGFloatIn750(CGFloat value);
+
+CGFloat safeAreaTop(void);
+
+CGFloat safeAreaBottom(void);
+

@@ -10,7 +10,7 @@
 #import "ZOriganizationLessonModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationLessonManageListVC : ZViewController
+@interface ZOrganizationLessonManageListVC : ZTableViewViewController
 @property (nonatomic,assign) ZOrganizationLessonType type;
 @end
 

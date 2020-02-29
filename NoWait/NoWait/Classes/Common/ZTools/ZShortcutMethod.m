@@ -41,3 +41,27 @@ CGFloat CGFloatIn750(CGFloat value)
 {
     return  (value/750.)*KScreenWidth;
 }
+
+
+CGFloat safeAreaTop()
+{
+    CGFloat top = 0;
+    CGFloat safeTop = 0 ;
+    if(@available(iOS 11.0, *)) {
+        safeTop = [UIApplication sharedApplication].keyWindow.safeAreaInsets.top;
+    }
+    CGFloat height = safeTop > 0 ? safeTop : 20.0;  //顶部安全区为0时，不是刘海屏 ，则加上状态栏高度.
+    top = height;
+    
+    return top;
+}
+
+CGFloat safeAreaBottom()
+{
+    CGFloat safeBottom = 0 ;
+    if(@available(iOS 11.0, *)) {
+        safeBottom = [UIApplication sharedApplication].keyWindow.safeAreaInsets.bottom;
+    }
+    
+    return safeBottom;
+}

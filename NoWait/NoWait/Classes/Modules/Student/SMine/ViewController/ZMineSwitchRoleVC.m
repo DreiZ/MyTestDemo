@@ -34,6 +34,7 @@
 #pragma mark vc delegate-------------------
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -43,7 +44,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -63,6 +63,7 @@
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
+    
 }
 
 - (void)initCellConfigArr {

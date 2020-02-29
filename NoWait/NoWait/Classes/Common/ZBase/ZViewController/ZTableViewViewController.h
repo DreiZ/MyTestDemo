@@ -10,6 +10,7 @@
 
 @interface ZTableViewViewController : ZViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIView *safeFooterView;
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -44,7 +45,7 @@
 
 
 #pragma mark - 数据处理
--(void)zz_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig;
+-(void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig;
 
 
 //tableView 点击

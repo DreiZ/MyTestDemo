@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationClassManageListVC : ZViewController
+@interface ZOrganizationClassManageListVC : ZTableViewViewController
 
 @end
 

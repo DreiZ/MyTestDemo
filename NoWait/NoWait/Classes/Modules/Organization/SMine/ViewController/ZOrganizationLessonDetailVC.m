@@ -11,12 +11,9 @@
 #import "ZOrganizationLessonDetailPriceCell.h"
 
 
-@interface ZOrganizationLessonDetailVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZOrganizationLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
-
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @end
 
@@ -32,23 +29,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setData];
-    [self setupMainView];
-    [self setCellData];
-}
-
-- (void)setData {
-    _cellConfigArr = @[].mutableCopy;
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 
 - (void)setupMainView {
-    [self.view addSubview:self.iTableView];
-    
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view.mas_left).offset(20);
-        make.left.top.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
-    }];
+    [super setupMainView];
     
     [self.view addSubview:self.topNavView];
     [self.topNavView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -62,34 +48,6 @@
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.bottom.equalTo(self.topNavView.mas_bottom).offset(-CGFloatIn750(17));
     }];
-}
-
-#pragma mark - lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.showsHorizontalScrollIndicator = NO;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = NO;
-        }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        
-    }
-    return _iTableView;
 }
 
 - (UIButton *)navLeftBtn {
@@ -115,61 +73,6 @@
     return _topNavView;
 }
 
-#pragma mark - tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    __weak typeof(self) weakSelf = self;
-    
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-//    ZOrganizationCampusManagementVC
-   if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
-       
-    }
-
-    return cell;
-}
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-//    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//
-//        [self.navigationController pushViewController:lessond_vc animated:YES];
-//    }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
-//        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
-//        [self.navigationController pushViewController:lvc animated:YES];
-//    }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
-//        ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
-//        [self.navigationController pushViewController:lvc animated:YES];
-//    }
-}
-
-
-
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
@@ -185,8 +88,8 @@
 
 
 #pragma mark - setDetailData
-- (void)setCellData {
-    [_cellConfigArr removeAllObjects];
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
     
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailHeaderCell className] title:[ZOrganizationLessonDetailHeaderCell className] showInfoMethod:nil heightOfCell:[ZOrganizationLessonDetailHeaderCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:statisticsCellConfig];
@@ -219,7 +122,7 @@
     
     {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"单节课时";
@@ -240,7 +143,7 @@
         [self.cellConfigArr addObject:menu1CellConfig];
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:bottomCellConfig];
     }
     
     {
@@ -256,7 +159,7 @@
         
     {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"课程节数";
@@ -277,7 +180,7 @@
         [self.cellConfigArr addObject:menu1CellConfig];
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:bottomCellConfig];
     }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -351,7 +254,7 @@
     
     {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"课程有效期";
@@ -372,7 +275,7 @@
         [self.cellConfigArr addObject:menu1CellConfig];
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:bottomCellConfig];
     }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -387,7 +290,7 @@
     
     {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"人满开课";
@@ -400,7 +303,7 @@
 
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:bottomCellConfig];
     }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -415,7 +318,7 @@
     
     {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"固定开课时间";
@@ -436,7 +339,7 @@
         [self.cellConfigArr addObject:menu1CellConfig];
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [_cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:bottomCellConfig];
     }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -451,12 +354,3 @@
     [self.iTableView reloadData];
 }
 @end
-
-
-
-
-
-
-
-
-

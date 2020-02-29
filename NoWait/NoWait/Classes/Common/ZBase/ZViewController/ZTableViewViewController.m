@@ -109,8 +109,17 @@
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iTableView.tableFooterView = self.safeFooterView;
     }
     return _iTableView;
+}
+
+- (UIView *)safeFooterView {
+    if (!_safeFooterView) {
+        _safeFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, safeAreaBottom())];
+        _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+    return _safeFooterView;
 }
 
 #pragma mark - tableView -------datasource-----
@@ -126,7 +135,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    [self zz_tableView:tableView cellForRowAtIndexPath:indexPath cellConfig:cellConfig];
+    [self zz_tableView:tableView cell:cell cellForRowAtIndexPath:indexPath cellConfig:cellConfig];
     return cell;
 }
 
@@ -152,7 +161,7 @@
 
 
 #pragma mark - tableview 数据处理
--(void)zz_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+-(void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     
 }
 
