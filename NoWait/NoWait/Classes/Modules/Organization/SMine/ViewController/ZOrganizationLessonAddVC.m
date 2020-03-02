@@ -20,13 +20,11 @@
 #import "ZAlertDateWeekAndHourPickerView.h"
 #import "ZAlertDataModel.h"
 #import "ZOrganizationTimeSelectVC.h"
-
-#import "ZOriganizationLessonViewModel.h"
+#import "ZOrganizationLessonDetailVC.h"
 
 @interface ZOrganizationLessonAddVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
-@property (nonatomic,strong) ZOriganizationLessonViewModel *viewModel;
 
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
 @end
@@ -96,13 +94,15 @@
 #pragma mark - lazy loading...
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"预览" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_whenTapped:^{
-            
+            ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+            dvc.viewModel = weakSelf.viewModel;
+            [weakSelf.navigationController pushViewController:dvc animated:YES];
         }];
     }
     return _navLeftBtn;
@@ -342,19 +342,7 @@
         
         [self.cellConfigArr addObject:menuCellConfig];
         
-//        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-//        cellModel.leftTitle = @"选择时间";
-//        cellModel.isTextEnabled = NO;
-//        cellModel.leftFont = [UIFont fontContent];
-//        cellModel.cellTitle = @"lessonTime";
-//        cellModel.rightImage = @"rightBlackArrowN";
-//        cellModel.isHiddenLine = YES;
-//        cellModel.cellHeight = CGFloatIn750(50);
-//        cellModel.textColor = [UIColor colorTextGray];
-//
-//        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-//        [self.cellConfigArr addObject:textCellConfig];
-        
+
         {
             [self addTimeLesson];
         }

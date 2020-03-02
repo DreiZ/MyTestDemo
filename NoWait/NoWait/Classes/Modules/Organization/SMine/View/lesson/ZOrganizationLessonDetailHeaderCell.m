@@ -45,7 +45,7 @@
         UIImage *dot = [[UIImage imageNamed:@"pageControlCurrentDot"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(0), CGFloatIn750(0), KScreenWidth-CGFloatIn750(0), CGFloatIn750(500)) delegate:self placeholderImage:[UIImage imageNamed:@"lessonDetail"]];
-        _iCycleScrollView.autoScrollTimeInterval = 1;
+        _iCycleScrollView.autoScrollTimeInterval = 5;
         _iCycleScrollView.currentPageDotImage = dot;
         _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
@@ -70,6 +70,10 @@
 -(void)setList:(NSArray<ZStudentBannerModel *> *)list {
     _list = list;
     NSMutableArray *imageList = @[].mutableCopy;
+    for (int i = 0; i < list.count; i++) {
+        [imageList addObject:list[i].data];
+    }
+    
     _iCycleScrollView.imageURLStringsGroup = imageList;
 }
 @end

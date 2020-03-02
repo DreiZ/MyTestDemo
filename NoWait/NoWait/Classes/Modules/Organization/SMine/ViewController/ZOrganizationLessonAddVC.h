@@ -7,11 +7,11 @@
 //
 
 #import "ZViewController.h"
+#import "ZOriganizationLessonViewModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonAddVC : ZTableViewViewController
-
+@property (nonatomic,strong) ZOriganizationLessonViewModel *viewModel;
 @end
 
-NS_ASSUME_NONNULL_END
+

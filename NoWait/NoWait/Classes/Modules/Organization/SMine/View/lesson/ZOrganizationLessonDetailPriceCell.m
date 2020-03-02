@@ -109,6 +109,12 @@
     return _numHintImageView;
 }
 
+- (void)setModel:(ZBaseSingleCellModel *)model {
+    _model = model;
+    _priceLabel.text = [NSString stringWithFormat:@"%@",model.leftTitle];
+    _numLabel.text = [NSString stringWithFormat:@"%@人",model.rightTitle];
+}
+
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(112);

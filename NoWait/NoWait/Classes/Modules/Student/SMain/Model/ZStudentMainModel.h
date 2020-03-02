@@ -22,7 +22,7 @@
 
 @interface ZStudentBannerModel : NSObject
 @property (nonatomic,strong) NSString *image;
-
+@property (nonatomic,strong) id data;
 @end
 
 @interface ZStudentMainModel : NSObject
