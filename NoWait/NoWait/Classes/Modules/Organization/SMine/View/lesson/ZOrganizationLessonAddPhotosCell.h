@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonAddPhotosCell : ZBaseCell
 
-@property (nonatomic,strong) void (^menuBlock)(ZBaseUnitModel *);
+@property (nonatomic,strong) void (^menuBlock)(NSInteger, BOOL);
 @property (nonatomic,strong) ZBaseMenuModel *model;
 @end
 

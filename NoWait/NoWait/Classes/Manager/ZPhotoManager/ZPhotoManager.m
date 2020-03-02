@@ -84,6 +84,7 @@ static ZPhotoManager *sharedPhotoManager;
 //选择照片
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete
 {
+    _maxImageSelected = 1;
     [_mediaArray removeAllObjects];
     [_selectedImageAssets removeAllObjects];
     [_selectedVideoModels removeAllObjects];
@@ -111,7 +112,7 @@ static ZPhotoManager *sharedPhotoManager;
     [self showOriginalSelectMenu:complete];
 }
 
-- (void)showSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
+- (void)showCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
     _allowCrop = YES;
     _showSelectBtn = NO;
     _cropRect = CGRectMake((KScreenWidth - cropSize.width)/2.0, (KScreenHeight - cropSize.height)/2.0, cropSize.width, cropSize.height);
@@ -121,6 +122,7 @@ static ZPhotoManager *sharedPhotoManager;
 
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController  {
     _allowCrop = YES;
+    _showSelectBtn = NO;
     [_mediaArray removeAllObjects];
     [_selectedImageAssets removeAllObjects];
     [_selectedVideoModels removeAllObjects];
@@ -230,6 +232,7 @@ static ZPhotoManager *sharedPhotoManager;
     imagePickController.oKButtonTitleColorDisabled = [UIColor  colorMainSub];
     imagePickController.allowCrop = _allowCrop;
     imagePickController.cropRect = _cropRect;
+    imagePickController.showSelectBtn = _showSelectBtn;
     
     //是否 在相册中显示拍照按钮
     imagePickController.allowTakePicture = YES;

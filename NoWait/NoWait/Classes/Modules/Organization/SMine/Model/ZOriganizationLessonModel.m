@@ -40,8 +40,8 @@
         self.lessonPeoples=  @"";
         self.orderPrice = @"";//预约价格
         self.orderMin = @"";//预约时间
-        self.orderTimeBegin = @"";//预约时间段
-        self.orderTimeEnd = @"";//预约时间段结束
+        self.orderTimeBegin = @"00:00";//预约时间段
+        self.orderTimeEnd = @"00:00";//预约时间段结束
 
         self.validity = @"";//有效期
         self.isGu = @"";//0：固定时间 1:人满开课

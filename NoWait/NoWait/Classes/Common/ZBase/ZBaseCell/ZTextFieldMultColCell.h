@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZTextFieldMultColCell : ZBaseCell
 @property (nonatomic,strong) ZBaseTextFieldCellModel *model;
-
+@property (nonatomic,strong) void (^selectBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

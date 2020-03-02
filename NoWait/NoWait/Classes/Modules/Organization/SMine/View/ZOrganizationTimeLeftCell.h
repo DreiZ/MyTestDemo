@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZBaseUnitModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTimeLeftCell : ZBaseCell
-@property (nonatomic,strong) ZBaseSingleCellModel *model;
+@property (nonatomic,strong) ZBaseMenuModel *model;
 
 @end
 

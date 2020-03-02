@@ -251,7 +251,7 @@
      }else if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
          if (cellModel.isSelected) {
-             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
+//             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
              [self.navigationController popToRootViewControllerAnimated:YES];
 //             ZUser *user = cellModel.data;
 //             [[ZUserHelper sharedHelper] switchUser:user];

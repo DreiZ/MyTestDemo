@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonTypeCell : ZBaseCell
+@property (nonatomic,strong) NSString *isGu;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

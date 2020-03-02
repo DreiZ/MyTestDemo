@@ -50,7 +50,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"星期一";
+        _nameLabel.text = @"";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -66,8 +66,8 @@
     return _hintView;
 }
 
-- (void)setModel:(ZBaseSingleCellModel *)model {
-    _nameLabel.text = model.data;
+- (void)setModel:(ZBaseUnitModel *)model {
+    _nameLabel.text = model.name;
     if (model.isSelected) {
         self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         self.hintView.hidden = NO;
@@ -81,7 +81,6 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(108);
 }
-
 @end
 
 

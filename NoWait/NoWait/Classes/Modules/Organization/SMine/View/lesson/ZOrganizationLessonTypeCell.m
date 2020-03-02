@@ -37,6 +37,7 @@
     [self.contentView addSubview:self.rightTitleLabel];
     [self.contentView addSubview:self.leftImageView];
     [self.contentView addSubview:self.rightImageView];
+    [self.contentView addSubview:self.hintImageView];
     
     
     [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -48,22 +49,26 @@
     [self.rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_centerX).offset(CGFloatIn750(0));
         make.centerY.equalTo(self.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(140));
     }];
     
    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.left.equalTo(self.leftTitleLabel.mas_right).offset(CGFloatIn750(0));
+       make.left.equalTo(self.leftTitleLabel.mas_right).offset(CGFloatIn750(10));
        make.centerY.equalTo(self.mas_centerY);
+       make.width.height.mas_equalTo(CGFloatIn750(36));
    }];
    
    
    [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(self.rightTitleLabel.mas_right).offset(CGFloatIn750(10));
        make.centerY.equalTo(self.mas_centerY);
+       make.width.height.mas_equalTo(CGFloatIn750(36));
    }];
     
     [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.width.height.mas_equalTo(CGFloatIn750(36));
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -72,6 +77,7 @@
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
+        weakSelf.isGu = @"yes";
     }];
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,6 +91,7 @@
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);
         }
+        weakSelf.isGu = @"";
     }];
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,15 +162,23 @@
         _hintImageView = [[UIImageView alloc] init];
         _hintImageView.image = [UIImage imageNamed:@"questionHint"];
     }
-    return _rightImageView;
+    return _hintImageView;
 }
 
-
-
-+(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(112);
+- (void)setIsGu:(NSString *)isGu {
+    _isGu = isGu;
+    if (isGu && isGu.length > 0) {
+        _leftImageView.image = [UIImage imageNamed:@"selectedCycle"];
+        _rightImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
+    }else{
+        _leftImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
+        _rightImageView.image = [UIImage imageNamed:@"selectedCycle"];
+    }
 }
 
++ (CGFloat)z_getCellHeight:(id)sender {
+    return CGFloatIn750(116);
+}
 @end
 
 

@@ -272,7 +272,7 @@
            model.ItemArr = subItems;
            [items addObject:model];
         }
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:items handlerBlock:^(NSInteger index) {
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:items handlerBlock:^(NSInteger index, NSInteger subIndex) {
            
         }];
     }else if ([cellConfig.title isEqualToString:@"class"]) {

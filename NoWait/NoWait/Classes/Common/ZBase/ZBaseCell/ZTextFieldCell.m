@@ -18,6 +18,8 @@
 @property (nonatomic,strong) UIView *bottomLineView;
 @property (nonatomic,strong) UIView *inputLine;
 @property (nonatomic,strong) UIImageView *rightImageView;
+
+@property (nonatomic,assign) ZFormatterType formatterType;
 @end
 
 @implementation ZTextFieldCell
@@ -383,6 +385,7 @@
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {
+    _formatterType = formatterType;
     if (formatterType == ZFormatterTypeDecimal) {
         _inputTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }else if (formatterType == ZFormatterTypeNumber) {

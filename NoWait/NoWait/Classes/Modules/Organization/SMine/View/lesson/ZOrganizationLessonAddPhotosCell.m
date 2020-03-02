@@ -96,14 +96,21 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    __weak typeof(self) weakSelf = self;
     ZOrganizationLessonAddPhotosItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizationLessonAddPhotosItemCell className] forIndexPath:indexPath];
-//    ZBaseUnitModel *model = _channelList[indexPath.row];
+    ZBaseUnitModel *model = _channelList[indexPath.row];
+    cell.model = model;
+    cell.delBlock = ^{
+        if (weakSelf.menuBlock) {
+            weakSelf.menuBlock(indexPath.row,NO);
+        }
+    };
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.menuBlock) {
-        self.menuBlock(_channelList[indexPath.row]);
+        self.menuBlock(indexPath.row,YES);
     }
 }
 

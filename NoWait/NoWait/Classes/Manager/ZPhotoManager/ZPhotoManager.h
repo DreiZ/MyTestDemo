@@ -66,7 +66,7 @@
 
 //单次选择剪切照片
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete;
-- (void)showSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete;
+- (void)showCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete;
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController ;
 
 

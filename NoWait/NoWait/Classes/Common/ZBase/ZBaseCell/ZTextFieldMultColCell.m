@@ -8,6 +8,7 @@
 
 #import "ZTextFieldMultColCell.h"
 #import "ZPublicTool.h"
+#import "ZMultiseriateContentLeftLineCell.h"
 
 @interface ZTextFieldMultColCell ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UILabel *subTitleLabel;
@@ -110,6 +111,18 @@
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.multColView);
+    }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [selectBtn bk_whenTapped:^{
+        if (weakSelf.selectBlock) {
+            weakSelf.selectBlock();
+        }
+    }];
+    [self.contentView addSubview:selectBtn];
+    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
     }];
 }
 
@@ -296,7 +309,7 @@
            for (int i = 0; i < tempArr.count; i++) {
                id smodel = tempArr[i];
                if ([smodel isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
-                   cellHeight += [ZMultiseriateLineCell z_getCellHeight:smodel];
+                   cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:smodel];
                }
            }
         return cellHeight;
@@ -589,7 +602,7 @@
             id model = tempArr[i];
             if ([model isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
                 ZBaseMultiseriateCellModel *sModel = model;
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:sModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:sModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
                 
                 [self.cellConfigArr addObject:menuCellConfig];
             }

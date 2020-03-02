@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZAlertDateHourPickerView : UIView
-+ (void)setAlertName:(NSString *)title handlerBlock:(void(^)(NSInteger))handleBlock ;
++ (void)setAlertName:(NSString *)title handlerBlock:(void(^)(NSString *, NSString*))handleBlock ;
 @end
 
 NS_ASSUME_NONNULL_END

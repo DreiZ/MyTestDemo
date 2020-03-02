@@ -1,18 +1,18 @@
 //
-//  ZMultiseriateLineCell.m
+//  ZMultiseriateContentLeftLineCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/16.
+//  Created by zhuang zhang on 2020/3/2.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZMultiseriateLineCell.h"
-@interface ZMultiseriateLineCell ()
+#import "ZMultiseriateContentLeftLineCell.h"
+@interface ZMultiseriateContentLeftLineCell ()
 @property (nonatomic,strong) UIView *singleLineView; //单行高度表示
 
 @end
 
-@implementation ZMultiseriateLineCell
+@implementation ZMultiseriateContentLeftLineCell
 
 - (void)initMainView {
     [super initMainView];
@@ -43,7 +43,7 @@
     }];
     
     [self.rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.rightImageView.mas_left).offset(-kCellContentLittleSpace);
+        make.left.equalTo(self.leftTitleLabel.mas_right).offset(kCellContentLittleSpace);
         make.top.equalTo(self.contentView.mas_top).offset((kCellNormalHeight - kCellTitleFont - 2)/2);
         make.width.mas_equalTo(KScreenWidth/3);
     }];
@@ -130,7 +130,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -139,7 +139,7 @@
                 }else{
                     //leftImage leftTitle rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -154,7 +154,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -163,7 +163,7 @@
                 }else{
                     //leftImage leftTitle no-rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -197,7 +197,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftImageView.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -206,7 +206,7 @@
                 }else{
                     //leftImage no-leftTitle rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftImageView.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -221,7 +221,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.leftImageView.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -230,7 +230,7 @@
                 }else{
                      //leftImage no-leftTitle no-rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftImageView.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -257,7 +257,7 @@
             }];
             
             if (mModel.rightImage && mModel.rightImage.length > 0) {
-                //no-leftImage no-leftTitle rightImage
+                //no-leftImage leftTitle rightImage
                 self.rightImageView.image = [UIImage imageNamed:mModel.rightImage];
                 
                 [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -270,27 +270,27 @@
                 self.rightImageView.hidden = NO;
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
-                    //no-leftImage no-leftTitle rightImage rightTitle
+                    //no-leftImage leftTitle rightImage rightTitle
                     CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
 
                     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.rightTitleLabel];
                 }else{
-                    //no-leftImage no-leftTitle rightImage no-rightTitle
+                    //no-leftImage leftTitle rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
                 }
             }else{
-                //no-leftImage no-leftTitle no-rightImage
+                //no-leftImage leftTitle no-rightImage
                 self.rightImageView.hidden = YES;
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
@@ -299,16 +299,16 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
 
                     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.rightTitleLabel];
                 }else{
-                    //no-leftImage no-leftTitle no-rightImage no-rightTitle
+                    //no-leftImage leftTitle no-rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.leftTitleLabel.mas_right).offset(mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -342,7 +342,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.contentView.mas_left).offset(mModel.leftMargin);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -351,7 +351,7 @@
                 }else{
                     //no-leftImage no-leftTitle rightImage no-rightImage
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
+                        make.left.equalTo(self.contentView.mas_left).offset(mModel.leftMargin);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -366,7 +366,7 @@
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.contentView.mas_left).offset(mModel.leftMargin);
                         make.top.equalTo(self.contentView.mas_top).offset((mModel.singleCellHeight - mModel.rightFont.lineHeight)/2);
                         make.width.mas_equalTo(rightLabelSize.width+2);
                     }];
@@ -375,7 +375,7 @@
                 }else{
                     //no-leftImage no-leftTitle rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
+                        make.left.equalTo(self.contentView.mas_left).offset(mModel.leftMargin);
                         make.centerY.equalTo(self.contentView.mas_centerY);
                         make.width.mas_equalTo(0);
                     }];
@@ -436,3 +436,4 @@
     }
 }
 @end
+

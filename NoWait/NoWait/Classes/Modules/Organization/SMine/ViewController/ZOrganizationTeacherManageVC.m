@@ -151,7 +151,7 @@
             }
             
             [mainItems addObjectsFromArray:items];
-            [ZAlertDataPickerView setAlertName:@"校区选择" items:mainItems handlerBlock:^(NSInteger index) {
+            [ZAlertDataPickerView setAlertName:@"校区选择" items:mainItems handlerBlock:^(NSInteger index, NSInteger subIndex) {
                 
             }];
         };

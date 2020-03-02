@@ -60,6 +60,7 @@
         self.leftImageWidth = 0;
         self.rightImageWidth = 0;
         self.singleCellHeight = kCellNormalHeight;
+        self.textAlignment = NSTextAlignmentRight;
     }
     return self;
 }

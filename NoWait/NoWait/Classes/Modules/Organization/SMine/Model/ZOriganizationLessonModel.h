@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *lessonIntro;
 @property (nonatomic,strong) NSMutableArray *lessonDetail;
 @property (nonatomic,strong) NSString *lessonPrice;
-@property (nonatomic,strong) NSString *lessonImages;
+@property (nonatomic,strong) NSMutableArray *lessonImages;
 @property (nonatomic,strong) NSString *school;
 @property (nonatomic,strong) NSString *level;
 @property (nonatomic,strong) NSString *singleTime;

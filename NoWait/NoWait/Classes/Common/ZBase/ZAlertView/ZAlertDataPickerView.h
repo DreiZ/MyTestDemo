@@ -10,6 +10,6 @@
 #import "ZAlertDataModel.h"
 
 @interface ZAlertDataPickerView : UIView
-+ (void)setAlertName:(NSString *)title items:(NSArray <ZAlertDataItemModel *>*)data handlerBlock:(void(^)(NSInteger))handleBlock ;
++ (void)setAlertName:(NSString *)title items:(NSArray <ZAlertDataItemModel *>*)data handlerBlock:(void(^)(NSInteger,NSInteger))handleBlock ;
 @end
 

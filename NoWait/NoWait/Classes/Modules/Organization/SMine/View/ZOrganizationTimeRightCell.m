@@ -39,11 +39,21 @@
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-30));
-        make.height.mas_equalTo(CGFloatIn750(8));
-        make.width.mas_equalTo(CGFloatIn750(8));
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(20));
     }];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+    longPress.minimumPressDuration = 0.5; //定义按的时间
+    [self.contentView addGestureRecognizer:longPress];
 }
 
+- (void)btnLong:(id)sender {
+    if (self.handleBlock) {
+        self.handleBlock(1);
+    }
+}
 
 #pragma mark -Getter
 - (UILabel *)nameLabel {
@@ -61,13 +71,20 @@
 - (UIImageView *)hintView {
     if (!_hintView) {
         _hintView = [[UIImageView alloc] init];
-        _hintView.backgroundColor = [UIColor colorMain];
+        _hintView.backgroundColor = [UIColor colorRedForButton];
+        ViewRadius(_hintView, CGFloatIn750(10));
     }
     return _hintView;
 }
 
-- (void)setTitle:(NSString *)title {
-    _nameLabel.text = title;
+- (void)setModel:(ZBaseUnitModel *)model {
+    _model = model;
+   
+    if ([model.subName intValue] < 10) {
+        _nameLabel.text = [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    }else{
+        _nameLabel.text = [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -17,7 +17,7 @@
 @property (nonatomic,strong) UIPickerView *pickView;
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel *> *data1;
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel *> *data2;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSInteger, NSInteger);
  
 @property (nonatomic,assign) NSInteger proIndex;
 @property (nonatomic,assign) NSInteger cityIndex;
@@ -50,6 +50,7 @@ static ZAlertDataPickerView *sharedManager;
     self.backgroundColor = adaptAndDarkColor(RGBAColor(0, 0, 0, 0.8), RGBAColor(1, 1, 1, 0.8));
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    __weak typeof(self) weakSelf = self;
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
@@ -89,9 +90,7 @@ static ZAlertDataPickerView *sharedManager;
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn bk_addEventHandler:^(id sender) {
-        if (self.handleBlock) {
-            self.handleBlock(0);
-        }
+        
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:leftBtn];
@@ -108,7 +107,7 @@ static ZAlertDataPickerView *sharedManager;
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
-            self.handleBlock(1);
+            self.handleBlock(weakSelf.proIndex,weakSelf.cityIndex);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -179,7 +178,7 @@ static ZAlertDataPickerView *sharedManager;
 }
 
 
-- (void)setName:(NSString *)title items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock {
+- (void)setName:(NSString *)title items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger,NSInteger))handleBlock {
     self.handleBlock = handleBlock;
     self.nameLabel.text = title;
     self.data1 = data;
@@ -198,7 +197,7 @@ static ZAlertDataPickerView *sharedManager;
     [self.pickView reloadAllComponents];
 }
 
-+ (void)setAlertName:(NSString *)title items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock  {
++ (void)setAlertName:(NSString *)title items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger,NSInteger))handleBlock  {
     [[ZAlertDataPickerView sharedManager] setName:title items:data handlerBlock:handleBlock];
 }
 

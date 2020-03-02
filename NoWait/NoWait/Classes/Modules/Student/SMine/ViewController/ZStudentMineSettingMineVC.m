@@ -161,7 +161,7 @@
      if ([cellConfig.title isEqualToString:@"头像"]){
           __weak typeof(self) weakSelf = self;
             [ZPhotoManager sharedManager].maxImageSelected = 1;
-            [[ZPhotoManager sharedManager] showSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     weakSelf.avterImage = list[0].image;
                     [weakSelf initCellConfigArr];

@@ -241,7 +241,7 @@
         
         [self.items removeAllObjects];
         [self.items addObjectsFromArray:items];
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index,NSInteger subIndex) {
             
         }];
     }else if ([cellConfig.title isEqualToString:@"school"]) {
@@ -265,7 +265,7 @@
         
         [self.items removeAllObjects];
         [self.items addObjectsFromArray:items];
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index) {
+        [ZAlertDataPickerView setAlertName:@"校区选择" items:self.items handlerBlock:^(NSInteger index,NSInteger subIndex) {
             
         }];
     }else if ([cellConfig.title isEqualToString:@"label"]) {

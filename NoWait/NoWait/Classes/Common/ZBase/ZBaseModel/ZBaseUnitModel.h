@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBaseUnitModel : NSObject
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *subName;
 @property (nonatomic,strong) NSString *uid;
 
 @property (nonatomic,assign) BOOL isSelected;
@@ -23,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface ZBaseMenuModel : NSObject
-@property (nonatomic,strong) NSArray <ZBaseUnitModel *> *units;
+@property (nonatomic,strong) NSMutableArray <ZBaseUnitModel *> *units;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *uid;
-
+@property (nonatomic,assign) BOOL isSelected;
 @end
 NS_ASSUME_NONNULL_END

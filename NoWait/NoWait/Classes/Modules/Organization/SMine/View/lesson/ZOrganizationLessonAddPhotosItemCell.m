@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *subTitleLabel;
 @property (nonatomic,strong) UIView *hintView;
 @property (nonatomic,strong) UIImageView *hintImageView;
+@property (nonatomic,strong) UIImageView *detailImageView;
 @property (nonatomic,strong) UIButton *deleteBtn;
 @property (nonatomic,strong) UIButton *deleteBigBtn;
 @end
@@ -38,8 +39,10 @@
     [self.hintView addSubview:self.hintImageView];
     [self.hintView addSubview:self.titleLabel];
     [self.hintView addSubview:self.subTitleLabel];
+    [self.hintView addSubview:self.detailImageView];
     [self.hintView addSubview:self.deleteBtn];
     [self.hintView addSubview:self.deleteBigBtn];
+    
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
@@ -63,6 +66,10 @@
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(6));
     }];
     
+    [self.detailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.hintView);
+    }];
+    
     [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.equalTo(self.hintView);
         make.width.height.mas_equalTo(CGFloatIn750(26));
@@ -72,6 +79,8 @@
         make.top.right.equalTo(self.hintView);
         make.width.height.mas_equalTo(CGFloatIn750(80));
     }];
+    
+    self.detailImageView.hidden = YES;
 }
 
 
@@ -108,6 +117,13 @@
     return _hintImageView;
 }
 
+- (UIImageView *)detailImageView {
+    if (!_detailImageView) {
+        _detailImageView = [[UIImageView alloc] init];
+    }
+    return _detailImageView;
+}
+
 - (UIView *)hintView {
     if (!_hintView) {
         _hintView = [[UIView alloc] init];
@@ -130,7 +146,13 @@
 
 - (UIButton *)deleteBigBtn {
     if (!_deleteBigBtn) {
+        __weak typeof(self) weakSelf = self;
         _deleteBigBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_deleteBigBtn bk_whenTapped:^{
+            if (weakSelf.delBlock) {
+                weakSelf.delBlock();
+            }
+        }];
     }
     return _deleteBigBtn;
 }
@@ -139,8 +161,31 @@
     _model = model;
     _titleLabel.text = model.name;
     [_titleLabel setFont:[UIFont fontSmall]];
-    _hintView.hidden = YES;
+//    _hintView.hidden = YES;
     _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGrayDark]);
+    
+    self.deleteBtn.hidden = NO;
+    self.deleteBigBtn.hidden = NO;
+    self.detailImageView.hidden = NO;
+    self.hintImageView.hidden = YES;
+    if (!model.data) {
+        self.deleteBtn.hidden = YES;
+        self.deleteBigBtn.hidden = YES;
+        self.detailImageView.hidden = YES;
+        self.hintImageView.hidden = NO;
+    }else if ([model.data isKindOfClass:[UIImage class]]) {
+        self.detailImageView.image = model.data;
+    }else if ([model.data isKindOfClass:[NSString class]]){
+        NSString *temp = model.data;
+        if (temp.length > 0) {
+            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:temp]];
+        }else{
+            self.deleteBtn.hidden = YES;
+            self.deleteBigBtn.hidden = YES;
+            self.detailImageView.hidden = YES;
+            self.hintImageView.hidden = NO;
+        }
+    }
 }
 @end
 

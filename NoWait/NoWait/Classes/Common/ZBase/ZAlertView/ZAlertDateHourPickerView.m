@@ -17,7 +17,7 @@
 @property (nonatomic,strong) UIPickerView *pickView;
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel *> *data1;
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel *> *data2;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSString *,NSString *);
  
 @property (nonatomic,assign) NSInteger proIndex;
 @property (nonatomic,assign) NSInteger cityIndex;
@@ -50,6 +50,7 @@ static ZAlertDateHourPickerView *sharedManager;
     self.backgroundColor = adaptAndDarkColor(RGBAColor(0, 0, 0, 0.8), RGBAColor(1, 1, 1, 0.8));
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    __weak typeof(self) weakSelf = self;
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
@@ -89,9 +90,6 @@ static ZAlertDateHourPickerView *sharedManager;
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn bk_addEventHandler:^(id sender) {
-        if (self.handleBlock) {
-            self.handleBlock(0);
-        }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:leftBtn];
@@ -107,8 +105,21 @@ static ZAlertDateHourPickerView *sharedManager;
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
+        NSString *start;
+        NSString *end;
+        if (weakSelf.proIndex < 10) {
+            start = [NSString stringWithFormat:@"0%ld:00",(long)weakSelf.proIndex];
+        }else{
+            start = [NSString stringWithFormat:@"%ld:00",(long)weakSelf.proIndex];
+        }
+        
+        if (weakSelf.cityIndex < 10) {
+            end = [NSString stringWithFormat:@"0%ld:00",(long)weakSelf.cityIndex];
+               }else{
+                   end = [NSString stringWithFormat:@"%ld:00",(long)weakSelf.cityIndex];
+               }
         if (self.handleBlock) {
-            self.handleBlock(1);
+            self.handleBlock(start,end);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -190,7 +201,7 @@ static ZAlertDateHourPickerView *sharedManager;
 }
 
 
-- (void)setName:(NSString *)title handlerBlock:(void(^)(NSInteger))handleBlock {
+- (void)setName:(NSString *)title handlerBlock:(void(^)(NSString *,NSString *))handleBlock {
     self.handleBlock = handleBlock;
     self.nameLabel.text = title;
     
@@ -232,7 +243,7 @@ static ZAlertDateHourPickerView *sharedManager;
     [self.pickView reloadAllComponents];
 }
 
-+ (void)setAlertName:(NSString *)title handlerBlock:(void(^)(NSInteger))handleBlock  {
++ (void)setAlertName:(NSString *)title handlerBlock:(void(^)(NSString *,NSString * ))handleBlock  {
     [[ZAlertDateHourPickerView sharedManager] setName:title handlerBlock:handleBlock];
 }
 
@@ -271,6 +282,10 @@ static ZAlertDateHourPickerView *sharedManager;
     
     if (component == 0) {
         _proIndex = row;
+        if (_cityIndex < _proIndex) {
+            _cityIndex = _proIndex;
+            [pickerView selectRow:_cityIndex inComponent:1 animated:YES];
+        }
     }
     
     if (component == 1) {

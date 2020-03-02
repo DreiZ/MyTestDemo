@@ -11,6 +11,7 @@
 
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *leftImageView;
+@property (nonatomic,strong) UIImageView *contImageView;
 
 @property (nonatomic,strong) UIView *backContentView;
 @end
@@ -29,14 +30,22 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
     
+    
+    [self.contentView addSubview:self.leftImageView];
+    [self.contentView addSubview:self.contImageView];
     [self.contentView addSubview:self.backContentView];
-    [self.backContentView addSubview:self.leftImageView];
     [self.backContentView addSubview:self.titleLabel];
     
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(62));
         make.left.right.bottom.equalTo(self);
     }];
+    
+    [self.contImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.contentView);
+        make.bottom.equalTo(self.backContentView.mas_top);
+    }];
+    self.contImageView.hidden = YES;
     
     [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
@@ -72,6 +81,13 @@
     return _leftImageView;
 }
 
+- (UIImageView *)contImageView {
+    if (!_contImageView) {
+        _contImageView = [[UIImageView alloc] init];
+    }
+    return _contImageView;
+}
+
 - (UIView *)backContentView {
     if (!_backContentView) {
         _backContentView = [[UIView alloc] init];
@@ -81,11 +97,29 @@
     return _backContentView;
 }
 
+- (void)setImage:(id)image {
+    _image = image;
+    
+    self.contImageView.hidden = NO;
+    self.leftImageView.hidden = YES;
+    if (!image) {
+        self.contImageView.hidden = YES;
+        self.leftImageView.hidden = NO;
+    }else if ([image isKindOfClass:[UIImage class]]) {
+        self.contImageView.image = image;
+    }else if ([image isKindOfClass:[NSString class]]){
+        NSString *temp = image;
+        if (temp.length > 0) {
+            [self.contImageView tt_setImageWithURL:[NSURL URLWithString:temp]];
+        }else{
+            self.contImageView.hidden = YES;
+            self.leftImageView.hidden = NO;
+        }
+    }
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(460);
+    return CGFloatIn750(400) + CGFloatIn750(62);
 }
 
 @end
-
-
-
