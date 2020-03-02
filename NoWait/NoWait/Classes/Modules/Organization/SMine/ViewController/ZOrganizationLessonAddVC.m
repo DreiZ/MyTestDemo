@@ -361,7 +361,7 @@
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.isHiddenLine = NO;
-        model.cellHeight = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(20);
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);
         
@@ -391,7 +391,7 @@
     cellModel.rightImage = @"rightBlackArrowN";
     cellModel.cellTitle = @"lessonTime";
     cellModel.isHiddenLine = YES;
-    cellModel.cellHeight = CGFloatIn750(50);
+    cellModel.cellHeight = CGFloatIn750(60);
     cellModel.rightFont = [UIFont fontContent];
     cellModel.rightColor = [UIColor colorTextGray];
     cellModel.rightDarkColor = [UIColor colorTextGrayDark];
@@ -419,7 +419,7 @@
             [tempArr addObject:tempSubArr];
         }
     }
-//    NSArray *tempArr = @[@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"],@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"]];
+    
     for (int j = 0; j < tempArr.count; j++) {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;

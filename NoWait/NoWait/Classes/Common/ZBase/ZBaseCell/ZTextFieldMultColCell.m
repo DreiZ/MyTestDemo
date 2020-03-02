@@ -24,6 +24,7 @@
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @property (nonatomic,strong) UIView *topView;
+@property (nonatomic,strong) UIButton *selectBtn;
 
 @end
 
@@ -41,6 +42,7 @@
 -(void)setupView
 {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    self.clipsToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.topView];
@@ -113,20 +115,27 @@
         make.edges.equalTo(self.multColView);
     }];
     
-    __weak typeof(self) weakSelf = self;
-    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [selectBtn bk_whenTapped:^{
-        if (weakSelf.selectBlock) {
-            weakSelf.selectBlock();
-        }
-    }];
-    [self.contentView addSubview:selectBtn];
-    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
+    
+    [self.contentView addSubview:self.selectBtn];
+    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.contentView);
     }];
 }
 
 #pragma mark -懒加载
+- (UIButton *)selectBtn {
+    if (!_selectBtn) {
+        __weak typeof(self) weakSelf = self;
+        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_selectBtn bk_whenTapped:^{
+            if (weakSelf.selectBlock) {
+                weakSelf.selectBlock();
+            }
+        }];
+    }
+    return _selectBtn;
+}
+
 - (UIView *)topView {
     if (!_topView) {
         _topView = [[UIView alloc] init];
@@ -306,13 +315,17 @@
     CGFloat cellHeight = (model.cellHeight - model.leftFont.lineHeight);
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
            NSArray *tempArr = model.data;
-           for (int i = 0; i < tempArr.count; i++) {
-               id smodel = tempArr[i];
-               if ([smodel isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
-                   cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:smodel];
+        if (tempArr.count > 0) {
+            for (int i = 0; i < tempArr.count; i++) {
+                   id smodel = tempArr[i];
+                   if ([smodel isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
+                       cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:smodel];
+                   }
                }
-           }
-        return cellHeight;
+            return cellHeight;
+        }else{
+            return model.cellHeight;
+        }
     }else{
         return model.cellHeight;
     }
@@ -578,6 +591,8 @@
     }else{
         self.multColView.hidden = YES;
     }
+    
+    [self bringSubviewToFront:self.selectBtn];
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {

@@ -257,7 +257,7 @@
             }];
             
             if (mModel.rightImage && mModel.rightImage.length > 0) {
-                //no-leftImage no-leftTitle rightImage
+                //no-leftImage leftTitle rightImage
                 self.rightImageView.image = [UIImage imageNamed:mModel.rightImage];
                 
                 [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -270,7 +270,7 @@
                 self.rightImageView.hidden = NO;
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
-                    //no-leftImage no-leftTitle rightImage rightTitle
+                    //no-leftImage leftTitle rightImage rightTitle
                     CGFloat rightMaxWidth = mModel.cellWidth - mModel.leftMargin - (leftLabelSize.width + 2) - mModel.leftContentSpace - mModel.rightMargin - mModel.rightContentSpace - ((mModel.rightImageWidth > 0.01) ? mModel.rightImageWidth : 0);
                     
                     CGSize rightLabelSize = [SafeStr(mModel.rightTitle) tt_sizeWithFont:mModel.rightFont constrainedToSize:CGSizeMake(rightMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:mModel.lineSpace];
@@ -282,7 +282,7 @@
 
                     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.rightTitleLabel];
                 }else{
-                    //no-leftImage no-leftTitle rightImage no-rightTitle
+                    //no-leftImage leftTitle rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                         make.right.equalTo(self.rightImageView.mas_left).offset(-mModel.rightContentSpace);
                         make.centerY.equalTo(self.contentView.mas_centerY);
@@ -290,7 +290,7 @@
                     }];
                 }
             }else{
-                //no-leftImage no-leftTitle no-rightImage
+                //no-leftImage leftTitle no-rightImage
                 self.rightImageView.hidden = YES;
                 
                 if (mModel.rightTitle && mModel.rightTitle.length > 0) {
@@ -306,7 +306,7 @@
 
                     [ZPublicTool setLineSpacing:mModel.lineSpace label:self.rightTitleLabel];
                 }else{
-                    //no-leftImage no-leftTitle no-rightImage no-rightTitle
+                    //no-leftImage leftTitle no-rightImage no-rightTitle
                     [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                         make.right.equalTo(self.contentView.mas_right).offset(-mModel.rightMargin);
                         make.centerY.equalTo(self.contentView.mas_centerY);
