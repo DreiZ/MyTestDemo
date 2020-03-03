@@ -7,12 +7,7 @@
 //
 
 #import "ZStudentMineSettingMineVC.h"
-#import "ZCellConfig.h"
-#import "ZStudentDetailModel.h"
 
-#import "ZSpaceEmptyCell.h"
-#import "ZStudentMineSignListCell.h"
-#import "ZStudentLessonOrderCompleteCell.h"
 #import "ZStudentMineSettingUserHeadImageCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
@@ -20,12 +15,9 @@
 #import "ZStudentMineSettingSexVC.h"
 
 
-@interface ZStudentMineSettingMineVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZStudentMineSettingMineVC ()
 @property (nonatomic,strong) UIImage *avterImage;
 
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
 @implementation ZStudentMineSettingMineVC
 
@@ -33,32 +25,25 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setDataSource];
+    [self setTiableViewGaryBack];
     [self initCellConfigArr];
-    [self setupMainView];
+    [self.iTableView reloadData];
 }
 
-- (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
-    
-    [self initCellConfigArr];
-}
 
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
+    [super initCellConfigArr];
     
     NSArray <NSArray *>*titleArr = @[@[@"头像", self.avterImage ? self.avterImage:@"", @""], @[@"昵称", @"rightBlackArrowN", @"闯红灯的蜗牛"],@[@"性别", @"rightBlackArrowN", @"男"],@[@"出生日期", @"rightBlackArrowN", @"1990-2-21"]];
     
     for (int i = 0; i < titleArr.count; i++) {
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = titleArr[i][0];
         
         model.rightTitle = titleArr[i][2];
         model.leftFont = [UIFont fontContent];
-        model.rightColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         model.cellTitle = titleArr[i][0];
-        
+        model.cellHeight = CGFloatIn750(100);
         if (i == 0) {
             model.rightImageH = titleArr[i][1];
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
@@ -66,7 +51,7 @@
             
         }else{
             model.rightImage = titleArr[i][1];
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }
     }
@@ -78,86 +63,9 @@
     [self.navigationItem setTitle:@"设置"];
 }
 
-- (void)setupMainView {
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(10);
-    }];
-}
-
-#pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-    }
-    return _iTableView;
-}
-
-#pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
-        ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger type) {
-            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-            
-            [self.navigationController pushViewController:dvc animated:YES];
-        };
-        
-    }
-    return cell;
-}
 
 #pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+-(void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"头像"]){
           __weak typeof(self) weakSelf = self;
             [ZPhotoManager sharedManager].maxImageSelected = 1;
@@ -186,26 +94,4 @@
      }
 }
 
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
 @end
-
-
-
-
-
-

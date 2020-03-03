@@ -83,6 +83,11 @@
     self.iTableView.emptyDataSetDelegate = self;
 }
 
+- (void)setTiableViewGaryBack {
+    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+}
+
 #pragma mark - lazy loading...
 -(UITableView *)iTableView {
     if (!_iTableView) {

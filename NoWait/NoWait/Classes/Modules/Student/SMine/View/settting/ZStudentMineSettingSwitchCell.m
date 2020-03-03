@@ -43,6 +43,13 @@
         make.height.mas_equalTo(CGFloatIn750(60));
         make.width.mas_equalTo(CGFloatIn750(90));
     }];
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 

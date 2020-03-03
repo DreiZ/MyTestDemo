@@ -141,7 +141,7 @@
     return _bottomLineView;
 }
 
-- (void)setModel:(ZStudentDetailOrderSubmitListModel *)model {
+- (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
     _leftTitleLabel.text = model.leftTitle;
     _rightTitleLabel.text = model.rightTitle;
@@ -152,7 +152,7 @@
     _leftTitleLabel.textColor = model.leftColor ? model.leftColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     _rightTitleLabel.textColor = model.rightColor ? model.rightColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     
-    self.bottomLineView.hidden = model.isHiddenBottomLine;
+    self.bottomLineView.hidden = model.isHiddenLine;
     
     if (model.leftImage && model.leftImage.length > 0) {
         self.leftImageView.image = [UIImage imageNamed:model.leftImage];

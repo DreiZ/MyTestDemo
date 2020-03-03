@@ -48,6 +48,7 @@
 @property (nonatomic,strong) UIColor *leftDarkColor;
 @property (nonatomic,strong) UIFont *leftFont;
 
+@property (nonatomic,strong) id rightImageH;
 @property (nonatomic,strong) NSString *rightImage;
 @property (nonatomic,strong) UIColor *rightColor;
 @property (nonatomic,strong) UIColor *rightDarkColor;

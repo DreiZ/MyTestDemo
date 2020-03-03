@@ -7,11 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZStudentDetailModel.h"
 
 
 @interface ZStudentMineSettingUserHeadImageCell : ZBaseCell
-@property (nonatomic,strong) ZStudentDetailOrderSubmitListModel *model;
+@property (nonatomic,strong) ZBaseSingleCellModel *model;
 
 @end
 
