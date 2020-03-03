@@ -7,11 +7,10 @@
 //
 
 #import "ZViewController.h"
+#import <WMPageController.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZOrganizationCardMainVC : ZViewController
+@interface ZOrganizationCardMainVC : WMPageController
 
 @end
 
-NS_ASSUME_NONNULL_END
+

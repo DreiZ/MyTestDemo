@@ -28,6 +28,7 @@
 #import "ZOrganizationAccountVC.h"
 #import "ZMineSwitchRoleVC.h"
 #import "ZStudentMineEvaListVC.h"
+#import "ZOrganizationCardMainVC.h"
 
 #define kHeaderHeight CGFloatIn750(270)
 
@@ -150,7 +151,12 @@
             }else if ([model.uid isEqualToString:@"eva"]){
                 ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
+            }else if ([model.uid isEqualToString:@"cart"]){
+                ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
+                [weakSelf.navigationController pushViewController:elvc animated:YES];
             }
+            
+            
         };
     }
 }

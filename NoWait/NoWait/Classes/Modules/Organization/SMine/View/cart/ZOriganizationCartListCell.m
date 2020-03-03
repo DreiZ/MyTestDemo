@@ -8,17 +8,256 @@
 
 #import "ZOriganizationCartListCell.h"
 
+
+@interface ZOriganizationCartListCell ()
+
+@property (nonatomic,strong) UILabel *priceHintLabel;
+@property (nonatomic,strong) UILabel *priceLabel;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *validityTimeLabel;
+@property (nonatomic,strong) UILabel *conditionLabel;
+@property (nonatomic,strong) UILabel *remainNumLabel;
+
+@property (nonatomic,strong) UIView *menuBackView;
+@property (nonatomic,strong) UIView *backContentView;
+@property (nonatomic,strong) UIButton *openBtn;
+@property (nonatomic,strong) UIButton *seeBtn;
+@end
+
 @implementation ZOriganizationCartListCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupView];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setupView {
+    [super setupView];
+    
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
+    
+    
+    [self.contentView addSubview:self.backContentView];
+    [self.backContentView addSubview:self.menuBackView];
+    
+    [self.backContentView addSubview:self.priceHintLabel];
+    [self.backContentView addSubview:self.priceLabel];
+    [self.backContentView addSubview:self.nameLabel];
+    [self.backContentView addSubview:self.validityTimeLabel];
+    [self.backContentView addSubview:self.conditionLabel];
+    [self.backContentView addSubview:self.remainNumLabel];
+    
+    [self.menuBackView addSubview:self.openBtn];
+    [self.menuBackView addSubview:self.seeBtn];
+    
+    [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.menuBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.left.bottom.equalTo(self.backContentView);
+        make.height.mas_equalTo(CGFloatIn750(100));
+    }];
+    
+    [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backContentView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.backContentView.mas_top).offset(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(26));
+    }];
+    
+    [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.backContentView.mas_top).offset(CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(104));
+        make.height.mas_equalTo(CGFloatIn750(52));
+    }];
+    
+    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceHintLabel.mas_right).offset(-CGFloatIn750(8));
+        make.bottom.equalTo(self.priceHintLabel.mas_bottom).offset(CGFloatIn750(16));
+        make.width.mas_lessThanOrEqualTo(CGFloatIn750(120));
+    }];
+    
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceLabel.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.backContentView.mas_top).offset(CGFloatIn750(40));
+        make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.validityTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.remainNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.validityTimeLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
+    }];
+    
+    
+    [self.conditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceHintLabel.mas_left);
+        make.top.equalTo(self.priceHintLabel.mas_bottom).offset(CGFloatIn750(14));
+        make.width.mas_lessThanOrEqualTo(CGFloatIn750(120));
+    }];
+    
+    [self.menuBackView addSubview:self.seeBtn];
+    [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.menuBackView.mas_left).offset(CGFloatIn750(172));
+        make.top.bottom.equalTo(self.menuBackView);
+    }];
 }
 
+
+#pragma mark - Getter
+- (UILabel *)priceHintLabel {
+    if (!_priceHintLabel) {
+        _priceHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _priceHintLabel.textColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
+        _priceHintLabel.text = @"￥";
+        _priceHintLabel.numberOfLines = 1;
+        _priceHintLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceHintLabel setFont:[UIFont fontMin]];
+    }
+    return _priceHintLabel;
+}
+
+
+- (UILabel *)priceLabel {
+    if (!_priceLabel) {
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _priceLabel.textColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
+        _priceLabel.text = @"300";
+        _priceLabel.numberOfLines = 1;
+        _priceLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(72)]];
+        _priceLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return _priceLabel;
+}
+
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _nameLabel.text = @"校区访问人数";
+        _nameLabel.numberOfLines = 1;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
+        [_nameLabel setFont:[UIFont fontTitle]];
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return _nameLabel;
+}
+
+
+- (UILabel *)conditionLabel {
+    if (!_conditionLabel) {
+        _conditionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _conditionLabel.textColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
+        _conditionLabel.text = @"满500可用";
+        _conditionLabel.numberOfLines = 1;
+        _conditionLabel.textAlignment = NSTextAlignmentLeft;
+        [_conditionLabel setFont:[UIFont fontMin]];
+        _conditionLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return _conditionLabel;
+}
+
+- (UILabel *)validityTimeLabel {
+    if (!_validityTimeLabel) {
+        _validityTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _validityTimeLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _validityTimeLabel.text = @"有效期2020.02.12至2020.02.24";
+        _validityTimeLabel.numberOfLines = 1;
+        _validityTimeLabel.textAlignment = NSTextAlignmentLeft;
+        [_validityTimeLabel setFont:[UIFont fontMin]];
+    }
+    return _validityTimeLabel;
+}
+
+
+- (UILabel *)remainNumLabel {
+    if (!_remainNumLabel) {
+        _remainNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _remainNumLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _remainNumLabel.text = @"剩余10张";
+        _remainNumLabel.numberOfLines = 1;
+        _remainNumLabel.textAlignment = NSTextAlignmentLeft;
+        [_remainNumLabel setFont:[UIFont fontMin]];
+    }
+    return _remainNumLabel;
+}
+
+
+- (UIButton *)openBtn {
+    if (!_openBtn) {
+        __weak typeof(self) weakSelf = self;
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_openBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        _openBtn.backgroundColor = [UIColor colorMain];
+        [_openBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            };
+        }];
+    }
+    return _openBtn;
+}
+
+- (UIButton *)seeBtn {
+    if (!_seeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_seeBtn setTitle:@"查看可用课程 >" forState:UIControlStateNormal];
+        [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_seeBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_seeBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2);
+            };
+        }];
+    }
+    return _seeBtn;
+}
+
+- (UIView *)menuBackView {
+    if (!_menuBackView) {
+        _menuBackView = [[UIView alloc] init];
+        _menuBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+    return _menuBackView;
+}
+
+- (UIView *)backContentView {
+    if (!_backContentView) {
+        _backContentView = [[UIView alloc] init];
+        _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _backContentView.layer.cornerRadius = CGFloatIn750(12);
+        ViewShadowRadius(_backContentView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
+
+    }
+    return _backContentView;
+}
+
+
++(CGFloat)z_getCellHeight:(id)sender {
+    return CGFloatIn750(300);
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
+}
 @end
+
+
