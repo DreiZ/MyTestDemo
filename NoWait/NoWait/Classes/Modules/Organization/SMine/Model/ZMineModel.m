@@ -11,3 +11,18 @@
 @implementation ZMineModel
 
 @end
+
+@implementation ZMineFeedBackModel
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.des = @"";
+        self.phone = @"";
+        self.name = @"";
+        self.images = @[].mutableCopy;
+    }
+    return self;
+}
+
+@end

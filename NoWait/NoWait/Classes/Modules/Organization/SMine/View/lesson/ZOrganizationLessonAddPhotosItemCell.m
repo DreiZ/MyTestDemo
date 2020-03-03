@@ -163,6 +163,7 @@
     [_titleLabel setFont:[UIFont fontSmall]];
 //    _hintView.hidden = YES;
     _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGrayDark]);
+    _subTitleLabel.text = model.name;
     
     self.deleteBtn.hidden = NO;
     self.deleteBigBtn.hidden = NO;

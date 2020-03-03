@@ -9,5 +9,11 @@
 #import "ZFeedBackViewModel.h"
 
 @implementation ZFeedBackViewModel
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _model = [[ZMineFeedBackModel alloc] init];
+    }
+    return self;
+}
 @end

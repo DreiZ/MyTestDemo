@@ -27,6 +27,7 @@
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
 #import "ZMineSwitchRoleVC.h"
+#import "ZStudentMineEvaListVC.h"
 
 #define kHeaderHeight CGFloatIn750(270)
 
@@ -117,7 +118,6 @@
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
 //    ZOrganizationCampusManagementVC
    if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
@@ -147,7 +147,10 @@
             }else if ([model.uid isEqualToString:@"order"]){
                 ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
-            } 
+            }else if ([model.uid isEqualToString:@"eva"]){
+                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+                [weakSelf.navigationController pushViewController:elvc animated:YES];
+            }
         };
     }
 }

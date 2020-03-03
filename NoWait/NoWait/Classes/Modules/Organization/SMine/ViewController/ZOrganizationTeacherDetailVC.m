@@ -144,6 +144,7 @@
 //            model.name = tempArr[j][0];
 //            model.imageName = tempArr[j][1];
 //            model.uid = tempArr[j][2];
+            model.name = @"必选";
             [menulist addObject:model];
         }
         

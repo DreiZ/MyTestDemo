@@ -133,7 +133,7 @@
         NSMutableArray *menulist = @[].mutableCopy;
         for (int j = 0; j < 9; j++) {
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-//            model.name = tempArr[j][0];
+            model.name = @"必选";
 //            model.imageName = tempArr[j][1];
 //            model.uid = tempArr[j][2];
             [menulist addObject:model];

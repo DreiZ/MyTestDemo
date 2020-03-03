@@ -8,10 +8,16 @@
 
 #import "ZBaseModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMineModel : ZBaseModel
 
 @end
 
-NS_ASSUME_NONNULL_END
+@interface ZMineFeedBackModel : ZBaseModel
+@property (nonatomic,strong) NSString *des;
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSMutableArray *images;
+@end
+
+

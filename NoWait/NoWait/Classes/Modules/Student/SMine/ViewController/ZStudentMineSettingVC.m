@@ -15,7 +15,7 @@
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentMineSettingAboutUsVC.h"
 #import "ZStudentMineSwitchAccountVC.h"
-#import "ZStudentMineFeedbackVC.h"
+#import "ZMineFeedbackVC.h"
 #import "ZUserHelper.h"
 
 
@@ -96,7 +96,7 @@
          ZStudentMineSwitchAccountVC *accountvc = [[ZStudentMineSwitchAccountVC alloc] init];
          [self.navigationController pushViewController:accountvc animated:YES];
      }else if ([cellConfig.title isEqualToString:@"opinion"]){
-         ZStudentMineFeedbackVC *fvc = [[ZStudentMineFeedbackVC alloc] init];
+         ZMineFeedbackVC *fvc = [[ZMineFeedbackVC alloc] init];
          [self.navigationController pushViewController:fvc animated:YES];
      }
 }

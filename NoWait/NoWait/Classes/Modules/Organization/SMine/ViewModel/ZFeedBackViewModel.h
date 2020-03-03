@@ -6,12 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "ZBaseViewModel.h"
+#import "ZMineModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZFeedBackViewModel : NSObject
+@interface ZFeedBackViewModel : ZBaseViewModel
+@property (nonatomic,strong) ZMineFeedBackModel *model;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -216,6 +216,7 @@
             model.data = self.viewModel.addModel.lessonImages[j];
             model.uid = [NSString stringWithFormat:@"%d", j];
         }
+        model.name = @"必选";
     //            model.name = tempArr[j][0];
     //            model.imageName = tempArr[j][1];
     //            model.uid = tempArr[j][2];

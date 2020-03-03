@@ -27,6 +27,7 @@
 #import "ZTextFieldCell.h"
 #import "ZCellConfig.h"
 #import "ZSpaceEmptyCell.h"
+#import "ZBaseTextViewCell.h"
 #import "ZTableViewViewController.h"
 
 #import "NSArray+LYNil.h"
