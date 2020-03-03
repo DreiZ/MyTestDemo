@@ -11,7 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMineAccountTextFieldCell : ZBaseCell
-
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,assign) NSInteger max;
+@property (nonatomic,strong) NSString *placeholder;
+@property (nonatomic,assign) BOOL isCode;
+@property (nonatomic,strong) void (^valueChangeBlock)(NSString *);
 @end
 
 NS_ASSUME_NONNULL_END

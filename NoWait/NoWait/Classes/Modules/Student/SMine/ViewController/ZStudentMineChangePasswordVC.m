@@ -7,189 +7,213 @@
 //
 
 #import "ZStudentMineChangePasswordVC.h"
-#import "ZCellConfig.h"
-#import "ZStudentDetailModel.h"
+#import "ZStudentMineSettingBottomCell.h"
+#import "ZMineAccountTextFieldCell.h"
 
-#import "ZSpaceEmptyCell.h"
-#import "ZTextFieldCell.h"
+@interface ZStudentMineChangePasswordVC ()
+@property (nonatomic,strong) UIView *navView;
+@property (nonatomic,strong) UIImageView *backImageView;
+@property (nonatomic,strong) UIView *footerView;
 
-@interface ZStudentMineChangePasswordVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
-
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
+
 @implementation ZStudentMineChangePasswordVC
+
+#pragma mark vc delegate-------------------
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isHidenNaviBar = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setDataSource];
     [self initCellConfigArr];
-    [self setupMainView];
-}
-
-- (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
     
-    [self initCellConfigArr];
+    [self.iTableView reloadData];;
 }
 
+
+- (void)setupMainView {
+    [super setupMainView];
+    
+    [self.view addSubview:self.navView];
+    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
+        make.height.mas_equalTo(CGFloatIn750(88));
+    }];
+    
+    self.iTableView.tableFooterView = self.footerView;
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.navView.mas_bottom).offset(0);
+    }];
+}
+
+
+#pragma mark - set data
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
+    [super initCellConfigArr];
+ 
+    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+    model.leftTitle = @"设置新密码";
+    model.cellTitle = @"title";
+    model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
+    model.leftMargin = CGFloatIn750(50);
+    model.isHiddenLine = YES;
+    model.cellHeight = CGFloatIn750(126);
     
-    NSArray <NSArray *>*titleArr = @[@[@"旧密码", @"请填写密码"],@[@"新密码", @"请输入密码"],@[@"确认新密码", @"确认新密码"]];
+    {
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(100) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    }
+
+    ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+    [self.cellConfigArr addObject:titleCellConfig];
     
-    for (int i = 0; i < titleArr.count; i++) {
-        ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
-        model.leftTitle = titleArr[i][0];
-        model.placeholder = titleArr[i][1];
-//        model.subitle = @"(必选)";
-        model.leftContentWidth = CGFloatIn750(226);
-        model.isHiddenInputLine = YES;
-        model.textAlignment = NSTextAlignmentLeft;
-        if (i == titleArr.count - 1) {
-            model.isHiddenLine = YES;
-        }
+    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:@"18811953553"];
+    
+    [self.cellConfigArr addObject:phoneCellConfig];
+
+   ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
+   
+   [self.cellConfigArr addObject:textCellConfig];
+    
+    {
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
+        
+        [self.cellConfigArr addObject:textCellConfig];
     }
 }
 
 
 - (void)setNavigation {
-    self.isHidenNaviBar = NO;
+    self.isHidenNaviBar = YES;
+
     [self.navigationItem setTitle:@"修改密码"];
-    
-    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-    sureBtn.layer.masksToBounds = YES;
-    sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = [UIColor  colorMain];
-    [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-    [sureBtn.titleLabel setFont:[UIFont fontSmall]];
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
-- (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(20));
-        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
-        make.height.mas_equalTo(kCellNormalHeight * 3);
-        make.top.equalTo(self.view.mas_top).offset(10);
-    }];
-    self.iTableView.layer.masksToBounds = YES;
-    self.iTableView.layer.cornerRadius = CGFloatIn750(18);
-    
-    
-    UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1]);
-    hintLabel.text = @"密码长度8-16位字符，而且包含数字和字母";
-    hintLabel.textAlignment = NSTextAlignmentLeft;
-    [hintLabel setFont:[UIFont systemFontOfSize:14.0f]];
-    [self.view addSubview:hintLabel];
-    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.iTableView.mas_left).offset(CGFloatIn750(28));
-        make.top.equalTo(self.iTableView.mas_bottom).offset(CGFloatIn750(20));
-    }];
-}
 
-#pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
+#pragma mark - lazy loading...
+- (UIView *)navView {
+    if (!_navView) {
+        _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
+        __weak typeof(self) weakSelf  = self;
+        
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_whenTapped:^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+        [_navView addSubview:backBtn];
+        [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(CGFloatIn750(98));
+            make.top.bottom.left.equalTo(self.navView);
+        }];
+        
+        [backBtn addSubview:self.backImageView];
+        [self.backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(backBtn);
+        }];
     }
-    return _iTableView;
-}
-
-#pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     
-    return cell;
+    return _navView;
 }
 
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
+- (UIImageView *)backImageView {
+    if (!_backImageView) {
+        _backImageView = [[UIImageView alloc] init];
+        _backImageView.image = [UIImage imageNamed:@"navleftBack"];
+        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+    }
+    return _backImageView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
+
+-(UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
+        _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        doneBtn.layer.masksToBounds = YES;
+        doneBtn.layer.cornerRadius = CGFloatIn750(50);
+        [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [doneBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+        [doneBtn.titleLabel setFont:[UIFont fontTitle]];
+        [_footerView addSubview:doneBtn ];
+        [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(CGFloatIn750(100));
+            make.left.equalTo(self.footerView.mas_left).offset(CGFloatIn750(60));
+            make.right.equalTo(self.footerView.mas_right).offset(-CGFloatIn750(60));
+            make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(100));
+        }];
+        
+//        __weak typeof(self) weakSelf = self;
+        [doneBtn bk_addEventHandler:^(id sender) {
+//            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
+//                if (weakSelf.iTextView.text.length < 5) {
+//                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
+//                    return ;
+//                }
+////                [TLUIUtility showLoading:nil];
+////                [ZMIneViewModel saveProposalContentWith:weakSelf.iTextView.text completeBlock:^(BOOL isSuccess, NSString *message) {
+////                    [TLUIUtility hiddenLoading];
+////                    if (isSuccess) {
+////                        [TLUIUtility showSuccessHint:message];
+////
+////                        [weakSelf.navigationController popViewControllerAnimated:YES];
+////                    }else{
+////                        [TLUIUtility showErrorHint:message];
+////                    }
+////                }];
+//            }else{
+//                [TLUIUtility showErrorHint:@"意见不能为空"];
+//            }
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _footerView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
+#pragma mark - tableview
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"phone"]) {
+        ZStudentMineSettingBottomCell *bCell = (ZStudentMineSettingBottomCell *)cell;
+        bCell.titleLabel.font = [UIFont boldFontMax1Title];
+    }else if ([cellConfig.title isEqualToString:@"password"] ) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.isCode = NO;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            
+        };
+    }else if ([cellConfig.title isEqualToString:@"repassword"]) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.isCode = NO;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            
+        };
+    }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
- 
-}
-
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.iTableView endEditing:YES];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+    // darkmodel change
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 @end
-
-
-
-
-
-
-
 

@@ -167,7 +167,7 @@
     return _rightImageView;
 }
 
-#pragma mark --textField delegate
+#pragma mark - -textField delegate
 - (void)textFieldDidChange:(UITextField *)textField {
     [ZPublicTool textField:textField maxLenght:self.model.max > 0 ? self.model.max:20 type:self.model.formatterType];
  

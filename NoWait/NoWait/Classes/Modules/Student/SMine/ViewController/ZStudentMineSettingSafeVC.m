@@ -9,8 +9,8 @@
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentDetailModel.h"
 
-#import "ZStudentMineChangePasswordVC.h"
-
+#import "ZAccountChangePasswordVC.h"
+#import "ZAccountChangePhoneVC.h"
 
 @interface ZStudentMineSettingSafeVC ()
 @end
@@ -29,7 +29,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassWord"],
+    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassword"],
                                      @[@"更换绑定手机号", @"rightBlackArrowN", @"188*****553",@"changePhone"]];
     
     for (int i = 0; i < titleArr.count; i++) {
@@ -57,8 +57,11 @@
 #pragma mark tableView -------datasource----------delegate-----
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"changePassword"]) {
-        ZStudentMineChangePasswordVC *cpvc = [ZStudentMineChangePasswordVC alloc];
-        [self.navigationController pushViewController:cpvc animated:YES];
+        ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
+        [self.navigationController pushViewController:pvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"changePhone"]) {
+        ZAccountChangePhoneVC *pvc = [[ZAccountChangePhoneVC alloc] init];
+        [self.navigationController pushViewController:pvc animated:YES];
     }
 }
 

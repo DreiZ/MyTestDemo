@@ -23,5 +23,6 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
 }
 @end
