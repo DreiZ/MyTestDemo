@@ -29,9 +29,8 @@
 
 -(void)setupView
 {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [super setupView];
     self.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    self.clipsToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
     
     UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];

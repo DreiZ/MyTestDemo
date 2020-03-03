@@ -30,9 +30,7 @@
 }
 
 -(void)setupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.clipsToBounds = YES;
-    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [super setupView];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);

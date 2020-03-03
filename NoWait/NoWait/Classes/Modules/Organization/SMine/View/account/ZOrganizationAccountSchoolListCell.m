@@ -30,8 +30,7 @@
 }
 
 -(void)setupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.clipsToBounds = YES;
+    [super setupView];
     
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
     

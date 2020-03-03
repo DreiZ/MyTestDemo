@@ -34,10 +34,7 @@
 }
 
 -(void)setupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.clipsToBounds = YES;
-    
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
+    [super setupView];
     
     [self.contentView addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {

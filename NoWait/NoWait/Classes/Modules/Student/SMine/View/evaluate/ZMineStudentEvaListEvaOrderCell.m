@@ -28,8 +28,7 @@
 }
 
 -(void)setupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [super setupView];
     
     UIView *contView = [[UIView alloc] init];
     [self.contentView addSubview:contView];

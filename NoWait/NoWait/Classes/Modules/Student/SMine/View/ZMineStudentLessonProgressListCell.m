@@ -27,9 +27,7 @@
 }
 
 - (void)setupView {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.clipsToBounds = YES;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [super setupView];
     
     [self.contentView addSubview:self.lessonProgressBackView];
     [self.lessonProgressBackView mas_makeConstraints:^(MASConstraintMaker *make) {

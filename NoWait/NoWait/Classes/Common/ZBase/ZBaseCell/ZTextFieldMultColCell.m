@@ -41,8 +41,8 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.clipsToBounds = YES;
+    [super setupView];
+    
     self.cellConfigArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.topView];

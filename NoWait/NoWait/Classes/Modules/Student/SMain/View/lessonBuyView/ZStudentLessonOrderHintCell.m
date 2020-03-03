@@ -25,9 +25,8 @@
 
 -(void)setupView
 {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor colorGrayBG];
-    self.clipsToBounds = YES;
+    [super setupView];
+    self.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.skillLabel];
     

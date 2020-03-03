@@ -35,7 +35,8 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [super setupView];
+    
     [self.contentView addSubview:self.leftTitleLabel];
     [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);

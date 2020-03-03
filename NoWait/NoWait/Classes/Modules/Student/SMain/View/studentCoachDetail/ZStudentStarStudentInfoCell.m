@@ -27,9 +27,7 @@
 
 -(void)setupView
 {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.clipsToBounds = YES;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [super setupView];
     
     UILabel *nameHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     nameHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);

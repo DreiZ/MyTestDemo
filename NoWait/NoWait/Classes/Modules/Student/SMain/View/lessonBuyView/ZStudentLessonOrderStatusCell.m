@@ -27,9 +27,8 @@
 
 -(void)setupView
 {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor  colorMain];
-    self.clipsToBounds = YES;
+    [super setupView];
+    self.backgroundColor = [UIColor colorMain];
     
     [self.contentView addSubview:self.statusImageView];
     [self.contentView addSubview:self.statusLabel];

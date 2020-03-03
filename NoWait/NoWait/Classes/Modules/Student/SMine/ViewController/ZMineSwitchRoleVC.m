@@ -7,26 +7,14 @@
 //
 
 #import "ZMineSwitchRoleVC.h"
-#import "ZAccountViewController.h"
-
-#import "ZCellConfig.h"
-#import "ZStudentDetailModel.h"
-
-#import "ZSpaceEmptyCell.h"
 #import "ZStudentMineSettingSwitchUserCell.h"
 
-#import "ZUserHelper.h"
-#import "ZLaunchManager.h"
-#import "ZAccountViewController.h"
 #import "ZStudentMineSwitchAccountLoginVC.h"
 
-@interface ZMineSwitchRoleVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZMineSwitchRoleVC ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
 
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
 
 @implementation ZMineSwitchRoleVC
@@ -34,8 +22,7 @@
 #pragma mark vc delegate-------------------
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.isHidenNaviBar = YES;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.isHidenNaviBar = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -53,21 +40,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self setDataSource];
     [self initCellConfigArr];
-    [self setupMainView];
+    [self.iTableView reloadData];
 }
 
 #pragma mark - set data
-- (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
-    
-}
 
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
+    [super initCellConfigArr];
     
     NSArray *userList = [[ZUserHelper sharedHelper] userList];
     
@@ -132,44 +112,8 @@
     [self.navigationItem setTitle:@"切换账号"];
 }
 
-- (void)setupMainView {
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.navView.mas_bottom).offset(0);
-    }];
-}
 
 #pragma mark - lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-    }
-    return _iTableView;
-}
-
 - (UIView *)navView {
     if (!_navView) {
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
@@ -204,66 +148,20 @@
 }
 
 #pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
-        
-    }
-    return cell;
-}
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    __weak typeof(self) weakSelf = self;
-     if ([cellConfig.title isEqualToString:@"switch"]){
-         ZAccountViewController *loginvc = [[ZAccountViewController alloc] init];
-         loginvc.loginSuccess = ^{
-             [weakSelf initCellConfigArr];
-             [weakSelf.iTableView reloadData];
-         };
-         loginvc.isSwitch = YES;
-         [self.navigationController pushViewController:loginvc animated:YES];
-     }else if ([cellConfig.title isEqualToString:@"user"]){
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+     if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
          if (cellModel.isSelected) {
 //             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
-             [self.navigationController popToRootViewControllerAnimated:YES];
+//             [self.navigationController popToRootViewControllerAnimated:YES];
 //             ZUser *user = cellModel.data;
 //             [[ZUserHelper sharedHelper] switchUser:user];
 //             [self initCellConfigArr];
 //             [self.iTableView reloadData];
              
-//             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
-//             [self.navigationController pushViewController:lvc animated:YES];
+             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+             [self.navigationController pushViewController:lvc animated:YES];
          }
-         
-         
-         
      }
 }
 
@@ -277,10 +175,3 @@
     [self.iTableView reloadData];
 }
 @end
-
-
-
-
-
-
-

@@ -41,6 +41,7 @@
 
 -(void)setupView
 {
+    [super setupView];
     _hotSearchBtn = @[].mutableCopy;
     _hotSearchBtn = @[].mutableCopy;
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);

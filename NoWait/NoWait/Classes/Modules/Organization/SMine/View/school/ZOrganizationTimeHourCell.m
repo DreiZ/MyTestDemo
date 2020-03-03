@@ -29,8 +29,8 @@
 }
 
 -(void)setupView {
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.clipsToBounds = YES;
+    [super setupView];
+    
     self.data1 = @[].mutableCopy;
     self.data2 = @[].mutableCopy;
     

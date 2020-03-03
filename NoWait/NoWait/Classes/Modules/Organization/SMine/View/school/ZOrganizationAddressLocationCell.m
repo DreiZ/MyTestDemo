@@ -26,8 +26,7 @@
 }
 
 -(void)setupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorTextBlackDark]);
+    [super setupView];
     
     [self.contentView addSubview:self.leftImageView];
     [self.contentView addSubview:self.titleLabel];
