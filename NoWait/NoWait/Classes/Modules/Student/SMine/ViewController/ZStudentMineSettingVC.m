@@ -15,6 +15,7 @@
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentMineSettingAboutUsVC.h"
 #import "ZStudentMineSwitchAccountVC.h"
+#import "ZStudentMineFeedbackVC.h"
 #import "ZUserHelper.h"
 
 
@@ -34,7 +35,7 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setTiableViewGaryBack];
+    [self setTableViewGaryBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -94,6 +95,9 @@
      }else if ([cellConfig.title isEqualToString:@"switch"]){
          ZStudentMineSwitchAccountVC *accountvc = [[ZStudentMineSwitchAccountVC alloc] init];
          [self.navigationController pushViewController:accountvc animated:YES];
+     }else if ([cellConfig.title isEqualToString:@"opinion"]){
+         ZStudentMineFeedbackVC *fvc = [[ZStudentMineFeedbackVC alloc] init];
+         [self.navigationController pushViewController:fvc animated:YES];
      }
 }
 

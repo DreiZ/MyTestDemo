@@ -24,11 +24,8 @@
 
 #define kHeaderHeight (CGFloatIn750(270))
 
-@interface ZTeacherMineVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZTeacherMineVC ()
 @property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
-
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
@@ -65,19 +62,19 @@
 //        }];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setData];
-    [self setupMainView];
-    [self setCellData];
+    [self setTableViewGaryBack];
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 
-- (void)setData {
+- (void)setDataSource {
+    [super setDataSource];
+    
     _topchannelList = @[].mutableCopy;
     _lessonList = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
     
     NSArray *list = @[@[@"订单",@"mineOrderEva"],@[@"评价",@"mineOrderChannel"],@[@"签课",@"mineOrderCard"],@[@"学员",@"mineOrderLesson"]];
     NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
@@ -93,11 +90,9 @@
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [self.view addSubview:self.iTableView];
+    [super setupMainView];
     
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view.mas_left).offset(20);
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
@@ -107,31 +102,6 @@
 }
 
 #pragma mark - lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = NO;
-        }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        
-    }
-    return _iTableView;
-}
-
 - (ZOrganizationMineHeaderView *)headerView {
     if (!_headerView) {
         __weak typeof(self) weakSelf = self;
@@ -151,20 +121,8 @@
 
 
 #pragma mark - tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
         ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
         lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
@@ -179,48 +137,12 @@
                 ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if ([model.channel_id isEqualToString:@"lesson"]) {
-                ZOrganizationMineVC *ss = [[ZOrganizationMineVC alloc] init];
-                [self.navigationController pushViewController:ss animated:YES];
-                return ;
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
     }
-
-    return cell;
 }
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-//    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//
-//        [self.navigationController pushViewController:lessond_vc animated:YES];
-//    }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
-//        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
-//        [self.navigationController pushViewController:lvc animated:YES];
-//    }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
-//        ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
-//        [self.navigationController pushViewController:lvc animated:YES];
-//    }
-}
-
 
 
 #pragma mark - scrollview delegate
@@ -241,8 +163,8 @@
 }
 
 
-- (void)setCellData {
-    [_cellConfigArr removeAllObjects];
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
     
     ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
     [self.cellConfigArr addObject:channelCellConfig];

@@ -21,7 +21,7 @@
 - (void)refreshMoreData;
 - (void)setDataSource;
 - (void)initCellConfigArr;
-- (void)setTiableViewGaryBack;
+- (void)setTableViewGaryBack;
 
 //设置tableview 刷新数据 空数据代理
 - (void)setTableViewRefreshHeader;

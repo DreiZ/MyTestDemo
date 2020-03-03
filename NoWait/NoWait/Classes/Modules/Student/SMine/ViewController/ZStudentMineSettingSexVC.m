@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setTiableViewGaryBack];
+    [self setTableViewGaryBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
