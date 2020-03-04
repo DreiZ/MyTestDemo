@@ -8,8 +8,10 @@
 
 #import "ZOrganizationTeachingScheduleNoVC.h"
 #import "ZOrganizationTeachingScheduleNoCell.h"
+#import "ZOrganizationTeachingScheduleBuCell.h"
 
 #import "ZOrganizationTrachingScheduleNewClassVC.h"
+#import "ZOriganizationTeachingScheduleViewModel.h"
 
 @interface ZOrganizationTeachingScheduleNoVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -22,22 +24,35 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    for (int i = 0; i < 10; i++) {
+        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
+        model.lessonName = @"w瑜伽课";
+        model.lessonDes = @"很好学但是很痛苦哇啊啊";
+        model.lessonNum = @"1/12节";
+        model.validity = @"有效期至2012.12.1";
+        model.teacherName = @"史蒂夫老师";
+        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
+        [self.dataSources addObject:model];
+    }
+}
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:nil heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:progressCellConfig];
+    }
+    
 }
 
 - (void)setNavigation {
@@ -74,12 +89,103 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
-            [weakSelf.navigationController pushViewController:successvc animated:YES];
+            if (weakSelf.isEdit) {
+                ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
+                [weakSelf.navigationController pushViewController:successvc animated:YES];
+            }else{
+                weakSelf.isEdit = YES;
+                if (weakSelf.editChangeBlock) {
+                    weakSelf.editChangeBlock(weakSelf.isEdit);
+                }
+            }
         }];
     }
     return _bottomBtn;
 }
 
+- (void)changeType:(BOOL)type {
+    for (ZOriganizationLessonOrderListModel *model in self.dataSources) {
+        model.isEdit = type;
+    };;
+}
 
+- (void)setIsEdit:(BOOL)isEdit {
+    _isEdit = isEdit;
+    if (isEdit) {
+        [self changeType:YES];
+        [_bottomBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    }else{
+        [self changeType:NO];
+        [_bottomBtn setTitle:@"新建排课" forState:UIControlStateNormal];
+    }
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+}
+
+#pragma mark - tableview datasource
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]) {
+        ZOrganizationTeachingScheduleNoCell *ncell = (ZOrganizationTeachingScheduleNoCell *)cell;
+        ncell.handleBlock = ^(NSInteger index) {
+            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
+//            model.isSelected = !model.isSelected;
+        };
+    }
+}
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationTeachingScheduleViewModel getLessonOderList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationTeachingScheduleViewModel getLessonOderList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
 @end

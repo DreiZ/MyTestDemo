@@ -188,7 +188,6 @@
 //}
 
 
-
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
@@ -196,12 +195,48 @@
         [_editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
         ViewRadius(_editBtn, CGFloatIn750(22));
         [_editBtn bk_whenTapped:^{
+            weakSelf.model.isSelected = !weakSelf.model.isSelected;
+            if (weakSelf.model.isSelected) {
+                [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+            }else{
+                [weakSelf.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+            }
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             };
         }];
     }
     return _editBtn;
+}
+
+- (void)setModel:(ZOriganizationLessonOrderListModel *)model {
+    _model = model;
+    
+    _nameLabel.text = model.lessonName;
+    _detailLabel.text = model.lessonDes;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.lessonImage]];
+    //@property (nonatomic,strong) UILabel *timeLabel;
+    _numLabel.text= model.lessonNum;
+    _userLabel.text = model.teacherName;
+    if (model.isEdit) {
+        
+        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.equalTo(self.contView);
+            make.width.mas_equalTo(CGFloatIn750(86));
+        }];
+        
+        if (model.isSelected) {
+            [self.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+        }else{
+            [self.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+        }
+    }else{
+        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contView);
+            make.left.equalTo(self.contView.mas_right);
+            make.width.mas_equalTo(CGFloatIn750(86));
+        }];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

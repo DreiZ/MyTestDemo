@@ -8,7 +8,6 @@
 
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationTeachingScheduleNoVC.h"
-#import "ZOrganizationTeachingScheduleBuVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 #import "ZOrganizationSearchVC.h"
 
@@ -64,7 +63,6 @@
 
 - (void)setNavgation {
     [self.navigationItem setTitle:@"排课管理"];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 懒加载--
@@ -77,13 +75,39 @@
 
 - (NSMutableArray *)vcArr {
     if (!_vcArr) {
+        __weak typeof(self) weakSelf = self;
         _vcArr = @[].mutableCopy;
-        ZOrganizationTeachingScheduleNoVC *nvc = [[ZOrganizationTeachingScheduleNoVC alloc] init];
-        [_vcArr addObject:nvc];
-        ZOrganizationTeachingScheduleBuVC *bvc = [[ZOrganizationTeachingScheduleBuVC alloc] init];
-        [_vcArr addObject:bvc];
+        for (int i = 0; i < self.titleArr.count; i++) {
+            ZOrganizationTeachingScheduleNoVC *nvc = [[ZOrganizationTeachingScheduleNoVC alloc] init];
+            nvc.editChangeBlock = ^(BOOL isEdit) {
+                if (isEdit) {
+                    [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:weakSelf.navLeftBtn]];
+                }else{
+                    [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
+                }
+            };
+            [_vcArr addObject:nvc];
+        };
     }
     return _vcArr;
+}
+
+- (UIButton *)navLeftBtn {
+    if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn bk_whenTapped:^{
+            ZOrganizationTeachingScheduleNoVC *nvc = weakSelf.vcArr[weakSelf.selectIndex];
+            if (nvc) {
+                nvc.isEdit = NO;
+                [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
+            }
+        }];
+    }
+    return _navLeftBtn;
 }
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
@@ -120,6 +144,18 @@
         _searchBtn.title = @"搜索未排课学员";
     }else {
         _searchBtn.title = @"搜索待补课学员";
+    }
+    
+    BOOL isEdit = NO;
+    ZOrganizationTeachingScheduleNoVC *vc = self.vcArr[self.selectIndex];
+    if (vc) {
+        isEdit = vc.isEdit;
+    }
+    
+    if (isEdit) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
+    }else{
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
     }
     return self.titleArr[index];
 }
