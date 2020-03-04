@@ -32,7 +32,7 @@
     
     [self setNavigation];
     [self initCellConfigArr];
-    
+    self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];;
 }
 
@@ -194,13 +194,13 @@
         bCell.titleLabel.font = [UIFont boldFontMax1Title];
     }else if ([cellConfig.title isEqualToString:@"password"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.isCode = NO;
+        bCell.type = 0;
         bCell.valueChangeBlock = ^(NSString * text) {
             
         };
     }else if ([cellConfig.title isEqualToString:@"repassword"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.isCode = NO;
+        bCell.type = 0;
         bCell.valueChangeBlock = ^(NSString * text) {
             
         };

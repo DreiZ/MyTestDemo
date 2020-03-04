@@ -7,15 +7,19 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZLoginModel.h"
 
 @interface ZMineAccountTextFieldCell : ZBaseCell
 @property (nonatomic,assign) ZFormatterType formatterType;
 @property (nonatomic,assign) NSInteger max;
 @property (nonatomic,strong) NSString *placeholder;
-@property (nonatomic,assign) BOOL isCode;
-@property (nonatomic,strong) void (^valueChangeBlock)(NSString *);
-@end
+@property (nonatomic,assign) NSInteger type; //0：密码 1：code 2：图形验证码
+@property (nonatomic,strong) UIImage *codeImage;
 
-NS_ASSUME_NONNULL_END
+@property (nonatomic,strong) void (^getCodeBlock)(void (^)(NSString *));
+
+@property (nonatomic,strong) void (^imageCodeBlock)(NSString *);
+@property (nonatomic,strong) void (^valueChangeBlock)(NSString *);
+
+- (void)getImageCode;
+@end

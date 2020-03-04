@@ -43,6 +43,26 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 - (void)imageCodeWith:(NSString *)tel
               block:(codeResultBlock)block;
 
+/**
+ 验证码
+
+ @param params 电话号码 ckey
+ @param block 返回信息
+ */
++ (void)codeWithParams:(NSDictionary *)params
+                 block:(loginUserResultBlock)block;
+
+
+/**
+ 验证码图形
+
+ @param tel 电话号码
+ @param block 返回信息
+ */
++ (void)imageCodeWith:(NSString *)tel
+              block:(codeResultBlock)block;
+
+
 
 /**
 注册

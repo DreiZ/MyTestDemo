@@ -1,25 +1,28 @@
 //
-//  ZAccountChangePasswordVC.m
+//  ZLoginPasswordController.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/3.
+//  Created by zhuang zhang on 2020/3/4.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZAccountChangePasswordVC.h"
+#import "ZLoginPasswordController.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
 
-#import "ZStudentMineChangePasswordVC.h"
+#import "ZAccountChangePasswordVC.h"
+#import "ZLoginViewModel.h"
 
-@interface ZAccountChangePasswordVC ()
+@interface ZLoginPasswordController ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic,strong) UIView *footerView;
+@property (nonatomic,strong) UIButton *loginBtn;
 
+@property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 @end
 
-@implementation ZAccountChangePasswordVC
+@implementation ZLoginPasswordController
 
 #pragma mark vc delegate-------------------
 - (void)viewWillAppear:(BOOL)animated {
@@ -34,10 +37,21 @@
     
     [self setNavigation];
     [self initCellConfigArr];
-    self.iTableView.scrollEnabled = NO;
-    [self.iTableView reloadData];;
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    _loginViewModel = [[ZLoginViewModel alloc] init];
+}
+
+
+- (void)setOtherData {
+    __weak typeof(self) weakSelf = self;
+    self.iTableView.scrollEnabled = NO;
+    [self.iTableView reloadData];
+    // 是否可以登录
+    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
+}
 
 - (void)setupMainView {
     [super setupMainView];
@@ -63,39 +77,37 @@
     [super initCellConfigArr];
  
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"修改密码";
+    model.leftTitle = @"欢迎回到莫等闲";
     model.cellTitle = @"title";
     model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
     model.leftMargin = CGFloatIn750(50);
     model.isHiddenLine = YES;
     model.cellHeight = CGFloatIn750(126);
 
-
     ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
     [self.cellConfigArr addObject:titleCellConfig];
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(100) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(180) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         [self.cellConfigArr addObject:coachSpaceCellConfig];
     }
-    
-    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:@"18811953553"];
-    
-    [self.cellConfigArr addObject:phoneCellConfig];
 
-   ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-   
-   [self.cellConfigArr addObject:textCellConfig];
+   ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
+   [self.cellConfigArr addObject:phoneCellConfig];
+    
+   ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+    [self.cellConfigArr addObject:coachSpaceCellConfig];
+    
+    ZCellConfig *codeCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"密码"];
+    [self.cellConfigArr addObject:codeCellConfig];
 }
-
 
 - (void)setNavigation {
     self.isHidenNaviBar = YES;
 
-    [self.navigationItem setTitle:@"修改密码"];
+    [self.navigationItem setTitle:@"密码登录"];
 }
-
 
 #pragma mark - lazy loading...
 - (UIView *)navView {
@@ -134,7 +146,7 @@
 
 -(UIView *)footerView {
     if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(480))];
         _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
         UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -155,8 +167,6 @@
         
         __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
-            ZStudentMineChangePasswordVC *pvc = [[ZStudentMineChangePasswordVC alloc] init];
-            [weakSelf.navigationController pushViewController:pvc animated:YES];
 //            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
 //                if (weakSelf.iTextView.text.length < 5) {
 //                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
@@ -178,6 +188,23 @@
 //            }
             
         } forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+        [forgetBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [forgetBtn.titleLabel setFont:[UIFont fontContent]];
+        [_footerView addSubview:forgetBtn ];
+        [forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(CGFloatIn750(60));
+            make.width.mas_equalTo(CGFloatIn750(120));
+            make.top.equalTo(doneBtn.mas_bottom).offset(CGFloatIn750(30));
+            make.centerX.equalTo(self.footerView.mas_centerX);
+        }];
+        
+        [forgetBtn bk_whenTapped:^{
+            ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
+            [weakSelf.navigationController pushViewController:pvc animated:YES];
+        }];
     }
     
     return _footerView;
@@ -185,15 +212,19 @@
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"phone"]) {
-        ZStudentMineSettingBottomCell *bCell = (ZStudentMineSettingBottomCell *)cell;
-        bCell.titleLabel.font = [UIFont boldFontMax1Title];
-    }else if ([cellConfig.title isEqualToString:@"code"]) {
+    
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"phone"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.placeholder = @"请输入验证码";
-        bCell.type = 1;
+        bCell.type = 0;
         bCell.valueChangeBlock = ^(NSString * text) {
-            
+            weakSelf.loginViewModel.loginModel.tel = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"password"]) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.type = 0;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.pwd= text;
         };
     }
 }

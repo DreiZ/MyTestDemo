@@ -40,6 +40,41 @@
     return self;
 }
 
+
++ (void)codeWithParams:(NSDictionary *)params  block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 ) {
+            block(YES,dataModel.message);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
++ (void)imageCodeWith:(NSString *)tel block:(codeResultBlock)block  {
+    [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_captcha params:@{} completionHandler:^(id data, NSError *error) {
+        DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZImageCodeBackModel *imageCodeModel = [ZImageCodeBackModel mj_objectWithKeyValues:dataModel.data];
+            block(YES,imageCodeModel);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
+
 - (void)codeWithParams:(NSDictionary *)params  block:(loginUserResultBlock)block {
     [ZNetworkingManager postServerType:ZServerTypeCode url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);

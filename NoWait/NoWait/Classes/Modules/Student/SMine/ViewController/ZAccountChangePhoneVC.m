@@ -9,6 +9,7 @@
 #import "ZAccountChangePhoneVC.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
+#import "ZLoginCodeController.h"
 
 @interface ZAccountChangePhoneVC ()
 @property (nonatomic,strong) UIView *navView;
@@ -32,7 +33,7 @@
     
     [self setNavigation];
     [self initCellConfigArr];
-    
+    self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];;
 }
 
@@ -157,6 +158,8 @@
         
 //        __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
+            ZLoginCodeController *ovc = [[ZLoginCodeController alloc] init];
+            [self.navigationController pushViewController:ovc animated:YES];
 //            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
 //                if (weakSelf.iTextView.text.length < 5) {
 //                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
@@ -188,13 +191,13 @@
     
     if ([cellConfig.title isEqualToString:@"phone"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.isCode = NO;
+        bCell.type = 0;
         bCell.valueChangeBlock = ^(NSString * text) {
             
         };
     }else if ([cellConfig.title isEqualToString:@"code"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.isCode = YES;
+        bCell.type = 1;
         bCell.valueChangeBlock = ^(NSString * text) {
             
         };

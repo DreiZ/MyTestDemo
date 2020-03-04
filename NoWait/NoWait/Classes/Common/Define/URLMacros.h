@@ -39,8 +39,8 @@
 #if DevelopSever
 
 #pragma mark - /**开发服务器*/
-//验证码服务器
-#define URL_code                        @"http://api.xiangcenter.com"
+//验证码服务器@"http://api.xiangcenter.com"
+#define URL_code                        @"http://116.62.232.213"
 //用户服务器
 #define URL_user                        @"http://api.xiangcenter.com"
 //订单服务
