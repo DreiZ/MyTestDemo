@@ -8,6 +8,8 @@
 
 #import "ZOrganizationCardAddVC.h"
 #import "ZOrganizationCardAddLessonListVC.h"
+#import "ZAlertBeginAndEndTimeView.h"
+#import "ZAlertTimeQuantumView.h"
 
 @interface ZOrganizationCardAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -129,6 +131,10 @@
     if ([cellConfig.title isEqualToString:@"type"]) {
         ZOrganizationCardAddLessonListVC *lvc = [[ZOrganizationCardAddLessonListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"time"]) {
+        [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {
+            NSLog(@"%@**%@",begin, end);
+        }];
     }
 }
 @end
