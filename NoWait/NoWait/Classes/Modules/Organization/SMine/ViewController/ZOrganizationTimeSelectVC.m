@@ -12,12 +12,9 @@
 
 
 @interface ZOrganizationTimeSelectVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UITableView *iRightTableView;
 @property (nonatomic,strong) UIButton *navRightBtn;
 
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @property (nonatomic,strong) NSMutableArray *cellRightConfigArr;
 @end
 
@@ -27,16 +24,16 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setDataSource];
-    [self setupMainView];
     [self initCellConfigArr];
+    self.iTableView.delegate = self;
+    self.iRightTableView.delegate = self;
+    
     [self.iTableView reloadData];
     [self.iRightTableView reloadData];
 }
 
 - (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
+    [super setDataSource];
     _cellRightConfigArr = @[].mutableCopy;
     
     NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
@@ -54,7 +51,7 @@
         if (i == 0) {
             model.isSelected = YES;
         }
-        [_dataSources addObject:model];
+        [self.dataSources addObject:model];
     }
 }
 
@@ -71,9 +68,10 @@
 }
 
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
-    for (int i = 0; i < _dataSources.count; i++) {
-        ZBaseMenuModel *model = _dataSources[i];
+    [super initCellConfigArr];
+    
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZBaseMenuModel *model = self.dataSources[i];
         
         ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeLeftCell className] title:[ZOrganizationTimeLeftCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTimeLeftCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:channelCellConfig];
@@ -110,9 +108,9 @@
 }
 
 - (void)setupMainView {
+    [super setupMainView];
     
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.width.mas_equalTo(CGFloatIn750(204));
         make.bottom.equalTo(self.view.mas_bottom);
@@ -120,7 +118,7 @@
     }];
     
     [self.view addSubview:self.iRightTableView];
-    [_iRightTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iRightTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view);
         make.left.equalTo(self.iTableView.mas_right);
         make.bottom.equalTo(self.view.mas_bottom);
@@ -129,33 +127,6 @@
 }
 
 #pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }
-    return _iTableView;
-}
-
 -(UITableView *)iRightTableView {
     if (!_iRightTableView) {
         _iRightTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -209,14 +180,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.iTableView) {
-        return _cellConfigArr.count;
+        return self.cellConfigArr.count;
     }
     return _cellRightConfigArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.iTableView) {
-        ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+        ZCellConfig *cellConfig = [self.cellConfigArr objectAtIndex:indexPath.row];
             ZBaseCell *cell;
             cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
             if ([cellConfig.title isEqualToString:@"ZSpaceEmptyCell"]){
@@ -239,7 +210,7 @@
 #pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.iTableView) {
-        ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+        ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
         CGFloat cellHeight =  cellConfig.heightOfCell;
         return cellHeight;
     }else{
@@ -258,7 +229,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZCellConfig *cellConfig = [self.cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"ZOrganizationTimeLeftCell"]) {
         for (int i = 0; i < self.dataSources.count; i++) {
             ZBaseUnitModel *model = self.dataSources[i];
@@ -354,24 +325,4 @@
     
     return addView;
 }
-
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
 @end
-
-
-

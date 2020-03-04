@@ -28,7 +28,6 @@
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
-
 @end
 
 @implementation ZStudentMineVC

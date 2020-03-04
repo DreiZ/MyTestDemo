@@ -9,7 +9,7 @@
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationLessonManageListVC.h"
 #import "ZOrganizationLessonAddVC.h"
-
+#import "ZOrganizationSearchVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
 
@@ -129,7 +129,15 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
+        _searchBtn.title = @"搜索课程名称";
+        _searchBtn.handleBlock = ^{
+            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            svc.title = @"搜索课程";
+            svc.searchType = ZSearchTypeLesson;
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
     }
     return _searchBtn;
 }

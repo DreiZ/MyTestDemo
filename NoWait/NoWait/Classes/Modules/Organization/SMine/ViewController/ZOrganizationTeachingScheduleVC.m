@@ -10,7 +10,7 @@
 #import "ZOrganizationTeachingScheduleNoVC.h"
 #import "ZOrganizationTeachingScheduleBuVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
-
+#import "ZOrganizationSearchVC.h"
 
 @interface ZOrganizationTeachingScheduleVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -63,9 +63,6 @@
 }
 
 - (void)setNavgation {
-//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
-//
-//    [self.navigationItem setRightBarButtonItem:item];
     [self.navigationItem setTitle:@"排课管理"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -91,7 +88,19 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
+        _searchBtn.title = @"搜索未排课学员";
+        _searchBtn.handleBlock = ^{
+            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            if (weakSelf.selectIndex == 0) {
+                 svc.title = @"搜索未排课学员";
+            }else {
+                svc.title = @"搜索待补课学员";
+            }
+            svc.searchType = ZSearchTypeLesson;
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
     }
     return _searchBtn;
 }
@@ -107,6 +116,11 @@
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    if (self.selectIndex == 0) {
+        _searchBtn.title = @"搜索未排课学员";
+    }else {
+        _searchBtn.title = @"搜索待补课学员";
+    }
     return self.titleArr[index];
 }
 
@@ -120,7 +134,3 @@
 }
 
 @end
-
-
-
-

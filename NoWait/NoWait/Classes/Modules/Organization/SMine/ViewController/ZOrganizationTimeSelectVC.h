@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewViewController.h"
 #import "ZBaseUnitModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationTimeSelectVC : ZViewController
+@interface ZOrganizationTimeSelectVC : ZTableViewViewController
 @property (nonatomic,strong) void (^timeBlock)(NSMutableArray <ZBaseMenuModel *>*);
 @property (nonatomic,strong) NSMutableArray *timeArr;
 
