@@ -41,18 +41,6 @@
 @end
 
 @implementation ZOrganizationMineVC
-
-- (id)init
-{
-    if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"我的"), @"", @"");
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-        self.analyzeTitle = @"个人主页";
-    }
-    return self;
-}
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;

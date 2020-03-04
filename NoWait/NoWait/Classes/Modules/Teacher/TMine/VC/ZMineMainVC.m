@@ -53,11 +53,10 @@
 }
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self showMainVC];
+    [self showOrganizationVC];
+//    [self showMainVC];
 }
 
 #pragma mark - show vc
