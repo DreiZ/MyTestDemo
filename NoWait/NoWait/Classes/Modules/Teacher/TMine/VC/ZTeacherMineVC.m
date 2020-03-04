@@ -19,7 +19,6 @@
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
-#import "ZOrganizationMineVC.h"
 #import "ZMineSwitchRoleVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
