@@ -9,7 +9,6 @@
 #import "ZAccountChangePhoneVC.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
-#import "ZLoginCodeController.h"
 
 @interface ZAccountChangePhoneVC ()
 @property (nonatomic,strong) UIView *navView;
@@ -158,8 +157,6 @@
         
 //        __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
-            ZLoginCodeController *ovc = [[ZLoginCodeController alloc] init];
-            [self.navigationController pushViewController:ovc animated:YES];
 //            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
 //                if (weakSelf.iTextView.text.length < 5) {
 //                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];

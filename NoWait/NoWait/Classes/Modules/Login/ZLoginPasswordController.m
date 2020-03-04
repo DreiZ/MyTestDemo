@@ -167,26 +167,31 @@
         
         __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
-//            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
-//                if (weakSelf.iTextView.text.length < 5) {
-//                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
-//                    return ;
-//                }
-////                [TLUIUtility showLoading:nil];
-////                [ZMIneViewModel saveProposalContentWith:weakSelf.iTextView.text completeBlock:^(BOOL isSuccess, NSString *message) {
-////                    [TLUIUtility hiddenLoading];
-////                    if (isSuccess) {
-////                        [TLUIUtility showSuccessHint:message];
-////
-////                        [weakSelf.navigationController popViewControllerAnimated:YES];
-////                    }else{
-////                        [TLUIUtility showErrorHint:message];
-////                    }
-////                }];
-//            }else{
-//                [TLUIUtility showErrorHint:@"意见不能为空"];
-//            }
-            
+            [weakSelf.iTableView endEditing:YES];
+ 
+            NSMutableDictionary *params = @{}.mutableCopy;
+            if (self.loginViewModel.loginModel.tel && self.loginViewModel.loginModel.tel.length == 11) {
+                [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
+            }else{
+                return;
+            }
+
+            [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
+                if (isSuccess) {
+                     [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
+                    if (weakSelf.loginSuccess) {
+                        weakSelf.loginSuccess();
+                    }else{
+                        if (isSuccess) {
+                            //进入主页
+                            [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                        }
+                    }
+                    [TLUIUtility showSuccessHint:message];
+                }else{
+                    [TLUIUtility showErrorHint:message];
+                }
+            }];
         } forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];

@@ -156,6 +156,8 @@
         __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
             ZStudentMineChangePasswordVC *pvc = [[ZStudentMineChangePasswordVC alloc] init];
+            pvc.isSwitch = self.isSwitch;
+            pvc.loginSuccess = self.loginSuccess;
             [weakSelf.navigationController pushViewController:pvc animated:YES];
 //            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
 //                if (weakSelf.iTextView.text.length < 5) {

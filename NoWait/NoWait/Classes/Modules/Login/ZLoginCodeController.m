@@ -255,6 +255,12 @@
             }else{
                 return;
             }
+            
+            if (self.loginViewModel.loginModel.messageCode && self.loginViewModel.loginModel.messageCode.length == 6) {
+                [params setObject:self.loginViewModel.loginModel.tel forKey:@"messageCode"];
+            }else{
+                return;
+            }
 
             [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
                 if (isSuccess) {
@@ -289,28 +295,43 @@
         
         UIView *leftView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"微信登录" tag:0];
         UIView *midView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"密码登录" tag:1];
-        UIView *rightView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"游客模式" tag:2];
         [_footerView addSubview:leftView];
         [_footerView addSubview:midView];
-        [_footerView addSubview:rightView];
         
-        [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-            make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/6);
-            make.width.height.mas_equalTo(CGFloatIn750(120));
-        }];
-        
-        [midView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-            make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/6);
-            make.width.height.mas_equalTo(CGFloatIn750(120));
-        }];
-        
-        [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-            make.centerX.equalTo(self.footerView.mas_right).multipliedBy(5.0/6);
-            make.width.height.mas_equalTo(CGFloatIn750(120));
-        }];
+        if (_isSwitch) {
+            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/4);
+                make.width.height.mas_equalTo(CGFloatIn750(120));
+            }];
+            
+            [midView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/4);
+                make.width.height.mas_equalTo(CGFloatIn750(120));
+            }];
+        }else{
+            UIView *rightView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"游客模式" tag:2];
+            [_footerView addSubview:rightView];
+            
+            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/6);
+                make.width.height.mas_equalTo(CGFloatIn750(120));
+            }];
+            
+            [midView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/6);
+                make.width.height.mas_equalTo(CGFloatIn750(120));
+            }];
+            
+            [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(5.0/6);
+                make.width.height.mas_equalTo(CGFloatIn750(120));
+            }];
+        }
     }
     
     return _footerView;
@@ -424,6 +445,8 @@
     [menuBtn bk_whenTapped:^{
         if (tag == 1) {
             ZLoginPasswordController *lvc = [[ZLoginPasswordController alloc] init];
+            lvc.loginSuccess = weakSelf.loginSuccess;
+            lvc.isSwitch = lvc.isSwitch;
             [self.navigationController pushViewController:lvc animated:YES];
         }else if (tag == 2){
             if (weakSelf.isSwitch) {
@@ -454,7 +477,7 @@
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 2;
         bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.messageCode = text;
+            weakSelf.loginViewModel.loginModel.code = text;
         };
         bCell.imageCodeBlock = ^(NSString * ckey) {
             weakSelf.loginViewModel.loginModel.ckey = ckey;
@@ -464,7 +487,7 @@
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 1;
         bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.code = text;
+            weakSelf.loginViewModel.loginModel.messageCode = text;
         };
         bCell.getCodeBlock = ^(void (^success)(NSString *)) {
             if (!weakSelf.loginViewModel.loginModel.tel || weakSelf.loginViewModel.loginModel.tel.length != 11) {
@@ -473,7 +496,7 @@
                return;
            }
            
-           if (!weakSelf.loginViewModel.loginModel.messageCode || weakSelf.loginViewModel.loginModel.messageCode.length != 4) {
+           if (!weakSelf.loginViewModel.loginModel.code || weakSelf.loginViewModel.loginModel.code.length != 4) {
                [TLUIUtility showErrorHint:@"请输入图形验证码" ];
                //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
                return;

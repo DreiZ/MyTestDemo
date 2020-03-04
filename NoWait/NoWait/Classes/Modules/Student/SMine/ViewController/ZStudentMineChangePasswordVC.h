@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineChangePasswordVC : ZTableViewViewController
+@property (nonatomic, assign) BOOL isSwitch;
 
+@property (nonatomic, copy) void (^loginSuccess)(void);
 @end
 
 NS_ASSUME_NONNULL_END

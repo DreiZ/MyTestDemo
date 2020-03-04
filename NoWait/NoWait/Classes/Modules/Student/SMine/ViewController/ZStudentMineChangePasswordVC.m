@@ -111,7 +111,22 @@
         
         UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn bk_whenTapped:^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
+            
+            ZViewController *target;
+            for (ZViewController *controller in reversedArray) {
+                if ([controller isKindOfClass:[NSClassFromString(@"ZLoginPasswordController") class]]) {
+                    target = controller;
+                    break;
+                }
+            }
+            
+            if (target) {
+                [weakSelf.navigationController popToViewController:target animated:YES];
+                return;
+            }
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         }];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,8 +174,13 @@
             make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(100));
         }];
         
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.isSwitch) {
+                if (weakSelf.loginSuccess) {
+                    weakSelf.loginSuccess();
+                }
+            }
 //            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
 //                if (weakSelf.iTextView.text.length < 5) {
 //                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
