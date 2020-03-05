@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonAddVC.h"
 
 #import "ZOrganizationLessonTopSearchView.h"
-
+#import "ZOrganizationSearchVC.h"
 
 @interface ZOrganizationClassManageVC ()
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
@@ -90,6 +90,10 @@
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
+        ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+        svc.title = @"搜索班级";
+        svc.searchType = ZSearchTypeClass;
+        [self.navigationController pushViewController:svc animated:YES];
     }
     return _searchBtn;
 }

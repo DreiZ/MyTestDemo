@@ -31,3 +31,12 @@
 @implementation ZOriganizationLessonOrderListNetModel
 
 @end
+
+
+@implementation ZOriganizationClassListModel
+
+@end
+
+@implementation ZOriganizationClassListNetModel
+
+@end

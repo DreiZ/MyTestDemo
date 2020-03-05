@@ -11,6 +11,7 @@
 #import "ZAlertView.h"
 
 #import "ZOrganizationClassManageDetailVC.h"
+#import "ZOriganizationClassViewModel.h"
 
 @interface ZOrganizationClassManageListVC ()
 
@@ -41,15 +42,20 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:nil heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
+    for (int i = 0; i < 10; i++) {
+        ZOriganizationClassListModel *model = [[ZOriganizationClassListModel alloc] init];
+        model.className = @"瑜伽课";
+        model.classDes = @"很好学但是很痛苦哇啊啊";
+        model.num = @"12";
+        model.status = @"2";
+        model.type = @"1";
+        model.teacherName = @"史蒂夫老师";
+        model.teacherImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
+        [self.dataSources addObject:model];
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:progressCellConfig];
+    } 
 }
 
 - (void)setNavigation {
@@ -69,4 +75,59 @@
        }
 }
 
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    
+    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
 @end

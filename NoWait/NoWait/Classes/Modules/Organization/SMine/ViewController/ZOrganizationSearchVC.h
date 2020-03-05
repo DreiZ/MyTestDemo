@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger, ZSearchType) {
     ZSearchTypeLesson,  //课程
     ZSearchTypeLessonOrder,  //搜索学员订单
+    ZSearchTypeClass,  //搜索班级
 };
 
 @interface ZOrganizationSearchVC : ZTableViewViewController

@@ -38,4 +38,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSArray <ZOriganizationLessonOrderListModel *>*list;
 @property (nonatomic,copy) NSString *pages;
 @end
+
+
+@interface ZOriganizationClassListModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *isu;
+@property (nonatomic,strong) NSString *className;
+@property (nonatomic,strong) NSString *classDes;
+@property (nonatomic,strong) NSString *teacherName;
+@property (nonatomic,strong) NSString *teacherImage;
+@property (nonatomic,strong) NSString *num;
+@end
+
+@interface ZOriganizationClassListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationClassListModel *>*list;
+@property (nonatomic,copy) NSString *pages;
+@end
 NS_ASSUME_NONNULL_END

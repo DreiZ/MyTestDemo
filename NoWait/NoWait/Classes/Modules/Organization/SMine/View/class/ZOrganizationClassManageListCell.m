@@ -268,6 +268,10 @@
     return _openBtn;
 }
 
+- (void)setModel:(ZOriganizationClassListModel *)model {
+    _model = model;
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(348);
 }

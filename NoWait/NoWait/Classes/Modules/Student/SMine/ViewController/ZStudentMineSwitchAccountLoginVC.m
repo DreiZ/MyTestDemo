@@ -194,10 +194,25 @@
 
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
+           NSArray *viewControllers = self.navigationController.viewControllers;
+           NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
            
+           ZViewController *target;
+           for (ZViewController *controller in reversedArray) {
+               if ([controller isKindOfClass:[NSClassFromString(@"ZMineSwitchRoleVC") class]]) {
+                   target = controller;
+                   break;
+               }
+           }
+           
+           if (target) {
+               [weakSelf.navigationController popToViewController:target animated:YES];
+               return;
+           }
+           [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
         
         _loginBtn.layer.masksToBounds = YES;
