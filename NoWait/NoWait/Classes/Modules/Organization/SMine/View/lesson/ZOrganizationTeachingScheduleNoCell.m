@@ -218,10 +218,14 @@
     _numLabel.text= model.lessonNum;
     _userLabel.text = model.teacherName;
     if (model.isEdit) {
-        
-        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(self.contView);
-            make.width.mas_equalTo(CGFloatIn750(86));
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.right.bottom.equalTo(self.contView);
+                make.width.mas_equalTo(CGFloatIn750(86));
+            }];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            
         }];
         
         if (model.isSelected) {
@@ -230,10 +234,15 @@
             [self.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
         }
     }else{
-        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(self.contView);
-            make.left.equalTo(self.contView.mas_right);
-            make.width.mas_equalTo(CGFloatIn750(86));
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(self.contView);
+                make.left.equalTo(self.contView.mas_right);
+                make.width.mas_equalTo(CGFloatIn750(86));
+            }];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            
         }];
     }
 }

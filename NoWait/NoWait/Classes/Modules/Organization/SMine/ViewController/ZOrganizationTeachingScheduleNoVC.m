@@ -102,7 +102,7 @@
                     return ;
                 }
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
-                successvc.dataSources = tempArr;
+                successvc.dataSources = [[NSMutableArray alloc] initWithArray:tempArr];
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;

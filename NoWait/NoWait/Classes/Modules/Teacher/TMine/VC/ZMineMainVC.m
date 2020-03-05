@@ -39,7 +39,7 @@
     self.isHidenNaviBar = YES;
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self showMainVC];
+//    [self showMainVC];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -65,11 +65,11 @@
         [self showStudentVC];
         return;
     }
-    if ([[ZUserHelper sharedHelper].user.type intValue] == 0) {
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         [self showStudentVC];
-    }else if ([[ZUserHelper sharedHelper].user.type intValue] == 1){
-        [self showTeacherVC];
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2){
+        [self showTeacherVC];
+    }else if ([[ZUserHelper sharedHelper].user.type intValue] == 3){
         [self showOrganizationVC];
     }else{
         [self showStudentVC];
