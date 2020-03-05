@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewViewController.h"
 #import "ZStudentStarDetailHeadView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentStarStudentInfoVC : ZViewController
+@interface ZStudentStarStudentInfoVC : ZTableViewViewController
 @property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
 @end
 

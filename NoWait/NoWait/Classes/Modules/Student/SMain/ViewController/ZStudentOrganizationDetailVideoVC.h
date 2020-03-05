@@ -6,9 +6,9 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewViewController.h"
 
 
-@interface ZStudentOrganizationDetailVideoVC : ZViewController
+@interface ZStudentOrganizationDetailVideoVC : ZTableViewViewController
 
 @end

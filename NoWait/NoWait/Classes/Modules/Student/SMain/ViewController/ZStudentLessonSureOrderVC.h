@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentLessonSureOrderVC : ZViewController
+@interface ZStudentLessonSureOrderVC : ZTableViewViewController
 
 @end
 

@@ -24,12 +24,9 @@
 
 #define kHeaderHeight (CGFloatIn750(418)+kTopHeight)
 
-@interface ZStudentStarCoachInfoVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZStudentStarCoachInfoVC ()
 @property (nonatomic,strong) ZStudentStarDetailHeadView *headerView;
 @property (nonatomic,strong) ZStudentStarDetailNav *navgationView;
-
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @end
 
@@ -55,21 +52,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setData];
     [self setupMainView];
     
     [self initCellConfigArr];
 }
 
 
-- (void)setData {
-    _cellConfigArr = @[].mutableCopy;
-}
-
-
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [super setupMainView];
 
     [self.view addSubview:self.navgationView];
     [self.navgationView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,9 +67,7 @@
         make.height.mas_equalTo(kTopHeight);
     }];
     
-    [self.view addSubview:self.iTableView];
-    
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navgationView.mas_top);
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-0);
@@ -92,32 +80,6 @@
 }
 
 #pragma mark - lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = NO;
-        }
-        _iTableView.showsVerticalScrollIndicator = NO;
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        
-    }
-    return _iTableView;
-}
-
 - (ZStudentStarDetailHeadView *)headerView {
     if (!_headerView) {
 //        __weak typeof(self) weakSelf = self;
@@ -141,49 +103,13 @@
 
 
 #pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
+{
     if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailLessonListCell"]){
         ZStudentLessonDetailLessonListCell *enteryCell = (ZStudentLessonDetailLessonListCell *)cell;
         enteryCell.isHiddenBottomLine = YES;
-        
-    }
-    return cell;
-}
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
-        
     }
 }
-
-
 
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -204,9 +130,8 @@
 
 
 #pragma mark - 设置数据
-
 - (void)initCellConfigArr {
-    [self.cellConfigArr removeAllObjects];
+    [super initCellConfigArr];
     
     ZCellConfig *infoCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarCoachInfoCell  className] title:[ZStudentStarCoachInfoCell className] showInfoMethod:nil heightOfCell:[ZStudentStarCoachInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:infoCellConfig];
@@ -231,7 +156,7 @@
         }
         
         ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setNoSpacelist:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
-        [_cellConfigArr addObject:lessonDesCellConfig];
+        [self.cellConfigArr addObject:lessonDesCellConfig];
         ZCellConfig *lessonFootCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBGDark])];
            [self.cellConfigArr addObject:lessonFootCellConfig];
         
@@ -261,7 +186,7 @@
             model.star = @"4.5";
             model.time = @"2019-10-23";
             ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailEvaListCell className] title:[ZStudentLessonDetailEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonDetailEvaListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [_cellConfigArr addObject:lessonTitleCellConfig];
+            [self.cellConfigArr addObject:lessonTitleCellConfig];
         }
         
         
