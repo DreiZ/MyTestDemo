@@ -20,10 +20,10 @@
         _loginModel = [[ZLoginModel alloc] init];
         _registerModel = [[ZRegisterModel alloc] init];
         RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),
-                                                             RACObserve(self, self.loginModel.code)]]
+                                                             RACObserve(self, self.loginModel.messageCode)]]
         map:^id(id value) {
-        RACTupleUnpack(NSString *tel, NSString *code) = value;
-            return @(tel && tel.length == 11 && code && code.length == 6);
+        RACTupleUnpack(NSString *tel, NSString *messageCode) = value;
+            return @(tel && tel.length == 11 && messageCode && messageCode.length == 6);
         }];
         
         RAC(self, isLoginPwdEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),

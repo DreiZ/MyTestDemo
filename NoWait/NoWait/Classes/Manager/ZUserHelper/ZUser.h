@@ -18,7 +18,8 @@
 @property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *sex;
 @property (nonatomic,strong) NSString *status;
-@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *type;//（1：学员 2：老师 3：校长 4：机构管理）
 @property (nonatomic,strong) NSString *token;
 
+@property (nonatomic,strong) NSDictionary *content;
 @end

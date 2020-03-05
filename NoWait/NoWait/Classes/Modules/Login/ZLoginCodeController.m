@@ -249,15 +249,9 @@
                 return;
             }
             
-            if (self.loginViewModel.loginModel.code && self.loginViewModel.loginModel.code.length == 4) {
-                [params setObject:self.loginViewModel.loginModel.code forKey:@"code"];
-                [params setObject:self.loginViewModel.loginModel.ckey forKey:@"ckey"];
-            }else{
-                return;
-            }
             
             if (self.loginViewModel.loginModel.messageCode && self.loginViewModel.loginModel.messageCode.length == 6) {
-                [params setObject:self.loginViewModel.loginModel.tel forKey:@"messageCode"];
+                [params setObject:self.loginViewModel.loginModel.messageCode forKey:@"code"];
             }else{
                 return;
             }

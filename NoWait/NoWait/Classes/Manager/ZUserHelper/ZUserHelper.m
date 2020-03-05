@@ -142,15 +142,12 @@
             ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
             
             ZUser *user = [[ZUser alloc] init];
-            user.birthday = userModel.birthday? userModel.birthday:@"";
             user.userID = userModel.userID? userModel.userID:@"";
             user.avatar = userModel.image? userModel.image:@"";
-            user.is_new = userModel.is_new? userModel.is_new:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             user.phone = userModel.phone? userModel.phone:@"";
-            user.sex = userModel.sex? userModel.sex:@"";
-            user.status = userModel.status? userModel.status:@"";
-            user.type = userModel.type? userModel.type:@"";
+            user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
+            user.token = userModel.token? userModel.token:@"";
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
             [[ZUserHelper sharedHelper] setUser:user];
         }
@@ -166,16 +163,19 @@
             
             ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
             
+            if (userModel && userModel.notice_msg && userModel.notice_msg.length > 0) {
+                [ZAlertView setAlertWithTitle:userModel.notice_msg btnTitle:@"取消" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }
+            
             ZUser *user = [[ZUser alloc] init];
-            user.birthday = userModel.birthday? userModel.birthday:@"";
             user.userID = userModel.userID? userModel.userID:@"888888";
             user.avatar = userModel.image? userModel.image:@"";
-            user.is_new = userModel.is_new? userModel.is_new:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             user.phone = userModel.phone? userModel.phone:@"";
-            user.sex = userModel.sex? userModel.sex:@"";
-            user.status = userModel.status? userModel.status:@"";
-            user.type = userModel.type? userModel.type:@"";
+            user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
+            user.token = userModel.token ? userModel.token:@"";
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
             [[ZUserHelper sharedHelper] setUser:user];
             block(YES,dataModel.message);

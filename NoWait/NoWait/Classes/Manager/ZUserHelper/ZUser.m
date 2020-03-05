@@ -24,7 +24,11 @@
         self.token = @"";
         
         [ZUser mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-            return @{@"userID":@"id"};
+            return @{@"userID":@"id",
+                     @"type":@"pre_login_type",
+                     @"avatar":@"image",
+                     @"nikeName":@"nick_name"
+            };
         }];
     }
     return self;

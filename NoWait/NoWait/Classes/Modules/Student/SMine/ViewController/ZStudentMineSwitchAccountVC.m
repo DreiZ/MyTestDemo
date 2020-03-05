@@ -99,6 +99,23 @@
          loginvc.loginSuccess = ^{
              [weakSelf initCellConfigArr];
              [weakSelf.iTableView reloadData];
+             
+             NSArray *viewControllers = self.navigationController.viewControllers;
+             NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
+             
+             ZViewController *target;
+             for (ZViewController *controller in reversedArray) {
+                 if ([controller isKindOfClass:[NSClassFromString(@"ZStudentMineSwitchAccountVC") class]]) {
+                     target = controller;
+                     break;
+                 }
+             }
+             
+             if (target) {
+                 [weakSelf.navigationController popToViewController:target animated:YES];
+                 return;
+             }
+             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
          };
          loginvc.isSwitch = YES;
          [self.navigationController pushViewController:loginvc animated:YES];

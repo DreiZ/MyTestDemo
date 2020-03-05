@@ -17,7 +17,15 @@
 @end
 
 @implementation ZOriganizationAddClassModel 
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _lessonTimeArr = @[].mutableCopy;
+        _lessonOrderArr = @[].mutableCopy;
+        _className = @"";
+    }
+    return self;
+}
 @end
 
 @implementation ZOriganizationLessonOrderListNetModel

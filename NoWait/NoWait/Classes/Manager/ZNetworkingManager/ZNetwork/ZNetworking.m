@@ -11,10 +11,10 @@
 #import "ZUserHelper.h"
 #import "ZLaunchManager.h"
 #import "ZAppConfig.h"
+static AFHTTPSessionManager *manager = nil;
 
 @implementation ZNetworking
 + (AFHTTPSessionManager *)defaultAFManager {
-    static AFHTTPSessionManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [AFHTTPSessionManager manager];
@@ -57,9 +57,33 @@
         return nil;
     }
     
+    if([ZUserHelper sharedHelper].user && [ZUserHelper sharedHelper].user.token.length > 0 && [ZUserHelper sharedHelper].user.token){
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer%@",[ZUserHelper sharedHelper].user.token] forHTTPHeaderField:@"Authorization"];
+    }
+    
     return [[ZNetworking defaultAFManager] POST:path parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        completionHandler(responseObject, nil);
+        if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *r = (NSHTTPURLResponse *)task.response;
+            NSDictionary *header = [r allHeaderFields];
+            if (header && [header objectForKey:@"Token"]) {
+                NSString *token = header[@"Token"];
+                if (responseObject && [responseObject isKindOfClass:[NSDictionary class]] && [responseObject objectForKey:@"data"] && [responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithDictionary:responseObject[@"data"]];
+                    [dataDict setObject:token forKey:@"token"];
+                    
+                    NSMutableDictionary *tempResponseObject = [[NSMutableDictionary alloc] initWithDictionary:responseObject];
+                    tempResponseObject[@"data"] = dataDict;
+                    completionHandler(tempResponseObject, nil);
+                }else{
+                    completionHandler(responseObject, nil);
+                }
+            }else{
+                completionHandler(responseObject, nil);
+            }
+        }else{
+            completionHandler(responseObject, nil);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil, error);
     }];

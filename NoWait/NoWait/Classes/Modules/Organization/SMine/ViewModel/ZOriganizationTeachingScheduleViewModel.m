@@ -10,6 +10,14 @@
 
 @implementation ZOriganizationTeachingScheduleViewModel
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _addModel = [[ZOriganizationAddClassModel alloc] init];
+    }
+    return self;
+}
+
 + (void)getLessonOderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeApi url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
         DLog(@"server-list %@",data);

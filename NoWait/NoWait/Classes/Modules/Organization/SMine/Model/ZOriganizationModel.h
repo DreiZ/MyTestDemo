@@ -28,7 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ZOriganizationAddClassModel : NSObject
-
+@property (nonatomic,strong) NSMutableArray *lessonTimeArr;
+@property (nonatomic,strong) NSMutableArray *lessonOrderArr;
+@property (nonatomic,strong) NSString *className;
+@property (nonatomic,assign) NSString *singleTime;
 @end
 
 @interface ZOriganizationLessonOrderListNetModel : ZBaseNetworkBackDataModel

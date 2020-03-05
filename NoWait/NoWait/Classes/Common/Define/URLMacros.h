@@ -42,7 +42,7 @@
 //验证码服务器@"http://api.xiangcenter.com"
 #define URL_code                        @"http://116.62.232.213"
 //用户服务器
-#define URL_user                        @"http://api.xiangcenter.com"
+#define URL_user                        @"http://116.62.232.213"
 //订单服务
 #define URL_order                       @"http://api.xiangcenter.com"
 //文件服务器
@@ -170,7 +170,7 @@
 //注册接口
 #define URL_account_v1_register                     @"account/v1/register"
 //登录接口
-#define URL_account_v1_login                        @"account/v1/login"
+#define URL_account_v1_login                        @"account/v1/login_by_code"
 //刷新token接口
 #define URL_account_v1_refresh                      @"account/v1/refresh"
 

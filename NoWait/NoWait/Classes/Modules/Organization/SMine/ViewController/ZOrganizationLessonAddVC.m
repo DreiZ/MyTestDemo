@@ -546,6 +546,7 @@
         
         ZTextFieldMultColCell *tCell = (ZTextFieldMultColCell *)cell;
         tCell.selectBlock = ^{
+            [weakSelf.iTableView endEditing:YES];
             ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
             svc.timeArr = weakSelf.viewModel.addModel.guTimeArr;
             svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {

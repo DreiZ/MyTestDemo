@@ -11,10 +11,12 @@
 #import "ZOrganizationTimeSelectVC.h"
 #import "ZAlertDataCheckBoxView.h"
 #import "ZTextFieldMultColCell.h"
-
+#import "ZOriganizationTeachingScheduleViewModel.h"
 
 @interface ZOrganizationTrachingScheduleNewClassVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) ZOriganizationTeachingScheduleViewModel *addViewModel;
+
 @end
 
 @implementation ZOrganizationTrachingScheduleNewClassVC
@@ -26,6 +28,10 @@
     [self initCellConfigArr];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    _addViewModel = [[ZOriganizationTeachingScheduleViewModel alloc] init];
+}
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -48,10 +54,32 @@
                 cellModel.cellHeight = CGFloatIn750(116);
                 cellModel.textColor = [UIColor colorTextGray];
                 cellModel.leftContentWidth = CGFloatIn750(260);
+                cellModel.cellTitle = @"lessonTime";
+                
                 
                 NSMutableArray *multArr = @[].mutableCopy;
+                NSMutableArray *tempArr = @[].mutableCopy;
+                for (int i = 0; i < self.addViewModel.addModel.lessonTimeArr.count; i++) {
+                    ZBaseMenuModel *menuModel = self.addViewModel.addModel.lessonTimeArr[i];
+                    
+                    if (menuModel && menuModel.units && menuModel.units.count > 0) {
+                        NSMutableArray *tempSubArr = @[].mutableCopy;
+                        [tempSubArr addObject:menuModel.name];
+                        NSString *subTitle = @"";
+                        for (int k = 0; k < menuModel.units.count; k++) {
+                            ZBaseUnitModel *unitModel = menuModel.units[k];
+                            if (subTitle.length == 0) {
+                                subTitle = [NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]];
+                            }else{
+                                subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,[self getStartTime:unitModel],[self getEndTime:unitModel]];
+                            }
+                        }
+                        [tempSubArr addObject:subTitle];
+                        
+                        [tempArr addObject:tempSubArr];
+                    }
+                }
                 
-                NSArray *tempArr = @[@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"],@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"]];
                 for (int j = 0; j < tempArr.count; j++) {
                     ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
                     mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;
@@ -65,10 +93,11 @@
                     mModel.rightTitle = tempArr[j][1];
                     mModel.leftTitle = tempArr[j][0];
                     mModel.leftContentSpace = CGFloatIn750(4);
-                    mModel.rightContentSpace = CGFloatIn750(4);
+                    mModel.rightContentSpace = CGFloatIn750(16);
                     mModel.leftMargin = CGFloatIn750(2);
                     mModel.rightMargin = CGFloatIn750(2);
                     mModel.isHiddenLine = YES;
+                    mModel.textAlignment = NSTextAlignmentLeft;
                     
                     [multArr addObject:mModel];
                 }
@@ -86,7 +115,9 @@
                 cellModel.isHiddenLine = YES;
                 cellModel.cellHeight = CGFloatIn750(116);
                 cellModel.textColor = [UIColor colorTextGray];
-                
+                if (i == 0) {
+                    cellModel.content = self.addViewModel.addModel.className;
+                }
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
                 [self.cellConfigArr addObject:textCellConfig];
             }
@@ -142,10 +173,35 @@
 
 
 #pragma mark tableView ------delegate-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig{
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"lessonTime"]) {
+        ZTextFieldMultColCell *lcell = (ZTextFieldMultColCell *)cell;
+        lcell.selectBlock = ^{
+            ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+            svc.timeArr = weakSelf.addViewModel.addModel.lessonTimeArr;
+            svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
+                weakSelf.addViewModel.addModel.lessonTimeArr = timeArr;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            };
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
+        
+    }else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.addViewModel.addModel.className = text;
+        };
+    }
+}
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    
     if ([cellConfig.title isEqualToString:@"school"]) {
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
+        [self.iTableView endEditing:YES];
         [ZAlertDataCheckBoxView setAlertName:@"选择教练" handlerBlock:^(NSInteger index) {
             
         }];
@@ -155,4 +211,35 @@
     }
 }
 
+
+- (NSString *)getStartTime:(ZBaseUnitModel *)model {
+    if ([model.subName intValue] < 10) {
+        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    }else{
+        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+    }
+}
+
+- (NSString *)getEndTime:(ZBaseUnitModel *)model {
+    NSInteger temp = [self.addViewModel.addModel.singleTime intValue]/60;
+    NSInteger subTemp = [self.addViewModel.addModel.singleTime intValue]%60;
+    
+    NSInteger hourTemp = [model.name intValue] + temp;
+    NSInteger minTemp = [model.subName intValue] + subTemp;
+    if (minTemp > 59) {
+        minTemp -= 60;
+        hourTemp++;
+    }
+    
+    if (hourTemp > 24) {
+        hourTemp -= 24;
+    }
+    
+    
+    ZBaseUnitModel *uModel = [[ZBaseUnitModel alloc] init];
+    uModel.name = [NSString stringWithFormat:@"%ld",hourTemp];
+    uModel.subName = [NSString stringWithFormat:@"%ld",minTemp];
+    
+    return [self getStartTime:uModel];
+}
 @end

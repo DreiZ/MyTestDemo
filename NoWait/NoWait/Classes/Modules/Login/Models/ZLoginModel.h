@@ -33,14 +33,12 @@
 @end
 
 @interface ZLoginUserBackModel : NSObject
-@property (nonatomic,strong) NSString *birthday;
 @property (nonatomic,strong) NSString *userID;
 @property (nonatomic,strong) NSString *image;
-@property (nonatomic,strong) NSString *is_new;
 @property (nonatomic,strong) NSString *nick_name;
 @property (nonatomic,strong) NSString *phone;
-@property (nonatomic,strong) NSString *sex;
-@property (nonatomic,strong) NSString *status;
-@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *token;
+@property (nonatomic,strong) NSString *notice_msg;
+@property (nonatomic,strong) NSString *pre_login_type;
 @end
 
