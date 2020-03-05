@@ -50,7 +50,7 @@
     self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];
     // 是否可以登录
-    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
+    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginPwdEnable);
 }
 
 - (void)setupMainView {
@@ -222,14 +222,18 @@
     if ([cellConfig.title isEqualToString:@"phone"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 0;
+        bCell.max = 11;
+        bCell.formatterType = ZFormatterTypePhoneNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.tel = text;
         };
     }else if ([cellConfig.title isEqualToString:@"password"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 0;
+        bCell.max = 20;
+        bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.pwd= text;
+            weakSelf.loginViewModel.loginModel.pwd = text;
         };
     }
 }

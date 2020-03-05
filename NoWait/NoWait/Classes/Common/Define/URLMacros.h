@@ -161,9 +161,9 @@
 
 #pragma mark ---------------------------验证码相关 URL_code---------------------------
 //图形验证码接口
-#define URL_sms_v1_captcha                          @"sms/v1/captcha"
+#define URL_sms_v1_captcha                          @"account/v1/captcha"
 //获取验证码
-#define URL_sms_v1_send_code                        @"sms/v1/send_code"
+#define URL_sms_v1_send_code                        @"account/v1/send_code"
 
 
 #pragma mark -------------------------登录---URL_user----------------------------

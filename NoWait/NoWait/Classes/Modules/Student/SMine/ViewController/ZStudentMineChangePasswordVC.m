@@ -9,12 +9,13 @@
 #import "ZStudentMineChangePasswordVC.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
+#import "ZLoginViewModel.h"
 
 @interface ZStudentMineChangePasswordVC ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic,strong) UIView *footerView;
-
+@property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 @end
 
 @implementation ZStudentMineChangePasswordVC
@@ -56,6 +57,12 @@
 }
 
 
+- (void)setDataSource {
+    [super setDataSource];
+    _loginViewModel = [[ZLoginViewModel alloc] init];
+}
+
+
 #pragma mark - set data
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -77,7 +84,7 @@
 
     [self.cellConfigArr addObject:titleCellConfig];
     
-    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:@"18811953553"];
+    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:self.loginViewModel.loginModel.tel];
     
     [self.cellConfigArr addObject:phoneCellConfig];
 
@@ -209,20 +216,25 @@
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"phone"]) {
         ZStudentMineSettingBottomCell *bCell = (ZStudentMineSettingBottomCell *)cell;
         bCell.titleLabel.font = [UIFont boldFontMax1Title];
     }else if ([cellConfig.title isEqualToString:@"password"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 0;
+        bCell.max = 20;
+        bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
-            
+            weakSelf.loginViewModel.loginModel.pwd = text;
         };
     }else if ([cellConfig.title isEqualToString:@"repassword"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 0;
+        bCell.max = 20;
+        bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
-            
+            weakSelf.loginViewModel.loginModel.rePwd = text;
         };
     }
 }

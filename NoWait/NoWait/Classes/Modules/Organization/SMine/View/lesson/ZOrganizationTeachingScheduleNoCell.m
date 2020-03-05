@@ -118,7 +118,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"王大武";
+        _nameLabel.text = @"";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
@@ -131,7 +131,7 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _detailLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _detailLabel.text = @"学习力小香猪";
+        _detailLabel.text = @"";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         [_detailLabel setFont:[UIFont fontSmall]];
@@ -142,7 +142,6 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.image = [UIImage imageNamed:@"serverTopbg"];
         ViewRadius(_userImageView, CGFloatIn750(22));
     }
     return _userImageView;
@@ -153,7 +152,7 @@
     if (!_userLabel) {
         _userLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _userLabel.text = @"香香老师";
+        _userLabel.text = @"";
         _userLabel.numberOfLines = 1;
         _userLabel.textAlignment = NSTextAlignmentRight;
         [_userLabel setFont:[UIFont fontSmall]];
@@ -166,7 +165,7 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _numLabel.text = @"10/23节";
+        _numLabel.text = @"";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontSmall]];

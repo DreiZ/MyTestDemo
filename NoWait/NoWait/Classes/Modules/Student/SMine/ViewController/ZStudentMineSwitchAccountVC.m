@@ -31,6 +31,18 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.cellHeight = CGFloatIn750(180);
+        model.leftTitle = @"切换账号";
+        model.cellTitle = @"title";
+        model.leftFont = [UIFont boldFontMax2Title];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    
     NSArray *userList = [[ZUserHelper sharedHelper] userList];
     
     for (int i = 0; i < userList.count; i++) {
@@ -38,7 +50,7 @@
             ZUser *user = userList[i];
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.cellHeight = CGFloatIn750(106);
+            model.cellHeight = CGFloatIn750(116);
             model.leftTitle = user.phone;
             model.cellTitle = @"user";
             model.leftImage = @"http://ww1.sinaimg.cn/mw600/bdd98093gy1gbp87csne1j20go0gotbs.jpg";
@@ -57,8 +69,8 @@
         }
     }
     
-    if (self.cellConfigArr.count < 2) {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    if (self.cellConfigArr.count < 3) {
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
         [self.cellConfigArr addObject:topCellConfig];
         
         
@@ -99,24 +111,6 @@
      }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section != 0) {
-        return nil;
-    }
-    UIView *sectionView = [[UIView alloc] init];
-    sectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    
-    UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-    hintLabel.text = @"向心力账号";
-    [hintLabel setFont:[UIFont fontSmall]];
-    [sectionView addSubview:hintLabel];
-    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(sectionView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(sectionView.mas_centerY);
-    }];
-    return sectionView;
-}
 
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等

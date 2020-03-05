@@ -118,7 +118,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"王大武";
+        _nameLabel.text = @"";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
@@ -131,7 +131,7 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _detailLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _detailLabel.text = @"学习力小香猪";
+        _detailLabel.text = @"";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         [_detailLabel setFont:[UIFont fontSmall]];
@@ -142,7 +142,6 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.image = [UIImage imageNamed:@"serverTopbg"];
         ViewRadius(_userImageView, CGFloatIn750(22));
     }
     return _userImageView;
@@ -153,7 +152,7 @@
     if (!_userLabel) {
         _userLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _userLabel.text = @"香香老师";
+        _userLabel.text = @"";
         _userLabel.numberOfLines = 1;
         _userLabel.textAlignment = NSTextAlignmentRight;
         [_userLabel setFont:[UIFont fontSmall]];
@@ -166,7 +165,7 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _numLabel.text = @"10/23节";
+        _numLabel.text = @"";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontSmall]];
@@ -179,15 +178,13 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"有效期至2020 02.30";
+        _timeLabel.text = @"";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
 }
-
-
 
 - (UIButton *)editBtn {
     if (!_editBtn) {
@@ -196,6 +193,12 @@
         [_editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
         ViewRadius(_editBtn, CGFloatIn750(22));
         [_editBtn bk_whenTapped:^{
+            weakSelf.model.isSelected = !weakSelf.model.isSelected;
+            if (weakSelf.model.isSelected) {
+                [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+            }else{
+                [weakSelf.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+            }
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             };
@@ -203,6 +206,37 @@
     }
     return _editBtn;
 }
+
+- (void)setModel:(ZOriganizationLessonOrderListModel *)model {
+    _model = model;
+    
+    _nameLabel.text = model.lessonName;
+    _detailLabel.text = model.lessonDes;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.lessonImage]];
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",model.lessonHadNum,model.lessonNum];
+    _userLabel.text = model.teacherName;
+    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",model.validity];
+    if (model.isEdit) {
+        
+        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.equalTo(self.contView);
+            make.width.mas_equalTo(CGFloatIn750(86));
+        }];
+        
+        if (model.isSelected) {
+            [self.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+        }else{
+            [self.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+        }
+    }else{
+        [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contView);
+            make.left.equalTo(self.contView.mas_right);
+            make.width.mas_equalTo(CGFloatIn750(86));
+        }];
+    }
+}
+
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(260);

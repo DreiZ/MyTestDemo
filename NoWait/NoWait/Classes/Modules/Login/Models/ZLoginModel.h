@@ -19,6 +19,7 @@
 @interface ZLoginModel : NSObject
 @property (nonatomic,copy) NSString *tel;
 @property (nonatomic,copy) NSString *pwd;
+@property (nonatomic,copy) NSString *rePwd;
 @property (nonatomic,copy) NSString *code;
 @property (nonatomic,copy) NSString *ckey;
 @property (nonatomic,copy) NSString *messageCode;

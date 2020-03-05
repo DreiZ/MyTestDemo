@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *lessonName;
 @property (nonatomic,copy) NSString *lessonDes;
 @property (nonatomic,copy) NSString *lessonNum;
+@property (nonatomic,copy) NSString *lessonHadNum;
 @property (nonatomic,copy) NSString *teacherName;
 @property (nonatomic,copy) NSString *lessonImage;
 @property (nonatomic,copy) NSString *validity;

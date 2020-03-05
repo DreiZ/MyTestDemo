@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTeachingScheduleNoVC : ZTableViewViewController
+@property (nonatomic,assign) BOOL isBu;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) void (^editChangeBlock)(BOOL);
 @end

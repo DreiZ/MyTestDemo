@@ -278,7 +278,7 @@ static NSTimer *retrieveTimer = nil;
     
     
     // 是否可以登录
-   RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isRegisterEnable);
+   RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginPwdEnable);
     
     
     [self getImageCode];

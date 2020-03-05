@@ -19,22 +19,19 @@
     if (self) {
         _loginModel = [[ZLoginModel alloc] init];
         _registerModel = [[ZRegisterModel alloc] init];
-        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),RACObserve(self, self.loginModel.pwd),
+        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),
                                                              RACObserve(self, self.loginModel.code)]]
         map:^id(id value) {
-        RACTupleUnpack(NSString *tel, NSString *pwd, NSString *code) = value;
-            return @(tel && tel.length == 11 && pwd && pwd.length >= 6 && code && code.length == 4);
+        RACTupleUnpack(NSString *tel, NSString *code) = value;
+            return @(tel && tel.length == 11 && code && code.length == 6);
         }];
         
-        RAC(self, isRegisterEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),
+        RAC(self, isLoginPwdEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),
                                                                  
-                                                                 RACObserve(self, self.registerModel.pwd),
-                                                                 RACObserve(self, self.registerModel.messageCode),
-                                                                    
-                                                                 RACObserve(self, self.registerModel.code)]]
+                                                                 RACObserve(self, self.registerModel.pwd)]]
                map:^id(id value) {
-               RACTupleUnpack(NSString *tel, NSString *pwd,NSString *messageCode, NSString *code) = value;
-                   return @(tel && tel.length == 11 && pwd && pwd.length >= 8 && messageCode && messageCode.length == 6 && code && code.length == 4);
+               RACTupleUnpack(NSString *tel, NSString *pwd) = value;
+                   return @(tel && tel.length == 11 && pwd && pwd.length >= 8);
                }];
     }
     return self;

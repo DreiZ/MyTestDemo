@@ -19,7 +19,7 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
  判断是否可以登录
  */
 @property (nonatomic, assign) BOOL isLoginEnable;
-@property (nonatomic, assign) BOOL isRegisterEnable;
+@property (nonatomic, assign) BOOL isLoginPwdEnable;
 @property (nonatomic, strong) ZLoginModel *loginModel;
 @property (nonatomic, strong) ZRegisterModel *registerModel;
 

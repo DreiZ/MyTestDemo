@@ -470,12 +470,16 @@
     if ([cellConfig.title isEqualToString:@"phone"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 0;
+        bCell.max = 11;
+        bCell.formatterType = ZFormatterTypePhoneNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.tel = text;
         };
     }else if ([cellConfig.title isEqualToString:@"imageCode"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 2;
+        bCell.max = 4;
+        bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.code = text;
         };
@@ -486,6 +490,8 @@
     }else if ([cellConfig.title isEqualToString:@"code"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 1;
+        bCell.max = 6;
+        bCell.formatterType = ZFormatterTypePhoneNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.messageCode = text;
         };
@@ -502,7 +508,7 @@
                return;
            }
            
-           NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.messageCode,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
+           NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.code,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
            [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
               if (isSuccess) {
                   [TLUIUtility showSuccessHint:message];

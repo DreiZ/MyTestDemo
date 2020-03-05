@@ -7,7 +7,7 @@
 //
 
 #import "ZTableViewViewController.h"
-
+#import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTrachingScheduleNewClassVC : ZTableViewViewController

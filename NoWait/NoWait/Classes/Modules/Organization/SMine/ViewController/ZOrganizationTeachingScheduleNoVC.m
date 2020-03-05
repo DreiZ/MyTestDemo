@@ -34,10 +34,11 @@
     [super setDataSource];
     for (int i = 0; i < 10; i++) {
         ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
-        model.lessonName = @"w瑜伽课";
+        model.lessonName = @"瑜伽课";
         model.lessonDes = @"很好学但是很痛苦哇啊啊";
-        model.lessonNum = @"1/12节";
-        model.validity = @"有效期至2012.12.1";
+        model.lessonNum = @"12";
+        model.lessonHadNum = @"2";
+        model.validity = @"2012.12.1";
         model.teacherName = @"史蒂夫老师";
         model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
         [self.dataSources addObject:model];
@@ -48,9 +49,14 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
+        if (self.isBu) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleBuCell className] title:[ZOrganizationTeachingScheduleBuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleBuCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [self.cellConfigArr addObject:progressCellConfig];
+        }else{
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [self.cellConfigArr addObject:progressCellConfig];
+        }
         
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
     }
     
 }
@@ -90,7 +96,13 @@
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.isEdit) {
+                NSArray *tempArr = [weakSelf selectLessonOrderArr];
+                if (tempArr.count == 0) {
+                    [TLUIUtility showErrorHint:@"你还没有选择学生"];
+                    return ;
+                }
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
+                successvc.dataSources = self.dataSources;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;
@@ -103,17 +115,28 @@
     return _bottomBtn;
 }
 
+- (NSMutableArray *)selectLessonOrderArr {
+    NSMutableArray *selectArr = @[].mutableCopy;
+    for (ZOriganizationLessonOrderListModel *model in self.dataSources) {
+        if (model.isSelected) {
+            [selectArr addObject:model];
+        }
+    }
+    return selectArr;
+}
+
 - (void)changeType:(BOOL)type {
     for (ZOriganizationLessonOrderListModel *model in self.dataSources) {
         model.isEdit = type;
-    };;
+    };
 }
 
 - (void)setIsEdit:(BOOL)isEdit {
     _isEdit = isEdit;
     if (isEdit) {
         [self changeType:YES];
-        [_bottomBtn setTitle:@"下一步" forState:UIControlStateNormal];
+        NSInteger count = [self selectLessonOrderArr].count;
+        [self.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)self.dataSources.count] forState:UIControlStateNormal];
     }else{
         [self changeType:NO];
         [_bottomBtn setTitle:@"新建排课" forState:UIControlStateNormal];
@@ -124,11 +147,16 @@
 
 #pragma mark - tableview datasource
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]) {
         ZOrganizationTeachingScheduleNoCell *ncell = (ZOrganizationTeachingScheduleNoCell *)cell;
         ncell.handleBlock = ^(NSInteger index) {
-            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
+//            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
 //            model.isSelected = !model.isSelected;
+            if (weakSelf.isEdit) {
+                NSInteger count = [weakSelf selectLessonOrderArr].count;
+                [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)weakSelf.dataSources.count] forState:UIControlStateNormal];
+            }
         };
     }
 }

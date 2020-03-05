@@ -11,12 +11,13 @@
 #import "ZMineAccountTextFieldCell.h"
 
 #import "ZStudentMineChangePasswordVC.h"
+#import "ZLoginViewModel.h"
 
 @interface ZAccountChangePasswordVC ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic,strong) UIView *footerView;
-
+@property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 @end
 
 @implementation ZAccountChangePasswordVC
@@ -58,6 +59,12 @@
 }
 
 
+- (void)setDataSource {
+    [super setDataSource];
+    _loginViewModel = [[ZLoginViewModel alloc] init];
+}
+
+
 #pragma mark - set data
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -80,10 +87,19 @@
         [self.cellConfigArr addObject:coachSpaceCellConfig];
     }
     
-    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:@"18811953553"];
+    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:self.loginViewModel.loginModel.tel];
     
     [self.cellConfigArr addObject:phoneCellConfig];
-
+    
+    {
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
+        
+        [self.cellConfigArr addObject:textCellConfig];
+        
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    }
+    
    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
    
    [self.cellConfigArr addObject:textCellConfig];
@@ -187,15 +203,55 @@
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"phone"]) {
         ZStudentMineSettingBottomCell *bCell = (ZStudentMineSettingBottomCell *)cell;
         bCell.titleLabel.font = [UIFont boldFontMax1Title];
+    }else if ([cellConfig.title isEqualToString:@"imageCode"]) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.type = 2;
+        bCell.max = 4;
+        bCell.formatterType = ZFormatterTypeAny;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.code = text;
+        };
+        bCell.imageCodeBlock = ^(NSString * ckey) {
+            weakSelf.loginViewModel.loginModel.ckey = ckey;
+        };
+        [bCell getImageCode];
     }else if ([cellConfig.title isEqualToString:@"code"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.placeholder = @"请输入验证码";
         bCell.type = 1;
+        bCell.max = 6;
+        bCell.formatterType = ZFormatterTypePhoneNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
-            
+            weakSelf.loginViewModel.loginModel.messageCode = text;
+        };
+        bCell.getCodeBlock = ^(void (^success)(NSString *)) {
+            if (!weakSelf.loginViewModel.loginModel.tel || weakSelf.loginViewModel.loginModel.tel.length != 11) {
+               [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
+               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+               return;
+           }
+           
+           if (!weakSelf.loginViewModel.loginModel.code || weakSelf.loginViewModel.loginModel.code.length != 4) {
+               [TLUIUtility showErrorHint:@"请输入图形验证码" ];
+               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+               return;
+           }
+           
+           NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.code,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
+           [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
+              if (isSuccess) {
+                  [TLUIUtility showSuccessHint:message];
+                  if (success) {
+                      success(message);
+                  }
+              }else{
+                  [TLUIUtility showErrorHint:message];
+              }
+           }];
         };
     }
 }
