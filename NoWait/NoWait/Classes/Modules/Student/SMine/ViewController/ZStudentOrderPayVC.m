@@ -10,12 +10,7 @@
 #import "ZSpaceEmptyCell.h"
 //#import "ZPayManager.h"
 
-@interface ZStudentOrderPayVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
-
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
-
+@interface ZStudentOrderPayVC ()
 @property (nonatomic,strong) UIView *footerView;
 
 @end
@@ -34,8 +29,7 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setDataSource];
-    [self setupMainView];
+    [self initCellConfigArr];
 }
 
 -(void)dealloc {
@@ -43,9 +37,7 @@
 }
 
 - (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
-    
+    [super setDataSource];
 //    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
 //        if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
 //            NSDictionary *backDict = notfication.object;
@@ -67,12 +59,10 @@
 //        }
 //    }];
 //
-    [self initCellConfigArr];
 }
 
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
-    
+    [super initCellConfigArr];
     
     ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
     [self.cellConfigArr addObject:spacCellConfig];
@@ -120,15 +110,15 @@
 }
 
 - (void)setupMainView {
-    
+    [super setupMainView];
     [self.view addSubview:self.footerView];
     [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(180));
     }];
     
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.footerView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(0);
@@ -136,34 +126,6 @@
 }
 
 #pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.backgroundColor = [UIColor colorGrayBG];
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-    }
-    return _iTableView;
-}
-
-
 -(UIView *)footerView {
     if (!_footerView) {
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
@@ -217,19 +179,7 @@
 }
 
 #pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"alipay"]){
 //        ZMineOrderPayTypeCell *payCell = (ZMineOrderPayTypeCell *)cell;
 //        payCell.isAli = YES;
@@ -237,26 +187,9 @@
 //        ZMineOrderPayTypeCell *payCell = (ZMineOrderPayTypeCell *)cell;
 //        payCell.isAli = NO;
     }
-    return cell;
 }
 
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"wechatpay"] || [cellConfig.title isEqualToString:@"alipay"]) {
 //        self.payModel.isAliPay = !self.payModel.isAliPay;
         [self initCellConfigArr];
@@ -264,21 +197,5 @@
     }
 }
 
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
 @end
 

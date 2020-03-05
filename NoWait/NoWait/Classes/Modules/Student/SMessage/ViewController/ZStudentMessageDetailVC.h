@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMessageDetailVC : ZViewController
+@interface ZStudentMessageDetailVC : ZTableViewViewController
 
 @end
 
