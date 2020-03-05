@@ -18,6 +18,8 @@ static NSTimer *retrieveTimer = nil;
 @property (nonatomic,strong) UIButton *getCodeBtn;
 @property (nonatomic,strong) UIView *getCodeView;
 @property (nonatomic,strong) UIButton *pooCodeView;
+@property (nonatomic,strong) UIView *backView;
+
 @end
 
 @implementation ZMineAccountTextFieldCell
@@ -33,8 +35,21 @@ static NSTimer *retrieveTimer = nil;
 -(void)setupView
 {
     [super setupView];
+    
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
+    backView.backgroundColor = adaptAndDarkColor(HexColor(0xf5f9f8), HexColor(0xf5f9f8));
+    ViewRadius(backView, [ZMineAccountTextFieldCell z_getCellHeight:nil]/2.0f);
+    _backView = backView;
+    [self.contentView addSubview:backView];
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(60));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(60));
+        make.top.equalTo(self.contentView.mas_top);
+        make.bottom.equalTo(self.contentView.mas_bottom);
+    }];
+    
     [self.contentView addSubview:self.inputTextField];
-    [self.inputTextField addSubview:self.getCodeView];
+    [backView addSubview:self.getCodeView];
     
     [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(60));
@@ -45,17 +60,16 @@ static NSTimer *retrieveTimer = nil;
     ViewRadius(self.inputTextField, [ZMineAccountTextFieldCell z_getCellHeight:nil]/2.0f);
     
     [self.getCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.inputTextField.mas_right).offset(-CGFloatIn750(16));
+        make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(16));
         make.centerY.equalTo(self.inputTextField.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(184));
         make.top.bottom.equalTo(self.inputTextField);
     }];
     
     
-    
     [self.contentView  addSubview:self.pooCodeView];
     [self.pooCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.inputTextField.mas_right).offset(-CGFloatIn750(16));
+        make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(16));
         make.centerY.equalTo(self.inputTextField.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(148));
         make.height.mas_equalTo(CGFloatIn750(60));
@@ -90,7 +104,6 @@ static NSTimer *retrieveTimer = nil;
     if (!_getCodeView) {
         //获取验证码
         _getCodeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(172+12), CGFloatIn750(70))];
-        
         [_getCodeView addSubview:self.getCodeBtn];
         [self.getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self.getCodeView);
@@ -116,7 +129,6 @@ static NSTimer *retrieveTimer = nil;
                 });
             }
         } forControlEvents:UIControlEventTouchUpInside];
-        
         [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_getCodeBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_getCodeBtn.titleLabel setFont:[UIFont fontContent]];
@@ -191,12 +203,30 @@ static NSTimer *retrieveTimer = nil;
     if (type == 2) {//图形验证码
         self.getCodeView.hidden = YES;
         self.pooCodeView.hidden = NO;
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.pooCodeView.mas_left).offset(-CGFloatIn750(20));
+            make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(60));
+            make.top.equalTo(self.contentView.mas_top);
+            make.bottom.equalTo(self.contentView.mas_bottom);
+        }];
     }else if (type == 1){//验证码
         self.getCodeView.hidden = NO;
         self.pooCodeView.hidden = YES;
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.getCodeView.mas_left).offset(-CGFloatIn750(20));
+            make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(60));
+            make.top.equalTo(self.contentView.mas_top);
+            make.bottom.equalTo(self.contentView.mas_bottom);
+        }];
     }else{
         self.getCodeView.hidden = YES;
         self.pooCodeView.hidden = YES;
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(60));
+            make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(60));
+            make.top.equalTo(self.contentView.mas_top);
+            make.bottom.equalTo(self.contentView.mas_bottom);
+        }];
     }
 }
 

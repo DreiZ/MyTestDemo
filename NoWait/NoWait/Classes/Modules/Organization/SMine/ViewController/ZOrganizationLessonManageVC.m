@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonAddVC.h"
 #import "ZOrganizationSearchVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
-
+#import "ZOrganizationSearchVC.h"
 
 @interface ZOrganizationLessonManageVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;

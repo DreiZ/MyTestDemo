@@ -225,7 +225,7 @@
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 1;
         bCell.max = 6;
-        bCell.formatterType = ZFormatterTypePhoneNumber;
+        bCell.formatterType = ZFormatterTypeNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.code = text;
         };

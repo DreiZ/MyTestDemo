@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineSwitchAccountLoginVC : ZViewController
-
+@property (nonatomic,assign) BOOL isCode;
 @end
 
 NS_ASSUME_NONNULL_END

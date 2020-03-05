@@ -224,7 +224,7 @@
         bCell.placeholder = @"请输入验证码";
         bCell.type = 1;
         bCell.max = 6;
-        bCell.formatterType = ZFormatterTypePhoneNumber;
+        bCell.formatterType = ZFormatterTypeNumber;
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.messageCode = text;
         };

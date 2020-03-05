@@ -11,10 +11,11 @@
 //购买课程流程
 typedef NS_ENUM(NSInteger, ZSearchType) {
     ZSearchTypeLesson,  //课程
+    ZSearchTypeLessonOrder,  //搜索学员订单
 };
 
 @interface ZOrganizationSearchVC : ZTableViewViewController
-@property (nonatomic,copy) NSString *title;
+@property (nonatomic,strong) NSString *title;
 @property (nonatomic,assign) ZSearchType searchType;
 @end
 

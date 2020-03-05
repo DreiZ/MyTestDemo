@@ -172,17 +172,20 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSMutableArray *channnliset = @[].mutableCopy;
-    for (int i = 0; i < 20; i++) {
-        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-        model.name = @"凤凰社俱乐部";
-        [channnliset addObject:model];
-        if (i == 0) {
-            model.isSelected = YES;
+    if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 4){
+        NSMutableArray *channnliset = @[].mutableCopy;
+        for (int i = 0; i < 20; i++) {
+            ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+            model.name = @"凤凰社俱乐部";
+            [channnliset addObject:model];
+            if (i == 0) {
+                model.isSelected = YES;
+            }
         }
+        ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
+        [self.cellConfigArr addObject:channelCellConfig];
+        
     }
-    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
-    [self.cellConfigArr addObject:channelCellConfig];
     
     
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];

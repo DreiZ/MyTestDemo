@@ -122,7 +122,7 @@
             }else {
                 svc.title = @"搜索待补课学员";
             }
-            svc.searchType = ZSearchTypeLesson;
+            svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

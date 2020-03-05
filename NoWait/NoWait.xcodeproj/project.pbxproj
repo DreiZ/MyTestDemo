@@ -380,7 +380,6 @@
 		B2A780AA23BDFB0100407BF0 /* TLNetworkUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7808723BDFB0100407BF0 /* TLNetworkUtility.m */; };
 		B2A780AE23BDFB1F00407BF0 /* ZRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780AC23BDFB1F00407BF0 /* ZRouteManager.m */; };
 		B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780B023BDFC7800407BF0 /* ZAppConfig.m */; };
-		B2A780B623BECDAF00407BF0 /* ZAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */; };
 		B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780BA23BECF3600407BF0 /* ZLoginViewModel.m */; };
 		B2A780BE23BECF9A00407BF0 /* ZLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780BD23BECF9A00407BF0 /* ZLoginModel.m */; };
 		B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780C123BED08300407BF0 /* ZAgreementVC.m */; };
@@ -392,8 +391,6 @@
 		B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780DE23BED9B500407BF0 /* Student.xcassets */; };
 		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
 		B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */; };
-		B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F023BF0BE700407BF0 /* ZLoginView.m */; };
-		B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780F323BF0CC800407BF0 /* ZRegisterView.m */; };
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
 		B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F923C02F2200407BF0 /* Modules.xcassets */; };
 		B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */; };
@@ -1223,8 +1220,6 @@
 		B2A780AD23BDFB1F00407BF0 /* ZRouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRouteManager.h; sourceTree = "<group>"; };
 		B2A780B023BDFC7800407BF0 /* ZAppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAppConfig.m; sourceTree = "<group>"; };
 		B2A780B123BDFC7800407BF0 /* ZAppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAppConfig.h; sourceTree = "<group>"; };
-		B2A780B423BECDAF00407BF0 /* ZAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAccountViewController.h; sourceTree = "<group>"; };
-		B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAccountViewController.m; sourceTree = "<group>"; };
 		B2A780B923BECF3600407BF0 /* ZLoginViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginViewModel.h; sourceTree = "<group>"; };
 		B2A780BA23BECF3600407BF0 /* ZLoginViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginViewModel.m; sourceTree = "<group>"; };
 		B2A780BC23BECF9A00407BF0 /* ZLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginModel.h; sourceTree = "<group>"; };
@@ -1245,10 +1240,6 @@
 		B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineVC.h; sourceTree = "<group>"; };
 		B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineVC.m; sourceTree = "<group>"; };
 		B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		B2A780EF23BF0BE700407BF0 /* ZLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginView.h; sourceTree = "<group>"; };
-		B2A780F023BF0BE700407BF0 /* ZLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginView.m; sourceTree = "<group>"; };
-		B2A780F223BF0CC800407BF0 /* ZRegisterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRegisterView.h; sourceTree = "<group>"; };
-		B2A780F323BF0CC800407BF0 /* ZRegisterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRegisterView.m; sourceTree = "<group>"; };
 		B2A780F623BF11D300407BF0 /* login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = login.xcassets; sourceTree = "<group>"; };
 		B2A780F923C02F2200407BF0 /* Modules.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Modules.xcassets; sourceTree = "<group>"; };
 		B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineHeaderView.h; sourceTree = "<group>"; };
@@ -2789,8 +2780,6 @@
 				B2A780BF23BED04100407BF0 /* ViewController */,
 				B2A780B823BECE2000407BF0 /* ViewModels */,
 				B2A780B723BECE0800407BF0 /* Models */,
-				B2A780B423BECDAF00407BF0 /* ZAccountViewController.h */,
-				B2A780B523BECDAF00407BF0 /* ZAccountViewController.m */,
 				B28EA683240F569400C8E225 /* ZLoginCodeController.h */,
 				B28EA684240F569400C8E225 /* ZLoginCodeController.m */,
 				B28EA686240F56DB00C8E225 /* ZLoginPasswordController.h */,
@@ -3102,10 +3091,6 @@
 		B2A780EE23BF0A9000407BF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B2A780EF23BF0BE700407BF0 /* ZLoginView.h */,
-				B2A780F023BF0BE700407BF0 /* ZLoginView.m */,
-				B2A780F223BF0CC800407BF0 /* ZRegisterView.h */,
-				B2A780F323BF0CC800407BF0 /* ZRegisterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3614,7 +3599,6 @@
 				B28EA691240FA8D800C8E225 /* ZOriganizationModel.m in Sources */,
 				B296E3B2240515B400507509 /* ZOrganizationTeachingScheduleNoVC.m in Sources */,
 				B2A781A623C5C95300407BF0 /* ZStudentLessonNoticeView.m in Sources */,
-				B2A780F423BF0CC800407BF0 /* ZRegisterView.m in Sources */,
 				B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */,
 				B2A77FC523BDEAA100407BF0 /* ZBaseNetworkBackModel.m in Sources */,
 				B296E3942404BC4300507509 /* ZOrganizationLessonManageListCell.m in Sources */,
@@ -3754,7 +3738,6 @@
 				B2A7809023BDFB0100407BF0 /* NSMutableURLRequest+TLNetwork.m in Sources */,
 				B2A77E7523BDCCFE00407BF0 /* main.m in Sources */,
 				B2A77FCA23BDEAA100407BF0 /* ZServerCompleteAlertView.m in Sources */,
-				B2A780F123BF0BE700407BF0 /* ZLoginView.m in Sources */,
 				B223BCD523C7043F00AC0158 /* CWStarRateView.m in Sources */,
 				B279D04323C8430C00391A33 /* ZStudentLessonSelectTimeCell.m in Sources */,
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
@@ -3926,7 +3909,6 @@
 				B2A7808A23BDFB0100407BF0 /* UIScrollView+ZLoadMoreFooter.m in Sources */,
 				B28D9138240766940021E05A /* PGDatePicker+MonthDayHourMinute.m in Sources */,
 				B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */,
-				B2A780B623BECDAF00407BF0 /* ZAccountViewController.m in Sources */,
 				B2A77F6923BDE61100407BF0 /* ZPublicTool.m in Sources */,
 				B2A7803123BDFA3800407BF0 /* NSString+Message.m in Sources */,
 				B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */,
