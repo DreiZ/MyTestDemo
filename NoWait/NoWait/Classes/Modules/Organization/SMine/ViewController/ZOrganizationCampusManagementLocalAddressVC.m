@@ -21,8 +21,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 
-@interface ZOrganizationCampusManagementLocalAddressVC ()<UITableViewDelegate, UITableViewDataSource,MAMapViewDelegate,AMapSearchDelegate,UITextFieldDelegate>
-@property (nonatomic,strong) UITableView *iTableView;
+@interface ZOrganizationCampusManagementLocalAddressVC ()<MAMapViewDelegate,AMapSearchDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) ZOrganizationAddressSearchTopView *topSearchView;
 @property (nonatomic,strong) MAMapView *iMapView;
@@ -30,10 +29,7 @@
 @property (nonatomic,strong) AMapSearchAPI *search;
 @property (nonatomic,strong) ZOrganizationAddressSearchView *searhView;
 
-
 @property (nonatomic,strong) MAUserLocation *cureUserLocation;
-@property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @end
 
@@ -43,22 +39,14 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setDataSource];
     [self initCellConfigArr];
-    [self setupMainView];
     
     self.search.timeout = 30;
     [self searchPoiByCenterCoordinate];
 }
 
-- (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
-    [self initCellConfigArr];
-}
-
 - (void)initCellConfigArr {
-    [_cellConfigArr removeAllObjects];
+    [super initCellConfigArr];
     
 //
 //    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
@@ -78,7 +66,6 @@
         ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"location" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:campusCellConfig];
     }
-    
 }
 
 
@@ -88,6 +75,7 @@
 }
 
 - (void)setupMainView {
+    [super setupMainView];
     
     [self.view addSubview:self.topSearchView];
     [self.topSearchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,8 +90,7 @@
         make.height.mas_equalTo(CGFloatIn750(460));
     }];
     
-    [self.view addSubview:self.iTableView];
-    [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
         make.top.equalTo(self.iMapView.mas_bottom).offset(-10);
@@ -183,34 +170,6 @@
     return _search;
 }
 
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            self.automaticallyAdjustsScrollViewInsets = NO;
-#pragma clang diagnostic pop
-        }
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        _iTableView.backgroundColor = [UIColor clearColor];
-    }
-    return _iTableView;
-}
-
-
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
 //        __weak typeof(self) weakSelf = self;
@@ -230,68 +189,12 @@
 
 
 #pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationRadiusCell"]){
         ZOrganizationRadiusCell *enteryCell = (ZOrganizationRadiusCell *)cell;
         enteryCell.leftMargin = CGFloatIn750(0);
     }
-    return cell;
 }
-
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"address"]) {
-        
-    }else if ([cellConfig.title isEqualToString:@"type"]) {
-        
-    }
-    
-    
-}
-
-#pragma mark vc delegate-------------------
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
 
 #pragma mark - MAMapViewDelegate
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
@@ -434,6 +337,3 @@
 }
 
 @end
-
-
-
