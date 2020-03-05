@@ -55,7 +55,7 @@
         
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:progressCellConfig];
-    } 
+    }
 }
 
 - (void)setNavigation {
