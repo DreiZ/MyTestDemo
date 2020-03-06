@@ -9,10 +9,11 @@
 #import "ZStudentMineOrderDetailHandleBottomView.h"
 
 @interface ZStudentMineOrderDetailHandleBottomView ()
-@property (nonatomic,strong) UIButton *cancelBtn;
+@property (nonatomic,strong) UIButton *delBtn;
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) UIButton *telBtn;
-
+@property (nonatomic,strong) UIButton *closeBtn;
+@property (nonatomic,strong) UIButton *evaBtn;
 @end
 
 @implementation ZStudentMineOrderDetailHandleBottomView
@@ -31,74 +32,107 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    [self addSubview:self.telBtn];
-    [self addSubview:self.payBtn];
-    [self addSubview:self.cancelBtn];
+    UIView *contView = [[UIView alloc] init];
+    [self addSubview:contView];
+    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.height.mas_equalTo(CGFloatIn750(100));
+        make.bottom.equalTo(self.mas_bottom).offset(-safeAreaBottom());
+    }];
+    [contView addSubview:self.telBtn];
+    [contView addSubview:self.payBtn];
+    [contView addSubview:self.closeBtn];
     
     [self.telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(20));
-        make.top.bottom.equalTo(self);
+        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(20));
+        make.top.bottom.equalTo(contView);
         make.width.mas_equalTo(CGFloatIn750(180));
     }];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(46));
+        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(contView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(56));
         make.width.mas_equalTo(CGFloatIn750(130));
     }];
     
-    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.payBtn.mas_left).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(46));
+        make.centerY.equalTo(contView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(56));
         make.width.mas_equalTo(CGFloatIn750(130));
     }];
-}
-
-
-
-- (UIButton *)cancelBtn {
-    if (!_cancelBtn) {
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _cancelBtn.layer.masksToBounds = YES;
-        _cancelBtn.layer.cornerRadius = 3;
-        _cancelBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
-        _cancelBtn.layer.borderWidth = 1;
-        [_cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_cancelBtn.titleLabel setFont:[UIFont fontSmall]];
-        
-        __weak typeof(self) weakSelf = self;
-        [_cancelBtn bk_whenTapped:^{
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypeCancel);
-            }
-        }];
-    }
-    return _cancelBtn;
 }
 
 
 - (UIButton *)payBtn {
     if (!_payBtn) {
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _payBtn.layer.masksToBounds = YES;
-        _payBtn.layer.cornerRadius = 3;
-        _payBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
-        _payBtn.layer.borderWidth = 1;
-        [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont fontSmall]];
-        
         __weak typeof(self) weakSelf = self;
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_payBtn.titleLabel setFont:[UIFont fontContent]];
+        _payBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
         [_payBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypePay);
-            }
+                weakSelf.handleBlock(0);
+            };
         }];
     }
     return _payBtn;
+}
+
+- (UIButton *)closeBtn {
+    if (!_closeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_closeBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_closeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_closeBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_closeBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_closeBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            };
+        }];
+    }
+    return _closeBtn;
+}
+
+- (UIButton *)delBtn {
+    if (!_delBtn) {
+        __weak typeof(self) weakSelf = self;
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_delBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_delBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2);
+            };
+        }];
+    }
+    return _delBtn;
+}
+
+
+- (UIButton *)evaBtn {
+    if (!_evaBtn) {
+        __weak typeof(self) weakSelf = self;
+        _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_evaBtn setTitle:@"评价" forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_evaBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        [_evaBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(3);
+            };
+        }];
+    }
+    return _evaBtn;
 }
 
 

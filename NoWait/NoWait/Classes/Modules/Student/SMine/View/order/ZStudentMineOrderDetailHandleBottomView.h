@@ -10,6 +10,6 @@
 #import "ZStudentMineModel.h"
 
 @interface ZStudentMineOrderDetailHandleBottomView : UIView
-@property (nonatomic,strong) void (^handleBlock)(ZLessonOrderHandleType);
+@property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
