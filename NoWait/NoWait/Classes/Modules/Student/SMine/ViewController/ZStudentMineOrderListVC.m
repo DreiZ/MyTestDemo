@@ -7,16 +7,13 @@
 //
 
 #import "ZStudentMineOrderListVC.h"
-#import "ZStudentMineOrderSubscribeListVC.h"
 #import "ZStudentMineOrderBuyListVC.h"
 
+#import "ZOrganizationLessonTopSearchView.h"
+#import "ZOrganizationSearchVC.h"
 
 @interface ZStudentMineOrderListVC ()
-@property (nonatomic,strong) UIButton *navLeftBtn;
-@property (nonatomic,strong) UIButton *subscribeBtn;
-@property (nonatomic,strong) UIButton *buyBtn;
-@property (nonatomic,strong) ZStudentMineOrderBuyListVC *buyVC;
-@property (nonatomic,strong) ZStudentMineOrderSubscribeListVC *subscribeListVC;
+@property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
@@ -31,51 +28,48 @@
     [self initData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNavgation];
+    
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    
-    [self.view addSubview:self.subscribeBtn];
-    [self.subscribeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(CGFloatIn750(88));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(220));
-        make.right.equalTo(self.view.mas_right);
-    }];
-    
-    [self.view addSubview:self.buyBtn];
-    [self.buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(CGFloatIn750(88));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(120));
-        make.right.equalTo(self.view.mas_right);
+    [self.view addSubview:self.searchBtn];
+    [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(70));
+        make.top.equalTo(self.view.mas_top);
+        make.left.right.equalTo(self.view);
     }];
 }
 
 
 #pragma mark - setView & setdata
 - (void)initData {
-    
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = [UIColor  colorMain];
-    self.titleColorNormal = [UIColor colorTextGray];
+    self.titleColorSelected = [UIColor colorMain];
+    self.titleColorNormal = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleSizeSelected = CGFloatIn750(32);
-    self.titleSizeNormal = CGFloatIn750(32);
-    self.progressWidth = CGFloatIn750(140);
+    self.titleSizeSelected = CGFloatIn750(28);
+    self.titleSizeNormal = CGFloatIn750(28);
+    self.progressWidth = CGFloatIn750(30);
     self.progressViewIsNaughty = YES;
     self.scrollEnable = YES;
 }
 
 - (void)setNavgation {
-    [self.navigationItem setTitle:@"订单"];
+    [self.navigationItem setTitle:@"我的订单"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"体验订单", @"购买订单"].mutableCopy;
+        _titleArr = @[@"全部", @"待付款", @"已付款", @"待评价"].mutableCopy;
     }
     return _titleArr;
 }
@@ -83,27 +77,45 @@
 - (NSMutableArray *)vcArr {
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
-        [_vcArr addObject:self.subscribeListVC];
-        [_vcArr addObject:self.buyVC];
+        for (int i = 0; i < self.titleArr.count; i++) {
+            ZStudentMineOrderBuyListVC *lvc =[[ZStudentMineOrderBuyListVC alloc] init];
+            switch (i) {
+                case 0:
+                    lvc.type = ZStudentOrderTypeAll;
+                    break;
+                case 1:
+                    lvc.type = ZStudentOrderTypeForPay;
+                    break;
+                case 2:
+                    lvc.type = ZStudentOrderTypeHadPay;
+                    break;
+                case 3:
+                    lvc.type = ZStudentOrderTypeForEva;
+                    break;
+                    
+                default:
+                    break;
+            }
+            [_vcArr addObject:lvc];
+        }
     }
     return _vcArr;
 }
 
--(ZStudentMineOrderBuyListVC *)buyVC  {
-    if (!_buyVC) {
-        _buyVC = [[ZStudentMineOrderBuyListVC alloc] init];
-    }
-    
-    return _buyVC;
-}
 
-
--(ZStudentMineOrderSubscribeListVC *)subscribeListVC {
-    if (!_subscribeListVC) {
-        _subscribeListVC = [[ZStudentMineOrderSubscribeListVC alloc] init];
+- (ZOrganizationLessonTopSearchView *)searchBtn {
+    if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
+        _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
+        _searchBtn.title = @"搜索订单";
+        _searchBtn.handleBlock = ^{
+            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            svc.title = @"搜索订单";
+            svc.searchType = ZSearchTypeStudentOrder;
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
     }
-    
-    return _subscribeListVC;
+    return _searchBtn;
 }
 
 
@@ -121,15 +133,12 @@
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
-    return CGRectMake(0, 0, KScreenWidth, CGFloatIn750(100));
+    return CGRectMake(0, CGFloatIn750(70), KScreenWidth, CGFloatIn750(106));
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    CGFloat originY = CGFloatIn750(100);
-    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kStatusBarHeight);
+    CGFloat originY = CGFloatIn750(106 + 70);
+    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kTopHeight);
 }
 
 @end
-
-
-

@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineOrderListCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(ZLessonOrderHandleType);
+@property (nonatomic,strong) ZStudentOrderListModel *model;
+
+@property (nonatomic,strong) void (^handleBlock)(NSInteger, ZStudentOrderListModel *);
 
 @end
 

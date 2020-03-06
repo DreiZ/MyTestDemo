@@ -204,11 +204,176 @@ static ZAlertView *sharedManager;
     }];
 }
 
+
+- (void)setTitle:(NSString *)title subTitle:(NSString *)subTitle btnTitle:(NSString *)btnTitle  handlerBlock:(void(^)(NSInteger))handleBlock {
+    
+    [self.contView removeAllSubviews];
+    
+    CGSize subTitleSize = [subTitle sizeForFont:[UIFont fontContent] size:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    
+    [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(360)+subTitleSize.height);
+        make.width.mas_equalTo(KScreenWidth - CGFloatIn750(60));
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.textColor = [UIColor colorTextBlack];
+    titleLabel.text = title;
+    titleLabel.numberOfLines = 1;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setFont:[UIFont boldFontMax1Title]];
+    [self.contView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(40));
+    }];
+    
+    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    subTitleLabel.textColor = [UIColor colorTextGray];
+    subTitleLabel.text = title;
+    subTitleLabel.numberOfLines = 0;
+    subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    [subTitleLabel setFont:[UIFont fontContent]];
+    [self.contView addSubview:subTitleLabel];
+    [subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(titleLabel.mas_bottom).offset(CGFloatIn750(70));
+    }];
+    
+    
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [leftBtn setTitle:btnTitle forState:UIControlStateNormal];
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+    [leftBtn.titleLabel setFont:[UIFont fontContent]];
+    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
+    [leftBtn bk_addEventHandler:^(id sender) {
+        if (handleBlock) {
+            handleBlock(0);
+        }
+        [self removeFromSuperview];
+    } forControlEvents:UIControlEventTouchUpInside];
+    [self.contView addSubview:leftBtn];
+    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(500));
+        make.centerX.equalTo(self.contView.mas_centerX);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+    
+    
+    self.alpha = 0;
+    self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    [[AppDelegate shareAppDelegate].window addSubview:self];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 1;
+        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    }];
+}
+
+- (void)setTitle:(NSString *)title subTitle:(NSString *)subTitle leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
+    
+    [self.contView removeAllSubviews];
+    
+    CGSize subTitleSize = [subTitle sizeForFont:[UIFont fontContent] size:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    
+    [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(360)+subTitleSize.height);
+        make.width.mas_equalTo(KScreenWidth - CGFloatIn750(60));
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.textColor = [UIColor colorTextBlack];
+    titleLabel.text = title;
+    titleLabel.numberOfLines = 1;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setFont:[UIFont boldFontMax1Title]];
+    [self.contView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(40));
+    }];
+    
+    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    subTitleLabel.textColor = [UIColor colorTextGray];
+    subTitleLabel.text = title;
+    subTitleLabel.numberOfLines = 0;
+    subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    [subTitleLabel setFont:[UIFont fontContent]];
+    [self.contView addSubview:subTitleLabel];
+    [subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(titleLabel.mas_bottom).offset(CGFloatIn750(70));
+    }];
+    
+    
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+    [leftBtn.titleLabel setFont:[UIFont fontContent]];
+    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
+    [leftBtn bk_addEventHandler:^(id sender) {
+        if (handleBlock) {
+            handleBlock(0);
+        }
+        [self removeFromSuperview];
+    } forControlEvents:UIControlEventTouchUpInside];
+    [self.contView addSubview:leftBtn];
+    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(40));
+        make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(14));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+    
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
+    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [rightBtn.titleLabel setFont:[UIFont fontContent]];
+    ViewBorderRadius(rightBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
+    [rightBtn bk_addEventHandler:^(id sender) {
+        if (handleBlock) {
+            handleBlock(0);
+        }
+        [self removeFromSuperview];
+    } forControlEvents:UIControlEventTouchUpInside];
+    [self.contView addSubview:rightBtn];
+    [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(40));
+        make.left.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(14));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+    
+    self.alpha = 0;
+    self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    [[AppDelegate shareAppDelegate].window addSubview:self];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 1;
+        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    }];
+}
+
 + (void)setAlertWithTitle:(NSString *)title leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
     [[ZAlertView sharedManager] setTitle:title leftBtnTitle:leftBtnTitle rightBtnTitle:rightBtnTitle handlerBlock:handleBlock];
 }
 
 + (void)setAlertWithTitle:(NSString *)title btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
     [[ZAlertView sharedManager] setTitle:title btnTitle:btnTitle handlerBlock:handleBlock];
+}
+
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle btnTitle:(NSString *)btnTitle  handlerBlock:(void(^)(NSInteger))handleBlock {
+    [[ZAlertView sharedManager] setTitle:title subTitle:subTitle btnTitle:btnTitle handlerBlock:handleBlock];
+}
+
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock{
+    [[ZAlertView sharedManager] setTitle:title subTitle:subTitle leftBtnTitle:leftBtnTitle rightBtnTitle:rightBtnTitle handlerBlock:handleBlock];
 }
 @end

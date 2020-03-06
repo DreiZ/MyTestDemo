@@ -476,7 +476,6 @@
 		B2F7D36B23CDDD5000F7A17D /* ZStudentMessageDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36A23CDDD5000F7A17D /* ZStudentMessageDetailVC.m */; };
 		B2F7D36E23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */; };
 		B2F7D37423CDE54A00F7A17D /* ZStudentMineOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D37323CDE54A00F7A17D /* ZStudentMineOrderListVC.m */; };
-		B2F7D37723CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D37623CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m */; };
 		B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D37923CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m */; };
 /* End PBXBuildFile section */
 
@@ -1408,8 +1407,6 @@
 		B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMessageListDetailCell.m; sourceTree = "<group>"; };
 		B2F7D37223CDE54A00F7A17D /* ZStudentMineOrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderListVC.h; sourceTree = "<group>"; };
 		B2F7D37323CDE54A00F7A17D /* ZStudentMineOrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineOrderListVC.m; sourceTree = "<group>"; };
-		B2F7D37523CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderSubscribeListVC.h; sourceTree = "<group>"; };
-		B2F7D37623CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineOrderSubscribeListVC.m; sourceTree = "<group>"; };
 		B2F7D37823CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderBuyListVC.h; sourceTree = "<group>"; };
 		B2F7D37923CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineOrderBuyListVC.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2932,8 +2929,6 @@
 				B2F7D36123CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m */,
 				B2F7D37223CDE54A00F7A17D /* ZStudentMineOrderListVC.h */,
 				B2F7D37323CDE54A00F7A17D /* ZStudentMineOrderListVC.m */,
-				B2F7D37523CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.h */,
-				B2F7D37623CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m */,
 				B2F7D37823CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.h */,
 				B2F7D37923CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m */,
 				B251468423CEB09C009A64D4 /* ZStudentMineOrderDetailtVC.h */,
@@ -3616,7 +3611,6 @@
 				B2A7818A23C5868700407BF0 /* ZStudentOrganizationPersonnelMoreCell.m in Sources */,
 				B2A780A423BDFB0100407BF0 /* TLDownloadRequest.m in Sources */,
 				B25146E023D03CBC009A64D4 /* ZStudentMineChangePasswordVC.m in Sources */,
-				B2F7D37723CDE57900F7A17D /* ZStudentMineOrderSubscribeListVC.m in Sources */,
 				B25146C723CF1E2C009A64D4 /* ZStudentMineSettingSwitchCell.m in Sources */,
 				B25146DD23D01207009A64D4 /* ZMultiseriateLineCell.m in Sources */,
 				B2EE5BAD23F7DA4D00ECCFF4 /* ZOriganizationStatisticsCell.m in Sources */,

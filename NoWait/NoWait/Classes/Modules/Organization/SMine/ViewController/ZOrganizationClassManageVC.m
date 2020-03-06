@@ -89,11 +89,14 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
-        ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
-        svc.title = @"搜索班级";
-        svc.searchType = ZSearchTypeClass;
-        [self.navigationController pushViewController:svc animated:YES];
+        _searchBtn.handleBlock = ^{
+            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            svc.title = @"搜索班级";
+            svc.searchType = ZSearchTypeStudentOrder;
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
     }
     return _searchBtn;
 }

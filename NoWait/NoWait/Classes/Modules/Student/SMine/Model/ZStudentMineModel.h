@@ -16,6 +16,16 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
     ZLessonOrderHandleTypeDetail,  //详情
 };
 
+
+//课程管理 课程类别
+typedef NS_ENUM(NSInteger, ZStudentOrderType) {
+    ZStudentOrderTypeForPay  =   0,   //待付款
+    ZStudentOrderTypeHadPay,          //已付款
+    ZStudentOrderTypeForEva,         //待评价
+    ZStudentOrderTypeComplete,         //完成
+    ZStudentOrderTypeAll,           //全部
+};
+
 @interface ZStudentOrderEvaModel : NSObject
 @property (nonatomic,strong) NSString *orderImage;
 @property (nonatomic,strong) NSString *orderNum;
@@ -48,6 +58,23 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
 
 
 @interface ZStudentMineModel : NSObject
+
+@end
+
+
+@interface ZStudentOrderListModel : NSObject
+@property (nonatomic,strong) NSString *club;
+@property (nonatomic,strong) NSString *state;
+@property (nonatomic,strong) NSString *image;
+
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *price;
+
+@property (nonatomic,strong) NSString *tiTime;
+@property (nonatomic,strong) NSString *teacher;
+@property (nonatomic,strong) NSString *fail;
+
+@property (nonatomic,assign) ZStudentOrderType type;
 
 @end
 

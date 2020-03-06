@@ -15,5 +15,9 @@
 + (void)setAlertWithTitle:(NSString *)title btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock;
 
 + (void)setAlertWithTitle:(NSString *)title leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock ;
+
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle btnTitle:(NSString *)btnTitle  handlerBlock:(void(^)(NSInteger))handleBlock;
+
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock ;
 @end
 

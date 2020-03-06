@@ -9,7 +9,7 @@
 #import "ZOrganizationCardMainVC.h"
 #import "ZOrganizationCardListVC.h"
 #import "ZOrganizationCardAddVC.h"
-
+#import "ZOrganizationSearchVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
 
@@ -112,6 +112,13 @@
     if (!_searchBtn) {
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索卡券";
+        __weak typeof(self) weakSelf = self;
+        _searchBtn.handleBlock = ^{
+            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            svc.title = @"搜索卡券";
+            svc.searchType = ZSearchTypeOrganizationCart;
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
     }
     return _searchBtn;
 }

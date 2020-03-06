@@ -7,21 +7,29 @@
 //
 
 #import "ZStudentMineOrderListCell.h"
-#import "ZStudentLessonDetailLessonListCell.h"
-#import "ZSpaceEmptyCell.h"
 
-#import "ZStudentDetailModel.h"
+@interface ZStudentMineOrderListCell ()
+@property (nonatomic,strong) UILabel *statelabel;
+@property (nonatomic,strong) UILabel *clubLabel;
+@property (nonatomic,strong) UILabel *orderNameLabel;
+@property (nonatomic,strong) UILabel *priceLabel;
+@property (nonatomic,strong) UILabel *detailLabel;
+@property (nonatomic,strong) UIImageView *leftImageView;
+@property (nonatomic,strong) UIImageView *clubImageView;
 
+@property (nonatomic,strong) UILabel *failHintLabel;
+@property (nonatomic,strong) UILabel *failLabel;
 
-@interface ZStudentMineOrderListCell ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) UIView *contView;
+@property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIView *midView;
+@property (nonatomic,strong) UIView *failView;
+@property (nonatomic,strong) UIView *topView;
 
-@property (nonatomic,strong) UILabel *orderSNLabel;
-@property (nonatomic,strong) UILabel *orderStateLabel;
-@property (nonatomic,strong) UIButton *cancelBtn;
+@property (nonatomic,strong) UIButton *delBtn;
 @property (nonatomic,strong) UIButton *payBtn;
-
-@property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) UIButton *closeBtn;
+@property (nonatomic,strong) UIButton *evaBtn;
 
 @end
 
@@ -38,283 +46,574 @@
 -(void)setupView {
     [super setupView];
     
-    _cellConfigArr = @[].mutableCopy;
-    
-    UIView *contView = [[UIView alloc] init];
-//    contView.layer.masksToBounds = YES;
-//    contView.layer.cornerRadius = CGFloatIn750(12);
-    [self.contentView addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
+    [self.contentView addSubview:self.contView];
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
     }];
     
-    
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:topView];
-    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.left.right.top.equalTo(contView);
-    }];
-
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contView addSubview:self.topView];
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(88));
-        make.left.right.bottom.equalTo(contView);
-    }];
-    
-    UIView *middleView = [[UIView alloc] initWithFrame:CGRectZero];
-    middleView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:middleView];
-    [middleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topView.mas_bottom);
-        make.bottom.equalTo(bottomView.mas_top);
-        make.left.right.equalTo(contView);
-    }];
-
-
-    [topView addSubview:self.orderSNLabel];
-    [bottomView addSubview:self.cancelBtn];
-    [bottomView addSubview:self.payBtn];
-    [bottomView addSubview:self.orderStateLabel];
-    
-    [self.orderSNLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(topView.mas_centerY);
-    }];
-
-    [middleView addSubview:self.iTableView];
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(middleView);
-    }];
-    
-    UIView *topBottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topBottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
-    [topView addSubview:topBottomLineView];
-    [topBottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(topView);
-        make.height.mas_equalTo(0.5);
-    }];
-    
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
-    [bottomView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(bottomView);
-        make.height.mas_equalTo(0.5);
     }];
     
     
-    [self.orderStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(20));
-        make.centerY.equalTo(bottomView.mas_centerY);
+    [self.contView addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.contView);
+        make.height.mas_equalTo(CGFloatIn750(136));
     }];
     
-    [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(bottomView.mas_right).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(bottomView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(46));
-        make.width.mas_equalTo(CGFloatIn750(130));
+    [self.contView addSubview:self.failView];
+    [self.failView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.bottomView.mas_top);
+        make.height.mas_equalTo(50);
     }];
     
-    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.payBtn.mas_left).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(bottomView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(46));
-        make.width.mas_equalTo(CGFloatIn750(130));
+    
+    [self.contView addSubview:self.midView];
+    [self.midView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.failView.mas_top);
+    }];
+    
+    [self.topView addSubview:self.clubLabel];
+    [self.topView addSubview:self.statelabel];
+    
+    [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.topView.mas_centerY);
+    }];
+    
+    _clubImageView = [[UIImageView alloc] init];
+    _clubImageView.image = [[UIImage imageNamed:@"rightBlackArrowN"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    _clubImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
+    [self.topView addSubview:_clubImageView];
+    [self.clubImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.clubLabel.mas_right).offset(CGFloatIn750(20));
+        make.centerY.equalTo(self.topView.mas_centerY);
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [detailBtn bk_whenTapped:^{
+    UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [clubBtn bk_whenTapped:^{
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(ZLessonOrderHandleTypeDetail);
+            weakSelf.handleBlock(5, weakSelf.model);
         }
     }];
-    [self.contentView addSubview:detailBtn];
-    [detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(middleView);
+    [self.topView addSubview:clubBtn];
+    [clubBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.topView);
+        make.right.equalTo(self.clubImageView.mas_right).offset(CGFloatIn750(20));
     }];
     
-    [self setData];
+    [self.statelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.topView.mas_centerY);
+    }];
+    
+    [self.midView addSubview:self.leftImageView];
+    [self.midView addSubview:self.priceLabel];
+    [self.midView addSubview:self.detailLabel];
+    [self.midView addSubview:self.orderNameLabel];
+    
+
+   [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+       make.left.equalTo(self.midView.mas_left).offset(CGFloatIn750(30));
+       make.top.bottom.equalTo(self.midView);
+       make.width.mas_equalTo(CGFloatIn750(240));
+   }];
+
+    [self.orderNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.leftImageView.mas_top).offset(CGFloatIn750(2));
+        make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.orderNameLabel.mas_left);
+        make.top.equalTo(self.orderNameLabel.mas_bottom).offset(CGFloatIn750(38));
+    }];
+
+    [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.orderNameLabel.mas_left);
+        make.bottom.equalTo(self.leftImageView.mas_bottom).offset(CGFloatIn750(-8));
+        make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.bottomView addSubview:self.payBtn];
+    [self.bottomView addSubview:self.evaBtn];
+    [self.bottomView addSubview:self.closeBtn];
+    [self.bottomView addSubview:self.delBtn];
+    
+    [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);;
+    }];
+    
+    [self.delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.failView addSubview:self.failHintLabel];
+    [self.failView addSubview:self.failLabel];
+    [self.failHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.failView);
+    }];
+
+    [self.failLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.failView);
+    }];
+    [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
 }
 
 
-#pragma mark lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.backgroundColor = [UIColor whiteColor];
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            
-        }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        _iTableView.layer.masksToBounds = YES;
-        _iTableView.scrollEnabled = NO;
-    }
-    return _iTableView;
-}
-
-- (UILabel *)orderSNLabel {
-    if (!_orderSNLabel) {
-        _orderSNLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderSNLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _orderSNLabel.text = @"订单号：NS239854385892";
-        _orderSNLabel.numberOfLines = 1;
-        _orderSNLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderSNLabel setFont:[UIFont fontContent]];
-    }
-    return _orderSNLabel;
-}
-
-
-- (UILabel *)orderStateLabel {
-    if (!_orderStateLabel) {
-        _orderStateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderStateLabel.textColor = [UIColor colorRedDefault];
-        _orderStateLabel.text = @"待支付";
-        _orderStateLabel.numberOfLines = 1;
-        _orderStateLabel.textAlignment = NSTextAlignmentLeft;
-        [_orderStateLabel setFont:[UIFont fontSmall]];
-    }
-    return _orderStateLabel;
-}
-
-- (UIButton *)cancelBtn {
-    if (!_cancelBtn) {
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _cancelBtn.layer.masksToBounds = YES;
-        _cancelBtn.layer.cornerRadius = 3;
-        _cancelBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
-        _cancelBtn.layer.borderWidth = 1;
-        [_cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_cancelBtn.titleLabel setFont:[UIFont fontSmall]];
+#pragma mark - Getter
+- (UIView *)contView {
+    if (!_contView) {
         
-        __weak typeof(self) weakSelf = self;
-        [_cancelBtn bk_whenTapped:^{
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypeCancel);
-            }
-        }];
+        _contView = [[UIView alloc] init];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+//        _contView.clipsToBounds = YES;
+        ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+         _contView.layer.cornerRadius = CGFloatIn750(12);
     }
-    return _cancelBtn;
+    return _contView;
 }
 
+- (UIView *)failView {
+    if (!_failView) {
+        _failView = [[UIView alloc] init];
+        _failView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _failView.clipsToBounds = YES;
+    }
+    return _failView;
+}
+
+- (UIView *)topView {
+    if (!_topView) {
+        _topView = [[UIView alloc] init];
+        _topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _topView.clipsToBounds = YES;
+        _topView.layer.cornerRadius = CGFloatIn750(12);
+    }
+    return _topView;
+}
+
+- (UIView *)midView {
+    if (!_midView) {
+        _midView = [[UIView alloc] init];
+        _midView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _midView.clipsToBounds = YES;
+    }
+    return _midView;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _bottomView.clipsToBounds = YES;
+        _bottomView.layer.cornerRadius = CGFloatIn750(12);
+    }
+    return _bottomView;
+}
+
+- (UILabel *)orderNameLabel {
+    if (!_orderNameLabel) {
+        _orderNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _orderNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _orderNameLabel.text = @"";
+        _orderNameLabel.numberOfLines = 1;
+        _orderNameLabel.textAlignment = NSTextAlignmentLeft;
+        [_orderNameLabel setFont:[UIFont boldFontContent]];
+    }
+    return _orderNameLabel;
+}
+
+
+- (UILabel *)priceLabel {
+    if (!_priceLabel) {
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _priceLabel.text = @"";
+        _priceLabel.numberOfLines = 1;
+        _priceLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceLabel setFont:[UIFont boldFontContent]];
+    }
+    return _priceLabel;
+}
+
+- (UIImageView *)leftImageView {
+    if (!_leftImageView) {
+        _leftImageView = [[UIImageView alloc] init];
+        _leftImageView.image = [UIImage imageNamed:@"serverTopbg"];
+        _leftImageView.contentMode = UIViewContentModeScaleAspectFill;
+        ViewRadius(_leftImageView, CGFloatIn750(12));
+    }
+    return _leftImageView;
+}
+
+
+- (UILabel *)detailLabel {
+    if (!_detailLabel) {
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _detailLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _detailLabel.text = @"";
+        _detailLabel.numberOfLines = 1;
+        _detailLabel.textAlignment = NSTextAlignmentLeft;
+        [_detailLabel setFont:[UIFont fontSmall]];
+    }
+    return _detailLabel;
+}
+
+
+- (UILabel *)clubLabel {
+    if (!_clubLabel) {
+        _clubLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _clubLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _clubLabel.text = @"";
+        _clubLabel.numberOfLines = 1;
+        _clubLabel.textAlignment = NSTextAlignmentLeft;
+        [_clubLabel setFont:[UIFont fontContent]];
+    }
+    return _clubLabel;
+}
+
+
+- (UILabel *)statelabel {
+    if (!_statelabel) {
+        _statelabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _statelabel.text = @"";
+        _statelabel.numberOfLines = 1;
+        _statelabel.textAlignment = NSTextAlignmentRight;
+        [_statelabel setFont:[UIFont boldFontSmall]];
+    }
+    return _statelabel;
+}
+
+
+- (UILabel *)failHintLabel {
+    if (!_failHintLabel) {
+        _failHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _failHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _failHintLabel.text = @"失败原因:";
+        _failHintLabel.numberOfLines = 1;
+        _failHintLabel.textAlignment = NSTextAlignmentLeft;
+        [_failHintLabel setFont:[UIFont fontSmall]];
+    }
+    return _failHintLabel;
+}
+
+
+- (UILabel *)failLabel {
+    if (!_failLabel) {
+        _failLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _failLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _failLabel.text = @"";
+        _failLabel.numberOfLines = 0;
+        _failLabel.textAlignment = NSTextAlignmentLeft;
+        [_failLabel setFont:[UIFont fontSmall]];
+    }
+    return _failLabel;
+}
 
 - (UIButton *)payBtn {
     if (!_payBtn) {
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _payBtn.layer.masksToBounds = YES;
-        _payBtn.layer.cornerRadius = 3;
-        _payBtn.layer.borderColor = [UIColor colorRedDefault].CGColor;
-        _payBtn.layer.borderWidth = 1;
-        [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:[UIColor colorRedDefault] forState:UIControlStateNormal];
-        [_payBtn.titleLabel setFont:[UIFont fontSmall]];
-        
         __weak typeof(self) weakSelf = self;
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_payBtn.titleLabel setFont:[UIFont fontContent]];
+        _payBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
         [_payBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypeCancel);
-            }
+                weakSelf.handleBlock(0,self.model);
+            };
         }];
     }
     return _payBtn;
 }
 
-#pragma mark tableView -------datasource-----
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailLessonListCell"]) {
-        ZStudentLessonDetailLessonListCell *listCell = (ZStudentLessonDetailLessonListCell *)cell;
-        listCell.isHiddenBottomLine = YES;
+- (UIButton *)closeBtn {
+    if (!_closeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_closeBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_closeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_closeBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_closeBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_closeBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1,self.model);
+            };
+        }];
     }
-   
-    return cell;
+    return _closeBtn;
 }
 
-#pragma mark tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
+- (UIButton *)delBtn {
+    if (!_delBtn) {
+        __weak typeof(self) weakSelf = self;
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_delBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_delBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2,self.model);
+            };
+        }];
+    }
+    return _delBtn;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
+
+- (UIButton *)evaBtn {
+    if (!_evaBtn) {
+        __weak typeof(self) weakSelf = self;
+        _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_evaBtn setTitle:@"评价" forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_evaBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        [_evaBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(3,self.model);
+            };
+        }];
+    }
+    return _evaBtn;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZRecordWeightMoreCell"]) {
-       
+#pragma mark - set model
+- (void)setModel:(ZStudentOrderListModel *)model {
+    _model = model;
+    
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+    self.statelabel.text = model.state;
+    self.orderNameLabel.text = model.name;
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
+    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.tiTime];
+    self.clubLabel.text = model.club;
+    self.failLabel.text = model.fail;
+    
+    switch (model.type) {
+        case ZStudentOrderTypeForPay:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+            
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
+            
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.bottomView.mas_top);
+            }];
+            
+            self.bottomView.hidden = NO;
+            self.failView.hidden = YES;
+            self.payBtn.hidden = NO;
+            self.closeBtn.hidden = NO;
+            
+            self.evaBtn.hidden = YES;
+            self.delBtn.hidden = YES;
+            
+            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(142));
+            }];
+            
+            [self.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.payBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }
+            break;
+        case ZStudentOrderTypeHadPay:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+            
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
+            
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.bottomView.mas_top);
+            }];
+            
+            self.bottomView.hidden = NO;
+            self.failView.hidden = YES;
+            self.payBtn.hidden = NO;
+            self.closeBtn.hidden = YES;
+            
+            self.evaBtn.hidden = NO;
+            self.delBtn.hidden = NO;
+            
+            
+            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(142));
+            }];
+            
+            [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.payBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+            
+            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.evaBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(182));
+            }];
+        }
+            break;
+        case ZStudentOrderTypeComplete:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
+            self.detailLabel.text = @"审核中...";
+            
+            
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+            }];
+            
+            self.bottomView.hidden = YES;
+            self.failView.hidden = YES;
+            self.payBtn.hidden = YES;
+            self.closeBtn.hidden = YES;
+            
+            self.evaBtn.hidden = YES;
+            self.delBtn.hidden = YES;
+            
+        }
+            break;
+        case ZStudentOrderTypeForEva:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
+            self.detailLabel.text = @"";
+            
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.bottom.equalTo(self.contView.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
+            
+            NSString *fail = self.model.fail ? self.model.fail : @"";
+            CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+            
+            [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.bottom.equalTo(self.bottomView.mas_top);
+                make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
+            }];
+            
+            [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.leftImageView);
+                make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
+            }];
+            
+            
+            [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
+                make.top.equalTo(self.failHintLabel.mas_top);
+                make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
+            }];
+            
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.failView.mas_top);
+            }];
+            
+            
+            self.bottomView.hidden = NO;
+            self.failView.hidden = NO;
+            self.payBtn.hidden = NO;
+            self.closeBtn.hidden = YES;
+                       
+            self.evaBtn.hidden = YES;
+            self.delBtn.hidden = NO;
+            
+            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(116));
+            }];
+            
+            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.payBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(182));
+            }];
+            
+            [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
+        }
+            break;
+            
+        default:
+            break;
     }
 }
-
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    NSMutableArray *list = @[].mutableCopy;
-    
-    NSArray *des = @[@"课程：少儿英语", @"教练：伊可新", @"购买课时：20节课", @"有效时间：2019年12日31日"];
-    for (int i = 0; i < des.count; i++) {
-        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-        model.desTitle = des[i];
-        [list addObject:model];
+    if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
+        ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
+        if (listModel.type == ZStudentOrderTypeComplete) {
+            return CGFloatIn750(318);
+        }else if (listModel.type == ZStudentOrderTypeForEva){
+            NSString *fail = listModel.fail ? listModel.fail : @"";
+            CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+            return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
+        } else{
+            return CGFloatIn750(414);
+        }
     }
-    return CGFloatIn750(168) + CGFloatIn750(40) + [ZStudentLessonDetailLessonListCell z_getCellHeight:list];
+    
+    return CGFloatIn750(0);
 }
 
-
-- (void)setData {
-    NSMutableArray *list = @[].mutableCopy;
-    NSArray *des = @[@"课程：少儿英语", @"教练：伊可新", @"购买课时：20节课", @"有效时间：2019年12日31日"];
-    for (int i = 0; i < des.count; i++) {
-        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-        model.desTitle = des[i];
-        [list addObject:model];
-    }
-
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [_cellConfigArr addObject:topCellConfig];
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_closeBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     
-    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
-    [_cellConfigArr addObject:lessonDesCellConfig];
-//
-
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [_cellConfigArr addObject:bottomCellConfig];
+    ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     
-    [self.iTableView reloadData];
+    _clubImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
+    ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
 }
 @end
-
