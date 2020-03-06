@@ -69,7 +69,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"全部", @"待付款", @"已付款", @"待评价"].mutableCopy;
+        _titleArr = @[@"全部", @"待付款", @"待评价", @"已完成"].mutableCopy;
     }
     return _titleArr;
 }
@@ -90,7 +90,7 @@
                     lvc.type = ZStudentOrderTypeHadPay;
                     break;
                 case 3:
-                    lvc.type = ZStudentOrderTypeForEva;
+                    lvc.type = ZStudentOrderTypeComplete;
                     break;
                     
                 default:

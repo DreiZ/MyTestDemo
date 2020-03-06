@@ -521,7 +521,7 @@
             
         }
             break;
-        case ZStudentOrderTypeForEva:
+        case ZStudentOrderTypeForReceived:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
             self.detailLabel.text = @"";
@@ -596,7 +596,7 @@
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
         if (listModel.type == ZStudentOrderTypeComplete) {
             return CGFloatIn750(318);
-        }else if (listModel.type == ZStudentOrderTypeForEva){
+        }else if (listModel.type == ZStudentOrderTypeForReceived){
             NSString *fail = listModel.fail ? listModel.fail : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);

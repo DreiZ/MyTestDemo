@@ -18,15 +18,19 @@
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UILabel *statelabel;
 
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UIImageView *clubImageView;
 
-
+@property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *midView;
 @property (nonatomic,strong) UIView *subView;
 @property (nonatomic,strong) UIView *topView;
+
+@property (nonatomic,strong) UIButton *delBtn;
+
 @end
 
 @implementation ZStudentMineOrderDetailCell
@@ -56,6 +60,17 @@
         make.left.top.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(88));
     }];
+    
+    [self.contView addSubview:self.bottomView];
+    [self.bottomView addSubview:self.delBtn];
+    [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.bottomView.mas_centerY);
+        make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+        make.height.mas_equalTo(CGFloatIn750(56));
+        make.width.mas_equalTo(CGFloatIn750(142));
+    }];
+    
+    self.bottomView.hidden = YES;
     
     [self.contView addSubview:self.subView];
     [self.subView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -203,6 +218,17 @@
     return _topView;
 }
 
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _bottomView.clipsToBounds = YES;
+        _bottomView.layer.cornerRadius = CGFloatIn750(12);
+    }
+    return _bottomView;
+}
+
 - (UIView *)midView {
     if (!_midView) {
         _midView = [[UIView alloc] init];
@@ -284,6 +310,37 @@
         [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
+}
+
+
+- (UILabel *)statelabel {
+    if (!_statelabel) {
+        _statelabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _statelabel.text = @"";
+        _statelabel.numberOfLines = 1;
+        _statelabel.textAlignment = NSTextAlignmentRight;
+        [_statelabel setFont:[UIFont boldFontSmall]];
+    }
+    return _statelabel;
+}
+
+
+- (UIButton *)delBtn {
+    if (!_delBtn) {
+        __weak typeof(self) weakSelf = self;
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_delBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_delBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2,self.model);
+            };
+        }];
+    }
+    return _delBtn;
 }
 
 #pragma mark tableView -------datasource-----

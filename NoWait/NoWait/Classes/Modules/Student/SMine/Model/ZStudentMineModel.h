@@ -19,11 +19,15 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
 
 //课程管理 课程类别
 typedef NS_ENUM(NSInteger, ZStudentOrderType) {
-    ZStudentOrderTypeForPay  =   0,   //待付款
-    ZStudentOrderTypeHadPay,          //已付款
-    ZStudentOrderTypeForEva,         //待评价
-    ZStudentOrderTypeComplete,         //完成
-    ZStudentOrderTypeAll,           //全部
+    ZStudentOrderTypeForPay  =   0,   //待付款（去支付，取消）
+    ZStudentOrderTypeHadPay,          //已付款（评价，退款，删除）
+    ZStudentOrderTypeHadEva,          //完成已评价(删除)
+    ZStudentOrderTypeOutTime,         //超时(删除)
+    ZStudentOrderTypeCancel,          //已取消(删除)
+    ZStudentOrderTypeForReceived,     //待接收（预约）
+    ZStudentOrderTypeComplete,        //已完成（预约，删除）
+    ZStudentOrderTypeRefuse,          //已拒绝（预约）
+    ZStudentOrderTypeAll,             //全部
 };
 
 @interface ZStudentOrderEvaModel : NSObject
@@ -63,6 +67,7 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
 
 
 @interface ZStudentOrderListModel : NSObject
+@property (nonatomic,strong) NSString *orderType;  //0预约 1正常
 @property (nonatomic,strong) NSString *club;
 @property (nonatomic,strong) NSString *state;
 @property (nonatomic,strong) NSString *image;
