@@ -19,15 +19,16 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
 
 //课程管理 课程类别
 typedef NS_ENUM(NSInteger, ZStudentOrderType) {
-    ZStudentOrderTypeForPay  =   0,   //待付款（去支付，取消）
-    ZStudentOrderTypeHadPay,          //已付款（评价，退款，删除）
-    ZStudentOrderTypeHadEva,          //完成已评价(删除)
-    ZStudentOrderTypeOutTime,         //超时(删除)
-    ZStudentOrderTypeCancel,          //已取消(删除)
-    ZStudentOrderTypeForReceived,     //待接收（预约）
-    ZStudentOrderTypeComplete,        //已完成（预约，删除）
-    ZStudentOrderTypeRefuse,          //已拒绝（预约）
-    ZStudentOrderTypeAll,             //全部
+    ZStudentOrderTypeForPay  =   0,         //待付款（去支付，取消）
+    ZStudentOrderTypeHadPay,                //已付款（评价，退款，删除）
+    ZStudentOrderTypeHadEva,                //完成已评价(删除)
+    ZStudentOrderTypeOutTime,               //超时(删除)
+    ZStudentOrderTypeCancel,                //已取消(删除)
+    ZStudentOrderTypeOrderForPay,           //待付款（去支付，取消）
+    ZStudentOrderTypeOrderForReceived,      //待接收（预约）
+    ZStudentOrderTypeOrderComplete,         //已完成（预约，删除）
+    ZStudentOrderTypeOrderRefuse,           //已拒绝（预约）
+    ZStudentOrderTypeAll,                   //全部
 };
 
 @interface ZStudentOrderEvaModel : NSObject
@@ -78,6 +79,14 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
 @property (nonatomic,strong) NSString *tiTime;
 @property (nonatomic,strong) NSString *teacher;
 @property (nonatomic,strong) NSString *fail;
+
+@property (nonatomic,strong) NSString *lessonNum;
+@property (nonatomic,strong) NSString *lessonSignleTime;
+@property (nonatomic,strong) NSString *lessonTime;
+@property (nonatomic,strong) NSString *lessonValidity;
+@property (nonatomic,strong) NSString *lessonFavourable;//优惠
+@property (nonatomic,strong) NSString *lessonPrice;//
+@property (nonatomic,assign) NSInteger payLimit;
 
 @property (nonatomic,assign) ZStudentOrderType type;
 

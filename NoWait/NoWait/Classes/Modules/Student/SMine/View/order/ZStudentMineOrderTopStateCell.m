@@ -54,7 +54,7 @@
     if (!_statelabel) {
         _statelabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _statelabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _statelabel.text = @"待付款";
+        _statelabel.text = @"";
         _statelabel.numberOfLines = 1;
         _statelabel.textAlignment = NSTextAlignmentCenter;
         [_statelabel setFont:[UIFont boldFontSmall]];
@@ -67,7 +67,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _priceLabel.text = @"￥500";
+        _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentCenter;
         [_priceLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(52)]];
@@ -80,12 +80,25 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _detailLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _detailLabel.text = @"萨嘎李国红我爱过我欧威欧风我水电费第三方的身高多少";
+        _detailLabel.text = @"";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentCenter;
         [_detailLabel setFont:[UIFont fontMin]];
     }
     return _detailLabel;
+}
+
+- (void)setModel:(ZStudentOrderListModel *)model {
+    _model = model;
+    if (model.type == ZStudentOrderTypeForPay) {
+        _statelabel.text = @"待付款";
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+        _detailLabel.text = @"请于完成支付，超时订单将自动取消";
+    }else if (model.type == ZStudentOrderTypeOrderForPay){
+        _statelabel.text = @"待付款";
+        _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+        _detailLabel.text = @"请于完成支付，超时订单将自动取消";
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -87,9 +87,13 @@
     }];
     
     [self.topView addSubview:self.clubLabel];
-    
     [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.topView.mas_centerY);
+    }];
+    [self.topView addSubview:self.statelabel];
+    [self.statelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.topView.mas_centerY);
     }];
     
@@ -386,47 +390,114 @@
     }
 }
 
-
 #pragma mark - set model
 - (void)setModel:(ZStudentOrderListModel *)model {
     _model = model;
     
     [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
     self.orderNameLabel.text = model.name;
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
-    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.tiTime];
     self.clubLabel.text = model.club;
-    self.timeLabel.text = model.state;
+    self.bottomView.hidden = YES;
     
-    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontContent]];
+    switch (self.model.type) {
+        case ZStudentOrderTypeForPay://待付款（去支付，取消）
+            {
+                [self setDetailDes];
+                self.priceLabel.text = @"";
+                
+                [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(1);
+                    make.centerY.equalTo(self.orderNameLabel.mas_centerY);
+                    make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+                }];
+                [self setDetailSubViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
+            {
+                [self setDetailDes];
+                [self setDetailBottomViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeHadEva://完成已评价(删除)
+            {
+                [self setDetailDes];
+                [self setDetailBottomViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeOutTime://超时(删除)
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeCancel://已取消(删除)
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+            {
+                [self setOrderDetailDes];
+                self.priceLabel.text = @"";
+                
+                [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(1);
+                    make.centerY.equalTo(self.orderNameLabel.mas_centerY);
+                    make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+                }];
+                [self setOrderDetailMidViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeOrderForReceived://待接收（预约）
+            {
+                [self setOrderDetailDes];
+                [self setOrderDetailMidViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+            {
+                [self setOrderDetailDes];
+                [self setOrderDetailMidViewBottom];
+            }
+            break;
+            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+            {
+                [self setOrderDetailDes];
+                [self setOrderDetailMidViewBottom];
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setDetailDes {
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.price];
+    self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",self.model.teacher];
+    self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",self.model.lessonNum];
+    
+    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.price] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(priceSize.width + 3);
         make.centerY.equalTo(self.orderNameLabel.mas_centerY);
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
     }];
+    
+    [self setSubDetail];
+}
 
-    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.contView);
-        make.top.equalTo(self.topView.mas_bottom);
-        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-    }];
-
+- (void)setSubDetail {
     {
-        [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.contView);
-            make.top.equalTo(self.topView.mas_bottom);
-            make.bottom.equalTo(self.subView.mas_top);
-        }];
-        [self.subView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.contView);
-            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-            make.height.mas_equalTo(CGFloatIn750(56*3 + 28));
-        }];
-
-        {
-            ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(28) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:coachSpaceCellConfig];
-        }
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(28) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    }
+    NSArray *titleArr = @[@[@"单节课时",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.lessonSignleTime)]],
+                          @[@"总时长",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.lessonTime)]],
+                          @[@"课程有效期",[NSString stringWithFormat:@"%@月",SafeStr(_model.lessonValidity)]]];
+    
+    for (NSArray *tempArr in titleArr) {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontSmall];
         mModel.leftFont = [UIFont fontSmall];
@@ -437,38 +508,109 @@
         mModel.singleCellHeight = CGFloatIn750(56);
         mModel.titleWidth = CGFloatIn750(250);
         mModel.cellWidth = KScreenWidth - CGFloatIn750(60);
-        mModel.rightTitle = @"公司的风格就是金融";
-        mModel.leftTitle = @"史蒂夫：";
+        mModel.rightTitle = [NSString stringWithFormat:@"%@分钟",tempArr[1]];
+        mModel.leftTitle = tempArr[0];
         mModel.isHiddenLine = YES;
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailSubDesCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZStudentMineOrderDetailSubDesCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
 
         [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        
-        self.bottomView.hidden = NO;
-        [self.subView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.contView);
-            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
-            make.height.mas_equalTo(CGFloatIn750(56*3 + 28));
-        }];
-        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.contView);
-            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-            make.height.mas_equalTo(CGFloatIn750(56));
-        }];
     }
 }
 
+- (void)setDetailSubViewBottom {
+    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.subView.mas_top);
+    }];
+    [self.subView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+        make.height.mas_equalTo(CGFloatIn750(56*3 + 28));
+    }];
+}
+
+- (void)setDetailBottomViewBottom {
+    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.subView.mas_top);
+    }];
+    
+    self.bottomView.hidden = NO;
+    [self.subView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+        make.height.mas_equalTo(CGFloatIn750(56*3 + 28));
+    }];
+    
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+        make.height.mas_equalTo(CGFloatIn750(56));
+    }];
+}
+
+- (void)setOrderDetailDes {
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.price];
+    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",self.model.lessonSignleTime];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@",self.model.tiTime];
+    
+    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.price] tt_sizeWithFont:[UIFont fontContent]];
+    [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(priceSize.width + 3);
+        make.centerY.equalTo(self.orderNameLabel.mas_centerY);
+        make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+}
+
+
+- (void)setOrderDetailMidViewBottom {
+    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+}
+
+
 + (CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
-        if (listModel.type == ZStudentOrderTypeComplete) {
-            return CGFloatIn750(318 + 80);
-        } else{
-            return CGFloatIn750(414 + 80);
+        switch (listModel.type) {
+            case ZStudentOrderTypeForPay://待付款（去支付，取消）
+                    return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+                case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
+                    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                break;
+                case ZStudentOrderTypeHadEva://完成已评价(删除)
+                    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                break;
+                case ZStudentOrderTypeOutTime://超时(删除)
+                    return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+                case ZStudentOrderTypeCancel://已取消(删除)
+                    return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+                case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+                    
+                case ZStudentOrderTypeOrderForReceived://待接收（预约）
+                    
+                case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+                    
+                case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+                    return CGFloatIn750(328);
+                break;
+            default:
+                break;
         }
     }
     

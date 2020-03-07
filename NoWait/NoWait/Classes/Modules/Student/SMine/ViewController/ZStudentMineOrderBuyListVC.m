@@ -41,7 +41,7 @@
         model.fail = @"";
         model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
         
-        switch (i%8) {
+        switch (i%9) {
             case 0:
                 model.type = ZStudentOrderTypeForPay;
                 break;
@@ -58,14 +58,18 @@
                 model.type = ZStudentOrderTypeCancel;
                 break;
             case 5:
-                model.type = ZStudentOrderTypeForReceived;
+                model.type = ZStudentOrderTypeOrderForReceived;
                 break;
             case 6:
-                model.type = ZStudentOrderTypeComplete;
+                model.type = ZStudentOrderTypeOrderComplete;
                 break;
             case 7:
-                model.type = ZStudentOrderTypeRefuse;
+                model.type = ZStudentOrderTypeOrderRefuse;
                 break;
+            case 8:
+                model.type = ZStudentOrderTypeOrderForPay;
+                break;
+                
                   
             default:
                 break;
@@ -102,8 +106,9 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-           ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
-           [self.navigationController pushViewController:evc animated:YES];
+        ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
+        evc.model = cellConfig.dataModel;
+        [self.navigationController pushViewController:evc animated:YES];
     }
 }
 

@@ -170,6 +170,7 @@
     
 
     switch (model.type) {
+            case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {
             self.payBtn.hidden = NO;
@@ -268,7 +269,7 @@
             
         }
             break;
-        case ZStudentOrderTypeForReceived:
+        case ZStudentOrderTypeOrderForReceived:
         {
             self.payBtn.hidden = YES;
             self.cancleBtn.hidden = YES;
@@ -277,7 +278,7 @@
             self.delBtn.hidden = YES;
         }
             break;
-        case ZStudentOrderTypeComplete:
+        case ZStudentOrderTypeOrderComplete:
         {
             self.payBtn.hidden = YES;
             self.cancleBtn.hidden = YES;
@@ -294,7 +295,7 @@
             
         }
             break;
-        case ZStudentOrderTypeRefuse:
+        case ZStudentOrderTypeOrderRefuse:
         {
             self.payBtn.hidden = YES;
             self.cancleBtn.hidden = YES;

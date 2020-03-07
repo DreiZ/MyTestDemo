@@ -435,15 +435,15 @@
             self.statelabel.text = @"已取消";
             break;
         case 5:
-//            model.type = ZStudentOrderTypeForReceived;
+//            model.type = ZStudentOrderTypeOrderForReceived;
             self.statelabel.text = @"预约待接受";
             break;
         case 6:
-//            model.type = ZStudentOrderTypeComplete;
+//            model.type = ZStudentOrderTypeOrderComplete;
             self.statelabel.text = @"预约已接收";
             break;
         case 7:
-//            model.type = ZStudentOrderTypeRefuse;
+//            model.type = ZStudentOrderTypeOrderRefuse;
             self.statelabel.text = @"预约已拒绝";
             break;
               
@@ -453,6 +453,7 @@
     
 
     switch (model.type) {
+        case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -631,7 +632,7 @@
             
         }
             break;
-        case ZStudentOrderTypeForReceived:
+        case ZStudentOrderTypeOrderForReceived:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
             
@@ -650,7 +651,7 @@
             self.delBtn.hidden = YES;
         }
             break;
-        case ZStudentOrderTypeComplete:
+        case ZStudentOrderTypeOrderComplete:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
             
@@ -683,7 +684,7 @@
             
         }
             break;
-        case ZStudentOrderTypeRefuse:
+        case ZStudentOrderTypeOrderRefuse:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
             
@@ -776,7 +777,7 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
-        if (listModel.type == ZStudentOrderTypeForReceived || listModel.type == ZStudentOrderTypeRefuse) {
+        if (listModel.type == ZStudentOrderTypeOrderForReceived || listModel.type == ZStudentOrderTypeOrderRefuse) {
             return CGFloatIn750(318);
         } else{
             return CGFloatIn750(414);
