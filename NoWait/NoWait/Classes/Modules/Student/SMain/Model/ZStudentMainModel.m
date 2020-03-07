@@ -23,6 +23,10 @@
 
 @end
 
+@implementation ZStudentOrganizationListModel
+
+@end
+
 @implementation ZStudentMainModel
 
 @end

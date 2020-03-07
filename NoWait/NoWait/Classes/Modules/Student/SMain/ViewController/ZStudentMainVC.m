@@ -5,10 +5,8 @@
 //  Created by zhuang zhang on 2020/1/3.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
-
 #import "ZStudentMainVC.h"
 #import "ZStudentMainTopSearchView.h"
-#import "ZUserHelper.h"
 
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
@@ -17,7 +15,6 @@
 #import "ZStudentMainFiltrateSectionView.h"
 
 #import "ZStudentOrganizationDetailVC.h"
-
 
 #import "ZPhoneAlertView.h"
 #import "ZServerCompleteAlertView.h"
@@ -28,11 +25,9 @@
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) ZStudentMainTopSearchView *searchView;
 @property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
 
-@property (nonatomic,strong) NSMutableArray <NSArray *>*cellConfigArr;
 @property (nonatomic,strong) NSMutableArray *enteryArr;
 @property (nonatomic,strong) NSMutableArray *photoWallArr;
 
@@ -49,28 +44,19 @@
     return self;
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
-    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setData];
-    [self setupMainView];
+    [self initCellConfigArr];
 }
 
-
-- (void)setData {
-    _cellConfigArr = @[].mutableCopy;
+- (void)setDataSource {
+    [super setDataSource];
     _enteryArr = @[].mutableCopy;
     _photoWallArr = @[].mutableCopy;
     
@@ -81,24 +67,26 @@
         model.imageName = entryArr[i][1];
         model.name = entryArr[i][0];
         [_enteryArr addObject:model];
-        
     }
     
     for (int i = 0; i < 2; i++) {
         ZStudentPhotoWallItemModel *photoWallModel = [[ZStudentPhotoWallItemModel alloc] init];
-        photoWallModel.imageName = @"serverTopbg";
+        if (i == 0) {
+            photoWallModel.imageName = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gclaeqajz8j30u00u0wjk.jpg";
+        }else{
+            photoWallModel.imageName = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcla1o85kjj30u011in4r.jpg";
+        }
         [_photoWallArr addObject:photoWallModel];
     }
-    
-    [self resetData];
 }
 
-
-- (void)resetData {
-    [_cellConfigArr removeAllObjects];
-    NSMutableArray *sectionArr = @[].mutableCopy;
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
     
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:nil heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    NSMutableArray *sectionArr = @[].mutableCopy;
+    ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
+    model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gck7hzkurrj30zk0lfai4.jpg";
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@[model,model]];
     [sectionArr addObject:topCellConfig];
     
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
@@ -107,35 +95,34 @@
     ZCellConfig *photoWallCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainPhotoWallCell className] title:@"ZStudentMainPhotoWallCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainPhotoWallCell z_getCellHeight:_photoWallArr] cellType:ZCellTypeClass dataModel:_photoWallArr];
     [sectionArr addObject:photoWallCellConfig];
     
-    [_cellConfigArr addObject:sectionArr];
-    
+    [self.cellConfigArr addObject:sectionArr];
     
     NSMutableArray *section1Arr = @[].mutableCopy;
-    ZCellConfig *photoWallCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:nil heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
-    [section1Arr addObject:photoWallCellCon1fig];
     
-    [_cellConfigArr addObject:section1Arr]; 
+    
+    for (int i = 0; i < 10; i++) {
+        ZStudentOrganizationListModel *model = [[ZStudentOrganizationListModel alloc] init];
+        if (i%5 == 0) {
+            model.image = @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcl9l56hc7j30xc0m8gol.jpg";
+        }else if ( i%5 == 1){
+            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl9enz0bcj318y0u0h0v.jpg";
+        }else if ( i%5 == 2){
+            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl90ruhzpj30u011i44s.jpg";
+        }else if ( i%5 == 3){
+            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8kmicgrj318y0u0ae4.jpg";
+        }else{
+            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8abyp14j30u011g0yz.jpg";
+                
+        }
+        
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [section1Arr addObject:orCellCon1fig];
+    }
+    [self.cellConfigArr addObject:section1Arr];
 }
 
 - (void)setupMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBGDark]);
+    [super setupMainView];
     
     [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,43 +130,14 @@
         make.height.mas_equalTo(KSearchTopViewHeight + kStatusBarHeight);
     }];
     
-    
-    [self.view addSubview:self.iTableView];
-    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.searchView.mas_bottom).offset(1);
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
 }
 
-#pragma mark - lazy loading...
--(UITableView *)iTableView {
-    if (!_iTableView) {
-        _iTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _iTableView.showsHorizontalScrollIndicator = NO;
-        _iTableView.showsVerticalScrollIndicator = NO;
-        if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            _iTableView.estimatedRowHeight = 0;
-            _iTableView.estimatedSectionHeaderHeight = 0;
-            _iTableView.estimatedSectionFooterHeight = 0;
-            if (@available(iOS 11.0, *)) {
-                _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                // Fallback on earlier versions
-            }
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = NO;
-        }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        _iTableView.delegate = self;
-        _iTableView.dataSource = self;
-        
-    }
-    return _iTableView;
-}
-
+#pragma mark - lazy loading
 - (ZStudentMainTopSearchView *)searchView {
     if (!_searchView) {
 //        __weak typeof(self) weakSelf = self;
@@ -205,18 +163,18 @@
     return _sectionView;
 }
 
-
-#pragma mark tableView -------datasource-----
+#pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _cellConfigArr.count;
+    return self.cellConfigArr.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _cellConfigArr[section].count;
+    NSArray *tempArr = self.cellConfigArr[section];
+    return tempArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
+    ZCellConfig *cellConfig = [self.cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
 
@@ -225,7 +183,8 @@
 
 #pragma mark tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.section][indexPath.row];
+    NSArray *tempArr = self.cellConfigArr[indexPath.section];
+    ZCellConfig *cellConfig = tempArr[indexPath.row];
     CGFloat cellHeight =  cellConfig.heightOfCell;
     return cellHeight;
 }
@@ -276,8 +235,6 @@
     }
 }
 
-
-
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
@@ -286,7 +243,6 @@
    
     [self.searchView updateWithOffset:Offset_y];
 }
-
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
@@ -304,16 +260,4 @@
 //        [self lightType];
     }
 }
-
-
-// darkType
-- (void)darkType{
-    //Dark 模式(黑夜)
-}
-
-// lightType
-- (void)lightType{
-     //Light 模式(白天)
-}
-
 @end

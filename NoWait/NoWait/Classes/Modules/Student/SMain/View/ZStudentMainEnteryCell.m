@@ -28,15 +28,13 @@
 
 - (void)setupView {
     [super setupView];
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(0));
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-0));
+        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(10));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(CGFloatIn750(-10));
     }];
     
     [self.contentView addSubview:self.iCollectionView];
@@ -123,6 +121,6 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(130);
+    return CGFloatIn750(150);
 }
 @end

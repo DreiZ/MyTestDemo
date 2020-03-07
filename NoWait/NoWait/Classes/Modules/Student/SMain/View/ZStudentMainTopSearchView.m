@@ -111,7 +111,7 @@
         _addressLabel.text = @"徐州";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        [_addressLabel setFont:[UIFont fontTitle]];
+        [_addressLabel setFont:[UIFont fontContent]];
     }
     return _addressLabel;
 }

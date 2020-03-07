@@ -26,7 +26,6 @@
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
-    
 }
 
 - (UIImageView *)imageView {
@@ -34,7 +33,7 @@
         _imageView = [[UIImageView alloc] init];
         _imageView.layer.masksToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.layer.cornerRadius = 4;
+        _imageView.layer.cornerRadius = CGFloatIn750(8);
     }
     return _imageView;
 }

@@ -13,11 +13,9 @@
 @interface ZStudentMainFiltrateSectionView ()<ZHFilterMenuViewDelegate,ZHFilterMenuViewDetaSource>
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) ZHFilterMenuView *menuView;
-
 @end
 
 @implementation ZStudentMainFiltrateSectionView
-
 
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -43,7 +41,7 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor  colorMain],[UIColor colorGrayBGDark]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     [self addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);

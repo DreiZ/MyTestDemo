@@ -25,6 +25,10 @@
 @property (nonatomic,strong) id data;
 @end
 
+@interface ZStudentOrganizationListModel : NSObject
+@property (nonatomic,strong) NSString *image;
+@end
+
 @interface ZStudentMainModel : NSObject
 
 @end

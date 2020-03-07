@@ -39,9 +39,10 @@
     [self.contentView addSubview:self.addressLabel];
     
     [self.goodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.width.height.mas_equalTo(CGFloatIn750(140));
+        make.height.mas_equalTo(CGFloatIn750(132));
+        make.width.mas_equalTo(CGFloatIn750(210));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -65,17 +66,9 @@
     [self.contentView addSubview:self.activityView];
     [self.activityView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.bottom.equalTo(self.goodsImageView.mas_bottom).offset(CGFloatIn750(0));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-        make.height.mas_equalTo(CGFloatIn750(30));
-    }];
-    
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
-    [self.contentView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(0.5);
+        make.height.mas_equalTo(CGFloatIn750(36));
     }];
     
     [self setActivityData];
@@ -86,9 +79,9 @@
 -(UIImageView *)goodsImageView {
     if (!_goodsImageView) {
         _goodsImageView = [[UIImageView alloc] init];
-        _goodsImageView.image = [UIImage imageNamed:@"serverTopbg"];
         _goodsImageView.contentMode = UIViewContentModeScaleAspectFill;
         _goodsImageView.clipsToBounds = YES;
+        ViewRadius(_goodsImageView, CGFloatIn750(8));
     }
     
     return _goodsImageView;
@@ -101,11 +94,10 @@
         _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont fontTitle]];
+        [_titleLabel setFont:[UIFont boldFontTitle]];
     }
     return _titleLabel;
 }
-
 
 - (UILabel *)payPeopleNumLabel {
     if (!_payPeopleNumLabel) {
@@ -126,7 +118,7 @@
         _addressLabel.text = @"<1.3km";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentRight;
-        [_addressLabel setFont:[UIFont fontMin]];
+        [_addressLabel setFont:[UIFont fontSmall]];
     }
     return _addressLabel;
 }
@@ -148,10 +140,13 @@
     return _activityView;
 }
 
-
+- (void)setModel:(ZStudentOrganizationListModel *)model {
+    _model = model;
+    [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(200);
+    return CGFloatIn750(188);
 }
 
 
@@ -170,13 +165,11 @@
 - (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX{
      CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
-    UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
-    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBGDark]);
-    actLabel.textColor = [UIColor colorOrangeMoment];
+    UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(36))];
+    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub],[UIColor colorMainSub]);
+    actLabel.textColor = [UIColor colorMain];
     actLabel.layer.masksToBounds = YES;
     actLabel.layer.cornerRadius = 2;
-    actLabel.layer.borderColor = [UIColor colorOrangeMoment].CGColor;
-    actLabel.layer.borderWidth = 0.5;
     actLabel.text = text;
     actLabel.numberOfLines = 0;
     actLabel.textAlignment = NSTextAlignmentCenter;

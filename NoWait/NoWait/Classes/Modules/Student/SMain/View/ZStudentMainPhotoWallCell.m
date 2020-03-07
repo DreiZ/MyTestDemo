@@ -28,19 +28,16 @@
 
 - (void)setupView {
     [super setupView];
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorBlackBGDark]);
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
     
-    
     [self.contentView addSubview:self.iCollectionView];
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.funBackView);
     }];
-    
 }
 
 
@@ -55,14 +52,13 @@
     return _funBackView;
 }
 
-
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentMainPhotoWallCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorBlackBGDark]);
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = NO;
@@ -90,7 +86,7 @@
 {
     ZStudentMainPhotoWallItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainPhotoWallItemCell className] forIndexPath:indexPath];
     ZStudentPhotoWallItemModel *model = _channelList[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:model.imageName];
+    [cell.imageView tt_setImageWithURL:[NSURL URLWithString:model.imageName]];
     return cell;
 }
 
