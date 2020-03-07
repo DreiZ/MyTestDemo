@@ -30,27 +30,49 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZStudentOrderListModel *model = [[ZStudentOrderListModel alloc] init];
-    if (self.type == ZStudentOrderTypeAll) {
-        model.type = ZStudentOrderTypeForPay;
-    }else{
-        model.type = self.type;
+    for (int i = 0; i < 15; i++) {
+        ZStudentOrderListModel *model = [[ZStudentOrderListModel alloc] init];
+        model.state = @"待支付";
+        model.club = @"散打俱乐部";
+        model.name = @"评判器的地方三房";
+        model.price = @"140.00";
+        model.tiTime = @"45";
+        model.teacher = @"看到老师";
+        model.fail = @"";
+        model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
+        
+        switch (i%8) {
+            case 0:
+                model.type = ZStudentOrderTypeForPay;
+                break;
+            case 1:
+                model.type = ZStudentOrderTypeHadPay;
+                break;
+            case 2:
+                model.type = ZStudentOrderTypeHadEva;
+                break;
+            case 3:
+                model.type = ZStudentOrderTypeOutTime;
+                break;
+            case 4:
+                model.type = ZStudentOrderTypeCancel;
+                break;
+            case 5:
+                model.type = ZStudentOrderTypeForReceived;
+                break;
+            case 6:
+                model.type = ZStudentOrderTypeComplete;
+                break;
+            case 7:
+                model.type = ZStudentOrderTypeRefuse;
+                break;
+                  
+            default:
+                break;
+        }
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:orderCellConfig];
     }
-    model.state = @"待支付";
-    model.club = @"散打俱乐部";
-    model.name = @"评判器的地方三房";
-    model.price = @"140.00";
-    model.tiTime = @"45";
-    model.teacher = @"看到老师";
-    model.fail = @"";
-    model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
-    
-    
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
 }
 
 

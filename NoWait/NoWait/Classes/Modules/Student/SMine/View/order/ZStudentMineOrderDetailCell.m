@@ -330,7 +330,7 @@
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
         _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+        [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
@@ -446,11 +446,23 @@
         [self.cellConfigArr addObject:menuCellConfig];
         [self.cellConfigArr addObject:menuCellConfig];
         [self.cellConfigArr addObject:menuCellConfig];
+        
+        self.bottomView.hidden = NO;
+        [self.subView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.contView);
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+            make.height.mas_equalTo(CGFloatIn750(56*3 + 28));
+        }];
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.contView);
+            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+            make.height.mas_equalTo(CGFloatIn750(56));
+        }];
     }
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(328 + 56 * 3 + 28);
+    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
         if (listModel.type == ZStudentOrderTypeComplete) {

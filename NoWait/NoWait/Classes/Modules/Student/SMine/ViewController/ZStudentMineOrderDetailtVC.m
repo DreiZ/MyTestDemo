@@ -203,7 +203,8 @@
 - (ZStudentMineOrderDetailHandleBottomView *)handleView {
     if (!_handleView) {
         __weak typeof(self) weakSelf = self;
-        _handleView  = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
+        _handleView = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
+        _handleView.model = self.model;
         _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
             if (type == ZLessonOrderHandleTypePay) {
                 ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];

@@ -81,7 +81,7 @@
             ZStudentMineOrderBuyListVC *lvc =[[ZStudentMineOrderBuyListVC alloc] init];
             switch (i) {
                 case 0:
-                    lvc.type = ZStudentOrderTypeAll;
+                    lvc.type = ZStudentOrderTypeForReceived;
                     break;
                 case 1:
                     lvc.type = ZStudentOrderTypeForPay;
@@ -90,9 +90,9 @@
                     lvc.type = ZStudentOrderTypeHadPay;
                     break;
                 case 3:
-                    lvc.type = ZStudentOrderTypeComplete;
+                    lvc.type = ZStudentOrderTypeHadEva;
                     break;
-                    
+                      
                 default:
                     break;
             }
