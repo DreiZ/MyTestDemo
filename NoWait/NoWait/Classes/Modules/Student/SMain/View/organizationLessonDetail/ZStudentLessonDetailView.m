@@ -146,10 +146,6 @@
 #pragma mark -- setdata--
 - (void)resetData {
     [_cellConfigArr removeAllObjects];
-
-//    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:[UIColor colorGrayBG]];
-//    [_cellConfigArr addObject:spacCellConfig];
-//    
     
     ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
     model.title = @"课程简介";

@@ -29,6 +29,12 @@
 @property (nonatomic,strong) NSString *image;
 @end
 
+
+@interface ZStudentLessonListModel : NSObject
+@property (nonatomic,strong) NSString *image;
+@end
+
+
 @interface ZStudentMainModel : NSObject
 
 @end

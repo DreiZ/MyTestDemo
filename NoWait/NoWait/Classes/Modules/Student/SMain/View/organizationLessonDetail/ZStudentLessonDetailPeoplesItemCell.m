@@ -8,6 +8,11 @@
 
 #import "ZStudentLessonDetailPeoplesItemCell.h"
 
+@interface ZStudentLessonDetailPeoplesItemCell ()
+@property (nonatomic,strong) UIView *backView;
+
+@end
+
 @implementation ZStudentLessonDetailPeoplesItemCell
 
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -21,25 +26,29 @@
 - (void)initMainView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
-    
-    
-    [self.contentView addSubview:self.userImageView];
-    
-    
-    [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _backView = [[UIView alloc] init];
+    _backView.layer.masksToBounds = YES;
+    _backView.layer.cornerRadius = CGFloatIn750(8);
+    [self.contentView addSubview:_backView];
+    [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
     
-    UIView *titelBack = [[UIView alloc] initWithFrame:CGRectZero];
-    titelBack.backgroundColor = [UIColor colorWithRGB:0xffffff alpha:0.7];
-    [self.contentView addSubview:titelBack];
-    [titelBack mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.backView addSubview:self.userImageView];
+    [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.backView);
+    }];
+    
+    _titelBack = [[UIView alloc] initWithFrame:CGRectZero];
+    _titelBack.backgroundColor = [UIColor colorWithRGB:0xffffff alpha:0.7];
+    [self.backView addSubview:_titelBack];
+    [_titelBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.userImageView);
         make.height.mas_equalTo(CGFloatIn750(46));
     }];
-    [self.contentView addSubview:self.titleLabel];
+    [self.backView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(titelBack);
+        make.center.equalTo(self.titelBack);
     }];
 }
 

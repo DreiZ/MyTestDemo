@@ -8,6 +8,11 @@
 
 #import "ZStudentOrganizationPersonnelListItemCell.h"
 
+@interface ZStudentOrganizationPersonnelListItemCell ()
+@property (nonatomic,strong) UIView *backView;
+
+@end
+
 @implementation ZStudentOrganizationPersonnelListItemCell
 
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -21,27 +26,36 @@
 - (void)initMainView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
+    UIView *backView = [[UIView alloc] init];
+    _backView = backView;
+    backView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    backView.layer.masksToBounds = YES;
+    backView.layer.cornerRadius = CGFloatIn750(8);
+    [self.contentView addSubview:backView];
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     
-    
-    [self.contentView addSubview:self.userImageView];
-    [self.contentView addSubview:self.titleLabel];
-    [self.contentView addSubview:self.skillLabel];
+    [backView addSubview:self.userImageView];
+    [backView addSubview:self.titleLabel];
+    [backView addSubview:self.skillLabel];
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView.mas_centerX);
-        make.width.height.mas_equalTo(CGFloatIn750(134));
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(16));
+        make.width.height.mas_equalTo(CGFloatIn750(80));
+        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(20));
     }];
+    ViewRadius(self.userImageView, CGFloatIn750(40));
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.userImageView.mas_centerX);
-        make.top.equalTo(self.userImageView.mas_bottom).offset(CGFloatIn750(8));
+        make.top.equalTo(self.userImageView.mas_bottom).offset(CGFloatIn750(16));
+        make.left.right.equalTo(self.backView);
     }];
     
     [self.skillLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.userImageView.mas_centerX);
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(4));
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(12));
         make.height.mas_equalTo(CGFloatIn750(28));
+        make.left.right.equalTo(self.backView);
     }];
 }
 
@@ -70,18 +84,10 @@
     if (!_skillLabel) {
         _skillLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
         _skillLabel.layer.masksToBounds = YES;
-        _skillLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        _skillLabel.layer.cornerRadius = 3;
-        _skillLabel.backgroundColor = [UIColor  colorMain];
-        _skillLabel.numberOfLines = 0;
+        _skillLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _skillLabel.textAlignment = NSTextAlignmentCenter;
-        [_skillLabel setFont:[UIFont fontSmall]];
-        NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"擅长仰泳"];
-        text.lineSpacing = 1;
-        text.font = [UIFont fontSmall];
-        text.color = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        _skillLabel.preferredMaxLayoutWidth = kScreenWidth/4 - CGFloatIn750(44);
-        _skillLabel.attributedText = text;
+        [_skillLabel setFont:[UIFont fontMin]];
+        _skillLabel.text = @"擅长仰泳";
     }
     return _skillLabel;
 }

@@ -27,6 +27,11 @@
 
 @end
 
+@implementation ZStudentLessonListModel
+
+
+@end
+
 @implementation ZStudentMainModel
 
 @end

@@ -7,15 +7,16 @@
 //
 
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZCellConfig.h"
+#import "ZBaseUnitModel.h"
+#import "ZStudentDetailModel.h"
+#import "ZMineStudentEvaListHadEvaCell.h"
 
-#import "ZSpaceEmptyCell.h"
-#import "ZStudentOrganizationDetailBannerCell.h"
+#import "ZStudentOrganizationDetailTopCell.h"
+//#import "ZStudentOrganizationDetailBannerCell.h"
 #import "ZStudentOrganizationDetailDesCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
-#import "ZStudentOrganizationLessonMoreCell.h"
 
 
 #import "ZStudentOrganizationLessonDetailVC.h"
@@ -23,10 +24,9 @@
 #import "ZStudentStarCoachListVC.h"
 #import "ZStudentStarCoachInfoVC.h"
 #import "ZStudentStarStudentInfoVC.h"
-//
-//#import "ZStudentOrganizationLessonDetailVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
+
 @end
 
 @implementation ZStudentOrganizationDetailDesVC
@@ -41,7 +41,25 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailBannerCell className] title:[ZStudentOrganizationDetailBannerCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    NSMutableArray *mList = @[].mutableCopy;
+    for (int i = 0; i < 8; i ++) {
+        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+        model.name = @"独山港是";
+        if (i%5 == 0) {
+            model.imageName = @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcl9l56hc7j30xc0m8gol.jpg";
+        }else if ( i%5 == 1){
+            model.imageName = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl9enz0bcj318y0u0h0v.jpg";
+        }else if ( i%5 == 2){
+            model.imageName = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl90ruhzpj30u011i44s.jpg";
+        }else if ( i%5 == 3){
+            model.imageName = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8kmicgrj318y0u0ae4.jpg";
+        }else{
+            model.imageName = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8abyp14j30u011g0yz.jpg";
+                
+        }
+        [mList addObject:model];
+    }
+    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailTopCell className] title:[ZStudentOrganizationDetailTopCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentOrganizationDetailTopCell z_getCellHeight:mList] cellType:ZCellTypeClass dataModel:mList];
     [self.cellConfigArr addObject:bannerCellConfig];
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailDesCell className] title:[ZStudentOrganizationDetailDesCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
@@ -56,7 +74,7 @@
         ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
-        NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
+        NSArray *entryArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"],@[@"张丽",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7u7pskfj30u011hn2c.jpg"],@[@"张思思",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7pza70dj30u01a4tuy.jpg"],@[@"许倩倩",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7fhvi5tj30ds0kumz8.jpg"],@[@"吴楠",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl77552l7j30qo0hsgpo.jpg"],@[@"闫晶晶",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl74tqdyfj30gk0cbqfk.jpg"]];
         
         NSMutableArray *peoples = @[].mutableCopy;
         for (int i = 0; i < entryArr.count; i++) {
@@ -72,7 +90,7 @@
     }
     
     {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         [self.cellConfigArr addObject:spacCellConfig];
         
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
@@ -80,7 +98,7 @@
         ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarStudent" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
-        NSArray *entryArr = @[@[@"赵忠",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"马克",@"wallhaven4"],@[@"张丽",@"wallhaven4"],@[@"张思思",@"wallhaven4"],@[@"许倩倩",@"wallhaven4"],@[@"吴楠",@"wallhaven4"],@[@"闫晶晶",@"wallhaven4"]];
+        NSArray *entryArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"],@[@"张丽",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7u7pskfj30u011hn2c.jpg"],@[@"张思思",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7pza70dj30u01a4tuy.jpg"],@[@"许倩倩",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7fhvi5tj30ds0kumz8.jpg"],@[@"吴楠",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl77552l7j30qo0hsgpo.jpg"],@[@"闫晶晶",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl74tqdyfj30gk0cbqfk.jpg"]];
         
         NSMutableArray *peoples = @[].mutableCopy;
         for (int i = 0; i < entryArr.count; i++) {
@@ -96,31 +114,67 @@
     }
     
     {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         [self.cellConfigArr addObject:spacCellConfig];
         
-        
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+            model.leftTitle = @"热门课程";
+            model.rightTitle = @"全部课程";
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
-        ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
-        [self.cellConfigArr addObject:lessonCellConfig];
+        NSArray *entryssArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"],@[@"张丽",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7u7pskfj30u011hn2c.jpg"],@[@"张思思",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7pza70dj30u01a4tuy.jpg"],@[@"许倩倩",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7fhvi5tj30ds0kumz8.jpg"],@[@"吴楠",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl77552l7j30qo0hsgpo.jpg"],@[@"闫晶晶",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl74tqdyfj30gk0cbqfk.jpg"]];
         
-        ZCellConfig *moreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonMoreCell className] title:[ZStudentOrganizationLessonMoreCell className] showInfoMethod:@selector(setMoreTitle:) heightOfCell:[ZStudentOrganizationLessonMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"初学者课程"];
-        [self.cellConfigArr addObject:moreCellConfig];
+        for (int i = 0; i < entryssArr.count; i++) {
+            ZStudentLessonListModel *model = [[ZStudentLessonListModel alloc] init];
+            model.image = entryssArr[i][1];
+            
+            ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:lessonCellConfig];
+        }
+        {
+            ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+            [self.cellConfigArr addObject:spacCellConfig];
+            ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+                model.leftTitle = @"机构评价";
+            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:lessonMoreCellConfig];
+        }
+        
+        {
+            ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
+            evaModel.orderImage = @"lessonOrder";
+            evaModel.orderNum = @"23042039523452";
+            evaModel.lessonTitle = @"仰泳";
+            evaModel.lessonTime = @"2019-10-26";
+            evaModel.lessonCoach = @"高圆圆";
+            evaModel.lessonOrg = @"上飞天俱乐部";
+            evaModel.coachStar = @"3.4";
+            evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
+            evaModel.coachEvaImages = @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];
+
+            evaModel.orgStar = @"4.5";
+            evaModel.orgEva = @"反反复复付受到法律和";
+            evaModel.orgEvaImages =  @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];;
+            
+            
+            ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListHadEvaCell className] title:[ZMineStudentEvaListHadEvaCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMineStudentEvaListHadEvaCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+            
+            ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+            [self.cellConfigArr addObject:evaCellConfig];
+            
+            [self.cellConfigArr addObject:spacCellConfig];
+            [self.cellConfigArr addObject:evaCellConfig];
+            [self.cellConfigArr addObject:spacCellConfig];
+            [self.cellConfigArr addObject:evaCellConfig];
+            [self.cellConfigArr addObject:spacCellConfig];
+        }
     }
 }
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"环境"];
+    [self.navigationItem setTitle:@"范德萨俱乐部"];
 }
 
 - (void)setupMainView {
@@ -167,4 +221,3 @@
 }
 
 @end
-

@@ -12,5 +12,6 @@
 @interface ZStudentLessonDetailPeoplesItemCell : UICollectionViewCell
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *userImageView;
+@property (nonatomic,strong) UIView *titelBack;
 
 @end

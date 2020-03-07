@@ -1,21 +1,22 @@
 //
-//  ZStudentOrganizationPersonnelListCell.m
+//  ZStudentOrganizationDetailTopCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/8.
+//  Created by zhuang zhang on 2020/3/7.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentOrganizationPersonnelListCell.h"
-#import "ZStudentOrganizationPersonnelListItemCell.h"
-@interface ZStudentOrganizationPersonnelListCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+#import "ZStudentOrganizationDetailTopCell.h"
+#import "ZStudentLessonDetailPeoplesItemCell.h"
+
+@interface ZStudentOrganizationDetailTopCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 
 @end
 
-@implementation ZStudentOrganizationPersonnelListCell
+@implementation ZStudentOrganizationDetailTopCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -39,14 +40,13 @@
     }];
 }
 
-
 #pragma mark -Getter
 - (UIView *)funBackView {
     if (!_funBackView) {
         _funBackView = [[UIView alloc] init];
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
-        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBGDark]);
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _funBackView;
 }
@@ -57,19 +57,18 @@
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
-        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentOrganizationPersonnelListCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZStudentOrganizationDetailTopCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
         _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
         _iCollectionView.scrollEnabled = YES;
         _iCollectionView.showsHorizontalScrollIndicator = NO;
         
-        [_iCollectionView registerClass:[ZStudentOrganizationPersonnelListItemCell class] forCellWithReuseIdentifier:[ZStudentOrganizationPersonnelListItemCell className]];
+        [_iCollectionView registerClass:[ZStudentLessonDetailPeoplesItemCell class] forCellWithReuseIdentifier:[ZStudentLessonDetailPeoplesItemCell className]];
     }
     
     return _iCollectionView;
 }
-
 
 #pragma mark collectionview delegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -79,22 +78,28 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _peopleslList.count;
+    return _list.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZStudentOrganizationPersonnelListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationPersonnelListItemCell className] forIndexPath:indexPath];
-    ZStudentDetailPersonnelModel *model = _peopleslList[indexPath.row];
-    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+    ZStudentLessonDetailPeoplesItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentLessonDetailPeoplesItemCell className] forIndexPath:indexPath];
+    ZBaseUnitModel *model = _list[indexPath.row];
+    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:model.imageName]];
     cell.titleLabel.text = model.name;
-    cell.skillLabel.text = model.skill;
+    cell.titleLabel.font = [UIFont fontMin];
+    cell.titelBack.backgroundColor = adaptAndDarkColor(HexAColor(0x00000, 0.7), HexAColor(0xffffff, 0.7));
+    cell.titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlack]);
+    [cell.titelBack mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(cell.userImageView);
+        make.height.mas_equalTo(CGFloatIn750(30));
+    }];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.menuBlock) {
-        self.menuBlock(_peopleslList[indexPath.row]);
+    if (self.selectBlock) {
+        self.selectBlock(_list[indexPath.row]);
     }
 }
 
@@ -111,16 +116,22 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(CGFloatIn750(142), CGFloatIn750(200));
+    return CGSizeMake(CGFloatIn750(256), CGFloatIn750(168));
 }
 
 #pragma mark 类型
--(void)setPeopleslList:(NSArray<ZStudentDetailPersonnelModel *> *)peopleslList {
-    _peopleslList = peopleslList;
-//    [self.iCollectionView reloadData];
+-(void)setList:(NSArray<ZBaseUnitModel *> *)list {
+    _list = list;
+    [self.iCollectionView reloadData];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return  CGFloatIn750(242);
+    NSArray *list = sender;
+    if (list.count > 0) {
+        return CGFloatIn750(204);
+    }
+    return 0.01;
 }
 @end
+
+

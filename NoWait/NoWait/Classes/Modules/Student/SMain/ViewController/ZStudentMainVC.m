@@ -15,6 +15,8 @@
 #import "ZStudentMainFiltrateSectionView.h"
 
 #import "ZStudentOrganizationDetailVC.h"
+#import "ZStudentOrganizationDetailDesVC.h"
+#import "ZStudentClassificationListVC.h"
 
 #import "ZPhoneAlertView.h"
 #import "ZServerCompleteAlertView.h"
@@ -176,7 +178,16 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [self.cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     ZBaseCell *cell;
+    __weak typeof(self) weakSelf = self;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    if ([cellConfig.title isEqualToString:@"ZStudentMainEnteryCell"]) {
+        ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
+        lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
+            ZStudentClassificationListVC *lvc = [[ZStudentClassificationListVC alloc] init];
+            lvc.vcTitle = @"舞蹈分类";
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        };
+    }
 
     return cell;
 }
@@ -227,7 +238,7 @@
 //    return;
     if (indexPath.section == 1) {
         [[ZUserHelper sharedHelper] checkLogin:^{
-            ZStudentOrganizationDetailVC *dvc = [[ZStudentOrganizationDetailVC alloc] init];
+            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             
             [self.navigationController pushViewController:dvc animated:YES];
         }];

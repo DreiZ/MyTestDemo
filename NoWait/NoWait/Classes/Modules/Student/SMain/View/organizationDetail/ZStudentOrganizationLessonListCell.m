@@ -39,10 +39,10 @@
     [self.contentView addSubview:self.sellCountLabel];
     
     [self.lessonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(40));
+        make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.width.mas_equalTo(CGFloatIn750(160));
-        make.height.mas_equalTo(CGFloatIn750(120));
+        make.width.mas_equalTo(CGFloatIn750(210));
+        make.height.mas_equalTo(CGFloatIn750(140));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -53,7 +53,7 @@
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.centerY.equalTo(self.lessonImageView.mas_centerY);
     }];
     
     [self.favourablePriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,17 +71,6 @@
         make.centerY.equalTo(self.titleLabel.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
-    
-    
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
-    [self.contentView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.equalTo(self);
-        make.left.equalTo(self.lessonImageView.mas_right);
-        make.height.mas_equalTo(0.5);
-    }];
-    
 }
 
 
@@ -89,7 +78,6 @@
 -(UIImageView *)lessonImageView {
     if (!_lessonImageView) {
         _lessonImageView = [[UIImageView alloc] init];
-        _lessonImageView.image = [UIImage imageNamed:@"wallhaven5"];
         _lessonImageView.contentMode = UIViewContentModeScaleAspectFill;
         _lessonImageView.clipsToBounds = YES;
         _lessonImageView.layer.cornerRadius = 3;
@@ -143,7 +131,7 @@
         _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentLeft;
-        [_goodReputationLabel setFont:[UIFont fontMin]];
+        [_goodReputationLabel setFont:[UIFont fontSmall]];
     }
     return _goodReputationLabel;
 }
@@ -151,18 +139,21 @@
 - (UILabel *)sellCountLabel {
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _sellCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _sellCountLabel.text = @"已售200>";
+        _sellCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _sellCountLabel.text = @"已售200";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;
-        [_sellCountLabel setFont:[UIFont fontMin]];
+        [_sellCountLabel setFont:[UIFont fontSmall]];
     }
     return _sellCountLabel;
 }
 
-
+- (void)setModel:(ZStudentLessonListModel *)model {
+    _model = model;
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(200);
+    return CGFloatIn750(170);
 }
 @end

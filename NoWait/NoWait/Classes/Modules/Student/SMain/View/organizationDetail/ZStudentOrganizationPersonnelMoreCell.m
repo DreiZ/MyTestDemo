@@ -41,14 +41,6 @@
         make.top.bottom.equalTo(self);
         make.width.mas_equalTo(CGFloatIn750(240));
     }];
-    
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
-    [self.contentView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(0.5);
-    }];
 }
 
 - (UIView *)moreView {
@@ -62,7 +54,7 @@
         }];
         
         UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        moreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         moreLabel.text = @"更多";
         moreLabel.textAlignment = NSTextAlignmentRight;
         [moreLabel setFont:[UIFont fontSmall]];
@@ -91,7 +83,7 @@
         _titleLabel.text = @"明星教练";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(32)]];
+        [_titleLabel setFont:[UIFont boldFontTitle]];
     }
     return _titleLabel;
 }
