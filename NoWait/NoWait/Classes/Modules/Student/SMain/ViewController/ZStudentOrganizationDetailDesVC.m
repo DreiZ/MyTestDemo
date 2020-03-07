@@ -13,6 +13,7 @@
 
 #import "ZStudentOrganizationDetailTopCell.h"
 //#import "ZStudentOrganizationDetailBannerCell.h"
+#import "ZStudentOrganizationDetailIntroCell.h"
 #import "ZStudentOrganizationDetailDesCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
@@ -62,7 +63,7 @@
     ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailTopCell className] title:[ZStudentOrganizationDetailTopCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentOrganizationDetailTopCell z_getCellHeight:mList] cellType:ZCellTypeClass dataModel:mList];
     [self.cellConfigArr addObject:bannerCellConfig];
     
-    ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailDesCell className] title:[ZStudentOrganizationDetailDesCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroCell className] title:[ZStudentOrganizationDetailIntroCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailIntroCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:desCellConfig];
     
     {

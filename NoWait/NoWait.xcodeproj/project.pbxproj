@@ -480,6 +480,8 @@
 		B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F7D37923CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m */; };
 		B2FCA17F2413762800D2D6A2 /* ZStudentClassificationListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FCA17E2413762800D2D6A2 /* ZStudentClassificationListVC.m */; };
 		B2FCA18224137AA300D2D6A2 /* ZStudentOrganizationDetailTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FCA18124137AA300D2D6A2 /* ZStudentOrganizationDetailTopCell.m */; };
+		B2FCA18524138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FCA18424138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m */; };
+		B2FCA18824138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FCA18724138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1418,6 +1420,10 @@
 		B2FCA17E2413762800D2D6A2 /* ZStudentClassificationListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentClassificationListVC.m; sourceTree = "<group>"; };
 		B2FCA18024137AA300D2D6A2 /* ZStudentOrganizationDetailTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailTopCell.h; sourceTree = "<group>"; };
 		B2FCA18124137AA300D2D6A2 /* ZStudentOrganizationDetailTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailTopCell.m; sourceTree = "<group>"; };
+		B2FCA18324138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailIntroCell.h; sourceTree = "<group>"; };
+		B2FCA18424138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailIntroCell.m; sourceTree = "<group>"; };
+		B2FCA18624138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailIntroLabelCell.h; sourceTree = "<group>"; };
+		B2FCA18724138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailIntroLabelCell.m; sourceTree = "<group>"; };
 		B5E10418240AC3FB622A4E30 /* libPods-NoWait.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoWait.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoWait.release.xcconfig"; path = "Target Support Files/Pods-NoWait/Pods-NoWait.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3233,6 +3239,8 @@
 				B2A7817D23C576A500407BF0 /* ZStudentOrganizationDetailBannerCell.m */,
 				B2A7818223C57D8500407BF0 /* ZStudentOrganizationDetailDesCell.h */,
 				B2A7818323C57D8500407BF0 /* ZStudentOrganizationDetailDesCell.m */,
+				B2FCA18324138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.h */,
+				B2FCA18424138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m */,
 				B2A7818523C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.h */,
 				B2A7818623C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.m */,
 				B2A7818823C5868700407BF0 /* ZStudentOrganizationPersonnelMoreCell.h */,
@@ -3245,6 +3253,8 @@
 				B2A7819523C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m */,
 				B2A7819723C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.h */,
 				B2A7819823C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m */,
+				B2FCA18624138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.h */,
+				B2FCA18724138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m */,
 			);
 			path = organizationDetail;
 			sourceTree = "<group>";
@@ -3617,6 +3627,7 @@
 				B2A781A623C5C95300407BF0 /* ZStudentLessonNoticeView.m in Sources */,
 				B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */,
 				B2A77FC523BDEAA100407BF0 /* ZBaseNetworkBackModel.m in Sources */,
+				B2FCA18524138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m in Sources */,
 				B296E3942404BC4300507509 /* ZOrganizationLessonManageListCell.m in Sources */,
 				B2D83E9A23FA2C5C0099C2C9 /* ZOrganizationCampusTextLabelCell.m in Sources */,
 				B2EE5BB623F7EB9E00ECCFF4 /* ZOriganizationClubSelectedItemCell.m in Sources */,
@@ -3897,6 +3908,7 @@
 				B28EA663240E0A8200C8E225 /* ZMineModel.m in Sources */,
 				B279D03423C722F200391A33 /* ZStudentLessonSelectLessonView.m in Sources */,
 				B24D995C23FD3B570078A458 /* ZOrganizationLessonTypeCell.m in Sources */,
+				B2FCA18824138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m in Sources */,
 				B2A77EA523BDE1AB00407BF0 /* NSArray+LYNil.m in Sources */,
 				B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */,
 				B2A77EC323BDE29E00407BF0 /* MWCaptionView.m in Sources */,
