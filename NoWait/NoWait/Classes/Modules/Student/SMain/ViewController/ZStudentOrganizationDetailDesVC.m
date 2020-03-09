@@ -19,6 +19,8 @@
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
 
+#import "ZOrganizationDetailBottomView.h"
+
 
 #import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentStarStudentListVC.h"
@@ -27,6 +29,7 @@
 #import "ZStudentStarStudentInfoVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
+@property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
 
 @end
 
@@ -37,6 +40,28 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+}
+
+- (void)setupMainView {
+    [super setupMainView];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(88) + safeAreaBottom());
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.bottom.equalTo(self.bottomView.mas_top);
+    }];
+}
+
+-(ZOrganizationDetailBottomView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[ZOrganizationDetailBottomView alloc] init];
+    }
+    return _bottomView;
 }
 
 - (void)initCellConfigArr {
@@ -178,15 +203,6 @@
     [self.navigationItem setTitle:@"范德萨俱乐部"];
 }
 
-- (void)setupMainView {
-    [super setupMainView];
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(100));
-        make.top.equalTo(self.view.mas_top).offset(1);
-    }];
-}
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
