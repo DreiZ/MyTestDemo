@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZStudentDetailModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStarNewListCollectionViewCell : UICollectionViewCell
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIImageView *userImageView;
+@property (nonatomic,strong) UILabel *skillLabel;
 
+@property (nonatomic,strong) ZStudentDetailLessonOrderCoachModel *model;
+
+@property (nonatomic,strong) void (^detailBlock)(UIImageView *);
+
+
++(CGSize)zz_getCollectionCellSize;
 @end
 
 NS_ASSUME_NONNULL_END

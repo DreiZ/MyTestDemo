@@ -28,6 +28,7 @@
 #import "ZStudentStarCoachInfoVC.h"
 #import "ZStudentStarStudentInfoVC.h"
 #import "ZStudentOrganizationDetailIntroVC.h"
+#import "ZStudentOrganizationLessonListVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
@@ -145,9 +146,10 @@
         [self.cellConfigArr addObject:spacCellConfig];
         
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-            model.leftTitle = @"热门课程";
-            model.rightTitle = @"全部课程";
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        model.leftTitle = @"热门课程";
+        model.rightTitle = @"全部课程";
+        model.cellTitle = @"allLesson";
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
         NSArray *entryssArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"],@[@"张丽",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7u7pskfj30u011hn2c.jpg"],@[@"张思思",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7pza70dj30u01a4tuy.jpg"],@[@"许倩倩",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7fhvi5tj30ds0kumz8.jpg"],@[@"吴楠",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl77552l7j30qo0hsgpo.jpg"],@[@"闫晶晶",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl74tqdyfj30gk0cbqfk.jpg"]];
@@ -242,6 +244,9 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
         ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
+        [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"allLesson"]){
+        ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }

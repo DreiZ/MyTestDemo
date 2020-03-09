@@ -136,4 +136,9 @@
     }
     
 }
+
+
++(CGSize)zz_getCollectionCellSize {
+    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(370));
+}
 @end

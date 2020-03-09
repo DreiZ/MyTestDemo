@@ -17,5 +17,7 @@
 @property (nonatomic,strong) ZStudentDetailLessonOrderCoachModel *model;
 
 @property (nonatomic,strong) void (^detailBlock)(UIImageView *);
+
++(CGSize)zz_getCollectionCellSize;
 @end
 
