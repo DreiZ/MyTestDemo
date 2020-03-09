@@ -75,4 +75,7 @@ typedef NS_ENUM(NSInteger, ZCellType) {
 /// 根据cellConfig生成cell，重用ID为cell类名
 - (UITableViewCell *)cellOfCellConfigWithTableView:(UITableView *)tableView
                                          dataModel:(id)dataModel;
+
+/// 根据cellConfig生成cell，重用ID为cell类名
+- (UICollectionViewCell *)cellOfCellConfigWithCollection:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath dataModel:(id)dataModel;
 @end

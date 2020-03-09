@@ -92,4 +92,36 @@
     return cell;
 }
 
+/// 根据cellConfig生成cell，重用ID为cell类名
+- (UICollectionViewCell *)cellOfCellConfigWithCollection:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexPath dataModel:(id)dataModel{
+    
+    Class cellClass = NSClassFromString(self.className);
+    
+    if(dataModel)
+    {
+        self.dataModel = dataModel;
+    }
+    
+    // 重用cell
+    NSString *cellID = self.className;
+    if (self.cellType == ZCellTypeClass) {
+        [collectionView registerClass:cellClass forCellWithReuseIdentifier:self.className];
+    }
+    else
+    {
+        UINib *cellNib = [UINib nibWithNibName:self.className bundle:nil];
+        [collectionView registerNib:cellNib forCellWithReuseIdentifier:self.className];
+    }
+    
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
+    
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        if (self.showInfoMethod && [cell respondsToSelector:self.showInfoMethod]) {
+            [cell performSelector:self.showInfoMethod withObject:self.dataModel];
+        }
+    #pragma clang diagnostic pop
+    
+    return cell;
+}
 @end

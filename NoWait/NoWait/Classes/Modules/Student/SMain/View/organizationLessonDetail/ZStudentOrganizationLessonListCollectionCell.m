@@ -21,15 +21,8 @@
 
 @implementation ZStudentOrganizationLessonListCollectionCell
 
--(instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self initMainView];
-    }
-    return self;
-}
 
-- (void)initMainView {
+- (void)setupView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contentView addSubview:self.backView];
     [self.backView addSubview:self.lessonImageView];
@@ -172,7 +165,7 @@
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
 }
 
-+(CGSize)zz_getCollectionCellSize {
++(CGSize)z_getCellSize:(id)sender {
     return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, 175/165 * (KScreenWidth-CGFloatIn750(90))/2);
 }
 @end

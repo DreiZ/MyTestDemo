@@ -91,7 +91,7 @@
         _iCollectionView.showsHorizontalScrollIndicator = NO;
         _iCollectionView.showsVerticalScrollIndicator = NO;
         
-        [_iCollectionView registerClass:[ZStudentOrganizationLessonListCollectionCell class] forCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className]];
+//        [_iCollectionView registerClass:[ZStudentOrganizationLessonListCollectionCell class] forCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className]];
     }
     
     return _iCollectionView;
@@ -111,7 +111,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZStudentOrganizationLessonListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className] forIndexPath:indexPath];
+//    ZStudentOrganizationLessonListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className] forIndexPath:indexPath];
+    ZStudentOrganizationLessonListCollectionCell *cell = [ZStudentOrganizationLessonListCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
     cell.model = _list[indexPath.row];
     return cell;
 }
@@ -133,7 +134,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [ZStudentOrganizationLessonListCollectionCell zz_getCollectionCellSize];
+    return [ZStudentOrganizationLessonListCollectionCell z_getCellSize:nil];
 }
 
 @end

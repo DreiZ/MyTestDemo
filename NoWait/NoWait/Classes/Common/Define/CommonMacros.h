@@ -15,13 +15,14 @@
 #import "UIImageView+ZWebImage.h"
 #import "UIBarButtonItem+Back.h"
 
-
+#import "UICollectionViewCell+ZCategory.h"
 #import "UITableViewCell+ZCategory.h"
 #import "UIScrollView+ZRefreshHeader.h"
 #import "UIScrollView+ZLoadMoreFooter.h"
 
 #import "ZBaseCellModel.h"
 #import "ZBaseCell.h"
+#import "ZBaseCollectionViewCell.h"
 #import "ZSingleLineCell.h"
 #import "ZMultiseriateLineCell.h"
 #import "ZTextFieldCell.h"
