@@ -57,7 +57,7 @@
         _handleBtn.backgroundColor = [UIColor colorMain];
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_handleBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_handleBtn.titleLabel setFont:[UIFont boldFontSmall]];
         
         __weak typeof(self) weakSelf = self;
         [_handleBtn bk_whenTapped:^{

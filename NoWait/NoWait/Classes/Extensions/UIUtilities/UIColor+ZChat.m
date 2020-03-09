@@ -58,6 +58,14 @@
     return HexAColor(0xf74444, 1.0);
 }
 
++ (UIColor *)colorRedForLabel {
+    return HexAColor(0xfb5710, 1.0);
+}
+
++ (UIColor *)colorRedForLabelSub{
+    return HexAColor(0xfb5710, 0.2);
+}
+
 #pragma mark - 绿色
 + (UIColor *)colorGreenDefault {
     return HexAColor(0x02bb00, 1.0);

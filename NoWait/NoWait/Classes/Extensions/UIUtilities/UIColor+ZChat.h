@@ -40,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 红色
 + (UIColor *)colorRedForButton;
 + (UIColor *)colorRedForButtonHL;
-
++ (UIColor *)colorRedForLabel;
++ (UIColor *)colorRedForLabelSub;
 
 #pragma mark - 白色
 + (UIColor *)colorWhite;

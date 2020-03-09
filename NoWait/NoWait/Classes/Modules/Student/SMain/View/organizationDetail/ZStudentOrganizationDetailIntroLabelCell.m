@@ -186,8 +186,8 @@
        }
            
        UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
-       actLabel.textColor = [UIColor colorMain];
-        actLabel.backgroundColor = [UIColor colorMainLight];
+       actLabel.textColor = self.model.rightColor;
+        actLabel.backgroundColor = self.model.rightDarkColor;
        actLabel.text = adeptArr[i];
        actLabel.numberOfLines = 1;
         actLabel.layer.masksToBounds = YES;

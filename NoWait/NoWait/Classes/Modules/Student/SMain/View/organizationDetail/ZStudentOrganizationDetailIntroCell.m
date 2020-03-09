@@ -122,6 +122,8 @@
         mModel.isHiddenLine = YES;
         mModel.leftTitle = @"代付俱按公司";
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.rightColor = [UIColor colorMain];
+        mModel.rightDarkColor = [UIColor colorMainSub];
         mModel.leftFont = [UIFont boldFontMax1Title];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
@@ -157,6 +159,8 @@
         mModel.isHiddenLine = YES;
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
         mModel.leftFont = [UIFont fontMax1Title];
+        mModel.rightColor = [UIColor colorRedForLabel];
+        mModel.rightDarkColor = [UIColor colorRedForLabelSub];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
         
