@@ -7,11 +7,11 @@
 //
 
 #import "ZViewController.h"
-
+#import <WMPageController.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentOrganizationDetailIntroVC : ZViewController
-
+@interface ZStudentOrganizationDetailIntroVC : WMPageController
+@property (nonatomic,assign) BOOL isHidenNaviBar;
 @end
 
 NS_ASSUME_NONNULL_END

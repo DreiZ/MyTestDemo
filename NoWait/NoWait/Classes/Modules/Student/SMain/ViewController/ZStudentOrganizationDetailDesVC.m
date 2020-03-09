@@ -27,6 +27,7 @@
 #import "ZStudentStarCoachListVC.h"
 #import "ZStudentStarCoachInfoVC.h"
 #import "ZStudentStarStudentInfoVC.h"
+#import "ZStudentOrganizationDetailIntroVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
@@ -207,8 +208,16 @@
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
 {
+    
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"starStudent"]){
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailTopCell"]){
+           ZStudentOrganizationDetailTopCell *lcell = (ZStudentOrganizationDetailTopCell *)cell;
+        lcell.selectBlock = ^(ZBaseUnitModel * model) {
+               ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] init];
+               [weakSelf.navigationController pushViewController:ivc animated:YES];
+           };
+    
+       }else if ([cellConfig.title isEqualToString:@"starStudent"]){
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
             ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
