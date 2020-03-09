@@ -241,5 +241,47 @@
     }
 }
 
+#pragma mark - 去地图展示路线
+/** 去地图展示路线 */
+- (void)gotoMap{
+    // 后台返回的目的地坐标是百度地图的
+    // 百度地图与高德地图、苹果地图采用的坐标系不一样，故高德和苹果只能用地名不能用后台返回的坐标
+    CGFloat latitude  = self.cureUserLocation.location.coordinate.latitude;  // 纬度
+    CGFloat longitude = self.cureUserLocation.location.coordinate.longitude; // 经度
+    NSString *address = self.cureUserLocation.title; // 送达地址
+    
+    // 打开地图的优先级顺序：高德地图-->百度地图->苹果地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
+           // 高德地图
+           // 起点为“我的位置”，终点为后台返回的address
+           NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=BGVIS1&sname=%@&did=BGVIS2&dname=%@&dev=0&t=0",@"我的位置",address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
+        // 百度地图
+        // 起点为“我的位置”，终点为后台返回的坐标
+        NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=%f,%f&mode=riding&src=快健康快递", latitude, longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [[UIApplication sharedApplication] openURL:url];
+    }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]){
+        // 苹果地图
+        // 起点为“我的位置”，终点为后台返回的address
+        NSString *urlString = [[NSString stringWithFormat:@"http://maps.apple.com/?daddr=%@",address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    }else{
+        // 快递员没有安装上面三种地图APP，弹窗提示安装地图APP
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请安装地图APP" message:@"建议安装百度地图APP" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertVC animated:NO completion:nil];
+    }
+}
 
+-(CLLocationCoordinate2D)gcj02_To_Bd09:(CLLocationCoordinate2D)coordinate {
+    double x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+    double x = coordinate.longitude, y = coordinate.latitude;
+    double z = sqrt(x * x + y * y) + 0.00002 * sin(y * x_pi);
+    double theta = atan2(y, x) + 0.000003 * cos(x * x_pi);
+    double tempLon = z * cos(theta) + 0.0065;
+    double tempLat = z * sin(theta) + 0.006;
+    CLLocationCoordinate2D gps = CLLocationCoordinate2DMake(tempLat, tempLon);
+    return gps;
+}
 @end
