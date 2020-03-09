@@ -8,6 +8,7 @@
 
 #import "ZStudentOrganizationDetailIntroCell.h"
 #import "ZStudentOrganizationDetailIntroLabelCell.h"
+#import "ZMultiseriateContentLeftLineCell.h"
 
 @interface ZStudentOrganizationDetailIntroCell ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
@@ -119,7 +120,7 @@
         mModel.singleCellHeight = CGFloatIn750(80);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.leftTitle = @"代付俱乐部";
+        mModel.leftTitle = @"代付俱按公司";
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
         mModel.leftFont = [UIFont boldFontMax1Title];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
@@ -133,8 +134,8 @@
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = @"公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV公司的风格就是金融家坡附近公婆奇偶陪伴是结算";
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        mModel.rightTitle = @"公司的风格就是金融家坡附近";
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
     {
@@ -151,12 +152,16 @@
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        mModel.singleCellHeight = CGFloatIn750(80);
+        mModel.singleCellHeight = CGFloatIn750(60);
+        mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
         mModel.leftFont = [UIFont fontMax1Title];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
+        
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
     }
     [self.iTableView reloadData];
 }
@@ -168,10 +173,12 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(80);
+        mModel.cellHeight = CGFloatIn750(82);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = @"代付俱乐部";
-        mModel.leftFont = [UIFont fontMax1Title];
+        mModel.leftTitle = @"代付俱乐部";
+        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.leftFont = [UIFont boldFontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
     }
     {
@@ -179,8 +186,18 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
-        mModel.rightImage = @"rightBlackArrowDarkN";
-        mModel.rightTitle = @"公司的风格就是金融家坡附近公婆奇偶陪伴是结算表是哦蓬勃是颇尔是富婆代表GV公司的风格就是金融家坡附近公婆奇偶陪伴是结算";
+        mModel.rightImage = @"rightBlackArrowN";
+        mModel.isHiddenLine = YES;
+        mModel.rightTitle = @"公司的风格就是金融家坡附近";
+        height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
+    }
+    {
+        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+        mModel.rightFont = [UIFont fontContent];
+        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        mModel.singleCellHeight = CGFloatIn750(60);
+        mModel.isHiddenLine = YES;
+        mModel.leftTitle = @"营业时间：8:00~12:00";
         height += [ZMultiseriateLineCell z_getCellHeight:mModel];
     }
     {
@@ -188,19 +205,13 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
-        mModel.rightTitle = @"营业时间：8:00~12:00";
-        height += [ZMultiseriateLineCell z_getCellHeight:mModel];
-    }
-    {
-        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-        mModel.rightFont = [UIFont fontContent];
-        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        mModel.singleCellHeight = CGFloatIn750(80);
-        mModel.rightImage = @"rightBlackArrowN";
+        mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = @"代付俱乐部";
+        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
         mModel.leftFont = [UIFont fontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
+        
+        height += CGFloatIn750(20);
     }
     
     return height;

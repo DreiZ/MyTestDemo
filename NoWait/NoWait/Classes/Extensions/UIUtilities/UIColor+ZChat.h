@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 //主题色
 + (UIColor *)colorMain;
 + (UIColor *)colorMainSub;
++ (UIColor *)colorMainLight;
 
 //导航栏颜色
 + (UIColor *)colorNavBG;

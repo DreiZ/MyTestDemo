@@ -18,6 +18,10 @@
     return HexAColor(0x4dd599, 0.2);
 }
 
++ (UIColor *)colorMainLight {
+    return HexAColor(0x4dd599, 0.2);
+}
+
 //导航栏颜色
 + (UIColor *)colorNavBG {
     return  HexAColor(0xffffff, 1.0);
