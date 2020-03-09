@@ -104,8 +104,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZRecordWeightMoreCell"]) {
-       
+    if ([cellConfig.title isEqualToString:@"address"]) {
+        if (_handleBlock) {
+            _handleBlock(1);
+        }
+    }else if ([cellConfig.title isEqualToString:@"label"]) {
+       if (_handleBlock) {
+           _handleBlock(2);
+       }
     }
 }
 
@@ -118,7 +124,6 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(80);
-        mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
         mModel.leftTitle = @"代付俱按公司";
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
@@ -137,6 +142,7 @@
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
         mModel.rightTitle = @"公司的风格就是金融家坡附近";
+        mModel.cellTitle = @"address";
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
@@ -158,6 +164,8 @@
         mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
         mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.cellTitle = @"label";
+        mModel.rightImage = @"rightBlackArrowN";
         mModel.leftFont = [UIFont fontMax1Title];
         mModel.rightColor = [UIColor colorRedForLabel];
         mModel.rightDarkColor = [UIColor colorRedForLabelSub];

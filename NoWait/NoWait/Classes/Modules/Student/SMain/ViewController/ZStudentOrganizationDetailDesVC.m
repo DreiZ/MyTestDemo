@@ -29,6 +29,7 @@
 #import "ZStudentStarStudentInfoVC.h"
 #import "ZStudentOrganizationDetailIntroVC.h"
 #import "ZStudentOrganizationLessonListVC.h"
+#import "ZStudentOrganizationMapAddressVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
@@ -232,7 +233,17 @@
             ZStudentStarCoachInfoVC *ivc = [[ZStudentStarCoachInfoVC alloc] init];
             [weakSelf.navigationController pushViewController:ivc animated:YES];
         };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
+        ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
+        lcell.handleBlock = ^(NSInteger index) {
+            if (index == 1) {
+                ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
+                [weakSelf.navigationController pushViewController:avc animated:YES];
+            }
+        };
     }
+    
+    
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
@@ -249,6 +260,8 @@
         ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];
     }
+    
+    
 }
 
 @end

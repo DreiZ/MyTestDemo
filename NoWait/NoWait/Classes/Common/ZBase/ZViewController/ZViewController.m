@@ -27,6 +27,7 @@
     [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    [self setNavgation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,6 +83,9 @@
 //}
 
 
+- (void)setNavgation {
+    [self.navigationItem setTitle:@""];
+}
 
 
 #pragma mark - DZNEmptyDataSetSource Methods
