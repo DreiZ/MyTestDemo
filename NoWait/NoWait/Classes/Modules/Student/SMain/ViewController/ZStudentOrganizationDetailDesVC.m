@@ -31,6 +31,8 @@
 #import "ZStudentOrganizationLessonListVC.h"
 #import "ZStudentOrganizationMapAddressVC.h"
 
+#import "ZOrganizationCouponListView.h"
+
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
 
@@ -239,6 +241,10 @@
             if (index == 1) {
                 ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
+            }else if (index == 2){
+                [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:@[] handlerBlock:^(NSInteger index) {
+                    
+                }];
             }
         };
     }
