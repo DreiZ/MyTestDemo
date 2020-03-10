@@ -44,13 +44,13 @@
 //用户服务器
 #define URL_user                        @"http://116.62.232.213"
 //订单服务
-#define URL_order                       @"http://api.xiangcenter.com"
+#define URL_order                       @"http://116.62.232.213"
 //文件服务器
-#define URL_file                        @"http://api.xiangcenter.com"
+#define URL_file                        @"http://116.62.232.213"
 //教练服务器
-#define URL_coach                       @"http://api.xiangcenter.com"
+#define URL_coach                       @"http://116.62.232.213"
 //机构服务器
-#define URL_organization                @"http://api.xiangcenter.com"
+#define URL_organization                @"http://116.62.232.213"
 
 //IM服务器
 #define SocketServiceUrl                @"172.17.100.32"
@@ -183,4 +183,12 @@
 #pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 
+
+#pragma mark ---------------------机构----URL_file---------------------------------
+//校区门店
+#define URL_merchants_stores_list                    @"merchants/v1/get_stores_list"
+//获取校区详情
+#define URL_merchants_stores_info                    @"merchants/v1/merchants_stores_info"
+//编辑校区门店
+#define URL_merchants_edit_merchants_store           @"merchants/v1/edit_merchants_store"
 #endif /* URLMacros_h */

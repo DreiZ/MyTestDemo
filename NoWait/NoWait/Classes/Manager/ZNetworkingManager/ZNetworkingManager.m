@@ -61,7 +61,7 @@
                 if ([backModel.code integerValue] == 0) {
                     completionHandler(backModel, nil);
                     
-                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
+                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
                     
                     [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                     [[ZLaunchManager sharedInstance] launchInWindow:nil];
@@ -198,7 +198,7 @@
 +(NSMutableDictionary *)setCommonDict:(NSDictionary *)originalDict {
     
     NSMutableDictionary *newDict = [ZNetworkingManager setWithoutIDCommonDict:originalDict];
-//
+
 //    if ([ZUserHelper sharedHelper].user && [ZUserHelper sharedHelper].user.userID) {
 //        [newDict setObject:[ZUserHelper sharedHelper].user.userID forKey:@"user_id"];
 //    }

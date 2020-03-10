@@ -501,7 +501,7 @@
                return;
            }
            
-           NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.code,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
+           NSMutableDictionary *params = @{@"ckey":SafeStr(weakSelf.loginViewModel.loginModel.ckey) ,@"captcha":SafeStr(weakSelf.loginViewModel.loginModel.code),@"phone":SafeStr(weakSelf.loginViewModel.loginModel.tel)}.mutableCopy;
            [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
               if (isSuccess) {
                   [TLUIUtility showSuccessHint:message];

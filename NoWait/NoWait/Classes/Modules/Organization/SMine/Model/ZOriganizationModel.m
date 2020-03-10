@@ -40,3 +40,19 @@
 @implementation ZOriganizationClassListNetModel
 
 @end
+
+@implementation ZOriganizationSchooleListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"schoolID" : @"id"};
+}
+@end
+
+@implementation ZOriganizationSchoolListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationSchooleListModel"
+             };
+}
+
+@end

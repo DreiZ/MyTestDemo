@@ -30,6 +30,8 @@
 #import "ZStudentMineEvaListVC.h"
 #import "ZOrganizationCardMainVC.h"
 
+#import "ZOriganizationViewModel.h"
+
 #define kHeaderHeight CGFloatIn750(270)
 
 @interface ZOrganizationMineVC ()
@@ -56,6 +58,7 @@
 //                [[ZLaunchManager sharedInstance] showSaveUserInfo];
 //            }
 //        }];
+    [self getSchoolList];
 }
 
 
@@ -65,6 +68,7 @@
     [self setTableViewGaryBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
 }
 
 - (void)setDataSource {
@@ -172,11 +176,13 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
+    [ZUserHelper sharedHelper].user.type = @"4";
     if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 4){
         NSMutableArray *channnliset = @[].mutableCopy;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < _topchannelList.count; i++) {
+            ZOriganizationSchooleListModel *listModel = _topchannelList[i];
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-            model.name = @"凤凰社俱乐部";
+            model.name = SafeStr(listModel.name);
             [channnliset addObject:model];
             if (i == 0) {
                 model.isSelected = YES;
@@ -225,6 +231,22 @@
 
     
     [self.iTableView reloadData];
+}
+
+- (void)getSchoolList {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationViewModel getSchoolList:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data && [data isKindOfClass:[ZOriganizationSchoolListNetModel class]]) {
+            ZOriganizationSchoolListNetModel *model = data;
+            if (model && model.list) {
+                [weakSelf.topchannelList removeAllObjects];
+                [weakSelf.topchannelList addObjectsFromArray:model.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+            
+        }
+    }];
 }
 @end
 
