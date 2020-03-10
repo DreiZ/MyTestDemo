@@ -135,16 +135,44 @@
     return sectionView;
 }
 
+- (void)setStart:(NSString *)start end:(NSString *)end {
+    for (int i = 0; i < self.data1.count; i++) {
+        ZAlertDataItemModel *model = self.data1[i];
+        if ([start isEqualToString:model.name]) {
+            _proIndex = i;
+        }
+    }
+    
+    for (int i = 0; i < self.data2.count; i++) {
+        ZAlertDataItemModel *model = self.data2[i];
+        if ([end isEqualToString:model.name]) {
+            _cityIndex = i;
+        }
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.pickView selectRow:self.proIndex inComponent:self.cityIndex animated:YES];
+    });
+}
+
 
 #pragma mark - picker delegate
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
     if (component == 0) {
         _proIndex = row;
+        if (_cityIndex < _proIndex) {
+            _cityIndex = _proIndex;
+            [pickerView selectRow:_cityIndex inComponent:1 animated:YES];
+        }
     }
     
     if (component == 1) {
         _cityIndex = row;
+    }
+    if (self.handleBlock) {
+        ZAlertDataItemModel *start = self.data1[_proIndex];
+        ZAlertDataItemModel *end = self.data2[_cityIndex];
+        self.handleBlock(start.name, end.name);
     }
     [pickerView reloadAllComponents];
 }

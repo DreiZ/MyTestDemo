@@ -114,6 +114,10 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZBaseUnitModel *model = _channelList[indexPath.row];
+    model.isSelected = !model.isSelected;
+    [self.iCollectionView reloadData];
+    
     if (self.menuBlock) {
         self.menuBlock(_channelList[indexPath.row]);
     }

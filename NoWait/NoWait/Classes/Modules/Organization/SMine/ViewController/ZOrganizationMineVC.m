@@ -39,6 +39,7 @@
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
+@property (nonatomic,strong) NSString *schoolID;
 
 @end
 
@@ -59,6 +60,7 @@
 //            }
 //        }];
     [self getSchoolList];
+    [self.headerView updateData];
 }
 
 
@@ -111,7 +113,6 @@
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-//    ZOrganizationCampusManagementVC
    if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
@@ -121,6 +122,7 @@
                 
             }else if ([model.uid isEqualToString:@"school"]){
                 ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
+                mvc.schoolID = weakSelf.schoolID;
                 [self.navigationController pushViewController:mvc animated:YES];
             }else if ([model.uid isEqualToString:@"teacher"]){
                 ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
@@ -150,7 +152,12 @@
             
             
         };
-    }
+   }else if ([cellConfig.title isEqualToString:@"ZOriganizationClubSelectedCell"]){
+       ZOriganizationClubSelectedCell *lcell = (ZOriganizationClubSelectedCell *)cell;
+       lcell.menuBlock = ^(ZBaseUnitModel * model) {
+           weakSelf.schoolID = model.uid;
+       };
+   }
 }
 
 
@@ -176,21 +183,23 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
+    __weak typeof(self) weakSelf = self;
     [ZUserHelper sharedHelper].user.type = @"4";
     if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 4){
         NSMutableArray *channnliset = @[].mutableCopy;
         for (int i = 0; i < _topchannelList.count; i++) {
-            ZOriganizationSchooleListModel *listModel = _topchannelList[i];
+            ZOriganizationSchoolListModel *listModel = _topchannelList[i];
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
             model.name = SafeStr(listModel.name);
+            model.uid = SafeStr(listModel.schoolID);
             [channnliset addObject:model];
             if (i == 0) {
                 model.isSelected = YES;
+                weakSelf.schoolID = listModel.schoolID;
             }
         }
         ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
         [self.cellConfigArr addObject:channelCellConfig];
-        
     }
     
     

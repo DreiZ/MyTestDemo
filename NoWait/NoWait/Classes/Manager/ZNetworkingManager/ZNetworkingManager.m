@@ -54,6 +54,7 @@
 #pragma mark post请求
 + (id)postWithUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler {
     return [ZNetworking postWithUrl:path params:params completionHandler:^(id responseObject, NSError *error) {
+        DLog(@"return data *** %@", responseObject);
         if (ValidDict(responseObject)) {
             ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
             

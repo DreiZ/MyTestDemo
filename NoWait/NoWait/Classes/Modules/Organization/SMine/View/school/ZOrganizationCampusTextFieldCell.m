@@ -38,8 +38,8 @@
     [self.contentView addSubview:self.backContentView];
     
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(0));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(0));
         make.top.bottom.equalTo(self.contentView);
     }];
     
@@ -194,6 +194,7 @@
     
     _leftTitleLabel.text = model.leftTitle;
     _subTitleLabel.text = model.subTitle;
+    _leftTitleLabel.font = model.leftFont;
     
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;

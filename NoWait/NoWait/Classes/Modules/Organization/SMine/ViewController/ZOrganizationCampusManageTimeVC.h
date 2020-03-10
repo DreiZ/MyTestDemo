@@ -11,7 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusManageTimeVC : ZTableViewViewController
+@property (nonatomic,strong) NSMutableArray *months;
+@property (nonatomic,strong) NSMutableArray *weeks;
+@property (nonatomic,strong) NSString *start;
+@property (nonatomic,strong) NSString *end;
 
+@property (nonatomic,strong) void (^timeBlock)(NSMutableArray *, NSMutableArray*, NSString *,NSString *);
 @end
 
 NS_ASSUME_NONNULL_END

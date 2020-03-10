@@ -8,7 +8,7 @@
 
 #import "ZOrganizationAddressSearchView.h"
 #import "ZOrganizationAddressSearchResultCell.h"
-#import "POIAnnotation.h"
+
 
 @interface ZOrganizationAddressSearchView ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -118,11 +118,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-//    __weak typeof(self) weakSelf = self;
-     if ([cellConfig.title isEqualToString:@"local"]){
-         
-     }else if ([cellConfig.title isEqualToString:@"user"]){
-        
+    __weak typeof(self) weakSelf = self;
+     if ([cellConfig.title isEqualToString:@"result"]){
+         ZLocationModel *model = cellConfig.dataModel;
+         if (weakSelf.addressBlock) {
+             weakSelf.addressBlock(model);
+         }
      }
 }
 
@@ -140,6 +141,7 @@
         model.district = annotation.poi.district;
         model.address = annotation.poi.address;
         model.name = annotation.poi.name;
+        model.businessArea = annotation.poi.businessArea;
         
          ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressSearchResultCell className] title:@"result" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressSearchResultCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];

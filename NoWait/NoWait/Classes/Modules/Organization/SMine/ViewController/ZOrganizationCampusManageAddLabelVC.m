@@ -28,23 +28,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _labelArr = @[].mutableCopy;
-    _btnArr = @[].mutableCopy;
+    
     [self setNavigation];
     [self setMainView];
+    [self setDataSource];
     [self setLabel];
+}
+
+- (void)setDataSource {
+    _labelArr = @[].mutableCopy;
+    _btnArr = @[].mutableCopy;
+    if (self.list) {
+        for (int i = 0; i < self.list.count; i++) {
+            [self.labelArr addObject:self.list[i]];;
+        }
+    }
 }
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"添加标签"];
     
-    
+    __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-    [sureBtn.titleLabel setFont:[UIFont fontSmall]];
-    
+    [sureBtn.titleLabel setFont:[UIFont fontContent]];
+    [sureBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(weakSelf.labelArr);
+        }
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
@@ -80,15 +95,15 @@
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
     [_userNameTF setPlaceholder:@"输入自定义标签，最多5个字"];
     [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-       if (x.length > 5) {
-           x = [x substringWithRange:NSMakeRange(0, 5)];
-//           weakSelf.userNameTF.text = x;
+       if (x.length > self.max) {
+           x = [x substringWithRange:NSMakeRange(0, self.max)];
+           weakSelf.userNameTF.text = x;
        }
     //           if (weakSelf.editBlock) {
     //               weakSelf.editBlock(0, x);
     //           }
     //           weakSelf.loginViewModel.loginModel.tel = x;
-        weakSelf.numLabel.text = [NSString stringWithFormat:@"%ld/5",x.length];
+        weakSelf.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",x.length,self.max];
     }];
     _userNameTF.delegate = self;
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -138,7 +153,7 @@
         [_addBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
         [_addBtn bk_whenTapped:^{
-            if (weakSelf.userNameTF.text > 0) {
+            if (weakSelf.userNameTF.text.length > 0) {
                 [weakSelf.labelArr addObject:weakSelf.userNameTF.text];
                 [weakSelf setLabel];
                 weakSelf.userNameTF.text = @"";

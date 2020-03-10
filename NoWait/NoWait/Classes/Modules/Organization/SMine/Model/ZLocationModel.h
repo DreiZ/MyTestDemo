@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)   NSString     *district;
 ///地址
 @property (nonatomic, copy)   NSString     *address;
+///标志
+@property (nonatomic, copy)   NSString     *businessArea;
 ///用户起点经过途经点再到终点的距离，单位是米
 @property (nonatomic, assign) NSInteger     distance;
 

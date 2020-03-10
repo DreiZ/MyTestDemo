@@ -154,7 +154,6 @@
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"headImage"];
         _headImageView.layer.masksToBounds = YES;
         _headImageView.layer.cornerRadius = CGFloatIn750(41);
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -257,6 +256,10 @@
     }
 }
 
+- (void)updateData {
+    [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    self.nameLabel.text = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);
+}
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

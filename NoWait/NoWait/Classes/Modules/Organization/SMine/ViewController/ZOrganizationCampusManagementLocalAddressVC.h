@@ -8,10 +8,8 @@
 
 #import "ZTableViewViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusManagementLocalAddressVC : ZTableViewViewController
-
+@property (nonatomic,strong) void (^addressBlock)(NSString *province,NSString *city,NSString *county,NSString *brief_address,NSString *address);
 @end
 
-NS_ASSUME_NONNULL_END

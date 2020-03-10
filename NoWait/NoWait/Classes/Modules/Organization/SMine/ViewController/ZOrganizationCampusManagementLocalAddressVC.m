@@ -29,6 +29,7 @@
 @property (nonatomic,strong) AMapSearchAPI *search;
 @property (nonatomic,strong) ZOrganizationAddressSearchView *searhView;
 
+@property (nonatomic,strong) ZLocationModel *location;
 @property (nonatomic,strong) MAUserLocation *cureUserLocation;
 
 @end
@@ -62,6 +63,11 @@
         model.district = annotation.poi.district;
         model.address = annotation.poi.address;
         model.name = annotation.poi.name;
+        model.businessArea = annotation.poi.businessArea;
+        if (i == 0) {
+            _location = model;
+        
+        }
         
         ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"location" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:campusCellConfig];
@@ -122,7 +128,15 @@
 
 - (ZOrganizationAddressSearchView *)searhView {
     if (!_searhView) {
+        __weak typeof(self) weakSelf = self;
         _searhView = [[ZOrganizationAddressSearchView alloc] init];
+        _searhView.addressBlock = ^(ZLocationModel *model) {
+            weakSelf.location = model;
+            if (weakSelf.addressBlock) {
+                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address);
+            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
     }
     return _searhView;
 }
@@ -172,7 +186,7 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -181,7 +195,10 @@
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-
+            if (weakSelf.addressBlock) {
+                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address);
+            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
     return _bottomBtn;
@@ -194,6 +211,18 @@
         ZOrganizationRadiusCell *enteryCell = (ZOrganizationRadiusCell *)cell;
         enteryCell.leftMargin = CGFloatIn750(0);
     }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationAddressLocationCell"]){
+        ZLocationModel *model = cellConfig.dataModel;
+        self.location = model;
+        if (self.addressBlock) {
+            self.addressBlock(self.location.province, self.location.city, self.location.district, self.location.businessArea, self.location.address);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 #pragma mark - MAMapViewDelegate

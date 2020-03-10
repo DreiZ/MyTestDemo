@@ -14,6 +14,10 @@
 
 
 @interface ZOrganizationCampusManageTimeVC ()
+@property (nonatomic,strong) NSMutableArray *mounthData1;
+@property (nonatomic,strong) NSMutableArray *weeksData2;
+
+
 @end
 
 @implementation ZOrganizationCampusManageTimeVC
@@ -23,6 +27,59 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    
+    if (!self.start || self.start.length == 0) {
+        self.start = @"00:00";
+    }
+    
+    if (!self.end || self.end.length == 0) {
+        self.end = @"00:00";
+    }
+    
+    NSMutableArray *menulist = @[].mutableCopy;
+    for (int i = 0; i < 12; i++) {
+        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+        model.name = [NSString stringWithFormat:@"%d月",i+1];
+        [menulist addObject:model];
+    }
+    self.mounthData1 = menulist;
+    if (self.months) {
+        for (int i = 0; i < self.months.count; i++) {
+            if ([self.months[i] intValue] - 1 < 12) {
+                ZBaseUnitModel *model = menulist[[self.months[i] intValue] - 1];
+                model.isSelected = YES;
+            }
+        }
+    }
+    
+    NSMutableArray *tweeks = @[].mutableCopy;
+    NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期七"];
+    for (int i = 0; i < weekArr.count; i++) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = weekArr[i];
+        model.leftMargin = CGFloatIn750(60);
+        model.rightMargin = CGFloatIn750(60);
+        model.cellHeight = CGFloatIn750(96);
+        model.leftFont = [UIFont fontMaxTitle];
+        model.rightImage = @"unSelectedCycle";
+        model.isHiddenLine = YES;
+        
+        [tweeks addObject:model];
+    }
+    self.weeksData2 = tweeks;
+    if (self.weeks) {
+        for (int i = 0; i < self.weeks.count; i++) {
+            if ([self.weeks[i] intValue] - 1 < 7) {
+                ZBaseSingleCellModel *model = _weeksData2[[self.weeks[i] intValue] - 1];
+                model.isSelected = YES;
+                model.rightImage = @"selectedCycle";
+            }
+        }
+    }
 }
 
 - (void)initCellConfigArr {
@@ -38,18 +95,10 @@
     model.leftFont = [UIFont boldFontTitle];
     
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
     
-    [self.cellConfigArr addObject:menuCellConfig];
-    NSMutableArray *menulist = @[].mutableCopy;
-    for (int i = 0; i < 12; i++) {
-        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-        model.name = [NSString stringWithFormat:@"%d月",i+1];
-        [menulist addObject:model];
-        if (i == 0) {
-            model.isSelected = YES;
-        }
-    }
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeSelectCell className] title:[ZOrganizationTimeSelectCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationTimeSelectCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:menulist];
+    
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeSelectCell className] title:[ZOrganizationTimeSelectCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOrganizationTimeSelectCell z_getCellHeight:self.mounthData1] cellType:ZCellTypeClass dataModel:self.mounthData1];
     [self.cellConfigArr addObject:progressCellConfig];
     
     {
@@ -67,32 +116,10 @@
         
         [self.cellConfigArr addObject:menuCellConfig];
         
-        {
-            NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期七"];
-            for (int i = 0; i < weekArr.count; i++) {
-                ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-                model.leftTitle = weekArr[i];
-                model.leftMargin = CGFloatIn750(60);
-                model.rightMargin = CGFloatIn750(60);
-                model.cellHeight = CGFloatIn750(96);
-                model.leftFont = [UIFont fontMaxTitle];
-                model.rightImage = @"selectedCycle";//unSelectedCycle
-                model.isHiddenLine = YES;
-                
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                
-                [self.cellConfigArr addObject:menuCellConfig];
-                
-            }
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.lineLeftMargin = CGFloatIn750(30);
-            model.lineRightMargin = CGFloatIn750(30);
-            model.isHiddenLine = NO;
-
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(2) cellType:ZCellTypeClass dataModel:model];
-
+        for (int i = 0; i < self.weeksData2.count; i++) {
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:self.weeksData2[i]] cellType:ZCellTypeClass dataModel:self.weeksData2[i]];
+            
             [self.cellConfigArr addObject:menuCellConfig];
-
         }
         
         
@@ -110,10 +137,8 @@
 
             [self.cellConfigArr addObject:menuCellConfig];
             
-            ZCellConfig *hourCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeHourCell className] title:model.cellTitle showInfoMethod:nil heightOfCell:[ZOrganizationTimeHourCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:nil];
-
+            ZCellConfig *hourCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeHourCell className] title:@"ZOrganizationTimeHourCell" showInfoMethod:nil heightOfCell:[ZOrganizationTimeHourCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:nil];
             [self.cellConfigArr addObject:hourCellConfig];
-            
         }
     }
 }
@@ -122,10 +147,18 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"营业时间"];
+    __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
+    [sureBtn bk_whenTapped:^{
+        if (weakSelf.timeBlock) {
+            [weakSelf checkSelectTime];
+            weakSelf.timeBlock(weakSelf.months, weakSelf.weeks, weakSelf.start, weakSelf.end);
+        }
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
@@ -146,11 +179,73 @@
 }
 
 #pragma mark tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTimeHourCell"]) {
+        ZOrganizationTimeHourCell *lcell = (ZOrganizationTimeHourCell *)cell;
+        [lcell setStart:self.start end:self.end];
+        lcell.handleBlock = ^(NSString *start, NSString *end) {
+            weakSelf.start = start;
+            weakSelf.end = end;
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZOrganizationTimeSelectCell"]){
+        ZOrganizationTimeSelectCell *lcell = (ZOrganizationTimeSelectCell *)cell;
+        lcell.menuBlock = ^(ZBaseUnitModel * model) {
+//
+//
+//            [weakSelf initCellConfigArr];
+//            [weakSelf.iTableView reloadData];
+        };
+    }
+}
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"address"]) {
-        ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
-        [self.navigationController pushViewController:mvc animated:YES];
+     if ([cellConfig.title isEqualToString:@"week"]){
+        ZBaseSingleCellModel *model = cellConfig.dataModel;
+         for (ZBaseSingleCellModel *smodel in self.weeksData2) {
+             if ([smodel.leftTitle isEqualToString:model.leftTitle]) {
+                 smodel.isSelected = !smodel.isSelected;
+                 if (smodel.isSelected) {
+                     smodel.rightImage = @"selectedCycle";
+                 }else{
+                     smodel.rightImage = @"unSelectedCycle";
+                 }
+             }
+         }
+         
+         [self initCellConfigArr];
+         [self.iTableView reloadData];
+//         NSInteger weekid = 0;
+//         for (int i = 0; i < self.weeksData2.count; i++) {
+//             ZBaseSingleCellModel *tmodel = self.weeksData2[i];
+//             if ([tmodel.leftTitle isEqualToString:model.leftTitle]) {
+//                 weekid = i;
+//             }
+//         }
     }
 }
 
+
+-(void)checkSelectTime {
+    NSMutableArray *mouths = @[].mutableCopy;
+    for (ZBaseUnitModel *model in self.mounthData1) {
+        if (model.isSelected) {
+            [mouths addObject:model.name];
+        }
+    }
+    
+    NSMutableArray *weeks = @[].mutableCopy;
+    for (ZBaseSingleCellModel *model in self.weeksData2) {
+        if (model.isSelected) {
+            NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期七"];
+            for (int i = 0; i < weekArr.count; i++) {
+                if ([model.leftTitle isEqualToString:weekArr[i]]) {
+                    [weeks addObject:[NSString stringWithFormat:@"%d",i+1]];
+                }
+            }
+        }
+    }
+    
+    self.weeks = weeks;
+    self.months = mouths;
+}
 @end

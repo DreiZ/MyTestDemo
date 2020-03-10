@@ -255,7 +255,7 @@
 }
 
 
-#pragma mark -setModel
+#pragma mark - setModel
 - (void)setModel:(ZBaseTextFieldCellModel *)model {
     _model = model;
     self.formatterType = model.formatterType;
@@ -336,9 +336,14 @@
     self.arrowImageView.hidden = model.isTextEnabled;
     
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
-        self.labelView.hidden = NO;
-        self.hotProductArr = (NSArray *)self.model.data;
-        [self setHotProductArr:self.hotProductArr];
+        NSArray *tempArr = model.data;
+        if (tempArr.count > 0) {
+            self.labelView.hidden = NO;
+            self.hotProductArr = (NSArray *)self.model.data;
+            [self setHotProductArr:self.hotProductArr];
+        }else{
+            self.labelView.hidden = YES;
+        }
     }else{
         self.labelView.hidden = YES;
     }

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOrganizationMineHeaderView : UIView
 @property (nonatomic,strong) void (^topHandleBlock)(NSInteger);
 - (void)updateSubViewFrame;
+- (void)updateData;
 @end
 
 NS_ASSUME_NONNULL_END

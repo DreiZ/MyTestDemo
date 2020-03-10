@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusManageAddLabelVC : ZViewController
-
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) void (^handleBlock)(NSArray *);
+@property (nonatomic,assign) NSInteger max;
 @end
 
 NS_ASSUME_NONNULL_END

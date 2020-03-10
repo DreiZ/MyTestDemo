@@ -56,14 +56,47 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *pages;
 @end
 
-@interface ZOriganizationSchooleListModel : NSObject
+@interface ZOriganizationSchoolListModel : NSObject
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *schoolID;
 @property (nonatomic,strong) NSString *name;
 @end
 
 @interface ZOriganizationSchoolListNetModel : ZBaseNetworkBackDataModel
-@property (nonatomic,strong) NSArray <ZOriganizationSchooleListModel *>*list;
+@property (nonatomic,strong) NSArray <ZOriganizationSchoolListModel *>*list;
 
 @end
+
+@interface ZOriganizationSchoolDetailModel : NSObject
+@property (nonatomic,strong) NSString *address;
+@property (nonatomic,strong) NSString *brief_address;
+@property (nonatomic,strong) NSString *city;
+@property (nonatomic,strong) NSString *county;
+@property (nonatomic,strong) NSString *province;
+@property (nonatomic,strong) NSString *hash_update_address;
+@property (nonatomic,strong) NSString *hash_update_name;
+@property (nonatomic,strong) NSString *hash_update_store_type_id;
+@property (nonatomic,strong) NSString *schoolID;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *landmark;
+@property (nonatomic,strong) NSString *latitude;
+@property (nonatomic,strong) NSString *longitude;
+@property (nonatomic,strong) NSString *merchants_id;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *opend_end;
+@property (nonatomic,strong) NSString *opend_start;
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *place;
+@property (nonatomic,strong) NSString *regional_id;
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *store_type_id;
+
+@property (nonatomic,strong) NSMutableArray *months;
+@property (nonatomic,strong) NSMutableArray *stores_info;
+@property (nonatomic,strong) NSMutableArray *week_days;
+@property (nonatomic,strong) NSMutableArray *merchant_stores_tags;
+
+
+@end
+
 NS_ASSUME_NONNULL_END

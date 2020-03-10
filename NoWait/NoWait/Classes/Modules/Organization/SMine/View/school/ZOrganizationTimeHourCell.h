@@ -12,7 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTimeHourCell : ZBaseCell
+@property (nonatomic,strong) void (^handleBlock)(NSString *,NSString *);
 
+- (void)setStart:(NSString *)start end:(NSString *)end;
 @end
 
 NS_ASSUME_NONNULL_END
