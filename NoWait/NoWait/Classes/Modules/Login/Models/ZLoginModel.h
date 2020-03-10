@@ -34,6 +34,7 @@
 
 @interface ZLoginUserBackModel : NSObject
 @property (nonatomic,strong) NSString *userID;
+@property (nonatomic,strong) NSString *code_id;
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *nick_name;
 @property (nonatomic,strong) NSString *phone;

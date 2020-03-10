@@ -10,7 +10,6 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
 
-#import "ZStudentMineChangePasswordVC.h"
 #import "ZLoginViewModel.h"
 
 @interface ZAccountChangePasswordVC ()
@@ -62,6 +61,7 @@
 - (void)setDataSource {
     [super setDataSource];
     _loginViewModel = [[ZLoginViewModel alloc] init];
+    _loginViewModel.loginModel.tel = [ZUserHelper sharedHelper].user.phone;
 }
 
 
@@ -103,6 +103,24 @@
    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
    
    [self.cellConfigArr addObject:textCellConfig];
+    {
+        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
+        
+        [self.cellConfigArr addObject:textCellConfig];
+    }
+    
+     
+     {
+         ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+         [self.cellConfigArr addObject:coachSpaceCellConfig];
+         
+         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
+         
+         [self.cellConfigArr addObject:textCellConfig];
+     }
 }
 
 
@@ -171,35 +189,62 @@
         
         __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
-            ZStudentMineChangePasswordVC *pvc = [[ZStudentMineChangePasswordVC alloc] init];
-            pvc.isSwitch = self.isSwitch;
-            pvc.loginSuccess = self.loginSuccess;
-            [weakSelf.navigationController pushViewController:pvc animated:YES];
-//            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
-//                if (weakSelf.iTextView.text.length < 5) {
-//                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
-//                    return ;
-//                }
-////                [TLUIUtility showLoading:nil];
-////                [ZMIneViewModel saveProposalContentWith:weakSelf.iTextView.text completeBlock:^(BOOL isSuccess, NSString *message) {
-////                    [TLUIUtility hiddenLoading];
-////                    if (isSuccess) {
-////                        [TLUIUtility showSuccessHint:message];
-////
-////                        [weakSelf.navigationController popViewControllerAnimated:YES];
-////                    }else{
-////                        [TLUIUtility showErrorHint:message];
-////                    }
-////                }];
-//            }else{
-//                [TLUIUtility showErrorHint:@"意见不能为空"];
-//            }
+            NSMutableDictionary *params = @{}.mutableCopy;
+            
+            if (!weakSelf.loginViewModel.loginModel.messageCode || weakSelf.loginViewModel.loginModel.messageCode.length != 6) {
+                [TLUIUtility showErrorHint:@"请输入验证码"];
+                return ;
+            }
+            
+            if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length > 8) {
+                if ([self checkPassword:self.loginViewModel.loginModel.pwd]) {
+                    [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
+                }else{
+                    [TLUIUtility showErrorHint:@"密码必须大于8位，且由字母开头，包含大小写字母及数字"];
+                    return;
+                }
+                
+            }else{
+                [TLUIUtility showErrorHint:@"密码必须大于8位，且由字母开头，包含大小写字母及数字"];
+                return;
+            }
+            
+            if (![weakSelf.loginViewModel.loginModel.pwd isEqualToString: weakSelf.loginViewModel.loginModel.rePwd]) {
+                [TLUIUtility showErrorHint:@"两次密码不一致"];
+                return ;
+            }
+            
+            [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
+            [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
+            [params setObject:self.loginViewModel.loginModel.messageCode forKey:@"code"];
+            [params setObject:@"1" forKey:@"login_type"];
+            [params setObject:@YES forKey:@"is_login"];
+            [TLUIUtility showLoading:nil];
+            [weakSelf.loginViewModel updatePwdWithParams:params block:^(BOOL isSuccess, NSString *message) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:message];
+                    
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [TLUIUtility showErrorHint:message];
+                }
+            }];
+            
             
         } forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _footerView;
 }
+
+- (BOOL)checkPassword:(NSString *)password {
+    NSString *newPattern = @"^[a-zA-Z][a-zA-Z0-9_]{7,17}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",newPattern];
+    
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
+}
+
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -252,6 +297,22 @@
                   [TLUIUtility showErrorHint:message];
               }
            }];
+        };
+    }else if ([cellConfig.title isEqualToString:@"password"] ) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.type = 3;
+        bCell.max = 20;
+        bCell.formatterType = ZFormatterTypeAny;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.pwd = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"repassword"]) {
+        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+        bCell.type = 3;
+        bCell.max = 20;
+        bCell.formatterType = ZFormatterTypeAny;
+        bCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.rePwd = text;
         };
     }
 }

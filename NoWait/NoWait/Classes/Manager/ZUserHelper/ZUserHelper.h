@@ -43,5 +43,8 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 //登录
 - (void)loginWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
+
+//登录
+- (void)loginPwdWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
 @end
 

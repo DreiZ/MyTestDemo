@@ -13,7 +13,7 @@
 @property (nonatomic,assign) ZFormatterType formatterType;
 @property (nonatomic,assign) NSInteger max;
 @property (nonatomic,strong) NSString *placeholder;
-@property (nonatomic,assign) NSInteger type; //0：密码 1：code 2：图形验证码
+@property (nonatomic,assign) NSInteger type; //0：通常 1：code 2：图形验证码 3:密码
 @property (nonatomic,strong) UIImage *codeImage;
 
 @property (nonatomic,strong) void (^getCodeBlock)(void (^)(NSString *));

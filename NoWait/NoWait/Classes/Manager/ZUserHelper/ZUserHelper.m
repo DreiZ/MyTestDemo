@@ -37,20 +37,22 @@
     if (![userStore updateUser:user]) {
         DLog(@"登录数据存库失败");
     }else{
-        DLog(@"登录数据存库成功%@ ",user.userID);
+        DLog(@"登录数据存库成功%@ ",user.userCodeID);
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
 }
 
 - (void)loginOutUser:(ZUser *)user
 {
     _user = user;
     
-    [self deleteUserStore:user.userID];
+    [self deleteUserStore:user.userCodeID];
     [ZUserHelper sharedHelper].user = nil;
     [[ZDBManager sharedInstance] loginout];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userCodeID"];
     
     
     [self logoutWithParams:@{} block:^(BOOL isSuccess, NSString *message) {
@@ -63,9 +65,9 @@
     }];
 }
 
-- (void)deleteUserStore:(NSString *)userID {
+- (void)deleteUserStore:(NSString *)userCodeID {
     ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
-    if (![userStore deleteUsersByUid:userID]) {
+    if (![userStore deleteUsersByUid:userCodeID]) {
         DLog(@"登录数据存库失败");
     }
 }
@@ -74,6 +76,7 @@
 - (void)switchUser:(ZUser *)user {
     _user = user;
     [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
 }
 
 - (ZUser *)user
@@ -81,9 +84,10 @@
     if (!_user) {
         if (self.user_id.length > 0) {
             ZDBUserStore *userStore = [[ZDBUserStore alloc] init];
-            _user = [userStore userByID:self.user_id];
+            _user = [userStore userByID:self.uuid];
             if (!_user) {
                 [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
+                [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userCodeID"];
             }
         }
     }
@@ -108,7 +112,7 @@
 
 - (NSString *)uuid
 {
-    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userCodeID"];
     return uuid;
 }
 
@@ -143,12 +147,14 @@
             
             ZUser *user = [[ZUser alloc] init];
             user.userID = userModel.userID? userModel.userID:@"";
+            user.userCodeID = userModel.code_id? userModel.code_id:@"888888";
             user.avatar = userModel.image? userModel.image:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             user.phone = userModel.phone? userModel.phone:@"";
             user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
             user.token = userModel.token? userModel.token:@"";
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+            [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
             [[ZUserHelper sharedHelper] setUser:user];
         }
     }];
@@ -170,13 +176,15 @@
             }
             
             ZUser *user = [[ZUser alloc] init];
-            user.userID = userModel.userID? userModel.userID:@"888888";
+            user.userID = userModel.userID? userModel.userID:@"";
+            user.userCodeID = userModel.code_id? userModel.code_id:@"888888";
             user.avatar = userModel.image? userModel.image:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             user.phone = userModel.phone? userModel.phone:@"";
             user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
             user.token = userModel.token ? userModel.token:@"";
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+            [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
             [[ZUserHelper sharedHelper] setUser:user];
             block(YES,dataModel.message);
         }else {
@@ -188,6 +196,45 @@
         }
     }];
 }
+
+
+//登录
+- (void)loginPwdWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_loginPwd params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            
+            ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
+            
+            if (userModel && userModel.notice_msg && userModel.notice_msg.length > 0) {
+                [ZAlertView setAlertWithTitle:userModel.notice_msg btnTitle:@"取消" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }
+            
+            ZUser *user = [[ZUser alloc] init];
+            user.userID = userModel.userID? userModel.userID:@"";
+            user.userCodeID = userModel.code_id? userModel.code_id:@"888888";
+            user.avatar = userModel.image? userModel.image:@"";
+            user.nikeName = userModel.nick_name? userModel.nick_name:@"";
+            user.phone = userModel.phone? userModel.phone:@"";
+            user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
+            user.token = userModel.token ? userModel.token:@"";
+            [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
+            [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
+            [[ZUserHelper sharedHelper] setUser:user];
+            block(YES,dataModel.message);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
 
 
 //登出

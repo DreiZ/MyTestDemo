@@ -218,6 +218,16 @@ static NSTimer *retrieveTimer = nil;
             make.top.equalTo(self.contentView.mas_top);
             make.bottom.equalTo(self.contentView.mas_bottom);
         }];
+    }else if (type == 3){
+        self.getCodeView.hidden = YES;
+        self.pooCodeView.hidden = YES;
+        [self.inputTextField setSecureTextEntry:YES];
+        [self.inputTextField mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(60));
+            make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(60));
+            make.top.equalTo(self.contentView.mas_top);
+            make.bottom.equalTo(self.contentView.mas_bottom);
+        }];
     }else{
         self.getCodeView.hidden = YES;
         self.pooCodeView.hidden = YES;

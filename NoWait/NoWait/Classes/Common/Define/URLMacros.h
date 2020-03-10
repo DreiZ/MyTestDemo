@@ -171,6 +171,10 @@
 #define URL_account_v1_register                     @"account/v1/register"
 //登录接口
 #define URL_account_v1_login                        @"account/v1/login_by_code"
+//密码登录
+#define URL_account_v1_loginPwd                     @"account/v1/login"
+//更新密码
+#define URL_account_v1_updatePwd                    @"account/v1/update_password"
 //刷新token接口
 #define URL_account_v1_refresh                      @"account/v1/refresh"
 

@@ -33,12 +33,12 @@
 
 - (BOOL)updateUser:(ZUser *)user
 {
-    if (!user || user.userID == 0) {
+    if (!user || user.userCodeID.length == 0) {
         return NO;
     }
     NSString *sqlString = [NSString stringWithFormat:SQL_UPDATE_USER, USER_TABLE_NAME];
     NSArray *arrPara = [NSArray arrayWithObjects:
-                        TLNoNilString(user.userID),
+                        TLNoNilString(user.userCodeID),
                         TLNoNilString(user.userID),
                         TLNoNilString(user.nikeName),
                         TLNoNilString(user.nikeName),
@@ -52,9 +52,9 @@
     return ok;
 }
 
-- (ZUser *)userByID:(NSString *)userID
+- (ZUser *)userByID:(NSString *)userCodeID
 {
-    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_USER_BY_ID, USER_TABLE_NAME, userID];
+    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_USER_BY_ID, USER_TABLE_NAME, userCodeID];
     __block ZUser * user;
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
@@ -93,7 +93,7 @@
 {
     ZUser *user = [[ZUser alloc] init];
     user.userID = [retSet stringForColumn:@"userID"];
-//    user.client_uid = [retSet stringForColumn:@"uid"];
+    user.userCodeID = [retSet stringForColumn:@"uid"];
 //    user.username = [retSet stringForColumn:@"username"];
     user.nikeName = [retSet stringForColumn:@"nikename"];
     user.avatar = [retSet stringForColumn:@"avatar"];

@@ -231,7 +231,7 @@
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:originalDict];
     if ([url isEqualToString:URL_sms_v1_captcha] || [url isEqualToString:URL_sms_v1_send_code]) {
         [newDict setObject:@"graphic" forKey:@"identifier"];
-    }else if ([url isEqualToString:URL_account_v1_register]|| [url isEqualToString:URL_account_v1_login]|| [url isEqualToString:URL_account_v1_refresh]) {
+    }else if ([url isEqualToString:URL_account_v1_register]|| [url isEqualToString:URL_account_v1_login]|| [url isEqualToString:URL_account_v1_refresh] || [url isEqualToString:URL_account_v1_updatePwd]) {
         [newDict setObject:@"login" forKey:@"identifier"];
     }else if ([url isEqualToString:URL_file_v1_upload]) {
         [newDict setObject:@"upload" forKey:@"identifier"];

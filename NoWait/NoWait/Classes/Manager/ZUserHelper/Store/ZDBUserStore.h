@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  获取用户信息
  */
-- (ZUser *)userByID:(NSString *)userID;
+- (ZUser *)userByID:(NSString *)userCodeID;
 
 /**
  *  查询所有用户

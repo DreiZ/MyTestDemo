@@ -81,4 +81,14 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 */
 - (void)loginWithParams:(NSDictionary *)params
                   block:(loginUserResultBlock)block;
+
+- (void)loginPwdWithParams:(NSDictionary *)params
+                     block:(loginUserResultBlock)block;
+
+
+/// 更改密码
+/// @param params 参数
+/// @param block 返回信息
+- (void)updatePwdWithParams:(NSDictionary *)params
+                      block:(loginUserResultBlock)block;
 @end

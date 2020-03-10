@@ -14,6 +14,7 @@
     if (self = [super init]) {
         self.birthday = @"";
         self.userID = @"";
+        self.userCodeID = @"";
         self.avatar = @"";
         self.is_new = @"";
         self.nikeName = @"";
@@ -25,6 +26,7 @@
         
         [ZUser mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
             return @{@"userID":@"id",
+                     @"userCodeID":@"code_id",
                      @"type":@"pre_login_type",
                      @"avatar":@"image",
                      @"nikeName":@"nick_name"

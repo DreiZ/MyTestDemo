@@ -175,8 +175,15 @@
             }else{
                 return;
             }
-
-            [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
+            
+            if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length >= 8) {
+                [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
+            }else{
+                return;
+            }
+            [TLUIUtility showLoading:@""];
+            [self.loginViewModel loginPwdWithParams:params block:^(BOOL isSuccess, id message) {
+                [TLUIUtility hiddenLoading];
                 if (isSuccess) {
                      [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
                     if (weakSelf.loginSuccess) {
@@ -229,7 +236,7 @@
         };
     }else if ([cellConfig.title isEqualToString:@"password"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 0;
+        bCell.type = 3;
         bCell.max = 20;
         bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {

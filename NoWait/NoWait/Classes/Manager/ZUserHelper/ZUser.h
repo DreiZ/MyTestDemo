@@ -12,6 +12,7 @@
 @interface ZUser : NSObject
 @property (nonatomic,strong) NSString *birthday;
 @property (nonatomic,strong) NSString *userID;
+@property (nonatomic,strong) NSString *userCodeID;
 @property (nonatomic,strong) NSString *avatar;
 @property (nonatomic,strong) NSString *is_new;
 @property (nonatomic,strong) NSString *nikeName;

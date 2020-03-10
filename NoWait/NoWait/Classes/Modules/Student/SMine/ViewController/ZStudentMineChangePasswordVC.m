@@ -222,7 +222,7 @@
         bCell.titleLabel.font = [UIFont boldFontMax1Title];
     }else if ([cellConfig.title isEqualToString:@"password"] ) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 0;
+        bCell.type = 3;
         bCell.max = 20;
         bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
@@ -230,7 +230,7 @@
         };
     }else if ([cellConfig.title isEqualToString:@"repassword"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 0;
+        bCell.type = 3;
         bCell.max = 20;
         bCell.formatterType = ZFormatterTypeAny;
         bCell.valueChangeBlock = ^(NSString * text) {
