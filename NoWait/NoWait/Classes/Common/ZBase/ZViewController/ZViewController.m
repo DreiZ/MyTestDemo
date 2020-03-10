@@ -43,7 +43,7 @@
 
 //    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
      //此处使底部线条失效
-     [navigationBar setShadowImage:[UIImage imageWithColor:[UIColor whiteColor]]];
+     [navigationBar setShadowImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -314,6 +314,24 @@
     }
 }
 
+
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (isDarkModel()) {
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+             //设置透明的背景图，便于识别底部线条有没有被隐藏
+
+        //    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+             //此处使底部线条失效
+             [navigationBar setShadowImage:[UIImage imageWithColor:[UIColor colorBlackBGDark]]];
+    }else{
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+             //设置透明的背景图，便于识别底部线条有没有被隐藏
+
+        //    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+             //此处使底部线条失效
+             [navigationBar setShadowImage:[UIImage imageWithColor:[UIColor colorWhite]]];
+    }
+}
 #pragma mark 初始化 datasource delegate
 - (void)refreshData {
     
