@@ -29,6 +29,10 @@
 
 @end
 
+@implementation ZBaseNetworkImageBackModel
+
+@end
+
 @implementation ZBaseNetworkBackModel
 
 @end

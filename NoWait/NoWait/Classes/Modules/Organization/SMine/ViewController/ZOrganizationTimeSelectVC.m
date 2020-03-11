@@ -9,7 +9,7 @@
 #import "ZOrganizationTimeSelectVC.h"
 #import "ZOrganizationTimeRightCell.h"
 #import "ZOrganizationTimeLeftCell.h"
-
+#import "ZAlertDateHourPickerView.h"
 
 @interface ZOrganizationTimeSelectVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iRightTableView;
@@ -91,8 +91,14 @@
             }
             
             for (int k = 0; k < time.count; k++) {
-                ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeRightCell className] title:[ZOrganizationTimeRightCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTimeRightCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:time[k]];
-                [self.cellRightConfigArr addObject:channelCellConfig];
+                if (self.isStartAndEnd) {
+                    ZBaseUnitModel *subModel = time[k];
+                    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeRightCell className] title:[ZOrganizationTimeRightCell className] showInfoMethod:@selector(setTime:) heightOfCell:[ZOrganizationTimeRightCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:[NSString stringWithFormat:@"%@~%@",subModel.name,subModel.subName]];
+                    [self.cellRightConfigArr addObject:channelCellConfig];
+                }else{
+                    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTimeRightCell className] title:[ZOrganizationTimeRightCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTimeRightCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:time[k]];
+                    [self.cellRightConfigArr addObject:channelCellConfig];
+                }
             }
         }
     }
@@ -300,24 +306,36 @@
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addView addSubview:addBtn];
     [addBtn bk_whenTapped:^{
-        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"课程开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
-            for (int i = 0; i < self.dataSources.count; i++) {
-                ZBaseMenuModel *model = self.dataSources[i];
-                if (model.isSelected) {
-                    
+        if (weakSelf.isStartAndEnd) {
+            [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
+                for (int i = 0; i < self.dataSources.count; i++) {
+                    ZBaseMenuModel *model = self.dataSources[i];
                     ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
-                    smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
-                    smodel.subName = [NSString stringWithFormat:@"%ld:",(long)date.minute];
+                    smodel.name = start;
+                    smodel.subName = end;
                     [model.units addObject:smodel];
                     [weakSelf initCellConfigArr];
                     [weakSelf.iRightTableView reloadData];
-                    
                 }
-            }
-        }];
-        
-        
-        
+                
+            }];
+        }else{
+            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"课程开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
+                for (int i = 0; i < self.dataSources.count; i++) {
+                    ZBaseMenuModel *model = self.dataSources[i];
+                    if (model.isSelected) {
+                        
+                        ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
+                        smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
+                        smodel.subName = [NSString stringWithFormat:@"%ld:",(long)date.minute];
+                        [model.units addObject:smodel];
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iRightTableView reloadData];
+                        
+                    }
+                }
+            }];
+        }
     }];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(addView);

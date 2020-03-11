@@ -99,31 +99,74 @@
 }
 
 
-//上传图片
+#pragma mark - 上传图片
 + (id)postImageServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler{
-    NSString *newUrl = [self getMUrl:path serverType:serverType];
+    NSDictionary *newParams = [ZNetworkingManager getPostParamsWithUrl:path params:params];
+    NSString *newUrl = [ZNetworkingManager getMUrl:path serverType:serverType];
     
-    return [[ZNetworking defaultAFManager] POST:newUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    return [[ZNetworking defaultAFManager] POST:newUrl parameters:newParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (id key in params[@"imageKey"]) {
-            UIImage *image = [params objectForKey:key];
+            UIImage *image = [params[@"imageKey"] objectForKey:key];
             if (image == nil) {
                 return ;
             }
-            NSData* tempData = UIImagePNGRepresentation(image);
+//            NSData* tempData = UIImagePNGRepresentation(image);
+            NSData* tempData = UIImageJPEGRepresentation(image, 0.03);
             if (tempData == nil) {
                 return;
             }
-            [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:[NSString stringWithFormat:@"%@",key] fileName:[NSString stringWithFormat:@"%@.png",key] mimeType:@"image/png"];
+            [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:[NSString stringWithFormat:@"%@",@"file"] fileName:[NSString stringWithFormat:@"%@.png",@"file"] mimeType:@"image/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        completionHandler(responseObject, nil);
+//        completionHandler(responseObject, nil);
+        DLog(@"return data *** %@", responseObject);
+            if (ValidDict(responseObject)) {
+                ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
+                
+                if (backModel && backModel.code) {
+                    if ([backModel.code integerValue] == 0) {
+                        completionHandler(backModel, nil);
+                        
+                    }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
+                        
+                        [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+                        [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                        NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
+                        completionHandler(backModel, error);
+                        [TLUIUtility showErrorHint:backModel.message];
+                        
+                    }else{
+                        
+                        NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+        
+                        if (!backModel.message) {
+                            backModel.message = @"获取服务器数据错误";
+                        }
+                        
+                        completionHandler(backModel, error);
+                        
+                    }
+                }else{
+                    backModel = [[ZBaseNetworkBackModel alloc] init];
+                    backModel.code = @"888888";
+                    backModel.message = @"获取服务器数据错误";
+                    completionHandler(backModel, nil);
+                }
+                
+            }else{
+                NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+                ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
+                backModel.code = @"888888";
+                backModel.message = @"连接服务器失败";
+                completionHandler(backModel, error);
+            }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil, error);
     }];
 }
 
-#pragma mark 参数签名获取请求体
+#pragma mark - 参数签名获取请求体
 + (NSDictionary *)getPostParamsWithoutUserIDWithUrl:(NSString *)path params:(NSDictionary *)params {
     
     NSMutableDictionary *newParams = [ZNetworkingManager setWithoutIDCommonDict:params];
@@ -262,11 +305,16 @@
 
     for (NSString *key  in [parameterDic allKeys]) {
         NSString *valueStr = parameterDic[key];
-        if([parameterDic[key] isKindOfClass:[NSArray class]] || [parameterDic[key] isKindOfClass:[NSDictionary class]]){
-            valueStr = [ZNetworkingManager toJSONString:parameterDic[key]];
+        if ([parameterDic[key] isKindOfClass:[UIImage class]] || [key isEqualToString:@"imageKey"]){
+            [parameterDic removeObjectForKey:key];
+            continue;
+        }else if([parameterDic[key] isKindOfClass:[NSArray class]] || [parameterDic[key] isKindOfClass:[NSDictionary class]]){
+            
+//            valueStr = [ZNetworkingManager toJSONString:parameterDic[key]];
+            valueStr = [ZNetworkingManager getJsonStr:parameterDic[key]];
 
             [parameterDic setObject:valueStr forKey:key];;
-        }else{
+        } else{
             valueStr = parameterDic[key];
         }
         [parameters addObject:[NSString stringWithFormat:@"%@%@",key,parameterDic[key]]];
@@ -312,6 +360,30 @@
     [parameterDic setObject:MD5Str forKey:@"signature"];
     return parameterDic;
 }
+
++ (NSString *)getJsonStr:(id)parameter {
+    NSString *valueStr = @"";
+    
+    if([parameter isKindOfClass:[NSArray class]]){
+        NSMutableArray *newParameter = [[NSMutableArray alloc] initWithArray:parameter];
+        for (int i = 0; i < newParameter.count; i++) {
+            [newParameter replaceObjectAtIndex:i withObject:[ZNetworkingManager getJsonStr:newParameter[i]]];
+        }
+        
+        valueStr = [ZNetworkingManager toJSONString:parameter];
+    }else if([parameter isKindOfClass:[NSDictionary class]]){
+        NSMutableDictionary *newParameter = [[NSMutableDictionary alloc] initWithDictionary:parameter];
+        for (NSString *key  in [newParameter allKeys]) {
+            [newParameter setObject:[ZNetworkingManager getJsonStr:newParameter[key]] forKey:key];
+        }
+        valueStr = [ZNetworkingManager toJSONString:newParameter];
+    }else{
+        valueStr = parameter;
+    }
+    
+    return valueStr;
+}
+
 
 + (NSString *)getServiceAppSecretWithIdentifier:(NSString *)identifier {
     //私钥

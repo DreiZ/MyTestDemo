@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
 
 + (void)getLessonlist:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
++ (void)uploadImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)deleteImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)addLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

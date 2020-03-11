@@ -86,6 +86,11 @@
     }
 }
 
+- (void)setTime:(NSString *)time {
+    _time = time;
+    _nameLabel.text = time;
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(108);
 }

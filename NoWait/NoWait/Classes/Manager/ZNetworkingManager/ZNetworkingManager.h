@@ -29,5 +29,8 @@
 
 //获取数据 不设置userid
 + (id)postWithoutUserIDWithServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
+
+#pragma mark - 上传图片
++ (id)postImageServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
 @end
 

@@ -183,6 +183,8 @@
 #pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 
+#define URL_file_v1_delete                           @"file/v1/delete_file"
+
 
 #pragma mark ---------------------机构----URL_file---------------------------------
 //校区门店
@@ -191,4 +193,20 @@
 #define URL_merchants_stores_info                    @"merchants/v1/merchants_stores_info"
 //编辑校区门店
 #define URL_merchants_edit_merchants_store           @"merchants/v1/edit_merchants_store"
+
+
+//添加课程
+#define URL_merchants_add_courses                    @"merchants/v1/add_courses"
+
+//课程详情
+#define URL_merchants_get_courses_info               @"merchants/v1/get_courses_info"
+
+//关闭课程
+#define URL_merchants_close_courses                  @"merchants/v1/close_courses"
+
+//删除课程
+#define URL_merchants_del_courses                    @"merchants/v1/del_courses"
+
+//搜索课程
+#define URL_merchants_search_courses                 @"merchants/v1/search_courses"
 #endif /* URLMacros_h */

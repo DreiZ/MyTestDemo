@@ -76,7 +76,7 @@
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-        weakSelf.isGu = @"yes";
+        weakSelf.isGu = @"1";
     }];
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,7 +90,7 @@
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);
         }
-        weakSelf.isGu = @"";
+        weakSelf.isGu = @"2";
     }];
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -166,7 +166,7 @@
 
 - (void)setIsGu:(NSString *)isGu {
     _isGu = isGu;
-    if (isGu && isGu.length > 0) {
+    if ([isGu intValue] == 1) {
         _leftImageView.image = [UIImage imageNamed:@"selectedCycle"];
         _rightImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
     }else{

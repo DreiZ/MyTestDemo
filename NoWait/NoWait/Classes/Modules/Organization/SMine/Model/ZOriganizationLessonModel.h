@@ -41,24 +41,30 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @end
 
 @interface ZOriganizationLessonAddModel : ZBaseModel
-@property (nonatomic,strong) id coverImage;
-@property (nonatomic,strong) NSString *lessonName;
-@property (nonatomic,strong) NSString *lessonIntro;
-@property (nonatomic,strong) NSMutableArray *lessonDetail;
-@property (nonatomic,strong) NSString *lessonPrice;
-@property (nonatomic,strong) NSMutableArray *lessonImages;
+@property (nonatomic,strong) NSString *lessonID;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) id image_url;
+@property (nonatomic,strong) NSString *image_net_url;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *short_name;
+@property (nonatomic,strong) NSString *info;
+@property (nonatomic,strong) NSString *price;
+@property (nonatomic,strong) NSMutableArray *images;
+@property (nonatomic,strong) NSMutableArray *net_images;
 @property (nonatomic,strong) NSString *school;
-@property (nonatomic,strong) NSString *level;
-@property (nonatomic,strong) NSString *singleTime;
-@property (nonatomic,strong) NSString *lessonNum;
-@property (nonatomic,strong) NSString *lessonPeoples;
-@property (nonatomic,assign) BOOL isOrder;//是否接受预约
+@property (nonatomic,strong) NSString *level;// 1: 初级，2：进阶 3：精英
+@property (nonatomic,strong) NSString *course_min;
+@property (nonatomic,strong) NSString *course_number;
+@property (nonatomic,strong) NSString *course_class_number;
+@property (nonatomic,strong) NSString *is_experience;//是否接受预约
 @property (nonatomic,strong) NSString *orderPrice;//预约价格
 @property (nonatomic,strong) NSString *orderMin;//预约时间
 @property (nonatomic,strong) NSString *orderTimeBegin;//预约时间段
 @property (nonatomic,strong) NSString *orderTimeEnd;//预约时间段结束
+@property (nonatomic,strong) NSMutableArray *experience_time;
+@property (nonatomic,strong) NSString *valid_at;//有效期
+@property (nonatomic,strong) NSString *type;//1: 固定时间开课 2：人满开课
+@property (nonatomic,strong) NSMutableArray *fix_time;//固定时间
+@property (nonatomic,strong) NSString *p_information;
 
-@property (nonatomic,strong) NSString *validity;//有效期
-@property (nonatomic,strong) NSString *isGu;//0：固定时间 1:人满开课
-@property (nonatomic,strong) NSMutableArray *guTimeArr;//固定时间
 @end

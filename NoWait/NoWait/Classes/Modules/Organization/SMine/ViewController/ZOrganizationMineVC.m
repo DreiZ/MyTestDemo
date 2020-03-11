@@ -40,7 +40,7 @@
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
 @property (nonatomic,strong) NSString *schoolID;
-
+@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
 @end
 
 @implementation ZOrganizationMineVC
@@ -118,6 +118,7 @@
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
             if ([model.uid isEqualToString:@"lesson"]) {
                 ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
+                mvc.school = self.school;
                 [self.navigationController pushViewController:mvc animated:YES];
                 
             }else if ([model.uid isEqualToString:@"school"]){
@@ -156,6 +157,10 @@
        ZOriganizationClubSelectedCell *lcell = (ZOriganizationClubSelectedCell *)cell;
        lcell.menuBlock = ^(ZBaseUnitModel * model) {
            weakSelf.schoolID = model.uid;
+           ZOriganizationSchoolListModel *smodel = [[ZOriganizationSchoolListModel alloc] init];
+           smodel.schoolID = model.uid;
+           smodel.name = model.name;
+           weakSelf.school = smodel;
        };
    }
 }
@@ -194,6 +199,7 @@
             model.uid = SafeStr(listModel.schoolID);
             [channnliset addObject:model];
             if (i == 0) {
+                weakSelf.school = listModel;
                 model.isSelected = YES;
                 weakSelf.schoolID = listModel.schoolID;
             }

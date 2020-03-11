@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOrganizationTimeSelectVC : ZTableViewViewController
 @property (nonatomic,strong) void (^timeBlock)(NSMutableArray <ZBaseMenuModel *>*);
 @property (nonatomic,strong) NSMutableArray *timeArr;
-
+@property (nonatomic,assign) BOOL isStartAndEnd;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -121,6 +121,7 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];
+            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
