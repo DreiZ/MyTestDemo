@@ -8,11 +8,9 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusTextFieldCell : ZBaseCell
 @property (nonatomic,strong) ZBaseTextFieldCellModel *model;
-
+@property (nonatomic,strong) void (^valueChangeBlock)(NSString *text);
 @end
 
-NS_ASSUME_NONNULL_END

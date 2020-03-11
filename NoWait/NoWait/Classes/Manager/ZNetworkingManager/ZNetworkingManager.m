@@ -261,6 +261,14 @@
     [parameterDic addEntriesFromDictionary:postDic];
 
     for (NSString *key  in [parameterDic allKeys]) {
+        NSString *valueStr = parameterDic[key];
+        if([parameterDic[key] isKindOfClass:[NSArray class]] || [parameterDic[key] isKindOfClass:[NSDictionary class]]){
+            valueStr = [ZNetworkingManager toJSONString:parameterDic[key]];
+
+            [parameterDic setObject:valueStr forKey:key];;
+        }else{
+            valueStr = parameterDic[key];
+        }
         [parameters addObject:[NSString stringWithFormat:@"%@%@",key,parameterDic[key]]];
     }
     
@@ -272,8 +280,6 @@
     
     NSMutableString *resultStr = [[NSMutableString alloc] init];
     for (NSString *key in sortedArray) {
-//        NSRange range = [key rangeOfString:@"="];
-//        NSString *newKey = [key substringToIndex:range.location];
         NSString *valueStr = key;
 //
 //        if([parameterDic[newKey] isKindOfClass:[NSArray class]] || [parameterDic[newKey] isKindOfClass:[NSDictionary class]]){

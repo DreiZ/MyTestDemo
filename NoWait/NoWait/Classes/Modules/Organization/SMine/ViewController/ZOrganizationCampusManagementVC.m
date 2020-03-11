@@ -71,7 +71,8 @@
     if (self.model && ValidStr(self.model.opend_start)&& ValidStr(self.model.opend_end) && self.model.week_days && self.model.months && self.model.week_days.count > 0 && self.model.months.count > 0) {
         time = @"已编辑";
     }
-    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", @YES, @NO, @"name",self.model? SafeStr(self.model.name):@""],
+    
+    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", SafeStr(self.model.hash_update_name), @NO, @"name",self.model? SafeStr(self.model.name):@""],
                          @[@"校区类型", @"请选择校区类型", @NO, @NO, @"type", type],
                          @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone", self.model? SafeStr(self.model.phone):@""],
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
@@ -92,6 +93,7 @@
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.data = textArr[i][5];
+            cellModel.cellWidth = KScreenWidth - CGFloatIn750(60);
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
@@ -187,7 +189,71 @@
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-
+            if (!ValidStr(weakSelf.model.schoolID)) {
+                [TLUIUtility showErrorHint:@"校区数据获取异常，请退出后从事"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.model.store_type_id)) {
+                [TLUIUtility showErrorHint:@"请选择校区类型"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.model.phone)) {
+                [TLUIUtility showErrorHint:@"请输入校区电话"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.model.address)) {
+                [TLUIUtility showErrorHint:@"请选择校区地址"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.model.months)) {
+                [TLUIUtility showErrorHint:@"请选择营业月份"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.model.week_days)) {
+                [TLUIUtility showErrorHint:@"请选择营业时间"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.model.opend_start)) {
+                [TLUIUtility showErrorHint:@"请选择营业时段"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.model.stores_info)) {
+                [TLUIUtility showErrorHint:@"请添加基础设施"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.model.merchant_stores_tags)) {
+                [TLUIUtility showErrorHint:@"请添加机构特色"];
+                return ;
+            }
+            
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:self.model.schoolID forKey:@"id"];
+            [params setObject:self.model.store_type_id forKey:@"store_type_id"];
+            [params setObject:self.model.phone forKey:@"phone"];
+            [params setObject:self.model.name forKey:@"name"];
+            [params setObject:self.model.province forKey:@"province"];
+            [params setObject:self.model.city forKey:@"city"];
+            [params setObject:self.model.county forKey:@"county"];
+            [params setObject:self.model.brief_address forKey:@"brief_address"];
+            [params setObject:self.model.address forKey:@"address"];
+            [params setObject:self.model.longitude forKey:@"longitude"];
+            [params setObject:self.model.latitude forKey:@"latitude"];
+            [params setObject:self.model.week_days forKey:@"week_days"];
+            [params setObject:self.model.months forKey:@"months"];
+            [params setObject:self.model.opend_start forKey:@"opend_start"];
+            [params setObject:self.model.opend_end forKey:@"opend_end"];
+            [params setObject:self.model.merchant_stores_tags forKey:@"merchant_stores_tags"];
+            [params setObject:self.model.stores_info forKey:@"stores_info"];
+            
+            [ZOriganizationViewModel updateSchoolDetail:params completeBlock:^(BOOL isSuccess, NSString *message) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:message];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    return ;
+                }else {
+                    [TLUIUtility showErrorHint:message];
+                }
+            }];
         }];
     }
     return _bottomBtn;
@@ -196,27 +262,54 @@
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationRadiusCell"]){
         ZOrganizationRadiusCell *enteryCell = (ZOrganizationRadiusCell *)cell;
         enteryCell.leftMargin = CGFloatIn750(0);
+    }else if ([cellConfig.title isEqualToString:@"phone"]){
+        ZOrganizationCampusTextFieldCell *enteryCell = (ZOrganizationCampusTextFieldCell *)cell;
+        enteryCell.valueChangeBlock = ^(NSString * _Nonnull text) {
+            weakSelf.model.phone = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"name"]){
+        ZOrganizationCampusTextFieldCell *enteryCell = (ZOrganizationCampusTextFieldCell *)cell;
+        enteryCell.valueChangeBlock = ^(NSString * _Nonnull text) {
+            weakSelf.model.name = text;
+        };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"address"]) {
+    if ([cellConfig.title isEqualToString:@"name"]) {
+        if ([SafeStr(self.model.hash_update_name) boolValue]){
+            [TLUIUtility showErrorHint:@"名称已不可修改"];
+            return;
+        }
+    }else if ([cellConfig.title isEqualToString:@"address"]) {
+        if ([SafeStr(self.model.hash_update_address) boolValue]) {
+            [TLUIUtility showErrorHint:@"地址已不可修改"];
+            return;
+        }
         ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
-        mvc.addressBlock = ^(NSString * _Nonnull province, NSString * _Nonnull city, NSString * _Nonnull county, NSString * _Nonnull brief_address, NSString * _Nonnull address) {
+        mvc.addressBlock = ^(NSString * province, NSString * city, NSString * county, NSString * brief_address, NSString * address, double latitude, double  longitude) {
             weakSelf.model.province = province;
             weakSelf.model.city = city;
             weakSelf.model.county = county;
             weakSelf.model.brief_address = brief_address;
             weakSelf.model.address = address;
+            weakSelf.model.latitude = [NSString stringWithFormat:@"%f",latitude];
+            weakSelf.model.longitude = [NSString stringWithFormat:@"%f",longitude];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         };
         [self.navigationController pushViewController:mvc animated:YES];
+        
     }else if ([cellConfig.title isEqualToString:@"type"]) {
+        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
+            [TLUIUtility showErrorHint:@"类型已不可修改"];
+            return;
+        }
         NSMutableArray *items = @[].mutableCopy;
         NSArray *temp = _typeList;
         for (int i = 0; i < temp.count; i++) {

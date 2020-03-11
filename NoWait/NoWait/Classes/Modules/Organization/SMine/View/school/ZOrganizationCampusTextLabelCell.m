@@ -284,6 +284,12 @@
         make.top.bottom.equalTo(self.contentView);
     }];
 
+    [self.labelView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+            make.right.equalTo(self.backContentView.mas_right).offset(-model.rightMargin);
+            make.top.bottom.equalTo(self.backContentView);
+    //        make.height.mas_equalTo(CGFloatIn750(108));
+        }];
     
     [self.labelView removeAllSubviews];
     
@@ -376,7 +382,7 @@
     }
 
     CGSize titleSize = [self.model.leftTitle tt_sizeWithFont:[UIFont fontTitle]];
-    CGFloat labelWidth = KScreenWidth - 2 * self.model.contBackMargin - leftX - (kCellContentSpace + titleSize.width + 2);
+    CGFloat labelWidth = self.model.cellWidth - 2 * self.model.contBackMargin - leftX - (kCellContentSpace + titleSize.width + 2);
     
     CGFloat maxWidth = labelWidth - leftX ;
     CGFloat offSetX = labelWidth - leftX - self.model.rightMargin;

@@ -133,7 +133,7 @@
         _searhView.addressBlock = ^(ZLocationModel *model) {
             weakSelf.location = model;
             if (weakSelf.addressBlock) {
-                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address);
+                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address,weakSelf.location.coordinate.latitude,weakSelf.location.coordinate.longitude);
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         };
@@ -196,7 +196,7 @@
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.addressBlock) {
-                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address);
+                weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address,weakSelf.location.coordinate.latitude,weakSelf.location.coordinate.longitude);
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
@@ -218,7 +218,7 @@
         ZLocationModel *model = cellConfig.dataModel;
         self.location = model;
         if (self.addressBlock) {
-            self.addressBlock(self.location.province, self.location.city, self.location.district, self.location.businessArea, self.location.address);
+            self.addressBlock(self.location.province, self.location.city, self.location.district, self.location.businessArea, self.location.address,self.location.coordinate.latitude,self.location.coordinate.longitude);
         }
         [self.navigationController popViewControllerAnimated:YES];
     }

@@ -17,6 +17,8 @@
 @property (nonatomic,strong) NSString *county;
 @property (nonatomic,strong) NSString *brief_address;
 @property (nonatomic,strong) NSString *address;
+@property (nonatomic,assign) double latitude;
+@property (nonatomic,assign) double longitude;
 @end
 
 @implementation ZOrganizationCampusManagementAddressVC
@@ -91,7 +93,7 @@
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     [sureBtn bk_whenTapped:^{
         if (weakSelf.addressBlock) {
-            weakSelf.addressBlock(weakSelf.province, weakSelf.city, weakSelf.county, weakSelf.brief_address, weakSelf.address);
+            weakSelf.addressBlock(weakSelf.province, weakSelf.city, weakSelf.county, weakSelf.brief_address, weakSelf.address,weakSelf.latitude,weakSelf.longitude);
         }
         [weakSelf.navigationController popViewControllerAnimated:YES];
     }];
@@ -104,12 +106,14 @@
     __weak typeof(self) weakSelf = self;
      if ([cellConfig.title isEqualToString:@"local"]){
          ZOrganizationCampusManagementLocalAddressVC *avc = [[ZOrganizationCampusManagementLocalAddressVC alloc] init];
-         avc.addressBlock = ^(NSString *province, NSString *city, NSString *county, NSString *brief_address, NSString *address) {
+         avc.addressBlock = ^(NSString *province, NSString *city, NSString *county, NSString *brief_address, NSString *address,double latitude, double longitude) {
              weakSelf.province = province;
              weakSelf.city = city;
              weakSelf.county = county;
              weakSelf.brief_address = brief_address;
              weakSelf.address = address;
+             weakSelf.latitude = latitude;
+             weakSelf.longitude = longitude;
              [weakSelf initCellConfigArr];
              [weakSelf.iTableView reloadData];
          };

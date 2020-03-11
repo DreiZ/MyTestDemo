@@ -10,6 +10,6 @@
 
 
 @interface ZOrganizationCampusManagementLocalAddressVC : ZTableViewViewController
-@property (nonatomic,strong) void (^addressBlock)(NSString *province,NSString *city,NSString *county,NSString *brief_address,NSString *address);
+@property (nonatomic,strong) void (^addressBlock)(NSString *province,NSString *city,NSString *county,NSString *brief_address,NSString *address,double latitude, double longitude);
 @end
 

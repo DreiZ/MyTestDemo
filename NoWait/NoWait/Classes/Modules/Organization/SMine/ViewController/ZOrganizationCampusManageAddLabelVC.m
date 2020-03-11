@@ -157,6 +157,7 @@
                 [weakSelf.labelArr addObject:weakSelf.userNameTF.text];
                 [weakSelf setLabel];
                 weakSelf.userNameTF.text = @"";
+                weakSelf.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",weakSelf.userNameTF.text.length,weakSelf.max];
             }
         }];
     }
