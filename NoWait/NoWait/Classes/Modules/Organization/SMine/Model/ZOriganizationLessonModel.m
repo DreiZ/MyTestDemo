@@ -19,10 +19,6 @@
 @end
 
 
-@implementation ZOriganizationLessonListNetModel
-
-
-@end
 
 @implementation ZOriganizationLessonAddModel
 - (instancetype)init {
@@ -58,7 +54,17 @@
 }
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"schoolID" : @"id",
+    return @{@"lessonID" : @"id",
             };
 }
+@end
+
+@implementation ZOriganizationLessonListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationLessonAddModel"
+             };
+}
+
 @end

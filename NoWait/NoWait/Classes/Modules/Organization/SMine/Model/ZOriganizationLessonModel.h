@@ -35,10 +35,6 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 
 @end
 
-@interface ZOriganizationLessonListNetModel : ZBaseNetworkBackDataModel
-@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
-@property (nonatomic,copy) NSString *pages;
-@end
 
 @interface ZOriganizationLessonAddModel : ZBaseModel
 @property (nonatomic,strong) NSString *lessonID;
@@ -67,4 +63,10 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSMutableArray *fix_time;//固定时间
 @property (nonatomic,strong) NSString *p_information;
 
+@end
+
+
+@interface ZOriganizationLessonListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationLessonAddModel *>*list;
+@property (nonatomic,copy) NSString *pages;
 @end

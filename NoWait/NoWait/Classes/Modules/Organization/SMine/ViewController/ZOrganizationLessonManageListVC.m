@@ -27,6 +27,7 @@
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
+    [self refreshData];
 }
 
 #pragma mark - setdata
@@ -98,12 +99,32 @@
 
 #pragma mark - 数据处理
 - (void)refreshData {
-    self.currentPage = 1;
+    self.currentPage = 0;
     self.loading = YES;
     __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    
-    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:self.school.schoolID forKey:@"stores_id"];
+    switch (self.type) {
+        case ZOrganizationLessonTypeOpen:
+            [param setObject:@"1" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeClose:
+            [param setObject:@"2" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeExamine:
+            [param setObject:@"3" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeExamineFail:
+            [param setObject:@"4" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeAll:
+            [param setObject:@"0" forKey:@"stores_id"];
+            break;
+            
+        default:
+            break;
+    }
+    [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -129,9 +150,29 @@
     self.currentPage++;
     self.loading = YES;
     __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    
-    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:self.school.schoolID forKey:@"stores_id"];
+    switch (self.type) {
+        case ZOrganizationLessonTypeOpen:
+            [param setObject:@"1" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeClose:
+            [param setObject:@"2" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeExamine:
+            [param setObject:@"3" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeExamineFail:
+            [param setObject:@"4" forKey:@"stores_id"];
+            break;
+            case ZOrganizationLessonTypeAll:
+            [param setObject:@"0" forKey:@"stores_id"];
+            break;
+            
+        default:
+            break;
+    }
+    [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

@@ -310,14 +310,15 @@
             [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
                 for (int i = 0; i < self.dataSources.count; i++) {
                     ZBaseMenuModel *model = self.dataSources[i];
-                    ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
-                    smodel.name = start;
-                    smodel.subName = end;
-                    [model.units addObject:smodel];
-                    [weakSelf initCellConfigArr];
-                    [weakSelf.iRightTableView reloadData];
+                    if (model.isSelected) {
+                        ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
+                        smodel.name = start;
+                        smodel.subName = end;
+                        [model.units addObject:smodel];
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iRightTableView reloadData];
+                    }
                 }
-                
             }];
         }else{
             [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"课程开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {

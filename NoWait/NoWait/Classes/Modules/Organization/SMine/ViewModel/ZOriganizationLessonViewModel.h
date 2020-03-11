@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOriganizationLessonViewModel : ZBaseViewModel
 @property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
 
-+ (void)getLessonlist:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
++ (void)getLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 + (void)uploadImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 

@@ -83,6 +83,7 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationLessonManageListVC *lvc =[[ZOrganizationLessonManageListVC alloc] init];
+            lvc.school = self.school;
             switch (i) {
                 case 0:
                     lvc.type = ZOrganizationLessonTypeAll;
