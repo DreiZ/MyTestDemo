@@ -12,7 +12,7 @@
 @interface ZOrganizationTeacherSearchTopView : UIView
 @property (nonatomic,strong) UITextField *iTextField;
 @property (nonatomic,strong) void (^cancleBlock)(void);
-
+@property (nonatomic,strong) void (^textChangeBlock)(NSString *);
 @end
 
 

@@ -36,21 +36,11 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self initCellConfigArr];
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < 12; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:nil heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
 }
 
 - (void)setNavigation {
     self.isHidenNaviBar = YES;
-    [self.navigationItem setTitle:self.title];
+    [self.navigationItem setTitle:self.navTitle];
 }
 
 - (void)setupMainView {
@@ -69,6 +59,7 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
         make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(0));
     }];
+    self.searchView.iTextField.placeholder = self.navTitle;
 }
 
 #pragma mark lazy loading...
@@ -77,6 +68,9 @@
         __weak typeof(self) weakSelf = self;
         _searchView = [[ZOrganizationTeacherSearchTopView alloc] init];
         _searchView.iTextField.delegate = self;
+        _searchView.textChangeBlock = ^(NSString *text) {
+            [weakSelf valueChange:text];
+        };
         _searchView.cancleBlock = ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         };
@@ -86,7 +80,7 @@
 
 #pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"donggggs-----");
+    
 //    [self searchPoiByKeyword:textField.text];
     return YES;
 }
@@ -97,6 +91,10 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 //    self.searhView.hidden = NO;
+}
+
+- (void)valueChange:(NSString *)text {
+    
 }
 @end
 

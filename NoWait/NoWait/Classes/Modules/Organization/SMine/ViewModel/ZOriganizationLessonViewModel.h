@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //添加课程
 + (void)addLesson:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock ;
+
++ (void)searchLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

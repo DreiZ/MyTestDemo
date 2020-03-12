@@ -9,9 +9,8 @@
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationLessonManageListVC.h"
 #import "ZOrganizationLessonAddVC.h"
-#import "ZOrganizationSearchVC.h"
+#import "ZOrganizationSearchLessonListVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
-#import "ZOrganizationSearchVC.h"
 
 @interface ZOrganizationLessonManageVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -135,8 +134,9 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
-            svc.title = @"搜索课程";
+            ZOrganizationSearchLessonListVC *svc = [[ZOrganizationSearchLessonListVC alloc] init];
+            svc.navTitle = @"搜索课程名称";
+            svc.school = weakSelf.school;
             svc.searchType = ZSearchTypeLesson;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

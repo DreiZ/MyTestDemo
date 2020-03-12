@@ -18,8 +18,9 @@ typedef NS_ENUM(NSInteger, ZSearchType) {
 };
 
 @interface ZOrganizationSearchVC : ZTableViewViewController
-@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *navTitle;
 @property (nonatomic,assign) ZSearchType searchType;
+- (void)valueChange:(NSString *)text;
 @end
 
 

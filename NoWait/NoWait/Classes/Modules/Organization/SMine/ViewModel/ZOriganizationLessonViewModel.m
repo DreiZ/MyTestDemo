@@ -244,4 +244,25 @@
     }];
 }
 
+
+
++ (void)searchLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_search_courses params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZOriganizationLessonListNetModel *model = [ZOriganizationLessonListNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 @end
