@@ -210,7 +210,7 @@
     if (!_lessonNameLabel) {
         _lessonNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _lessonNameLabel.text = @"开放课程";
+        _lessonNameLabel.text = @"";
         _lessonNameLabel.numberOfLines = 1;
         _lessonNameLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonNameLabel setFont:[UIFont boldFontTitle]];
@@ -223,7 +223,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorRedForButton],[UIColor colorRedForButton]);
-        _priceLabel.text = @"$345";
+        _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         [_priceLabel setFont:[UIFont fontContent]];
@@ -234,7 +234,6 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"serverTopbg"];
         _leftImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_leftImageView, CGFloatIn750(12));
     }
@@ -246,7 +245,7 @@
     if (!_salesNumLabel) {
         _salesNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _salesNumLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _salesNumLabel.text = @"已售20";
+        _salesNumLabel.text = @"";
         _salesNumLabel.numberOfLines = 1;
         _salesNumLabel.textAlignment = NSTextAlignmentLeft;
         [_salesNumLabel setFont:[UIFont fontSmall]];
@@ -259,7 +258,7 @@
     if (!_scoreLabel) {
         _scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _scoreLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _scoreLabel.text = @"4.0分";
+        _scoreLabel.text = @"";
         _scoreLabel.numberOfLines = 1;
         _scoreLabel.textAlignment = NSTextAlignmentRight;
         [_scoreLabel setFont:[UIFont fontSmall]];
@@ -275,7 +274,7 @@
         _lessonStatelabel.text = @"";
         _lessonStatelabel.numberOfLines = 1;
         _lessonStatelabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonStatelabel setFont:[UIFont fontSmall]];
+        [_lessonStatelabel setFont:[UIFont boldFontSmall]];
     }
     return _lessonStatelabel;
 }
@@ -380,7 +379,7 @@
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     
-    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url]];
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
     self.lessonStatelabel.text = model.statusStr;
     self.lessonNameLabel.text = model.name;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];

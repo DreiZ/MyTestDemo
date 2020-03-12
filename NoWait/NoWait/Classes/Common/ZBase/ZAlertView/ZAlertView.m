@@ -233,7 +233,7 @@ static ZAlertView *sharedManager;
     
     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     subTitleLabel.textColor = [UIColor colorTextGray];
-    subTitleLabel.text = title;
+    subTitleLabel.text = subTitle;
     subTitleLabel.numberOfLines = 0;
     subTitleLabel.textAlignment = NSTextAlignmentCenter;
     [subTitleLabel setFont:[UIFont fontContent]];
@@ -247,9 +247,9 @@ static ZAlertView *sharedManager;
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:btnTitle forState:UIControlStateNormal];
-    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
-    [leftBtn.titleLabel setFont:[UIFont fontContent]];
-    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [leftBtn.titleLabel setFont:[UIFont boldFontContent]];
+    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(0);
@@ -302,7 +302,7 @@ static ZAlertView *sharedManager;
     
     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     subTitleLabel.textColor = [UIColor colorTextGray];
-    subTitleLabel.text = title;
+    subTitleLabel.text = subTitle;
     subTitleLabel.numberOfLines = 0;
     subTitleLabel.textAlignment = NSTextAlignmentCenter;
     [subTitleLabel setFont:[UIFont fontContent]];
@@ -317,7 +317,7 @@ static ZAlertView *sharedManager;
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
-    [leftBtn.titleLabel setFont:[UIFont fontContent]];
+    [leftBtn.titleLabel setFont:[UIFont boldFontContent]];
     ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
@@ -336,11 +336,11 @@ static ZAlertView *sharedManager;
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
-    [rightBtn.titleLabel setFont:[UIFont fontContent]];
-    ViewBorderRadius(rightBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]));
+    [rightBtn.titleLabel setFont:[UIFont boldFontContent]];
+    ViewBorderRadius(rightBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
-            handleBlock(0);
+            handleBlock(1);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];

@@ -73,7 +73,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"全部", @"开放", @"未开发", @"审核中", @"审核失败"].mutableCopy;
+        _titleArr = @[@"全部", @"开放", @"未开放", @"审核中", @"审核失败"].mutableCopy;
     }
     return _titleArr;
 }

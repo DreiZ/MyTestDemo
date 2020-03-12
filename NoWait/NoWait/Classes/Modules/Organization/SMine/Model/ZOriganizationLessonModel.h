@@ -66,6 +66,12 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSMutableArray *fix_time;//固定时间
 @property (nonatomic,strong) NSString *p_information;
 
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *statusStr;
+@property (nonatomic,strong) NSString *pay_nums;
+@property (nonatomic,strong) NSString *score;
+@property (nonatomic,strong) NSString *fail;
+@property (nonatomic,assign) ZOrganizationLessonType lessonType;
 @end
 
 

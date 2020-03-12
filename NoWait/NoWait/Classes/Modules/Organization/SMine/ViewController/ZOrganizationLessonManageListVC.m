@@ -19,6 +19,10 @@
 @implementation ZOrganizationLessonManageListVC
 
 #pragma mark - vc delegate
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -27,41 +31,22 @@
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
-    [self refreshData];
 }
 
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-//    ZOriganizationLessonListModel *model = [[ZOriganizationLessonListModel alloc] init];
-//    if (self.type == ZOrganizationLessonTypeAll) {
-//        model.type = ZOrganizationLessonTypeOpen;
-//    }else{
-//        model.type = self.type;
-//    }
-//    model.state = @"开放课程";
-//    model.name = @"多米一号";
-//    model.price = @"140.00";
-//    model.sale = @"32";
-//    model.score = @"4.0";
-//    model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
-//
-//    if (self.type == ZOrganizationLessonTypeExamineFail) {
-//        model.fail = @"梵蒂冈山东；联盟打了；买了；购买的法律梵蒂冈地方是；蓝湖；来的舒服了；好；六点十分";
-//    }
     for (int i = 0; i < self.dataSources.count; i++) {
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
     }
-//
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
-//    [self.cellConfigArr addObject:progressCellConfig];
+
+    if (self.cellConfigArr.count > 0) {
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
 }
 
 - (void)setNavigation {
@@ -76,22 +61,52 @@
 }
 
 
-
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]){
         ZOrganizationLessonManageListCell *enteryCell = (ZOrganizationLessonManageListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOriganizationLessonListModel *model) {
-            [ZAlertView setAlertWithTitle:@"确定关闭课程？" leftBtnTitle:@"取消" rightBtnTitle:@"关闭" handlerBlock:^(NSInteger index) {
+            if (index == 1) {
+                [ZAlertView setAlertWithTitle:@"确定关闭课程？" subTitle:@"关闭的课程可编辑，或重新开启" leftBtnTitle:@"取消" rightBtnTitle:@"关闭课程" handlerBlock:^(NSInteger handle) {
+                    if (handle == 1) {
+                        [weakSelf closeLesson:model];
+                    }
+                }];
+            }else if (index == 2) {
+                [ZAlertView setAlertWithTitle:@"删除课程" subTitle:@"确定删除课程? 删除的课程不可恢复" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger handle) {
+                    if (handle == 1) {
+                        [weakSelf deleteLesson:model];
+                    }
+                }];
+            }else if (index == 3) {
+                [ZAlertView setAlertWithTitle:@"确定开放课程？" subTitle:@"开放课程后台审核后方可对学员可见" leftBtnTitle:@"取消" rightBtnTitle:@"开放课程" handlerBlock:^(NSInteger handle) {
+                    if (handle == 1) {
+                        [weakSelf openLesson:model];
+                    }
+                }];
                 
-            }];
+            }
         };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]) {
+        ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
         ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+        dvc.addModel.status = listmodel.status;
+        dvc.addModel.statusStr = listmodel.statusStr;
+        dvc.addModel.name = listmodel.name;
+        dvc.addModel.short_name = listmodel.short_name;
+        dvc.addModel.price = listmodel.price;
+        dvc.addModel.pay_nums = listmodel.pay_nums;
+        dvc.addModel.score = listmodel.score;
+        dvc.addModel.image_url = listmodel.image_url;
+        dvc.addModel.fail = listmodel.fail;
+        dvc.addModel.lessonID = listmodel.lessonID;
+        dvc.addModel.lessonType = listmodel.type;
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
@@ -101,31 +116,13 @@
 
 #pragma mark - 数据处理
 - (void)refreshData {
-    self.currentPage = 0;
+    self.currentPage = 1;
     self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    [param setObject:self.school.schoolID forKey:@"stores_id"];
-    switch (self.type) {
-        case ZOrganizationLessonTypeOpen:
-            [param setObject:@"1" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeClose:
-            [param setObject:@"2" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeExamine:
-            [param setObject:@"3" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeExamineFail:
-            [param setObject:@"4" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeAll:
-            [param setObject:@"0" forKey:@"status"];
-            break;
-            
-        default:
-            break;
-    }
     [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
@@ -135,7 +132,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -151,29 +148,9 @@
 - (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
     __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    [param setObject:self.school.schoolID forKey:@"stores_id"];
-    switch (self.type) {
-        case ZOrganizationLessonTypeOpen:
-            [param setObject:@"1" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeClose:
-            [param setObject:@"2" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeExamine:
-            [param setObject:@"3" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeExamineFail:
-            [param setObject:@"4" forKey:@"status"];
-            break;
-            case ZOrganizationLessonTypeAll:
-            [param setObject:@"0" forKey:@"status"];
-            break;
-            
-        default:
-            break;
-    }
     [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
@@ -182,7 +159,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -192,6 +169,86 @@
             [weakSelf.iTableView tt_endRefreshing];
             [weakSelf.iTableView tt_removeLoadMoreFooter];
         }
+    }];
+}
+
+- (void)refreshAllData {
+    self.currentPage = 1;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    [param setObject:@"1" forKey:@"page"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    [self refreshHeadData:param];
+}
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       switch (self.type) {
+           case ZOrganizationLessonTypeOpen:
+               [param setObject:@"1" forKey:@"status"];
+               break;
+               case ZOrganizationLessonTypeClose:
+               [param setObject:@"2" forKey:@"status"];
+               break;
+               case ZOrganizationLessonTypeExamine:
+               [param setObject:@"3" forKey:@"status"];
+               break;
+               case ZOrganizationLessonTypeExamineFail:
+               [param setObject:@"4" forKey:@"status"];
+               break;
+               case ZOrganizationLessonTypeAll:
+               [param setObject:@"0" forKey:@"status"];
+               break;
+               
+           default:
+               break;
+       }
+    return param;
+}
+
+
+- (void)closeLesson:(ZOriganizationLessonListModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationLessonViewModel closeLesson:@{@"id":SafeStr(model.lessonID),@"status":@"2"} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
+}
+
+
+- (void)openLesson:(ZOriganizationLessonListModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationLessonViewModel closeLesson:@{@"id":SafeStr(model.lessonID),@"status":@"1"} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
+}
+
+
+- (void)deleteLesson:(ZOriganizationLessonListModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationLessonViewModel deleteLesson:@{@"id":SafeStr(model.lessonID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
     }];
 }
 @end

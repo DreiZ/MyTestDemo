@@ -32,3 +32,5 @@ CGFloat safeAreaTop(void);
 
 CGFloat safeAreaBottom(void);
 
+NSString *imageFullUrl(NSString *);
+

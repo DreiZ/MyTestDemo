@@ -74,6 +74,13 @@
     return _topNavView;
 }
 
+- (ZOriganizationLessonAddModel *)addModel {
+    if (!_addModel) {
+        _addModel = [[ZOriganizationLessonAddModel alloc] init];
+    }
+    return _addModel;
+}
+
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
@@ -91,8 +98,8 @@
 #pragma mark - setDetailData
 - (void)setLessonName {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.viewModel.addModel.short_name;
-    model.rightTitle = self.viewModel.addModel.school;
+    model.leftTitle = self.addModel.short_name;
+    model.rightTitle = self.addModel.school;
     model.isHiddenLine = YES;
     model.leftFont = [UIFont boldFontMax1Title];
     model.rightFont = [UIFont fontContent];
@@ -116,7 +123,7 @@
 
 - (void)setIntro {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.viewModel.addModel.short_name;
+    model.leftTitle = self.addModel.short_name;
     model.leftFont = [UIFont fontContent];
     model.lineLeftMargin = CGFloatIn750(30);
     model.lineRightMargin = CGFloatIn750(30);
@@ -152,7 +159,7 @@
         [self.cellConfigArr addObject:menuCellConfig];
         
         ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
-        model1.leftTitle = [NSString stringWithFormat:@"%@分钟/节",self.viewModel.addModel.course_min];
+        model1.leftTitle = [NSString stringWithFormat:@"%@分钟/节",self.addModel.course_min];
         model1.leftFont = [UIFont fontContent];
         model1.cellHeight = CGFloatIn750(42);
         model1.isHiddenLine = YES;
@@ -187,7 +194,7 @@
         [self.cellConfigArr addObject:menuCellConfig];
         
         ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
-        model1.leftTitle = [NSString stringWithFormat:@"%@节",self.viewModel.addModel.course_number];
+        model1.leftTitle = [NSString stringWithFormat:@"%@节",self.addModel.course_number];
         model1.leftFont = [UIFont fontContent];
         model1.cellHeight = CGFloatIn750(42);
         model1.isHiddenLine = YES;
@@ -251,7 +258,7 @@
     }
     
     {
-        if (self.viewModel.addModel.is_experience) {
+        if (self.addModel.is_experience) {
             {
                 ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
                 model.cellHeight = CGFloatIn750(30);
@@ -270,7 +277,7 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
             
-            NSArray *titleArr = @[[NSString stringWithFormat:@"体验课价格：￥%@",self.viewModel.addModel.orderPrice],[NSString stringWithFormat:@"单节体验时长：%@分钟",self.viewModel.addModel.orderMin],[NSString stringWithFormat:@"可体验时间段：%@-%@",self.viewModel.addModel.orderTimeBegin,self.viewModel.addModel.orderTimeEnd]];
+            NSArray *titleArr = @[[NSString stringWithFormat:@"体验课价格：￥%@",self.addModel.orderPrice],[NSString stringWithFormat:@"单节体验时长：%@分钟",self.addModel.orderMin],[NSString stringWithFormat:@"可体验时间段：%@-%@",self.addModel.orderTimeBegin,self.addModel.orderTimeEnd]];
             for (int i = 0; i < titleArr.count; i++) {
                 ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
                 model.cellHeight = CGFloatIn750(54);
@@ -310,7 +317,7 @@
         [self.cellConfigArr addObject:menuCellConfig];
         
         ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
-        model1.leftTitle = [NSString stringWithFormat:@"%@月",self.viewModel.addModel.valid_at];
+        model1.leftTitle = [NSString stringWithFormat:@"%@月",self.addModel.valid_at];
         model1.leftFont = [UIFont fontContent];
         model1.cellHeight = CGFloatIn750(42);
         model1.isHiddenLine = YES;
@@ -335,7 +342,7 @@
         [self.cellConfigArr addObject:topCellConfig];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = self.viewModel.addModel.type.length > 0 ? @"固定开课时间":@"人满开课";
+        model.leftTitle = self.addModel.type.length > 0 ? @"固定开课时间":@"人满开课";
         model.leftFont = [UIFont boldFontContent];
         model.cellHeight = CGFloatIn750(114);
         model.isHiddenLine = NO;
@@ -363,8 +370,8 @@
     }
     {
            NSMutableArray *tempArr = @[].mutableCopy;
-           for (int i = 0; i < self.viewModel.addModel.fix_time.count; i++) {
-               ZBaseMenuModel *menuModel = self.viewModel.addModel.fix_time[i];
+           for (int i = 0; i < self.addModel.fix_time.count; i++) {
+               ZBaseMenuModel *menuModel = self.addModel.fix_time[i];
                
                if (menuModel && menuModel.units && menuModel.units.count > 0) {
                    NSMutableArray *tempSubArr = @[].mutableCopy;
@@ -445,8 +452,8 @@
 }
 
 - (NSString *)getEndTime:(ZBaseUnitModel *)model {
-    NSInteger temp = [self.viewModel.addModel.course_min intValue]/60;
-    NSInteger subTemp = [self.viewModel.addModel.course_min intValue]%60;
+    NSInteger temp = [self.addModel.course_min intValue]/60;
+    NSInteger subTemp = [self.addModel.course_min intValue]%60;
     
     NSInteger hourTemp = [model.name intValue] + temp;
     NSInteger minTemp = [model.subName intValue] + subTemp;
@@ -469,9 +476,9 @@
 
 - (void)setImagesAndPrice {
     NSMutableArray *images = @[].mutableCopy;
-    for (int i = 0; i < self.viewModel.addModel.images.count; i++) {
+    for (int i = 0; i < self.addModel.images.count; i++) {
         ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
-        id image = self.viewModel.addModel.images[i];
+        id image = self.addModel.images[i];
         if ([image isKindOfClass:[UIImage class]]) {
             model.data = image;
             [images addObject:model];
@@ -487,8 +494,8 @@
     [self.cellConfigArr addObject:statisticsCellConfig];
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.viewModel.addModel.price;
-    model.rightTitle = self.viewModel.addModel.course_number;
+    model.leftTitle = self.addModel.price;
+    model.rightTitle = self.addModel.course_number;
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];

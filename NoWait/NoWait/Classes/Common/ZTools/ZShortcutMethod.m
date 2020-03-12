@@ -65,3 +65,9 @@ CGFloat safeAreaBottom()
     
     return safeBottom;
 }
+
+
+NSString *imageFullUrl(NSString *url) {
+    return [NSString stringWithFormat:@"%@/%@",URL_file,url];
+}
+

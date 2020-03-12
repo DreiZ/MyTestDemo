@@ -52,7 +52,6 @@
     [super setDataSource];
     _items = @[].mutableCopy;
     _viewModel = [[ZOriganizationLessonViewModel alloc] init];
-    _viewModel.addModel = [[ZOriganizationLessonAddModel alloc] init];
     _viewModel.addModel.school = self.school.name;
     _viewModel.addModel.stores_id = self.school.schoolID;
     for (int j = 0; j < 9; j++) {
@@ -106,7 +105,7 @@
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
-            dvc.viewModel = weakSelf.viewModel;
+            dvc.addModel = weakSelf.viewModel.addModel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         }];
     }
