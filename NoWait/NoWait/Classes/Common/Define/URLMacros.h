@@ -197,6 +197,8 @@
 
 //添加课程
 #define URL_merchants_add_courses                    @"merchants/v1/add_courses"
+//编辑课程
+#define URL_merchants_edit_courses                   @"merchants/v1/edit_courses"
 
 //课程详情
 #define URL_merchants_get_courses_info               @"merchants/v1/get_courses_info"

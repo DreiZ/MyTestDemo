@@ -227,8 +227,8 @@
 }
 
 
-+ (void)addLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_add_courses params:params completionHandler:^(id data, NSError *error) {
++ (void)addLesson:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:isEdit ? URL_merchants_edit_courses : URL_merchants_add_courses params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

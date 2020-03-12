@@ -88,20 +88,14 @@
                     }
                 }];
             }else if (index == 0){
-                ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
-                ZOrganizationLessonAddVC *dvc = [[ZOrganizationLessonAddVC alloc] init];
-                dvc.viewModel.addModel.status = listmodel.status;
-                dvc.viewModel.addModel.statusStr = listmodel.statusStr;
-                dvc.viewModel.addModel.name = listmodel.name;
-                dvc.viewModel.addModel.short_name = listmodel.short_name;
-                dvc.viewModel.addModel.price = listmodel.price;
-                dvc.viewModel.addModel.pay_nums = listmodel.pay_nums;
-                dvc.viewModel.addModel.score = listmodel.score;
-                dvc.viewModel.addModel.image_url = listmodel.image_url;
-                dvc.viewModel.addModel.fail = listmodel.fail;
-                dvc.viewModel.addModel.lessonID = listmodel.lessonID;
-                dvc.viewModel.addModel.lessonType = listmodel.type;
-                [self.navigationController pushViewController:dvc animated:YES];
+                [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
+                    if (isSuccess) {
+                        ZOrganizationLessonAddVC *dvc = [[ZOrganizationLessonAddVC alloc] init];
+                        dvc.viewModel.addModel = addModel;
+                        dvc.school = weakSelf.school;
+                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    }
+                }];
             }
         };
     }

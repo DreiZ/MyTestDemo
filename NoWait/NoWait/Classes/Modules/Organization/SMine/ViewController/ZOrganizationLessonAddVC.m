@@ -43,6 +43,8 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    _viewModel.addModel.school = self.school.name;
+    _viewModel.addModel.stores_id = self.school.schoolID;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -202,6 +204,9 @@
                 return ;
             }
             NSMutableDictionary *otherDict = @{}.mutableCopy;
+            if (ValidStr(self.viewModel.addModel.lessonID)) {
+                [otherDict setObject:self.viewModel.addModel.lessonID forKey:@"id"];
+            }
             
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.short_name forKey:@"short_name"];
@@ -265,6 +270,7 @@
     return _bottomBtn;
 }
 
+#pragma mark - 提交数据
 - (NSString *)getWeekIndex:(NSString *)weekName {
     NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
     for (int i = 0; i < leftTitleArr.count; i++) {
@@ -306,8 +312,6 @@
             }
         }
     }
-    
-    
     return index;
 }
 
@@ -331,7 +335,6 @@
              [self updatePhotosStep2WithImage:index otherParams:otherDict];
          }
     }];
-     
 }
 
 - (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
@@ -362,7 +365,7 @@
         return;
     }
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image_url}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             [weakSelf.viewModel.addModel.net_images replaceObjectAtIndex:index withObject:message];
             complete(YES,index);
@@ -393,7 +396,7 @@
         
     }
     [TLUIUtility showLoading:@"上传其他数据"];
-    [ZOriganizationLessonViewModel addLesson:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel addLesson:otherDict isEdit:ValidStr(self.viewModel.addModel.lessonID) ? YES:NO completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
@@ -407,7 +410,11 @@
 
 #pragma mark - setCellData
 - (void)addTopAndNameDetai {
-    ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image_url];
+    id image = self.viewModel.addModel.image_url;
+    if (![image isKindOfClass:[UIImage class]]) {
+        image = imageFullUrl(image);
+    }
+    ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:image];
     [self.cellConfigArr addObject:addImageCellConfig];
     
     NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@8,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简介",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
@@ -492,7 +499,12 @@
     for (int j = 0; j < 9; j++) {
         ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
         if (j < self.viewModel.addModel.images.count) {
-            model.data = self.viewModel.addModel.images[j];
+            if (![self.viewModel.addModel.images[j] isKindOfClass:[UIImage class]]) {
+                model.data = imageFullUrl(self.viewModel.addModel.images[j]);
+            }else{
+                model.data = self.viewModel.addModel.images[j];
+            }
+            
             model.uid = [NSString stringWithFormat:@"%d", j];
         }
         model.name = @"必选";

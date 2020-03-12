@@ -82,6 +82,10 @@
         make.left.bottom.right.equalTo(self.view);
         make.height.mas_equalTo(200);
     }];
+    
+    if (ValidStr(self.content)) {
+        self.hintLabel.hidden = YES;
+    }
 }
 
 
