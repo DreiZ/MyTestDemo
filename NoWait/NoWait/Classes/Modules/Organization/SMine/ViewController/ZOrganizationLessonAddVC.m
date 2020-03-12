@@ -558,7 +558,7 @@
         NSArray *textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney",self.viewModel.addModel.orderPrice,@5,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
                              @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.orderMin,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
         
-//                             @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"", @"timeToTime",[NSString stringWithFormat:@"%@~%@",self.viewModel.addModel.orderTimeBegin,self.viewModel.addModel.orderTimeEnd],@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+//                             @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"", @"orderTimeToTime",[NSString stringWithFormat:@"%@~%@",self.viewModel.addModel.orderTimeBegin,self.viewModel.addModel.orderTimeEnd],@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
         
         for (int i = 0; i < textArr.count; i++) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -658,7 +658,7 @@
     cellModel.leftTitle = @"可体验时间段";
     cellModel.isTextEnabled = NO;
     cellModel.rightImage = @"rightBlackArrowN";
-    cellModel.cellTitle = @"timeToTime";
+    cellModel.cellTitle = @"orderTimeToTime";
     cellModel.isHiddenLine = YES;
     cellModel.cellHeight = CGFloatIn750(116);
     cellModel.rightFont = [UIFont fontContent];
@@ -904,7 +904,7 @@
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
         
-    }else if ([cellConfig.title isEqualToString:@"timeToTime"]){
+    }else if ([cellConfig.title isEqualToString:@"orderTimeToTime"]){
         ZTextFieldMultColCell *tCell = (ZTextFieldMultColCell *)cell;
         tCell.selectBlock = ^{
             ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
@@ -969,7 +969,7 @@
            [weakSelf initCellConfigArr];
            [weakSelf.iTableView reloadData];
         }];
-    } else if ([cellConfig.title isEqualToString:@"timeToTime"]) {
+    } else if ([cellConfig.title isEqualToString:@"orderTimeToTime"]) {
 //        [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
 //            weakSelf.viewModel.addModel.orderTimeBegin = start;
 //            weakSelf.viewModel.addModel.orderTimeEnd = end;

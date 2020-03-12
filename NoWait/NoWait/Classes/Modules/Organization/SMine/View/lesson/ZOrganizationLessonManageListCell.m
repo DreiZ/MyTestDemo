@@ -380,11 +380,11 @@
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     
-    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
-    self.lessonStatelabel.text = model.state;
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url]];
+    self.lessonStatelabel.text = model.statusStr;
     self.lessonNameLabel.text = model.name;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
-    self.salesNumLabel.text = [NSString stringWithFormat:@"已售%@",model.sale];
+    self.salesNumLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     self.scoreLabel.text = [NSString stringWithFormat:@"%@分",model.score];
     self.failLabel.text = model.fail;
     

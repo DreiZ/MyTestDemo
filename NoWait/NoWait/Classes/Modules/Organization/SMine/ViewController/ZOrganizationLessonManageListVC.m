@@ -34,32 +34,34 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZOriganizationLessonListModel *model = [[ZOriganizationLessonListModel alloc] init];
-    if (self.type == ZOrganizationLessonTypeAll) {
-        model.type = ZOrganizationLessonTypeOpen;
-    }else{
-        model.type = self.type;
+//    ZOriganizationLessonListModel *model = [[ZOriganizationLessonListModel alloc] init];
+//    if (self.type == ZOrganizationLessonTypeAll) {
+//        model.type = ZOrganizationLessonTypeOpen;
+//    }else{
+//        model.type = self.type;
+//    }
+//    model.state = @"开放课程";
+//    model.name = @"多米一号";
+//    model.price = @"140.00";
+//    model.sale = @"32";
+//    model.score = @"4.0";
+//    model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
+//
+//    if (self.type == ZOrganizationLessonTypeExamineFail) {
+//        model.fail = @"梵蒂冈山东；联盟打了；买了；购买的法律梵蒂冈地方是；蓝湖；来的舒服了；好；六点十分";
+//    }
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:progressCellConfig];
     }
-    model.state = @"开放课程";
-    model.name = @"多米一号";
-    model.price = @"140.00";
-    model.sale = @"32";
-    model.score = @"4.0";
-    model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
-    
-    if (self.type == ZOrganizationLessonTypeExamineFail) {
-        model.fail = @"梵蒂冈山东；联盟打了；买了；购买的法律梵蒂冈地方是；蓝湖；来的舒服了；好；六点十分";
-    }
-    
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
-    [self.cellConfigArr addObject:progressCellConfig];
+//
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
+//    [self.cellConfigArr addObject:progressCellConfig];
 }
 
 - (void)setNavigation {
@@ -106,19 +108,19 @@
     [param setObject:self.school.schoolID forKey:@"stores_id"];
     switch (self.type) {
         case ZOrganizationLessonTypeOpen:
-            [param setObject:@"1" forKey:@"stores_id"];
+            [param setObject:@"1" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeClose:
-            [param setObject:@"2" forKey:@"stores_id"];
+            [param setObject:@"2" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeExamine:
-            [param setObject:@"3" forKey:@"stores_id"];
+            [param setObject:@"3" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeExamineFail:
-            [param setObject:@"4" forKey:@"stores_id"];
+            [param setObject:@"4" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeAll:
-            [param setObject:@"0" forKey:@"stores_id"];
+            [param setObject:@"0" forKey:@"status"];
             break;
             
         default:
@@ -133,7 +135,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -154,19 +156,19 @@
     [param setObject:self.school.schoolID forKey:@"stores_id"];
     switch (self.type) {
         case ZOrganizationLessonTypeOpen:
-            [param setObject:@"1" forKey:@"stores_id"];
+            [param setObject:@"1" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeClose:
-            [param setObject:@"2" forKey:@"stores_id"];
+            [param setObject:@"2" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeExamine:
-            [param setObject:@"3" forKey:@"stores_id"];
+            [param setObject:@"3" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeExamineFail:
-            [param setObject:@"4" forKey:@"stores_id"];
+            [param setObject:@"4" forKey:@"status"];
             break;
             case ZOrganizationLessonTypeAll:
-            [param setObject:@"0" forKey:@"stores_id"];
+            [param setObject:@"0" forKey:@"status"];
             break;
             
         default:
@@ -180,7 +182,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];

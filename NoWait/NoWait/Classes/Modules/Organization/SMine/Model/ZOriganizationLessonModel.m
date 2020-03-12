@@ -15,6 +15,58 @@
 
 @implementation ZOriganizationLessonListModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"lessonID" : @"id",
+            };
+}
+
+- (NSString *)statusStr {
+    switch ([self.status intValue]) {
+        case 0:
+            return @"其它";
+            break;
+            case 1:
+            return @"开放课程";
+            break;
+            case 2:
+            return @"未开放课程";
+            break;
+            case 3:
+            return @"课程审核中";
+            break;
+            case 4:
+            return @"课程审核失败";
+            break;
+            
+        default:
+            break;
+    }
+    return @"其它";
+}
+
+- (ZOrganizationLessonType)type {
+    switch ([self.status intValue]) {
+        case 0:
+            return ZOrganizationLessonTypeAll;
+            break;
+            case 1:
+            return ZOrganizationLessonTypeOpen;
+            break;
+            case 2:
+            return ZOrganizationLessonTypeClose;
+            break;
+            case 3:
+            return ZOrganizationLessonTypeExamine;
+            break;
+            case 4:
+            return ZOrganizationLessonTypeExamineFail;
+            break;
+            
+        default:
+            break;
+    }
+    return ZOrganizationLessonTypeClose;
+}
 
 @end
 
@@ -63,7 +115,7 @@
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"list" : @"ZOriganizationLessonAddModel"
+             @"list" : @"ZOriganizationLessonListModel"
              };
 }
 

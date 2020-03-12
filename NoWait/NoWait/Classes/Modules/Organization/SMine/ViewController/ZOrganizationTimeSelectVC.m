@@ -328,7 +328,7 @@
                         
                         ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
                         smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
-                        smodel.subName = [NSString stringWithFormat:@"%ld:",(long)date.minute];
+                        smodel.subName = [NSString stringWithFormat:@"%ld",(long)date.minute];
                         [model.units addObject:smodel];
                         [weakSelf initCellConfigArr];
                         [weakSelf.iRightTableView reloadData];
