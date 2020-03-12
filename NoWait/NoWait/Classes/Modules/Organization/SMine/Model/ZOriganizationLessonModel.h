@@ -61,9 +61,11 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *orderTimeBegin;//预约时间段
 @property (nonatomic,strong) NSString *orderTimeEnd;//预约时间段结束
 @property (nonatomic,strong) NSMutableArray *experience_time;
+@property (nonatomic,strong) NSString *experience_time_net;
 @property (nonatomic,strong) NSString *valid_at;//有效期
 @property (nonatomic,strong) NSString *type;//1: 固定时间开课 2：人满开课
 @property (nonatomic,strong) NSMutableArray *fix_time;//固定时间
+@property (nonatomic,strong) NSString *fix_time_net;//固定时间
 @property (nonatomic,strong) NSString *p_information;
 
 @property (nonatomic,strong) NSString *status;

@@ -71,7 +71,6 @@
     for (int i = 0; i < list.count; i++) {
         [imageList addObject:list[i].data];
     }
-    
     _iCycleScrollView.imageURLStringsGroup = imageList;
 }
 @end

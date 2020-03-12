@@ -51,13 +51,19 @@
 - (void)setDataSource {
     [super setDataSource];
     _items = @[].mutableCopy;
-    _viewModel = [[ZOriganizationLessonViewModel alloc] init];
-    _viewModel.addModel.school = self.school.name;
-    _viewModel.addModel.stores_id = self.school.schoolID;
-    for (int j = 0; j < 9; j++) {
-        [_viewModel.addModel.images addObject:@""];
-        [_viewModel.addModel.net_images addObject:@""];
+}
+
+- (ZOriganizationLessonViewModel *)viewModel {
+    if (!_viewModel) {
+        _viewModel = [[ZOriganizationLessonViewModel alloc] init];
+        _viewModel.addModel.school = self.school.name;
+        _viewModel.addModel.stores_id = self.school.schoolID;
+        for (int j = 0; j < 9; j++) {
+            [_viewModel.addModel.images addObject:@""];
+            [_viewModel.addModel.net_images addObject:@""];
+        }
     }
+    return _viewModel;
 }
 
 - (void)initCellConfigArr {
@@ -503,6 +509,9 @@
 }
 
 - (void)addSchoolAndClass {
+    if ([self.viewModel.addModel.level intValue] < 1) {
+        self.viewModel.addModel.level = @"1";
+    }
     NSArray *temp = @[@"初级",@"进阶",@"精英"];
     NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO, @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"课程级别", @"请选择课程级别", @NO, @"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -924,6 +933,7 @@
     __weak typeof(self) weakSelf = self;
     
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddImageCell"]){
+        [self.iTableView endEditing:YES];
         [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, CGFloatIn750(400)) complete:^(NSArray<LLImagePickerModel *> *list) {
             if (list && list.count > 0) {
                 LLImagePickerModel *model = list[0];
@@ -951,8 +961,8 @@
 //           [weakSelf initCellConfigArr];
 //           [weakSelf.iTableView reloadData];
 //        }];
-        
     }else if ([cellConfig.title isEqualToString:@"class"]) {
+        [self.iTableView endEditing:YES];
         NSMutableArray *items = @[].mutableCopy;
         NSArray *temp = @[@"初级",@"进阶",@"精英"];
         for (int i = 0; i < temp.count; i++) {
@@ -964,17 +974,12 @@
         [self.items removeAllObjects];
         [self.items addObjectsFromArray:items];
         [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
-            weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index + 1];
+            weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
            [weakSelf initCellConfigArr];
            [weakSelf.iTableView reloadData];
         }];
     } else if ([cellConfig.title isEqualToString:@"orderTimeToTime"]) {
-//        [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
-//            weakSelf.viewModel.addModel.orderTimeBegin = start;
-//            weakSelf.viewModel.addModel.orderTimeEnd = end;
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }];
+        [self.iTableView endEditing:YES];
         ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
         svc.timeArr = weakSelf.viewModel.addModel.experience_time;
         svc.isStartAndEnd = YES;
@@ -984,15 +989,12 @@
             [weakSelf.iTableView reloadData];
         };
         [weakSelf.navigationController pushViewController:svc animated:YES];
-
-//        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
-//
-//        }];
     }else if ([cellConfig.title isEqualToString:@"isOrder"]){
         self.viewModel.addModel.is_experience = [self.viewModel.addModel.is_experience intValue] == 1? @"2": @"1";
         [self initCellConfigArr];
         [self.iTableView reloadData];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
+        [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"课程介绍";
         tvc.max = 1000;
@@ -1005,6 +1007,7 @@
         };
         [self.navigationController pushViewController:tvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"p_information"]){
+        [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"购买须知";
         tvc.max = 200;

@@ -48,4 +48,52 @@
     return attributeString;
 }
 
+
+- (NSDictionary *)jsonStringToDictionary
+{
+    if (self == nil) {
+        return nil;
+    }
+
+    NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err)
+    {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
+
+-(id)JSONValue {
+    NSData* data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    __autoreleasing NSError* error = nil;
+    id result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if (error != nil) return self;
+    
+    if (result && [result isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:result];
+        NSArray *allKey = [tempDict allKeys];
+        for (NSString *key in allKey) {
+            id subTemp = tempDict[key];
+            if ([subTemp isKindOfClass:[NSString class]]) {
+                [tempDict setObject:[subTemp JSONValue] forKey:key];
+            }
+        }
+        result = tempDict;
+    }else if (result && [result isKindOfClass:[NSArray class]]) {
+        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:result];
+        for (int i = 0;i < tempArr.count; i++) {
+            id temp = tempArr[i];
+            if ([temp isKindOfClass:[NSString class]]) {
+                [tempArr replaceObjectAtIndex:i withObject:[temp JSONValue]];
+            }
+        }
+        result = tempArr;
+    }
+    return result;
+}
 @end

@@ -106,7 +106,7 @@ static ZAlertDataSinglePickerView *sharedManager;
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
-            self.handleBlock(1);
+            self.handleBlock(self.proIndex);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];

@@ -156,6 +156,8 @@
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"lessonID" : @"id",
+             @"fix_time_net" : @"fix_time",
+             @"experience_time_net" : @"experience_time",
             };
 }
 @end

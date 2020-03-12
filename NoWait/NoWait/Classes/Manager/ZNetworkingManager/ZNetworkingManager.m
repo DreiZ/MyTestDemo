@@ -111,11 +111,11 @@
                 return ;
             }
 //            NSData* tempData = UIImagePNGRepresentation(image);
-            NSData* tempData = UIImageJPEGRepresentation(image, 0.03);
+            NSData* tempData = UIImageJPEGRepresentation(image, 0.3);
             if (tempData == nil) {
                 return;
             }
-            [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:[NSString stringWithFormat:@"%@",@"file"] fileName:[NSString stringWithFormat:@"%@.png",@"file"] mimeType:@"image/png"];
+            [formData appendPartWithFileData:tempData name:[NSString stringWithFormat:@"%@",@"file"] fileName:[NSString stringWithFormat:@"%@.png",@"file"] mimeType:@"image/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

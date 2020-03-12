@@ -32,6 +32,7 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    [self refreshData];
 }
 
 - (void)setupMainView {
@@ -499,5 +500,16 @@
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];
+}
+
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.addModel.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
+        if (isSuccess) {
+            weakSelf.addModel = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

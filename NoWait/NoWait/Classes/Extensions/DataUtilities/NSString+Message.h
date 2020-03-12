@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (Message)
 
 - (NSAttributedString *)toMessageString;
-
+- (NSDictionary *)jsonStringToDictionary;
+-(id)JSONValue ;
 @end
 
 NS_ASSUME_NONNULL_END
