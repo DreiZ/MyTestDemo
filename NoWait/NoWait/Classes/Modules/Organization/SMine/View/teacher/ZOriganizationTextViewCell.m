@@ -94,7 +94,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    NSInteger _isMaxLength = 200;
+    NSInteger _isMaxLength = _max > 0 ? _max : 300;
     if (textView.text.length > 0) {
         _thintLabel.hidden = YES;
     }else {
@@ -111,6 +111,24 @@
         textView.text = str;
     }
 //    _model.des = textView.text;
+    if (self.textChangeBlock) {
+        self.textChangeBlock(textView.text);
+    }
+}
+
+- (void)setContent:(NSString *)content {
+    _content = content;
+    _iTextView.text = content;
+    if (ValidStr(content)) {
+        self.thintLabel.hidden = YES;
+    }else{
+        self.thintLabel.hidden = NO;
+    }
+}
+
+- (void)setHint:(NSString *)hint {
+    _hint = hint;
+    _thintLabel.text = hint;
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

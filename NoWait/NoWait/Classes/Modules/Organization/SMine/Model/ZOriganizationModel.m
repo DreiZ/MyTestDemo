@@ -95,3 +95,19 @@
     return @{@"schoolID" : @"id"};
 }
 @end
+
+@implementation ZOriganizationStudentListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"studentID" : @"id"};
+}
+@end
+
+@implementation ZOriganizationStudentAddModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"studentID" : @"id"};
+}
+@end
+
+
+@implementation ZOriganizationStudentListNetModel
+@end

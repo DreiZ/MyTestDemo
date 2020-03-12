@@ -59,15 +59,15 @@
 - (void)setupMainView {
     [super setupMainView];
     
-    [self.view addSubview:self.switchView];
-    [self.switchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(126));
-    }];
+//    [self.view addSubview:self.switchView];
+//    [self.switchView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.right.equalTo(self.view);
+//        make.height.mas_equalTo(CGFloatIn750(126));
+//    }];
     
     [self.view addSubview:self.searchTopView];
     [self.searchTopView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.switchView.mas_bottom);
+        make.top.equalTo(self.view.mas_top);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(126));
     }];
@@ -79,8 +79,6 @@
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
         make.height.mas_equalTo(CGFloatIn750(106));
     }];
-    
-    
    
     [self.view addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,6 +118,7 @@
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navRightBtn bk_whenTapped:^{
             ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
+            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }

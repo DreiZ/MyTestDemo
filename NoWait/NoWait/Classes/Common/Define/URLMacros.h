@@ -194,7 +194,7 @@
 //编辑校区门店
 #define URL_merchants_edit_merchants_store           @"merchants/v1/edit_merchants_store"
 
-
+#pragma mark - 课程
 //添加课程
 #define URL_merchants_add_courses                    @"merchants/v1/add_courses"
 //编辑课程
@@ -214,4 +214,20 @@
 
 //搜索课程
 #define URL_merchants_search_courses                 @"merchants/v1/search_courses"
+
+
+#pragma mark - 学员
+//添加学员
+#define URL_merchants_add_student                 @"merchants/v1/add_student"
+
+//学员list
+#define URL_merchants_get_student_list                 @"merchants/v1/get_student_list"
+
+//来源渠道
+#define URL_merchants_get_source_list                 @"merchants/v1/get_source_list"
+
+//排课列表
+#define URL_merchants_get_arrang_student_list                 @"merchants/v1/get_arrang_student_list"
+
+
 #endif /* URLMacros_h */

@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *pages;
 @end
 
-
+#pragma mark - 班级管理
 @interface ZOriganizationClassListModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *type;
@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *pages;
 @end
 
+#pragma mark - 校区管理
 @interface ZOriganizationSchoolListModel : NSObject
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *schoolID;
@@ -95,8 +96,53 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *stores_info;
 @property (nonatomic,strong) NSMutableArray *week_days;
 @property (nonatomic,strong) NSMutableArray *merchant_stores_tags;
+@end
 
 
+
+#pragma mark - 学员管理
+@interface ZOriganizationStudentListModel : ZBaseModel
+@property (nonatomic,strong) NSString *studentID;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *now_progress;
+@property (nonatomic,strong) NSString *stores_coach_id;
+@property (nonatomic,strong) NSString *stores_courses_class_id;
+@end
+
+@interface ZOriganizationStudentAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *studentID;
+@property (nonatomic,strong) NSString *stores_id; //门店id
+@property (nonatomic,strong) NSString *code_id; //用户code_id
+@property (nonatomic,strong) NSString *name; //学员姓名
+@property (nonatomic,strong) NSString *phone;//学员手机号
+@property (nonatomic,strong) id image; //学员头像
+@property (nonatomic,strong) NSString *birthday;//学员生日
+@property (nonatomic,strong) NSString *card_type; // 证件类型   1：身份证 2：护照
+@property (nonatomic,strong) NSString *id_card;//证件号
+@property (nonatomic,strong) NSString *sex;//学员性别    1:nan 2:nv
+@property (nonatomic,strong) NSString *work_place;// 工作单位
+@property (nonatomic,strong) NSString *sign_up_at; //报名日期  如：2020-01-01
+@property (nonatomic,strong) NSString *stores_courses_class_id;//课程id
+@property (nonatomic,strong) NSString *stores_courses_class;//课程id
+@property (nonatomic,strong) NSString *source;// 来源渠道
+@property (nonatomic,strong) NSString *teacher_id;//教师id
+@property (nonatomic,strong) NSString *teacher;//教师id
+@property (nonatomic,strong) NSString *wechat;// 微信号
+@property (nonatomic,strong) NSString *referees;//推荐人
+@property (nonatomic,strong) NSString *emergency_name;//紧急联系人名称
+@property (nonatomic,strong) NSString *emergency_phone;//紧急联系人电话
+@property (nonatomic,strong) NSString *emergency_contact;//与紧急联系人的关系
+@property (nonatomic,strong) NSString *remark;// 备注  
+@end
+
+
+@interface ZOriganizationStudentListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationStudentListModel *>*list;
+@property (nonatomic,copy) NSString *total;
 @end
 
 NS_ASSUME_NONNULL_END

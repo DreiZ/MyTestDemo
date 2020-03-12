@@ -89,7 +89,6 @@
                 ZBaseUnitModel *subModel = model.units[j];
                 [time addObject:subModel];
             }
-            
             for (int k = 0; k < time.count; k++) {
                 if (self.isStartAndEnd) {
                     ZBaseUnitModel *subModel = time[k];

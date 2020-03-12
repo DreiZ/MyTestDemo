@@ -80,12 +80,21 @@
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"uploadUserHeadImage"];
+//        _headImageView.image = [UIImage imageNamed:@"uploadUserHeadImage"];
         _headImageView.backgroundColor = adaptAndDarkColor([UIColor colorGrayContentBG], [UIColor colorGrayContentBGDark]);
         _headImageView.contentMode = UIViewContentModeCenter;
         ViewRadius(_headImageView, CGFloatIn750(52));
     }
     return _headImageView;
+}
+
+- (void)setImage:(id)image {
+    _image = image;
+    if ([image isKindOfClass:[UIImage class]]) {
+        _headImageView.image = image;
+    }else{
+        [_headImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"uploadUserHeadImage"]];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
