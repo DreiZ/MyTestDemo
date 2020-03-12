@@ -55,11 +55,9 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *course_min;
 @property (nonatomic,strong) NSString *course_number;
 @property (nonatomic,strong) NSString *course_class_number;
-@property (nonatomic,strong) NSString *is_experience;//是否接受预约
-@property (nonatomic,strong) NSString *orderPrice;//预约价格
-@property (nonatomic,strong) NSString *orderMin;//预约时间
-@property (nonatomic,strong) NSString *orderTimeBegin;//预约时间段
-@property (nonatomic,strong) NSString *orderTimeEnd;//预约时间段结束
+@property (nonatomic,strong) NSString *is_experience;//是否接受预约1: 是 2：否
+@property (nonatomic,strong) NSString *experience_price;//预约价格
+@property (nonatomic,strong) NSString *experience_duration;//预约时间
 @property (nonatomic,strong) NSMutableArray *experience_time;
 @property (nonatomic,strong) NSString *experience_time_net;
 @property (nonatomic,strong) NSString *valid_at;//有效期

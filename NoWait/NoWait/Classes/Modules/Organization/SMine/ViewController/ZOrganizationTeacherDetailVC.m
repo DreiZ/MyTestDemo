@@ -165,8 +165,6 @@
     }];
 }
 
-
-
 #pragma mark lazy loading...
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {

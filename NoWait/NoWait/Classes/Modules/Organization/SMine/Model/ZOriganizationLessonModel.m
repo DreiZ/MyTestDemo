@@ -91,10 +91,8 @@
         self.course_min = @"";
         self.course_number = @"";
         self.course_class_number =  @"";
-        self.orderPrice = @"";//预约价格
-        self.orderMin = @"";//预约时间
-        self.orderTimeBegin = @"00:00";//预约时间段
-        self.orderTimeEnd = @"00:00";//预约时间段结束
+        self.experience_price = @"";//预约价格
+        self.experience_duration = @"";//预约时间
 
         self.experience_time = @[].mutableCopy;
         self.valid_at = @"";//有效期

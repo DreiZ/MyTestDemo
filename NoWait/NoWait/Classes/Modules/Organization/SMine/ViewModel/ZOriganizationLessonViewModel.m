@@ -129,8 +129,8 @@
                                             NSArray *array = [str componentsSeparatedByString:@"~"];
                                             if (ValidArray(array) && array.count == 2) {
                                                 ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
-                                                umodel.name = [NSString stringWithFormat:@"%d",[array[0] intValue]];
-                                                umodel.subName = [NSString stringWithFormat:@"%d",[array[1] intValue]];
+                                                umodel.name = array[0];
+                                                umodel.subName = array[1];
                                                 [unit addObject:umodel];
                                             }
                                         }
@@ -144,8 +144,6 @@
                     }
                 }
                 
-                
-                
                 completeBlock(YES, model);
                 return ;
             }else{
@@ -156,7 +154,6 @@
         completeBlock(NO, @"操作失败");
     }];
 }
-
 
 + (void)closeLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_close_courses params:params completionHandler:^(id data, NSError *error) {

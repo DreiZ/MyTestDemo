@@ -63,10 +63,10 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
-        _priceLabel.text = @"140";
+        _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont boldFontContent]];
+        [_priceLabel setFont:[UIFont boldFontTitle]];
     }
     return _priceLabel;
 }

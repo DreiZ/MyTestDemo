@@ -171,11 +171,11 @@
             }
             
             if([weakSelf.viewModel.addModel.is_experience intValue] == 1){
-                if (!ValidStr(weakSelf.viewModel.addModel.orderPrice)) {
+                if (!ValidStr(weakSelf.viewModel.addModel.experience_price)) {
                     [TLUIUtility showErrorHint:@"请输入预约价格"];
                     return ;
                 }
-                if (!ValidStr(weakSelf.viewModel.addModel.orderMin)) {
+                if (!ValidStr(weakSelf.viewModel.addModel.experience_duration)) {
                     [TLUIUtility showErrorHint:@"请输入预约单次时长"];
                     return ;
                 }
@@ -219,8 +219,8 @@
             
             if([self.viewModel.addModel.is_experience intValue] == 1){
                 
-                [otherDict setObject:self.viewModel.addModel.orderPrice forKey:@"experience_price"];
-                [otherDict setObject:self.viewModel.addModel.orderMin forKey:@"experience_duration"];
+                [otherDict setObject:self.viewModel.addModel.experience_price forKey:@"experience_price"];
+                [otherDict setObject:self.viewModel.addModel.experience_duration forKey:@"experience_duration"];
                 
                 //可预约时间段
                 NSMutableDictionary *orderDict = @{}.mutableCopy;
@@ -563,8 +563,8 @@
     
     [self.cellConfigArr addObject:menuCellConfig];
     if ([self.viewModel.addModel.is_experience intValue] == 1) {
-        NSArray *textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney",self.viewModel.addModel.orderPrice,@5,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
-                             @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.orderMin,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
+        NSArray *textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney",self.viewModel.addModel.experience_price,@5,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
+                             @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.experience_duration,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
         
 //                             @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"", @"orderTimeToTime",[NSString stringWithFormat:@"%@~%@",self.viewModel.addModel.orderTimeBegin,self.viewModel.addModel.orderTimeEnd],@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
         
@@ -854,12 +854,12 @@
     }else if ([cellConfig.title isEqualToString:@"tiMoney"]) {
         ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
         tCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.orderPrice = text;
+            weakSelf.viewModel.addModel.experience_price = text;
         };
     }else if ([cellConfig.title isEqualToString:@"tiMin"]) {
         ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
         tCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.orderMin = text;
+            weakSelf.viewModel.addModel.experience_duration = text;
         };
     }else if ([cellConfig.title isEqualToString:@"validityTime"]) {
         ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
