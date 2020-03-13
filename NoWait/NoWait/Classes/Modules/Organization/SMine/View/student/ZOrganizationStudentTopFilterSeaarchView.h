@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationStudentTopFilterSeaarchView : UIView
+@property (nonatomic,assign) NSInteger openIndex;
+@property (nonatomic,assign) BOOL isInside;
+@property (nonatomic,strong) void (^filterBlock)(NSInteger,id);
+@property (nonatomic,strong) NSString *schoolID;
 
+- (void)setLeftName:(NSString *)left right:(NSString *)right;
 @end
 
-NS_ASSUME_NONNULL_END

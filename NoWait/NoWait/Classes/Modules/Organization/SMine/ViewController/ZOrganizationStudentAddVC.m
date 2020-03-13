@@ -213,20 +213,21 @@
 
 - (void)updateImageWithOtherParams:(NSMutableDictionary *)otherDict {
     if (self.viewModel.addModel.image && [self.viewModel.addModel.image isKindOfClass:[UIImage class]]) {
-        [self updateOtherDataWithParams:otherDict];
+        [TLUIUtility showLoading:@"上传图片中"];
+        __weak typeof(self) weakSelf = self;
+        [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+            if (isSuccess) {
+                weakSelf.viewModel.addModel.image = message;
+                [weakSelf updateOtherDataWithParams:otherDict];
+            }else{
+                [TLUIUtility hiddenLoading];
+                [TLUIUtility showErrorHint:message];
+            }
+        }];
         return;
     }
-    [TLUIUtility showLoading:@"上传图片中"];
-    __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            weakSelf.viewModel.addModel.image = message;
-            [weakSelf updateOtherDataWithParams:otherDict];
-        }else{
-            [TLUIUtility hiddenLoading];
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
+    
+    [self updateOtherDataWithParams:otherDict];
 }
 
 - (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
@@ -335,6 +336,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"sex"]) {
+        [self.iTableView endEditing:YES];
         NSMutableArray *items = @[].mutableCopy;
         NSArray *temp = @[@"男",@"女"];
         for (int i = 0; i < temp.count; i++) {
@@ -347,18 +349,21 @@
             weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
         }];
     }else if ([cellConfig.title isEqualToString:@"birthday"]) {
+        [self.iTableView endEditing:YES];
         [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
             weakSelf.viewModel.addModel.birthday = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"registrationDate"]) {
+        [self.iTableView endEditing:YES];
         [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
             weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"lesson"]) {
+        [self.iTableView endEditing:YES];
         [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
@@ -368,6 +373,7 @@
             }
         }];
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
+        [self.iTableView endEditing:YES];
         [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.teacher = model.teacher_name;

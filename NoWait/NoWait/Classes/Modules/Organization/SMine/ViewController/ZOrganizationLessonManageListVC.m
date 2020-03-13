@@ -24,6 +24,7 @@
     [super viewDidAppear:animated];
     [self refreshData];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -31,7 +32,6 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self initCellConfigArr];
 }
 
 #pragma mark - setdata

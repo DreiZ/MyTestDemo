@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZBaseModel.h"
 #import "ZBaseNetworkBackModel.h"
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface ZOriganizationModel : ZBaseModel
 
@@ -99,7 +99,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-
 #pragma mark - 学员管理
 @interface ZOriganizationStudentListModel : ZBaseModel
 @property (nonatomic,strong) NSString *studentID;
@@ -111,7 +110,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *now_progress;
 @property (nonatomic,strong) NSString *stores_coach_id;
 @property (nonatomic,strong) NSString *stores_courses_class_id;
+@property (nonatomic,strong) NSString *coach_img;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,assign) BOOL isSelected;
+@property (nonatomic,assign) BOOL isEdit;
 @end
+
 
 @interface ZOriganizationStudentAddModel : ZBaseModel
 @property (nonatomic,strong) NSString *studentID;
@@ -159,4 +163,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *total;
 @end
 
-NS_ASSUME_NONNULL_END

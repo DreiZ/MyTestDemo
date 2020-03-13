@@ -9,6 +9,7 @@
 #import "ZOrganizationTopFilterView.h"
 #import "ZOrganizationStudentTopFilterSeaarchView.h"
 #import "AppDelegate.h"
+#import "ZOriganizationTeacherViewModel.h"
 
 @interface ZOrganizationTopFilterView ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *fileterView;
@@ -17,10 +18,21 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,assign) NSInteger currentPage;
 @end
 
 @implementation ZOrganizationTopFilterView
 
+static ZOrganizationTopFilterView *sharedManager;
+
++ (ZOrganizationTopFilterView *)sharedManager {
+    @synchronized (self) {
+        if (!sharedManager) {
+            sharedManager = [[ZOrganizationTopFilterView alloc] init];
+        }
+    }
+    return sharedManager;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -37,6 +49,7 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     self.cellConfigArr = @[].mutableCopy;
+    self.dataSources = @[].mutableCopy;
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
@@ -74,8 +87,6 @@
         make.height.mas_equalTo(0.5);
     }];
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
 }
 
 - (UIView *)contView {
@@ -92,11 +103,19 @@
 
 - (ZOrganizationStudentTopFilterSeaarchView *)fileterView {
     if (!_fileterView) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _fileterView = [[ZOrganizationStudentTopFilterSeaarchView alloc] init];
-//        _searchView.handleBlock = ^(NSInteger index) {
-//
-//        };
+        _fileterView.isInside = YES;
+        _fileterView.filterBlock = ^(NSInteger sindex, id data) {
+            if (sindex == weakSelf.index) {
+                weakSelf.fileterView.openIndex = 3;
+                [weakSelf removeFromSuperview];
+            }else{
+                weakSelf.index = sindex;
+                weakSelf.fileterView.openIndex = sindex;
+                [weakSelf.iTableView reloadData];
+            }
+        };
     }
     return _fileterView;
 }
@@ -162,20 +181,51 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseSingleCellModel *model = cellConfig.dataModel;
+    if (self.completeBlock) {
+        self.completeBlock(self.index, model.data);
+    }
+    [self removeFromSuperview];
 }
 
+- (void)setIndex:(NSInteger)index {
+    _index = index;
+    if (index == 0) {
+        [self.iTableView tt_addLoadMoreFooterWithAction:^{
+            [self refreshMoreData];
+        }];
+        [self initCellConfigArr];
+        [self.iTableView reloadData];
+        [self refreshData];
+    }else{
+         [self.iTableView tt_removeLoadMoreFooter];
+        
+        [self.cellConfigArr removeAllObjects];
+        NSArray *titleArr = @[@"待排课",@"待开课",@"已结课",@"待补课",@"已过期"];
+        for (int i = 0; i < titleArr.count; i++) {
+            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.leftTitle = titleArr[i];
+            model.leftFont = [UIFont fontSmall];
+            model.isHiddenLine = YES;
+            model.data = titleArr[i];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
+    }
+}
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
-    
-    NSArray *titleArr = @[@"全部",@"教师名",@"费用",@"教师2"];
-    for (int i = 0; i < titleArr.count; i++) {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationTeacherListModel *listModel = self.dataSources[i];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = titleArr[i];
+        model.leftTitle = listModel.teacher_name;
         model.leftFont = [UIFont fontSmall];
         model.isHiddenLine = YES;
+        model.data = listModel;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
@@ -191,10 +241,79 @@
         self.alpha = 1;
         self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     }];
+    [self.iTableView reloadData];
 }
 
-+ (void)showFilter  {
-    ZOrganizationTopFilterView *fview = [[ZOrganizationTopFilterView alloc] init];
-    [fview showFilter];
+- (void)showFilterWithIndex:(NSInteger)index {
+    self.index = index;
+    self.fileterView.openIndex = index;
+    
+    [self showFilter];
+}
+
+- (void)setLeftName:(NSString *)left right:(NSString *)right {
+    [self.fileterView setLeftName:left right:right];
+}
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+       [param setObject:self.schoolID forKey:@"stores_id"];
+       [param setObject:@"0" forKey:@"status"];
+    return param;
 }
 @end

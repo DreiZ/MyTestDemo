@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTopFilterView : UIView
-+ (void)showFilter;
+@property (nonatomic,strong) void (^completeBlock)(NSInteger,id);
+@property (nonatomic,assign) NSInteger index;
+@property (nonatomic,assign) BOOL isShow;
+@property (nonatomic,strong) NSString *schoolID;
+
+
++ (ZOrganizationTopFilterView *)sharedManager;
+- (void)showFilterWithIndex:(NSInteger)index;
+- (void)setLeftName:(NSString *)left right:(NSString *)right;
 @end
 
-NS_ASSUME_NONNULL_END

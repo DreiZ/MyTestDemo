@@ -18,6 +18,9 @@
 @property (nonatomic,strong) UIImageView *midArrow;
 
 @property (nonatomic,strong) UIView *contView;
+@property (nonatomic,strong) ZOrganizationTopFilterView *filterView;
+@property (nonatomic,strong) NSString *left;
+@property (nonatomic,strong) NSString *right;
 
 @end
 
@@ -74,16 +77,23 @@
     [filterView addSubview:self.midBtn];
     [self.midBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(backView);
-        make.centerX.equalTo(filterView.mas_centerX);
+        make.left.equalTo(filterView.mas_centerX);
         make.width.mas_equalTo(CGFloatIn750(160));
     }];
     
-    [filterView addSubview:self.rightBtn];
-    [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(backView);
-        make.right.equalTo(filterView.mas_right).offset(CGFloatIn750(-20));
-        make.width.mas_equalTo(CGFloatIn750(160));
-    }];
+//    [filterView addSubview:self.rightBtn];
+//    [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.bottom.equalTo(backView);
+//        make.right.equalTo(filterView.mas_right).offset(CGFloatIn750(-20));
+//        make.width.mas_equalTo(CGFloatIn750(160));
+//    }];
+}
+
+-(ZOrganizationTopFilterView *)filterView {
+    if (!_filterView) {
+        _filterView = [ZOrganizationTopFilterView sharedManager];
+    }
+    return _filterView;
 }
 
 - (UIView *)contView {
@@ -99,8 +109,9 @@
 
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
+        __weak typeof(self) weakSelf = self;
         _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_leftBtn setTitle:@"来源渠道" forState:UIControlStateNormal];
+        [_leftBtn setTitle:@"带课老师" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_leftBtn addSubview:self.leftArrow];
@@ -109,7 +120,21 @@
             make.centerY.equalTo(self.leftBtn.mas_centerY);
         }];
         [_leftBtn bk_whenTapped:^{
-            [ZOrganizationTopFilterView showFilter];
+            if (weakSelf.isInside) {
+                if (weakSelf.filterBlock) {
+                    weakSelf.filterBlock(0, nil);
+                }
+            }else{
+                weakSelf.filterView.completeBlock = ^(NSInteger index, id data) {
+                    if (weakSelf.filterBlock) {
+                        weakSelf.filterBlock(index, data);
+                    }
+                };
+                weakSelf.openIndex = 0;
+                weakSelf.filterView.schoolID = weakSelf.schoolID;
+                [weakSelf.filterView setLeftName:self.leftBtn.titleLabel.text right:self.midBtn.titleLabel.text];
+                [weakSelf.filterView showFilterWithIndex:0];
+            }
         }];
     }
     return _leftBtn;
@@ -117,14 +142,32 @@
 
 - (UIButton *)midBtn {
     if (!_midBtn) {
+        __weak typeof(self) weakSelf = self;
         _midBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_midBtn setTitle:@"来源渠道" forState:UIControlStateNormal];
+        [_midBtn setTitle:@"学员状态" forState:UIControlStateNormal];
         [_midBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_midBtn.titleLabel setFont:[UIFont fontSmall]];
         [_midBtn addSubview:self.midArrow];
         [self.midArrow mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.midBtn.titleLabel.mas_right);
             make.centerY.equalTo(self.midBtn.mas_centerY);
+        }];
+        [_midBtn bk_whenTapped:^{
+            if (weakSelf.isInside) {
+                if (weakSelf.filterBlock) {
+                    weakSelf.filterBlock(1, nil);
+                }
+            }else{
+                weakSelf.filterView.completeBlock = ^(NSInteger index, id data) {
+                    if (weakSelf.filterBlock) {
+                        weakSelf.filterBlock(index, data);
+                    }
+                };
+                weakSelf.openIndex = 1;
+                weakSelf.filterView.schoolID = weakSelf.schoolID;
+                [weakSelf.filterView setLeftName:self.leftBtn.titleLabel.text right:self.midBtn.titleLabel.text];
+                [weakSelf.filterView showFilterWithIndex:1];
+            }
         }];
     }
     return _midBtn;
@@ -167,5 +210,35 @@
         _rightArrow.image = [UIImage imageNamed:@"mineLessonDown"];
     }
     return _rightArrow;
+}
+
+- (void)setOpenIndex:(NSInteger)openIndex {
+    _openIndex = openIndex;
+//    if (_openIndex == 0) {
+//        _leftArrow.image = [UIImage imageNamed:@"mineLessonSelectDown"];
+//        _midArrow.image = [UIImage imageNamed:@"mineLessonDown"];
+//    }else if (_openIndex == 1){
+//        _leftArrow.image = [UIImage imageNamed:@"mineLessonDown"];
+//        _midArrow.image = [UIImage imageNamed:@"mineLessonSelectDown"];
+//    }else{
+//        _leftArrow.image = [UIImage imageNamed:@"mineLessonDown"];
+//        _midArrow.image = [UIImage imageNamed:@"mineLessonDown"];
+//    }
+}
+
+- (void)setLeftName:(NSString *)left right:(NSString *)right {
+    _left = left;
+    _right = right;
+    if (ValidStr(left)) {
+        [_leftBtn setTitle:SafeStr(left) forState:UIControlStateNormal];
+    }else{
+//        [_leftBtn setTitle:@"带课老师" forState:UIControlStateNormal];
+    }
+    if (ValidStr(right)) {
+        [_midBtn setTitle:SafeStr(right) forState:UIControlStateNormal];
+    }else{
+//        [_rightBtn setTitle:@"学员状态" forState:UIControlStateNormal];
+    }
+    
 }
 @end

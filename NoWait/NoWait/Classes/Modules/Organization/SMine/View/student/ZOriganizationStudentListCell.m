@@ -116,7 +116,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"李四";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -129,7 +128,6 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _lessonLabel.text = @"多咪屋-教师姓名";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontContent]];
@@ -141,7 +139,6 @@
     if (!_typeLabel) {
         _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _typeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _typeLabel.text = @"待排课";
         _typeLabel.numberOfLines = 1;
         _typeLabel.textAlignment = NSTextAlignmentLeft;
         [_typeLabel setFont:[UIFont fontContent]];
@@ -154,7 +151,6 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _numLabel.text = @"0/9节";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontContent]];
@@ -166,7 +162,6 @@
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
-        _rightImageView.image = [UIImage imageNamed:@"unSelectedCycleMin"];
         _rightImageView.contentMode = UIViewContentModeCenter;
     }
     return _rightImageView;
@@ -176,8 +171,39 @@
     return CGFloatIn750(150);
 }
 
+- (void)setModel:(ZOriganizationStudentListModel *)model {
+    _model = model;
+    
+    _nameLabel.text = model.name;
+    _lessonLabel.text = [NSString stringWithFormat:@"%@-%@",SafeStr(model.courses_name),SafeStr(model.teacher_name)];
+//    1：待排课 2：待开课 3：已结课 4：待补课 5：已过期
+    switch ([model.status intValue]) {
+        case 1:
+            _typeLabel.text = @"待排课";
+            break;
+        case 2:
+            _typeLabel.text = @"待开课";
+            break;
+        case 3:
+            _typeLabel.text = @"已结课";
+            break;
+        case 4:
+            _typeLabel.text = @"待补课";
+            break;
+        case 5:
+            _typeLabel.text = @"已过期";
+            break;
+            
+        default:
+            break;
+    }
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",SafeStr(model.now_progress),SafeStr(model.total_progress)];
+    
+    if (model.isEdit) {
+        _rightImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
+    }else{
+        _rightImageView.image =  [UIImage imageNamed:@"unSelectedCycleMin"];
+    }
+    
+}
 @end
-
-
-
-

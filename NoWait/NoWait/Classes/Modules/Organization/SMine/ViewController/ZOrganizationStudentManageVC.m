@@ -12,39 +12,53 @@
 #import "ZOrganizationStudentAddVC.h"
 
 #import "ZOriganizationStudentListCell.h"
-#import "ZOriganizationTeachSwitchView.h"
 #import "ZOrganizationStudentTopFilterSeaarchView.h"
 #import "ZOriganizationTeachSearchTopHintView.h"
 
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
-
+#import "ZOriganizationStudentViewModel.h"
 
 @interface ZOrganizationStudentManageVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,assign) BOOL isEdit;
 
-@property (nonatomic,strong) ZOriganizationTeachSwitchView *switchView;
-@property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *searchView;
+@property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *filterView;
 @property (nonatomic,strong) ZOriganizationTeachSearchTopHintView *searchTopView;
 
 @end
 
 @implementation ZOrganizationStudentManageVC
 
+#pragma mark - vc delegate
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNavigation];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    _param = @{}.mutableCopy;
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (int i = 0; i < 12; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
     }
 }
@@ -53,7 +67,53 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"学员管理"];
     
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+}
+
+- (void)setIsEdit:(BOOL)isEdit {
+    _isEdit = isEdit;
+    if (isEdit) {
+        _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+        [_navRightBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_navLeftBtn setImage:nil forState:UIControlStateNormal];
+        
+
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(88));
+            make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(-safeAreaBottom()));
+        }];
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
+            make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.filterView.mas_bottom).offset(-CGFloatIn750(20));
+        }];
+    }else{
+        [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
+        _navRightBtn.backgroundColor = [UIColor colorMain];
+        [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        
+        [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
+        [_navLeftBtn setImage:[UIImage imageNamed:isDarkModel() ? @"navleftBackDark":@"navleftBack"] forState:UIControlStateNormal];
+        
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(88));
+            make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(safeAreaBottom()));
+        }];
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
+            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.filterView.mas_bottom).offset(-CGFloatIn750(20));
+        }];
+    }
+    
+    [self selectDataEdit:isEdit];
 }
 
 - (void)setupMainView {
@@ -72,8 +132,8 @@
         make.height.mas_equalTo(CGFloatIn750(126));
     }];
     
-    [self.view addSubview:self.searchView];
-    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.filterView];
+    [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.searchTopView.mas_bottom).offset(CGFloatIn750(0));
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
@@ -84,24 +144,32 @@
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(88));
-        make.bottom.equalTo(self.view).offset(CGFloatIn750(-20));
+        make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
     }];
     
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+        make.top.equalTo(self.filterView.mas_bottom).offset(-CGFloatIn750(20));
     }];
 }
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn bk_whenTapped:^{
+            if (weakSelf.isEdit) {
+                weakSelf.isEdit = NO;
+            }else{
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }
     return _navLeftBtn;
 }
@@ -111,52 +179,25 @@
         __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
-        _navRightBtn.layer.cornerRadius = 3;
-        _navRightBtn.backgroundColor = [UIColor  colorMain];
+        _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
+        _navRightBtn.backgroundColor = [UIColor colorMain];
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navRightBtn bk_whenTapped:^{
-            ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
-            avc.school = weakSelf.school;
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            if (weakSelf.isEdit) {
+                [weakSelf selectAllData];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }else{
+                ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
+                avc.school = weakSelf.school;
+                [weakSelf.navigationController pushViewController:avc animated:YES];
+            }
         }];
     }
     return _navRightBtn;
 }
-
-- (ZOriganizationTeachSwitchView *)switchView {
-    if (!_switchView) {
-        _switchView = [[ZOriganizationTeachSwitchView alloc] init];
-        _switchView.handleBlock = ^(NSInteger index) {
-            NSMutableArray *mainItems = @[].mutableCopy;
-            NSMutableArray *items = @[].mutableCopy;
-            NSArray *temp = @[@"徐州",@"南京"];
-            for (int i = 0; i < temp.count; i++) {
-                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-                model.name = temp[i];
-                
-                NSMutableArray *subItems = @[].mutableCopy;
-                
-                NSArray *temp = @[@"篮球俱乐部",@"排球俱乐部",@"摄氏度",@"足球"];
-                for (int i = 0; i < temp.count; i++) {
-                    ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-                    model.name = temp[i];
-                    [subItems addObject:model];
-                }
-                model.ItemArr = subItems;
-                [items addObject:model];
-            }
-            
-            [mainItems addObjectsFromArray:items];
-            [ZAlertDataPickerView setAlertName:@"校区选择" items:mainItems handlerBlock:^(NSInteger index, NSInteger subIndex) {
-                
-            }];
-        };
-    }
-    return _switchView;
-}
-
 
 - (ZOriganizationTeachSearchTopHintView *)searchTopView {
     if (!_searchTopView) {
@@ -186,31 +227,234 @@
 }
 
 
-- (ZOrganizationStudentTopFilterSeaarchView *)searchView {
-    if (!_searchView) {
-//        __weak typeof(self) weakSelf = self;
-        _searchView = [[ZOrganizationStudentTopFilterSeaarchView alloc] init];
-//        _searchView.handleBlock = ^(NSInteger index) {
-//
-//        };
+- (ZOrganizationStudentTopFilterSeaarchView *)filterView {
+    if (!_filterView) {
+        __weak typeof(self) weakSelf = self;
+        _filterView = [[ZOrganizationStudentTopFilterSeaarchView alloc] init];
+        _filterView.schoolID = self.school.schoolID;
+        _filterView.filterBlock = ^(NSInteger index, id data) {
+            if (index == 1) {
+                if (data) {
+                    NSInteger tIndex = 0;
+                    NSArray *titleArr = @[@"全部",@"待排课",@"待开课",@"已结课",@"待补课",@"已过期"];
+                    if (ValidStr(data)) {
+                        [weakSelf.filterView setLeftName:nil right:SafeStr(data)];
+                        NSString *str = SafeStr(data);
+                        for (int i = 0; i < titleArr.count; i++) {
+                            if ([titleArr[i] isEqualToString:str]) {
+                                tIndex = i;
+                            }
+                        }
+                    }
+                    
+                    if (tIndex == 0) {
+                        [weakSelf.param removeObjectForKey:@"status"];
+                    }else{
+                        [weakSelf.param setObject:[NSString stringWithFormat:@"%ld",tIndex] forKey:@"status"];
+                    }
+                    [weakSelf refreshData];
+                }
+            }else if (index == 0){
+                if (data) {
+                    if ([data isKindOfClass:[ZOriganizationTeacherListModel class]]) {
+                        ZOriganizationTeacherListModel *model = data;
+                        NSString *tIndex;
+                        [weakSelf.filterView setLeftName:model.teacher_name right:nil];
+                        tIndex = model.teacherID;
+                        
+                        if (tIndex == 0) {
+                            [weakSelf.param removeObjectForKey:@"teacher_id"];
+                        }else{
+                            [weakSelf.param setObject:tIndex forKey:@"teacher_id"];
+                        }
+                        [weakSelf refreshData];
+                    }
+                }
+            }
+        };
     }
-    return _searchView;
+    return _filterView;
 }
 
 
-#pragma mark tableView -------datasource-----
+#pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOriganizationStudentListCell"]){
         ZOriganizationStudentListCell *enteryCell = (ZOriganizationStudentListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index) {
-            if (index == 0) {
-                ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            if (weakSelf.isEdit) {
+                if (index == 0) {
+                    [self selectData:indexPath.row];
+                }else if (index == 1){
+                    
+                }
+            }else{
+                if (index == 0) {
+                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }else if (index == 1){
+                    self.isEdit = YES;
+                }
             }
         };
         
     }
 }
 
+
+
+- (void)selectDataEdit:(BOOL)isEdit {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        model.isEdit = isEdit;
+    }
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+    
+}
+
+- (void)selectData:(NSInteger)index {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        if (i == index) {
+            model.isSelected = !model.isSelected;
+        }
+    }
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+    if ([self getSelectedData].count == self.dataSources.count) {
+        [_navRightBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }else{
+        [_navRightBtn setTitle:@"全选" forState:UIControlStateNormal];
+    }
+}
+
+- (void)selectAllData {
+    if (!_isEdit) {
+        return;
+    }
+    if ([self getSelectedData].count == self.dataSources.count) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = NO;
+        }
+        [_navRightBtn setTitle:@"全选" forState:UIControlStateNormal];
+    }else{
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = YES;
+        }
+        [_navRightBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }
+    
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+}
+
+- (NSMutableArray *)getSelectedData {
+    NSMutableArray *temp = @[].mutableCopy;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            [temp addObject:model];
+        }
+    }
+    return temp;
+}
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.currentPage = 1;
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+}
+
+
+
+- (void)deleteLesson:(ZOriganizationStudentListModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationStudentViewModel deleteStudent:@{@"id":SafeStr(model.studentID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [_navLeftBtn setImage:[UIImage imageNamed:isDarkModel() ? @"navleftBackDark":@"navleftBack"] forState:UIControlStateNormal];
+}
 @end

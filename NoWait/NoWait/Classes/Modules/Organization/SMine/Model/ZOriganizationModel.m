@@ -111,7 +111,7 @@
 
 @implementation ZOriganizationStudentListNetModel
 + (NSDictionary *)mj_objectClassInArray {
-    return @{@"list" : @"ZOriganizationTeacherListModel"
+    return @{@"list" : @"ZOriganizationStudentListModel"
              };
 }
 @end
