@@ -7,11 +7,10 @@
 //
 
 #import "ZOrganizationSearchVC.h"
-#import "ZOrganizationTeacherSearchTopView.h"
+
 #import "ZOriganizationTeachListCell.h"
 
 @interface ZOrganizationSearchVC ()<UITextFieldDelegate>
-@property (nonatomic,strong) ZOrganizationTeacherSearchTopView *searchView;
 
 @end
 

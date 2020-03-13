@@ -85,5 +85,10 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     
 }
+
+- (void)setHint:(NSString *)hint {
+    _hint = hint;
+    [_searchBtn setTitle:hint forState:UIControlStateNormal];
+}
 @end
 

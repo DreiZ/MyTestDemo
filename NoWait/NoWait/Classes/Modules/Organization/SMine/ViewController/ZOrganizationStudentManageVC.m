@@ -7,7 +7,7 @@
 //
 
 #import "ZOrganizationStudentManageVC.h"
-#import "ZOrganizationTeacherSearchVC.h"
+#import "ZOrganizationSearchStudentVC.h"
 #import "ZOrganizationStudentDetailVC.h"
 #import "ZOrganizationStudentAddVC.h"
 
@@ -47,6 +47,7 @@
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
+    self.isEdit = NO;
 }
 
 - (void)setDataSource {
@@ -203,8 +204,10 @@
     if (!_searchTopView) {
         __weak typeof(self) weakSelf = self;
         _searchTopView = [[ZOriganizationTeachSearchTopHintView alloc] init];
+        _searchTopView.hint = @"搜索学员";
         _searchTopView.handleBlock = ^(NSInteger index) {
-            ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
+            ZOrganizationSearchStudentVC *svc = [[ZOrganizationSearchStudentVC alloc] init];
+            svc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

@@ -7,6 +7,7 @@
 //
 
 #import "ZTableViewViewController.h"
+#import "ZOrganizationTeacherSearchTopView.h"
 
 //购买课程流程
 typedef NS_ENUM(NSInteger, ZSearchType) {
@@ -18,6 +19,8 @@ typedef NS_ENUM(NSInteger, ZSearchType) {
 };
 
 @interface ZOrganizationSearchVC : ZTableViewViewController
+@property (nonatomic,strong) ZOrganizationTeacherSearchTopView *searchView;
+
 @property (nonatomic,strong) NSString *navTitle;
 @property (nonatomic,assign) ZSearchType searchType;
 - (void)valueChange:(NSString *)text;
