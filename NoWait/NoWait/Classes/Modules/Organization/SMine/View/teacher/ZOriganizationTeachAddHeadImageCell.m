@@ -82,7 +82,7 @@
         _headImageView = [[UIImageView alloc] init];
 //        _headImageView.image = [UIImage imageNamed:@"uploadUserHeadImage"];
         _headImageView.backgroundColor = adaptAndDarkColor([UIColor colorGrayContentBG], [UIColor colorGrayContentBGDark]);
-        _headImageView.contentMode = UIViewContentModeCenter;
+        _headImageView.contentMode = UIViewContentModeScaleAspectFit;
         ViewRadius(_headImageView, CGFloatIn750(52));
     }
     return _headImageView;

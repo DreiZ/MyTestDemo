@@ -216,18 +216,23 @@
 #define URL_merchants_search_courses                 @"merchants/v1/search_courses"
 
 
-#pragma mark - 学员
+#pragma mark - 学员------------------------------------------------
 //添加学员
-#define URL_merchants_add_student                 @"merchants/v1/add_student"
+#define URL_account_add_student                     @"account/v1/add_student"
 
 //学员list
-#define URL_merchants_get_student_list                 @"merchants/v1/get_student_list"
+#define URL_account_get_student_list                @"account/v1/get_student_list"
 
 //来源渠道
-#define URL_merchants_get_source_list                 @"merchants/v1/get_source_list"
+#define URL_account_get_source_list                 @"account/v1/get_source_list"
 
 //排课列表
-#define URL_merchants_get_arrang_student_list                 @"merchants/v1/get_arrang_student_list"
+#define URL_account_get_arrang_student_list                 @"account/v1/get_arrang_student_list"
+
+
+#pragma mark - 教师------------------------------------------------
+//教师list
+#define URL_account_get_teacher_list                  @"account/v1/get_teacher_list"
 
 
 #endif /* URLMacros_h */

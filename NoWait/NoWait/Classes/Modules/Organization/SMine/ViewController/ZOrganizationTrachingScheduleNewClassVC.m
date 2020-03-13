@@ -202,7 +202,7 @@
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertDataCheckBoxView setAlertName:@"选择教练" handlerBlock:^(NSInteger index) {
+        [ZAlertDataCheckBoxView setAlertName:@"选择教练" handlerBlock:^(NSInteger index,id data) {
             
         }];
     } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {

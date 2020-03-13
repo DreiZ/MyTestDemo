@@ -8,6 +8,7 @@
 
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOrganizationTeacherLessonSelectCell.h"
+#import "ZOriganizationLessonViewModel.h"
 
 @interface ZOrganizationTeacherLessonSelectVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -26,9 +27,8 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    for (int i = 0; i < 12; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeacherLessonSelectCell className] title:[ZOrganizationTeacherLessonSelectCell className] showInfoMethod:nil heightOfCell:[ZOrganizationTeacherLessonSelectCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeacherLessonSelectCell className] title:[ZOrganizationTeacherLessonSelectCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeacherLessonSelectCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
     }
 }
@@ -73,4 +73,69 @@
     return _navRightBtn;
 }
 
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       [param setObject:@"0" forKey:@"status"];
+    return param;
+}
 @end

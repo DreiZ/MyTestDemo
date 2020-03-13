@@ -20,7 +20,7 @@
 
 
 + (void)getStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_get_student_list params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_student_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -38,7 +38,7 @@
 }
 
 + (void)getStudentFromList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_get_source_list params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_source_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -57,7 +57,7 @@
 
 
 + (void)getStudentLessonFromList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_get_arrang_student_list params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_arrang_student_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -76,7 +76,7 @@
 
 
 + (void)addStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_merchants_add_student params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_add_student params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

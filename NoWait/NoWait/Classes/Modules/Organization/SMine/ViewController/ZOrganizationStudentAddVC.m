@@ -22,9 +22,11 @@
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOriganizationLessonViewModel.h"
 
+#import "ZAlertTeacherCheckBoxView.h"
+#import "ZAlertLessonCheckBoxView.h"
+
 @interface ZOrganizationStudentAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
-@property (nonatomic,strong) NSMutableArray *teacherList;
 
 @end
 
@@ -40,6 +42,8 @@
 - (ZOriganizationStudentViewModel *)viewModel {
     if (!_viewModel) {
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
+        _viewModel.addModel.sex = @"1";
+        _viewModel.addModel.stores_id = self.school.schoolID;
     }
     return _viewModel;
 }
@@ -54,7 +58,7 @@
                          @[@"MID", @"请输入MID", @YES, @"", @"MID",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"出生日期", @"请选择出生日期", @NO, @"rightBlackArrowN", @"birthday",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"出生日期", @"请选择出生日期", @NO, @"rightBlackArrowN", @"birthday",SafeStr(self.viewModel.addModel.birthday),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名日期", @"请选择报名日期", @NO, @"rightBlackArrowN", @"registrationDate",SafeStr(self.viewModel.addModel.sign_up_at),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -159,6 +163,7 @@
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.phone forKey:@"phone"];
             [otherDict setObject:self.viewModel.addModel.id_card forKey:@"id_card"];
+            [otherDict setObject:@"1" forKey:@"card_type"];
             [otherDict setObject:self.viewModel.addModel.stores_courses_class_id forKey:@"stores_courses_class_id"];
             [otherDict setObject:self.viewModel.addModel.teacher_id forKey:@"teacher_id"];
             
@@ -353,15 +358,26 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
-    }else if ([cellConfig.title isEqualToString:@"skill"]) {
-        ZOrganizationCampusManageAddLabelVC *avc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"lesson"]) {
-        ZOrganizationTeacherLessonSelectVC *avc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
+        [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
+            if (model) {
+                weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
+                weakSelf.viewModel.addModel.stores_courses_class = model.name;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+        }];
+    }else if ([cellConfig.title isEqualToString:@"teacher"]) {
+        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+            if (model) {
+                weakSelf.viewModel.addModel.teacher = model.teacher_name;
+                weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+        }];
     }
+    
 }
 
 @end

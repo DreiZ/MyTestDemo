@@ -110,4 +110,23 @@
 
 
 @implementation ZOriganizationStudentListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"list" : @"ZOriganizationTeacherListModel"
+             };
+}
+@end
+
+
+#pragma mark - 教师管理
+@implementation ZOriganizationTeacherListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"teacherID" : @"id"};
+}
+@end
+
+@implementation ZOriganizationTeacherListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationTeacherListModel"
+             };
+}
 @end

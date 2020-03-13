@@ -145,4 +145,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *total;
 @end
 
+
+#pragma mark - 教师管理
+@interface ZOriganizationTeacherListModel : ZBaseModel
+@property (nonatomic,strong) NSString *teacherID;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,assign) BOOL isSelected;
+@end
+
+@interface ZOriganizationTeacherListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+
 NS_ASSUME_NONNULL_END

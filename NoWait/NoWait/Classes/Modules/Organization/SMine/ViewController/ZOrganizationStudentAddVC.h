@@ -9,6 +9,7 @@
 #import "ZTableViewViewController.h"
 #import "ZOriganizationModel.h"
 #import "ZOriganizationStudentViewModel.h"
+#import "ZOriganizationTeacherViewModel.h"
 
 @interface ZOrganizationStudentAddVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationStudentViewModel *viewModel;

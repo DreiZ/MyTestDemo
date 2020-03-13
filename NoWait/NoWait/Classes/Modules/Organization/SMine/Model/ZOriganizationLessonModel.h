@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *fail;
 @property (nonatomic,assign) ZOrganizationLessonType type;
 @property (nonatomic,strong) NSString *lessonID;
-
+@property (nonatomic,assign) BOOL isSelected;
 @end
 
 
