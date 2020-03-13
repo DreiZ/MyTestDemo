@@ -33,7 +33,13 @@
         make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
     }];
 }
-
+- (void)cancleBtnOnClick {
+    if (_isEdit) {
+        self.isEdit = NO;
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 - (void)setIsEdit:(BOOL)isEdit {
     _isEdit = isEdit;

@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, ZSearchType) {
 @property (nonatomic,strong) NSString *navTitle;
 @property (nonatomic,assign) ZSearchType searchType;
 - (void)valueChange:(NSString *)text;
+- (void)cancleBtnOnClick;
 @end
 
 

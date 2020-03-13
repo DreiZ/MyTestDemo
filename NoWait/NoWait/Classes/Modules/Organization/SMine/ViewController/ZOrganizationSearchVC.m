@@ -71,10 +71,14 @@
             [weakSelf valueChange:text];
         };
         _searchView.cancleBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf cancleBtnOnClick];
         };
     }
     return _searchView;
+}
+
+- (void)cancleBtnOnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - -textField delegate
