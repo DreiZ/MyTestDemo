@@ -9,6 +9,7 @@
 #import "ZStudentMineOrderListCell.h"
 
 @interface ZStudentMineOrderListCell ()
+@property (nonatomic,strong) UIImageView *userImgeView;
 @property (nonatomic,strong) UILabel *statelabel;
 @property (nonatomic,strong) UILabel *clubLabel;
 @property (nonatomic,strong) UILabel *orderNameLabel;
@@ -61,6 +62,12 @@
         make.height.mas_equalTo(CGFloatIn750(88));
     }];
     
+    [self.topView addSubview:self.userImgeView];
+    [self.userImgeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.topView.mas_centerY);
+        make.width.height.mas_equalTo(CGFloatIn750(40));
+    }];
     
     [self.contView addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +94,7 @@
     [self.topView addSubview:self.statelabel];
     
     [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.left.equalTo(self.userImgeView.mas_right).offset(CGFloatIn750(20));
         make.centerY.equalTo(self.topView.mas_centerY);
     }];
     
@@ -276,6 +283,18 @@
     }
     return _leftImageView;
 }
+
+
+- (UIImageView *)userImgeView {
+    if (!_userImgeView) {
+        _userImgeView = [[UIImageView alloc] init];
+        _userImgeView.image = [UIImage imageNamed:@"serverTopbg"];
+        _userImgeView.contentMode = UIViewContentModeScaleAspectFill;
+        ViewRadius(_userImgeView, CGFloatIn750(20));
+    }
+    return _userImgeView;
+}
+
 
 
 - (UILabel *)detailLabel {
@@ -754,31 +773,31 @@
         }
             break;
         case ZOrganizationOrderTypeForRefuse:
-               {
-                   self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-                   
-                   [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                       make.left.bottom.right.equalTo(self.contView);
-                       make.height.mas_equalTo(CGFloatIn750(136));
-                   }];
-                   
-                   [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                       make.left.right.equalTo(self.contView);
-                       make.top.equalTo(self.topView.mas_bottom);
-                       make.bottom.equalTo(self.bottomView.mas_top);
-                   }];
-                   
-                   self.bottomView.hidden = NO;
-                   self.refuseBtn.hidden = NO;
-                   
-                   [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                       make.centerY.equalTo(self.bottomView.mas_centerY);
-                       make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                       make.height.mas_equalTo(CGFloatIn750(56));
-                       make.width.mas_equalTo(CGFloatIn750(172));
-                   }];
-               }
-                   break;
+           {
+               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+               
+               [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.left.bottom.right.equalTo(self.contView);
+                   make.height.mas_equalTo(CGFloatIn750(136));
+               }];
+               
+               [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.left.right.equalTo(self.contView);
+                   make.top.equalTo(self.topView.mas_bottom);
+                   make.bottom.equalTo(self.bottomView.mas_top);
+               }];
+               
+               self.bottomView.hidden = NO;
+               self.refuseBtn.hidden = NO;
+               
+               [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                   make.centerY.equalTo(self.bottomView.mas_centerY);
+                   make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                   make.height.mas_equalTo(CGFloatIn750(56));
+                   make.width.mas_equalTo(CGFloatIn750(172));
+               }];
+           }
+               break;
             case ZOrganizationOrderTypeForRefuseComplete:
             {
                 self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
