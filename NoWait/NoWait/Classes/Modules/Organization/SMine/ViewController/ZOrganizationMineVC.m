@@ -29,6 +29,7 @@
 #import "ZMineSwitchRoleVC.h"
 #import "ZStudentMineEvaListVC.h"
 #import "ZOrganizationCardMainVC.h"
+#import "ZOrganizationPhotoManageVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -150,6 +151,9 @@
             }else if ([model.uid isEqualToString:@"cart"]){
                 ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
+            }else if ([model.uid isEqualToString:@"photo"]){
+                ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
             
             

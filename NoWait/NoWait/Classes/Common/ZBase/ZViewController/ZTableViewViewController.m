@@ -37,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNavgation];
     [self setDataSource];
     [self setupMainView];
 }

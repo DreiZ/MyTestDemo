@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationPhotoListCell : ZBaseCell
+@property (nonatomic,strong) NSString *image;
 
 @end
 

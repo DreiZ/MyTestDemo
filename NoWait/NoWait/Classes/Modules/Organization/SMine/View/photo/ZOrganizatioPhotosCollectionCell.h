@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZBaseUnitModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizatioPhotosCollectionCell : UICollectionViewCell
-
+@property (nonatomic,strong) ZBaseUnitModel *model;
+@property (nonatomic,strong) void (^delBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END
+
