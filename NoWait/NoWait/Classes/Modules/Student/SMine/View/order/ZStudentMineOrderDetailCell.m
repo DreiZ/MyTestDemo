@@ -206,7 +206,7 @@
 - (UIView *)subView {
     if (!_subView) {
         _subView = [[UIView alloc] init];
-        _subView.backgroundColor = adaptAndDarkColor([UIColor redColor], [UIColor colorBlackBGDark]);
+        _subView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBGDark]);
         _subView.clipsToBounds = YES;
     }
     return _subView;
@@ -400,6 +400,7 @@
     self.bottomView.hidden = YES;
     
     switch (self.model.type) {
+        case ZOrganizationOrderTypeForPay:
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
             {
                 [self setDetailDes];
@@ -413,31 +414,56 @@
                 [self setDetailSubViewBottom];
             }
             break;
-            case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
-            {
-                [self setDetailDes];
-                [self setDetailBottomViewBottom];
-            }
-            break;
-            case ZStudentOrderTypeHadEva://完成已评价(删除)
-            {
-                [self setDetailDes];
-                [self setDetailBottomViewBottom];
-            }
-            break;
-            case ZStudentOrderTypeOutTime://超时(删除)
+        case ZOrganizationOrderTypeHadPay:
             {
                 [self setDetailDes];
                 [self setDetailSubViewBottom];
             }
             break;
-            case ZStudentOrderTypeCancel://已取消(删除)
+        case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
+            {
+                [self setDetailDes];
+                [self setDetailBottomViewBottom];
+            }
+            break;
+        case ZOrganizationOrderTypeHadEva:
             {
                 [self setDetailDes];
                 [self setDetailSubViewBottom];
             }
             break;
-            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+        case ZStudentOrderTypeHadEva://完成已评价(删除)
+            {
+                [self setDetailDes];
+                [self setDetailBottomViewBottom];
+            }
+            break;
+        case ZOrganizationOrderTypeOutTime:
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+        case ZStudentOrderTypeOutTime://超时(删除)
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+        case ZOrganizationOrderTypeCancel:
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+        case ZStudentOrderTypeCancel://已取消(删除)
+            {
+                [self setDetailDes];
+                [self setDetailSubViewBottom];
+            }
+            break;
+        case ZOrganizationOrderTypeOrderForPay:
+        case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
             {
                 [self setOrderDetailDes];
                 self.priceLabel.text = @"";
@@ -450,19 +476,22 @@
                 [self setOrderDetailMidViewBottom];
             }
             break;
-            case ZStudentOrderTypeOrderForReceived://待接收（预约）
+        case ZOrganizationOrderTypeOrderForReceived:
+        case ZStudentOrderTypeOrderForReceived://待接收（预约）
             {
                 [self setOrderDetailDes];
                 [self setOrderDetailMidViewBottom];
             }
             break;
-            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+        case ZOrganizationOrderTypeOrderComplete:
+        case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
             {
                 [self setOrderDetailDes];
                 [self setOrderDetailMidViewBottom];
             }
             break;
-            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+        case ZOrganizationOrderTypeOrderRefuse:
+        case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
             {
                 [self setOrderDetailDes];
                 [self setOrderDetailMidViewBottom];
@@ -505,7 +534,8 @@
         mModel.rightDarkColor = [UIColor colorTextGrayDark];
         mModel.leftColor = [UIColor colorTextBlack];
         mModel.leftDarkColor = [UIColor colorTextBlackDark];
-        mModel.singleCellHeight = CGFloatIn750(56);
+        mModel.singleCellHeight = CGFloatIn750(54);
+        mModel.cellHeight = CGFloatIn750(55);
         mModel.titleWidth = CGFloatIn750(250);
         mModel.cellWidth = KScreenWidth - CGFloatIn750(60);
         mModel.rightTitle = [NSString stringWithFormat:@"%@分钟",tempArr[1]];
@@ -513,8 +543,9 @@
         mModel.isHiddenLine = YES;
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailSubDesCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZStudentMineOrderDetailSubDesCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-
+        
         [self.cellConfigArr addObject:menuCellConfig];
+        
     }
 }
 
@@ -585,28 +616,45 @@
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
         switch (listModel.type) {
+            case ZOrganizationOrderTypeForPay:
             case ZStudentOrderTypeForPay://待付款（去支付，取消）
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZOrganizationOrderTypeHadPay:
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
+                return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                break;
+            case ZOrganizationOrderTypeHadEva:
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZStudentOrderTypeHadEva://完成已评价(删除)
+                return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                break;
+            case ZOrganizationOrderTypeOutTime:
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZStudentOrderTypeOutTime://超时(删除)
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZOrganizationOrderTypeCancel:
+                return CGFloatIn750(328 + 56 * 3 + 28);
+                break;
+            case ZStudentOrderTypeCancel://已取消(删除)
                     return CGFloatIn750(328 + 56 * 3 + 28);
                 break;
-                case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
-                    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
-                break;
-                case ZStudentOrderTypeHadEva://完成已评价(删除)
-                    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
-                break;
-                case ZStudentOrderTypeOutTime://超时(删除)
-                    return CGFloatIn750(328 + 56 * 3 + 28);
-                break;
-                case ZStudentOrderTypeCancel://已取消(删除)
-                    return CGFloatIn750(328 + 56 * 3 + 28);
-                break;
-                case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+            case ZOrganizationOrderTypeOrderForPay:
+            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+                  
+            case ZOrganizationOrderTypeOrderForReceived:
+            case ZStudentOrderTypeOrderForReceived://待接收（预约）
                     
-                case ZStudentOrderTypeOrderForReceived://待接收（预约）
+            case ZOrganizationOrderTypeOrderComplete:
+            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
                     
-                case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
-                    
-                case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+            case ZOrganizationOrderTypeOrderRefuse:
+            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
                     return CGFloatIn750(328);
                 break;
             default:

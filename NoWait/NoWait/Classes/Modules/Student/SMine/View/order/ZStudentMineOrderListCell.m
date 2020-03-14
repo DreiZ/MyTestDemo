@@ -30,7 +30,8 @@
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) UIButton *cancleBtn;
 @property (nonatomic,strong) UIButton *evaBtn;
-
+@property (nonatomic,strong) UIButton *receivedBtn;
+@property (nonatomic,strong) UIButton *refuseBtn;
 @end
 
 @implementation ZStudentMineOrderListCell
@@ -150,6 +151,8 @@
     [self.bottomView addSubview:self.evaBtn];
     [self.bottomView addSubview:self.cancleBtn];
     [self.bottomView addSubview:self.delBtn];
+    [self.bottomView addSubview:self.refuseBtn];
+    [self.bottomView addSubview:self.receivedBtn];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bottomView);
@@ -167,6 +170,13 @@
         make.edges.equalTo(self.bottomView);
     }];
     
+    [self.refuseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.receivedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
     [self.failView addSubview:self.failHintLabel];
     [self.failView addSubview:self.failLabel];
     [self.failHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -402,6 +412,42 @@
     return _evaBtn;
 }
 
+- (UIButton *)refuseBtn {
+    if (!_refuseBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refuseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refuseBtn setTitle:@"同意退款" forState:UIControlStateNormal];
+        [_refuseBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_refuseBtn.titleLabel setFont:[UIFont fontContent]];
+        _refuseBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        [_refuseBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(4,self.model);
+            };
+        }];
+    }
+    return _refuseBtn;
+}
+
+- (UIButton *)receivedBtn {
+    if (!_receivedBtn) {
+        __weak typeof(self) weakSelf = self;
+        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
+        [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
+        _receivedBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        [_receivedBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(5,self.model);
+            };
+        }];
+    }
+    return _receivedBtn;
+}
+
 #pragma mark - set model
 - (void)setModel:(ZStudentOrderListModel *)model {
     _model = model;
@@ -451,6 +497,17 @@
             break;
     }
     
+    self.bottomView.hidden = YES;
+    self.failView.hidden = YES;
+    
+    self.payBtn.hidden = YES;
+    self.cancleBtn.hidden = YES;
+    
+    self.evaBtn.hidden = YES;
+    self.delBtn.hidden = YES;
+    
+    self.receivedBtn.hidden = YES;
+    self.refuseBtn.hidden = YES;
 
     switch (model.type) {
         case ZStudentOrderTypeOrderForPay:
@@ -470,13 +527,8 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            
             self.payBtn.hidden = NO;
             self.cancleBtn.hidden = NO;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = YES;
             
             [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
@@ -509,11 +561,6 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
             self.evaBtn.hidden = NO;
             self.delBtn.hidden = NO;
             
@@ -550,11 +597,6 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
             self.delBtn.hidden = NO;
             
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -583,11 +625,6 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
             self.delBtn.hidden = NO;
             
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -616,11 +653,6 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
             self.delBtn.hidden = NO;
             
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -641,14 +673,6 @@
              make.top.equalTo(self.topView.mas_bottom);
              make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
             }];
-
-            self.bottomView.hidden = YES;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = YES;
         }
             break;
         case ZStudentOrderTypeOrderComplete:
@@ -668,11 +692,6 @@
             }];
             
             self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
             self.delBtn.hidden = NO;
             
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -693,16 +712,61 @@
              make.top.equalTo(self.topView.mas_bottom);
              make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
             }];
-
             
-            self.bottomView.hidden = YES;
-            self.failView.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
+        }
+            break;
+        case ZOrganizationOrderTypeOrderForReceived:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
             
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = YES;
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
             
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.bottomView.mas_top);
+            }];
+            
+            self.bottomView.hidden = NO;
+            self.receivedBtn.hidden = NO;
+            
+            
+            [self.receivedBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }
+            break;
+        case ZOrganizationOrderTypeOrderRefuse:
+        {
+            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+            
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
+            
+            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.top.equalTo(self.topView.mas_bottom);
+                make.bottom.equalTo(self.bottomView.mas_top);
+            }];
+            
+            self.bottomView.hidden = NO;
+            self.refuseBtn.hidden = NO;
+            
+            
+            [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
         }
             break;
 //        case ZStudentOrderTypeOutTime:
@@ -770,6 +834,16 @@
 //            break;
             
         default:
+            {
+                self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                 make.left.right.equalTo(self.contView);
+                 make.top.equalTo(self.topView.mas_bottom);
+                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+                }];
+                
+            }
             break;
     }
 }
@@ -777,7 +851,15 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
-        if (listModel.type == ZStudentOrderTypeOrderForReceived || listModel.type == ZStudentOrderTypeOrderRefuse) {
+        if (listModel.type == ZStudentOrderTypeOrderForReceived
+            || listModel.type == ZStudentOrderTypeOrderRefuse
+            || listModel.type == ZOrganizationOrderTypeForPay
+            || listModel.type == ZOrganizationOrderTypeHadPay
+            || listModel.type == ZOrganizationOrderTypeHadEva
+            || listModel.type == ZOrganizationOrderTypeOutTime
+            || listModel.type == ZOrganizationOrderTypeCancel
+            || listModel.type == ZOrganizationOrderTypeOrderForPay
+            || listModel.type == ZOrganizationOrderTypeOrderComplete) {
             return CGFloatIn750(318);
         } else{
             return CGFloatIn750(414);

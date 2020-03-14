@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZStudentMineModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZOrganizationMineOrderListVC : UIViewController
+@interface ZOrganizationMineOrderListVC : ZTableViewViewController
+@property (nonatomic,assign) ZStudentOrderType type;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

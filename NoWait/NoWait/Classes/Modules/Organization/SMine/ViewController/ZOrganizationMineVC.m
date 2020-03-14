@@ -30,6 +30,7 @@
 #import "ZStudentMineEvaListVC.h"
 #import "ZOrganizationCardMainVC.h"
 #import "ZOrganizationPhotoManageVC.h"
+#import "ZOrganizationMineOrderManageVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -143,7 +144,7 @@
                 ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"order"]){
-                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
+                ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([model.uid isEqualToString:@"eva"]){
                 ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];

@@ -7,11 +7,10 @@
 //
 
 #import "ZTableViewViewController.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZStudentMineModel.h"
 
 @interface ZOrganizationMineOrderDetailVC : ZTableViewViewController
-
+@property (nonatomic,strong) ZStudentOrderListModel *model;
 @end
 
-NS_ASSUME_NONNULL_END
+

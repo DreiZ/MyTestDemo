@@ -14,6 +14,9 @@
 @property (nonatomic,strong) UIButton *telBtn;
 @property (nonatomic,strong) UIButton *cancleBtn;
 @property (nonatomic,strong) UIButton *evaBtn;
+@property (nonatomic,strong) UIButton *refuseBtn;
+@property (nonatomic,strong) UIButton *receivedBtn;
+
 @property (nonatomic,strong) UIView *bottomView;
 
 @end
@@ -157,7 +160,7 @@
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypeTel);
+                weakSelf.handleBlock(4);
             }
         }];
     }
@@ -165,10 +168,52 @@
 }
 
 
+- (UIButton *)refuseBtn {
+    if (!_refuseBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refuseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refuseBtn setTitle:@"同意退款" forState:UIControlStateNormal];
+        [_refuseBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_refuseBtn.titleLabel setFont:[UIFont fontContent]];
+        _refuseBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        [_refuseBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(5);
+            };
+        }];
+    }
+    return _refuseBtn;
+}
+
+- (UIButton *)receivedBtn {
+    if (!_receivedBtn) {
+        __weak typeof(self) weakSelf = self;
+        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
+        [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
+        _receivedBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        [_receivedBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(6);
+            };
+        }];
+    }
+    return _receivedBtn;
+}
+
 - (void)setModel:(ZStudentOrderListModel *)model {
     _model = model;
     
-
+    self.payBtn.hidden = YES;
+    self.cancleBtn.hidden = YES;
+    self.evaBtn.hidden = YES;
+    self.delBtn.hidden = YES;
+    self.refuseBtn.hidden =  YES;
+    self.receivedBtn.hidden = YES;
+    
     switch (model.type) {
             case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
@@ -303,6 +348,30 @@
             self.evaBtn.hidden = YES;
             self.delBtn.hidden = YES;
             
+        }
+            break;
+        case ZOrganizationOrderTypeOrderRefuse:
+        {
+            self.refuseBtn.hidden = NO;
+            
+            [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }
+            break;
+        case ZOrganizationOrderTypeOrderForReceived:
+        {
+            self.receivedBtn.hidden = NO;
+            
+            [self.receivedBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
         }
             break;
         default:

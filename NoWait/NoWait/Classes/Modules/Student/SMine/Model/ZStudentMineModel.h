@@ -29,7 +29,19 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZStudentOrderTypeOrderComplete,         //已完成（预约，删除）
     ZStudentOrderTypeOrderRefuse,           //已拒绝（预约）
     ZStudentOrderTypeAll,                   //全部
+    
+    ZOrganizationOrderTypeForPay,                 //待付款（去支付，取消）
+    ZOrganizationOrderTypeHadPay,                //已付款（评价，退款，删除）
+    ZOrganizationOrderTypeHadEva,                //完成已评价(删除)
+    ZOrganizationOrderTypeOutTime,               //超时(删除)
+    ZOrganizationOrderTypeCancel,                //已取消(删除)
+    ZOrganizationOrderTypeOrderForPay,           //待付款（去支付，取消）
+    ZOrganizationOrderTypeOrderForReceived,      //待接收（预约）
+    ZOrganizationOrderTypeOrderComplete,         //已完成（预约，删除）
+    ZOrganizationOrderTypeOrderRefuse,           //已拒绝（预约）
+    ZOrganizationOrderTypeAll,                   //全部
 };
+
 
 @interface ZStudentOrderEvaModel : NSObject
 @property (nonatomic,strong) NSString *orderImage;

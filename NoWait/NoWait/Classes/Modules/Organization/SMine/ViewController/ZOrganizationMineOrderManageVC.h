@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMPageController.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZOrganizationMineOrderManageVC : UIViewController
+@interface ZOrganizationMineOrderManageVC : WMPageController
 
 @end
 
-NS_ASSUME_NONNULL_END
+
