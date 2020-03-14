@@ -196,7 +196,7 @@
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.rightImageView.mas_left).offset(-model.rightContentSpace);
             make.centerY.equalTo(self.contentView.mas_centerY);
-            make.width.mas_equalTo(KScreenWidth/3);
+//            make.width.mas_equalTo(KScreenWidth/3);
         }];
         
         self.rightImageView.hidden = NO;
@@ -210,7 +210,7 @@
         [self.rightTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView.mas_right).offset(-model.rightMargin);
             make.centerY.equalTo(self.contentView.mas_centerY);
-            make.width.mas_equalTo(KScreenWidth/3);
+//            make.width.mas_equalTo(KScreenWidth/3);
         }];
         
         self.rightImageView.hidden = YES;

@@ -31,6 +31,7 @@
 #import "ZOrganizationCardMainVC.h"
 #import "ZOrganizationPhotoManageVC.h"
 #import "ZOrganizationMineOrderManageVC.h"
+#import "ZOrganizationOrderRefuseVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -154,6 +155,9 @@
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([model.uid isEqualToString:@"photo"]){
                 ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }else if ([model.uid isEqualToString:@"refund"]){
+                ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
             

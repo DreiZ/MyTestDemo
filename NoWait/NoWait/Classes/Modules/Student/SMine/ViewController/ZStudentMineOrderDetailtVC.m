@@ -124,6 +124,22 @@
                 [self setTipsCell];
             }
             break;
+            case ZStudentOrderTypeForRefuse://已拒绝（预约）
+            {
+                [self setOrderDetailCell];
+                [self setUserCell];
+                [self setOrderPriceCell];
+                [self setPayDetailCell];
+            }
+            break;
+            case ZStudentOrderTypeForRefuseComplete://已拒绝（预约）
+            {
+                [self setOrderDetailCell];
+                [self setUserCell];
+                [self setOrderPriceCell];
+                [self setPayDetailCell];
+            }
+            break;
         default:
             break;
     }

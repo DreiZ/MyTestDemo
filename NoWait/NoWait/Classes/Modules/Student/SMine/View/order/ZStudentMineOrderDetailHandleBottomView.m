@@ -57,6 +57,8 @@
     [self.bottomView addSubview:self.evaBtn];
     [self.bottomView addSubview:self.cancleBtn];
     [self.bottomView addSubview:self.delBtn];
+    [self.bottomView addSubview:self.refuseBtn];
+    [self.bottomView addSubview:self.receivedBtn];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bottomView);
@@ -71,6 +73,14 @@
     }];
     
     [self.delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.refuseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.receivedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bottomView);
     }];
 }

@@ -69,6 +69,14 @@
             case 8:
                 model.type = ZStudentOrderTypeOrderForPay;
                 break;
+            case 9:
+                model.type = ZStudentOrderTypeForRefuse;
+                model.state = @"待退款";
+                break;
+            case 10:
+                model.type = ZStudentOrderTypeForRefuseComplete;
+                model.state = @"退款已完成";
+                break;
                 
                   
             default:

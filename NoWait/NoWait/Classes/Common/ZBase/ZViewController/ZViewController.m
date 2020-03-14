@@ -27,7 +27,7 @@
     [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self setNavgation];
+    [self setNavigation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,7 +83,7 @@
 //}
 
 
-- (void)setNavgation {
+- (void)setNavigation {
     [self.navigationItem setTitle:@""];
 }
 

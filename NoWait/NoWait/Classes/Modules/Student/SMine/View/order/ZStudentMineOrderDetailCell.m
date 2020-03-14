@@ -398,12 +398,13 @@
     self.orderNameLabel.text = model.name;
     self.clubLabel.text = model.club;
     self.bottomView.hidden = YES;
-    
+ 
     switch (self.model.type) {
         case ZOrganizationOrderTypeForPay:
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 self.priceLabel.text = @"";
                 
                 [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -417,48 +418,60 @@
         case ZOrganizationOrderTypeHadPay:
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
         case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailBottomViewBottom];
             }
             break;
         case ZOrganizationOrderTypeHadEva:
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
+        case ZStudentOrderTypeForRefuse:
+        case ZStudentOrderTypeForRefuseComplete:
+        case ZOrganizationOrderTypeForRefuse:
+        case ZOrganizationOrderTypeForRefuseComplete:
         case ZStudentOrderTypeHadEva://完成已评价(删除)
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailBottomViewBottom];
             }
             break;
         case ZOrganizationOrderTypeOutTime:
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
         case ZStudentOrderTypeOutTime://超时(删除)
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
         case ZOrganizationOrderTypeCancel:
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
         case ZStudentOrderTypeCancel://已取消(删除)
             {
                 [self setDetailDes];
+                [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
@@ -514,7 +527,6 @@
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
     }];
     
-    [self setSubDetail];
 }
 
 - (void)setSubDetail {
@@ -615,6 +627,9 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
         ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
+        if (listModel.isRefuse) {
+            return CGFloatIn750(328);
+        }
         switch (listModel.type) {
             case ZOrganizationOrderTypeForPay:
             case ZStudentOrderTypeForPay://待付款（去支付，取消）

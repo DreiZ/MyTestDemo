@@ -8,17 +8,29 @@
 
 #import "ZSingleLineRightImageCell.h"
 
-@implementation ZSingleLineRightImageCell
+@interface ZSingleLineRightImageCell ()
+@property (nonatomic,strong) UIImageView *midImageView;
+@end
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+
+@implementation ZSingleLineRightImageCell
+- (void)initMainView {
+    [super initMainView];
+    [self.contentView addSubview:self.midImageView];
+    [self.midImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.rightTitleLabel.mas_left).offset(-CGFloatIn750(10));
+        make.centerY.equalTo(self.rightTitleLabel.mas_centerY);
+    }];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (UIImageView *)midImageView {
+    if (!_midImageView) {
+        _midImageView = [[UIImageView alloc] init];
+        _midImageView.image = [UIImage imageNamed:@"orderRigthtTel"];
+        _midImageView.layer.masksToBounds = YES;
+        _midImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _midImageView;
 }
 
 @end

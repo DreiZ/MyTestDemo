@@ -30,7 +30,7 @@
     
     for (int i = 0; i < 15; i++) {
         ZStudentOrderListModel *model = [[ZStudentOrderListModel alloc] init];
-        model.state = @"待支付";
+        
         model.club = @"散打俱乐部";
         model.name = @"评判器的地方三房";
         model.price = @"140.00";
@@ -39,33 +39,50 @@
         model.fail = @"";
         model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
         
-        switch (i%9) {
+        switch (i%11) {
             case 0:
                 model.type = ZOrganizationOrderTypeForPay;
+                model.state = @"待支付";
                 break;
             case 1:
                 model.type = ZOrganizationOrderTypeHadPay;
+                model.state = @"已支付";
                 break;
             case 2:
                 model.type = ZOrganizationOrderTypeHadEva;
+                model.state = @"已评价";
                 break;
             case 3:
                 model.type = ZOrganizationOrderTypeOutTime;
+                model.state = @"超时";
                 break;
             case 4:
                 model.type = ZOrganizationOrderTypeCancel;
+                model.state = @"已取消";
                 break;
             case 5:
                 model.type = ZOrganizationOrderTypeOrderForReceived;
+                model.state = @"预约待接收";
                 break;
             case 6:
                 model.type = ZOrganizationOrderTypeOrderComplete;
+                model.state = @"预约已完成";
                 break;
             case 7:
                 model.type = ZOrganizationOrderTypeOrderRefuse;
+                model.state = @"一月已拒绝";
                 break;
             case 8:
                 model.type = ZOrganizationOrderTypeOrderForPay;
+                model.state = @"预约待付款";
+                break;
+            case 9:
+                model.type = ZOrganizationOrderTypeForRefuse;
+                model.state = @"待退款";
+                break;
+            case 10:
+                model.type = ZOrganizationOrderTypeForRefuseComplete;
+                model.state = @"退款已完成";
                 break;
                 
                   

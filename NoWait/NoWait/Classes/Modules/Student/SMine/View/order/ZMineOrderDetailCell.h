@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZStudentMineModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMineOrderDetailCell : ZBaseCell
-
+@property (nonatomic,strong) ZStudentOrderListModel *model;
+@property (nonatomic,strong) void (^handleBlock)(NSInteger, ZStudentOrderListModel *);
 @end
 
-NS_ASSUME_NONNULL_END

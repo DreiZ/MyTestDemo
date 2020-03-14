@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZStudentOrderTypeOrderForReceived,      //待接收（预约）
     ZStudentOrderTypeOrderComplete,         //已完成（预约，删除）
     ZStudentOrderTypeOrderRefuse,           //已拒绝（预约）
+    ZStudentOrderTypeForRefuse,              //待退款
+    ZStudentOrderTypeForRefuseComplete,      //待退款
     ZStudentOrderTypeAll,                   //全部
     
     ZOrganizationOrderTypeForPay,                 //待付款（去支付，取消）
@@ -39,6 +41,8 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZOrganizationOrderTypeOrderForReceived,      //待接收（预约）
     ZOrganizationOrderTypeOrderComplete,         //已完成（预约，删除）
     ZOrganizationOrderTypeOrderRefuse,           //已拒绝（预约）
+    ZOrganizationOrderTypeForRefuse,              //待退款
+    ZOrganizationOrderTypeForRefuseComplete,      //待退款
     ZOrganizationOrderTypeAll,                   //全部
 };
 
@@ -99,7 +103,7 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
 @property (nonatomic,strong) NSString *lessonFavourable;//优惠
 @property (nonatomic,strong) NSString *lessonPrice;//
 @property (nonatomic,assign) NSInteger payLimit;
-
+@property (nonatomic,assign) BOOL isRefuse;
 @property (nonatomic,assign) ZStudentOrderType type;
 
 @end

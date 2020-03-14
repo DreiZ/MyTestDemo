@@ -746,29 +746,50 @@
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
             
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
             [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.refuseBtn.hidden = NO;
-            
-            
-            [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
+             make.left.right.equalTo(self.contView);
+             make.top.equalTo(self.topView.mas_bottom);
+             make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
             }];
         }
             break;
+        case ZOrganizationOrderTypeForRefuse:
+               {
+                   self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+                   
+                   [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                       make.left.bottom.right.equalTo(self.contView);
+                       make.height.mas_equalTo(CGFloatIn750(136));
+                   }];
+                   
+                   [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                       make.left.right.equalTo(self.contView);
+                       make.top.equalTo(self.topView.mas_bottom);
+                       make.bottom.equalTo(self.bottomView.mas_top);
+                   }];
+                   
+                   self.bottomView.hidden = NO;
+                   self.refuseBtn.hidden = NO;
+                   
+                   [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                       make.centerY.equalTo(self.bottomView.mas_centerY);
+                       make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                       make.height.mas_equalTo(CGFloatIn750(56));
+                       make.width.mas_equalTo(CGFloatIn750(172));
+                   }];
+               }
+                   break;
+            case ZOrganizationOrderTypeForRefuseComplete:
+            {
+                self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                 make.left.right.equalTo(self.contView);
+                 make.top.equalTo(self.topView.mas_bottom);
+                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+                }];
+            }
+                break;
 //        case ZStudentOrderTypeOutTime:
 //            self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
 //            self.detailLabel.text = @"";
@@ -859,7 +880,11 @@
             || listModel.type == ZOrganizationOrderTypeOutTime
             || listModel.type == ZOrganizationOrderTypeCancel
             || listModel.type == ZOrganizationOrderTypeOrderForPay
-            || listModel.type == ZOrganizationOrderTypeOrderComplete) {
+            || listModel.type == ZOrganizationOrderTypeOrderComplete
+            || listModel.type == ZOrganizationOrderTypeForRefuseComplete
+            || listModel.type == ZOrganizationOrderTypeOrderRefuse
+            || listModel.type == ZStudentOrderTypeForRefuse
+            || listModel.type == ZStudentOrderTypeForRefuseComplete) {
             return CGFloatIn750(318);
         } else{
             return CGFloatIn750(414);

@@ -34,6 +34,6 @@
 @property (nonatomic, assign) BOOL isTransition;//是否开启转场动画
 
 - (void)refreshData;
-- (void)setNavgation;
+- (void)setNavigation;
 
 @end

@@ -25,8 +25,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (_iTableView) {
-        [_iTableView endEditing:YES];
+    if (self.iTableView) {
+        [self.iTableView endEditing:YES];
     }
 }
 
@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavgation];
+    [self setNavigation];
     [self setDataSource];
     [self setupMainView];
 }
@@ -90,6 +90,11 @@
 - (void)setTableViewGaryBack {
     _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+}
+
+- (void)setTableViewWhiteBack {
+    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
 }
 
 #pragma mark - lazy loading...
