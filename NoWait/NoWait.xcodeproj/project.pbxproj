@@ -45,6 +45,8 @@
 		B2296A922408F47E00E299AC /* ZStudentMineSettingSwitchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A912408F47E00E299AC /* ZStudentMineSettingSwitchUserCell.m */; };
 		B2296A952409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A942409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m */; };
 		B2296A9824090F0100E299AC /* ZMineMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A9724090F0100E299AC /* ZMineMainVC.m */; };
+		B23184DA241F2BA60033F875 /* NSData+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D7241F2BA60033F875 /* NSData+SwitchData.m */; };
+		B23184DB241F2BA60033F875 /* NSString+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D9241F2BA60033F875 /* NSString+SwitchData.m */; };
 		B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */; };
 		B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8023FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m */; };
 		B2342C8B23FE757B00F31C34 /* ZOriganizationTeachListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8A23FE757B00F31C34 /* ZOriganizationTeachListCell.m */; };
@@ -605,6 +607,11 @@
 		B2296A942409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSwitchAccountLoginVC.m; sourceTree = "<group>"; };
 		B2296A9624090F0100E299AC /* ZMineMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineMainVC.h; sourceTree = "<group>"; };
 		B2296A9724090F0100E299AC /* ZMineMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineMainVC.m; sourceTree = "<group>"; };
+		B23184D5241F2BA60033F875 /* NSData+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SwitchData.h"; sourceTree = "<group>"; };
+		B23184D6241F2BA60033F875 /* NSString+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SwitchData.h"; sourceTree = "<group>"; };
+		B23184D7241F2BA60033F875 /* NSData+SwitchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SwitchData.m"; sourceTree = "<group>"; };
+		B23184D8241F2BA60033F875 /* SwitchHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchHeader.h; sourceTree = "<group>"; };
+		B23184D9241F2BA60033F875 /* NSString+SwitchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SwitchData.m"; sourceTree = "<group>"; };
 		B2342C7C23FE370700F31C34 /* ZAlertDateHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateHourPickerView.h; sourceTree = "<group>"; };
 		B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertDateHourPickerView.m; sourceTree = "<group>"; };
 		B2342C7F23FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateWeekAndHourPickerView.h; sourceTree = "<group>"; };
@@ -1670,6 +1677,18 @@
 			path = evaluate;
 			sourceTree = "<group>";
 		};
+		B23184D4241F2BA60033F875 /* SwitchData */ = {
+			isa = PBXGroup;
+			children = (
+				B23184D5241F2BA60033F875 /* NSData+SwitchData.h */,
+				B23184D6241F2BA60033F875 /* NSString+SwitchData.h */,
+				B23184D7241F2BA60033F875 /* NSData+SwitchData.m */,
+				B23184D8241F2BA60033F875 /* SwitchHeader.h */,
+				B23184D9241F2BA60033F875 /* NSString+SwitchData.m */,
+			);
+			path = SwitchData;
+			sourceTree = "<group>";
+		};
 		B2342C8223FE6FE400F31C34 /* teacher */ = {
 			isa = PBXGroup;
 			children = (
@@ -2669,6 +2688,7 @@
 		B2A7802923BDFA3800407BF0 /* DataUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				B23184D4241F2BA60033F875 /* SwitchData */,
 				B2A7802A23BDFA3800407BF0 /* NSString+Message.h */,
 				B2A7802B23BDFA3800407BF0 /* NSFileManager+ZChat.h */,
 				B2A7802C23BDFA3800407BF0 /* NSDate+ZChat.m */,
@@ -3950,6 +3970,7 @@
 				B2DB9B49241C81FB00340464 /* ZOrganizationMineOrderDetailVC.m in Sources */,
 				B2A77FCA23BDEAA100407BF0 /* ZServerCompleteAlertView.m in Sources */,
 				B223BCD523C7043F00AC0158 /* CWStarRateView.m in Sources */,
+				B23184DB241F2BA60033F875 /* NSString+SwitchData.m in Sources */,
 				B279D04323C8430C00391A33 /* ZStudentLessonSelectTimeCell.m in Sources */,
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
 				B2342C9123FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.m in Sources */,
@@ -4068,6 +4089,7 @@
 				B2A7810123C0732B00407BF0 /* ZMineMenuCell.m in Sources */,
 				B28D9135240766940021E05A /* PGDatePickManager.m in Sources */,
 				B223BCC523C6EF8700AC0158 /* ZStudentLessonDetailPeoplesItemCell.m in Sources */,
+				B23184DA241F2BA60033F875 /* NSData+SwitchData.m in Sources */,
 				B28EA669240E34B400C8E225 /* ZAccountChangePasswordVC.m in Sources */,
 				B25146BE23CF154E009A64D4 /* ZStudentMineSettingMineEditVC.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,

@@ -14,6 +14,7 @@
 #import "UIFont+ZChat.h"       // 字体
 #import "UIImageView+ZWebImage.h"
 #import "UIBarButtonItem+Back.h"
+#import "SwitchHeader.h"
 
 #import "UICollectionViewCell+ZCategory.h"
 #import "UITableViewCell+ZCategory.h"

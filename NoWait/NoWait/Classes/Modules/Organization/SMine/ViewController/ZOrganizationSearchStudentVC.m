@@ -202,6 +202,7 @@
             }else{
                 if (index == 0) {
                     ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+                    dvc.school = self.school;
                     [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     self.isEdit = YES;

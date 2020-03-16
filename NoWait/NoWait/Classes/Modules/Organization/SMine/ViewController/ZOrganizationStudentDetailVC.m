@@ -24,6 +24,7 @@
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOrganizationStudentSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
+#import "ZOrganizationStudentAddVC.h"
 
 @interface ZOrganizationStudentDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -37,34 +38,35 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+    [self refreshData];
 }
 
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachHeadImageCell className] title:[ZOriganizationTeachHeadImageCell className] showInfoMethod:nil heightOfCell:[ZOriganizationTeachHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachHeadImageCell className] title:[ZOriganizationTeachHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:imageFullUrl(self.addModel.image)];
     [self.cellConfigArr addObject:progressCellConfig];
     
-    NSArray *textArr = @[@[@"真实姓名",@"黄渤"],
-                         @[@"手机号",@"1923452384"],
-                         @[@"性别",@"男"],
-                         @[@"出生日期",@"2000年12月21日"],
-                         @[@"身份证号码",@"32342352352342"],
-                         @[@"所属校区",@"才玩俱乐部"],
-                         @[@"报名日期",@"2000年12月21日"],
-                         @[@"报名课程",@"拉丁舞"],
-                         @[@"分配教师",@"哆咪屋"],
-                         @[@"紧急联系人姓名",@"实得分"],
-                         @[@"紧急联系人电话",@"12312412412"],
-                         @[@"紧急联系人关系",@"父子"],
-                         @[@"课程进度", @"10/23节"],
-                         @[@"优惠明细", @"满减12"],
-                         @[@"学员状态", @"已开课"],
-                         @[@"开课日期", @"2000年12月21日"],
-                         @[@"班级名称", @"瑜伽班"],
+    NSArray *textArr = @[@[@"真实姓名",SafeStr(self.addModel.name)],
+                         @[@"手机号",SafeStr(self.addModel.phone)],
+                         @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
+                         @[@"出生日期",SafeStr(self.addModel.birthday)],
+                         @[@"身份证号码",SafeStr(self.addModel.id_card)],
+                         @[@"所属校区",SafeStr(self.addModel.stores_name)],
+                         @[@"报名日期",SafeStr(self.addModel.sign_up_at)],
+                         @[@"报名课程",SafeStr(self.addModel.courses_name)],
+                         @[@"分配教师",SafeStr(self.addModel.teacher_name)],
+                         @[@"紧急联系人姓名",SafeStr(self.addModel.emergency_name)],
+                         @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
+                         @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)],
+                         @[@"课程进度", [NSString stringWithFormat:@"%@/%@节",SafeStr(self.addModel.now_progress),SafeStr(self.addModel.total_progress)]],
+                         @[@"优惠明细", SafeStr(self.addModel.coupons_name)],
+                         @[@"学员状态", [SafeStr(self.addModel.status) intValue] == 1 ? @"未开课":@"已开课"],
+                         @[@"开课日期", SafeStr(self.addModel.update_at)],
+                         @[@"班级名称", SafeStr(self.addModel.coupons_name)],
                          @[@"签到详情", @"查看"],
-                         @[@"报名须知", @"查看"]];
+                         @[@"报名须知", SafeStr(self.addModel.remark)]];
     
     for (int i = 0; i < textArr.count; i++) {
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -207,13 +209,17 @@
 #pragma mark lazy loading...
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {
-//         __weak typeof(self) weakSelf = self;
+         __weak typeof(self) weakSelf = self;
          _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
          [_navRightBtn bk_whenTapped:^{
-            
+             ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
+             avc.viewModel.addModel = weakSelf.addModel;
+             avc.school = weakSelf.school;
+             avc.isEdit = YES;
+             [weakSelf.navigationController pushViewController:avc animated:YES];
          }];
      }
      return _navRightBtn;
@@ -237,6 +243,13 @@
     return _bottomBtn;
 }
 
+- (ZOriganizationStudentAddModel *)addModel {
+    if (!_addModel) {
+        _addModel = [[ZOriganizationStudentAddModel alloc] init];
+    }
+    return _addModel;
+}
+
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"sign"]) {
@@ -247,4 +260,15 @@
     }
 }
 
+
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationStudentViewModel getStudentDetail:@{@"id":SafeStr(self.addModel.studentID)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
+        if (isSuccess) {
+            weakSelf.addModel = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
 @end

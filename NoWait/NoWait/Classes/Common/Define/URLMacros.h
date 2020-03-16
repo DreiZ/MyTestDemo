@@ -220,6 +220,13 @@
 //添加学员
 #define URL_account_add_student                     @"account/v1/add_student"
 
+//编辑学员
+#define URL_account_edit_student                     @"account/v1/edit_student"
+
+
+//学员详情
+#define URL_account_get_student_info                @"account/v1/get_student_info"
+
 //学员list
 #define URL_account_get_student_list                @"account/v1/get_student_list"
 
@@ -227,7 +234,10 @@
 #define URL_account_get_source_list                 @"account/v1/get_source_list"
 
 //排课列表
-#define URL_account_get_arrang_student_list                 @"account/v1/get_arrang_student_list"
+#define URL_account_get_arrang_student_list   @"account/v1/get_arrang_student_list"
+
+//删除学员
+#define URL_account_del_student                    @"account/v1/del_student"
 
 
 #pragma mark - 教师------------------------------------------------

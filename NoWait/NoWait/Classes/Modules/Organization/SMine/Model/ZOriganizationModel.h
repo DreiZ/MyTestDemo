@@ -120,6 +120,8 @@
 @interface ZOriganizationStudentAddModel : ZBaseModel
 @property (nonatomic,strong) NSString *studentID;
 @property (nonatomic,strong) NSString *stores_id; //门店id
+@property (nonatomic,strong) NSString *stores_name;
+
 @property (nonatomic,strong) NSString *code_id; //用户code_id
 @property (nonatomic,strong) NSString *name; //学员姓名
 @property (nonatomic,strong) NSString *phone;//学员手机号
@@ -131,7 +133,7 @@
 @property (nonatomic,strong) NSString *work_place;// 工作单位
 @property (nonatomic,strong) NSString *sign_up_at; //报名日期  如：2020-01-01
 @property (nonatomic,strong) NSString *stores_courses_class_id;//课程id
-@property (nonatomic,strong) NSString *stores_courses_class;//课程id
+@property (nonatomic,strong) NSString *courses_name;//课程id
 @property (nonatomic,strong) NSString *source;// 来源渠道
 @property (nonatomic,strong) NSString *teacher_id;//教师id
 @property (nonatomic,strong) NSString *teacher;//教师id
@@ -140,7 +142,25 @@
 @property (nonatomic,strong) NSString *emergency_name;//紧急联系人名称
 @property (nonatomic,strong) NSString *emergency_phone;//紧急联系人电话
 @property (nonatomic,strong) NSString *emergency_contact;//与紧急联系人的关系
-@property (nonatomic,strong) NSString *remark;// 备注  
+@property (nonatomic,strong) NSString *remark;// 备注
+
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *now_progress;
+@property (nonatomic,strong) NSString *stores_coach_id;
+@property (nonatomic,strong) NSString *coach_img;
+
+@property (nonatomic,strong) NSString * account_id;
+@property (nonatomic,strong) NSString *coupons_id;
+@property (nonatomic,strong) NSString *coupons_name;
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSMutableArray *images_list;
+@property (nonatomic,strong) NSString *is_local;
+@property (nonatomic,strong) NSString *is_star;
+@property (nonatomic,strong) NSString *p_information;
+@property (nonatomic,strong) NSString *specialty_desc;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *update_at;
 @end
 
 

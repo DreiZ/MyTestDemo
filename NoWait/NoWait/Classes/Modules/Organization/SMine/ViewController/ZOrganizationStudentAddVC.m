@@ -44,6 +44,7 @@
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
         _viewModel.addModel.sex = @"1";
         _viewModel.addModel.stores_id = self.school.schoolID;
+        _viewModel.addModel.stores_name = self.school.name;
     }
     return _viewModel;
 }
@@ -62,7 +63,7 @@
                          @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名日期", @"请选择报名日期", @NO, @"rightBlackArrowN", @"registrationDate",SafeStr(self.viewModel.addModel.sign_up_at),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.stores_courses_class),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@8,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"微信", @"选填", @YES, @"", @"weixin",SafeStr(self.viewModel.addModel.wechat),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -104,7 +105,12 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"新增学员"];
+    if (_isEdit) {
+        [self.navigationItem setTitle:@"新增学员"];
+    }else{
+        [self.navigationItem setTitle:@"编辑学员"];
+    }
+    
 }
 
 - (void)setupMainView {
@@ -215,10 +221,14 @@
     if (self.viewModel.addModel.image && [self.viewModel.addModel.image isKindOfClass:[UIImage class]]) {
         [TLUIUtility showLoading:@"上传图片中"];
         __weak typeof(self) weakSelf = self;
-        [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"1",@"imageKey":@{@"coverImage":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
             if (isSuccess) {
                 weakSelf.viewModel.addModel.image = message;
-                [weakSelf updateOtherDataWithParams:otherDict];
+                if (weakSelf.isEdit) {
+                    [weakSelf editOtherDataWithParams:otherDict];
+                }else{
+                    [weakSelf updateOtherDataWithParams:otherDict];
+                }
             }else{
                 [TLUIUtility hiddenLoading];
                 [TLUIUtility showErrorHint:message];
@@ -227,7 +237,11 @@
         return;
     }
     
-    [self updateOtherDataWithParams:otherDict];
+    if (self.isEdit) {
+        [self editOtherDataWithParams:otherDict];
+    }else{
+        [self updateOtherDataWithParams:otherDict];
+    }
 }
 
 - (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
@@ -247,6 +261,31 @@
         }
     }];
 }
+
+
+- (void)editOtherDataWithParams:(NSMutableDictionary *)otherDict {
+    if (ValidStr(self.viewModel.addModel.image)) {
+        [otherDict setObject:self.viewModel.addModel.image forKey:@"image"];
+    }
+    
+    if (ValidStr(self.viewModel.addModel.studentID)) {
+        [otherDict setObject:self.viewModel.addModel.studentID forKey:@"id"];
+    }
+    
+    [TLUIUtility showLoading:@"上传其他数据"];
+    [ZOriganizationStudentViewModel editStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -367,7 +406,7 @@
         [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
-                weakSelf.viewModel.addModel.stores_courses_class = model.name;
+                weakSelf.viewModel.addModel.courses_name = model.name;
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }

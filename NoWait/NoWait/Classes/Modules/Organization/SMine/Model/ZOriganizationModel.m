@@ -104,7 +104,9 @@
 
 @implementation ZOriganizationStudentAddModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"studentID" : @"id"};
+    return @{@"studentID" : @"id",
+             @"teacher" : @"teacher_name"
+    };
 }
 @end
 

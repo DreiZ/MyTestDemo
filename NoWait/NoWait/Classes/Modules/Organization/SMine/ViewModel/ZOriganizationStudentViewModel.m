@@ -37,6 +37,28 @@
     }];
 }
 
++ (void)getStudentDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_student_info params:params completionHandler:^(id data, NSError *error) {
+      DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZOriganizationStudentAddModel *model = [ZOriganizationStudentAddModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                model.birthday = [model.birthday timeStringWithFormatter:@"yyyy-MM-dd"];
+                model.sign_up_at = [model.sign_up_at timeStringWithFormatter:@"yyyy-MM-dd"];
+                completeBlock(YES, model);
+                return ;
+            }else {
+                completeBlock(NO, dataModel.message);
+                return ;
+            }
+        }else {
+            completeBlock(NO, dataModel.message);
+            return ;
+        }
+    }];
+}
+
 + (void)getStudentFromList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_source_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
@@ -77,6 +99,24 @@
 
 + (void)addStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_add_student params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
++ (void)editStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_edit_student params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

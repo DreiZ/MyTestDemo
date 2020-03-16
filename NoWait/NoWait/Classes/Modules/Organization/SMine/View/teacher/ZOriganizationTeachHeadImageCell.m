@@ -43,10 +43,19 @@
         _headImageView = [[UIImageView alloc] init];
         _headImageView.image = [UIImage imageNamed:@"uploadUserHeadImage"];
         _headImageView.backgroundColor = adaptAndDarkColor([UIColor colorGrayContentBG], [UIColor colorGrayContentBGDark]);
-        _headImageView.contentMode = UIViewContentModeCenter;
+        _headImageView.contentMode = UIViewContentModeScaleAspectFit;
         ViewRadius(_headImageView, CGFloatIn750(52));
     }
     return _headImageView;
+}
+
+- (void)setImage:(id)image {
+    _image = image;
+    if (ValidStr(image)) {
+        [self.headImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+    }else if (ValidClass(image, [UIImage class])){
+        self.image = image;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
