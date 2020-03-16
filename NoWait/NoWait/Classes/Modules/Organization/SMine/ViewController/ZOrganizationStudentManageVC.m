@@ -59,6 +59,8 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        model.isEdit = self.isEdit;
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
     }
@@ -216,14 +218,19 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            NSArray *ids = [weakSelf getSelectedData];
+            if (ids && ids.count > 0) {
+                [weakSelf deleteLesson:ids];
+            }else{
+                [TLUIUtility showErrorHint:@"你还没有选中"];
+            }
         }];
     }
     return _bottomBtn;
@@ -456,10 +463,17 @@
 
 
 
-- (void)deleteLesson:(ZOriganizationStudentListModel *)model {
+- (void)deleteLesson:(NSArray <ZOriganizationStudentListModel *>*)studentArr {
     __weak typeof(self) weakSelf = self;
+    NSMutableArray *params = @[].mutableCopy;
+    for (ZOriganizationStudentListModel *model in studentArr) {
+//        NSMutableDictionary *para = @{}.mutableCopy;
+        if (model && model.studentID) {
+            [params addObject:model.studentID];
+        }
+    }
     [TLUIUtility showLoading:@""];
-    [ZOriganizationStudentViewModel deleteStudent:@{@"id":SafeStr(model.studentID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationStudentViewModel deleteStudent:@{@"ids":params} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];

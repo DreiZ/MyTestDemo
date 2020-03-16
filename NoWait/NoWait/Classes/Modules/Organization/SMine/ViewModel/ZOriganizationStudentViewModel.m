@@ -134,7 +134,7 @@
 
 //删除课程
 + (void)deleteStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeFile url:URL_file_v1_upload params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_account_del_student params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
