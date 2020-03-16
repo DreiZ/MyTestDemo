@@ -84,6 +84,8 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationCardListVC *lvc =[[ZOrganizationCardListVC alloc] init];
+            lvc.school = self.school;
+            lvc.status = [NSString stringWithFormat:@"%d",i+1];
             [_vcArr addObject:lvc];
         }
     }
@@ -102,6 +104,7 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationCardAddVC *avc = [[ZOrganizationCardAddVC alloc] init];
+            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }

@@ -132,3 +132,25 @@
              };
 }
 @end
+
+
+
+#pragma mark - 卡片管理
+@implementation ZOriganizationCardListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"couponsID" : @"id"};
+}
+@end
+
+
+@implementation ZOriganizationCardAddModel
+
+@end
+
+
+@implementation ZOriganizationCardListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationCardListModel"
+             };
+}
+@end

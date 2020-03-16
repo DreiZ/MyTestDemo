@@ -245,4 +245,22 @@
 #define URL_account_get_teacher_list                  @"account/v1/get_teacher_list"
 
 
+#pragma mark - 卡券------------------------------------------------
+//添加卡券
+#define URL_coupons_v1_add_coupons                   @"coupons/v1/add_coupons"
+
+//编辑卡券
+#define URL_coupons_v1_edit_coupons                  @"coupons/v1/edit_coupons"
+
+//卡券详情
+#define URL_coupons_v1_get_coupons_info              @"coupons/v1/get_coupons_info"
+
+//卡券list
+#define URL_coupons_v1_get_coupons_list              @"coupons/v1/get_coupons_list"
+
+//开启关闭卡券
+#define URL_coupons_v1_update_coupons_status              @"coupons/v1/update_coupons_status"
+
+//获取卡券可使用的课程列表
+#define URL_coupons_v1_get_courses_list_by_coupons_id              @"coupons/v1/get_courses_list_by_coupons_id"
 #endif /* URLMacros_h */

@@ -183,3 +183,45 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+
+
+
+#pragma mark - 卡片管理
+@interface ZOriganizationCardListModel : ZBaseModel
+@property (nonatomic,assign) BOOL isSelected;
+@property (nonatomic,assign) BOOL isEdit;
+@property (nonatomic,strong) NSString *amount;
+@property (nonatomic,strong) NSString *couponsID;
+@property (nonatomic,strong) NSString *limit_end;
+@property (nonatomic,strong) NSString *limit_start;
+@property (nonatomic,strong) NSString *min_amount;
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *unused_nums;
+@end
+
+
+@interface ZOriganizationCardAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *type;// 1: 通用型，2：指定课程
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *amount;
+@property (nonatomic,strong) NSString *min_amount;
+@property (nonatomic,strong) NSString *limit_start;
+@property (nonatomic,strong) NSString *limit_end;
+@property (nonatomic,strong) NSString *nums;
+@property (nonatomic,strong) NSString *limit;
+@property (nonatomic,strong) NSString *status;   // 1：开启 2：关闭
+@property (nonatomic,strong) NSString *course_id;
+@property (nonatomic,strong) NSArray *lessonList;
+
+@property (nonatomic,assign) BOOL isAll;
+@end
+
+
+@interface ZOriganizationCardListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+

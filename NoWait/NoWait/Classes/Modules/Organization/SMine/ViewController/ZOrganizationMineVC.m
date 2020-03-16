@@ -152,6 +152,7 @@
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([model.uid isEqualToString:@"cart"]){
                 ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
+                elvc.school = self.school;
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([model.uid isEqualToString:@"photo"]){
                 ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];

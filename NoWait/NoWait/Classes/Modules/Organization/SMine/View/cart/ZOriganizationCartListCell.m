@@ -73,7 +73,7 @@
     
     [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
-        make.top.equalTo(self.backContentView.mas_top).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.priceLabel.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(104));
         make.height.mas_equalTo(CGFloatIn750(52));
     }];
@@ -135,7 +135,6 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
-        _priceLabel.text = @"300";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         [_priceLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(72)]];
@@ -148,7 +147,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"校区访问人数";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontTitle]];
@@ -162,7 +161,7 @@
     if (!_conditionLabel) {
         _conditionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _conditionLabel.textColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
-        _conditionLabel.text = @"满500可用";
+        
         _conditionLabel.numberOfLines = 1;
         _conditionLabel.textAlignment = NSTextAlignmentLeft;
         [_conditionLabel setFont:[UIFont fontMin]];
@@ -175,7 +174,7 @@
     if (!_validityTimeLabel) {
         _validityTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _validityTimeLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _validityTimeLabel.text = @"有效期2020.02.12至2020.02.24";
+        
         _validityTimeLabel.numberOfLines = 1;
         _validityTimeLabel.textAlignment = NSTextAlignmentLeft;
         [_validityTimeLabel setFont:[UIFont fontMin]];
@@ -188,7 +187,7 @@
     if (!_remainNumLabel) {
         _remainNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _remainNumLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _remainNumLabel.text = @"剩余10张";
+        
         _remainNumLabel.numberOfLines = 1;
         _remainNumLabel.textAlignment = NSTextAlignmentLeft;
         [_remainNumLabel setFont:[UIFont fontMin]];
@@ -201,8 +200,6 @@
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
         _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
-        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
         _openBtn.backgroundColor = [UIColor colorMain];
@@ -250,6 +247,26 @@
     return _backContentView;
 }
 
+- (void)setModel:(ZOriganizationCardListModel *)model {
+    _model = model;
+    _priceLabel.text = SafeStr(model.amount);
+    _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@张",model.unused_nums];
+    _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    _nameLabel.text = SafeStr(model.title);
+    _conditionLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
+    if ([model.status intValue] == 1) {
+        [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }else{
+        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        _openBtn.backgroundColor = [UIColor colorMain];
+    }
+    
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(300);
@@ -257,6 +274,18 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
+    
+    if ([self.model.status intValue] == 1) {
+        [_openBtn setTitle:@"关闭" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }else{
+        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        _openBtn.backgroundColor = [UIColor colorMain];
+    }
 }
 @end
 

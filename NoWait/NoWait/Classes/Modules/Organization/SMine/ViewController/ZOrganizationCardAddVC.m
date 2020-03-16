@@ -11,6 +11,12 @@
 #import "ZAlertBeginAndEndTimeView.h"
 #import "ZAlertTimeQuantumView.h"
 
+#import "ZBaseUnitModel.h"
+#import "ZAlertDataSinglePickerView.h"
+#import "ZAlertDataPickerView.h"
+
+#import "ZOrganizationCardLessonListVC.h"
+
 @interface ZOrganizationCardAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -29,14 +35,26 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    NSString *ftitle = @"";
+    if (ValidArray(self.viewModel.addModel.lessonList)) {
+        if (self.viewModel.addModel.isAll) {
+            ftitle = @"全部课程可用";
+        }else{
+            ftitle = @"部分课程可用";
+        }
+    }
+    NSString *time = @"";
+    if (self.viewModel.addModel.limit_start) {
+        time = [NSString stringWithFormat:@"%@至%@",[self.viewModel.addModel.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[self.viewModel.addModel.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    }
     
-    NSArray *textArr = @[@[@"类型", @"请选择可用课程", @NO, @"rightBlackArrowN", @"type",@30, @""],
-                         @[@"名称", @"10字以内", @YES, @"", @"name",@10, @""],
-                         @[@"面额", @"0", @YES, @"", @"price",@6, @"元"],
-                         @[@"满减条件", @"不填写则无条件限制", @YES, @"", @"tiaojian",@6, @"元"],
-                         @[@"有效时间", @"不填写则无时间限制", @NO, @"rightBlackArrowN", @"time", @30, @""],
-                         @[@"发行量", @"最大发行量不能超过1000张", @YES, @"", @"num",@3, @"张"],
-                         @[@"每人限领", @"0", @YES, @"", @"preNum",@3, @"张"]];
+    NSArray *textArr = @[@[@"类型", @"请选择可用课程", @NO, @"rightBlackArrowN", @"type",@30, @"",ftitle,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"名称", @"10字以内", @YES, @"", @"name",@10, @"",SafeStr(self.viewModel.addModel.title),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"面额", @"0", @YES, @"", @"price",@6, @"元",SafeStr(self.viewModel.addModel.amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
+                         @[@"满减条件", @"不填写则无条件限制", @YES, @"", @"tiaojian",@6, @"元",SafeStr(self.viewModel.addModel.min_amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
+                         @[@"有效时间", @"不填写则无时间限制", @NO, @"rightBlackArrowN", @"time", @30, @"",time,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"发行量", @"最大发行量不能超过1000张", @YES, @"", @"num",@3, @"张",SafeStr(self.viewModel.addModel.nums),[NSNumber numberWithInt:ZFormatterTypeNumber]],
+                         @[@"每人限领", @"0", @YES, @"", @"preNum",@3, @"张",SafeStr(self.viewModel.addModel.limit),[NSNumber numberWithInt:ZFormatterTypeNumber]]];
     
     for (int i = 0; i < textArr.count; i++) {
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -47,16 +65,32 @@
         cellModel.cellTitle = textArr[i][4];
         cellModel.max = [textArr[i][5] intValue];
         cellModel.rightTitle = textArr[i][6];
+        cellModel.content = textArr[i][7];
+        cellModel.formatterType = [textArr[i][8] intValue];
         cellModel.isHiddenLine = YES;
         cellModel.cellHeight = CGFloatIn750(110);
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
         
     }
+    if (ValidArray(self.viewModel.addModel.lessonList)) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"可用课程";
+        model.isHiddenLine = YES;
+        model.leftFont = [UIFont boldFontTitle];
+        model.cellHeight = CGFloatIn750(110);
+        model.cellTitle = @"lessonList";
+        model.rightImage = @"rightBlackArrowN";
+        model.rightTitle = [NSString stringWithFormat:@"已选%ld门课程",self.viewModel.addModel.lessonList.count];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"卡券状态";
-        model.rightTitle = @"默认启用";
+        model.rightTitle = [self.viewModel.addModel.status intValue] == 1 ? @"默认启用" : @"停用";
         model.isHiddenLine = YES;
         model.leftFont = [UIFont boldFontTitle];
         model.cellHeight = CGFloatIn750(110);
@@ -93,6 +127,14 @@
 
 
 #pragma mark - lazy loading...
+-(ZOriganizationCardViewModel *)viewModel {
+    if (!_viewModel) {
+        _viewModel = [[ZOriganizationCardViewModel alloc] init];
+        _viewModel.addModel.status = @"1";
+    }
+    return _viewModel;
+}
+
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
@@ -110,7 +152,7 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -119,21 +161,154 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
+            if (!ValidArray(weakSelf.viewModel.addModel.lessonList)) {
+                [TLUIUtility showErrorHint:@"请选择可用课程"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.viewModel.addModel.title)) {
+                [TLUIUtility showErrorHint:@"请输入卡券名称"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.viewModel.addModel.amount)) {
+                [TLUIUtility showErrorHint:@"请输入卡券面额"];
+                return ;
+            }
             
+            if (!ValidStr(weakSelf.viewModel.addModel.nums)) {
+                [TLUIUtility showErrorHint:@"请输入发行量"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.viewModel.addModel.limit)) {
+                [TLUIUtility showErrorHint:@"请输入个人限额"];
+                return ;
+            }
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:self.school.schoolID forKey:@"stores_id"];
+            [params setObject:self.viewModel.addModel.title forKey:@"title"];
+            [params setObject:self.viewModel.addModel.amount forKey:@"amount"];
+            
+            [params setObject:self.viewModel.addModel.nums forKey:@"nums"];
+            [params setObject:self.viewModel.addModel.limit forKey:@"limit"];
+            [params setObject:self.viewModel.addModel.status forKey:@"status"];
+            
+            if (SafeStr(self.viewModel.addModel.min_amount)) {
+                [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
+            }else{
+                [params setObject:@"0" forKey:@"min_amount"];
+            }
+            
+            if (self.viewModel.addModel.isAll) {
+                [params setObject:@"1" forKey:@"type"];
+            }else{
+                [params setObject:@"2" forKey:@"type"];
+                
+                NSMutableArray *lesssonList = @[].mutableCopy;
+                for (ZOriganizationLessonListModel *model in self.viewModel.addModel.lessonList) {
+                    [lesssonList addObject:model.lessonID];
+                }
+                [params setObject:lesssonList forKey:@"course_id"];
+            }
+            
+            if (ValidStr(weakSelf.viewModel.addModel.limit_start)) {
+                [params setObject:self.viewModel.addModel.limit_start forKey:@"limit_start"];
+                [params setObject:self.viewModel.addModel.limit_end forKey:@"limit_end"];
+            }
+            
+            [weakSelf updateDataWithParams:params];
         }];
     }
     return _bottomBtn;
 }
 
 
+- (void)updateDataWithParams:(NSMutableDictionary *)otherDict {
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationCardViewModel addCart:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+
+
 #pragma mark tableView ------delegate-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"name"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.title = text;
+        };
+    }else  if ([cellConfig.title isEqualToString:@"price"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.amount = text;
+        };
+    }else  if ([cellConfig.title isEqualToString:@"tiaojian"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.min_amount = text;
+        };
+    }else  if ([cellConfig.title isEqualToString:@"num"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.nums = text;
+        };
+    }else  if ([cellConfig.title isEqualToString:@"preNum"]) {
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.limit = text;
+        };
+    }
+}
+
 -(void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;;
     if ([cellConfig.title isEqualToString:@"type"]) {
+        [self.iTableView endEditing:YES];
         ZOrganizationCardAddLessonListVC *lvc = [[ZOrganizationCardAddLessonListVC alloc] init];
+        lvc.school = self.school;
+        lvc.handleBlock = ^(NSArray<ZOriganizationLessonModel *> *list, BOOL isAll) {
+            weakSelf.viewModel.addModel.lessonList = list;
+            weakSelf.viewModel.addModel.isAll = isAll;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"time"]) {
+        [self.iTableView endEditing:YES];
         [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {
-            NSLog(@"%@**%@",begin, end);
+            weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%f",[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
+            weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%f",[[NSDate dateFromComponents:end] timeIntervalSince1970]];
+            
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }];
+    }else if ([cellConfig.title isEqualToString:@"lessonList"]){
+        [self.iTableView endEditing:YES];
+        ZOrganizationCardLessonListVC *lvc = [[ZOrganizationCardLessonListVC alloc] init];
+        lvc.lessonList = self.viewModel.addModel.lessonList;
+        [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"status"]) {
+        [self.iTableView endEditing:YES];
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"启用",@"停用"];
+        for (int i = 0; i < temp.count; i++) {
+           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+           model.name = temp[i];
+           [items addObject:model];
+        }
+        
+        [ZAlertDataSinglePickerView setAlertName:@"卡券状态" items:items handlerBlock:^(NSInteger index) {
+            weakSelf.viewModel.addModel.status = [NSString stringWithFormat:@"%ld",index + 1];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         }];
     }
 }
