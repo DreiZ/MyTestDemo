@@ -50,7 +50,7 @@
     [self.backContentView addSubview:self.conditionLabel];
     [self.backContentView addSubview:self.remainNumLabel];
     
-    [self.menuBackView addSubview:self.openBtn];
+    [self.backContentView addSubview:self.openBtn];
     [self.menuBackView addSubview:self.seeBtn];
     
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -205,7 +205,7 @@
         _openBtn.backgroundColor = [UIColor colorMain];
         [_openBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
+                weakSelf.handleBlock(1,self.model);
             };
         }];
     }
@@ -221,7 +221,7 @@
         [_seeBtn.titleLabel setFont:[UIFont fontSmall]];
         [_seeBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(2);
+                weakSelf.handleBlock(2,self.model);
             };
         }];
     }
@@ -232,6 +232,7 @@
     if (!_menuBackView) {
         _menuBackView = [[UIView alloc] init];
         _menuBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _menuBackView.clipsToBounds = YES;
     }
     return _menuBackView;
 }

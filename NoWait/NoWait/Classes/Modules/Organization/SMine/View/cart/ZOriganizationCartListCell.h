@@ -12,7 +12,7 @@
 @interface ZOriganizationCartListCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationCardListModel *model;
 
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSInteger,ZOriganizationCardListModel *);
 @end
 
 

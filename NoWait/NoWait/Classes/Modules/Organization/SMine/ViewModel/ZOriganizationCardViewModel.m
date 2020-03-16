@@ -7,6 +7,7 @@
 //
 
 #import "ZOriganizationCardViewModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @implementation ZOriganizationCardViewModel
 
@@ -116,7 +117,7 @@
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
-               ZOriganizationCardListNetModel *model = [ZOriganizationCardListNetModel mj_objectWithKeyValues:dataModel.data];
+               ZOriganizationLessonListNetModel *model = [ZOriganizationLessonListNetModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
                 completeBlock(YES, model);
                 return ;

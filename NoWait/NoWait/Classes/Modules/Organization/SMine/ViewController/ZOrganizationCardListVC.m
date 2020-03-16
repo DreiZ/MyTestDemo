@@ -9,6 +9,8 @@
 #import "ZOrganizationCardListVC.h"
 #import "ZOriganizationCartListCell.h"
 #import "ZOriganizationCardViewModel.h"
+#import "ZOrganizationCardLessonSeeListVC.h"
+#import "ZAlertView.h"
 
 @interface ZOrganizationCardListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -52,10 +54,29 @@
 
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]){
         ZOriganizationCartListCell *enteryCell = (ZOriganizationCartListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
-            
+        enteryCell.handleBlock = ^(NSInteger index,ZOriganizationCardListModel *model) {
+            if (index == 2) {
+                ZOrganizationCardLessonSeeListVC *svc = [[ZOrganizationCardLessonSeeListVC alloc] init];
+                svc.coupons_id = model.couponsID;
+                [weakSelf.navigationController pushViewController:svc animated:YES];
+            }else{
+                if ([weakSelf.status intValue] == 1) {
+                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"停用卡券" leftBtnTitle:@"取消" rightBtnTitle:@"停用" handlerBlock:^(NSInteger index) {
+                        if (index == 1) {
+                            [weakSelf handleCard:model];
+                        }
+                    }];
+                }else{
+                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"启用卡券" leftBtnTitle:@"取消" rightBtnTitle:@"启用" handlerBlock:^(NSInteger index) {
+                        if (index == 1) {
+                            [weakSelf handleCard:model];
+                        }
+                    }];
+                }
+            }
         };
     }
 }
@@ -63,8 +84,6 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]) {
         
-    }else if ([cellConfig.title isEqualToString:@"address"]){
-       
     }
 }
 
@@ -142,6 +161,28 @@
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:self.status forKey:@"status"];
     [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+}
+
+
+
+- (void)handleCard:(ZOriganizationCardListModel*)model {
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *params = @{@"id":model.couponsID}.mutableCopy;
+    if ([self.status intValue]  == 1) {
+        [params setObject:@"2" forKey:@"status"];
+    }else{
+        [params setObject:@"1" forKey:@"status"];
+    }
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationCardViewModel deleteCard:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
 }
 
 @end
