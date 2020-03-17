@@ -252,7 +252,12 @@
     _model = model;
     _priceLabel.text = SafeStr(model.amount);
     _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@张",model.unused_nums];
-    _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    if (![model.limit_start isEqualToString:@"0"]) {
+        _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    }else{
+        _validityTimeLabel.text = @"长期有效";
+    }
+    
     _nameLabel.text = SafeStr(model.title);
     _conditionLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
     if ([model.status intValue] == 1) {
