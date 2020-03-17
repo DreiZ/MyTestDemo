@@ -172,10 +172,17 @@
 
 #pragma mark - 教师管理
 @interface ZOriganizationTeacherListModel : ZBaseModel
+@property (nonatomic,strong) NSString *account_id;
+@property (nonatomic,strong) NSString *c_level;
 @property (nonatomic,strong) NSString *teacherID;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *nick_name;
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *position;
 @property (nonatomic,strong) NSString *teacher_name;
-@property (nonatomic,strong) NSString *status;
+
 @property (nonatomic,assign) BOOL isSelected;
+@property (nonatomic,assign) BOOL isEdit;
 @end
 
 @interface ZOriganizationTeacherListNetModel : ZBaseNetworkBackDataModel
@@ -184,6 +191,7 @@
 @end
 
 @interface ZOriganizationTeacherAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *school;
 @property (nonatomic,strong) NSString *teacherID;

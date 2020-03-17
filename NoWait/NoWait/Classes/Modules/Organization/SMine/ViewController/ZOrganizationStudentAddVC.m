@@ -110,7 +110,6 @@
     }else{
         [self.navigationItem setTitle:@"编辑学员"];
     }
-    
 }
 
 - (void)setupMainView {

@@ -7,21 +7,10 @@
 //
 
 #import "ZOrganizationStudentDetailVC.h"
-#import "ZOriganizationTeachListCell.h"
 #import "ZOriganizationTeachAddHeadImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
-#import "ZOriganizationTextViewCell.h"
-#import "ZOriganizationIDCardCell.h"
-#import "ZOrganizationCampusTextLabelCell.h"
-#import "ZMineStudentEvaListEvaOrderDesCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
 
-#import "ZBaseUnitModel.h"
-#import "ZAlertDataSinglePickerView.h"
-#import "ZAlertDataPickerView.h"
-
-#import "ZOrganizationCampusManageAddLabelVC.h"
-#import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOrganizationStudentSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
 #import "ZOrganizationStudentAddVC.h"
@@ -172,6 +161,7 @@
 //            model.imageName = tempArr[j][1];
 //            model.uid = tempArr[j][2];
             model.name = @"必选";
+            model.isEdit = NO;
             [menulist addObject:model];
         }
         

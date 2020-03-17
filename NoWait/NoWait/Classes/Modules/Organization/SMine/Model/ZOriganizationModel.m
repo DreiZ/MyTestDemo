@@ -54,7 +54,6 @@
              @"list" : @"ZOriganizationSchoolListModel"
              };
 }
-
 @end
 
 @implementation ZOriganizationSchoolDetailModel

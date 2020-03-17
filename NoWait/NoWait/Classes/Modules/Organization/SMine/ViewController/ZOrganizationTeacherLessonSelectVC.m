@@ -29,8 +29,20 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     for (int i = 0; i < self.dataSources.count; i++) {
+        [self checkModel:self.dataSources[i]];
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeacherLessonSelectCell className] title:[ZOrganizationTeacherLessonSelectCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeacherLessonSelectCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
+    }
+}
+
+- (void)checkModel:(ZOriganizationLessonListModel *)model {
+    if (ValidArray(self.lessonList)) {
+        for (ZOriganizationLessonListModel *tmodel in self.lessonList) {
+            if ([tmodel.lessonID isEqualToString:model.lessonID]) {
+                model.teacherPirce = tmodel.teacherPirce;
+                model.isSelected = YES;
+            }
+        }
     }
 }
 

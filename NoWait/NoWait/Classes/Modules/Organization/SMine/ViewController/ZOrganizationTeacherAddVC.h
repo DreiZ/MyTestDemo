@@ -13,6 +13,7 @@
 @interface ZOrganizationTeacherAddVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationTeacherViewModel *viewModel;
 @property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+@property (nonatomic,assign) BOOL isEdit;
 @end
 
 

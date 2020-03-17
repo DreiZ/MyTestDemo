@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,strong) id data;
-
+@property (nonatomic,assign) BOOL isEdit;
 @end
 
 

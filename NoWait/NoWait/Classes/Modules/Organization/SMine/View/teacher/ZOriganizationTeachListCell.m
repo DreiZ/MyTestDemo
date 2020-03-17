@@ -125,7 +125,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"很早就睡了";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -138,7 +137,6 @@
     if (!_phoneLabel) {
         _phoneLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _phoneLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _phoneLabel.text = @"19934534543";
         _phoneLabel.numberOfLines = 1;
         _phoneLabel.textAlignment = NSTextAlignmentLeft;
         [_phoneLabel setFont:[UIFont fontContent]];
@@ -150,7 +148,7 @@
     if (!_typeLabel) {
         _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _typeLabel.textColor = adaptAndDarkColor([UIColor colorOrangeMoment],[UIColor colorOrangeMoment]);
-        _typeLabel.text = @"明星教师";
+        
         _typeLabel.numberOfLines = 1;
         _typeLabel.textAlignment = NSTextAlignmentLeft;
         [_typeLabel setFont:[UIFont fontSmall]];
@@ -163,7 +161,7 @@
     if (!_workLabel) {
         _workLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _workLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _workLabel.text = @"职称职称";
+        
         _workLabel.numberOfLines = 1;
         _workLabel.textAlignment = NSTextAlignmentLeft;
         [_workLabel setFont:[UIFont fontSmall]];
@@ -174,7 +172,6 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"headImage"];
         ViewRadius(_leftImageView, CGFloatIn750(44));
     }
     return _leftImageView;
@@ -187,6 +184,27 @@
         _rightImageView.contentMode = UIViewContentModeCenter;
     }
     return _rightImageView;
+}
+
+- (void)setModel:(ZOriganizationTeacherListModel *)model {
+    _model = model;
+    _nameLabel.text = model.teacher_name;
+    _typeLabel.text = [model.c_level intValue] == 1 ? @"普通教师":@"明星教师";
+    _workLabel.text = model.position;
+    _phoneLabel.text = model.phone;
+    [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(SafeStr(model.image))] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    
+    if([model.c_level intValue] == 1) {
+        _typeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1]);
+    }else{
+        _typeLabel.textColor = adaptAndDarkColor([UIColor colorOrangeMoment],[UIColor colorOrangeMoment]);
+    }
+    
+    if (model.isEdit) {
+        _rightImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
+    }else{
+        _rightImageView.image =  [UIImage imageNamed:@"unSelectedCycleMin"];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

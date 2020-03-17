@@ -143,7 +143,7 @@
         
         [self.cellConfigArr addObject:menuCellConfig];
         
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:model.cellTitle showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"ZOriganizationTextViewCell" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
         
         [self.cellConfigArr addObject:textCellConfig];
     }
@@ -191,7 +191,11 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"新增教师"];
+    if (_isEdit) {
+        [self.navigationItem setTitle:@"新增教师"];
+    }else{
+        [self.navigationItem setTitle:@"编辑教师"];
+    }
 }
 
 - (void)setupMainView {
@@ -287,7 +291,7 @@
                     [params setObject:temp forKey:@"skills"];
                 }
             }
-            [params setObject:@"sdd" forKey:@"skills"];
+            
             if (ValidStr(weakSelf.viewModel.addModel.des)) {
                 [params setObject:weakSelf.viewModel.addModel.des forKey:@"description"];
             }
@@ -352,7 +356,7 @@
                [TLUIUtility showErrorHint:message];
                complete(NO,message);
            }
-       }];
+    }];
 }
 
 - (NSInteger)checkIsHavePhotos {
@@ -593,7 +597,7 @@
     }else if ([cellConfig.title isEqualToString:@"class"]) {
         [self.iTableView endEditing:YES];
         NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"初级教师",@"高级教师"];
+        NSArray *temp = @[@"普通教师",@"明星教师"];
         for (int i = 0; i < temp.count; i++) {
             ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
             model.name = temp[i];
@@ -621,6 +625,7 @@
         [self.iTableView endEditing:YES];
         ZOrganizationTeacherLessonSelectVC *lvc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
         lvc.school = self.school;
+        lvc.lessonList = self.viewModel.addModel.lessonList;
         lvc.handleBlock = ^(NSMutableArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
             weakSelf.viewModel.addModel.lessonList = list;
             [weakSelf initCellConfigArr];

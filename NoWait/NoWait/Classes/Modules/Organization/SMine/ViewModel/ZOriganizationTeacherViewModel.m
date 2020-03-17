@@ -7,7 +7,7 @@
 //
 
 #import "ZOriganizationTeacherViewModel.h"
-
+#import "ZOriganizationLessonModel.h"
 @implementation ZOriganizationTeacherViewModel
 
 - (instancetype)init {
@@ -40,11 +40,44 @@
 
 + (void)getTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_info params:params completionHandler:^(id data, NSError *error) {
-      DLog(@"return login code %@", data);
         ZBaseNetworkBackModel *dataModel = data;
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationTeacherAddModel *model = [ZOriganizationTeacherAddModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
+                if (model.images_list && [model.images_list isKindOfClass:[NSArray class]]) {
+                    for (NSInteger i = 0; i < model.images_list.count; i++) {
+                        [model.images_list_net addObject:model.images_list[i]];
+                    }
+                    for (NSInteger i = model.images_list.count; i < 9; i++) {
+                        [model.images_list addObject:@""];
+                        [model.images_list_net addObject:@""];
+                    }
+                }else {
+                    model.images_list = @[].mutableCopy;
+                    model.images_list_net = @[].mutableCopy;
+                    for (NSInteger i = model.images_list.count; i < 9; i++) {
+                        [model.images_list addObject:@""];
+                        [model.images_list_net addObject:@""];
+                    }
+                }
+                
+                if (ValidArray(model.class_ids)) {
+                    for (id temp in model.class_ids) {
+                        if (ValidDict(temp)) {
+                            NSDictionary *tdict = temp;
+                            if ([tdict objectForKey:@"courses_id"]) {
+                                ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
+                                smodel.lessonID = tdict[@"courses_id"];
+                                if ([tdict objectForKey:@"price"]) {
+                                    smodel.teacherPirce = tdict[@"price"];
+                                }
+                                
+                                [model.lessonList addObject:smodel];
+                            }
+                        }
+                    }
+                }
+                
                 completeBlock(YES, model);
                 return ;
             }else {

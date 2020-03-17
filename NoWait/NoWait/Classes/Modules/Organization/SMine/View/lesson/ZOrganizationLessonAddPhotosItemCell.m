@@ -187,6 +187,12 @@
             self.hintImageView.hidden = NO;
         }
     }
+    if (model.isEdit) {
+        
+    }else{
+        self.deleteBtn.hidden = YES;
+        self.deleteBigBtn.hidden = YES;
+    }
 }
 @end
 
