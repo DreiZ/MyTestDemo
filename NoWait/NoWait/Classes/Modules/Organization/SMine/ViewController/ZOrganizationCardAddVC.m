@@ -296,20 +296,20 @@
         lvc.lessonList = self.viewModel.addModel.lessonList;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"status"]) {
-        [self.iTableView endEditing:YES];
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"启用",@"停用"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           [items addObject:model];
-        }
-        
-        [ZAlertDataSinglePickerView setAlertName:@"卡券状态" items:items handlerBlock:^(NSInteger index) {
-            weakSelf.viewModel.addModel.status = [NSString stringWithFormat:@"%ld",index + 1];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }];
+//        [self.iTableView endEditing:YES];
+//        NSMutableArray *items = @[].mutableCopy;
+//        NSArray *temp = @[@"启用",@"停用"];
+//        for (int i = 0; i < temp.count; i++) {
+//           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+//           model.name = temp[i];
+//           [items addObject:model];
+//        }
+//
+//        [ZAlertDataSinglePickerView setAlertName:@"卡券状态" items:items handlerBlock:^(NSInteger index) {
+//            weakSelf.viewModel.addModel.status = [NSString stringWithFormat:@"%ld",index + 1];
+//            [weakSelf initCellConfigArr];
+//            [weakSelf.iTableView reloadData];
+//        }];
     }
 }
 @end

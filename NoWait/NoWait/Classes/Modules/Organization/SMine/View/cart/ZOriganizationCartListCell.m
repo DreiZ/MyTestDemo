@@ -261,16 +261,28 @@
     _nameLabel.text = SafeStr(model.title);
     _conditionLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
     if ([model.status intValue] == 1) {
+        _openBtn.hidden = NO;
         [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }else{
+        _openBtn.hidden = YES;
         [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
         _openBtn.backgroundColor = [UIColor colorMain];
     }
+    
+    if ([model.type intValue] == 1) {
+        _seeBtn.enabled = NO;
+        [_seeBtn setTitle:@"全部课程可用" forState:UIControlStateNormal];
+    }else{
+        _seeBtn.enabled = YES;
+        [_seeBtn setTitle:@"查看可用课程 >" forState:UIControlStateNormal];
+    }
+    
+    
     
 }
 
@@ -282,11 +294,13 @@
     ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
     
     if ([self.model.status intValue] == 1) {
+        _openBtn.hidden = NO;
         [_openBtn setTitle:@"关闭" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }else{
+        _openBtn.hidden = YES;
         [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
