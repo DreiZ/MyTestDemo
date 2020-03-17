@@ -23,6 +23,7 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+    [self refreshData];
 }
 
 - (void)initCellConfigArr {
@@ -58,7 +59,7 @@
 
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
@@ -67,10 +68,87 @@
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navRightBtn bk_whenTapped:^{
-            
+            NSMutableArray *temp = [weakSelf getSelect];
+            if (temp && temp.count > 0) {
+                if (weakSelf.handleBlock) {
+                    weakSelf.handleBlock(temp, YES);
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [TLUIUtility showErrorHint:@"您还没有选择课程"];
+            }
         }];
     }
     return _navRightBtn;
+}
+#pragma mark - tableview delegate
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTeacherLessonSelectCell"]) {
+        ZOriganizationLessonListModel *model;
+        for (int i = 0; i < self.dataSources.count; i++) {
+            if (indexPath.row == i) {
+                model = self.dataSources[i];
+            }
+        }
+        
+        ZOrganizationTeacherLessonSelectCell *lcell = (ZOrganizationTeacherLessonSelectCell *)cell;
+        lcell.handleBlock = ^(NSString *text) {
+            model.teacherPirce = text;
+        };
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTeacherLessonSelectCell"]) {
+        ZOriganizationLessonListModel *model;
+        for (int i = 0; i < self.dataSources.count; i++) {
+            if (indexPath.row == i) {
+                model = self.dataSources[i];
+            }
+        }
+        
+        model.isSelected = !model.isSelected;
+        [weakSelf initCellConfigArr];
+        [weakSelf.iTableView reloadData];
+        
+        if ([self getSelect].count == self.dataSources.count) {
+            [_navLeftBtn setTitle:@"全不选" forState:UIControlStateNormal];
+        }else{
+            [_navLeftBtn setTitle:@"全选" forState:UIControlStateNormal];
+        }
+    }
+}
+
+
+- (NSMutableArray<ZOriganizationLessonListModel *> *)getSelect{
+    NSMutableArray *list = @[].mutableCopy;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationLessonListModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            [list addObject:model];
+        }
+    }
+    return list;
+}
+
+- (void)handleAll{
+    if ([self getSelect].count == self.dataSources.count) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = NO;
+        }
+        [self.navLeftBtn setTitle:@"全选" forState:UIControlStateNormal];
+    }else{
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = YES;
+        }
+        [self.navLeftBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }
+    
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 
 #pragma mark - 数据处理

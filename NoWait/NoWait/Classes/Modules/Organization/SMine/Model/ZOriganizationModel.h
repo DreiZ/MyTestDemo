@@ -183,7 +183,30 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+@interface ZOriganizationTeacherAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *school;
+@property (nonatomic,strong) NSString *teacherID;
+@property (nonatomic,strong) NSString *real_name;
+@property (nonatomic,strong) id image;
+@property (nonatomic,strong) NSString *nick_name;
+@property (nonatomic,strong) NSString *sex;// 1：男 2：女
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *id_card;
+@property (nonatomic,strong) id cardImageUp;
+@property (nonatomic,strong) id cardImageDown;
 
+@property (nonatomic,strong) NSString *c_level;
+@property (nonatomic,strong) NSString *position;
+@property (nonatomic,strong) NSMutableArray *class_ids_net;
+@property (nonatomic,strong) NSMutableArray *class_ids;//{“courses_id”: “课程id”,”price”:”课程价格”}]
+@property (nonatomic,strong) NSMutableArray *skills;
+@property (nonatomic,strong) NSMutableArray *lessonList;
+
+@property (nonatomic,strong) NSString *des;
+@property (nonatomic,strong) NSMutableArray *images_list;
+@property (nonatomic,strong) NSMutableArray *images_list_net;
+@end
 
 
 #pragma mark - 卡片管理
@@ -199,6 +222,8 @@
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *unused_nums;
+@property (nonatomic,strong) NSString *nums;
+
 @end
 
 

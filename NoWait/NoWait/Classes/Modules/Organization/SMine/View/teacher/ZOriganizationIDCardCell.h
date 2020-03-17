@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationIDCardCell : ZBaseCell
+@property (nonatomic,strong) NSArray *images;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

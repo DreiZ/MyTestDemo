@@ -243,6 +243,15 @@
 #pragma mark - 教师------------------------------------------------
 //教师list
 #define URL_account_get_teacher_list                  @"account/v1/get_teacher_list"
+//教师添加
+#define URL_account_add_teacher                       @"account/v1/add_teacher"
+//教师详情
+#define URL_account_get_teacher_info                  @"account/v1/get_teacher_info"
+//教师编辑
+#define URL_account_edit_teacher                      @"account/v1/edit_teacher"
+//教师编辑
+#define URL_account_del_teacher                       @"account/v1/del_teacher"
+
 
 
 #pragma mark - 卡券------------------------------------------------

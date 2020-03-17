@@ -134,6 +134,35 @@
 @end
 
 
+@implementation ZOriganizationTeacherAddModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _stores_id = @"";
+        _real_name = @"";
+        _nick_name = @"";
+        _sex = @"";// 1：男 2：女
+        _phone = @"";
+        _id_card = @"";
+        _c_level = @"";
+        _position = @"";
+        _class_ids_net = @[].mutableCopy;
+        _class_ids = @[].mutableCopy;//{“courses_id”: “课程id”,”price”:”课程价格”}]
+        _skills = @[].mutableCopy;
+        _lessonList = @[].mutableCopy;
+        _des = @"";
+        _images_list = @[].mutableCopy;;
+        _images_list_net = @[].mutableCopy;
+    }
+    return self;
+}
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"des" : @"description",
+             @"teacherID" : @"id"
+    };
+}
+
+@end
 
 #pragma mark - 卡片管理
 @implementation ZOriganizationCardListModel

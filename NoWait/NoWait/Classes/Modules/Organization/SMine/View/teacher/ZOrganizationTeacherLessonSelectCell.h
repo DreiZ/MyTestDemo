@@ -13,6 +13,6 @@
 @interface ZOrganizationTeacherLessonSelectCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationLessonListModel *model;
 
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSString *);
 @end
 

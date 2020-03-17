@@ -108,6 +108,7 @@
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navRightBtn bk_whenTapped:^{
             ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
+            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }

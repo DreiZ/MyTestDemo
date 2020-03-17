@@ -9,11 +9,21 @@
 #import "ZBaseViewModel.h"
 #import "ZOriganizationModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationTeacherViewModel : ZBaseViewModel
+@property (nonatomic,strong) ZOriganizationTeacherAddModel *addModel;
 
 + (void)getTeacherList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)getTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)addTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)editTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock;
+
+//删除课程
++ (void)deleteTeacher:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
-NS_ASSUME_NONNULL_END

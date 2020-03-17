@@ -10,6 +10,15 @@
 
 @implementation ZOriganizationTeacherViewModel
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.addModel  = [[ZOriganizationTeacherAddModel alloc] init];
+    }
+    return self;
+}
+
+
 + (void)getTeacherList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
@@ -25,6 +34,81 @@
             }
         }
         completeBlock(NO, @"操作失败");
+    }];
+}
+
+
++ (void)getTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_info params:params completionHandler:^(id data, NSError *error) {
+      DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZOriganizationTeacherAddModel *model = [ZOriganizationTeacherAddModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else {
+                completeBlock(NO, dataModel.message);
+                return ;
+            }
+        }else {
+            completeBlock(NO, dataModel.message);
+            return ;
+        }
+    }];
+}
+
+
++ (void)addTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:isEdit ? URL_account_edit_teacher : URL_account_add_teacher params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
++ (void)editTeacher:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_edit_teacher params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+//删除课程
++ (void)deleteTeacher:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_account_del_teacher params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
     }];
 }
 @end

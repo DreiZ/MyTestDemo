@@ -13,7 +13,6 @@
 #import "ZTextFieldMultColCell.h"
 
 #import "ZStudentDetailModel.h"
-#import "ZOriganizationModel.h"
 
 #import "ZAlertDataPickerView.h"
 #import "ZAlertDateHourPickerView.h"
@@ -283,7 +282,7 @@
 
 - (void)updateImageWithOtherParams:(NSMutableDictionary *)otherDict {
     if (self.viewModel.addModel.image_net_url && self.viewModel.addModel.image_net_url.length > 0) {
-        [self updateOtherDataWithParams:otherDict];
+        [self updatePhotosStep1WithOtherParams:otherDict];
         return;
     }
     [TLUIUtility showLoading:@"上传封面图片中"];

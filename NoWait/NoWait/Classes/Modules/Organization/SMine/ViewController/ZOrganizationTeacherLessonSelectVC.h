@@ -8,8 +8,10 @@
 
 #import "ZTableViewViewController.h"
 #import "ZOriganizationModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZOrganizationTeacherLessonSelectVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+@property (nonatomic,strong) void (^handleBlock)(NSMutableArray <ZOriganizationLessonListModel *>*, BOOL);
 @end
 

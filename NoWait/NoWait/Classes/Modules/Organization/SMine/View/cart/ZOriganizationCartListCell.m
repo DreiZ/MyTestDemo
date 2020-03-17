@@ -251,7 +251,7 @@
 - (void)setModel:(ZOriganizationCardListModel *)model {
     _model = model;
     _priceLabel.text = SafeStr(model.amount);
-    _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@张",model.unused_nums];
+    _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@/%@张",model.unused_nums,model.nums];
     if (![model.limit_start isEqualToString:@"0"]) {
         _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
     }else{

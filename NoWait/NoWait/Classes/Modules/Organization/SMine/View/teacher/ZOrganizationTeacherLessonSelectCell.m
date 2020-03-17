@@ -79,9 +79,9 @@
 }
 
 - (void)btnLong:(id)sender {
-    if (self.handleBlock) {
-        self.handleBlock(1);
-    }
+//    if (self.handleBlock) {
+//        self.handleBlock(@"1");
+//    }
 }
 #pragma mark -Getter
 - (UITextField *)inputTextField {
@@ -94,6 +94,7 @@
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentRight];
         [_inputTextField setPlaceholder:@"教练带课价格"];
+        _inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -115,7 +116,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"很早就睡了";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -128,7 +128,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _priceLabel.text = @"123元";
+        
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentRight;
         [_priceLabel setFont:[UIFont boldFontContent]];
@@ -140,8 +140,8 @@
     if (!_unitLabel) {
         _unitLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _unitLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _unitLabel.text = @"元";
         _unitLabel.numberOfLines = 1;
+        _unitLabel.text = @"元";
         _unitLabel.textAlignment = NSTextAlignmentRight;
         [_unitLabel setFont:[UIFont fontContent]];
     }
@@ -158,6 +158,18 @@
 
 - (void)textFieldDidChange:(UITextField *)textField {
     [ZPublicTool textField:textField maxLenght:10 type:ZFormatterTypeDecimal];
+    
+    if (self.handleBlock) {
+        self.handleBlock(textField.text);
+    }
+}
+
+- (void)setModel:(ZOriganizationLessonListModel *)model {
+    _model = model;
+    _nameLabel.text = model.name;
+    _inputTextField.text = model.teacherPirce;
+    _priceLabel.text = [NSString stringWithFormat:@"%@元",model.price];
+    _leftImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

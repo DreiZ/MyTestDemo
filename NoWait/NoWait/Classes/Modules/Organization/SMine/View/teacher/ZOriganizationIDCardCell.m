@@ -90,6 +90,27 @@
     return _rightImageView;
 }
 
+- (void)setImages:(NSArray *)images {
+    _images = images;
+    if (images && images.count > 0) {
+        id data = images[0];
+        if ([data isKindOfClass:[UIImage class]]) {
+            _leftImageView.image = data;
+        }else{
+            [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)]];
+        }
+        
+        if (images.count > 1) {
+            id data = images[1];
+            if ([data isKindOfClass:[UIImage class]]) {
+                _rightImageView.image = data;
+            }else{
+                [_rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)]];
+            }
+        }
+    }
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(256);
 }

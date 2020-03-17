@@ -124,6 +124,7 @@
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.tableFooterView = self.safeFooterView;
+        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _iTableView;
 }

@@ -274,7 +274,7 @@
         [self.iTableView endEditing:YES];
         ZOrganizationCardAddLessonListVC *lvc = [[ZOrganizationCardAddLessonListVC alloc] init];
         lvc.school = self.school;
-        lvc.handleBlock = ^(NSArray<ZOriganizationLessonModel *> *list, BOOL isAll) {
+        lvc.handleBlock = ^(NSArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
             weakSelf.viewModel.addModel.lessonList = list;
             weakSelf.viewModel.addModel.isAll = isAll;
             [weakSelf initCellConfigArr];

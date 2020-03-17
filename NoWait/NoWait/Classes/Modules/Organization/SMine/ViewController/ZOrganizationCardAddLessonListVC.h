@@ -11,7 +11,7 @@
 #import "ZOriganizationLessonModel.h"
 
 @interface ZOrganizationCardAddLessonListVC : ZTableViewViewController
-@property (nonatomic,strong) void (^handleBlock)(NSArray <ZOriganizationLessonModel *>*, BOOL);
+@property (nonatomic,strong) void (^handleBlock)(NSArray <ZOriganizationLessonListModel *>*, BOOL);
 @property (nonatomic,strong) ZOriganizationSchoolListModel *school;
 @end
 

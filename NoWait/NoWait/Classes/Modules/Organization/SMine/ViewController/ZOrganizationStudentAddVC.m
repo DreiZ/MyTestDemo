@@ -386,6 +386,8 @@
         
         [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
             weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"birthday"]) {
         [self.iTableView endEditing:YES];
