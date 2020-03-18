@@ -11,5 +11,7 @@
 
 @interface ZOrganizationTrachingScheduleNewClassVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+@property (nonatomic,strong) NSArray *lessonOrderArr;
+@property (nonatomic,assign) BOOL isBu;
 @end
 

@@ -18,8 +18,8 @@
     self = [super init];
     if (self) {
         _lessonTimeArr = @[].mutableCopy;
-        _lessonOrderArr = @[].mutableCopy;
-        _className = @"";
+        _lessonOrderArr = @[];
+        _class_Name = @"";
     }
     return self;
 }

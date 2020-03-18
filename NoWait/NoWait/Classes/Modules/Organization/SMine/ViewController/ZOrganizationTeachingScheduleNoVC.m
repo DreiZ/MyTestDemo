@@ -22,6 +22,10 @@
 @end
 
 @implementation ZOrganizationTeachingScheduleNoVC
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,7 +35,6 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self refreshData];
 }
 
 - (void)setDataSource {
@@ -106,9 +109,11 @@
                     [TLUIUtility showErrorHint:@"你还没有选择学生"];
                     return ;
                 }
+                weakSelf.isEdit = NO;
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
-                successvc.dataSources = [[NSMutableArray alloc] initWithArray:tempArr];
+                successvc.lessonOrderArr = tempArr;
                 successvc.school = weakSelf.school;
+                successvc.isBu = weakSelf.isBu;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;

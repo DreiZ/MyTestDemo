@@ -18,9 +18,11 @@
 
 @interface ZOriganizationAddClassModel : NSObject
 @property (nonatomic,strong) NSMutableArray *lessonTimeArr;
-@property (nonatomic,strong) NSMutableArray *lessonOrderArr;
-@property (nonatomic,strong) NSString *className;
+@property (nonatomic,strong) NSArray *lessonOrderArr;
+@property (nonatomic,strong) NSString *class_Name;
 @property (nonatomic,assign) NSString *singleTime;
+@property (nonatomic,strong) NSString *teacherName;
+@property (nonatomic,strong) NSString *teacherID;
 @end
 
 

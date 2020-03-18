@@ -9,13 +9,14 @@
 #import "ZOrganizationTrachingScheduleNewClassVC.h"
 
 #import "ZOrganizationTimeSelectVC.h"
-#import "ZAlertDataCheckBoxView.h"
+#import "ZAlertTeacherCheckBoxView.h"
 #import "ZTextFieldMultColCell.h"
 #import "ZOriganizationTeachingScheduleViewModel.h"
+#import "ZBaseUnitModel.h"
 
 @interface ZOrganizationTrachingScheduleNewClassVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
-@property (nonatomic,strong) ZOriganizationTeachingScheduleViewModel *addViewModel;
+@property (nonatomic,strong) ZOriganizationTeachingScheduleViewModel *viewModel;
 
 @end
 
@@ -24,13 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    _viewModel.addModel.lessonOrderArr = _lessonOrderArr;
     [self initCellConfigArr];
 }
 
 - (void)setDataSource {
     [super setDataSource];
-    _addViewModel = [[ZOriganizationTeachingScheduleViewModel alloc] init];
+    _viewModel = [[ZOriganizationTeachingScheduleViewModel alloc] init];
 }
 
 - (void)initCellConfigArr {
@@ -59,8 +60,8 @@
                 
                 NSMutableArray *multArr = @[].mutableCopy;
                 NSMutableArray *tempArr = @[].mutableCopy;
-                for (int i = 0; i < self.addViewModel.addModel.lessonTimeArr.count; i++) {
-                    ZBaseMenuModel *menuModel = self.addViewModel.addModel.lessonTimeArr[i];
+                for (int i = 0; i < self.viewModel.addModel.lessonTimeArr.count; i++) {
+                    ZBaseMenuModel *menuModel = self.viewModel.addModel.lessonTimeArr[i];
                     
                     if (menuModel && menuModel.units && menuModel.units.count > 0) {
                         NSMutableArray *tempSubArr = @[].mutableCopy;
@@ -68,11 +69,7 @@
                         NSString *subTitle = @"";
                         for (int k = 0; k < menuModel.units.count; k++) {
                             ZBaseUnitModel *unitModel = menuModel.units[k];
-                            if (subTitle.length == 0) {
-                                subTitle = [NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]];
-                            }else{
-                                subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,[self getStartTime:unitModel],[self getEndTime:unitModel]];
-                            }
+                            [tempSubArr addObject:[self getStartTime:unitModel]];
                         }
                         [tempSubArr addObject:subTitle];
                         
@@ -116,16 +113,26 @@
                 cellModel.cellHeight = CGFloatIn750(116);
                 cellModel.textColor = [UIColor colorTextGray];
                 if (i == 0) {
-                    cellModel.content = self.addViewModel.addModel.className;
+                    cellModel.content = self.viewModel.addModel.class_Name;
+                    cellModel.max = 10;
+                    cellModel.formatterType = ZFormatterTypeAny;
+                }else{
+                    cellModel.content = self.viewModel.addModel.teacherName;
                 }
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
                 [self.cellConfigArr addObject:textCellConfig];
             }
         }
     }
-    
 }
 
+- (NSString *)getStartTime:(ZBaseUnitModel *)model {
+    if ([model.subName intValue] < 10) {
+        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    }else{
+        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+    }
+}
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
@@ -153,10 +160,10 @@
     self.iTableView.tableFooterView = bottomView;
 }
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -165,12 +172,83 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-
+            if (!ValidStr(weakSelf.viewModel.addModel.class_Name)) {
+                [TLUIUtility showErrorHint:@"请输入班级名称"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.viewModel.addModel.lessonTimeArr)) {
+                [TLUIUtility showErrorHint:@"请添加开课时间"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.viewModel.addModel.teacherName)) {
+                [TLUIUtility showErrorHint:@"请选择任课老师"];
+                return ;
+            }
+            [weakSelf updateData];
         }];
     }
     return _bottomBtn;
 }
 
+
+- (void)updateData {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    if (self.isBu) {
+        [params setObject:@"2" forKey:@"type"];
+    }else{
+        [params setObject:@"1" forKey:@"type"];
+    }
+    [params setObject:SafeStr(self.school.schoolID) forKey:@"teacher_id"];
+    [params setObject:SafeStr(self.viewModel.addModel.teacherID) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.viewModel.addModel.class_Name) forKey:@"name"];
+    NSMutableArray *tempArr = @[].mutableCopy;
+    if (ValidArray(self.viewModel.addModel.lessonOrderArr)) {
+        for (ZOriganizationStudentListModel *model in self.viewModel.addModel.lessonOrderArr) {
+            [tempArr addObject:model.studentID];
+        }
+    }
+    [params setObject:tempArr forKey:@"student_ids"];
+    
+    NSMutableDictionary *orderDict = @{}.mutableCopy;
+    for (ZBaseMenuModel *menuModel in self.viewModel.addModel.lessonTimeArr) {
+        if (menuModel && menuModel.units && menuModel.units.count > 0) {
+            
+            NSMutableArray *tempSubArr = @[].mutableCopy;
+            for (int k = 0; k < menuModel.units.count; k++) {
+                ZBaseUnitModel *unitModel = menuModel.units[k];
+                [tempSubArr addObject:[self getStartTime:unitModel]];
+                
+            }
+            
+            [orderDict setObject:tempSubArr forKey:[self getWeekIndex:menuModel.name]];
+        }
+    }
+    
+    [params setObject:orderDict forKey:@"fix_time"];
+    
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationTeachingScheduleViewModel addCourseClass:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+#pragma mark - 提交数据
+- (NSString *)getWeekIndex:(NSString *)weekName {
+    NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
+    for (int i = 0; i < leftTitleArr.count; i++) {
+        if ([weekName isEqualToString:leftTitleArr[i]]) {
+            return [NSString stringWithFormat:@"%d",i + 1];
+        }
+    }
+    return @"1";
+}
 
 #pragma mark tableView ------delegate-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig{
@@ -179,67 +257,37 @@
         ZTextFieldMultColCell *lcell = (ZTextFieldMultColCell *)cell;
         lcell.selectBlock = ^{
             ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
-            svc.timeArr = weakSelf.addViewModel.addModel.lessonTimeArr;
+            svc.timeArr = weakSelf.viewModel.addModel.lessonTimeArr;
             svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
-                weakSelf.addViewModel.addModel.lessonTimeArr = timeArr;
+                weakSelf.viewModel.addModel.lessonTimeArr = timeArr;
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             };
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
         
-    }else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
+    }else if ([cellConfig.title isEqualToString:@"name"]) {
         ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
         lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.addViewModel.addModel.className = text;
+            weakSelf.viewModel.addModel.class_Name = text;
         };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"school"]) {
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertDataCheckBoxView setAlertName:@"选择教练" handlerBlock:^(NSInteger index,id data) {
-            
+        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+            if (model) {
+                weakSelf.viewModel.addModel.teacherName = model.teacher_name;
+                weakSelf.viewModel.addModel.teacherID  = model.teacherID;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
         }];
-    } else if ([cellConfig.title isEqualToString:@"lessonTime"]) {
-        ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
-        [self.navigationController pushViewController:svc animated:YES];
-    }
-}
-
-
-- (NSString *)getStartTime:(ZBaseUnitModel *)model {
-    if ([model.subName intValue] < 10) {
-        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
-    }else{
-        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
-    }
-}
-
-- (NSString *)getEndTime:(ZBaseUnitModel *)model {
-    NSInteger temp = [self.addViewModel.addModel.singleTime intValue]/60;
-    NSInteger subTemp = [self.addViewModel.addModel.singleTime intValue]%60;
-    
-    NSInteger hourTemp = [model.name intValue] + temp;
-    NSInteger minTemp = [model.subName intValue] + subTemp;
-    if (minTemp > 59) {
-        minTemp -= 60;
-        hourTemp++;
-    }
-    
-    if (hourTemp > 24) {
-        hourTemp -= 24;
-    }
-    
-    
-    ZBaseUnitModel *uModel = [[ZBaseUnitModel alloc] init];
-    uModel.name = [NSString stringWithFormat:@"%ld",hourTemp];
-    uModel.subName = [NSString stringWithFormat:@"%ld",minTemp];
-    
-    return [self getStartTime:uModel];
+    } 
 }
 @end
