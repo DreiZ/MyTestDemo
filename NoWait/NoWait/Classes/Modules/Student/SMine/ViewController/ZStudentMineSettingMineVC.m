@@ -13,6 +13,7 @@
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 #import "ZStudentMineSettingSexVC.h"
+#import "ZOriganizationLessonViewModel.h"
 
 
 @interface ZStudentMineSettingMineVC ()
@@ -74,6 +75,9 @@
                     weakSelf.avterImage = list[0].image;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
+                    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
+                        
+                    }];
                     
 //                    NSString *imageFileName = [NSString stringWithFormat:@"%@.jpg",AliYunUserFilePath];
 //                    [[ZFileUploadManger sharedManager] uploadImage:weakSelf.avterImage fileName:imageFileName complete:^(NSString *url, NSString *content_md5) {

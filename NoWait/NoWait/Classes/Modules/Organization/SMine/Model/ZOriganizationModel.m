@@ -27,10 +27,18 @@
 
 
 @implementation ZOriganizationClassListModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"classID" : @"id"};
+}
 @end
 
 @implementation ZOriganizationClassListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationClassListModel"
+             };
+}
 
 @end
 

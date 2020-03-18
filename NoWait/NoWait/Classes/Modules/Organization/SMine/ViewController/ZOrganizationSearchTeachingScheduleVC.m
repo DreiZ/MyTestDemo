@@ -1,27 +1,30 @@
 //
-//  ZOrganizationTeachingScheduleNoVC.m
+//  ZOrganizationSearchTeachingScheduleVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/2/25.
+//  Created by zhuang zhang on 2020/3/18.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationTeachingScheduleNoVC.h"
-#import "ZOrganizationTeachingScheduleNoCell.h"
-#import "ZOrganizationTeachingScheduleBuCell.h"
-
-#import "ZOrganizationTrachingScheduleNewClassVC.h"
-#import "ZOriganizationTeachingScheduleViewModel.h"
+#import "ZOrganizationSearchTeachingScheduleVC.h"
 #import "ZOriganizationStudentViewModel.h"
+#import "ZOriganizationStudentListCell.h"
+#import "ZOrganizationTeachingScheduleBuCell.h"
+#import "ZOrganizationTeachingScheduleNoCell.h"
+#import "ZOrganizationTrachingScheduleNewClassVC.h"
+
 #import "ZOrganizationStudentDetailVC.h"
 
-@interface ZOrganizationTeachingScheduleNoVC ()
-@property (nonatomic,strong) UIButton *bottomBtn;
+@interface ZOrganizationSearchTeachingScheduleVC ()
+@property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSMutableDictionary *param;
 
+@property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,assign) BOOL isEdit;
 @end
 
-@implementation ZOrganizationTeachingScheduleNoVC
+@implementation ZOrganizationSearchTeachingScheduleVC
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self refreshData];
@@ -30,28 +33,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    _param = @{}.mutableCopy;
     [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(88));
+        make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
+    }];
+}
+- (void)cancleBtnOnClick {
+    if (_isEdit) {
+        self.isEdit = NO;
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-//    for (int i = 0; i < 10; i++) {
-//        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
-//        model.lessonName = @"瑜伽课";
-//        model.lessonDes = @"很好学但是很痛苦哇啊啊";
-//        model.lessonNum = @"12";
-//        model.lessonHadNum = @"2";
-//        model.validity = @"2012.12.1";
-//        model.teacherName = @"史蒂夫老师";
-//        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
-//        [self.dataSources addObject:model];
-//    }
+- (void)valueChange:(NSString *)text {
+    [super valueChange:text];
+    self.name = SafeStr(text);
+    if (self.name.length > 0) {
+        [self refreshData];
+    }
 }
+
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -67,10 +74,6 @@
     }
 }
 
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"课程列表"];
-}
 
 - (void)setupMainView {
     [super setupMainView];
@@ -86,7 +89,7 @@
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
         make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+        make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(0));
     }];
 }
 
@@ -101,6 +104,9 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
+            if (!ValidArray(weakSelf.dataSources)) {
+                return ;
+            }
             if (weakSelf.isEdit) {
                 NSArray *tempArr = [weakSelf selectLessonOrderArr];
                 if (tempArr.count == 0) {
@@ -115,9 +121,6 @@
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;
-                if (weakSelf.editChangeBlock) {
-                    weakSelf.editChangeBlock(weakSelf.isEdit);
-                }
             }
         }];
     }
@@ -296,7 +299,6 @@
     }else{
         [_param setObject:@"1" forKey:@"status"];
     }
+    [_param setObject:self.name forKey:@"name"];
 }
-
-
 @end

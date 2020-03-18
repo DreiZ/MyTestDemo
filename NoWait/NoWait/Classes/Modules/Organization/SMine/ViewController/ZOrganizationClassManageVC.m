@@ -80,6 +80,8 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassManageListVC *lvc =[[ZOrganizationClassManageListVC alloc] init];
+            lvc.school = self.school;
+            lvc.type = [NSString stringWithFormat:@"%d",i];
             [_vcArr addObject:lvc];
         }
     }

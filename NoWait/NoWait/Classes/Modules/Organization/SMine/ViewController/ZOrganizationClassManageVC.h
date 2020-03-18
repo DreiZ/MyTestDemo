@@ -8,10 +8,9 @@
 
 #import "ZViewController.h"
 #import <WMPageController.h>
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOriganizationModel.h"
 
 @interface ZOrganizationClassManageVC : WMPageController
-
+@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
 @end
 
-NS_ASSUME_NONNULL_END

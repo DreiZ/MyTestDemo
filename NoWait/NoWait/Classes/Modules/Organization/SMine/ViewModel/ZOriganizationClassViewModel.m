@@ -10,21 +10,58 @@
 
 @implementation ZOriganizationClassViewModel
 
+
 + (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postServerType:ZServerTypeApi url:URL_sms_v1_send_code params:params completionHandler:^(id data, NSError *error) {
-        DLog(@"server-list %@",data);
-        ZBaseNetworkBackModel *backModel = data;
-        if (backModel.code == 0 && backModel.data) {
-            ZOriganizationClassListNetModel  *backModel = [ZOriganizationClassListNetModel mj_objectWithKeyValues:data];
-            if ([backModel.code integerValue] == 0 ) {
-                completeBlock(YES, backModel);
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_get_courses_class_list params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZOriganizationClassListNetModel *model = [ZOriganizationClassListNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
                 return ;
             }else{
-                completeBlock(NO, backModel);
+                completeBlock(NO, dataModel);
                 return;
             }
         }
         completeBlock(NO, @"操作失败");
+    }];
+}
+
+
+//删除
++ (void)deleteClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_del_courses_class params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
++ (void)openClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_courses_class_start params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
     }];
 }
 @end

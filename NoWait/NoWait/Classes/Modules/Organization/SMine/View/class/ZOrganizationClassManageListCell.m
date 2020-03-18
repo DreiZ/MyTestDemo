@@ -19,6 +19,8 @@
 @property (nonatomic,strong) UILabel *buLabel;
 
 @property (nonatomic,strong) UIView *contView;
+@property (nonatomic,strong) UIView *topView;
+
 @property (nonatomic,strong) UIView *bottomView;
 
 @property (nonatomic,strong) UIButton *deleteBtn;
@@ -60,7 +62,7 @@
         make.left.top.right.equalTo(self.contView);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
-    
+    _topView = topView;
     
     [topView addSubview:self.userImageView];
     [topView addSubview:self.nameLabel];
@@ -142,6 +144,7 @@
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         ViewRadius(_contView, CGFloatIn750(12));
+        _contView.clipsToBounds = YES;
     }
     return _contView;
 }
@@ -150,7 +153,7 @@
     if (!_stateLabel) {
         _stateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _stateLabel.text = @"待开课";
+        
         _stateLabel.numberOfLines = 1;
         _stateLabel.textAlignment = NSTextAlignmentLeft;
         [_stateLabel setFont:[UIFont fontSmall]];
@@ -163,7 +166,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"学习力小香猪";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
@@ -174,7 +176,6 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.image = [UIImage imageNamed:@"serverTopbg"];
         ViewRadius(_userImageView, CGFloatIn750(22));
     }
     return _userImageView;
@@ -185,7 +186,6 @@
     if (!_userLabel) {
         _userLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _userLabel.text = @"香香老师";
         _userLabel.numberOfLines = 1;
         _userLabel.textAlignment = NSTextAlignmentRight;
         [_userLabel setFont:[UIFont fontSmall]];
@@ -198,7 +198,6 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _numLabel.text = @"112人";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontSmall]];
@@ -210,7 +209,7 @@
     if (!_buLabel) {
         _buLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _buLabel.textColor = adaptAndDarkColor([UIColor colorOrangeMoment],[UIColor colorOrangeMoment]);
-        _buLabel.text = @"补课";
+        
         _buLabel.numberOfLines = 1;
         _buLabel.textAlignment = NSTextAlignmentCenter;
         [_buLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
@@ -224,7 +223,6 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _detailLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _detailLabel.text = @"学了就是哈哈哈";
         _detailLabel.numberOfLines = 1;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         [_detailLabel setFont:[UIFont fontContent]];
@@ -270,10 +268,66 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model {
     _model = model;
+    
+    _detailLabel.text = model.courses_name;
+    _buLabel.text = @"补课";
+    _numLabel.text = [NSString stringWithFormat:@"%@人",model.nums];
+    _userLabel.text = model.teacher_name;
+    _nameLabel.text = model.name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
+    
+    
+    _buLabel.hidden = [model.type intValue] == 1 ? YES : NO;
+    
+    [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.contView);
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+    }];
+    
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.contView.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(136));
+    }];
+    _openBtn.hidden = YES;
+    _deleteBtn.hidden = YES;
+    switch ([model.status intValue]) {
+        case 1:
+        {
+            _stateLabel.text = @"待开课";
+            _openBtn.hidden = NO;
+            _deleteBtn.hidden = NO;
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(136));
+            }];
+            [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.top.right.equalTo(self.contView);
+                make.bottom.equalTo(self.bottomView.mas_top);
+            }];
+        }
+            break;
+        case 2:
+            _stateLabel.text = @"已开课";
+            break;
+        case 3:
+            _stateLabel.text = @"已结课";
+            break;
+
+        default:
+            _stateLabel.text = @"";
+            break;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(348);
+    if (ValidClass(sender, [ZOriganizationClassListModel class])) {
+        ZOriganizationClassListModel *model = sender;
+        if ([model.status intValue] == 1) {
+            return CGFloatIn750(348);
+        }
+    }
+    return CGFloatIn750(348 - 96);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

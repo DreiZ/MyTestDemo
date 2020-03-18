@@ -37,23 +37,4 @@
 }
 
 
-
-+ (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_get_courses_class_list params:params completionHandler:^(id data, NSError *error) {
-             DLog(@"return login code %@", data);
-           ZBaseNetworkBackModel *dataModel = data;
-           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
-               ZOriganizationClassListNetModel *model = [ZOriganizationClassListNetModel mj_objectWithKeyValues:dataModel.data];
-            if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, model);
-                return ;
-            }else{
-                completeBlock(NO, dataModel);
-                return;
-            }
-        }
-        completeBlock(NO, @"操作失败");
-    }];
-}
-
 @end

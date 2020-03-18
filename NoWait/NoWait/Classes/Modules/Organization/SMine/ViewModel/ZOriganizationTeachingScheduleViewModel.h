@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 //添加排课
 + (void)addCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
-
-//班级列表
-+ (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

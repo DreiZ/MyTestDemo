@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationClassViewModel : ZBaseViewModel
 + (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
+//删除
++ (void)deleteClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
++ (void)openClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

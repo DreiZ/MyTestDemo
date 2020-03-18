@@ -142,6 +142,7 @@
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"class"]){
                 ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
+                svc.school = self.school;
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"account"]){
                 ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];

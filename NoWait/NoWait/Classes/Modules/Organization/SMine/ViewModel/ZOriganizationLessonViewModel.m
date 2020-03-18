@@ -209,6 +209,7 @@
     }];
 }
 
+
 + (void)deleteImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postImageServerType:ZServerTypeFile url:URL_file_v1_upload params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;

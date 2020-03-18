@@ -51,6 +51,7 @@
 		B23184E1241F68D70033F875 /* ZOrganizationCardLessonListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184E0241F68D70033F875 /* ZOrganizationCardLessonListVC.m */; };
 		B23184E4241F89E40033F875 /* ZOrganizationCardLessonSeeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184E3241F89E40033F875 /* ZOrganizationCardLessonSeeListVC.m */; };
 		B23184E7241F916C0033F875 /* ZOrganizationSearchCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184E6241F916C0033F875 /* ZOrganizationSearchCouponVC.m */; };
+		B23184ED2421FEE20033F875 /* ZOrganizationSearchTeachingScheduleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184EC2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.m */; };
 		B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */; };
 		B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8023FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m */; };
 		B2342C8B23FE757B00F31C34 /* ZOriganizationTeachListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8A23FE757B00F31C34 /* ZOriganizationTeachListCell.m */; };
@@ -624,6 +625,8 @@
 		B23184E3241F89E40033F875 /* ZOrganizationCardLessonSeeListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationCardLessonSeeListVC.m; sourceTree = "<group>"; };
 		B23184E5241F916C0033F875 /* ZOrganizationSearchCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationSearchCouponVC.h; sourceTree = "<group>"; };
 		B23184E6241F916C0033F875 /* ZOrganizationSearchCouponVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationSearchCouponVC.m; sourceTree = "<group>"; };
+		B23184EB2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationSearchTeachingScheduleVC.h; sourceTree = "<group>"; };
+		B23184EC2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationSearchTeachingScheduleVC.m; sourceTree = "<group>"; };
 		B2342C7C23FE370700F31C34 /* ZAlertDateHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateHourPickerView.h; sourceTree = "<group>"; };
 		B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertDateHourPickerView.m; sourceTree = "<group>"; };
 		B2342C7F23FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateWeekAndHourPickerView.h; sourceTree = "<group>"; };
@@ -3279,6 +3282,8 @@
 				B23184E6241F916C0033F875 /* ZOrganizationSearchCouponVC.m */,
 				B2DB9B2D241B97CE00340464 /* ZOrganizationSearchStudentVC.h */,
 				B2DB9B2E241B97CE00340464 /* ZOrganizationSearchStudentVC.m */,
+				B23184EB2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.h */,
+				B23184EC2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.m */,
 				B2DB9B30241C69A500340464 /* ZOrganizationPhotoManageVC.h */,
 				B2DB9B31241C69A500340464 /* ZOrganizationPhotoManageVC.m */,
 				B2DB9B38241C71EE00340464 /* ZOrganizationPhotoCollectionVC.h */,
@@ -4170,6 +4175,7 @@
 				B28D913C240766940021E05A /* PGDatePicker+DateHour.m in Sources */,
 				B2A7816523C4517800407BF0 /* ZHFilterItemTableViewCell.m in Sources */,
 				B2A77F6223BDE42E00407BF0 /* TZImageRequestOperation.m in Sources */,
+				B23184ED2421FEE20033F875 /* ZOrganizationSearchTeachingScheduleVC.m in Sources */,
 				B2F7D35023CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m in Sources */,
 				B251468F23CEBDDC009A64D4 /* ZStudentMineOrderDetailHandleBottomView.m in Sources */,
 				B20C48142400DF7D00E0CE35 /* ZOriganizationStudentListCell.m in Sources */,

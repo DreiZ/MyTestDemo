@@ -183,6 +183,8 @@
 #pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 
+#define URL_file_v1_multi_upload                           @"file/v1/multi_upload"
+
 #define URL_file_v1_delete                           @"file/v1/delete_file"
 
 

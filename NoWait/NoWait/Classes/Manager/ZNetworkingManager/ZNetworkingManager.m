@@ -115,7 +115,7 @@
             if (tempData == nil) {
                 return;
             }
-            [formData appendPartWithFileData:tempData name:[NSString stringWithFormat:@"%@",@"file"] fileName:[NSString stringWithFormat:@"%@.png",@"file"] mimeType:@"image/png"];
+            [formData appendPartWithFileData:tempData name:[NSString stringWithFormat:@"%@",key] fileName:[NSString stringWithFormat:@"%@.png",key] mimeType:@"image/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

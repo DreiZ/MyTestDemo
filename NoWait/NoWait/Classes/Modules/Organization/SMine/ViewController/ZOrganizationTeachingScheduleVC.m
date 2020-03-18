@@ -9,7 +9,7 @@
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationTeachingScheduleNoVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
-#import "ZOrganizationSearchVC.h"
+#import "ZOrganizationSearchTeachingScheduleVC.h"
 
 @interface ZOrganizationTeachingScheduleVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -120,12 +120,15 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索未排课学员";
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            ZOrganizationSearchTeachingScheduleVC *svc = [[ZOrganizationSearchTeachingScheduleVC alloc] init];
             if (weakSelf.selectIndex == 0) {
                  svc.title = @"搜索未排课学员";
+                svc.isBu = NO;
             }else {
                 svc.title = @"搜索待补课学员";
+                svc.isBu = YES;
             }
+            svc.school = self.school;
             svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

@@ -28,19 +28,21 @@
 
 #pragma mark - 班级管理
 @interface ZOriganizationClassListModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *classID;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *type;
-@property (nonatomic,strong) NSString *isu;
-@property (nonatomic,strong) NSString *className;
-@property (nonatomic,strong) NSString *classDes;
-@property (nonatomic,strong) NSString *teacherName;
-@property (nonatomic,strong) NSString *teacherImage;
-@property (nonatomic,strong) NSString *num;
+
 @end
 
 @interface ZOriganizationClassListNetModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZOriganizationClassListModel *>*list;
-@property (nonatomic,copy) NSString *pages;
+@property (nonatomic,copy) NSString *total;
 @end
 
 #pragma mark - 校区管理

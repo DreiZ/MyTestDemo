@@ -198,8 +198,8 @@
     }else{
         [params setObject:@"1" forKey:@"type"];
     }
-    [params setObject:SafeStr(self.school.schoolID) forKey:@"teacher_id"];
-    [params setObject:SafeStr(self.viewModel.addModel.teacherID) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.viewModel.addModel.teacherID) forKey:@"teacher_id"];
     [params setObject:SafeStr(self.viewModel.addModel.class_Name) forKey:@"name"];
     NSMutableArray *tempArr = @[].mutableCopy;
     if (ValidArray(self.viewModel.addModel.lessonOrderArr)) {
