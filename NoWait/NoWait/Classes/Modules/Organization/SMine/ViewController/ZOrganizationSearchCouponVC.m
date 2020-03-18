@@ -107,7 +107,6 @@
 }
 
 - (void)refreshAllData {
-    self.currentPage = 1;
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
     [param setObject:@"1" forKey:@"page"];

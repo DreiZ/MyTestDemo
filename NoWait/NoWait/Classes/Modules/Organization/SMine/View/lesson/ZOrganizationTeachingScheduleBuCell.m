@@ -207,15 +207,15 @@
     return _editBtn;
 }
 
-- (void)setModel:(ZOriganizationLessonOrderListModel *)model {
+- (void)setModel:(ZOriganizationStudentListModel *)model {
     _model = model;
     
-    _nameLabel.text = model.lessonName;
-    _detailLabel.text = model.lessonDes;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.lessonImage]];
-    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",model.lessonHadNum,model.lessonNum];
-    _userLabel.text = model.teacherName;
-    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",model.validity];
+    _nameLabel.text = model.name;
+    _detailLabel.text = model.courses_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",model.now_progress,model.total_progress];
+    _userLabel.text = model.teacher_name;
+//    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",model.validity];
     if (model.isEdit) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

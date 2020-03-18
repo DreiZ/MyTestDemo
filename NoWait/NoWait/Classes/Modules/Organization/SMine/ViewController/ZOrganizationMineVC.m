@@ -138,6 +138,7 @@
                 [self.navigationController pushViewController:mvc animated:YES];
             }else if ([model.uid isEqualToString:@"manageLesson"]){
                 ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+                svc.school = self.school;
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"class"]){
                 ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];

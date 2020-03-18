@@ -82,7 +82,7 @@
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
     
-    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -91,7 +91,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -110,7 +110,7 @@
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
     
-    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+    [ZOriganizationClassViewModel getClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -118,7 +118,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];

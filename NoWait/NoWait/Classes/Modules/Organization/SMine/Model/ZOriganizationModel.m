@@ -12,9 +12,6 @@
 
 @end
 
-@implementation ZOriganizationLessonOrderListModel
-
-@end
 
 @implementation ZOriganizationAddClassModel 
 - (instancetype)init {
@@ -26,10 +23,6 @@
     }
     return self;
 }
-@end
-
-@implementation ZOriganizationLessonOrderListNetModel
-
 @end
 
 

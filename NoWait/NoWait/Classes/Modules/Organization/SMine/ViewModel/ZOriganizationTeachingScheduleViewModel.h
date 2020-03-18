@@ -13,7 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOriganizationTeachingScheduleViewModel : ZBaseViewModel
 @property (nonatomic,strong) ZOriganizationAddClassModel *addModel;
 
-+ (void)getLessonOderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+//添加排课
++ (void)addCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
+//班级列表
++ (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

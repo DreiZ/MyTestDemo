@@ -67,7 +67,7 @@
     [topView addSubview:self.numLabel];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(20));
+        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(40));
         make.right.equalTo(topView.mas_centerX).offset(CGFloatIn750(20));
     }];
@@ -87,7 +87,7 @@
 //    }];
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
@@ -208,15 +208,15 @@
     return _editBtn;
 }
 
-- (void)setModel:(ZOriganizationLessonOrderListModel *)model {
+- (void)setModel:(ZOriganizationStudentListModel *)model {
     _model = model;
     
-    _nameLabel.text = model.lessonName;
-    _detailLabel.text = model.lessonDes;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.lessonImage]];
+    _nameLabel.text = model.name;
+    _detailLabel.text = model.courses_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     //@property (nonatomic,strong) UILabel *timeLabel;
-    _numLabel.text= model.lessonNum;
-    _userLabel.text = model.teacherName;
+    _numLabel.text = [NSString stringWithFormat:@"%@节",model.total_progress];
+    _userLabel.text = model.teacher_name;
     if (model.isEdit) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

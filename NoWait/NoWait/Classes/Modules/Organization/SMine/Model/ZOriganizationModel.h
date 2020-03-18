@@ -15,17 +15,6 @@
 
 @end
 
-@interface ZOriganizationLessonOrderListModel : ZBaseModel
-@property (nonatomic,copy) NSString *lessonName;
-@property (nonatomic,copy) NSString *lessonDes;
-@property (nonatomic,copy) NSString *lessonNum;
-@property (nonatomic,copy) NSString *lessonHadNum;
-@property (nonatomic,copy) NSString *teacherName;
-@property (nonatomic,copy) NSString *lessonImage;
-@property (nonatomic,copy) NSString *validity;
-@property (nonatomic,assign) BOOL isSelected;
-@property (nonatomic,assign) BOOL isEdit;
-@end
 
 @interface ZOriganizationAddClassModel : NSObject
 @property (nonatomic,strong) NSMutableArray *lessonTimeArr;
@@ -34,10 +23,6 @@
 @property (nonatomic,assign) NSString *singleTime;
 @end
 
-@interface ZOriganizationLessonOrderListNetModel : ZBaseNetworkBackDataModel
-@property (nonatomic,strong) NSArray <ZOriganizationLessonOrderListModel *>*list;
-@property (nonatomic,copy) NSString *pages;
-@end
 
 #pragma mark - 班级管理
 @interface ZOriganizationClassListModel : ZBaseNetworkBackDataModel
@@ -105,6 +90,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *teacher_image;
 @property (nonatomic,strong) NSString *courses_name;
 @property (nonatomic,strong) NSString *total_progress;
 @property (nonatomic,strong) NSString *now_progress;
@@ -257,4 +243,6 @@
 @property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*list;
 @property (nonatomic,copy) NSString *total;
 @end
+
+
 

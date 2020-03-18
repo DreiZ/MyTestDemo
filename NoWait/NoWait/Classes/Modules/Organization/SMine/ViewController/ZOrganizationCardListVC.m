@@ -147,7 +147,6 @@
 }
 
 - (void)refreshAllData {
-    self.currentPage = 1;
     self.loading = YES;
     
     [self setPostCommonData];

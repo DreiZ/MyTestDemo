@@ -12,9 +12,12 @@
 
 #import "ZOrganizationTrachingScheduleNewClassVC.h"
 #import "ZOriganizationTeachingScheduleViewModel.h"
+#import "ZOriganizationStudentViewModel.h"
+#import "ZOrganizationStudentDetailVC.h"
 
 @interface ZOrganizationTeachingScheduleNoVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
@@ -24,25 +27,27 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self initCellConfigArr];
+    [self refreshData];
 }
 
 - (void)setDataSource {
     [super setDataSource];
-    for (int i = 0; i < 10; i++) {
-        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
-        model.lessonName = @"瑜伽课";
-        model.lessonDes = @"很好学但是很痛苦哇啊啊";
-        model.lessonNum = @"12";
-        model.lessonHadNum = @"2";
-        model.validity = @"2012.12.1";
-        model.teacherName = @"史蒂夫老师";
-        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
-        [self.dataSources addObject:model];
-    }
+    _param = @{}.mutableCopy;
+//    for (int i = 0; i < 10; i++) {
+//        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
+//        model.lessonName = @"瑜伽课";
+//        model.lessonDes = @"很好学但是很痛苦哇啊啊";
+//        model.lessonNum = @"12";
+//        model.lessonHadNum = @"2";
+//        model.validity = @"2012.12.1";
+//        model.teacherName = @"史蒂夫老师";
+//        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
+//        [self.dataSources addObject:model];
+//    }
 }
 
 - (void)initCellConfigArr {
@@ -103,6 +108,7 @@
                 }
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
                 successvc.dataSources = [[NSMutableArray alloc] initWithArray:tempArr];
+                successvc.school = weakSelf.school;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;
@@ -117,7 +123,7 @@
 
 - (NSMutableArray *)selectLessonOrderArr {
     NSMutableArray *selectArr = @[].mutableCopy;
-    for (ZOriganizationLessonOrderListModel *model in self.dataSources) {
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
         if (model.isSelected) {
             [selectArr addObject:model];
         }
@@ -126,7 +132,7 @@
 }
 
 - (void)changeType:(BOOL)type {
-    for (ZOriganizationLessonOrderListModel *model in self.dataSources) {
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
         model.isEdit = type;
     };
 }
@@ -148,27 +154,79 @@
 #pragma mark - tableview datasource
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]) {
-        ZOrganizationTeachingScheduleNoCell *ncell = (ZOrganizationTeachingScheduleNoCell *)cell;
-        ncell.handleBlock = ^(NSInteger index) {
-//            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
-//            model.isSelected = !model.isSelected;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]){
+        ZOrganizationTeachingScheduleNoCell *enteryCell = (ZOrganizationTeachingScheduleNoCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index) {
             if (weakSelf.isEdit) {
+                if (index == 0) {
+                    [weakSelf selectData:indexPath.row];
+                }else if (index == 1){
+                    
+                }
                 NSInteger count = [weakSelf selectLessonOrderArr].count;
                 [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)weakSelf.dataSources.count] forState:UIControlStateNormal];
+            }else{
+                
             }
         };
+        
     }
+//    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]) {
+//        ZOrganizationTeachingScheduleNoCell *ncell = (ZOrganizationTeachingScheduleNoCell *)cell;
+//        ncell.handleBlock = ^(NSInteger index) {
+////            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
+////            model.isSelected = !model.isSelected;
+//            if (weakSelf.isEdit) {
+//                NSInteger count = [weakSelf selectLessonOrderArr].count;
+//                [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)weakSelf.dataSources.count] forState:UIControlStateNormal];
+//            }
+//        };
+//    }
 }
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if (!_isEdit) {
+        ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
+        ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+        dvc.addModel.studentID = listmodel.studentID;
+        dvc.addModel.name = listmodel.name;
+        dvc.addModel.status = listmodel.status;
+        dvc.addModel.teacher = listmodel.teacher_name;
+        dvc.addModel.courses_name = listmodel.courses_name;
+        dvc.addModel.total_progress = listmodel.total_progress;
+        dvc.addModel.now_progress = listmodel.now_progress;
+        dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
+        dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
+        dvc.addModel.coach_img = listmodel.coach_img;
+        dvc.addModel.teacher_id = listmodel.teacher_id;
+        
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+    
+}
+
+- (void)selectData:(NSInteger)index {
+//    for (int i = 0; i < self.dataSources.count; i++) {
+//        ZOriganizationStudentListModel *model = self.dataSources[i];
+//        if (i == index) {
+//            model.isSelected = !model.isSelected;
+//        }
+//    }
+//    [self initCellConfigArr];
+//    [self.iTableView reloadData];
+}
+
 
 #pragma mark - 数据处理
 - (void)refreshData {
     self.currentPage = 1;
     self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    
-    [ZOriganizationTeachingScheduleViewModel getLessonOderList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -177,7 +235,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -193,10 +251,10 @@
 - (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
-    __weak typeof(self) weakSelf = self;
-    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [self setPostCommonData];
     
-    [ZOriganizationTeachingScheduleViewModel getLessonOderList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonOrderListNetModel *data) {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -204,7 +262,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -216,4 +274,26 @@
         }
     }];
 }
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    if (self.isBu) {
+        [_param setObject:@"4" forKey:@"status"];
+    }else{
+        [_param setObject:@"1" forKey:@"status"];
+    }
+}
+
+
 @end

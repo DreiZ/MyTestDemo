@@ -86,6 +86,10 @@
                     [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
                 }
             };
+            if (i == 1) {
+                nvc.isBu = YES;
+            }
+            nvc.school = self.school;
             [_vcArr addObject:nvc];
         };
     }

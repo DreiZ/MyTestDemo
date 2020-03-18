@@ -68,8 +68,17 @@
                             if ([tdict objectForKey:@"courses_id"]) {
                                 ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
                                 smodel.lessonID = tdict[@"courses_id"];
+                                if ([tdict objectForKey:@"courses_price"]) {
+                                    smodel.teacherPirce = tdict[@"courses_price"];
+                                }
                                 if ([tdict objectForKey:@"price"]) {
-                                    smodel.teacherPirce = tdict[@"price"];
+                                    smodel.price = tdict[@"price"];
+                                    if (!ValidStr(smodel.teacherPirce)) {
+                                        smodel.teacherPirce = smodel.price;
+                                    }
+                                }
+                                if ([tdict objectForKey:@"courses_name"]) {
+                                    smodel.name = tdict[@"courses_name"];
                                 }
                                 
                                 [model.lessonList addObject:smodel];

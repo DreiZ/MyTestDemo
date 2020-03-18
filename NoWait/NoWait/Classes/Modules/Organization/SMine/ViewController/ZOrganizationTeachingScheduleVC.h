@@ -8,9 +8,10 @@
 
 #import "ZViewController.h"
 #import <WMPageController.h>
+#import "ZOriganizationModel.h"
 
 @interface ZOrganizationTeachingScheduleVC : WMPageController
-
+@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
 @end
 
 
