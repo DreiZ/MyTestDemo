@@ -191,7 +191,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    if (_isEdit) {
+    if (!_isEdit) {
         [self.navigationItem setTitle:@"新增教师"];
     }else{
         [self.navigationItem setTitle:@"编辑教师"];

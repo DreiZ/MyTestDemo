@@ -296,7 +296,7 @@
         enteryCell.handleBlock = ^(NSInteger index) {
             if (weakSelf.isEdit) {
                 if (index == 0) {
-                    [self selectData:indexPath.row];
+                    [weakSelf selectData:indexPath.row];
                 }else if (index == 1){
                     
                 }
@@ -316,9 +316,9 @@
                     dvc.addModel.coach_img = listmodel.coach_img;
                     dvc.addModel.teacher_id = listmodel.teacher_id;
                     
-                    [self.navigationController pushViewController:dvc animated:YES];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
-                    self.isEdit = YES;
+                    weakSelf.isEdit = YES;
                 }
             }
         };
