@@ -176,7 +176,7 @@
     
     _nameLabel.text = model.name;
     _lessonLabel.text = [NSString stringWithFormat:@"%@-%@",SafeStr(model.courses_name),SafeStr(model.teacher_name)];
-//    1：待排课 2：待开课 3：已结课 4：待补课 5：已过期
+//1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
     switch ([model.status intValue]) {
         case 1:
             _typeLabel.text = @"待排课";
@@ -185,12 +185,15 @@
             _typeLabel.text = @"待开课";
             break;
         case 3:
-            _typeLabel.text = @"已结课";
+            _typeLabel.text = @"已开课";
             break;
         case 4:
-            _typeLabel.text = @"待补课";
+            _typeLabel.text = @"已结课";
             break;
         case 5:
+            _typeLabel.text = @"带补课";
+            break;
+        case 6:
             _typeLabel.text = @"已过期";
             break;
             

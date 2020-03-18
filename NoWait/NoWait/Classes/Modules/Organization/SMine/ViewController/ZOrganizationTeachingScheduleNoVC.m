@@ -292,7 +292,7 @@
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
     if (self.isBu) {
-        [_param setObject:@"4" forKey:@"status"];
+        [_param setObject:@"5" forKey:@"status"];
     }else{
         [_param setObject:@"1" forKey:@"status"];
     }
