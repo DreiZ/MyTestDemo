@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonAddVC.h"
 
 #import "ZOrganizationLessonTopSearchView.h"
-#import "ZOrganizationSearchVC.h"
+#import "ZOrganizationClassManageListSearchVC.h"
 
 @interface ZOrganizationClassManageVC ()
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
@@ -94,8 +94,9 @@
         __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            ZOrganizationClassManageListSearchVC *svc = [[ZOrganizationClassManageListSearchVC alloc] init];
             svc.title = @"搜索班级";
+            svc.school = weakSelf.school;
             svc.searchType = ZSearchTypeStudentOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
