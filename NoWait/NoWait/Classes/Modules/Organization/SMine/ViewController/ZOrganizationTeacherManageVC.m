@@ -14,8 +14,6 @@
 #import "ZOriganizationTeachSearchTopHintView.h"
 
 #import "ZOrganizationTeacherDetailVC.h"
-#import "ZOrganizationSearchStudentVC.h"
-#import "ZOriganizationStudentViewModel.h"
 
 @interface ZOrganizationTeacherManageVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -198,7 +196,7 @@
         _searchTopView = [[ZOriganizationTeachSearchTopHintView alloc] init];
         _searchTopView.hint = @"搜索教师";
         _searchTopView.handleBlock = ^(NSInteger index) {
-            ZOrganizationSearchStudentVC *svc = [[ZOrganizationSearchStudentVC alloc] init];
+            ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
             svc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

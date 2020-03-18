@@ -77,18 +77,56 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            NSArray *ids = [weakSelf getSelectedData];
+            if (ids && ids.count > 0) {
+                [weakSelf deleteTeacher:ids];
+            }else{
+                [TLUIUtility showErrorHint:@"你还没有选中"];
+            }
         }];
     }
     return _bottomBtn;
 }
+
+- (NSMutableArray *)getSelectedData {
+    NSMutableArray *temp = @[].mutableCopy;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationTeacherListModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            [temp addObject:model];
+        }
+    }
+    return temp;
+}
+
+- (void)deleteTeacher:(NSArray <ZOriganizationTeacherListModel *>*)studentArr {
+    __weak typeof(self) weakSelf = self;
+    NSMutableArray *params = @[].mutableCopy;
+    for (ZOriganizationTeacherListModel *model in studentArr) {
+//        NSMutableDictionary *para = @{}.mutableCopy;
+        if (model && model.teacherID) {
+            [params addObject:model.teacherID];
+        }
+    }
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationTeacherViewModel deleteTeacher:@{@"ids":params} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
+}
+
 
 #pragma mark - setdata
 - (void)initCellConfigArr {
@@ -102,6 +140,7 @@
     if (self.cellConfigArr.count > 0) {
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }else{
+        self.isEdit = NO;
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
 }
@@ -184,7 +223,7 @@
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
        [param setObject:self.school.schoolID forKey:@"stores_id"];
-       [param setObject:self.name forKey:@"name"];
+       [param setObject:SafeStr(self.name) forKey:@"name"];
     return param;
 }
 

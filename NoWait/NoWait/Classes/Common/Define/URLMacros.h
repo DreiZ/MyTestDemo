@@ -272,4 +272,41 @@
 
 //获取卡券可使用的课程列表
 #define URL_coupons_v1_get_courses_list_by_coupons_id              @"coupons/v1/get_courses_list_by_coupons_id"
+
+
+#pragma mark - 排课------------------------------------------------
+//班级列表
+#define URL_merchants_v1_get_courses_class_list                   @"merchants/v1/get_courses_class_list"
+ 
+//班级搜索
+#define URL_merchants_v1_search_courses_class                   @"merchants/v1/search_courses_class"
+
+//班级详情
+#define URL_merchants_v1_get_courses_class_info                   @"merchants/v1/get_courses_class_info"
+ 
+//添加排课
+#define URL_merchants_v1_add_course_class                   @"merchants/v1/add_course_class"
+ 
+
+//编辑班级
+#define URL_merchants_v1_edit_courses_class                   @"merchants/v1/edit_courses_class"
+ 
+
+//学员列表
+#define URL_merchants_v1_get_courses_class_students_list                   @"merchants/v1/get_courses_class_students_list"
+ 
+//班级删除
+#define URL_merchants_v1_del_courses_class                   @"merchants/v1/del_courses_class"
+ 
+//开课接口
+#define URL_merchants_v1_courses_class_start                   @"merchants/v1/courses_class_start"
+
+//班级添加学员
+#define URL_merchants_v1_add_courses_class_students                   @"merchants/v1/add_courses_class_students"
+
+//班级删除学员
+#define URL_merchants_v1_del_courses_class_students                   @"merchants/v1/del_courses_class_students"
+
+
+
 #endif /* URLMacros_h */
