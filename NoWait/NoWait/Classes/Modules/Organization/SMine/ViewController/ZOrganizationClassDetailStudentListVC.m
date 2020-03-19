@@ -11,6 +11,7 @@
 
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
+#import "ZOriganizationClassViewModel.h"
 @interface ZOrganizationClassDetailStudentListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 
@@ -20,29 +21,28 @@
 
 @implementation ZOrganizationClassDetailStudentListVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.isOpen = [self.model.status intValue] == 1 ? NO : YES;
     [self setNavigation];
     [self initCellConfigArr];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
 }
 
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZBaseCellModel *cellModel = [[ZBaseCellModel alloc] init];
-    if (self.isOpen) {
-        cellModel.data = @"";
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClassStudentListCell className] title:@"ZOriganizationClassStudentListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationClassStudentListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:textCellConfig];
     }
-    
-    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClassStudentListCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationClassStudentListCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-    [self.cellConfigArr addObject:textCellConfig];
-  
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
 }
 
 - (void)setNavigation {
@@ -85,6 +85,7 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+            avc.model = weakSelf.model;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
@@ -103,4 +104,77 @@
     return _topView;
 }
 
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+     [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    [param setObject:@"1" forKey:@"page"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    [self refreshHeadData:param];
+}
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+       [param setObject:self.model.stores_id forKey:@"stores_id"];
+       [param setObject:self.model.classID forKey:@"courses_class_id"];
+    return param;
+}
 @end

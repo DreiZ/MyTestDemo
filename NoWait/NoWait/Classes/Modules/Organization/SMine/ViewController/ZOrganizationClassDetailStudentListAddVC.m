@@ -69,6 +69,7 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassDetailStudentListAddListVC *lvc = [[ZOrganizationClassDetailStudentListAddListVC alloc] init];
+            lvc.model = self.model;
             [_vcArr addObject:lvc];
         }
     }

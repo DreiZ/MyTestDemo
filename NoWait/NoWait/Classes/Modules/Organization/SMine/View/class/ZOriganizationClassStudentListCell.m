@@ -87,7 +87,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _nameLabel.text = @"网三局";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -100,7 +100,7 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _numLabel.text = @"2/10";
+        
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentCenter;
         [_numLabel setFont:[UIFont fontContent]];
@@ -158,12 +158,9 @@
     ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
 }
 
-- (void)setModel:(ZBaseCellModel *)model {
-    if (model.data) {
-        self.isOpen = YES;
-    }else{
-        self.isOpen = NO;
-    }
+- (void)setModel:(ZOriganizationStudentListModel *)model {
+    _nameLabel.text = model.name;
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@",model.now_progress,model.total_progress];
 }
 
 - (void)setIsOpen:(BOOL)isOpen {

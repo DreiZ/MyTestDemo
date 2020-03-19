@@ -165,7 +165,7 @@
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
-               ZOriganizationStudentListModel *model = [ZOriganizationStudentListModel mj_objectWithKeyValues:dataModel.data];
+               ZOriganizationStudentListNetModel *model = [ZOriganizationStudentListNetModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
                 completeBlock(YES, model);
                 return ;
