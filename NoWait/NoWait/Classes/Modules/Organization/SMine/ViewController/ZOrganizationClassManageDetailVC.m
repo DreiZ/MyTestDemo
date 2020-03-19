@@ -8,10 +8,12 @@
 
 #import "ZOrganizationClassManageDetailVC.h"
 #import "ZTextFieldMultColCell.h"
+#import "ZBaseUnitModel.h"
 
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
+#import "ZOrganizationTimeSelectVC.h"
 
 @interface ZOrganizationClassManageDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -40,16 +42,29 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    
-    NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",@"才玩俱乐部"],
-                         @[@"班级名称", @"", @"", @"className",@"初级班"],
-                         @[@"班级人数", @"", @"", @"num",@"15/15人"],
-                         @[@"班级状态", @"", @"", @"classStutas",@"待开课"],
-                         @[@"课程名称", @"", @"", @"lessonName",@"学了就是小拳拳"],
-                         @[@"教师名称", @"", @"", @"techerName",@"香香老师"],
-                         @[@"开课日期", @"请选择开课日期", @"rightBlackArrowN", @"openTime",@""],
-                         @[@"结课日期", @"节课日期", @"", @"endTime",@"2020.01.22"],
+//     0：全部 1：待开课 2：已开课 3：已结课
+    NSString *status = @"";
+    switch ([SafeStr(self.model.status) intValue]) {
+        case 1:
+            status = @"待开课";
+            break;
+        case 2:
+            status = @"已开课";
+            break;
+        case 3:
+            status = @"已结课";
+            break;
+            
+        default:
+            break;
+    }
+    NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
+                         @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
+                         @[@"班级人数", @"", @"", @"num",[NSString stringWithFormat:@"%@人",SafeStr(self.model.nums)]],
+                         @[@"班级状态", @"", @"", @"classStutas",status],
+                         @[@"课程名称", @"", @"", @"lessonName",SafeStr(self.model.stores_courses_name)],
+                         @[@"教师名称", @"", @"", @"techerName",SafeStr(self.model.teacher_name)],
+                         @[@"开课日期", @"请选择开课日期", @"rightBlackArrowN", @"openTime",[self.model.start_time isEqualToString:@"0"]? @"":SafeStr([self.model.start_time timeStringWithFormatter:@"yyyy-MM-dd"])],
                          @[@"学员列表", @"查看", @"rightBlackArrowN", @"studentList",@"查看"],
                          @[@"上课时间", @"选择上课时间", @"rightBlackArrowN", @"beginTime",@""]];
     
@@ -68,9 +83,30 @@
             cellModel.rightColor = [UIColor colorTextGray];
             cellModel.rightDarkColor = [UIColor colorTextGrayDark];
             
-            NSMutableArray *multArr = @[].mutableCopy;
             
-            NSArray *tempArr = @[@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"],@[@"周一 | ", @"12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00   12:00~14:00"]];
+            NSMutableArray *multArr = @[].mutableCopy;
+            NSMutableArray *tempArr = @[].mutableCopy;
+            for (int i = 0; i < self.model.classes_dateArr.count; i++) {
+                ZBaseMenuModel *menuModel = self.model.classes_dateArr[i];
+                
+                if (menuModel && menuModel.units && menuModel.units.count > 0) {
+                    NSMutableArray *tempSubArr = @[].mutableCopy;
+                    [tempSubArr addObject:menuModel.name];
+                    NSString *subTitle = @"";
+                    for (int k = 0; k < menuModel.units.count; k++) {
+                        ZBaseUnitModel *unitModel = menuModel.units[k];
+                        if (subTitle.length == 0) {
+                            subTitle = [NSString stringWithFormat:@"%@",unitModel.data];
+                        }else{
+                            subTitle = [NSString stringWithFormat:@"%@   %@",subTitle,unitModel.data];
+                        }
+                    }
+                    [tempSubArr addObject:subTitle];
+                    
+                    [tempArr addObject:tempSubArr];
+                }
+            }
+            
             for (int j = 0; j < tempArr.count; j++) {
                 ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
                 mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;
@@ -129,7 +165,7 @@
 
 - (void)setupMainView {
     [super setupMainView];
-    
+    self.isOpen = NO;
     if (self.isOpen) {
          [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
@@ -177,6 +213,7 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+            avc.model = weakSelf.model;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
@@ -187,12 +224,20 @@
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"立即开课" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            if (!ValidStr(weakSelf.model.start_time)) {
+                [TLUIUtility showErrorHint:@"请添加开课时间"];
+                return ;
+            }
+            if (!ValidArray(weakSelf.model.classes_dateArr)) {
+                [TLUIUtility showErrorHint:@"请添加上课时间"];
+                return ;
+            }
+            [weakSelf editClass];
         }];
     }
     return _bottomBtn;
@@ -206,16 +251,38 @@
 }
 
 #pragma mark tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"beginTime"]) {
+        ZTextFieldMultColCell *lcell = (ZTextFieldMultColCell *)cell;
+        lcell.selectBlock = ^{
+            ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+            svc.timeArr = weakSelf.model.classes_dateArr;
+            svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
+                weakSelf.model.classes_dateArr = timeArr;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            };
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
+    }
+}
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"openTime"]) {
         if (!self.isOpen) {
-            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
-                
-            }];
-        } 
+            
+        }
+        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+            weakSelf.model.start_time = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }];
     }else if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isOpen = self.isOpen;
+        lvc.model = self.model;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }
@@ -228,6 +295,45 @@
             weakSelf.model = addModel;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
+
+- (void)editClass {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:SafeStr(self.model.stores_id) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.model.classID) forKey:@"id"];
+    [params setObject:SafeStr(self.model.name) forKey:@"name"];
+    [params setObject:SafeStr(self.model.teacher_id) forKey:@"teacher_id"];
+    [params setObject:SafeStr(self.model.start_time) forKey:@"start_time"];
+    
+    NSMutableDictionary *orderDict = @{}.mutableCopy;
+    for (ZBaseMenuModel *menuModel in self.model.classes_dateArr) {
+        if (menuModel && menuModel.units && menuModel.units.count > 0) {
+            
+            NSMutableArray *tempSubArr = @[].mutableCopy;
+            for (int k = 0; k < menuModel.units.count; k++) {
+                ZBaseUnitModel *unitModel = menuModel.units[k];
+                [tempSubArr addObject:SafeStr(unitModel.data)];
+            }
+            
+            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name weekToIndex])];
+        }
+    }
+    
+    [params setObject:orderDict forKey:@"classes_date"];
+    
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationClassViewModel editClass:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshData];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
         }
     }];
 }

@@ -253,7 +253,7 @@
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
         _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_openBtn setTitle:@"立即开课" forState:UIControlStateNormal];
+        [_openBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));

@@ -79,10 +79,14 @@
 - (void)setModel:(ZBaseUnitModel *)model {
     _model = model;
    
-    if ([model.subName intValue] < 10) {
-        _nameLabel.text = [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    if (!ValidStr(model.data)) {
+        if ([model.subName intValue] < 10) {
+            _nameLabel.text = [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+        }else{
+            _nameLabel.text = [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+        }
     }else{
-        _nameLabel.text = [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+        _nameLabel.text = model.data;
     }
 }
 

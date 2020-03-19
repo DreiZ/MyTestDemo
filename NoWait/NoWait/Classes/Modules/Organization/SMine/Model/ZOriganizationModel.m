@@ -51,6 +51,9 @@
     return self;
 }
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"classID" : @"id"};
+}
 @end
 
 @implementation ZOriganizationSchoolListModel

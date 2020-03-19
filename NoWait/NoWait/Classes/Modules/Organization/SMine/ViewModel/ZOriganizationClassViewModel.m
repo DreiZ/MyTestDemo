@@ -91,8 +91,6 @@
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationClassDetailModel *model = [ZOriganizationClassDetailModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, model);
-                
                 if (ValidDict(model.classes_date)) {
                     id tempDict1 = model.classes_date;
                     if (ValidDict(tempDict1)) {
@@ -113,7 +111,7 @@
                                             if (ValidStr(dataArr[k])) {
                                                 NSString *str = dataArr[k];
                                                 ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
-                                                umodel.name = SafeStr(str);
+                                                umodel.data = SafeStr(str);
                                                 [unit addObject:umodel];
                                             }
                                         }
@@ -127,6 +125,9 @@
                         }
                     }
                 }
+                
+                completeBlock(YES, model);
+                
                 return ;
             }else {
                 completeBlock(NO, dataModel.message);
