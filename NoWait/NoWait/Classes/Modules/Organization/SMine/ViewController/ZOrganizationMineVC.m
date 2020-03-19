@@ -119,6 +119,10 @@
    if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
+            if (!weakSelf.school) {
+                [TLUIUtility showErrorHint:@"获取校区信息出错"];
+                return ;
+            }
             if ([model.uid isEqualToString:@"lesson"]) {
                 ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
                 mvc.school = self.school;

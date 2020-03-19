@@ -96,4 +96,23 @@
     }
     return result;
 }
+
+- (NSString *)weekToIndex {
+    NSArray *titleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
+    for (int i = 0; i < titleArr.count; i++) {
+        if ([self isEqualToString:titleArr[i]]) {
+            return [NSString stringWithFormat:@"%d",i + 1];
+        }
+    }
+    return @"1";
+}
+
+- (NSString *)indexToWeek {
+    NSArray *titleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
+    if ([self intValue] <= titleArr.count && [self intValue] > 0) {
+        return titleArr[[self intValue]-1];
+    }
+    return @"星期一";
+}
+
 @end

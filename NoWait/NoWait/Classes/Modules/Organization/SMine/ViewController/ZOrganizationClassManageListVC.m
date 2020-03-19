@@ -86,10 +86,22 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
        if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
+           ZOriganizationClassListModel *model = cellConfig.dataModel;
+           
            ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
            if (indexPath.row % 2 == 1) {
                dvc.isOpen = YES;
            }
+           dvc.school = self.school;
+           dvc.model.courses_name = model.courses_name;
+           dvc.model.classID = model.classID;
+           dvc.model.name = model.name;
+           dvc.model.nums = model.nums;
+           dvc.model.status = model.status;
+           dvc.model.teacher_id = model.teacher_id;
+           dvc.model.teacher_image = model.teacher_image;
+           dvc.model.teacher_name = model.teacher_name;
+           dvc.model.type = model.type;
            [self.navigationController pushViewController:dvc animated:YES];
        }else if ([cellConfig.title isEqualToString:@"address"]){
           

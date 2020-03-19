@@ -11,6 +11,7 @@
 
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
+#import "ZOriganizationClassViewModel.h"
 
 @interface ZOrganizationClassManageDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -19,6 +20,11 @@
 @end
 
 @implementation ZOrganizationClassManageDetailVC
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -192,6 +198,13 @@
     return _bottomBtn;
 }
 
+- (ZOriganizationClassDetailModel *)model {
+    if (!_model) {
+        _model = [[ZOriganizationClassDetailModel alloc] init];
+    }
+    return _model;
+}
+
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"openTime"]) {
@@ -205,5 +218,17 @@
         lvc.isOpen = self.isOpen;
         [self.navigationController pushViewController:lvc animated:YES];
     }
+}
+
+
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getClassDetail:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
+        if (isSuccess) {
+            weakSelf.model = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

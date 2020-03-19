@@ -69,7 +69,11 @@
                         NSString *subTitle = @"";
                         for (int k = 0; k < menuModel.units.count; k++) {
                             ZBaseUnitModel *unitModel = menuModel.units[k];
-                            [tempSubArr addObject:[self getStartTime:unitModel]];
+                            if (subTitle.length == 0) {
+                                subTitle = [NSString stringWithFormat:@"%@",unitModel.data];
+                            }else{
+                                subTitle = [NSString stringWithFormat:@"%@   %@",subTitle,unitModel.data];
+                            }
                         }
                         [tempSubArr addObject:subTitle];
                         
@@ -126,13 +130,6 @@
     }
 }
 
-- (NSString *)getStartTime:(ZBaseUnitModel *)model {
-    if ([model.subName intValue] < 10) {
-        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
-    }else{
-        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
-    }
-}
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
@@ -216,15 +213,15 @@
             NSMutableArray *tempSubArr = @[].mutableCopy;
             for (int k = 0; k < menuModel.units.count; k++) {
                 ZBaseUnitModel *unitModel = menuModel.units[k];
-                [tempSubArr addObject:[self getStartTime:unitModel]];
+                [tempSubArr addObject:SafeStr(unitModel.data)];
                 
             }
             
-            [orderDict setObject:tempSubArr forKey:[self getWeekIndex:menuModel.name]];
+            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name weekToIndex])];
         }
     }
     
-    [params setObject:orderDict forKey:@"fix_time"];
+    [params setObject:orderDict forKey:@"classes_date"];
     
     [TLUIUtility showLoading:@""];
     [ZOriganizationTeachingScheduleViewModel addCourseClass:params completeBlock:^(BOOL isSuccess, NSString *message) {
@@ -237,17 +234,6 @@
             [TLUIUtility showErrorHint:message];
         }
     }];
-}
-
-#pragma mark - 提交数据
-- (NSString *)getWeekIndex:(NSString *)weekName {
-    NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
-    for (int i = 0; i < leftTitleArr.count; i++) {
-        if ([weekName isEqualToString:leftTitleArr[i]]) {
-            return [NSString stringWithFormat:@"%d",i + 1];
-        }
-    }
-    return @"1";
 }
 
 #pragma mark tableView ------delegate-----
@@ -280,7 +266,7 @@
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+        [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.teacherName = model.teacher_name;
                 weakSelf.viewModel.addModel.teacherID  = model.teacherID;

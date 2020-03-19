@@ -42,6 +42,17 @@
 
 @end
 
+@implementation ZOriganizationClassDetailModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _classes_dateArr = @[].mutableCopy;
+    }
+    return self;
+}
+
+@end
+
 @implementation ZOriganizationSchoolListModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"schoolID" : @"id"};

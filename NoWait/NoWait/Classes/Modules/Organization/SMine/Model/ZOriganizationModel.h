@@ -45,6 +45,30 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+@interface ZOriganizationClassDetailModel : NSObject
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *classID;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *nums;
+@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *type;
+
+@property (nonatomic,strong) NSString *account_id;
+@property (nonatomic,strong) NSDictionary *classes_date;
+@property (nonatomic,strong) NSMutableArray *classes_dateArr;
+@property (nonatomic,strong) NSString *courses_id;
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSString *end_time;
+@property (nonatomic,strong) NSString *schedule;
+@property (nonatomic,strong) NSString *start_time;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *update_at;
+@end
+
 #pragma mark - 校区管理
 @interface ZOriganizationSchoolListModel : NSObject
 @property (nonatomic,strong) NSString *status;

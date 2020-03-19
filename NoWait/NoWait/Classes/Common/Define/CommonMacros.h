@@ -32,6 +32,7 @@
 #import "ZBaseTextViewCell.h"
 #import "ZTableViewViewController.h"
 
+#import "NSString+Message.h"
 #import "NSArray+LYNil.h"
 #import "NSMutableArray+LYNil.h"
 #import "NSDictionary+LYNil.h"

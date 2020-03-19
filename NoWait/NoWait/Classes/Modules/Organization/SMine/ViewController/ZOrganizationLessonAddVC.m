@@ -237,7 +237,7 @@
                             [tempSubArr addObject:[NSString stringWithFormat:@"%@~%@",SafeStr(unitModel.name),SafeStr(unitModel.subName)]];
                         }
                         
-                        [orderDict setObject:tempSubArr forKey:[self getWeekIndex:menuModel.name]];
+                        [orderDict setObject:tempSubArr forKey:[menuModel.name weekToIndex]];
                     }
                 }
                 
@@ -256,7 +256,7 @@
                             
                         }
                         
-                        [orderDict setObject:tempSubArr forKey:[self getWeekIndex:menuModel.name]];
+                        [orderDict setObject:tempSubArr forKey:[menuModel.name weekToIndex]];
                     }
                 }
                 
@@ -269,17 +269,7 @@
     return _bottomBtn;
 }
 
-#pragma mark - 提交数据
-- (NSString *)getWeekIndex:(NSString *)weekName {
-    NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
-    for (int i = 0; i < leftTitleArr.count; i++) {
-        if ([weekName isEqualToString:leftTitleArr[i]]) {
-            return [NSString stringWithFormat:@"%d",i + 1];
-        }
-    }
-    return @"1";
-}
-
+#pragma mark - 提交数据Z
 - (void)updateImageWithOtherParams:(NSMutableDictionary *)otherDict {
     if (self.viewModel.addModel.image_net_url && self.viewModel.addModel.image_net_url.length > 0) {
         [self updatePhotosStep1WithOtherParams:otherDict];

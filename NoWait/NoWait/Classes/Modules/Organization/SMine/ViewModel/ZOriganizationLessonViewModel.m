@@ -66,17 +66,16 @@
                         [model.net_images addObject:@""];
                     }
                 }
-                NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
-//                ZBaseUnitModel
+                
                 if (ValidStr(model.fix_time_net)) {
                     id tempDict1 = [model.fix_time_net JSONValue];
                     if (ValidDict(tempDict1)) {
                         NSArray *allKey = [tempDict1 allKeys];
                         for (int i = 0; i < allKey.count; i++) {
                             
-                            if ([allKey[i] intValue] <= weekArr.count && [allKey[i] intValue] > 0) {
+                            if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
                                 ZBaseMenuModel *menuModel = [[ZBaseMenuModel alloc] init];
-                                menuModel.name = weekArr[[allKey[i] intValue]-1];
+                                menuModel.name = SafeStr([allKey[i] indexToWeek]);
                                 menuModel.uid = allKey[i];
                                 
                                 NSMutableArray *unit = @[].mutableCopy;
@@ -114,9 +113,9 @@
                         NSArray *allKey = [tempDict1 allKeys];
                         for (int i = 0; i < allKey.count; i++) {
                             
-                            if ([allKey[i] intValue] <= weekArr.count && [allKey[i] intValue] > 0) {
+                            if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
                                 ZBaseMenuModel *menuModel = [[ZBaseMenuModel alloc] init];
-                                menuModel.name = weekArr[[allKey[i] intValue]-1];
+                                menuModel.name = SafeStr([allKey[i] indexToWeek]);
                                 menuModel.uid = allKey[i];
                                 
                                 NSMutableArray *unit = @[].mutableCopy;

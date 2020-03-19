@@ -39,7 +39,7 @@
     NSArray *leftTitleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
     for (int i = 0; i < leftTitleArr.count; i++) {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
-        model.name = leftTitleArr[i];
+        model.name = leftTitleArr[i] ;
         model.uid = [NSString stringWithFormat:@"%d",i];
         ZBaseMenuModel *tempModel = [self getModelWith:leftTitleArr[i]];
         if (tempModel && tempModel.units) {
@@ -320,7 +320,7 @@
                 }
             }];
         }else{
-            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"课程开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
+            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
                 for (int i = 0; i < self.dataSources.count; i++) {
                     ZBaseMenuModel *model = self.dataSources[i];
                     if (model.isSelected) {
@@ -328,6 +328,7 @@
                         ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
                         smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
                         smodel.subName = [NSString stringWithFormat:@"%ld",(long)date.minute];
+                        smodel.data = [NSString stringWithFormat:@"%@",[self getTime:date]];
                         [model.units addObject:smodel];
                         [weakSelf initCellConfigArr];
                         [weakSelf.iRightTableView reloadData];
@@ -342,5 +343,14 @@
     }];
     
     return addView;
+}
+
+
+- (NSString *)getTime:(NSDateComponents *)date {
+    if (date.minute < 10) {
+        return  [NSString stringWithFormat:@"%ld:0%ld",(long)date.hour,(long)date.minute];
+    }else{
+        return  [NSString stringWithFormat:@"%ld:%ld",(long)date.hour,(long)date.minute];
+    }
 }
 @end

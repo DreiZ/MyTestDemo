@@ -8,12 +8,10 @@
 
 #import "ZTableViewViewController.h"
 #import "ZOriganizationModel.h"
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationClassManageDetailVC : ZTableViewViewController
 @property (nonatomic,assign) BOOL isOpen;
-@property (nonatomic,strong) ZOriganizationClassListModel *model;
-
+@property (nonatomic,strong) ZOriganizationClassDetailModel *model;
+@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
 @end
 
-NS_ASSUME_NONNULL_END

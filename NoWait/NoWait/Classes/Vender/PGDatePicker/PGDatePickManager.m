@@ -254,10 +254,10 @@
 
 - (PGDatePicker *)datePicker {
     if (!_datePicker) {
-        PGDatePicker *datePicker = [[PGDatePicker alloc]init];
-        datePicker.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:datePicker];
-        _datePicker = datePicker;
+       _datePicker = [[PGDatePicker alloc]init];
+        _datePicker.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:_datePicker];
+//        _datePicker = datePicker;
     }
     return _datePicker;
 }
