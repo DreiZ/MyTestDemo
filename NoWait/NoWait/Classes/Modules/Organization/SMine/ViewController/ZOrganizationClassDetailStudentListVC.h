@@ -8,10 +8,13 @@
 
 #import "ZTableViewViewController.h"
 #import "ZOriganizationModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZOrganizationClassDetailStudentListVC : ZTableViewViewController
 @property (nonatomic,assign) BOOL isOpen;
 @property (nonatomic,strong) ZOriganizationClassDetailModel *model;
+@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+
 @end
 
 

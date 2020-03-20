@@ -87,6 +87,11 @@
     self.iTableView.emptyDataSetDelegate = self;
 }
 
+- (void)setLoading:(BOOL)loading {
+    [super setLoading:loading];
+    [self.iTableView reloadEmptyDataSet];
+}
+
 - (void)setTableViewGaryBack {
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -242,5 +247,6 @@
 //        }
 //    }];
 }
+
 @end
 

@@ -12,6 +12,8 @@
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
+#import "ZAlertView.h"
+
 @interface ZOrganizationClassDetailStudentListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 
@@ -28,11 +30,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.emptyDataStr = @"没有学员数据";
     self.isOpen = [self.model.status intValue] == 1 ? NO : YES;
     [self setNavigation];
     [self initCellConfigArr];
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
+    
 }
 
 
@@ -50,7 +55,7 @@
     [self.navigationItem setTitle:@"学员列表"];
     
     if (self.isOpen) {
-        
+        [self.navigationItem setRightBarButtonItem:nil];
     }else{
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
     }
@@ -73,7 +78,7 @@
     }];
 }
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
@@ -104,6 +109,25 @@
     return _topView;
 }
 
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOriganizationClassStudentListCell"]) {
+        ZOriganizationClassStudentListCell *lcell = (ZOriganizationClassStudentListCell *)cell;
+        lcell.isOpen = self.isOpen;
+        lcell.handleBlock = ^(NSInteger index,ZOriganizationStudentListModel *model) {
+            if (index == 0) {
+                
+            }else if(index == 1){
+                //out
+                [ZAlertView setAlertWithTitle:@"小提醒" subTitle:[NSString stringWithFormat:@"确定将\"%@\"移除班级",model.name] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [weakSelf deleteStudent:model];
+                    }
+                }];
+            }
+        };
+    }
+}
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -176,5 +200,20 @@
        [param setObject:self.model.stores_id forKey:@"stores_id"];
        [param setObject:self.model.classID forKey:@"courses_class_id"];
     return param;
+}
+
+
+- (void)deleteStudent:(ZOriganizationStudentListModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationClassViewModel delClassStudent:@{@"courses_class_id":SafeStr(self.model.classID),@"stores_id":SafeStr(self.school.schoolID ),@"student_ids":@[SafeStr(model.studentID)]} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
 }
 @end

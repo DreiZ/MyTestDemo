@@ -179,6 +179,7 @@
            smodel.schoolID = model.uid;
            smodel.name = model.name;
            weakSelf.school = smodel;
+           [ZUserHelper sharedHelper].school = smodel;
        };
    }
 }
@@ -218,6 +219,7 @@
             [channnliset addObject:model];
             if (i == 0) {
                 weakSelf.school = listModel;
+                [ZUserHelper sharedHelper].school = listModel;
                 model.isSelected = YES;
                 weakSelf.schoolID = listModel.schoolID;
             }

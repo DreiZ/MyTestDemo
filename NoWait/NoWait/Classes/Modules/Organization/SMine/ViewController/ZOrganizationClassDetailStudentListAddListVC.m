@@ -8,9 +8,12 @@
 
 #import "ZOrganizationClassDetailStudentListAddListVC.h"
 #import "ZOriganizationStudentListCell.h"
+#import "ZOriganizationStudentViewModel.h"
+#import "ZOrganizationStudentDetailVC.h"
 
 @interface ZOrganizationClassDetailStudentListAddListVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
@@ -24,20 +27,24 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    [self setTableViewEmptyDataDelegate];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    self.param = @{}.mutableCopy;
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:textCellConfig];
-  
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
+        model.isEdit = YES;
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:textCellConfig];
+    }
 }
 
 - (void)setNavigation {
@@ -85,24 +92,68 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            if ([weakSelf getSelectedData] > 0) {
+                [weakSelf addStudent];
+            }else{
+                [TLUIUtility showInfoHint:@"您还没有选择学员"];
+            }
         }];
     }
     return _bottomBtn;
 }
 
 
+#pragma mark - tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOriganizationStudentListCell"]){
+        ZOriganizationStudentListCell *enteryCell = (ZOriganizationStudentListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+               [weakSelf selectData:indexPath.row];
+            }else if (index == 1){
+//                weakSelf.isEdit = YES;
+            }
+        };
+    }
+}
+
+
+- (void)selectData:(NSInteger)index {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        if (i == index) {
+            model.isSelected = !model.isSelected;
+        }
+    }
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+}
+
+
+- (NSMutableArray *)getSelectedData {
+    NSMutableArray *temp = @[].mutableCopy;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            [temp addObject:model];
+        }
+    }
+    return temp;
+}
+
 
 #pragma mark - 数据处理
 - (void)refreshData {
     self.currentPage = 1;
     self.loading = YES;
-    [self refreshHeadData:[self setPostCommonData]];
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -127,10 +178,10 @@
 - (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
-    NSMutableDictionary *param = [self setPostCommonData];
+    [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-     [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -153,16 +204,49 @@
 
 - (void)refreshAllData {
     self.loading = YES;
-    NSMutableDictionary *param = [self setPostCommonData];
-    [param setObject:@"1" forKey:@"page"];
-    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
-    [self refreshHeadData:param];
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
 }
 
-- (NSMutableDictionary *)setPostCommonData {
-    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.model.stores_id forKey:@"stores_id"];
-       [param setObject:self.model.classID forKey:@"courses_class_id"];
-    return param;
+- (void)setPostCommonData {
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    if (self.isBu) {
+        [_param setObject:@"5" forKey:@"status"];
+    }else{
+        [_param setObject:@"1" forKey:@"status"];
+    }
+}
+
+
+
+- (void)addStudent{
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:SafeStr(self.model.classID) forKey:@"courses_class_id"];
+    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+                             
+    NSMutableArray *studentArr = @[].mutableCopy;
+    NSArray *temp = [self getSelectedData];
+    for (ZOriganizationStudentListModel *model in temp) {
+        [studentArr addObject:SafeStr(model.studentID)];
+    }
+                        
+    [params setObject:studentArr forKey:@"student_ids"];
+    
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationClassViewModel addClassStudent:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
 }
 @end

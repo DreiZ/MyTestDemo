@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "ZUser.h"
+#import "ZOriganizationModel.h"
 
 typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 @interface ZUserHelper : NSObject
 
 @property (nonatomic, strong) ZUser *user;
+@property (nonatomic, strong) ZOriganizationSchoolListModel *school;
 
 @property (nonatomic, strong, readonly) NSString *user_id;
 

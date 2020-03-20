@@ -73,12 +73,25 @@
                     }
                 }];
             }else if (index == 1){
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"开课后不可以添加或者删除学员" leftBtnTitle:@"取消" rightBtnTitle:@"开课" handlerBlock:^(NSInteger index) {
-                    if (index == 1) {
-                        [weakSelf openClass:model];
-                    }
-                }];
+//                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"开课后不可以添加或者删除学员" leftBtnTitle:@"取消" rightBtnTitle:@"开课" handlerBlock:^(NSInteger index) {
+//                    if (index == 1) {
+//                        [weakSelf openClass:model];
+//                    }
+//                }];
+                ZOriganizationClassListModel *model = cellConfig.dataModel;
                 
+                ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
+                dvc.school = self.school;
+                dvc.model.courses_name = model.courses_name;
+                dvc.model.classID = model.classID;
+                dvc.model.name = model.name;
+                dvc.model.nums = model.nums;
+                dvc.model.status = model.status;
+                dvc.model.teacher_id = model.teacher_id;
+                dvc.model.teacher_image = model.teacher_image;
+                dvc.model.teacher_name = model.teacher_name;
+                dvc.model.type = model.type;
+                [self.navigationController pushViewController:dvc animated:YES];
             }
         };
     }
@@ -89,9 +102,6 @@
            ZOriganizationClassListModel *model = cellConfig.dataModel;
            
            ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
-           if (indexPath.row % 2 == 1) {
-               dvc.isOpen = YES;
-           }
            dvc.school = self.school;
            dvc.model.courses_name = model.courses_name;
            dvc.model.classID = model.classID;
@@ -103,8 +113,6 @@
            dvc.model.teacher_name = model.teacher_name;
            dvc.model.type = model.type;
            [self.navigationController pushViewController:dvc animated:YES];
-       }else if ([cellConfig.title isEqualToString:@"address"]){
-          
        }
 }
 

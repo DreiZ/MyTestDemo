@@ -18,6 +18,7 @@
 @interface ZOrganizationClassManageDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) UIView *bottomView;
 
 @end
 
@@ -37,16 +38,17 @@
 
 - (void)setDataSource {
     [super setDataSource];
-    [self initCellConfigArr];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
 //     0：全部 1：待开课 2：已开课 3：已结课
     NSString *status = @"";
+    self.isOpen = YES;
     switch ([SafeStr(self.model.status) intValue]) {
         case 1:
             status = @"待开课";
+            self.isOpen = NO;
             break;
         case 2:
             status = @"已开课";
@@ -58,6 +60,7 @@
         default:
             break;
     }
+    
     NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
                          @[@"班级人数", @"", @"", @"num",[NSString stringWithFormat:@"%@人",SafeStr(self.model.nums)]],
@@ -150,22 +153,6 @@
         }
     }
     
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"班级详情"];
-    
-    if (self.isOpen) {
-        
-    }else{
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
-    }
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    self.isOpen = NO;
     if (self.isOpen) {
          [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
@@ -174,19 +161,7 @@
              make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
          }];
     }else{
-        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(182))];
-        bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        [self.view addSubview:bottomView];
-        
-        [bottomView addSubview:self.bottomBtn];
-        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(0));
-            make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(0));
-            make.height.mas_equalTo(CGFloatIn750(96));
-            make.top.equalTo(bottomView.mas_top);
-        }];
-        
-        [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(182));
         }];
@@ -194,14 +169,63 @@
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-            make.bottom.equalTo(bottomView.mas_top).offset(-CGFloatIn750(0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+        }];
+    }
+    
+    
+    if (_isOpen) {
+        [self.navigationItem setRightBarButtonItem:nil] ;
+    }else{
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+    }
+}
+
+- (void)setNavigation {
+    self.isHidenNaviBar = NO;
+    [self.navigationItem setTitle:@"班级详情"];
+}
+
+
+- (void)setupMainView {
+    [super setupMainView];
+    if (_isOpen) {
+         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+             make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+             make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+         }];
+    }else{
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(182))];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        [self.view addSubview:_bottomView];
+        
+        [self.bottomView addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(0));
+            make.height.mas_equalTo(CGFloatIn750(96));
+            make.top.equalTo(self.bottomView.mas_top);
+        }];
+        
+        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(182));
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
             make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
         }];
     }
 }
 
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
@@ -272,17 +296,18 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"openTime"]) {
         if (!self.isOpen) {
-            
+            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+                weakSelf.model.start_time = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }];
         }
-        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
-            weakSelf.model.start_time = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }];
+        
     }else if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isOpen = self.isOpen;
         lvc.model = self.model;
+        lvc.school = self.school;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }

@@ -11,6 +11,7 @@
 
 @interface ZOrganizationClassDetailStudentListAddListVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationClassDetailModel *model;
+@property (nonatomic,assign) BOOL isBu;
 @end
 
 

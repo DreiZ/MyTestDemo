@@ -70,6 +70,7 @@
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassDetailStudentListAddListVC *lvc = [[ZOrganizationClassDetailStudentListAddListVC alloc] init];
             lvc.model = self.model;
+            lvc.isBu = i==0 ? NO:YES;
             [_vcArr addObject:lvc];
         }
     }
@@ -98,6 +99,7 @@
     CGFloat originY = CGFloatIn750(106);
     return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kTopHeight);
 }
+
 
 @end
 

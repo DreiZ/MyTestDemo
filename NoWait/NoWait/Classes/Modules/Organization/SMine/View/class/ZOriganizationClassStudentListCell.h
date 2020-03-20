@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOriganizationClassStudentListCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationStudentListModel *model;
 @property (nonatomic,assign) BOOL isOpen;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSInteger,ZOriganizationStudentListModel*);
 @end
 
 NS_ASSUME_NONNULL_END

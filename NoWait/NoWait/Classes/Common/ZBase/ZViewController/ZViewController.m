@@ -15,7 +15,7 @@
 {
     if (self = [super init]) {
         [self setStatusBarStyle:UIStatusBarStyleDefault];
-        self.emptyImage = @"emptyData";
+        self.emptyImage = @"HNRequestNoDataHit";
         self.emptyDataStr = @"暂无数据，点击重新加载";
     }
     return self;
@@ -87,6 +87,9 @@
     [self.navigationItem setTitle:@""];
 }
 
+- (void)setLoading:(BOOL)loading {
+    _loading = loading;
+}
 
 #pragma mark - DZNEmptyDataSetSource Methods
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
@@ -178,10 +181,10 @@
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
     if (self.isLoading) {
-        return [UIImage imageNamed:@"zphoto_number_icon"];
+        return [UIImage imageNamed:@"hng_im_lbs_ann"];
     }else{
         if ([self getNetworkStatus]) {
-            return [UIImage imageNamed:_emptyImage? _emptyImage : @"emptyData"];
+            return [UIImage imageNamed:_emptyImage? _emptyImage : @"HNRequestNoDataHit"];
         }else{
             return [UIImage imageNamed: @"noNetwork"];
         }
@@ -198,7 +201,7 @@
     //    animation.repeatCount = MAXFLOAT;
     CGFloat duration = 0.8f;
     
-    CGFloat height = 50.f;
+    CGFloat height = 0.f;
     
     CAAnimationGroup *group = [CAAnimationGroup animation];
     
@@ -208,7 +211,7 @@
     animScale.keyPath = @"transform.scale";
     
     // 0 ~ 1
-    static CGFloat scale = 0.5;
+    static CGFloat scale = 0.6;
 
     animScale.values = @[@(scale/(4.0/8.0)), @(scale/(5.0/8.0)), @(scale/(6.0/8.0)), @(scale/(7.0/8.0)), @(scale/(8.0/8.0)), @(scale/(7.0/8.0)), @(scale/(6.0/8.0)), @(scale/(5.0/8.0)), @(scale/(4.0/8.0))];
     
@@ -258,7 +261,7 @@
         return nil;
     }
     if (![self getNetworkStatus]) {
-        return [UIImage imageNamed:@"emptyReload"];
+        return [UIImage imageNamed:@"HNRequestNoDataHit"];
     }else {
         return nil;
     }

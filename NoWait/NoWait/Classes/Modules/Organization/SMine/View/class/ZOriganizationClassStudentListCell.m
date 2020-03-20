@@ -124,7 +124,7 @@
         [_seeBtn.titleLabel setFont:[UIFont fontContent]];
         [_seeBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(0);
+                weakSelf.handleBlock(0,self.model);
             };
         }];
     }
@@ -141,7 +141,7 @@
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_delBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
+                weakSelf.handleBlock(1,self.model);
             };
         }];
     }
@@ -159,6 +159,7 @@
 }
 
 - (void)setModel:(ZOriganizationStudentListModel *)model {
+    _model = model;
     _nameLabel.text = model.name;
     _numLabel.text = [NSString stringWithFormat:@"%@/%@",model.now_progress,model.total_progress];
 }
