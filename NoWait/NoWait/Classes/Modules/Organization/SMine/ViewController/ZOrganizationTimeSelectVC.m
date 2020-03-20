@@ -320,7 +320,7 @@
                 }
             }];
         }else{
-            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
+            [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
                 for (int i = 0; i < self.dataSources.count; i++) {
                     ZBaseMenuModel *model = self.dataSources[i];
                     if (model.isSelected) {

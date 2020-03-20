@@ -13,7 +13,7 @@ static ZDatePickerManager *sharedDateManager;
 
 @interface ZDatePickerManager ()<PGDatePickerDelegate>
 @property (nonatomic,strong) UIViewController *viewController;
-
+@property (nonatomic,assign) PGDatePickerMode datePickerMode;
 @property (nonatomic,strong) PGDatePickManager *datePickManager;
 @property (nonatomic,strong) PGDatePicker *datePicker;
 @property (nonatomic,strong) void (^handleBlock)(NSDateComponents *);
@@ -28,6 +28,16 @@ static ZDatePickerManager *sharedDateManager;
         }
     }
     return sharedDateManager;
+}
+
+
+- (instancetype)initWithMode:(PGDatePickerMode)datePickerMode {
+    self = [super init];
+    if (self) {
+        self.datePickerMode = datePickerMode;
+        [self setup];
+    }
+    return self;
 }
 
 - (instancetype)init {
@@ -47,7 +57,7 @@ static ZDatePickerManager *sharedDateManager;
         _datePickManager = [[PGDatePickManager alloc]init];
         PGDatePicker *datePicker = _datePickManager.datePicker;
         datePicker.delegate = self;
-        datePicker.datePickerMode = PGDatePickerModeDate;
+        datePicker.datePickerMode = self.datePickerMode;
         
         _datePickManager.style = PGDatePickManagerStyleAlertTopButton;
         _datePickManager.titleLabel.text = @"选择日期";
@@ -115,9 +125,21 @@ static ZDatePickerManager *sharedDateManager;
     [self showDatePickerWithTitle:title type:type handle:handleBlock];
 }
 
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type handle:(void(^)(NSDateComponents *))handleBlock {
+    ZDatePickerManager *datepicker = [[ZDatePickerManager alloc] initWithMode:type];
+    [datepicker showDatePickerWithTitle:title type:type handle:handleBlock];
+}
+
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock {
+    ZDatePickerManager *datepicker = [[ZDatePickerManager alloc] initWithMode:type];
+    datepicker.viewController = viewController;
+    [datepicker showDatePickerWithTitle:title type:type handle:handleBlock];
+}
+
+
 #pragma PGDatePickerDelegate
 - (void)datePicker:(PGDatePicker *)datePicker didSelectDate:(NSDateComponents *)dateComponents {
-    NSLog(@"dateComponents = %@", dateComponents);
+    DLog(@"dateComponents = %@", dateComponents);
     if (_handleBlock) {
         _handleBlock(dateComponents);
     }

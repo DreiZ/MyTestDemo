@@ -92,7 +92,7 @@
          ZStudentMineSettingSexVC *edit = [[ZStudentMineSettingSexVC alloc] init];
          [self.navigationController pushViewControllerAndSuicide:edit animated:YES];
      } else if([cellConfig.title isEqualToString:@"出生日期"]){
-         [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+         [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
              
          }];
      }

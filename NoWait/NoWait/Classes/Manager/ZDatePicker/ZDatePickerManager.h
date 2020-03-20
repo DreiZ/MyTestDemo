@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZDatePickerManager *)sharedManager ;
 - (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type handle:(void(^)(NSDateComponents *))handleBlock ;
 - (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock;
+
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type handle:(void(^)(NSDateComponents *))handleBlock;
+
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock;
 @end
 
 NS_ASSUME_NONNULL_END

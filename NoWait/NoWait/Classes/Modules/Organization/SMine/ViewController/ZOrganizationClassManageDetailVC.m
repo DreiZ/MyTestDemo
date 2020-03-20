@@ -296,7 +296,7 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"openTime"]) {
         if (!self.isOpen) {
-            [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+            [ZDatePickerManager showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
                 weakSelf.model.start_time = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];

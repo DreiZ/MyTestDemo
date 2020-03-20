@@ -390,14 +390,14 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"birthday"]) {
         [self.iTableView endEditing:YES];
-        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
+        [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
             weakSelf.viewModel.addModel.birthday = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"registrationDate"]) {
         [self.iTableView endEditing:YES];
-        [[ZDatePickerManager sharedManager] showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
+        [ZDatePickerManager showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
             weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
