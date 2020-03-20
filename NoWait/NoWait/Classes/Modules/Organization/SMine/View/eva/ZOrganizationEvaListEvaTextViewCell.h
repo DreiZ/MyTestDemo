@@ -8,10 +8,13 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationEvaListEvaTextViewCell : ZBaseCell
-
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,assign) NSInteger max;
+@property (nonatomic,strong) NSString *hint;
+@property (nonatomic,strong) NSString *content;
+@property (nonatomic,strong) void (^textChangeBlock)(NSString *);
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -8,10 +8,8 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationEvaListEvaBtnCell : ZBaseCell
-
+@property (nonatomic,strong) void (^evaBlock)(NSInteger);
 @end
 
-NS_ASSUME_NONNULL_END

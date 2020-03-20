@@ -8,10 +8,9 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationEvaListReEvaCell : ZBaseCell
-
+@property (nonatomic,strong) NSString *evaDes;
 @end
 
-NS_ASSUME_NONNULL_END
+

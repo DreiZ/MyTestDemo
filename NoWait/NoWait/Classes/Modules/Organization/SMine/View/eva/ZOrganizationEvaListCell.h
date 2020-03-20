@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZStudentMineModel.h"
 
 @interface ZOrganizationEvaListCell : ZBaseCell
-
+@property (nonatomic,strong) ZStudentOrderEvaModel *model;
+@property (nonatomic,strong) void (^evaBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END
+

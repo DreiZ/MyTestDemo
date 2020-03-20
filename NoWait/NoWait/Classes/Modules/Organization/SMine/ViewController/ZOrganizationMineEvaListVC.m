@@ -8,25 +8,74 @@
 
 #import "ZOrganizationMineEvaListVC.h"
 
+#import "ZOrganizationEvaListCell.h"
+
 @interface ZOrganizationMineEvaListVC ()
 
 @end
-
 @implementation ZOrganizationMineEvaListVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setTableViewGaryBack];
+//    [self setNavigation];
+    [self initCellConfigArr];
 }
 
-/*
-#pragma mark - Navigation
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
+    
+    ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
+    evaModel.orderImage = @"lessonOrder";
+    evaModel.orderNum = @"23042039523452";
+    evaModel.lessonTitle = @"仰泳";
+    evaModel.lessonTime = @"2019-10-26";
+    evaModel.lessonCoach = @"高圆圆";
+    evaModel.lessonOrg = @"上飞天俱乐部";
+    evaModel.coachStar = @"3.4";
+    evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
+    evaModel.coachEvaImages = @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    evaModel.orgStar = @"4.5";
+    evaModel.orgEva = @"反反复复付受到法律和";
+    evaModel.orgEvaImages =  @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];;
+    
+    
+    ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+    [self.cellConfigArr addObject:evaCellConfig];
+    
+    [self.cellConfigArr addObject:evaCellConfig];
+    
+    [self.cellConfigArr addObject:evaCellConfig];
+    [self.cellConfigArr addObject:evaCellConfig];
+    [self.cellConfigArr addObject:evaCellConfig];
 }
-*/
 
+
+- (void)setNavigation {
+    self.isHidenNaviBar = NO;
+    [self.navigationItem setTitle:@"评价管理"];
+}
+
+- (void)setupMainView {
+    [super setupMainView];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.view.mas_top).offset(10);
+    }];
+}
+
+#pragma mark lazy loading...
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]){
+        ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
+//        enteryCell.evaBlock = ^{
+////            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+////            [self.navigationController pushViewController:evc animated:YES];
+//        };
+    }
+}
 @end

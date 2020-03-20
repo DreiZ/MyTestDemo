@@ -7,11 +7,11 @@
 //
 
 #import "ZViewController.h"
+#import <WMPageController.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationMineEvaManageVC : ZViewController
+@interface ZOrganizationMineEvaManageVC : WMPageController
 
 @end
 
-NS_ASSUME_NONNULL_END
+

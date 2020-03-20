@@ -29,11 +29,10 @@
     [self.contentView addSubview:self.evaTitleLabel];
     
     [self.evaTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(24));
-        make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-24));
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(18));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-30));
+        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(0));
     }];
-   
 }
 
 
@@ -58,7 +57,7 @@
         return 0;
     }
     
-    CGSize tsize = [eva tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(48), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(14)];
+    CGSize tsize = [eva tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
 
     return CGFloatIn750(24) + tsize.height;
 }
@@ -67,7 +66,7 @@
     _evaDes = evaDes;
     _evaTitleLabel.text = evaDes;
     
-    [ZPublicTool setLineSpacing:CGFloatIn750(14) label:self.evaTitleLabel];
+    [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.evaTitleLabel];
 }
 @end
 
