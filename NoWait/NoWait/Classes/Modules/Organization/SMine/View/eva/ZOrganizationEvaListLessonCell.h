@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationEvaListLessonCell : ZBaseCell
-
+@property (nonatomic,strong) UIView *contView;
 @end
 
 NS_ASSUME_NONNULL_END

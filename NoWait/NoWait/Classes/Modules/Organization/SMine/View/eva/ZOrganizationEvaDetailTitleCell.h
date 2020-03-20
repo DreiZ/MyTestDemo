@@ -6,12 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationEvaDetailTitleCell : ZTableViewViewController
+@interface ZOrganizationEvaDetailTitleCell : ZBaseCell
 
 @end
 
-NS_ASSUME_NONNULL_END

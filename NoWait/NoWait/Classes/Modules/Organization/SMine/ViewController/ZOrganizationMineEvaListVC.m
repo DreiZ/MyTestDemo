@@ -7,7 +7,7 @@
 //
 
 #import "ZOrganizationMineEvaListVC.h"
-
+#import "ZOrganizationMineEvaDetailVC.h"
 #import "ZOrganizationEvaListCell.h"
 
 @interface ZOrganizationMineEvaListVC ()
@@ -72,10 +72,17 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]){
         ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
-//        enteryCell.evaBlock = ^{
-////            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-////            [self.navigationController pushViewController:evc animated:YES];
-//        };
+        enteryCell.evaBlock = ^(NSInteger index) {
+            ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        };
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]) {
+        ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
     }
 }
 @end

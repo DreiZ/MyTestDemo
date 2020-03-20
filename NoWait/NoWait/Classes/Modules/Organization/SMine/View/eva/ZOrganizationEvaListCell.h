@@ -11,7 +11,7 @@
 
 @interface ZOrganizationEvaListCell : ZBaseCell
 @property (nonatomic,strong) ZStudentOrderEvaModel *model;
-@property (nonatomic,strong) void (^evaBlock)(void);
+@property (nonatomic,strong) void (^evaBlock)(NSInteger);
 @end
 
 

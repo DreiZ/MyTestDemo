@@ -89,6 +89,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
+    __weak typeof(self) weakSelf = self;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListEvaTextViewCell"]){
         ZOrganizationEvaListEvaTextViewCell *enteryCell = (ZOrganizationEvaListEvaTextViewCell *)cell;
@@ -98,7 +99,9 @@
     }else if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListEvaBtnCell"]){
         ZOrganizationEvaListEvaBtnCell *lcell = (ZOrganizationEvaListEvaBtnCell *)cell;
         lcell.evaBlock = ^(NSInteger index) {
-            
+            if (weakSelf.evaBlock) {
+                weakSelf.evaBlock(0);
+            }
         };
     }
     return cell;
@@ -121,8 +124,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListEvaBtnCell"]) {
         
+    }
+    if (self.evaBlock) {
+        self.evaBlock(1);
     }
 }
 

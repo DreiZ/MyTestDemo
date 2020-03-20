@@ -29,46 +29,52 @@
 
 -(void)setupView {
     [super setupView];
-    UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [self.contentView addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.contentView addSubview:self.contView];
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
 
 
-    [contView addSubview:self.priceLabel];
-    [contView addSubview:self.lessonImageVIew];
-    [contView addSubview:self.lessonLabel];
-    [contView addSubview:self.cocahLabel];
+    [self.contView addSubview:self.priceLabel];
+    [self.contView addSubview:self.lessonImageVIew];
+    [self.contView addSubview:self.lessonLabel];
+    [self.contView addSubview:self.cocahLabel];
     
     [self.lessonImageVIew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(contView);
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(30));
+        make.top.bottom.equalTo(self.contView);
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.width.mas_equalTo(CGFloatIn750(192));
     }];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageVIew.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.lessonImageVIew.mas_top);
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.cocahLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageVIew.mas_right).offset(CGFloatIn750(20));
         make.centerY.equalTo(self.lessonImageVIew.mas_centerY);
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageVIew.mas_right).offset(CGFloatIn750(20));
-        make.right.equalTo(contView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
         make.bottom.equalTo(self.lessonImageVIew.mas_bottom);
     }];
 }
 
 
-#pragma mark -Getter
+#pragma mark - Getter
+- (UIView *)contView {
+    if (!_contView) {
+        _contView = [[UIView alloc] init];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+    return _contView;
+}
 -(UIImageView *)lessonImageVIew {
     if (!_lessonImageVIew) {
         _lessonImageVIew = [[UIImageView alloc] init];
@@ -87,7 +93,7 @@
         _priceLabel.text = @"￥43";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont fontContent]];
+        [_priceLabel setFont:[UIFont boldFontContent]];
     }
     return _priceLabel;
 }
@@ -100,7 +106,7 @@
         _lessonLabel.text = @"暑期瑜伽班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonLabel setFont:[UIFont fontContent]];
+        [_lessonLabel setFont:[UIFont boldFontContent]];
     }
     return _lessonLabel;
 }
