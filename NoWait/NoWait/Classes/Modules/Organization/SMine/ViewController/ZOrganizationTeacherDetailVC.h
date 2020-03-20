@@ -12,6 +12,6 @@
 
 @interface ZOrganizationTeacherDetailVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationTeacherAddModel *addModel;
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 

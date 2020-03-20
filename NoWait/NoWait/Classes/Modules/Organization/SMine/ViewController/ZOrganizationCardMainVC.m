@@ -84,7 +84,6 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationCardListVC *lvc =[[ZOrganizationCardListVC alloc] init];
-            lvc.school = self.school;
             lvc.status = [NSString stringWithFormat:@"%d",i+1];
             [_vcArr addObject:lvc];
         }
@@ -104,7 +103,6 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationCardAddVC *avc = [[ZOrganizationCardAddVC alloc] init];
-            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
@@ -119,7 +117,6 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationSearchCouponVC *svc = [[ZOrganizationSearchCouponVC alloc] init];
             svc.title = @"搜索卡券";
-            svc.school = weakSelf.school;
             svc.searchType = ZSearchTypeOrganizationCart;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

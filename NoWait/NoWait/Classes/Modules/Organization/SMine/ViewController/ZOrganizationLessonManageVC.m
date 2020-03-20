@@ -82,7 +82,6 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationLessonManageListVC *lvc =[[ZOrganizationLessonManageListVC alloc] init];
-            lvc.school = self.school;
             switch (i) {
                 case 0:
                     lvc.type = ZOrganizationLessonTypeAll;
@@ -121,7 +120,6 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];
-            avc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
     }
@@ -136,7 +134,6 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationSearchLessonListVC *svc = [[ZOrganizationSearchLessonListVC alloc] init];
             svc.navTitle = @"搜索课程名称";
-            svc.school = weakSelf.school;
             svc.searchType = ZSearchTypeLesson;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

@@ -195,7 +195,7 @@
     }else{
         [params setObject:@"1" forKey:@"type"];
     }
-    [params setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [params setObject:SafeStr(self.viewModel.addModel.teacherID) forKey:@"teacher_id"];
     [params setObject:SafeStr(self.viewModel.addModel.class_Name) forKey:@"name"];
     NSMutableArray *tempArr = @[].mutableCopy;
@@ -266,7 +266,7 @@
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+        [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.teacherName = model.teacher_name;
                 weakSelf.viewModel.addModel.teacherID  = model.teacherID;

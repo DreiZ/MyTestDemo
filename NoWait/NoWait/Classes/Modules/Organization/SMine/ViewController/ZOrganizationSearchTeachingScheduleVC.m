@@ -116,7 +116,6 @@
                 weakSelf.isEdit = NO;
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
                 successvc.lessonOrderArr = tempArr;
-                successvc.school = weakSelf.school;
                 successvc.isBu = weakSelf.isBu;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
@@ -293,7 +292,7 @@
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     if (self.isBu) {
         [_param setObject:@"4" forKey:@"status"];
     }else{

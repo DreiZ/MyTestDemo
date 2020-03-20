@@ -33,8 +33,8 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    self.viewModel.addModel.school = self.school.name;
-    self.viewModel.addModel.stores_id = self.school.schoolID;
+    self.viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
+    self.viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -43,8 +43,8 @@
 - (ZOriganizationTeacherViewModel *)viewModel {
     if (!_viewModel) {
         _viewModel = [[ZOriganizationTeacherViewModel alloc] init];
-        _viewModel.addModel.school = self.school.name;
-        _viewModel.addModel.stores_id = self.school.schoolID;
+        _viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
+        _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
         _viewModel.addModel.sex = @"1";
         _viewModel.addModel.c_level = @"1";
         for (int j = 0; j < 9; j++) {
@@ -264,7 +264,7 @@
             }
             
             NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:SafeStr(weakSelf.school.schoolID) forKey:@"stores_id"];
+            [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.real_name) forKey:@"real_name"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.nick_name) forKey:@"nick_name"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.sex) forKey:@"sex"];
@@ -624,7 +624,6 @@
     }else if ([cellConfig.title isEqualToString:@"lesson"]) {
         [self.iTableView endEditing:YES];
         ZOrganizationTeacherLessonSelectVC *lvc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-        lvc.school = self.school;
         lvc.lessonList = self.viewModel.addModel.lessonList;
         lvc.handleBlock = ^(NSMutableArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
             weakSelf.viewModel.addModel.lessonList = list;

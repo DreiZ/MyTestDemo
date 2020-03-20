@@ -13,7 +13,7 @@
 @interface ZOrganizationClassDetailStudentListVC : ZTableViewViewController
 @property (nonatomic,assign) BOOL isOpen;
 @property (nonatomic,strong) ZOriganizationClassDetailModel *model;
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 
 @end
 

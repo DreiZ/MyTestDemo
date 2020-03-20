@@ -43,8 +43,8 @@
     if (!_viewModel) {
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
         _viewModel.addModel.sex = @"1";
-        _viewModel.addModel.stores_id = self.school.schoolID;
-        _viewModel.addModel.stores_name = self.school.name;
+        _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
+        _viewModel.addModel.stores_name = [ZUserHelper sharedHelper].school.name;
     }
     return _viewModel;
 }
@@ -404,7 +404,7 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"lesson"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
+        [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
                 weakSelf.viewModel.addModel.courses_name = model.name;
@@ -414,7 +414,7 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.teacher = model.teacher_name;
                 weakSelf.viewModel.addModel.teacher_id  = model.teacherID;

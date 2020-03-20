@@ -183,7 +183,7 @@
                 return ;
             }
             NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:self.school.schoolID forKey:@"stores_id"];
+            [params setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
             [params setObject:self.viewModel.addModel.title forKey:@"title"];
             [params setObject:self.viewModel.addModel.amount forKey:@"amount"];
             
@@ -273,7 +273,6 @@
     if ([cellConfig.title isEqualToString:@"type"]) {
         [self.iTableView endEditing:YES];
         ZOrganizationCardAddLessonListVC *lvc = [[ZOrganizationCardAddLessonListVC alloc] init];
-        lvc.school = self.school;
         lvc.handleBlock = ^(NSArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
             weakSelf.viewModel.addModel.lessonList = list;
             weakSelf.viewModel.addModel.isAll = isAll;

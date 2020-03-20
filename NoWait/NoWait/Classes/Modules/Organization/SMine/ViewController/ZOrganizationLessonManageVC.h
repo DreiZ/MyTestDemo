@@ -10,6 +10,6 @@
 #import <WMPageController.h>
 #import "ZOriganizationModel.h"
 @interface ZOrganizationLessonManageVC : WMPageController
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 

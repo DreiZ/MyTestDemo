@@ -182,7 +182,6 @@
                 [weakSelf.iTableView reloadData];
             }else{
                 ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
-                avc.school = weakSelf.school;
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }
         }];
@@ -197,7 +196,6 @@
         _searchTopView.hint = @"搜索教师";
         _searchTopView.handleBlock = ^(NSInteger index) {
             ZOrganizationTeacherSearchVC *svc = [[ZOrganizationTeacherSearchVC alloc] init];
-            svc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
@@ -240,7 +238,6 @@
                 if (index == 0) {
                     ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
                     ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.school = weakSelf.school;
                     dvc.addModel.account_id = listmodel.account_id;
                     dvc.addModel.c_level = listmodel.c_level;
                     dvc.addModel.teacherID = listmodel.teacherID;
@@ -390,7 +387,7 @@
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 
 

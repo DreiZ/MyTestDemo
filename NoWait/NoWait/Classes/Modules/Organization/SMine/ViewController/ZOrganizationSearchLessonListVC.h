@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationSearchLessonListVC : ZOrganizationSearchVC
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 
 NS_ASSUME_NONNULL_END

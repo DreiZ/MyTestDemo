@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonManageListVC : ZTableViewViewController
 @property (nonatomic,assign) ZOrganizationLessonType type;
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 
 NS_ASSUME_NONNULL_END

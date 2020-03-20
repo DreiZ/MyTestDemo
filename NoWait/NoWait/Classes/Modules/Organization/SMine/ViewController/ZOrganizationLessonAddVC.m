@@ -42,8 +42,8 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    _viewModel.addModel.school = self.school.name;
-    _viewModel.addModel.stores_id = self.school.schoolID;
+    _viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
+    _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -57,8 +57,8 @@
 - (ZOriganizationLessonViewModel *)viewModel {
     if (!_viewModel) {
         _viewModel = [[ZOriganizationLessonViewModel alloc] init];
-        _viewModel.addModel.school = self.school.name;
-        _viewModel.addModel.stores_id = self.school.schoolID;
+        _viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
+        _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
         for (int j = 0; j < 9; j++) {
             [_viewModel.addModel.images addObject:@""];
             [_viewModel.addModel.net_images addObject:@""];

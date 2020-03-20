@@ -92,7 +92,6 @@
                     if (isSuccess) {
                         ZOrganizationLessonAddVC *dvc = [[ZOrganizationLessonAddVC alloc] init];
                         dvc.viewModel.addModel = addModel;
-                        dvc.school = weakSelf.school;
                         [weakSelf.navigationController pushViewController:dvc animated:YES];
                     }
                 }];
@@ -191,7 +190,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
        switch (self.type) {
            case ZOrganizationLessonTypeOpen:
                [param setObject:@"1" forKey:@"status"];

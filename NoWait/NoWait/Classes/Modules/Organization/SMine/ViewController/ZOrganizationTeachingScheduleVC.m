@@ -89,7 +89,6 @@
             if (i == 1) {
                 nvc.isBu = YES;
             }
-            nvc.school = self.school;
             [_vcArr addObject:nvc];
         };
     }
@@ -128,7 +127,6 @@
                 svc.title = @"搜索待补课学员";
                 svc.isBu = YES;
             }
-            svc.school = self.school;
             svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

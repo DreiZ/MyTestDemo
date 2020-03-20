@@ -10,6 +10,6 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationTeacherManageVC : ZTableViewViewController
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 

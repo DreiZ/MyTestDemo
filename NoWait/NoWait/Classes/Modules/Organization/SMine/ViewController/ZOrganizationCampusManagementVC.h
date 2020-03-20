@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusManagementVC : ZTableViewViewController
-@property (nonatomic,strong) NSString *schoolID;
 
 @end
 

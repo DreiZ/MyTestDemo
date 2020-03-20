@@ -81,7 +81,6 @@
                 ZOriganizationClassListModel *model = cellConfig.dataModel;
                 
                 ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
-                dvc.school = self.school;
                 dvc.model.courses_name = model.courses_name;
                 dvc.model.classID = model.classID;
                 dvc.model.name = model.name;
@@ -102,7 +101,6 @@
            ZOriganizationClassListModel *model = cellConfig.dataModel;
            
            ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
-           dvc.school = self.school;
            dvc.model.courses_name = model.courses_name;
            dvc.model.classID = model.classID;
            dvc.model.name = model.name;
@@ -188,7 +186,7 @@
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [_param setObject:SafeStr(self.type) forKey:@"type"];
 }
 
@@ -199,7 +197,7 @@
     __weak typeof(self) weakSelf = self;
  
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel deleteClass:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel deleteClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
@@ -214,7 +212,7 @@
 - (void)openClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];

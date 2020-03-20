@@ -13,7 +13,7 @@
 
 
 @interface ZOrganizationSearchTeachingScheduleVC : ZOrganizationSearchVC
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @property (nonatomic,assign) BOOL isBu;
 @end
 

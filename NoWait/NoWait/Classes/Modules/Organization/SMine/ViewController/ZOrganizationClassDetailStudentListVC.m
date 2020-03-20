@@ -206,7 +206,7 @@
 - (void)deleteStudent:(ZOriganizationStudentListModel *)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel delClassStudent:@{@"courses_class_id":SafeStr(self.model.classID),@"stores_id":SafeStr(self.school.schoolID ),@"student_ids":@[SafeStr(model.studentID)]} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel delClassStudent:@{@"courses_class_id":SafeStr(self.model.classID),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID ),@"student_ids":@[SafeStr(model.studentID)]} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];

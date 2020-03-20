@@ -80,7 +80,6 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassManageListVC *lvc =[[ZOrganizationClassManageListVC alloc] init];
-            lvc.school = self.school;
             lvc.type = [NSString stringWithFormat:@"%d",i];
             [_vcArr addObject:lvc];
         }
@@ -96,7 +95,6 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationClassManageListSearchVC *svc = [[ZOrganizationClassManageListSearchVC alloc] init];
             svc.title = @"搜索班级";
-            svc.school = weakSelf.school;
             svc.searchType = ZSearchTypeStudentOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

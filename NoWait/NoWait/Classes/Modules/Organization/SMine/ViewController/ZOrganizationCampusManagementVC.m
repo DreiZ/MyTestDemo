@@ -367,7 +367,7 @@
 - (void)getDataList {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationViewModel getSchoolDetail:@{@"id":SafeStr(self.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+    [ZOriganizationViewModel getSchoolDetail:@{@"id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess && data && [data isKindOfClass:[ZOriganizationSchoolDetailModel class]]) {
             weakSelf.model = data;

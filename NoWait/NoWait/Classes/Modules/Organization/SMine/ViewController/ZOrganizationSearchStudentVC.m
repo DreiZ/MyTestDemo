@@ -221,7 +221,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
        [param setObject:self.name forKey:@"name"];
     return param;
 }

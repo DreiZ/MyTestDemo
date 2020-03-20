@@ -307,7 +307,6 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isOpen = self.isOpen;
         lvc.model = self.model;
-        lvc.school = self.school;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }
@@ -315,7 +314,7 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationClassViewModel getClassDetail:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
+    [ZOriganizationClassViewModel getClassDetail:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
         if (isSuccess) {
             weakSelf.model = addModel;
             [weakSelf initCellConfigArr];

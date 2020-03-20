@@ -207,7 +207,6 @@
          [_navRightBtn bk_whenTapped:^{
              ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
              avc.viewModel.addModel = weakSelf.addModel;
-             avc.school = weakSelf.school;
              avc.isEdit = YES;
              [weakSelf.navigationController pushViewController:avc animated:YES];
          }];

@@ -11,7 +11,7 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationSearchStudentVC : ZOrganizationSearchVC
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 
 

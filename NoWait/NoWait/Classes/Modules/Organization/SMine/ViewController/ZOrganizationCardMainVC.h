@@ -11,7 +11,7 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationCardMainVC : WMPageController
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 
 

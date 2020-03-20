@@ -221,7 +221,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
        [param setObject:SafeStr(self.name) forKey:@"name"];
     return param;
 }
@@ -243,7 +243,6 @@
                 if (index == 0) {
                     ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
                     ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.school = weakSelf.school;
                     dvc.addModel.account_id = listmodel.account_id;
                     dvc.addModel.c_level = listmodel.c_level;
                     dvc.addModel.teacherID = listmodel.teacherID;

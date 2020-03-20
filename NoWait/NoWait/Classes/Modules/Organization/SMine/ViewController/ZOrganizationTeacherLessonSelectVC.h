@@ -13,7 +13,7 @@
 @interface ZOrganizationTeacherLessonSelectVC : ZTableViewViewController
 @property (nonatomic,strong) NSArray *lessonList;
 
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @property (nonatomic,strong) void (^handleBlock)(NSMutableArray <ZOriganizationLessonListModel *>*, BOOL);
 @end
 

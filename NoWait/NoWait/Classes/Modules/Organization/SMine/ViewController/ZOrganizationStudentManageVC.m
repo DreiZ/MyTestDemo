@@ -195,7 +195,6 @@
                 [weakSelf.iTableView reloadData];
             }else{
                 ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
-                avc.school = weakSelf.school;
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }
         }];
@@ -210,7 +209,6 @@
         _searchTopView.hint = @"搜索学员";
         _searchTopView.handleBlock = ^(NSInteger index) {
             ZOrganizationSearchStudentVC *svc = [[ZOrganizationSearchStudentVC alloc] init];
-            svc.school = weakSelf.school;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
@@ -242,7 +240,7 @@
     if (!_filterView) {
         __weak typeof(self) weakSelf = self;
         _filterView = [[ZOrganizationStudentTopFilterSeaarchView alloc] init];
-        _filterView.schoolID = self.school.schoolID;
+        _filterView.schoolID = [ZUserHelper sharedHelper].school.schoolID;
         _filterView.filterBlock = ^(NSInteger index, id data) {
             if (index == 1) {
                 if (data) {
@@ -458,7 +456,7 @@
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr(self.school.schoolID) forKey:@"stores_id"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 
 

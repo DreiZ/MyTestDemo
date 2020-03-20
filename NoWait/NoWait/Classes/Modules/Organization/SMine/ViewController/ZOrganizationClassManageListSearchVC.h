@@ -10,6 +10,6 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationClassManageListSearchVC : ZOrganizationSearchVC
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 

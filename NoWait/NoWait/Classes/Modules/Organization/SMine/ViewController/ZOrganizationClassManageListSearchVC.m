@@ -38,7 +38,7 @@
     __weak typeof(self) weakSelf = self;
  
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel deleteClass:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel deleteClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
@@ -53,7 +53,7 @@
 - (void)openClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr(self.school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
@@ -157,7 +157,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.school.schoolID forKey:@"stores_id"];
+       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
        [param setObject:self.name forKey:@"name"];
     return param;
 }

@@ -12,6 +12,6 @@
 
 @interface ZOrganizationCardAddVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationCardViewModel *viewModel;
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
 

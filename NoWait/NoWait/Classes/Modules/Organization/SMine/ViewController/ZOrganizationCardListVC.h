@@ -11,7 +11,7 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationCardListVC : ZTableViewViewController
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @property (nonatomic,strong) NSString *status;
 
 

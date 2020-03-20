@@ -13,5 +13,5 @@
 @property (nonatomic,assign) BOOL isBu;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) void (^editChangeBlock)(BOOL);
-@property (nonatomic,strong) ZOriganizationSchoolListModel *school;
+ 
 @end
