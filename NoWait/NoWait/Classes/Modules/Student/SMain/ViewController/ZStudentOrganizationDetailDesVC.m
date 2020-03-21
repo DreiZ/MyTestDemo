@@ -31,6 +31,7 @@
 #import "ZStudentOrganizationLessonListVC.h"
 #import "ZStudentOrganizationMapAddressVC.h"
 #import "ZStudentTeacherDetailVC.h"
+#import "ZStudentStudentDetailVC.h"
 
 #import "ZOrganizationCouponListView.h"
 
@@ -226,8 +227,10 @@
        }else if ([cellConfig.title isEqualToString:@"starStudent"]){
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
-            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
-            [weakSelf.navigationController pushViewController:ivc animated:YES];
+            ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
+            [self.navigationController pushViewController:dvc animated:YES];
+//            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
+//            [weakSelf.navigationController pushViewController:ivc animated:YES];
         };
  
     }else if ([cellConfig.title isEqualToString:@"starCoach"]){
