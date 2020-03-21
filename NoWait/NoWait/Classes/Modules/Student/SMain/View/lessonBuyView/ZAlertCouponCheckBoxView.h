@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZAlertDataCheckBoxBottomView.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZAlertCouponCheckBoxView : UIView
-
+@interface ZAlertCouponCheckBoxView : ZAlertDataCheckBoxBottomView
++ (void)setAlertName:(NSString *)title schoolID:(NSString *)schoolID handlerBlock:(void(^)(NSInteger,id))handleBlock ;
 @end
 
-NS_ASSUME_NONNULL_END
+

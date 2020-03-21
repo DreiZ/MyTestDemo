@@ -24,7 +24,9 @@
 @property (nonatomic,strong) void (^handleBlock)(NSInteger,id);
 
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+
 + (ZAlertDataCheckBoxView *)sharedManager;
+
 - (void)setName:(NSString *)title handlerBlock:(void(^)(NSInteger, id))handleBlock;
 - (void)initMainView;
 - (void)initCellConfigArr;

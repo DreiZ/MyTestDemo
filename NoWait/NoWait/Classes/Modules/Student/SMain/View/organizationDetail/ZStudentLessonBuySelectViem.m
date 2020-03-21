@@ -8,6 +8,7 @@
 
 #import "ZStudentLessonBuySelectViem.h"
 #import "ZStudentLessonTeacherCell.h"
+#import "ZStudentLessonTeacherSelectedCell.h"
 
 @interface ZStudentLessonBuySelectViem ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UIView *backView;
@@ -162,6 +163,11 @@
 
 
 - (void)initCellConfigArr {
+    {
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherSelectedCell className] title:[ZStudentLessonTeacherSelectedCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonTeacherSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+    }
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"￥500.00 起";

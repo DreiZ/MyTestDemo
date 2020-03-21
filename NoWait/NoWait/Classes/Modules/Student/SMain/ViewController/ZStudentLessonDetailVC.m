@@ -20,6 +20,7 @@
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
 #import "ZStudentLessonSelectMainNewView.h"
+#import "ZAlertCouponCheckBoxView.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -117,7 +118,10 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    [self.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
+    [ZAlertCouponCheckBoxView setAlertName:@"选择优惠券" schoolID:@"7" handlerBlock:^(NSInteger index, id data) {
+        
+    }];
+//    [self.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
 }
 
 #pragma mark - setDetailData
