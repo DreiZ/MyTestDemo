@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentImageCollectionCell : ZTableViewListCell
+@property (nonatomic,strong) NSArray *images;
 
+@property (nonatomic,strong) void (^menuBlock)(NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,12 +6,14 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewListCell.h"
+#import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentDetailEvaAboutCell : ZTableViewListCell
-
+@interface ZStudentDetailEvaAboutCell : ZBaseCell
+@property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) NSArray <ZCellConfig *>*configList;
+@property (nonatomic,strong) void (^handleBlock)(ZCellConfig *);
+@property (nonatomic,strong) void (^cellSetBlock)(UITableViewCell *, NSIndexPath*, ZCellConfig*);
 @end
 
-NS_ASSUME_NONNULL_END
+

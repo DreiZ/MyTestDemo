@@ -48,7 +48,8 @@
 
 - (void)setImage:(NSString *)image {
     _image = image;
-    _evaImageView.image = [UIImage imageNamed:image];
+    [_evaImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+//    _evaImageView.image = [UIImage imageNamed:image];
 }
 @end
 

@@ -9,7 +9,8 @@
 #import "ZTableViewListCell.h"
 
 @interface ZTableViewListCell ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic,strong) UITableView *iTableView;
+
+
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 @end
 
@@ -28,30 +29,35 @@
     
     _cellConfigArr = @[].mutableCopy;
     
-    UIView *contView = [[UIView alloc] init];
-    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    ViewShadowRadius(contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
-    contView.layer.cornerRadius = CGFloatIn750(12);
     
-    
-    [self.contentView addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentView addSubview:self.contView];
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(CGFloatIn750(30));
         make.right.equalTo(self.contentView).offset(-CGFloatIn750(30));
         make.top.equalTo(self.contentView).offset(CGFloatIn750(20));
         make.bottom.equalTo(self.contentView).offset(-CGFloatIn750(20));
     }];
     
-    [contView addSubview:self.iTableView];
+    [self.contView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(contView);
-        make.top.equalTo(contView).offset(CGFloatIn750(20));
-        make.bottom.equalTo(contView).offset(-CGFloatIn750(20));
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.contView).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.contView).offset(-CGFloatIn750(20));
     }];
 }
 
 
 #pragma mark lazy loading...
+-(UIView *)contView {
+    if (!_contView) {
+        _contView = [[UIView alloc] init];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+        _contView.layer.cornerRadius = CGFloatIn750(12);
+        
+    }
+    return _contView;
+}
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

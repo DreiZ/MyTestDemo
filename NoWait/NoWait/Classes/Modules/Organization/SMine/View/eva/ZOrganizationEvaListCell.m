@@ -184,7 +184,7 @@
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
         model.rightTitle = self.model.coachEva;
         model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(120);
+        model.cellWidth = KScreenWidth - CGFloatIn750(60);
         model.singleCellHeight = CGFloatIn750(60);
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);

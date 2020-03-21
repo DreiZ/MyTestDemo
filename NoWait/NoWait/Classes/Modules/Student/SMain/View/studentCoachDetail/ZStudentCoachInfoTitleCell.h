@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentCoachInfoTitleCell : ZBaseCell
+@property (nonatomic,strong) NSString *title;
 
 @end
 
