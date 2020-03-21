@@ -32,6 +32,7 @@
 #import "ZStudentOrganizationMapAddressVC.h"
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentStudentDetailVC.h"
+#import "ZStudentLessonDetailVC.h"
 
 #import "ZOrganizationCouponListView.h"
 
@@ -259,9 +260,11 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-        
-        [self.navigationController pushViewController:lessond_vc animated:YES];
+        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
+//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+//        
+//        [self.navigationController pushViewController:lessond_vc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];

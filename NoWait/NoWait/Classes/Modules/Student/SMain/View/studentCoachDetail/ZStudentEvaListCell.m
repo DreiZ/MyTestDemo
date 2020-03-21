@@ -31,14 +31,13 @@
 -(void)setupView
 {
     [super setupView];
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     self.cellConfigArr = @[].mutableCopy;
     [self.contentView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.left.top.right.equalTo(self);
+        make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(-4));
     }];
-    
 }
 
 #pragma mark lazy loading...
@@ -120,18 +119,15 @@
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
         model.rightTitle = evaModel.coachEva;
-        model.isHiddenLine = YES;
         model.cellWidth = KScreenWidth;
         model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
         model.cellHeight = CGFloatIn750(62);
         model.rightFont = [UIFont fontSmall];
         cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:nil];
     }
  
     
-    return  cellHeight+= CGFloatIn750(118);
+    return  cellHeight+= CGFloatIn750(124);
 }
 
 - (void)setModel:(ZStudentOrderEvaModel *)model {
