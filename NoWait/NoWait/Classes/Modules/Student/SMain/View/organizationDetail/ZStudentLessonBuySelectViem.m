@@ -7,15 +7,207 @@
 //
 
 #import "ZStudentLessonBuySelectViem.h"
+#import "ZStudentLessonTeacherCell.h"
+
+@interface ZStudentLessonBuySelectViem ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic,strong) UIView *backView;
+
+@property (nonatomic,strong) UITableView *iTableView;
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) UIButton *bottomBtn;
+
+@end
 
 @implementation ZStudentLessonBuySelectViem
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initMainView];
+    }
+    return self;
+}
+
+#pragma mark 初始化view
+- (void)initMainView {
+    self.backgroundColor = adaptAndDarkColor([UIColor clearColor], [UIColor clearColor]);
+    self.clipsToBounds = YES;
+    self.layer.masksToBounds = YES;
+
+    [self addSubview:self.backView];
+    [self.backView addSubview:self.bottomBtn];
+    [self.backView addSubview:self.iTableView];
+    
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self);
+        make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(40));
+    }];
+    
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.backView);
+        make.bottom.equalTo(self.backView.mas_bottom).offset(-CGFloatIn750(40)-safeAreaBottom());
+        make.height.mas_equalTo(CGFloatIn750(88));
+    }];
+    
+    [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self.backView.mas_top).offset(CGFloatIn750(40));
+        make.bottom.equalTo(self.bottomBtn.mas_top);
+    }];
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+}
+
+#pragma mark -Getter
+- (UIView *)backView {
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        ViewRadius(_backView, CGFloatIn750(40));
+    }
+    return _backView;
+}
+
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_bottomBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
+        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn bk_whenTapped:^{
+            if (weakSelf.bottomBlock) {
+                weakSelf.bottomBlock();
+            }
+        }];
+    }
+    return _bottomBtn;
+}
+
+-(UITableView *)iTableView {
+    if (!_iTableView) {
+        _iTableView = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
+        _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _iTableView.estimatedRowHeight = 0;
+        _iTableView.estimatedSectionHeaderHeight = 0;
+        _iTableView.estimatedSectionFooterHeight = 0;
+        if (@available(iOS 11.0, *)) {
+            _iTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
+        _iTableView.showsVerticalScrollIndicator = NO;
+        _iTableView.showsHorizontalScrollIndicator = NO;
+        _iTableView.alwaysBounceVertical = YES;
+        _iTableView.delegate = self;
+        _iTableView.dataSource = self;
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+//        _iTableView.tableHeaderView = self.menuView;
+    }
+    return _iTableView;
+}
+
+
+- (NSMutableArray *)cellConfigArr {
+    if (!_cellConfigArr) {
+        _cellConfigArr = @[].mutableCopy;
+    }
+    return _cellConfigArr;
+}
+
+#pragma mark tableView -------datasource-----
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellConfigArr.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+     ZBaseCell *cell;
+     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    
+     return cell;
+}
+
+#pragma mark tableView ------delegate-----
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+}
+
+
+- (void)initCellConfigArr {
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"￥500.00 起";
+        model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(40)];
+        model.cellHeight = CGFloatIn750(50);
+        model.isHiddenLine = YES;
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"请选择教师";
+        model.leftFont = [UIFont fontSmall];
+        model.cellHeight = CGFloatIn750(50);
+        model.isHiddenLine = YES;
+        model.leftColor = [UIColor colorTextGray1];
+        model.leftDarkColor = [UIColor colorTextGray1Dark];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    
+    {
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+        [self.cellConfigArr addObject:topCellConfig];
+        
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"可选教师";
+        model.leftFont = [UIFont boldFontTitle];
+        model.cellHeight = CGFloatIn750(50);
+        model.isHiddenLine = YES;
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+        [self.cellConfigArr addObject:topCellConfig];
+    }
+    
+    {
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherCell className] title:[ZStudentLessonTeacherCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonTeacherCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    
+}
 @end
+
+
+

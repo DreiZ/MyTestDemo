@@ -252,6 +252,9 @@
 		B29795912425C5A6004490F5 /* ZStudentStudentInfoDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795902425C5A6004490F5 /* ZStudentStudentInfoDesCell.m */; };
 		B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795932425DB54004490F5 /* ZStudentLessonDetailVC.m */; };
 		B29795972425E363004490F5 /* ZStudentOrganizationDetailEnteryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795962425E363004490F5 /* ZStudentOrganizationDetailEnteryCell.m */; };
+		B297959A2425F6EC004490F5 /* ZStudentLessonBuySelectViem.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795992425F6EC004490F5 /* ZStudentLessonBuySelectViem.m */; };
+		B297959D2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B297959C2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.m */; };
+		B29795A024260269004490F5 /* ZStudentLessonTeacherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B297959F24260269004490F5 /* ZStudentLessonTeacherCell.m */; };
 		B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */; };
 		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */; };
@@ -1049,6 +1052,12 @@
 		B29795932425DB54004490F5 /* ZStudentLessonDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailVC.m; sourceTree = "<group>"; };
 		B29795952425E363004490F5 /* ZStudentOrganizationDetailEnteryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationDetailEnteryCell.h; sourceTree = "<group>"; };
 		B29795962425E363004490F5 /* ZStudentOrganizationDetailEnteryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationDetailEnteryCell.m; sourceTree = "<group>"; };
+		B29795982425F6EC004490F5 /* ZStudentLessonBuySelectViem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonBuySelectViem.h; sourceTree = "<group>"; };
+		B29795992425F6EC004490F5 /* ZStudentLessonBuySelectViem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonBuySelectViem.m; sourceTree = "<group>"; };
+		B297959B2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectMainNewView.h; sourceTree = "<group>"; };
+		B297959C2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSelectMainNewView.m; sourceTree = "<group>"; };
+		B297959E24260269004490F5 /* ZStudentLessonTeacherCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonTeacherCell.h; sourceTree = "<group>"; };
+		B297959F24260269004490F5 /* ZStudentLessonTeacherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonTeacherCell.m; sourceTree = "<group>"; };
 		B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZChat.h"; sourceTree = "<group>"; };
@@ -2001,6 +2010,8 @@
 				B279D06F23C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m */,
 				B279D07123C9BEA400391A33 /* ZStudentLessonBottomView.h */,
 				B279D07223C9BEA400391A33 /* ZStudentLessonBottomView.m */,
+				B297959E24260269004490F5 /* ZStudentLessonTeacherCell.h */,
+				B297959F24260269004490F5 /* ZStudentLessonTeacherCell.m */,
 			);
 			path = lessonBuyView;
 			sourceTree = "<group>";
@@ -3545,6 +3556,10 @@
 				B252ED942416397300190804 /* ZOrganizationCouponListView.m */,
 				B252ED9624163FDA00190804 /* ZStudentOrganizationCouponCell.h */,
 				B252ED9724163FDA00190804 /* ZStudentOrganizationCouponCell.m */,
+				B29795982425F6EC004490F5 /* ZStudentLessonBuySelectViem.h */,
+				B29795992425F6EC004490F5 /* ZStudentLessonBuySelectViem.m */,
+				B297959B2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.h */,
+				B297959C2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.m */,
 			);
 			path = organizationDetail;
 			sourceTree = "<group>";
@@ -3995,6 +4010,7 @@
 				B2A7819923C5BB8800407BF0 /* ZStudentOrganizationDetailIVideoCell.m in Sources */,
 				B2A781C423C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m in Sources */,
 				B252ED83241610F200190804 /* ZStudentOrganizationLessonSortListVC.m in Sources */,
+				B29795A024260269004490F5 /* ZStudentLessonTeacherCell.m in Sources */,
 				B2F7D36223CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m in Sources */,
 				B23184DE241F59440033F875 /* ZOriganizationCardViewModel.m in Sources */,
 				B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */,
@@ -4249,6 +4265,7 @@
 				B28EA669240E34B400C8E225 /* ZAccountChangePasswordVC.m in Sources */,
 				B25146BE23CF154E009A64D4 /* ZStudentMineSettingMineEditVC.m in Sources */,
 				B2A77FC923BDEAA100407BF0 /* ZAlertUpdateAppView.m in Sources */,
+				B297959D2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.m in Sources */,
 				B2F7D33F23CD6D0800F7A17D /* ZBaseModel.m in Sources */,
 				B2DB9B37241C6AF200340464 /* ZOrganizationPhotoListCell.m in Sources */,
 				B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */,
@@ -4364,6 +4381,7 @@
 				B279D07023C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m in Sources */,
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
 				B28EA666240E2B7B00C8E225 /* ZMineAccountTextFieldCell.m in Sources */,
+				B297959A2425F6EC004490F5 /* ZStudentLessonBuySelectViem.m in Sources */,
 				B28D9130240766940021E05A /* UIColor+PGHex.m in Sources */,
 				B27B2EEF241A4A8400CB473C /* ZOriganizationTeacherViewModel.m in Sources */,
 				B2F7D36823CDD55E00F7A17D /* ZMineStudentEvaEditStarCell.m in Sources */,

@@ -19,11 +19,12 @@
 #import "ZBaseUnitModel.h"
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
-
+#import "ZStudentLessonSelectMainNewView.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
+@property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
 
 @end
 
@@ -85,6 +86,23 @@
 }
 
 
+- (ZStudentLessonSelectMainNewView *)selectView {
+    if (!_selectView) {
+        __weak typeof(self) weakSelf = self;
+        _selectView = [[ZStudentLessonSelectMainNewView alloc] init];
+//        _selectView.completeBlock = ^(ZLessonBuyType type) {
+//            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
+//                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+//                [weakSelf.navigationController pushViewController:order animated:YES];
+//            }else{
+//                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+//                [weakSelf.navigationController pushViewController:order animated:YES];
+//            }
+//        };
+    }
+    return _selectView;
+}
+
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
@@ -98,6 +116,9 @@
     }
 }
 
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    [self.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
+}
 
 #pragma mark - setDetailData
 - (void)setLessonName {

@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLessonBuySelectViem : UIView
-
+@property (nonatomic,strong) void (^bottomBlock)(void);
+@property (nonatomic,strong) void (^closeBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END
