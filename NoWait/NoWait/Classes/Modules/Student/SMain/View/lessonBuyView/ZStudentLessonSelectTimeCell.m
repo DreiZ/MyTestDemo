@@ -29,8 +29,6 @@
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
-        make.height.mas_equalTo(CGFloatIn750(54));
-        make.width.mas_equalTo(CGFloatIn750(235));
     }];
 }
 
@@ -42,7 +40,7 @@
         _titleLabel.text = @"";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont fontSmall]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }
@@ -52,20 +50,14 @@
     
     _titleLabel.text = model.time;
     if (model.isTimeSelected) {
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _titleLabel.backgroundColor = [UIColor  colorMain];
-        _titleLabel.layer.cornerRadius = CGFloatIn750(27);
-        _titleLabel.layer.masksToBounds = YES;
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }else {
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _titleLabel.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _titleLabel.layer.cornerRadius = CGFloatIn750(27);
-        _titleLabel.layer.masksToBounds = YES;
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
 }
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(68);
+    return CGFloatIn750(106);
 }
 @end

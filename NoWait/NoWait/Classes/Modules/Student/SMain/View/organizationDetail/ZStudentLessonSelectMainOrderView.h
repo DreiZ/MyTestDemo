@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZStudentDetailModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLessonSelectMainOrderView : UIView
-
+@property (nonatomic,assign) ZLessonBuyType buyType;
+@property (nonatomic,strong) void (^completeBlock)(ZLessonBuyType);
+- (void)showSelectViewWithType:(ZLessonBuyType)type;
 @end
 
-NS_ASSUME_NONNULL_END
+

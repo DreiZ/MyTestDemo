@@ -35,10 +35,13 @@
 #import "ZStudentLessonDetailVC.h"
 
 #import "ZOrganizationCouponListView.h"
+#import "ZStudentLessonSelectMainOrderView.h"
+#import "ZStudentLessonSureOrderVC.h"
+#import "ZStudentLessonSubscribeSureOrderVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
-
+@property (nonatomic,strong) ZStudentLessonSelectMainOrderView *selectView;
 @end
 
 @implementation ZStudentOrganizationDetailDesVC
@@ -67,10 +70,42 @@
 
 -(ZOrganizationDetailBottomView *)bottomView {
     if (!_bottomView) {
+        __weak typeof(self) weakSelf = self;
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
+        _bottomView.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
+            }else{
+                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
+            }
+            
+        };
     }
     return _bottomView;
 }
+
+- (ZStudentLessonSelectMainOrderView *)selectView {
+    if (!_selectView) {
+        __weak typeof(self) weakSelf = self;
+        _selectView = [[ZStudentLessonSelectMainOrderView alloc] init];
+        _selectView.completeBlock = ^(ZLessonBuyType type) {
+            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+            [weakSelf.navigationController pushViewController:order animated:YES];
+//
+//            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+//            [weakSelf.navigationController pushViewController:order animated:YES];
+//            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
+//                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+//                [weakSelf.navigationController pushViewController:order animated:YES];
+//            }else{
+//                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+//                [weakSelf.navigationController pushViewController:order animated:YES];
+//            }
+        };
+    }
+    return _selectView;
+}
+
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];

@@ -71,3 +71,12 @@ NSString *imageFullUrl(NSString *url) {
     return [NSString stringWithFormat:@"%@/%@",URL_file,url];
 }
 
+ZCellConfig *getEmptyCellWithHeight(CGFloat height){
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:height cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+    return cellConfig;
+}
+
+ZCellConfig *getGrayEmptyCellWithHeight(CGFloat height){
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:height cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+    return cellConfig;
+}

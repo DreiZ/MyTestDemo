@@ -38,7 +38,7 @@
     }];
     
     
-    [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:@[@"重中之重",@"下火海",@"上刀山",@"重之重",@"下火海",@"上刀山",@"重中之重",@"下火海",@"上刀山",@"重中之重",@"下火海",@"上刀山"]];
+    [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:@[@"重中之重",@"下火海",@"上刀山",@"重之重",@"下火海",@"上刀山"]];
 }
 
 
@@ -82,9 +82,31 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(258);
+    NSArray *tempArr = @[@"重中之重",@"下火海",@"上刀山",@"重之重",@"下火海",@"上刀山"];
+    CGFloat cellHeight = 0;
+    cellHeight += [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:tempArr];
+    return cellHeight;
 }
 
+
+
++ (CGFloat)setActivityData:(CGFloat)maxWidth textArr:(NSArray *)adeptArr{
+    CGFloat labelWidth = maxWidth;
+    CGFloat leftX = CGFloatIn750(30);
+    CGFloat topY = 0;
+
+    for (int i = 0; i < adeptArr.count; i++) {
+       CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+       if (leftX + tempSize.width + kLabelAddWidth + kLabelSpace > labelWidth) {
+           topY += kLabelHeight + kLabelSpaceY;
+           leftX = CGFloatIn750(30);
+       }
+        
+        leftX = leftX + tempSize.width+kLabelAddWidth + kLabelSpace;
+    }
+    
+    return topY + kLabelHeight;
+}
 @end
 
 

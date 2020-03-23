@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DarkModel.h"
+#import "ZCellConfig.h"
 
 /**
  * 为ViewController添加navController
@@ -34,3 +35,6 @@ CGFloat safeAreaBottom(void);
 
 NSString *imageFullUrl(NSString *);
 
+ZCellConfig *getEmptyCellWithHeight(CGFloat height);
+
+ZCellConfig *getGrayEmptyCellWithHeight(CGFloat height);
