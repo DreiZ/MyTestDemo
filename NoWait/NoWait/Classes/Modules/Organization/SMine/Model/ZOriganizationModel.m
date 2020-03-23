@@ -197,3 +197,31 @@
              };
 }
 @end
+
+
+
+@implementation ZOriganizationPhotoListModel
+
+@end
+
+@implementation ZOriganizationPhotoListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationPhotoListModel"
+             };
+}
+@end
+
+
+
+@implementation ZOriganizationPhotoTypeListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"imageID" : @"id"};
+}
+@end
+
+@implementation ZOriganizationPhotoTypeListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationPhotoTypeListModel"
+             };
+}
+@end

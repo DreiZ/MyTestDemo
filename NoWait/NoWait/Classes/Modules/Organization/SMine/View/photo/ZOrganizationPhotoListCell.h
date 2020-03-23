@@ -7,12 +7,12 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOriganizationModel.h"
 
 @interface ZOrganizationPhotoListCell : ZBaseCell
 @property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) ZOriganizationPhotoListModel *model;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

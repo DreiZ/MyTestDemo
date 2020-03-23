@@ -183,7 +183,7 @@
 #pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 
-#define URL_file_v1_multi_upload                           @"file/v1/multi_upload"
+#define URL_file_v1_multi_upload                     @"file/v1/multi_upload"
 
 #define URL_file_v1_delete                           @"file/v1/delete_file"
 
@@ -312,5 +312,58 @@
 #define URL_merchants_v1_del_courses_class_students                   @"merchants/v1/del_courses_class_students"
 
 
+
+#pragma mark - 订单------------------------------------------------
+//创建订单
+#define URL_order_v1_create_order                   @"order/v1/create_order"
+//订单详情
+#define URL_order_v1_get_order_info                 @"order/v1/get_order_info"
+//创建订单
+#define URL_order_v1_create_appointment_oreder      @"order/v1/create_appointment_oreder"
+//订单支付接口
+#define URL_order_v1_pay_order                      @"order/v1/pay_order"
+//检测付款状态
+#define URL_order_v1_check_pay_status               @"order/v1/check_pay_status"
+//取消订单
+#define URL_order_v1_close_order                    @"order/v1/close_order"
+//订单列表
+#define URL_order_v1_order_list                     @"order/v1/order_list"
+//删除订单
+#define URL_order_v1_del_order                      @"order/v1/del_order"
+//申请退款
+#define URL_order_v1_refund_confirm                 @"order/v1/refund_confirm"
+//退款确定
+#define URL_order_v1_refund_order                   @"order/v1/refund_order"
+//退款查询
+#define URL_order_v1_refund_query                   @"order/v1/refund_query"
+
+
+#pragma mark - 相册------------------------------------------------
+//相册类型列表
+#define URL_coupons_v1_get_stores_image_type_list                   @"merchants/v1/get_stores_image_type_list"
+
+#define URL_coupons_v1_add_stores_image                   @"merchants/v1/add_stores_image"
+
+#define URL_coupons_v1_get_stores_image_list_by_type                   @"merchants/v1/get_stores_image_list_by_type"
+
+#define URL_coupons_v1_del_stores_image                   @"merchants/v1/del_stores_image"
+
+
+
+#pragma mark - 评价------------------------------------------------
+//添加评论
+#define URL_account_v1_add_comment                   @"account/v1/add_comment"
+
+//获取评价列表(学员)
+#define URL_account_v1_get_account_comment_list      @"account/v1/get_account_comment_list"
+
+//评论详情
+#define URL_account_v1_get_comment_info              @"account/v1/get_comment_info"
+
+//获取机构评论列表
+#define URL_account_v1_get_merchants_comment_list   @"account/v1/get_merchants_comment_list"
+
+//获取教师评论列表
+#define URL_account_v1_get_teacher_comment_list              @"account/v1/get_teacher_comment_list"
 
 #endif /* URLMacros_h */

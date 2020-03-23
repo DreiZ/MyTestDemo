@@ -7,11 +7,12 @@
 //
 
 #import "ZViewController.h"
+#import "ZOriganizationModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationPhotoCollectionVC : ZViewController
+@property (nonatomic,strong) ZOriganizationPhotoListModel *model;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -92,34 +92,31 @@
         _deleteBigBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_deleteBigBtn bk_whenTapped:^{
             if (weakSelf.delBlock) {
-                weakSelf.delBlock();
+                weakSelf.delBlock(weakSelf.model);
             }
         }];
     }
     return _deleteBigBtn;
 }
 
-- (void)setModel:(ZBaseUnitModel *)model {
+- (void)setModel:(ZOriganizationPhotoTypeListModel *)model {
     _model = model;
     self.deleteBtn.hidden = NO;
     self.deleteBigBtn.hidden = NO;
     self.detailImageView.hidden = NO;
     
-    if (model.isSelected) {
-        self.deleteBtn.hidden = NO;
-        self.deleteBigBtn.hidden = NO;
-    }else{
-        self.deleteBtn.hidden = YES;
-        self.deleteBigBtn.hidden = YES;
-    }
+//    if (model.isSelected) {
+//        self.deleteBtn.hidden = NO;
+//        self.deleteBigBtn.hidden = NO;
+//    }else{
+//        self.deleteBtn.hidden = YES;
+//        self.deleteBigBtn.hidden = YES;
+//    }
     
-    if (!model.data) {
-    }else if ([model.data isKindOfClass:[UIImage class]]) {
-        self.detailImageView.image = model.data;
-    }else if ([model.data isKindOfClass:[NSString class]]){
-        NSString *temp = model.data;
+    if ([model.images_url isKindOfClass:[NSString class]]){
+        NSString *temp = model.images_url;
         if (temp.length > 0) {
-            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:temp]];
+            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(temp)]];
         }else{
             self.detailImageView.hidden = YES;
         }

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZBaseUnitModel.h"
+#import "ZOriganizationModel.h"
 
 
 @interface ZOrganizatioPhotosCollectionCell : UICollectionViewCell
-@property (nonatomic,strong) ZBaseUnitModel *model;
-@property (nonatomic,strong) void (^delBlock)(void);
+@property (nonatomic,strong) ZOriganizationPhotoTypeListModel *model;
+@property (nonatomic,strong) void (^delBlock)(ZOriganizationPhotoTypeListModel *);
 @end
 
 

@@ -8,6 +8,8 @@
 
 #import "ZOrganizationPhotoCollectionVC.h"
 #import "ZOrganizatioPhotosCollectionCell.h"
+#import "ZOriganizationPhotoViewModel.h"
+#import "ZOriganizationLessonViewModel.h"
 
 @interface ZOrganizationPhotoCollectionVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -15,7 +17,9 @@
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *list;
 @property (nonatomic,strong) UIButton *bottomBtn;
-
+@property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,strong) NSMutableArray *uploadArr;
+@property (nonatomic,strong) NSMutableArray *uploadNetArr;
 @end
 
 @implementation ZOrganizationPhotoCollectionVC
@@ -23,6 +27,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [self refreshData];
 }
 
 - (void)viewDidLoad {
@@ -30,7 +35,6 @@
          
     [self setNavigation];
     [self setMainView];
-    [self setData];
 }
 
 - (void)setNavigation {
@@ -61,32 +65,15 @@
         make.left.right.top.equalTo(self.view);
         make.bottom.equalTo(footerView.mas_top).offset(0);
     }];
-}
-
-- (void)setData {
-    NSArray *stemparr = @[@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnimudx9rj30u0190x6r.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnik9gg1zj30rt167qv5.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnih592ymj30u012mkjl.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnifebkgxj30u011i41n.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni9yq6txj30in0skdh8.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcni67jfp0j30u01907wi.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni0ntc2oj30ia0rfgpz.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnhw86vyej30rs15ojti.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhm4ar5rj30m90xc4mp.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhgm151mj30tm18gwrz.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhcwlaihj30u011in00.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhbdlq2fj30hs0hsdin.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnh64taa2j30u011iqfx.jpg",
-    @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcnh1f4yvfj30u0140dsy.jpg",
-    @"http://tva1.sinaimg.cn/mw600/00831rSTly1gcngrcu9g5j30hs0m7ta9.jpg",
-    ];
-    _list = @[].mutableCopy;
-    for (int i = 0; i < 80; i++) {
-        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-        model.data = stemparr[i%14];
-        [_list addObject:model];
-    }
-    [_iCollectionView reloadData];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.iCollectionView tt_addRefreshHeaderWithAction:^{
+        [weakSelf refreshData];
+    }];
+    
+    [self.iCollectionView tt_addLoadMoreFooterWithAction:^{
+        [weakSelf refreshMoreData];
+    }];
 }
 
 
@@ -113,17 +100,56 @@
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"上传图片" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
+            [ZPhotoManager sharedManager].maxImageSelected = 9;
             
+            [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                if (list && list.count > 0){
+                    [weakSelf.uploadArr removeAllObjects];
+                    [weakSelf.uploadNetArr removeAllObjects];
+                    for (LLImagePickerModel *model in list) {
+                        [weakSelf.uploadArr addObject:model.image];
+                    }
+                    [weakSelf updatePhotosStep1];
+                }
+            }];
         }];
     }
     return _bottomBtn;
+}
+
+- (NSMutableArray *)uploadArr {
+    if (!_uploadArr) {
+        _uploadArr = @[].mutableCopy;
+    }
+    return _uploadArr;
+}
+
+- (NSMutableArray *)uploadNetArr {
+    if (!_uploadNetArr) {
+        _uploadNetArr = @[].mutableCopy;
+    }
+    return _uploadNetArr;
+}
+
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
+}
+
+-(NSMutableArray *)list {
+    if (!_list) {
+        _list = @[].mutableCopy;
+    }
+    return _list;
 }
 
 #pragma mark - collectionview delegate
@@ -141,6 +167,9 @@
 {
     ZOrganizatioPhotosCollectionCell *cell = [ZOrganizatioPhotosCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
 //    ZOrganizatioPhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizatioPhotosCollectionCell className] forIndexPath:indexPath];
+    cell.delBlock = ^(ZOriganizationPhotoTypeListModel *model) {
+        [self deleteData:model];
+    };
     cell.model = _list[indexPath.row];
     return cell;
 }
@@ -165,6 +194,165 @@
     return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }
 
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresTypeImageList:param completeBlock:^(BOOL isSuccess, ZOriganizationPhotoTypeListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.list removeAllObjects];
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresTypeImageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationPhotoTypeListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [self.param setObject:SafeStr(self.model.type) forKey:@"type"];
+}
+
+#pragma mark - 上传图片
+- (void)updatePhotosStep1 {
+    [TLUIUtility showLoading:@"上传图片中"];
+    NSInteger tindex = 0;
+    [self updatePhotosStep2WithImage:tindex];
+}
+
+ - (void)updatePhotosStep2WithImage:(NSInteger)index {
+     [self updatePhotosStep3WithImage:index complete:^(BOOL isSuccess, NSInteger index) {
+         if (index == self.uploadArr.count-1) {
+             [TLUIUtility showLoading:@"上传其他数据"];
+             [self updateData];
+         }else{
+             index++;
+             [self updatePhotosStep2WithImage:index];
+         }
+    }];
+}
+
+- (void)updatePhotosStep3WithImage:(NSInteger)index complete:(void(^)(BOOL, NSInteger))complete{
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传课程相册中 %ld/%ld",index+1,self.uploadArr.count]];
+    
+    id temp = self.uploadArr[index];
+   
+    UIImage *image;
+    if ([temp isKindOfClass:[UIImage class]]) {
+        image = temp;  
+    }
+    
+    if (!image) {
+        complete(YES,index);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            [weakSelf.uploadNetArr addObject:message];
+            complete(YES,index);
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+#pragma mark - 上传图片url
+- (void)updateData {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.model.type) forKey:@"type"];
+    NSMutableArray *imageUrlArr = @[].mutableCopy;
+    for (NSString *imageUrl in self.uploadNetArr) {
+        [imageUrlArr addObject:imageUrl];
+    }
+    [params setObject:imageUrlArr forKey:@"images"];
+    
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationPhotoViewModel addImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [self refreshAllData];
+            [TLUIUtility showSuccessHint:message];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+- (void)deleteData:(ZOriganizationPhotoTypeListModel *)model {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [params setObject:SafeStr(model.imageID) forKey:@"id"];
+    
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationPhotoViewModel delImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [self refreshAllData];
+            [TLUIUtility showSuccessHint:message];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
 @end
-
-

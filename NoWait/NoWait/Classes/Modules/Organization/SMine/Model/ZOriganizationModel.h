@@ -275,3 +275,27 @@
 
 
 
+#pragma mark - 图片管理
+@interface ZOriganizationPhotoListModel : ZBaseModel
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *image;
+@end
+
+
+@interface ZOriganizationPhotoListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationPhotoListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+
+
+@interface ZOriganizationPhotoTypeListModel : ZBaseModel
+@property (nonatomic,strong) NSString *imageID;
+@property (nonatomic,strong) NSString *images_url;
+@end
+
+@interface ZOriganizationPhotoTypeListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationPhotoTypeListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+

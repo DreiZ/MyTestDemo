@@ -7,11 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBaseViewModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOriganizationPhotoViewModel : NSObject
+@interface ZOriganizationPhotoViewModel : ZBaseViewModel
 
++ (void)getStoresImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getStoresTypeImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)addImage:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)delImage:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
-NS_ASSUME_NONNULL_END
+

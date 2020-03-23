@@ -141,6 +141,10 @@ static ZPhotoManager *sharedPhotoManager;
 - (void)showSelectMenu:(LLSelecttImageBackBlock)complete {
     _allowCrop = NO;
     _showSelectBtn = YES;
+    [_mediaArray removeAllObjects];
+    [_selectedImageAssets removeAllObjects];
+    [_selectedVideoModels removeAllObjects];
+    [_selectedImageModels removeAllObjects];
     [self setSelectMenu:complete];
 }
 

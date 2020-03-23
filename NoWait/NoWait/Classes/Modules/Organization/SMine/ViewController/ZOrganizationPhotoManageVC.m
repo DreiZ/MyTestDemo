@@ -9,22 +9,37 @@
 #import "ZOrganizationPhotoManageVC.h"
 #import "ZOrganizationPhotoListCell.h"
 #import "ZOrganizationPhotoCollectionVC.h"
+#import "ZOriganizationPhotoViewModel.h"
 
 @interface ZOrganizationPhotoManageVC ()
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
 @implementation ZOrganizationPhotoManageVC
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    [self setTableViewGaryBack];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
 }
 
-- (void)setNavgation {
+- (void)setNavigation {
     [self.navigationItem setTitle:@"相册管理"];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    _param = @{}.mutableCopy;
 }
 
 - (void)initCellConfigArr {
@@ -46,8 +61,8 @@
     @"http://tva1.sinaimg.cn/mw600/00831rSTly1gcngrcu9g5j30hs0m7ta9.jpg",
     ];
     
-    for (int i = 0; i < stemparr.count; i++) {
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationPhotoListCell className] title:@"ZOrganizationPhotoListCell" showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationPhotoListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:stemparr[i]];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationPhotoListCell className] title:@"ZOrganizationPhotoListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationPhotoListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         
         [self.cellConfigArr addObject:menuCellConfig];
     }
@@ -55,7 +70,86 @@
 
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    ZOrganizationPhotoCollectionVC *lvc = [[ZOrganizationPhotoCollectionVC alloc] init];
-    [self.navigationController pushViewController:lvc animated:YES];
+    if ([cellConfig.title isEqualToString:@"ZOrganizationPhotoListCell"]) {
+        ZOriganizationPhotoListModel *model = (ZOriganizationPhotoListModel *)cellConfig.dataModel;
+        ZOrganizationPhotoCollectionVC *lvc = [[ZOrganizationPhotoCollectionVC alloc] init];
+        lvc.model = model;
+        [self.navigationController pushViewController:lvc animated:YES];
+    }
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresImageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresImageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 @end

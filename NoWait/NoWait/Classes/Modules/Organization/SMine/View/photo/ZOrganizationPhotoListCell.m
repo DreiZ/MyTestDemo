@@ -66,7 +66,6 @@
         _photoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _photoLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
         _photoLabel.numberOfLines = 1;
-        _photoLabel.text = @"闪闪生光";
         _photoLabel.textAlignment = NSTextAlignmentCenter;
 //        _photoLabel.backgroundColor = HexAColor(0x000000, 0.3);
         [_photoLabel setFont:[UIFont fontSmall]];
@@ -85,6 +84,12 @@
 }
 - (void)setImage:(NSString *)image {
     [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+}
+
+- (void)setModel:(ZOriganizationPhotoListModel *)model {
+    _model = model;
+    [self setImage:imageFullUrl(model.image)];
+    _photoLabel.text = model.name;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
