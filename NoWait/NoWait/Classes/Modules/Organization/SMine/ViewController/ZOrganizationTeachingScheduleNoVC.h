@@ -10,8 +10,9 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationTeachingScheduleNoVC : ZTableViewViewController
-@property (nonatomic,assign) BOOL isBu;
+@property (nonatomic,assign) NSInteger type;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) void (^editChangeBlock)(BOOL);
- 
+@property (nonatomic,strong) NSString *stores_courses_id;
+
 @end

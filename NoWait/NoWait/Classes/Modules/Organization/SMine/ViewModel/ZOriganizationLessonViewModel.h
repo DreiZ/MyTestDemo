@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
 //课程列表
 + (void)getLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+//排课列表
++ (void)getCoursesLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 //课程详情
 + (void)getLessonDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 //关闭课程

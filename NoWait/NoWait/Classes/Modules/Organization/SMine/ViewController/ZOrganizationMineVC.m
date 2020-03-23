@@ -31,6 +31,7 @@
 #import "ZOrganizationPhotoManageVC.h"
 #import "ZOrganizationMineOrderManageVC.h"
 #import "ZOrganizationOrderRefuseVC.h"
+#import "ZOrganizationTeachingScheduleLessonVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -134,8 +135,10 @@
                 ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
                 [self.navigationController pushViewController:mvc animated:YES];
             }else if ([model.uid isEqualToString:@"manageLesson"]){
-                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
-                [self.navigationController pushViewController:svc animated:YES];
+                ZOrganizationTeachingScheduleLessonVC *lvc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
+                [self.navigationController pushViewController:lvc animated:YES];
+//                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+//                [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"class"]){
                 ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
                 [self.navigationController pushViewController:svc animated:YES];
@@ -195,7 +198,6 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    __weak typeof(self) weakSelf = self;
     [ZUserHelper sharedHelper].user.type = @"4";
     if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 4){
         NSMutableArray *channnliset = @[].mutableCopy;

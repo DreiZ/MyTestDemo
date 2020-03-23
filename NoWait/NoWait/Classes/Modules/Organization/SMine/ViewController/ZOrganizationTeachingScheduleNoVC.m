@@ -57,7 +57,9 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
-        if (self.isBu) {
+        ZOriganizationStudentListModel *lmodel = self.dataSources[i];
+        lmodel.status = @"5";
+        if ([lmodel.status intValue] == 5) {
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleBuCell className] title:[ZOrganizationTeachingScheduleBuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleBuCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [self.cellConfigArr addObject:progressCellConfig];
         }else{
@@ -110,7 +112,7 @@
                 weakSelf.isEdit = NO;
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
                 successvc.lessonOrderArr = tempArr;
-                successvc.isBu = weakSelf.isBu;
+                successvc.isBu = weakSelf.type == 2 ? YES:NO;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;
@@ -228,7 +230,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentLessonFromList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -256,7 +258,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentLessonFromList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -290,12 +292,14 @@
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
-    if (self.isBu) {
+    [_param setObject:SafeStr(self.stores_courses_id) forKey:@"stores_courses_id"];
+    
+    if (self.type == 2) {
         [_param setObject:@"5" forKey:@"status"];
+    }else if (self.type == 2) {
+        [_param setObject:@"0" forKey:@"status"];
     }else{
         [_param setObject:@"1" forKey:@"status"];
     }
 }
-
-
 @end

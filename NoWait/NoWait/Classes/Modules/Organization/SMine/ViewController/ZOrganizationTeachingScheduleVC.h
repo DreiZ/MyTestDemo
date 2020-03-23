@@ -11,7 +11,7 @@
 #import "ZOriganizationModel.h"
 
 @interface ZOrganizationTeachingScheduleVC : WMPageController
- 
+ @property (nonatomic,strong) NSString *stores_courses_id;
 @end
 
 

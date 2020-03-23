@@ -7,11 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOriganizationModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZOrganizationTeachingScheduleLessonCell : ZBaseCell
+@property (nonatomic,strong) void (^handleBlock)(NSInteger,ZOriganizationLessonScheduleListModel *);
+@property (nonatomic,strong) ZOriganizationLessonScheduleListModel *model;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

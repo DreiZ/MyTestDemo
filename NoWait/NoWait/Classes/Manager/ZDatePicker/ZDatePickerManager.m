@@ -20,20 +20,21 @@ static ZDatePickerManager *sharedDateManager;
 @end
 
 @implementation ZDatePickerManager
-
-+ (ZDatePickerManager *)sharedManager {
-    @synchronized (self) {
-        if (!sharedDateManager) {
-            sharedDateManager = [[ZDatePickerManager alloc] init];
-        }
-    }
-    return sharedDateManager;
-}
+//
+//+ (ZDatePickerManager *)sharedManager {
+//    @synchronized (self) {
+//        if (!sharedDateManager) {
+//            sharedDateManager = [[ZDatePickerManager alloc] init];
+//        }
+//    }
+//    return sharedDateManager;
+//}
 
 
 - (instancetype)initWithMode:(PGDatePickerMode)datePickerMode {
     self = [super init];
     if (self) {
+        sharedDateManager = self;
         self.datePickerMode = datePickerMode;
         [self setup];
     }
@@ -58,6 +59,7 @@ static ZDatePickerManager *sharedDateManager;
         PGDatePicker *datePicker = _datePickManager.datePicker;
         datePicker.delegate = self;
         datePicker.datePickerMode = self.datePickerMode;
+        _datePicker = datePicker;
         
         _datePickManager.style = PGDatePickManagerStyleAlertTopButton;
         _datePickManager.titleLabel.text = @"选择日期";
@@ -113,15 +115,18 @@ static ZDatePickerManager *sharedDateManager;
 
 #pragma mark - 展示
 - (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type handle:(void(^)(NSDateComponents *))handleBlock {
-    _datePickManager.titleLabel.text = title;
+    self.datePickManager.titleLabel.text = title;
     _handleBlock = handleBlock;
-    _datePickManager.datePicker.datePickerMode = type;
-    
+    self.datePickManager.datePicker.datePickerMode = type;
+    self.datePickManager.datePicker.delegate = self;
     [self showDatePicker];
+    
 }
 
 - (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock {
     _viewController = viewController;
+    _handleBlock = handleBlock;
+    self.datePickManager.datePicker.delegate = self;
     [self showDatePickerWithTitle:title type:type handle:handleBlock];
 }
 

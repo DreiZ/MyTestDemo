@@ -16,6 +16,7 @@
 @property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UILabel *userLabel;
+@property (nonatomic,strong) UILabel *buLabel;
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIButton *editBtn;
@@ -65,6 +66,7 @@
     [topView addSubview:self.userLabel];
     [topView addSubview:self.nameLabel];
     [topView addSubview:self.numLabel];
+    [topView addSubview:self.buLabel];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(20));
@@ -100,6 +102,13 @@
         make.right.equalTo(self.userLabel.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.userLabel.mas_centerY);
         make.width.height.mas_equalTo(CGFloatIn750(44));
+    }];
+    
+    [self.buLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(52));
+        make.height.mas_equalTo(CGFloatIn750(24));
     }];
 }
 
@@ -186,6 +195,21 @@
     return _timeLabel;
 }
 
+
+- (UILabel *)buLabel {
+    if (!_buLabel) {
+        _buLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _buLabel.textColor = adaptAndDarkColor([UIColor colorOrangeMoment],[UIColor colorOrangeMoment]);
+        _buLabel.text = @"补课";
+        _buLabel.numberOfLines = 1;
+        _buLabel.textAlignment = NSTextAlignmentCenter;
+        [_buLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        ViewBorderRadius(_buLabel, CGFloatIn750(8), 1, [UIColor colorOrangeMoment]);
+        _buLabel.backgroundColor = [UIColor colorOrangeBack];
+    }
+    return _buLabel;
+}
+
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
@@ -215,7 +239,7 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     _numLabel.text = [NSString stringWithFormat:@"%@/%@节",model.now_progress,model.total_progress];
     _userLabel.text = model.teacher_name;
-//    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",model.validity];
+    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",@"2018-12-12"];
     if (model.isEdit) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

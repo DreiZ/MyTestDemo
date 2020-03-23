@@ -81,3 +81,18 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
 @property (nonatomic,copy) NSString *total;
 @end
+
+
+@interface ZOriganizationLessonScheduleListModel : ZBaseModel
+@property (nonatomic,strong) NSString *lessonID;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *image_url;
+@property (nonatomic,strong) NSString *wait_students;
+@property (nonatomic,strong) NSString *fill_students;
+
+@end
+
+@interface ZOriganizationLessonScheduleListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end

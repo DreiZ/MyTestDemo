@@ -68,7 +68,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"未排课", @"待补课"].mutableCopy;
+        _titleArr = @[@"全部", @"未排课", @"待补课"].mutableCopy;
     }
     return _titleArr;
 }
@@ -79,6 +79,8 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationTeachingScheduleNoVC *nvc = [[ZOrganizationTeachingScheduleNoVC alloc] init];
+            nvc.stores_courses_id = self.stores_courses_id;
+            nvc.type = i;
             nvc.editChangeBlock = ^(BOOL isEdit) {
                 if (isEdit) {
                     [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:weakSelf.navLeftBtn]];
@@ -86,9 +88,7 @@
                     [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
                 }
             };
-            if (i == 1) {
-                nvc.isBu = YES;
-            }
+            
             [_vcArr addObject:nvc];
         };
     }
@@ -117,16 +117,12 @@
     if (!_searchBtn) {
         __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
-        _searchBtn.title = @"搜索未排课学员";
+        _searchBtn.title = @"搜索学员";
         _searchBtn.handleBlock = ^{
             ZOrganizationSearchTeachingScheduleVC *svc = [[ZOrganizationSearchTeachingScheduleVC alloc] init];
-            if (weakSelf.selectIndex == 0) {
-                 svc.title = @"搜索未排课学员";
-                svc.isBu = NO;
-            }else {
-                svc.title = @"搜索待补课学员";
-                svc.isBu = YES;
-            }
+            svc.title = @"搜索学员";
+            svc.stores_courses_id = weakSelf.stores_courses_id;
+            svc.type = weakSelf.selectIndex;
             svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

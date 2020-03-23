@@ -169,3 +169,19 @@
 }
 
 @end
+
+@implementation ZOriganizationLessonScheduleListModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"lessonID" : @"id"};
+}
+@end
+
+@implementation ZOriganizationLessonScheduleListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationLessonScheduleListModel"
+             };
+}
+@end

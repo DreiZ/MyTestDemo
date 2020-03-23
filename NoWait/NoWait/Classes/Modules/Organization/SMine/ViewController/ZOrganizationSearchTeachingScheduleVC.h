@@ -13,7 +13,7 @@
 
 
 @interface ZOrganizationSearchTeachingScheduleVC : ZOrganizationSearchVC
- 
-@property (nonatomic,assign) BOOL isBu;
+ @property (nonatomic,strong) NSString *stores_courses_id;
+@property (nonatomic,assign) NSInteger type;
 @end
 

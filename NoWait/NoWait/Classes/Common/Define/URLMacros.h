@@ -217,6 +217,8 @@
 //搜索课程
 #define URL_merchants_search_courses                 @"merchants/v1/search_courses"
 
+//排课课程list
+#define URL_merchants_get_class_courses_list               @"merchants/v1/get_class_courses_list"
 
 #pragma mark - 学员------------------------------------------------
 //添加学员
