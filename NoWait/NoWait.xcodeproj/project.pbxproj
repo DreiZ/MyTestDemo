@@ -436,7 +436,7 @@
 		B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780D923BED6B100407BF0 /* ZIntroductryPagesView.m */; };
 		B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780DE23BED9B500407BF0 /* Student.xcassets */; };
 		B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */; };
-		B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */; };
+		B2A780E923BEE49200407BF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A780E823BEE49200407BF0 /* LaunchScreen.storyboard */; };
 		B2A780F723BF11D300407BF0 /* login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F623BF11D300407BF0 /* login.xcassets */; };
 		B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A780F923C02F2200407BF0 /* Modules.xcassets */; };
 		B2A780FE23C0345800407BF0 /* ZMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A780FD23C0345800407BF0 /* ZMineHeaderView.m */; };
@@ -1409,7 +1409,7 @@
 		B2A780DE23BED9B500407BF0 /* Student.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Student.xcassets; sourceTree = "<group>"; };
 		B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineVC.h; sourceTree = "<group>"; };
 		B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineVC.m; sourceTree = "<group>"; };
-		B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B2A780E823BEE49200407BF0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2A780F623BF11D300407BF0 /* login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = login.xcassets; sourceTree = "<group>"; };
 		B2A780F923C02F2200407BF0 /* Modules.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Modules.xcassets; sourceTree = "<group>"; };
 		B2A780FC23C0345800407BF0 /* ZMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineHeaderView.h; sourceTree = "<group>"; };
@@ -2233,7 +2233,7 @@
 				B2A77E5F23BDC83300407BF0 /* AppDelegate.h */,
 				B2A77E5E23BDC83300407BF0 /* AppDelegate.m */,
 				B2A77E7F23BDD4AB00407BF0 /* PrefixHeader.pch */,
-				B2A780E823BEE49200407BF0 /* Launch Screen.storyboard */,
+				B2A780E823BEE49200407BF0 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -3875,7 +3875,7 @@
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
-				B2A780E923BEE49200407BF0 /* Launch Screen.storyboard in Resources */,
+				B2A780E923BEE49200407BF0 /* LaunchScreen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
 				B2A77EEE23BDE2B000407BF0 /* UIBarButtonItemGrid@3x.png in Resources */,

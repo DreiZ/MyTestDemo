@@ -10,6 +10,7 @@
 #import "ZOrganizatioPhotosCollectionCell.h"
 #import "ZOriganizationPhotoViewModel.h"
 #import "ZOriganizationLessonViewModel.h"
+#import "ZAlertView.h"
 
 @interface ZOrganizationPhotoCollectionVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -168,7 +169,12 @@
     ZOrganizatioPhotosCollectionCell *cell = [ZOrganizatioPhotosCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
 //    ZOrganizatioPhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizatioPhotosCollectionCell className] forIndexPath:indexPath];
     cell.delBlock = ^(ZOriganizationPhotoTypeListModel *model) {
-        [self deleteData:model];
+        [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+            if (index == 1) {
+                [self deleteData:model];
+            }
+        }];
+        
     };
     cell.model = _list[indexPath.row];
     return cell;

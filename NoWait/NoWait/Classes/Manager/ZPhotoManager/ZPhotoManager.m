@@ -370,6 +370,7 @@ static ZPhotoManager *sharedPhotoManager;
     if (!_allowMultipleSelection) {
         _selectedImageAssets = [NSMutableArray arrayWithArray:assets];
     }
+    __weak typeof(self) weakSelf = self;
     NSMutableArray *models = [NSMutableArray array];
     //2次选取照片公共存在的图片
     NSMutableArray *temp = [NSMutableArray array];
@@ -387,9 +388,9 @@ static ZPhotoManager *sharedPhotoManager;
                 model.image = [UIImage ll_setGifWithData:pathData];
             }
             
-            if (!_allowMultipleSelection) {
+            if (!weakSelf.allowMultipleSelection) {
                 //用数组是否包含来判断是不成功的。。。
-                for (LLImagePickerModel *md in _selectedImageModels) {
+                for (LLImagePickerModel *md in weakSelf.selectedImageModels) {
                     // 新方法
                     if ([md isEqual:model] ) {
                         [temp addObject:md];
@@ -403,24 +404,24 @@ static ZPhotoManager *sharedPhotoManager;
             
             if (index == assets.count - 1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (!_allowMultipleSelection) {
+                    if (!weakSelf.allowMultipleSelection) {
                         //删除公共存在的，剩下的就是已经不存在的
-                        [_selectedImageModels removeObjectsInArray:temp];
+                        [weakSelf.selectedImageModels removeObjectsInArray:temp];
                         //总媒体数组删先除掉不存在，这样不会影响排列的先后顺序
-                        [_mediaArray removeObjectsInArray:_selectedImageModels];
+                        [weakSelf.mediaArray removeObjectsInArray:weakSelf.selectedImageModels];
                         //将这次选择的进行赋值，深复制
-                        _selectedImageModels = [models mutableCopy];
+                        weakSelf.selectedImageModels = [models mutableCopy];
                         //这次选择的删除公共存在的，剩下的就是新添加的
                         [models removeObjectsInArray:temp2];
                         //总媒体数组中在后面添加新数据
-                        [_mediaArray addObjectsFromArray:models];
+                        [weakSelf.mediaArray addObjectsFromArray:models];
                     }else {
-                        [_selectedImageModels addObjectsFromArray:models];
-                        [_mediaArray addObjectsFromArray:models];
+                        [weakSelf.selectedImageModels addObjectsFromArray:models];
+                        [weakSelf.mediaArray addObjectsFromArray:models];
                     }
                     
-                    if (_backBlock) {
-                        _backBlock(_mediaArray);
+                    if (weakSelf.backBlock) {
+                        weakSelf.backBlock(weakSelf.mediaArray);
                     }
                     
                 });
@@ -437,21 +438,22 @@ static ZPhotoManager *sharedPhotoManager;
         model.image = coverImage;
         model.isVideo = YES;
         model.asset = asset;
+        __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (!_allowMultipleSelection) {
+            if (!weakSelf.allowMultipleSelection) {
                 //用数组是否包含来判断是不成功的。。。
-                for (LLImagePickerModel *tmp in _selectedVideoModels) {
+                for (LLImagePickerModel *tmp in weakSelf.selectedVideoModels) {
                     if ([tmp isEqual:model]) {
                         return ;
                     }
                 }
             }
-            [_selectedVideoModels addObject:model];
-            [_mediaArray addObject:model];
+            [weakSelf.selectedVideoModels addObject:model];
+            [weakSelf.mediaArray addObject:model];
             
-            if (_backBlock) {
-                _backBlock(_mediaArray);
+            if (weakSelf.backBlock) {
+            weakSelf.backBlock(weakSelf.mediaArray);
             }
         });
     }];
@@ -467,6 +469,7 @@ static ZPhotoManager *sharedPhotoManager;
         [picker.navigationController popViewControllerAnimated:YES];
     }
 
+    __weak typeof(self) weakSelf = self;
     
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     NSURL *imageAssetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
@@ -489,9 +492,9 @@ static ZPhotoManager *sharedPhotoManager;
             model.isVideo = YES;
             model.mediaURL = videoAssetURL;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_mediaArray addObject:model];
-                if (_backBlock) {
-                    _backBlock(_mediaArray);
+                [weakSelf.mediaArray addObject:model];
+                if (weakSelf.backBlock) {
+                    weakSelf.backBlock(weakSelf.mediaArray);
                 }
             });
         }];
@@ -516,9 +519,9 @@ static ZPhotoManager *sharedPhotoManager;
             model.name = name;
             model.uploadType = data;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_mediaArray addObject:model];
-                if (_backBlock) {
-                    _backBlock(_mediaArray);
+                [weakSelf.mediaArray addObject:model];
+                if (weakSelf.backBlock) {
+                    weakSelf.backBlock(weakSelf.mediaArray);
                 }
             });
         }];

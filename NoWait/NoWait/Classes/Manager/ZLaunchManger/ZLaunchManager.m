@@ -41,10 +41,10 @@
 
 - (void)launchInWindow:(UIWindow *)window
 {
-    
-    if (window) {
-        self.window = window;
-    }
+//    
+//    if (window) {
+//        self.window = window;
+//    }
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
@@ -108,7 +108,7 @@
     _curRootVC = curRootVC;
     
     {
-        UIWindow *window = self.window ? self.window : [UIApplication sharedApplication].keyWindow;
+        UIWindow *window = self.window ? self.window : [[UIApplication sharedApplication] windows][0];
         [window removeAllSubviews];
         [window setRootViewController:curRootVC];
 //        [window addSubview:curRootVC.view];
