@@ -277,7 +277,7 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     
     
-    _buLabel.hidden = [model.type intValue] == 1 ? YES : NO;
+    _buLabel.hidden = [model.type intValue] == 1 ? YES : YES;
     
     [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.contView);

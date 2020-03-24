@@ -153,7 +153,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentLessonFromList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -181,7 +181,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getStudentLessonFromList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -215,11 +215,8 @@
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
-    if (self.isBu) {
-        [_param setObject:@"5" forKey:@"status"];
-    }else{
-        [_param setObject:@"1" forKey:@"status"];
-    }
+    [_param setObject:SafeStr(self.model.courses_id) forKey:@"stores_courses_id"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"type"];
 }
 
 

@@ -56,7 +56,7 @@
 }
 
 - (void)setNavigation {
-    [self.navigationItem setTitle:@"课程列表"];
+    [self.navigationItem setTitle:@"班级列表"];
 }
 
 #pragma mark - tableview

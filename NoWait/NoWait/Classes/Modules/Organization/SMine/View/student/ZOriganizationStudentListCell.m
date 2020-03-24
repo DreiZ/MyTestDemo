@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UILabel *lessonLabel;
 @property (nonatomic,strong) UILabel *typeLabel;
 @property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic,strong) UILabel *buLabel;
 
 @property (nonatomic,strong) UIImageView *rightImageView;
 
@@ -40,6 +41,7 @@
     [self.contView addSubview:self.typeLabel];
     [self.contView addSubview:self.numLabel];
     [self.contView addSubview:self.rightImageView];
+    [self.contView addSubview:self.buLabel];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
@@ -75,6 +77,13 @@
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.typeLabel.mas_centerY);
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
+    }];
+    
+    [self.buLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.numLabel.mas_right);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(52));
+        make.height.mas_equalTo(CGFloatIn750(24));
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -123,6 +132,20 @@
     return _nameLabel;
 }
 
+
+- (UILabel *)buLabel {
+    if (!_buLabel) {
+        _buLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _buLabel.textColor = adaptAndDarkColor([UIColor colorOrangeMoment],[UIColor colorOrangeMoment]);
+        _buLabel.text = @"补课";
+        _buLabel.numberOfLines = 1;
+        _buLabel.textAlignment = NSTextAlignmentCenter;
+        [_buLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        ViewBorderRadius(_buLabel, CGFloatIn750(8), 1, [UIColor colorOrangeMoment]);
+        _buLabel.backgroundColor = [UIColor colorOrangeBack];
+    }
+    return _buLabel;
+}
 
 - (UILabel *)lessonLabel {
     if (!_lessonLabel) {
@@ -174,6 +197,7 @@
 - (void)setModel:(ZOriganizationStudentListModel *)model {
     _model = model;
     
+    _buLabel.hidden = YES;
     _nameLabel.text = model.name;
     _lessonLabel.text = [NSString stringWithFormat:@"%@-%@",SafeStr(model.courses_name),SafeStr(model.teacher_name)];
 //1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
@@ -191,7 +215,8 @@
             _typeLabel.text = @"已结课";
             break;
         case 5:
-            _typeLabel.text = @"带补课";
+            _typeLabel.text = @"待补课";
+            _buLabel.hidden = NO;
             break;
         case 6:
             _typeLabel.text = @"已过期";

@@ -234,6 +234,7 @@
 - (void)setModel:(ZOriganizationStudentListModel *)model {
     _model = model;
     
+    _buLabel.hidden = [model.status intValue] == 5 ? NO:YES;
     _nameLabel.text = model.name;
     _detailLabel.text = model.courses_name;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];

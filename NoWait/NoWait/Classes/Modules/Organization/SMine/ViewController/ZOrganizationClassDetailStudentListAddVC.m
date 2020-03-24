@@ -59,7 +59,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"未排课", @"待补课"].mutableCopy;
+        _titleArr = @[@"全部",@"未排课", @"待补课"].mutableCopy;
     }
     return _titleArr;
 }
@@ -70,7 +70,7 @@
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassDetailStudentListAddListVC *lvc = [[ZOrganizationClassDetailStudentListAddListVC alloc] init];
             lvc.model = self.model;
-            lvc.isBu = i==0 ? NO:YES;
+            lvc.type = i;
             [_vcArr addObject:lvc];
         }
     }
