@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Message)
 
-- (NSAttributedString *)toMessageString;
-- (NSDictionary *)jsonStringToDictionary;
--(id)JSONValue ;
-- (NSString *)weekToIndex;
-- (NSString *)indexToWeek;
+- (NSAttributedString *)zz_toMessageString;
+- (NSDictionary *)zz_JSONStringToDictionary;
+-(id)zz_JSONValue ;
+- (NSString *)zz_weekToIndex;
+- (NSString *)zz_indexToWeek;
 @end
 
 NS_ASSUME_NONNULL_END

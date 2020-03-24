@@ -15,13 +15,15 @@
 
 + (void)getTeacherList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getLessonTeacherList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 + (void)getTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
 + (void)addTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock;
 
 
-+ (void)editTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock;
++ (void)editTeacher:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 //删除课程
 + (void)deleteTeacher:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;

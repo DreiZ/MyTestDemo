@@ -348,7 +348,7 @@
 }
 
 - (void)uploadImage:(UIImage *)image complete:(void(^)(BOOL, NSString*))complete {
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"coverImage":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
            if (isSuccess) {
                complete(YES,message);
            }else{
@@ -426,7 +426,7 @@
     }
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"coverImage":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:message];
             complete(YES,index);

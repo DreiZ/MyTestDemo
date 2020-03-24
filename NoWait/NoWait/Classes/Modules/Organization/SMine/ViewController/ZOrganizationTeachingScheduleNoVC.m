@@ -113,6 +113,7 @@
                 ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
                 successvc.lessonOrderArr = tempArr;
                 successvc.isBu = weakSelf.type == 2 ? YES:NO;
+                successvc.lessonModel = weakSelf.lessonModel;
                 [weakSelf.navigationController pushViewController:successvc animated:YES];
             }else{
                 weakSelf.isEdit = YES;

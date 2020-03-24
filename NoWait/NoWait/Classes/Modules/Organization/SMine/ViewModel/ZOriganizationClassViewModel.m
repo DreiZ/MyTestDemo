@@ -99,12 +99,12 @@
                             
                             if ([allKey[i] intValue] <=7 && [allKey[i] intValue] > 0) {
                                 ZBaseMenuModel *menuModel = [[ZBaseMenuModel alloc] init];
-                                menuModel.name =  SafeStr([allKey[i] indexToWeek]);
+                                menuModel.name =  SafeStr([allKey[i] zz_indexToWeek]);
                                 menuModel.uid = allKey[i];
                                 
                                 NSMutableArray *unit = @[].mutableCopy;
                                 if (ValidStr(tempDict1[allKey[i]])) {
-                                    NSArray*timeArr = [tempDict1[allKey[i]] JSONValue];
+                                    NSArray*timeArr = [tempDict1[allKey[i]] zz_JSONValue];
                                     if (ValidArray(timeArr)) {
                                         NSArray *dataArr = timeArr;
                                         for (int k = 0; k < dataArr.count; k++) {

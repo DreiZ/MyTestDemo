@@ -414,16 +414,19 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
-            if (model) {
-                weakSelf.viewModel.addModel.teacher = model.teacher_name;
-                weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-            }
-        }];
+        if (ValidStr(self.viewModel.addModel.stores_courses_class_id)) {
+            [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.viewModel.addModel.stores_courses_class_id  handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+                if (model) {
+                    weakSelf.viewModel.addModel.teacher = model.teacher_name;
+                    weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                }
+            }];
+        }else{
+            [TLUIUtility showErrorHint:@"请先选择课程"];
+        }
     }
-    
 }
 
 @end

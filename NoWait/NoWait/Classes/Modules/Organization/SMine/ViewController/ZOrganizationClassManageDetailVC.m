@@ -342,7 +342,7 @@
                 [tempSubArr addObject:SafeStr(unitModel.data)];
             }
             
-            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name weekToIndex])];
+            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name zz_weekToIndex])];
         }
     }
     

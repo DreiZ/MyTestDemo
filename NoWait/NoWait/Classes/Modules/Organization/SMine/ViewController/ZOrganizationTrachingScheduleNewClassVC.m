@@ -32,6 +32,9 @@
 - (void)setDataSource {
     [super setDataSource];
     _viewModel = [[ZOriganizationTeachingScheduleViewModel alloc] init];
+    if (self.lessonModel && [self.lessonModel.fixType intValue] == 1) {
+        _viewModel.addModel.lessonTimeArr = self.lessonModel.fix_timeArr;
+    }
 }
 
 - (void)initCellConfigArr {
@@ -217,7 +220,7 @@
                 
             }
             
-            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name weekToIndex])];
+            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name zz_weekToIndex])];
         }
     }
     
@@ -266,7 +269,7 @@
        
     }else if ([cellConfig.title isEqualToString:@"teacher"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+        [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:self.lessonModel.lessonID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.teacherName = model.teacher_name;
                 weakSelf.viewModel.addModel.teacherID  = model.teacherID;

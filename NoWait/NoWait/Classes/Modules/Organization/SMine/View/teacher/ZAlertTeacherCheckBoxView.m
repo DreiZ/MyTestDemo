@@ -114,7 +114,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+    [ZOriganizationTeacherViewModel getLessonTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -142,7 +142,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
     NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+    [ZOriganizationTeacherViewModel getLessonTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -166,8 +166,8 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.schoolID forKey:@"stores_id"];
-       [param setObject:@"0" forKey:@"status"];
+       [param setObject:self.schoolID forKey:@"courses_id"];
+//       [param setObject:@"0" forKey:@"status"];
     return param;
 }
 

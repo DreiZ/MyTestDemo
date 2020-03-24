@@ -99,7 +99,6 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _titleLabel.text = @"图形俱乐部";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [_titleLabel setFont:[UIFont fontContent]];
@@ -113,7 +112,6 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = [UIColor colorRedDefault];
-        _priceLabel.text = @"￥543";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         [_priceLabel setFont:[UIFont fontContent]];
@@ -126,7 +124,6 @@
     if (!_favourablePriceLabel) {
         _favourablePriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _favourablePriceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _favourablePriceLabel.text = @"￥256";
         _favourablePriceLabel.numberOfLines = 1;
         _favourablePriceLabel.textAlignment = NSTextAlignmentRight;
         [_favourablePriceLabel setFont:[UIFont fontMin]];
@@ -138,7 +135,6 @@
     if (!_goodReputationLabel) {
         _goodReputationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _goodReputationLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _goodReputationLabel.text = @"90%好评";
         _goodReputationLabel.numberOfLines = 1;
         _goodReputationLabel.textAlignment = NSTextAlignmentRight;
         [_goodReputationLabel setFont:[UIFont fontSmall]];
@@ -151,7 +147,6 @@
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _sellCountLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _sellCountLabel.text = @"已售200";
         _sellCountLabel.numberOfLines = 1;
         _sellCountLabel.textAlignment = NSTextAlignmentRight;
         [_sellCountLabel setFont:[UIFont fontSmall]];
@@ -160,9 +155,20 @@
     return _sellCountLabel;
 }
 
-- (void)setModel:(ZStudentLessonListModel *)model {
+- (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
+    _titleLabel.text = @"图形俱乐部";
+    _sellCountLabel.text = @"已售200";
+    _goodReputationLabel.text = @"90%好评";
+    _favourablePriceLabel.text = @"￥256";
+    _priceLabel.text = @"￥543";
+    
+    _titleLabel.text = model.name;
+    _sellCountLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
+    _goodReputationLabel.text = [NSString stringWithFormat:@"%@好评",model.score];
+    _favourablePriceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

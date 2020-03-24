@@ -60,7 +60,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"课程列表"];
+    [self.navigationItem setTitle:@"待排课列表"];
 }
 
 - (void)setupMainView {
@@ -94,6 +94,7 @@
         lcell.handleBlock = ^(NSInteger index, ZOriganizationLessonScheduleListModel *model) {
             ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
             svc.stores_courses_id = model.lessonID;
+            svc.lessonModel = model;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

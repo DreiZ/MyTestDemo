@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @end
 
 @interface ZOriganizationLessonListModel : ZBaseModel
-@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *status;//（0：全部 1：开放 2：未开放 3：审核中 4：审核失败）
 @property (nonatomic,strong) NSString *statusStr;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *short_name;
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *fix_time_net;//固定时间
 @property (nonatomic,strong) NSString *p_information;
 
-@property (nonatomic,strong) NSString *status;
+@property (nonatomic,strong) NSString *status;//（0：全部 1：开放 2：未开放 3：审核中 4：审核失败）
 @property (nonatomic,strong) NSString *statusStr;
 @property (nonatomic,strong) NSString *pay_nums;
 @property (nonatomic,strong) NSString *score;
@@ -89,7 +89,10 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *image_url;
 @property (nonatomic,strong) NSString *wait_students;
 @property (nonatomic,strong) NSString *fill_students;
+@property (nonatomic,strong) NSDictionary *fix_time;
+@property (nonatomic,strong) NSMutableArray *fix_timeArr;
 
+@property (nonatomic,strong) NSString *fixType;//类型 1: 固定时间开课 2：人满开课
 @end
 
 @interface ZOriganizationLessonScheduleListNetModel : ZBaseNetworkBackDataModel

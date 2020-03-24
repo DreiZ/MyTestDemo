@@ -81,6 +81,7 @@
             ZOrganizationTeachingScheduleNoVC *nvc = [[ZOrganizationTeachingScheduleNoVC alloc] init];
             nvc.stores_courses_id = self.stores_courses_id;
             nvc.type = i;
+            nvc.lessonModel = self.lessonModel;
             nvc.editChangeBlock = ^(BOOL isEdit) {
                 if (isEdit) {
                     [weakSelf.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:weakSelf.navLeftBtn]];

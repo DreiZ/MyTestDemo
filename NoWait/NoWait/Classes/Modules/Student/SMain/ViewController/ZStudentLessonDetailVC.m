@@ -21,11 +21,13 @@
 #import "ZStudentEvaListCell.h"
 #import "ZStudentLessonSelectMainNewView.h"
 #import "ZAlertCouponCheckBoxView.h"
+#import "ZOriganizationLessonViewModel.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
 @property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
+@property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
 
 @end
 
@@ -478,14 +480,14 @@
 
 
 - (void)refreshData {
-//    __weak typeof(self) weakSelf = self;
-//    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.addModel.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
-//        if (isSuccess) {
-//            weakSelf.addModel = addModel;
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }
-//    }];
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
+        if (isSuccess) {
+            weakSelf.addModel = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end
 

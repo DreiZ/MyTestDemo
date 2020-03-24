@@ -237,7 +237,7 @@
                             [tempSubArr addObject:[NSString stringWithFormat:@"%@~%@",SafeStr(unitModel.name),SafeStr(unitModel.subName)]];
                         }
                         
-                        [orderDict setObject:tempSubArr forKey:[menuModel.name weekToIndex]];
+                        [orderDict setObject:tempSubArr forKey:[menuModel.name zz_weekToIndex]];
                     }
                 }
                 
@@ -256,7 +256,7 @@
                             
                         }
                         
-                        [orderDict setObject:tempSubArr forKey:[menuModel.name weekToIndex]];
+                        [orderDict setObject:tempSubArr forKey:[menuModel.name zz_weekToIndex]];
                     }
                 }
                 

@@ -10,7 +10,7 @@
 
 @implementation NSString (Message)
 
-- (NSAttributedString *)toMessageString;
+- (NSAttributedString *)zz_toMessageString;
 {
     //1、创建一个可变的属性字符串
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self];
@@ -49,7 +49,7 @@
 }
 
 
-- (NSDictionary *)jsonStringToDictionary
+- (NSDictionary *)zz_JSONStringToDictionary
 {
     if (self == nil) {
         return nil;
@@ -68,7 +68,7 @@
     return dic;
 }
 
--(id)JSONValue {
+-(id)zz_JSONValue {
     NSData* data = [self dataUsingEncoding:NSUTF8StringEncoding];
     __autoreleasing NSError* error = nil;
     id result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
@@ -80,7 +80,7 @@
         for (NSString *key in allKey) {
             id subTemp = tempDict[key];
             if ([subTemp isKindOfClass:[NSString class]]) {
-                [tempDict setObject:[subTemp JSONValue] forKey:key];
+                [tempDict setObject:[subTemp zz_JSONValue] forKey:key];
             }
         }
         result = tempDict;
@@ -89,7 +89,7 @@
         for (int i = 0;i < tempArr.count; i++) {
             id temp = tempArr[i];
             if ([temp isKindOfClass:[NSString class]]) {
-                [tempArr replaceObjectAtIndex:i withObject:[temp JSONValue]];
+                [tempArr replaceObjectAtIndex:i withObject:[temp zz_JSONValue]];
             }
         }
         result = tempArr;
@@ -97,7 +97,7 @@
     return result;
 }
 
-- (NSString *)weekToIndex {
+- (NSString *)zz_weekToIndex {
     NSArray *titleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
     for (int i = 0; i < titleArr.count; i++) {
         if ([self isEqualToString:titleArr[i]]) {
@@ -107,7 +107,7 @@
     return @"1";
 }
 
-- (NSString *)indexToWeek {
+- (NSString *)zz_indexToWeek {
     NSArray *titleArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
     if ([self intValue] <= titleArr.count && [self intValue] > 0) {
         return titleArr[[self intValue]-1];
