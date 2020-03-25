@@ -122,11 +122,11 @@
 }
 
 + (UIColor *)colorTextGrayDark {
-    return HexAColor(0x666666, 1.0);
+    return HexAColor(0x777777, 1.0);
 }
 
 + (UIColor *)colorTextGray1Dark {
-    return HexAColor(0x333333, 1.0);
+    return HexAColor(0x555555, 1.0);
 }
 
 #pragma mark - 灰色

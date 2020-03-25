@@ -51,10 +51,10 @@
     
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     [self.editBtn addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contView);
+        make.top.equalTo(self.editBtn.mas_top);
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
         make.height.mas_equalTo(0.5);
@@ -67,6 +67,7 @@
         make.left.top.right.equalTo(self.contView);
         make.bottom.equalTo(self.editBtn.mas_top);
     }];
+    
     
     [topView addSubview:self.lessonImageView];
     [topView addSubview:self.detailLabel];

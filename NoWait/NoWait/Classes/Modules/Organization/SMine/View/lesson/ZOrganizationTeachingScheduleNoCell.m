@@ -13,6 +13,7 @@
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UIImageView *userImageView;
+@property (nonatomic,strong) UIImageView *studentImageView;
 //@property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UILabel *userLabel;
@@ -59,15 +60,21 @@
     }];
     
     
-    
+    [topView addSubview:self.studentImageView];
     [topView addSubview:self.userImageView];
     [topView addSubview:self.detailLabel];
     [topView addSubview:self.userLabel];
     [topView addSubview:self.nameLabel];
     [topView addSubview:self.numLabel];
     
-    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.studentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(topView.mas_top).offset(CGFloatIn750(40));
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+    }];
+    
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.studentImageView.mas_right).offset(CGFloatIn750(18));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(40));
         make.right.equalTo(topView.mas_centerX).offset(CGFloatIn750(20));
     }];
@@ -147,6 +154,13 @@
     return _userImageView;
 }
 
+- (UIImageView *)studentImageView {
+    if (!_studentImageView) {
+        _studentImageView = [[UIImageView alloc] init];
+        ViewRadius(_studentImageView, CGFloatIn750(44));
+    }
+    return _studentImageView;
+}
 
 - (UILabel *)userLabel {
     if (!_userLabel) {
@@ -213,6 +227,7 @@
     
     _nameLabel.text = model.name;
     _detailLabel.text = model.courses_name;
+    [_studentImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     //@property (nonatomic,strong) UILabel *timeLabel;
     _numLabel.text = [NSString stringWithFormat:@"%@节",model.total_progress];
