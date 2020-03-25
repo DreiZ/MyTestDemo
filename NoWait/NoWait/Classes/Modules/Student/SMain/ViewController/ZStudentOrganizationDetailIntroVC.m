@@ -49,7 +49,7 @@
     self.titleSizeSelected = CGFloatIn750(24);
     self.titleSizeNormal = CGFloatIn750(24);
     self.progressWidth = CGFloatIn750(40);
-    self.progressColor = [UIColor colorMain];
+    self.progressColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.progressViewIsNaughty = YES;
     self.scrollEnable = YES;
 }

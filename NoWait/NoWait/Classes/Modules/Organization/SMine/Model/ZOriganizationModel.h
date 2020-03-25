@@ -227,6 +227,8 @@
 @property (nonatomic,strong) NSMutableArray *lessonList;
 
 @property (nonatomic,strong) NSString *des;
+@property (nonatomic,strong) NSArray *card_image;
+
 @property (nonatomic,strong) NSMutableArray *images_list;
 @property (nonatomic,strong) NSMutableArray *images_list_net;
 @end
@@ -298,4 +300,5 @@
 @property (nonatomic,strong) NSArray <ZOriganizationPhotoTypeListModel *>*list;
 @property (nonatomic,copy) NSString *total;
 @end
+
 

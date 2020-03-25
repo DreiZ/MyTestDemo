@@ -15,6 +15,8 @@
 #import "NSString+LLExtension.h"
 #import "UIImage+LLGif.h"
 #import "AppDelegate+AppService.h"
+#import "ZIDICardmagePickerController.h"
+#import "ZIDICardBackmagePickerController.h"
 
 @interface ZPhotoManager ()<TZImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MWPhotoBrowserDelegate>
 
@@ -169,7 +171,11 @@ static ZPhotoManager *sharedPhotoManager;
                 if (index == 1){
                     [weakSelf openAlbum];
                 }else if (index == 2){
-                    [weakSelf openCamera];
+                    if (self.allowCrop == YES && self.cropRect.size.width == CGFloatIn750(480) && self.cropRect.size.height == CGFloatIn750(720)) {
+                        [weakSelf openIDCardUpCamera];
+                    }else{
+                        [weakSelf openCamera];
+                    }
                 }
             };
             [alert show];
@@ -232,7 +238,7 @@ static ZPhotoManager *sharedPhotoManager;
     imagePickController.naviTitleColor = [UIColor blackColor];
     imagePickController.barItemTextColor = [UIColor blackColor];
     imagePickController.statusBarStyle = UIStatusBarStyleDefault;
-    imagePickController.oKButtonTitleColorNormal = [UIColor  colorMain];
+    imagePickController.oKButtonTitleColorNormal = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     imagePickController.oKButtonTitleColorDisabled = [UIColor  colorMainSub];
     imagePickController.allowCrop = _allowCrop;
     imagePickController.cropRect = _cropRect;
@@ -269,6 +275,66 @@ static ZPhotoManager *sharedPhotoManager;
         //设置拍照后的图片可被编辑
         picker.allowsEditing = _allowCrop;
         picker.sourceType = sourceType;
+
+        [[self viewController] presentViewController:picker animated:YES completion:nil];
+        
+    }else{
+        [TLUIUtility showAlertWithTitle:@"该设备不支持拍照" message:nil cancelButtonTitle:@"确定"];
+    }
+}
+
+
+/** 身份证相机 */
+- (void)openIDCardUpCamera {
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
+        ZIDICardmagePickerController *picker = [[ZIDICardmagePickerController alloc] init];
+//        picker.delegate = self;
+        [picker setBk_didFinishPickingMediaBlock:^(UIImagePickerController *pickers, NSDictionary *tmep) {
+            [self imagePickerController:pickers didFinishPickingMediaWithInfo:tmep];
+        }];
+        
+        [picker setBk_didCancelBlock:^(UIImagePickerController *tempPicker) {
+            [tempPicker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = _allowCrop;
+        picker.sourceType = sourceType;
+        
+
+        [[self viewController] presentViewController:picker animated:YES completion:nil];
+        
+    }else{
+        [TLUIUtility showAlertWithTitle:@"该设备不支持拍照" message:nil cancelButtonTitle:@"确定"];
+    }
+}
+
+
+/** 身份证相册背面 */
+- (void)openIDCardDownCamera {
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
+        ZIDICardBackmagePickerController *picker = [[ZIDICardBackmagePickerController alloc] init];
+//        picker.delegate = self;
+        [picker setBk_didFinishPickingMediaBlock:^(UIImagePickerController *pickers, NSDictionary *tmep) {
+            [self imagePickerController:pickers didFinishPickingMediaWithInfo:tmep];
+        }];
+        
+        [picker setBk_didCancelBlock:^(UIImagePickerController *tempPicker) {
+            [tempPicker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = _allowCrop;
+        picker.sourceType = sourceType;
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:@"tabBarMain_highlighted"];
+        [picker.view addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(picker.view);
+        }];
 
         [[self viewController] presentViewController:picker animated:YES completion:nil];
         

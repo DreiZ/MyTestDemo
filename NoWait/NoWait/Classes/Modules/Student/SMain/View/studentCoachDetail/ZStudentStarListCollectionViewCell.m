@@ -28,7 +28,7 @@
     self.clipsToBounds = YES;
     
     UIView *skillBackView = [[UIView alloc] initWithFrame:CGRectZero];
-    skillBackView.backgroundColor = [UIColor  colorMain];
+    skillBackView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     skillBackView.layer.cornerRadius = CGFloatIn750(20);
     
     

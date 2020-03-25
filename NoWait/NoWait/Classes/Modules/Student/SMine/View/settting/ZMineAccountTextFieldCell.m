@@ -130,7 +130,7 @@ static NSTimer *retrieveTimer = nil;
             }
         } forControlEvents:UIControlEventTouchUpInside];
         [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [_getCodeBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_getCodeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_getCodeBtn.titleLabel setFont:[UIFont fontContent]];
     }
     return _getCodeBtn;
@@ -250,7 +250,7 @@ static NSTimer *retrieveTimer = nil;
         __weak typeof(self) weakSelf = self;
        _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
        [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
-       [_pooCodeView setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+       [_pooCodeView setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
        [_pooCodeView.titleLabel setFont:[UIFont fontSmall]];
        [_pooCodeView bk_whenTapped:^{
            [weakSelf getImageCode];

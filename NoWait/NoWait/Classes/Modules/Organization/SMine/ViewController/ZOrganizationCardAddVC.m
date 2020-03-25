@@ -159,7 +159,7 @@
         [_bottomBtn setTitle:@"发布优惠券" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (!ValidArray(weakSelf.viewModel.addModel.lessonList)) {
                 [TLUIUtility showErrorHint:@"请选择可用课程"];

@@ -202,7 +202,7 @@
          __weak typeof(self) weakSelf = self;
          _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
-         [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
          [_navRightBtn bk_whenTapped:^{
              ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
@@ -223,7 +223,7 @@
         [_bottomBtn setTitle:@"升级明星学员" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             ZOrganizationStudentUpStarVC *uvc = [[ZOrganizationStudentUpStarVC alloc] init];
             [weakSelf.navigationController pushViewController:uvc animated:YES];

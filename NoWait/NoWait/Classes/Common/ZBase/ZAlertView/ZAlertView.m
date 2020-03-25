@@ -122,7 +122,7 @@ static ZAlertView *sharedManager;
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
-    [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [rightBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(1);
@@ -179,7 +179,7 @@ static ZAlertView *sharedManager;
     [rightBtn setTitle:btnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
-    [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [rightBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(1);
@@ -247,9 +247,9 @@ static ZAlertView *sharedManager;
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:btnTitle forState:UIControlStateNormal];
-    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont boldFontContent]];
-    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(0);
@@ -335,9 +335,9 @@ static ZAlertView *sharedManager;
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
-    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont boldFontContent]];
-    ViewBorderRadius(rightBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+    ViewBorderRadius(rightBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(1);

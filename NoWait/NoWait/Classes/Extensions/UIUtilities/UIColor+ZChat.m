@@ -11,11 +11,19 @@
 @implementation UIColor (ZChat)
 //主题色
 + (UIColor *)colorMain {
-    return HexColor(0x4dd599);
+    return HexAColor(0x4dd599, 1);
+}
+
++ (UIColor *)colorMainDark {
+    return HexAColor(0x4dd599, 0.8);
 }
 
 + (UIColor *)colorMainSub {
     return HexAColor(0x4dd599, 0.2);
+}
+
++ (UIColor *)colorMainSubDark {
+    return HexAColor(0x4dd599, 0.4);
 }
 
 + (UIColor *)colorMainLight {
@@ -147,4 +155,7 @@
     return HexAColor(0x1a1a1a, 1.0);
 }
 
++ (UIColor *)colorGrayLineDark {
+    return HexAColor(0x363636, 1.0);
+}
 @end

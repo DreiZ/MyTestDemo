@@ -187,7 +187,7 @@
         [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (!ValidStr(weakSelf.model.schoolID)) {
                 [TLUIUtility showErrorHint:@"校区数据获取异常，请退出后从事"];

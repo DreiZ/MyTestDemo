@@ -124,7 +124,7 @@ static ZPhoneAlertView *sharedManager;
     [rightBtn setTitle:@"呼叫" forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
-    [rightBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [rightBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(1);

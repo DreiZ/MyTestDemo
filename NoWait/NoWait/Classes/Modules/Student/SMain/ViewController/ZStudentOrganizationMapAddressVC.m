@@ -177,7 +177,7 @@
         _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _seeBtn.layer.masksToBounds = YES;
         _seeBtn.layer.cornerRadius = CGFloatIn750(34);
-        _seeBtn.backgroundColor = [UIColor colorMain];
+        _seeBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_seeBtn setTitle:@"查看路线" forState:UIControlStateNormal];
         [_seeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_seeBtn.titleLabel setFont:[UIFont fontContent]];

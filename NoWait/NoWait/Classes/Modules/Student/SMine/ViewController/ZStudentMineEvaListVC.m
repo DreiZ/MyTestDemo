@@ -57,7 +57,7 @@
 - (void)initData {
     
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = [UIColor  colorMain];
+    self.titleColorSelected = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.titleColorNormal = [UIColor colorTextGray];
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(32);

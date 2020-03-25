@@ -50,7 +50,7 @@
     UIButton *timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, CGFloatIn750(120), CGFloatIn750(50))];
     [timeBtn setTitle:text forState:UIControlStateNormal];
     [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
-    [timeBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateSelected];
+    [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateSelected];
     [timeBtn.titleLabel setFont:[UIFont fontSmall]];
     timeBtn.tag = index;
     timeBtn.selected = model.isSubTimeSelected;

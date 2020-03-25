@@ -80,7 +80,13 @@
                         [model.images_list_net addObject:@""];
                     }
                 }
-                
+                if (ValidArray(model.card_image)) {
+                    NSArray *tempArr = model.card_image;
+                    if (tempArr.count == 2) {
+                        model.cardImageUp = tempArr[0];
+                        model.cardImageDown = tempArr[1];
+                    }
+                }
                 if (ValidArray(model.class_ids)) {
                     for (id temp in model.class_ids) {
                         if (ValidDict(temp)) {
@@ -99,6 +105,7 @@
                                 }
                                 if ([tdict objectForKey:@"courses_name"]) {
                                     smodel.name = tdict[@"courses_name"];
+                                    smodel.short_name = smodel.name;
                                 }
                                 
                                 [model.lessonList addObject:smodel];

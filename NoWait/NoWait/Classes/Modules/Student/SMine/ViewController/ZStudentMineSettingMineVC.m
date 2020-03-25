@@ -17,7 +17,7 @@
 
 
 @interface ZStudentMineSettingMineVC ()
-@property (nonatomic,strong) UIImage *avterImage;
+@property (nonatomic,strong) id avterImage;
 
 @end
 @implementation ZStudentMineSettingMineVC
@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.avterImage = [ZUserHelper sharedHelper].user.avatar;
     [self setNavigation];
     [self setTableViewGaryBack];
     [self initCellConfigArr];
@@ -35,7 +36,11 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray <NSArray *>*titleArr = @[@[@"头像", self.avterImage ? self.avterImage:@"", @""], @[@"昵称", @"rightBlackArrowN", @"闯红灯的蜗牛"],@[@"性别", @"rightBlackArrowN", @"男"],@[@"出生日期", @"rightBlackArrowN", @"1990-2-21"]];
+    
+    NSArray <NSArray *>*titleArr = @[@[@"头像", self.avterImage ? self.avterImage:@"", @""],
+                                     @[@"昵称", @"rightBlackArrowN", SafeStr([ZUserHelper sharedHelper].user.nikeName)],
+                                     @[@"性别", @"rightBlackArrowN", [SafeStr([ZUserHelper sharedHelper].user.sex) intValue] == 1?@"男":@"女"],
+                                     @[@"出生日期", @"rightBlackArrowN", [ZUserHelper sharedHelper].user.birthday]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

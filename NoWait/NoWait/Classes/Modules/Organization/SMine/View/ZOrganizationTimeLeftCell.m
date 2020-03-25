@@ -60,7 +60,7 @@
 - (UIView *)hintView {
     if (!_hintView) {
         _hintView = [[UIView alloc] init];
-        _hintView.backgroundColor = [UIColor colorMain];
+        _hintView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     return _hintView;
 }

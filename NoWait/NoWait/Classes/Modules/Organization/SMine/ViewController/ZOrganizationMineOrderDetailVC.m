@@ -273,7 +273,7 @@
         if (index == 1) {
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineRightImageCell className] title:@"phobe" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineRightImageCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [configArr addObject:menuCellConfig];
-            model.rightColor = [UIColor colorMain];
+            model.rightColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         }else {
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [configArr addObject:menuCellConfig];
@@ -478,7 +478,7 @@
             if (index == 1) {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineRightImageCell className] title:@"phone" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineRightImageCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [self.cellConfigArr addObject:menuCellConfig];
-                model.rightColor = [UIColor colorMain];
+                model.rightColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
             }else {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [self.cellConfigArr addObject:menuCellConfig];

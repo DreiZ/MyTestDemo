@@ -84,7 +84,7 @@
         numLabel.layer.cornerRadius = 7.5;
         numLabel.layer.borderColor = [UIColor whiteColor].CGColor;
         //        numLabel.layer.borderWidth = 1;
-        numLabel.backgroundColor = [UIColor  colorMain];
+        numLabel.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         numLabel.textAlignment = NSTextAlignmentCenter;
         [numLabel setFont:[UIFont systemFontOfSize:8]];
         numLabel.textColor = [UIColor whiteColor];
@@ -103,10 +103,10 @@
 //    lineView.backgroundColor = [UIColor colorGrayLine];
 //    [topView addSubview:lineView];
     
-    [_lastSelectedBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [_lastSelectedBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     
     _selectedLineView  = [[UIView alloc] initWithFrame:CGRectMake(_lastSelectedBtn.frame.origin.x, TopViewHeight - 2, [_ratioWidthArr[_selectedIndex] floatValue], 2)];
-    _selectedLineView.backgroundColor = [UIColor  colorMain];
+    _selectedLineView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [topView addSubview:_selectedLineView];
     _topIndex = [NSString stringWithFormat:@"%ld",_selectedIndex];
     [self selectedBtnOnClick:_lastSelectedBtn];
@@ -126,7 +126,7 @@
     if (sender  != _lastSelectedBtn) {
         [_lastSelectedBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
         _lastSelectedBtn = sender;
-        [_lastSelectedBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_lastSelectedBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         
         _selectedIndex = sender.tag;
         _selectedLastIndex = _selectedIndex;
@@ -185,7 +185,7 @@
     }
     UIButton *tempBtn = _selectedBtnArr[_selectedIndex];
     [_lastSelectedBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
-    [tempBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+    [tempBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     if (_lastSelectedBtn==tempBtn) {
     }else{
         _lastSelectedBtn = tempBtn;

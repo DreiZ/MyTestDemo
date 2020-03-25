@@ -161,17 +161,25 @@
     _priceLabel.text = model.coachPrice;
     _coachImageView.image = [UIImage imageNamed:model.coachImage];
     if (model.isCoachSelected) {
-        _nameLabel.textColor = [UIColor  colorMain];
-        _priceLabel.textColor = [UIColor  colorMain];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _selectTopImageView.image = [UIImage imageNamed:@"selectedCycle"];
-        _contView.layer.borderColor = [UIColor  colorMain].CGColor;
+        _contView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
         _selectImageView.hidden = NO;
     }else{
-        _nameLabel.textColor = [UIColor colorTextGray];
-        _priceLabel.textColor = [UIColor colorTextGray];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);;
         _selectTopImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
-        _contView.layer.borderColor = [UIColor colorTextGray].CGColor;
+        _contView.layer.borderColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]).CGColor;
         _selectImageView.hidden = YES;
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.model.isCoachSelected) {
+        _contView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
+    }else{
+        _contView.layer.borderColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]).CGColor;
     }
 }
 @end

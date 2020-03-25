@@ -128,7 +128,7 @@
         [_bottomBtn setTitle:@"提交审核" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (!weakSelf.viewModel.addModel.image_url) {
                 [TLUIUtility showErrorHint:@"请添加封面图片"];
@@ -354,7 +354,7 @@
         return;
     }
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             [weakSelf.viewModel.addModel.net_images replaceObjectAtIndex:index withObject:message];
             complete(YES,index);

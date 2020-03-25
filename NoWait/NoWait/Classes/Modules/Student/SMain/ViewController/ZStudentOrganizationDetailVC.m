@@ -74,7 +74,7 @@
 - (void)initData {
     
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = [UIColor  colorMain];
+    self.titleColorSelected = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.titleColorNormal = [UIColor colorTextGray];
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(32);
@@ -133,7 +133,7 @@
         _subscribeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _subscribeBtn.layer.masksToBounds = YES;
         _subscribeBtn.layer.cornerRadius = CGFloatIn750(44);
-        _subscribeBtn.backgroundColor = [UIColor  colorMain];
+        _subscribeBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_subscribeBtn.titleLabel setFont:[UIFont fontTitle]];
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
         [_subscribeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
@@ -151,7 +151,7 @@
         _buyBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _buyBtn.layer.masksToBounds = YES;
         _buyBtn.layer.cornerRadius = CGFloatIn750(44);
-        _buyBtn.backgroundColor = [UIColor  colorMain];
+        _buyBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_buyBtn.titleLabel setFont:[UIFont fontTitle]];
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];

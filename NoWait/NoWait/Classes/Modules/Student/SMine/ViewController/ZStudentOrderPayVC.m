@@ -135,7 +135,7 @@
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(40);
         [doneBtn setTitle:@"确定提交" forState:UIControlStateNormal];
-        [doneBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [doneBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         [doneBtn.titleLabel setFont:[UIFont fontTitle]];

@@ -190,7 +190,7 @@
         _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
         _payBtn.layer.cornerRadius = CGFloatIn750(23);
-        _payBtn.backgroundColor = [UIColor  colorMain];
+        _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         
         [_payBtn setTitle:@"去使用" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];

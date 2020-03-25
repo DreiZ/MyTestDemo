@@ -36,7 +36,7 @@
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
-    sureBtn.backgroundColor = [UIColor  colorMain];
+    sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];

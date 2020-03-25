@@ -79,5 +79,6 @@
 
 /** 相册 */
 - (void)openAlbumWithComplete:(LLSelecttImageBackBlock)complete;
+
 @end
 

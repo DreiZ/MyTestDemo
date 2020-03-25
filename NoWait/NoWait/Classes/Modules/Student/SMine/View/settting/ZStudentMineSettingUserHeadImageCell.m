@@ -52,7 +52,7 @@
     [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.arrowImageView.mas_left).offset(-CGFloatIn750(10));
-        make.width.height.mas_equalTo(CGFloatIn750(100));
+        make.width.height.mas_equalTo(CGFloatIn750(80));
     }];
     
     [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,7 +94,7 @@
         _rightImageView = [[UIImageView alloc] init];
         _rightImageView.layer.masksToBounds = YES;
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _rightImageView.layer.cornerRadius = CGFloatIn750(50);
+        _rightImageView.layer.cornerRadius = CGFloatIn750(40);
     }
     return _rightImageView;
 }
@@ -112,7 +112,6 @@
     if (!_leftTitleLabel) {
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _leftTitleLabel.text = @"标题";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_leftTitleLabel setFont:[UIFont boldFontMaxTitle]];
@@ -148,11 +147,12 @@
     
     _leftTitleLabel.font = model.leftFont ? model.leftFont:[UIFont boldFontMaxTitle];
     _rightTitleLabel.font = model.rightFont ? model.rightFont:[UIFont boldFontMaxTitle];
-    
-    _leftTitleLabel.textColor = model.leftColor ? model.leftColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    _rightTitleLabel.textColor = model.rightColor ? model.rightColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    
+    self.leftTitleLabel.textColor = model.leftColor ? adaptAndDarkColor(model.leftColor,model.leftDarkColor):adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.rightTitleLabel.textColor = model.rightColor ? adaptAndDarkColor(model.rightColor,model.rightDarkColor) :adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.bottomLineView.backgroundColor = model.lineColor;
+
     self.bottomLineView.hidden = model.isHiddenLine;
+    self.bottomLineView.backgroundColor = adaptAndDarkColor(model.lineColor, model.lineDarkColor);
     
     if (model.leftImage && model.leftImage.length > 0) {
         self.leftImageView.image = [UIImage imageNamed:model.leftImage];
@@ -174,7 +174,7 @@
     
     if (model.rightImageH) {
         if (model.rightImageH && [model.rightImageH isKindOfClass:[NSString class]] && ((NSString *)model.rightImageH).length > 0) {
-            self.rightImageView.image = [UIImage imageNamed:model.rightImageH];
+            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.rightImageH)] placeholderImage:[UIImage imageNamed:@"default_head"]];
             
             self.rightImageView.hidden = NO;
         }else if (model.rightImageH && [model.rightImageH isKindOfClass:[UIImage class]] ){
@@ -182,10 +182,10 @@
             
             self.rightImageView.hidden = NO;
         }else{
-            self.rightImageView.hidden = YES;
+            self.rightImageView.image = [UIImage imageNamed:@"default_head"];
         }
     }else{
-        self.rightImageView.hidden = YES;
+        self.rightImageView.image = [UIImage imageNamed:@"default_head"];
     }
     
 //    if (model.rightImage && model.rightImage.length > 0) {

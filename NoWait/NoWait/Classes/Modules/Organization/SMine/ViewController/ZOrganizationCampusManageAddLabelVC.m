@@ -150,7 +150,7 @@
         __weak typeof(self) weakSelf = self;
         _addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(60), CGFloatIn750(50))];
         [_addBtn setTitle:@"添加" forState:UIControlStateNormal];
-        [_addBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_addBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
         [_addBtn bk_whenTapped:^{
             if (weakSelf.userNameTF.text.length > 0) {
@@ -232,7 +232,7 @@
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.layer.cornerRadius = btnHeight/2.0;
         btn.layer.masksToBounds = YES;
-        btn.backgroundColor = [UIColor colorMain];
+        btn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [btn addTarget:self action:@selector(selectedBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [_btnArr addObject:btn];

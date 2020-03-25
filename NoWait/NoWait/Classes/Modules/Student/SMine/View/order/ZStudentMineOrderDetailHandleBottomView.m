@@ -93,8 +93,8 @@
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont fontContent]];
-        _payBtn.backgroundColor = [UIColor colorMain];
-        ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_payBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
@@ -144,9 +144,9 @@
         __weak typeof(self) weakSelf = self;
         _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_evaBtn setTitle:@"评价" forState:UIControlStateNormal];
-        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont fontContent]];
-        ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_evaBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(3);
@@ -164,7 +164,7 @@
         _telBtn.layer.masksToBounds = YES;
         [_telBtn setImage:[UIImage imageNamed:@"orderRigthtTel"] forState:UIControlStateNormal];
         [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
-        [_telBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_telBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
@@ -185,8 +185,8 @@
         [_refuseBtn setTitle:@"同意退款" forState:UIControlStateNormal];
         [_refuseBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refuseBtn.titleLabel setFont:[UIFont fontContent]];
-        _refuseBtn.backgroundColor = [UIColor colorMain];
-        ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        _refuseBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_refuseBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(5);
@@ -203,8 +203,8 @@
         [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
         [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
-        _receivedBtn.backgroundColor = [UIColor colorMain];
-        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_receivedBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(6);
@@ -387,5 +387,13 @@
         default:
             break;
     }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+    ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+    ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+    ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+    
 }
 @end

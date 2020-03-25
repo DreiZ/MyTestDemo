@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //主题色
 + (UIColor *)colorMain;
++ (UIColor *)colorMainDark;
 + (UIColor *)colorMainSub;
 + (UIColor *)colorMainLight;
 
@@ -68,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)colorGrayBGDark;
 + (UIColor *)colorGrayContentBGDark;
 + (UIColor *)colorBlackBGDark;
-
++ (UIColor *)colorGrayLineDark;
 
 @end
 

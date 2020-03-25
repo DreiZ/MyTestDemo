@@ -106,7 +106,7 @@
         [_openBtn setTitle:@"进入机构" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewRadius(_openBtn, CGFloatIn750(24));
-        _openBtn.backgroundColor = [UIColor colorMain];
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_openBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);

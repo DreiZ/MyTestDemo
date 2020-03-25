@@ -45,7 +45,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = [UIColor  colorMain];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _nameLabel.text = @"查看全部评价";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;

@@ -97,7 +97,7 @@
     ZStudentMenuItemModel *model = _topChannelList[indexPath.row];
     cell.titleLabel.text = model.name;
     cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = [UIColor  colorMain];
+    cell.imageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     return cell;
 }
 
@@ -124,4 +124,5 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(216);
 }
+
 @end

@@ -34,7 +34,7 @@
     self.cellConfigArr = @[].mutableCopy;
     
     UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = [UIColor  colorMain];
+    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [self.contentView addSubview:topLineView];
     [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(82));

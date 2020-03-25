@@ -166,7 +166,7 @@
         __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_whenTapped:^{
             if (weakSelf.timeBlock) {

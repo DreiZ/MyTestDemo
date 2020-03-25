@@ -174,12 +174,12 @@
     _priceLabel.text = model.lessonPrice;
     
     if (model.isLessonSelected) {
-        _titleLabel.textColor = [UIColor  colorMain];
-        _lessonLabel.textColor = [UIColor  colorMain];
-        _timeLabel.textColor = [UIColor  colorMain];
-        _numLabel.textColor = [UIColor  colorMain];
-        _priceLabel.textColor = [UIColor  colorMain];
-        _contView.layer.borderColor = [UIColor  colorMain].CGColor;
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _lessonLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _timeLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _contView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
         _selectImageView.hidden = NO;
     }else{
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
@@ -190,5 +190,9 @@
         _contView.layer.borderColor = [UIColor blackColor].CGColor;
         _selectImageView.hidden = YES;
     }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    _contView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
 }
 @end

@@ -28,7 +28,7 @@
 
 -(void)setupView {
     [super setupView];
-    self.contentView.backgroundColor = [UIColor colorMain];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [self.contentView addSubview:self.statelabel];
     [self.contentView addSubview:self.priceLabel];
     [self.contentView addSubview:self.detailLabel];

@@ -82,7 +82,7 @@
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {

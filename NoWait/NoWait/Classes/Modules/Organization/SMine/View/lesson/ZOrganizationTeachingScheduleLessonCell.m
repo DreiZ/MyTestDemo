@@ -164,7 +164,7 @@
         __weak typeof(self) weakSelf = self;
         _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_editBtn setTitle:@"新建排课" forState:UIControlStateNormal];
-        [_editBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
         [_editBtn bk_whenTapped:^{
             

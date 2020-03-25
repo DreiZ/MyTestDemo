@@ -62,7 +62,7 @@
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _priceLabel.text = @"";
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
@@ -75,7 +75,7 @@
 - (UILabel *)priceHintLabel {
     if (!_priceHintLabel) {
         _priceHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _priceHintLabel.text = @"￥";
         _priceHintLabel.numberOfLines = 1;
         _priceHintLabel.textAlignment = NSTextAlignmentCenter;

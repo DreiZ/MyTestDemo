@@ -75,7 +75,7 @@
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
-        _navRightBtn.backgroundColor = [UIColor  colorMain];
+        _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];

@@ -310,9 +310,9 @@
         __weak typeof(self) weakSelf = self;
         _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-        [_editBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
-        ViewBorderRadius(_editBtn, CGFloatIn750(28), CGFloatIn750(2), [UIColor colorMain]);
+        ViewBorderRadius(_editBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_editBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0,self.model);
@@ -363,9 +363,9 @@
         _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"开放课程" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_openBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_openBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
-        ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_openBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(3,self.model);

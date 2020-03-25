@@ -104,7 +104,7 @@
         [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
         [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
-        _signBtn.backgroundColor = [UIColor colorMain];
+        _signBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         
         __weak typeof(self) weakSelf = self;
         [_signBtn bk_whenTapped:^{

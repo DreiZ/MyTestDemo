@@ -46,7 +46,7 @@
 
 - (void)setIsSelected:(BOOL)isSelected {
     if (isSelected) {
-        _titleLabel.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+        _titleLabel.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
     }else{
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);

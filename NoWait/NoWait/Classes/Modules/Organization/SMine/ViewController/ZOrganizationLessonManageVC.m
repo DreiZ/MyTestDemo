@@ -52,7 +52,7 @@
 #pragma mark - setView & setdata
 - (void)initData {
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = [UIColor colorMain];
+    self.titleColorSelected = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.titleColorNormal = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleSizeSelected = CGFloatIn750(28);
@@ -116,7 +116,7 @@
         [_navLeftBtn setTitle:@"新增课程" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMin]];
-        [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];

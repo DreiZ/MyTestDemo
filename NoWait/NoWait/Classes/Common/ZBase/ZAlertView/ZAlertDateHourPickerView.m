@@ -101,7 +101,7 @@ static ZAlertDateHourPickerView *sharedManager;
     }];
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {

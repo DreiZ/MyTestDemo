@@ -28,7 +28,7 @@
 -(void)setupView
 {
     [super setupView];
-    self.backgroundColor = [UIColor colorMain];
+    self.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     
     [self.contentView addSubview:self.statusImageView];
     [self.contentView addSubview:self.statusLabel];

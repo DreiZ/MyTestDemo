@@ -98,7 +98,7 @@
 - (UILabel *)versionLabel {
     if (!_versionLabel) {
         _versionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _versionLabel.textColor = [UIColor  colorMain];
+        _versionLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _versionLabel.text = @"V12.1";
         _versionLabel.numberOfLines = 1;
         _versionLabel.textAlignment = NSTextAlignmentCenter;

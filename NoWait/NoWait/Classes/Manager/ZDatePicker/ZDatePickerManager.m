@@ -74,7 +74,7 @@ static ZDatePickerManager *sharedDateManager;
         //设置线条的颜色
         datePicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         //设置选中行的字体颜色
-        datePicker.textColorOfSelectedRow = [UIColor colorMain];
+        datePicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         //设置未选中行的字体颜色
         datePicker.textColorOfOtherRow = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         //设置取消按钮的字体颜色
@@ -85,7 +85,7 @@ static ZDatePickerManager *sharedDateManager;
         _datePickManager.cancelButtonFont = [UIFont fontContent];
         
         //设置确定按钮的字体颜色
-        _datePickManager.confirmButtonTextColor = [UIColor colorMain];
+        _datePickManager.confirmButtonTextColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         //设置确定按钮的字
         _datePickManager.confirmButtonText = @"确定";
         //设置确定按钮的字体大小

@@ -70,7 +70,7 @@
 - (UIView *)topNavView {
     if (!_topNavView) {
         _topNavView = [[UIView alloc] init];
-        _topNavView.backgroundColor = [UIColor colorMain];
+        _topNavView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _topNavView.alpha = 0;
     }
     return _topNavView;

@@ -107,7 +107,7 @@
     pickerLabel.numberOfLines = 0;
     if (component == 0) {
         if (row == self.proIndex) {
-            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
             [pickerLabel setFont:[UIFont fontMax2Title]];
         }else{
             pickerLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
@@ -115,7 +115,7 @@
         }
     }else{
         if (row == self.cityIndex) {
-            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+            pickerLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
             [pickerLabel setFont:[UIFont fontMax2Title]];
         }else{
             pickerLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);

@@ -55,7 +55,7 @@
     if (!_cancelBtn) {
         _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _cancelBtn.layer.masksToBounds = YES;
-        _cancelBtn.backgroundColor = [UIColor  colorMain];
+        _cancelBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_cancelBtn setTitle:@"撤销预约" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_cancelBtn.titleLabel setFont:[UIFont fontMaxTitle]];
@@ -68,10 +68,10 @@
     if (!_payBtn) {
         _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
-        _payBtn.layer.borderColor = [UIColor  colorMain].CGColor;
+        _payBtn.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
         _payBtn.layer.borderWidth = 1;
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_payBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_payBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont fontMaxTitle]];
     }
     return _payBtn;

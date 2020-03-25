@@ -19,7 +19,7 @@ ZNavigationController *addNavigationController(UIViewController *viewController)
 void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, NSString *imageHL) {
     [tabBarItem setTitle:tilte];
     [tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontMaxTitle]} forState:UIControlStateSelected];
-    [tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  colorMain]} forState:UIControlStateSelected];
+    [tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark])} forState:UIControlStateSelected];
     [tabBarItem setImage:[UIImage imageNamed:image]];
     [tabBarItem setSelectedImage:[[UIImage imageNamed:imageHL] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 }

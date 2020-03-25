@@ -44,7 +44,7 @@
         _adverImageView.clipsToBounds = YES;
         _adverImageView.layer.cornerRadius = 4;
         _adverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _adverImageView.backgroundColor = [UIColor  colorMain];
+        _adverImageView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     return _adverImageView;
 }

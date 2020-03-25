@@ -35,7 +35,7 @@
     self.clipsToBounds = YES;
     
     UIView *typeView = [[UIView alloc] initWithFrame:CGRectZero];
-    typeView.backgroundColor = [UIColor colorMain];
+    typeView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [self.contentView addSubview:typeView];
     
     

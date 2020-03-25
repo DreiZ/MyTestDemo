@@ -53,7 +53,7 @@
     UIView *stateBackView = [[UIView alloc] init];
     stateBackView.layer.masksToBounds = YES;
     stateBackView.layer.cornerRadius = CGFloatIn750(16);
-    stateBackView.layer.borderColor = [UIColor colorMain].CGColor;
+    stateBackView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
     stateBackView.layer.borderWidth = 1;
     [self addSubview:stateBackView];
     
@@ -114,7 +114,7 @@
 
 #pragma mark -设置frame
 - (void)setSubViewFrame {
-    self.settingImageView.tintColor = HexAColor(0x000000, 1);
+    self.settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
     self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
     
     
@@ -147,7 +147,13 @@
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
     
     self.backView.alpha = (1 - alpha);
-    self.settingImageView.tintColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
+    
+    if (!isDarkModel()) {
+        self.settingImageView.tintColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
+    }else{
+        self.settingImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
+    }
+    
 }
 
 #pragma mark --懒加载---
@@ -165,7 +171,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"尖耳朵的兔子";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontMaxTitle]];
@@ -177,7 +182,7 @@
     if (!_settingImageView) {
         _settingImageView = [[UIImageView alloc] init];
         _settingImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _settingImageView.tintColor = HexAColor(0x000000, 1);
+        _settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
         _settingImageView.layer.masksToBounds = YES;
         _settingImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -220,7 +225,7 @@
     if (!_stateLabel) {
         _stateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _stateLabel.textColor = [UIColor colorMain];
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _stateLabel.text = @"总账户";
         _stateLabel.numberOfLines = 1;
         _stateLabel.textAlignment = NSTextAlignmentLeft;
@@ -241,7 +246,7 @@
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor  colorMain];
+        _backView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     return _backView;
 }
@@ -257,7 +262,7 @@
 }
 
 - (void)updateData {
-    [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     self.nameLabel.text = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);
 }
 
@@ -265,5 +270,6 @@
     UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
     [_switchUserBtn setImage:image forState:UIControlStateNormal];
+    _settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1)) ;
 }
 @end

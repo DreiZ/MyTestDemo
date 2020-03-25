@@ -167,7 +167,7 @@
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(36))];
     actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub],[UIColor colorMainSub]);
-    actLabel.textColor = [UIColor colorMain];
+    actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     actLabel.layer.masksToBounds = YES;
     actLabel.layer.cornerRadius = 2;
     actLabel.text = text;

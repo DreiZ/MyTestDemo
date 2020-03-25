@@ -106,7 +106,7 @@
         [_bottomBtn setTitle:@"上传图片" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             [ZPhotoManager sharedManager].maxImageSelected = 9;
             
@@ -169,7 +169,7 @@
     ZOrganizatioPhotosCollectionCell *cell = [ZOrganizatioPhotosCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
 //    ZOrganizatioPhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizatioPhotosCollectionCell className] forIndexPath:indexPath];
     cell.delBlock = ^(ZOriganizationPhotoTypeListModel *model) {
-        [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+        [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此图片" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
             if (index == 1) {
                 [self deleteData:model];
             }

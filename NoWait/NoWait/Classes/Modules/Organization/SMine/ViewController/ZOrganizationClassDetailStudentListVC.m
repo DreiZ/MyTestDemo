@@ -86,7 +86,7 @@
         [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_navLeftBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];

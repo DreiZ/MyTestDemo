@@ -218,7 +218,7 @@
         _loginBtn.layer.masksToBounds = YES;
         _loginBtn.layer.cornerRadius = CGFloatIn750(38);
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [_loginBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_loginBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_loginBtn.titleLabel setFont:[UIFont fontContent]];
     }

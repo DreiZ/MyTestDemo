@@ -135,7 +135,7 @@
 - (UILabel *)daoLabel {
     if (!_daoLabel) {
         _daoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _daoLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _daoLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _daoLabel.text = @"￥23";
         _daoLabel.numberOfLines = 1;
         _daoLabel.textAlignment = NSTextAlignmentRight;

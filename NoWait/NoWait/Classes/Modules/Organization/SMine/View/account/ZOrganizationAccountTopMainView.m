@@ -179,7 +179,7 @@
 - (UILabel *)numLabel {
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _numLabel.text = @"￥2309450239";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentCenter;

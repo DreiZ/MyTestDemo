@@ -120,7 +120,7 @@
         __weak typeof(self) weakSelf = self;
         _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_seeBtn setTitle:@"查看" forState:UIControlStateNormal];
-        [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_seeBtn.titleLabel setFont:[UIFont fontContent]];
         [_seeBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {

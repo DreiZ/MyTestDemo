@@ -40,9 +40,9 @@
     if (!_evaBtn) {
         _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_evaBtn setTitle:@"回复评价" forState:UIControlStateNormal];
-        [_evaBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont fontSmall]];
-        ViewBorderRadius(_evaBtn, CGFloatIn750(22), 1, [UIColor colorMain]);
+        ViewBorderRadius(_evaBtn, CGFloatIn750(22), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         __weak typeof(self) weakSelf = self;
         [_evaBtn bk_whenTapped:^{
             if (weakSelf.evaBlock) {
@@ -55,5 +55,9 @@
 
 + (CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(124);
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewBorderRadius(_evaBtn, CGFloatIn750(22), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
 }
 @end

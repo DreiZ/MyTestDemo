@@ -35,6 +35,9 @@
     [self setNavigation];
     self.viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
     self.viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
+    if (!ValidStr(self.viewModel.addModel.sex)) {
+        self.viewModel.addModel.sex = @"1";
+    }
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -232,7 +235,7 @@
         [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (!ValidStr(self.viewModel.addModel.real_name)) {
                 [TLUIUtility showErrorHint:@"请输入真实姓名"];
@@ -559,7 +562,7 @@
         ZOriganizationIDCardCell *lcell = (ZOriganizationIDCardCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [weakSelf.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(480), CGFloatIn750(720)) complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     LLImagePickerModel *model = list[0];
                     if (index == 0) {

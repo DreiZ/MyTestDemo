@@ -54,7 +54,7 @@
 - (UIButton *)handleBtn {
     if (!_handleBtn) {
         _handleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _handleBtn.backgroundColor = [UIColor colorMain];
+        _handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_handleBtn.titleLabel setFont:[UIFont boldFontSmall]];

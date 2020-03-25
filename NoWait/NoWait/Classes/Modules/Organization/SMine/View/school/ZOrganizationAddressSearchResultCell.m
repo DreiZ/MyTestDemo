@@ -56,7 +56,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _titleLabel.text = @"一品香";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -97,7 +97,7 @@
     self.titleLabel.text = model.name;
     self.subTitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@",model.province,model.city,model.district,model.address];
     if (model.isSelected) {
-        self.titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        self.titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
     }else{
         self.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
     }

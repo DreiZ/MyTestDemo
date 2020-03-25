@@ -272,7 +272,7 @@
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, 0, tempSize.width+6, CGFloatIn750(30))];
     actLabel.textColor = [UIColor colorWhite];
-    actLabel.backgroundColor = [UIColor colorMain];
+    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
 //    actLabel.layer.masksToBounds = YES;
 //    actLabel.layer.cornerRadius = 2;
 //    actLabel.layer.borderColor = [UIColor colorOrangeMoment].CGColor;
@@ -350,7 +350,7 @@
             
         UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+CGFloatIn750(16), CGFloatIn750(32))];
         actLabel.textColor = [UIColor colorWhite];
-        actLabel.backgroundColor = [UIColor colorMain];
+        actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         actLabel.layer.masksToBounds = YES;
         actLabel.layer.cornerRadius = 2;
         actLabel.text = textArr[i];
@@ -385,12 +385,12 @@
            }
                
            UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+CGFloatIn750(24), CGFloatIn750(32))];
-           actLabel.textColor = [UIColor colorMain];
+           actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
            actLabel.text = adeptArr[i];
            actLabel.numberOfLines = 1;
             actLabel.layer.masksToBounds = YES;
             actLabel.layer.cornerRadius = CGFloatIn750(16);
-            actLabel.layer.borderColor = [UIColor colorMain].CGColor;
+            actLabel.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
             actLabel.layer.borderWidth = 1;
            actLabel.textAlignment = NSTextAlignmentCenter;
            [actLabel setFont:[UIFont fontMin]];

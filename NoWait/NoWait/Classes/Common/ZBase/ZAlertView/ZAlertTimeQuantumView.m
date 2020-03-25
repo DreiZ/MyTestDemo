@@ -97,7 +97,7 @@ static ZAlertTimeQuantumView *sharedManager;
     }];
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+    [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
@@ -138,7 +138,7 @@ static ZAlertTimeQuantumView *sharedManager;
    
     
     UILabel *midLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    midLabel.textColor = [UIColor colorMain];
+    midLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     midLabel.text = @"~";
     midLabel.textAlignment = NSTextAlignmentCenter;
     [midLabel setFont:[UIFont systemFontOfSize:16.0f]];
@@ -155,7 +155,7 @@ static ZAlertTimeQuantumView *sharedManager;
         _dateBeginPicker.backgroundColor = [UIColor whiteColor];
         _dateBeginPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         //设置选中行的字体颜色
-        _dateBeginPicker.textColorOfSelectedRow = [UIColor colorMain];
+        _dateBeginPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         //设置未选中行的字体颜色
         _dateBeginPicker.textColorOfOtherRow = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _dateBeginPicker.delegate = self;
@@ -172,7 +172,7 @@ static ZAlertTimeQuantumView *sharedManager;
         _dateEndPicker.backgroundColor = [UIColor whiteColor];
         _dateEndPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         //设置选中行的字体颜色
-        _dateEndPicker.textColorOfSelectedRow = [UIColor colorMain];
+        _dateEndPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         //设置未选中行的字体颜色
         _dateEndPicker.textColorOfOtherRow = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _dateEndPicker.delegate = self;

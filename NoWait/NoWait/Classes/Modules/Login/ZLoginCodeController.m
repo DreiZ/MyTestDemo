@@ -219,7 +219,7 @@
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(50);
         [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
-        [doneBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [doneBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         [doneBtn.titleLabel setFont:[UIFont fontTitle]];
@@ -352,14 +352,14 @@
         text.color = [UIColor colorTextGray1];
         //    __weak typeof(self) weakself = self;
         
-        [text setTextHighlightRange:NSMakeRange(8, 6) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
     //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
     //        avc.navTitle = @"莫等闲服务条款";
     //        avc.type = @"service_agreement";
     //        [self.navigationController pushViewController:avc animated:YES];
         }];
         
-        [text setTextHighlightRange:NSMakeRange(15, 6) color:[UIColor  colorMain] backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        [text setTextHighlightRange:NSMakeRange(15, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
     //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
     //        avc.navTitle = @"隐私协议";
     //        avc.type = @"privacy_policy";

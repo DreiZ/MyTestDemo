@@ -190,7 +190,7 @@
 - (UILabel *)numLabel {
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _numLabel.text = @"已开课5/10";
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
@@ -229,9 +229,9 @@
         __weak typeof(self) weakSelf = self;
         _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_signBtn setTitle:@"去签课" forState:UIControlStateNormal];
-        [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
+        [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
-        ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_signBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
@@ -246,7 +246,7 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+    ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
 }
 @end
 

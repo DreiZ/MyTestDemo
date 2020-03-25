@@ -193,7 +193,7 @@
         [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
-        [_bottomBtn setBackgroundColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.addressBlock) {
                 weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address,weakSelf.location.coordinate.latitude,weakSelf.location.coordinate.longitude);

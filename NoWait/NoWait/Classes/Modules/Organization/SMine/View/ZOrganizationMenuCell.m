@@ -129,7 +129,7 @@
     ZBaseUnitModel *model = _channelList[indexPath.row];
     cell.titleLabel.text = model.name;
     cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = [UIColor  colorMain];
+    cell.imageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     return cell;
 }
 

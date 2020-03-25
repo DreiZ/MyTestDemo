@@ -71,7 +71,7 @@
     if (!_lessonProgressView) {
         _lessonProgressView = [[UIView alloc] init];
         ViewRadius(_lessonProgressView, CGFloatIn750(43));
-        _lessonProgressView.backgroundColor = [UIColor  colorMain];
+        _lessonProgressView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     return _lessonProgressView;
 }

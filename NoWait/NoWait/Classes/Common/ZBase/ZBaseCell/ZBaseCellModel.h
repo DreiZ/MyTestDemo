@@ -27,7 +27,7 @@
 //底部线条
 @property (nonatomic,assign) BOOL isHiddenLine;
 @property (nonatomic,strong) UIColor *lineColor;
-
+@property (nonatomic,strong) UIColor *lineDarkColor;
 //cellConfig Title
 @property (nonatomic,strong) NSString *cellTitle;
 

@@ -123,7 +123,7 @@
     self.leftTitleLabel.numberOfLines = 1;
     
     [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView.mas_bottom);
         make.height.mas_equalTo(0.5);
         make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
         make.right.equalTo(self.contentView.mas_right).offset(-model.lineRightMargin);
@@ -134,7 +134,7 @@
     
     self.leftTitleLabel.textColor = model.leftColor ? adaptAndDarkColor(model.leftColor,model.leftDarkColor):adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.rightTitleLabel.textColor = model.rightColor ? adaptAndDarkColor(model.rightColor,model.rightDarkColor) :adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    self.bottomLineView.backgroundColor = model.lineColor;
+    self.bottomLineView.backgroundColor = adaptAndDarkColor(model.lineColor, model.lineDarkColor);
     
     self.bottomLineView.hidden = model.isHiddenLine;
     

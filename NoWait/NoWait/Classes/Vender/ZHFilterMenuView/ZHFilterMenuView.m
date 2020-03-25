@@ -23,11 +23,11 @@
         self.resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.resetButton.frame = CGRectMake(20, 20, CGRectGetWidth(self.frame) / 2 - 40, CGRectGetHeight(self.frame) - 40);
         [self.resetButton setTitle:@"重置" forState:UIControlStateNormal];
-        [self.resetButton setTitleColor:adaptAndDarkColor([UIColor  colorMain], [UIColor colorTextGray1]) forState:UIControlStateNormal];
+        [self.resetButton setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorTextGray1]) forState:UIControlStateNormal];
         [self.resetButton setBackgroundColor:[UIColor whiteColor]];
         self.resetButton.layer.masksToBounds = YES;
         self.resetButton.layer.cornerRadius = 2;
-        self.resetButton.layer.borderColor = [UIColor  colorMain].CGColor;
+        self.resetButton.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
         self.resetButton.layer.borderWidth = 1;
         self.resetButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [self.resetButton addTarget:target action:resetAction forControlEvents:UIControlEventTouchUpInside];
@@ -38,7 +38,7 @@
         [self.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
         [self.confirmButton addTarget:target action:confirmAction forControlEvents:UIControlEventTouchUpInside];
         [self.confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.confirmButton setBackgroundColor:adaptAndDarkColor([UIColor  colorMain], [UIColor  colorMain])];
+        [self.confirmButton setBackgroundColor:adaptAndDarkColor([UIColor  colorMain], [UIColor  colorMainDark])];
         self.confirmButton.layer.masksToBounds = YES;
         self.confirmButton.layer.cornerRadius = 2;
         self.confirmButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -82,7 +82,7 @@
         
         self.selectedTabIndex = -1;
         self.titleColor = adaptAndDarkColor(KTitleColor, [UIColor colorTextGray1]);
-        self.titleSelectedColor = [UIColor  colorMain];
+        self.titleSelectedColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         self.lineColor = [UIColor colorGrayLine];
         self.titleFontSize = 15;
         self.showLine = YES;

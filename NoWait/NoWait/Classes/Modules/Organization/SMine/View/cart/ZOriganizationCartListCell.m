@@ -201,8 +201,8 @@
         __weak typeof(self) weakSelf = self;
         _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        _openBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_openBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1,self.model);
@@ -270,8 +270,8 @@
         _openBtn.hidden = YES;
         [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        _openBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     
     if ([model.type intValue] == 1) {
@@ -303,8 +303,8 @@
         _openBtn.hidden = YES;
         [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        _openBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
 }
 @end

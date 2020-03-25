@@ -214,10 +214,10 @@
         _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _evaBtn.layer.masksToBounds = YES;
         _evaBtn.layer.cornerRadius = 3;
-        _evaBtn.layer.borderColor = [UIColor  colorMain].CGColor;
+        _evaBtn.layer.borderColor = [UIColor colorMain].CGColor;
         _evaBtn.layer.borderWidth = 1;
         [_evaBtn setTitle:@"去评价" forState:UIControlStateNormal];
-        [_evaBtn setTitleColor:[UIColor  colorMain] forState:UIControlStateNormal];
+        [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;
@@ -228,6 +228,14 @@
         }];
     }
     return _evaBtn;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (isDarkModel()) {
+        _evaBtn.layer.borderColor = [UIColor colorMainDark].CGColor;
+    }else{
+        _evaBtn.layer.borderColor = [UIColor colorMain].CGColor;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

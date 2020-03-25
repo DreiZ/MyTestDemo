@@ -80,7 +80,7 @@
     if (isEdit) {
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
         [_navRightBtn setTitle:@"全选" forState:UIControlStateNormal];
-        [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setImage:nil forState:UIControlStateNormal];
         
@@ -98,7 +98,7 @@
         }];
     }else{
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
-        _navRightBtn.backgroundColor = [UIColor colorMain];
+        _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
@@ -184,7 +184,7 @@
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
-        _navRightBtn.backgroundColor = [UIColor colorMain];
+        _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -222,7 +222,7 @@
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {

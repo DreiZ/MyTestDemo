@@ -264,6 +264,10 @@
 		B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795B424286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m */; };
 		B29795B824286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795B724286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m */; };
 		B29795BB24289B9F004490F5 /* ZOriganizationPhotoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795BA24289B9F004490F5 /* ZOriganizationPhotoViewModel.m */; };
+		B29795C42429F369004490F5 /* ZIDICardmagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */; };
+		B29795C72429F478004490F5 /* ZIDICardBackmagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */; };
+		B29795CA242A1B14004490F5 /* ZOriganizationOrderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C9242A1B14004490F5 /* ZOriganizationOrderViewModel.m */; };
+		B29795CD242A24CC004490F5 /* ZOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795CC242A24CC004490F5 /* ZOrderModel.m */; };
 		B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */; };
 		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */; };
@@ -1085,6 +1089,14 @@
 		B29795B724286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeachingScheduleLessonCell.m; sourceTree = "<group>"; };
 		B29795B924289B9F004490F5 /* ZOriganizationPhotoViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationPhotoViewModel.h; sourceTree = "<group>"; };
 		B29795BA24289B9F004490F5 /* ZOriganizationPhotoViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationPhotoViewModel.m; sourceTree = "<group>"; };
+		B29795C22429F369004490F5 /* ZIDICardmagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZIDICardmagePickerController.h; sourceTree = "<group>"; };
+		B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZIDICardmagePickerController.m; sourceTree = "<group>"; };
+		B29795C52429F478004490F5 /* ZIDICardBackmagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZIDICardBackmagePickerController.h; sourceTree = "<group>"; };
+		B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZIDICardBackmagePickerController.m; sourceTree = "<group>"; };
+		B29795C8242A1B14004490F5 /* ZOriganizationOrderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationOrderViewModel.h; sourceTree = "<group>"; };
+		B29795C9242A1B14004490F5 /* ZOriganizationOrderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationOrderViewModel.m; sourceTree = "<group>"; };
+		B29795CB242A24CC004490F5 /* ZOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrderModel.h; sourceTree = "<group>"; };
+		B29795CC242A24CC004490F5 /* ZOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrderModel.m; sourceTree = "<group>"; };
 		B29A71CA23F172C7000AEF5F /* UIFont+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZChat.m"; sourceTree = "<group>"; };
 		B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZChat.h"; sourceTree = "<group>"; };
@@ -1985,6 +1997,10 @@
 			children = (
 				B25146B923CF13C2009A64D4 /* ZPhotoManager.h */,
 				B25146BA23CF13C2009A64D4 /* ZPhotoManager.m */,
+				B29795C22429F369004490F5 /* ZIDICardmagePickerController.h */,
+				B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */,
+				B29795C52429F478004490F5 /* ZIDICardBackmagePickerController.h */,
+				B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */,
 			);
 			path = ZPhotoManager;
 			sourceTree = "<group>";
@@ -2150,6 +2166,8 @@
 				B2C477722417402E00296D1B /* ZOriganizationViewModel.m */,
 				B27B2EED241A4A8400CB473C /* ZOriganizationTeacherViewModel.h */,
 				B27B2EEE241A4A8400CB473C /* ZOriganizationTeacherViewModel.m */,
+				B29795C8242A1B14004490F5 /* ZOriganizationOrderViewModel.h */,
+				B29795C9242A1B14004490F5 /* ZOriganizationOrderViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3727,6 +3745,8 @@
 				B28EA662240E0A8200C8E225 /* ZMineModel.m */,
 				B28EA68F240FA8D800C8E225 /* ZOriganizationModel.h */,
 				B28EA690240FA8D800C8E225 /* ZOriganizationModel.m */,
+				B29795CB242A24CC004490F5 /* ZOrderModel.h */,
+				B29795CC242A24CC004490F5 /* ZOrderModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4115,6 +4135,7 @@
 				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
 				B2DB9B52241CC70D00340464 /* ZSingleLineRightImageCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
+				B29795CA242A1B14004490F5 /* ZOriganizationOrderViewModel.m in Sources */,
 				B20C48112400DF4600E0CE35 /* ZOrganizationStudentTopFilterSeaarchView.m in Sources */,
 				B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */,
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
@@ -4202,6 +4223,7 @@
 				B29795A624260939004490F5 /* ZAlertCouponCheckBoxView.m in Sources */,
 				B296E39D2404D58F00507509 /* ZOrganizationLessonDetailHeaderCell.m in Sources */,
 				B2A7810523C073B200407BF0 /* ZStudentMineModel.m in Sources */,
+				B29795C72429F478004490F5 /* ZIDICardBackmagePickerController.m in Sources */,
 				B2342C8B23FE757B00F31C34 /* ZOriganizationTeachListCell.m in Sources */,
 				B2A7802823BDF9B100407BF0 /* ZDBBaseStore.m in Sources */,
 				B28EA66C240E40FF00C8E225 /* ZAccountChangePhoneVC.m in Sources */,
@@ -4321,6 +4343,7 @@
 				B2F7D33F23CD6D0800F7A17D /* ZBaseModel.m in Sources */,
 				B2DB9B37241C6AF200340464 /* ZOrganizationPhotoListCell.m in Sources */,
 				B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */,
+				B29795CD242A24CC004490F5 /* ZOrderModel.m in Sources */,
 				B20C47FB23FFB98500E0CE35 /* ZOriganizationIDCardCell.m in Sources */,
 				B28D90EA2406652A0021E05A /* ZOrganizationAccountVC.m in Sources */,
 				B28EA6942410F29000C8E225 /* ZOriganizationClassViewModel.m in Sources */,
@@ -4445,6 +4468,7 @@
 				B252ED892416191E00190804 /* ZBaseCollectionViewCell.m in Sources */,
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
+				B29795C42429F369004490F5 /* ZIDICardmagePickerController.m in Sources */,
 				B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */,
 				B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */,
 				B279D07323C9BEA400391A33 /* ZStudentLessonBottomView.m in Sources */,

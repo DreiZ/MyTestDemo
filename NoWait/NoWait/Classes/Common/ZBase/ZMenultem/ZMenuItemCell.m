@@ -177,7 +177,7 @@
 {
     if (!_badgeView) {
         _badgeView = [[TLBadge alloc] initWithFrame:CGRectMake(0, 0, 0, 18)];
-        _badgeView.backgroundColor = [UIColor  colorMain];
+        _badgeView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     return _badgeView;
 }
@@ -203,7 +203,7 @@
 {
     if (!_rightBadgeView) {
         _rightBadgeView = [[TLBadge alloc] initWithFrame:CGRectMake(0, 0, 0, 18)];
-        _rightBadgeView.backgroundColor = [UIColor  colorMain];
+        _rightBadgeView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_rightBadgeView setBadgeValue:@""];
     }
     return _rightBadgeView;

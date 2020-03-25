@@ -197,7 +197,7 @@
 - (UIView *)backContentView {
     if (!_backContentView) {
         _backContentView = [[UIView alloc] init];
-        _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+        _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         ViewRadius(_backContentView, CGFloatIn750(16));
         ViewShadowRadius(_backContentView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextBlackDark]);
 
@@ -213,7 +213,7 @@
     [menuBtn bk_whenTapped:^{
         [weakSelf menuBtn:index];
     }];
-    menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+    menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [menuBtn setTitle:text forState:UIControlStateNormal];
     [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
     [menuBtn.titleLabel setFont:[UIFont fontSmall]];

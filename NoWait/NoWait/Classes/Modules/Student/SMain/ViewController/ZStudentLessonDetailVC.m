@@ -23,12 +23,17 @@
 #import "ZAlertCouponCheckBoxView.h"
 #import "ZOriganizationLessonViewModel.h"
 
+#import "ZOriganizationOrderViewModel.h"
+#import "ZOrganizationDetailBottomView.h"
+#import "ZOrderModel.h"
+
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
 @property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
 @property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
-
+@property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
+@property (nonatomic,assign) NSInteger k;
 @end
 
 @implementation ZStudentLessonDetailVC
@@ -63,6 +68,17 @@
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.bottom.equalTo(self.topNavView.mas_bottom).offset(-CGFloatIn750(17));
     }];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(88) + safeAreaBottom());
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.bottom.equalTo(self.bottomView.mas_top);
+    }];
 }
 
 - (UIButton *)navLeftBtn {
@@ -82,7 +98,7 @@
 - (UIView *)topNavView {
     if (!_topNavView) {
         _topNavView = [[UIView alloc] init];
-        _topNavView.backgroundColor = [UIColor colorMain];
+        _topNavView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         _topNavView.alpha = 0;
     }
     return _topNavView;
@@ -105,6 +121,48 @@
     }
     return _selectView;
 }
+
+
+-(ZOrganizationDetailBottomView *)bottomView {
+    if (!_bottomView) {
+        
+        NSArray *name = @[@"慧颖",@"十点多",@"对对对",@"苏苏苏",@"王子在",@"卡看看"];
+        __weak typeof(self) weakSelf = self;
+        _bottomView = [[ZOrganizationDetailBottomView alloc] init];
+        _bottomView.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                NSMutableDictionary *params = @{}.mutableCopy;
+                [params setObject:weakSelf.addModel.stores_id forKey:@"stores_id"];
+                [params setObject:@"7" forKey:@"teacher_id"];
+//                [params setObject:@"5" forKey:@"coupons_id"];
+                [params setObject:weakSelf.addModel.lessonID forKey:@"course_id"];
+//                [params setObject:@"1" forKey:@"pay_type"];
+//                [params setObject:@"1" forKey:@"pay_amount"];
+                [params setObject:name[weakSelf.k] forKey:@"real_name"];
+                [params setObject:@"18811953553" forKey:@"phone"];
+                [params setObject:@"多少度" forKey:@"emergency_name"];
+                [params setObject:@"18811953553" forKey:@"emergency_phone"];
+                [params setObject:@"sdfds" forKey:@"emergency_contact"];
+                [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
+                    if (isSuccess) {
+                        ZOrderAddNetModel *model = data;
+                        [TLUIUtility showSuccessHint:model.message];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                    weakSelf.k++;
+                }];
+                
+//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
+            }else{
+//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
+            }
+            
+        };
+    }
+    return _bottomView;
+}
+
 
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -77,7 +77,7 @@
         [_bottomBtn setTitle:@"提交订单" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
-        [_bottomBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.bottomBlock) {
                 weakSelf.bottomBlock();

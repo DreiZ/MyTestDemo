@@ -66,7 +66,7 @@
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
         _nameLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
         _nameLabel.text = @"上传头像";
         _nameLabel.numberOfLines = 1;
