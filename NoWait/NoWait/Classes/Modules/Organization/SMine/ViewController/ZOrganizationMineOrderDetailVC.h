@@ -7,10 +7,10 @@
 //
 
 #import "ZTableViewViewController.h"
-#import "ZStudentMineModel.h"
+#import "ZOrderModel.h"
 
 @interface ZOrganizationMineOrderDetailVC : ZTableViewViewController
-@property (nonatomic,strong) ZStudentOrderListModel *model;
+@property (nonatomic,strong) ZOrderListModel *model;
 @end
 
 

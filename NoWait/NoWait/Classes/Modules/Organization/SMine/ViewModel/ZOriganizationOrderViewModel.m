@@ -36,7 +36,7 @@
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_get_order_info params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
-            ZOrderDetailNetModel *model = [ZOrderDetailNetModel mj_objectWithKeyValues:dataModel.data];
+            ZOrderDetailModel *model = [ZOrderDetailModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
                 completeBlock(YES, model);
                 return ;

@@ -33,7 +33,42 @@
 @end
 
 @interface ZOrderDetailModel : ZBaseModel
-
+@property (nonatomic,assign) BOOL isStudent;
+@property (nonatomic,assign) ZStudentOrderType type;
+@property (nonatomic,strong) NSString * account_id;
+@property (nonatomic,strong) NSString * account_phone;
+@property (nonatomic,strong) NSString * coupons_amount;
+@property (nonatomic,strong) NSString * coupons_id;
+@property (nonatomic,strong) NSString * course_id;
+@property (nonatomic,strong) NSString * course_image_url;
+@property (nonatomic,strong) NSString * course_min;
+@property (nonatomic,strong) NSString * course_name;
+@property (nonatomic,strong) NSString * course_number;
+@property (nonatomic,strong) NSString * course_total_min;
+@property (nonatomic,strong) NSString * create_at;
+@property (nonatomic,strong) NSString * err_msg;
+@property (nonatomic,strong) NSString * finish_time;
+@property (nonatomic,strong) NSString * order_id;
+@property (nonatomic,strong) NSString * order_amount;
+@property (nonatomic,strong) NSString * order_no;
+@property (nonatomic,strong) NSString * out_refund_no;
+@property (nonatomic,strong) NSString * pay_amount;
+@property (nonatomic,strong) NSString * pay_time;
+@property (nonatomic,strong) NSString * pay_type;
+@property (nonatomic,strong) NSString * refund_id;
+@property (nonatomic,strong) NSString * refund_msg;
+@property (nonatomic,strong) NSString * schedule_time;
+@property (nonatomic,strong) NSString * status;
+@property (nonatomic,strong) NSString * statusStr;
+@property (nonatomic,strong) NSString * store_name;
+@property (nonatomic,strong) NSString * stores_id;
+@property (nonatomic,strong) NSString * teacher_id;;
+@property (nonatomic,strong) NSString * teacher_name;
+@property (nonatomic,strong) NSString * trade_no;
+@property (nonatomic,strong) NSString * orderType;
+@property (nonatomic,strong) NSString * update_at;
+@property (nonatomic,strong) NSString * use_coupons;//是否使用优惠券 1：否 2：是
+@property (nonatomic,strong) NSString * valid_at;
 @end
 
 

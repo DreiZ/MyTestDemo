@@ -21,33 +21,33 @@
 
 #import "ZStudentOrderPayVC.h"
 #import "ZBaseUnitModel.h"
+#import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
+@property (nonatomic,strong) ZOrderDetailModel *detailModel;
 
 @end
 @implementation ZOrganizationMineOrderDetailVC
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNavigation];
-    [self setTableViewGaryBack];
-    [self initCellConfigArr];
+//    [self setTableViewGaryBack];
+//    [self initCellConfigArr];
+    
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    self.model.lessonNum = @"10";
-    self.model.lessonSignleTime = @"45";
-    self.model.lessonTime = @"450";
-    self.model.lessonValidity = @"6";
-    self.model.lessonFavourable = @"-6";
-    self.model.lessonPrice = @"670";
-    self.model.payLimit = 6000;
-    
-    switch (self.model.type) {
+    if (!self.detailModel) {
+        return;
+    }
+    switch (self.detailModel.type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
             ;
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
@@ -56,6 +56,7 @@
                 [self setOrderDetailCell];
                 [self setUserCell];
                 [self setOrderPriceCell];
+                [self setPayDetailCell];
                 [self setPayTypeCell];
             }
             break;
@@ -208,7 +209,7 @@
     if (!_handleView) {
         __weak typeof(self) weakSelf = self;
         _handleView = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
-        _handleView.model = self.model;
+        _handleView.model = self.detailModel;
         _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
             if (type == ZLessonOrderHandleTypePay) {
                 ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
@@ -239,23 +240,23 @@
 
 #pragma mark - set cell
 - (void)setTopHintCell {
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(48) cellType:ZCellTypeClass dataModel:self.model.state];
-    [self.cellConfigArr addObject:orderCellConfig];
+//    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(48) cellType:ZCellTypeClass dataModel:self.detailModel.state];
+//    [self.cellConfigArr addObject:orderCellConfig];
 }
 
 - (void)setTopStateCell {
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderTopStateCell className] title:[ZStudentMineOrderTopStateCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderTopStateCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
+    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderTopStateCell className] title:[ZStudentMineOrderTopStateCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderTopStateCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:orderCellConfig];
 }
 
 
 - (void)setOrderDetailCell {
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailCell className] title:[ZStudentMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderDetailCell z_getCellHeight:self.model] cellType:ZCellTypeClass dataModel:self.model];
+    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailCell className] title:[ZStudentMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderDetailCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:orderCellConfig];
 }
 
 - (void)setUserCell {
-    NSArray *tempArr = @[@[@"联系人姓名", @"拜拜"],@[@"手机号", @"1882737332"]];
+    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.account_phone)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
     NSMutableArray *configArr = @[].mutableCopy;
     NSInteger index = 0;
     for (NSArray *tArr in tempArr) {
@@ -287,7 +288,13 @@
 }
 
 - (void)setOrderPriceCell {
-    NSArray *tempArr = @[@[@"合计", @"￥320"],@[@"平台优惠", @"-￥3"],@[@"", @"合计订单：320.00"]];
+    NSArray *tempArr ;
+    
+    if ([self.detailModel.use_coupons intValue] == 2) {
+        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.detailModel.coupons_amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+    }else{
+        tempArr =@[@[@"合计", SafeStr(self.detailModel.order_amount)],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+    }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -336,7 +343,17 @@
 }
 
 - (void)setPayDetailCell {
-    NSArray *tempArr = @[@[@"支付方式", @"微信"],@[@"订单号", @"34235234233"],@[@"创建时间", @"2019.10.21 12:21:22"],@[@"付款时间", @"2019.10.21 12:21:22"]];
+    NSArray *tempArr;
+    if (self.detailModel.type == ZStudentOrderTypeForPay
+        || self.detailModel.type == ZOrganizationOrderTypeForPay
+        || self.detailModel.type == ZOrganizationOrderTypeOrderForPay
+        || self.detailModel.type == ZStudentOrderTypeOrderForPay
+        || self.detailModel.type == ZStudentOrderTypeOutTime
+        || self.detailModel.type == ZOrganizationOrderTypeOutTime) {
+        tempArr = @[@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", [SafeStr(self.detailModel.create_at) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]]];
+    }else{
+        tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", [SafeStr(self.detailModel.create_at) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]],@[@"付款时间", [SafeStr(self.detailModel.pay_time) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]]];
+    }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -360,7 +377,7 @@
 }
 
 - (void)setTipsCell {
-    NSArray *tempArr = @[@[@"小提醒", @"支付后预约送达噶是的噶施工打三国杀的故事的归属感课程不可手动取消"]];
+    NSArray *tempArr = @[@[@"小提醒", @"支付后预约课程不可取消"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
@@ -545,13 +562,26 @@
         }
         
         {
-            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineOrderDetailCell className] title:[ZMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMineOrderDetailCell z_getCellHeight:self.model] cellType:ZCellTypeClass dataModel:self.model];
+            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineOrderDetailCell className] title:[ZMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMineOrderDetailCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
             [self.cellConfigArr addObject:orderCellConfig];
         }
     }
     
 }
+
+
+
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getOrderDetail:@{@"order_id":SafeStr(self.model.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            weakSelf.detailModel = data;
+            weakSelf.detailModel.orderType = @"2";
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
 @end
-
-
-

@@ -13,6 +13,8 @@
 @interface ZOriganizationOrderViewModel : ZBaseViewModel
 + (void)addOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 + (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 @end
 

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZStudentMineModel.h"
+#import "ZOrderModel.h"
 
 @interface ZStudentMineOrderDetailHandleBottomView : UIView
-@property (nonatomic,strong) ZStudentOrderListModel *model;
+@property (nonatomic,strong) ZOrderDetailModel *model;
 
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end

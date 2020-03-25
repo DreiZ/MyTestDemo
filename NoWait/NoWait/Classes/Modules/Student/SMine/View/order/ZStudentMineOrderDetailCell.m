@@ -247,7 +247,7 @@
         _orderNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orderNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _orderNameLabel.text = @"";
-        _orderNameLabel.numberOfLines = 1;
+        _orderNameLabel.numberOfLines = 0;
         _orderNameLabel.textAlignment = NSTextAlignmentLeft;
         [_orderNameLabel setFont:[UIFont boldFontContent]];
     }
@@ -270,7 +270,6 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"serverTopbg"];
         _leftImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_leftImageView, CGFloatIn750(12));
     }
@@ -391,12 +390,12 @@
 }
 
 #pragma mark - set model
-- (void)setModel:(ZStudentOrderListModel *)model {
+- (void)setModel:(ZOrderDetailModel *)model {
     _model = model;
     
-    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
-    self.orderNameLabel.text = model.name;
-    self.clubLabel.text = model.club;
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.course_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    self.orderNameLabel.text = model.course_name;
+    self.clubLabel.text = model.store_name;
     self.bottomView.hidden = YES;
  
     switch (self.model.type) {
@@ -516,11 +515,11 @@
 }
 
 - (void)setDetailDes {
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.price];
-    self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",self.model.teacher];
-    self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",self.model.lessonNum];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.order_amount];
+    self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",self.model.teacher_name];
+    self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",self.model.course_number];
     
-    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.price] tt_sizeWithFont:[UIFont fontContent]];
+    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.order_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(priceSize.width + 3);
         make.centerY.equalTo(self.orderNameLabel.mas_centerY);
@@ -534,9 +533,9 @@
         ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(28) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         [self.cellConfigArr addObject:coachSpaceCellConfig];
     }
-    NSArray *titleArr = @[@[@"单节课时",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.lessonSignleTime)]],
-                          @[@"总时长",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.lessonTime)]],
-                          @[@"课程有效期",[NSString stringWithFormat:@"%@月",SafeStr(_model.lessonValidity)]]];
+    NSArray *titleArr = @[@[@"单节课时",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.course_min)]],
+                          @[@"总时长",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.course_total_min)]],
+                          @[@"课程有效期",[NSString stringWithFormat:@"%@月",SafeStr(_model.valid_at)]]];
     
     for (NSArray *tempArr in titleArr) {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
@@ -550,7 +549,7 @@
         mModel.cellHeight = CGFloatIn750(55);
         mModel.titleWidth = CGFloatIn750(250);
         mModel.cellWidth = KScreenWidth - CGFloatIn750(60);
-        mModel.rightTitle = [NSString stringWithFormat:@"%@分钟",tempArr[1]];
+        mModel.rightTitle = [NSString stringWithFormat:@"%@",tempArr[1]];
         mModel.leftTitle = tempArr[0];
         mModel.isHiddenLine = YES;
 
@@ -596,11 +595,11 @@
 }
 
 - (void)setOrderDetailDes {
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.price];
-    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",self.model.lessonSignleTime];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@",self.model.tiTime];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.order_amount];
+    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",self.model.schedule_time];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@",[self.model.schedule_time timeStringWithFormatter:@"yyyy-MM-dd"]];
     
-    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.price] tt_sizeWithFont:[UIFont fontContent]];
+    CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.pay_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(priceSize.width + 3);
         make.centerY.equalTo(self.orderNameLabel.mas_centerY);
@@ -625,9 +624,16 @@
 
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
-        ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
-        if (listModel.isRefuse) {
+    if (sender && [sender isKindOfClass:[ZOrderDetailModel class]]) {
+        ZOrderDetailModel *listModel = (ZOrderDetailModel *)sender;
+        if (listModel.type == ZStudentOrderTypeForRefuse
+            ||  listModel.type == ZStudentOrderTypeRefuseReceive
+            ||  listModel.type == ZStudentOrderTypeRefuseing
+            ||  listModel.type == ZStudentOrderTypeForRefuseComplete
+            ||  listModel.type == ZOrganizationOrderTypeForRefuse
+            ||  listModel.type == ZOrganizationOrderTypeRefuseReceive
+            ||  listModel.type == ZOrganizationOrderTypeRefuseing
+            ||  listModel.type == ZOrganizationOrderTypeForRefuseComplete) {
             return CGFloatIn750(328);
         }
         switch (listModel.type) {
