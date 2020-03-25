@@ -215,6 +215,10 @@
         
         self.rightImageView.hidden = YES;
     }
+    
+    if (_model.rightImage && [_model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+    }
 }
 
 

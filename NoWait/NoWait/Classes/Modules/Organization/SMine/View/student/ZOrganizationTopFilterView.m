@@ -62,7 +62,7 @@ static ZOrganizationTopFilterView *sharedManager;
     
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(472));
+        make.height.mas_equalTo(CGFloatIn750(472 + 88));
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(290));
@@ -94,7 +94,7 @@ static ZOrganizationTopFilterView *sharedManager;
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.layer.cornerRadius = 6;
-        _contView.backgroundColor = [UIColor whiteColor];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     
     return _contView;

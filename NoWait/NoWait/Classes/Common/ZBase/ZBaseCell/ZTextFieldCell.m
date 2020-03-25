@@ -383,6 +383,9 @@
            }
         }
     }
+    if (_model.rightImage && [_model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+    }
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {
@@ -397,6 +400,11 @@
         _inputTextField.keyboardType = UIKeyboardTypeDefault;
     }
 }
+
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+    }
+}
 @end
-
-

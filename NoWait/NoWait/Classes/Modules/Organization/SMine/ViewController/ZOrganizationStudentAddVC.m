@@ -52,20 +52,21 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachAddHeadImageCell className] title:[ZOriganizationTeachAddHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachAddHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
-    [self.cellConfigArr addObject:progressCellConfig];
+//    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachAddHeadImageCell className] title:[ZOriganizationTeachAddHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachAddHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
+//    [self.cellConfigArr addObject:progressCellConfig];
     
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"MID", @"请输入MID", @YES, @"", @"MID",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"出生日期", @"请选择出生日期", @NO, @"rightBlackArrowN", @"birthday",SafeStr(self.viewModel.addModel.birthday),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"报名日期", @"请选择报名日期", @NO, @"rightBlackArrowN", @"registrationDate",SafeStr(self.viewModel.addModel.sign_up_at),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@8,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",SafeStr(self.viewModel.addModel.birthday),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"身份证号码", @"请输入身份号(选填)", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",SafeStr(self.viewModel.addModel.sign_up_at),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         
                          @[@"微信", @"选填", @YES, @"", @"weixin",SafeStr(self.viewModel.addModel.wechat),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"推荐人", @"选填", @YES, @"", @"Recommend",SafeStr(self.viewModel.addModel.referees),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.viewModel.addModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -152,10 +153,6 @@
                 [TLUIUtility showErrorHint:@"请输入学员手机号"];
                 return ;
             }
-            if (!ValidStr(weakSelf.viewModel.addModel.id_card)) {
-                [TLUIUtility showErrorHint:@"请输入学员身份证"];
-                return ;
-            }
             if (!ValidStr(weakSelf.viewModel.addModel.stores_courses_class_id)) {
                 [TLUIUtility showErrorHint:@"请选择课程"];
                 return ;
@@ -167,16 +164,19 @@
             NSMutableDictionary *otherDict = @{}.mutableCopy;
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.phone forKey:@"phone"];
-            [otherDict setObject:self.viewModel.addModel.id_card forKey:@"id_card"];
-            [otherDict setObject:@"1" forKey:@"card_type"];
+            
             [otherDict setObject:self.viewModel.addModel.stores_courses_class_id forKey:@"stores_courses_class_id"];
             [otherDict setObject:self.viewModel.addModel.teacher_id forKey:@"teacher_id"];
             
             [otherDict setObject:self.viewModel.addModel.stores_id forKey:@"stores_id"];
             [otherDict setObject:self.viewModel.addModel.code_id forKey:@"code_id"];
-            
             [otherDict setObject:self.viewModel.addModel.sex forKey:@"sex"];
             
+            
+            if (ValidStr(self.viewModel.addModel.id_card)) {
+                [otherDict setObject:self.viewModel.addModel.id_card forKey:@"id_card"];
+                [otherDict setObject:@"1" forKey:@"card_type"];
+            }
             if (ValidStr(self.viewModel.addModel.birthday)) {
                 [otherDict setObject:self.viewModel.addModel.birthday forKey:@"birthday"];
             }

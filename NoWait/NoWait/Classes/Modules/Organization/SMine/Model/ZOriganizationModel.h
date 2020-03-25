@@ -117,6 +117,8 @@
 @interface ZOriganizationStudentListModel : ZBaseModel
 @property (nonatomic,strong) NSString *studentID;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *student_image;
+
 @property (nonatomic,strong) NSString *status;//0:全部 1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *teacher_image;
