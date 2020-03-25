@@ -225,7 +225,7 @@
     self.receivedBtn.hidden = YES;
     
     switch (model.type) {
-            case ZStudentOrderTypeOrderForPay:
+//            case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {
             self.payBtn.hidden = NO;

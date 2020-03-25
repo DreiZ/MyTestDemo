@@ -82,7 +82,6 @@
         make.height.mas_equalTo(50);
     }];
     
-    
     [self.contView addSubview:self.midView];
     [self.midView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contView);
@@ -98,10 +97,7 @@
         make.centerY.equalTo(self.topView.mas_centerY);
     }];
     
-    _clubImageView = [[UIImageView alloc] init];
-    _clubImageView.image = [[UIImage imageNamed:@"rightBlackArrowN"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    _clubImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
-    [self.topView addSubview:_clubImageView];
+    [self.topView addSubview:self.clubImageView];
     [self.clubImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.clubLabel.mas_right).offset(CGFloatIn750(20));
         make.centerY.equalTo(self.topView.mas_centerY);
@@ -130,7 +126,6 @@
     [self.midView addSubview:self.detailLabel];
     [self.midView addSubview:self.orderNameLabel];
     
-
    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(self.midView.mas_left).offset(CGFloatIn750(30));
        make.top.bottom.equalTo(self.midView);
@@ -196,15 +191,12 @@
     [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
 }
 
-
 #pragma mark - Getter
 - (UIView *)contView {
     if (!_contView) {
         
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        
-//        _contView.clipsToBounds = YES;
         ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
          _contView.layer.cornerRadius = CGFloatIn750(12);
     }
@@ -248,6 +240,14 @@
     }
     return _bottomView;
 }
+-(UIImageView *)clubImageView {
+    if (!_clubImageView) {
+        _clubImageView = [[UIImageView alloc] init];
+        _clubImageView.image = [[UIImage imageNamed:@"rightBlackArrowN"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _clubImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
+    }
+    return _clubImageView;
+}
 
 - (UILabel *)orderNameLabel {
     if (!_orderNameLabel) {
@@ -284,18 +284,14 @@
     return _leftImageView;
 }
 
-
 - (UIImageView *)userImgeView {
     if (!_userImgeView) {
         _userImgeView = [[UIImageView alloc] init];
-        _userImgeView.image = [UIImage imageNamed:@"serverTopbg"];
         _userImgeView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_userImgeView, CGFloatIn750(20));
     }
     return _userImgeView;
 }
-
-
 
 - (UILabel *)detailLabel {
     if (!_detailLabel) {
@@ -308,7 +304,6 @@
     }
     return _detailLabel;
 }
-
 
 - (UILabel *)clubLabel {
     if (!_clubLabel) {
@@ -468,63 +463,37 @@
 }
 
 #pragma mark - set model
-- (void)setModel:(ZStudentOrderListModel *)model {
+- (void)setModel:(ZOrderListModel *)model {
     _model = model;
-    
-    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
-    self.statelabel.text = model.state;
-    self.orderNameLabel.text = model.name;
-    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
-    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.tiTime];
-    self.clubLabel.text = model.club;
-    self.failLabel.text = model.fail;
-    switch (model.type) {
-        case 0:
-//            model.type = ZStudentOrderTypeForPay;
-            self.statelabel.text = @"待支付";
-            break;
-        case 1:
-//            model.type = ZStudentOrderTypeHadPay;
-            self.statelabel.text = @"待评价";
-            break;
-        case 2:
-//            model.type = ZStudentOrderTypeHadEva;
-            self.statelabel.text = @"已评价";
-            break;
-        case 3:
-//            model.type = ZStudentOrderTypeOutTime;
-            self.statelabel.text = @"已超时";
-            break;
-        case 4:
-//            model.type = ZStudentOrderTypeCancel;
-            self.statelabel.text = @"已取消";
-            break;
-        case 5:
-//            model.type = ZStudentOrderTypeOrderForReceived;
-            self.statelabel.text = @"预约待接受";
-            break;
-        case 6:
-//            model.type = ZStudentOrderTypeOrderComplete;
-            self.statelabel.text = @"预约已接收";
-            break;
-        case 7:
-//            model.type = ZStudentOrderTypeOrderRefuse;
-            self.statelabel.text = @"预约已拒绝";
-            break;
-              
-        default:
-            break;
+    if (model.isStudent) {
+        _clubImageView.hidden = NO;
+        self.clubLabel.text = model.stores_name;
+    }else{
+        _clubImageView.hidden = YES;
+        [self.userImgeView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.account_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+        self.clubLabel.text = model.students_name;
     }
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.courses_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    
+    self.orderNameLabel.text = model.courses_name;
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.pay_amount];
+    
+    if ([model.orderType intValue] == 1) {
+        self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",model.teacher_name];
+    }else{
+        self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
+    }
+    
+//    self.failLabel.text = model.fail;
+    self.statelabel.text = model.statusStr;
     
     self.bottomView.hidden = YES;
     self.failView.hidden = YES;
     
     self.payBtn.hidden = YES;
     self.cancleBtn.hidden = YES;
-    
     self.evaBtn.hidden = YES;
     self.delBtn.hidden = YES;
-    
     self.receivedBtn.hidden = YES;
     self.refuseBtn.hidden = YES;
 
@@ -627,6 +596,7 @@
             
         }
             break;
+        case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeOutTime:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -655,6 +625,7 @@
             
         }
             break;
+        case ZOrganizationOrderTypeCancel:
         case ZStudentOrderTypeCancel:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
@@ -686,7 +657,7 @@
         case ZStudentOrderTypeOrderForReceived:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-            
+
             [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.right.equalTo(self.contView);
              make.top.equalTo(self.topView.mas_bottom);
@@ -694,44 +665,46 @@
             }];
         }
             break;
+        case ZOrganizationOrderTypeOrderOutTime:
+        case ZOrganizationOrderTypeOutTime:
         case ZStudentOrderTypeOrderComplete:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-            
-            
+
+
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.bottom.right.equalTo(self.contView);
                 make.height.mas_equalTo(CGFloatIn750(136));
             }];
-            
+
             [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.contView);
                 make.top.equalTo(self.topView.mas_bottom);
                 make.bottom.equalTo(self.bottomView.mas_top);
             }];
-            
+
             self.bottomView.hidden = NO;
             self.delBtn.hidden = NO;
-            
+
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
                 make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(172));
             }];
-            
+
         }
             break;
         case ZStudentOrderTypeOrderRefuse:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-            
+
             [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.right.equalTo(self.contView);
              make.top.equalTo(self.topView.mas_bottom);
              make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
             }];
-            
+
         }
             break;
         case ZOrganizationOrderTypeOrderForReceived:
@@ -772,32 +745,32 @@
             }];
         }
             break;
-        case ZOrganizationOrderTypeForRefuse:
-           {
-               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-               
-               [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                   make.left.bottom.right.equalTo(self.contView);
-                   make.height.mas_equalTo(CGFloatIn750(136));
-               }];
-               
-               [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                   make.left.right.equalTo(self.contView);
-                   make.top.equalTo(self.topView.mas_bottom);
-                   make.bottom.equalTo(self.bottomView.mas_top);
-               }];
-               
-               self.bottomView.hidden = NO;
-               self.refuseBtn.hidden = NO;
-               
-               [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                   make.centerY.equalTo(self.bottomView.mas_centerY);
-                   make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                   make.height.mas_equalTo(CGFloatIn750(56));
-                   make.width.mas_equalTo(CGFloatIn750(172));
-               }];
-           }
-               break;
+//        case ZOrganizationOrderTypeForRefuse:
+//           {
+//               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+//
+//               [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                   make.left.bottom.right.equalTo(self.contView);
+//                   make.height.mas_equalTo(CGFloatIn750(136));
+//               }];
+//
+//               [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                   make.left.right.equalTo(self.contView);
+//                   make.top.equalTo(self.topView.mas_bottom);
+//                   make.bottom.equalTo(self.bottomView.mas_top);
+//               }];
+//
+//               self.bottomView.hidden = NO;
+//               self.refuseBtn.hidden = NO;
+//
+//               [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                   make.centerY.equalTo(self.bottomView.mas_centerY);
+//                   make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+//                   make.height.mas_equalTo(CGFloatIn750(56));
+//                   make.width.mas_equalTo(CGFloatIn750(172));
+//               }];
+//           }
+//               break;
             case ZOrganizationOrderTypeForRefuseComplete:
             {
                 self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -810,6 +783,7 @@
             }
                 break;
 //        case ZStudentOrderTypeOutTime:
+//        {
 //            self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
 //            self.detailLabel.text = @"";
 //
@@ -872,7 +846,7 @@
 //            [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
 //        }
 //            break;
-            
+//
         default:
             {
                 self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -884,37 +858,37 @@
                 }];
                 
             }
-            break;
+        break;
     }
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    if (sender && [sender isKindOfClass:[ZStudentOrderListModel class]]) {
-        ZStudentOrderListModel *listModel = (ZStudentOrderListModel *)sender;
-        if (listModel.type == ZStudentOrderTypeOrderForReceived
-            || listModel.type == ZStudentOrderTypeOrderRefuse
-            || listModel.type == ZOrganizationOrderTypeForPay
-            || listModel.type == ZOrganizationOrderTypeHadPay
-            || listModel.type == ZOrganizationOrderTypeHadEva
+    if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
+        ZOrderListModel *listModel = (ZOrderListModel *)sender;
+        if (listModel.type == ZStudentOrderTypeForPay
+            || listModel.type == ZStudentOrderTypeHadPay
+            || listModel.type == ZStudentOrderTypeHadEva
+            || listModel.type == ZStudentOrderTypeOutTime
+            || listModel.type == ZStudentOrderTypeCancel
+            || listModel.type == ZStudentOrderTypeOrderForPay
+            || listModel.type == ZStudentOrderTypeOrderComplete
+            || listModel.type == ZStudentOrderTypeOrderOutTime
+            
             || listModel.type == ZOrganizationOrderTypeOutTime
             || listModel.type == ZOrganizationOrderTypeCancel
-            || listModel.type == ZOrganizationOrderTypeOrderForPay
-            || listModel.type == ZOrganizationOrderTypeOrderComplete
-            || listModel.type == ZOrganizationOrderTypeForRefuseComplete
-            || listModel.type == ZOrganizationOrderTypeOrderRefuse
-            || listModel.type == ZStudentOrderTypeForRefuse
-            || listModel.type == ZStudentOrderTypeForRefuseComplete) {
-            return CGFloatIn750(318);
-        } else{
+            || listModel.type == ZOrganizationOrderTypeOrderOutTime
+            || listModel.type == ZOrganizationOrderTypeOrderForReceived){
             return CGFloatIn750(414);
+        } else{
+            return CGFloatIn750(318);
         }
+        
 //        else if (listModel.type == ZStudentOrderTypeAll){
 //              NSString *fail = listModel.fail ? listModel.fail : @"";
 //              CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
 //              return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
 //          }
     }
-    
     return CGFloatIn750(0);
 }
 

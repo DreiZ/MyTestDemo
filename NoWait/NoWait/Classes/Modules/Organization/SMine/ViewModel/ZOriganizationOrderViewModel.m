@@ -33,7 +33,7 @@
 
 
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_info params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_get_order_info params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOrderDetailNetModel *model = [ZOrderDetailNetModel mj_objectWithKeyValues:dataModel.data];
@@ -53,7 +53,7 @@
 
 
 + (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_list params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_order_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -62,7 +62,7 @@
                 completeBlock(YES, model);
                 return ;
             }else{
-                completeBlock(NO, dataModel);
+                completeBlock(NO, dataModel.message);
                 return;
             }
         }

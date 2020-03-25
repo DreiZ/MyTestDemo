@@ -81,7 +81,7 @@
             ZOrganizationMineOrderListVC *lvc =[[ZOrganizationMineOrderListVC alloc] init];
             switch (i) {
                 case 0:
-                    lvc.type = ZOrganizationOrderTypeOrderForReceived;
+                    lvc.type = ZOrganizationOrderTypeAll;
                     break;
                 case 1:
                     lvc.type = ZOrganizationOrderTypeForPay;

@@ -77,10 +77,10 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-            [self.navigationController pushViewController:evc animated:YES];
-        };
+//        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
+//            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//            [self.navigationController pushViewController:evc animated:YES];
+//        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {

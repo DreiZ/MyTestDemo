@@ -94,11 +94,13 @@
         _statelabel.text = @"待付款";
         _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
         _detailLabel.text = @"请于完成支付，超时订单将自动取消";
-    }else if (model.type == ZStudentOrderTypeOrderForPay){
-        _statelabel.text = @"待付款";
-        _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
-        _detailLabel.text = @"请于完成支付，超时订单将自动取消";
-    }else if (model.type == ZOrganizationOrderTypeForPay) {
+    }
+//    else if (model.type == ZStudentOrderTypeOrderForPay){
+//        _statelabel.text = @"待付款";
+//        _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+//        _detailLabel.text = @"请于完成支付，超时订单将自动取消";
+//    }
+    else if (model.type == ZOrganizationOrderTypeForPay) {
         _statelabel.text = @"待付款";
         _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
         _detailLabel.text = @"超时订单将自动取消";

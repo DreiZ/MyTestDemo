@@ -8,9 +8,28 @@
 
 #import <Foundation/Foundation.h>
 #import "ZBaseModel.h"
+#import "ZStudentMineModel.h"
 
 @interface ZOrderListModel : ZBaseModel
+@property (nonatomic,strong) NSString *account_image;
+@property (nonatomic,strong) NSString *courses_image_url;
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *order_amount;
+@property (nonatomic,strong) NSString *order_id;
+@property (nonatomic,strong) NSString *order_no;
+@property (nonatomic,strong) NSString *pay_amount;
+@property (nonatomic,strong) NSString *pay_type;
+@property (nonatomic,strong) NSString *statusStr;
+@property (nonatomic,strong) NSString *orderType;//课程类型 1: 普通 2：预约
+@property (nonatomic,strong) NSString *students_name;
+@property (nonatomic,strong) NSString *teacher_name;
 
+@property (nonatomic,strong) NSString *experience_duration;
+
+@property (nonatomic,strong) NSString *status;//默认0 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,assign) BOOL isStudent;
+@property (nonatomic,assign) ZStudentOrderType type;
 @end
 
 @interface ZOrderDetailModel : ZBaseModel
@@ -23,7 +42,9 @@
 @end
 
 
-@interface ZOrderListNetModel : ZBaseModel
+@interface ZOrderListNetModel :  ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOrderListModel *>*list;
+@property (nonatomic,copy) NSString *total;
 
 @end
 

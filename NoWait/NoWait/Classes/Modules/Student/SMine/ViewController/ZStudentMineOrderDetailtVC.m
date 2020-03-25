@@ -85,61 +85,61 @@
                 [self setPayDetailCell];
             }
             break;
-            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
-            {
-                [self setTopStateCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayTypeCell];
-                [self setTipsCell];
-            }
-            break;
-            case ZStudentOrderTypeOrderForReceived://待接收（预约）
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-            case ZStudentOrderTypeForRefuse://已拒绝（预约）
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
-            case ZStudentOrderTypeForRefuseComplete://已拒绝（预约）
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
+//            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+//            {
+//                [self setTopStateCell];
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayTypeCell];
+//                [self setTipsCell];
+//            }
+//            break;
+//            case ZStudentOrderTypeOrderForReceived://待接收（预约）
+//            {
+//                [self setTopHintCell];
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayDetailCell];
+//                [self setTipsCell];
+//            }
+//            break;
+//            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+//            {
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayDetailCell];
+//                [self setTipsCell];
+//            }
+//            break;
+//            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+//            {
+//                [self setTopHintCell];
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayDetailCell];
+//                [self setTipsCell];
+//            }
+//            break;
+//            case ZStudentOrderTypeForRefuse://已拒绝（预约）
+//            {
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayDetailCell];
+//            }
+//            break;
+//            case ZStudentOrderTypeForRefuseComplete://已拒绝（预约）
+//            {
+//                [self setOrderDetailCell];
+//                [self setUserCell];
+//                [self setOrderPriceCell];
+//                [self setPayDetailCell];
+//            }
+//            break;
         default:
             break;
     }

@@ -57,18 +57,18 @@
             case 4:
                 model.type = ZStudentOrderTypeCancel;
                 break;
-            case 5:
-                model.type = ZStudentOrderTypeOrderForReceived;
-                break;
-            case 6:
-                model.type = ZStudentOrderTypeOrderComplete;
-                break;
-            case 7:
-                model.type = ZStudentOrderTypeOrderRefuse;
-                break;
-            case 8:
-                model.type = ZStudentOrderTypeOrderForPay;
-                break;
+//            case 5:
+//                model.type = ZStudentOrderTypeOrderForReceived;
+//                break;
+//            case 6:
+//                model.type = ZStudentOrderTypeOrderComplete;
+//                break;
+//            case 7:
+//                model.type = ZStudentOrderTypeOrderRefuse;
+//                break;
+//            case 8:
+//                model.type = ZStudentOrderTypeOrderForPay;
+//                break;
             case 9:
                 model.type = ZStudentOrderTypeForRefuse;
                 model.state = @"待退款";
@@ -106,10 +106,10 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
-            ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
-            [self.navigationController pushViewController:evc animated:YES];
-        };
+//        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
+//            ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
+//            [self.navigationController pushViewController:evc animated:YES];
+//        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {

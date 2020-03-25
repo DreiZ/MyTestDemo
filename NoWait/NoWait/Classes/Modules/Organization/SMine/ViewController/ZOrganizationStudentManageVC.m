@@ -47,7 +47,6 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self initCellConfigArr];
     self.isEdit = NO;
 }
 
