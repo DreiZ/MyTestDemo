@@ -41,8 +41,8 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOrderListModel *model = self.dataSources[i];
-        model.isStudent = YES;
-        model.orderType = @"2";
+        model.isStudent = NO;
+        model.orderType = @"1";
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -183,7 +183,7 @@
         default:
             break;
     }
-    [self.param setObject:@"0" forKey:@"type"];
+    [self.param setObject:@"1" forKey:@"type"];
     _tt++;
 }
 

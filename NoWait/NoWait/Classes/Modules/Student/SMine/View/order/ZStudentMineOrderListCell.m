@@ -468,10 +468,20 @@
     if (model.isStudent) {
         _clubImageView.hidden = NO;
         self.clubLabel.text = model.stores_name;
+        self.userImgeView.hidden = YES;
+        [self.clubLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+            make.centerY.equalTo(self.topView.mas_centerY);
+        }];
     }else{
         _clubImageView.hidden = YES;
+        self.userImgeView.hidden = NO;
         [self.userImgeView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.account_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
         self.clubLabel.text = model.students_name;
+        [self.clubLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.userImgeView.mas_right).offset(CGFloatIn750(20));
+            make.centerY.equalTo(self.topView.mas_centerY);
+        }];
     }
     [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.courses_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     
@@ -552,7 +562,6 @@
             self.evaBtn.hidden = NO;
             self.delBtn.hidden = NO;
             
-            
             [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
                 make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
@@ -569,109 +578,16 @@
         }
             break;
         case ZStudentOrderTypeHadEva:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
-            
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
         case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeOutTime:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
-            
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
         case ZOrganizationOrderTypeCancel:
         case ZStudentOrderTypeCancel:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-            
-            
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
-        case ZStudentOrderTypeOrderForReceived:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-             make.left.right.equalTo(self.contView);
-             make.top.equalTo(self.topView.mas_bottom);
-             make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-            }];
-        }
-            break;
         case ZOrganizationOrderTypeOrderOutTime:
         case ZOrganizationOrderTypeOutTime:
         case ZStudentOrderTypeOrderComplete:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
 
-
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.bottom.right.equalTo(self.contView);
                 make.height.mas_equalTo(CGFloatIn750(136));
@@ -691,18 +607,6 @@
                 make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-
-        }
-            break;
-        case ZStudentOrderTypeOrderRefuse:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-             make.left.right.equalTo(self.contView);
-             make.top.equalTo(self.topView.mas_bottom);
-             make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
             }];
 
         }
@@ -734,17 +638,7 @@
             }];
         }
             break;
-        case ZOrganizationOrderTypeOrderRefuse:
-        {
-            self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-             make.left.right.equalTo(self.contView);
-             make.top.equalTo(self.topView.mas_bottom);
-             make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-            }];
-        }
-            break;
+
 //        case ZOrganizationOrderTypeForRefuse:
 //           {
 //               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -771,17 +665,6 @@
 //               }];
 //           }
 //               break;
-            case ZOrganizationOrderTypeForRefuseComplete:
-            {
-                self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-                
-                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                 make.left.right.equalTo(self.contView);
-                 make.top.equalTo(self.topView.mas_bottom);
-                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                }];
-            }
-                break;
 //        case ZStudentOrderTypeOutTime:
 //        {
 //            self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
