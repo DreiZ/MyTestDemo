@@ -39,6 +39,7 @@
 		B223BCD523C7043F00AC0158 /* CWStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B223BCCF23C7043F00AC0158 /* CWStarRateView.m */; };
 		B223BCD623C7043F00AC0158 /* icon_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B223BCD123C7043F00AC0158 /* icon_star@2x.png */; };
 		B223BCD723C7043F00AC0158 /* icon_star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B223BCD223C7043F00AC0158 /* icon_star@3x.png */; };
+		B2257E74242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2257E73242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m */; };
 		B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */; };
 		B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8A2408ED8700E299AC /* ZMineTeacherMenuCell.m */; };
 		B2296A8E2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8D2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m */; };
@@ -637,6 +638,8 @@
 		B223BCD023C7043F00AC0158 /* CWStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWStarRateView.h; sourceTree = "<group>"; };
 		B223BCD123C7043F00AC0158 /* icon_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_star@2x.png"; sourceTree = "<group>"; };
 		B223BCD223C7043F00AC0158 /* icon_star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_star@3x.png"; sourceTree = "<group>"; };
+		B2257E72242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderLessonEvaCell.h; sourceTree = "<group>"; };
+		B2257E73242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineOrderLessonEvaCell.m; sourceTree = "<group>"; };
 		B2296A852408EC3A00E299AC /* ZTeacherMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherMineVC.h; sourceTree = "<group>"; };
 		B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherMineVC.m; sourceTree = "<group>"; };
 		B2296A892408ED8700E299AC /* ZMineTeacherMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineTeacherMenuCell.h; sourceTree = "<group>"; };
@@ -1967,6 +1970,8 @@
 				B2F70BE024120390008C693C /* ZStudentMineOrderTopStateCell.m */,
 				B2F70BE2241203DF008C693C /* ZStudentMineOrderDetailCell.h */,
 				B2F70BE3241203DF008C693C /* ZStudentMineOrderDetailCell.m */,
+				B2257E72242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.h */,
+				B2257E73242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m */,
 				B2F70BE524121B7C008C693C /* ZStudentMineOrderDetailSubDesCell.h */,
 				B2F70BE624121B7C008C693C /* ZStudentMineOrderDetailSubDesCell.m */,
 				B2DB9B4D241CC15400340464 /* ZMineOrderDetailCell.h */,
@@ -4252,6 +4257,7 @@
 				B279D06A23C99EA900391A33 /* ZStudentLessonOrderOrganizationCell.m in Sources */,
 				B2A77F7B23BDE9DB00407BF0 /* XYTransition.m in Sources */,
 				B2A7818423C57D8500407BF0 /* ZStudentOrganizationDetailDesCell.m in Sources */,
+				B2257E74242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m in Sources */,
 				B28D90FA240752430021E05A /* ZOrganizationAccountSchoolListCell.m in Sources */,
 				B29795A324260598004490F5 /* ZStudentLessonTeacherSelectedCell.m in Sources */,
 				B2F7D37423CDE54A00F7A17D /* ZStudentMineOrderListVC.m in Sources */,

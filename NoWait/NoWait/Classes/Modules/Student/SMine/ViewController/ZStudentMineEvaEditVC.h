@@ -7,11 +7,12 @@
 //
 
 #import "ZTableViewViewController.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOrderModel.h"
 
 @interface ZStudentMineEvaEditVC : ZTableViewViewController
+@property (nonatomic,strong) ZOrderListModel *listModel;
+@property (nonatomic,strong) ZOrderDetailModel *detailModel;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

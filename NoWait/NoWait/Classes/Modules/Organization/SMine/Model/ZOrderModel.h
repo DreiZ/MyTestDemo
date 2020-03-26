@@ -96,6 +96,18 @@
 
 @end
 
+
+@interface ZOrderEvaModel : ZBaseModel
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *order_id;
+@property (nonatomic,strong) NSString *stores_comment_score;
+@property (nonatomic,strong) NSString *stores_comment_desc;
+@property (nonatomic,strong) NSString *teahcer_comment_score;
+@property (nonatomic,strong) NSString *teacher_comment_desc;
+@property (nonatomic,strong) NSString *courses_comment_score;
+@property (nonatomic,strong) NSString *courses_comment_desc;
+@end
+
 @interface ZOrderModel : ZBaseModel
 
 @end

@@ -8,10 +8,9 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMineStudentEvaEditStarCell : ZBaseCell
-
+@property (nonatomic,strong) void (^handleBlock)(CGFloat);
 @end
 
-NS_ASSUME_NONNULL_END
+

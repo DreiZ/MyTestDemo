@@ -22,6 +22,9 @@
 
 + (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)evaOrder:(NSDictionary *)params
+   completeBlock:(resultDataBlock)completeBlock;
+
 
 #pragma mark - order handle
 + (void)cancleOrder:(NSDictionary *)params

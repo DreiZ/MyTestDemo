@@ -283,6 +283,10 @@
 
 @end
 
+@implementation ZOrderEvaModel
+
+@end
+
 @implementation ZOrderModel
 
 @end

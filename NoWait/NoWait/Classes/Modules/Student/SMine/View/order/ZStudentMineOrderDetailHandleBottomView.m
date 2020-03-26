@@ -132,7 +132,7 @@
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_cancleBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_cancleBtn bk_whenTapped:^{
-            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
+            [ZAlertView setAlertWithTitle:@"取消订单" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     if (weakSelf.handleBlock) {
                         weakSelf.handleBlock(1);
@@ -289,7 +289,8 @@
         }];
         
         if (model.type == ZStudentOrderTypeOrderForReceived
-            || model.type == ZStudentOrderTypeForRefuseComplete) {
+            || model.type == ZStudentOrderTypeForRefuseComplete
+            || model.type == ZStudentOrderTypeHadEva) {
             [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.right.left.equalTo(self.bottomView);
                 make.height.mas_equalTo(CGFloatIn750(88));
@@ -348,7 +349,6 @@
         case ZStudentOrderTypeHadPay:
         {
             self.evaBtn.hidden = NO;
-            self.delBtn.hidden = NO;
             
             [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
@@ -356,20 +356,11 @@
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(116));
             }];
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.evaBtn.mas_left).offset(CGFloatIn750(-20));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
         }
             break;
-        case ZStudentOrderTypeHadEva:
         case ZStudentOrderTypeOutTime:
         case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeCancel:
-        case ZStudentOrderTypeOrderComplete:
         case ZOrganizationOrderTypeOutTime:
         case ZOrganizationOrderTypeCancel:
         {

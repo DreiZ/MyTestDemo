@@ -12,5 +12,9 @@
 @interface ZStudentLessonOrderMoreInputCell : ZBaseCell
 @property (nonatomic,assign) ZFormatterType formatterType;
 @property (nonatomic,strong) NSString *isBackColor;
+@property (nonatomic,assign) NSInteger max;
+@property (nonatomic,strong) NSString *hint;
+
+@property (nonatomic,strong) void (^textChangeBlock)(NSString *);
 @end
 

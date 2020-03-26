@@ -28,29 +28,29 @@
 
 -(void)setupView {
     [super setupView];
-    
-    [self.contentView addSubview:self.evaTitleLabel];
-    [self.contentView addSubview:self.evaDesLabel];
+//
+//    [self.contentView addSubview:self.evaTitleLabel];
+//    [self.contentView addSubview:self.evaDesLabel];
     [self.contentView addSubview:self.crView];
-    
-    [self.evaTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(36));
-        make.centerY.equalTo(self.contentView.mas_centerY);
-    }];
+//
+//    [self.evaTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(36));
+//        make.centerY.equalTo(self.contentView.mas_centerY);
+//    }];
     
     [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(30));
-        make.left.equalTo(self.evaTitleLabel.mas_right).offset(CGFloatIn750(34));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.width.offset(CGFloatIn750(230.));
         make.centerY.equalTo(self.mas_centerY);
     }];
     
-   [self.evaDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.left.equalTo(self.crView.mas_right).offset(CGFloatIn750(34));
-       make.centerY.equalTo(self.contentView.mas_centerY);
-   }];
-
-    
+//   [self.evaDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//       make.left.equalTo(self.crView.mas_right).offset(CGFloatIn750(34));
+//       make.centerY.equalTo(self.contentView.mas_centerY);
+//   }];
+//
+//
 }
 
 
@@ -61,8 +61,9 @@
     if (!_crView) {
         _crView = [[CWStarRateView alloc] init];
         _crView.hasAnimation = YES;
-        _crView.allowIncompleteStar = YES;
+        _crView.allowIncompleteStar = NO;
         _crView.allowUserInteraction = YES;
+        _crView.delegate = self;
     }
     return _crView;
 }
@@ -95,12 +96,15 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(40);
+    return CGFloatIn750(76);
 }
 
 #pragma mark -star delegate
 -(void)starRateView:(CWStarRateView *)starRateView scroePercentDidChange:(CGFloat)newScorePercent {
     NSLog(@"------------  %f",newScorePercent);
+    if (self.handleBlock) {
+        self.handleBlock(newScorePercent);
+    }
 }
 @end
 

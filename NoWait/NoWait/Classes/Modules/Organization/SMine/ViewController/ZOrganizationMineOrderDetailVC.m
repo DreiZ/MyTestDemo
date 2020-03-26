@@ -22,6 +22,7 @@
 #import "ZStudentOrderPayVC.h"
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
+#import "ZStudentMineEvaEditVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -284,9 +285,11 @@
                 ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
                 [weakSelf.navigationController pushViewController:pvc animated:YES];
             }else if (type == ZLessonOrderHandleTypeEva) {
-                
+                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+                evc.detailModel = weakSelf.detailModel;
+                [weakSelf.navigationController pushViewController:evc animated:YES];
             }else if (type == ZLessonOrderHandleTypeTel) {
-                
+                [ZPublicTool callTel:weakSelf.detailModel.account_phone];
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:type data:weakSelf.detailModel completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {

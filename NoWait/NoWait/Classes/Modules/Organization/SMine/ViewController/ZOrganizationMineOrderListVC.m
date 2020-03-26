@@ -12,6 +12,7 @@
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentOrderPayVC.h"
+#import "ZStudentMineEvaEditVC.h"
 
 @interface ZOrganizationMineOrderListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -78,12 +79,14 @@
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
             if (index == ZLessonOrderHandleTypePay) {
-                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
-                [weakSelf.navigationController pushViewController:pvc animated:YES];
+                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                [self.navigationController pushViewController:evc animated:YES];
+//                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
+//                [weakSelf.navigationController pushViewController:pvc animated:YES];
             }else if (index == ZLessonOrderHandleTypeEva) {
-                
-            }else if (index == ZLessonOrderHandleTypeTel) {
-                
+                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+                evc.listModel = model;
+                [self.navigationController pushViewController:evc animated:YES];
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {

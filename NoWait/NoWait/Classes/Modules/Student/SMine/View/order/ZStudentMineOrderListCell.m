@@ -278,7 +278,6 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"serverTopbg"];
         _leftImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_leftImageView, CGFloatIn750(12));
     }
@@ -385,7 +384,7 @@
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_cancleBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_cancleBtn bk_whenTapped:^{
-            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
+            [ZAlertView setAlertWithTitle:@"取消订单" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     if (weakSelf.handleBlock) {
                         weakSelf.handleBlock(1,self.model);
@@ -577,7 +576,6 @@
             
             self.bottomView.hidden = NO;
             self.evaBtn.hidden = NO;
-            self.delBtn.hidden = NO;
             
             [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
@@ -586,22 +584,14 @@
                 make.width.mas_equalTo(CGFloatIn750(116));
             }];
             
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.evaBtn.mas_left).offset(CGFloatIn750(-20));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
         }
             break;
-        case ZStudentOrderTypeHadEva:
         case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeOutTime:
         case ZOrganizationOrderTypeCancel:
         case ZStudentOrderTypeCancel:
         case ZOrganizationOrderTypeOrderOutTime:
         case ZOrganizationOrderTypeOutTime:
-        case ZStudentOrderTypeOrderComplete:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
 
@@ -767,11 +757,9 @@
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
         if (listModel.type == ZStudentOrderTypeForPay
             || listModel.type == ZStudentOrderTypeHadPay
-            || listModel.type == ZStudentOrderTypeHadEva
             || listModel.type == ZStudentOrderTypeOutTime
             || listModel.type == ZStudentOrderTypeCancel
             || listModel.type == ZStudentOrderTypeOrderForPay
-            || listModel.type == ZStudentOrderTypeOrderComplete
             || listModel.type == ZStudentOrderTypeOrderOutTime
             
             || listModel.type == ZOrganizationOrderTypeOutTime
