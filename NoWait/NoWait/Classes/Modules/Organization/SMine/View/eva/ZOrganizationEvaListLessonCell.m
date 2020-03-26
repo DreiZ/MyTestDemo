@@ -79,7 +79,7 @@
     if (!_lessonImageVIew) {
         _lessonImageVIew = [[UIImageView alloc] init];
         _lessonImageVIew.contentMode = UIViewContentModeScaleAspectFill;
-        [_lessonImageVIew tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd0dgzgp1bj30b40gogmp.jpg"]];
+        
         ViewRadius(_lessonImageVIew, CGFloatIn750(12));
     }
     
@@ -90,7 +90,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _priceLabel.text = @"￥43";
+        
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         [_priceLabel setFont:[UIFont boldFontContent]];
@@ -103,7 +103,7 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonLabel.text = @"暑期瑜伽班";
+        
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont boldFontContent]];
@@ -116,7 +116,7 @@
     if (!_cocahLabel) {
         _cocahLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _cocahLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _cocahLabel.text = @"财源健身房-钟教练";
+        
         _cocahLabel.numberOfLines = 1;
         _cocahLabel.textAlignment = NSTextAlignmentLeft;
         [_cocahLabel setFont:[UIFont fontSmall]];
@@ -124,6 +124,13 @@
     return _cocahLabel;
 }
 
+- (void)setModel:(ZOrderEvaListModel *)model {
+    _model = model;
+    _cocahLabel.text = model.teacher_name;
+    _lessonLabel.text = model.stores_courses_name;
+    _priceLabel.text = [NSString stringWithFormat:@"%@",model.stores_courses_name];
+    [_lessonImageVIew tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.stores_courses_image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(128);

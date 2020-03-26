@@ -15,11 +15,18 @@
 #import "ZOrganizationEvaListReEvaCell.h"
 
 #import "ZOrganizationEvaListCell.h"
+#import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationMineEvaDetailVC ()
+@property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
 
 @end
 @implementation ZOrganizationMineEvaDetailVC
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,32 +41,32 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
+    if (!self.detailModel) {
+        return;
+    }
     [self lessonEva];
     [self teacherEva];
     [self organizationEva];
     
     {
-        ZCellConfig *topSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(120) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(120))];
         
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
         
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:orderCellConfig];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
     }
 }
 
 - (void)lessonEva {
     {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"课程评价",@"star":SafeStr(self.detailModel.courses_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
      {
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = @"山东矿机愤怒地说给你哒哒哒哒哒哒多多多多多多多多多多多多多多多多多多多多多多军军军军军军军军军所所死阿嘎我和安慰嘿哈我IE回日为hi偶然华为噢华融我问候人";
+         model.rightTitle = self.detailModel.courses_comment_desc;
          model.isHiddenLine = YES;
          model.cellWidth = KScreenWidth - CGFloatIn750(60);
          model.singleCellHeight = CGFloatIn750(60);
@@ -86,19 +93,18 @@
          [self.cellConfigArr addObject:orderCellConfig];
      }
     
-    ZCellConfig *topSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [self.cellConfigArr addObject:topSpaceCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
 }
 
 
 - (void)teacherEva {
     {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"教师评价",@"star":SafeStr(self.detailModel.teacher_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
      {
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = @"山东矿机愤怒地说给你哒哒哒哒哒哒多多多多多多多多多多多多多多多多多多多多多多军军军军军军军军军所所死阿嘎我和安慰嘿哈我IE回日为hi偶然华为噢华融我问候人";
+         model.rightTitle = self.detailModel.teacher_comment_desc;
          model.isHiddenLine = YES;
          model.cellWidth = KScreenWidth - CGFloatIn750(60);
          model.singleCellHeight = CGFloatIn750(60);
@@ -115,19 +121,18 @@
          [self.cellConfigArr  addObject:menuCellConfig];
      }
     
-    ZCellConfig *topSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(80) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [self.cellConfigArr addObject:topSpaceCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(80)];
 }
 
 
 - (void)organizationEva {
     {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"校区评价",@"star":SafeStr(self.detailModel.stores_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
      {
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = @"山东矿机愤怒地说给你哒哒哒哒哒哒多多多多多多多多多多多多多多多多多多多多多多军军军军军军军军军所所死阿嘎我和安慰嘿哈我IE回日为hi偶然华为噢华融我问候人";
+         model.rightTitle = self.detailModel.stores_comment_desc;
          model.isHiddenLine = YES;
          model.cellWidth = KScreenWidth - CGFloatIn750(60);
          model.singleCellHeight = CGFloatIn750(60);
@@ -185,6 +190,21 @@
 ////            [self.navigationController pushViewController:evc animated:YES];
 //        };
     }
+}
+
+
+#pragma mark - refresha
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(self.model.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            weakSelf.detailModel = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
 }
 @end
 

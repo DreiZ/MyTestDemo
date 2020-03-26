@@ -66,6 +66,7 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < 2; i++) {
             ZOrganizationMineEvaListVC *evc = [[ZOrganizationMineEvaListVC alloc] init];
+            evc.replyType = i;
             [_vcArr addObject:evc];
         }
     }

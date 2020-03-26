@@ -133,13 +133,13 @@
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    ZStudentOrderEvaModel *evaModel = sender;
+    ZOrderEvaListModel *evaModel = sender;
     
     CGFloat cellHeight = 0;
     cellHeight += [ZOrganizationEvaListUserInfoCell z_getCellHeight:nil];
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = evaModel.coachEva;
+        model.rightTitle = evaModel.des;
         model.isHiddenLine = YES;
         model.cellWidth = KScreenWidth - CGFloatIn750(120);
         model.singleCellHeight = CGFloatIn750(60);
@@ -153,13 +153,13 @@
     cellHeight += [ZOrganizationEvaListLessonCell z_getCellHeight:nil];
 //    cellHeight += [ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil];
 //    cellHeight += [ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil];
-    cellHeight += [ZOrganizationEvaListReEvaCell z_getCellHeight:evaModel.coachEva] + CGFloatIn750(40);
+    cellHeight += [ZOrganizationEvaListReEvaCell z_getCellHeight:evaModel.des] + CGFloatIn750(40);
 
     
     return  cellHeight+= CGFloatIn750(80 + 30);
 }
 
-- (void)setModel:(ZStudentOrderEvaModel *)model {
+- (void)setModel:(ZOrderEvaListModel *)model {
     _model = model;
     
     [self initCellConfigArr];
@@ -170,19 +170,17 @@
     [self.cellConfigArr removeAllObjects];
     
     {
-        ZCellConfig *topSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         
-        ZCellConfig *top1CellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListUserInfoCell className] title:[ZOrganizationEvaListUserInfoCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListUserInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *top1CellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListUserInfoCell className] title:[ZOrganizationEvaListUserInfoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListUserInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
         [self.cellConfigArr addObject:top1CellConfig];
         
-        ZCellConfig *bottomSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:bottomSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = self.model.coachEva;
+        model.rightTitle = self.model.des;
         model.isHiddenLine = YES;
         model.cellWidth = KScreenWidth - CGFloatIn750(60);
         model.singleCellHeight = CGFloatIn750(60);
@@ -197,19 +195,23 @@
         
         [self.cellConfigArr  addObject:menuCellConfig];
         
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
         [self.cellConfigArr addObject:orderCellConfig];
     }
 //    {
 //        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaTextViewCell className] title:[ZOrganizationEvaListEvaTextViewCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
 //        [self.cellConfigArr addObject:orderCellConfig];
 //    }
+    if ([self.model.is_reply intValue] == 1) {
+        
+    }else{
+        
+    }
     {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:_model.coachEva] cellType:ZCellTypeClass dataModel:_model.coachEva];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:_model.des] cellType:ZCellTypeClass dataModel:_model.des];
         [self.cellConfigArr addObject:orderCellConfig];
         
     }

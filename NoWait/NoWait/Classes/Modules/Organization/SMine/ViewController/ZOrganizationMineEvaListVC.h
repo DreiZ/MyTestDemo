@@ -10,6 +10,6 @@
 
 
 @interface ZOrganizationMineEvaListVC : ZTableViewViewController
-
+@property (nonatomic,assign) NSInteger replyType;
 @end
 

@@ -162,6 +162,25 @@
     }];
 }
 
++ (void)getEvaDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_get_comment_info params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZOrderEvaDetailModel *model = [ZOrderEvaDetailModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else {
+                completeBlock(NO, dataModel.message);
+                return ;
+            }
+        }else {
+            completeBlock(NO, dataModel.message);
+            return ;
+        }
+    }];
+}
+
 
 + (void)handleOrderWithIndex:(NSInteger)index data:(id)data completeBlock:(resultDataBlock)completeBlock {
     NSMutableDictionary *params = @{}.mutableCopy;

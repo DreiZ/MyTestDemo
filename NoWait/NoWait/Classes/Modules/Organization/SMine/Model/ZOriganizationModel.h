@@ -61,7 +61,7 @@
 
 
 @property (nonatomic,strong) NSString *account_id;
-@property (nonatomic,strong) NSDictionary *classes_date;
+@property (nonatomic,strong) NSString *classes_date;
 @property (nonatomic,strong) NSMutableArray *classes_dateArr;
 @property (nonatomic,strong) NSString *courses_id;
 @property (nonatomic,strong) NSString *create_at;

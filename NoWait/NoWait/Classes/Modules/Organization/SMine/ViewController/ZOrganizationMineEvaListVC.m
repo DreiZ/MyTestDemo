@@ -9,8 +9,10 @@
 #import "ZOrganizationMineEvaListVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZOrganizationEvaListCell.h"
+#import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationMineEvaListVC ()
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 @implementation ZOrganizationMineEvaListVC
@@ -21,35 +23,17 @@
     [self setTableViewGaryBack];
 //    [self setNavigation];
     [self initCellConfigArr];
+    [self refreshData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
-    evaModel.orderImage = @"lessonOrder";
-    evaModel.orderNum = @"23042039523452";
-    evaModel.lessonTitle = @"仰泳";
-    evaModel.lessonTime = @"2019-10-26";
-    evaModel.lessonCoach = @"高圆圆";
-    evaModel.lessonOrg = @"上飞天俱乐部";
-    evaModel.coachStar = @"3.4";
-    evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
-    evaModel.coachEvaImages = @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];
-
-    evaModel.orgStar = @"4.5";
-    evaModel.orgEva = @"反反复复付受到法律和";
-    evaModel.orgEvaImages =  @[@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2",@"studentListItem2"];;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:evaCellConfig];
+    }
     
-    
-    ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
-    [self.cellConfigArr addObject:evaCellConfig];
-    
-    [self.cellConfigArr addObject:evaCellConfig];
-    
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
 }
 
 
@@ -67,13 +51,19 @@
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
 }
-
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
+}
 #pragma mark lazy loading...
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]){
         ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
         enteryCell.evaBlock = ^(NSInteger index) {
             ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
+            dvc.model = cellConfig.dataModel;
             [self.navigationController pushViewController:dvc animated:YES];
         };
     }
@@ -82,7 +72,85 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]) {
         ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
+        dvc.model = self.dataSources[indexPath.row];
         [self.navigationController pushViewController:dvc animated:YES];
     }
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getMerchantsCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getMerchantsCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.replyType] forKey:@"is_reply"];
 }
 @end

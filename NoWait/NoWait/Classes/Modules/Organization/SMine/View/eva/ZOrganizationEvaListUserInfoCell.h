@@ -7,9 +7,9 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZStudentMineModel.h"
+#import "ZOrderModel.h"
 
 @interface ZOrganizationEvaListUserInfoCell : ZBaseCell
-@property (nonatomic,strong) ZStudentOrderEvaModel *model;
+@property (nonatomic,strong) ZOrderEvaListModel *model;
 @end
 

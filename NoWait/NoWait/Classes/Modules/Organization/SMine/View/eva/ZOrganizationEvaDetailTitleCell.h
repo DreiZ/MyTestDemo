@@ -8,8 +8,8 @@
 
 #import "ZBaseCell.h"
 
-
 @interface ZOrganizationEvaDetailTitleCell : ZBaseCell
+@property (nonatomic,strong) NSDictionary *data;
 
 @end
 

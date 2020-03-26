@@ -133,14 +133,22 @@
 
 
 @interface ZOrderEvaDetailModel : ZBaseModel
-@property (nonatomic,strong) NSString *stores_id;
-@property (nonatomic,strong) NSString *order_id;
-@property (nonatomic,strong) NSString *stores_comment_score;
-@property (nonatomic,strong) NSString *stores_comment_desc;
-@property (nonatomic,strong) NSString *teahcer_comment_score;
-@property (nonatomic,strong) NSString *teacher_comment_desc;
-@property (nonatomic,strong) NSString *courses_comment_score;
+@property (nonatomic,strong) NSString *course_id;
 @property (nonatomic,strong) NSString *courses_comment_desc;
+@property (nonatomic,strong) NSString *courses_comment_score;
+@property (nonatomic,strong) NSString *courses_image_url;
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *order_amount;
+@property (nonatomic,strong) NSString *order_id;
+@property (nonatomic,strong) NSString *pay_amount;
+@property (nonatomic,strong) NSString *stores_comment_desc;
+@property (nonatomic,strong) NSString *stores_comment_score;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *teacher_comment_desc;
+@property (nonatomic,strong) NSString *teacher_comment_score;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *teacher_name;
 @end
 
 @interface ZOrderEvaListNetModel : ZBaseNetworkBackDataModel

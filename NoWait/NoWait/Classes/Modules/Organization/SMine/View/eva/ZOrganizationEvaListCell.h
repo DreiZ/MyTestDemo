@@ -7,10 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZStudentMineModel.h"
+#import "ZOrderModel.h"
 
 @interface ZOrganizationEvaListCell : ZBaseCell
-@property (nonatomic,strong) ZStudentOrderEvaModel *model;
+@property (nonatomic,strong) ZOrderEvaListModel *model;
 @property (nonatomic,strong) void (^evaBlock)(NSInteger);
 @end
 

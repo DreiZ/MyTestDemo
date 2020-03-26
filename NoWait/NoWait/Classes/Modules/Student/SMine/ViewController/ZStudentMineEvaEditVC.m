@@ -196,8 +196,6 @@
 }
 
 - (void)addEva {
-    NSMutableDictionary *param = @{}.mutableCopy;
-
     NSMutableDictionary *params = @{}.mutableCopy;
     if (self.detailModel) {
         [params setObject:self.detailModel.stores_id forKey:@"stores_id"];
@@ -208,7 +206,7 @@
     }
     
     [params setObject:self.evaModel.stores_comment_score forKey:@"stores_comment_score"];
-    [params setObject:self.evaModel.teahcer_comment_score forKey:@"teahcer_comment_score"];
+    [params setObject:self.evaModel.teahcer_comment_score forKey:@"teacher_comment_score"];
     [params setObject:self.evaModel.courses_comment_score forKey:@"courses_comment_score"];
     
     if (self.evaModel.stores_comment_desc) {
@@ -221,7 +219,7 @@
         [params setObject:self.evaModel.courses_comment_desc forKey:@"courses_comment_desc"];
     }
     
-    [ZOriganizationOrderViewModel evaOrder:param completeBlock:^(BOOL isSuccess, id data) {
+    [ZOriganizationOrderViewModel evaOrder:params completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
             [self.navigationController popViewControllerAnimated:YES];

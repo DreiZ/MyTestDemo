@@ -7,11 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZOrderModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationEvaListLessonCell : ZBaseCell
 @property (nonatomic,strong) UIView *contView;
+@property (nonatomic,strong) ZOrderEvaListModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

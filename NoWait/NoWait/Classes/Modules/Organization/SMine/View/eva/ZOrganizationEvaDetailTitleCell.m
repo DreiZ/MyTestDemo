@@ -68,6 +68,12 @@
     return _nameLabel;
 }
 
+- (void)setData:(NSDictionary *)data {
+    if (ValidDict(data)) {
+        _nameLabel.text = data[@"title"];
+        _crView.scorePercent = [data[@"star"] doubleValue]/10.0f * 2;
+    }
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(90);

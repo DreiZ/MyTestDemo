@@ -75,7 +75,6 @@
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
         ViewRadius(_userImageView, CGFloatIn750(20));
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gd0eilxhiyj30u0140wun.jpg"]];
     }
     return _userImageView;
 }
@@ -84,7 +83,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _nameLabel.text = @"陈柏屹";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontMin]];
@@ -97,7 +96,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _timeLabel.text = @"2012-12-21";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [_timeLabel setFont:[UIFont fontMin]];
@@ -105,6 +104,12 @@
     return _timeLabel;
 }
 
+- (void)setModel:(ZOrderEvaListModel *)model {
+    _model = model;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.stores_courses_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _timeLabel.text = [model.create_at timeStringWithFormatter:@"yyyy-MM-dd"];
+    _nameLabel.text = model.stores_name;
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(40);

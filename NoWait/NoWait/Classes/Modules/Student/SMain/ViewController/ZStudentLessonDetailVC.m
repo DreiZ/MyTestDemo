@@ -133,12 +133,12 @@
                 NSMutableDictionary *params = @{}.mutableCopy;
                 [params setObject:weakSelf.addModel.stores_id forKey:@"stores_id"];
                 [params setObject:@"7" forKey:@"teacher_id"];
-//                [params setObject:@"5" forKey:@"coupons_id"];
+//                [params setObject:@"23" forKey:@"coupons_id"];
                 [params setObject:weakSelf.addModel.lessonID forKey:@"course_id"];
 //                [params setObject:@"1" forKey:@"pay_type"];
 //                [params setObject:@"1" forKey:@"pay_amount"];
                 [params setObject:name[weakSelf.k] forKey:@"real_name"];
-                [params setObject:@"18811953553" forKey:@"phone"];
+                [params setObject:@"18762288553" forKey:@"phone"];
                 [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {
                         ZOrderAddNetModel *model = data;
