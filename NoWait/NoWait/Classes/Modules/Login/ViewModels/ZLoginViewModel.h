@@ -91,4 +91,9 @@ typedef void (^codeResultBlock)(BOOL isSuccess, id message);
 /// @param block 返回信息
 - (void)updatePwdWithParams:(NSDictionary *)params
                       block:(loginUserResultBlock)block;
+
+
+/// 切换账号
+/// @param block 返回信息
++ (void)getUserRolesWithBlock:(codeResultBlock)block;
 @end

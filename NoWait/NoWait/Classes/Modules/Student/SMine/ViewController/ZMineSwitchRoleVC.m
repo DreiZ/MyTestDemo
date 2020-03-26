@@ -10,6 +10,7 @@
 #import "ZStudentMineSettingSwitchUserCell.h"
 
 #import "ZStudentMineSwitchAccountLoginVC.h"
+#import "ZLoginViewModel.h"
 
 @interface ZMineSwitchRoleVC ()
 @property (nonatomic,strong) UIView *navView;
@@ -42,14 +43,13 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    [self refreshData];
 }
 
 #pragma mark - set data
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    NSArray *userList = [[ZUserHelper sharedHelper] userList];
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -65,27 +65,23 @@
         [self.cellConfigArr addObject:titleCellConfig];
     }
     
-    for (int i = 0; i < userList.count; i++) {
-        if ([userList[i] isKindOfClass:[ZUser class]]) {
-            ZUser *user = userList[i];
-            user.avatar = @"http://ww1.sinaimg.cn/mw600/bdd98093gy1gbp87csne1j20go0gotbs.jpg";
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.cellTitle = @"user";
-            if ([user.userID isEqualToString:[ZUserHelper sharedHelper].user_id]) {
-                model.isSelected = YES;
-            }else{
-                model.isSelected = NO;
-            }
-            model.data = user;
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZUserRolesListModel *user = self.dataSources[i];
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.cellTitle = @"user";
+        if ([user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
+            model.isSelected = YES;
+        }else{
+            model.isSelected = NO;
         }
+        model.data = self.dataSources[i];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
     }
     
     if (self.cellConfigArr.count < 2) {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
         
         
         
@@ -174,4 +170,19 @@
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
+
+
+#pragma mark - refresha
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZLoginViewModel getUserRolesWithBlock:^(BOOL isSuccess, ZUserRolesListNetModel *data) {
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
 @end

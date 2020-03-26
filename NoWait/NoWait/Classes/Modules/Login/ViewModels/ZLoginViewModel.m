@@ -151,4 +151,21 @@
     }];
 }
 
++ (void)getUserRolesWithBlock:(codeResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_get_account_list params:@{@"phone":SafeStr([ZUserHelper sharedHelper].user.phone)} completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            ZUserRolesListNetModel *listModel = [ZUserRolesListNetModel mj_objectWithKeyValues:dataModel.data];
+            block(YES,listModel);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
 @end

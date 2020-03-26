@@ -8,6 +8,7 @@
 
 #import "ZStudentMineSettingSwitchUserCell.h"
 #import "ZUser.h"
+#import "ZLoginModel.h"
 
 @interface ZStudentMineSettingSwitchUserCell ()
 @property (nonatomic,strong) UIImageView *rightImageView;
@@ -125,9 +126,20 @@
 
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
-    ZUser *user = model.data;
+    ZUserRolesListModel  *user = model.data;
+    NSString *typestr = @"";
+//    1：学员 2：教师 6：校区 8：机构
+    if ([user.type intValue] == 1) {
+        typestr = @"学员端";
+    }else if ([user.type intValue] == 2) {
+        typestr = @"教师端";
+    }else if ([user.type intValue] == 6) {
+        typestr = @"校区端";
+    }else if ([user.type intValue] == 8) {
+        typestr = @"机构端";
+    }
     _leftTitleLabel.text = user.phone;
-    _rightTitleLabel.text = @"机构端";
+    _rightTitleLabel.text = typestr;
     _rightImageView.hidden = !model.isSelected;
 //    _rightTitleLabel.text = user.type;
     [_leftImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcc5zbllixj30u0190hbo.jpg"] placeholderImage:[UIImage imageNamed:@"headImage"]];

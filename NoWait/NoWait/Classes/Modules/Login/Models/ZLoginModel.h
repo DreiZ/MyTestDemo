@@ -43,3 +43,15 @@
 @property (nonatomic,strong) NSString *pre_login_type;
 @end
 
+
+
+@interface ZUserRolesListModel : NSObject
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *has_pwd;
+@end
+
+
+@interface ZUserRolesListNetModel : ZBaseNetworkBackModel
+@property (nonatomic,strong) NSArray <ZUserRolesListModel *>*list;
+@end

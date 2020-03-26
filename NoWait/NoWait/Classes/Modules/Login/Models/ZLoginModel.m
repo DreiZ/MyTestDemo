@@ -26,3 +26,16 @@
     return @{@"userID" : @"id"};
 }
 @end
+
+
+@implementation ZUserRolesListModel
+
+@end
+
+
+@implementation ZUserRolesListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"list" : @"ZUserRolesListModel"
+             };
+}
+@end
