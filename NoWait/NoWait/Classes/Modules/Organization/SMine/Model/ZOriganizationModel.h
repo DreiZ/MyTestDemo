@@ -56,6 +56,9 @@
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *stores_courses_name;
+@property (nonatomic,strong) NSString *course_number;
+@property (nonatomic,strong) NSString *limit_nums;
+
 
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSDictionary *classes_date;

@@ -7,7 +7,7 @@
 //
 
 #import "ZOrganizationClassDetailStudentListAddListVC.h"
-#import "ZOriganizationStudentListCell.h"
+#import "ZOrganizationTeachingScheduleNoCell.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOrganizationStudentDetailVC.h"
 
@@ -42,7 +42,7 @@
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {
         model.isEdit = YES;
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
     }
 }
@@ -106,14 +106,20 @@
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOriganizationStudentListCell"]){
-        ZOriganizationStudentListCell *enteryCell = (ZOriganizationStudentListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
-            if (index == 0) {
-               [weakSelf selectData:indexPath.row];
-            }else if (index == 1){
-//                weakSelf.isEdit = YES;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]){
+        ZOrganizationTeachingScheduleNoCell *enteryCell = (ZOrganizationTeachingScheduleNoCell *)cell;
+        enteryCell.handleBlock = ^BOOL(NSInteger index) {
+            NSInteger allcount = [weakSelf getSelectedData].count;
+            if (allcount < [weakSelf.model.limit_nums intValue]) {
+                if (index == 0) {
+                    [weakSelf selectData:indexPath.row];
+                }else if (index == 1){
+                    
+                }
+                return YES;
             }
+            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.model.limit_nums]];
+            return NO;
         };
     }
 }
@@ -216,7 +222,7 @@
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [_param setObject:SafeStr(self.model.courses_id) forKey:@"stores_courses_id"];
-    [_param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"type"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"status"];
 }
 
 

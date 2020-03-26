@@ -208,15 +208,27 @@
         [_editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
         ViewRadius(_editBtn, CGFloatIn750(22));
         [_editBtn bk_whenTapped:^{
-            weakSelf.model.isSelected = !weakSelf.model.isSelected;
-            if (weakSelf.model.isSelected) {
-                [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
-            }else{
-                [weakSelf.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
-            }
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(0);
-            };
+                if (weakSelf.model.isSelected) {
+                    weakSelf.model.isSelected = !weakSelf.model.isSelected;
+                    if (weakSelf.model.isSelected) {
+                        [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+                    }else{
+                        [weakSelf.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+                    }
+                    
+                    weakSelf.handleBlock(0);
+                }else{
+                    if (weakSelf.handleBlock(0)) {
+                        weakSelf.model.isSelected = !weakSelf.model.isSelected;
+                        if (weakSelf.model.isSelected) {
+                            [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
+                        }else{
+                            [weakSelf.editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
+                        }
+                    }
+                }
+            }
         }];
     }
     return _editBtn;

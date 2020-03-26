@@ -13,7 +13,9 @@
 
 
 @interface ZOrganizationSearchTeachingScheduleVC : ZOrganizationSearchVC
- @property (nonatomic,strong) NSString *stores_courses_id;
+@property (nonatomic,strong) NSString *stores_courses_id;
 @property (nonatomic,assign) NSInteger type;
+@property (nonatomic,strong) ZOriganizationLessonScheduleListModel *lessonModel;
+
 @end
 

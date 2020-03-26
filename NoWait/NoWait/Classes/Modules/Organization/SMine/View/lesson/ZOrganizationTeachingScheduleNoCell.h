@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationTeachingScheduleNoCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) BOOL (^handleBlock)(NSInteger);
 @property (nonatomic,strong) ZOriganizationStudentListModel *model;
 
 @end

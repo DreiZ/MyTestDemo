@@ -29,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setNavigation];
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
@@ -58,7 +57,6 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *lmodel = self.dataSources[i];
-        lmodel.status = @"5";
         if ([lmodel.status intValue] == 5) {
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleBuCell className] title:[ZOrganizationTeachingScheduleBuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleBuCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [self.cellConfigArr addObject:progressCellConfig];
@@ -71,7 +69,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"课程列表"];
+    [self.navigationItem setTitle:@"学员列表"];
 }
 
 - (void)setupMainView {
@@ -147,7 +145,7 @@
     if (isEdit) {
         [self changeType:YES];
         NSInteger count = [self selectLessonOrderArr].count;
-        [self.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)self.dataSources.count] forState:UIControlStateNormal];
+        [self.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,self.lessonModel.course_class_number] forState:UIControlStateNormal];
     }else{
         [self changeType:NO];
         [_bottomBtn setTitle:@"新建排课" forState:UIControlStateNormal];
@@ -161,18 +159,28 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]){
         ZOrganizationTeachingScheduleNoCell *enteryCell = (ZOrganizationTeachingScheduleNoCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
-            if (weakSelf.isEdit) {
-                if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
-                }else if (index == 1){
+        enteryCell.handleBlock = ^BOOL(NSInteger index) {
+            NSInteger allcount = [weakSelf selectLessonOrderArr].count;
+            if (allcount < [weakSelf.lessonModel.course_class_number intValue]) {
+                if (weakSelf.isEdit) {
+                    if (index == 0) {
+                        [weakSelf selectData:indexPath.row];
+                    }else if (index == 1){
+                        
+                    }
+                    NSInteger count = [weakSelf selectLessonOrderArr].count;
+                    [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,weakSelf.lessonModel.course_class_number] forState:UIControlStateNormal];
+                }else{
                     
                 }
-                NSInteger count = [weakSelf selectLessonOrderArr].count;
-                [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)weakSelf.dataSources.count] forState:UIControlStateNormal];
-            }else{
-                
+                return YES;
             }
+            if (weakSelf.isEdit) {
+                NSInteger count = [weakSelf selectLessonOrderArr].count;
+                [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,weakSelf.lessonModel.course_class_number] forState:UIControlStateNormal];
+            }
+            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.lessonModel.course_class_number]];
+            return NO;
         };
         
     }

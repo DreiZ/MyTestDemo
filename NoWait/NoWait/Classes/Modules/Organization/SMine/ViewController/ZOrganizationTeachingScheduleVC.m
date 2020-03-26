@@ -124,6 +124,7 @@
             svc.title = @"搜索学员";
             svc.stores_courses_id = weakSelf.stores_courses_id;
             svc.type = weakSelf.selectIndex;
+            svc.lessonModel = weakSelf.lessonModel;
             svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };

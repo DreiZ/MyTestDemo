@@ -29,17 +29,15 @@
 
 @end
 @implementation ZOrganizationMineOrderDetailVC
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self refreshData];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setNavigation];
-//    [self setTableViewGaryBack];
-//    [self initCellConfigArr];
-    
+   
 }
 
 - (void)initCellConfigArr {
@@ -204,6 +202,37 @@
     }];
 }
 
+- (void)updateBottom {
+    if (self.detailModel.isStudent) {
+        if (self.detailModel.type == ZOrganizationOrderTypeOrderForReceived
+            || self.detailModel.type == ZOrganizationOrderTypeOutTime
+            || self.detailModel.type == ZOrganizationOrderTypeCancel) {
+            [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.bottom.right.equalTo(self.view);
+                make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
+            }];
+            
+            [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.handleView.mas_top);
+                make.top.equalTo(self.view.mas_top).offset(0);
+            }];
+            self.handleView.hidden = NO;
+            return;
+        }
+    }else{
+        
+    }
+    
+    self.handleView.hidden = YES;
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.view.mas_top).offset(0);
+    }];
+}
+
 #pragma mark - lazy loading...
 - (ZStudentMineOrderDetailHandleBottomView *)handleView {
     if (!_handleView) {
@@ -279,7 +308,6 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [configArr addObject:menuCellConfig];
         }
-        
         index ++;
     }
     
@@ -350,9 +378,9 @@
         || self.detailModel.type == ZStudentOrderTypeOrderForPay
         || self.detailModel.type == ZStudentOrderTypeOutTime
         || self.detailModel.type == ZOrganizationOrderTypeOutTime) {
-        tempArr = @[@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", [SafeStr(self.detailModel.create_at) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]]];
+        tempArr = @[@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)]];
     }else{
-        tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", [SafeStr(self.detailModel.create_at) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]],@[@"付款时间", [SafeStr(self.detailModel.pay_time) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]]];
+        tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)],@[@"付款时间", SafeStr(self.detailModel.pay_time)]];
     }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
@@ -401,6 +429,7 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 
+//退款
 - (void)setRefuseCell {
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -418,8 +447,7 @@
     }
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         {
             NSArray *titleArr = @[@[@"交易金额", @"lessonName",@"",@8,[NSNumber numberWithInt:ZFormatterTypeAny],@NO,@"￥50"],@[@"退款金额",@"lessonIntro",@"填写退款金额",@6,[NSNumber numberWithInt:ZFormatterTypeAny],@YES,@""]];
             
@@ -500,7 +528,6 @@
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [self.cellConfigArr addObject:menuCellConfig];
             }
-            
             index ++;
         }
         
@@ -516,8 +543,7 @@
     }
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         NSArray *titleArr = @[@[@"退款原因",@"代理费公司的感觉哦我机构我就撒机构评价说破大家佛牌靳绥东评价哦赔付搜大家佛牌 "],
                               @[@"退款编号",@"2342390523092342342"],
@@ -556,9 +582,7 @@
                 
                 [self.cellConfigArr addObject:menuCellConfig];
             }
-            
-            ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:coachSpaceCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         }
         
         {
@@ -566,17 +590,14 @@
             [self.cellConfigArr addObject:orderCellConfig];
         }
     }
-    
 }
-
-
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     [ZOriganizationOrderViewModel getOrderDetail:@{@"order_id":SafeStr(self.model.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             weakSelf.detailModel = data;
-            weakSelf.detailModel.orderType = @"2";
+            weakSelf.detailModel.orderType = @"1";
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }else{
