@@ -16,6 +16,7 @@
 @property (nonatomic,strong) UIButton *evaBtn;
 @property (nonatomic,strong) UIButton *refuseBtn;
 @property (nonatomic,strong) UIButton *receivedBtn;
+@property (nonatomic,strong) UIImageView *telImageView;
 
 @property (nonatomic,strong) UIView *bottomView;
 
@@ -33,23 +34,21 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBGDark]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIView *contView = [[UIView alloc] init];
-    self.bottomView = contView;
-    [self addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
         make.height.mas_equalTo(CGFloatIn750(100));
         make.bottom.equalTo(self.mas_bottom).offset(-safeAreaBottom());
     }];
-    [contView addSubview:self.telBtn];
+    [self.bottomView addSubview:self.telBtn];
     
     [self.telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(20));
-        make.top.bottom.equalTo(contView);
+        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
+        make.top.bottom.equalTo(self.bottomView);
         make.width.mas_equalTo(CGFloatIn750(180));
     }];
     
@@ -61,31 +60,50 @@
     [self.bottomView addSubview:self.receivedBtn];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
     
     [self.evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
     
     [self.cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);;
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
     
     [self.delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
     
     [self.refuseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
     
     [self.receivedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.bottomView);
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
     }];
+    
+    self.payBtn.hidden = YES;
+    self.cancleBtn.hidden = YES;
+    self.evaBtn.hidden = YES;
+    self.delBtn.hidden = YES;
+    self.refuseBtn.hidden =  YES;
+    self.receivedBtn.hidden = YES;
 }
 
-
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.layer.masksToBounds = YES;
+    }
+    return _bottomView;
+}
 - (UIButton *)payBtn {
     if (!_payBtn) {
         __weak typeof(self) weakSelf = self;
@@ -157,15 +175,17 @@
 }
 
 
-
 - (UIButton *)telBtn {
     if (!_telBtn) {
+       
+        
         _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _telBtn.layer.masksToBounds = YES;
-        [_telBtn setImage:[UIImage imageNamed:@"orderRigthtTel"] forState:UIControlStateNormal];
+//        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
+        _telBtn.imageView.size = CGSizeMake(CGFloatIn750(22), CGFloatIn750(28));
         [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
-        [_telBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_telBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_telBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_telBtn.titleLabel setFont:[UIFont boldFontContent]];
         
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
@@ -173,11 +193,26 @@
                 weakSelf.handleBlock(4);
             }
         }];
+        
+        [_telBtn addSubview:self.telImageView];
+        [self.telImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.width.mas_equalTo(CGFloatIn750(22));
+           make.height.mas_equalTo(CGFloatIn750(28));
+           make.right.equalTo(self.telBtn.titleLabel.mas_left);
+           make.centerY.equalTo(self.telBtn.mas_centerY);
+        }];
     }
     return _telBtn;
 }
 
-
+-(UIImageView *)telImageView {
+    if (!_telImageView) {
+        _telImageView = [[UIImageView alloc] init];
+        _telImageView.image = [[UIImage imageNamed:@"default_bigPhone_mainColor"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _telImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }
+    return _telImageView;
+}
 - (UIButton *)refuseBtn {
     if (!_refuseBtn) {
         __weak typeof(self) weakSelf = self;
@@ -204,7 +239,7 @@
         [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
         _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+//        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_receivedBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(6);
@@ -214,7 +249,8 @@
     return _receivedBtn;
 }
 
-- (void)setModel:(ZStudentOrderListModel *)model {
+#pragma mark - set model
+- (void)setModel:(ZOrderDetailModel *)model {
     _model = model;
     
     self.payBtn.hidden = YES;
@@ -223,16 +259,63 @@
     self.delBtn.hidden = YES;
     self.refuseBtn.hidden =  YES;
     self.receivedBtn.hidden = YES;
+    self.telBtn.hidden = YES;
+
+    
+    if (model.isStudent) {
+        self.telBtn.hidden = NO;
+        [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
+        _telImageView.image = [[UIImage imageNamed:@"default_bigPhone_mainColor"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _telImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        
+        [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+           make.width.mas_equalTo(CGFloatIn750(22));
+           make.height.mas_equalTo(CGFloatIn750(28));
+           make.right.equalTo(self.telBtn.titleLabel.mas_left);
+           make.centerY.equalTo(self.telBtn.mas_centerY);
+        }];
+        
+        if (model.type == ZStudentOrderTypeOrderForReceived
+            || model.type == ZStudentOrderTypeForRefuseComplete) {
+            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.right.left.equalTo(self.bottomView);
+                make.height.mas_equalTo(CGFloatIn750(88));
+            }];
+            
+        }else if(model.type == ZStudentOrderTypeForRefuse
+                 || model.type == ZStudentOrderTypeRefuseReceive
+                 || model.type == ZStudentOrderTypeRefuseing) {
+            
+            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+                make.top.bottom.equalTo(self.bottomView);
+                make.width.mas_equalTo(CGFloatIn750(126));
+            }];
+            
+            [self.telImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+               make.width.mas_equalTo(CGFloatIn750(31));
+               make.height.mas_equalTo(CGFloatIn750(31));
+               make.center.equalTo(self.telBtn);
+            }];
+            
+            [_telBtn setTitle:@"" forState:UIControlStateNormal];
+            _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        }else{
+            
+            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
+                make.top.bottom.equalTo(self.bottomView);
+                make.width.mas_equalTo(CGFloatIn750(180));
+            }];
+        }
+    }
     
     switch (model.type) {
-//            case ZStudentOrderTypeOrderForPay:
+        case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {
             self.payBtn.hidden = NO;
             self.cancleBtn.hidden = NO;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = YES;
             
             [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
@@ -251,12 +334,8 @@
             break;
         case ZStudentOrderTypeHadPay:
         {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
             self.evaBtn.hidden = NO;
             self.delBtn.hidden = NO;
-            
             
             [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
@@ -274,71 +353,13 @@
         }
             break;
         case ZStudentOrderTypeHadEva:
-        {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
         case ZStudentOrderTypeOutTime:
-        {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
+        case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeCancel:
-        {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = NO;
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-        }
-            break;
-        case ZStudentOrderTypeOrderForReceived:
-        {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
-            self.delBtn.hidden = YES;
-        }
-            break;
         case ZStudentOrderTypeOrderComplete:
+        case ZOrganizationOrderTypeOutTime:
+        case ZOrganizationOrderTypeCancel:
         {
-            self.payBtn.hidden = YES;
-            self.cancleBtn.hidden = YES;
-            
-            self.evaBtn.hidden = YES;
             self.delBtn.hidden = NO;
             
             [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -347,7 +368,6 @@
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(172));
             }];
-            
         }
             break;
         case ZStudentOrderTypeOrderRefuse:
@@ -377,10 +397,8 @@
             self.receivedBtn.hidden = NO;
             
             [self.receivedBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
+                make.top.left.right.equalTo(self.bottomView);
+                make.height.mas_equalTo(CGFloatIn750(88));
             }];
         }
             break;
@@ -390,10 +408,10 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
     ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
     ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-    ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+    ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+    ViewBorderRadius(_cancleBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     
 }
 @end

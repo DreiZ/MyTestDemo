@@ -32,12 +32,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshData];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+   [self refreshData];
 }
 
 - (void)initCellConfigArr {
@@ -45,6 +45,7 @@
     if (!self.detailModel) {
         return;
     }
+    self.detailModel.isStudent = YES;
     switch (self.detailModel.type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
             ;
@@ -180,6 +181,7 @@
         default:
             break;
     }
+    [self updateBottom];
 }
 
 - (void)setNavigation {
@@ -203,34 +205,73 @@
 }
 
 - (void)updateBottom {
+    self.handleView.model = self.detailModel;
     if (self.detailModel.isStudent) {
-        if (self.detailModel.type == ZOrganizationOrderTypeOrderForReceived
-            || self.detailModel.type == ZOrganizationOrderTypeOutTime
-            || self.detailModel.type == ZOrganizationOrderTypeCancel) {
-            [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.view);
-                make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
+        if (self.detailModel.type == ZStudentOrderTypeForPay
+            || self.detailModel.type == ZStudentOrderTypeHadEva
+            || self.detailModel.type == ZStudentOrderTypeHadPay
+            || self.detailModel.type == ZStudentOrderTypeOrderForPay
+            || self.detailModel.type == ZStudentOrderTypeOrderOutTime
+            || self.detailModel.type == ZStudentOrderTypeOutTime
+            || self.detailModel.type == ZStudentOrderTypeOrderComplete
+            || self.detailModel.type == ZStudentOrderTypeCancel
+            || self.detailModel.type == ZStudentOrderTypeOrderForReceived) {
+            
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.bottom.right.equalTo(self.view);
+                    make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
+                }];
+                
+                [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.bottom.equalTo(self.handleView.mas_top);
+                    make.top.equalTo(self.view.mas_top).offset(0);
+                }];
+                self.handleView.hidden = NO;
+            } completion:^(BOOL finished) {
+                
             }];
             
-            [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.view);
-                make.bottom.equalTo(self.handleView.mas_top);
-                make.top.equalTo(self.view.mas_top).offset(0);
-            }];
-            self.handleView.hidden = NO;
             return;
         }
     }else{
-        
+        if (self.detailModel.type == ZOrganizationOrderTypeOrderForReceived
+            || self.detailModel.type == ZOrganizationOrderTypeOutTime
+            || self.detailModel.type == ZOrganizationOrderTypeCancel) {
+            
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.bottom.right.equalTo(self.view);
+                    make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
+                }];
+                
+                [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.bottom.equalTo(self.handleView.mas_top);
+                    make.top.equalTo(self.view.mas_top).offset(0);
+                }];
+                self.handleView.hidden = NO;
+            } completion:^(BOOL finished) {
+                
+            }];
+            
+            return;
+        }
     }
-    
-    self.handleView.hidden = YES;
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(0);
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.handleView.hidden = YES;
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom);
+            make.top.equalTo(self.view.mas_top).offset(0);
+        }];
+    } completion:^(BOOL finished) {
+        
     }];
+    
+    [self loadViewIfNeeded];
 }
 
 #pragma mark - lazy loading...
@@ -238,7 +279,6 @@
     if (!_handleView) {
         __weak typeof(self) weakSelf = self;
         _handleView = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
-        _handleView.model = self.detailModel;
         _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
             if (type == ZLessonOrderHandleTypePay) {
                 ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
@@ -269,8 +309,8 @@
 
 #pragma mark - set cell
 - (void)setTopHintCell {
-//    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(48) cellType:ZCellTypeClass dataModel:self.detailModel.state];
-//    [self.cellConfigArr addObject:orderCellConfig];
+    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:[ZStudentMineSettingBottomCell className] showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(48) cellType:ZCellTypeClass dataModel:self.detailModel.statusStr];
+    [self.cellConfigArr addObject:orderCellConfig];
 }
 
 - (void)setTopStateCell {
@@ -285,7 +325,7 @@
 }
 
 - (void)setUserCell {
-    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.account_phone)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
+    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.students_name)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
     NSMutableArray *configArr = @[].mutableCopy;
     NSInteger index = 0;
     for (NSArray *tArr in tempArr) {

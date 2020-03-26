@@ -22,13 +22,14 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    _tt = 1;
-    [self refreshData];
+    
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _tt = 1;
+    [self refreshData];
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
@@ -40,8 +41,8 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOrderListModel *model = self.dataSources[i];
-        model.isStudent = NO;
-        model.orderType = @"1";
+        model.isStudent = YES;
+        model.orderType = @"0";
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -182,7 +183,7 @@
         default:
             break;
     }
-    [self.param setObject:@"1" forKey:@"type"];
+    [self.param setObject:@"0" forKey:@"type"];
     _tt++;
 }
 

@@ -37,6 +37,7 @@
 @property (nonatomic,assign) ZStudentOrderType type;
 @property (nonatomic,strong) NSString * account_id;
 @property (nonatomic,strong) NSString * account_phone;
+@property (nonatomic,strong) NSString * students_name;
 @property (nonatomic,strong) NSString * coupons_amount;
 @property (nonatomic,strong) NSString * coupons_id;
 @property (nonatomic,strong) NSString * course_id;
