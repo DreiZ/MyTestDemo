@@ -283,6 +283,19 @@
             if (type == ZLessonOrderHandleTypePay) {
                 ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
                 [weakSelf.navigationController pushViewController:pvc animated:YES];
+            }else if (type == ZLessonOrderHandleTypeEva) {
+                
+            }else if (type == ZLessonOrderHandleTypeTel) {
+                
+            }else{
+                [ZOriganizationOrderViewModel handleOrderWithIndex:type data:weakSelf.detailModel completeBlock:^(BOOL isSuccess, id data) {
+                    if (isSuccess) {
+                        [TLUIUtility showSuccessHint:data];
+                        [weakSelf refreshData];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                }];
             }
         };
         

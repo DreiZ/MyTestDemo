@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentMineOrderDetailHandleBottomView.h"
+#import "ZAlertView.h"
 
 @interface ZStudentMineOrderDetailHandleBottomView ()
 @property (nonatomic,strong) UIButton *delBtn;
@@ -131,9 +132,14 @@
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_cancleBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_cancleBtn bk_whenTapped:^{
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
-            };
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(1);
+                    };
+                }
+            }];
+            
         }];
     }
     return _cancleBtn;
@@ -148,9 +154,14 @@
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_delBtn bk_whenTapped:^{
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(2);
-            };
+            [ZAlertView setAlertWithTitle:@"删除订单" subTitle:@"确定删除订单？删除订单后不可找回" leftBtnTitle:@"不删除" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(2);
+                    };
+                }
+            }];
+            
         }];
     }
     return _delBtn;
@@ -177,8 +188,6 @@
 
 - (UIButton *)telBtn {
     if (!_telBtn) {
-       
-        
         _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _telBtn.layer.masksToBounds = YES;
 //        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
@@ -190,7 +199,7 @@
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(4);
+                weakSelf.handleBlock(6);
             }
         }];
         
@@ -224,7 +233,7 @@
         ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_refuseBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(5);
+                weakSelf.handleBlock(4);
             };
         }];
     }
@@ -241,9 +250,13 @@
         _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
 //        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_receivedBtn bk_whenTapped:^{
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(6);
-            };
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(5);
+                    };
+                }
+            }];
         }];
     }
     return _receivedBtn;

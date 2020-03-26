@@ -23,6 +23,8 @@
 @property (nonatomic,strong) NSString *orderType;//课程类型 1: 普通 2：预约
 @property (nonatomic,strong) NSString *students_name;
 @property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *stores_id;
+
 
 @property (nonatomic,strong) NSString *experience_duration;
 

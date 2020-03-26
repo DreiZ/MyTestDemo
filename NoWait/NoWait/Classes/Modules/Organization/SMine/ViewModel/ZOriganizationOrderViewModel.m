@@ -31,7 +31,6 @@
 }
 
 
-
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_get_order_info params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
@@ -68,5 +67,98 @@
         }
         completeBlock(NO, @"操作失败");
     }];
+}
+
+
+
++ (void)cancleOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_close_order params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
++ (void)deleteOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_del_order params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
++ (void)handleOrderWithIndex:(NSInteger)index data:(id)data completeBlock:(resultDataBlock)completeBlock {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    if ([data isKindOfClass:[ZOrderListModel class]]) {
+        ZOrderListModel *model = data;
+        [params setObject:model.order_id forKey:@"order_id"];
+        [params setObject:model.stores_id forKey:@"stores_id"];
+    }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+        ZOrderDetailModel *model = data;
+        [params setObject:model.order_id forKey:@"order_id"];
+        [params setObject:model.stores_id forKey:@"stores_id"];
+        
+    }
+    switch (index) {
+        case 0://支付
+        {
+            
+        }
+            break;
+        case 1://取消
+        {
+            [ZOriganizationOrderViewModel cancleOrder:params completeBlock:completeBlock];
+        }
+            break;
+        case 2://删除
+        {
+            [ZOriganizationOrderViewModel cancleOrder:params completeBlock:completeBlock];
+        }
+            break;
+        case 3://评价
+        {
+            
+        }
+            break;
+        case 4://同意退款
+        {
+            
+        }
+            break;
+        case 5://接受预约
+        {
+            
+        }
+            break;
+        case 6://电话
+        {
+            
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
 }
 @end

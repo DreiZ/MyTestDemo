@@ -8,13 +8,33 @@
 
 #import <Foundation/Foundation.h>
 #import "ZBaseViewModel.h"
+#import "ZOrderModel.h"
 
 
 @interface ZOriganizationOrderViewModel : ZBaseViewModel
-+ (void)addOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)addOrder:(NSDictionary *)params
+   completeBlock:(resultDataBlock)completeBlock;
+
 
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
-+ (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
++ (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
+#pragma mark - order handle
++ (void)cancleOrder:(NSDictionary *)params
+      completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)deleteOrder:(NSDictionary *)params
+      completeBlock:(resultDataBlock)completeBlock;
+
+
+
+#pragma mark - handle index
++ (void)handleOrderWithIndex:(NSInteger)index data:(id)data completeBlock:(resultDataBlock)completeBlock;
+
 @end
 

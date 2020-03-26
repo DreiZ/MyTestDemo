@@ -10,11 +10,16 @@
 
 //购买课程流程
 typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
-    ZLessonOrderHandleTypePay,  //支付
+    ZLessonOrderHandleTypePay    =  0,  //支付
     ZLessonOrderHandleTypeCancel,  //取消
+    ZLessonOrderHandleTypeDelete,  //删除
+    ZLessonOrderHandleTypeEva,  //评价
+    ZLessonOrderHandleTypeRefuse,  //退款
+    ZLessonOrderHandleTypeOrderReceive,  //接受预约
     ZLessonOrderHandleTypeTel,  //电话
     ZLessonOrderHandleTypeDetail,  //详情
 };
+  
 
 // 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除
 //课程管理 课程类别
