@@ -91,8 +91,8 @@
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationClassDetailModel *model = [ZOriganizationClassDetailModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                if (ValidDict(model.classes_date)) {
-                    id tempDict1 = model.classes_date;
+                if (ValidStr(model.classes_date)) {
+                    id tempDict1 = [model.classes_date zz_JSONValue];
                     if (ValidDict(tempDict1)) {
                         NSArray *allKey = [tempDict1 allKeys];
                         for (int i = 0; i < allKey.count; i++) {
@@ -103,8 +103,8 @@
                                 menuModel.uid = allKey[i];
                                 
                                 NSMutableArray *unit = @[].mutableCopy;
-                                if (ValidStr(tempDict1[allKey[i]])) {
-                                    NSArray*timeArr = [tempDict1[allKey[i]] zz_JSONValue];
+                                if (ValidArray(tempDict1[allKey[i]])) {
+                                    NSArray*timeArr = tempDict1[allKey[i]];
                                     if (ValidArray(timeArr)) {
                                         NSArray *dataArr = timeArr;
                                         for (int k = 0; k < dataArr.count; k++) {

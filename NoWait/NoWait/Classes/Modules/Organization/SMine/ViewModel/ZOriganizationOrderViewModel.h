@@ -26,6 +26,11 @@
    completeBlock:(resultDataBlock)completeBlock;
 
 
++ (void)getMerchantsCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getTeacherCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 #pragma mark - order handle
 + (void)cancleOrder:(NSDictionary *)params
       completeBlock:(resultDataBlock)completeBlock;

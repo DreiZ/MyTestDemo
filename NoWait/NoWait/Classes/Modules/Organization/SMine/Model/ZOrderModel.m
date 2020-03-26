@@ -287,6 +287,30 @@
 
 @end
 
+@implementation ZOrderEvaListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"des" : @"description",
+             @"eva_id" : @"id"
+    };
+}
+
+@end
+
+
+@implementation ZOrderEvaDetailModel
+
+@end
+
+@implementation ZOrderEvaListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOrderEvaListModel"
+             };
+}
+@end
+
 @implementation ZOrderModel
 
 @end
