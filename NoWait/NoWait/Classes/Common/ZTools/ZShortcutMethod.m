@@ -69,6 +69,9 @@ CGFloat safeAreaBottom()
 
 
 NSString *imageFullUrl(NSString *url) {
+    if (!ValidStr(url)) {
+        return @"";
+    }
     if ([url isValidUrl]) {
         return url;
     }

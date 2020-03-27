@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *subName;
 @property (nonatomic,strong) NSString *uid;
 
+@property (nonatomic,assign) BOOL istransformDark;
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,strong) id data;
 @property (nonatomic,assign) BOOL isEdit;
@@ -28,5 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *uid;
 @property (nonatomic,assign) BOOL isSelected;
+
 @end
 NS_ASSUME_NONNULL_END

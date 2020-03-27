@@ -128,8 +128,12 @@
     ZOrganizationMenuItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizationMenuItemCell className] forIndexPath:indexPath];
     ZBaseUnitModel *model = _channelList[indexPath.row];
     cell.titleLabel.text = model.name;
-    cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    if (model.istransformDark) {
+        cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.tintColor = adaptAndDarkColor([UIColor colorWithHexString:@"333c4f"], [UIColor colorWhite]);
+    }else{
+        cell.imageView.image = [UIImage imageNamed:model.imageName];
+    }
     return cell;
 }
 
@@ -178,7 +182,6 @@
     }
     return list.count/4  * CGFloatIn750(104) + (list.count/4 - 1)  * CGFloatIn750(56) + CGFloatIn750(70)+ CGFloatIn750(75) + CGFloatIn750(20);
 }
-
 @end
 
 

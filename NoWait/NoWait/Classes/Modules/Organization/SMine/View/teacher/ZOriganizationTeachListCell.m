@@ -192,7 +192,7 @@
     _typeLabel.text = [model.c_level intValue] == 1 ? @"普通教师":@"明星教师";
     _workLabel.text = model.position;
     _phoneLabel.text = model.phone;
-    [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(SafeStr(model.image))] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(SafeStr(model.image))] placeholderImage:[UIImage imageNamed:@"default_head"]];
     
     if([model.c_level intValue] == 1) {
         _typeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1]);

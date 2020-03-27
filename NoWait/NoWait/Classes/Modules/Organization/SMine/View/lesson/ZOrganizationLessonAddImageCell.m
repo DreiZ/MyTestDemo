@@ -50,10 +50,29 @@
     [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY).offset(CGFloatIn750(-20));
+        make.width.height.mas_equalTo(CGFloatIn750(54));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.backContentView);
+    }];
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    [self.leftImageView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.leftImageView);
+        make.centerY.equalTo(self.leftImageView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(4));
+    }];
+    
+    UIView *lineView1 = [[UIView alloc] init];
+    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    [self.leftImageView addSubview:lineView1];
+    [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.leftImageView);
+        make.centerX.equalTo(self.leftImageView.mas_centerX);
+        make.width.mas_equalTo(CGFloatIn750(4));
     }];
 
 }

@@ -118,7 +118,6 @@
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"headImage"];
         _headImageView.layer.masksToBounds = YES;
         _headImageView.layer.cornerRadius = CGFloatIn750(41);
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;

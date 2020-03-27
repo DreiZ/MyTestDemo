@@ -81,6 +81,24 @@
     }];
     
     self.detailImageView.hidden = YES;
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    [self.hintImageView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.hintImageView);
+        make.centerY.equalTo(self.hintImageView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(4));
+    }];
+    
+    UIView *lineView1 = [[UIView alloc] init];
+    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    [self.hintImageView addSubview:lineView1];
+    [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.hintImageView);
+        make.centerX.equalTo(self.hintImageView.mas_centerX);
+        make.width.mas_equalTo(CGFloatIn750(4));
+    }];
 }
 
 
@@ -163,7 +181,7 @@
     [_titleLabel setFont:[UIFont fontSmall]];
 //    _hintView.hidden = YES;
     _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGrayDark]);
-    _subTitleLabel.text = model.name;
+    _subTitleLabel.text = model.subName;
     
     self.deleteBtn.hidden = NO;
     self.deleteBigBtn.hidden = NO;

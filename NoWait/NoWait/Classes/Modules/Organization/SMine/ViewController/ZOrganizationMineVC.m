@@ -218,22 +218,26 @@
     
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:statisticsCellConfig];
+    NSArray *menuArr = @[@[@"财务管理",
+  @[@[@"账户",isDarkModel() ? @"stores_account_dark":@"stores_account",@"account"],
+    @[@"订单",isDarkModel() ? @"stores_order_dark":@"stores_order",@"order"],
+    @[@"退款",isDarkModel() ? @"refund_money_dark":@"refund_money",@"refund"],
+    @[@"卡券",isDarkModel() ? @"stores_card_dark":@"stores_card",@"cart"]]],
+                         @[@"人事管理",
+  @[@[@"学员管理",isDarkModel() ? @"store_student":@"store_student",@"student"],
+  @[@"教师管理",isDarkModel() ? @"store_teacher":@"store_teacher",@"teacher"],
+  @[@"校区管理",isDarkModel() ? @"store_school":@"store_school",@"school"]]],
+                         @[@"后勤管理",
+  @[@[@"相册管理",isDarkModel() ? @"store_photo_dark":@"store_photo",@"photo"],
+    @[@"班级管理",isDarkModel() ? @"store_class_dark":@"store_class",@"class"],
+    @[@"排课管理",isDarkModel() ? @"store_pai_dark":@"store_pai",@"manageLesson"],
+    @[@"课程管理",isDarkModel() ? @"store_lesson_dark":@"store_lesson",@"lesson"],
+    @[@"评价管理",isDarkModel() ? @"store_eva_dark":@"store_eva",@"eva"]]]];
     
-    NSArray *menuArr = @[@[@"财务管理",@[@[@"账户",@"mineOrderEva",@"account"],
-                                        @[@"订单",@"mineOrderEva",@"order"],
-                                        @[@"退款",@"mineOrderEva",@"refund"],
-                                        @[@"卡券",@"mineOrderEva",@"cart"]]],
-                         @[@"人事管理",@[@[@"学员管理",@"mineOrderEva",@"student"],
-                                        @[@"教师管理",@"mineOrderEva",@"teacher"],
-                                        @[@"校区管理",@"mineOrderEva",@"school"]]],
-                         @[@"后勤管理",@[@[@"相册管理",@"mineOrderEva",@"photo"],
-                                        @[@"班级管理",@"mineOrderEva",@"class"],
-                                        @[@"排课管理",@"mineOrderEva",@"manageLesson"],
-                                        @[@"课程管理",@"mineOrderEva",@"lesson"],
-                                        @[@"评价管理",@"mineOrderEva",@"eva"]]]];
     for (int i = 0; i < menuArr.count; i++) {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         model.name = menuArr[i][0];
+        
         
         NSMutableArray *menulist = @[].mutableCopy;
         NSArray *tempArr = menuArr[i][1];
@@ -242,6 +246,9 @@
             model.name = tempArr[j][0];
             model.imageName = tempArr[j][1];
             model.uid = tempArr[j][2];
+            if(i==1){
+                model.istransformDark = YES;
+            }
             [menulist addObject:model];
         }
         
@@ -269,6 +276,12 @@
             
         }
     }];
+}
+
+#pragma mark - dark
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 @end
 

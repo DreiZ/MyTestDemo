@@ -20,11 +20,12 @@
 @property (nonatomic,strong) UIImageView *settingImageView;
 
 @property (nonatomic,strong) UIButton *userInfoBtn;
-
 @property (nonatomic,strong) UIView *backView;
 
 @property (nonatomic,strong) UIButton *switchUserBtn;
 @property (nonatomic,strong) UILabel *stateLabel;
+@property (nonatomic,strong) UIView *stateBackView;
+
 @end
 
 @implementation ZOrganizationMineHeaderView
@@ -52,12 +53,8 @@
     [self addSubview:self.stateLabel];
     [self addSubview:self.midLabel];
     
-    UIView *stateBackView = [[UIView alloc] init];
-    stateBackView.layer.masksToBounds = YES;
-    stateBackView.layer.cornerRadius = CGFloatIn750(16);
-    stateBackView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
-    stateBackView.layer.borderWidth = 1;
-    [self addSubview:stateBackView];
+    
+    [self addSubview:self.stateBackView];
     
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +90,7 @@
         make.height.mas_equalTo(CGFloatIn750(54));
     }];
     
-    [stateBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.stateBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(32));
         make.left.equalTo(self.stateLabel.mas_left).offset(-CGFloatIn750(14));
         make.right.equalTo(self.stateLabel.mas_right).offset(CGFloatIn750(14));
@@ -158,6 +155,8 @@
     
     self.nameLabel.alpha = alpha;
     self.switchUserBtn.alpha = alpha;
+    self.stateLabel.alpha = alpha;
+    self.stateBackView.alpha = alpha;
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36) - (1-self.nameLabel.alpha)*CGFloatIn750(20)];
     
@@ -287,6 +286,17 @@
     return _backView;
 }
 
+- (UIView *)stateBackView {
+    if (!_stateBackView) {
+        _stateBackView = [[UIView alloc] init];
+        _stateBackView.layer.masksToBounds = YES;
+        _stateBackView.layer.cornerRadius = CGFloatIn750(16);
+        _stateBackView.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
+        _stateBackView.layer.borderWidth = 1;
+    }
+    return _stateBackView;
+}
+
 #pragma mark - 更新frame
 - (void)updateSubViewFrame {
     [self setSubViewFrame];
@@ -304,14 +314,20 @@
     
     NSString *typestr = @"学员端";
     //    1：学员 2：教师 6：校区 8：机构
+    _stateLabel.hidden = YES;
+    _stateBackView.hidden = YES;
     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         typestr = @"学员端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
         typestr = @"教师端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
         typestr = @"校区端";
+        _stateBackView.hidden = NO;
+        _stateLabel.hidden = NO;
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {
         typestr = @"机构端";
+        _stateLabel.hidden = NO;
+        _stateBackView.hidden = NO;
     }
     _stateLabel.text = typestr;
 }

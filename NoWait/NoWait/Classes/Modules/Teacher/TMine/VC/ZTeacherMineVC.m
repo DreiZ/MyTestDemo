@@ -12,6 +12,7 @@
 #import "ZMineMenuCell.h"
 #import "ZStudentMineAdverCell.h"
 #import "ZStudentMineLessonProgressCell.h"
+#import "ZTableViewListCell.h"
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
@@ -48,6 +49,7 @@
 //                [[ZLaunchManager sharedInstance] showSaveUserInfo];
 //            }
 //        }];
+    [self.headerView updateData];
 }
 
 - (void)viewDidLoad {
@@ -153,6 +155,27 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    NSArray *tempArr = @[@[@"", @"签课管理", @"rightBlackArrowN"],@[@"", @"评价管理", @"rightBlackArrowN"]];
+    NSMutableArray *configArr = @[].mutableCopy;
+    for (NSArray *tArr in tempArr) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = tArr[0];
+        model.rightTitle = tArr[1];
+        model.isHiddenLine = YES;
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(62);
+        model.leftFont = [UIFont boldFontSmall];
+        model.rightFont = [UIFont fontSmall];
+        model.rightColor = [UIColor colorTextBlack];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [configArr addObject:menuCellConfig];
+    }
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
     
     ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
     [self.cellConfigArr addObject:channelCellConfig];
