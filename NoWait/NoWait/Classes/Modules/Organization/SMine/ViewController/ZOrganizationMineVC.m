@@ -84,8 +84,7 @@
     [super setupMainView];
     
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+        make.edges.equalTo(self.view);
     }];
     
     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];

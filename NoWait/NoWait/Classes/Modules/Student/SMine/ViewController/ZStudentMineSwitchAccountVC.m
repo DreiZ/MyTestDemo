@@ -50,13 +50,13 @@
             ZUser *user = userList[i];
             NSString *typestr = @"学员端";
             //    1：学员 2：教师 6：校区 8：机构
-            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+            if ([user.type intValue] == 1) {
                 typestr = @"学员端";
-            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
+            }else if ([user.type intValue] == 2) {
                 typestr = @"教师端";
-            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
+            }else if ([user.type intValue] == 6) {
                 typestr = @"校区端";
-            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {
+            }else if ([user.type intValue] == 8) {
                 typestr = @"机构端";
             }
             
@@ -82,7 +82,7 @@
         }
     }
     
-    if (self.cellConfigArr.count < 3) {
+    if (self.cellConfigArr.count < 12) {
         ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
         [self.cellConfigArr addObject:topCellConfig];
         

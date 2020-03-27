@@ -143,7 +143,7 @@
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
     self.nameLabel.alpha = 1;
-    self.headImageView.layer.cornerRadius = CGFloatIn750(41);
+    self.headImageView.layer.cornerRadius = headImageHeight/2.0f;
     
     self.backView.alpha = 0;
     self.switchUserBtn.alpha = 1;
@@ -184,7 +184,7 @@
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
         _headImageView.layer.masksToBounds = YES;
-        _headImageView.layer.cornerRadius = CGFloatIn750(41);
+        _headImageView.layer.cornerRadius = headImageHeight/2.0f;
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _headImageView;
