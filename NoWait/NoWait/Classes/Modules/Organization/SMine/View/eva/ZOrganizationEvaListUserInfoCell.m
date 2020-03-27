@@ -106,9 +106,9 @@
 
 - (void)setModel:(ZOrderEvaListModel *)model {
     _model = model;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.stores_courses_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _timeLabel.text = [model.create_at timeStringWithFormatter:@"yyyy-MM-dd"];
-    _nameLabel.text = model.stores_name;
+    _nameLabel.text = model.student_name;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -47,7 +47,8 @@
                         TLNoNilString(user.token),
                         TLNoNilString(user.birthday),
                         TLNoNilString(user.phone),
-                        @"", @"", @"", nil];
+                        TLNoNilString(user.type),
+                        @"", @"", nil];
     BOOL ok = [self excuteSQL:sqlString withArrParameter:arrPara];
     return ok;
 }
@@ -101,6 +102,7 @@
     user.token = [retSet stringForColumn:@"token"];
     user.birthday = [retSet stringForColumn:@"ext1"];
     user.phone = [retSet stringForColumn:@"ext2"];
+    user.type = [retSet stringForColumn:@"ext3"];
 //    uid, userID, username, nikename, avatar, remark, token, ext1, ext2, ext3, ext4, ext5)
 
     return user;

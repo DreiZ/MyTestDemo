@@ -54,7 +54,7 @@
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(124);
+    return CGFloatIn750(104);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

@@ -369,4 +369,8 @@
 //获取教师评论列表
 #define URL_account_v1_get_teacher_comment_list              @"account/v1/get_teacher_comment_list"
 
+//回复
+#define URL_account_v1_reply_commen                @"account/v1/reply_comment"
+
+
 #endif /* URLMacros_h */

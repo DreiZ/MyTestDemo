@@ -76,7 +76,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(90);
+    return CGFloatIn750(70);
 }
 @end
 

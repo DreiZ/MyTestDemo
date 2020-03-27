@@ -50,7 +50,7 @@
 - (UILabel *)evaTitleLabel {
     if (!_evaTitleLabel) {
         _evaTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        _evaTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _evaTitleLabel.numberOfLines = 0;
         _evaTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_evaTitleLabel setFont:[UIFont fontSmall]];

@@ -15,6 +15,7 @@
 @interface ZOrganizationMineHeaderView ()
 @property (nonatomic,strong) UIImageView *headImageView;
 @property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *midLabel;
 @property (nonatomic,strong) UIView *settingView;
 @property (nonatomic,strong) UIImageView *settingImageView;
 
@@ -49,6 +50,7 @@
     [self.settingView addSubview:self.settingImageView];
     [self addSubview:self.switchUserBtn];
     [self addSubview:self.stateLabel];
+    [self addSubview:self.midLabel];
     
     UIView *stateBackView = [[UIView alloc] init];
     stateBackView.layer.masksToBounds = YES;
@@ -73,14 +75,21 @@
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
     }];
     
-    [self.stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.nameLabel.mas_centerY);
-        make.left.equalTo(self.nameLabel.mas_right).offset(CGFloatIn750(24));
+    [self.switchUserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_right).offset(CGFloatIn750(14));
+        make.centerY.equalTo(self.nameLabel.mas_centerY).offset(CGFloatIn750(0));
+        make.height.mas_equalTo(CGFloatIn750(54));
     }];
     
-    [self.switchUserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(8));
+    }];
+    
+    [self.stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.midLabel.mas_left).offset(CGFloatIn750(14));
+        make.top.equalTo(self.midLabel.mas_bottom).offset(CGFloatIn750(8));
         make.height.mas_equalTo(CGFloatIn750(54));
     }];
     
@@ -108,6 +117,21 @@
         make.width.height.mas_equalTo(CGFloatIn750(88));
         make.center.equalTo(self.settingView);
     }];
+    
+    UIButton *switchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [switchBtn bk_whenTapped:^{
+        if (weakSelf.topHandleBlock) {
+            weakSelf.topHandleBlock(3);
+        }
+    }];
+    [self addSubview:switchBtn];
+    [switchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.switchUserBtn.mas_left).offset(CGFloatIn750(-40));
+        make.right.equalTo(self.switchUserBtn.mas_right).offset(CGFloatIn750(40));
+        make.top.equalTo(self.switchUserBtn.mas_top).offset(CGFloatIn750(-30));
+        make.bottom.equalTo(self.switchUserBtn.mas_bottom).offset(CGFloatIn750(30));
+    }];
+    
     
     [self setSubViewFrame];
 }
@@ -156,7 +180,7 @@
     
 }
 
-#pragma mark --懒加载---
+#pragma mark - - 懒加载---
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
@@ -176,6 +200,18 @@
         [_nameLabel setFont:[UIFont fontMaxTitle]];
     }
     return _nameLabel;
+}
+
+
+- (UILabel *)midLabel {
+    if (!_midLabel) {
+        _midLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _midLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _midLabel.numberOfLines = 1;
+        _midLabel.textAlignment = NSTextAlignmentLeft;
+        [_midLabel setFont:[UIFont fontSmall]];
+    }
+    return _midLabel;
 }
 
 - (UIImageView *)settingImageView {
@@ -208,7 +244,7 @@
         UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         _switchUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_switchUserBtn setTitle:@"切换账户" forState:UIControlStateNormal];
+        [_switchUserBtn setTitle:@"" forState:UIControlStateNormal];
         [_switchUserBtn setImage:image forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchUserBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -264,6 +300,7 @@
 - (void)updateData {
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     self.nameLabel.text = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);
+    _midLabel.text = [NSString stringWithFormat:@"MID：%@",[ZUserHelper sharedHelper].uuid];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

@@ -126,10 +126,18 @@
 
 - (void)setModel:(ZOrderEvaListModel *)model {
     _model = model;
-    _cocahLabel.text = model.teacher_name;
+    _cocahLabel.text = [NSString stringWithFormat:@"教师%@",SafeStr(model.teacher_name)];
     _lessonLabel.text = model.stores_courses_name;
-    _priceLabel.text = [NSString stringWithFormat:@"%@",model.stores_courses_name];
+    _priceLabel.text = [NSString stringWithFormat:@"%@",SafeStr(model.pay_amount)];
     [_lessonImageVIew tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.stores_courses_image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+}
+
+- (void)setDetailModel:(ZOrderEvaDetailModel *)detailModel {
+    _detailModel = detailModel;
+    _cocahLabel.text = [NSString stringWithFormat:@"教师%@",SafeStr(detailModel.teacher_name)];
+    _lessonLabel.text = detailModel.courses_name;
+    _priceLabel.text = [NSString stringWithFormat:@"%@",SafeStr(detailModel.pay_amount)];
+    [_lessonImageVIew tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(detailModel.courses_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

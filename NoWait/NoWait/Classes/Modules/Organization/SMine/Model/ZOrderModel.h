@@ -129,6 +129,10 @@
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *type_id;
 @property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *student_name;
+@property (nonatomic,strong) NSString *student_image;
+@property (nonatomic,strong) NSString *pay_amount;
+@property (nonatomic,strong) NSString *order_amount;
 @end
 
 
@@ -149,6 +153,9 @@
 @property (nonatomic,strong) NSString *teacher_comment_score;
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *course_is_reply;
+@property (nonatomic,strong) NSString *stores_is_reply;
+@property (nonatomic,strong) NSString *teacher_is_reply;
 @end
 
 @interface ZOrderEvaListNetModel : ZBaseNetworkBackDataModel

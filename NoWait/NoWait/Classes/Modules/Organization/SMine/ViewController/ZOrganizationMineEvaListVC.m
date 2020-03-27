@@ -63,7 +63,7 @@
         ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
         enteryCell.evaBlock = ^(NSInteger index) {
             ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-            dvc.model = cellConfig.dataModel;
+            dvc.listModel = cellConfig.dataModel;
             [self.navigationController pushViewController:dvc animated:YES];
         };
     }
@@ -72,7 +72,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]) {
         ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-        dvc.model = self.dataSources[indexPath.row];
+        dvc.listModel = self.dataSources[indexPath.row];
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

@@ -11,7 +11,7 @@
 
 
 @interface ZOrganizationMineEvaDetailVC : ZTableViewViewController
-@property (nonatomic,strong) ZOrderEvaListModel *model;
+@property (nonatomic,strong) ZOrderEvaListModel *listModel;
 
 @end
 
