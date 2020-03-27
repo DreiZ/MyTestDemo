@@ -11,6 +11,7 @@
 #import "ZUserHelper.h"
 #import "ZLaunchManager.h"
 #import "ZAppConfig.h"
+#import "ZAlertView.h"
 
 @implementation ZNetworkingManager
 #pragma mark --get请求
@@ -63,7 +64,9 @@
                     completionHandler(backModel, nil);
                     
                 }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
-                    
+                    [ZAlertView setAlertWithTitle:[NSString stringWithFormat:@"%@%@",backModel.message,backModel.code] btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
                     [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                     [[ZLaunchManager sharedInstance] launchInWindow:nil];
                     NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];

@@ -89,6 +89,7 @@
 
 - (void)showVC:(UIViewController *)vc {
     if (self.selectedVC && self.selectedVC == vc) {
+        vc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-kTabBarHeight);
         return;
     }else if (self.selectedVC){
         [self removeVC:self.selectedVC];
@@ -98,7 +99,10 @@
     [self.view addSubview:vc.view];
     vc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-kTabBarHeight);
     [vc didMoveToParentViewController:self];
-    
+    [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+    }];
     
     self.selectedVC = vc;
 }

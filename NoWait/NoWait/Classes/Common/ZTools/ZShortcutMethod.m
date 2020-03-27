@@ -9,6 +9,7 @@
 #import "ZShortcutMethod.h"
 #import "ZNavigationController.h"
 #import "NSString+LLExtension.h"
+static NSInteger color_index = 0;
 
 ZNavigationController *addNavigationController(UIViewController *viewController)
 {
@@ -23,6 +24,16 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
     [tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark])} forState:UIControlStateSelected];
     [tabBarItem setImage:[UIImage imageNamed:image]];
     [tabBarItem setSelectedImage:[[UIImage imageNamed:imageHL] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+}
+
+UIColor *randomColor(void) {
+    NSArray *temp = @[@"f7e155",@"adb9ff",@"e08ffd",@"7282ae",@"ff7674",@"ffa0c7",@"48e8a1",@"ffc15c",@"4dd599"];
+    if (color_index >= temp.count) {
+        color_index = 0;
+    }
+    UIColor *tempColor = [UIColor colorWithHexString:temp[color_index]];
+    color_index++;
+    return tempColor;
 }
 
 UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark){

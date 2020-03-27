@@ -38,8 +38,8 @@
     [contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(self.mas_top);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(20));
     }];
     ViewShadowRadius(contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
     
@@ -110,7 +110,7 @@
         _lessonTitleLabel.text = @"课程进度";
         _lessonTitleLabel.numberOfLines = 0;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonTitleLabel setFont:[UIFont fontContent]];
+        [_lessonTitleLabel setFont:[UIFont boldFontContent]];
     }
     return _lessonTitleLabel;
 }
@@ -194,7 +194,7 @@
     if (!list || list.count == 0) {
         return 0.01f;
     }
-    return CGFloatIn750(30) + CGFloatIn750(36) + CGFloatIn750(80) + CGFloatIn750(108) + CGFloatIn750(106) * list.count;
+    return CGFloatIn750(40) + CGFloatIn750(36) + CGFloatIn750(80) + CGFloatIn750(108) + CGFloatIn750(106) * list.count;
 }
 
 

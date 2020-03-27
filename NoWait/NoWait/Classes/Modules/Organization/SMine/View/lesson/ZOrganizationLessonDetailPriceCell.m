@@ -100,7 +100,7 @@
 - (UIImageView *)numHintImageView {
     if (!_numHintImageView) {
         _numHintImageView = [[UIImageView alloc] init];
-        _numHintImageView.image = [[UIImage imageNamed:@"mineSetting"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _numHintImageView.image = [[UIImage imageNamed:@"peoples_hint"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _numHintImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _numHintImageView.layer.masksToBounds = YES;
         _numHintImageView.contentMode = UIViewContentModeScaleAspectFill;

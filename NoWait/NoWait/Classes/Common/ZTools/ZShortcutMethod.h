@@ -20,6 +20,8 @@ UINavigationController *addNavigationController(UIViewController *viewController
  */
 void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, NSString *imageHL);
 
+UIColor *randomColor(void);
+
 UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark);
 
 BOOL isDarkModel(void);

@@ -13,6 +13,8 @@
 #import "ZStudentMineAdverCell.h"
 #import "ZStudentMineLessonProgressCell.h"
 #import "ZTableViewListCell.h"
+#import "ZStudentMineLessonTimetableCell.h"
+#import "ZTeacherMineEntryStoresCell.h"
 
 #import "ZStudentMineEvaListVC.h"
 #import "ZStudentMineOrderListVC.h"
@@ -27,9 +29,7 @@
 @interface ZTeacherMineVC ()
 @property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
 
-@property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
-
 @end
 
 @implementation ZTeacherMineVC
@@ -49,31 +49,24 @@
 //                [[ZLaunchManager sharedInstance] showSaveUserInfo];
 //            }
 //        }];
-    [self.headerView updateData];
+     [self.headerView updateData];
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
+    [self setupMainView];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
 
 - (void)setDataSource {
-    [super setDataSource];
     
-    _topchannelList = @[].mutableCopy;
+    [super setDataSource];
     _lessonList = @[].mutableCopy;
     
-    NSArray *list = @[@[@"订单",@"mineOrderEva"],@[@"评价",@"mineOrderChannel"],@[@"签课",@"mineOrderCard"],@[@"学员",@"mineOrderLesson"]];
-    NSArray *channlArr = @[@"eva", @"order", @"card", @"lesson"];
-    for (int i = 0; i < list.count; i++) {
-        ZStudentMenuItemModel *model = [[ZStudentMenuItemModel alloc] init];
-        model.name = list[i][0];
-        model.imageName = list[i][1];
-        model.channel_id = channlArr[i];
-        [_topchannelList addObject:model];
+    for (int i = 0; i < 5; i++) {
         
         [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
     }
@@ -83,8 +76,7 @@
     [super setupMainView];
     
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+        make.edges.equalTo(self.view);
     }];
     
     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];
@@ -113,20 +105,14 @@
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZMineMenuCell"]){
-        ZMineMenuCell *lcell = (ZMineMenuCell *)cell;
-        lcell.menuBlock = ^(ZStudentMenuItemModel * model) {
-            if ([model.channel_id isEqualToString:@"eva"]) {
+    
+    if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
+        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        lcell.handleBlock = ^(ZCellConfig *scellConfig) {
+            if ([scellConfig.title isEqualToString:@"eva"]) {
                 ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([model.channel_id isEqualToString:@"order"]){
-                ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-
-            }else if ([model.channel_id isEqualToString:@"card"]) {
-                ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }else if ([model.channel_id isEqualToString:@"lesson"]) {
+            }else if ([scellConfig.title isEqualToString:@"sign"]) {
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
@@ -155,39 +141,42 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    NSArray *tempArr = @[@[@"", @"签课管理", @"rightBlackArrowN"],@[@"", @"评价管理", @"rightBlackArrowN"]];
+    NSArray *tempArr = @[@[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher_dark",@"sign", @"我的签课", @"rightBlackArrowN"],
+                         @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
+        model.leftImage = tArr[0];
+        model.leftTitle = tArr[2];
+        model.rightImage = tArr[3];
+        model.cellTitle = tArr[1];
         model.isHiddenLine = YES;
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont boldFontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
+        model.cellHeight = CGFloatIn750(96);
+        model.leftFont = [UIFont fontContent];
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [configArr addObject:menuCellConfig];
     }
-    
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
+
     
-    ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineMenuCell className] title:[ZMineMenuCell className] showInfoMethod:@selector(setTopChannelList:) heightOfCell:[ZMineMenuCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_topchannelList];
-    [self.cellConfigArr addObject:channelCellConfig];
+    ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+    [self.cellConfigArr addObject:timeCellConfig];
     
-//    ZCellConfig *adverCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineAdverCell className] title:[ZStudentMineAdverCell className] showInfoMethod:nil heightOfCell:[ZStudentMineAdverCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-//    [self.cellConfigArr addObject:adverCellConfig];
+    {
+        NSMutableArray *configArr = @[].mutableCopy;
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineEntryStoresCell className] title:@"ZTeacherMineEntryStoresCell" showInfoMethod:nil heightOfCell:[ZTeacherMineEntryStoresCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        
+        [configArr addObject:menuCellConfig];
+        
+        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+        [self.cellConfigArr addObject:bottomCellConfig];
+    }
     
-//    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
-//       [self.cellConfigArr addObject:progressCellConfig];
-//    
-//    
-//    [self.iTableView reloadData];
+    [self.iTableView reloadData];
 }
 @end
+
 
