@@ -16,6 +16,10 @@
 
 @end
 @implementation ZOrganizationMineEvaListVC
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +27,10 @@
     [self setTableViewGaryBack];
 //    [self setNavigation];
     [self initCellConfigArr];
-    [self refreshData];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
+    
 }
 
 - (void)initCellConfigArr {

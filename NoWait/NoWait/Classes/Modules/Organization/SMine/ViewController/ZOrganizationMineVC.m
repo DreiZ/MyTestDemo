@@ -198,8 +198,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    [ZUserHelper sharedHelper].user.type = @"4";
-    if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 4){
+    if([ZUserHelper sharedHelper].user && [[ZUserHelper sharedHelper].user.type intValue] == 8){
         NSMutableArray *channnliset = @[].mutableCopy;
         for (int i = 0; i < _topchannelList.count; i++) {
             ZOriganizationSchoolListModel *listModel = _topchannelList[i];

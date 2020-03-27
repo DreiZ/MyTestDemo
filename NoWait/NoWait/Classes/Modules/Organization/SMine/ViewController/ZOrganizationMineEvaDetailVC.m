@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
+//    [self setTableViewGaryBack];
     [self initCellConfigArr];
     UIView *tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(220))];
     tableFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -65,7 +65,7 @@
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"课程评价",@"star":SafeStr(self.detailModel.courses_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
-     {
+    if (ValidStr(self.detailModel.courses_comment_desc)) {
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
          model.rightTitle = self.detailModel.courses_comment_desc;
          model.isHiddenLine = YES;
@@ -90,7 +90,7 @@
         ZCellConfig *btnCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:@"course_reply" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:btnCellConfig];
     }else{
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:@"但是噶所过过过过多军军多军军多军多军多军多军军多军多军多军多军多军多军多军多军"] cellType:ZCellTypeClass dataModel:@"但是噶所过过过过多军军多军军多军多军多军多军军多军多军多军多军多军多军多军多军"];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.courses_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.courses_reply_desc)];
         [self.cellConfigArr addObject:orderCellConfig];
     }
     
@@ -103,7 +103,8 @@
          ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"教师评价",@"star":SafeStr(self.detailModel.teacher_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
-     {
+     if (ValidStr(self.detailModel.teacher_comment_desc)) {
+
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
          model.rightTitle = self.detailModel.teacher_comment_desc;
          model.isHiddenLine = YES;
@@ -121,6 +122,10 @@
          
          [self.cellConfigArr  addObject:menuCellConfig];
      }
+    if ([self.detailModel.teacher_is_reply intValue] == 1) {
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.teacher_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.teacher_reply_desc)];
+        [self.cellConfigArr addObject:orderCellConfig];
+    }
     
     [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
 }
@@ -131,7 +136,7 @@
          ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"校区评价",@"star":SafeStr(self.detailModel.stores_comment_score)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
-     {
+     if (ValidStr(self.detailModel.stores_comment_desc)) {
          ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
          model.rightTitle = self.detailModel.stores_comment_desc;
          model.isHiddenLine = YES;
@@ -149,26 +154,17 @@
          
          [self.cellConfigArr  addObject:menuCellConfig];
      }
-     if ([self.detailModel.course_is_reply intValue] == 0) {
+    
+     if ([self.detailModel.stores_is_reply intValue] == 0) {
          ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaTextViewCell className] title:@"stores_reply_text" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
          [self.cellConfigArr addObject:orderCellConfig];
          
          ZCellConfig *btnCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:@"stores_reply" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
          [self.cellConfigArr addObject:btnCellConfig];
      }else{
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:@"但是噶所过过过过多军军多军军多军多军多军多军军多军多军多军多军多军多军多军多军"] cellType:ZCellTypeClass dataModel:@"但是噶所过过过过多军军多军军多军多军多军多军军多军多军多军多军多军多军多军多军"];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.stores_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.stores_reply_desc)];
          [self.cellConfigArr addObject:orderCellConfig];
      }
-     
-//     {
-//         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaTextViewCell className] title:[ZOrganizationEvaListEvaTextViewCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-//         [self.cellConfigArr addObject:orderCellConfig];
-//     }
-//
-//     {
-//         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:[ZOrganizationEvaListEvaBtnCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-//         [self.cellConfigArr addObject:orderCellConfig];
-//     }
 }
 
 - (void)setNavigation {

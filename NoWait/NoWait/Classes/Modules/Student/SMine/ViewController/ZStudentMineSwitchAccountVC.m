@@ -48,20 +48,33 @@
     for (int i = 0; i < userList.count; i++) {
         if ([userList[i] isKindOfClass:[ZUser class]]) {
             ZUser *user = userList[i];
+            NSString *typestr = @"学员端";
+            //    1：学员 2：教师 6：校区 8：机构
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                typestr = @"学员端";
+            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
+                typestr = @"教师端";
+            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
+                typestr = @"校区端";
+            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {
+                typestr = @"机构端";
+            }
+            
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.cellHeight = CGFloatIn750(116);
-            model.leftTitle = user.phone;
+            model.leftTitle = [NSString stringWithFormat:@"%@(%@)",user.phone,typestr];
             model.cellTitle = @"user";
-            model.leftImage = @"http://ww1.sinaimg.cn/mw600/bdd98093gy1gbp87csne1j20go0gotbs.jpg";
+            model.leftImage = imageFullUrl(user.avatar);
             if (i == userList.count-1) {
                 model.isHiddenLine = YES;
             }
-            if ([user.userID isEqualToString:[ZUserHelper sharedHelper].user_id]) {
+            if ([user.userCodeID isEqualToString:[ZUserHelper sharedHelper].uuid]) {
                 model.rightImage = @"selectedCycle";
             }else{
                 model.rightImage = @"unSelectedCycle";
             }
+            model.rightImageH = @80;
             model.data = user;
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             

@@ -96,7 +96,7 @@
     
     [self addChildViewController:vc];
     [self.view addSubview:vc.view];
-    vc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    vc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-kTabBarHeight);
     [vc didMoveToParentViewController:self];
     
     

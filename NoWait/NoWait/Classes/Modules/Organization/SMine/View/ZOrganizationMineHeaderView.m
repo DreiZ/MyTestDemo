@@ -301,6 +301,19 @@
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     self.nameLabel.text = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);
     _midLabel.text = [NSString stringWithFormat:@"MID：%@",[ZUserHelper sharedHelper].uuid];
+    
+    NSString *typestr = @"学员端";
+    //    1：学员 2：教师 6：校区 8：机构
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+        typestr = @"学员端";
+    }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
+        typestr = @"教师端";
+    }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
+        typestr = @"校区端";
+    }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {
+        typestr = @"机构端";
+    }
+    _stateLabel.text = typestr;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
