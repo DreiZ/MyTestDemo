@@ -7,11 +7,13 @@
 //
 
 #import "ZViewController.h"
-
+#import "ZLoginModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineSwitchAccountLoginVC : ZViewController
 @property (nonatomic,assign) BOOL isCode;
+@property (nonatomic,strong) ZUserRolesListModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

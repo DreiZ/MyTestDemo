@@ -8,6 +8,7 @@
 
 #import "ZShortcutMethod.h"
 #import "ZNavigationController.h"
+#import "NSString+LLExtension.h"
 
 ZNavigationController *addNavigationController(UIViewController *viewController)
 {
@@ -68,6 +69,9 @@ CGFloat safeAreaBottom()
 
 
 NSString *imageFullUrl(NSString *url) {
+    if ([url isValidUrl]) {
+        return url;
+    }
     return [NSString stringWithFormat:@"%@/%@",URL_file,url];
 }
 

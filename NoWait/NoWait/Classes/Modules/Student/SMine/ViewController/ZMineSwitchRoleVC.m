@@ -83,8 +83,6 @@
     if (self.cellConfigArr.count < 2) {
         [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
         
-        
-        
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"换个新账号登录";
         model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
@@ -147,7 +145,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-         if (cellModel.isSelected) {
+         if (!cellModel.isSelected) {
 //             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
 //             [self.navigationController popToRootViewControllerAnimated:YES];
 //             ZUser *user = cellModel.data;
@@ -156,8 +154,10 @@
 //             [self.iTableView reloadData];
              
              ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+             lvc.model = cellModel.data;
              [self.navigationController pushViewController:lvc animated:YES];
          }
+         
      }
 }
 
@@ -184,5 +184,4 @@
         }
     }];
 }
-
 @end

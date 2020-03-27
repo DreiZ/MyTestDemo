@@ -8,6 +8,8 @@
 
 #import "ZStudentMineSwitchAccountLoginVC.h"
 #import "ZMineAccountTextFieldCell.h"
+#import "ZLoginViewModel.h"
+#import "ZLoginPasswordController.h"
 
 @interface ZStudentMineSwitchAccountLoginVC ()<UITextFieldDelegate>
 @property (nonatomic,strong) UIView *navView;
@@ -17,7 +19,9 @@
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UIButton *loginBtn;
 @property (nonatomic,strong) UITextField *userNameTF;
-
+@property (nonatomic,strong) ZLoginViewModel *loginViewModel;
+@property (nonatomic,strong) ZMineAccountTextFieldCell *bCell;
+@property (nonatomic,strong) ZMineAccountTextFieldCell *sCell;
 @end
 
 @implementation ZStudentMineSwitchAccountLoginVC
@@ -149,6 +153,13 @@
 }
 
 #pragma mark - lazy loading...
+-(ZLoginViewModel *)loginViewModel {
+    if (!_loginViewModel) {
+        _loginViewModel = [[ZLoginViewModel alloc] init];
+    }
+    return _loginViewModel;
+}
+
 - (UIView *)navView {
     if (!_navView) {
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
@@ -185,7 +196,8 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.image = [UIImage imageNamed:@"headImage"];
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(self.model.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
         ViewRadius(_userImageView, CGFloatIn750(60));
     }
     return _userImageView;
@@ -197,24 +209,12 @@
         __weak typeof(self) weakSelf = self;
         _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
-           NSArray *viewControllers = self.navigationController.viewControllers;
-           NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
-           
-           ZViewController *target;
-           for (ZViewController *controller in reversedArray) {
-               if ([controller isKindOfClass:[NSClassFromString(@"ZMineSwitchRoleVC") class]]) {
-                   target = controller;
-                   break;
-               }
-           }
-           
-           if (target) {
-               [weakSelf.navigationController popToViewController:target animated:YES];
-               return;
-           }
-           [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-        } forControlEvents:UIControlEventTouchUpInside];
-        
+            if (weakSelf.isCode) {
+                [weakSelf codeLogin];
+            }else{
+                [weakSelf passWordLogin];
+            }
+       } forControlEvents:UIControlEventTouchUpInside];
         _loginBtn.layer.masksToBounds = YES;
         _loginBtn.layer.cornerRadius = CGFloatIn750(38);
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
@@ -229,7 +229,19 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"机构端";
+        NSString *typestr = @"";
+        //    1：学员 2：教师 6：校区 8：机构
+        if ([self.model.type intValue] == 1) {
+            typestr = @"学员端";
+        }else if ([self.model.type intValue] == 2) {
+            typestr = @"教师端";
+        }else if ([self.model.type intValue] == 6) {
+            typestr = @"校区端";
+        }else if ([self.model.type intValue] == 8) {
+            typestr = @"机构端";
+        }
+        NSString *temp = (ValidStr(self.model.nick_name) ? self.model.nick_name:self.model.phone);
+        _nameLabel.text = [NSString stringWithFormat:@"%@(%@)",temp,typestr];
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         [_nameLabel setFont:[UIFont boldFontMaxTitle]];
@@ -267,43 +279,80 @@
     }
     return _userNameTF;
 }
+
+- (ZMineAccountTextFieldCell *)bCell {
+    if (!_bCell) {
+        __weak typeof(self) weakSelf = self;
+        _bCell = [[ZMineAccountTextFieldCell alloc] init];
+        _bCell.type = 2;
+        _bCell.max = 4;
+        _bCell.placeholder = @"图形验证码";
+        _bCell.formatterType = ZFormatterTypeAny;
+        _bCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.code = text;
+        };
+        _bCell.imageCodeBlock = ^(NSString * ckey) {
+            weakSelf.loginViewModel.loginModel.ckey = ckey;
+        };
+        [_bCell getImageCode];
+        
+    }
+    return _bCell;
+}
+
+- (ZMineAccountTextFieldCell *)sCell {
+    if (!_sCell) {
+        __weak typeof(self) weakSelf = self;
+        _sCell = [[ZMineAccountTextFieldCell alloc] init];
+        _sCell.type = 1;
+        _sCell.max = 6;
+        _sCell.placeholder = @"短信验证码";
+        _sCell.formatterType = ZFormatterTypeNumber;
+        _sCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.loginViewModel.loginModel.messageCode = text;
+        };
+        _sCell.getCodeBlock = ^(void (^success)(NSString *)) {
+            if (!weakSelf.model.phone || weakSelf.model.phone.length != 11) {
+               [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
+               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+               return;
+           }
+           
+           if (!weakSelf.loginViewModel.loginModel.code || weakSelf.loginViewModel.loginModel.code.length != 4) {
+               [TLUIUtility showErrorHint:@"请输入图形验证码" ];
+               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+               return;
+           }
+           
+           NSMutableDictionary *params = @{@"ckey":SafeStr(weakSelf.loginViewModel.loginModel.ckey) ,@"captcha":SafeStr(weakSelf.loginViewModel.loginModel.code),@"phone":SafeStr(weakSelf.model.phone)}.mutableCopy;
+           [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
+              if (isSuccess) {
+                  [TLUIUtility showSuccessHint:message];
+                  if (success) {
+                      success(message);
+                  }
+              }else{
+                  [TLUIUtility showErrorHint:message];
+              }
+           }];
+        };
+    }
+    return _sCell;
+}
 - (UIView *)codeView {
     UIView *tempView = [[UIView alloc] init];
-//    __weak typeof(self) weakSelf = self;
-        
     
-    ZMineAccountTextFieldCell *bCell = [[ZMineAccountTextFieldCell alloc] init];
-    bCell.type = 2;
-    bCell.max = 4;
-    bCell.placeholder = @"图形验证码";
-    bCell.formatterType = ZFormatterTypeAny;
-    bCell.valueChangeBlock = ^(NSString * text) {
-//        weakSelf.loginViewModel.loginModel.code = text;
-    };
-    bCell.imageCodeBlock = ^(NSString * ckey) {
-//        weakSelf.loginViewModel.loginModel.ckey = ckey;
-    };
-    [bCell getImageCode];
-    [tempView addSubview:bCell.contentView];
-    [bCell.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [tempView addSubview:self.bCell.contentView];
+    [self.bCell.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(tempView);
         make.top.equalTo(tempView.mas_top);
         make.height.mas_equalTo(CGFloatIn750(100));
     }];
     
-    
-    ZMineAccountTextFieldCell *sCell = [[ZMineAccountTextFieldCell alloc] init];
-    sCell.type = 1;
-    sCell.max = 6;
-    sCell.placeholder = @"短信验证码";
-    sCell.formatterType = ZFormatterTypeNumber;
-    sCell.valueChangeBlock = ^(NSString * text) {
-//        weakSelf.loginViewModel.loginModel.code = text;
-    };
-    [tempView addSubview:sCell.contentView];
-    [sCell.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [tempView addSubview:self.sCell.contentView];
+    [self.sCell.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(tempView);
-        make.top.equalTo(bCell.contentView.mas_bottom).offset(CGFloatIn750(40));
+        make.top.equalTo(self.bCell.contentView.mas_bottom).offset(CGFloatIn750(40));
         make.height.mas_equalTo(CGFloatIn750(100));
     }];
         
@@ -347,11 +396,12 @@
     menuBtn.tag = tag;
     [menuBtn bk_whenTapped:^{
         if (tag == 0) {
+            
+        }else if (tag == 1){
             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+            lvc.model = self.model;
             lvc.isCode = YES;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
-        }else if (tag == 1){
-            
         }
     }];
     [tempView addSubview:menuBtn];
@@ -366,6 +416,85 @@
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+}
+
+
+- (void)passWordLogin {
+    __weak typeof(self) weakSelf = self;
+    
+    [self.userNameTF resignFirstResponder];
+
+       NSMutableDictionary *params = @{}.mutableCopy;
+       if (self.model && self.model.phone.length == 11) {
+           [params setObject:self.model.phone forKey:@"phone"];
+       }else{
+           return;
+       }
+       
+       if (self.userNameTF.text && self.userNameTF.text.length >= 8) {
+           [params setObject:self.userNameTF.text forKey:@"password"];
+       }else{
+           return;
+       }
+    [params setObject:self.model.type forKey:@"type"];
+       [TLUIUtility showLoading:@""];
+       [self.loginViewModel loginPwdWithParams:params block:^(BOOL isSuccess, id message) {
+           [TLUIUtility hiddenLoading];
+           if (isSuccess) {
+                [weakSelf loginSuccess];
+               [TLUIUtility showSuccessHint:message];
+           }else{
+               [TLUIUtility showErrorHint:message];
+           }
+       }];
+}
+
+- (void)codeLogin {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    if (self.model.phone && self.model.phone.length == 11) {
+        [params setObject:self.model.phone forKey:@"phone"];
+    }else{
+        return;
+    }
+    
+    
+    if (self.loginViewModel.loginModel.messageCode && self.loginViewModel.loginModel.messageCode.length == 6) {
+        [params setObject:self.loginViewModel.loginModel.messageCode forKey:@"code"];
+    }else{
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
+             [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
+            if (isSuccess) {
+                //进入主页
+                [weakSelf loginSuccess];
+            }
+            [TLUIUtility showSuccessHint:message];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+- (void)loginSuccess {
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
+    
+    ZViewController *target;
+    for (ZViewController *controller in reversedArray) {
+        if ([controller isKindOfClass:[NSClassFromString(@"ZMineSwitchRoleVC") class]]) {
+            target = controller;
+            break;
+        }
+    }
+    
+    if (target) {
+        [self.navigationController popToViewController:target animated:YES];
+        return;
+    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end
 

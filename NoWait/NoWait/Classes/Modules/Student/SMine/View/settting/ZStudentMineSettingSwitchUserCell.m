@@ -138,11 +138,11 @@
     }else if ([user.type intValue] == 8) {
         typestr = @"机构端";
     }
-    _leftTitleLabel.text = user.phone;
+    _leftTitleLabel.text = ValidStr(user.nick_name)? SafeStr(user.nick_name): user.phone;
     _rightTitleLabel.text = typestr;
     _rightImageView.hidden = !model.isSelected;
 //    _rightTitleLabel.text = user.type;
-    [_leftImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcc5zbllixj30u0190hbo.jpg"] placeholderImage:[UIImage imageNamed:@"headImage"]];
+    [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(user.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

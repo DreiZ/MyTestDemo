@@ -49,6 +49,8 @@
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *has_pwd;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *nick_name;
 @end
 
 
