@@ -7,11 +7,13 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZOrderModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentOrganizationDetailIntroCell : ZBaseCell
+@property (nonatomic,strong) ZStoresDetailModel *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
-NS_ASSUME_NONNULL_END
+

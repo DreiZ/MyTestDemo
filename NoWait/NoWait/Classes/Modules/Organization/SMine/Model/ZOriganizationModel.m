@@ -225,3 +225,50 @@
              };
 }
 @end
+
+
+@implementation ZStoresListModel : ZBaseModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"coupons" : @"ZOriganizationCardListModel"
+             };
+}
+@end
+
+@implementation ZStoresListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZStoresListModel"
+             };
+}
+@end
+
+
+@implementation ZAdverListModel : ZBaseModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"ad_id" : @"id"};
+}
+@end
+
+@implementation ZAdverListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"shuffling" : @"ZAdverListModel",
+              @"placeholder" : @"ZAdverListModel"
+             };
+}
+@end
+
+@implementation ZImagesModel
+
+@end
+
+
+
+@implementation ZStoresDetailModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"coupons_list" : @"ZOriganizationCardListModel",
+              @"images_list" : @"ZImagesModel",
+              @"teacher_list" : @"ZOriganizationTeacherListModel",
+              @"images_list" : @"ZImagesModel",
+              @"courses_list" : @"ZOriganizationLessonListModel",
+             };
+}
+@end

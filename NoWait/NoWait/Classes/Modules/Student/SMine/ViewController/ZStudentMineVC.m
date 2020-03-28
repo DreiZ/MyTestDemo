@@ -150,7 +150,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     NSArray *tempArr = @[@[isDarkModel() ? @"stores_order_dark":@"stores_order",@"order", @"我的订单", @"rightBlackArrowN"],
-                         @[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher_dark",@"sign", @"我的签课", @"rightBlackArrowN"],
+                         @[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher",@"sign", @"我的签课", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"stores_card_dark":@"stores_card",@"card", @"我的卡券", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"refund", @"我的退款", @"rightBlackArrowN"]];

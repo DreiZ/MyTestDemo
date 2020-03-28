@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZBaseModel.h"
 #import "ZBaseNetworkBackModel.h"
-
+#import "ZOriganizationLessonModel.h"
 
 @interface ZOriganizationModel : ZBaseModel
 
@@ -170,7 +170,7 @@
 @property (nonatomic,strong) NSString *stores_coach_id;
 @property (nonatomic,strong) NSString *coach_img;
 
-@property (nonatomic,strong) NSString * account_id;
+@property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *coupons_id;
 @property (nonatomic,strong) NSString *coupons_name;
 @property (nonatomic,strong) NSString *create_at;
@@ -203,6 +203,7 @@
 
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
+
 @end
 
 @interface ZOriganizationTeacherListNetModel : ZBaseNetworkBackDataModel
@@ -254,6 +255,7 @@
 @property (nonatomic,strong) NSString *unused_nums;
 @property (nonatomic,strong) NSString *nums;
 
+@property (nonatomic,strong) NSString *limit;
 @end
 
 
@@ -307,3 +309,45 @@
 @end
 
 
+@interface ZStoresListModel : ZBaseModel
+@property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*coupons;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *pay_nums;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSArray *tags;
+@end
+
+@interface ZStoresListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZStoresListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+
+
+@interface ZAdverListModel : ZBaseModel
+@property (nonatomic,strong) NSString *ad_id;
+@property (nonatomic,strong) NSString *ad_image;
+@property (nonatomic,strong) NSString *ad_url;
+@end
+
+@interface ZAdverListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZAdverListModel *>*shuffling;
+@property (nonatomic,strong) NSArray <ZAdverListModel *>*placeholder;
+@end
+
+@interface ZImagesModel : NSObject
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *type;
+@end
+
+@interface ZStoresDetailModel : ZOriganizationSchoolDetailModel
+@property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*coupons_list;
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSArray <ZImagesModel *>*images_list;
+@property (nonatomic,strong) NSArray <ZOriganizationStudentListModel *>*star_students;
+@property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*teacher_list;
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel*>*courses_list;
+
+@property (nonatomic,strong) NSString *update_at;
+@end

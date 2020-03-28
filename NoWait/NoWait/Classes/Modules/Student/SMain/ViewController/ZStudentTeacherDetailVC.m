@@ -15,7 +15,7 @@
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentImageCollectionCell.h"
 
-
+#import "ZStudentMainModel.h"
 @interface ZStudentTeacherDetailVC ()
 @end
 

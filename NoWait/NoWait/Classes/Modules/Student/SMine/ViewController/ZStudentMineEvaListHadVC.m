@@ -28,7 +28,6 @@
     
     [self setTableViewGaryBack];
 //    [self setNavigation];
-    [self initCellConfigArr];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
@@ -87,7 +86,6 @@
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }
-
 
 #pragma mark - 数据处理
 - (void)refreshData {

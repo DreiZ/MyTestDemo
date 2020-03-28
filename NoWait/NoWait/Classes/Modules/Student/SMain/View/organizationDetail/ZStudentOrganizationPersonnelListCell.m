@@ -86,7 +86,7 @@
 {
     ZStudentOrganizationPersonnelListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationPersonnelListItemCell className] forIndexPath:indexPath];
     ZStudentDetailPersonnelModel *model = _peopleslList[indexPath.row];
-    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
+    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)]];
     cell.titleLabel.text = model.name;
     cell.skillLabel.text = model.skill;
     return cell;

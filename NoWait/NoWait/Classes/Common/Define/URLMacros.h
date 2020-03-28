@@ -370,7 +370,15 @@
 #define URL_account_v1_get_teacher_comment_list              @"account/v1/get_teacher_comment_list"
 
 //回复
-#define URL_account_v1_reply_commen                @"account/v1/reply_comment"
+#define URL_account_v1_reply_commen                   @"account/v1/reply_comment"
 
+
+
+#pragma mark - 首页门店
+#define URL_merchants_v1_index                        @"merchants/v1/index"
+
+#define URL_merchants_v1_get_ad_list                  @"merchants/v1/get_ad_list"
+
+#define URL_merchants_v1_stores_deteail_info          @"merchants/v1/stores_deteail_info"
 
 #endif /* URLMacros_h */

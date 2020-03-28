@@ -38,6 +38,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *teacherPirce;
 
 @property (nonatomic,assign) BOOL isSelected;
+
+@property (nonatomic,strong) NSString *notice_msg;
 @end
 
 

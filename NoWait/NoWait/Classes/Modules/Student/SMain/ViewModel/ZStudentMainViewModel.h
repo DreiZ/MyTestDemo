@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMainViewModel : ZBaseViewModel
 
++ (void)getIndexList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
++ (void)getAdverList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)getStoresDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

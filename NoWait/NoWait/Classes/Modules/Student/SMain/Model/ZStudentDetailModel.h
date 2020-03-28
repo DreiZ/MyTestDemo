@@ -141,6 +141,7 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *skill;
+@property (nonatomic,strong) id data;
 
 @end
 

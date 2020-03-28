@@ -14,7 +14,6 @@
 #import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentMainFiltrateSectionView.h"
 
-#import "ZStudentOrganizationDetailVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentClassificationListVC.h"
 
@@ -24,6 +23,8 @@
 #import "ZAlertView.h"
 #import "ZAlertImageView.h"
 
+#import "ZStudentMainViewModel.h"
+
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
 @interface ZStudentMainVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -32,6 +33,9 @@
 
 @property (nonatomic,strong) NSMutableArray *enteryArr;
 @property (nonatomic,strong) NSMutableArray *photoWallArr;
+@property (nonatomic,strong) NSMutableArray *AdverArr;
+@property (nonatomic,strong) NSMutableArray *placeholderArr;
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
@@ -55,12 +59,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initCellConfigArr];
+    
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
+    [self refreshData];
+    [self getAdverData];
 }
 
 - (void)setDataSource {
     [super setDataSource];
     _enteryArr = @[].mutableCopy;
     _photoWallArr = @[].mutableCopy;
+    _AdverArr = @[].mutableCopy;
+    _placeholderArr = @[].mutableCopy;
     
     NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"],@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"]];
     
@@ -84,12 +96,31 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
     NSMutableArray *sectionArr = @[].mutableCopy;
-    ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
-    model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gck7hzkurrj30zk0lfai4.jpg";
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@[model,model]];
-    [sectionArr addObject:topCellConfig];
+    if (self.AdverArr && self.AdverArr.count > 0) {
+        NSMutableArray *tempAdverr = @[].mutableCopy;
+        for (ZAdverListModel *adverModel in self.AdverArr) {
+            ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
+            model.image = adverModel.ad_image;
+            model.data = adverModel;
+            [tempAdverr addObject:model];
+        }
+           
+       ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempAdverr];
+       [sectionArr addObject:topCellConfig];
+    }else if (self.placeholderArr && self.placeholderArr.count){
+        NSMutableArray *tempAdverr = @[].mutableCopy;
+         for (ZAdverListModel *adverModel in self.placeholderArr) {
+             ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
+             model.image = adverModel.ad_image;
+             model.data = adverModel;
+             [tempAdverr addObject:model];
+         }
+            
+        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempAdverr];
+        [sectionArr addObject:topCellConfig];
+    }
+   
     
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
     [sectionArr addObject:enteryCellConfig];
@@ -102,22 +133,8 @@
     NSMutableArray *section1Arr = @[].mutableCopy;
     
     
-    for (int i = 0; i < 10; i++) {
-        ZStudentOrganizationListModel *model = [[ZStudentOrganizationListModel alloc] init];
-        if (i%5 == 0) {
-            model.image = @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcl9l56hc7j30xc0m8gol.jpg";
-        }else if ( i%5 == 1){
-            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl9enz0bcj318y0u0h0v.jpg";
-        }else if ( i%5 == 2){
-            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl90ruhzpj30u011i44s.jpg";
-        }else if ( i%5 == 3){
-            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8kmicgrj318y0u0ae4.jpg";
-        }else{
-            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8abyp14j30u011g0yz.jpg";
-                
-        }
-        
-        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [section1Arr addObject:orCellCon1fig];
     }
     [self.cellConfigArr addObject:section1Arr];
@@ -158,11 +175,17 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.iTableView setContentOffset:CGPointMake(0, [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:weakSelf.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:weakSelf.photoWallArr]) animated:YES];
                 });
-                
             }
         };
     }
     return _sectionView;
+}
+
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
 }
 
 #pragma mark - tableView -------datasource-----
@@ -224,23 +247,18 @@
 //    }];
 //
 //    return;
-//    [ZPhoneAlertView setAlertName:@"哈哈哈" detail:@"十多个哈啊烦得很" headImage:@"coachSelect1" tel:@"1882111232" handlerBlock:^(NSInteger index) {
-//
-//    }];
-//    return;
 //    [ZServerCompleteAlertView setAlertWithHandlerBlock:^(NSInteger index) {
 //
 //    }];
-//    return;
-//    [ZAlertView setAlertWithTitle:@"放顶顶顶" btnTitle:@"确定" handlerBlock:^(NSInteger index) {
-//
-//    }];
-//    return;
     if (indexPath.section == 1) {
         [[ZUserHelper sharedHelper] checkLogin:^{
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-            
-            [self.navigationController pushViewController:dvc animated:YES];
+            NSArray *tempArr = self.cellConfigArr[indexPath.section];
+            ZCellConfig *cellConfig = tempArr[indexPath.row];
+            if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                dvc.listModel = cellConfig.dataModel;
+                [self.navigationController pushViewController:dvc animated:YES];
+            }
         }];
         
     }
@@ -255,20 +273,94 @@
     [self.searchView updateWithOffset:Offset_y];
 }
 
-#pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
--(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
-    [super traitCollectionDidChange:previousTraitCollection];
-    
-    // darkmodel change
-    [self setupDarkModel];
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
 }
 
-#pragma mark - setupDarkModel
-- (void)setupDarkModel{
-    if ([DarkModel isDarkMode]) {
-//        [self darkType];
-    }else{
-//        [self lightType];
-    }
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getIndexList:self.param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getIndexList:self.param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+}
+
+- (void)getAdverData {
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getAdverList:@{} completeBlock:^(BOOL isSuccess, ZAdverListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.AdverArr removeAllObjects];
+            [weakSelf.placeholderArr removeAllObjects];
+            [weakSelf.AdverArr addObjectsFromArray:data.shuffling];
+            [weakSelf.placeholderArr addObjectsFromArray:data.placeholder];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+        }else{
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

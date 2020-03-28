@@ -42,7 +42,6 @@
 
 - (void)setData {
     _cellConfigArr = @[].mutableCopy;
-    [self resetData];
 }
 
 #pragma mark lazy loading...
@@ -117,6 +116,10 @@
 
 
 #pragma mark -- setdata--
+- (void)setModel:(ZStoresDetailModel *)model {
+    _model = model;
+    [self resetData];
+}
 - (void)resetData {
     [_cellConfigArr removeAllObjects];
     {
@@ -125,8 +128,8 @@
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(80);
         mModel.isHiddenLine = YES;
-        mModel.leftTitle = @"代付俱按公司";
-        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.leftTitle = self.model.name;
+        mModel.data = self.model.merchant_stores_tags;
         mModel.rightColor = [UIColor colorMain];
         mModel.rightDarkColor = [UIColor colorMainSub];
         mModel.leftFont = [UIFont boldFontMax1Title];
@@ -141,7 +144,7 @@
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = @"公司的风格就是金融家坡附近";
+        mModel.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",self.model.province,self.model.city,self.model.county,self.model.address];
         mModel.cellTitle = @"address";
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
@@ -152,18 +155,22 @@
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.isHiddenLine = YES;
-        mModel.leftTitle = @"营业时间：8:00~12:00";
+        mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",self.model.opend_start,self.model.opend_end];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
     {
+        NSMutableArray *coupons = @[].mutableCopy;
+        for (ZOriganizationCardListModel *cartModel in self.model.coupons_list) {
+            [coupons addObject:cartModel.title];
+        }
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
-        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.data = coupons;
         mModel.cellTitle = @"label";
         mModel.rightImage = @"rightBlackArrowN";
         mModel.leftFont = [UIFont fontMax1Title];
@@ -172,14 +179,17 @@
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
         
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     [self.iTableView reloadData];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
+    ZStoresDetailModel *detailModel = sender;
     CGFloat height = 0;
+    if (!detailModel) {
+        return 0;
+    }
     {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
@@ -189,7 +199,7 @@
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
         mModel.leftTitle = @"代付俱乐部";
-        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.data = detailModel.merchant_stores_tags;
         mModel.leftFont = [UIFont boldFontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
     }
@@ -200,7 +210,7 @@
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = @"公司的风格就是金融家坡附近";
+        mModel.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",detailModel.province,detailModel.city,detailModel.county,detailModel.address];
         height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
     }
     {
@@ -209,17 +219,21 @@
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.isHiddenLine = YES;
-        mModel.leftTitle = @"营业时间：8:00~12:00";
+        mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",detailModel.opend_start,detailModel.opend_end];
         height += [ZMultiseriateLineCell z_getCellHeight:mModel];
     }
     {
+        NSMutableArray *coupons = @[].mutableCopy;
+        for (ZOriganizationCardListModel *cartModel in detailModel.coupons_list) {
+            [coupons addObject:cartModel.title];
+        }
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
-        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+        mModel.data = coupons;
         mModel.leftFont = [UIFont fontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
         

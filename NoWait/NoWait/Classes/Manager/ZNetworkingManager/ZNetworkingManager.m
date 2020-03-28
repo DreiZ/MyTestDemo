@@ -92,7 +92,7 @@
             }
             
         }else{
-            NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+                NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
             ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
             backModel.code = @"888888";
             backModel.message = @"连接服务器失败";
