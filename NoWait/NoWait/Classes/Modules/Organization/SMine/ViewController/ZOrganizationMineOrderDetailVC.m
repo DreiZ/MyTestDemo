@@ -216,7 +216,8 @@
             || self.detailModel.type == ZStudentOrderTypeOutTime
             || self.detailModel.type == ZStudentOrderTypeOrderComplete
             || self.detailModel.type == ZStudentOrderTypeCancel
-            || self.detailModel.type == ZStudentOrderTypeOrderForReceived) {
+            || self.detailModel.type == ZStudentOrderTypeOrderForReceived
+            || self.detailModel.type == ZStudentOrderTypeOrderRefuse) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -650,10 +651,14 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getOrderDetail:@{@"order_id":SafeStr(self.model.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+    NSMutableDictionary *params = @{@"order_id":SafeStr(self.model.order_id)}.mutableCopy;
+    if (self.model) {
+        [params setObject:SafeStr(self.model.stores_id) forKey:@"stores_id"];
+    }
+    [ZOriganizationOrderViewModel getOrderDetail:params completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             weakSelf.detailModel = data;
-            weakSelf.detailModel.orderType = @"1";
+            weakSelf.detailModel.isStudent = weakSelf.model.isStudent;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }else{

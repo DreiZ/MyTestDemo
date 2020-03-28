@@ -28,6 +28,8 @@
 
 + (void)getMerchantsCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getAccountCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 
 + (void)getTeacherCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 

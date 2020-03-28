@@ -12,7 +12,6 @@
 @interface ZMineStudentEvaListEvaCoachCell ()
 
 @property (nonatomic,strong) UILabel *evaTitleLabel;
-@property (nonatomic,strong) UILabel *evaDesLabel;
 @property (nonatomic,strong) CWStarRateView *crView;
 @end
 
@@ -30,23 +29,17 @@
     [super setupView];
     
     [self.contentView addSubview:self.evaTitleLabel];
-    [self.contentView addSubview:self.evaDesLabel];
     [self.contentView addSubview:self.crView];
     
     [self.evaTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(24));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
-   [self.evaDesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-24));
-       make.centerY.equalTo(self.contentView.mas_centerY);
-   }];
-
     [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(30));
-        make.right.equalTo(self.evaDesLabel.mas_left).offset(CGFloatIn750(-20));
-        make.width.offset(CGFloatIn750(230.));
+        make.height.mas_equalTo(CGFloatIn750(12));
+        make.left.equalTo(self.evaTitleLabel.mas_right).offset(CGFloatIn750(10));
+        make.width.offset(CGFloatIn750(100));
         make.centerY.equalTo(self.mas_centerY);
     }];
 }
@@ -66,31 +59,18 @@
 - (UILabel *)evaTitleLabel {
     if (!_evaTitleLabel) {
         _evaTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaTitleLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        _evaTitleLabel.text = @"教练评价";
+        _evaTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _evaTitleLabel.text = @"2013-12-02";
         _evaTitleLabel.numberOfLines = 1;
         _evaTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_evaTitleLabel setFont:[UIFont fontContent]];
+        [_evaTitleLabel setFont:[UIFont fontMin]];
     }
     return _evaTitleLabel;
 }
 
 
-- (UILabel *)evaDesLabel {
-    if (!_evaDesLabel) {
-        _evaDesLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _evaDesLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        _evaDesLabel.text = @"很好";
-        _evaDesLabel.numberOfLines = 1;
-        _evaDesLabel.textAlignment = NSTextAlignmentRight;
-        [_evaDesLabel setFont:[UIFont fontSmall]];
-    }
-    return _evaDesLabel;
-}
-
-
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(40);
+    return CGFloatIn750(38);
 }
 @end
 

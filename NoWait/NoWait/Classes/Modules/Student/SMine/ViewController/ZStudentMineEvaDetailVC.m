@@ -1,12 +1,12 @@
 //
-//  ZOrganizationMineEvaDetailVC.m
+//  ZStudentMineEvaDetailVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/20.
+//  Created by zhuang zhang on 2020/3/28.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationMineEvaDetailVC.h"
+#import "ZStudentMineEvaDetailVC.h"
 #import "ZOrganizationEvaListLessonCell.h"
 #import "ZOrganizationEvaDetailTitleCell.h"
 #import "ZMultiseriateContentLeftLineCell.h"
@@ -16,14 +16,15 @@
 
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
+#import "ZStudentMineEvaEditVC.h"
 
-@interface ZOrganizationMineEvaDetailVC ()
+@interface ZStudentMineEvaDetailVC ()
 @property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
 @property (nonatomic,strong) NSString *stores_reply_text;
 @property (nonatomic,strong) NSString *course_reply_text;
 
 @end
-@implementation ZOrganizationMineEvaDetailVC
+@implementation ZStudentMineEvaDetailVC
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -46,25 +47,21 @@
     if (!self.detailModel) {
         return;
     }
-    _stores_reply_text = self.detailModel.stores_reply_desc;
-    _course_reply_text = self.detailModel.courses_reply_desc;
+    
+    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel];
+    [self.cellConfigArr addObject:orderCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
+    
     [self lessonEva];
     [self teacherEva];
     [self organizationEva];
     
-    {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
-        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
-        
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel];
-        [self.cellConfigArr addObject:orderCellConfig];
-        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
-    }
+    
 }
 
 - (void)lessonEva {
     {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"课程评价",@"star":SafeStr(self.detailModel.courses_comment_score)}];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"课程评价",@"star":SafeStr(self.detailModel.courses_comment_score),@"no":SafeStr(self.detailModel.has_update)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
     if (ValidStr(self.detailModel.courses_comment_desc)) {
@@ -85,13 +82,7 @@
          
          [self.cellConfigArr  addObject:menuCellConfig];
      }
-    if ([self.detailModel.course_is_reply intValue] == 0) {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaTextViewCell className] title:@"course_reply_text" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:orderCellConfig];
-        
-        ZCellConfig *btnCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:@"course_reply" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:btnCellConfig];
-    }else{
+    if ([self.detailModel.course_is_reply intValue] == 1) {
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.courses_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.courses_reply_desc)];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -102,7 +93,7 @@
 
 - (void)teacherEva {
     {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"教师评价",@"star":SafeStr(self.detailModel.teacher_comment_score)}];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"教师评价",@"star":SafeStr(self.detailModel.teacher_comment_score),@"no":SafeStr(self.detailModel.has_update)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
      if (ValidStr(self.detailModel.teacher_comment_desc)) {
@@ -135,7 +126,7 @@
 
 - (void)organizationEva {
     {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"校区评价",@"star":SafeStr(self.detailModel.stores_comment_score)}];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaDetailTitleCell className] title:[ZOrganizationEvaDetailTitleCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationEvaDetailTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"title":@"校区评价",@"star":SafeStr(self.detailModel.stores_comment_score),@"no":SafeStr(self.detailModel.has_update)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
      if (ValidStr(self.detailModel.stores_comment_desc)) {
@@ -157,13 +148,7 @@
          [self.cellConfigArr  addObject:menuCellConfig];
      }
     
-     if ([self.detailModel.stores_is_reply intValue] == 0) {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaTextViewCell className] title:@"stores_reply_text" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-         [self.cellConfigArr addObject:orderCellConfig];
-         
-         ZCellConfig *btnCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:@"stores_reply" showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-         [self.cellConfigArr addObject:btnCellConfig];
-     }else{
+     if ([self.detailModel.stores_is_reply intValue] == 1) {
          ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.stores_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.stores_reply_desc)];
          [self.cellConfigArr addObject:orderCellConfig];
      }
@@ -184,49 +169,24 @@
     }];
 }
 
-#pragma mark lazy loading...
+#pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]){
-        ZOrganizationEvaListLessonCell *lcell = (ZOrganizationEvaListLessonCell *)cell;
-        lcell.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        lcell.contView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-//        enteryCell.evaBlock = ^{
-////            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-////            [self.navigationController pushViewController:evc animated:YES];
-//        };
-    }else if([cellConfig.title isEqualToString:@"course_reply_text"]){
-        ZOrganizationEvaListEvaTextViewCell *tCell = (ZOrganizationEvaListEvaTextViewCell *)cell;
-        tCell.content = self.course_reply_text;
-        tCell.max = 200;
-        tCell.textChangeBlock = ^(NSString * text) {
-            weakSelf.course_reply_text = text;
-        };
-    }else if([cellConfig.title isEqualToString:@"stores_reply_text"]){
-        ZOrganizationEvaListEvaTextViewCell *tCell = (ZOrganizationEvaListEvaTextViewCell *)cell;
-        tCell.content = self.stores_reply_text;
-        tCell.max = 200;
-        tCell.textChangeBlock = ^(NSString * text) {
-            weakSelf.stores_reply_text = text;
-        };
-    }else if([cellConfig.title isEqualToString:@"course_reply"]){
-        ZOrganizationEvaListEvaBtnCell *tCell = (ZOrganizationEvaListEvaBtnCell *)cell;
-        tCell.evaBlock = ^(NSInteger index) {
-            [weakSelf replyWityType:@"1"];
-        };
-    }else if([cellConfig.title isEqualToString:@"stores_reply"]){
-        ZOrganizationEvaListEvaBtnCell *tCell = (ZOrganizationEvaListEvaBtnCell *)cell;
-        tCell.evaBlock = ^(NSInteger index) {
-            [weakSelf replyWityType:@"3"];
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaDetailTitleCell"]){
+        ZOrganizationEvaDetailTitleCell *lcell = (ZOrganizationEvaDetailTitleCell *)cell;
+        lcell.handleBlock = ^(NSInteger index) {
+            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+            evc.evaDetailModel = weakSelf.detailModel;
+            [weakSelf.navigationController pushViewController:evc animated:YES];
         };
     }
+    
 }
-
 
 #pragma mark - refresha
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(self.listModel.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+    [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(self.listModel.order_id),@"stores_id":SafeStr(self.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             weakSelf.detailModel = data;
             [weakSelf initCellConfigArr];
@@ -237,37 +197,6 @@
     }];
 }
 
-- (void)replyWityType:(NSString *)type {
-    NSMutableDictionary *params = @{}.mutableCopy;
-    [params setObject:SafeStr(self.detailModel.stores_id) forKey:@"stores_id"];
-    [params setObject:SafeStr(self.detailModel.order_id) forKey:@"order_id"];
-    [params setObject:SafeStr(type) forKey:@"type"];
-    if ([type isEqualToString:@"1"]) {
-        if (!ValidStr(self.course_reply_text)) {
-            [TLUIUtility showErrorHint:@"您还没有输入任何内容"];
-            return;
-        }
-        [params setObject:SafeStr(self.course_reply_text) forKey:@"desc"];
-    }else if ([type isEqualToString:@"3"]){
-        if (!ValidStr(self.stores_reply_text)) {
-            [TLUIUtility showErrorHint:@"您还没有输入任何内容"];
-            return;
-        }
-        [params setObject:SafeStr(self.stores_reply_text) forKey:@"desc"];
-    }
-
-    __weak typeof(self) weakSelf = self;
-    [TLUIUtility showLoading:@""];
-    [ZOriganizationOrderViewModel replyEvaOrder:params completeBlock:^(BOOL isSuccess, NSString *message) {
-        [TLUIUtility hiddenLoading];
-        if (isSuccess) {
-            [TLUIUtility showSuccessHint:message];
-            [weakSelf refreshData];
-            return ;
-        }else {
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
-}
 @end
+
 

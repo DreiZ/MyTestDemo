@@ -148,9 +148,9 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.list) {
-        return self.list.count;
-    }
+//    if (self.list) {
+//        return self.list.count;
+//    }
     return 0;
 }
 
@@ -197,9 +197,9 @@
     return CGFloatIn750(40) + CGFloatIn750(36) + CGFloatIn750(80) + CGFloatIn750(108) + CGFloatIn750(106) * list.count;
 }
 
-
-- (void)setList:(NSArray<ZStudentLessonModel *> *)list {
-    _list = list;
-    [_iTableView reloadData];
-}
+//
+//- (void)setList:(NSArray<ZStudentLessonModel *> *)list {
+//    _list = list;
+//    [_iTableView reloadData];
+//}
 @end

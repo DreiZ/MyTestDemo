@@ -148,12 +148,13 @@
         model.cellHeight = CGFloatIn750(62);
         model.rightFont = [UIFont fontSmall];
         cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
+        cellHeight += CGFloatIn750(20);
     }
     
     if ([evaModel.is_reply intValue] == 0) {
         cellHeight += [ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil];
     }else{
-        cellHeight += [ZOrganizationEvaListReEvaCell z_getCellHeight:evaModel.reply_desc] + CGFloatIn750(40);
+        cellHeight += [ZOrganizationEvaListReEvaCell z_getCellHeight:evaModel.reply_desc] + CGFloatIn750(60);
     }
     cellHeight += [ZOrganizationEvaListLessonCell z_getCellHeight:nil];
 //    cellHeight += [ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil];
@@ -161,7 +162,7 @@
 //    cellHeight += [ZOrganizationEvaListReEvaCell z_getCellHeight:evaModel.des] + CGFloatIn750(40);
 
     
-    return  cellHeight+= CGFloatIn750(80 + 30);
+    return  cellHeight+= CGFloatIn750(80 + 10);
 }
 
 - (void)setModel:(ZOrderEvaListModel *)model {
@@ -214,8 +215,9 @@
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListEvaBtnCell className] title:[ZOrganizationEvaListEvaBtnCell className] showInfoMethod:nil heightOfCell:[ZOrganizationEvaListEvaBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:orderCellConfig];
     }else{
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(10)];
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:_model.reply_desc] cellType:ZCellTypeClass dataModel:_model.reply_desc];
-               [self.cellConfigArr addObject:orderCellConfig];
+        [self.cellConfigArr addObject:orderCellConfig];
     }
 }
 

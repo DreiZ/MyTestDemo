@@ -34,9 +34,19 @@
     [super viewDidLoad];
     
     _evaModel = [[ZOrderEvaModel alloc] init];
-    _evaModel.courses_comment_score = @"5";
-    _evaModel.stores_comment_score = @"5";
-    _evaModel.teahcer_comment_score = @"5";
+    if (self.evaDetailModel) {
+        _evaModel.courses_comment_score = self.evaDetailModel.courses_comment_score;
+        _evaModel.stores_comment_score = self.evaDetailModel.stores_comment_score;
+        _evaModel.teahcer_comment_score = self.evaDetailModel.teacher_comment_score;
+        _evaModel.courses_comment_desc = self.evaDetailModel.courses_comment_desc;
+        _evaModel.stores_comment_desc = self.evaDetailModel.stores_comment_desc;
+        _evaModel.teacher_comment_desc = self.evaDetailModel.teacher_comment_desc;
+    }else{
+        _evaModel.courses_comment_score = @"5";
+        _evaModel.stores_comment_score = @"5";
+        _evaModel.teahcer_comment_score = @"5";
+    }
+    
     [self setNavigation];
     [self initCellConfigArr];
 }
@@ -165,6 +175,7 @@
         ZStudentLessonOrderMoreInputCell *lcell = (ZStudentLessonOrderMoreInputCell *)cell;
         lcell.max = 200;
         lcell.hint = @"说说您的看法";
+        lcell.content = self.evaModel.courses_comment_desc;
         lcell.textChangeBlock = ^(NSString *text) {
             weakSelf.evaModel.courses_comment_desc = text;
         };
@@ -177,6 +188,7 @@
         ZStudentLessonOrderMoreInputCell *lcell = (ZStudentLessonOrderMoreInputCell *)cell;
         lcell.max = 200;
         lcell.hint = @"说说您的看法";
+        lcell.content = self.evaModel.teacher_comment_desc;
         lcell.textChangeBlock = ^(NSString *text) {
             weakSelf.evaModel.teacher_comment_desc = text;
         };
@@ -188,6 +200,7 @@
     }else if ([cellConfig.title isEqualToString:@"schoolText"]) {
         ZStudentLessonOrderMoreInputCell *lcell = (ZStudentLessonOrderMoreInputCell *)cell;
         lcell.max = 200;
+        lcell.content = self.evaModel.stores_comment_desc;
         lcell.hint = @"说说您的看法";
         lcell.textChangeBlock = ^(NSString *text) {
             weakSelf.evaModel.stores_comment_desc = text;
@@ -200,9 +213,12 @@
     if (self.detailModel) {
         [params setObject:self.detailModel.stores_id forKey:@"stores_id"];
         [params setObject:self.detailModel.order_id forKey:@"order_id"];
-    }else{
+    }else if (self.listModel){
         [params setObject:self.listModel.stores_id forKey:@"stores_id"];
         [params setObject:self.listModel.order_id forKey:@"order_id"];
+    }else{
+        [params setObject:self.evaDetailModel.stores_id forKey:@"stores_id"];
+        [params setObject:self.evaDetailModel.order_id forKey:@"order_id"];
     }
     
     [params setObject:self.evaModel.stores_comment_score forKey:@"stores_comment_score"];

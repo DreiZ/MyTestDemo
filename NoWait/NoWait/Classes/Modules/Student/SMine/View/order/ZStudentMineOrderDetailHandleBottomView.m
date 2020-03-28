@@ -96,6 +96,14 @@
     self.delBtn.hidden = YES;
     self.refuseBtn.hidden =  YES;
     self.receivedBtn.hidden = YES;
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 - (UIView *)bottomView {
@@ -290,7 +298,9 @@
         
         if (model.type == ZStudentOrderTypeOrderForReceived
             || model.type == ZStudentOrderTypeForRefuseComplete
-            || model.type == ZStudentOrderTypeHadEva) {
+            || model.type == ZStudentOrderTypeHadEva
+            || model.type == ZStudentOrderTypeOrderRefuse
+            || model.type == ZStudentOrderTypeOrderComplete) {
             [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.right.left.equalTo(self.bottomView);
                 make.height.mas_equalTo(CGFloatIn750(88));

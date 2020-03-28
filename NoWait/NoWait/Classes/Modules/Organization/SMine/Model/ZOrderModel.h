@@ -161,7 +161,7 @@
 @property (nonatomic,strong) NSString *stores_reply_desc;
 @property (nonatomic,strong) NSString *courses_reply_desc;
 @property (nonatomic,strong) NSString *teacher_reply_desc;
-
+@property (nonatomic,strong) NSString *has_update;
 
 @end
 

@@ -15,7 +15,7 @@
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"
 
-#import "ZStudentMineEvaListVC.h"
+#import "ZStudentMineEvaListHadVC.h"
 #import "ZStudentMineOrderListVC.h"
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
@@ -67,7 +67,7 @@
     
     for (int i = 0; i < 5; i++) {
         
-        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
+//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
     }
 }
 
@@ -109,7 +109,7 @@
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
             if ([scellConfig.title isEqualToString:@"eva"]) {
-                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+                ZStudentMineEvaListHadVC *elvc = [[ZStudentMineEvaListHadVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([scellConfig.title isEqualToString:@"order"]){
                 ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];

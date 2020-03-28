@@ -217,9 +217,9 @@
 }
 
 
-- (void)setList:(NSArray<ZStudentLessonModel *> *)list {
-    _dataSources = list;
-    [_iCollectionView reloadData];
-}
+//- (void)setList:(NSArray<ZStudentLessonModel *> *)list {
+//    _dataSources = list;
+//    [_iCollectionView reloadData];
+//}
 @end
 

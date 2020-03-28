@@ -9,16 +9,11 @@
 #import "ZTeacherMineVC.h"
 #import "ZOrganizationMineHeaderView.h"
 
-#import "ZMineMenuCell.h"
-#import "ZStudentMineAdverCell.h"
-#import "ZStudentMineLessonProgressCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"
 #import "ZTeacherMineEntryStoresCell.h"
 
-#import "ZStudentMineEvaListVC.h"
-#import "ZStudentMineOrderListVC.h"
-#import "ZStudentMineCardListVC.h"
+#import "ZStudentMineEvaListHadVC.h"
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
@@ -68,7 +63,7 @@
     
     for (int i = 0; i < 5; i++) {
         
-        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
+//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
     }
 }
 
@@ -110,7 +105,7 @@
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
             if ([scellConfig.title isEqualToString:@"eva"]) {
-                ZStudentMineEvaListVC *elvc = [[ZStudentMineEvaListVC alloc] init];
+                ZStudentMineEvaListHadVC *elvc = [[ZStudentMineEvaListHadVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([scellConfig.title isEqualToString:@"sign"]) {
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];

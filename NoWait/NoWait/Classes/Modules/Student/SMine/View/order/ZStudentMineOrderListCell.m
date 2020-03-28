@@ -356,7 +356,7 @@
     return _failLabel;
 }
 
-#pragma mark btn handle
+#pragma mark - btn handle
 - (UIButton *)payBtn {
     if (!_payBtn) {
         __weak typeof(self) weakSelf = self;

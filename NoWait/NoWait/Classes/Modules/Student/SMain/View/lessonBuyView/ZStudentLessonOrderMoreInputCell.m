@@ -125,6 +125,16 @@
     _thintLabel.text = hint;
 }
 
+- (void)setContent:(NSString *)content {
+    _content = content;
+    _iTextView.text = content;
+    if (ValidStr(content)) {
+        self.thintLabel.hidden = YES;
+    }else{
+        self.thintLabel.hidden = NO;
+    }
+}
+
 
 - (void)setFormatterType:(ZFormatterType)formatterType {
     if (formatterType == ZFormatterTypeDecimal) {

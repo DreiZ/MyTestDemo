@@ -73,20 +73,20 @@
     
     {
         NSMutableArray *configArr = @[].mutableCopy;
-        ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
-        evaModel.orderImage = @"lessonOrder";
-        evaModel.orderNum = @"23042039523452";
-        evaModel.lessonTitle = @"仰泳";
-        evaModel.lessonTime = @"2019-10-26";
-        evaModel.lessonCoach = @"高圆圆";
-        evaModel.lessonOrg = @"上飞天俱乐部";
-        evaModel.coachStar = @"3.4";
-        evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
-
-        evaModel.orgStar = @"4.5";
-        evaModel.orgEva = @"反反复复付受到法律和";
+//        ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
+//        evaModel.orderImage = @"lessonOrder";
+//        evaModel.orderNum = @"23042039523452";
+//        evaModel.lessonTitle = @"仰泳";
+//        evaModel.lessonTime = @"2019-10-26";
+//        evaModel.lessonCoach = @"高圆圆";
+//        evaModel.lessonOrg = @"上飞天俱乐部";
+//        evaModel.coachStar = @"3.4";
+//        evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
+//
+//        evaModel.orgStar = @"4.5";
+//        evaModel.orgEva = @"反反复复付受到法律和";
         
-        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [configArr addObject:evaCellConfig];
         [configArr addObject:evaCellConfig];
         [configArr addObject:evaCellConfig];

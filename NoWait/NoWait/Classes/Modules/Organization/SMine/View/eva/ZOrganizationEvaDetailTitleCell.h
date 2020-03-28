@@ -10,6 +10,6 @@
 
 @interface ZOrganizationEvaDetailTitleCell : ZBaseCell
 @property (nonatomic,strong) NSDictionary *data;
-
+@property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

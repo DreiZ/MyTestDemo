@@ -11,7 +11,6 @@
 
 
 @interface ZMineStudentEvaListEvaCoachCell : ZBaseCell
-@property (nonatomic,strong) ZStudentOrderEvaModel *model;
 
 @end
 

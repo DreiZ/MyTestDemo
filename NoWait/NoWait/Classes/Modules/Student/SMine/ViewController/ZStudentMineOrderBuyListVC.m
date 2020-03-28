@@ -7,82 +7,44 @@
 //
 
 #import "ZStudentMineOrderBuyListVC.h"
-#import "ZCellConfig.h"
 
-#import "ZSpaceEmptyCell.h"
 #import "ZStudentMineOrderListCell.h"
-#import "ZStudentMineOrderDetailtVC.h"
-
+#import "ZOrganizationMineOrderDetailVC.h"
+#import "ZOriganizationOrderViewModel.h"
+#import "ZStudentOrderPayVC.h"
+#import "ZStudentMineEvaEditVC.h"
 
 @interface ZStudentMineOrderBuyListVC ()
-
+@property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,assign) NSInteger tt;
 @end
+
 @implementation ZStudentMineOrderBuyListVC
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tt = 1;
     
-    [self setNavigation];
+    [self refreshData];
     [self setTableViewGaryBack];
-    [self initCellConfigArr];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (int i = 0; i < 15; i++) {
-        ZStudentOrderListModel *model = [[ZStudentOrderListModel alloc] init];
-        model.state = @"待支付";
-        model.club = @"散打俱乐部";
-        model.name = @"评判器的地方三房";
-        model.price = @"140.00";
-        model.tiTime = @"45";
-        model.teacher = @"看到老师";
-        model.fail = @"";
-        model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
-        
-        switch (i%9) {
-            case 0:
-                model.type = ZStudentOrderTypeForPay;
-                break;
-            case 1:
-                model.type = ZStudentOrderTypeHadPay;
-                break;
-            case 2:
-                model.type = ZStudentOrderTypeHadEva;
-                break;
-            case 3:
-                model.type = ZStudentOrderTypeOutTime;
-                break;
-            case 4:
-                model.type = ZStudentOrderTypeCancel;
-                break;
-//            case 5:
-//                model.type = ZStudentOrderTypeOrderForReceived;
-//                break;
-//            case 6:
-//                model.type = ZStudentOrderTypeOrderComplete;
-//                break;
-//            case 7:
-//                model.type = ZStudentOrderTypeOrderRefuse;
-//                break;
-//            case 8:
-//                model.type = ZStudentOrderTypeOrderForPay;
-//                break;
-            case 9:
-                model.type = ZStudentOrderTypeForRefuse;
-                model.state = @"待退款";
-                break;
-            case 10:
-                model.type = ZStudentOrderTypeForRefuseComplete;
-                model.state = @"退款已完成";
-                break;
-                
-                  
-            default:
-                break;
-        }
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOrderListModel *model = self.dataSources[i];
+        model.isStudent = YES;
+        model.orderType = @"0";
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }
 }
@@ -102,24 +64,146 @@
     }];
 }
 
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
+}
+
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-//        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
-//            ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
+        enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
+            if (index == ZLessonOrderHandleTypePay) {
+                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                [self.navigationController pushViewController:evc animated:YES];
+//                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
+//                [weakSelf.navigationController pushViewController:pvc animated:YES];
+            }else if (index == ZLessonOrderHandleTypeEva) {
+                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
+                evc.listModel = model;
+                [self.navigationController pushViewController:evc animated:YES];
+            }else{
+                [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
+                    if (isSuccess) {
+                        [TLUIUtility showSuccessHint:data];
+                        [weakSelf refreshData];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                }];
+            }
+//            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
 //            [self.navigationController pushViewController:evc animated:YES];
-//        };
+        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-        ZStudentMineOrderDetailtVC *evc = [[ZStudentMineOrderDetailtVC alloc] init];
+        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
         evc.model = cellConfig.dataModel;
         [self.navigationController pushViewController:evc animated:YES];
     }
 }
 
-@end
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
 
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    
+    switch (self.type) {
+        case ZStudentOrderTypeAll:
+            //全部
+            [_param setObject:[NSString stringWithFormat:@"%ld",_tt] forKey:@"status"];
+            break;
+        case ZStudentOrderTypeForPay:
+            //@"待支付";
+            [_param setObject:@"1" forKey:@"status"];
+            break;
+        case ZStudentOrderTypeHadPay:
+            //预约待支付
+            [_param setObject:@"2" forKey:@"status"];
+            break;
+        case ZStudentOrderTypeHadEva:
+            //已完成
+            [_param setObject:@"12" forKey:@"status"];
+            break;
+        default:
+            break;
+    }
+    [self.param setObject:@"0" forKey:@"type"];
+    _tt++;
+}
+
+@end
 

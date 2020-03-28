@@ -203,7 +203,7 @@
         default:
             break;
     }
-    [self.param setObject:@"0" forKey:@"type"];
+    [self.param setObject:@"1" forKey:@"type"];
     _tt++;
 }
 

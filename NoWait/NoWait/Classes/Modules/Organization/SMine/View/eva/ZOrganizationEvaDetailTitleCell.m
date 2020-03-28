@@ -12,6 +12,9 @@
 @interface ZOrganizationEvaDetailTitleCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) CWStarRateView *crView;
+@property (nonatomic,strong) UIImageView *editImageView;
+@property (nonatomic,strong) UIButton *editBtn;
+
 @end
 
 @implementation ZOrganizationEvaDetailTitleCell
@@ -29,25 +32,36 @@
     
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.crView];
-    
+    [self.contentView addSubview:self.editImageView];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
    
+    [self.editImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.mas_centerY);
+        make.width.height.mas_equalTo(CGFloatIn750(20));
+    }];
+    
+    [self.contentView addSubview:self.editBtn];
+    [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.editImageView.mas_left).offset(-CGFloatIn750(40));
+    }];
 
     [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(16));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.editImageView.mas_left).offset(-CGFloatIn750(30));
         make.width.offset(CGFloatIn750(110.));
         make.centerY.equalTo(self.mas_centerY);
     }];
+    
 }
 
 
 #pragma mark -Getter
-
 -(CWStarRateView *)crView
 {
     if (!_crView) {
@@ -68,11 +82,54 @@
     return _nameLabel;
 }
 
+- (UIImageView *)editImageView {
+    if (!_editImageView) {
+        _editImageView = [[UIImageView alloc] init];
+        _editImageView.image = [UIImage imageNamed:@"mineSetting"];
+    }
+    return _editImageView;
+}
+
+- (UIButton *)editBtn {
+    if (!_editBtn) {
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        __weak typeof(self) weakSelf = self;
+        [_editBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(0);
+            }
+        }];
+        
+    }
+    return _editBtn;
+}
+
 - (void)setData:(NSDictionary *)data {
     if (ValidDict(data)) {
         _nameLabel.text = data[@"title"];
         _crView.scorePercent = [data[@"star"] doubleValue]/10.0f * 2;
+        
+        if ([data objectForKey:@"no"] && [data[@"no"] isEqualToString:@"0"]) {
+            self.editBtn.hidden = NO;
+            self.editImageView.hidden = NO;
+            [self.crView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(CGFloatIn750(16));
+                make.right.equalTo(self.editImageView.mas_left).offset(-CGFloatIn750(30));
+                make.width.offset(CGFloatIn750(110.));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }else{
+            self.editBtn.hidden = YES;
+            self.editImageView.hidden = YES;
+            [self.crView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(CGFloatIn750(16));
+                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                make.width.offset(CGFloatIn750(110.));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
     }
+    
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

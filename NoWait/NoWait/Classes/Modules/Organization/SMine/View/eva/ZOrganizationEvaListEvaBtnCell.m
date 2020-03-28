@@ -29,7 +29,7 @@
     [self.contentView addSubview:self.evaBtn];
     [self.evaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerY.equalTo(self.contentView.mas_centerY).offset(-CGFloatIn750(10));
         make.width.mas_equalTo(CGFloatIn750(136));
         make.height.mas_equalTo(CGFloatIn750(44));
     }];

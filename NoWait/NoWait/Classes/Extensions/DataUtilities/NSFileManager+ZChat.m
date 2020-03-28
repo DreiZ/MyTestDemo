@@ -13,7 +13,7 @@
 
 + (NSString *)pathUserSettingImage:(NSString *)imageName
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Setting/Images/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Setting/Images/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -27,7 +27,7 @@
 
 + (NSString *)pathUserChatImage:(NSString*)imageName
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Images/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Images/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -42,7 +42,7 @@
 + (NSString *)pathUserChatBackgroundImage:(NSString *)imageName
 {
     
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Background/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Background/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -56,7 +56,7 @@
 
 + (NSString *)pathUserAvatar:(NSString *)imageName
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Avatar/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Avatar/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -84,7 +84,7 @@
 
 + (NSString *)pathUserChatVoice:(NSString *)voiceName
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Voices/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/Voices/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -141,7 +141,7 @@
 
 + (NSString *)pathDBCommon
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Setting/DB/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Setting/DB/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;
@@ -157,7 +157,7 @@
 
 + (NSString *)pathDBMessage
 {
-    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/DB/", [NSFileManager documentsPath], [ZUserHelper sharedHelper].uuid];
+    NSString *path = [NSString stringWithFormat:@"%@/User/%@/Chat/DB/", [NSFileManager documentsPath], @"1100028"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *error;

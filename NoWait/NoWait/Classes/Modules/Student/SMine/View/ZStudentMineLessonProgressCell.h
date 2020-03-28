@@ -10,7 +10,7 @@
 #import "ZStudentMineModel.h"
 
 @interface ZStudentMineLessonProgressCell : ZBaseCell
-@property (nonatomic,strong) NSArray<ZStudentLessonModel*> *list;
+//@property (nonatomic,strong) NSArray<ZStudentLessonModel*> *list;
 
 @end
 

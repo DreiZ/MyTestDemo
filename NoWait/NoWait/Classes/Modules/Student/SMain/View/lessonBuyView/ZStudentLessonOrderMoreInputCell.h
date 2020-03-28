@@ -14,6 +14,8 @@
 @property (nonatomic,strong) NSString *isBackColor;
 @property (nonatomic,assign) NSInteger max;
 @property (nonatomic,strong) NSString *hint;
+@property (nonatomic,strong) NSString *content;
+
 
 @property (nonatomic,strong) void (^textChangeBlock)(NSString *);
 @end

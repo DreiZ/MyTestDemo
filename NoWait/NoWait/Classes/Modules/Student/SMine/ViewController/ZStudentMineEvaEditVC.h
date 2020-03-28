@@ -12,6 +12,7 @@
 @interface ZStudentMineEvaEditVC : ZTableViewViewController
 @property (nonatomic,strong) ZOrderListModel *listModel;
 @property (nonatomic,strong) ZOrderDetailModel *detailModel;
+@property (nonatomic,strong) ZOrderEvaDetailModel *evaDetailModel;
 
 @end
 
