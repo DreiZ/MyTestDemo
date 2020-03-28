@@ -28,5 +28,8 @@
 
 
 + (void)getCardLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)receiveCoupons:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 @end
 

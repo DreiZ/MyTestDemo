@@ -7,11 +7,12 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZOrderModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentOrganizationCouponCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) ZOriganizationCardListModel *model;
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationCardListModel *);
 @end
 
 NS_ASSUME_NONNULL_END

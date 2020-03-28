@@ -82,16 +82,6 @@
         model.name = entryArr[i][0];
         [_enteryArr addObject:model];
     }
-    
-    for (int i = 0; i < 2; i++) {
-        ZStudentPhotoWallItemModel *photoWallModel = [[ZStudentPhotoWallItemModel alloc] init];
-        if (i == 0) {
-            photoWallModel.imageName = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gclaeqajz8j30u00u0wjk.jpg";
-        }else{
-            photoWallModel.imageName = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcla1o85kjj30u011in4r.jpg";
-        }
-        [_photoWallArr addObject:photoWallModel];
-    }
 }
 
 - (void)initCellConfigArr {
@@ -108,25 +98,27 @@
            
        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempAdverr];
        [sectionArr addObject:topCellConfig];
-    }else if (self.placeholderArr && self.placeholderArr.count){
-        NSMutableArray *tempAdverr = @[].mutableCopy;
-         for (ZAdverListModel *adverModel in self.placeholderArr) {
-             ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
-             model.image = adverModel.ad_image;
-             model.data = adverModel;
-             [tempAdverr addObject:model];
-         }
-            
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentBannerCell className] title:@"ZStudentBannerCell" showInfoMethod:@selector(setList:) heightOfCell:[ZStudentBannerCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempAdverr];
-        [sectionArr addObject:topCellConfig];
     }
+    
    
     
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
     [sectionArr addObject:enteryCellConfig];
     
-    ZCellConfig *photoWallCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainPhotoWallCell className] title:@"ZStudentMainPhotoWallCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainPhotoWallCell z_getCellHeight:_photoWallArr] cellType:ZCellTypeClass dataModel:_photoWallArr];
-    [sectionArr addObject:photoWallCellConfig];
+    
+    if (self.placeholderArr && self.placeholderArr.count){
+        [_photoWallArr removeAllObjects];
+         for (ZAdverListModel *adverModel in self.placeholderArr) {
+             ZStudentPhotoWallItemModel *photoWallModel = [[ZStudentPhotoWallItemModel alloc] init];
+             photoWallModel.imageName = adverModel.ad_image;
+             photoWallModel.data = adverModel;
+             [_photoWallArr addObject:photoWallModel];
+         }
+        
+        ZCellConfig *photoWallCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainPhotoWallCell className] title:@"ZStudentMainPhotoWallCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainPhotoWallCell z_getCellHeight:_photoWallArr] cellType:ZCellTypeClass dataModel:_photoWallArr];
+        [sectionArr addObject:photoWallCellConfig];
+    }
+    
     
     [self.cellConfigArr addObject:sectionArr];
     

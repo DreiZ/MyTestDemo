@@ -129,4 +129,22 @@
         completeBlock(NO, @"操作失败");
     }];
 }
+
++ (void)receiveCoupons:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_coupons_v1_receive_coupons params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 @end

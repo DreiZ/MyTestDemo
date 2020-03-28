@@ -14,10 +14,11 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
-
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationCardListModel *);
 @end
 
 @implementation ZOrganizationCouponListView
@@ -47,6 +48,7 @@ static ZOrganizationCouponListView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     _cellConfigArr = @[].mutableCopy;
+    _dataSource = @[].mutableCopy;
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
@@ -63,8 +65,6 @@ static ZOrganizationCouponListView *sharedManager;
         make.left.right.equalTo(self);
         make.bottom.equalTo(self).offset(CGFloatIn750(32));
     }];
-    
-    
     
     [self.contView addSubview:self.iTableView];
     [self.contView addSubview:self.titleLabel];
@@ -84,7 +84,7 @@ static ZOrganizationCouponListView *sharedManager;
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contView);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(40));
-        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(100));
+        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(50));
     }];
 }
 
@@ -165,6 +165,15 @@ static ZOrganizationCouponListView *sharedManager;
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationCouponCell"]) {
+        ZStudentOrganizationCouponCell *lcell = (ZStudentOrganizationCouponCell *)cell;
+        lcell.handleBlock = ^(ZOriganizationCardListModel *model) {
+            if (self.handleBlock ) {
+                self.handleBlock(model);
+            }
+        };
+    }
+    
     return cell;
 }
 
@@ -184,15 +193,18 @@ static ZOrganizationCouponListView *sharedManager;
 }
 
 
-- (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(NSInteger))handleBlock {
+- (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(ZOriganizationCardListModel *))handleBlock {
     self.titleLabel.text = title;
+    [_dataSource removeAllObjects];
+    [_dataSource addObjectsFromArray:couponList];
+    _handleBlock = handleBlock;
     
-    ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationCouponCell className] title:@"ZStudentOrganizationCouponCell" showInfoMethod:nil heightOfCell:[ZStudentOrganizationCouponCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:orCellCon1fig];
-    [self.cellConfigArr addObject:orCellCon1fig];
-    [self.cellConfigArr addObject:orCellCon1fig];
+    for (ZOriganizationCardListModel *listModel in self.dataSource) {
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationCouponCell className] title:@"ZStudentOrganizationCouponCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationCouponCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:listModel];
+        [self.cellConfigArr addObject:orCellCon1fig];
+    }
+    
     [self.iTableView reloadData];
-    
     
     self.alpha = 0;
     self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
@@ -204,7 +216,7 @@ static ZOrganizationCouponListView *sharedManager;
 }
 
 
-+ (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(NSInteger))handleBlock  {
++ (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(ZOriganizationCardListModel *))handleBlock  {
     [[ZOrganizationCouponListView sharedManager] setAlertWithTitle:title ouponList:couponList handlerBlock:handleBlock];
 }
 @end

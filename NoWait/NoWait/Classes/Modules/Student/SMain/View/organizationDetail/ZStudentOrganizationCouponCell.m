@@ -99,7 +99,7 @@
     UIButton *allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [allBtn bk_whenTapped:^{
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(0);
+            weakSelf.handleBlock(self.model);
         }
     }];
     [self.backView addSubview:allBtn];
@@ -114,7 +114,7 @@
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
-        _priceLabel.text = @"40";
+        
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
         [_priceLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(50)]];
@@ -127,7 +127,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
-        _nameLabel.text = @"泉山区建国西路锦绣家园7路";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -141,7 +141,7 @@
     if (!_manLabel) {
         _manLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _manLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
-        _manLabel.text = @"满400可用地方还是";
+        
         _manLabel.numberOfLines = 1;
         _manLabel.textAlignment = NSTextAlignmentLeft;
         [_manLabel setFont:[UIFont fontMin]];
@@ -167,7 +167,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
-        _timeLabel.text = @"营业时间：09:00-21:30";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontMin]];
@@ -183,6 +183,14 @@
         _backView.backgroundColor = [UIColor colorRedForLabelSub];
     }
     return _backView;
+}
+
+- (void)setModel:(ZOriganizationCardListModel *)model {
+    _model = model;
+    _timeLabel.text = [NSString stringWithFormat:@"有效期：%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    _manLabel.text = [NSString stringWithFormat:@"满%@可用地方还是",model.limit];
+    _nameLabel.text = model.title;
+    _priceLabel.text = model.amount;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

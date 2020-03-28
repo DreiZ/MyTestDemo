@@ -280,6 +280,8 @@
 //获取卡券可使用的课程列表
 #define URL_coupons_v1_get_courses_list_by_coupons_id              @"coupons/v1/get_courses_list_by_coupons_id"
 
+#define URL_coupons_v1_receive_coupons              @"coupons/v1/receive_coupons"
+
 
 #pragma mark - 排课------------------------------------------------
 //班级列表

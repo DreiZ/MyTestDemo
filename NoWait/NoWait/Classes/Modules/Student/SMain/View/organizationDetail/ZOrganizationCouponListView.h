@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZOrderModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCouponListView : UIView
 + (ZOrganizationCouponListView *)sharedManager ;
 
-+ (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(NSInteger))handleBlock ;
++ (void)setAlertWithTitle:(NSString *)title ouponList:(NSArray *)couponList handlerBlock:(void (^)(ZOriganizationCardListModel *))handleBlock ;
 
 @end
 

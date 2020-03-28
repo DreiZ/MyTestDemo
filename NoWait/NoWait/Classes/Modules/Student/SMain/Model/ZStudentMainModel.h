@@ -11,6 +11,7 @@
 @interface ZStudentPhotoWallItemModel : NSObject
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) id data;
 
 @end
 

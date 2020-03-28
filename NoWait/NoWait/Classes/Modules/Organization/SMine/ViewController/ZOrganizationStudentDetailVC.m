@@ -226,6 +226,7 @@
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             ZOrganizationStudentUpStarVC *uvc = [[ZOrganizationStudentUpStarVC alloc] init];
+            uvc.addModel = weakSelf.addModel;
             [weakSelf.navigationController pushViewController:uvc animated:YES];
         }];
     }

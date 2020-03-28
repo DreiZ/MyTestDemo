@@ -20,10 +20,13 @@
 
 #import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationTeacherLessonSelectVC.h"
+#import "ZOriganizationStudentViewModel.h"
+#import "ZOriganizationLessonViewModel.h"
 
 @interface ZOrganizationStudentUpStarVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
-
+@property (nonatomic,strong) NSMutableArray *images;
+@property (nonatomic,strong) NSString *des;
 @end
 
 @implementation ZOrganizationStudentUpStarVC
@@ -31,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _images = @[@"",@"",@"",@"",@"",@"",@"",@"",@""].mutableCopy;
     [self setNavigation];
     [self initCellConfigArr];
 }
@@ -38,8 +42,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"学员风采";
@@ -51,7 +54,7 @@
         
         [self.cellConfigArr addObject:menuCellConfig];
         
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:model.cellTitle showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:[ZOriganizationTextViewCell className] showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
         
         [self.cellConfigArr addObject:textCellConfig];
         
@@ -77,12 +80,23 @@
             NSMutableArray *menulist = @[].mutableCopy;
             for (int j = 0; j < 9; j++) {
                 ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-    //            model.name = tempArr[j][0];
-    //            model.imageName = tempArr[j][1];
-    //            model.uid = tempArr[j][2];
+                if (j < _images.count) {
+                    if (![_images[j] isKindOfClass:[UIImage class]]) {
+                        model.data = imageFullUrl(_images[j]);
+                    }else{
+                        model.data = _images[j];
+                    }
+                    
+                    model.uid = [NSString stringWithFormat:@"%d", j];
+                }
+                model.name = @"添加图片";
+                model.subName = @"选填";
+            //            model.name = tempArr[j][0];
+            //            model.imageName = tempArr[j][1];
+            //            model.uid = tempArr[j][2];
                 [menulist addObject:model];
             }
-            
+
             model.units = menulist;
             
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
@@ -124,68 +138,156 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            
+            if (!ValidStr(self.des)) {
+                [TLUIUtility showErrorHint:@"您还没有填写任何内容"];
+                return ;
+            }
+            [weakSelf updatePhotosStep1WithOtherParams:@{}.mutableCopy];
         }];
     }
     return _bottomBtn;
 }
 
 #pragma mark tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"sex"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"男",@"女"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           [items addObject:model];
-        }
-        
-        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-           
-        }];
-    }else if ([cellConfig.title isEqualToString:@"address"]){
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"徐州"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           
-           NSMutableArray *subItems = @[].mutableCopy;
-           
-           NSArray *temp = @[@"篮球",@"排球",@"乒乓球",@"足球"];
-           for (int i = 0; i < temp.count; i++) {
-               ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-               model.name = temp[i];
-               [subItems addObject:model];
-           }
-           model.ItemArr = subItems;
-           [items addObject:model];
-        }
-        [ZAlertDataPickerView setAlertName:@"校区选择" items:items handlerBlock:^(NSInteger index, NSInteger subIndex) {
-           
-        }];
-    }else if ([cellConfig.title isEqualToString:@"class"]) {
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"初级教师",@"高级教师"];
-        for (int i = 0; i < temp.count; i++) {
-            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-            model.name = temp[i];
-            [items addObject:model];
-        }
-        
-        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
-            
-        }];
-    }else if ([cellConfig.title isEqualToString:@"skill"]) {
-        ZOrganizationCampusManageAddLabelVC *avc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"lesson"]) {
-        ZOrganizationTeacherLessonSelectVC *avc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-        
-        [self.navigationController pushViewController:avc animated:YES];
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddPhotosCell"]) {
+           ZOrganizationLessonAddPhotosCell *tCell = (ZOrganizationLessonAddPhotosCell *)cell;
+           tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
+               [weakSelf.iTableView endEditing:YES];
+               if (isAdd) {
+                   [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 74/111.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+                       if (list && list.count > 0) {
+                           if (index < weakSelf.images.count) {
+                               LLImagePickerModel *model = list[0];
+                               [weakSelf.images replaceObjectAtIndex:index withObject:model.image];
+                               [weakSelf initCellConfigArr];
+                               [weakSelf.iTableView reloadData];
+                           }
+                       }
+                   }];
+               }else{
+                   if (index < weakSelf.images.count) {
+                       [weakSelf.images replaceObjectAtIndex:index withObject:@""];
+                       [weakSelf initCellConfigArr];
+                       [weakSelf.iTableView reloadData];
+                   }
+               }
+           };
+    }else if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]){
+        ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
+        lcell.max = 400;
+        lcell.hint = @"说点什么吧";
+        lcell.textChangeBlock = ^(NSString * text) {
+            weakSelf.des = text;
+        };
     }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    
+}
+
+- (NSInteger)checkIsHavePhotos {
+    NSInteger index = 0;
+    for (int i = 0; i < self.images.count; i++) {
+        id temp = self.images[i];
+        if ([temp isKindOfClass:[UIImage class]]) {
+            index++;
+        }else if ([temp isKindOfClass:[NSString class]]){
+            NSString *tempStr = temp;
+            if (tempStr.length > 0) {
+                index++;
+            }
+        }
+    }
+    return index;
+}
+
+- (void)updatePhotosStep1WithOtherParams:(NSMutableDictionary *)otherDict {
+    if ([self checkIsHavePhotos] > 0) {
+        [TLUIUtility showLoading:@"上传课程相册中"];
+        NSInteger tindex = 0;
+        [self updatePhotosStep2WithImage:tindex otherParams:otherDict];
+    }else{
+        [self updateOtherDataWithParams:otherDict];
+    }
+    
+}
+
+ - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
+         if (index == self.images.count-1) {
+             [self updateOtherDataWithParams:otherDict];
+         }else{
+             index++;
+             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+         }
+    }];
+}
+
+- (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传图片中 %ld/%ld",index+1,self.images.count]];
+    
+    id temp = self.images[index];
+    UIImage *image;
+    if ([temp isKindOfClass:[UIImage class]]) {
+        image = temp;
+       
+    }
+    if (!image) {
+        complete(YES,index);
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            [weakSelf.images replaceObjectAtIndex:index withObject:message];
+            complete(YES,index);
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+
+- (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
+    [otherDict setObject:self.addModel.name forKey:@"name"];
+    [otherDict setObject:self.addModel.phone forKey:@"phone"];
+    
+    if (ValidStr(self.addModel.studentID)) {
+        [otherDict setObject:self.addModel.studentID  forKey:@"id"];
+    }
+    [otherDict setObject:self.addModel.code_id forKey:@"code_id"];
+    [otherDict setObject:self.addModel.stores_id forKey:@"stores_id"];
+    [otherDict setObject:self.des forKey:@"specialty_desc"];
+    if ([self checkIsHavePhotos] > 0) {
+        NSMutableArray *photos = @[].mutableCopy;
+        for (int i = 0; i < self.images.count; i++) {
+            NSString *temp = self.images[i];
+            if (ValidStr(temp)) {
+                [photos addObject:temp];
+            }
+        }
+        if (photos.count > 0) {
+            [otherDict setObject:photos forKey:@"images_list"];
+        }
+    }
+    
+    
+    [TLUIUtility showLoading:@"上传其他数据"];
+    [ZOriganizationStudentViewModel editStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
 }
 
 @end
