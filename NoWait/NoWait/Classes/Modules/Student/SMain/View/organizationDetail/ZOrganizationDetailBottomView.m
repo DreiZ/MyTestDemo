@@ -49,6 +49,14 @@
         make.right.top.bottom.equalTo(backView);
         make.left.equalTo(self.telBtn.mas_right);
     }];
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 - (UIButton *)handleBtn {
@@ -57,7 +65,7 @@
         _handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_handleBtn.titleLabel setFont:[UIFont boldFontSmall]];
+        [_handleBtn.titleLabel setFont:[UIFont boldFontContent]];
         
         __weak typeof(self) weakSelf = self;
         [_handleBtn bk_whenTapped:^{
@@ -73,7 +81,7 @@
 - (UIButton *)telBtn {
     if (!_telBtn) {
         _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_telBtn setImage:[UIImage imageNamed:@"uploadCamera"] forState:UIControlStateNormal];
+        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont fontSmall]];
         
         __weak typeof(self) weakSelf = self;

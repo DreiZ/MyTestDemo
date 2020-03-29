@@ -87,7 +87,8 @@
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
+                [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
+//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
             }else{
                 [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
             }
