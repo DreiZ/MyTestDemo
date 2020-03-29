@@ -22,6 +22,7 @@
 @property (nonatomic,strong) UIView *backContentView;
 @property (nonatomic,strong) UIButton *openBtn;
 @property (nonatomic,strong) UIButton *seeBtn;
+@property (nonatomic,strong) UIButton *useBtn;
 @end
 
 @implementation ZOriganizationCartListCell
@@ -56,8 +57,8 @@
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
     }];
     
     [self.menuBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,6 +114,14 @@
     [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.menuBackView.mas_left).offset(CGFloatIn750(172));
         make.top.bottom.equalTo(self.menuBackView);
+    }];
+    
+    [self.menuBackView addSubview:self.useBtn];
+    [self.useBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.seeBtn.mas_centerY);
+        make.right.equalTo(self.menuBackView.mas_right).offset(-CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(132));
+        make.height.mas_equalTo(CGFloatIn750(50));
     }];
 }
 
@@ -212,6 +221,24 @@
     return _openBtn;
 }
 
+
+- (UIButton *)useBtn {
+    if (!_useBtn) {
+        __weak typeof(self) weakSelf = self;
+        _useBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_useBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_useBtn setTitle:@"去使用" forState:UIControlStateNormal];
+        ViewBorderRadius(_useBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        _useBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_useBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2,self.model);
+            };
+        }];
+    }
+    return _useBtn;
+}
+
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
         __weak typeof(self) weakSelf = self;
@@ -242,7 +269,7 @@
         _backContentView = [[UIView alloc] init];
         _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _backContentView.layer.cornerRadius = CGFloatIn750(12);
-        ViewShadowRadius(_backContentView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
+        ViewShadowRadius(_backContentView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, isDarkModel() ? [UIColor colorGrayBGDark] : [UIColor colorGrayBG]);
 
     }
     return _backContentView;
@@ -260,19 +287,7 @@
     
     _nameLabel.text = SafeStr(model.title);
     _conditionLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
-    if ([model.status intValue] == 1) {
-        _openBtn.hidden = NO;
-        [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
-        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    }else{
-        _openBtn.hidden = YES;
-        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
-        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-    }
+    
     
     if ([model.type intValue] == 1) {
         _seeBtn.enabled = NO;
@@ -282,29 +297,69 @@
         [_seeBtn setTitle:@"查看可用课程 >" forState:UIControlStateNormal];
     }
     
-    
+    _openBtn.enabled = YES;
+    _useBtn.hidden = !model.isStudent;
+    if (model.isStudent) {
+        if ([model.status intValue] == 2) {
+            _openBtn.hidden = NO;
+            _openBtn.enabled = NO;
+            [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        }else{
+            _openBtn.hidden = YES;
+        }
+    }else{
+        if ([model.status intValue] == 1) {
+            _openBtn.hidden = NO;
+            [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        }else{
+            _openBtn.hidden = YES;
+            [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        }
+    }
     
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(300);
+    return CGFloatIn750(280);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
     
-    if ([self.model.status intValue] == 1) {
-        _openBtn.hidden = NO;
-        [_openBtn setTitle:@"关闭" forState:UIControlStateNormal];
-        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    if (self.model.isStudent) {
+        if ([self.model.status intValue] == 2) {
+            _openBtn.hidden = NO;
+            _openBtn.enabled = NO;
+            [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        }else{
+            _openBtn.hidden = YES;
+        }
     }else{
-        _openBtn.hidden = YES;
-        [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
-        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        if ([self.model.status intValue] == 1) {
+            _openBtn.hidden = NO;
+            [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        }else{
+            _openBtn.hidden = YES;
+            [_openBtn setTitle:@"启用" forState:UIControlStateNormal];
+            [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+            ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+            _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        }
     }
 }
 @end

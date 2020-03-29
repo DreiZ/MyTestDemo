@@ -13,6 +13,7 @@
 #import "ZStudentMineSignListCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
+#import "ZOriganizationStudentViewModel.h"
 
 @interface ZStudentMineSignListVC ()
 
@@ -23,25 +24,22 @@
     [super viewDidLoad];
     
     [self setNavigation];
-    [self initCellConfigArr];
+    [self refreshData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignListCell className] title:[ZStudentMineSignListCell className] showInfoMethod:nil heightOfCell:[ZStudentMineSignListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
-    [self.cellConfigArr addObject:orderCellConfig];
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignListCell className] title:[ZStudentMineSignListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSignListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:orderCellConfig];
+    }
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"学员签课"];
+    [self.navigationItem setTitle:@"我的签课"];
 }
 
 - (void)setupMainView {
@@ -72,6 +70,81 @@
          
          [self.navigationController pushViewController:dvc animated:YES];
     }
+}
+
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+     [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    [param setObject:@"1" forKey:@"page"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    [self refreshHeadData:param];
+}
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+       [param setObject:@"7" forKey:@"stores_id"];
+       [param setObject:@"芷梦" forKey:@"name"];
+    return param;
 }
 
 @end

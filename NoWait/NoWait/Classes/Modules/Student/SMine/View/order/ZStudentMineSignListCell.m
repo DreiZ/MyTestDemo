@@ -143,7 +143,7 @@
     if (!_stateLabel) {
         _stateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _stateLabel.text = @"待开课";
+        
         _stateLabel.numberOfLines = 1;
         _stateLabel.textAlignment = NSTextAlignmentRight;
         [_stateLabel setFont:[UIFont fontSmall]];
@@ -156,7 +156,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"才玩俱乐部";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontSmall]];
@@ -167,7 +167,7 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.image = [UIImage imageNamed:@"serverTopbg"];
+        
         ViewRadius(_userImageView, CGFloatIn750(22));
     }
     return _userImageView;
@@ -178,7 +178,7 @@
     if (!_userLabel) {
         _userLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _userLabel.text = @"香香老师";
+        
         _userLabel.numberOfLines = 1;
         _userLabel.textAlignment = NSTextAlignmentRight;
         [_userLabel setFont:[UIFont fontSmall]];
@@ -191,7 +191,7 @@
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
-        _numLabel.text = @"已开课5/10";
+        
         _numLabel.numberOfLines = 1;
         _numLabel.textAlignment = NSTextAlignmentRight;
         [_numLabel setFont:[UIFont fontSmall]];
@@ -203,7 +203,7 @@
     if (!_classNameLabel) {
         _classNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _classNameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _classNameLabel.text = @"初级班级";
+        
         _classNameLabel.numberOfLines = 1;
         _classNameLabel.textAlignment = NSTextAlignmentLeft;
         [_classNameLabel setFont:[UIFont fontContent]];
@@ -215,7 +215,7 @@
     if (!_lessonNameLabel) {
         _lessonNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _lessonNameLabel.text = @"克城市的高斯公安问过他问过特";
+        
         _lessonNameLabel.numberOfLines = 1;
         _lessonNameLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonNameLabel setFont:[UIFont boldFontTitle]];
@@ -241,6 +241,43 @@
     return _signBtn;
 }
 
+- (void)setModel:(ZOriganizationStudentListModel *)model {
+    _model = model;
+    _lessonNameLabel.text = model.courses_name;
+    NSArray *temp = @[@"初级",@"进阶",@"精英"];
+    NSString *le = @"初级";
+    if (model.level && [model.level intValue] < 3) {
+        le = temp[[model.level intValue]];
+    }
+    _classNameLabel.text = le;
+    
+    _userLabel.text = model.name;
+    _nameLabel.text = model.teacher_name;
+    
+    _numLabel.hidden = YES;
+    _stateLabel.hidden = NO;
+//    1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
+    NSString *status = @"待排课";
+    if ([model.status intValue] == 1) {
+        status = @"待排课";
+    }else if ([model.status intValue] == 2) {
+        status = @"待开课";
+    }else if ([model.status intValue] == 3) {
+        status = @"已开课";
+        _numLabel.hidden = NO;
+        _stateLabel.hidden = YES;
+    }else if ([model.status intValue] == 4) {
+        status = @"已结课";
+    }else if ([model.status intValue] == 5) {
+        status = @"待补课";
+    }else if ([model.status intValue] == 6) {
+        status = @"已过期";
+    }
+    _numLabel.text = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+    _stateLabel.text = status;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.coach_img)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(348);
 }
@@ -249,10 +286,3 @@
     ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
 }
 @end
-
-
-
-
-
-
-

@@ -134,6 +134,7 @@
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
+@property (nonatomic,strong) NSString *level;// 1: 初级，2：进阶 3：精英
 @end
 
 
@@ -256,6 +257,7 @@
 @property (nonatomic,strong) NSString *nums;
 
 @property (nonatomic,strong) NSString *limit;
+@property (nonatomic,assign) BOOL isStudent;
 @end
 
 
