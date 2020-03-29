@@ -24,10 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 //删除课程
 + (void)deleteLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
-+ (void)uploadImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
-
-+ (void)deleteImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
-
 //添加课程
 + (void)addLesson:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock ;
 

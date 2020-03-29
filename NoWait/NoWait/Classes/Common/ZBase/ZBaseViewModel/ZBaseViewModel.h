@@ -37,6 +37,10 @@ typedef void(^resultDataBlock)(BOOL isSuccess, id data);
 - (void)resumeTask;
 
 
++ (void)uploadImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)deleteImageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 
