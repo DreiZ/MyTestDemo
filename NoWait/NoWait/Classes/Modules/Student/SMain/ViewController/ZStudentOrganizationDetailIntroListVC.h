@@ -7,11 +7,12 @@
 //
 
 #import "ZViewController.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOrderModel.h"
+#import "ZOriganizationModel.h"
 
 @interface ZStudentOrganizationDetailIntroListVC : ZViewController
+@property (nonatomic,strong) ZImagesModel *imageModel;
+@property (nonatomic,strong) ZStoresDetailModel *detailModel;
 
 @end
 
-NS_ASSUME_NONNULL_END

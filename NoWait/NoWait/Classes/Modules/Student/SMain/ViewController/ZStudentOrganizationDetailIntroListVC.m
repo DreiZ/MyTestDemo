@@ -8,20 +8,23 @@
 
 #import "ZStudentOrganizationDetailIntroListVC.h"
 #import "ZOrganizationDetailIntroCollectionViewCell.h"
+#import "ZOriganizationPhotoViewModel.h"
 
 @interface ZStudentOrganizationDetailIntroListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *list;
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
 @implementation ZStudentOrganizationDetailIntroListVC
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
+    
 }
 
 - (void)viewDidLoad {
@@ -30,11 +33,12 @@
     [self setNavigation];
     [self setMainView];
     [self setData];
+    [self refreshData];
 }
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"明星学员"];
+    [self.navigationItem setTitle:self.imageModel.name];
 }
 
 - (void)setMainView {
@@ -48,27 +52,8 @@
 }
 
 - (void)setData {
-    NSArray *stemparr = @[@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnimudx9rj30u0190x6r.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnik9gg1zj30rt167qv5.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnih592ymj30u012mkjl.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnifebkgxj30u011i41n.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni9yq6txj30in0skdh8.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcni67jfp0j30u01907wi.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni0ntc2oj30ia0rfgpz.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnhw86vyej30rs15ojti.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhm4ar5rj30m90xc4mp.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhgm151mj30tm18gwrz.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhcwlaihj30u011in00.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhbdlq2fj30hs0hsdin.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnh64taa2j30u011iqfx.jpg",
-    @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcnh1f4yvfj30u0140dsy.jpg",
-    @"http://tva1.sinaimg.cn/mw600/00831rSTly1gcngrcu9g5j30hs0m7ta9.jpg",
-    ];
     _list = @[].mutableCopy;
-    for (int i = 0; i < 80; i++) {
-        [_list addObject:stemparr[i%14]];
-    }
-    [_iCollectionView reloadData];
+    _param = @{}.mutableCopy;
 }
 
 
@@ -107,7 +92,8 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ZOrganizationDetailIntroCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizationDetailIntroCollectionViewCell className] forIndexPath:indexPath];
-    [cell.detailImageView tt_setImageWithURL:[NSURL URLWithString:_list[indexPath.row]]];
+    ZOriganizationPhotoTypeListModel *model = self.list[indexPath.row];
+    [cell.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.images_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     return cell;
 }
 
@@ -131,5 +117,78 @@
     return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }
 
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresTypeImageList:param completeBlock:^(BOOL isSuccess, ZOriganizationPhotoTypeListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.list removeAllObjects];
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationPhotoViewModel getStoresTypeImageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationPhotoTypeListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:SafeStr(self.detailModel.schoolID) forKey:@"stores_id"];
+    [self.param setObject:SafeStr(self.imageModel.type) forKey:@"type"];
+}
 @end
 

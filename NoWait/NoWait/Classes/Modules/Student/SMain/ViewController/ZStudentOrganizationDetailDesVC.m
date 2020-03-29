@@ -8,7 +8,6 @@
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZBaseUnitModel.h"
-#import "ZStudentDetailModel.h"
 #import "ZStudentEvaListCell.h"
 
 #import "ZStudentOrganizationDetailTopCell.h"
@@ -18,7 +17,6 @@
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
-
 #import "ZOrganizationDetailBottomView.h"
 
 #import "ZStudentOrganizationLessonDetailVC.h"
@@ -47,7 +45,6 @@
 @property (nonatomic,strong) ZStudentLessonSelectMainOrderView *selectView;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
 @property (nonatomic,strong) NSMutableDictionary *param;
-
 @end
 
 @implementation ZStudentOrganizationDetailDesVC
@@ -61,8 +58,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    [self setTableViewRefreshHeader];
+
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
 }
@@ -125,7 +121,6 @@
     }
     return _param;
 }
-
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -242,11 +237,13 @@
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailTopCell"]){
            ZStudentOrganizationDetailTopCell *lcell = (ZStudentOrganizationDetailTopCell *)cell;
         lcell.selectBlock = ^(ZBaseUnitModel * model) {
-               ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] init];
-               [weakSelf.navigationController pushViewController:ivc animated:YES];
-           };
+            ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
+            ivc.imageModel = model.data;
+            ivc.detailModel = weakSelf.detailModel;
+            [weakSelf.navigationController pushViewController:ivc animated:YES];
+        };
     
-       }else if ([cellConfig.title isEqualToString:@"starStudent"]){
+    }else if ([cellConfig.title isEqualToString:@"starStudent"]){
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
             ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
@@ -282,16 +279,15 @@
             }
         };
     }
-    
-    
 }
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-        [self.navigationController pushViewController:dvc animated:YES];
-//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//        
-//        [self.navigationController pushViewController:lessond_vc animated:YES];
+//        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+//        [self.navigationController pushViewController:dvc animated:YES];
+        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+        
+        [self.navigationController pushViewController:lessond_vc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];

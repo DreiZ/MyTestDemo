@@ -8,10 +8,13 @@
 
 #import "ZViewController.h"
 #import <WMPageController.h>
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOrderModel.h"
 
 @interface ZStudentOrganizationDetailIntroVC : WMPageController
 @property (nonatomic,assign) BOOL isHidenNaviBar;
+@property (nonatomic,strong) ZImagesModel *imageModel;
+@property (nonatomic,strong) ZStoresDetailModel *detailModel;
+
+- (instancetype)initWithTitle:(NSArray *)titleArr;
 @end
 
-NS_ASSUME_NONNULL_END

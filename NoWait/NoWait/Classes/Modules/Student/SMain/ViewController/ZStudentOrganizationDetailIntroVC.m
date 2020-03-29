@@ -10,13 +10,21 @@
 #import "ZStudentOrganizationDetailIntroListVC.h"
 
 @interface ZStudentOrganizationDetailIntroVC ()
-
-
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
+@property (nonatomic,strong) NSArray *imageArr;
+@property (nonatomic,assign) int index;
 @end
 
 @implementation ZStudentOrganizationDetailIntroVC
+
+- (instancetype)initWithTitle:(NSArray *)titleArr {
+    self = [super init];
+    if (self) {
+        self.imageArr = titleArr;
+    }
+    return self;
+}
 
 - (void)loadView
 {
@@ -36,12 +44,12 @@
     
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self setNavgation];
+    self.selectIndex = _index;
 }
 
 
 #pragma mark - setView & setdata
 - (void)initData {
-    
     self.automaticallyCalculatesItemWidths = YES;
     self.titleColorSelected = [UIColor colorTextBlack];
     self.titleColorNormal = [UIColor colorTextGray];
@@ -56,24 +64,26 @@
 
 - (void)setNavgation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"才玩俱乐部"];
+    [self.navigationItem setTitle:SafeStr(self.detailModel.name)];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 懒加载--
-- (NSMutableArray *)titleArr {
-    if (!_titleArr) {
-        _titleArr = @[@"店内环境", @"商家资质", @"明星教师", @"优秀学员"].mutableCopy;
-    }
-    return _titleArr;
-}
-
 - (NSMutableArray *)vcArr {
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
-        for (NSString *text in self.titleArr) {
+        _titleArr = @[].mutableCopy;
+        _index = 0;
+        for (int i = 0; i < self.imageArr.count; i++) {
+            ZImagesModel *model = self.imageArr[i];
+            if ([model.type isEqualToString:self.imageModel.type]) {
+                _index = i;
+            }
             ZStudentOrganizationDetailIntroListVC *lvc = [[ZStudentOrganizationDetailIntroListVC alloc] init];
+            lvc.imageModel = model;
+            lvc.detailModel = self.detailModel;
             [_vcArr addObject:lvc];
+            [_titleArr addObject:SafeStr(model.name)];
         }
     }
     return _vcArr;
