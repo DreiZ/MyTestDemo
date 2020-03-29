@@ -8,6 +8,7 @@
 
 #import "ZViewController.h"
 #import <WMPageController.h>
+#import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentOrganizationLessonListVC : WMPageController
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  是否隐藏导航栏
  */
 @property (nonatomic, assign) BOOL isHidenNaviBar;
+@property (nonatomic,strong) ZStoresDetailModel *detailModel;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -295,6 +295,7 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"allLesson"]){
         ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
+        lvc.detailModel = self.detailModel;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }

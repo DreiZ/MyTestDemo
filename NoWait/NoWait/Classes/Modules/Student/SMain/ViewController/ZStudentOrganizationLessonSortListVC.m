@@ -34,16 +34,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
          
-    [self setNavigation];
     [self setMainView];
-//    [self setData];
-//    [self.iCollectionView reloadData];
+    [self setCollectionViewRefreshFooter];
+    [self setCollectionViewRefreshHeader];
+    [self setCollectionViewEmptyDataDelegate];
 }
 
 
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"明星学员"];
+- (void)setCollectionViewRefreshHeader {
+    __weak typeof(self) weakSelf = self;
+    [self.iCollectionView tt_addRefreshHeaderWithAction:^{
+        [weakSelf refreshData];
+    }];
+}
+
+- (void)setCollectionViewRefreshFooter {
+    __weak typeof(self) weakSelf = self;
+    
+    [self.iCollectionView tt_addLoadMoreFooterWithAction:^{
+        [weakSelf refreshMoreData];
+    }];
+    
+    [self.iCollectionView tt_removeLoadMoreFooter];
+}
+
+- (void)setCollectionViewEmptyDataDelegate {
+    self.iCollectionView.emptyDataSetSource = self;
+    self.iCollectionView.emptyDataSetDelegate = self;
 }
 
 - (void)setMainView {
@@ -55,35 +72,8 @@
     }];
 }
 
-- (void)setData {
-//    _list = @[].mutableCopy;
-//    NSArray *stemparr = @[@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnimudx9rj30u0190x6r.jpg",
-//      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnik9gg1zj30rt167qv5.jpg",
-//      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnih592ymj30u012mkjl.jpg",
-//    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnifebkgxj30u011i41n.jpg",
-//    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni9yq6txj30in0skdh8.jpg",
-//    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcni67jfp0j30u01907wi.jpg",
-//    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni0ntc2oj30ia0rfgpz.jpg",
-//    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnhw86vyej30rs15ojti.jpg",
-//    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhm4ar5rj30m90xc4mp.jpg",
-//    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhgm151mj30tm18gwrz.jpg",
-//    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhcwlaihj30u011in00.jpg",
-//    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhbdlq2fj30hs0hsdin.jpg",
-//    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnh64taa2j30u011iqfx.jpg",
-//    @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcnh1f4yvfj30u0140dsy.jpg",
-//    @"http://tva1.sinaimg.cn/mw600/00831rSTly1gcngrcu9g5j30hs0m7ta9.jpg",
-//    ];
-//    for (int i = 0; i < 80; i++) {
-//        ZStudentLessonListModel *model = [[ZStudentLessonListModel alloc] init];
-//        model.image = stemparr[i%14];
-//        [_list addObject:model];
-//    }
-    
-    [_iCollectionView reloadData];
-}
 
-
-#pragma mark -懒加载
+#pragma mark - 懒加载
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -110,7 +100,7 @@
     return _dataSources;
 }
 
-#pragma mark collectionview delegate
+#pragma mark - collectionview delegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -123,7 +113,6 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ZStudentOrganizationLessonListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className] forIndexPath:indexPath];
     ZStudentOrganizationLessonListCollectionCell *cell = [ZStudentOrganizationLessonListCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
     cell.model = self.dataSources[indexPath.row];
     return cell;
@@ -211,8 +200,8 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:@"7" forKey:@"stores_id"];
-       [param setObject:@"1" forKey:@"status"];
+    [param setObject:self.detailModel.schoolID forKey:@"stores_id"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"status"];
     return param;
 }
 @end

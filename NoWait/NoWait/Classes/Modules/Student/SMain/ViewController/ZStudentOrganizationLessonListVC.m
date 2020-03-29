@@ -76,7 +76,9 @@
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
-            ZStudentOrganizationLessonSortListVC *lvc =[[ZStudentOrganizationLessonSortListVC alloc] init];
+            ZStudentOrganizationLessonSortListVC *lvc = [[ZStudentOrganizationLessonSortListVC alloc] init];
+            lvc.detailModel = self.detailModel;
+            lvc.type = i;
             [_vcArr addObject:lvc];
         }
     }

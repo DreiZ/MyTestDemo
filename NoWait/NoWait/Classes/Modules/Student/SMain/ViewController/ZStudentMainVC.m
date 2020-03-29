@@ -100,11 +100,8 @@
        [sectionArr addObject:topCellConfig];
     }
     
-   
-    
     ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
     [sectionArr addObject:enteryCellConfig];
-    
     
     if (self.placeholderArr && self.placeholderArr.count){
         [_photoWallArr removeAllObjects];

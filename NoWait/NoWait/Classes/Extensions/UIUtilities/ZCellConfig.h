@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger, ZCellType) {
 
 @property(nonatomic,strong) id dataModel;
 
+/// cellSize
+@property (nonatomic, assign) CGSize sizeOfCell;
 
 /**
  便利构造器
