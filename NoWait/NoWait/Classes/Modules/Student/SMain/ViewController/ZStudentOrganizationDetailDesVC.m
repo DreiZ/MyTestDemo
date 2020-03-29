@@ -232,7 +232,6 @@
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
 {
-    
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailTopCell"]){
            ZStudentOrganizationDetailTopCell *lcell = (ZStudentOrganizationDetailTopCell *)cell;
@@ -242,7 +241,6 @@
             ivc.detailModel = weakSelf.detailModel;
             [weakSelf.navigationController pushViewController:ivc animated:YES];
         };
-    
     }else if ([cellConfig.title isEqualToString:@"starStudent"]){
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
@@ -265,6 +263,7 @@
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 1) {
                 ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
+                avc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }else if (index == 2){
                 [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.detailModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
@@ -283,11 +282,11 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-//        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-//        [self.navigationController pushViewController:dvc animated:YES];
-        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-        
-        [self.navigationController pushViewController:lessond_vc animated:YES];
+        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
+//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+//
+//        [self.navigationController pushViewController:lessond_vc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         [self.navigationController pushViewController:lvc animated:YES];

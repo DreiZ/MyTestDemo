@@ -31,12 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self setNavgation];
     [self setMainView];
 }
 
 - (void)setNavgation {
-    [self.navigationItem setTitle:@"才玩俱乐部"];
+    [self.navigationItem setTitle:self.detailModel.name];
 }
 
 - (void)setMainView {
@@ -55,8 +55,7 @@
         make.bottom.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(32));
     }];
     
-    
-    CGSize tempSize = [@"放声大哭高呢让那个人那个人那个蓝色让你哈里森哈里森然后嘞对方两个女生读后感" tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), CGFloatIn750(60))];
+    CGSize tempSize = [SafeStr(self.detailModel.address) tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), CGFloatIn750(60))];
     
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
@@ -88,6 +87,42 @@
         make.top.equalTo(self.distanceLabel.mas_bottom).offset(CGFloatIn750(40));
         make.height.mas_equalTo(CGFloatIn750(68));
     }];
+    
+    [self setData];
+}
+
+- (void)setLocation {
+    // 开启定位
+    self.iMapView.showsUserLocation = YES;
+    self.iMapView.userTrackingMode = MAUserTrackingModeFollow;
+}
+
+- (void)setData {
+    self.nameLabel.text = self.detailModel.name;
+    self.addressLabel.text = self.detailModel.address;
+    
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.detailModel.latitude doubleValue], [self.detailModel.longitude doubleValue]);
+    [self.iMapView setCenterCoordinate:coordinate];
+    MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
+    pin1.coordinate =  coordinate;
+    pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
+    [_iMapView addAnnotation:pin1];
+    
+    
+    CLLocationCoordinate2D loc1 = coordinate;
+    CLLocationCoordinate2D loc2 = self.cureUserLocation.coordinate;
+    
+    MAMapPoint p1 = MAMapPointForCoordinate(loc1);
+    MAMapPoint p2 = MAMapPointForCoordinate(loc2);
+    
+    CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
+    if (distance < 1000) {
+        self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.0fm",distance];
+    }else{
+        self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.2fkm",distance/1000];
+    }
+    
 }
 
 #pragma mark - lazy loading
@@ -108,11 +143,8 @@
     if (!_iMapView) {
         _iMapView = [[MAMapView alloc] init];
         _iMapView.delegate = self;
-        MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
-        pin1.coordinate =  CLLocationCoordinate2DMake(39.992520, 116.336170);
-        pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
         [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
-        [_iMapView addAnnotation:pin1];
+        
         _iMapView.showsUserLocation = YES;
         _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _iMapView.zoomLevel = 19;
@@ -139,7 +171,6 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"大师傅俱乐部";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
@@ -151,7 +182,6 @@
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _addressLabel.text = @"放声大哭高呢让那个人那个人那个蓝色让你哈里森哈里森然后嘞对方两个女生读后感";
         _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
         [_addressLabel setFont:[UIFont fontSmall]];
@@ -163,7 +193,6 @@
     if (!_distanceLabel) {
         _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _distanceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _distanceLabel.text = @"距离234开始噶按个";
         _distanceLabel.numberOfLines = 1;
         _distanceLabel.textAlignment = NSTextAlignmentLeft;
         [_distanceLabel setFont:[UIFont fontSmall]];
@@ -182,9 +211,9 @@
         [_seeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_seeBtn.titleLabel setFont:[UIFont fontContent]];
         
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         [_seeBtn bk_whenTapped:^{
-            
+            [weakSelf gotoMap];
         }];
     }
     return _seeBtn;
@@ -241,6 +270,8 @@
     }
 }
 
+
+
 #pragma mark - 去地图展示路线
 /** 去地图展示路线 */
 - (void)gotoMap{
@@ -259,7 +290,7 @@
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
         // 百度地图
         // 起点为“我的位置”，终点为后台返回的坐标
-        NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=%f,%f&mode=riding&src=快健康快递", latitude, longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=%f,%f&mode=riding&src=%@", latitude, longitude,address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]){

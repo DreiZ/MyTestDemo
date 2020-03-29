@@ -21,12 +21,6 @@
 
 @implementation ZStudentOrganizationDetailIntroListVC
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
          
