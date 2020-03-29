@@ -6,13 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZCollectionVIewController.h"
+#import "ZCollectionViewController.h"
 
-@interface ZCollectionVIewController ()
+@interface ZCollectionViewController ()
 
 @end
 
-@implementation ZCollectionVIewController
+@implementation ZCollectionViewController
 
 #pragma mark - vc delegate
 - (void)viewWillAppear:(BOOL)animated {

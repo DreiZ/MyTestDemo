@@ -31,9 +31,11 @@
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
 @property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
-@property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
+@property (nonatomic,strong) ZOriganizationLessonDetailModel *addModel;
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
 @property (nonatomic,assign) NSInteger k;
+@property (nonatomic,strong) NSMutableDictionary *param;
+
 @end
 
 @implementation ZStudentLessonDetailVC
@@ -48,9 +50,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    [self refreshHeader];
     [self refreshData];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    _param = @{}.mutableCopy;
 }
 
 - (void)setupMainView {
@@ -159,7 +167,6 @@
     return _bottomView;
 }
 
-
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
@@ -181,10 +188,58 @@
 }
 
 #pragma mark - setDetailData
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
+    
+    [self setImagesAndPrice];
+    [self setLabelCellConfig];
+    [self setLessonName];
+    [self setTeacherList];
+    [self setLessonDetail];
+    [self setTime];
+    [self addTimeOrder];
+    [self setEva];
+    
+    [self.iTableView reloadData];
+}
+
+- (void)setTime {
+   [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+    
+    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+    model.leftTitle = @"课程有效期";
+    model.leftFont = [UIFont boldFontContent];
+    model.cellHeight = CGFloatIn750(50);
+    model.isHiddenLine = YES;
+    
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    [self.cellConfigArr addObject:menuCellConfig];
+    
+    ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
+    model1.leftTitle = [NSString stringWithFormat:@"%@月",self.addModel.valid_at];
+    model1.leftFont = [UIFont fontSmall];
+    model1.cellHeight = CGFloatIn750(42);
+    model1.isHiddenLine = YES;
+    
+    ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model1.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model1] cellType:ZCellTypeClass dataModel:model1];
+    [self.cellConfigArr addObject:menu1CellConfig];
+    
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.isHiddenLine = NO;
+        model.cellHeight = CGFloatIn750(30);
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+}
+
 - (void)setLessonName {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"是的噶是的发送到";
-    model.rightTitle = @"3小时/节   共12节";
+    model.leftTitle = self.addModel.short_name;
+    model.rightTitle = [NSString stringWithFormat:@"%@分钟/节   共%@节",self.addModel.course_min, self.addModel.course_number];
     model.isHiddenLine = YES;
     model.leftFont = [UIFont boldFontMax1Title];
     model.rightFont = [UIFont fontSmall];
@@ -193,272 +248,133 @@
     model.cellHeight = CGFloatIn750(116);
     
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    
     [self.cellConfigArr addObject:menuCellConfig];
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"是的噶是的发送到";
+        model.leftTitle = self.addModel.name;
         model.isHiddenLine = YES;
         model.leftFont = [UIFont fontContent];
         model.rightFont = [UIFont fontSmall];
         model.cellHeight = CGFloatIn750(50);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
     {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(24) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailEnteryCell className] title:[ZStudentOrganizationDetailEnteryCell className] showInfoMethod:nil heightOfCell:[ZStudentOrganizationDetailEnteryCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:nil];
-        
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailEnteryCell className] title:[ZStudentOrganizationDetailEnteryCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailEnteryCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:self.addModel];
         [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:topCellConfig];
-    }
-    {
-        {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(24) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
-            
-            
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"课程教练";
-            model.isHiddenLine = YES;
-            model.leftFont = [UIFont boldFontContent];
-            model.cellHeight = CGFloatIn750(50);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
-        
-        NSArray *entryArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"],@[@"张丽",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7u7pskfj30u011hn2c.jpg"],@[@"张思思",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7pza70dj30u01a4tuy.jpg"],@[@"许倩倩",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl7fhvi5tj30ds0kumz8.jpg"],@[@"吴楠",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl77552l7j30qo0hsgpo.jpg"],@[@"闫晶晶",@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcl74tqdyfj30gk0cbqfk.jpg"]];
-        
-        NSMutableArray *peoples = @[].mutableCopy;
-        for (int i = 0; i < entryArr.count; i++) {
-            ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
-            model.image = entryArr[i][1];
-            model.name = entryArr[i][0];
-            model.skill = entryArr[i][0];
-            [peoples addObject:model];
-        }
-        
-        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starCoach" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
-        [self.cellConfigArr addObject:coachCellConfig];
-    }
-    
-    {
-        {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(24) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
-            
-            
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"课程教练";
-            model.isHiddenLine = YES;
-            model.leftFont = [UIFont boldFontContent];
-            model.cellHeight = CGFloatIn750(50);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
-        
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = @"          跟你说开了个男的说开了个女生里看到那个克里斯\n         蒂娜离开给你离开萨拉的奶粉噶克里斯蒂娜赶快来昂阿森纳的管理卡拿到了开始给你来卡都是那个路口那里卡少女管\n       理可能来说可能打过来看你离开你离开那里看到你离开你离开你了上当了看上的管理科拿上来看你的过来看上了快过年了开始你的\n     管理科少打了那个老卡死你过来看上了困难";
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(60);
-        model.leftMargin = CGFloatIn750(30);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.rightColor = [UIColor colorTextBlack];
-        model.rightDarkColor = [UIColor colorTextBlackDark];
-        model.rightFont = [UIFont fontContent];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-    
-    
-    {
-        {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(24) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
-            
-            
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"购买须知：";
-            model.isHiddenLine = YES;
-            model.leftFont = [UIFont boldFontContent];
-            model.cellHeight = CGFloatIn750(50);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
-        
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = @"跟你说开了个男的说开了个女生里看到那个克里斯";
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(60);
-        model.leftMargin = CGFloatIn750(30);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.rightColor = [UIColor colorTextBlack];
-        model.rightDarkColor = [UIColor colorTextBlackDark];
-        model.rightFont = [UIFont fontContent];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
     }
 }
 
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
+- (void)setTeacherList {
+    if (!ValidArray(self.addModel.teacher_list)) {
+        return;
+    }
+   [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
+   ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+   model.leftTitle = @"课程教练";
+   model.isHiddenLine = YES;
+   model.leftFont = [UIFont boldFontContent];
+   model.cellHeight = CGFloatIn750(50);
+   
+   ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+   
+   [self.cellConfigArr addObject:menuCellConfig];
     
-    [self setImagesAndPrice];
     
-    {
-        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-        mModel.rightFont = [UIFont fontContent];
-        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        mModel.singleCellHeight = CGFloatIn750(40);
-        mModel.isHiddenLine = YES;
-        mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
-        mModel.rightColor = [UIColor colorRedForLabel];
-        mModel.rightDarkColor = [UIColor colorRedForLabelSub];
-        mModel.leftFont = [UIFont boldFontMax1Title];
-        mModel.rightImage = @"rightBlackArrowN";
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-        [self.cellConfigArr addObject:textCellConfig];
+    NSMutableArray *peoples = @[].mutableCopy;
+    for (int i = 0; i < self.addModel.teacher_list.count; i++) {
+        ZOriganizationLessonTeacherModel *listModel = self.addModel.teacher_list[i];
+        ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+        model.image = imageFullUrl(listModel.image);
+        model.name = listModel.teacher_name;
+        model.skill = listModel.position;
+        [peoples addObject:model];
     }
     
-    [self setLessonName];
- 
-    
-    {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
-        
+    ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starCoach" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+    [self.cellConfigArr addObject:coachCellConfig];
+}
+
+- (void)setLessonDetail {
+    if (ValidStr(self.addModel.info)) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(24))];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"课程有效期";
+        model.leftTitle = @"课程简介";
+        model.isHiddenLine = YES;
         model.leftFont = [UIFont boldFontContent];
         model.cellHeight = CGFloatIn750(50);
-        model.isHiddenLine = YES;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
         [self.cellConfigArr addObject:menuCellConfig];
         
-        ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
-        model1.leftTitle = [NSString stringWithFormat:@"%d月",12];
-        model1.leftFont = [UIFont fontSmall];
-        model1.cellHeight = CGFloatIn750(42);
-        model1.isHiddenLine = YES;
-        
-        ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model1.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model1] cellType:ZCellTypeClass dataModel:model1];
-        [self.cellConfigArr addObject:menu1CellConfig];
-        
         {
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.lineLeftMargin = CGFloatIn750(30);
-            model.lineRightMargin = CGFloatIn750(30);
-            model.isHiddenLine = NO;
-            model.cellHeight = CGFloatIn750(30);
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+            model.rightTitle = self.addModel.info;
+            model.isHiddenLine = YES;
+            model.cellWidth = KScreenWidth;
+            model.singleCellHeight = CGFloatIn750(60);
+            model.leftMargin = CGFloatIn750(30);
+            model.rightMargin = CGFloatIn750(30);
+            model.cellHeight = CGFloatIn750(62);
+            model.rightColor = [UIColor colorTextBlack];
+            model.rightDarkColor = [UIColor colorTextBlackDark];
+            model.rightFont = [UIFont fontContent];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
             [self.cellConfigArr addObject:menuCellConfig];
         }
     }
-    [self addTimeOrder];
-    [self setEva];
     
-    [self.iTableView reloadData];
-}
-
-- (void)setEva {
-    {
+    if (ValidStr(self.addModel.notice_msg)) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(24))];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.isHiddenLine = NO;
-        model.cellHeight = CGFloatIn750(10);
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-    
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [self.cellConfigArr addObject:topCellConfig];
-    
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"课程有效期";
+        model.leftTitle = @"购买须知：";
+        model.isHiddenLine = YES;
         model.leftFont = [UIFont boldFontContent];
         model.cellHeight = CGFloatIn750(50);
-        model.isHiddenLine = YES;
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
         [self.cellConfigArr addObject:menuCellConfig];
+        
+        {
+            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+            model.rightTitle = self.addModel.notice_msg;
+            model.isHiddenLine = YES;
+            model.cellWidth = KScreenWidth;
+            model.singleCellHeight = CGFloatIn750(60);
+            model.leftMargin = CGFloatIn750(30);
+            model.rightMargin = CGFloatIn750(30);
+            model.cellHeight = CGFloatIn750(62);
+            model.rightColor = [UIColor colorTextBlack];
+            model.rightDarkColor = [UIColor colorTextBlackDark];
+            model.rightFont = [UIFont fontContent];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
     }
-    
-    
-    ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
-    evaModel.orderImage = @"lessonOrder";
-    evaModel.orderNum = @"23042039523452";
-    evaModel.lessonTitle = @"仰泳";
-    evaModel.lessonTime = @"2019-10-26";
-    evaModel.lessonCoach = @"高圆圆";
-    evaModel.lessonOrg = @"上飞天俱乐部";
-    evaModel.coachStar = @"3.4";
-    evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
-
-    evaModel.orgStar = @"4.5";
-    evaModel.orgEva = @"反反复复付受到法律和";
-    
-    ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    [self.cellConfigArr addObject:evaCellConfig];
-    
-    
 }
+
+
 
 - (void)setImagesAndPrice {
-    NSArray *stemparr = @[@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd18jm09cuj30u017x7wh.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd18eptwlij318z0u0198.jpg",
-      @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17vgbvgfj30u011eq9i.jpg",
-    @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17qv01jnj30u01927az.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17mjs214j30rs15o4qp.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17hdmtn9j30u0142ang.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd17c994y0j30u011ignb.jpg",
-    @"http://wx2.sinaimg.cn/mw600/007erPXFgy1gcei2kksvkj30rs15o1kx.jpg",
-    @"http://wx3.sinaimg.cn/mw600/44f2ef1bgy1gd1746o74cj20ku0q1gqz.jpg"
-    ];
     NSMutableArray *images = @[].mutableCopy;
-    for (int i = 0; i < stemparr.count; i++) {
+    for (int i = 0; i < self.addModel.images.count; i++) {
         ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
-        id image = stemparr[i];
-        if ([image isKindOfClass:[UIImage class]]) {
-            model.data = image;
-            [images addObject:model];
-        }else{
+        id image = model.image;
+        if ([image isKindOfClass:[NSString class]]) {
             NSString *imageStr = image;
-            if (imageStr.length > 0) {
-                model.data = imageStr;// imageFullUrl(imageStr);
+            if (imageStr ) {
+                model.data = imageFullUrl(imageStr);
                 [images addObject:model];
             }
         }
@@ -467,29 +383,30 @@
     [self.cellConfigArr addObject:statisticsCellConfig];
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"123";
-    model.rightTitle = @"说点";
+    model.leftTitle = self.addModel.price;
+    model.rightTitle = [NSString stringWithFormat:@"%@/%@",SafeStr(self.addModel.pay_nums).length > 0? SafeStr(self.addModel.pay_nums):@"0",self.addModel.course_class_number];
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];
 }
 
+- (void)setLabelCellConfig{
+    ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+    mModel.rightFont = [UIFont fontContent];
+    mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    mModel.singleCellHeight = CGFloatIn750(40);
+    mModel.isHiddenLine = YES;
+    mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
+    mModel.rightColor = [UIColor colorRedForLabel];
+    mModel.rightDarkColor = [UIColor colorRedForLabelSub];
+    mModel.leftFont = [UIFont boldFontMax1Title];
+    mModel.rightImage = @"rightBlackArrowN";
+    
+    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+    [self.cellConfigArr addObject:textCellConfig];
+}
 
 - (void)addTimeOrder {
-    NSMutableArray *temo = @[].mutableCopy;
-    for (int i = 0; i < 6; i++) {
-        ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
-        model.name = @"周一  |";
-        NSMutableArray *unit = @[].mutableCopy;
-        for (int i = 0; i < 7; i++) {
-            ZBaseUnitModel *unitmodel = [[ZBaseUnitModel alloc] init];
-            unitmodel.name = @"12:12";
-            unitmodel.subName = @"14:12";
-            [unit addObject:unitmodel];
-        }
-        model.units = unit;
-        [temo addObject:model];
-    }
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = @"固定开课时间";
     model.leftFont = [UIFont boldFontContent];
@@ -499,14 +416,14 @@
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:menuCellConfig];
     
-    for (ZBaseMenuModel *menu in temo) {
+    for (ZBaseMenuModel *menu in self.addModel.fix_time) {
         NSString *subTitle = @"";
         for (int k = 0; k < menu.units.count; k++) {
             ZBaseUnitModel *unitModel = menu.units[k];
             if (subTitle.length == 0) {
-                subTitle = [NSString stringWithFormat:@"%@~%@",unitModel.name,unitModel.subName];
+                subTitle = [NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]];
             }else{
-                subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,unitModel.name,unitModel.subName];
+                subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,[self getStartTime:unitModel],[self getEndTime:unitModel]];
             }
         }
         
@@ -533,15 +450,139 @@
 }
 
 
-- (void)refreshData {
+- (void)setEva {
+    
+    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+    model.lineLeftMargin = CGFloatIn750(30);
+    model.lineRightMargin = CGFloatIn750(30);
+    model.isHiddenLine = NO;
+    model.cellHeight = CGFloatIn750(10);
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    
+    [self.cellConfigArr addObject:menuCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+    
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"课程评价";
+        model.leftFont = [UIFont boldFontContent];
+        model.cellHeight = CGFloatIn750(50);
+        model.isHiddenLine = YES;
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    
+    for (ZOrderEvaListModel *evaModel in self.dataSources) {
+        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+        [self.cellConfigArr addObject:evaCellConfig];
+    }
+}
+
+
+- (NSString *)getStartTime:(ZBaseUnitModel *)model {
+    if ([model.subName intValue] < 10) {
+        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    }else{
+        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+    }
+}
+
+- (NSString *)getEndTime:(ZBaseUnitModel *)model {
+    NSInteger temp = [self.addModel.course_min intValue]/60;
+    NSInteger subTemp = [self.addModel.course_min intValue]%60;
+    
+    NSInteger hourTemp = [model.name intValue] + temp;
+    NSInteger minTemp = [model.subName intValue] + subTemp;
+    if (minTemp > 59) {
+        minTemp -= 60;
+        hourTemp++;
+    }
+    
+    if (hourTemp > 24) {
+        hourTemp -= 24;
+    }
+    
+    ZBaseUnitModel *uModel = [[ZBaseUnitModel alloc] init];
+    uModel.name = [NSString stringWithFormat:@"%ld",hourTemp];
+    uModel.subName = [NSString stringWithFormat:@"%ld",minTemp];
+    
+    return [self getStartTime:uModel];
+}
+
+- (void)refreshHeader {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
+    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonDetailModel *addModel) {
         if (isSuccess) {
             weakSelf.addModel = addModel;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }
     }];
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getAccountCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getAccountCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
 }
 @end
 

@@ -246,6 +246,10 @@
 #define URL_account_del_student                    @"account/v1/del_student"
 
 
+//明星学员list
+#define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
+
+
 #pragma mark - 教师------------------------------------------------
 //教师list
 #define URL_account_get_teacher_list                  @"account/v1/get_teacher_list"

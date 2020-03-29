@@ -37,8 +37,9 @@
     }];
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self.contBackView);
-        make.width.equalTo(self.userImageView.mas_height);
+        make.centerY.equalTo(self.contBackView.mas_centerY);
+        make.left.equalTo(self.contBackView.mas_left).offset(CGFloatIn750(30));
+        make.width.height.mas_equalTo(CGFloatIn750(100));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -81,7 +82,7 @@
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
         _userImageView.layer.masksToBounds = YES;
-        _userImageView.layer.cornerRadius = CGFloatIn750(10);
+        _userImageView.layer.cornerRadius = CGFloatIn750(50);
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _userImageView;
@@ -111,15 +112,16 @@
     return _skillLabel;
 }
 
-- (void)setModel:(ZStudentDetailLessonOrderCoachModel *)model {
+- (void)setModel:(ZOriganizationTeacherListModel *)model {
     _model = model;
-    [self.userImageView tt_setImageWithURL:[NSURL URLWithString:model.coachImage]];
-    self.titleLabel.text = model.coachName;
-    
-    if (model.adeptArr && model.adeptArr.count > 0) {
-        _skillLabel.text = model.adeptArr[0];
+    [self.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)]];
+    if (model.isStarStudent) {
+        self.titleLabel.text = model.name;
+        self.skillLabel.text = model.stores_courses_name;
+    }else{
+        self.titleLabel.text = model.teacher_name;
+        self.skillLabel.text = model.position;
     }
-    
 }
 
 +(CGSize)zz_getCollectionCellSize {

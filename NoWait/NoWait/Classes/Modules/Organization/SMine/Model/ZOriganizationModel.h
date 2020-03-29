@@ -202,6 +202,10 @@
 @property (nonatomic,strong) NSString *position;
 @property (nonatomic,strong) NSString *teacher_name;
 
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *stores_courses_name;
+
+@property (nonatomic,assign) BOOL isStarStudent;
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
 

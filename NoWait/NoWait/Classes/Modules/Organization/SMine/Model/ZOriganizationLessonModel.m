@@ -228,6 +228,24 @@
 }
 @end
 
+
+@implementation ZOriganizationLessonTeacherModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"teacher_id" : @"id",
+            };
+}
+@end
+
+@implementation ZOriganizationLessonDetailModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"teacher_list" : @"ZOriganizationLessonTeacherModel"
+             };
+}
+@end
+
+
 @implementation ZOriganizationLessonScheduleListNetModel
 + (NSDictionary *)mj_objectClassInArray
 {

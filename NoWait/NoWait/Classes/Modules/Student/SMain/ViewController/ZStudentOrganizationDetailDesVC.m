@@ -24,6 +24,7 @@
 #import "ZStudentStarCoachListVC.h"
 #import "ZStudentStarCoachInfoVC.h"
 #import "ZStudentStarStudentInfoVC.h"
+
 #import "ZStudentOrganizationDetailIntroVC.h"
 #import "ZStudentOrganizationLessonListVC.h"
 #import "ZStudentOrganizationMapAddressVC.h"
@@ -31,10 +32,12 @@
 #import "ZStudentStudentDetailVC.h"
 #import "ZStudentLessonDetailVC.h"
 
-#import "ZOrganizationCouponListView.h"
-#import "ZStudentLessonSelectMainOrderView.h"
 #import "ZStudentLessonSureOrderVC.h"
 #import "ZStudentLessonSubscribeSureOrderVC.h"
+
+#import "ZOrganizationCouponListView.h"
+#import "ZStudentLessonSelectMainOrderView.h"
+
 
 #import "ZStudentMainViewModel.h"
 #import "ZOriganizationOrderViewModel.h"
@@ -146,7 +149,7 @@
         [self.cellConfigArr addObject:spacCellConfig];
         
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        moreModel.leftTitle = @"明星教练";
+        moreModel.leftTitle = @"教师团队";
         ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
         
@@ -190,10 +193,8 @@
         [self.cellConfigArr addObject:coachCellConfig];
     }
     
-    
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
         model.leftTitle = @"热门课程";
         model.rightTitle = @"全部课程";
@@ -283,15 +284,19 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
         ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+        dvc.model = cellConfig.dataModel;
         [self.navigationController pushViewController:dvc animated:YES];
 //        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//
 //        [self.navigationController pushViewController:lessond_vc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+        lvc.type = 0;
+        lvc.listModel = self.listModel;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
-        ZStudentStarCoachListVC *lvc = [[ZStudentStarCoachListVC alloc] init];
+        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+        lvc.type = 0;
+        lvc.listModel = self.listModel;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"allLesson"]){
         ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];

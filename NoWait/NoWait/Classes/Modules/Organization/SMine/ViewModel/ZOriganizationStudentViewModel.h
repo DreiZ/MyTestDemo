@@ -15,6 +15,8 @@
 
 + (void)getStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getStarStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 + (void)editStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 + (void)getStudentDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;

@@ -7,11 +7,13 @@
 //
 
 #import "ZViewController.h"
-
+#import "ZCollectionViewController.h"
+#import "ZOrderModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentStarStudentListVC : ZViewController
-
+@interface ZStudentStarStudentListVC : ZCollectionViewController
+@property (nonatomic,assign) NSInteger type;
+@property (nonatomic,strong) ZStoresListModel *listModel;
 @end
 
 NS_ASSUME_NONNULL_END

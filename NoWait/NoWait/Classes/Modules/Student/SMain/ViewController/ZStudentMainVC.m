@@ -58,7 +58,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initCellConfigArr];
     
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

@@ -79,6 +79,24 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @end
 
 
+@interface ZOriganizationLessonTeacherModel : ZBaseModel
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *position;
+@property (nonatomic,strong) NSString *price;
+@property (nonatomic,strong) NSString *teacher_name;
+@end
+
+@interface ZOriganizationLessonDetailModel : ZOriganizationLessonAddModel
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSString *notice_msg;
+@property (nonatomic,strong) NSString *stores_courses_nums;
+@property (nonatomic,strong) NSString *stores_image;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSArray <ZOriganizationLessonTeacherModel *>*teacher_list;
+@property (nonatomic,strong) NSString *update_at;
+@end
+
 @interface ZOriganizationLessonListNetModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
 @property (nonatomic,copy) NSString *total;

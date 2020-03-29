@@ -1,5 +1,5 @@
 //
-//  ZCollectionVIewController.h
+//  ZCollectionViewController.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/3/29.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCollectionVIewController : ZViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface ZCollectionViewController : ZViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,assign) CGFloat minimumInteritemSpacing;
 @property (nonatomic,assign) CGFloat minimumLineSpacing;

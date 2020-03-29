@@ -55,22 +55,39 @@ typedef NS_ENUM(NSInteger, ZCellType) {
                            heightOfCell:(CGFloat)heightOfCell
                                cellType:(ZCellType)cellType;
 
+
 /**
- *  可以传入数据
- *
- *  @param className      ;
- *  @param title          ;
- *  @param showInfoMethod ;
- *  @param heightOfCell   ;
- *  @param cellType       ;
- *  @param dataModel      ;
- *
- *  @return ;
+ 便利构造器
+
+ @param className 类名
+ @param title 标题，可用做cell直观的区分
+ @param showInfoMethod 此类cell用来显示数据模型的方法， 如@selector(showInfo:)
+ @param heightOfCell 此类cell的高度
+ @param cellType 类型  class or nib
+ @return cell 描述
  */
 + (instancetype)cellConfigWithClassName:(NSString *)className
                                   title:(NSString *)title
                          showInfoMethod:(SEL)showInfoMethod
                            heightOfCell:(CGFloat)heightOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel;
+
+
+/**
+ 便利构造器
+
+ @param className 类名
+ @param title 标题，可用做cell直观的区分
+ @param showInfoMethod 此类cell用来显示数据模型的方法， 如@selector(showInfo:)
+ @param sizeOfCell 此类cell的size
+ @param cellType 类型  class or nib
+ @return cell 描述
+ */
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                             sizeOfCell:(CGSize)sizeOfCell
                                cellType:(ZCellType)cellType
                               dataModel:(id)dataModel;
 

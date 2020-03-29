@@ -44,7 +44,7 @@
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
-               ZOriganizationLessonAddModel *model = [ZOriganizationLessonAddModel mj_objectWithKeyValues:dataModel.data];
+               ZOriganizationLessonDetailModel *model = [ZOriganizationLessonDetailModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
                 if (model.image_url) {
                     model.image_net_url = model.image_url;

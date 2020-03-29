@@ -61,14 +61,13 @@
         make.centerY.equalTo(self.mas_centerY);
     }];
     
-   [ _organizationImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/5922e2ddly1gd181y4p42j20j60y246s.jpg"]];
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"齐丽旺";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -80,7 +79,6 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _lessonLabel.text = @"瑜伽培训班";
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontSmall]];
@@ -116,12 +114,16 @@
     return _openBtn;
 }
 
+- (void)setModel:(ZOriganizationLessonDetailModel *)model {
+    _model = model;
+    _lessonLabel.text = [NSString stringWithFormat:@"%@个课程",model.stores_courses_nums];
+    _nameLabel.text = _model.stores_name;
+
+    [ _organizationImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(80);
 }
 
 @end
-
-
-
-

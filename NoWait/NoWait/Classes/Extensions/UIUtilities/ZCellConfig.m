@@ -55,6 +55,25 @@
     return cellConfig;
 }
 
+
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                             sizeOfCell:(CGSize)sizeOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+{
+    ZCellConfig *cellConfig = [ZCellConfig new];
+    
+    cellConfig.className = className;
+    cellConfig.title = title;
+    cellConfig.showInfoMethod = showInfoMethod;
+    cellConfig.sizeOfCell = sizeOfCell;
+    cellConfig.cellType = cellType;
+    cellConfig.dataModel = dataModel;
+    return cellConfig;
+}
+
 /// 根据cellConfig生成cell，重用ID为cell类名
 - (UITableViewCell *)cellOfCellConfigWithTableView:(UITableView *)tableView
                                          dataModel:(id)dataModel

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZStudentDetailModel.h"
+#import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStarNewListCollectionViewCell : UICollectionViewCell
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *skillLabel;
 
-@property (nonatomic,strong) ZStudentDetailLessonOrderCoachModel *model;
+@property (nonatomic,strong) ZOriganizationTeacherListModel *model;
 
 @property (nonatomic,strong) void (^detailBlock)(UIImageView *);
 

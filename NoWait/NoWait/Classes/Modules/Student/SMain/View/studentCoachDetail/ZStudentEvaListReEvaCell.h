@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentEvaListReEvaCell : ZBaseCell
-
+@property (nonatomic,strong) NSString *evaDes;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,6 +9,7 @@
 #import "ZStudentEvaListCell.h"
 #import "ZOrganizationEvaListUserInfoCell.h"
 #import "ZMultiseriateContentLeftLineCell.h"
+#import "ZStudentEvaListReEvaCell.h"
 
 @interface ZStudentEvaListCell ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -114,7 +115,6 @@
     ZOrderEvaListModel *evaModel = sender;
     
     CGFloat cellHeight = 0;
-    
     {
         cellHeight += CGFloatIn750(24);
         cellHeight += [ZOrganizationEvaListUserInfoCell z_getCellHeight:nil];
@@ -157,7 +157,10 @@
         
         cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
     }
- 
+     if ([evaModel.is_reply intValue] == 1) {
+         cellHeight += [ZStudentEvaListReEvaCell z_getCellHeight:evaModel.reply_desc];
+         cellHeight += CGFloatIn750(20);
+     }
     
     return  cellHeight;
 }
@@ -197,6 +200,11 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr  addObject:menuCellConfig];
+    }
+    if ([_model.is_reply intValue] == 1) {
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListReEvaCell className] title:[ZStudentEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZStudentEvaListReEvaCell z_getCellHeight:_model.reply_desc] cellType:ZCellTypeClass dataModel:_model.reply_desc];
+        [self.cellConfigArr addObject:orderCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];

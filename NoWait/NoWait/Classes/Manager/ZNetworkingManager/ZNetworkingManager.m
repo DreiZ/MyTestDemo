@@ -311,6 +311,9 @@
         if ([parameterDic[key] isKindOfClass:[UIImage class]] || [key isEqualToString:@"imageKey"]){
             [parameterDic removeObjectForKey:key];
             continue;
+        }else if ([parameterDic[key] isKindOfClass:[NSString class]] && [parameterDic[key] length] == 0){
+            [parameterDic removeObjectForKey:key];
+            continue;
         }else if([parameterDic[key] isKindOfClass:[NSArray class]] || [parameterDic[key] isKindOfClass:[NSDictionary class]]){
             
 //            valueStr = [ZNetworkingManager toJSONString:parameterDic[key]];
