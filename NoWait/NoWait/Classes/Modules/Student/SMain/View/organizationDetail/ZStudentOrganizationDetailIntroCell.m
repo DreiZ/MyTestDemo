@@ -128,12 +128,9 @@
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(80);
         mModel.isHiddenLine = YES;
-        mModel.leftTitle = self.model.name;
-        mModel.data = self.model.merchant_stores_tags;
-        mModel.rightColor = [UIColor colorMain];
-        mModel.rightDarkColor = [UIColor colorMainSub];
-        mModel.leftFont = [UIFont boldFontMax1Title];
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        mModel.rightTitle = self.model.name;
+        mModel.rightFont = [UIFont boldFontMax1Title];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
 
@@ -210,11 +207,9 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(80);
         mModel.cellHeight = CGFloatIn750(82);
-        mModel.rightImage = @"rightBlackArrowN";
-        mModel.leftTitle = @"代付俱乐部";
-        mModel.data = @[];
-        mModel.leftFont = [UIFont boldFontMax1Title];
-        height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
+        mModel.rightTitle = detailModel.name;
+        mModel.rightFont = [UIFont boldFontMax1Title];
+        height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
     }
     {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];

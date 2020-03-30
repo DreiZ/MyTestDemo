@@ -27,6 +27,8 @@
 #import "ZOrganizationDetailBottomView.h"
 #import "ZOrderModel.h"
 
+#import "ZStudentOrganizationDetailDesVC.h"
+
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *topNavView;
@@ -177,6 +179,21 @@
         self.topNavView.alpha = (Offset_y - CGFloatIn750(420))/CGFloatIn750(50);
     }else {
         self.topNavView.alpha = 0;
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailEnteryCell"]) {
+        ZStudentOrganizationDetailEnteryCell *lcell = (ZStudentOrganizationDetailEnteryCell *)cell;
+        lcell.handleBlock = ^(NSInteger index) {
+            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+            ZStoresListModel *listModel = [[ZStoresListModel alloc] init];
+            listModel.name = self.addModel.stores_name;
+            listModel.stores_id = self.addModel.stores_id;
+            dvc.listModel = listModel;
+            [weakSelf.navigationController pushViewController:dvc animated:YES];
+        };
     }
 }
 

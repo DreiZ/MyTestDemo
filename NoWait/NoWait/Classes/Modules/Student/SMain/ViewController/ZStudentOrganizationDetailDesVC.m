@@ -126,6 +126,13 @@
     return _param;
 }
 
+#pragma mark - set cell config
+- (void)setNavigation {
+    self.isHidenNaviBar = NO;
+    [self.navigationItem setTitle:self.listModel.name];
+}
+
+
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
@@ -146,8 +153,7 @@
     [self.cellConfigArr addObject:desCellConfig];
     
     if (self.detailModel.teacher_list && self.detailModel.teacher_list.count > 0) {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-        [self.cellConfigArr addObject:spacCellConfig];
+        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
         moreModel.leftTitle = @"教师团队";
@@ -171,8 +177,7 @@
     }
     
     if (self.detailModel.star_students && self.detailModel.star_students.count > 0) {
-        ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:spacCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
         moreModel.leftTitle = @"明星学员";
@@ -224,11 +229,6 @@
             }
         }
     }
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:self.listModel.name];
 }
 
 #pragma mark tableView -------datasource-----

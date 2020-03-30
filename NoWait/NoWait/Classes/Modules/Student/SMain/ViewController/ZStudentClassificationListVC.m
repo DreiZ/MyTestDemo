@@ -10,9 +10,12 @@
 #import "ZStudentMainModel.h"
 #import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentMainFiltrateSectionView.h"
+#import "ZStudentMainViewModel.h"
 
 @interface ZStudentClassificationListVC ()
 @property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
+@property (nonatomic,strong) NSMutableDictionary *param;
+
 @end
 
 @implementation ZStudentClassificationListVC
@@ -20,35 +23,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavgation];
-    [self initCellConfigArr];
+    [self refreshData];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 
-- (void)setNavgation {
+- (void)setNavigation {
     self.isHidenNaviBar = NO;
     
     [self.navigationItem setTitle:self.vcTitle];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    _param = @{}.mutableCopy;
+}
+
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (int i = 0; i < 10; i++) {
-        ZStudentOrganizationListModel *model = [[ZStudentOrganizationListModel alloc] init];
-        if (i%5 == 0) {
-            model.image = @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcl9l56hc7j30xc0m8gol.jpg";
-        }else if ( i%5 == 1){
-            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl9enz0bcj318y0u0h0v.jpg";
-        }else if ( i%5 == 2){
-            model.image = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl90ruhzpj30u011i44s.jpg";
-        }else if ( i%5 == 3){
-            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8kmicgrj318y0u0ae4.jpg";
-        }else{
-            model.image = @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl8abyp14j30u011g0yz.jpg";
-                
-        }
-        
-        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orCellCon1fig];
     }
 }
@@ -78,5 +74,80 @@
         };
     }
     return _sectionView;
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getIndexList:self.param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getIndexList:self.param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:self.type forKey:@"stores_type"];
 }
 @end

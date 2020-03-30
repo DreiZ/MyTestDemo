@@ -18,6 +18,7 @@
 @interface ZStudentEnteryItemModel : NSObject
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *sid;
 
 @end
 

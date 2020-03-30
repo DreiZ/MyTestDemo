@@ -73,12 +73,13 @@
     _AdverArr = @[].mutableCopy;
     _placeholderArr = @[].mutableCopy;
     
-    NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"],@[@"体育竞技",@"studentMainSports"],@[@"艺术舞蹈",@"studentMainArt"],@[@"兴趣爱好",@"studentMainHobby"],@[@"其他",@"studentMainMore"]];
+    NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports",@"1"],@[@"艺术舞蹈",@"studentMainArt",@"2"],@[@"兴趣爱好",@"studentMainHobby",@"3"],@[@"其他",@"studentMainMore",@"4"]];
     
     for (int i = 0; i < entryArr.count; i++) {
         ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
         model.imageName = entryArr[i][1];
         model.name = entryArr[i][0];
+        model.sid = entryArr[i][2];
         [_enteryArr addObject:model];
     }
 }
@@ -159,7 +160,17 @@
         _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         _sectionView.titleSelect = ^(NSInteger index) {
-            if (weakSelf.iTableView.contentOffset.y < [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr]) {
+            CGFloat topHeight = 0;
+            topHeight += [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr];
+            if (self.AdverArr && self.AdverArr.count > 0) {
+                topHeight += [ZStudentBannerCell z_getCellHeight:nil];
+            }
+            
+            if (self.AdverArr && self.AdverArr.count > 0) {
+                topHeight += [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr];
+            }
+            
+            if (weakSelf.iTableView.contentOffset.y < topHeight) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.iTableView setContentOffset:CGPointMake(0, [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:weakSelf.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:weakSelf.photoWallArr]) animated:YES];
                 });
@@ -195,7 +206,8 @@
         ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
         lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
             ZStudentClassificationListVC *lvc = [[ZStudentClassificationListVC alloc] init];
-            lvc.vcTitle = @"舞蹈分类";
+            lvc.vcTitle = model.name;
+            lvc.type = model.sid;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         };
     }

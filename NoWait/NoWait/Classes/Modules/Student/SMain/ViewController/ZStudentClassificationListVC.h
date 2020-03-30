@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentClassificationListVC : ZTableViewViewController
 @property (nonatomic,strong) NSString *vcTitle;
+@property (nonatomic,strong) NSString *type;
 
 @end
 
