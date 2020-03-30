@@ -7,11 +7,11 @@
 //
 
 #import "ZViewController.h"
+#import "ZOrderModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLessonSureOrderVC : ZTableViewViewController
+@property (nonatomic,strong) ZOrderAddModel *addModel;
 
 @end
 
-NS_ASSUME_NONNULL_END

@@ -17,6 +17,7 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) ZStudentLessonSelectOrderLessonView *lessonView;
 @property (nonatomic,strong) ZStudentLessonSelectOrderTimeView *timeView;
+@property (nonatomic,strong) ZStoresDetailModel *detailModel;
 
 @end
 
@@ -81,11 +82,10 @@
     if (!_timeView) {
         __weak typeof(self) weakSelf = self;
         _timeView = [[ZStudentLessonSelectOrderTimeView alloc] init];
-        _timeView.buyType = self.buyType;
         _timeView.bottomBlock = ^{
             [weakSelf removeFromSuperview];
             if (weakSelf.completeBlock) {
-                weakSelf.completeBlock(weakSelf.buyType);
+                weakSelf.completeBlock(0);
             }
         };
         
@@ -105,10 +105,10 @@
     return _timeView;
 }
 #pragma mark --切换显示
-- (void)showSelectViewWithType:(ZLessonBuyType )type {
+- (void)showSelectViewWithModel:(ZStoresDetailModel *)model {
+    _detailModel = model;
     
-    _buyType = type;
-    
+    self.lessonView.detailModel = model;
     [self addSubview:self.lessonView];
     self.lessonView.frame = CGRectMake(0, KScreenHeight, KScreenWidth, KScreenHeight/5.0f * 3.2);
     

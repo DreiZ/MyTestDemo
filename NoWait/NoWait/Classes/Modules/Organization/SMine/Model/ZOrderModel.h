@@ -170,6 +170,18 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+
+@interface ZOrderAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *lesson_name;
+@property (nonatomic,strong) NSString *lesson_id;
+@property (nonatomic,strong) NSString *price;
+@end
+
 @interface ZOrderModel : ZBaseModel
 
 @end

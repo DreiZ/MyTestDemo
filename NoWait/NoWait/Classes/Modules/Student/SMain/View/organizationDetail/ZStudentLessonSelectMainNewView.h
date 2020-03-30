@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ZStudentDetailModel.h"
+#import "ZOrderModel.h"
 
 @interface ZStudentLessonSelectMainNewView : UIView
 @property (nonatomic,assign) ZLessonBuyType buyType;
-@property (nonatomic,strong) void (^completeBlock)(ZLessonBuyType);
-- (void)showSelectViewWithType:(ZLessonBuyType)type;
+@property (nonatomic,strong) void (^completeBlock)(ZOrderAddModel *);
+- (void)showSelectViewWithModel:(ZOriganizationLessonDetailModel *)model;
 
 @end

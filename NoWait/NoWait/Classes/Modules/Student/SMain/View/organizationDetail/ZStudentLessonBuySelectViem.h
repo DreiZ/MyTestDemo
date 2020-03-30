@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZOrderModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLessonBuySelectViem : UIView
+@property (nonatomic,strong) ZOriganizationLessonDetailModel *model;
+@property (nonatomic,strong) ZOrderAddModel *orderModel;
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonTeacherModel *);
 @property (nonatomic,strong) void (^bottomBlock)(void);
 @property (nonatomic,strong) void (^closeBlock)(void);
 @end

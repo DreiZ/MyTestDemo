@@ -28,6 +28,7 @@
 #import "ZOrderModel.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
+#import "ZStudentLessonSureOrderVC.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -119,15 +120,14 @@
     if (!_selectView) {
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainNewView alloc] init];
-//        _selectView.completeBlock = ^(ZLessonBuyType type) {
-//            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
-//                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
-//                [weakSelf.navigationController pushViewController:order animated:YES];
-//            }else{
-//                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
-//                [weakSelf.navigationController pushViewController:order animated:YES];
-//            }
-//        };
+        _selectView.completeBlock = ^(ZOrderAddModel *listModel) {
+            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+            order.addModel = listModel;
+            [weakSelf.navigationController pushViewController:order animated:YES];
+            
+//            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+//            [weakSelf.navigationController pushViewController:order animated:YES];
+        };
     }
     return _selectView;
 }
@@ -141,30 +141,35 @@
         _bottomView.title = @"立即购买";
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                NSMutableDictionary *params = @{}.mutableCopy;
-                [params setObject:weakSelf.addModel.stores_id forKey:@"stores_id"];
-                [params setObject:@"7" forKey:@"teacher_id"];
-//                [params setObject:@"23" forKey:@"coupons_id"];
-                [params setObject:weakSelf.addModel.lessonID forKey:@"course_id"];
-//                [params setObject:@"1" forKey:@"pay_type"];
-//                [params setObject:@"1" forKey:@"pay_amount"];
-                [params setObject:name[weakSelf.k] forKey:@"real_name"];
-                [params setObject:@"18762288553" forKey:@"phone"];
-                [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
-                    if (isSuccess) {
-                        ZOrderAddNetModel *model = data;
-                        [TLUIUtility showSuccessHint:model.message];
-                    }else{
-                        [TLUIUtility showErrorHint:data];
-                    }
-                    weakSelf.k++;
-                }];
-                
-//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
+                [ZPublicTool callTel:SafeStr(weakSelf.addModel.stores_id)];
             }else{
-//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
+                [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
             }
-            
+//            if (index == 0) {
+//                NSMutableDictionary *params = @{}.mutableCopy;
+//                [params setObject:weakSelf.addModel.stores_id forKey:@"stores_id"];
+//                [params setObject:@"7" forKey:@"teacher_id"];
+////                [params setObject:@"23" forKey:@"coupons_id"];
+//                [params setObject:weakSelf.addModel.lessonID forKey:@"course_id"];
+////                [params setObject:@"1" forKey:@"pay_type"];
+////                [params setObject:@"1" forKey:@"pay_amount"];
+//                [params setObject:name[weakSelf.k] forKey:@"real_name"];
+//                [params setObject:@"18762288553" forKey:@"phone"];
+//                [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
+//                    if (isSuccess) {
+//                        ZOrderAddNetModel *model = data;
+//                        [TLUIUtility showSuccessHint:model.message];
+//                    }else{
+//                        [TLUIUtility showErrorHint:data];
+//                    }
+//                    weakSelf.k++;
+//                }];
+//
+////                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
+//            }else{
+////                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
+//            }
+//
         };
     }
     return _bottomView;
@@ -422,47 +427,49 @@
 }
 
 - (void)addTimeOrder {
-    
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"固定开课时间";
-    model.leftFont = [UIFont boldFontContent];
-    model.cellHeight = CGFloatIn750(30);
-    model.isHiddenLine = YES;
-    
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    [self.cellConfigArr addObject:menuCellConfig];
-    
-    for (ZBaseMenuModel *menu in self.addModel.fix_time) {
-        NSString *subTitle = @"";
-        for (int k = 0; k < menu.units.count; k++) {
-            ZBaseUnitModel *unitModel = menu.units[k];
-            if (subTitle.length == 0) {
-                subTitle = [NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]];
-            }else{
-                subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,[self getStartTime:unitModel],[self getEndTime:unitModel]];
-            }
-        }
-        
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = menu.name;
-        model.rightTitle = subTitle;
+    if (ValidArray(self.addModel.fix_time)) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"固定开课时间";
+        model.leftFont = [UIFont boldFontContent];
+        model.cellHeight = CGFloatIn750(30);
         model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(60);
-        model.leftMargin = CGFloatIn750(30);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont fontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.leftColor = [UIColor colorTextGray];
-        model.rightColor = [UIColor colorTextGray];
-        model.leftDarkColor = [UIColor colorTextGrayDark];
-        model.rightDarkColor = [UIColor colorTextGrayDark];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
+        
+        for (ZBaseMenuModel *menu in self.addModel.fix_time) {
+            NSString *subTitle = @"";
+            for (int k = 0; k < menu.units.count; k++) {
+                ZBaseUnitModel *unitModel = menu.units[k];
+                if (subTitle.length == 0) {
+                    subTitle = [NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]];
+                }else{
+                    subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,[self getStartTime:unitModel],[self getEndTime:unitModel]];
+                }
+            }
+            
+            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+            model.leftTitle = menu.name;
+            model.rightTitle = subTitle;
+            model.isHiddenLine = YES;
+            model.cellWidth = KScreenWidth;
+            model.singleCellHeight = CGFloatIn750(60);
+            model.leftMargin = CGFloatIn750(30);
+            model.rightMargin = CGFloatIn750(30);
+            model.cellHeight = CGFloatIn750(62);
+            model.leftFont = [UIFont fontSmall];
+            model.rightFont = [UIFont fontSmall];
+            model.leftColor = [UIColor colorTextGray];
+            model.rightColor = [UIColor colorTextGray];
+            model.leftDarkColor = [UIColor colorTextGrayDark];
+            model.rightDarkColor = [UIColor colorTextGrayDark];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
     }
+    
     [self addExperienceTimeOrder];
 }
 
@@ -568,7 +575,7 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"课程评价";
-        model.leftFont = [UIFont boldFontContent];
+        model.leftFont = [UIFont boldFontTitle];
         model.cellHeight = CGFloatIn750(50);
         model.isHiddenLine = YES;
         
@@ -686,6 +693,8 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:self.addModel.lessonID forKey:@"stores_courses_id"];
+    
 }
 @end
 

@@ -131,8 +131,23 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
      ZBaseCell *cell;
+    __weak typeof(self) weakSelf = self;
      cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    
+    if ([cellConfig.title isEqualToString:@"ZStudentLessonTeacherCell"]) {
+        ZStudentLessonTeacherCell *lcell = (ZStudentLessonTeacherCell *)cell;
+        lcell.handleBlock = ^(ZOriganizationLessonTeacherModel *model) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(model);
+            }
+            weakSelf.orderModel.teacher_name = model.teacher_name;
+            weakSelf.orderModel.teacher_id = model.teacher_id;
+            weakSelf.orderModel.teacher_image = model.image;
+            weakSelf.orderModel.price = model.price;
+            
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
+    }
      return cell;
 }
 
@@ -163,37 +178,27 @@
 
 
 - (void)initCellConfigArr {
-    {
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherSelectedCell className] title:[ZStudentLessonTeacherSelectedCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonTeacherSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:menuCellConfig];
-        
+    [self.cellConfigArr removeAllObjects];
+    if (!self.model) {
+        return;
+    }
+    NSMutableDictionary *data = @{}.mutableCopy;
+    if (ValidStr(self.orderModel.teacher_name)) {
+        [data setObject:[NSString stringWithFormat:@"￥%@",self.orderModel.price] forKey:@"name"];
+        [data setObject:[NSString stringWithFormat:@"已选教师%@",self.orderModel.teacher_name] forKey:@"lesson"];
+        [data setObject:SafeStr(self.orderModel.teacher_image) forKey:@"image"];
+    }else{
+        [data setObject:[NSString stringWithFormat:@"￥%@起",self.model.price] forKey:@"name"];
+        [data setObject:@"请选择教师" forKey:@"lesson"];
     }
     {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"￥500.00 起";
-        model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(40)];
-        model.cellHeight = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherSelectedCell className] title:[ZStudentLessonTeacherSelectedCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentLessonTeacherSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:data];
         [self.cellConfigArr addObject:menuCellConfig];
-    }
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"请选择教师";
-        model.leftFont = [UIFont fontSmall];
-        model.cellHeight = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        model.leftColor = [UIColor colorTextGray1];
-        model.leftDarkColor = [UIColor colorTextGray1Dark];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
     }
     
     {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"可选教师";
@@ -204,14 +209,20 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
         
-        [self.cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
     }
     
     {
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherCell className] title:[ZStudentLessonTeacherCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonTeacherCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherCell className] title:[ZStudentLessonTeacherCell className] showInfoMethod:@selector(setTeacher_list:) heightOfCell:[ZStudentLessonTeacherCell z_getCellHeight:self.model.teacher_list] cellType:ZCellTypeClass dataModel:self.model.teacher_list];
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
+}
+
+- (void)setModel:(ZOriganizationLessonDetailModel *)model {
+    _model = model;
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 @end
 

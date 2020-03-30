@@ -311,6 +311,10 @@
 }
 @end
 
+@implementation ZOrderAddModel
+
+@end
+
 @implementation ZOrderModel
 
 @end

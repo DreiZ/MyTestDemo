@@ -38,7 +38,7 @@
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *type;
 
-
+@property (nonatomic,strong) NSString *stores_courses_name;
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *courses_class_id;
 @property (nonatomic,strong) NSString *courses_class_name;

@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZStudentDetailModel.h"
-
+#import "ZOrderModel.h"
 
 @interface ZStudentLessonSelectMainOrderView : UIView
-@property (nonatomic,assign) ZLessonBuyType buyType;
-@property (nonatomic,strong) void (^completeBlock)(ZLessonBuyType);
-- (void)showSelectViewWithType:(ZLessonBuyType)type;
+@property (nonatomic,strong) void (^completeBlock)(NSInteger);
+- (void)showSelectViewWithModel:(ZStoresDetailModel*)model;
 @end
 
 

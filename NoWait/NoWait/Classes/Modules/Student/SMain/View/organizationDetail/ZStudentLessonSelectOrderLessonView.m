@@ -163,6 +163,10 @@
 
 
 - (void)initCellConfigArr {
+    [self.cellConfigArr removeAllObjects];
+    if (!self.detailModel) {
+        return;
+    }
     {
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherSelectedCell className] title:[ZStudentLessonTeacherSelectedCell className] showInfoMethod:nil heightOfCell:[ZStudentLessonTeacherSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:menuCellConfig];
@@ -256,5 +260,11 @@
             [self.cellConfigArr addObject:menuCellConfig];
         }
     }
+}
+
+- (void)setDetailModel:(ZStoresDetailModel *)detailModel {
+    _detailModel = detailModel;
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 @end

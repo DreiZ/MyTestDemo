@@ -14,6 +14,9 @@
 @interface ZStudentLessonSelectMainNewView ()
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) ZStudentLessonBuySelectViem *lessonView;
+@property (nonatomic,strong) ZOriganizationLessonDetailModel *addModel;
+
+@property (nonatomic,strong) ZOrderAddModel *orderModel;
 
 @end
 
@@ -34,6 +37,7 @@
     self.backgroundColor = adaptAndDarkColor([UIColor colorWithRGB:0x000000 alpha:0.8], [UIColor colorWithRGB:0xffffff alpha:0.2]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    _orderModel = [[ZOrderAddModel alloc] init];
     
     __weak typeof(self) weakSelf = self;
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -59,15 +63,31 @@
 
 - (ZStudentLessonBuySelectViem *)lessonView {
     if (!_lessonView) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _lessonView = [[ZStudentLessonBuySelectViem alloc] init];
+        _lessonView.orderModel = self.orderModel;
+        _lessonView.handleBlock = ^(ZOriganizationLessonTeacherModel * model) {
+        };
+        _lessonView.bottomBlock = ^{
+            
+            if (ValidStr(self.orderModel.teacher_id)) {
+                [weakSelf removeFromSuperview];
+                if (weakSelf.completeBlock) {
+                    weakSelf.completeBlock(weakSelf.orderModel);
+                }
+            }else{
+                [TLUIUtility showErrorHint:@"您还没有选择任何教师"];
+            }
+            
+        };
     }
     
     return _lessonView;
 }
 #pragma mark --切换显示
-- (void)showSelectViewWithType:(ZLessonBuyType )type {
-    _buyType = type;
+- (void)showSelectViewWithModel:(ZOriganizationLessonDetailModel *)model {
+    _addModel = model;
+    self.lessonView.model = model;
     [self addSubview:self.lessonView];
     self.lessonView.frame = CGRectMake(0, KScreenHeight/5.0f *2.5, KScreenWidth, KScreenHeight/5.0f * 2.5);
     

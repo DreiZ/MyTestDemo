@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOrderModel.h"
 
 @interface ZStudentLessonTeacherCell : ZBaseCell
-
+@property (nonatomic,strong) NSArray <ZOriganizationLessonTeacherModel *>*teacher_list;
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonTeacherModel *);
 @end
 
-NS_ASSUME_NONNULL_END
+

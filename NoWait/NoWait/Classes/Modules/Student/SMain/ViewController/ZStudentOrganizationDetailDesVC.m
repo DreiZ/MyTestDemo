@@ -88,10 +88,14 @@
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
-//                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
             }else{
-                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
+                [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
             }
+//             ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+//                        [weakSelf.navigationController pushViewController:order animated:YES];
+            //
+//            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
+//            [weakSelf.navigationController pushViewController:order animated:YES];
         };
     }
     return _bottomView;
@@ -216,10 +220,14 @@
         
         {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-                model.leftTitle = @"机构评价";
-            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:[ZStudentOrganizationPersonnelMoreCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:lessonMoreCellConfig];
+            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.leftTitle = @"机构评价";
+            model.leftFont = [UIFont boldFontTitle];
+            model.cellHeight = CGFloatIn750(50);
+            model.isHiddenLine = YES;
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:menuCellConfig];
         }
         if (self.dataSources.count > 0) {
             for (ZOrderEvaListModel *evaModel in self.dataSources) {

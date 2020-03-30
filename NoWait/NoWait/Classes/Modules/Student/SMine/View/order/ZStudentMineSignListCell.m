@@ -243,7 +243,7 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
-    _lessonNameLabel.text = model.courses_name;
+    _lessonNameLabel.text = model.stores_courses_name;
     _classNameLabel.text = model.courses_class_name;
     
     _userLabel.text = model.teacher_name;

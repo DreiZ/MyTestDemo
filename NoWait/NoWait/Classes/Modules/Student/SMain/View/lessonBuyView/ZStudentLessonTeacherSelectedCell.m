@@ -52,14 +52,13 @@
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
     }];
     
-   [ _organizationImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/5922e2ddly1gd181y4p42j20j60y246s.jpg"]];
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"齐丽旺";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -71,7 +70,7 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _lessonLabel.text = @"瑜伽培训班";
+        
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontMin]];
@@ -88,6 +87,54 @@
     return _organizationImageView;
 }
 
+- (void)setData:(NSDictionary *)data {
+    _data = data;
+    if (ValidDict(data)) {
+        if ([data objectForKey:@"image"]) {
+            self.organizationImageView.hidden = NO;
+            [_organizationImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data[@"image"])] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+            
+            
+            [self.organizationImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+                make.width.mas_equalTo(CGFloatIn750(88));
+                make.height.mas_equalTo(CGFloatIn750(88));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+            
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.organizationImageView.mas_top).offset(CGFloatIn750(4));
+                make.left.equalTo(self.organizationImageView.mas_right).offset(CGFloatIn750(20));
+                make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+            }];
+            
+            [self.lessonLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.organizationImageView.mas_bottom).offset(-CGFloatIn750(4));
+                make.left.equalTo(self.organizationImageView.mas_right).offset(CGFloatIn750(20));
+                make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+            }];
+        }else{
+            self.organizationImageView.hidden = YES;
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.organizationImageView.mas_top).offset(CGFloatIn750(4));
+                make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+                make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+            }];
+            
+            [self.lessonLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.organizationImageView.mas_bottom).offset(-CGFloatIn750(4));
+                make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+                make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+            }];
+        }
+        if ([data objectForKey:@"lesson"]) {
+            _lessonLabel.text = data[@"lesson"];
+        }
+        if ([data objectForKey:@"name"]) {
+            _nameLabel.text = data[@"name"];
+        }
+    }
+}
 
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -27,15 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
     [self initCellConfigArr];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *spacCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(8) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-    [self.cellConfigArr addObject:spacCellConfig];
+    [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(8))];
     
     NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
     NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
@@ -86,6 +84,7 @@
 }
 
 - (void)setupMainView {
+    [super setupMainView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -97,11 +96,12 @@
     
     [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bottomView.mas_top);
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
     }];
-    
+
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(bottomView.mas_top);

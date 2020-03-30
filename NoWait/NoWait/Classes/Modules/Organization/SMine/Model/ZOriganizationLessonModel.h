@@ -85,6 +85,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *position;
 @property (nonatomic,strong) NSString *price;
 @property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,assign) NSInteger isSelected;
 @end
 
 @interface ZOriganizationLessonDetailModel : ZOriganizationLessonAddModel
