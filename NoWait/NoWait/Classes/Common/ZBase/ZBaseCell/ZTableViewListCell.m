@@ -144,6 +144,7 @@
 
 - (void)setConfigList:(NSArray<ZCellConfig *> *)configList {
     _configList = configList;
+    [self.cellConfigArr removeAllObjects];
     [self.cellConfigArr addObjectsFromArray:configList];
     [self.iTableView reloadData];
 }

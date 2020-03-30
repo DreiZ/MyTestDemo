@@ -72,6 +72,11 @@
 @property (nonatomic,strong) NSString * update_at;
 @property (nonatomic,strong) NSString * use_coupons;//是否使用优惠券 1：否 2：是
 @property (nonatomic,strong) NSString * valid_at;
+
+@property (nonatomic,strong) NSString *emergency_name;
+@property (nonatomic,strong) NSString *emergency_phone;
+@property (nonatomic,strong) NSString *emergency_contact;
+
 @end
 
 

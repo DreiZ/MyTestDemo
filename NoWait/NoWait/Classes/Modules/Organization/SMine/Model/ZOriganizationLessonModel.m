@@ -240,7 +240,8 @@
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"teacher_list" : @"ZOriganizationLessonTeacherModel"
+             @"teacher_list" : @"ZOriganizationLessonTeacherModel",
+             @"coupons_list" : @"ZOriganizationCardListModel"
              };
 }
 @end

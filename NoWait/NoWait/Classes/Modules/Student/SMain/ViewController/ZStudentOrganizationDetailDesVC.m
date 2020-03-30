@@ -105,7 +105,7 @@
     if (!_selectView) {
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainOrderView alloc] init];
-        _selectView.completeBlock = ^(ZLessonBuyType type) {
+        _selectView.completeBlock = ^(ZOrderAddModel *model) {
             ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
             [weakSelf.navigationController pushViewController:order animated:YES];
 //

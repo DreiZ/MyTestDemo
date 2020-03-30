@@ -29,6 +29,8 @@
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
+#import "ZOrganizationCouponListView.h"
+#import "ZOriganizationCardViewModel.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -122,9 +124,24 @@
         _selectView = [[ZStudentLessonSelectMainNewView alloc] init];
         _selectView.completeBlock = ^(ZOrderAddModel *listModel) {
             ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
-            order.addModel = listModel;
-            [weakSelf.navigationController pushViewController:order animated:YES];
+            ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
+            detailModel.type = ZStudentOrderTypeForPay;
+            detailModel.course_id = weakSelf.addModel.lessonID;
+            detailModel.teacher_name = listModel.teacher_name;
+            detailModel.teacher_id = listModel.teacher_id;
+            detailModel.stores_id = weakSelf.addModel.stores_id;
+            detailModel.store_name = weakSelf.addModel.stores_name;
+            detailModel.course_name = weakSelf.addModel.name;
+            detailModel.pay_amount = listModel.price;
+            detailModel.order_amount = listModel.price;
+            detailModel.course_number = weakSelf.addModel.course_number;
+            detailModel.course_min = weakSelf.addModel.course_min;
+            detailModel.valid_at = weakSelf.addModel.valid_at;
+            detailModel.course_total_min = [NSString stringWithFormat:@"%d",[weakSelf.addModel.course_number intValue]*[weakSelf.addModel.course_min intValue]];
             
+            order.detailModel = detailModel;
+            order.coupons_list = weakSelf.addModel.coupons_list;
+            [weakSelf.navigationController pushViewController:order animated:YES];
 //            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
 //            [weakSelf.navigationController pushViewController:order animated:YES];
         };
@@ -135,7 +152,7 @@
 
 -(ZOrganizationDetailBottomView *)bottomView {
     if (!_bottomView) {
-        NSArray *name = @[@"恨桃", @"依秋", @"依波", @"香巧", @"紫萱", @"涵易", @"忆之", @"幻巧", @"美倩", @"安寒", @"白亦", @"惜玉", @"碧春", @"怜雪", @"听南", @"念蕾", @"紫夏", @"凌旋", @"芷梦", @"凌寒", @"梦竹", @"千凡", @"丹蓉", @"慧贞", @"思菱", @"平卉", @"笑柳", @"雪卉", @"南蓉", @"谷梦", @"巧兰", @"绿蝶", @"飞荷", @"佳蕊", @"芷荷", @"怀瑶", @"慕易", @"若芹", @"紫安", @"曼冬", @"寻巧", @"雅昕", @"尔槐", @"以旋", @"初夏", @"依丝", @"怜南", @"傲菡", @"谷蕊", @"笑槐", @"飞兰", @"笑卉", @"迎荷", @"佳音", @"梦君", @"妙绿", @"觅雪", @"寒安", @"沛凝", @"白容", @"乐蓉", @"映安", @"依云", @"映冬", @"凡雁", @"梦秋", @"梦凡", @"秋巧", @"若云", @"元容", @"怀蕾", @"灵寒", @"天薇", @"翠安", @"乐琴", @"宛南", @"怀蕊", @"白风", @"访波", @"亦凝", @"易绿", @"夜南", @"曼凡", @"亦巧", @"青易", @"冰真", @"白萱", @"友安", @"海之", @"小蕊", @"又琴", @"天风", @"若松", @"盼菡", @"秋荷", @"香彤", @"语梦", @"惜蕊", @"迎彤", @"沛白", @"雁彬", @"易蓉", @"雪晴", @"诗珊", @"春冬", @"晴钰", @"冰绿", @"半梅", @"笑容", @"沛凝", @"映秋", @"盼烟", @"晓凡", @"涵雁", @"问凝", @"冬萱", @"晓山", @"雁蓉", @"梦蕊", @"山菡", @"南莲", @"飞双", @"凝丝", @"思萱", @"怀梦", @"雨梅", @"冷霜", @"向松", @"迎丝", @"迎梅", @"雅彤", @"香薇", @"以山", @"碧萱", @"寒云", @"向南", @"书雁", @"怀薇", @"思菱", @"忆文", @"翠巧", @"书文", @"若山", @"向秋", @"凡白", @"绮烟", @"从蕾", @"天曼", @"又亦", @"从语", @"绮彤", @"之玉", @"凡梅", @"依琴", @"沛槐", @"又槐", @"元绿", @"安珊", @"夏之"];
+        
         __weak typeof(self) weakSelf = self;
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
         _bottomView.title = @"立即购买";
@@ -145,31 +162,6 @@
             }else{
                 [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
             }
-//            if (index == 0) {
-//                NSMutableDictionary *params = @{}.mutableCopy;
-//                [params setObject:weakSelf.addModel.stores_id forKey:@"stores_id"];
-//                [params setObject:@"7" forKey:@"teacher_id"];
-////                [params setObject:@"23" forKey:@"coupons_id"];
-//                [params setObject:weakSelf.addModel.lessonID forKey:@"course_id"];
-////                [params setObject:@"1" forKey:@"pay_type"];
-////                [params setObject:@"1" forKey:@"pay_amount"];
-//                [params setObject:name[weakSelf.k] forKey:@"real_name"];
-//                [params setObject:@"18762288553" forKey:@"phone"];
-//                [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
-//                    if (isSuccess) {
-//                        ZOrderAddNetModel *model = data;
-//                        [TLUIUtility showSuccessHint:model.message];
-//                    }else{
-//                        [TLUIUtility showErrorHint:data];
-//                    }
-//                    weakSelf.k++;
-//                }];
-//
-////                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyBeginLesson];
-//            }else{
-////                [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeBeginLesson];
-//            }
-//
         };
     }
     return _bottomView;
@@ -204,7 +196,18 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroLabelCell"]){
+        __weak typeof(self) weakSelf = self;
+        [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.addModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
+            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:data];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+        }];
+    }
 }
 
 #pragma mark - setDetailData
@@ -411,19 +414,25 @@
 }
 
 - (void)setLabelCellConfig{
-    ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-    mModel.rightFont = [UIFont fontContent];
-    mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    mModel.singleCellHeight = CGFloatIn750(40);
-    mModel.isHiddenLine = YES;
-    mModel.data = @[@"代付俱乐部",@"代付俱乐部",@"代付俱乐部"];
-    mModel.rightColor = [UIColor colorRedForLabel];
-    mModel.rightDarkColor = [UIColor colorRedForLabelSub];
-    mModel.leftFont = [UIFont boldFontMax1Title];
-    mModel.rightImage = @"rightBlackArrowN";
-    
-    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-    [self.cellConfigArr addObject:textCellConfig];
+    if (ValidArray(self.addModel.coupons_list)){
+        NSMutableArray *coupons = @[].mutableCopy;
+        for (ZOriganizationCardListModel *cartModel in self.addModel.coupons_list) {
+            [coupons addObject:cartModel.title];
+        }
+        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+        mModel.rightFont = [UIFont fontContent];
+        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        mModel.singleCellHeight = CGFloatIn750(40);
+        mModel.isHiddenLine = YES;
+        mModel.data = coupons;
+        mModel.rightColor = [UIColor colorRedForLabel];
+        mModel.rightDarkColor = [UIColor colorRedForLabelSub];
+        mModel.leftFont = [UIFont boldFontMax1Title];
+        mModel.rightImage = @"rightBlackArrowN";
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:@"ZStudentOrganizationDetailIntroLabelCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        [self.cellConfigArr addObject:textCellConfig];
+    }
 }
 
 - (void)addTimeOrder {

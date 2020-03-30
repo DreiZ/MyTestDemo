@@ -9,74 +9,65 @@
 #import "ZStudentLessonSureOrderVC.h"
 #import "ZStudentLessonOrderSuccessVC.h"
 
-#import "ZCellConfig.h"
-#import "ZStudentDetailModel.h"
+#import "ZStudentMineOrderDetailHandleBottomView.h"
 
-#import "ZSpaceEmptyCell.h"
-#import "ZStudentLessonOrderNormalCell.h"
-#import "ZStudentLessonDetailLessonListCell.h"
-#import "ZStudentLessonSectionTitleCell.h"
+#import "ZStudentMineOrderTopStateCell.h"
+#import "ZStudentMineOrderDetailCell.h"
+#import "ZMultiseriateContentLeftLineCell.h"
+#import "ZTableViewListCell.h"
+#import "ZStudentMineSettingBottomCell.h"
+#import "ZSingleLeftRoundImageCell.h"
+#import "ZMineOrderDetailCell.h"
+#import "ZSingleLineRightImageCell.h"
+#import "ZOrganizationLessonAddPhotosCell.h"
+
+#import "ZStudentOrderPayVC.h"
+#import "ZBaseUnitModel.h"
+#import "ZOriganizationOrderViewModel.h"
+#import "ZStudentMineEvaEditVC.h"
+#import "ZOrganizationCouponListView.h"
 
 @interface ZStudentLessonSureOrderVC ()
-@property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UIView *handleView;
+@property (nonatomic,strong) UILabel *priceLabel;
+@property (nonatomic,strong) UIButton *payBtn;
+@property (nonatomic,strong) ZOriganizationCardListModel *cartModel;
 
 @end
 
 @implementation ZStudentLessonSureOrderVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.detailModel.isStudent = YES;
+    self.detailModel.status = @"1";
+    self.detailModel.orderType = @"1";
+    ZOriganizationCardListModel *cartModel;
+        
+    for (ZOriganizationCardListModel *model in self.coupons_list ) {
+//        if ([model.limit doubleValue] > [self.detailModel.order_amount doubleValue]  && [model.amount doubleValue] < [self.detailModel.order_amount doubleValue] ) {
+            cartModel = model;
+            self.cartModel = model;
+            break;
+//        }
+    }
     [self initCellConfigArr];
+    [self.iTableView reloadData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(8))];
-    
-    NSArray *titleArr = @[@"课程", @"优惠券", @"金额总计", @"联系方式"];
-    NSArray *rightTitleArr = @[@"单人瑜伽", @"新客户立减20元", @"340元", @"18811933223"];
-    NSArray *rightArrowArr = @[@"", @"rightBlackArrowN", @"", @""];
-    NSArray *rightColorArr = @[[UIColor colorTextGray], [UIColor colorTextGray], [UIColor colorRedDefault], [UIColor colorTextGray]];
-    NSArray *cellTitleArr = @[@"lesson", @"you", @"price",@"tel"];
-    
-    for (int i = 0; i < titleArr.count; i++) {
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = titleArr[i];
-        model.rightTitle = rightTitleArr[i];
-        model.rightColor = rightColorArr[i];
-        model.cellTitle = cellTitleArr[i];
-        model.rightImage = rightArrowArr[i];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderNormalCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderNormalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
-
-    }
-    
-    ZCellConfig *spacSectionCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-    [self.cellConfigArr addObject:spacSectionCellConfig];
-    
-    //须知
-    ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
-    model.title = @"须知";
-    model.isShowRight = NO;
-    ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-    [self.cellConfigArr addObject:lessonTitleCellConfig];
-    
-    NSMutableArray *list = @[].mutableCopy;
-    NSArray <NSArray *>*des = @[@[@"预约须知",@"提前一天预约"], @[@"退款须知",@"购买后20天内免费，30天后退款费80%"],@[@"退款人",@"打分数档搭嘎搭嘎"]];
-    for (int i = 0; i < des.count; i++) {
-        ZStudentDetailDesListModel *model = [[ZStudentDetailDesListModel alloc] init];
-        model.desTitle = des[i][0];
-        model.desSub = des[i][1];
-        [list addObject:model];
-    }
-    
-    ZCellConfig *lessonDesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonDetailLessonListCell className] title:[ZStudentLessonDetailLessonListCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentLessonDetailLessonListCell z_getCellHeight:list] cellType:ZCellTypeClass dataModel:list];
-    [self.cellConfigArr addObject:lessonDesCellConfig];
+  
+    [self setOrderDetailCell];
+    [self setCouponsCell];
+    [self setOrderPriceCell];
+    [self setPayTypeCell];
+    [self setUserCell];
 }
-
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
@@ -85,48 +76,297 @@
 
 - (void)setupMainView {
     [super setupMainView];
-    
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self.view addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(140));
-        make.left.right.bottom.equalTo(self.view);
+    [self.view addSubview:self.handleView];
+    [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
     }];
     
-    [bottomView addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bottomView.mas_top);
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
-        make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
-        make.height.mas_equalTo(CGFloatIn750(80));
-    }];
-
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(bottomView.mas_top);
+        make.bottom.equalTo(self.handleView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(0);
     }];
 }
 
-#pragma mark lazy loading...
-- (UIButton *)bottomBtn {
-    if (!_bottomBtn) {
-        __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _bottomBtn.layer.masksToBounds = YES;
-        _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
-        [_bottomBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
-        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
-            ZStudentLessonOrderSuccessVC *successvc = [[ZStudentLessonOrderSuccessVC alloc] init];
-            [weakSelf.navigationController pushViewController:successvc animated:YES];
+
+#pragma mark - lazy loading...
+- (UIView *)handleView {
+    if (!_handleView) {
+        _handleView = [[UIView alloc] init];
+        _handleView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
+        [_handleView addSubview:topView];
+        [topView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(self.handleView);
+            make.height.mas_equalTo(CGFloatIn750(88));
+        }];
+        
+        [topView addSubview:self.priceLabel];
+        [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+            make.centerY.equalTo(topView.mas_centerY);
+            make.right.equalTo(topView.mas_centerX).offset(-CGFloatIn750(20));
+        }];
+        
+        [topView addSubview:self.payBtn];
+        [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(topView);
+            make.left.equalTo(topView.mas_centerX);
+        }];
+        
+        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+        [topView addSubview:bottomLineView];
+        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(topView);
+            make.height.mas_equalTo(0.5);
         }];
     }
-    return _bottomBtn;
+    
+    return _handleView;
 }
 
-@end
+- (UILabel *)priceLabel {
+    if (!_priceLabel) {
+        _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
+        _priceLabel.text = [NSString stringWithFormat:@"待支付：%@",self.detailModel.pay_amount];
+        _priceLabel.numberOfLines = 1;
+        _priceLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceLabel setFont:[UIFont boldFontContent]];
+    }
+    return _priceLabel;
+}
 
+- (UIButton *)payBtn {
+    if (!_payBtn) {
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_payBtn setTitle:@"立即支付" forState:UIControlStateNormal];
+        [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_payBtn.titleLabel setFont:[UIFont boldFontContent]];
+        
+        __weak typeof(self) weakSelf = self;
+        [_payBtn bk_whenTapped:^{
+            if (!ValidStr(weakSelf.detailModel.account_phone)) {
+                [TLUIUtility showErrorHint:@"请输入联系号码"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.detailModel.students_name)) {
+                [TLUIUtility showErrorHint:@"请输入联系人"];
+                return ;
+            }
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:weakSelf.detailModel.stores_id forKey:@"stores_id"];
+            [params setObject:weakSelf.detailModel.teacher_id forKey:@"teacher_id"];
+
+            [params setObject:weakSelf.detailModel.course_id forKey:@"course_id"];
+            [params setObject:weakSelf.detailModel.students_name forKey:@"real_name"];
+            [params setObject:weakSelf.detailModel.account_phone forKey:@"phone"];
+            if (self.cartModel) {
+                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
+            }
+            [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
+                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                    ZOrderAddNetModel *model = data;
+                    [TLUIUtility showSuccessHint:model.message];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+        }];
+    }
+    return _payBtn;
+}
+
+#pragma mark - tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
+        ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+        lcell.titleLabel.font = [UIFont fontContent];
+        lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
+    }else if ([cellConfig.title isEqualToString:@"coupons"]) {
+        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        lcell.handleBlock = ^(ZCellConfig *cellConfig) {
+            [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
+//                if ([model.limit doubleValue] > [self.detailModel.order_amount doubleValue]  && [model.amount doubleValue] < [self.detailModel.order_amount doubleValue] ) {
+                    weakSelf.cartModel = model;
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+//                }
+                [[ZOrganizationCouponListView sharedManager] removeFromSuperview];
+            }];
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
+        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        lcell.cellSetBlock = ^(UITableViewCell *cell, NSIndexPath *index, ZCellConfig *cellConfig) {
+            if ([cellConfig.title isEqualToString:@"name"]) {
+                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                tCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.detailModel.students_name = text;
+                };
+            }else if ([cellConfig.title isEqualToString:@"phone"]) {
+                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                tCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.detailModel.account_phone = text;
+                };
+            }else if ([cellConfig.title isEqualToString:@"contactName"]) {
+                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                tCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.detailModel.emergency_name = text;
+                };
+            }else if ([cellConfig.title isEqualToString:@"contactTel"]) {
+                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                tCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.detailModel.emergency_phone = text;
+                };
+            }else if ([cellConfig.title isEqualToString:@"relationship"]) {
+                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                tCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.detailModel.emergency_contact = text;
+                };
+            }
+        };
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
+          
+    }
+}
+
+#pragma mark - set cell
+- (void)setOrderDetailCell {
+    ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailCell className] title:[ZStudentMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderDetailCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
+    [self.cellConfigArr addObject:orderCellConfig];
+}
+
+
+- (void)setCouponsCell {
+    if (!(self.cartModel)) {
+        return;
+    }
+    NSMutableArray *configArr = @[].mutableCopy;
+    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+    model.leftTitle = @"平台优惠";
+    model.rightTitle = [NSString stringWithFormat:@"￥%@",self.cartModel.amount];
+    model.rightImage = @"rightBlackArrowN";
+    model.isHiddenLine = YES;
+    model.lineLeftMargin = CGFloatIn750(30);
+    model.lineRightMargin = CGFloatIn750(30);
+    model.cellHeight = CGFloatIn750(62);
+    model.leftFont = [UIFont boldFontSmall];
+    model.rightFont = [UIFont fontSmall];
+    model.rightColor = [UIColor colorRedDefault];
+    model.rightDarkColor = [UIColor colorRedDefault];
+    
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"couponsamount" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    
+    [configArr addObject:menuCellConfig];
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:@"coupons" showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
+
+
+- (void)setOrderPriceCell {
+    NSArray *tempArr ;
+    
+    if (self.cartModel) {
+        self.detailModel.use_coupons = @"2";
+    }else{
+        self.detailModel.use_coupons = @"1";
+    }
+    if ([self.detailModel.use_coupons intValue] == 2) {
+        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.detailModel.coupons_amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+    }else{
+        tempArr =@[@[@"合计", SafeStr(self.detailModel.order_amount)],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+    }
+    NSMutableArray *configArr = @[].mutableCopy;
+    for (NSArray *tArr in tempArr) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = tArr[0];
+        model.rightTitle = tArr[1];
+        model.isHiddenLine = YES;
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(62);
+        model.leftFont = [UIFont boldFontSmall];
+        model.rightFont = [UIFont fontSmall];
+        model.rightColor = [UIColor colorTextBlack];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [configArr addObject:menuCellConfig];
+    }
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
+
+- (void)setPayTypeCell {
+    NSArray *tempArr = @[@[@"wechatPay", @"微信", @"selectedCycle"],@[@"alipay", @"支付宝", @"unSelectedCycle"]];
+    NSMutableArray *configArr = @[].mutableCopy;
+    for (NSArray *tArr in tempArr) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = tArr[1];
+        model.rightImage = tArr[2];
+        model.leftImage = tArr[0];
+        model.isHiddenLine = YES;
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(62);
+        model.leftFont = [UIFont boldFontSmall];
+        model.rightFont = [UIFont fontSmall];
+        model.rightColor = [UIColor colorTextBlack];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [configArr addObject:menuCellConfig];
+    }
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
+
+
+
+- (void)setUserCell {
+    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
+    self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
+    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.detailModel.students_name),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
+                         @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.detailModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.detailModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
+                         @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.detailModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+    NSMutableArray *configArr = @[].mutableCopy;
+    for (int i = 0; i < textArr.count; i++) {
+        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+        cellModel.leftTitle = textArr[i][0];
+        cellModel.placeholder = textArr[i][1];
+        cellModel.isTextEnabled = [textArr[i][2] boolValue];
+        cellModel.rightImage = textArr[i][3];
+        cellModel.cellTitle = textArr[i][4];
+        cellModel.content = textArr[i][5];
+        cellModel.max = [textArr[i][6] intValue];
+        cellModel.formatterType = [textArr[i][7] intValue];
+        cellModel.isHiddenLine = YES;
+        cellModel.cellHeight = CGFloatIn750(62);
+        cellModel.leftFont = [UIFont boldFontSmall];
+        cellModel.rightFont = [UIFont fontSmall];
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+        [configArr addObject:textCellConfig];
+    }
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
+@end

@@ -10,7 +10,7 @@
 #import "ZOrderModel.h"
 
 @interface ZStudentLessonSelectMainOrderView : UIView
-@property (nonatomic,strong) void (^completeBlock)(NSInteger);
+@property (nonatomic,strong) void (^completeBlock)(ZOrderAddModel *);
 - (void)showSelectViewWithModel:(ZStoresDetailModel*)model;
 @end
 

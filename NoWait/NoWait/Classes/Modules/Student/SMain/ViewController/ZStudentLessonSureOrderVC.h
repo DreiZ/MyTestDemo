@@ -11,7 +11,8 @@
 
 
 @interface ZStudentLessonSureOrderVC : ZTableViewViewController
-@property (nonatomic,strong) ZOrderAddModel *addModel;
+@property (nonatomic,strong) ZOrderDetailModel *detailModel;
+@property (nonatomic,strong) NSArray *coupons_list;
 
 @end
 

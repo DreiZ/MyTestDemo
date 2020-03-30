@@ -10,6 +10,7 @@
 #import "ZOrderModel.h"
 
 @interface ZStudentLessonSelectOrderLessonView : UIView
+@property (nonatomic,strong) ZOrderAddModel *addModel;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
 @property (nonatomic,strong) void (^closeBlock)(void);
 @property (nonatomic,strong) void (^bottomBlock)(void);

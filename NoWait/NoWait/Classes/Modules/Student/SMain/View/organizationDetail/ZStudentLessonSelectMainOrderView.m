@@ -18,6 +18,7 @@
 @property (nonatomic,strong) ZStudentLessonSelectOrderLessonView *lessonView;
 @property (nonatomic,strong) ZStudentLessonSelectOrderTimeView *timeView;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
+@property (nonatomic,strong) ZOrderAddModel *orderModel;
 
 @end
 
@@ -49,7 +50,7 @@
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
+    _orderModel = [[ZOrderAddModel alloc] init];
 }
 
 - (UIView *)contView {
@@ -72,10 +73,8 @@
             [weakSelf teacherToTime];
         };
     }
-    
     return _lessonView;
 }
-
 
 
 - (ZStudentLessonSelectOrderTimeView *)timeView {
@@ -107,7 +106,7 @@
 #pragma mark --切换显示
 - (void)showSelectViewWithModel:(ZStoresDetailModel *)model {
     _detailModel = model;
-    
+    self.lessonView.addModel = self.orderModel;
     self.lessonView.detailModel = model;
     [self addSubview:self.lessonView];
     self.lessonView.frame = CGRectMake(0, KScreenHeight, KScreenWidth, KScreenHeight/5.0f * 3.2);
