@@ -240,7 +240,7 @@
 #define URL_account_get_source_list                 @"account/v1/get_source_list"
 
 //排课列表
-#define URL_account_get_arrang_student_list   @"account/v1/get_arrang_student_list"
+#define URL_account_get_arrang_student_list          @"account/v1/get_arrang_student_list"
 
 //删除学员
 #define URL_account_del_student                    @"account/v1/del_student"
@@ -248,6 +248,10 @@
 
 //明星学员list
 #define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
+
+//明星学员
+#define URL_account_add_star_student                 @"account/v1/add_star_student"
+
 
 
 #pragma mark - 教师------------------------------------------------
@@ -277,6 +281,10 @@
 
 //卡券list
 #define URL_coupons_v1_get_coupons_list              @"coupons/v1/get_coupons_list"
+
+
+//我的卡券list
+#define URL_coupons_v1_get_my_coupons_list            @"coupons/v1/get_my_coupons_list"
 
 //开启关闭卡券
 #define URL_coupons_v1_update_coupons_status              @"coupons/v1/update_coupons_status"
@@ -320,7 +328,9 @@
 //班级删除学员
 #define URL_merchants_v1_del_courses_class_students                   @"merchants/v1/del_courses_class_students"
 
-
+//我的班级
+#define URL_merchants_v1_get_my_courses_class_list                   @"merchants/v1/get_my_courses_class_list"
+ 
 
 #pragma mark - 订单------------------------------------------------
 //创建订单

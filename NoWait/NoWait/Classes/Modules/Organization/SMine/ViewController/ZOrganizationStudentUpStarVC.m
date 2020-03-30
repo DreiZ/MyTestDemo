@@ -254,14 +254,10 @@
 
 
 - (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
-    [otherDict setObject:self.addModel.name forKey:@"name"];
-    [otherDict setObject:self.addModel.phone forKey:@"phone"];
-    
     if (ValidStr(self.addModel.studentID)) {
         [otherDict setObject:self.addModel.studentID  forKey:@"id"];
     }
-    [otherDict setObject:self.addModel.code_id forKey:@"code_id"];
-    [otherDict setObject:self.addModel.stores_id forKey:@"stores_id"];
+    
     [otherDict setObject:self.des forKey:@"specialty_desc"];
     if ([self checkIsHavePhotos] > 0) {
         NSMutableArray *photos = @[].mutableCopy;
@@ -278,7 +274,7 @@
     
     
     [TLUIUtility showLoading:@"上传其他数据"];
-    [ZOriganizationStudentViewModel editStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationStudentViewModel starStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];

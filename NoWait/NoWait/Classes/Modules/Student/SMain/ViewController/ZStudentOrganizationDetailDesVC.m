@@ -186,11 +186,11 @@
         
         NSMutableArray *peoples = @[].mutableCopy;
         for (int i = 0; i < self.detailModel.star_students.count; i++) {
-            ZOriganizationStudentListModel *teacherModel = self.detailModel.star_students[i];
+            ZOriganizationTeacherListModel *teacherModel = self.detailModel.star_students[i];
             ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
-            model.image = teacherModel.student_image;
+            model.image = teacherModel.image;
             model.name = teacherModel.name;
-            model.skill = teacherModel.courses_name;
+            model.skill = teacherModel.stores_courses_name;
             model.data = teacherModel;
             [peoples addObject:model];
         }

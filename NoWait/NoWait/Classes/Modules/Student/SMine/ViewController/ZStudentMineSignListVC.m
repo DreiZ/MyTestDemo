@@ -13,7 +13,7 @@
 #import "ZStudentMineSignListCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
-#import "ZOriganizationStudentViewModel.h"
+#import "ZOriganizationClassViewModel.h"
 
 @interface ZStudentMineSignListVC ()
 
@@ -30,7 +30,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (ZOriganizationStudentListModel *model in self.dataSources) {
+    for (ZOriganizationClassListModel *model in self.dataSources) {
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignListCell className] title:[ZStudentMineSignListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSignListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -83,7 +83,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationClassViewModel getMyClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -111,7 +111,7 @@
     NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-     [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+     [ZOriganizationClassViewModel getMyClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -142,8 +142,6 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:@"7" forKey:@"stores_id"];
-       [param setObject:@"芷梦" forKey:@"name"];
     return param;
 }
 

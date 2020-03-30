@@ -114,7 +114,7 @@
 
 - (void)setModel:(ZOriganizationTeacherListModel *)model {
     _model = model;
-    [self.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)]];
+    [self.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     if (model.isStarStudent) {
         self.titleLabel.text = model.name;
         self.skillLabel.text = model.stores_courses_name;

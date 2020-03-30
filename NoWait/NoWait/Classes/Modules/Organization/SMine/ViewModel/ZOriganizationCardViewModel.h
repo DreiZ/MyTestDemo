@@ -24,6 +24,8 @@
 + (void)getCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
++ (void)getMyCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 + (void)deleteCard:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 

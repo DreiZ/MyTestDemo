@@ -86,7 +86,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    [ZOriganizationCardViewModel getMyCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -114,7 +114,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    [ZOriganizationCardViewModel getMyCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -146,9 +146,7 @@
 }
 
 - (void)setPostCommonData {
-    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:@"1" forKey:@"status"];
-    [_param setObject:@"7" forKey:@"stores_id"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];;
 }
 
 

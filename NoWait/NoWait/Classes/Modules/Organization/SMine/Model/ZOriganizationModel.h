@@ -38,6 +38,25 @@
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *type;
 
+
+@property (nonatomic,strong) NSString *account_id;
+@property (nonatomic,strong) NSString *courses_class_id;
+@property (nonatomic,strong) NSString *courses_class_name;
+@property (nonatomic,strong) NSString *courses_class_status;
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSString *end_time;
+@property (nonatomic,strong) NSString *level;
+@property (nonatomic,strong) NSString *now_progress;
+@property (nonatomic,strong) NSString *remark;
+@property (nonatomic,strong) NSString *replenish_nums;
+@property (nonatomic,strong) NSString *start_time;
+@property (nonatomic,strong) NSString *stores_courses_id;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *student_id;
+@property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *truancy_nums;
+@property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *vacate_nums;
 @end
 
 @interface ZOriganizationClassListNetModel : ZBaseNetworkBackDataModel
@@ -351,7 +370,7 @@
 @property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*coupons_list;
 @property (nonatomic,strong) NSString *create_at;
 @property (nonatomic,strong) NSArray <ZImagesModel *>*images_list;
-@property (nonatomic,strong) NSArray <ZOriganizationStudentListModel *>*star_students;
+@property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*star_students;
 @property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*teacher_list;
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel*>*courses_list;
 

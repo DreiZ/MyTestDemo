@@ -13,6 +13,7 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentOrderPayVC.h"
 #import "ZStudentMineEvaEditVC.h"
+#import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZStudentMineOrderBuyListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -86,6 +87,13 @@
                 ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
                 evc.listModel = model;
                 [self.navigationController pushViewController:evc animated:YES];
+            }else if (index == 100){
+                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                lmodel.stores_id = model.stores_id;
+                lmodel.name = model.stores_name;
+                dvc.listModel = lmodel;
+                [self.navigationController pushViewController:dvc animated:YES];
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {

@@ -93,4 +93,8 @@
     }
     return _telBtn;
 }
+
+- (void)setTitle:(NSString *)title {
+    [_handleBtn setTitle:title forState:UIControlStateNormal];
+}
 @end

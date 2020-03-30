@@ -94,6 +94,25 @@
 }
 
 
++ (void)getMyCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_coupons_v1_get_my_coupons_list params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"URL_coupons_v1_get_coupons_list %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZOriganizationCardListNetModel *model = [ZOriganizationCardListNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 + (void)deleteCard:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_coupons_v1_update_coupons_status params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;

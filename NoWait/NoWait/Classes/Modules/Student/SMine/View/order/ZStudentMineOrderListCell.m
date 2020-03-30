@@ -108,7 +108,7 @@
     UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [clubBtn bk_whenTapped:^{
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(5, weakSelf.model);
+            weakSelf.handleBlock(100, weakSelf.model);
         }
     }];
     [self.topView addSubview:clubBtn];

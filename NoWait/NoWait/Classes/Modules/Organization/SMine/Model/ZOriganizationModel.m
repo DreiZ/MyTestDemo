@@ -269,6 +269,8 @@
               @"teacher_list" : @"ZOriganizationTeacherListModel",
               @"images_list" : @"ZImagesModel",
               @"courses_list" : @"ZOriganizationLessonListModel",
+              @"star_students" : @"ZOriganizationTeacherListModel",
+              
              };
 }
 @end

@@ -138,6 +138,7 @@
         NSArray *name = @[@"恨桃", @"依秋", @"依波", @"香巧", @"紫萱", @"涵易", @"忆之", @"幻巧", @"美倩", @"安寒", @"白亦", @"惜玉", @"碧春", @"怜雪", @"听南", @"念蕾", @"紫夏", @"凌旋", @"芷梦", @"凌寒", @"梦竹", @"千凡", @"丹蓉", @"慧贞", @"思菱", @"平卉", @"笑柳", @"雪卉", @"南蓉", @"谷梦", @"巧兰", @"绿蝶", @"飞荷", @"佳蕊", @"芷荷", @"怀瑶", @"慕易", @"若芹", @"紫安", @"曼冬", @"寻巧", @"雅昕", @"尔槐", @"以旋", @"初夏", @"依丝", @"怜南", @"傲菡", @"谷蕊", @"笑槐", @"飞兰", @"笑卉", @"迎荷", @"佳音", @"梦君", @"妙绿", @"觅雪", @"寒安", @"沛凝", @"白容", @"乐蓉", @"映安", @"依云", @"映冬", @"凡雁", @"梦秋", @"梦凡", @"秋巧", @"若云", @"元容", @"怀蕾", @"灵寒", @"天薇", @"翠安", @"乐琴", @"宛南", @"怀蕊", @"白风", @"访波", @"亦凝", @"易绿", @"夜南", @"曼凡", @"亦巧", @"青易", @"冰真", @"白萱", @"友安", @"海之", @"小蕊", @"又琴", @"天风", @"若松", @"盼菡", @"秋荷", @"香彤", @"语梦", @"惜蕊", @"迎彤", @"沛白", @"雁彬", @"易蓉", @"雪晴", @"诗珊", @"春冬", @"晴钰", @"冰绿", @"半梅", @"笑容", @"沛凝", @"映秋", @"盼烟", @"晓凡", @"涵雁", @"问凝", @"冬萱", @"晓山", @"雁蓉", @"梦蕊", @"山菡", @"南莲", @"飞双", @"凝丝", @"思萱", @"怀梦", @"雨梅", @"冷霜", @"向松", @"迎丝", @"迎梅", @"雅彤", @"香薇", @"以山", @"碧萱", @"寒云", @"向南", @"书雁", @"怀薇", @"思菱", @"忆文", @"翠巧", @"书文", @"若山", @"向秋", @"凡白", @"绮烟", @"从蕾", @"天曼", @"又亦", @"从语", @"绮彤", @"之玉", @"凡梅", @"依琴", @"沛槐", @"又槐", @"元绿", @"安珊", @"夏之"];
         __weak typeof(self) weakSelf = self;
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
+        _bottomView.title = @"立即购买";
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 NSMutableDictionary *params = @{}.mutableCopy;
@@ -198,10 +199,7 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    [ZAlertCouponCheckBoxView setAlertName:@"选择优惠券" schoolID:@"7" handlerBlock:^(NSInteger index, id data) {
-        
-    }];
-//    [self.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
+    
 }
 
 #pragma mark - setDetailData
@@ -387,7 +385,7 @@
     NSMutableArray *images = @[].mutableCopy;
     for (int i = 0; i < self.addModel.images.count; i++) {
         ZStudentBannerModel *model = [[ZStudentBannerModel alloc] init];
-        id image = model.image;
+        id image =  self.addModel.images[i];
         if ([image isKindOfClass:[NSString class]]) {
             NSString *imageStr = image;
             if (imageStr ) {
@@ -424,6 +422,7 @@
 }
 
 - (void)addTimeOrder {
+    
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = @"固定开课时间";
     model.leftFont = [UIFont boldFontContent];
@@ -463,6 +462,93 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr addObject:menuCellConfig];
+    }
+    [self addExperienceTimeOrder];
+}
+
+
+- (void)addExperienceTimeOrder {
+    if ([self.addModel.is_experience intValue] == 1) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+        
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"接受课程预约";
+        model.leftFont = [UIFont boldFontContent];
+        model.cellHeight = CGFloatIn750(30);
+        model.isHiddenLine = YES;
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        {
+            ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
+            model1.leftTitle = [NSString stringWithFormat:@"体验课价格￥%@",self.addModel.experience_price];
+            model1.leftFont = [UIFont fontSmall];
+            model1.cellHeight = CGFloatIn750(62);
+            model1.isHiddenLine = YES;
+            model1.leftColor = [UIColor colorTextGray];
+            model1.leftDarkColor = [UIColor colorTextGrayDark];
+            
+            ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model1.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model1] cellType:ZCellTypeClass dataModel:model1];
+            [self.cellConfigArr addObject:menu1CellConfig];
+        }
+        {
+            ZBaseSingleCellModel *model1 = [[ZBaseSingleCellModel alloc] init];
+            model1.leftTitle = [NSString stringWithFormat:@"单次体验时长%@分钟",self.addModel.experience_duration];
+            model1.leftFont = [UIFont fontSmall];
+            model1.cellHeight = CGFloatIn750(62);
+            model1.isHiddenLine = YES;
+            model1.leftColor = [UIColor colorTextGray];
+            model1.leftDarkColor = [UIColor colorTextGrayDark];
+            
+            ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model1.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model1] cellType:ZCellTypeClass dataModel:model1];
+            [self.cellConfigArr addObject:menu1CellConfig];
+        }
+        
+        {
+           NSMutableArray *tempArr = @[].mutableCopy;
+           for (int i = 0; i < self.addModel.experience_time.count; i++) {
+               ZBaseMenuModel *menuModel = self.addModel.experience_time[i];
+               
+               if (menuModel && menuModel.units && menuModel.units.count > 0) {
+                   NSMutableArray *tempSubArr = @[].mutableCopy;
+                   [tempSubArr addObject:menuModel.name];
+                   NSString *subTitle = @"";
+                   for (int k = 0; k < menuModel.units.count; k++) {
+                       ZBaseUnitModel *unitModel = menuModel.units[k];
+                       if (subTitle.length == 0) {
+                           subTitle = [NSString stringWithFormat:@"%@~%@",unitModel.name,unitModel.subName];
+                       }else{
+                           subTitle = [NSString stringWithFormat:@"%@   %@~%@",subTitle,unitModel.name,unitModel.subName];
+                       }
+                   }
+                   [tempSubArr addObject:subTitle];
+                   
+                   [tempArr addObject:tempSubArr];
+               }
+           }
+            
+            for (int j = 0; j < tempArr.count; j++) {
+                ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+                mModel.rightFont = [UIFont fontSmall];
+                mModel.leftFont = [UIFont fontSmall];
+                mModel.rightColor = [UIColor colorTextGray];
+                mModel.leftColor = [UIColor colorTextGray];
+                mModel.rightDarkColor = [UIColor colorTextGrayDark];
+                mModel.leftDarkColor = [UIColor colorTextGrayDark];
+                mModel.singleCellHeight = CGFloatIn750(50);
+                mModel.rightTitle = tempArr[j][1];
+                mModel.leftTitle = tempArr[j][0];
+                mModel.leftContentSpace = CGFloatIn750(4);
+                mModel.rightContentSpace = CGFloatIn750(4);
+                mModel.leftMargin = CGFloatIn750(30);
+                mModel.rightMargin = CGFloatIn750(30);
+                mModel.isHiddenLine = YES;
+                mModel.rightContentSpace = CGFloatIn750(30);
+                
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                [self.cellConfigArr addObject:textCellConfig];
+            }
+        }
     }
 }
 

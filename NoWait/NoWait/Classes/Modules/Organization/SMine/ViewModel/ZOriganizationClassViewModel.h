@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOriganizationClassViewModel : ZBaseViewModel
 //班级列表
 + (void)getClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)getMyClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 //搜素班级
 + (void)searchClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 

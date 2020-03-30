@@ -30,6 +30,7 @@
 + (void)addStudent:(NSDictionary *)params
      completeBlock:(resultDataBlock)completeBlock;
 
++ (void)starStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 //删除课程
 + (void)deleteStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end

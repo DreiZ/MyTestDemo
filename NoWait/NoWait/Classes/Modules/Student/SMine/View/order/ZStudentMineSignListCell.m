@@ -241,41 +241,35 @@
     return _signBtn;
 }
 
-- (void)setModel:(ZOriganizationStudentListModel *)model {
+- (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
     _lessonNameLabel.text = model.courses_name;
-    NSArray *temp = @[@"初级",@"进阶",@"精英"];
-    NSString *le = @"初级";
-    if (model.level && [model.level intValue] < 3) {
-        le = temp[[model.level intValue]];
-    }
-    _classNameLabel.text = le;
+    _classNameLabel.text = model.courses_class_name;
     
-    _userLabel.text = model.name;
-    _nameLabel.text = model.teacher_name;
+    _userLabel.text = model.teacher_name;
+    _nameLabel.text = model.stores_name;
     
-    _numLabel.hidden = YES;
-    _stateLabel.hidden = NO;
-//    1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
+    _numLabel.hidden = NO;
+    _stateLabel.hidden = YES;
+//    ：全部 1：待开课 2：已开课 3：已结课
     NSString *status = @"待排课";
     if ([model.status intValue] == 1) {
-        status = @"待排课";
-    }else if ([model.status intValue] == 2) {
         status = @"待开课";
-    }else if ([model.status intValue] == 3) {
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }else if ([model.status intValue] == 2) {
         status = @"已开课";
+        status = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
-    }else if ([model.status intValue] == 4) {
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    }else if ([model.status intValue] == 3) {
         status = @"已结课";
-    }else if ([model.status intValue] == 5) {
-        status = @"待补课";
-    }else if ([model.status intValue] == 6) {
-        status = @"已过期";
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
-    _numLabel.text = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
-    _stateLabel.text = status;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.coach_img)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
+    
+    _numLabel.text = status;
+    _stateLabel.text = @"";
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
