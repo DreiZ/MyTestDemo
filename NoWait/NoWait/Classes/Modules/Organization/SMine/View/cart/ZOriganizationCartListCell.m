@@ -300,17 +300,21 @@
     _openBtn.enabled = YES;
     _useBtn.hidden = !model.isStudent;
     if (model.isStudent) {
+        _remainNumLabel.hidden = YES;
         if ([model.status intValue] == 2) {
-            _openBtn.hidden = NO;
+            _openBtn.hidden = YES;
             _openBtn.enabled = NO;
+            _useBtn.hidden = YES;
             [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
             [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
             ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
             _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         }else{
             _openBtn.hidden = YES;
+            _useBtn.hidden = NO;
         }
     }else{
+        _remainNumLabel.hidden = NO;
         if ([model.status intValue] == 1) {
             _openBtn.hidden = NO;
             [_openBtn setTitle:@"停用" forState:UIControlStateNormal];
