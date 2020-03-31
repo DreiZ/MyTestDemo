@@ -258,6 +258,7 @@
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
             ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
+            dvc.student_id = model.account_id;
             [self.navigationController pushViewController:dvc animated:YES];
 //            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
 //            [weakSelf.navigationController pushViewController:ivc animated:YES];
@@ -318,7 +319,7 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
-        lvc.type = 0;
+        lvc.type = 1;
         lvc.listModel = self.listModel;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"allLesson"]){

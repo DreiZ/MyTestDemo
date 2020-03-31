@@ -7,10 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStudentInfoDesCell : ZBaseCell
+@property (nonatomic,strong) ZOriganizationStudentAddModel *addModel;
 
 @end
 

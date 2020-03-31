@@ -68,31 +68,31 @@
         make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(40));
     }];
     
-    [lessonHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_left);
-        make.top.equalTo(nameHintLabel.mas_bottom).offset(CGFloatIn750(30));
-    }];
-    
     [self.coachLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(nameHintLabel.mas_right).offset(CGFloatIn750(10));
-        make.centerY.equalTo(nameHintLabel.mas_centerY);
+        make.top.equalTo(nameHintLabel.mas_top);
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    
+    [lessonHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.coachLabel.mas_bottom).offset(CGFloatIn750(30));
     }];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(nameHintLabel.mas_right).offset(CGFloatIn750(10));
-        make.centerY.equalTo(lessonHintLabel.mas_centerY);
+        make.left.equalTo(lessonHintLabel.mas_right).offset(CGFloatIn750(10));
+        make.top.equalTo(lessonHintLabel.mas_top);
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
     }];
-    
-    
-   [ _userImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gd18u2misdj30u011in1f.jpg"]];
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"齐丽旺";
-        _nameLabel.numberOfLines = 1;
+        
+        _nameLabel.numberOfLines = 0;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
     }
@@ -103,8 +103,8 @@
     if (!_coachLabel) {
         _coachLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _coachLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _coachLabel.text = @"段世昌";
-        _coachLabel.numberOfLines = 1;
+        
+        _coachLabel.numberOfLines = 0;
         _coachLabel.textAlignment = NSTextAlignmentLeft;
         [_coachLabel setFont:[UIFont fontContent]];
     }
@@ -115,8 +115,8 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonLabel.text = @"瑜伽培训班";
-        _lessonLabel.numberOfLines = 1;
+        
+        _lessonLabel.numberOfLines = 0;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontContent]];
     }
@@ -130,6 +130,14 @@
     return _userImageView;
 }
 
+- (void)setAddModel:(ZOriganizationStudentAddModel *)addModel {
+    _addModel = addModel;
+    _lessonLabel.text = addModel.courses_name;
+    _coachLabel.text = addModel.teacher_name;
+    _nameLabel.text = addModel.name;
+
+    [ _userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(addModel.image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(368);

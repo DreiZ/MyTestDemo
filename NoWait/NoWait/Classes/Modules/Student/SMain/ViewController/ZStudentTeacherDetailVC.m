@@ -123,17 +123,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentImageCollectionCell"]){
         ZStudentImageCollectionCell *lcell = (ZStudentImageCollectionCell *)cell;
         lcell.menuBlock = ^(NSInteger index) {
-            NSArray *stemparr = @[@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd18jm09cuj30u017x7wh.jpg",
-              @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd18eptwlij318z0u0198.jpg",
-              @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17vgbvgfj30u011eq9i.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17qv01jnj30u01927az.jpg",
-            @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17mjs214j30rs15o4qp.jpg",
-            @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17hdmtn9j30u0142ang.jpg",
-            @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd17c994y0j30u011ignb.jpg",
-            @"http://wx2.sinaimg.cn/mw600/007erPXFgy1gcei2kksvkj30rs15o1kx.jpg",
-            @"http://wx3.sinaimg.cn/mw600/44f2ef1bgy1gd1746o74cj20ku0q1gqz.jpg"
-            ];
-            [[ZPhotoManager sharedManager] showBrowser:stemparr withIndex:2];
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.detailModel.images_list withIndex:index];
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentDetailEvaAboutCell"]){
         ZStudentDetailEvaAboutCell *lcell = (ZStudentDetailEvaAboutCell *)cell;
@@ -141,27 +131,14 @@
             [weakSelf refreshMoreData];
         };
     }
-//    else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
-//        ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
-//        lcell.handleBlock = ^(NSInteger index) {
-//            if (index == 1) {
-//                ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
-//                [weakSelf.navigationController pushViewController:avc animated:YES];
-//            }else if (index == 2){
-//                [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:@[] handlerBlock:^(NSInteger index) {
-//
-//                }];
-//            }
-//        };
-//    }
 }
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     
 }
 
 
 #pragma mark - refresha
-
 - (void)refreshInfoData {
     __weak typeof(self) weakSelf = self;
     [ZOriganizationTeacherViewModel getStTeacherDetail:@{@"stores_id":SafeStr(self.stores_id),@"teacher_id":SafeStr(self.teacher_id)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {

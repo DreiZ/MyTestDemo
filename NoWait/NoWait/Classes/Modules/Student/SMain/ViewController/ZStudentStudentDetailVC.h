@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStudentDetailVC : ZTableViewViewController
+@property (nonatomic,strong) NSString *student_id;
 
 @end
 

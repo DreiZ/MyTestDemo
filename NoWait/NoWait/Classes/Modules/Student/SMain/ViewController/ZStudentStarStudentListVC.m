@@ -15,6 +15,9 @@
 #import "ZOriganizationTeacherViewModel.h"
 #import "ZOriganizationStudentViewModel.h"
 
+#import "ZStudentTeacherDetailVC.h"
+#import "ZStudentStudentDetailVC.h"
+
 @interface ZStudentStarStudentListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -52,7 +55,10 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     for (ZOriganizationTeacherListModel *model in self.dataSources) {
-        model.isStarStudent = YES;
+        if (self.type == 0) {
+            model.isStarStudent = YES;
+        }
+        
         ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStarNewListCollectionViewCell className] title:[ZStudentStarNewListCollectionViewCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZStudentStarNewListCollectionViewCell zz_getCollectionCellSize] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:cellConfig];
     }
@@ -60,9 +66,22 @@
 
 #pragma mark collectionview delegate
 - (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentStarNewListCollectionViewCell"]) {
         ZStudentStarNewListCollectionViewCell *lcell = (ZStudentStarNewListCollectionViewCell *)cell;
         lcell.detailBlock = ^(UIImageView * imageView) {
+            ZOriganizationTeacherListModel *listModel = cellConfig.dataModel;
+            if (weakSelf.type == 0) {
+                ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
+                dvc.student_id = listModel.teacherID;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }else{
+                ZStudentTeacherDetailVC *dvc = [[ZStudentTeacherDetailVC alloc] init];
+                dvc.teacher_id = listModel.teacherID;
+                dvc.stores_id = weakSelf.listModel.stores_id;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }
+            
 //            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
 //            [self.navigationController pushViewController:ivc animated:YES];
         };
@@ -105,7 +124,7 @@
             }
         }];
     }else{
-        [ZOriganizationTeacherViewModel getLessonTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+        [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
                 [weakSelf.dataSources removeAllObjects];
@@ -155,7 +174,7 @@
             }
         }];
     }else{
-        [ZOriganizationTeacherViewModel getLessonTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
+        [ZOriganizationTeacherViewModel getTeacherList:param completeBlock:^(BOOL isSuccess, ZOriganizationTeacherListNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
                 [weakSelf.dataSources addObjectsFromArray:data.list];
