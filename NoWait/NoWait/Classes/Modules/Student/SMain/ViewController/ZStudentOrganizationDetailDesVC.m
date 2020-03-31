@@ -43,8 +43,12 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
+#import "ZAlertMoreView.h"
+#import "ZOriganizationReportVC.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
+@property (nonatomic,strong) UIButton *navRightBtn;
+
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
 @property (nonatomic,strong) ZStudentLessonSelectMainOrderView *selectView;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
@@ -82,6 +86,7 @@
     }];
 }
 
+#pragma mark - lazy loading
 -(ZOrganizationDetailBottomView *)bottomView {
     if (!_bottomView) {
         __weak typeof(self) weakSelf = self;
@@ -109,19 +114,31 @@
         _selectView.completeBlock = ^(ZOrderAddModel *model) {
             ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
             [weakSelf.navigationController pushViewController:order animated:YES];
-//
-//            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
-//            [weakSelf.navigationController pushViewController:order animated:YES];
-//            if (type == ZLessonBuyTypeBuyInitial || type == ZLessonBuyTypeBuyBeginLesson) {
-//                ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
-//                [weakSelf.navigationController pushViewController:order animated:YES];
-//            }else{
-//                ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
-//                [weakSelf.navigationController pushViewController:order animated:YES];
-//            }
         };
     }
     return _selectView;
+}
+
+
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setTitle:@"..." forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
+        [_navRightBtn bk_whenTapped:^{
+            [ZAlertMoreView setMoreAlertWithHandlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+                    rvc.sTitle = self.detailModel.name;
+                    rvc.sid = self.detailModel.schoolID;
+                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                }
+            }];
+        }];
+    }
+    return _navRightBtn;
 }
 
 - (NSMutableDictionary *)param {
@@ -135,6 +152,7 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:self.listModel.name];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 
@@ -242,7 +260,7 @@
     }
 }
 
-#pragma mark tableView -------datasource-----
+#pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
 {
     __weak typeof(self) weakSelf = self;
