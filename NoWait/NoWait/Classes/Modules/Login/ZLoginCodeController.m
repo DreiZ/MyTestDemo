@@ -179,11 +179,7 @@
         __weak typeof(self) weakSelf  = self;
         UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn bk_whenTapped:^{
-            if (weakSelf.isSwitch) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            } else {
-                [[ZLaunchManager sharedInstance] showMainTab];
-            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -440,6 +436,7 @@
             ZLoginPasswordController *lvc = [[ZLoginPasswordController alloc] init];
             lvc.loginSuccess = weakSelf.loginSuccess;
             lvc.isSwitch = lvc.isSwitch;
+            lvc.type = weakSelf.type;
             [self.navigationController pushViewController:lvc animated:YES];
         }else if (tag == 2){
             if (weakSelf.isSwitch) {
@@ -502,6 +499,7 @@
            }
            
            NSMutableDictionary *params = @{@"ckey":SafeStr(weakSelf.loginViewModel.loginModel.ckey) ,@"captcha":SafeStr(weakSelf.loginViewModel.loginModel.code),@"phone":SafeStr(weakSelf.loginViewModel.loginModel.tel)}.mutableCopy;
+            [params setObject:[NSString stringWithFormat:@"%ld",self.type] forKey:@"type"];
            [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
               if (isSuccess) {
                   [TLUIUtility showSuccessHint:message];

@@ -8,12 +8,11 @@
 
 #import "ZTableViewViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLoginPasswordController : ZTableViewViewController
 @property (nonatomic, assign) BOOL isSwitch;
-
 @property (nonatomic, copy) void (^loginSuccess)(void);
+@property (nonatomic, assign) NSInteger type;
+
 @end
 
-NS_ASSUME_NONNULL_END

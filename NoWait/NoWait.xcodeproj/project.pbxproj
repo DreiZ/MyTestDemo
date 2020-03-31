@@ -498,6 +498,7 @@
 		B2BA396D24331AC1005A3FFB /* ZAlertMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA396C24331AC1005A3FFB /* ZAlertMoreView.m */; };
 		B2BA397024332152005A3FFB /* ZOriganizationReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA396F24332152005A3FFB /* ZOriganizationReportVC.m */; };
 		B2BA39732433273B005A3FFB /* ZStudentLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39722433273B005A3FFB /* ZStudentLabelCell.m */; };
+		B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397524333432005A3FFB /* ZLoginTypeController.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1538,6 +1539,8 @@
 		B2BA396F24332152005A3FFB /* ZOriganizationReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationReportVC.m; sourceTree = "<group>"; };
 		B2BA39712433273B005A3FFB /* ZStudentLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLabelCell.h; sourceTree = "<group>"; };
 		B2BA39722433273B005A3FFB /* ZStudentLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLabelCell.m; sourceTree = "<group>"; };
+		B2BA397424333432005A3FFB /* ZLoginTypeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLoginTypeController.h; sourceTree = "<group>"; };
+		B2BA397524333432005A3FFB /* ZLoginTypeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginTypeController.m; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -3120,6 +3123,8 @@
 				B28EA684240F569400C8E225 /* ZLoginCodeController.m */,
 				B28EA686240F56DB00C8E225 /* ZLoginPasswordController.h */,
 				B28EA687240F56DB00C8E225 /* ZLoginPasswordController.m */,
+				B2BA397424333432005A3FFB /* ZLoginTypeController.h */,
+				B2BA397524333432005A3FFB /* ZLoginTypeController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -4184,6 +4189,7 @@
 				B2DB9B4F241CC15400340464 /* ZMineOrderDetailCell.m in Sources */,
 				B20C480D2400DD6A00E0CE35 /* ZOrganizationStudentDetailVC.m in Sources */,
 				B23184F024222DE50033F875 /* ZOrganizationClassManageListSearchVC.m in Sources */,
+				B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */,
 				B297958E2425C50C004490F5 /* ZStudentStudentDetailVC.m in Sources */,
 				B2A77F5623BDE42E00407BF0 /* TZAssetModel.m in Sources */,
 				B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */,

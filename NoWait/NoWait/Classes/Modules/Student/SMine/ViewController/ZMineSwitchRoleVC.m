@@ -53,7 +53,7 @@
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"切换账号";
+        model.leftTitle = @"切换身份";
         model.cellTitle = @"title";
         model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
         model.leftMargin = CGFloatIn750(50);
@@ -103,7 +103,7 @@
         make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
         make.height.mas_equalTo(CGFloatIn750(88));
     }];
-    [self.navigationItem setTitle:@"切换账号"];
+    [self.navigationItem setTitle:@"切换身份"];
 }
 
 

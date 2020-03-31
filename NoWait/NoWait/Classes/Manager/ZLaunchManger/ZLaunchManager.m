@@ -10,7 +10,7 @@
 #import "ZUserHelper.h"
 #import "AppDelegate.h"
 #import "ZAdvertiseHelper.h"
-#import "ZLoginCodeController.h"
+#import "ZLoginTypeController.h"
 #import "ZIntroductryPagesManager.h"
 #import "AppDelegate+AppService.h"
 
@@ -54,7 +54,7 @@
     }
     else
     {  // 未登录
-        ZLoginCodeController *accountVC = [[ZLoginCodeController alloc] init];
+        ZLoginTypeController *accountVC = [[ZLoginTypeController alloc] init];
         @weakify(self);
         [accountVC setLoginSuccess:^{
             @strongify(self);
@@ -92,7 +92,7 @@
 - (void)showLoginVC {
 //    if (![ZUserHelper sharedHelper].isLogin) {
         // 未登录
-        ZLoginCodeController *accountVC = [[ZLoginCodeController alloc] init];
+        ZLoginTypeController *accountVC = [[ZLoginTypeController alloc] init];
         @weakify(self);
         [accountVC setLoginSuccess:^{
             @strongify(self);

@@ -181,6 +181,7 @@
             }else{
                 return;
             }
+            [params setObject:[NSString stringWithFormat:@"%ld",self.type] forKey:@"type"];
             [TLUIUtility showLoading:@""];
             [self.loginViewModel loginPwdWithParams:params block:^(BOOL isSuccess, id message) {
                 [TLUIUtility hiddenLoading];

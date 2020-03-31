@@ -8,6 +8,7 @@
 
 #import "ZStudentMineSwitchAccountVC.h"
 #import "ZLoginCodeController.h"
+#import "ZLoginTypeController.h"
 
 #import "ZUserHelper.h"
 #import "ZLaunchManager.h"
@@ -108,7 +109,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
      if ([cellConfig.title isEqualToString:@"switch"]){
-         ZLoginCodeController *loginvc = [[ZLoginCodeController alloc] init];
+         ZLoginTypeController *loginvc = [[ZLoginTypeController alloc] init];
          loginvc.loginSuccess = ^{
              [weakSelf initCellConfigArr];
              [weakSelf.iTableView reloadData];
