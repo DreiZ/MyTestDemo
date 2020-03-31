@@ -10,6 +10,7 @@
 
 @interface ZStudentMainFiltrateSectionView : UIView
 @property (nonatomic,strong) void (^titleSelect)(NSInteger);
+@property (nonatomic,strong) void (^dataBlock)(NSDictionary *);
 @end
 
 

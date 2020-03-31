@@ -167,15 +167,33 @@
                 topHeight += [ZStudentBannerCell z_getCellHeight:nil];
             }
             
-            if (self.AdverArr && self.AdverArr.count > 0) {
+            if (self.photoWallArr && self.photoWallArr.count > 0) {
                 topHeight += [ZStudentMainPhotoWallCell z_getCellHeight:self.photoWallArr];
             }
             
             if (weakSelf.iTableView.contentOffset.y < topHeight) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.iTableView setContentOffset:CGPointMake(0, [ZStudentBannerCell z_getCellHeight:nil] + [ZStudentMainEnteryCell z_getCellHeight:weakSelf.enteryArr] + [ZStudentMainPhotoWallCell z_getCellHeight:weakSelf.photoWallArr]) animated:YES];
+                    [weakSelf.iTableView setContentOffset:CGPointMake(0,topHeight) animated:YES];
                 });
             }
+        };
+        _sectionView.dataBlock = ^(NSDictionary *tDict) {
+            if (tDict && [tDict objectForKey:@"type"]) {
+                [weakSelf.param setObject:tDict[@"type"] forKey:@"stores_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"stores_type"];
+            }
+            if (tDict && [tDict objectForKey:@"sort"]) {
+                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"sort"];
+            }
+            if (tDict && [tDict objectForKey:@"more"]) {
+                [weakSelf.param setObject:tDict[@"more"] forKey:@"stores_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"more"];
+            }
+            [weakSelf refreshData];
         };
     }
     return _sectionView;

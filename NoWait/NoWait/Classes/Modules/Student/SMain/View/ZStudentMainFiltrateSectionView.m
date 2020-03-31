@@ -55,6 +55,19 @@
 {
     NSArray *dictArr = [ZHFilterItemModel mj_keyValuesArrayWithObjectArray:selectedModelArr];
     NSLog(@"结果回调：%@",dictArr.mj_JSONString);
+    NSMutableDictionary *params = @{}.mutableCopy;
+    for (ZHFilterItemModel *model in selectedModelArr) {
+        if ([model.code isEqualToString:@"type"]) {
+            [params setObject:SafeStr(model.parentCode) forKey:@"type"];
+        }else if ([model.code isEqualToString:@"sort"]) {
+            [params setObject:SafeStr(model.parentCode) forKey:@"sort"];
+        }else if ([model.code isEqualToString:@"more"]) {
+            [params setObject:SafeStr(model.parentCode) forKey:@"more"];
+        }
+    }
+    if (self.dataBlock) {
+        self.dataBlock(params);
+    }
 }
 
 /** 警告回调(用于错误提示) */
@@ -68,7 +81,7 @@
 /** 返回每个 tabIndex 下的确定类型 */
 - (ZHFilterMenuConfirmType)menuView:(ZHFilterMenuView *)menuView confirmTypeInTabIndex:(NSInteger)tabIndex
 {
-    if (tabIndex == 2) {
+    if (tabIndex == 0 || tabIndex == 1) {
         return ZHFilterMenuConfirmTypeSpeedConfirm;
     }
     return ZHFilterMenuConfirmTypeBottomConfirm;
@@ -77,12 +90,10 @@
 /** 返回每个 tabIndex 下的下拉展示类型 */
 - (ZHFilterMenuDownType)menuView:(ZHFilterMenuView *)menuView downTypeInTabIndex:(NSInteger)tabIndex
 {
-    if (tabIndex == 0) {
-        return ZHFilterMenuDownTypeTwoLists;
-    }  else if (tabIndex == 1) {
-       return ZHFilterMenuDownTypeOnlyItem;
+    if (tabIndex == 1) {
+       return ZHFilterMenuDownTypeOnlyList;
     } else if (tabIndex == 2) {
-        return ZHFilterMenuDownTypeOnlyList;
+        return ZHFilterMenuDownTypeOnlyItem;
     } else if (tabIndex == 3) {
         return ZHFilterMenuDownTypeOnlyItem;
     }
@@ -97,8 +108,8 @@
         _menuView = [[ZHFilterMenuView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88)) maxHeight:CGRectGetHeight(self.frame) - CGFloatIn750(88)];
         _menuView.zh_delegate = self;
         _menuView.zh_dataSource = self;
-       _menuView.titleArr = @[@"区域",@"机构",@"综合排序",@"筛选"];
-        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown",@"mineLessonDown"];
+       _menuView.titleArr = @[@"机构类型",@"综合排序",@"筛选"];
+        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown"];
         _menuView.menuTapBlock = ^(NSInteger index) {
             if (weakSelf.titleSelect) {
                 weakSelf.titleSelect(index);

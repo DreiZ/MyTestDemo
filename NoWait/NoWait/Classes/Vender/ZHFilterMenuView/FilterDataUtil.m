@@ -19,17 +19,17 @@
 {
     NSMutableArray *dataArr = [NSMutableArray array];
     
-    NSMutableArray *areaArr = [NSMutableArray array];
+//    NSMutableArray *areaArr = [NSMutableArray array];
     NSMutableArray *roomTypeArr = [NSMutableArray array];
     NSMutableArray *moreArr = [NSMutableArray array];
     NSMutableArray *sortArr = [NSMutableArray array];
-    
-    ZHFilterModel *areaModel = [ZHFilterModel createFilterModelWithHeadTitle:@"城区" modelArr:[self getAddressDataByType:0] selectFirst:YES multiple:NO];
-    areaModel.selected = YES;
-    [areaArr addObject:areaModel];
-    
-    [areaArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"附近" modelArr:[self getAddressDataByType:1] selectFirst:NO multiple:NO]];
- 
+//
+//    ZHFilterModel *areaModel = [ZHFilterModel createFilterModelWithHeadTitle:@"城区" modelArr:[self getAddressDataByType:0] selectFirst:YES multiple:NO];
+//    areaModel.selected = YES;
+//    [areaArr addObject:areaModel];
+//
+//    [areaArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"附近" modelArr:[self getAddressDataByType:1] selectFirst:NO multiple:NO]];
+//
     [roomTypeArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"机构分类" modelArr:[self getClassificationData] selectFirst:NO multiple:YES]];
     
     [moreArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"营业时间" modelArr:[self getFiltrateDataByType:0] selectFirst:NO multiple:YES]];
@@ -38,7 +38,7 @@
     
     [sortArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"" modelArr:[self getSortData] selectFirst:YES multiple:NO]];
     
-    [dataArr addObject:areaArr];
+//    [dataArr addObject:areaArr];
     [dataArr addObject:roomTypeArr];
     [dataArr addObject:sortArr];
     [dataArr addObject:moreArr];
@@ -66,13 +66,15 @@
 
 - (NSArray *)getClassificationData
 {
-    NSArray *classification = @[@"教育",@"舞蹈",@"美术",@"球类",@"游泳",@"乐器",@"其他"].mutableCopy;
+    NSArray *classification = @[@"体育竞技",@"艺术舞蹈",@"兴趣爱好",@"其他"].mutableCopy;
     NSMutableArray *infoArr = [NSMutableArray array];
     
     for (int i = 0; i < classification.count; i++) {
         ZHFilterItemModel *model = [[ZHFilterItemModel alloc] init];
         model.selected = NO;             //标记选择状态
         model.name = classification[i];              //名称
+        model.code = @"type";
+        model.parentCode = [NSString stringWithFormat:@"%d",i+1];
         [infoArr addObject:model];
     }
     
@@ -90,6 +92,7 @@
            ZHFilterItemModel *model = [[ZHFilterItemModel alloc] init];
            model.selected = NO;             //标记选择状态
            model.name = filtrate[type][i];              //名称
+           model.code = @"more";
            [infoArr addObject:model];
        }
        
@@ -99,13 +102,15 @@
 
 - (NSArray *)getSortData
 {
-     NSArray *sortArr = @[@"综合排序",@"离我最近",@"好评优先",@"销量最高"].mutableCopy;
+     NSArray *sortArr = @[@"综合排序",@"评分优先",@"销量优先",@"距离优先"].mutableCopy;
        NSMutableArray *infoArr = [NSMutableArray array];
        
        for (int i = 0; i < sortArr.count; i++) {
            ZHFilterItemModel *model = [[ZHFilterItemModel alloc] init];
            model.selected = NO;             //标记选择状态
            model.name = sortArr[i];              //名称
+           model.code = @"sort";
+           model.parentCode = [NSString stringWithFormat:@"%d",i];
            [infoArr addObject:model];
        }
     
