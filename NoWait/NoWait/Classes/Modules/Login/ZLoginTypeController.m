@@ -18,7 +18,7 @@
 
 @property (nonatomic,assign) NSInteger selectIndex;
 @property (nonatomic,strong) NSMutableArray *btnArr;
-
+@property (nonatomic,strong) NSMutableArray *labelArr;
 @end
 
 @implementation ZLoginTypeController
@@ -44,6 +44,7 @@
 - (void)setDataSource {
     self.selectIndex = 0;
     self.btnArr = @[].mutableCopy;
+    self.labelArr = @[].mutableCopy;
 }
 
 - (void)setNavigation {
@@ -69,6 +70,7 @@
     
 
     NSArray *imageArr = @[@"student_login",@"teacher_login",@"all_login",@"school_login"];
+    NSArray *titleArr = @[@"我是学员",@"我是老师",@"我是机构",@"我是校区"];
     
     CGFloat leftY = CGFloatIn750(394);
     UIButton *sBtn = nil;
@@ -95,6 +97,18 @@
             make.centerX.equalTo(self.view.mas_right).multipliedBy(multi);
         }];
         sBtn = btn;
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        titleLabel.text = titleArr[i];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        [titleLabel setFont:[UIFont fontContent]];
+        [self.view addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(btn.mas_centerX);
+            make.top.equalTo(btn.mas_bottom).offset(CGFloatIn750(30));
+        }];
+        [self.labelArr addObject:titleLabel];
     }
     
     [self.view addSubview:self.loginBtn];
@@ -197,9 +211,15 @@
     _selectIndex = selectIndex;
     for (int i = 0; i < self.btnArr.count; i++) {
         UIButton *btn = self.btnArr[i];
+        UILabel *label = self.labelArr[i];
+        
         if (i == selectIndex) {
+            label.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+            label.font = [UIFont boldFontContent];
             ViewBorderRadius(btn, CGFloatIn750(100), 2, [UIColor colorMain]);
         }else{
+            label.font = [UIFont fontContent];
+            label.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
             ViewBorderRadius(btn, CGFloatIn750(100), 2, [UIColor clearColor]);
         }
     }

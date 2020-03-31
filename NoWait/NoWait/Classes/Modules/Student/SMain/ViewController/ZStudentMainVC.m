@@ -74,7 +74,7 @@
     _AdverArr = @[].mutableCopy;
     _placeholderArr = @[].mutableCopy;
     
-    NSArray *entryArr = @[@[@"体育竞技",@"studentMainSports",@"1"],@[@"艺术舞蹈",@"studentMainArt",@"2"],@[@"兴趣爱好",@"studentMainHobby",@"3"],@[@"其他",@"studentMainMore",@"4"]];
+    NSArray *entryArr = @[@[@"体育竞技",@"main_bool",@"1"],@[@"艺术舞蹈",@"main_yi",@"2"],@[@"兴趣爱好",@"main_aihao",@"3"],@[@"其他",@"main_more",@"4"]];
     
     for (int i = 0; i < entryArr.count; i++) {
         ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
@@ -251,9 +251,9 @@
 //    [ZServerCompleteAlertView setAlertWithHandlerBlock:^(NSInteger index) {
 //
 //    }];
-    ZOrigantionMoveInVC *ivc = [[ZOrigantionMoveInVC alloc] init];
-    [self.navigationController pushViewController:ivc animated:YES];
-    return;
+//    ZOrigantionMoveInVC *ivc = [[ZOrigantionMoveInVC alloc] init];
+//    [self.navigationController pushViewController:ivc animated:YES];
+//    return;
     if (indexPath.section == 1) {
         [[ZUserHelper sharedHelper] checkLogin:^{
             NSArray *tempArr = self.cellConfigArr[indexPath.section];
