@@ -281,6 +281,7 @@
 
 @property (nonatomic,strong) NSString *limit;
 @property (nonatomic,assign) BOOL isStudent;
+@property (nonatomic,assign) BOOL isUse;
 @end
 
 

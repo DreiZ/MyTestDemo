@@ -31,6 +31,7 @@
 #import "ZStudentLessonSureOrderVC.h"
 #import "ZOrganizationCouponListView.h"
 #import "ZOriganizationCardViewModel.h"
+#import "ZCouponListView.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -198,7 +199,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroLabelCell"]){
         __weak typeof(self) weakSelf = self;
-        [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.addModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
+        [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"lesson" stores_id:self.addModel.stores_id course_id:self.addModel.lessonID handlerBlock:^(ZOriganizationCardListModel * model) {
             [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
                     [TLUIUtility showSuccessHint:data];
@@ -207,6 +208,15 @@
                 }
             }];
         }];
+//        [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.addModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
+//            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
+//                if (isSuccess) {
+//                    [TLUIUtility showSuccessHint:data];
+//                }else{
+//                    [TLUIUtility showErrorHint:data];
+//                }
+//            }];
+//        }];
     }
 }
 

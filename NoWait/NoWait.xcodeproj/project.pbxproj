@@ -494,6 +494,7 @@
 		B2A781BE23C5E04E00407BF0 /* ZStudentLessonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781BD23C5E04E00407BF0 /* ZStudentLessonTableView.m */; };
 		B2A781C123C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */; };
 		B2A781C423C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A781C323C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m */; };
+		B2BA396A2432D0FB005A3FFB /* ZCouponListView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39692432D0FB005A3FFB /* ZCouponListView.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1526,6 +1527,8 @@
 		B2A781C023C5E2D600407BF0 /* ZStudentLessonDetailBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailBaseView.m; sourceTree = "<group>"; };
 		B2A781C223C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailOrgazaitionNameCell.h; sourceTree = "<group>"; };
 		B2A781C323C5E51400407BF0 /* ZStudentLessonDetailOrgazaitionNameCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonDetailOrgazaitionNameCell.m; sourceTree = "<group>"; };
+		B2BA39682432D0FB005A3FFB /* ZCouponListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCouponListView.h; sourceTree = "<group>"; };
+		B2BA39692432D0FB005A3FFB /* ZCouponListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCouponListView.m; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -3616,6 +3619,8 @@
 				B252ED792415F2F000190804 /* ZOrganizationDetailIntroCollectionViewCell.m */,
 				B252ED932416397300190804 /* ZOrganizationCouponListView.h */,
 				B252ED942416397300190804 /* ZOrganizationCouponListView.m */,
+				B2BA39682432D0FB005A3FFB /* ZCouponListView.h */,
+				B2BA39692432D0FB005A3FFB /* ZCouponListView.m */,
 				B252ED9624163FDA00190804 /* ZStudentOrganizationCouponCell.h */,
 				B252ED9724163FDA00190804 /* ZStudentOrganizationCouponCell.m */,
 				B29795982425F6EC004490F5 /* ZStudentLessonBuySelectViem.h */,
@@ -4362,6 +4367,7 @@
 				B2F70BE724121B7C008C693C /* ZStudentMineOrderDetailSubDesCell.m in Sources */,
 				B2A780A823BDFB0100407BF0 /* TLNetworkConfig.m in Sources */,
 				B2EE5BBD23F9165000ECCFF4 /* ZOrganizationMenuItemCell.m in Sources */,
+				B2BA396A2432D0FB005A3FFB /* ZCouponListView.m in Sources */,
 				B2A7809B23BDFB0100407BF0 /* ReachStateUnloaded.m in Sources */,
 				B279D03A23C7233E00391A33 /* ZStudentLessonSelectTimeView.m in Sources */,
 				B2A77EA623BDE1AB00407BF0 /* NSMutableArray+LYNil.m in Sources */,

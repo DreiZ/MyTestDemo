@@ -191,6 +191,11 @@
     _manLabel.text = [NSString stringWithFormat:@"满%@可用地方还是",model.limit];
     _nameLabel.text = model.title;
     _priceLabel.text = model.amount;
+    if (model.isUse) {
+        _handleLabel.text = @"立即使用";
+    }else{
+        _handleLabel.text = @"立即领取";
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

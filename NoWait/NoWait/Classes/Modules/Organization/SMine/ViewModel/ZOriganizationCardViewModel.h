@@ -23,6 +23,7 @@
 
 + (void)getCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getLessonCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getMyCardList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
