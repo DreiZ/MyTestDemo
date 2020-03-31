@@ -176,6 +176,10 @@
     };
 }
 
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"class_ids" : @"ZOriganizationLessonListModel"
+             };
+}
 @end
 
 #pragma mark - 卡片管理

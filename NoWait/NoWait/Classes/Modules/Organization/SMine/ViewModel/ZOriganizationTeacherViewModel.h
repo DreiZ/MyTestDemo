@@ -19,6 +19,7 @@
 
 + (void)getTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getStTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 + (void)addTeacher:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock;
 

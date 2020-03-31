@@ -32,6 +32,7 @@
 #import "ZOrganizationCouponListView.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
+#import "ZStudentTeacherDetailVC.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -193,7 +194,17 @@
             dvc.listModel = listModel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         };
+    }if ([cellConfig.title isEqualToString:@"starCoach"]) {
+        ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
+        lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
+            ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
+            mvc.teacher_id = model.account_id;
+            mvc.stores_id = weakSelf.addModel.stores_id;
+            [weakSelf.navigationController pushViewController:mvc animated:YES];
+        };
     }
+    
+    
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {

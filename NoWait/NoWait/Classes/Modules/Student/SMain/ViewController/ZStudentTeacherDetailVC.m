@@ -14,9 +14,14 @@
 #import "ZStudentDetailEvaAboutCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentImageCollectionCell.h"
+#import "ZOriganizationTeacherViewModel.h"
+#import "ZOriganizationModel.h"
+#import "ZStudentMineModel.h"
+#import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentMainModel.h"
 @interface ZStudentTeacherDetailVC ()
+@property (nonatomic,strong) ZOriganizationTeacherAddModel *detailModel;
+
 @end
 
 @implementation ZStudentTeacherDetailVC
@@ -24,15 +29,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self initCellConfigArr];
+    [self refreshInfoData];
+    [self refreshData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-
-    ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoDesCell className] title:[ZStudentCoachInfoDesCell className] showInfoMethod:nil heightOfCell:[ZStudentCoachInfoDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    if (!self.detailModel) {
+        return;
+    }
+    ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoDesCell className] title:[ZStudentCoachInfoDesCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZStudentCoachInfoDesCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:desCellConfig];
 
     {
@@ -43,7 +49,7 @@
     
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = @"       再看见本公司的办公空间吧圣诞节看过吧上课进度不干胶埃斯科巴豆腐干不撒地方借款圣诞节奥卡福会计师的年份里看见那丝黛芬妮读书卡不放过金卡戴珊不放开酒吧SDK基本覆盖八十多会计法、\n      的撒哈佛我会受到if后isad哈佛我胡搜分红天河湾\n水电费后我阿萨德哈佛好滴时候\n     第三方会爱上大会GFUI海带丝胡覅USD哈弗hi欧舍噢问候i适得府君书代付借款收代理费第三方可接受的加";
+        model.rightTitle = self.detailModel.des;
         model.isHiddenLine = YES;
         model.cellWidth = KScreenWidth;
         model.singleCellHeight = CGFloatIn750(60);
@@ -61,82 +67,44 @@
         [self.cellConfigArr  addObject:menuCellConfig];
     }
     
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    if (self.dataSources && self.dataSources.count > 0) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
         ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练评价"];
         [self.cellConfigArr addObject:titleCellConfig];
-    }
-    
-    
-    
-    {
-        NSMutableArray *configArr = @[].mutableCopy;
-//        ZStudentOrderEvaModel *evaModel = [[ZStudentOrderEvaModel alloc] init];
-//        evaModel.orderImage = @"lessonOrder";
-//        evaModel.orderNum = @"23042039523452";
-//        evaModel.lessonTitle = @"仰泳";
-//        evaModel.lessonTime = @"2019-10-26";
-//        evaModel.lessonCoach = @"高圆圆";
-//        evaModel.lessonOrg = @"上飞天俱乐部";
-//        evaModel.coachStar = @"3.4";
-//        evaModel.coachEva = @"吊柜好尬施工阿红化工诶按文化宫我胡搜ID哈工我哈山东IG后is阿活动IG华东师范";
-//
-//        evaModel.orgStar = @"4.5";
-//        evaModel.orgEva = @"反反复复付受到法律和";
         
-        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [configArr addObject:evaCellConfig];
-        [configArr addObject:evaCellConfig];
-        [configArr addObject:evaCellConfig];
+        NSMutableArray *configArr = @[].mutableCopy;
+        for (ZOrderEvaListModel *evaModel in self.dataSources) {
+            ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+            [configArr addObject:evaCellConfig];
+        }
+        
         
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentDetailEvaAboutCell className] title:[ZStudentDetailEvaAboutCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZStudentDetailEvaAboutCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
         [self.cellConfigArr addObject:bottomCellConfig];
     }
     
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    if (self.detailModel.class_ids && self.detailModel.class_ids.count > 0) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
         ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"老师带课"];
         [self.cellConfigArr addObject:titleCellConfig];
         
-    }
-    {
-        NSArray *entryssArr = @[@[@"赵忠",@"http://wx1.sinaimg.cn/mw600/006Gs6QQly1gcknb2ejnyj30j60t6qbn.jpg"],@[@"张丽",@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcl80isz84j30u00u0jwi.jpg"],@[@"马克",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcl7zwzov9j30u018y1kx.jpg"]];
-        
-        for (int i = 0; i < entryssArr.count; i++) {
-            ZStudentLessonListModel *model = [[ZStudentLessonListModel alloc] init];
-            model.image = entryssArr[i][1];
-            
-            ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        for (int i = 0; i < self.detailModel.class_ids.count; i++) {
+            ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel.class_ids[i]];
             [self.cellConfigArr addObject:lessonCellConfig];
         }
     }
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    if (self.detailModel.images_list && self.detailModel.images_list.count > 0) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
         ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练相册"];
         [self.cellConfigArr addObject:titleCellConfig];
         
-    }
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
-        NSArray *stemparr = @[@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd18jm09cuj30u017x7wh.jpg",
-          @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd18eptwlij318z0u0198.jpg",
-          @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17vgbvgfj30u011eq9i.jpg",
-        @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gd17qv01jnj30u01927az.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17mjs214j30rs15o4qp.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gd17hdmtn9j30u0142ang.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gd17c994y0j30u011ignb.jpg",
-        @"http://wx2.sinaimg.cn/mw600/007erPXFgy1gcei2kksvkj30rs15o1kx.jpg",
-        @"http://wx3.sinaimg.cn/mw600/44f2ef1bgy1gd1746o74cj20ku0q1gqz.jpg"
-        ];
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentImageCollectionCell className] title:[ZStudentImageCollectionCell className] showInfoMethod:@selector(setImages:) heightOfCell:[ZStudentImageCollectionCell z_getCellHeight:stemparr] cellType:ZCellTypeClass dataModel:stemparr];
-        [self.cellConfigArr addObject:titleCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        
+        ZCellConfig *imagesCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentImageCollectionCell className] title:[ZStudentImageCollectionCell className] showInfoMethod:@selector(setImages:) heightOfCell:[ZStudentImageCollectionCell z_getCellHeight:self.detailModel.images_list] cellType:ZCellTypeClass dataModel:self.detailModel.images_list];
+        [self.cellConfigArr addObject:imagesCellConfig];
     }
     
 }
@@ -151,7 +119,7 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
 {
     
-//    __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentImageCollectionCell"]){
         ZStudentImageCollectionCell *lcell = (ZStudentImageCollectionCell *)cell;
         lcell.menuBlock = ^(NSInteger index) {
@@ -167,6 +135,11 @@
             ];
             [[ZPhotoManager sharedManager] showBrowser:stemparr withIndex:2];
         };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentDetailEvaAboutCell"]){
+        ZStudentDetailEvaAboutCell *lcell = (ZStudentDetailEvaAboutCell *)cell;
+        lcell.handleBlock = ^(ZCellConfig *cellconfig) {
+            [weakSelf refreshMoreData];
+        };
     }
 //    else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
 //        ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
@@ -181,12 +154,87 @@
 //            }
 //        };
 //    }
-    
-    
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-   
     
+}
+
+
+#pragma mark - refresha
+
+- (void)refreshInfoData {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationTeacherViewModel getStTeacherDetail:@{@"stores_id":SafeStr(self.stores_id),@"teacher_id":SafeStr(self.teacher_id)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
+        if (isSuccess) {
+            weakSelf.detailModel = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:SafeStr(self.teacher_id) forKey:@"teacher_id"];
+    [param setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [param setObject:@"3" forKey:@"page_size"];
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getTeacherCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:SafeStr(self.teacher_id) forKey:@"teacher_id"];
+    [param setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [param setObject:@"3" forKey:@"page_size"];
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getTeacherCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
 }
 
 @end

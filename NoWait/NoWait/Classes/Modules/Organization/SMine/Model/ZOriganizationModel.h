@@ -252,7 +252,7 @@
 @property (nonatomic,strong) NSString *c_level;
 @property (nonatomic,strong) NSString *position;
 @property (nonatomic,strong) NSMutableArray *class_ids_net;
-@property (nonatomic,strong) NSMutableArray *class_ids;//{“courses_id”: “课程id”,”price”:”课程价格”}]
+@property (nonatomic,strong) NSMutableArray <ZOriganizationLessonListModel *>*class_ids;//{“courses_id”: “课程id”,”price”:”课程价格”}]
 @property (nonatomic,strong) NSMutableArray *skills;
 @property (nonatomic,strong) NSMutableArray *lessonList;
 

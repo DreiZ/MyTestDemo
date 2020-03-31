@@ -53,20 +53,17 @@
     [self.activityView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-20));
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(30));
+        make.top.equalTo(self.userImageView.mas_centerY).offset(-CGFloatIn750(10));
         make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(20));
     }];
     
-    
-    [self setActivityData:KScreenWidth-CGFloatIn750(370) textArr:@[@"重中之重",@"下火海",@"上刀山"]];
-   [ _userImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gd18u2misdj30u011in1f.jpg"]];
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = @"段世昌";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
@@ -122,8 +119,44 @@
     return topY + kLabelHeight;
 }
 
+- (void)setDetailModel:(ZOriganizationTeacherAddModel *)detailModel {
+    _detailModel = detailModel;
+    _nameLabel.text = detailModel.nick_name;
+    
+    if (ValidArray(detailModel.skills)) {
+        [self setActivityData:KScreenWidth-CGFloatIn750(370) textArr:detailModel.skills];
+    }
+    [ _userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(detailModel.image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
+    ZOriganizationTeacherAddModel *model = sender;
+    CGFloat cellHeight = [ZStudentCoachInfoDesCell getActivityWithTextArr:model.skills];
+    if (cellHeight > CGFloatIn750(140)) {
+        return CGFloatIn750(368) + cellHeight - CGFloatIn750(140);
+    }
     return CGFloatIn750(368);
+}
+
+
++ (CGFloat)getActivityWithTextArr:(NSArray *)adeptArr{
+    CGFloat labelWidth = KScreenWidth-CGFloatIn750(370);
+    CGFloat leftX = 0;
+    CGFloat topY = 0;
+    if (!adeptArr) {
+        return 0;
+    }
+    for (int i = 0; i < adeptArr.count; i++) {
+       CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+       if (leftX + tempSize.width + kLabelAddWidth + kLabelSpace > labelWidth) {
+           topY += kLabelHeight + kLabelSpaceY;
+           leftX = 0;
+       }
+           
+        leftX =  kLabelSpace + leftX + tempSize.width+kLabelAddWidth;
+    }
+    
+    return topY + kLabelHeight;
 }
 
 @end

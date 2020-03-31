@@ -170,6 +170,7 @@
         for (int i = 0; i < self.detailModel.teacher_list.count; i++) {
             ZOriganizationTeacherListModel *teacherModel = self.detailModel.teacher_list[i];
             ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+            model.account_id = teacherModel.teacherID;
             model.image = teacherModel.image;
             model.name = teacherModel.teacher_name;
             model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
@@ -193,6 +194,7 @@
         for (int i = 0; i < self.detailModel.star_students.count; i++) {
             ZOriganizationTeacherListModel *teacherModel = self.detailModel.star_students[i];
             ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+            model.account_id = teacherModel.teacherID;
             model.image = teacherModel.image;
             model.name = teacherModel.name;
             model.skill = teacherModel.stores_courses_name;
@@ -265,6 +267,8 @@
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
             ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
+            mvc.teacher_id = model.account_id;
+            mvc.stores_id = weakSelf.detailModel.schoolID;
             [weakSelf.navigationController pushViewController:mvc animated:YES];
 //            ZStudentStarCoachInfoVC *ivc = [[ZStudentStarCoachInfoVC alloc] init];
 //            [weakSelf.navigationController pushViewController:ivc animated:YES];

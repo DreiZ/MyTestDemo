@@ -138,6 +138,7 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @end
 
 @interface ZStudentDetailPersonnelModel : NSObject
+@property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *skill;

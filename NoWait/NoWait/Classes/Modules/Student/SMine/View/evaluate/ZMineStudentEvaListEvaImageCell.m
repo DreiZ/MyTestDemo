@@ -48,7 +48,7 @@
 
 - (void)setImage:(NSString *)image {
     _image = image;
-    [_evaImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+    [_evaImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
 //    _evaImageView.image = [UIImage imageNamed:image];
 }
 @end

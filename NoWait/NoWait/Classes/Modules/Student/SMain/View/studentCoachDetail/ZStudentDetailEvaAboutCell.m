@@ -57,6 +57,18 @@
         make.width.mas_equalTo(CGFloatIn750(14));
         make.height.mas_equalTo(CGFloatIn750(8));
     }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [moreBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock ) {
+            weakSelf.handleBlock(nil);
+        }
+    }];
+    [self.titelBack addSubview:moreBtn];
+    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.titelBack);
+    }];
 }
 
 
@@ -154,10 +166,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    if (self.handleBlock) {
-        self.handleBlock(cellConfig);
-    }
+//    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+//    if (self.handleBlock) {
+//        self.handleBlock(cellConfig);
+//    }
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
