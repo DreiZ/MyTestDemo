@@ -24,6 +24,7 @@
 #import "ZAlertImageView.h"
 
 #import "ZStudentMainViewModel.h"
+#import "ZOrigantionMoveInVC.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -250,6 +251,9 @@
 //    [ZServerCompleteAlertView setAlertWithHandlerBlock:^(NSInteger index) {
 //
 //    }];
+    ZOrigantionMoveInVC *ivc = [[ZOrigantionMoveInVC alloc] init];
+    [self.navigationController pushViewController:ivc animated:YES];
+    return;
     if (indexPath.section == 1) {
         [[ZUserHelper sharedHelper] checkLogin:^{
             NSArray *tempArr = self.cellConfigArr[indexPath.section];
