@@ -400,6 +400,18 @@
  
     switch (self.model.type) {
         case ZOrganizationOrderTypeForPay:
+            {
+                [self setOrderDetailDes];
+                self.priceLabel.text = @"";
+                CGSize temp = [self.model.experience_price tt_sizeWithFont:[UIFont boldFontContent]];
+                [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(temp.width + 2);
+                    make.centerY.equalTo(self.orderNameLabel.mas_centerY);
+                    make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+                }];
+                [self setOrderDetailMidViewBottom];
+            }
+            break;
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
             {
                 [self setDetailDes];
@@ -595,9 +607,9 @@
 }
 
 - (void)setOrderDetailDes {
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.order_amount];
-    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",self.model.schedule_time];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@",[self.model.schedule_time timeStringWithFormatter:@"yyyy-MM-dd"]];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.experience_price)];
+    self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",SafeStr(self.model.experience_duration)];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.experience_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.experience_time doubleValue]] formatWeekday],[self.model.experience_time timeStringWithFormatter:@"HH:mm"]];
     
     CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.pay_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

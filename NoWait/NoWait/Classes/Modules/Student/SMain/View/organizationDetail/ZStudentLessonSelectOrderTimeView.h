@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ZStudentDetailModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZStudentLessonSelectOrderTimeView : UIView
-@property (nonatomic,assign) ZLessonBuyType buyType;
-@property (nonatomic,strong) NSArray <ZStudentDetailLessonTimeModel *>*list;
-@property (nonatomic,strong) void (^timeBlock)(ZStudentDetailLessonTimeModel *);
+@property (nonatomic,strong) NSArray <ZOriganizationLessonExperienceTimeModel *>*list;
+@property (nonatomic,strong) void (^timeBlock)(ZOriganizationLessonExperienceTimeModel *);
 @property (nonatomic,strong) void (^closeBlock)(void);
 @property (nonatomic,strong) void (^bottomBlock)(void);
 @property (nonatomic,strong) void (^lastStepBlock)(void);

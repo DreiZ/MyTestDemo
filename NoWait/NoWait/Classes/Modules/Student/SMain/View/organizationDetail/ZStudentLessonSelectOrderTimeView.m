@@ -96,8 +96,9 @@
     
     [self addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self);
-        make.height.mas_equalTo(CGFloatIn750(100));
+        make.left.right.equalTo(self);
+        make.bottom.equalTo(self.mas_bottom).offset(-safeAreaBottom());
+        make.height.mas_equalTo(CGFloatIn750(88));
     }];
     
     [self addSubview:self.funBackView];
@@ -147,9 +148,9 @@
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"提交预约" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_bottomBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];
+        [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             if (weakSelf.bottomBlock) {
@@ -192,7 +193,7 @@
         _leftTableView.alwaysBounceVertical = YES;
         _leftTableView.delegate = self;
         _leftTableView.dataSource = self;
-        _leftTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _leftTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
 //        _iTableView.tableHeaderView = self.menuView;
     }
     return _leftTableView;
@@ -293,7 +294,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 14.01f;
+    return .01f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -302,22 +303,31 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
-    sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    if (tableView == self.leftTableView) {
+        sectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
+        sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+    
     sectionView.layer.masksToBounds = YES;
     return sectionView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 20)];
+    if (tableView == self.leftTableView) {
+       sectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
        sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-       sectionView.layer.masksToBounds = YES;
-       return sectionView;
+    }
+    sectionView.layer.masksToBounds = YES;
+    return sectionView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.leftTableView) {
         for (int i = 0; i < _list.count; i++) {
-               ZStudentDetailLessonTimeModel *model = _list[i];
+               ZOriganizationLessonExperienceTimeModel *model = _list[i];
                if (i == indexPath.row) {
                    model.isTimeSelected = YES;
                }else{
@@ -326,30 +336,55 @@
            }
            [self resetLeftArr];
     }else{
-        ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-        if ([cellConfig.title isEqualToString:@"ZRecordWeightMoreCell"]) {
-           
+        ZCellConfig *cellConfig = [_rightCellConfigArr objectAtIndex:indexPath.row];
+        if ([cellConfig.title isEqualToString:@"subTime"]) {
+            [self setRightTableSelect:indexPath];
+        }
+    }
+}
+
+- (void)setRightTableSelect:(NSIndexPath *)indexPath {
+    for (int i = 0; i < _list.count; i++) {
+        ZOriganizationLessonExperienceTimeModel *model = _list[i];
+        if (model.isTimeSelected) {
+            NSArray *timeArr = model.timeArr;
+            for (int k = 0; k < timeArr.count; k++) {
+                ZOriganizationLessonExperienceTimeSubModel *smodel = timeArr[k];
+                if (indexPath.row == k) {
+                    smodel.isSubTimeSelected = YES;
+                    if (self.timeBlock) {
+                        ZOriganizationLessonExperienceTimeModel *timeModel = [[ZOriganizationLessonExperienceTimeModel alloc] init];
+                        timeModel.date = model.date;
+                        timeModel.time = smodel.time;
+                        self.timeBlock(timeModel);
+                    }
+                }else{
+                    smodel.isSubTimeSelected = NO;
+                }
+            }
+            [self resetRightArr];
+            [self.rightTableView reloadData];
         }
     }
 }
 
 #pragma mark 类型
--(void)setList:(NSArray<ZStudentDetailLessonTimeModel *> *)list {
+-(void)setList:(NSArray<ZOriganizationLessonExperienceTimeModel *> *)list{
     _list = list;
-//    if (_buyType == lessonBuyTypeSubscribeInitial || _buyType == lessonBuyTypeSubscribeInitial) {
-//        self.lastStepBtn.hidden = NO;
-//    }else{
-//        self.lastStepBtn.hidden = YES;
-//    }
+    self.lastStepBtn.hidden = NO;
+    if (list && list.count > 0) {
+        ZOriganizationLessonExperienceTimeModel *tModel = list[0];
+        tModel.isTimeSelected = YES;
+    }
     [self resetLeftArr];
 }
 
 - (void)resetLeftArr {
     [self.cellConfigArr removeAllObjects];
     for (int i = 0; i < _list.count; i++) {
-        ZStudentDetailLessonTimeModel *model = _list[i];
+        ZOriganizationLessonExperienceTimeModel *model = _list[i];
     
-        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSelectTimeCell className] title:[ZStudentLessonSelectTimeCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSelectTimeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSelectTimeCell className] title:[ZStudentLessonSelectTimeCell className] showInfoMethod:@selector(setTimeModel:) heightOfCell:[ZStudentLessonSelectTimeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:timeCellConfig];
     }
     
@@ -360,35 +395,25 @@
 - (void)resetRightArr {
     [self.rightCellConfigArr removeAllObjects];
     for (int i = 0; i < _list.count; i++) {
-        ZStudentDetailLessonTimeModel *model = _list[i];
+        ZOriganizationLessonExperienceTimeModel *model = _list[i];
         if (model.isTimeSelected) {
-            NSArray *timeArr = model.subTimes;
+            NSArray *timeArr = model.timeArr;
             for (int k = 0; k < timeArr.count; k++) {
-                ZStudentDetailLessonTimeSubModel *smodel = timeArr[k];
+                ZOriganizationLessonExperienceTimeSubModel *smodel = timeArr[k];
                 ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-                model.leftTitle = smodel.subTime;
+                model.leftTitle = smodel.time;
                 model.leftFont = [UIFont fontContent];
                 model.cellHeight = CGFloatIn750(106);
                 model.isHiddenLine = YES;
                 model.rightImage = smodel.isSubTimeSelected ? @"selectedCycle":@"unSelectedCycle";
                 
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"subTime" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [self.rightCellConfigArr addObject:menuCellConfig];
             }
-            
         }
     }
     
     [self.rightTableView reloadData];
-}
-
-- (void)setBuyType:(ZLessonBuyType)buyType {
-    _buyType = buyType;
-    if (_buyType == ZLessonBuyTypeSubscribeInitial || _buyType == ZLessonBuyTypeSubscribeInitial) {
-       
-    }else{
-        
-    }
 }
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
@@ -399,7 +424,3 @@
     [_lastStepBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
 }
 @end
-
-
-
-

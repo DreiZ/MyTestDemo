@@ -8,10 +8,14 @@
 
 #import "ZBaseCell.h"
 #import "ZOrderModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZStudentLessonTeacherCell : ZBaseCell
 @property (nonatomic,strong) NSArray <ZOriganizationLessonTeacherModel *>*teacher_list;
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
+
 @property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonTeacherModel *);
+@property (nonatomic,strong) void (^handleLessonBlock)(ZOriganizationLessonListModel *);
 @end
 
 

@@ -23,8 +23,8 @@
  这样做切换方便,不用来回每个网络请求修改请求域名,降低出错事件
  */
 
-#define DevelopSever    1
-#define TestSever       0
+#define DevelopSever    0
+#define TestSever       1
 #define ProductSever    0
 
 // 表情服务器
@@ -84,22 +84,37 @@
 
 #elif TestSever
 
-#pragma mark - /**测试服务器*/
-//IM服务器
-#define SocketServiceUrl                @"106.15.91.31"
-#define SocketServicePort               8890
-#define URL_main                        @"http://106.15.91.31"
-#define URL_Socket                      @"http://106.15.91.31:8092"
-//测试服app_key ,app_secret
-#define SERVICE_APP_KEY                 @"20181120091920000002"
-#define SERVICE_APP_SECRET              @"7f13509d577585b1773acab29d470671b8ded32b"
-#define SERVICE_SIGN                    @"31d15f81b73fae2d81c61b0ad4793cb9453e3465"
+#pragma mark - /**开发服务器*/
+//验证码服务器@"http://api.xiangcenter.com"
+#define URL_code                        @"http://api.xiangcenter.com"
+//用户服务器
+#define URL_user                        @"http://api.xiangcenter.com"
+//订单服务
+#define URL_order                       @"http://api.xiangcenter.com"
+//文件服务器
+#define URL_file                        @"http://api.xiangcenter.com"
+//教练服务器
+#define URL_coach                       @"http://api.xiangcenter.com"
+//机构服务器
+#define URL_organization                @"http://api.xiangcenter.com"
 
+//IM服务器
+#define SocketServiceUrl                @"172.17.100.32"
+#define SocketServicePort               8085
+#define URL_main                        @"http://172.17.100.31:8080"
+#define URL_Socket                      @"http://172.17.100.32:8851"
+//#define URL_main @"http://192.168.11.122:8090" //展鹏
+
+
+//开发服app_key ,app_secret,sign
+#define SERVICE_APP_KEY                 @"20181120091910000002"
+#define SERVICE_APP_SECRET              @"f9590246c56c67b9a9414c9a3121cffbd7fecb38"
+#define SERVICE_SIGN                    @"9f34c254a45dabb40009c9b55ef17a4133ee67e2"
 
 //阿里云上传图片地址
-#define AliYunImageServer               @"http://106.15.91.31:8093/sts.php"
-#define AliYunBucketName                @"cxapp-test-app"
-#define AliYunBucketIMName              @"cxapp-test-im"
+#define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
+#define AliYunBucketName                @"cxapp-dev-app"
+#define AliYunBucketIMName              @"cxapp-dev-im"
 #define AliYunendpoint                  @"https://oss-cn-shanghai.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-shanghai.aliyuncs.com"
 
@@ -111,6 +126,7 @@
 #define AliYunMessageFilePath           AliYunPath(@"im_file")
 #define AliYunFoodFilePath              AliYunPath(@"usr_punchcard")
 #define AliYunUserFilePath              AliYunPath(@"usr_avatar")
+
 
 #elif ProductSever
 
@@ -221,6 +237,15 @@
 
 //排课课程list
 #define URL_merchants_get_class_courses_list               @"merchants/v1/get_class_courses_list"
+
+
+//排课课程list
+#define URL_merchants_get_class_courses_list               @"merchants/v1/get_class_courses_list"
+
+
+//预约课程list
+#define URL_merchants_get_experience_courses               @"merchants/v1/get_experience_courses"
+
 
 #pragma mark - 学员------------------------------------------------
 //添加学员

@@ -13,8 +13,86 @@
 
 @end
 
+@implementation ZOriganizationLessonExperienceTimeSubModel
+
+@end
+
+@implementation ZOriganizationLessonExperienceTimeModel
+- (NSArray *)timeArr {
+    if (!_timeArr) {
+        NSMutableArray *tempList = @[].mutableCopy;
+        NSMutableArray *beEndArr = @[].mutableCopy;
+        
+        NSArray *tempArr = [self.time zz_JSONValue];
+        for (int i = 0; i < tempArr.count; i++) {
+            
+            if (ValidStr(tempArr[i])) {
+                NSArray *array = [tempArr[i] componentsSeparatedByString:@"~"];
+                if (array.count == 2) {
+                    NSArray *start = [array[0] componentsSeparatedByString:@":"];
+                    NSArray *end = [array[1] componentsSeparatedByString:@":"];
+                    if (start && start.count == 2 && end && end.count == 2) {
+                        NSInteger begin = [start[0] intValue];
+                        NSInteger comptle = [end[0] intValue];
+                        
+                        for (NSInteger k = begin; k <= comptle; k++) {
+                            [beEndArr addObject:[NSString stringWithFormat:@"%ld",(long)k]];
+                        }
+                    }
+                }
+            }
+        }
+        NSMutableArray *sortArr  = [self handleArr:beEndArr];
+        for (int kk = 0; kk < sortArr.count; kk++) {
+           ZOriganizationLessonExperienceTimeSubModel *model = [[ZOriganizationLessonExperienceTimeSubModel alloc] init];
+           if ([sortArr[kk] intValue] < 10) {
+               model.time = [NSString stringWithFormat:@"0%@:00",sortArr[kk]];
+           }else{
+               model.time = [NSString stringWithFormat:@"%@:00",sortArr[kk]];
+           }
+           model.isSubTimeSelected = NO;
+           [tempList addObject:model];
+        }
+        _timeArr = tempList;
+    }
+    
+    return _timeArr;
+}
+
+- (NSMutableArray *)handleArr:(NSMutableArray *)array1 {
+
+    NSMutableArray *array2 = @[].mutableCopy;
+    for (NSString *str in array1) {
+        if (![array2 containsObject:str]) {
+            [array2 addObject:str];
+        }
+    }
+    [self sortArrWithInsertSort:array2];
+    return array2;
+}
+
+//直接插入排序
+- (void)sortArrWithInsertSort:(NSMutableArray *)arr{
+    int currentLocation = 1; //记录当前位置(哨兵)
+    //从第1个元素开始取，第0个元素默认为有序的序列
+    for (int i = 1; i < arr.count ; i++) {
+        int tempNum = [[arr objectAtIndex:i] intValue];
+        currentLocation = i;
+        for (int j = i-1; (tempNum < [[arr objectAtIndex:j] intValue])&&j>=0; j--) {
+                [arr exchangeObjectAtIndex:j withObjectAtIndex:currentLocation];
+                currentLocation = j;
+        }
+    }
+}
+@end
 
 @implementation ZOriganizationLessonListModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"experience_time" : @"ZOriganizationLessonExperienceTimeModel"
+             };
+}
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"lessonID" : @"id",

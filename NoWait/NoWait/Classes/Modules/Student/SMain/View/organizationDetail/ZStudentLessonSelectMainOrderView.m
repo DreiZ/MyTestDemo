@@ -20,12 +20,13 @@
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
 @property (nonatomic,strong) ZOrderAddModel *orderModel;
 
+@property (nonatomic,strong) ZOriganizationLessonListModel *listModel;
+@property (nonatomic,strong) ZOriganizationLessonExperienceTimeModel *timeModel;
+
 @end
 
 
 @implementation ZStudentLessonSelectMainOrderView
-
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -69,8 +70,15 @@
         _lessonView.closeBlock = ^{
             [weakSelf removeFromSuperview];
         };
+        _lessonView.handleBlock = ^(ZOriganizationLessonListModel *model) {
+            weakSelf.listModel = model;
+        };
         _lessonView.bottomBlock = ^{
-            [weakSelf teacherToTime];
+            if (weakSelf.listModel) {
+                [weakSelf teacherToTime];
+            }else{
+                [TLUIUtility showErrorHint:@"您还没有选择课程"];
+            }
         };
     }
     return _lessonView;
@@ -82,14 +90,18 @@
         __weak typeof(self) weakSelf = self;
         _timeView = [[ZStudentLessonSelectOrderTimeView alloc] init];
         _timeView.bottomBlock = ^{
+            if (!weakSelf.timeModel) {
+                [TLUIUtility showErrorHint:@"您还没有选择预约时间"];
+                return ;
+            }
             [weakSelf removeFromSuperview];
             if (weakSelf.completeBlock) {
-                weakSelf.completeBlock(0);
+                weakSelf.completeBlock(weakSelf.listModel,weakSelf.timeModel);
             }
         };
         
-        _timeView.timeBlock = ^(ZStudentDetailLessonTimeModel *model) {
-            
+        _timeView.timeBlock = ^(ZOriganizationLessonExperienceTimeModel *model) {
+            weakSelf.timeModel = model;
         };
         
         _timeView.closeBlock = ^{
@@ -128,22 +140,7 @@
 
 
 - (void)teacherToTime{
-    NSMutableArray *list = @[].mutableCopy;
-    for (int i = 0; i < 10; i++) {
-        ZStudentDetailLessonTimeModel *model = [[ZStudentDetailLessonTimeModel alloc] init];
-        model.isTimeSelected = i==0? YES: NO;
-        model.time = @"周五 10-25日";
-        NSArray *subTimeArr = @[@"09:00", @"10:00",@"11:00", @"12:00",@"13:00", @"14:00",@"15:00", @"16:00",@"17:00", @"18:00",@"19:00", @"20:00",@"21:00", @"22:00",@"23:00", @"24:00"];
-        NSMutableArray *subArr = @[].mutableCopy;
-        for (int j = 0; j < subTimeArr.count; j++) {
-            ZStudentDetailLessonTimeSubModel *subModel = [[ZStudentDetailLessonTimeSubModel alloc] init];
-            subModel.subTime = subTimeArr[j];
-            [subArr addObject:subModel];
-        }
-        model.subTimes = subArr;
-        [list addObject:model];
-    }
-    self.timeView.list = list;
+    self.timeView.list = self.listModel.experience_time;
     [self addSubview:self.timeView];
     
      self.timeView.frame = CGRectMake(KScreenWidth, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);
@@ -158,10 +155,7 @@
 }
 
 
-
-
 - (void)timeToLesson{
-    
     [self addSubview:self.lessonView];
     
      self.lessonView.frame = CGRectMake(-KScreenWidth, KScreenHeight/5.0f *2, KScreenWidth, KScreenHeight/5.0f * 3);

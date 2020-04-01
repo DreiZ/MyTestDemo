@@ -77,6 +77,9 @@
 @property (nonatomic,strong) NSString *emergency_phone;
 @property (nonatomic,strong) NSString *emergency_contact;
 
+@property (nonatomic,strong) NSString *experience_price;
+@property (nonatomic,strong) NSString *experience_duration;
+@property (nonatomic,strong) NSString *experience_time;
 @end
 
 

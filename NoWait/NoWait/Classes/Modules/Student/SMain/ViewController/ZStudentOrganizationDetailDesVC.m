@@ -45,6 +45,7 @@
 #import "ZCouponListView.h"
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"
+#import <NSDate+YYAdd.h>
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -111,8 +112,25 @@
     if (!_selectView) {
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainOrderView alloc] init];
-        _selectView.completeBlock = ^(ZOrderAddModel *model) {
+        _selectView.completeBlock = ^(ZOriganizationLessonListModel *lessonModel, ZOriganizationLessonExperienceTimeModel *timeModel) {
             ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+            ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
+            detailModel.type = ZStudentOrderTypeForPay;
+            detailModel.course_id = lessonModel.lessonID;
+            detailModel.stores_id = weakSelf.detailModel.schoolID;
+            detailModel.store_name = weakSelf.detailModel.name;
+            detailModel.course_name = lessonModel.name;
+            detailModel.pay_amount = lessonModel.experience_price;
+            detailModel.order_amount = lessonModel.experience_price;
+            detailModel.experience_price = lessonModel.experience_price;
+            detailModel.experience_duration = lessonModel.experience_duration;
+            
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]];
+            NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)date.year,date.month,date.day,timeModel.time];
+            detailModel.experience_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
+//            order.detailModel = detailModel;
+            detailModel.orderType = @"1";
+            order.detailModel = detailModel;
             [weakSelf.navigationController pushViewController:order animated:YES];
         };
     }

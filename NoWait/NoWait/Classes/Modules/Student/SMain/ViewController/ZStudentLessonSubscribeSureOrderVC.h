@@ -8,10 +8,14 @@
 
 #import "ZTableViewViewController.h"
 #import "ZStudentMineModel.h"
+#import "ZOriganizationModel.h"
+#import "ZOrderModel.h"
 
 
 @interface ZStudentLessonSubscribeSureOrderVC : ZTableViewViewController
-@property (nonatomic,strong) ZStudentOrderListModel *model;
+@property (nonatomic,strong) ZOrderDetailModel *detailModel;
+
+
 @end
 
 

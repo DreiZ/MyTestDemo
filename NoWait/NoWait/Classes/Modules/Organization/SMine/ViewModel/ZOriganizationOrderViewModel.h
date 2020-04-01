@@ -16,6 +16,7 @@
 + (void)addOrder:(NSDictionary *)params
    completeBlock:(resultDataBlock)completeBlock;
 
++ (void)addExpOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 

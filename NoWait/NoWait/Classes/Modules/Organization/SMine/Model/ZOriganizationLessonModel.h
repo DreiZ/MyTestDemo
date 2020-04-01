@@ -24,6 +24,19 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 
 @end
 
+
+@interface ZOriganizationLessonExperienceTimeSubModel : ZBaseModel
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,assign) BOOL isSubTimeSelected;
+@end
+
+@interface ZOriganizationLessonExperienceTimeModel : ZBaseModel
+@property (nonatomic,strong) NSString *date;
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,assign) BOOL isTimeSelected;
+@property (nonatomic,strong) NSArray *timeArr;
+@end
+
 @interface ZOriganizationLessonListModel : ZBaseModel
 @property (nonatomic,strong) NSString *status;//（0：全部 1：开放 2：未开放 3：审核中 4：审核失败）
 @property (nonatomic,strong) NSString *statusStr;
@@ -44,6 +57,12 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 
 @property (nonatomic,strong) NSString *courses_id;
 @property (nonatomic,strong) NSString *courses_price;
+
+@property (nonatomic,strong) NSString *total_course_min;
+
+@property (nonatomic,strong) NSString *experience_duration;
+@property (nonatomic,strong) NSString *experience_price;
+@property (nonatomic,strong) NSArray <ZOriganizationLessonExperienceTimeModel *>*experience_time;
 @end
 
 

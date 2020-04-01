@@ -57,6 +57,19 @@
 }
 
 
+- (void)setTimeModel:(ZOriganizationLessonExperienceTimeModel *)timeModel {
+    _timeModel = timeModel;
+    NSString *week = [[[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]] formatWeekday];
+    NSString *data = [timeModel.date timeStringWithFormatter:[NSString stringWithFormat:@"MM月dd日"]];
+    _titleLabel.text = [NSString stringWithFormat:@"%@(%@)",data,week];
+    
+    if (timeModel.isTimeSelected) {
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }else {
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(106);
 }

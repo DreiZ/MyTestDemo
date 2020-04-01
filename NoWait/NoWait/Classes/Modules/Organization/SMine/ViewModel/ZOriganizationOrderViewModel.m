@@ -30,6 +30,25 @@
     }];
 }
 
++ (void)addExpOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_create_appointment_oreder params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                ZOrderAddNetModel *netModel = [ZOrderAddNetModel mj_objectWithKeyValues:dataModel.data];
+                netModel.message = dataModel.message;
+                completeBlock(YES, netModel);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
 
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_get_order_info params:params completionHandler:^(id data, NSError *error) {

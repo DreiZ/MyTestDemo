@@ -41,7 +41,6 @@
     }];
 }
 
-
 - (UIView *)activityView {
     if (!_activityView) {
         _activityView = [[UIView alloc] init];
@@ -76,19 +75,34 @@
         [actLabel setFont:[UIFont fontContent]];
         [self.activityView addSubview:actLabel];
         [_teacherArr addObject:actLabel];
-        if (i < self.teacher_list.count) {
-            ZOriganizationLessonTeacherModel *model = self.teacher_list[i];
-            if (model.isSelected) {
-                actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
-                actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
-                ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorMain]);
-            }else{
-                actLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-                actLabel.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-                ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorGrayBG]);
+        
+        if (self.teacher_list) {
+            if (i < self.teacher_list.count) {
+                ZOriganizationLessonTeacherModel *model = self.teacher_list[i];
+                if (model.isSelected) {
+                    actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+                    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
+                    ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorMain]);
+                }else{
+                    actLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+                    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+                    ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorGrayBG]);
+                }
+            }
+        }else if(self.list){
+            if (i < self.list.count) {
+                ZOriganizationLessonListModel *model = self.list[i];
+                if (model.isSelected) {
+                    actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+                    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
+                    ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorMain]);
+                }else{
+                    actLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+                    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+                    ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorGrayBG]);
+                }
             }
         }
-        
         
         leftX = actLabel.right + kLabelSpace;
         
@@ -108,45 +122,45 @@
 }
 
 - (void)btnClick:(NSInteger)index {
-    for (NSInteger i = 0; i < self.teacher_list.count; i++) {
-        ZOriganizationLessonTeacherModel *model = self.teacher_list[i];
-        if (i == index) {
-            if (model.isSelected) {
-                model.isSelected = NO;
-                if (self.handleBlock) {
-                    self.handleBlock(nil);
+    if (self.teacher_list) {
+        for (NSInteger i = 0; i < self.teacher_list.count; i++) {
+            ZOriganizationLessonTeacherModel *model = self.teacher_list[i];
+            if (i == index) {
+                if (model.isSelected) {
+                    model.isSelected = NO;
+                    if (self.handleBlock) {
+                        self.handleBlock(nil);
+                    }
+                }else{
+                    model.isSelected = YES;
+                    if (self.handleBlock) {
+                        self.handleBlock(model);
+                    }
                 }
             }else{
-                model.isSelected = YES;
-                if (self.handleBlock) {
-                    self.handleBlock(model);
-                }
+                model.isSelected = NO;
             }
-        }else{
-            model.isSelected = NO;
-            if (self.handleBlock) {
-                self.handleBlock(nil);
+        }
+    }else{
+        for (NSInteger i = 0; i < self.list.count; i++) {
+            ZOriganizationLessonListModel *model = self.list[i];
+            if (i == index) {
+                if (model.isSelected) {
+                    model.isSelected = NO;
+                    if (self.handleLessonBlock) {
+                        self.handleLessonBlock(nil);
+                    }
+                }else{
+                    model.isSelected = YES;
+                    if (self.handleLessonBlock) {
+                        self.handleLessonBlock(model);
+                    }
+                }
+            }else{
+                model.isSelected = NO;
             }
         }
     }
-//
-//    for (NSInteger i = 0; i < self.teacherArr.count; i++) {
-//        ZOriganizationLessonTeacherModel *model = self.teacher_list[i];
-//        if (i >= self.teacher_list.count) {
-//            return;
-//        }
-//        UILabel *actLabel = self.teacherArr[i];
-//        if (model.isSelected) {
-//            actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
-//            actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
-//            ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorMain]);
-//        }else{
-//            actLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-//            actLabel.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-//            ViewBorderRadius(actLabel, kLabelHeight/2.0f, 1, [UIColor colorGrayBG]);
-//        }
-//    }
-    
 }
 
 - (void)setTeacher_list:(NSArray<ZOriganizationLessonTeacherModel *> *)teacher_list {
@@ -158,11 +172,27 @@
     [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:tArr];
 }
 
+- (void)setList:(NSArray<ZOriganizationLessonListModel *> *)list {
+    _list = list;
+    NSMutableArray *tArr = @[].mutableCopy;
+    for (ZOriganizationLessonListModel *teacher in list) {
+        [tArr addObject:teacher.name];
+    }
+    [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:tArr];
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     NSArray *teacher_list = sender;
     NSMutableArray *tempArr = @[].mutableCopy;
-    for (ZOriganizationLessonTeacherModel *teacher in teacher_list) {
-        [tempArr addObject:teacher.teacher_name];
+    for (int i = 0; i < teacher_list.count; i++) {
+        id data = teacher_list[i];
+        if ([data isKindOfClass:[ZOriganizationLessonTeacherModel class]]) {
+            ZOriganizationLessonTeacherModel *teacher = data;
+            [tempArr addObject:teacher.teacher_name];
+        }else if ([data isKindOfClass:[ZOriganizationLessonListModel class]]){
+            ZOriganizationLessonListModel *teacher = data;
+            [tempArr addObject:teacher.name];
+        }
     }
     CGFloat cellHeight = 0;
     cellHeight += [self setActivityData:KScreenWidth-CGFloatIn750(60) textArr:tempArr];
