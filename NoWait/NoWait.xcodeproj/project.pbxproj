@@ -500,6 +500,7 @@
 		B2BA39732433273B005A3FFB /* ZStudentLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39722433273B005A3FFB /* ZStudentLabelCell.m */; };
 		B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397524333432005A3FFB /* ZLoginTypeController.m */; };
 		B2BA397924334940005A3FFB /* ZOrigantionMoveInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397824334940005A3FFB /* ZOrigantionMoveInVC.m */; };
+		B2BA397E24349EF3005A3FFB /* ZPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397C24349EF3005A3FFB /* ZPayManager.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1544,6 +1545,9 @@
 		B2BA397524333432005A3FFB /* ZLoginTypeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLoginTypeController.m; sourceTree = "<group>"; };
 		B2BA397724334940005A3FFB /* ZOrigantionMoveInVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrigantionMoveInVC.h; sourceTree = "<group>"; };
 		B2BA397824334940005A3FFB /* ZOrigantionMoveInVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrigantionMoveInVC.m; sourceTree = "<group>"; };
+		B2BA397A2434932B005A3FFB /* 莫等闲.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "莫等闲.entitlements"; sourceTree = "<group>"; };
+		B2BA397C24349EF3005A3FFB /* ZPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPayManager.m; sourceTree = "<group>"; };
+		B2BA397D24349EF3005A3FFB /* ZPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPayManager.h; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -2237,6 +2241,7 @@
 		B2A77E1D23BDA38400407BF0 /* NoWait */ = {
 			isa = PBXGroup;
 			children = (
+				B2BA397A2434932B005A3FFB /* 莫等闲.entitlements */,
 				B2A77E5723BDC03F00407BF0 /* Classes */,
 				B2A77E5323BDB83000407BF0 /* Supporting Files */,
 				B2A77E2A23BDA38600407BF0 /* Assets.xcassets */,
@@ -2330,6 +2335,7 @@
 		B2A77E8923BDD8C400407BF0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B2BA397B24349EF3005A3FFB /* ZPayManager */,
 				B25146C823CF276F009A64D4 /* ZDatePicker */,
 				B25146B823CF13C2009A64D4 /* ZPhotoManager */,
 				B2A780AF23BDFC7800407BF0 /* ZAppConfig */,
@@ -3703,6 +3709,15 @@
 			path = organizationLessonDetail;
 			sourceTree = "<group>";
 		};
+		B2BA397B24349EF3005A3FFB /* ZPayManager */ = {
+			isa = PBXGroup;
+			children = (
+				B2BA397C24349EF3005A3FFB /* ZPayManager.m */,
+				B2BA397D24349EF3005A3FFB /* ZPayManager.h */,
+			);
+			path = ZPayManager;
+			sourceTree = "<group>";
+		};
 		B2CF933C24249D55007AF66E /* eva */ = {
 			isa = PBXGroup;
 			children = (
@@ -4197,6 +4212,7 @@
 				B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */,
 				B297958E2425C50C004490F5 /* ZStudentStudentDetailVC.m in Sources */,
 				B2A77F5623BDE42E00407BF0 /* TZAssetModel.m in Sources */,
+				B2BA397E24349EF3005A3FFB /* ZPayManager.m in Sources */,
 				B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */,
 				B24D995F23FE29A00078A458 /* ZAlertDataSinglePickerView.m in Sources */,
 				B24D992C23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m in Sources */,
@@ -4677,6 +4693,8 @@
 			baseConfigurationReference = 3829BDDCF77F04CBBE032D57 /* Pods-NoWait.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/NoWait/Supporting Files/PrefixHeader.pch";
@@ -4686,8 +4704,93 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xiangXinLi.NoWait;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"BlocksKit\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"DACircularProgress\"",
+					"-l\"DZNEmptyDataSet\"",
+					"-l\"FMDB\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PGPickerView\"",
+					"-l\"Reachability\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"SJBaseVideoPlayer\"",
+					"-l\"SJUIKit\"",
+					"-l\"SJVideoPlayer\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"TLKit\"",
+					"-l\"TLTabBarController\"",
+					"-l\"WMPageController\"",
+					"-l\"WXSTransition\"",
+					"-l\"YYKit\"",
+					"-l\"ZZFLEX\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AMapSearchKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"ExternalAccessory\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MAMapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "莫等闲";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4697,6 +4800,8 @@
 			baseConfigurationReference = BD094AEAB7A1C429CC73632D /* Pods-NoWait.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/NoWait/Supporting Files/PrefixHeader.pch";
@@ -4706,8 +4811,93 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xiangXinLi.NoWait;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"BlocksKit\"",
+					"-l\"CocoaLumberjack\"",
+					"-l\"DACircularProgress\"",
+					"-l\"DZNEmptyDataSet\"",
+					"-l\"FMDB\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PGPickerView\"",
+					"-l\"Reachability\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"SJBaseVideoPlayer\"",
+					"-l\"SJUIKit\"",
+					"-l\"SJVideoPlayer\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"TLKit\"",
+					"-l\"TLTabBarController\"",
+					"-l\"WMPageController\"",
+					"-l\"WXSTransition\"",
+					"-l\"YYKit\"",
+					"-l\"ZZFLEX\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AMapSearchKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"ExternalAccessory\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MAMapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "莫等闲";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

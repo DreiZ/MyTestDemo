@@ -190,6 +190,22 @@
 @property (nonatomic,strong) NSString *price;
 @end
 
+
+
+@interface ZMineOrderPayBackModel : ZBaseModel
+@property (nonatomic,strong) NSString *pay_code;
+@property (nonatomic,strong) NSString *appid;
+@property (nonatomic,strong) NSString *mch_id;
+@property (nonatomic,strong) NSString *nonce_str;
+@property (nonatomic,strong) NSString *prepay_id;
+@property (nonatomic,strong) NSString *result_code;
+@property (nonatomic,strong) NSString *return_code;
+@property (nonatomic,strong) NSString *return_msg;
+@property (nonatomic,strong) NSString *sign;
+@property (nonatomic,strong) NSString *trade_type;
+@property (nonatomic,strong) NSString *timestamp;
+@end
+
 @interface ZOrderModel : ZBaseModel
 
 @end

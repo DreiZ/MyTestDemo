@@ -12,6 +12,8 @@
 
 
 @interface ZOriganizationOrderViewModel : ZBaseViewModel
++ (void)payOrder:(NSDictionary *)params
+   completeBlock:(resultDataBlock)completeBlock;
 
 + (void)addOrder:(NSDictionary *)params
    completeBlock:(resultDataBlock)completeBlock;

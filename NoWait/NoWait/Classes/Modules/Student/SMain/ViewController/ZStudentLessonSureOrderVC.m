@@ -26,6 +26,7 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
 #import "ZOrganizationCouponListView.h"
+#import "ZPayManager.h"
 
 @interface ZStudentLessonSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
@@ -89,6 +90,31 @@
     }];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+        if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *backDict = notfication.object;
+            if (backDict && [backDict objectForKey:@"payState"]) {
+                if ([backDict[@"payState"] integerValue] == 0) {
+                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
+                    [self.navigationController pushViewController:svc animated:YES];
+                }else if ([backDict[@"payState"] integerValue] == 1) {
+                    if (backDict && [backDict objectForKey:@"msg"]) {
+                        [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                    }
+                }else if ([backDict[@"payState"] integerValue] == 2) {
+
+                }else if ([backDict[@"payState"] integerValue] == 3) {
+                    if (backDict && [backDict objectForKey:@"msg"]) {
+                        [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                    }
+                }
+            }
+        }
+    }];
+
+}
 
 #pragma mark - lazy loading...
 - (UIView *)handleView {
@@ -166,12 +192,16 @@
             [params setObject:weakSelf.detailModel.students_name forKey:@"real_name"];
             [params setObject:weakSelf.detailModel.account_phone forKey:@"phone"];
             if (self.cartModel) {
-                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
+//                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
             }
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
-                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
-                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                    ZOrderAddNetModel *payModel = data; ;
+                    
+                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
+                    
                     ZOrderAddNetModel *model = data;
                     [TLUIUtility showSuccessHint:model.message];
                 }else{

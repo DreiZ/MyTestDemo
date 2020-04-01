@@ -48,4 +48,8 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 //高德地图akey
 #define KMapKey @"df2270d15d23397b8fa25b1567766b4c"
 
+#define KNotificationPayBack @"payBack"
+
+#define kAppKey_Wechat @"wx411f6beb954283c6"
+
 #endif /* ZMacros_h */

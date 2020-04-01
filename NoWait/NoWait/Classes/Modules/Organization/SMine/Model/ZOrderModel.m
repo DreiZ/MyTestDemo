@@ -315,6 +315,10 @@
 
 @end
 
+@implementation ZMineOrderPayBackModel
+
+@end
+
 @implementation ZOrderModel
 
 @end

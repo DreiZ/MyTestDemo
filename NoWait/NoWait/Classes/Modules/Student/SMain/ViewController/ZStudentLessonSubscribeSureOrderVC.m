@@ -26,6 +26,8 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
 #import "ZOrganizationCouponListView.h"
+#import "ZOrderModel.h"
+#import "ZPayManager.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
@@ -157,6 +159,11 @@
             
             [ZOriganizationOrderViewModel addExpOrder:params completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
+                    ZOrderAddNetModel *payModel = data; ;
+                    
+                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
                     ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
                     [weakSelf.navigationController pushViewController:svc animated:YES];
                     ZOrderAddNetModel *model = data;
