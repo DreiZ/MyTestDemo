@@ -14,7 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AlipaySDK-iOS (15.6.8)
   - AMap2DMap (5.6.1):
     - AMapFoundation (~> 1.4)
   - AMapFoundation (1.6.1)
@@ -221,7 +220,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
-  - AlipaySDK-iOS
   - AMap2DMap
   - AMapLocation
   - AMapSearch
@@ -252,7 +250,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AlipaySDK-iOS
     - AMap2DMap
     - AMapFoundation
     - AMapLocation
@@ -313,7 +310,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AlipaySDK-iOS: 703a55774a37f412410ab04af96c011b91ec58cb
   AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
   AMapFoundation: df9a0ceec845ae2b5f57bdf9884666f2ed73bf5b
   AMapLocation: b4162db67f813508a14ee7e05c7ee4073785221d
@@ -347,6 +343,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: 7846319459d4716ece9bb8a654bc90af8617c102
+PODFILE CHECKSUM: deb60cfc816908880a015decbb492e8e6c74b124
 
 COCOAPODS: 1.8.4
