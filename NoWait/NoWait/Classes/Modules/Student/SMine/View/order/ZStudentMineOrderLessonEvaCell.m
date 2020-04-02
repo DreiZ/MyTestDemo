@@ -151,7 +151,7 @@
     self.orderNameLabel.text = model.courses_name;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.pay_amount];
     
-    if ([model.orderType intValue] == 1) {
+    if ([model.type intValue] == 1) {
         self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",model.teacher_name];
     }else{
         self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];

@@ -48,7 +48,7 @@
     [super viewDidLoad];
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
-    self.detailModel.orderType = @"2";
+    self.detailModel.type = @"2";
     [self initCellConfigArr];
     [self.iTableView reloadData];
     [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
@@ -198,6 +198,7 @@
                             ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                             listModel.order_id = weakSelf.order_id;
                             listModel.stores_id = weakSelf.detailModel.stores_id;
+                            listModel.isStudent = YES;
                             evc.model = listModel;
                             [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
@@ -208,15 +209,15 @@
                             ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                             listModel.order_id = weakSelf.order_id;
                             listModel.stores_id = weakSelf.detailModel.stores_id;
+                            listModel.isStudent = YES;
                             evc.model = listModel;
                             [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }
-                    
 //                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
 //                    [weakSelf.navigationController pushViewController:svc animated:YES];
-                    ZOrderAddNetModel *model = data;
-                    [TLUIUtility showSuccessHint:model.message];
+//                    ZOrderAddNetModel *model = data;
+//                    [TLUIUtility showSuccessHint:model.message];
                 }else{
                     [TLUIUtility showErrorHint:data];
                 }

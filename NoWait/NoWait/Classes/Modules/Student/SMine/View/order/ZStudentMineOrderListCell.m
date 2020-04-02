@@ -504,7 +504,7 @@
     self.orderNameLabel.text = model.courses_name;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.pay_amount];
     
-    if ([model.orderType intValue] == 1) {
+    if ([model.type intValue] == 1) {
         self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",model.teacher_name];
     }else{
         self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
@@ -523,7 +523,7 @@
     self.receivedBtn.hidden = YES;
     self.refuseBtn.hidden = YES;
 
-    switch (model.type) {
+    switch (model.order_type) {
         case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {
@@ -755,23 +755,23 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
-        if (listModel.type == ZStudentOrderTypeForPay
-            || listModel.type == ZStudentOrderTypeHadPay
-            || listModel.type == ZStudentOrderTypeOutTime
-            || listModel.type == ZStudentOrderTypeCancel
-            || listModel.type == ZStudentOrderTypeOrderForPay
-            || listModel.type == ZStudentOrderTypeOrderOutTime
+        if (listModel.order_type == ZStudentOrderTypeForPay
+            || listModel.order_type == ZStudentOrderTypeHadPay
+            || listModel.order_type == ZStudentOrderTypeOutTime
+            || listModel.order_type == ZStudentOrderTypeCancel
+            || listModel.order_type == ZStudentOrderTypeOrderForPay
+            || listModel.order_type == ZStudentOrderTypeOrderOutTime
             
-            || listModel.type == ZOrganizationOrderTypeOutTime
-            || listModel.type == ZOrganizationOrderTypeCancel
-            || listModel.type == ZOrganizationOrderTypeOrderOutTime
-            || listModel.type == ZOrganizationOrderTypeOrderForReceived){
+            || listModel.order_type == ZOrganizationOrderTypeOutTime
+            || listModel.order_type == ZOrganizationOrderTypeCancel
+            || listModel.order_type == ZOrganizationOrderTypeOrderOutTime
+            || listModel.order_type == ZOrganizationOrderTypeOrderForReceived){
             return CGFloatIn750(414);
         } else{
             return CGFloatIn750(318);
         }
         
-//        else if (listModel.type == ZStudentOrderTypeAll){
+//        else if (listModel.order_type == ZStudentOrderTypeAll){
 //              NSString *fail = listModel.fail ? listModel.fail : @"";
 //              CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
 //              return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);

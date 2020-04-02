@@ -51,7 +51,7 @@
     [super viewDidLoad];
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
-    self.detailModel.orderType = @"1";
+    self.detailModel.type = @"1";
     [self initCellConfigArr];
     [self.iTableView reloadData];
 //    [self getUseCard];
@@ -203,6 +203,7 @@
                             ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                             listModel.order_id = weakSelf.order_id;
                             listModel.stores_id = weakSelf.detailModel.stores_id;
+                            listModel.isStudent = YES;
                             evc.model = listModel;
                             [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
@@ -212,16 +213,13 @@
                             ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                             listModel.order_id = weakSelf.order_id;
                             listModel.stores_id = weakSelf.detailModel.stores_id;
+                            listModel.isStudent = YES;
                             evc.model = listModel;
                             [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }
-//                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
-//                        
-//                    }];
-                    
-                    ZOrderAddNetModel *model = data;
-                    [TLUIUtility showSuccessHint:model.message];
+//                    ZOrderAddNetModel *model = data;
+//                    [TLUIUtility showSuccessHint:model.message];
                 }else{
                     [TLUIUtility showErrorHint:data];
                 }

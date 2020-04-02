@@ -247,9 +247,10 @@
         _orderNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orderNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _orderNameLabel.text = @"";
-        _orderNameLabel.numberOfLines = 0;
+        _orderNameLabel.numberOfLines = 1;
         _orderNameLabel.textAlignment = NSTextAlignmentLeft;
         [_orderNameLabel setFont:[UIFont boldFontContent]];
+        _orderNameLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _orderNameLabel;
 }
@@ -398,7 +399,7 @@
     self.clubLabel.text = model.store_name;
     self.bottomView.hidden = YES;
  
-    switch (self.model.type) {
+    switch (self.model.order_type) {
         case ZOrganizationOrderTypeForPay:
             {
                 [self setOrderDetailDes];
@@ -537,14 +538,11 @@
         make.centerY.equalTo(self.orderNameLabel.mas_centerY);
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
     }];
-    
 }
 
 - (void)setSubDetail {
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(28) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
-    }
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(28))];
+    
     NSArray *titleArr = @[@[@"单节课时",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.course_min)]],
                           @[@"总时长",[NSString stringWithFormat:@"%@分钟",SafeStr(_model.course_total_min)]],
                           @[@"课程有效期",[NSString stringWithFormat:@"%@月",SafeStr(_model.valid_at)]]];
@@ -609,7 +607,7 @@
 - (void)setOrderDetailDes {
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.experience_price)];
     self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",SafeStr(self.model.experience_duration)];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.experience_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.experience_time doubleValue]] formatWeekday],[self.model.experience_time timeStringWithFormatter:@"HH:mm"]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.experience_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.schedule_time doubleValue]] formatWeekday],[self.model.schedule_time timeStringWithFormatter:@"HH:mm"]];
     
     CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.pay_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -638,17 +636,17 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderDetailModel class]]) {
         ZOrderDetailModel *listModel = (ZOrderDetailModel *)sender;
-        if (listModel.type == ZStudentOrderTypeForRefuse
-            ||  listModel.type == ZStudentOrderTypeRefuseReceive
-            ||  listModel.type == ZStudentOrderTypeRefuseing
-            ||  listModel.type == ZStudentOrderTypeForRefuseComplete
-            ||  listModel.type == ZOrganizationOrderTypeForRefuse
-            ||  listModel.type == ZOrganizationOrderTypeRefuseReceive
-            ||  listModel.type == ZOrganizationOrderTypeRefuseing
-            ||  listModel.type == ZOrganizationOrderTypeForRefuseComplete) {
+        if (listModel.order_type == ZStudentOrderTypeForRefuse
+            ||  listModel.order_type == ZStudentOrderTypeRefuseReceive
+            ||  listModel.order_type == ZStudentOrderTypeRefuseing
+            ||  listModel.order_type == ZStudentOrderTypeForRefuseComplete
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefuse
+            ||  listModel.order_type == ZOrganizationOrderTypeRefuseReceive
+            ||  listModel.order_type == ZOrganizationOrderTypeRefuseing
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefuseComplete) {
             return CGFloatIn750(328);
         }
-        switch (listModel.type) {
+        switch (listModel.order_type) {
             case ZOrganizationOrderTypeForPay:
             case ZStudentOrderTypeForPay://待付款（去支付，取消）
                 return CGFloatIn750(328 + 56 * 3 + 28);

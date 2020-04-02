@@ -11,17 +11,16 @@
 @implementation ZOrderListModel
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"orderType" : @"type",
-             @"statusStr" : @"status_msg"
+    return @{@"statusStr" : @"status_msg"
     };
 }
 
-- (ZStudentOrderType)type {
+- (ZStudentOrderType)order_type {
     // 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
     if (self.isStudent) {
         switch ([SafeStr(self.status) intValue]) {
             case 1:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZStudentOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -31,7 +30,7 @@
                 return ZStudentOrderTypeHadPay; //已付款（评价，退款，删除）
                 break;
             case 3:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZStudentOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -44,7 +43,7 @@
                 return ZStudentOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeOutTime; //超时(删除)
                 }else{
                     return ZStudentOrderTypeOrderOutTime;//超时(删除)
@@ -78,7 +77,7 @@
     }else{
         switch ([SafeStr(self.status) intValue]) {
             case 1:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZOrganizationOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -88,7 +87,7 @@
                 return ZOrganizationOrderTypeHadPay; //已付款（评价，退款，删除）
                 break;
             case 3:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZOrganizationOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -101,7 +100,7 @@
                 return ZOrganizationOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeOutTime; //超时(删除)
                 }else{
                     return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
@@ -138,12 +137,12 @@
 
 @implementation ZOrderDetailModel
 
-- (ZStudentOrderType)type {
+- (ZStudentOrderType)order_type {
     // 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
     if (self.isStudent) {
         switch ([SafeStr(self.status) intValue]) {
             case 1:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZStudentOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -153,7 +152,7 @@
                 return ZStudentOrderTypeHadPay; //已付款（评价，退款，删除）
                 break;
             case 3:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZStudentOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -166,7 +165,7 @@
                 return ZStudentOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeOutTime; //超时(删除)
                 }else{
                     return ZStudentOrderTypeOrderOutTime;//超时(删除)
@@ -200,7 +199,7 @@
     }else{
         switch ([SafeStr(self.status) intValue]) {
             case 1:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZOrganizationOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -210,7 +209,7 @@
                 return ZOrganizationOrderTypeHadPay; //已付款（评价，退款，删除）
                 break;
             case 3:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeForPay;//待付款（去支付，取消）
                 }else{
                     return ZOrganizationOrderTypeOrderForPay;//预约待付款（去支付，取消）
@@ -223,7 +222,7 @@
                 return ZOrganizationOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.orderType intValue] == 1) {
+                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeOutTime; //超时(删除)
                 }else{
                     return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
@@ -258,8 +257,7 @@
 }
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"orderType" : @"type",
-             @"statusStr" : @"status_msg",
+    return @{@"statusStr" : @"status_msg",
              @"order_id" : @"id"
     };
 }

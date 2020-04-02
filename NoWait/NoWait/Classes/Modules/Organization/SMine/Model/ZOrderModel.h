@@ -20,7 +20,7 @@
 @property (nonatomic,strong) NSString *pay_amount;
 @property (nonatomic,strong) NSString *pay_type;
 @property (nonatomic,strong) NSString *statusStr;
-@property (nonatomic,strong) NSString *orderType;//课程类型 1: 普通 2：预约
+@property (nonatomic,strong) NSString *type;//课程类型 1: 普通 2：预约
 @property (nonatomic,strong) NSString *students_name;
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *stores_id;
@@ -31,15 +31,16 @@
 @property (nonatomic,strong) NSString *status;//默认0 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,assign) BOOL isStudent;
-@property (nonatomic,assign) ZStudentOrderType type;
+@property (nonatomic,assign) ZStudentOrderType order_type;
 @end
 
 @interface ZOrderDetailModel : ZBaseModel
 @property (nonatomic,assign) BOOL isStudent;
-@property (nonatomic,assign) ZStudentOrderType type;
+@property (nonatomic,assign) ZStudentOrderType order_type;
 @property (nonatomic,strong) NSString * account_id;
 @property (nonatomic,strong) NSString * account_phone;
 @property (nonatomic,strong) NSString * students_name;
+@property (nonatomic,strong) NSString * nick_name;
 @property (nonatomic,strong) NSString * coupons_amount;
 @property (nonatomic,strong) NSString * coupons_id;
 @property (nonatomic,strong) NSString * course_id;
@@ -68,7 +69,7 @@
 @property (nonatomic,strong) NSString * teacher_id;;
 @property (nonatomic,strong) NSString * teacher_name;
 @property (nonatomic,strong) NSString * trade_no;
-@property (nonatomic,strong) NSString * orderType;
+@property (nonatomic,strong) NSString * type;
 @property (nonatomic,strong) NSString * update_at;
 @property (nonatomic,strong) NSString * use_coupons;//是否使用优惠券 1：否 2：是
 @property (nonatomic,strong) NSString * valid_at;
@@ -80,6 +81,8 @@
 @property (nonatomic,strong) NSString *experience_price;
 @property (nonatomic,strong) NSString *experience_duration;
 @property (nonatomic,strong) NSString *experience_time;
+@property (nonatomic,strong) NSString *count_down;
+
 @end
 
 

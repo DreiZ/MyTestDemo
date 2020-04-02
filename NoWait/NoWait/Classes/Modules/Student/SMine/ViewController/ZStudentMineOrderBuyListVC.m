@@ -17,7 +17,6 @@
 
 @interface ZStudentMineOrderBuyListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
-@property (nonatomic,assign) NSInteger tt;
 @end
 
 @implementation ZStudentMineOrderBuyListVC
@@ -29,8 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tt = 1;
-    
     [self refreshData];
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
@@ -44,7 +41,6 @@
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOrderListModel *model = self.dataSources[i];
         model.isStudent = YES;
-        model.orderType = @"0";
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -192,7 +188,7 @@
     switch (self.type) {
         case ZStudentOrderTypeAll:
             //全部
-            [_param setObject:[NSString stringWithFormat:@"%ld",_tt] forKey:@"status"];
+            [_param setObject:[NSString stringWithFormat:@"%d",0] forKey:@"status"];
             break;
         case ZStudentOrderTypeForPay:
             //@"待支付";
@@ -210,7 +206,6 @@
             break;
     }
     [self.param setObject:@"0" forKey:@"type"];
-    _tt++;
 }
 
 @end

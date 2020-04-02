@@ -47,7 +47,7 @@
         return;
     }
     self.detailModel.isStudent = YES;
-    switch (self.detailModel.type) {
+    switch (self.detailModel.order_type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
             ;
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
@@ -221,7 +221,7 @@
                    [weakSelf.navigationController popToViewController:target animated:YES];
                    return;
                }
-               [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+               [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
     return _navLeftBtn;
@@ -246,16 +246,16 @@
 - (void)updateBottom {
     self.handleView.model = self.detailModel;
     if (self.detailModel.isStudent) {
-        if (self.detailModel.type == ZStudentOrderTypeForPay
-            || self.detailModel.type == ZStudentOrderTypeHadEva
-            || self.detailModel.type == ZStudentOrderTypeHadPay
-            || self.detailModel.type == ZStudentOrderTypeOrderForPay
-            || self.detailModel.type == ZStudentOrderTypeOrderOutTime
-            || self.detailModel.type == ZStudentOrderTypeOutTime
-            || self.detailModel.type == ZStudentOrderTypeOrderComplete
-            || self.detailModel.type == ZStudentOrderTypeCancel
-            || self.detailModel.type == ZStudentOrderTypeOrderForReceived
-            || self.detailModel.type == ZStudentOrderTypeOrderRefuse) {
+        if (self.detailModel.order_type == ZStudentOrderTypeForPay
+            || self.detailModel.order_type == ZStudentOrderTypeHadEva
+            || self.detailModel.order_type == ZStudentOrderTypeHadPay
+            || self.detailModel.order_type == ZStudentOrderTypeOrderForPay
+            || self.detailModel.order_type == ZStudentOrderTypeOrderOutTime
+            || self.detailModel.order_type == ZStudentOrderTypeOutTime
+            || self.detailModel.order_type == ZStudentOrderTypeOrderComplete
+            || self.detailModel.order_type == ZStudentOrderTypeCancel
+            || self.detailModel.order_type == ZStudentOrderTypeOrderForReceived
+            || self.detailModel.order_type == ZStudentOrderTypeOrderRefuse) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -276,9 +276,9 @@
             return;
         }
     }else{
-        if (self.detailModel.type == ZOrganizationOrderTypeOrderForReceived
-            || self.detailModel.type == ZOrganizationOrderTypeOutTime
-            || self.detailModel.type == ZOrganizationOrderTypeCancel) {
+        if (self.detailModel.order_type == ZOrganizationOrderTypeOrderForReceived
+            || self.detailModel.order_type == ZOrganizationOrderTypeOutTime
+            || self.detailModel.order_type == ZOrganizationOrderTypeCancel) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -380,7 +380,7 @@
 }
 
 - (void)setUserCell {
-    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.students_name)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
+    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.nick_name)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
     NSMutableArray *configArr = @[].mutableCopy;
     NSInteger index = 0;
     for (NSArray *tArr in tempArr) {
@@ -467,12 +467,12 @@
 
 - (void)setPayDetailCell {
     NSArray *tempArr;
-    if (self.detailModel.type == ZStudentOrderTypeForPay
-        || self.detailModel.type == ZOrganizationOrderTypeForPay
-        || self.detailModel.type == ZOrganizationOrderTypeOrderForPay
-        || self.detailModel.type == ZStudentOrderTypeOrderForPay
-        || self.detailModel.type == ZStudentOrderTypeOutTime
-        || self.detailModel.type == ZOrganizationOrderTypeOutTime) {
+    if (self.detailModel.order_type == ZStudentOrderTypeForPay
+        || self.detailModel.order_type == ZOrganizationOrderTypeForPay
+        || self.detailModel.order_type == ZOrganizationOrderTypeOrderForPay
+        || self.detailModel.order_type == ZStudentOrderTypeOrderForPay
+        || self.detailModel.order_type == ZStudentOrderTypeOutTime
+        || self.detailModel.order_type == ZOrganizationOrderTypeOutTime) {
         tempArr = @[@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)]];
     }else{
         tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)],@[@"付款时间", SafeStr(self.detailModel.pay_time)]];
@@ -687,6 +687,7 @@
     }
 }
 
+#pragma mark - 网络数据
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *params = @{@"order_id":SafeStr(self.model.order_id)}.mutableCopy;
