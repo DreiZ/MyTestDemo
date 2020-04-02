@@ -27,13 +27,13 @@
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
 @property (nonatomic,strong) ZOrderDetailModel *detailModel;
+@property (nonatomic,strong) UIButton *navLeftBtn;
 
 @end
 @implementation ZOrganizationMineOrderDetailVC
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)viewDidLoad {
@@ -188,7 +188,45 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"订单详情"];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
+    [self.navigationItem setLeftBarButtonItem:item];
 }
+
+
+- (UIButton *)navLeftBtn {
+    if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
+        [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
+        [_navLeftBtn bk_whenTapped:^{
+             
+               NSArray *viewControllers = self.navigationController.viewControllers;
+               NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
+               
+               ZViewController *target;
+               for (ZViewController *controller in reversedArray) {
+                   if ([controller isKindOfClass:[NSClassFromString(@"ZStudentLessonDetailVC") class]]) {
+                       target = controller;
+                       break;
+                   }else if ([controller isKindOfClass:[NSClassFromString(@"ZStudentOrganizationDetailDesVC") class]]){
+                       target = controller;
+                   }
+               }
+               
+               if (target) {
+                   [weakSelf.navigationController popToViewController:target animated:YES];
+                   return;
+               }
+               [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        }];
+    }
+    return _navLeftBtn;
+}
+
 
 - (void)setupMainView {
     [super setupMainView];

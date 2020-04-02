@@ -27,13 +27,16 @@
 #import "ZStudentMineEvaEditVC.h"
 #import "ZOrganizationCouponListView.h"
 #import "ZPayManager.h"
+#import "ZOrganizationMineOrderDetailVC.h"
+#import "ZOrderModel.h"
 
 @interface ZStudentLessonSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UIButton *payBtn;
 @property (nonatomic,strong) ZOriganizationCardListModel *cartModel;
-
+@property (nonatomic,strong) NSString *order_id;
+@property (nonatomic,assign) BOOL isAlipay;
 @end
 
 @implementation ZStudentLessonSureOrderVC
@@ -97,8 +100,8 @@
             NSDictionary *backDict = notfication.object;
             if (backDict && [backDict objectForKey:@"payState"]) {
                 if ([backDict[@"payState"] integerValue] == 0) {
-                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
-                    [self.navigationController pushViewController:svc animated:YES];
+//                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
+//                    [self.navigationController pushViewController:svc animated:YES];
                 }else if ([backDict[@"payState"] integerValue] == 1) {
                     if (backDict && [backDict objectForKey:@"msg"]) {
                         [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
@@ -194,12 +197,31 @@
             if (self.cartModel) {
 //                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
             }
+            [TLUIUtility showLoading:@"获取支付信息"];
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
+                [TLUIUtility hiddenLoading];
                 if (isSuccess) {
-                    ZOrderAddNetModel *payModel = data; ;
-                    [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"1",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
-                        
-                    }];
+                    ZOrderAddNetModel *payModel = data;
+                    weakSelf.order_id = payModel.order_id;
+                    if (weakSelf.isAlipay) {
+                        [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"2",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
+                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                            listModel.order_id = weakSelf.order_id;
+                            listModel.stores_id = weakSelf.detailModel.stores_id;
+                            evc.model = listModel;
+                            [weakSelf.navigationController pushViewController:evc animated:YES];
+                        }];
+                    }else{
+                        [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"1",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
+                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                            listModel.order_id = weakSelf.order_id;
+                            listModel.stores_id = weakSelf.detailModel.stores_id;
+                            evc.model = listModel;
+                            [weakSelf.navigationController pushViewController:evc animated:YES];
+                        }];
+                    }
 //                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
 //                        
 //                    }];
@@ -269,8 +291,14 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-          
+     if ([cellConfig.title isEqualToString:@"wechatPay"]){
+         self.isAlipay = NO;
+         [self initCellConfigArr];
+         [self.iTableView reloadData];
+    }else if ([cellConfig.title isEqualToString:@"alipay"]){
+         self.isAlipay = YES;
+        [self initCellConfigArr];
+        [self.iTableView reloadData];
     }
 }
 
@@ -344,13 +372,14 @@
 }
 
 - (void)setPayTypeCell {
-    NSArray *tempArr = @[@[@"wechatPay", @"微信", @"selectedCycle"],@[@"alipay", @"支付宝", @"unSelectedCycle"]];
+    NSArray *tempArr = @[@[@"wechatPay", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipay", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = tArr[1];
         model.rightImage = tArr[2];
         model.leftImage = tArr[0];
+        model.cellTitle = tArr[0];
         model.isHiddenLine = YES;
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);
