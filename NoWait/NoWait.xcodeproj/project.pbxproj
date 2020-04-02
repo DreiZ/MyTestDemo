@@ -513,6 +513,11 @@
 		B2BA399D243581CF005A3FFB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA398D24358108005A3FFB /* libz.tbd */; };
 		B2BA39A024358513005A3FFB /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA399E24358513005A3FFB /* AlipaySDK.framework */; };
 		B2BA39A124358513005A3FFB /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2BA399F24358513005A3FFB /* AlipaySDK.bundle */; };
+		B2BA39A32435865B005A3FFB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A224358637005A3FFB /* libsqlite3.tbd */; };
+		B2BA39A52435866C005A3FFB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A42435866C005A3FFB /* WebKit.framework */; };
+		B2BA39A7243586AA005A3FFB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A62435869A005A3FFB /* libc++.tbd */; };
+		B2BA39A9243586DB005A3FFB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A8243586DB005A3FFB /* CoreTelephony.framework */; };
+		B2BA39AD24358775005A3FFB /* ZUMengShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39AB24358775005A3FFB /* ZUMengShareManager.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1571,6 +1576,12 @@
 		B2BA399B243581B3005A3FFB /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		B2BA399E24358513005A3FFB /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		B2BA399F24358513005A3FFB /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		B2BA39A224358637005A3FFB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B2BA39A42435866C005A3FFB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		B2BA39A62435869A005A3FFB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		B2BA39A8243586DB005A3FFB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B2BA39AB24358775005A3FFB /* ZUMengShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZUMengShareManager.m; sourceTree = "<group>"; };
+		B2BA39AC24358775005A3FFB /* ZUMengShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZUMengShareManager.h; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -1712,8 +1723,12 @@
 			files = (
 				2A2E774EE0D9ED8DE2FF9684 /* libPods-NoWait.a in Frameworks */,
 				B2BA399A243581A5005A3FFB /* CFNetwork.framework in Frameworks */,
+				B2BA39A7243586AA005A3FFB /* libc++.tbd in Frameworks */,
+				B2BA39A32435865B005A3FFB /* libsqlite3.tbd in Frameworks */,
+				B2BA39A9243586DB005A3FFB /* CoreTelephony.framework in Frameworks */,
 				B2BA399724358175005A3FFB /* UIKit.framework in Frameworks */,
 				B2BA398F24358139005A3FFB /* SystemConfiguration.framework in Frameworks */,
+				B2BA39A52435866C005A3FFB /* WebKit.framework in Frameworks */,
 				B2BA399D243581CF005A3FFB /* libz.tbd in Frameworks */,
 				B2BA399124358146005A3FFB /* QuartzCore.framework in Frameworks */,
 				B2A77F6C23BDE7B000407BF0 /* Foundation.framework in Frameworks */,
@@ -1746,6 +1761,10 @@
 		55227351C486E3A2AC2D61F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2BA39A8243586DB005A3FFB /* CoreTelephony.framework */,
+				B2BA39A62435869A005A3FFB /* libc++.tbd */,
+				B2BA39A42435866C005A3FFB /* WebKit.framework */,
+				B2BA39A224358637005A3FFB /* libsqlite3.tbd */,
 				B2BA399B243581B3005A3FFB /* CoreMotion.framework */,
 				B2BA3999243581A5005A3FFB /* CFNetwork.framework */,
 				B2BA399624358175005A3FFB /* UIKit.framework */,
@@ -2379,6 +2398,7 @@
 		B2A77E8923BDD8C400407BF0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B2BA39AA24358775005A3FFB /* ZUMengManager */,
 				B2BA397B24349EF3005A3FFB /* ZPayManager */,
 				B25146C823CF276F009A64D4 /* ZDatePicker */,
 				B25146B823CF13C2009A64D4 /* ZPhotoManager */,
@@ -3771,6 +3791,15 @@
 			path = Alipay;
 			sourceTree = "<group>";
 		};
+		B2BA39AA24358775005A3FFB /* ZUMengManager */ = {
+			isa = PBXGroup;
+			children = (
+				B2BA39AB24358775005A3FFB /* ZUMengShareManager.m */,
+				B2BA39AC24358775005A3FFB /* ZUMengShareManager.h */,
+			);
+			path = ZUMengManager;
+			sourceTree = "<group>";
+		};
 		B2CF933C24249D55007AF66E /* eva */ = {
 			isa = PBXGroup;
 			children = (
@@ -4477,6 +4506,7 @@
 				B2A77FCB23BDEAA100407BF0 /* ZAlertView.m in Sources */,
 				B2CF934E2424C4C4007AF66E /* ZOrganizationEvaListReEvaCell.m in Sources */,
 				B2CF93452424A8E0007AF66E /* ZOrganizationEvaListLessonCell.m in Sources */,
+				B2BA39AD24358775005A3FFB /* ZUMengShareManager.m in Sources */,
 				B28EA68E240FA88E00C8E225 /* ZOriganizationTeachingScheduleViewModel.m in Sources */,
 				B2A77EC723BDE29E00407BF0 /* MWTapDetectingView.m in Sources */,
 				B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */,

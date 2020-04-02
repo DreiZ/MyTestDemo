@@ -10,8 +10,7 @@
 #import "ZLaunchManager.h"
 #import "IQKeyboardManager.h"
 #import "ZPayManager.h"
-//#import "ZUMengShareManager.h"
-//#import "ZPayManager.h"
+#import "ZUMengShareManager.h"
 
 @implementation AppDelegate (AppService)
 
@@ -25,7 +24,7 @@
 //
   
     [AMapServices sharedServices].apiKey = KMapKey;
-//    [[ZUMengShareManager sharedManager] umengShare];
+    [[ZUMengShareManager sharedManager] umengShare];
     [[ZPayManager sharedManager] wxPayRefisterApp];
 }
 

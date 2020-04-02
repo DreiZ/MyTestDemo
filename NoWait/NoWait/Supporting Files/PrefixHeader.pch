@@ -36,6 +36,7 @@
 #import <YYKit.h>
 #import <AFNetworking.h>
 #import <Masonry/Masonry.h>
+#import <UMAnalytics/MobClick.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <MJExtension/MJExtension.h>

@@ -46,10 +46,11 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
 
 //高德地图akey
-#define KMapKey @"df2270d15d23397b8fa25b1567766b4c"
+#define KMapKey @"01e6bf5418e297223fda0e325afa0008"
 
 #define KNotificationPayBack @"payBack"
 
 #define kAppKey_Wechat @"wx411f6beb954283c6"
 
+#define UMengKey @"5e85513e895cca4f46000017"
 #endif /* ZMacros_h */
