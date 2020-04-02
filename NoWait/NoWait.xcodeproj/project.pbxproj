@@ -501,8 +501,6 @@
 		B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397524333432005A3FFB /* ZLoginTypeController.m */; };
 		B2BA397924334940005A3FFB /* ZOrigantionMoveInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397824334940005A3FFB /* ZOrigantionMoveInVC.m */; };
 		B2BA397E24349EF3005A3FFB /* ZPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA397C24349EF3005A3FFB /* ZPayManager.m */; };
-		B2BA398924357D60005A3FFB /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA398724357D60005A3FFB /* AlipaySDK.framework */; };
-		B2BA398A24357D60005A3FFB /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2BA398824357D60005A3FFB /* AlipaySDK.bundle */; };
 		B2BA398C243580F4005A3FFB /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA398B243580D2005A3FFB /* libc++.1.tbd */; };
 		B2BA398F24358139005A3FFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA398E24358139005A3FFB /* SystemConfiguration.framework */; };
 		B2BA399124358146005A3FFB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA399024358146005A3FFB /* QuartzCore.framework */; };
@@ -513,6 +511,8 @@
 		B2BA399A243581A5005A3FFB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA3999243581A5005A3FFB /* CFNetwork.framework */; };
 		B2BA399C243581B4005A3FFB /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA399B243581B3005A3FFB /* CoreMotion.framework */; };
 		B2BA399D243581CF005A3FFB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA398D24358108005A3FFB /* libz.tbd */; };
+		B2BA39A024358513005A3FFB /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA399E24358513005A3FFB /* AlipaySDK.framework */; };
+		B2BA39A124358513005A3FFB /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2BA399F24358513005A3FFB /* AlipaySDK.bundle */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1560,8 +1560,6 @@
 		B2BA397A2434932B005A3FFB /* 莫等闲.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "莫等闲.entitlements"; sourceTree = "<group>"; };
 		B2BA397C24349EF3005A3FFB /* ZPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPayManager.m; sourceTree = "<group>"; };
 		B2BA397D24349EF3005A3FFB /* ZPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPayManager.h; sourceTree = "<group>"; };
-		B2BA398724357D60005A3FFB /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
-		B2BA398824357D60005A3FFB /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B2BA398B243580D2005A3FFB /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		B2BA398D24358108005A3FFB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B2BA398E24358139005A3FFB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1571,6 +1569,8 @@
 		B2BA399624358175005A3FFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B2BA3999243581A5005A3FFB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B2BA399B243581B3005A3FFB /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		B2BA399E24358513005A3FFB /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		B2BA399F24358513005A3FFB /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -1720,8 +1720,8 @@
 				B2BA39982435818F005A3FFB /* Foundation.framework in Frameworks */,
 				B2BA399C243581B4005A3FFB /* CoreMotion.framework in Frameworks */,
 				B2BA39952435816B005A3FFB /* CoreGraphics.framework in Frameworks */,
+				B2BA39A024358513005A3FFB /* AlipaySDK.framework in Frameworks */,
 				B2BA39932435815D005A3FFB /* CoreText.framework in Frameworks */,
-				B2BA398924357D60005A3FFB /* AlipaySDK.framework in Frameworks */,
 				B2BA398C243580F4005A3FFB /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3765,8 +3765,8 @@
 		B2BA398624357D46005A3FFB /* Alipay */ = {
 			isa = PBXGroup;
 			children = (
-				B2BA398824357D60005A3FFB /* AlipaySDK.bundle */,
-				B2BA398724357D60005A3FFB /* AlipaySDK.framework */,
+				B2BA399F24358513005A3FFB /* AlipaySDK.bundle */,
+				B2BA399E24358513005A3FFB /* AlipaySDK.framework */,
 			);
 			path = Alipay;
 			sourceTree = "<group>";
@@ -3998,7 +3998,7 @@
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
-				B2BA398A24357D60005A3FFB /* AlipaySDK.bundle in Resources */,
+				B2BA39A124358513005A3FFB /* AlipaySDK.bundle in Resources */,
 				B2A780E923BEE49200407BF0 /* LaunchScreen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
