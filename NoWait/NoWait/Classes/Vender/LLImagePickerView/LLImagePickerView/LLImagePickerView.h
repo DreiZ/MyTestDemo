@@ -16,6 +16,8 @@ typedef enum : NSUInteger {
     LLImageTypeVideoTape,// 录像
     LLImageTypeVideo,// 视频
     LLImageTypeAll,// 所有资源
+    LLImageTypeCardIDFontPhotoAndCamera,// 身份证本地相机和图片
+    LLImageTypeCardIDBackPhotoAndCamera,// 身份证本地相机和图片
 } LLImageType;
 
 typedef void(^LLImagePickerHeightBlock)(CGFloat height);

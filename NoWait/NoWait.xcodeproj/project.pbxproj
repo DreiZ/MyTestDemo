@@ -265,7 +265,6 @@
 		B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795B424286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m */; };
 		B29795B824286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795B724286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m */; };
 		B29795BB24289B9F004490F5 /* ZOriganizationPhotoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795BA24289B9F004490F5 /* ZOriganizationPhotoViewModel.m */; };
-		B29795C42429F369004490F5 /* ZIDICardmagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */; };
 		B29795C72429F478004490F5 /* ZIDICardBackmagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */; };
 		B29795CA242A1B14004490F5 /* ZOriganizationOrderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795C9242A1B14004490F5 /* ZOriganizationOrderViewModel.m */; };
 		B29795CD242A24CC004490F5 /* ZOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B29795CC242A24CC004490F5 /* ZOrderModel.m */; };
@@ -518,6 +517,16 @@
 		B2BA39A7243586AA005A3FFB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A62435869A005A3FFB /* libc++.tbd */; };
 		B2BA39A9243586DB005A3FFB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BA39A8243586DB005A3FFB /* CoreTelephony.framework */; };
 		B2BA39AD24358775005A3FFB /* ZUMengShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39AB24358775005A3FFB /* ZUMengShareManager.m */; };
+		B2BA39BB2435CD64005A3FFB /* photo_flash_auto.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B12435CD63005A3FFB /* photo_flash_auto.png */; };
+		B2BA39BC2435CD64005A3FFB /* photoClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B22435CD63005A3FFB /* photoClose@2x.png */; };
+		B2BA39BD2435CD64005A3FFB /* idCardGuoHui@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B32435CD63005A3FFB /* idCardGuoHui@3x.png */; };
+		B2BA39BE2435CD64005A3FFB /* gjjNew_changeCamera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B42435CD63005A3FFB /* gjjNew_changeCamera@2x.png */; };
+		B2BA39BF2435CD64005A3FFB /* photograph_Select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B52435CD63005A3FFB /* photograph_Select@3x.png */; };
+		B2BA39C02435CD64005A3FFB /* photo_flash_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B62435CD63005A3FFB /* photo_flash_off.png */; };
+		B2BA39C12435CD64005A3FFB /* photo_flash_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B72435CD63005A3FFB /* photo_flash_on.png */; };
+		B2BA39C22435CD64005A3FFB /* photograph@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B82435CD63005A3FFB /* photograph@3x.png */; };
+		B2BA39C32435CD64005A3FFB /* photo_flash_allLight.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B92435CD63005A3FFB /* photo_flash_allLight.png */; };
+		B2BA39C42435CD64005A3FFB /* XYTakePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39BA2435CD63005A3FFB /* XYTakePhotoController.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CF933724249183007AF66E /* ZOrganizationMineEvaListVC.m */; };
@@ -1116,8 +1125,6 @@
 		B29795B724286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTeachingScheduleLessonCell.m; sourceTree = "<group>"; };
 		B29795B924289B9F004490F5 /* ZOriganizationPhotoViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationPhotoViewModel.h; sourceTree = "<group>"; };
 		B29795BA24289B9F004490F5 /* ZOriganizationPhotoViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationPhotoViewModel.m; sourceTree = "<group>"; };
-		B29795C22429F369004490F5 /* ZIDICardmagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZIDICardmagePickerController.h; sourceTree = "<group>"; };
-		B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZIDICardmagePickerController.m; sourceTree = "<group>"; };
 		B29795C52429F478004490F5 /* ZIDICardBackmagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZIDICardBackmagePickerController.h; sourceTree = "<group>"; };
 		B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZIDICardBackmagePickerController.m; sourceTree = "<group>"; };
 		B29795C8242A1B14004490F5 /* ZOriganizationOrderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationOrderViewModel.h; sourceTree = "<group>"; };
@@ -1582,6 +1589,17 @@
 		B2BA39A8243586DB005A3FFB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B2BA39AB24358775005A3FFB /* ZUMengShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZUMengShareManager.m; sourceTree = "<group>"; };
 		B2BA39AC24358775005A3FFB /* ZUMengShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZUMengShareManager.h; sourceTree = "<group>"; };
+		B2BA39AF2435CD63005A3FFB /* XYTakePhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYTakePhotoController.h; sourceTree = "<group>"; };
+		B2BA39B12435CD63005A3FFB /* photo_flash_auto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_flash_auto.png; sourceTree = "<group>"; };
+		B2BA39B22435CD63005A3FFB /* photoClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoClose@2x.png"; sourceTree = "<group>"; };
+		B2BA39B32435CD63005A3FFB /* idCardGuoHui@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idCardGuoHui@3x.png"; sourceTree = "<group>"; };
+		B2BA39B42435CD63005A3FFB /* gjjNew_changeCamera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gjjNew_changeCamera@2x.png"; sourceTree = "<group>"; };
+		B2BA39B52435CD63005A3FFB /* photograph_Select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photograph_Select@3x.png"; sourceTree = "<group>"; };
+		B2BA39B62435CD63005A3FFB /* photo_flash_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_flash_off.png; sourceTree = "<group>"; };
+		B2BA39B72435CD63005A3FFB /* photo_flash_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_flash_on.png; sourceTree = "<group>"; };
+		B2BA39B82435CD63005A3FFB /* photograph@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photograph@3x.png"; sourceTree = "<group>"; };
+		B2BA39B92435CD63005A3FFB /* photo_flash_allLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_flash_allLight.png; sourceTree = "<group>"; };
+		B2BA39BA2435CD63005A3FFB /* XYTakePhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYTakePhotoController.m; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -2086,8 +2104,6 @@
 			children = (
 				B25146B923CF13C2009A64D4 /* ZPhotoManager.h */,
 				B25146BA23CF13C2009A64D4 /* ZPhotoManager.m */,
-				B29795C22429F369004490F5 /* ZIDICardmagePickerController.h */,
-				B29795C32429F369004490F5 /* ZIDICardmagePickerController.m */,
 				B29795C52429F478004490F5 /* ZIDICardBackmagePickerController.h */,
 				B29795C62429F478004490F5 /* ZIDICardBackmagePickerController.m */,
 			);
@@ -2359,6 +2375,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2BA39AE2435CD63005A3FFB /* XYTakePhotoController */,
 				B2BA398624357D46005A3FFB /* Alipay */,
 				B28D90FB240766930021E05A /* PGDatePicker */,
 				B2196AF823E7D7880013F2A1 /* DarkModel */,
@@ -3800,6 +3817,32 @@
 			path = ZUMengManager;
 			sourceTree = "<group>";
 		};
+		B2BA39AE2435CD63005A3FFB /* XYTakePhotoController */ = {
+			isa = PBXGroup;
+			children = (
+				B2BA39AF2435CD63005A3FFB /* XYTakePhotoController.h */,
+				B2BA39B02435CD63005A3FFB /* cameraIcon */,
+				B2BA39BA2435CD63005A3FFB /* XYTakePhotoController.m */,
+			);
+			path = XYTakePhotoController;
+			sourceTree = "<group>";
+		};
+		B2BA39B02435CD63005A3FFB /* cameraIcon */ = {
+			isa = PBXGroup;
+			children = (
+				B2BA39B12435CD63005A3FFB /* photo_flash_auto.png */,
+				B2BA39B22435CD63005A3FFB /* photoClose@2x.png */,
+				B2BA39B32435CD63005A3FFB /* idCardGuoHui@3x.png */,
+				B2BA39B42435CD63005A3FFB /* gjjNew_changeCamera@2x.png */,
+				B2BA39B52435CD63005A3FFB /* photograph_Select@3x.png */,
+				B2BA39B62435CD63005A3FFB /* photo_flash_off.png */,
+				B2BA39B72435CD63005A3FFB /* photo_flash_on.png */,
+				B2BA39B82435CD63005A3FFB /* photograph@3x.png */,
+				B2BA39B92435CD63005A3FFB /* photo_flash_allLight.png */,
+			);
+			path = cameraIcon;
+			sourceTree = "<group>";
+		};
 		B2CF933C24249D55007AF66E /* eva */ = {
 			isa = PBXGroup;
 			children = (
@@ -4013,37 +4056,46 @@
 				B2A77F0823BDE2B000407BF0 /* UIBarButtonItemArrowLeft@3x.png in Resources */,
 				B2A77EF423BDE2B000407BF0 /* UIBarButtonItemArrowRight@3x.png in Resources */,
 				B2A77F0923BDE2B000407BF0 /* ImageSelectedOn@2x.png in Resources */,
+				B2BA39BD2435CD64005A3FFB /* idCardGuoHui@3x.png in Resources */,
 				B223BCD623C7043F00AC0158 /* icon_star@2x.png in Resources */,
 				B2A77EF823BDE2B000407BF0 /* ImageSelectedOn.png in Resources */,
 				B223BCD323C7043F00AC0158 /* icon_star_select@3x.png in Resources */,
 				B2A77F0723BDE2B000407BF0 /* PlayButtonOverlayLarge@3x.png in Resources */,
 				B2A77F0A23BDE2B000407BF0 /* ImageError.png in Resources */,
+				B2BA39BC2435CD64005A3FFB /* photoClose@2x.png in Resources */,
 				B28D913D240766940021E05A /* PGDatePicker.bundle in Resources */,
 				B2A77F0423BDE2B000407BF0 /* PlayButtonOverlayLarge@2x.png in Resources */,
 				B2A77EF123BDE2B000407BF0 /* VideoOverlay.png in Resources */,
 				B2A77F0223BDE2B000407BF0 /* ImageError@3x.png in Resources */,
+				B2BA39BE2435CD64005A3FFB /* gjjNew_changeCamera@2x.png in Resources */,
 				B2A77EFF23BDE2B000407BF0 /* VideoOverlay@3x.png in Resources */,
 				B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */,
 				B2A77F0523BDE2B000407BF0 /* ImageSelectedSmallOff@3x.png in Resources */,
 				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
+				B2BA39C02435CD64005A3FFB /* photo_flash_off.png in Resources */,
 				B2A77EED23BDE2B000407BF0 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				B2BA39A124358513005A3FFB /* AlipaySDK.bundle in Resources */,
+				B2BA39BF2435CD64005A3FFB /* photograph_Select@3x.png in Resources */,
 				B2A780E923BEE49200407BF0 /* LaunchScreen.storyboard in Resources */,
 				B2A77EFD23BDE2B000407BF0 /* UIBarButtonItemGrid@2x.png in Resources */,
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
+				B2BA39C12435CD64005A3FFB /* photo_flash_on.png in Resources */,
 				B2A77EEE23BDE2B000407BF0 /* UIBarButtonItemGrid@3x.png in Resources */,
 				B223BCD723C7043F00AC0158 /* icon_star@3x.png in Resources */,
 				B223BCD423C7043F00AC0158 /* icon_star_select@2x.png in Resources */,
 				B2A77EF323BDE2B000407BF0 /* ImageSelectedSmallOff.png in Resources */,
+				B2BA39C22435CD64005A3FFB /* photograph@3x.png in Resources */,
 				B2A77F5A23BDE42E00407BF0 /* TZImagePickerController.bundle in Resources */,
 				B2A77F0C23BDE2B000407BF0 /* ImageSelectedSmallOn.png in Resources */,
 				B2A77EF523BDE2B000407BF0 /* ImageSelectedSmallOn@2x.png in Resources */,
+				B2BA39BB2435CD64005A3FFB /* photo_flash_auto.png in Resources */,
 				B2A77F0123BDE2B000407BF0 /* PlayButtonOverlayLargeTap@2x.png in Resources */,
 				B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */,
 				B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */,
 				B2A7800923BDEDD300407BF0 /* Common.xcassets in Resources */,
 				B2A77F0B23BDE2B000407BF0 /* UIBarButtonItemArrowRight.png in Resources */,
 				B2A77F0623BDE2B000407BF0 /* UIBarButtonItemArrowLeft@2x.png in Resources */,
+				B2BA39C32435CD64005A3FFB /* photo_flash_allLight.png in Resources */,
 				B2A77EF623BDE2B000407BF0 /* ImageSelectedOff.png in Resources */,
 				B2A77EFB23BDE2B000407BF0 /* PlayButtonOverlayLarge.png in Resources */,
 				B2A77F0D23BDE2B000407BF0 /* PlayButtonOverlayLargeTap.png in Resources */,
@@ -4368,6 +4420,7 @@
 				B28D91512407BEB50021E05A /* ZTableViewViewController.m in Sources */,
 				B2A7813523C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
+				B2BA39C42435CD64005A3FFB /* XYTakePhotoController.m in Sources */,
 				B2296A952409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,
 				B252ED9824163FDA00190804 /* ZStudentOrganizationCouponCell.m in Sources */,
@@ -4610,7 +4663,6 @@
 				B252ED892416191E00190804 /* ZBaseCollectionViewCell.m in Sources */,
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
-				B29795C42429F369004490F5 /* ZIDICardmagePickerController.m in Sources */,
 				B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */,
 				B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */,
 				B279D07323C9BEA400391A33 /* ZStudentLessonBottomView.m in Sources */,

@@ -15,8 +15,7 @@
 #import "NSString+LLExtension.h"
 #import "UIImage+LLGif.h"
 #import "AppDelegate+AppService.h"
-#import "ZIDICardmagePickerController.h"
-#import "ZIDICardBackmagePickerController.h"
+#import "XYTakePhotoController.h"
 
 @interface ZPhotoManager ()<TZImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MWPhotoBrowserDelegate>
 
@@ -107,6 +106,7 @@ static ZPhotoManager *sharedPhotoManager;
 
 //单次选择剪切照片
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete{
+    _type = LLImageTypePhotoAndCamera;
     _allowCrop = YES;
     _showSelectBtn = NO;
     _cropRect = CGRectMake(0, KScreenHeight - (2.0/3.0)*KScreenWidth, KScreenWidth, (2.0/3.0)*KScreenWidth);
@@ -115,6 +115,7 @@ static ZPhotoManager *sharedPhotoManager;
 }
 
 - (void)showCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
+    _type = LLImageTypePhotoAndCamera;
     _allowCrop = YES;
     _showSelectBtn = NO;
     _cropRect = CGRectMake((KScreenWidth - cropSize.width)/2.0, (KScreenHeight - cropSize.height)/2.0, cropSize.width, cropSize.height);
@@ -122,7 +123,17 @@ static ZPhotoManager *sharedPhotoManager;
     [self showOriginalSelectMenu:complete];
 }
 
+- (void)showIDCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
+    _type = LLImageTypeCardIDFontPhotoAndCamera;
+     _allowCrop = YES;
+     _showSelectBtn = NO;
+     _cropRect = CGRectMake((KScreenWidth - cropSize.width)/2.0, (KScreenHeight - cropSize.height)/2.0, cropSize.width, cropSize.height);
+    
+     [self showOriginalSelectMenu:complete];
+}
+
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController  {
+    _type = LLImageTypePhotoAndCamera;
     _allowCrop = YES;
     _showSelectBtn = NO;
     [_mediaArray removeAllObjects];
@@ -137,6 +148,7 @@ static ZPhotoManager *sharedPhotoManager;
 ////    self.viewController = viewController;
 //    _allowCrop = NO;
 //    _showSelectBtn = YES;
+    _type = LLImageTypePhotoAndCamera;
     [self showSelectMenu:complete];
 }
 
@@ -164,6 +176,32 @@ static ZPhotoManager *sharedPhotoManager;
         case LLImageTypeCamera:
             [self openCamera];
             break;
+        case LLImageTypeCardIDFontPhotoAndCamera:
+        {
+            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
+            alert.ClickIndex = ^(NSInteger index) {
+                if (index == 1){
+                    [weakSelf openAlbum];
+                }else if (index == 2){
+                    [weakSelf openIDCardCamera:0];
+                }
+            };
+            [alert show];
+        }
+            break;
+        case LLImageTypeCardIDBackPhotoAndCamera:
+        {
+            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
+            alert.ClickIndex = ^(NSInteger index) {
+                if (index == 1){
+                    [weakSelf openAlbum];
+                }else if (index == 2){
+                    [weakSelf openIDCardCamera:1];
+                }
+            };
+            [alert show];\
+        }
+                break;
         case LLImageTypePhotoAndCamera:
         {
             LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
@@ -171,11 +209,7 @@ static ZPhotoManager *sharedPhotoManager;
                 if (index == 1){
                     [weakSelf openAlbum];
                 }else if (index == 2){
-                    if (self.allowCrop == YES && self.cropRect.size.width == CGFloatIn750(480) && self.cropRect.size.height == CGFloatIn750(720)) {
-                        [weakSelf openIDCardUpCamera];
-                    }else{
-                        [weakSelf openCamera];
-                    }
+                    [weakSelf openCamera];
                 }
             };
             [alert show];
@@ -284,59 +318,39 @@ static ZPhotoManager *sharedPhotoManager;
 }
 
 
-/** 身份证相机 */
-- (void)openIDCardUpCamera {
+
+
+/** 身份证相册 */
+- (void)openIDCardCamera:(NSInteger)type {
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
-        ZIDICardmagePickerController *picker = [[ZIDICardmagePickerController alloc] init];
-//        picker.delegate = self;
-        [picker setBk_didFinishPickingMediaBlock:^(UIImagePickerController *pickers, NSDictionary *tmep) {
-            [self imagePickerController:pickers didFinishPickingMediaWithInfo:tmep];
+        __weak typeof(self) weakSelf = self;
+        [XYTakePhotoController presentFromVC:[self viewController] mode:type resultHandler:^(NSArray<UIImage *> * _Nonnull images, NSString * _Nonnull errorMsg) {
+            
+            if (images.count == 1) {
+                LLImagePickerModel *model = [[LLImagePickerModel alloc] init];
+                model.image = images.firstObject;
+                model.isVideo = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.mediaArray addObject:model];
+                    if (weakSelf.backBlock) {
+                        weakSelf.backBlock(weakSelf.mediaArray);
+                    }
+                });
+            }else if(images.count > 1)
+            {
+                LLImagePickerModel *model = [[LLImagePickerModel alloc] init];
+                model.image = images.firstObject;
+                model.isVideo = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.mediaArray addObject:model];
+                    if (weakSelf.backBlock) {
+                        weakSelf.backBlock(weakSelf.mediaArray);
+                    }
+                });
+            }
         }];
-        
-        [picker setBk_didCancelBlock:^(UIImagePickerController *tempPicker) {
-            [tempPicker dismissViewControllerAnimated:YES completion:nil];
-        }];
-        //设置拍照后的图片可被编辑
-        picker.allowsEditing = _allowCrop;
-        picker.sourceType = sourceType;
-        
-
-        [[self viewController] presentViewController:picker animated:YES completion:nil];
-        
-    }else{
-        [TLUIUtility showAlertWithTitle:@"该设备不支持拍照" message:nil cancelButtonTitle:@"确定"];
-    }
-}
-
-
-/** 身份证相册背面 */
-- (void)openIDCardDownCamera {
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
-        ZIDICardBackmagePickerController *picker = [[ZIDICardBackmagePickerController alloc] init];
-//        picker.delegate = self;
-        [picker setBk_didFinishPickingMediaBlock:^(UIImagePickerController *pickers, NSDictionary *tmep) {
-            [self imagePickerController:pickers didFinishPickingMediaWithInfo:tmep];
-        }];
-        
-        [picker setBk_didCancelBlock:^(UIImagePickerController *tempPicker) {
-            [tempPicker dismissViewControllerAnimated:YES completion:nil];
-        }];
-        //设置拍照后的图片可被编辑
-        picker.allowsEditing = _allowCrop;
-        picker.sourceType = sourceType;
-        
-        UIImageView *imageView = [[UIImageView alloc] init];
-        imageView.image = [UIImage imageNamed:@"tabBarMain_highlighted"];
-        [picker.view addSubview:imageView];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(picker.view);
-        }];
-
-        [[self viewController] presentViewController:picker animated:YES completion:nil];
         
     }else{
         [TLUIUtility showAlertWithTitle:@"该设备不支持拍照" message:nil cancelButtonTitle:@"确定"];
@@ -519,7 +533,7 @@ static ZPhotoManager *sharedPhotoManager;
             [weakSelf.mediaArray addObject:model];
             
             if (weakSelf.backBlock) {
-            weakSelf.backBlock(weakSelf.mediaArray);
+                weakSelf.backBlock(weakSelf.mediaArray);
             }
         });
     }];
@@ -606,5 +620,6 @@ static ZPhotoManager *sharedPhotoManager;
     }
     return nil;
 }
+
 
 @end

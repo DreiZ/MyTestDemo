@@ -562,7 +562,7 @@
         ZOriganizationIDCardCell *lcell = (ZOriganizationIDCardCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [weakSelf.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(480), CGFloatIn750(720)) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showIDCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(720), CGFloatIn750(452)) complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     LLImagePickerModel *model = list[0];
                     if (index == 0) {

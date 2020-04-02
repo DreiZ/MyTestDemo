@@ -69,6 +69,7 @@
 - (void)showCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete;
 - (void)showCropOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController ;
 
+- (void)showIDCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete;
 
 //图片浏览器
 - (void)showBrowser:(NSArray *)mediaArray withIndex:(NSInteger)index;
