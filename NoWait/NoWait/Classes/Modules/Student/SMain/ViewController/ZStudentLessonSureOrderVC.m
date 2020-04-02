@@ -29,6 +29,8 @@
 #import "ZPayManager.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOrderModel.h"
+#import "ZCouponListView.h"
+#import "ZOriganizationCardViewModel.h"
 
 @interface ZStudentLessonSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
@@ -50,17 +52,9 @@
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
     self.detailModel.orderType = @"1";
-    ZOriganizationCardListModel *cartModel;
-        
-    for (ZOriganizationCardListModel *model in self.coupons_list ) {
-//        if ([model.limit doubleValue] > [self.detailModel.order_amount doubleValue]  && [model.amount doubleValue] < [self.detailModel.order_amount doubleValue] ) {
-            cartModel = model;
-            self.cartModel = model;
-            break;
-//        }
-    }
     [self initCellConfigArr];
     [self.iTableView reloadData];
+//    [self getUseCard];
 }
 
 - (void)initCellConfigArr {
@@ -248,13 +242,11 @@
     }else if ([cellConfig.title isEqualToString:@"coupons"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *cellConfig) {
-            [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
-//                if ([model.limit doubleValue] > [self.detailModel.order_amount doubleValue]  && [model.amount doubleValue] < [self.detailModel.order_amount doubleValue] ) {
-                    weakSelf.cartModel = model;
-                    [weakSelf initCellConfigArr];
-                    [weakSelf.iTableView reloadData];
-//                }
-                [[ZOrganizationCouponListView sharedManager] removeFromSuperview];
+            [ZCouponListView setAlertWithTitle:@"使用优惠券" type:@"use" stores_id:self.detailModel.stores_id course_id:self.detailModel.course_id handlerBlock:^(ZOriganizationCardListModel * model) {
+                weakSelf.cartModel = model;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                 [[ZCouponListView sharedManager] removeFromSuperview];
             }];
         };
     }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
@@ -429,5 +421,20 @@
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
+}
+
+- (void)getUseCard {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationCardViewModel getUseCardLessonList:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"course_id":SafeStr(self.detailModel.course_id)} completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+        if (isSuccess && data) {
+            if (data.list && data.list.count > 0) {
+                weakSelf.cartModel = data.list[0];
+            }
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

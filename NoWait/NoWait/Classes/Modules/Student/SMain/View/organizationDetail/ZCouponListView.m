@@ -310,8 +310,8 @@ static ZCouponListView *sharedManager;
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
         }];
-    }else if ([self.type isEqualToString:@"my"]){
-        [ZOriganizationCardViewModel getMyCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    }else if ([self.type isEqualToString:@"use"]){
+        [ZOriganizationCardViewModel getUseCardLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
             if (isSuccess && data) {
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -377,8 +377,8 @@ static ZCouponListView *sharedManager;
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
         }];
-    }else if ([self.type isEqualToString:@"my"]){
-        [ZOriganizationCardViewModel getMyCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    }else if ([self.type isEqualToString:@"use"]){
+        [ZOriganizationCardViewModel getUseCardLessonList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
             if (isSuccess && data) {
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 [weakSelf initCellConfigArr];

@@ -321,6 +321,7 @@
 
 #define URL_coupons_v1_get_coupons_by_stores        @"coupons/v1/get_coupons_by_stores"
 
+#define URL_coupons_v1_get_courses_coupons_list        @"coupons/v1/get_courses_coupons_list"
 
 #pragma mark - 排课------------------------------------------------
 //班级列表

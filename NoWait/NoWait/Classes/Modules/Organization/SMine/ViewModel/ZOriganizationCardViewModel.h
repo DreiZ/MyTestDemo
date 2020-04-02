@@ -34,5 +34,9 @@
 
 
 + (void)receiveCoupons:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
+
++ (void)getUseCardLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 @end
 

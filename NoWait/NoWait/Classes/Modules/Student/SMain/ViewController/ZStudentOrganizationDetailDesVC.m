@@ -46,6 +46,7 @@
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"
 #import <NSDate+YYAdd.h>
+#import "ZUMengShareManager.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -98,11 +99,6 @@
             }else{
                 [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
             }
-//             ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
-//                        [weakSelf.navigationController pushViewController:order animated:YES];
-            //
-//            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
-//            [weakSelf.navigationController pushViewController:order animated:YES];
         };
     }
     return _bottomView;
@@ -152,6 +148,8 @@
                     rvc.sTitle = self.detailModel.name;
                     rvc.sid = self.detailModel.schoolID;
                     [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                }else{
+                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"向心力" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
                 }
             }];
         }];

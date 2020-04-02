@@ -142,7 +142,6 @@
             detailModel.course_total_min = [NSString stringWithFormat:@"%d",[weakSelf.addModel.course_number intValue]*[weakSelf.addModel.course_min intValue]];
             
             order.detailModel = detailModel;
-            order.coupons_list = weakSelf.addModel.coupons_list;
             [weakSelf.navigationController pushViewController:order animated:YES];
 //            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
 //            [weakSelf.navigationController pushViewController:order animated:YES];

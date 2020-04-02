@@ -49,7 +49,7 @@ static ZPayManager *sharedManager;
 }
 
 - (void)wxPayRefisterApp {
-    BOOL wx = [WXApi registerApp:kAppKey_Wechat universalLink:@"https://www.xiangcenter.com"];
+    [WXApi registerApp:kAppKey_Wechat universalLink:@"https://www.xiangcenter.com"];
 }
 
 #pragma mark - 支付信息
@@ -153,25 +153,14 @@ static ZPayManager *sharedManager;
     request.partnerId = payModel.mch_id;
     request.prepayId = payModel.prepay_id;
     request.package = @"Sign=WXPay";
-    request.nonceStr = payModel.return_msg;
+    request.nonceStr = payModel.nonce_str;
     request.timeStamp = [payModel.timestamp intValue];
     request.sign = payModel.sign;
-    
     [WXApi sendReq:request completion:^(BOOL success) {
-        
+        success;
     }];
 }
-//private String appid;
-//private String mch_id;
-//private String nonce_str;
-//private String prepay_id;
-//private String result_code;
-//private String return_code;
-//private String return_msg;
-//private String sign;
-//private String trade_type;
-//private String timestamp;
-//支付
+
 - (void)payWithOrderMessage:(id)orderMessage callBack:(PayCompleteCallBack)callBack {
     self.callBack = callBack;
     if ([orderMessage isKindOfClass:[NSString class]]) {
@@ -182,7 +171,7 @@ static ZPayManager *sharedManager;
 #pragma mark - 回调
 - (BOOL)pay_handleUrl:(NSURL *)url{
     DLog(@"usl.host      %@",url.host);
-    if ([url.host isEqualToString:@"pay"]) {// 微信
+    if ([url.host isEqualToString:@"www.xiangcenter.com"]) {// 微信
         return [WXApi handleOpenURL:url delegate:self];
     }else if ([url.host isEqualToString:@"safepay"]) {// 支付宝
         // 支付跳转支付宝钱包进行支付，处理支付结果(在app被杀模式下，通过这个方法获取支付结果）
