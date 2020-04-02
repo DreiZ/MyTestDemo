@@ -197,10 +197,12 @@
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
                     ZOrderAddNetModel *payModel = data; ;
-                    
-                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
+                    [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"1",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
                         
                     }];
+//                    [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":self.detailModel.stores_id,@"pay_type":@"2",@"order_id":payModel.order_id} complete:^(BOOL isSuccess, NSString *message) {
+//                        
+//                    }];
                     
                     ZOrderAddNetModel *model = data;
                     [TLUIUtility showSuccessHint:model.message];

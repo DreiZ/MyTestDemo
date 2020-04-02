@@ -49,7 +49,7 @@ static ZPayManager *sharedManager;
 }
 
 - (void)wxPayRefisterApp {
-    [WXApi registerApp:kAppKey_Wechat universalLink:@"https://www.xiangcenter.com/apple-app-site-association"];
+    BOOL wx = [WXApi registerApp:kAppKey_Wechat universalLink:@"https://www.xiangcenter.com"];
 }
 
 #pragma mark - 支付信息
@@ -76,7 +76,7 @@ static ZPayManager *sharedManager;
         [ZOriganizationOrderViewModel payOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
             if (isSuccess) {
                 ZMineOrderPayBackModel *pay = backModel;
-                [self aliPay:pay.pay_code];
+                [self wechatPay:pay];
             }else{
                 [TLUIUtility showErrorHint:backModel];
             }
@@ -150,7 +150,7 @@ static ZPayManager *sharedManager;
 - (void)wechatPay:(ZMineOrderPayBackModel *)payModel {
     
     PayReq *request = [[PayReq alloc] init];
-    request.partnerId = payModel.appid;
+    request.partnerId = payModel.mch_id;
     request.prepayId = payModel.prepay_id;
     request.package = @"Sign=WXPay";
     request.nonceStr = payModel.return_msg;

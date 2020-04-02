@@ -205,18 +205,10 @@ PODS:
     - TLKit/TLCategories/UIKit/UIWindow
   - TLKit/TLShortcut (0.0.27)
   - TLTabBarController (0.0.6)
-  - UMCAnalytics (6.0.5):
-    - UMCCommon
   - UMCCommon (2.1.1)
-  - UMCPush (3.2.4):
-    - UMCCommon
-  - UMCSecurityPlugins (1.0.6)
   - UMCShare/Core (6.9.6):
     - UMCCommon
   - UMCShare/Social/ReducedWeChat (6.9.6):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/UI (6.9.6):
     - UMCCommon
     - UMCShare/Core
   - WechatOpenSDK (1.8.6)
@@ -251,12 +243,7 @@ DEPENDENCIES:
   - SJVideoPlayer
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
-  - UMCAnalytics
-  - UMCCommon
-  - UMCPush
-  - UMCSecurityPlugins
   - UMCShare/Social/ReducedWeChat
-  - UMCShare/UI
   - WechatOpenSDK
   - WMPageController
   - WXSTransition
@@ -271,10 +258,7 @@ SPEC REPOS:
     - AMapLocation
     - AMapSearch
     - PGPickerView
-    - UMCAnalytics
     - UMCCommon
-    - UMCPush
-    - UMCSecurityPlugins
     - UMCShare
     - WechatOpenSDK
   trunk:
@@ -355,10 +339,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TLKit: e06e6018c04c6c13a96faefe980a13ff124ebeb1
   TLTabBarController: 6e91813f0ae019e8cd2ae35d6f4f6315085f7c44
-  UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
-  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
-  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
   WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
@@ -366,6 +347,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: ea6f5b2c3da82ee0a1ef7812ffc21cd04dcf6708
+PODFILE CHECKSUM: 7846319459d4716ece9bb8a654bc90af8617c102
 
 COCOAPODS: 1.8.4

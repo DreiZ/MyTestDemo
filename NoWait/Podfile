@@ -27,15 +27,6 @@ target :NoWait do
     pod 'SJBaseVideoPlayer', :git => 'https://github.com/changsanjiang/SJBaseVideoPlayer.git'
     pod 'AlipaySDK-iOS'
 
-#umeng
-    pod 'UMCCommon'
-    pod 'UMCSecurityPlugins'
-    pod 'UMCAnalytics'
-
-
-    pod 'UMCPush'
- # U-Share SDK UI模块（分享面板，建议添加）
-    pod 'UMCShare/UI'
 # 集成微信(精简版0.2M)
     pod 'UMCShare/Social/ReducedWeChat'
     pod 'WechatOpenSDK'

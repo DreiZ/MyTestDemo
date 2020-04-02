@@ -107,7 +107,16 @@
     
 //    return result;;
 }
-
+#pragma mark Universal Link
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *url = userActivity.webpageURL;
+       // TODO 根据需求进行处理
+        NSLog(@"--------------sssssss%@",url);
+    }
+      // TODO 根据需求进行处理
+    return YES;
+}
 
 /**
  *  @author gitKong

@@ -4694,8 +4694,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/NoWait/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = NoWait/Info.plist;
@@ -4790,7 +4790,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "莫等闲";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = nowait202004011;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4801,8 +4801,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/NoWait/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = NoWait/Info.plist;
@@ -4897,7 +4897,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "莫等闲";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = nowait202004011;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

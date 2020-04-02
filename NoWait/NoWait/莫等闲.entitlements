@@ -4,7 +4,9 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:api.xiangcenter.com</string>
+		<string>applinks:www.xiangcenter.com</string>
 	</array>
+	<key>com.apple.developer.networking.wifi-info</key>
+	<true/>
 </dict>
 </plist>
