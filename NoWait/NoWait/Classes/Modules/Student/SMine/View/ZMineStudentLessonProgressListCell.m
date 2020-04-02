@@ -80,7 +80,7 @@
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        _lessonTitleLabel.text = @"瑜伽";
+        
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonTitleLabel setFont:[UIFont fontContent]];
@@ -92,12 +92,52 @@
     if (!_lessonCountLabel) {
         _lessonCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonCountLabel.text = @"20/30节";
+        
         _lessonCountLabel.numberOfLines = 1;
         _lessonCountLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonCountLabel setFont:[UIFont fontSmall]];
     }
     return _lessonCountLabel;
+}
+
+- (void)setModel:(ZOriganizationClassListModel *)model {
+    _model = model;
+    _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",ValidStr(model.now_progress) ? model.now_progress: @"0",@"/",SafeStr(model.total_progress)];
+    _lessonTitleLabel.text = model.stores_courses_name;
+    _lessonProgressView.backgroundColor = randomColor();
+    
+    CGSize leftSize = [model.stores_courses_name tt_sizeWithFont:[UIFont fontContent]];
+    CGFloat labelMin = (leftSize.width + CGFloatIn750(30) + 4)/(KScreenWidth - CGFloatIn750(60));
+    CGFloat labelMax = (KScreenWidth - CGFloatIn750(90))/(KScreenWidth - CGFloatIn750(60));
+    CGFloat muti = [model.now_progress floatValue] / [model.total_progress floatValue];
+    CGFloat min = CGFloatIn750(86)/(KScreenWidth - CGFloatIn750(60));
+    if (muti > 0 && muti <= min) {
+        muti = min;
+    }
+    
+    if (muti > labelMin) {
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+    }else{
+        _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }
+    
+    if (muti > labelMax) {
+        _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+    }else{
+        _lessonCountLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }
+
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.lessonProgressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.lessonProgressBackView);
+            make.width.equalTo(self.lessonProgressBackView.mas_width).multipliedBy(muti);
+        }];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    [self layoutIfNeeded];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

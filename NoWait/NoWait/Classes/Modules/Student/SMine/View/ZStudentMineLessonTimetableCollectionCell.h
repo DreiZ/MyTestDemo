@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBaseCollectionViewCell.h"
-
+#import "ZOriganizationModel.h"
 @interface ZStudentMineLessonTimetableCollectionCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) ZOriganizationLessonListModel *model;
 
 @end
 

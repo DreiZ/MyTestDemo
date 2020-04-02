@@ -21,13 +21,16 @@
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
+#import "ZOriganizationLessonViewModel.h"
+#import "ZOriganizationClassViewModel.h"
+
 #import "ZMineSwitchRoleVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
 @interface ZStudentMineVC ()
 @property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
-
+@property (nonatomic,strong) NSMutableArray *classList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
 @end
 
@@ -38,6 +41,8 @@
     self.isHidenNaviBar = YES;
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self refreshCurriculumList];
+    [self refreshMyClass];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,17 +63,14 @@
     [self setupMainView];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
 }
 
 - (void)setDataSource {
     
     [super setDataSource];
     _lessonList = @[].mutableCopy;
-    
-    for (int i = 0; i < 5; i++) {
-        
-//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
-    }
+    _classList = @[].mutableCopy;
 }
 
 - (void)setupMainView {
@@ -125,6 +127,12 @@
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonProgressCell"]){
+        ZStudentMineLessonProgressCell *lcell = (ZStudentMineLessonProgressCell *)cell;
+        lcell.moreBlock = ^(NSInteger index) {
+            ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        };
     }
 }
 
@@ -172,14 +180,62 @@
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
 
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
-    [self.cellConfigArr addObject:progressCellConfig];
+    if (_classList.count > 0) {
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_classList] cellType:ZCellTypeClass dataModel:_classList];
+        [self.cellConfigArr addObject:progressCellConfig];
+    }
+    for (int i = 0; i < 10; i++) {
+        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
+        limo.time = @"11:21~12:12";
+        limo.course_name = @"感受感受";
+        [_lessonList addObject:limo];
+    }
+    if (_lessonList.count > 0) {
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+        [self.cellConfigArr addObject:timeCellConfig];
+    }
     
-    ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
-    [self.cellConfigArr addObject:timeCellConfig];
     
-    
-    
+
     [self.iTableView reloadData];
 }
+
+
+- (void)refreshCurriculumList {
+    NSMutableDictionary *param = @{@"is_today":@"0"}.mutableCopy;
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.lessonList removeAllObjects];
+            [weakSelf.lessonList addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
+- (void)refreshMyClass {
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:@"1" forKey:@"page"];
+    [param setObject:@"3" forKey:@"page_size"];
+    [param setObject:@"2" forKey:@"status"];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getMyClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.classList removeAllObjects];
+            [weakSelf.classList addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
 @end

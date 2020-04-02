@@ -63,6 +63,11 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *experience_duration;
 @property (nonatomic,strong) NSString *experience_price;
 @property (nonatomic,strong) NSArray <ZOriganizationLessonExperienceTimeModel *>*experience_time;
+
+
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,strong) NSString *course_name;
+@property (nonatomic,strong) NSString *key;
 @end
 
 

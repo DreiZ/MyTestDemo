@@ -7,11 +7,12 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZStudentMineModel.h"
+#import "ZOriganizationModel.h"
 
 
 @interface ZStudentMineLessonTimetableCell : ZBaseCell
-//@property (nonatomic,strong) NSArray<ZStudentLessonModel*> *list;
+@property (nonatomic,strong) NSArray<ZOriganizationLessonListModel*> *list;
+@property (nonatomic,strong) void (^moreBlock)(NSInteger);
 @end
 
 

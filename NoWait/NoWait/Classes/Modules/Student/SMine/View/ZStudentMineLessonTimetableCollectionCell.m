@@ -57,7 +57,6 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        _titleLabel.text = @"11:20~12:30";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont fontMin]];
@@ -72,12 +71,17 @@
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = [UIColor colorWhite];
         _lessonLabel.numberOfLines = 1;
-        _lessonLabel.text = @"三十多个开始";
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont boldFontSmall]];
         [_lessonLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _lessonLabel;
+}
+
+- (void)setModel:(ZOriganizationLessonListModel *)model {
+    _model = model;
+    _lessonLabel.text = model.course_name;
+    _titleLabel.text = model.time;
 }
 
 +(CGSize)z_getCellSize:(id)sender {

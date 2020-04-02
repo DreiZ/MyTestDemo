@@ -128,7 +128,7 @@
 {
 //    ZStudentOrganizationLessonListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className] forIndexPath:indexPath];
     ZStudentMineLessonTimetableCollectionCell *cell = [ZStudentMineLessonTimetableCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
-//    cell.model = self.dataSources[indexPath.row];
+    cell.model = self.dataSources[indexPath.row];
     return cell;
 }
 
@@ -185,11 +185,13 @@
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
         UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [moreBtn setTitle:@"查看全部课程  >" forState:UIControlStateNormal];
+        [moreBtn setTitle:@"查看本周课程  >" forState:UIControlStateNormal];
         [moreBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [moreBtn.titleLabel setFont:[UIFont fontSmall]];
         [moreBtn bk_whenTapped:^{
-            
+            if (self.moreBlock) {
+                self.moreBlock(0);
+            }
         }];
         [_bottomView addSubview:moreBtn];
         [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,9 +219,9 @@
 }
 
 
-//- (void)setList:(NSArray<ZStudentLessonModel *> *)list {
-//    _dataSources = list;
-//    [_iCollectionView reloadData];
-//}
+- (void)setList:(NSArray<ZOriganizationLessonListModel *> *)list {
+    _dataSources = list;
+    [_iCollectionView reloadData];
+}
 @end
 

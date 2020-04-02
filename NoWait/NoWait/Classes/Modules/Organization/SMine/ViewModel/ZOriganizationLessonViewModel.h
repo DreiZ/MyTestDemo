@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)addLesson:(NSDictionary *)params isEdit:(BOOL)isEdit completeBlock:(resultDataBlock)completeBlock ;
 
 + (void)searchLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getCurriculumList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END
