@@ -17,6 +17,8 @@
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
 
+#import <WechatOpenSDK/WXApi.h>
+
 @interface ZLoginCodeController ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
@@ -432,7 +434,19 @@
     UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = tag;
     [menuBtn bk_whenTapped:^{
-        if (tag == 1) {
+        if (tag == 0) {
+           if ([WXApi isWXAppInstalled]) {
+              SendAuthReq *req = [[SendAuthReq alloc] init];
+             //这里是按照官方文档的说明来的此处我要获取的是个人信息内容
+              req.scope = @"snsapi_userinfo";
+              req.state = @"";
+            //向微信终端发起SendAuthReq消息
+               [WXApi sendReq:req completion:^(BOOL success) {
+                   
+               }];
+            } else {;
+            }
+        }else if (tag == 1) {
             ZLoginPasswordController *lvc = [[ZLoginPasswordController alloc] init];
             lvc.loginSuccess = weakSelf.loginSuccess;
             lvc.isSwitch = lvc.isSwitch;
