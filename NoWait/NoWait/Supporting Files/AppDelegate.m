@@ -10,6 +10,8 @@
 #import "ZLaunchManager.h"
 #import "AppDelegate+AppService.h"
 #import "ZPayManager.h"
+#import <UMCommon/UMCommon.h>
+#import <UMShare/UMShare.h>
 
 @interface AppDelegate ()
 
@@ -82,30 +84,30 @@
 }
 
 #pragma mark 支付回调
-/**
- *  @author gitKong
- *
- *  iOS 9.0 之前 会调用
- */
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+///**
+// *  @author gitKong
+// *
+// *  iOS 9.0 之前 会调用
+// */
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 //    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
 //    if (!result) {
-        // 其他如支付等SDK的回调
-        return [[ZPayManager sharedManager] pay_handleUrl:url];
+////         其他如支付等SDK的回调
+//        return [[ZPayManager sharedManager] pay_handleUrl:url];
 //    }
 //    return result;
-    
-}
+//    
+//}
 
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
-//    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
-//    if (!result) {
+    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
+    if (!result) {
         return [[ZPayManager sharedManager] pay_handleUrl:url];
-//    }
+    }
     
-//    return result;;
+    return result;;
 }
 #pragma mark Universal Link
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
@@ -118,18 +120,4 @@
     return YES;
 }
 
-/**
- *  @author gitKong
- *
- *  最老的版本，最好也写上
- */
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-//    if (!result) {
-        // 其他如支付等SDK的回调
-        return [[ZPayManager sharedManager] pay_handleUrl:url];
-//    }
-//    return result;
-    
-}
 @end
