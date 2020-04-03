@@ -8,10 +8,8 @@
 
 #import "ZTableViewViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationOrderRefuseVC : ZTableViewViewController
-
+@property (nonatomic,assign) BOOL isStudent;
 @end
 
-NS_ASSUME_NONNULL_END

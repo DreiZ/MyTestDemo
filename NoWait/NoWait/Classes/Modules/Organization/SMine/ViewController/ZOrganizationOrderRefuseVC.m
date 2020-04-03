@@ -7,13 +7,15 @@
 //
 
 #import "ZOrganizationOrderRefuseVC.h"
-
 #import "ZStudentMineOrderListCell.h"
 #import "ZOrganizationMineOrderDetailVC.h"
+#import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationOrderRefuseVC ()
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
+
 @implementation ZOrganizationOrderRefuseVC
 
 - (void)viewDidLoad {
@@ -21,43 +23,24 @@
     
     [self setNavigation];
     [self setTableViewGaryBack];
-    [self initCellConfigArr];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
+    
+    [self refreshData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-//    
-//    for (int i = 0; i < 15; i++) {
-//        ZStudentOrderListModel *model = [[ZStudentOrderListModel alloc] init];
-//        
-//        model.club = @"散打俱乐部";
-//        model.name = @"评判器的地方三房";
-//        model.price = @"140.00";
-//        model.tiTime = @"45";
-//        model.teacher = @"看到老师";
-//        model.fail = @"";
-//        model.image = @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcazaxshi9j30jg0tbwho.jpg";
-//        
-//        switch (i%2) {
-//            case 0:
-//               model.type = ZOrganizationOrderTypeForRefund;
-//               model.state = @"待退款";
-//               break;
-//           case 1:
-//               model.type = ZOrganizationOrderTypeForRefundComplete;
-//               model.state = @"退款已完成";
-//               break;
-//           
-//                
-//                  
-//            default:
-//                break;
-//        }
-//        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//        [self.cellConfigArr addObject:orderCellConfig];
-//    }
+    
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZOrderListModel *model = self.dataSources[i];
+        model.isStudent = YES;
+        model.isRefund = YES;
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:orderCellConfig];
+    }
 }
-
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
@@ -73,15 +56,29 @@
     }];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    self.param = @{}.mutableCopy;
+}
+
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-        ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-//        enteryCell.handleBlock = ^(NSInteger index, ZStudentOrderListModel *model) {
-//            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//            [self.navigationController pushViewController:evc animated:YES];
-//        };
-    }
+    __weak typeof(self) weakSelf = self;
+    ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
+            enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
+                if (index == ZLessonOrderHandleTypePay) {
+                    [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
+                        if (isSuccess) {
+                            [TLUIUtility showSuccessHint:data];
+                            [weakSelf refreshAllData];
+                        }else{
+                            [TLUIUtility showErrorHint:data];
+                        }
+                    }];
+                }
+    //            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+    //            [self.navigationController pushViewController:evc animated:YES];
+            };
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
@@ -90,6 +87,83 @@
         [self.navigationController pushViewController:evc animated:YES];
     }
 }
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%d",7] forKey:@"status"];
+    [self.param setObject:@"0" forKey:@"type"];
+}
+
 
 @end
 

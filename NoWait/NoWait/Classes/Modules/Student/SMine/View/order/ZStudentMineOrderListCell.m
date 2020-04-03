@@ -335,7 +335,7 @@
     if (!_failHintLabel) {
         _failHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _failHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _failHintLabel.text = @"失败原因:";
+        _failHintLabel.text = @"退款金额：";
         _failHintLabel.numberOfLines = 1;
         _failHintLabel.textAlignment = NSTextAlignmentLeft;
         [_failHintLabel setFont:[UIFont fontSmall]];
@@ -347,7 +347,7 @@
 - (UILabel *)failLabel {
     if (!_failLabel) {
         _failLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _failLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _failLabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
         _failLabel.text = @"";
         _failLabel.numberOfLines = 0;
         _failLabel.textAlignment = NSTextAlignmentLeft;
@@ -481,6 +481,7 @@
 #pragma mark - set model
 - (void)setModel:(ZOrderListModel *)model {
     _model = model;
+    
     if (model.isStudent) {
         _clubImageView.hidden = NO;
         self.clubLabel.text = model.stores_name;
@@ -510,7 +511,7 @@
         self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
     }
     
-//    self.failLabel.text = model.fail;
+    self.failLabel.text = SafeStr(model.refund_amount);
     self.statelabel.text = model.statusStr;
     
     self.bottomView.hidden = YES;
@@ -523,6 +524,7 @@
     self.receivedBtn.hidden = YES;
     self.refuseBtn.hidden = YES;
 
+    
     switch (model.order_type) {
         case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
@@ -583,7 +585,6 @@
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(116));
             }];
-            
         }
             break;
         case ZStudentOrderTypeOrderOutTime:
@@ -645,98 +646,86 @@
             }];
         }
             break;
-
-//        case ZOrganizationOrderTypeForRefund:
-//           {
-//               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-//
-//               [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                   make.left.bottom.right.equalTo(self.contView);
-//                   make.height.mas_equalTo(CGFloatIn750(136));
-//               }];
-//
-//               [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                   make.left.right.equalTo(self.contView);
-//                   make.top.equalTo(self.topView.mas_bottom);
-//                   make.bottom.equalTo(self.bottomView.mas_top);
-//               }];
-//
-//               self.bottomView.hidden = NO;
-//               self.refuseBtn.hidden = NO;
-//
-//               [self.refuseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                   make.centerY.equalTo(self.bottomView.mas_centerY);
-//                   make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-//                   make.height.mas_equalTo(CGFloatIn750(56));
-//                   make.width.mas_equalTo(CGFloatIn750(172));
-//               }];
-//           }
-//               break;
-//        case ZStudentOrderTypeOutTime:
-//        {
-//            self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
-//            self.detailLabel.text = @"";
-//
-//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.left.right.equalTo(self.contView);
-//                make.bottom.equalTo(self.contView.mas_bottom);
-//                make.height.mas_equalTo(CGFloatIn750(136));
-//            }];
-//
-//            NSString *fail = self.model.fail ? self.model.fail : @"";
-//            CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-//
-//            [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.left.right.equalTo(self.contView);
-//                make.bottom.equalTo(self.bottomView.mas_top);
-//                make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
-//            }];
-//
-//            [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.right.equalTo(self.leftImageView);
-//                make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
-//            }];
-//
-//
-//            [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
-//                make.top.equalTo(self.failHintLabel.mas_top);
-//                make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
-//            }];
-//
-//            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.left.right.equalTo(self.contView);
-//                make.top.equalTo(self.topView.mas_bottom);
-//                make.bottom.equalTo(self.failView.mas_top);
-//            }];
-//
-//
-//            self.bottomView.hidden = NO;
-//            self.failView.hidden = NO;
-//            self.payBtn.hidden = NO;
-//            self.cancleBtn.hidden = YES;
-//
-//            self.evaBtn.hidden = YES;
-//            self.delBtn.hidden = NO;
-//
-//            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerY.equalTo(self.bottomView.mas_centerY);
-//                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-//                make.height.mas_equalTo(CGFloatIn750(56));
-//                make.width.mas_equalTo(CGFloatIn750(116));
-//            }];
-//
-//            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerY.equalTo(self.bottomView.mas_centerY);
-//                make.right.equalTo(self.payBtn.mas_left).offset(CGFloatIn750(-20));
-//                make.height.mas_equalTo(CGFloatIn750(56));
-//                make.width.mas_equalTo(CGFloatIn750(182));
-//            }];
-//
-//            [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
-//        }
-//            break;
-//
+        case ZStudentOrderTypeForRefund:
+        case ZStudentOrderTypeRefundReceive:
+        case ZStudentOrderTypeRefunding:
+        case ZStudentOrderTypeForRefundComplete:
+        case ZOrganizationOrderTypeForRefund:
+        case ZOrganizationOrderTypeRefundReceive:
+        case ZOrganizationOrderTypeRefunding:
+        case ZOrganizationOrderTypeForRefundComplete:
+        {
+            if (model.isRefund) {
+                self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
+    
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.bottom.equalTo(self.contView.mas_bottom);
+                    make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+    
+                NSString *fail = self.model.refund_amount? self.model.refund_amount : @"";
+                CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+    
+                [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.bottom.equalTo(self.bottomView.mas_top);
+                    make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
+                }];
+    
+                [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.leftImageView);
+                    make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
+                }];
+    
+    
+                [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
+                    make.top.equalTo(self.failHintLabel.mas_top);
+                    make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
+                }];
+    
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.top.equalTo(self.topView.mas_bottom);
+                    make.bottom.equalTo(self.failView.mas_top);
+                }];
+    
+    
+                self.bottomView.hidden = NO;
+                self.failView.hidden = NO;
+                self.payBtn.hidden = NO;
+                self.cancleBtn.hidden = YES;
+    
+                self.evaBtn.hidden = YES;
+                self.delBtn.hidden = NO;
+    
+                [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+    
+                [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.payBtn.mas_left).offset(CGFloatIn750(-20));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(182));
+                }];
+    
+                [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
+            }else{
+                self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                 make.left.right.equalTo(self.contView);
+                 make.top.equalTo(self.topView.mas_bottom);
+                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+                }];
+            }
+        }
+            break;
         default:
             {
                 self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -746,7 +735,6 @@
                  make.top.equalTo(self.topView.mas_bottom);
                  make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
                 }];
-                
             }
         break;
     }
@@ -755,7 +743,24 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
-        if (listModel.order_type == ZStudentOrderTypeForPay
+        if (listModel.isRefund) {
+            if (listModel.order_type == ZStudentOrderTypeForRefund) {
+              NSString *fail = listModel.refund_amount ? listModel.refund_amount : @"";
+              CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+              return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
+          
+            }
+            if (listModel.order_type == ZStudentOrderTypeForRefund
+            ||  listModel.order_type == ZStudentOrderTypeRefundReceive
+            ||  listModel.order_type == ZStudentOrderTypeRefunding
+            ||  listModel.order_type == ZStudentOrderTypeForRefundComplete
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefund
+            ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
+            ||  listModel.order_type == ZOrganizationOrderTypeRefunding
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
+                
+            }
+        }else if (listModel.order_type == ZStudentOrderTypeForPay
             || listModel.order_type == ZStudentOrderTypeHadPay
             || listModel.order_type == ZStudentOrderTypeOutTime
             || listModel.order_type == ZStudentOrderTypeCancel
@@ -770,12 +775,6 @@
         } else{
             return CGFloatIn750(318);
         }
-        
-//        else if (listModel.order_type == ZStudentOrderTypeAll){
-//              NSString *fail = listModel.fail ? listModel.fail : @"";
-//              CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-//              return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
-//          }
     }
     return CGFloatIn750(0);
 }

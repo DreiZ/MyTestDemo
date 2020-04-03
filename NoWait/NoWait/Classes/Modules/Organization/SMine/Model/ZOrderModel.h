@@ -31,7 +31,13 @@
 @property (nonatomic,strong) NSString *status;//默认0 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,assign) BOOL isStudent;
+@property (nonatomic,assign) BOOL isRefund;
 @property (nonatomic,assign) ZStudentOrderType order_type;
+
+@property (nonatomic,strong) NSString *refund_desc;
+@property (nonatomic,strong) NSString *refund_status_msg;
+@property (nonatomic,strong) NSString *refund_amount;
+@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
 @end
 
 @interface ZOrderDetailModel : ZBaseModel
@@ -83,6 +89,7 @@
 @property (nonatomic,strong) NSString *experience_time;
 @property (nonatomic,strong) NSString *count_down;
 
+@property (nonatomic,strong) NSString *refund_desc;
 @property (nonatomic,strong) NSString *refund_status_msg;
 @property (nonatomic,strong) NSString *refund_amount;
 @property (nonatomic,strong) NSString *refund_status;//申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意

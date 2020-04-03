@@ -20,6 +20,7 @@
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
+#import "ZOrganizationOrderRefuseVC.h"
 
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationClassViewModel.h"
@@ -120,7 +121,8 @@
                 ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if ([scellConfig.title isEqualToString:@"refund"]) {
-                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
+                ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
+                lvc.isStudent = YES;
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if ([scellConfig.title isEqualToString:@"sign"]) {
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
