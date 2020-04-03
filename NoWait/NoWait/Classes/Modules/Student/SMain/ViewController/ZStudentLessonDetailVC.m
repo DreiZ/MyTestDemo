@@ -127,7 +127,7 @@
         _selectView.completeBlock = ^(ZOrderAddModel *listModel) {
             ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
             ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
-            detailModel.type = ZStudentOrderTypeForPay;
+            detailModel.order_type = ZStudentOrderTypeForPay;
             detailModel.course_id = weakSelf.addModel.lessonID;
             detailModel.teacher_name = listModel.teacher_name;
             detailModel.teacher_id = listModel.teacher_id;
@@ -209,7 +209,8 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroLabelCell"]){
         __weak typeof(self) weakSelf = self;
-        [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"lesson" stores_id:self.addModel.stores_id course_id:self.addModel.lessonID handlerBlock:^(ZOriganizationCardListModel * model) {
+        [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"lesson" stores_id:self.addModel.stores_id course_id:self.addModel.lessonID
+                              teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
             [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
                     [TLUIUtility showSuccessHint:data];

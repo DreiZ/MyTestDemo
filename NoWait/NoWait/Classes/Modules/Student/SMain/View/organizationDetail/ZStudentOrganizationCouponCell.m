@@ -187,8 +187,13 @@
 
 - (void)setModel:(ZOriganizationCardListModel *)model {
     _model = model;
-    _timeLabel.text = [NSString stringWithFormat:@"有效期：%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
-    _manLabel.text = [NSString stringWithFormat:@"满%@可用地方还是",model.limit];
+    if ([model.limit_end intValue] == 0) {
+        _timeLabel.text = [NSString stringWithFormat:@"有效期：%@",@"无时间限制"];
+    }else{
+        _timeLabel.text = [NSString stringWithFormat:@"有效期：%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
+    }
+    
+    _manLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
     _nameLabel.text = model.title;
     _priceLabel.text = model.amount;
     if (model.isUse) {

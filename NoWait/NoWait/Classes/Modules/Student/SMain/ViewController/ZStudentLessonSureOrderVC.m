@@ -39,6 +39,7 @@
 @property (nonatomic,strong) ZOriganizationCardListModel *cartModel;
 @property (nonatomic,strong) NSString *order_id;
 @property (nonatomic,assign) BOOL isAlipay;
+@property (nonatomic,assign) BOOL hadCard;
 @end
 
 @implementation ZStudentLessonSureOrderVC
@@ -54,7 +55,7 @@
     self.detailModel.type = @"1";
     [self initCellConfigArr];
     [self.iTableView reloadData];
-//    [self getUseCard];
+    [self getUseCard];
 }
 
 - (void)initCellConfigArr {
@@ -189,7 +190,7 @@
             [params setObject:weakSelf.detailModel.students_name forKey:@"real_name"];
             [params setObject:weakSelf.detailModel.account_phone forKey:@"phone"];
             if (self.cartModel) {
-//                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
+                [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
             }
             [TLUIUtility showLoading:@"获取支付信息"];
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
@@ -240,7 +241,7 @@
     }else if ([cellConfig.title isEqualToString:@"coupons"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *cellConfig) {
-            [ZCouponListView setAlertWithTitle:@"使用优惠券" type:@"use" stores_id:self.detailModel.stores_id course_id:self.detailModel.course_id handlerBlock:^(ZOriganizationCardListModel * model) {
+            [ZCouponListView setAlertWithTitle:@"使用优惠券" type:@"use" stores_id:self.detailModel.stores_id course_id:self.detailModel.course_id teacher_id:self.detailModel.teacher_id  handlerBlock:^(ZOriganizationCardListModel * model) {
                 weakSelf.cartModel = model;
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
@@ -300,13 +301,18 @@
 
 
 - (void)setCouponsCell {
-    if (!(self.cartModel)) {
+    if (!(self.hadCard)) {
         return;
     }
     NSMutableArray *configArr = @[].mutableCopy;
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = @"平台优惠";
-    model.rightTitle = [NSString stringWithFormat:@"￥%@",self.cartModel.amount];
+    if (self.cartModel) {
+        model.rightTitle = [NSString stringWithFormat:@"￥%@",self.cartModel.amount];
+    }else{
+        model.rightTitle = [NSString stringWithFormat:@"%@",@"不使用优惠券"];
+    }
+    
     model.rightImage = @"rightBlackArrowN";
     model.isHiddenLine = YES;
     model.lineLeftMargin = CGFloatIn750(30);
@@ -335,9 +341,11 @@
         self.detailModel.use_coupons = @"1";
     }
     if ([self.detailModel.use_coupons intValue] == 2) {
-        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.detailModel.coupons_amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.cartModel.amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%.2f",[self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue]]]];
+        self.priceLabel.text = [NSString stringWithFormat:@"待支付：￥%.2f",[self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue]];
     }else{
         tempArr =@[@[@"合计", SafeStr(self.detailModel.order_amount)],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
+        self.priceLabel.text = [NSString stringWithFormat:@"待支付：￥%@",self.detailModel.pay_amount];
     }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
@@ -423,10 +431,18 @@
 
 - (void)getUseCard {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getUseCardLessonList:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"course_id":SafeStr(self.detailModel.course_id)} completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:SafeStr(self.detailModel.stores_id) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.detailModel.course_id) forKey:@"course_id"];
+    [params setObject:SafeStr(self.detailModel.teacher_id) forKey:@"teacher_id"];
+    [params setObject:@"1" forKey:@"use_status"];
+    [ZOriganizationCardViewModel getUseCardLessonList:params completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
         if (isSuccess && data) {
             if (data.list && data.list.count > 0) {
                 weakSelf.cartModel = data.list[0];
+                weakSelf.hadCard = YES;
+            }else{
+                weakSelf.hadCard = NO;
             }
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

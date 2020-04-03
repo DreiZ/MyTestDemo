@@ -316,7 +316,7 @@
                 avc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }else if (index == 2){
-                [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
+                [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
                     [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
                         if (isSuccess) {
                             [TLUIUtility showSuccessHint:data];

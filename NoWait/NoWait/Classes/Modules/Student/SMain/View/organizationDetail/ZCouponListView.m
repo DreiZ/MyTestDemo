@@ -85,13 +85,20 @@ static ZCouponListView *sharedManager;
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(88));
-        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(70));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-safeAreaBottom());
+    }];
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.bottomBtn addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.bottomBtn);
+        make.height.mas_equalTo(0.5);
     }];
     
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contView);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(40));
-        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(50));
+        make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
     }];
     
     [self setTableViewRefreshFooter];
@@ -105,6 +112,11 @@ static ZCouponListView *sharedManager;
         [_bottomBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
+            if ([self.type isEqualToString:@"use"]) {
+                if (self.handleBlock) {
+                    self.handleBlock(nil);
+                }
+            }
             [self removeFromSuperview];
         }];
     }
@@ -223,7 +235,7 @@ static ZCouponListView *sharedManager;
     [_cellConfigArr removeAllObjects];
     
     for (ZOriganizationCardListModel *listModel in self.dataSources) {
-        if ([self.type isEqualToString:@"my"]) {
+        if ([self.type isEqualToString:@"use"]) {
             listModel.isUse = YES;
         }
         ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationCouponCell className] title:@"ZStudentOrganizationCouponCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationCouponCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:listModel];
@@ -234,6 +246,17 @@ static ZCouponListView *sharedManager;
 - (void)setAlertWithTitle:(NSString *)title handlerBlock:(void (^)(ZOriganizationCardListModel *))handleBlock {
     self.titleLabel.text = title;
     _handleBlock = handleBlock;
+    
+    if ([self.type isEqualToString:@"use"]) {
+        [_bottomBtn setTitle:@"不使用优惠券" forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]) forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])  forState:UIControlStateNormal];
+    }else{
+        [_bottomBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+    }
+    
     [self refreshData];
     
     self.alpha = 0;
@@ -247,15 +270,20 @@ static ZCouponListView *sharedManager;
 
 
 
-+ (void)setAlertWithTitle:(NSString *)title type:(NSString *)type stores_id:(NSString *)stores_id course_id:(NSString *)course_id handlerBlock:(void (^)(ZOriganizationCardListModel * _Nonnull))handleBlock {
++ (void)setAlertWithTitle:(NSString *)title type:(NSString *)type stores_id:(NSString *)stores_id course_id:(NSString *)course_id teacher_id:(NSString *)teacher_id handlerBlock:(void (^)(ZOriganizationCardListModel * _Nonnull))handleBlock {
     [[ZCouponListView sharedManager].param removeAllObjects];
     [[ZCouponListView sharedManager].dataSources removeAllObjects];
     [[ZCouponListView sharedManager].cellConfigArr removeAllObjects];
     
     if (ValidStr(stores_id)) {
         [[ZCouponListView sharedManager].param setObject:SafeStr(stores_id) forKey:@"stores_id"];
-    }else if (ValidStr(course_id)) {
+    }
+    if (ValidStr(course_id)) {
         [[ZCouponListView sharedManager].param setObject:SafeStr(course_id) forKey:@"course_id"];
+    }
+    if (ValidStr(teacher_id)) {
+        [[ZCouponListView sharedManager].param setObject:SafeStr(teacher_id) forKey:@"teacher_id"];
+        [[ZCouponListView sharedManager].param setObject:@"1" forKey:@"use_status"];
     }
     [ZCouponListView sharedManager].type = type;
     [[ZCouponListView sharedManager] setAlertWithTitle:title  handlerBlock:handleBlock];
