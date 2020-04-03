@@ -71,7 +71,8 @@
                 model.data = self.viewModel.model.images[j];
                 model.uid = [NSString stringWithFormat:@"%d", j];
             }
-            model.name = @"选填";
+            model.name = @"添加图片";
+            model.subName = @"选填";
         //            model.imageName = tempArr[j][1];
         //            model.uid = tempArr[j][2];
             [menulist addObject:model];
@@ -101,11 +102,15 @@
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
-    NSArray *titleArr = @[@[@"手机号",self.viewModel.model.phone,@"phone"],@[@"联系人",self.viewModel.model.name,@"name"]];
+    NSArray *titleArr = @[@[@"手机号",self.viewModel.model.phone,@"phone",@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],@[@"联系人",self.viewModel.model.name,@"name",@20,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     for (int i = 0; i < titleArr.count; i++) {
         ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
         model.leftTitle = titleArr[i][0];
         model.content = titleArr[i][1];
+        model.max = [titleArr[i][3] intValue];
+        model.cellTitle = titleArr[i][2];
+        model.formatterType = [titleArr[i][4] intValue];
+        model.placeholder = @"选填";
         model.leftFont = [UIFont fontContent];
         model.leftContentWidth = CGFloatIn750(126);
         model.isHiddenInputLine = YES;
@@ -148,39 +153,43 @@
             make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(100));
         }];
         
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
-//            if (weakSelf.iTextView.text && weakSelf.iTextView.text.length > 0) {
-//                if (weakSelf.iTextView.text.length < 5) {
-//                    [TLUIUtility showErrorHint:@"意见太少了，不能少有5个字符"];
-//                    return ;
-//                }
-////                [TLUIUtility showLoading:nil];
-////                [ZMIneViewModel saveProposalContentWith:weakSelf.iTextView.text completeBlock:^(BOOL isSuccess, NSString *message) {
-////                    [TLUIUtility hiddenLoading];
-////                    if (isSuccess) {
-////                        [TLUIUtility showSuccessHint:message];
-////
-////                        [weakSelf.navigationController popViewControllerAnimated:YES];
-////                    }else{
-////                        [TLUIUtility showErrorHint:message];
-////                    }
-////                }];
-//            }else{
-//                [TLUIUtility showErrorHint:@"意见不能为空"];
-//            }
-            
+            NSMutableDictionary *params = @{}.mutableCopy;
+            if (ValidStr(weakSelf.viewModel.model.des)) {
+                [params setObject:SafeStr(weakSelf.viewModel.model.des) forKey:@"desc_comment"];
+            }else{
+                [TLUIUtility showErrorHint:@"请输入反馈内容"];
+                return ;
+            }
+            if (ValidStr(weakSelf.viewModel.model.phone)) {
+                [params setObject:SafeStr(weakSelf.viewModel.model.phone) forKey:@"phone"];
+            }
+            if (ValidStr(weakSelf.viewModel.model.name)) {
+                [params setObject:SafeStr(weakSelf.viewModel.model.name) forKey:@"name"];
+            }
+            //1：学员 2：教师 6：校区 8：机构
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                [params setObject:@"1" forKey:@"type"];
+            }
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
+                [params setObject:@"2" forKey:@"type"];
+            }
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
+                [params setObject:@"3" forKey:@"type"];
+            }
+            [weakSelf updatePhotosStep1WithOtherParams:params];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _footerView;
 }
 
-#pragma mark tableView ------delegate-----
+#pragma mark - tableView ------delegate-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     
-    if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
+    if ([cellConfig.title isEqualToString:@"ZBaseTextViewCell"]){
         ZBaseTextViewCell *lcell = (ZBaseTextViewCell *)cell;
         lcell.valueBlock = ^(NSString *text) {
             weakSelf.viewModel.model.des = text;
@@ -188,6 +197,7 @@
     }else if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddPhotosCell"]){
         ZOrganizationLessonAddPhotosCell *lcell = (ZOrganizationLessonAddPhotosCell *)cell;
         lcell.menuBlock = ^(NSInteger index, BOOL isAdd) {
+            [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
                 [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 2/3.0 * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
                     if (list && list.count > 0) {
@@ -230,4 +240,100 @@
      
 }
 
+
+#pragma mark - 提交数据Z
+- (NSInteger)checkIsHavePhotos {
+    NSInteger index = 0;
+    for (int i = 0; i < self.viewModel.model.images.count; i++) {
+        id temp = self.viewModel.model.images[i];
+        if ([temp isKindOfClass:[UIImage class]]) {
+            index++;
+        }else if ([temp isKindOfClass:[NSString class]]){
+            NSString *tempStr = temp;
+            if (tempStr.length > 0) {
+                index++;
+            }
+        }
+    }
+    return index;
+}
+
+- (void)updatePhotosStep1WithOtherParams:(NSMutableDictionary *)otherDict {
+    if ([self checkIsHavePhotos] > 0) {
+        [TLUIUtility showLoading:@"上传图片中"];
+        NSInteger tindex = 0;
+        [self updatePhotosStep2WithImage:tindex otherParams:otherDict];
+    }else{
+        [self updateOtherDataWithParams:otherDict];
+    }
+}
+
+ - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
+         if (index == self.viewModel.model.images.count-1) {
+             [self updateOtherDataWithParams:otherDict];
+         }else{
+             index++;
+             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+         }
+    }];
+}
+
+- (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传图片中 %ld/%ld",index+1,self.viewModel.model.images.count]];
+    
+    id temp = self.viewModel.model.images[index];
+    UIImage *image;
+    if ([temp isKindOfClass:[UIImage class]]) {
+        image = temp;
+    }else if ([temp isKindOfClass:[NSString class]]){
+        complete(YES,index);
+        return;
+    }else{
+        complete(YES,index);
+        return;
+    }
+    if (!image) {
+        complete(YES,index);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [ZFeedBackViewModel uploadImageList:@{@"type":@"8",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            [weakSelf.viewModel.model.images replaceObjectAtIndex:index withObject:message];
+            complete(YES,index);
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+
+- (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
+    if ([self checkIsHavePhotos] > 0) {
+        NSMutableArray *photos = @[].mutableCopy;
+        for (int i = 0; i < self.viewModel.model.images.count; i++) {
+            NSString *temp = self.viewModel.model.images[i];
+            if (ValidStr(temp)) {
+                [photos addObject:temp];
+            }
+        }
+        if (photos.count > 0) {
+            [otherDict setObject:photos forKey:@"images"];
+        }
+        
+    }
+    [TLUIUtility showLoading:@"上传其他数据"];
+    [ZFeedBackViewModel addFeedback:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
 @end

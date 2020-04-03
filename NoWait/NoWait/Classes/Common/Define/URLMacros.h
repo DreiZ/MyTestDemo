@@ -198,6 +198,9 @@
 
 #define URL_account_v1_get_account_list                       @"account/v1/get_account_list"
 
+//意见反馈
+#define URL_account_v1_add_feedback                       @"account/v1/add_feedback"
+
 #pragma mark ---------------------上传图片----URL_file---------------------------------
 #define URL_file_v1_upload                           @"file/v1/upload"
 

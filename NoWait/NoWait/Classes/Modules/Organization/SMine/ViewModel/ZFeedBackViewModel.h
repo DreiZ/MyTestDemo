@@ -13,6 +13,7 @@
 @interface ZFeedBackViewModel : ZBaseViewModel
 @property (nonatomic,strong) ZMineFeedBackModel *model;
 
++ (void)addFeedback:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 @end
 
 
