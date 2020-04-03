@@ -744,17 +744,20 @@
     if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
         if (listModel.isRefund) {
-            if (listModel.order_type == ZStudentOrderTypeForRefund) {
-              NSString *fail = listModel.refund_amount ? listModel.refund_amount : @"";
-              CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-              return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
-          
-            }
             if (listModel.order_type == ZStudentOrderTypeForRefund
             ||  listModel.order_type == ZStudentOrderTypeRefundReceive
             ||  listModel.order_type == ZStudentOrderTypeRefunding
-            ||  listModel.order_type == ZStudentOrderTypeForRefundComplete
-            ||  listModel.order_type == ZOrganizationOrderTypeForRefund
+            ||  listModel.order_type == ZStudentOrderTypeForRefundComplete) {
+                NSString *fail = listModel.refund_amount ? listModel.refund_amount : @"";
+                CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+                
+                if ([listModel.refund_status intValue] == 2) {
+                    return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
+                }else{
+                    return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
+                }
+            }
+            if (listModel.order_type == ZOrganizationOrderTypeForRefund
             ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
             ||  listModel.order_type == ZOrganizationOrderTypeRefunding
             ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
