@@ -123,7 +123,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -151,7 +151,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -192,11 +192,13 @@
             break;
         case ZStudentOrderTypeForPay:
             //@"待支付";
-            [_param setObject:@"1" forKey:@"status"];
+            [_param setObject:@"7" forKey:@"status"];
+//            [_param setObject:@"1" forKey:@"status"];
             break;
         case ZStudentOrderTypeHadPay:
             //预约待支付
-            [_param setObject:@"2" forKey:@"status"];
+            [_param setObject:@"8" forKey:@"status"];
+//            [_param setObject:@"2" forKey:@"status"];
             break;
         case ZStudentOrderTypeHadEva:
             //已完成

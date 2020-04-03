@@ -646,7 +646,7 @@
         }
             break;
 
-//        case ZOrganizationOrderTypeForRefuse:
+//        case ZOrganizationOrderTypeForRefund:
 //           {
 //               self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
 //

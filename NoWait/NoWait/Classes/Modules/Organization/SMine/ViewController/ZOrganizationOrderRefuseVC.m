@@ -40,11 +40,11 @@
 //        
 //        switch (i%2) {
 //            case 0:
-//               model.type = ZOrganizationOrderTypeForRefuse;
+//               model.type = ZOrganizationOrderTypeForRefund;
 //               model.state = @"待退款";
 //               break;
 //           case 1:
-//               model.type = ZOrganizationOrderTypeForRefuseComplete;
+//               model.type = ZOrganizationOrderTypeForRefundComplete;
 //               model.state = @"退款已完成";
 //               break;
 //           

@@ -285,7 +285,8 @@
         ZOrderDetailModel *model = data;
         [params setObject:model.order_id forKey:@"order_id"];
         [params setObject:model.stores_id forKey:@"stores_id"];
-        
+    }else if ([data isKindOfClass:[NSDictionary class]]){
+        params = data;
     }
     switch (index) {
         case 0://支付

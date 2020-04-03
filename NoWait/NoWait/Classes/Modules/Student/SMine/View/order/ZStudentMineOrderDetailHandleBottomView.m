@@ -297,18 +297,22 @@
         }];
         
         if (model.order_type == ZStudentOrderTypeOrderForReceived
-            || model.order_type == ZStudentOrderTypeForRefuseComplete
+            || model.order_type == ZStudentOrderTypeForRefundComplete
             || model.order_type == ZStudentOrderTypeHadEva
             || model.order_type == ZStudentOrderTypeOrderRefuse
-            || model.order_type == ZStudentOrderTypeOrderComplete) {
+            || model.order_type == ZStudentOrderTypeOrderComplete
+            || model.order_type == ZStudentOrderTypeForRefund//退款
+            || model.order_type == ZStudentOrderTypeRefundReceive//退款
+            || model.order_type == ZStudentOrderTypeRefunding//退款中
+            || model.order_type == ZStudentOrderTypeForRefundComplete) {
             [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.right.left.equalTo(self.bottomView);
                 make.height.mas_equalTo(CGFloatIn750(88));
             }];
             
-        }else if(model.order_type == ZStudentOrderTypeForRefuse
-                 || model.order_type == ZStudentOrderTypeRefuseReceive
-                 || model.order_type == ZStudentOrderTypeRefuseing) {
+        }else if(model.order_type == ZStudentOrderTypeForRefund
+                 || model.order_type == ZStudentOrderTypeRefundReceive
+                 || model.order_type == ZStudentOrderTypeRefunding) {
             
             [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));

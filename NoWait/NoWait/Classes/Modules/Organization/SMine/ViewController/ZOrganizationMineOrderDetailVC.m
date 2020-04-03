@@ -148,41 +148,26 @@
             }
             break;
             
-         case ZStudentOrderTypeForRefuse://退款（去支付，取消）
+        case ZStudentOrderTypeForRefund://退款
+        case ZStudentOrderTypeRefundReceive://退款
+        case ZStudentOrderTypeRefunding://退款中
+        case ZStudentOrderTypeForRefundComplete://退款
+        case ZOrganizationOrderTypeForRefund://退款
+        case ZOrganizationOrderTypeRefundReceive://退款中
+        case ZOrganizationOrderTypeRefunding://退款中
+        case ZOrganizationOrderTypeForRefundComplete://退款
             {
-                [self setTopStateCell];
                 [self setOrderDetailCell];
                 [self setUserCell];
                 [self setOrderPriceCell];
-                [self setPayTypeCell];
-                [self setTipsCell];
+                [self setPayDetailCell];
             }
             break;
-        case ZOrganizationOrderTypeForRefuse://退款（去支付，取消）
-           {
-               [self setTableViewWhiteBack];
-               [self setRefuseCell];
-           }
-           break;
-        case ZStudentOrderTypeForRefuseComplete://退款（去支付，取消）
-            {
-                [self setTopStateCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayTypeCell];
-                [self setTipsCell];
-            }
-            break;
-        case ZOrganizationOrderTypeForRefuseComplete://退款（去支付，取消）
-           {
-               [self setTableViewWhiteBack];
-               [self setRefuseCell];
-           }
-           break;
         default:
             break;
     }
+//    [self setTableViewWhiteBack];
+//    [self setRefuseCell];
     [self updateBottom];
 }
 
@@ -256,7 +241,15 @@
             || self.detailModel.order_type == ZStudentOrderTypeOrderComplete
             || self.detailModel.order_type == ZStudentOrderTypeCancel
             || self.detailModel.order_type == ZStudentOrderTypeOrderForReceived
-            || self.detailModel.order_type == ZStudentOrderTypeOrderRefuse) {
+            || self.detailModel.order_type == ZStudentOrderTypeOrderRefuse
+            || self.detailModel.order_type == ZStudentOrderTypeForRefund//退款
+            || self.detailModel.order_type == ZStudentOrderTypeRefundReceive//退款
+            || self.detailModel.order_type == ZStudentOrderTypeRefunding//退款中
+            || self.detailModel.order_type == ZStudentOrderTypeForRefundComplete//退款
+            || self.detailModel.order_type == ZOrganizationOrderTypeForRefund//退款
+            || self.detailModel.order_type == ZOrganizationOrderTypeRefundReceive//退款中
+            || self.detailModel.order_type == ZOrganizationOrderTypeRefunding//退款中
+            || self.detailModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {

@@ -50,16 +50,16 @@
                 }
                 break;
             case 7:
-                return ZStudentOrderTypeForRefuse;//待退款
+                return ZStudentOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZStudentOrderTypeRefuseReceive;//确认退款
+                return ZStudentOrderTypeRefundReceive;//确认退款
                 break;
             case 9:
-                return ZStudentOrderTypeRefuseing;//退款中
+                return ZStudentOrderTypeRefunding;//退款中
                 break;
             case 10:
-                return ZStudentOrderTypeForRefuseComplete;//完成退款
+                return ZStudentOrderTypeForRefundComplete;//完成退款
                 break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
@@ -107,16 +107,16 @@
                 }
                 break;
             case 7:
-                return ZOrganizationOrderTypeForRefuse;//待退款
+                return ZOrganizationOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZOrganizationOrderTypeRefuseReceive;//确认退款
+                return ZOrganizationOrderTypeRefundReceive;//确认退款
                 break;
             case 9:
-                return ZOrganizationOrderTypeRefuseing;//退款中
+                return ZOrganizationOrderTypeRefunding;//退款中
                 break;
             case 10:
-                return ZOrganizationOrderTypeForRefuseComplete;//完成退款
+                return ZOrganizationOrderTypeForRefundComplete;//完成退款
                 break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)
@@ -172,16 +172,16 @@
                 }
                 break;
             case 7:
-                return ZStudentOrderTypeForRefuse;//待退款
+                return ZStudentOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZStudentOrderTypeRefuseReceive;//确认退款
+                return ZStudentOrderTypeRefundReceive;//确认退款
                 break;
             case 9:
-                return ZStudentOrderTypeRefuseing;//退款中
+                return ZStudentOrderTypeRefunding;//退款中
                 break;
             case 10:
-                return ZStudentOrderTypeForRefuseComplete;//完成退款
+                return ZStudentOrderTypeForRefundComplete;//完成退款
                 break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
@@ -229,16 +229,16 @@
                 }
                 break;
             case 7:
-                return ZOrganizationOrderTypeForRefuse;//待退款
+                return ZOrganizationOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZOrganizationOrderTypeRefuseReceive;//确认退款
+                return ZOrganizationOrderTypeRefundReceive;//确认退款
                 break;
             case 9:
-                return ZOrganizationOrderTypeRefuseing;//退款中
+                return ZOrganizationOrderTypeRefunding;//退款中
                 break;
             case 10:
-                return ZOrganizationOrderTypeForRefuseComplete;//完成退款
+                return ZOrganizationOrderTypeForRefundComplete;//完成退款
                 break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)

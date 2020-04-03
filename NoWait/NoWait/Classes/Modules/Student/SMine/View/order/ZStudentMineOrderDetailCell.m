@@ -398,6 +398,7 @@
     self.orderNameLabel.text = model.course_name;
     self.clubLabel.text = model.store_name;
     self.bottomView.hidden = YES;
+    self.delBtn.enabled = NO;
  
     switch (self.model.order_type) {
         case ZOrganizationOrderTypeForPay:
@@ -429,13 +430,25 @@
             break;
         case ZOrganizationOrderTypeHadPay:
             {
+                self.delBtn.enabled = YES;
+                [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
                 [self setDetailDes];
                 [self setSubDetail];
                 [self setDetailSubViewBottom];
             }
             break;
+            
+        case ZStudentOrderTypeForRefund:
+        case ZStudentOrderTypeRefundReceive:
+        case ZStudentOrderTypeRefunding:
+        case ZStudentOrderTypeForRefundComplete:
+        case ZOrganizationOrderTypeForRefund:
+        case ZOrganizationOrderTypeRefundReceive:
+        case ZOrganizationOrderTypeRefunding:
+        case ZOrganizationOrderTypeForRefundComplete:
         case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
             {
+                [_delBtn setTitle:model.refund_status_msg forState:UIControlStateNormal];
                 [self setDetailDes];
                 [self setSubDetail];
                 [self setDetailBottomViewBottom];
@@ -448,10 +461,6 @@
                 [self setDetailSubViewBottom];
             }
             break;
-        case ZStudentOrderTypeForRefuse:
-        case ZStudentOrderTypeForRefuseComplete:
-        case ZOrganizationOrderTypeForRefuse:
-        case ZOrganizationOrderTypeForRefuseComplete:
         case ZStudentOrderTypeHadEva://完成已评价(删除)
             {
                 [self setDetailDes];
@@ -636,15 +645,15 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderDetailModel class]]) {
         ZOrderDetailModel *listModel = (ZOrderDetailModel *)sender;
-        if (listModel.order_type == ZStudentOrderTypeForRefuse
-            ||  listModel.order_type == ZStudentOrderTypeRefuseReceive
-            ||  listModel.order_type == ZStudentOrderTypeRefuseing
-            ||  listModel.order_type == ZStudentOrderTypeForRefuseComplete
-            ||  listModel.order_type == ZOrganizationOrderTypeForRefuse
-            ||  listModel.order_type == ZOrganizationOrderTypeRefuseReceive
-            ||  listModel.order_type == ZOrganizationOrderTypeRefuseing
-            ||  listModel.order_type == ZOrganizationOrderTypeForRefuseComplete) {
-            return CGFloatIn750(328);
+        if (listModel.order_type == ZStudentOrderTypeForRefund
+            ||  listModel.order_type == ZStudentOrderTypeRefundReceive
+            ||  listModel.order_type == ZStudentOrderTypeRefunding
+            ||  listModel.order_type == ZStudentOrderTypeForRefundComplete
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefund
+            ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
+            ||  listModel.order_type == ZOrganizationOrderTypeRefunding
+            ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
+            return CGFloatIn750(328 + 56 * 3 + 28);
         }
         switch (listModel.order_type) {
             case ZOrganizationOrderTypeForPay:
