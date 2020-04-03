@@ -82,6 +82,8 @@
 @property (nonatomic,strong) NSString *experience_duration;
 @property (nonatomic,strong) NSString *experience_time;
 @property (nonatomic,strong) NSString *count_down;
+@property (nonatomic,strong) NSString *ali;
+@property (nonatomic,strong) NSString *refund_amount;
 
 @end
 

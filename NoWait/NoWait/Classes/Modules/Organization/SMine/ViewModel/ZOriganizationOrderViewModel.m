@@ -256,6 +256,25 @@
 }
 
 
++ (void)refundOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
+
 + (void)handleOrderWithIndex:(NSInteger)index data:(id)data completeBlock:(resultDataBlock)completeBlock {
     NSMutableDictionary *params = @{}.mutableCopy;
     if ([data isKindOfClass:[ZOrderListModel class]]) {
@@ -289,9 +308,9 @@
             
         }
             break;
-        case 4://同意退款
+        case 4://申请退款
         {
-            
+            [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
         }
             break;
         case 5://接受预约

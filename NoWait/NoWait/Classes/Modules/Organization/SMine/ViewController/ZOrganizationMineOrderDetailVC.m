@@ -23,6 +23,7 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
+#import "ZStudentOrderRefundHandleVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -46,7 +47,7 @@
     if (!self.detailModel) {
         return;
     }
-    self.detailModel.isStudent = YES;
+    self.detailModel.isStudent = self.model.isStudent;
     switch (self.detailModel.order_type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
             ;
@@ -347,11 +348,23 @@
 
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
         ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
         lcell.titleLabel.font = [UIFont fontContent];
         lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineOrderDetailCell"]){
+        ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
+        lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {
+            if (index == 2) {
+                ZStudentOrderRefundHandleVC *handlevc = [[ZStudentOrderRefundHandleVC alloc] init];
+                handlevc.detailModel = weakSelf.detailModel;
+                [weakSelf.navigationController pushViewController:handlevc animated:YES];
+            }else if (index == 5){
+                
+            }
+        };
     }
 }
 

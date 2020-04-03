@@ -380,9 +380,9 @@
 #define URL_order_v1_order_list                     @"order/v1/order_list"
 //删除订单
 #define URL_order_v1_del_order                      @"order/v1/del_order"
-//申请退款
-#define URL_order_v1_refund_confirm                 @"order/v1/refund_confirm"
 //退款确定
+#define URL_order_v1_refund_confirm                 @"order/v1/refund_confirm"
+//退款
 #define URL_order_v1_refund_order                   @"order/v1/refund_order"
 //退款查询
 #define URL_order_v1_refund_query                   @"order/v1/refund_query"
