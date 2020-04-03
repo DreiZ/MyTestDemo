@@ -7,12 +7,12 @@
 //
 
 #import "ZStudentMineSignDetailVC.h"
-#import "ZCellConfig.h"
 #import "ZAlertQRCodeView.h"
-#import "ZSpaceEmptyCell.h"
 #import "ZStudentMineSignDetailHandleCell.h"
-
+#import "ZSignViewModel.h"
+#import "ZSignModel.h"
 @interface ZStudentMineSignDetailVC ()
+@property (nonatomic,strong) ZSignInfoModel *detailModel;
 
 @end
 @implementation ZStudentMineSignDetailVC
@@ -22,8 +22,8 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+    [self refreshData];
 }
-
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -85,9 +85,7 @@
            [self.cellConfigArr addObject:menuCellConfig];
        }
        {
-           ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(10)cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-           
-           [self.cellConfigArr addObject:topCellConfig];
+           [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
            
            NSArray *tempArr = @[@[@"已签课", @"2节"],@[@"补签", @"2节"],@[@"请假", @"2节"],@[@"旷课", @"2节"],@[@"待签课", @"2节"]];
            for (int i = 0; i < tempArr.count; i++) {
@@ -104,15 +102,14 @@
                [self.cellConfigArr addObject:menuCellConfig];
            }
            
-           ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:@"top" showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-           [self.cellConfigArr addObject:bottomCellConfig];
+           [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
        }
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"课程详情"];
+    [self.navigationItem setTitle:@"签课详情"];
 }
 
 - (void)setupMainView {
@@ -136,4 +133,24 @@
     }
 }
 
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *params = @{}.mutableCopy;
+    if (ValidStr(self.courses_class_id)) {
+        [params setObject:SafeStr(self.courses_class_id) forKey:@"courses_class_id"];
+    }
+    if (ValidStr(self.stores_id)) {
+        [params setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
+    }
+    if (ValidStr(self.student_id)) {
+        [params setObject:SafeStr(self.student_id) forKey:@"student_id"];
+    }
+    [ZSignViewModel getSignDetail:params completeBlock:^(BOOL isSuccess, ZSignInfoModel *addModel) {
+        if (isSuccess) {
+            weakSelf.detailModel = addModel;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
 @end

@@ -24,7 +24,11 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    
     [self refreshData];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)initCellConfigArr {
@@ -57,9 +61,10 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
         ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger type) {
+        enteryCell.handleBlock = ^(ZOriganizationClassListModel *model) {
             ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-            
+//            dvc.student_id = model.student_id;
+            dvc.courses_class_id = model.courses_class_id;
             [self.navigationController pushViewController:dvc animated:YES];
         };
     }

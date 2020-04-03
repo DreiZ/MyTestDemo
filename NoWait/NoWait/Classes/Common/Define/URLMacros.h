@@ -420,12 +420,34 @@
 #define URL_account_v1_reply_commen                   @"account/v1/reply_comment"
 
 
-
 #pragma mark - 首页门店
 #define URL_merchants_v1_index                        @"merchants/v1/index"
 
 #define URL_merchants_v1_get_ad_list                  @"merchants/v1/get_ad_list"
 
 #define URL_merchants_v1_stores_deteail_info          @"merchants/v1/stores_deteail_info"
+
+
+
+#pragma mark - 签课
+//教师签课
+#define URL_account_v1_add_class_sign                  @"account/v1/add_class_sign"
+//学员签到
+#define URL_account_v1_add_student_sign                @"account/v1/add_student_sign"
+//签到详情
+#define URL_account_v1_get_sign_info                   @"account/v1/get_sign_info"
+//班级签到详情
+#define URL_account_v1_get_class_num_sign_info         @"account/v1/get_class_num_sign_info"
+//教师帮忙签课
+#define URL_account_v1_add_sign_by_teacher             @"account/v1/add_sign_by_teacher"
+//获取签到二维码
+#define URL_account_v1_get_sign_qrcode                 @"account/v1/get_sign_qrcode"
+
+//签到二维码
+#define URL_account_v1_get_sign_qrcode                 @"account/v1/get_sign_qrcode"
+//签到二维码
+#define URL_account_v1_get_add_student_qrcode          @"account/v1/get_add_student_qrcode"
+
+
 
 #endif /* URLMacros_h */

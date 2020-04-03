@@ -23,6 +23,8 @@
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
+		B21887B22436D95700EB7155 /* ZSignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B12436D95700EB7155 /* ZSignModel.m */; };
+		B21887B62436D9F300EB7155 /* ZSignViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B52436D9F300EB7155 /* ZSignViewModel.m */; };
 		B2196AFB23E7D7880013F2A1 /* DarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2196AF923E7D7880013F2A1 /* DarkModel.m */; };
 		B21A0EE82409F18200133213 /* ZMineSwitchRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B21A0EE72409F18200133213 /* ZMineSwitchRoleVC.m */; };
 		B21A0EEB240A0C7400133213 /* ZAlertQRCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B21A0EEA240A0C7400133213 /* ZAlertQRCodeView.m */; };
@@ -643,6 +645,10 @@
 		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
 		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
 		B215844023CD6544007618CE /* MGWaterDorpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGWaterDorpView.h; sourceTree = "<group>"; };
+		B21887B02436D95700EB7155 /* ZSignModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSignModel.h; sourceTree = "<group>"; };
+		B21887B12436D95700EB7155 /* ZSignModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSignModel.m; sourceTree = "<group>"; };
+		B21887B42436D9F300EB7155 /* ZSignViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSignViewModel.h; sourceTree = "<group>"; };
+		B21887B52436D9F300EB7155 /* ZSignViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSignViewModel.m; sourceTree = "<group>"; };
 		B2196AF923E7D7880013F2A1 /* DarkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DarkModel.m; sourceTree = "<group>"; };
 		B2196AFA23E7D7880013F2A1 /* DarkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkModel.h; sourceTree = "<group>"; };
 		B21A0EE62409F18200133213 /* ZMineSwitchRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineSwitchRoleVC.h; sourceTree = "<group>"; };
@@ -1820,6 +1826,15 @@
 				B215843F23CD6544007618CE /* UIColor+MGHexColor.m */,
 			);
 			path = MGWaterDorpView;
+			sourceTree = "<group>";
+		};
+		B21887B32436D9D700EB7155 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B21887B42436D9F300EB7155 /* ZSignViewModel.h */,
+				B21887B52436D9F300EB7155 /* ZSignViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B2196AF823E7D7880013F2A1 /* DarkModel */ = {
@@ -3358,6 +3373,7 @@
 		B2A780D023BED42A00407BF0 /* SMine */ = {
 			isa = PBXGroup;
 			children = (
+				B21887B32436D9D700EB7155 /* ViewModel */,
 				B2A7810223C0738100407BF0 /* Model */,
 				B2A780FB23C0343C00407BF0 /* View */,
 				B2A780D123BED43800407BF0 /* ViewController */,
@@ -3625,6 +3641,8 @@
 			children = (
 				B2A7810323C073B200407BF0 /* ZStudentMineModel.h */,
 				B2A7810423C073B200407BF0 /* ZStudentMineModel.m */,
+				B21887B02436D95700EB7155 /* ZSignModel.h */,
+				B21887B12436D95700EB7155 /* ZSignModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4185,6 +4203,7 @@
 				B2FCA17F2413762800D2D6A2 /* ZStudentClassificationListVC.m in Sources */,
 				B2296A922408F47E00E299AC /* ZStudentMineSettingSwitchUserCell.m in Sources */,
 				B2A77F3123BDE37A00407BF0 /* NSString+LLExtension.m in Sources */,
+				B21887B22436D95700EB7155 /* ZSignModel.m in Sources */,
 				B20C47FE23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m in Sources */,
 				B25146D123CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m in Sources */,
 				B2A77F2B23BDE37A00407BF0 /* LLImagePickerCell.m in Sources */,
@@ -4586,6 +4605,7 @@
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,
 				B223BCC823C6FB9B00AC0158 /* ZStudentLesssonDetailImageCell.m in Sources */,
 				B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */,
+				B21887B62436D9F300EB7155 /* ZSignViewModel.m in Sources */,
 				B234D09D23CC433400210CD8 /* ZStudentStarStudentInfoVC.m in Sources */,
 				B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */,
 				B252ED952416397300190804 /* ZOrganizationCouponListView.m in Sources */,
