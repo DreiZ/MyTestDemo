@@ -53,10 +53,10 @@
                 return ZStudentOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZStudentOrderTypeRefundReceive;//确认退款
+                return ZStudentOrderTypeForRefund;//确认退款
                 break;
             case 9:
-                return ZStudentOrderTypeRefunding;//退款中
+                return ZStudentOrderTypeForRefund;//退款中
                 break;
             case 10:
                 return ZStudentOrderTypeForRefundComplete;//完成退款
@@ -69,6 +69,9 @@
                 break;
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
+                break;
+            case 15:
+                return ZStudentOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -110,10 +113,10 @@
                 return ZOrganizationOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZOrganizationOrderTypeRefundReceive;//确认退款
+                return ZOrganizationOrderTypeForRefund;//确认退款
                 break;
             case 9:
-                return ZOrganizationOrderTypeRefunding;//退款中
+                return ZOrganizationOrderTypeForRefund;//退款中
                 break;
             case 10:
                 return ZOrganizationOrderTypeForRefundComplete;//完成退款
@@ -126,6 +129,9 @@
                 break;
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
+                break;
+            case 15:
+                return ZOrganizationOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -175,10 +181,10 @@
                 return ZStudentOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZStudentOrderTypeRefundReceive;//确认退款
+                return ZStudentOrderTypeForRefund;//确认退款
                 break;
             case 9:
-                return ZStudentOrderTypeRefunding;//退款中
+                return ZStudentOrderTypeForRefund;//退款中
                 break;
             case 10:
                 return ZStudentOrderTypeForRefundComplete;//完成退款
@@ -191,6 +197,9 @@
                 break;
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
+                break;
+            case 15:
+                return ZStudentOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -232,10 +241,10 @@
                 return ZOrganizationOrderTypeForRefund;//待退款
                 break;
             case 8:
-                return ZOrganizationOrderTypeRefundReceive;//确认退款
+                return ZOrganizationOrderTypeForRefund;//确认退款
                 break;
             case 9:
-                return ZOrganizationOrderTypeRefunding;//退款中
+                return ZOrganizationOrderTypeForRefund;//退款中
                 break;
             case 10:
                 return ZOrganizationOrderTypeForRefundComplete;//完成退款
@@ -248,6 +257,9 @@
                 break;
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
+                break;
+            case 15:
+                return ZOrganizationOrderTypeRefundCancle;
                 break;
             default:
                 return ZStudentOrderTypeAll;

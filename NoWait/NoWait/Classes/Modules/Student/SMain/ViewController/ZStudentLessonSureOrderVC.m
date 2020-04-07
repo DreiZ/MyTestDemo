@@ -178,6 +178,10 @@
                 [TLUIUtility showErrorHint:@"请输入联系号码"];
                 return ;
             }
+            if ([weakSelf.detailModel.account_phone intValue] != 11) {
+                [TLUIUtility showErrorHint:@"请输入正确的联系号码"];
+                return ;
+            }
             if (!ValidStr(weakSelf.detailModel.students_name)) {
                 [TLUIUtility showErrorHint:@"请输入联系人"];
                 return ;
@@ -250,6 +254,18 @@
         };
     }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        lcell.handleBlock = ^(ZCellConfig *scellConfig) {
+            if ([scellConfig.title isEqualToString:@"wechatPay"]){
+                 self.isAlipay = NO;
+                 [self initCellConfigArr];
+                 [self.iTableView reloadData];
+            }else if ([scellConfig.title isEqualToString:@"alipay"]){
+                 self.isAlipay = YES;
+                [self initCellConfigArr];
+                [self.iTableView reloadData];
+            }
+        };
+        
         lcell.cellSetBlock = ^(UITableViewCell *cell, NSIndexPath *index, ZCellConfig *cellConfig) {
             if ([cellConfig.title isEqualToString:@"name"]) {
                 ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
@@ -282,15 +298,7 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"wechatPay"]){
-         self.isAlipay = NO;
-         [self initCellConfigArr];
-         [self.iTableView reloadData];
-    }else if ([cellConfig.title isEqualToString:@"alipay"]){
-         self.isAlipay = YES;
-        [self initCellConfigArr];
-        [self.iTableView reloadData];
-    }
+     
 }
 
 #pragma mark - set cell

@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZStudentOrderTypeRefunding,              //退款中
     ZStudentOrderTypeForRefundComplete,      //退款
     ZStudentOrderTypeAll,                    //全部
+    ZStudentOrderTypeRefundCancle,            //全部
     
     ZOrganizationOrderTypeForPay,                //待付款
     ZOrganizationOrderTypeHadPay,                //已付款
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZOrganizationOrderTypeRefunding,              //退款中
     ZOrganizationOrderTypeForRefundComplete,      //退款完成
     ZOrganizationOrderTypeAll,                   //全部
+    ZOrganizationOrderTypeRefundCancle,          //待退款
 };
 
 

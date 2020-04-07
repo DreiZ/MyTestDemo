@@ -120,7 +120,7 @@
         _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.pay_amount];
         _detailLabel.text = @"超时订单将自动取消";
     }
-    
+    _serviceTime = [model.count_down intValue];
     
 }
 

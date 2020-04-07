@@ -142,7 +142,7 @@
                 [params setObject:SafeStr(weakSelf.detailModel.stores_id) forKey:@"stores_id"];
             }
             
-            [ZOriganizationOrderViewModel handleOrderWithIndex:4 data:params completeBlock:^(BOOL isSuccess, id data) {
+            [ZOriganizationOrderViewModel handleOrderWithIndex:5 data:params completeBlock:^(BOOL isSuccess, id data) {
                 if (isSuccess) {
                     [TLUIUtility showSuccessHint:data];
                     [self.navigationController popViewControllerAnimated:YES];

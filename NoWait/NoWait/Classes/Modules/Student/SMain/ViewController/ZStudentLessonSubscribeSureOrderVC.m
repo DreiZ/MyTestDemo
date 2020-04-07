@@ -49,6 +49,8 @@
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
     self.detailModel.type = @"2";
+    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
+    self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
     [self initCellConfigArr];
     [self.iTableView reloadData];
     [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
@@ -174,13 +176,17 @@
                 [TLUIUtility showErrorHint:@"请输入联系号码"];
                 return ;
             }
+            if ([weakSelf.detailModel.account_phone intValue] != 11) {
+                [TLUIUtility showErrorHint:@"请输入正确的联系号码"];
+                return ;
+            }
             if (!ValidStr(weakSelf.detailModel.students_name)) {
                 [TLUIUtility showErrorHint:@"请输入联系人"];
                 return ;
             }
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:weakSelf.detailModel.stores_id forKey:@"stores_id"];
-            [params setObject:[NSString stringWithFormat:@"%.0f",[weakSelf.detailModel.experience_time doubleValue]] forKey:@"schedule_time"];
+            [params setObject:[NSString stringWithFormat:@"%.0f",[weakSelf.detailModel.schedule_time doubleValue]] forKey:@"schedule_time"];
 
             [params setObject:weakSelf.detailModel.course_id forKey:@"course_id"];
             [params setObject:weakSelf.detailModel.students_name forKey:@"real_name"];
@@ -330,8 +336,7 @@
 
 
 - (void)setUserCell {
-    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
-    self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
+    
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.detailModel.students_name),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]]];
     NSMutableArray *configArr = @[].mutableCopy;

@@ -123,7 +123,7 @@
             
             NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]];
             NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)date.year,date.month,date.day,timeModel.time];
-            detailModel.experience_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
+            detailModel.schedule_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
 //            order.detailModel = detailModel;
             detailModel.type = @"1";
             order.detailModel = detailModel;

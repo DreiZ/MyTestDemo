@@ -94,18 +94,8 @@
     [_userNameTF setBackgroundColor:[UIColor clearColor]];
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
     [_userNameTF setPlaceholder:@"输入自定义标签，最多5个字"];
-    [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-       if (x.length > self.max) {
-           x = [x substringWithRange:NSMakeRange(0, self.max)];
-           weakSelf.userNameTF.text = x;
-       }
-    //           if (weakSelf.editBlock) {
-    //               weakSelf.editBlock(0, x);
-    //           }
-    //           weakSelf.loginViewModel.loginModel.tel = x;
-        weakSelf.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",x.length,self.max];
-    }];
     _userNameTF.delegate = self;
+    [_userNameTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     _userNameTF.keyboardType = UIKeyboardTypeDefault;
     _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
@@ -270,6 +260,15 @@
     labelHeight = offSetY + btnHeight;
     return labelHeight;
 }
+#pragma mark - -textField delegate
+- (void)textFieldDidChange:(UITextField *)textField {
+    [ZPublicTool textField:textField maxLenght:self.max > 0 ? self.max:20 type:ZFormatterTypeAny];
+ 
+    self.userNameTF.text = textField.text;
+ 
+    self.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",textField.text.length,self.max > 0 ? self.max:20];
+}
+
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
 //    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorGrayBGDark]);

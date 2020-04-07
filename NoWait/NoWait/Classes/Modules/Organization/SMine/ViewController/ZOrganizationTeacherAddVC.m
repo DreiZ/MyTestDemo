@@ -70,7 +70,7 @@
     [self.cellConfigArr addObject:progressCellConfig];
     
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@8,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@8,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@20,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",@2,[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",@11,SafeStr(self.viewModel.addModel.phone),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",@18,SafeStr(self.viewModel.addModel.id_card),[NSNumber numberWithInt:ZFormatterTypeAny]],

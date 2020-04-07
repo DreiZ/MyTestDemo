@@ -35,8 +35,14 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOrderListModel *model = self.dataSources[i];
-        model.isStudent = YES;
+        model.isStudent = NO;
         model.isRefund = YES;
+        
+        model.refund_status = @"7";
+        if (i == 1) {
+            model.refund_status = @"8";
+        }
+        
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }

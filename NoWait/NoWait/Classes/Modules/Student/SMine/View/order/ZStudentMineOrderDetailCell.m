@@ -142,13 +142,14 @@
     [self.orderNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.leftImageView.mas_top).offset(CGFloatIn750(2));
-        make.right.equalTo(self.priceLabel.mas_left).offset(-CGFloatIn750(10));
+        make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
+        make.height.mas_lessThanOrEqualTo(CGFloatIn750(70));
     }];
     
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.orderNameLabel.mas_left);
         make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.orderNameLabel.mas_bottom).offset(CGFloatIn750(38));
+        make.top.equalTo(self.leftImageView.mas_centerY).offset(CGFloatIn750(0));
     }];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,6 +163,8 @@
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.subView);
     }];
+    
+    self.priceLabel.hidden = YES;
 }
 
 
@@ -247,7 +250,7 @@
         _orderNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orderNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _orderNameLabel.text = @"";
-        _orderNameLabel.numberOfLines = 1;
+        _orderNameLabel.numberOfLines = 0;
         _orderNameLabel.textAlignment = NSTextAlignmentLeft;
         [_orderNameLabel setFont:[UIFont boldFontContent]];
         _orderNameLabel.adjustsFontSizeToFitWidth = YES;
@@ -430,8 +433,6 @@
             break;
         case ZOrganizationOrderTypeHadPay:
             {
-                self.delBtn.enabled = YES;
-                [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
                 [self setDetailDes];
                 [self setSubDetail];
                 [self setDetailSubViewBottom];
@@ -448,7 +449,6 @@
         case ZOrganizationOrderTypeForRefundComplete:
         case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
             {
-                [_delBtn setTitle:model.refund_status_msg forState:UIControlStateNormal];
                 [self setDetailDes];
                 [self setSubDetail];
                 [self setDetailBottomViewBottom];
@@ -534,6 +534,53 @@
         default:
             break;
     }
+    
+    if (self.model.order_type == ZStudentOrderTypeHadPay) {
+        self.delBtn.enabled = YES;
+        [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+            make.height.mas_equalTo(CGFloatIn750(56));
+            make.width.mas_equalTo(CGFloatIn750(142));
+        }];
+    }else if (self.model.order_type == ZStudentOrderTypeRefundReceive
+              || self.model.order_type == ZStudentOrderTypeRefunding
+              || self.model.order_type == ZOrganizationOrderTypeForRefund
+              || self.model.order_type == ZOrganizationOrderTypeRefundReceive
+              || self.model.order_type == ZOrganizationOrderTypeRefunding){
+        [_delBtn setTitle:@"退款中" forState:UIControlStateNormal];
+        self.delBtn.hidden = NO;
+        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+            make.height.mas_equalTo(CGFloatIn750(56));
+            make.width.mas_equalTo(CGFloatIn750(142));
+        }];
+    }else if (self.model.order_type == ZStudentOrderTypeForRefundComplete
+              || self.model.order_type == ZOrganizationOrderTypeForRefundComplete){
+        [_delBtn setTitle:@"退款已完成" forState:UIControlStateNormal];
+        self.delBtn.hidden = NO;
+        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+            make.height.mas_equalTo(CGFloatIn750(56));
+            make.width.mas_equalTo(CGFloatIn750(172));
+        }];
+    }else if (self.model.order_type == ZStudentOrderTypeRefundCancle
+              || self.model.order_type == ZOrganizationOrderTypeRefundCancle){
+        [_delBtn setTitle:@"退款已取消" forState:UIControlStateNormal];
+        self.delBtn.hidden = NO;
+        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+            make.height.mas_equalTo(CGFloatIn750(56));
+            make.width.mas_equalTo(CGFloatIn750(172));
+        }];
+    }else{
+        [_delBtn setTitle:@"" forState:UIControlStateNormal];
+        self.delBtn.hidden = YES;
+    }
 }
 
 - (void)setDetailDes {
@@ -616,7 +663,7 @@
 - (void)setOrderDetailDes {
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.experience_price)];
     self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",SafeStr(self.model.experience_duration)];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.experience_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.schedule_time doubleValue]] formatWeekday],[self.model.schedule_time timeStringWithFormatter:@"HH:mm"]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.schedule_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.schedule_time doubleValue]] formatWeekday],[self.model.schedule_time timeStringWithFormatter:@"HH:mm"]];
     
     CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.pay_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -653,7 +700,7 @@
             ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
             ||  listModel.order_type == ZOrganizationOrderTypeRefunding
             ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
-            return CGFloatIn750(328 + 56 * 3 + 28);
+            return CGFloatIn750(328 + 56 * 3 + 28 + 56);
         }
         switch (listModel.order_type) {
             case ZOrganizationOrderTypeForPay:

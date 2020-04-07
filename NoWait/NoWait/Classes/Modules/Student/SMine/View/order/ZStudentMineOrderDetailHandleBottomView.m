@@ -207,7 +207,7 @@
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(6);
+                weakSelf.handleBlock(101);
             }
         }];
         
@@ -241,7 +241,7 @@
         ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_refuseBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(4);
+                weakSelf.handleBlock(5);
             };
         }];
     }
@@ -261,7 +261,7 @@
             [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     if (weakSelf.handleBlock) {
-                        weakSelf.handleBlock(5);
+                        weakSelf.handleBlock(4);
                     };
                 }
             }];

@@ -406,7 +406,7 @@
     ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:image];
     [self.cellConfigArr addObject:addImageCellConfig];
     
-    NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@8,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简介",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+    NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简称",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
     for (int i = 0 ; i < titleArr.count; i++) {
         ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];
@@ -464,7 +464,7 @@
     
     model.formatterType = ZFormatterTypeDecimal;
     model.content = self.viewModel.addModel.price;
-    model.max = 6;
+    model.max = 10;
     
     ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:nameCellConfig];
@@ -518,7 +518,7 @@
     NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO, @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"课程级别", @"请选择课程级别", @NO, @"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",self.viewModel.addModel.course_min,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-                         @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",self.viewModel.addModel.course_number,@4,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+                         @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",self.viewModel.addModel.course_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"班级人数", @"请输入班级人数", @YES, @"", @"人", @"peoples",self.viewModel.addModel.course_class_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
     
     for (int i = 0; i < textArr.count; i++) {
@@ -566,7 +566,7 @@
     [self.cellConfigArr addObject:menuCellConfig];
     if ([self.viewModel.addModel.is_experience intValue] == 1) {
         NSArray *textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney",self.viewModel.addModel.experience_price,@5,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
-                             @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.experience_duration,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
+                             @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.experience_duration,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
         
 //                             @[@"可体验时间段", @"", @NO, @"rightBlackArrowN", @"", @"orderTimeToTime",[NSString stringWithFormat:@"%@~%@",self.viewModel.addModel.orderTimeBegin,self.viewModel.addModel.orderTimeEnd],@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
         
@@ -999,8 +999,8 @@
         [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"课程介绍";
-        tvc.max = 1000;
-        tvc.hintStr = @"请输入课程介绍，1000字以内";
+        tvc.max = 500;
+        tvc.hintStr = @"请输入课程介绍，500字以内";
         tvc.content = self.viewModel.addModel.info;
         tvc.handleBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.info = text;
@@ -1012,8 +1012,8 @@
         [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"购买须知";
-        tvc.max = 200;
-        tvc.hintStr = @"请输入购买须知，200字以内";
+        tvc.max = 500;
+        tvc.hintStr = @"请输入购买须知，500字以内";
         tvc.content = self.viewModel.addModel.p_information;
         tvc.handleBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.p_information = text;

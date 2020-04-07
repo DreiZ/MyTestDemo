@@ -309,17 +309,47 @@
             
         }
             break;
-        case 4://申请退款
-        {
-            [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
-        }
-            break;
-        case 5://接受预约
+        case 4://接受预约
         {
             
         }
             break;
-        case 6://电话
+        case 5://申请退款
+        {
+            [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
+        }
+            break;
+        case 6:
+        {
+            
+        }
+            break;
+        case 7:
+        {
+            
+        }
+            break;
+        case 8:
+        {
+            
+        }
+            break;
+        case 9:
+        {
+            
+        }
+            break;
+        case 10:
+        {
+            
+        }
+            break;
+        case 100://俱乐部
+        {
+            
+        }
+            break;
+        case 101://电话
         {
             
         }

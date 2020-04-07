@@ -39,7 +39,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
    [self refreshData];
+}
+
+- (void)setDataSource {
+    [super setDataSource];
+    __weak typeof(self) weakSelf = self;
+    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+            if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *backDict = notfication.object;
+                if (backDict && [backDict objectForKey:@"payState"]) {
+                    [weakSelf refreshData];
+                }
+            }
+        }];
 }
 
 - (void)initCellConfigArr {
@@ -386,7 +402,7 @@
 }
 
 - (void)setUserCell {
-    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.nick_name)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
+    NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.students_name)],@[@"手机号",  SafeStr(self.detailModel.account_phone)]];
     NSMutableArray *configArr = @[].mutableCopy;
     NSInteger index = 0;
     for (NSArray *tArr in tempArr) {

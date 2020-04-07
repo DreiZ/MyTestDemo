@@ -192,13 +192,13 @@
             break;
         case ZStudentOrderTypeForPay:
             //@"待支付";
-            [_param setObject:@"7" forKey:@"status"];
-//            [_param setObject:@"1" forKey:@"status"];
+//            [_param setObject:@"7" forKey:@"status"];
+            [_param setObject:@"1" forKey:@"status"];
             break;
         case ZStudentOrderTypeHadPay:
             //预约待支付
-            [_param setObject:@"8" forKey:@"status"];
-//            [_param setObject:@"2" forKey:@"status"];
+//            [_param setObject:@"8" forKey:@"status"];
+            [_param setObject:@"2" forKey:@"status"];
             break;
         case ZStudentOrderTypeHadEva:
             //已完成
@@ -207,7 +207,7 @@
         default:
             break;
     }
-    [self.param setObject:@"0" forKey:@"type"];
+//    [self.param setObject:@"0" forKey:@"type"];
 }
 
 @end

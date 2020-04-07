@@ -56,11 +56,11 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
         make.centerY.equalTo(self.contView.mas_centerY);
-        make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(60));
+        make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(70));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(50));
+        make.right.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(70));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
@@ -118,7 +118,8 @@
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont boldFontContent]];
+        [_nameLabel setFont:[UIFont fontContent]];
+        [_nameLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _nameLabel;
 }
@@ -166,7 +167,7 @@
 
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    _nameLabel.text = model.name;
+    _nameLabel.text = model.short_name;
     _inputTextField.text = model.teacherPirce;
     _priceLabel.text = [NSString stringWithFormat:@"%@元",model.price];
     _leftImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
