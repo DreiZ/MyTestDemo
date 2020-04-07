@@ -45,11 +45,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //更新用户信息
-//        [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
-//            if (!isSuccess) {
-//                [[ZLaunchManager sharedInstance] showSaveUserInfo];
-//            }
-//        }];
+    [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
+        if (!isSuccess) {
+        }
+    }];
 }
 
 

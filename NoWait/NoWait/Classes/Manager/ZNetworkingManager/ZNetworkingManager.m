@@ -63,7 +63,7 @@
                 if ([backModel.code integerValue] == 0) {
                     completionHandler(backModel, nil);
                     
-                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
+                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005){
                     [ZAlertView setAlertWithTitle:[NSString stringWithFormat:@"%@%@",backModel.message,backModel.code] btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
                         
                     }];
@@ -73,7 +73,12 @@
                     completionHandler(backModel, error);
                     [TLUIUtility showErrorHint:backModel.message];
                     
-                }else{
+                }else if ([backModel.code integerValue] == 100008   || [backModel.code integerValue] == 100009  || [backModel.code integerValue] == 100005 ){
+                    [TLUIUtility showErrorHint:backModel.message];
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        
+                    }];
+                } else{
                     
                     NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
     

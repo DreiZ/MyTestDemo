@@ -145,16 +145,8 @@
             
             ZLoginUserBackModel *userModel = [ZLoginUserBackModel mj_objectWithKeyValues:dataModel.data];
             
-            ZUser *user = [[ZUser alloc] init];
-            user.userID = userModel.userID? userModel.userID:@"";
-            user.userCodeID = userModel.code_id? userModel.code_id:@"888888";
-            user.avatar = userModel.image? userModel.image:@"";
-            user.nikeName = userModel.nick_name? userModel.nick_name:@"";
-            user.phone = userModel.phone? userModel.phone:@"";
-            user.type = userModel.pre_login_type? userModel.pre_login_type:@"";
+            ZUser *user = [ZUserHelper sharedHelper].user;
             user.token = userModel.token? userModel.token:@"";
-            [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
-            [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
             [[ZUserHelper sharedHelper] setUser:user];
         }
     }];

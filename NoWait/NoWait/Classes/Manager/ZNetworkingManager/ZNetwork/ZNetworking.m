@@ -78,6 +78,11 @@ static AFHTTPSessionManager *manager = nil;
                 }else{
                     completionHandler(responseObject, nil);
                 }
+                if (ValidStr(token)) {
+                    ZUser *user = [ZUserHelper sharedHelper].user;
+                    user.token = token;
+                    [[ZUserHelper sharedHelper] setUser:user];
+                }
             }else{
                 completionHandler(responseObject, nil);
             }
