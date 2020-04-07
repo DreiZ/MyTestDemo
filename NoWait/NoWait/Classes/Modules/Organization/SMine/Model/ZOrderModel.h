@@ -42,6 +42,7 @@
 
 @interface ZOrderDetailModel : ZBaseModel
 @property (nonatomic,assign) BOOL isStudent;
+@property (nonatomic,assign) BOOL isRefund;
 @property (nonatomic,assign) ZStudentOrderType order_type;
 @property (nonatomic,strong) NSString * account_id;
 @property (nonatomic,strong) NSString * account_phone;
@@ -79,6 +80,8 @@
 @property (nonatomic,strong) NSString * update_at;
 @property (nonatomic,strong) NSString * use_coupons;//是否使用优惠券 1：否 2：是
 @property (nonatomic,strong) NSString * valid_at;
+@property (nonatomic,strong) NSString *refund_time;
+
 
 @property (nonatomic,strong) NSString *emergency_name;
 @property (nonatomic,strong) NSString *emergency_phone;

@@ -62,8 +62,7 @@
    }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(self.orderNameLabel.mas_centerY);
+        make.centerY.equalTo(self.detailLabel.mas_centerY);
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
     }];
 
@@ -136,7 +135,6 @@
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"serverTopbg"];
         _leftImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_leftImageView, CGFloatIn750(12));
     }
@@ -184,14 +182,13 @@
 
 
 #pragma mark - set model
-- (void)setModel:(ZStudentOrderListModel *)model {
+- (void)setModel:(ZOrderDetailModel *)model {
     _model = model;
-    
-    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.image]];
-    self.orderNameLabel.text = model.name;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.price];
-    self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",self.model.teacher];
-    self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",self.model.lessonNum];
+    [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.course_image_url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    self.orderNameLabel.text = SafeStr(model.course_name);
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.order_amount)];
+    self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",SafeStr(self.model.teacher_name)];
+    self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",SafeStr(self.model.course_number)];
 }
 
 

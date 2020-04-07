@@ -20,13 +20,15 @@
     [self.midImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.rightTitleLabel.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.rightTitleLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(16));
+        make.height.mas_equalTo(CGFloatIn750(22));
     }];
 }
 
 - (UIImageView *)midImageView {
     if (!_midImageView) {
         _midImageView = [[UIImageView alloc] init];
-        _midImageView.image = [UIImage imageNamed:@"orderRigthtTel"];
+        _midImageView.image = [UIImage imageNamed:@"default_bigPhone_mainColor"];
         _midImageView.layer.masksToBounds = YES;
         _midImageView.contentMode = UIViewContentModeScaleAspectFill;
     }

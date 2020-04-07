@@ -7,11 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZStudentMineModel.h"
+#import "ZOrderModel.h"
 
 
 @interface ZMineOrderDetailCell : ZBaseCell
-@property (nonatomic,strong) ZStudentOrderListModel *model;
+@property (nonatomic,strong) ZOrderDetailModel *model;
 @property (nonatomic,strong) void (^handleBlock)(NSInteger, ZStudentOrderListModel *);
 @end
 

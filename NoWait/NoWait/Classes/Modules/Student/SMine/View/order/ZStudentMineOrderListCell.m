@@ -48,7 +48,11 @@
     }
     
     self.failLabel.text = SafeStr(model.refund_amount);
-    self.statelabel.text = model.statusStr;
+    if (model.isRefund) {
+        self.statelabel.text = model.refund_status_msg;
+    }else{
+        self.statelabel.text = model.statusStr;
+    }
     
     self.bottomView.hidden = YES;
     self.failView.hidden = YES;

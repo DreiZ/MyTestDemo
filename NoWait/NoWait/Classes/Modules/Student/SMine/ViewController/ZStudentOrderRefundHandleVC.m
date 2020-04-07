@@ -13,7 +13,6 @@
 #import "ZTableViewListCell.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZSingleLeftRoundImageCell.h"
-#import "ZMineOrderDetailCell.h"
 #import "ZSingleLineRightImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 
