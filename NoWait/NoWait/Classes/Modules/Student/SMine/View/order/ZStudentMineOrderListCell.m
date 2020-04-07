@@ -62,8 +62,9 @@
     self.evaBtn.hidden = YES;
     self.delBtn.hidden = YES;
     self.receivedBtn.hidden = YES;
+    self.receivedNOBtn.hidden = YES;
+    
     self.refundSureBtn.hidden = YES;
-
     self.refundRefectBtn.hidden = YES;
     self.refundCancle.hidden = YES;
     self.refundOSureBtn.hidden = YES;
@@ -181,11 +182,19 @@
             
             self.bottomView.hidden = NO;
             self.receivedBtn.hidden = NO;
+            self.receivedNOBtn.hidden = NO;
             
             
             [self.receivedBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.bottomView.mas_centerY);
                 make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+            
+            [self.receivedNOBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.receivedBtn.mas_left).offset(CGFloatIn750(-20));
                 make.height.mas_equalTo(CGFloatIn750(56));
                 make.width.mas_equalTo(CGFloatIn750(172));
             }];

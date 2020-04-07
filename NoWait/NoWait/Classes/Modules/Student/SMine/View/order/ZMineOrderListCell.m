@@ -131,6 +131,7 @@
     [self.bottomView addSubview:self.cancleBtn];
     [self.bottomView addSubview:self.delBtn];
     [self.bottomView addSubview:self.receivedBtn];
+    [self.bottomView addSubview:self.refundOSureBtn];
     [self.bottomView addSubview:self.refundSureBtn];
     
     [self.bottomView addSubview:self.refundRefectBtn];
@@ -160,6 +161,10 @@
     }];
     
     [self.receivedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomView);
+    }];
+    
+    [self.receivedNOBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bottomView);
     }];
     
@@ -437,6 +442,53 @@
     return _evaBtn;
 }
 
+
+- (UIButton *)receivedBtn {
+    if (!_receivedBtn) {
+        __weak typeof(self) weakSelf = self;
+        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
+        [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
+        _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        [_receivedBtn bk_whenTapped:^{
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(4,self.model);
+                    };
+                }
+            }];
+            
+        }];
+    }
+    return _receivedBtn;
+}
+
+
+- (UIButton *)receivedNOBtn {
+    if (!_receivedNOBtn) {
+        __weak typeof(self) weakSelf = self;
+        _receivedNOBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_receivedNOBtn setTitle:@"拒绝预约" forState:UIControlStateNormal];
+        [_receivedNOBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_receivedNOBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_receivedNOBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_receivedNOBtn bk_whenTapped:^{
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定拒绝预约？" leftBtnTitle:@"取消" rightBtnTitle:@"拒绝" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(40,self.model);
+                    };
+                }
+            }];
+            
+        }];
+    }
+    return _receivedBtn;
+}
+
 - (UIButton *)refundSureBtn {
     if (!_refundSureBtn) {
         __weak typeof(self) weakSelf = self;
@@ -525,30 +577,6 @@
         }];
     }
     return _refundORefectBtn;
-}
-
-
-- (UIButton *)receivedBtn {
-    if (!_receivedBtn) {
-        __weak typeof(self) weakSelf = self;
-        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
-        [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
-        _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_receivedBtn bk_whenTapped:^{
-            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
-                if (index == 1) {
-                    if (weakSelf.handleBlock) {
-                        weakSelf.handleBlock(4,self.model);
-                    };
-                }
-            }];
-            
-        }];
-    }
-    return _receivedBtn;
 }
 
 

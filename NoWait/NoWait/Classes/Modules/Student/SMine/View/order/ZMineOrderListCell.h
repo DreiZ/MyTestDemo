@@ -34,6 +34,7 @@
 @property (nonatomic,strong) UIButton *cancleBtn;
 @property (nonatomic,strong) UIButton *evaBtn;
 @property (nonatomic,strong) UIButton *receivedBtn;
+@property (nonatomic,strong) UIButton *receivedNOBtn;
 @property (nonatomic,strong) UIButton *refundSureBtn;//同意退款
 @property (nonatomic,strong) UIButton *refundRefectBtn;//协商退款
 @property (nonatomic,strong) UIButton *refundCancle;//取消退款
