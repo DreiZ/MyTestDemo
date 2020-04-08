@@ -348,8 +348,14 @@
         self.detailModel.use_coupons = @"1";
     }
     if ([self.detailModel.use_coupons intValue] == 2) {
-        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.cartModel.amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%.2f",[self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue]]]];
-        self.priceLabel.text = [NSString stringWithFormat:@"待支付：￥%.2f",[self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue]];
+        double amount = [self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue];
+        if (amount <= 0.01) {
+            amount = 0.01;
+        }
+        
+        tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.cartModel.amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%.2f",amount]]];
+        
+        self.priceLabel.text = [NSString stringWithFormat:@"待支付：￥%.2f",amount];
     }else{
         tempArr =@[@[@"合计", SafeStr(self.detailModel.order_amount)],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
         self.priceLabel.text = [NSString stringWithFormat:@"待支付：￥%@",self.detailModel.pay_amount];
