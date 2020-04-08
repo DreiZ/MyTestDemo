@@ -387,6 +387,8 @@
 //退款查询
 #define URL_order_v1_refund_query                   @"order/v1/refund_query"
 
+#define URL_order_v1_refund_order_list              @"order/v1/refund_order_list"
+
 
 #pragma mark - 相册------------------------------------------------
 //相册类型列表

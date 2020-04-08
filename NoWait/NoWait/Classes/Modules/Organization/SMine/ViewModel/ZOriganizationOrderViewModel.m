@@ -108,6 +108,25 @@
 }
 
 
++ (void)getRefundOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_list params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZOrderListNetModel *model = [ZOrderListNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 
 + (void)cancleOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_close_order params:params completionHandler:^(id data, NSError *error) {
@@ -314,32 +333,37 @@
             
         }
             break;
+        case 40://拒绝预约
+        {
+            
+        }
+            break;
         case 5://申请退款
         {
             [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
         }
             break;
-        case 6:
+        case 6://协商退款学员
         {
             
         }
             break;
-        case 7:
+        case 7://取消退款
         {
             
         }
             break;
-        case 8:
+        case 8://同意退款
         {
             
         }
             break;
-        case 9:
+        case 9://协商退款商家
         {
             
         }
             break;
-        case 10:
+        case 10://支付退款
         {
             
         }

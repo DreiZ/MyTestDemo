@@ -19,6 +19,15 @@
 @property (nonatomic,strong) UIButton *receivedBtn;
 @property (nonatomic,strong) UIImageView *telImageView;
 
+@property (nonatomic,strong) UIButton *receivedNOBtn;
+@property (nonatomic,strong) UIButton *refundSureBtn;//同意退款
+@property (nonatomic,strong) UIButton *refundRefectBtn;//协商退款
+@property (nonatomic,strong) UIButton *refundOSureBtn;//商家同意
+@property (nonatomic,strong) UIButton *refundORefectBtn;//商家拒绝
+@property (nonatomic,strong) UIButton *refundPayBtn;//商家拒绝
+@property (nonatomic,strong) UILabel *statusLabel;
+
+
 @property (nonatomic,strong) UIView *bottomView;
 
 @end
@@ -35,7 +44,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBGDark]);
+    self.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
@@ -59,6 +68,49 @@
     [self.bottomView addSubview:self.delBtn];
     [self.bottomView addSubview:self.refuseBtn];
     [self.bottomView addSubview:self.receivedBtn];
+    
+    [self.bottomView addSubview:self.receivedNOBtn];
+    [self.bottomView addSubview:self.refundSureBtn];
+    [self.bottomView addSubview:self.refundRefectBtn];
+    [self.bottomView addSubview:self.refundOSureBtn];
+    [self.bottomView addSubview:self.refundORefectBtn];
+    [self.bottomView addSubview:self.refundPayBtn];
+    [self.bottomView addSubview:self.statusLabel];
+    
+    [self.statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.receivedNOBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.refundSureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.refundRefectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.refundOSureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.refundORefectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
+    
+    [self.refundPayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top);
+    }];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.bottomView);
@@ -96,6 +148,13 @@
     self.delBtn.hidden = YES;
     self.refuseBtn.hidden =  YES;
     self.receivedBtn.hidden = YES;
+    self.receivedNOBtn.hidden = YES;
+    self.refundSureBtn.hidden = YES;
+    self.refundRefectBtn.hidden = YES;
+    self.refundOSureBtn.hidden = YES;
+    self.refundORefectBtn.hidden = YES;
+    self.refundPayBtn.hidden = YES;
+    self.statusLabel.hidden = YES;
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
@@ -203,7 +262,7 @@
         [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
         [_telBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont boldFontContent]];
-        
+        _telBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
@@ -270,6 +329,132 @@
     return _receivedBtn;
 }
 
+
+- (UIButton *)receivedNOBtn {
+    if (!_receivedNOBtn) {
+        __weak typeof(self) weakSelf = self;
+        _receivedNOBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_receivedNOBtn setTitle:@"拒绝预约" forState:UIControlStateNormal];
+        [_receivedNOBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_receivedNOBtn.titleLabel setFont:[UIFont boldFontContent]];
+        ViewBorderRadius(_receivedNOBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_receivedNOBtn bk_whenTapped:^{
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定拒绝预约？" leftBtnTitle:@"取消" rightBtnTitle:@"拒绝" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    if (weakSelf.handleBlock) {
+                        weakSelf.handleBlock(40);
+                    };
+                }
+            }];
+            
+        }];
+    }
+    return _receivedBtn;
+}
+
+- (UIButton *)refundSureBtn {
+    if (!_refundSureBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refundSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refundSureBtn setTitle:@"接受退款" forState:UIControlStateNormal];
+        [_refundSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_refundSureBtn.titleLabel setFont:[UIFont boldFontContent]];
+        _refundSureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_refundSureBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(5);
+            };
+        }];
+    }
+    return _refundSureBtn;
+}
+
+- (UIButton *)refundRefectBtn {
+    if (!_refundRefectBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refundRefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refundRefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
+        [_refundRefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_refundRefectBtn.titleLabel setFont:[UIFont boldFontContent]];
+        _refundRefectBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        [_refundRefectBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(6);
+            };
+        }];
+    }
+    return _refundRefectBtn;
+}
+
+
+- (UIButton *)refundOSureBtn {
+    if (!_refundOSureBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refundOSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refundOSureBtn setTitle:@"同意退款" forState:UIControlStateNormal];
+        [_refundOSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_refundOSureBtn.titleLabel setFont:[UIFont boldFontContent]];
+        _refundOSureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_refundOSureBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(8);
+            };
+        }];
+    }
+    return _refundOSureBtn;
+}
+
+
+- (UIButton *)refundORefectBtn {
+    if (!_refundORefectBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refundORefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refundORefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
+        [_refundORefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_refundORefectBtn.titleLabel setFont:[UIFont boldFontContent]];
+        _refundORefectBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        [_refundORefectBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(9);
+            };
+        }];
+    }
+    return _refundORefectBtn;
+}
+
+
+- (UIButton *)refundPayBtn {
+    if (!_refundPayBtn) {
+        __weak typeof(self) weakSelf = self;
+        _refundPayBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_refundPayBtn setTitle:@"支付退款" forState:UIControlStateNormal];
+        [_refundPayBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_refundPayBtn.titleLabel setFont:[UIFont boldFontContent]];
+        _refundPayBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_refundPayBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(10);
+            };
+        }];
+    }
+    return _refundPayBtn;
+}
+
+
+- (UILabel *)statusLabel {
+    if (!_statusLabel) {
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _statusLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _statusLabel.text = @"";
+        _statusLabel.numberOfLines = 1;
+        _statusLabel.textAlignment = NSTextAlignmentCenter;
+        [_statusLabel setFont:[UIFont boldFontContent]];
+        _statusLabel.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }
+    return _statusLabel;
+}
+
+
 #pragma mark - set model
 - (void)setModel:(ZOrderDetailModel *)model {
     _model = model;
@@ -281,6 +466,13 @@
     self.refuseBtn.hidden =  YES;
     self.receivedBtn.hidden = YES;
     self.telBtn.hidden = YES;
+    self.receivedNOBtn.hidden = YES;
+    self.refundSureBtn.hidden = YES;
+    self.refundRefectBtn.hidden = YES;
+    self.refundOSureBtn.hidden = YES;
+    self.refundORefectBtn.hidden = YES;
+    self.refundPayBtn.hidden = YES;
+    self.statusLabel.hidden = YES;
 
     
     if (model.isStudent) {
@@ -304,30 +496,116 @@
             || model.order_type == ZStudentOrderTypeForRefund//退款
             || model.order_type == ZStudentOrderTypeRefundReceive//退款
             || model.order_type == ZStudentOrderTypeRefunding//退款中
-            || model.order_type == ZStudentOrderTypeForRefundComplete) {
-            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.right.left.equalTo(self.bottomView);
-                make.height.mas_equalTo(CGFloatIn750(88));
-            }];
-            
-        }else if(model.order_type == ZStudentOrderTypeForRefund
-                 || model.order_type == ZStudentOrderTypeRefundReceive
-                 || model.order_type == ZStudentOrderTypeRefunding) {
-            
-            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
-                make.top.bottom.equalTo(self.bottomView);
-                make.width.mas_equalTo(CGFloatIn750(126));
-            }];
-            
-            [self.telImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-               make.width.mas_equalTo(CGFloatIn750(31));
-               make.height.mas_equalTo(CGFloatIn750(31));
-               make.center.equalTo(self.telBtn);
-            }];
-            
-            [_telBtn setTitle:@"" forState:UIControlStateNormal];
-            _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+            || model.order_type == ZStudentOrderTypeForRefundComplete
+            || model.order_type == ZStudentOrderTypeRefundCancle) {
+            if (model.isRefund) {
+                if (model.order_type == ZStudentOrderTypeForRefund) {
+                    if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3 || [model.refund_status intValue] == 4 || [model.refund_status intValue] == 5 || [model.refund_status intValue] == 2) {
+                        
+                        [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+                            make.top.bottom.equalTo(self.bottomView);
+                            make.width.mas_equalTo(CGFloatIn750(126));
+                        }];
+                        
+                        [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                           make.width.mas_equalTo(CGFloatIn750(31));
+                           make.height.mas_equalTo(CGFloatIn750(31));
+                           make.center.equalTo(self.telBtn);
+                        }];
+                        
+                        [_telBtn setTitle:@"" forState:UIControlStateNormal];
+                        _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+                        if ([model.refund_status intValue] == 2) {
+                            self.refundSureBtn.hidden = NO;
+                            self.refundRefectBtn.hidden = NO;
+                            [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                make.top.right.bottom.equalTo(self.bottomView);
+                                make.width.mas_equalTo(CGFloatIn750(384));
+                            }];
+                            [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                make.top.bottom.equalTo(self.bottomView);
+                                make.left.equalTo(self.telBtn.mas_right);
+                                make.right.equalTo(self.refundSureBtn.mas_left);
+                            }];
+                        }else{
+                            self.statusLabel.hidden = NO;
+                            [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                make.top.right.bottom.equalTo(self.bottomView);
+                                make.left.equalTo(self.telBtn.mas_right);
+                            }];
+                            if ([model.refund_status intValue] == 1){
+                                self.statusLabel.text = @"已申请，待商家确认";
+                            }else if ([model.refund_status intValue] == 3){
+                                self.statusLabel.text = @"已拒绝，待商家确认";
+                            }else if ([model.refund_status intValue] == 4){
+                                self.statusLabel.text = @"已同意商家提议金额，待商家退款";
+                            }else if ([model.refund_status intValue] == 5){
+                                self.statusLabel.text = @"商家已同意，待商家退款";
+                            }else{
+                                self.statusLabel.hidden = YES;
+                            }
+                        }
+                    } else{
+                       [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                           make.top.right.left.equalTo(self.bottomView);
+                           make.height.mas_equalTo(CGFloatIn750(88));
+                       }];
+                    }
+                }else if (model.order_type == ZStudentOrderTypeForRefundComplete){
+                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+                        make.top.bottom.equalTo(self.bottomView);
+                        make.width.mas_equalTo(CGFloatIn750(126));
+                    }];
+                    
+                    [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                       make.width.mas_equalTo(CGFloatIn750(31));
+                       make.height.mas_equalTo(CGFloatIn750(31));
+                       make.center.equalTo(self.telBtn);
+                    }];
+                    
+                    [_telBtn setTitle:@"" forState:UIControlStateNormal];
+                    _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+                    self.statusLabel.hidden = NO;
+                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.top.right.bottom.equalTo(self.bottomView);
+                        make.left.equalTo(self.telBtn.mas_right);
+                    }];
+                    self.statusLabel.text = @"退款已完成";
+                }else if (model.order_type == ZStudentOrderTypeRefundCancle){
+                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+                        make.top.bottom.equalTo(self.bottomView);
+                        make.width.mas_equalTo(CGFloatIn750(126));
+                    }];
+                    
+                    [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                       make.width.mas_equalTo(CGFloatIn750(31));
+                       make.height.mas_equalTo(CGFloatIn750(31));
+                       make.center.equalTo(self.telBtn);
+                    }];
+                    
+                    [_telBtn setTitle:@"" forState:UIControlStateNormal];
+                    _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+                    self.statusLabel.hidden = NO;
+                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.top.right.bottom.equalTo(self.bottomView);
+                        make.left.equalTo(self.telBtn.mas_right);
+                    }];
+                    self.statusLabel.text = @"已取消退款";
+                }else{
+                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.top.right.left.equalTo(self.bottomView);
+                        make.height.mas_equalTo(CGFloatIn750(88));
+                    }];
+                }
+            }else{
+                [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.right.left.equalTo(self.bottomView);
+                    make.height.mas_equalTo(CGFloatIn750(88));
+                }];
+            }
         }else{
             
             [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -335,6 +613,52 @@
                 make.top.bottom.equalTo(self.bottomView);
                 make.width.mas_equalTo(CGFloatIn750(180));
             }];
+        }
+    }else{
+        //机构端
+        if (model.order_type == ZOrganizationOrderTypeForRefund//退款
+        || model.order_type == ZOrganizationOrderTypeRefundReceive//退款
+        || model.order_type == ZOrganizationOrderTypeRefunding//退款中
+        || model.order_type == ZOrganizationOrderTypeForRefundComplete
+        || model.order_type == ZOrganizationOrderTypeRefundCancle) {
+            if (model.order_type == ZOrganizationOrderTypeForRefund) {
+                //状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+                if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3) {
+                    self.refundOSureBtn.hidden = NO;
+                    self.refundORefectBtn.hidden = NO;
+                    [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.top.right.bottom.equalTo(self.bottomView);
+                        make.left.equalTo(self.bottomView.mas_centerX);
+                    }];
+                    [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.top.bottom.equalTo(self.bottomView);
+                        make.right.equalTo(self.bottomView.mas_centerX);
+                    }];
+                }else if ([model.refund_status intValue] == 2){
+                    self.statusLabel.hidden = NO;
+                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.top.right.bottom.equalTo(self.bottomView);
+                    }];
+                    self.statusLabel.text = @"已拒绝学员退款，待学员确认";
+                }else if ([model.refund_status intValue] == 4 || [model.refund_status intValue] == 5){
+                    self.refundPayBtn.hidden = NO;
+                    [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.top.right.bottom.equalTo(self.bottomView);
+                    }];
+                }
+            }else if (model.order_type == ZOrganizationOrderTypeForRefundComplete){
+                self.statusLabel.hidden = NO;
+                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.right.bottom.equalTo(self.bottomView);
+                }];
+                self.statusLabel.text = @"退款已完成";
+            }else if (model.order_type == ZOrganizationOrderTypeRefundCancle){
+                self.statusLabel.hidden = NO;
+                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.right.bottom.equalTo(self.bottomView);
+                }];
+                self.statusLabel.text = @"学员已取消退款";
+            }
         }
     }
     

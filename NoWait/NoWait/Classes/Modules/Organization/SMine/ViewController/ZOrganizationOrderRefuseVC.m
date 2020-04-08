@@ -105,7 +105,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
+    [ZOriganizationOrderViewModel getRefundOrderList:param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -133,7 +133,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
+    [ZOriganizationOrderViewModel getRefundOrderList:self.param completeBlock:^(BOOL isSuccess, ZOrderListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

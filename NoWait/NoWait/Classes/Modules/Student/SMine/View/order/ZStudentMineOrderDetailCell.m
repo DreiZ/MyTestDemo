@@ -443,10 +443,12 @@
         case ZStudentOrderTypeRefundReceive:
         case ZStudentOrderTypeRefunding:
         case ZStudentOrderTypeForRefundComplete:
+        case ZStudentOrderTypeRefundCancle:
         case ZOrganizationOrderTypeForRefund:
         case ZOrganizationOrderTypeRefundReceive:
         case ZOrganizationOrderTypeRefunding:
         case ZOrganizationOrderTypeForRefundComplete:
+        case ZOrganizationOrderTypeRefundCancle:
         case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
             {
                 [self setDetailDes];

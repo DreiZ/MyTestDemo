@@ -40,8 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
+
    [self refreshData];
 }
 
@@ -63,8 +62,9 @@
     if (!self.detailModel) {
         return;
     }
-    self.detailModel.isStudent = self.model.isStudent;
-    self.detailModel.isRefund = self.model.isRefund;
+    self.detailModel.status = @"15";
+    self.detailModel.isStudent = NO;self.model.isStudent;
+    self.detailModel.isRefund = YES;self.model.isRefund;
     self.detailModel.refund_status = @"1";
     switch (self.detailModel.order_type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
@@ -276,7 +276,8 @@
             || self.detailModel.order_type == ZOrganizationOrderTypeRefunding//退款中
             || self.detailModel.order_type == ZOrganizationOrderTypeForRefundComplete
             || self.detailModel.order_type == ZOrganizationOrderTypeRefundCancle
-            || self.detailModel.order_type == ZStudentOrderTypeRefundCancle) {
+            || self.detailModel.order_type == ZStudentOrderTypeRefundCancle
+            || self.detailModel.isRefund) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -299,7 +300,8 @@
     }else{
         if (self.detailModel.order_type == ZOrganizationOrderTypeOrderForReceived
             || self.detailModel.order_type == ZOrganizationOrderTypeOutTime
-            || self.detailModel.order_type == ZOrganizationOrderTypeCancel) {
+            || self.detailModel.order_type == ZOrganizationOrderTypeCancel
+            || self.detailModel.isRefund) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -333,6 +335,26 @@
     }];
     
     [self loadViewIfNeeded];
+    
+    if (self.detailModel && self.detailModel.isRefund && self.detailModel.isStudent) {
+        if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 2 ||
+            [self.detailModel.refund_status intValue] == 3 ||
+            [self.detailModel.refund_status intValue] == 4) {
+            UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+            sureBtn.layer.masksToBounds = YES;
+            sureBtn.layer.cornerRadius = 3;
+            sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+            [sureBtn setTitle:@"取消退款" forState:UIControlStateNormal];
+            [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+            [sureBtn.titleLabel setFont:[UIFont fontSmall]];
+            [sureBtn bk_whenTapped:^{
+                [ZOriganizationOrderViewModel handleOrderWithIndex:7 data:self.detailModel completeBlock:^(BOOL isSuccess, id data) {
+                    
+                }];
+            }];
+            [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
+        }
+    }
 }
 
 #pragma mark - lazy loading...
@@ -562,7 +584,6 @@
 //退款
 - (void)setRefuseCell {
     self.detailModel.refund_msg = @"单身快乐时代峻峰轧空三六九等；立即；禄口街道；龙卷风；收到了；方式；代理费；历史地看；";
-    self.detailModel.refund_status = @"2";
     if (!self.detailModel.isStudent) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = self.detailModel.nick_name ;
@@ -611,9 +632,11 @@
                                 model.isTextEnabled = YES;
                             }else{
                                 model.isTextEnabled = NO;
+                                model.placeholder = @"";
                             }
                         }else{
                             model.isTextEnabled = NO;
+                            model.placeholder = @"";
                         }
                     }else{
                         if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
@@ -621,9 +644,11 @@
                                 model.isTextEnabled = YES;
                             }else{
                                 model.isTextEnabled = NO;
+                                model.placeholder = @"";
                             }
                         }else{
                             model.isTextEnabled = NO;
+                            model.placeholder = @"";
                         }
                     }
                 }
@@ -638,32 +663,43 @@
                 //申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
                 if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
                     if ([self.detailModel.refund_status intValue] == 2) {
-                        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-                        model.rightTitle = @"如重新协商金额，请先修改此金额然后协商提交";
+                        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+                        model.rightTitle = @"商家已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
                         model.isHiddenLine = YES;
-                        model.lineLeftMargin = CGFloatIn750(30);
-                        model.lineRightMargin = CGFloatIn750(30);
-                        model.cellHeight = CGFloatIn750(32);
+                        model.cellWidth = KScreenWidth;
+                        model.leftMargin = CGFloatIn750(160);
+                        model.rightMargin = CGFloatIn750(20);
+                        model.singleCellHeight = CGFloatIn750(32);
+                        model.cellHeight = CGFloatIn750(34);
+                        model.lineSpace = CGFloatIn750(10);
                         model.rightFont = [UIFont fontSmall];
-                        model.rightColor = [UIColor colorTextGray];
+                        model.rightColor = [UIColor colorRedForLabel];
+                        model.rightDarkColor =  [UIColor colorRedForLabel];
                         
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                         [self.cellConfigArr addObject:menuCellConfig];
                     }
                 }
             }else{
-                if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
+                if (self.detailModel.order_type == ZOrganizationOrderTypeForRefund) {
                     if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
-                        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-                        model.rightTitle = @"如重新协商金额，请先修改此金额然后协商提交";
+                        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+                        model.rightTitle = @"如重新协商金额，请先修改此金额然后“协商退款”";
+                        if ([self.detailModel.refund_status intValue] == 3) {
+                            model.rightTitle = @"学员已拒绝你提供的退款金额提议,如重新协商金额，请先修改此金额然后”协商退款“";
+                        }
                         model.isHiddenLine = YES;
-                        model.lineLeftMargin = CGFloatIn750(30);
-                        model.lineRightMargin = CGFloatIn750(30);
-                        model.cellHeight = CGFloatIn750(32);
+                        model.cellWidth = KScreenWidth;
+                        model.leftMargin = CGFloatIn750(160);
+                        model.rightMargin = CGFloatIn750(18);
+                        model.singleCellHeight = CGFloatIn750(32);
+                        model.cellHeight = CGFloatIn750(34);
+                        model.lineSpace = CGFloatIn750(10);
                         model.rightFont = [UIFont fontSmall];
-                        model.rightColor = [UIColor colorTextBlack];
+                        model.rightColor = [UIColor colorRedForLabel];
+                        model.rightDarkColor =  [UIColor colorRedForLabel];
                         
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                         [self.cellConfigArr addObject:menuCellConfig];
                     }
                 }
