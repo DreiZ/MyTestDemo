@@ -14,6 +14,7 @@
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDataPickerView.h"
+#import "ZAlertView.h"
 
 #import "ZOrganizationCardLessonListVC.h"
 
@@ -179,7 +180,7 @@
                 return ;
             }
             if (!ValidStr(weakSelf.viewModel.addModel.limit)) {
-                [TLUIUtility showErrorHint:@"请输入个人限额"];
+                [TLUIUtility showErrorHint:@"请输入个人限领"];
                 return ;
             }
             NSMutableDictionary *params = @{}.mutableCopy;
@@ -190,11 +191,16 @@
             [params setObject:self.viewModel.addModel.nums forKey:@"nums"];
             [params setObject:self.viewModel.addModel.limit forKey:@"limit"];
             [params setObject:self.viewModel.addModel.status forKey:@"status"];
+            if (!SafeStr(self.viewModel.addModel.min_amount)) {
+                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满0.01元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                                   
+                     }];
+            }
             
             if (SafeStr(self.viewModel.addModel.min_amount)) {
                 [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
             }else{
-                [params setObject:@"0" forKey:@"min_amount"];
+                [params setObject:@"0.01" forKey:@"min_amount"];
             }
             
             if (self.viewModel.addModel.isAll) {
