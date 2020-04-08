@@ -38,10 +38,10 @@
         model.isStudent = YES;
         model.isRefund = YES;
         
-        model.refund_status = @"1";
-        if (i == 1) {
-            model.refund_status = @"2";
-        }
+//        model.refund_status = @"1";
+//        if (i == 1) {
+//            model.refund_status = @"2";
+//        }
         
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];

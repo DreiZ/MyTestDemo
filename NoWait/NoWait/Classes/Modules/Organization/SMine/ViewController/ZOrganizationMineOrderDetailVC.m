@@ -62,10 +62,8 @@
     if (!self.detailModel) {
         return;
     }
-    self.detailModel.status = @"15";
-    self.detailModel.isStudent = NO;self.model.isStudent;
-    self.detailModel.isRefund = YES;self.model.isRefund;
-    self.detailModel.refund_status = @"1";
+    self.detailModel.isStudent = self.model.isStudent;
+    self.detailModel.isRefund = self.model.isRefund;
     switch (self.detailModel.order_type) {
         case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
             ;
@@ -583,7 +581,6 @@
 
 //退款
 - (void)setRefuseCell {
-    self.detailModel.refund_msg = @"单身快乐时代峻峰轧空三六九等；立即；禄口街道；龙卷风；收到了；方式；代理费；历史地看；";
     if (!self.detailModel.isStudent) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = self.detailModel.nick_name ;
@@ -739,11 +736,11 @@
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         
         NSMutableArray *titleArr = @[@[@"退款原因",SafeStr(self.detailModel.refund_msg)],
-                              @[@"退款编号",SafeStr(self.detailModel.refund_id)],
+                              @[@"退款编号",SafeStr(self.detailModel.out_refund_no)],
                               @[@"订单编号",SafeStr(self.detailModel.order_no)],
-                              @[@"申请时间",SafeStr(self.detailModel.refund_time)]].mutableCopy;
-        if (SafeStr(self.detailModel.refund_time)) {
-            [titleArr addObject:@[@"退款时间",SafeStr(self.detailModel.refund_time)]];
+                              @[@"申请时间",[SafeStr(self.detailModel.refund_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]].mutableCopy;
+        if (SafeStr(self.detailModel.finish_time)) {
+            [titleArr addObject:@[@"退款时间",[SafeStr(self.detailModel.finish_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]];
         }
         for (int i = 0; i < titleArr.count; i++) {
             if (i == 0) {
