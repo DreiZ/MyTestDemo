@@ -94,14 +94,21 @@
     __weak typeof(self) weakSelf = self;
     ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
     enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
-        [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
-            if (isSuccess) {
-                [TLUIUtility showSuccessHint:data];
-                [weakSelf refreshAllData];
-            }else{
-                [TLUIUtility showErrorHint:data];
-            }
-        }];
+        if (index == ZLessonOrderHandleTypeORefundReject || index == ZLessonOrderHandleTypeSRefundReject) {
+            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+            evc.model = model;
+            [self.navigationController pushViewController:evc animated:YES];
+        }else{
+            [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:data];
+                    [weakSelf refreshAllData];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+        }
+        
     };
 }
 

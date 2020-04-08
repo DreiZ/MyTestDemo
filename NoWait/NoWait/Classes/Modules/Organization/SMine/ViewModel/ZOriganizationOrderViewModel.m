@@ -493,12 +493,12 @@
         {
             [params setObject:@"1" forKey:@"refund_type"];
             if ([data isKindOfClass:[ZOrderListModel class]]) {
-                   ZOrderListModel *model = data;
-                   [params setObject:model.refund_amount forKey:@"refund_amount"];
-               }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
-                   ZOrderDetailModel *model = data;
-                   [params setObject:model.refund_amount forKey:@"refund_amount"];
-               }
+               ZOrderListModel *model = data;
+               [params setObject:model.refund_amount forKey:@"refund_amount"];
+            }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+               ZOrderDetailModel *model = data;
+               [params setObject:model.refund_amount forKey:@"refund_amount"];
+            }
             [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];
         }
             break;
