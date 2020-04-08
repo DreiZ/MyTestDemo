@@ -84,9 +84,12 @@
         make.right.equalTo(self.contView.mas_right);
     }];
     
+    __weak typeof(self) weakSelf = self;
     UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [searchBtn bk_whenTapped:^{
-        
+        if (weakSelf.searchBlock) {
+            weakSelf.searchBlock(0);
+        }
     }];
     [self.contView addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {

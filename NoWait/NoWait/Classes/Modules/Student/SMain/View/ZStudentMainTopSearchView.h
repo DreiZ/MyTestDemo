@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZStudentMainTopSearchView : UIView
-
+@property (nonatomic,strong) void (^searchBlock)(NSInteger);
 - (void)updateWithOffset:(CGFloat)offsetY;
 
 @end

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 //课程列表
 + (void)getLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)searchAllLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getOrderLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 

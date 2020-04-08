@@ -229,6 +229,9 @@
 //课程list
 #define URL_merchants_get_courses_list               @"merchants/v1/get_courses_list"
 
+//课程list
+#define URL_merchants_get_all_courses_list               @"merchants/v1/get_all_courses_by_name"
+
 //关闭课程
 #define URL_merchants_close_courses                  @"merchants/v1/update_courses_status"
 

@@ -25,6 +25,7 @@
 
 #import "ZStudentMainViewModel.h"
 #import "ZOrigantionMoveInVC.h"
+#import "ZMianSearchVC.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -149,8 +150,13 @@
 #pragma mark - lazy loading
 - (ZStudentMainTopSearchView *)searchView {
     if (!_searchView) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight)];
+        _searchView.searchBlock = ^(NSInteger index) {
+            ZMianSearchVC *svc = [[ZMianSearchVC alloc] init];
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        };
+        
     }
     return _searchView;
 }
