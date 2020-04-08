@@ -110,7 +110,7 @@
     UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [clubBtn bk_whenTapped:^{
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(5, weakSelf.model);
+            weakSelf.handleBlock(ZLessonOrderHandleTypeClub, weakSelf.model);
         }
     }];
     [self.topView addSubview:clubBtn];
@@ -343,7 +343,7 @@
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_delBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(2,self.model);
+                weakSelf.handleBlock(ZLessonOrderHandleTypeSRefund,self.model);
             };
         }];
     }

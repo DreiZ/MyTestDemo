@@ -24,6 +24,7 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
 #import "ZStudentOrderRefundHandleVC.h"
+#import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -394,12 +395,17 @@
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineOrderDetailCell"]){
         ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {
-            if (index == 2) {
+            if (index == ZLessonOrderHandleTypeSRefund) {
                 ZStudentOrderRefundHandleVC *handlevc = [[ZStudentOrderRefundHandleVC alloc] init];
                 handlevc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:handlevc animated:YES];
-            }else if (index == 5){
-                
+            }else if (index == ZLessonOrderHandleTypeClub){
+                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                lmodel.stores_id = model.stores_id;
+                lmodel.name = model.store_name;
+                dvc.listModel = lmodel;
+                [self.navigationController pushViewController:dvc animated:YES];
             }
         };
     }
