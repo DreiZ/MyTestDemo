@@ -66,6 +66,31 @@
     return _param;
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+            if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *backDict = notfication.object;
+                if (backDict && [backDict objectForKey:@"payState"]) {
+                    if ([backDict[@"payState"] integerValue] == 0) {
+                        [self refreshAllData];
+                    }else if ([backDict[@"payState"] integerValue] == 1) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
+                    }else if ([backDict[@"payState"] integerValue] == 2) {
+
+                    }else if ([backDict[@"payState"] integerValue] == 3) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
+                    }
+                }
+            }
+        }];
+
+}
+
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;

@@ -47,7 +47,7 @@
         self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
     }
     
-    self.failLabel.text = SafeStr(model.refund_amount);
+    self.failLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.refund_amount)];
     if (model.isRefund) {
         self.statelabel.text = model.refund_status_msg;
     }else{
@@ -219,7 +219,7 @@
                     make.height.mas_equalTo(CGFloatIn750(136));
                 }];
                 
-                NSString *fail = self.model.refund_amount? self.model.refund_amount : @"";
+                NSString *fail = self.model.refund_amount? [NSString stringWithFormat:@"￥%@",self.model.refund_amount] : @"";
                 CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
     
                 [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -397,7 +397,7 @@
     if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
         if (listModel.isRefund) {
-            NSString *fail = listModel.refund_amount ? listModel.refund_amount : @"";
+            NSString *fail = listModel.refund_amount ?  [NSString stringWithFormat:@"￥%@",listModel.refund_amount] : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             
             if (listModel.order_type == ZStudentOrderTypeForRefund

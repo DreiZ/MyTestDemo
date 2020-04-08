@@ -35,7 +35,7 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOrderListModel *model = self.dataSources[i];
-        model.isStudent = YES;
+        model.isStudent = self.isStudent;
         model.isRefund = YES;
         
 //        model.refund_status = @"1";
@@ -65,27 +65,46 @@
 - (void)setDataSource {
     [super setDataSource];
     self.param = @{}.mutableCopy;
+    
+    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+            if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *backDict = notfication.object;
+                if (backDict && [backDict objectForKey:@"payState"]) {
+                    if ([backDict[@"payState"] integerValue] == 0) {
+                        [self refreshAllData];
+                    }else if ([backDict[@"payState"] integerValue] == 1) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
+                    }else if ([backDict[@"payState"] integerValue] == 2) {
+
+                    }else if ([backDict[@"payState"] integerValue] == 3) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
+                    }
+                }
+            }
+        }];
+
 }
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-            enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
-                if (index == ZLessonOrderHandleTypePay) {
-                    [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
-                        if (isSuccess) {
-                            [TLUIUtility showSuccessHint:data];
-                            [weakSelf refreshAllData];
-                        }else{
-                            [TLUIUtility showErrorHint:data];
-                        }
-                    }];
-                }
-    //            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-    //            [self.navigationController pushViewController:evc animated:YES];
-            };
+    enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
+        [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
+            if (isSuccess) {
+                [TLUIUtility showSuccessHint:data];
+                [weakSelf refreshAllData];
+            }else{
+                [TLUIUtility showErrorHint:data];
+            }
+        }];
+    };
 }
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
         ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
@@ -167,7 +186,12 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:[NSString stringWithFormat:@"%d",7] forKey:@"status"];
-    [self.param setObject:@"0" forKey:@"type"];
+    if (self.isStudent) {
+        [self.param setObject:@"0" forKey:@"type"];
+    }else{
+        [self.param setObject:@"1" forKey:@"type"];
+    }
+    
 }
 
 

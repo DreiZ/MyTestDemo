@@ -177,7 +177,7 @@
                 [TLUIUtility showErrorHint:@"请输入联系号码"];
                 return ;
             }
-            if ([weakSelf.detailModel.account_phone intValue] != 11) {
+            if ([weakSelf.detailModel.account_phone length] != 11) {
                 [TLUIUtility showErrorHint:@"请输入正确的联系号码"];
                 return ;
             }

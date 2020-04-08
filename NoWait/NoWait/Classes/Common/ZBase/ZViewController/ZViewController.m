@@ -62,6 +62,7 @@
 #ifdef DEBUG_MEMERY
     DLog(@"dealloc %@", self.navigationItem.title);
 #endif
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - # Getter

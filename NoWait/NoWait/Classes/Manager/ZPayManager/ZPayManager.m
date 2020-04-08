@@ -157,7 +157,7 @@ static ZPayManager *sharedManager;
     request.timeStamp = [payModel.timestamp intValue];
     request.sign = payModel.sign;
     [WXApi sendReq:request completion:^(BOOL success) {
-        success;
+//        success;
     }];
 }
 

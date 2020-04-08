@@ -9,6 +9,7 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOrderModel.h"
 #import "ZPayManager.h"
+#import "ZPayAlertTypeView.h"
 @implementation ZOriganizationOrderViewModel
 
 + (void)payOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
@@ -310,7 +311,13 @@
     switch (index) {
         case 0://支付
         {
-            
+            [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
+                if (index == 0) {
+                    
+                }else{
+                    
+                }
+            }];
         }
             break;
         case 1://取消
@@ -365,7 +372,13 @@
             break;
         case 10://支付退款
         {
-            
+            [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
+                if (index == 0) {
+                    
+                }else{
+                    
+                }
+            }];
         }
             break;
         case 100://俱乐部
