@@ -45,6 +45,7 @@
 
 + (void)replyEvaOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
+
 #pragma mark - order handle
 + (void)cancleOrder:(NSDictionary *)params
       completeBlock:(resultDataBlock)completeBlock;
@@ -53,6 +54,8 @@
 + (void)deleteOrder:(NSDictionary *)params
       completeBlock:(resultDataBlock)completeBlock;
 
+//接受拒绝预约
++ (void)appointmentOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
 #pragma mark - handle index

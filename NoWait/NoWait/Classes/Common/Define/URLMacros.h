@@ -383,15 +383,23 @@
 #define URL_order_v1_order_list                     @"order/v1/order_list"
 //删除订单
 #define URL_order_v1_del_order                      @"order/v1/del_order"
-//退款确定
+//接受拒绝预约
+#define URL_order_v1_update_appointment_order              @"order/v1/update_appointment_order"
+//退款确定 拒绝
 #define URL_order_v1_refund_confirm                 @"order/v1/refund_confirm"
 //退款
 #define URL_order_v1_refund_order                   @"order/v1/refund_order"
 //退款查询
 #define URL_order_v1_refund_query                   @"order/v1/refund_query"
-
+//退款订单列表
 #define URL_order_v1_refund_order_list              @"order/v1/refund_order_list"
+//协商退款
+#define URL_order_v1_refund_order_again              @"order/v1/refund_order_again"
+//商家退款
+#define URL_order_v1_refund_order_pay                @"order/v1/refund_by_store"
 
+//协商退款取消
+#define URL_order_v1_refund_order_cancle             @"order/v1/cancle_refund_order"
 
 #pragma mark - 相册------------------------------------------------
 //相册类型列表

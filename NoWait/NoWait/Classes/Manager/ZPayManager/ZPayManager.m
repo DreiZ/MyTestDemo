@@ -89,6 +89,42 @@ static ZPayManager *sharedManager;
 }
 
 
+- (void)getRefundAliPayInfo:(NSDictionary *)param complete:(resultBlock)complete{
+    
+    [ZOriganizationOrderViewModel payOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
+        if (isSuccess) {
+            ZMineOrderPayBackModel *pay = backModel;
+            [self aliPay:pay.pay_code];
+        }else{
+            [TLUIUtility showErrorHint:backModel];
+        }
+           
+        
+        complete(NO,@"");
+    }];
+}
+
+- (void)getRefundWechatPayInfo:(NSDictionary *)param complete:(resultBlock)complete{
+    if (![WXApi isWXAppInstalled]) {
+        complete(NO,@"");
+        [TLUIUtility showAlertWithTitle:@"此设备没有安装微信"];
+    }else{
+        [ZOriganizationOrderViewModel payOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
+            if (isSuccess) {
+                ZMineOrderPayBackModel *pay = backModel;
+                [self wechatPay:pay];
+            }else{
+                [TLUIUtility showErrorHint:backModel];
+            }
+               
+            
+            complete(NO,@"");
+        }];
+    }
+
+}
+
+
 #pragma mark - 支付
 //阿里支付
 - (void)aliPay:(NSString *)orderMessage {

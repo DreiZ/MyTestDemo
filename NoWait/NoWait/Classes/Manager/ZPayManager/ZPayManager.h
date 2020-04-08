@@ -30,6 +30,12 @@ typedef void(^PayCompleteCallBack)(ZPayErrCode errCode,NSString *errStr);
 //微信支付
 - (void)getWechatPayInfo:(NSDictionary *)param complete:(resultBlock)complete;
 
+//退款阿里支付
+- (void)getRefundAliPayInfo:(NSDictionary *)param complete:(resultBlock)complete;
+
+//退款微信支付
+- (void)getRefundWechatPayInfo:(NSDictionary *)param complete:(resultBlock)complete;
+
 /**
  *  @author gitKong
  *

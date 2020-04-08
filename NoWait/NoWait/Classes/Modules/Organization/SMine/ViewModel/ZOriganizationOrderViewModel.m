@@ -32,6 +32,27 @@
 }
 
 
++ (void)refundPayOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_pay params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                ZMineOrderPayBackModel *netModel = [ZMineOrderPayBackModel mj_objectWithKeyValues:dataModel.data];
+                completeBlock(YES, netModel);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
+
+
 + (void)addOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_create_order params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
@@ -294,6 +315,80 @@
     }];
 }
 
+//学员同意t商家退款或再商议
++ (void)refundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_again params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
+//学员同意t商家退款或再商议
++ (void)ogriganizationRefundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_confirm params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
+//学员同意t商家退款或再商议
++ (void)refundOrderCanle:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_cancle params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
++ (void)appointmentOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_update_appointment_order params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
 
 
 + (void)handleOrderWithIndex:(NSInteger)index data:(id)data completeBlock:(resultDataBlock)completeBlock {
@@ -309,14 +404,21 @@
     }else if ([data isKindOfClass:[NSDictionary class]]){
         params = data;
     }
+    
     switch (index) {
         case ZLessonOrderHandleTypePay://支付
         {
             [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
                 if (index == 0) {
-                    
+                    [params setObject:@"1" forKey:@"pay_type"];
+                    [[ZPayManager sharedManager] getWechatPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
                 }else{
-                    
+                    [params setObject:@"2" forKey:@"pay_type"];
+                    [[ZPayManager  sharedManager] getAliPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
                 }
             }];
         }
@@ -348,7 +450,8 @@
         {
             [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
-                   
+                    [params setObject:@"1" forKey:@"operation_type"];
+                   [ZOriganizationOrderViewModel appointmentOrder:params completeBlock:completeBlock];
                 }
             }];
         }
@@ -357,7 +460,8 @@
         {
             [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定拒绝预约？" leftBtnTitle:@"取消" rightBtnTitle:@"拒绝" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
-                    
+                    [params setObject:@"2" forKey:@"operation_type"];
+                    [ZOriganizationOrderViewModel appointmentOrder:params completeBlock:completeBlock];
                 }
             }];
         }
@@ -369,31 +473,61 @@
             break;
         case ZLessonOrderHandleTypeSRefundReject://协商退款学员
         {
-            
+            [params setObject:@"1" forKey:@"refund_type"];
+            if ([data isKindOfClass:[ZOrderListModel class]]) {
+                   ZOrderListModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                   ZOrderDetailModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }
+            [ZOriganizationOrderViewModel refundOrderAgain:params completeBlock:completeBlock];
         }
             break;
         case ZLessonOrderHandleTypeSRefundCancle://取消退款
         {
-            
+            [ZOriganizationOrderViewModel refundOrderCanle:params completeBlock:completeBlock];
         }
             break;
         case ZLessonOrderHandleTypeORefund://同意退款
         {
-            
+            [params setObject:@"1" forKey:@"refund_type"];
+            if ([data isKindOfClass:[ZOrderListModel class]]) {
+                   ZOrderListModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                   ZOrderDetailModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }
+            [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];
         }
             break;
         case ZLessonOrderHandleTypeORefundReject://协商退款商家
         {
-            
+            [params setObject:@"2" forKey:@"refund_type"];
+            if ([data isKindOfClass:[ZOrderListModel class]]) {
+                   ZOrderListModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                   ZOrderDetailModel *model = data;
+                   [params setObject:model.refund_amount forKey:@"refund_amount"];
+               }
+            [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];
         }
             break;
         case ZLessonOrderHandleTypeRefundPay://支付退款
         {
             [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
                 if (index == 0) {
-                    
+                    [params setObject:@"1" forKey:@"pay_type"];
+                    [[ZPayManager sharedManager] getRefundWechatPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
                 }else{
-                    
+                    [params setObject:@"2" forKey:@"pay_type"];
+                    [[ZPayManager  sharedManager] getRefundAliPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
+                        
+                    }];
                 }
             }];
         }
