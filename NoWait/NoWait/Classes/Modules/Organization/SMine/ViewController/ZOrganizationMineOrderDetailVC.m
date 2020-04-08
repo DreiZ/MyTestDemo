@@ -346,7 +346,7 @@
             [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
             [sureBtn.titleLabel setFont:[UIFont fontSmall]];
             [sureBtn bk_whenTapped:^{
-                [ZOriganizationOrderViewModel handleOrderWithIndex:7 data:self.detailModel completeBlock:^(BOOL isSuccess, id data) {
+                [ZOriganizationOrderViewModel handleOrderWithIndex:ZLessonOrderHandleTypeSRefundCancle data:self.detailModel completeBlock:^(BOOL isSuccess, id data) {
                     
                 }];
             }];
@@ -361,10 +361,7 @@
         __weak typeof(self) weakSelf = self;
         _handleView = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
         _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
-            if (type == ZLessonOrderHandleTypePay) {
-                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
-                [weakSelf.navigationController pushViewController:pvc animated:YES];
-            }else if (type == ZLessonOrderHandleTypeEva) {
+            if (type == ZLessonOrderHandleTypeEva) {
                 ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
                 evc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:evc animated:YES];

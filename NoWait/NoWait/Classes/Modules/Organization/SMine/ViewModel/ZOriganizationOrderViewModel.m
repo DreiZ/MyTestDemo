@@ -10,6 +10,7 @@
 #import "ZOrderModel.h"
 #import "ZPayManager.h"
 #import "ZPayAlertTypeView.h"
+#import "ZAlertView.h"
 @implementation ZOriganizationOrderViewModel
 
 + (void)payOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
@@ -309,7 +310,7 @@
         params = data;
     }
     switch (index) {
-        case 0://支付
+        case ZLessonOrderHandleTypePay://支付
         {
             [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
                 if (index == 0) {
@@ -320,57 +321,73 @@
             }];
         }
             break;
-        case 1://取消
+        case ZLessonOrderHandleTypeCancel://取消
         {
-            [ZOriganizationOrderViewModel cancleOrder:params completeBlock:completeBlock];
+            [ZAlertView setAlertWithTitle:@"取消订单" subTitle:@"确定取消订单？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [ZOriganizationOrderViewModel cancleOrder:params completeBlock:completeBlock];
+                }
+            }];
         }
             break;
-        case 2://删除
+        case ZLessonOrderHandleTypeDelete://删除
         {
-            [ZOriganizationOrderViewModel deleteOrder:params completeBlock:completeBlock];
+            [ZAlertView setAlertWithTitle:@"删除订单" subTitle:@"确定删除订单？订单删除后不可找回" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [ZOriganizationOrderViewModel deleteOrder:params completeBlock:completeBlock];
+                }
+            }];
         }
             break;
-        case 3://评价
+        case ZLessonOrderHandleTypeEva://评价
         {
-            
+            //外部做
         }
             break;
-        case 4://接受预约
+        case ZLessonOrderHandleTypeOrderReceive://接受预约
         {
-            
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定接受预约？" leftBtnTitle:@"不取消" rightBtnTitle:@"接受" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                   
+                }
+            }];
         }
             break;
-        case 40://拒绝预约
+        case ZLessonOrderHandleTypeOrderNOReceive://拒绝预约
         {
-            
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定拒绝预约？" leftBtnTitle:@"取消" rightBtnTitle:@"拒绝" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    
+                }
+            }];
         }
             break;
-        case 5://申请退款
+        case ZLessonOrderHandleTypeSRefund://申请退款
         {
             [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
         }
             break;
-        case 6://协商退款学员
+        case ZLessonOrderHandleTypeSRefundReject://协商退款学员
         {
             
         }
             break;
-        case 7://取消退款
+        case ZLessonOrderHandleTypeSRefundCancle://取消退款
         {
             
         }
             break;
-        case 8://同意退款
+        case ZLessonOrderHandleTypeORefund://同意退款
         {
             
         }
             break;
-        case 9://协商退款商家
+        case ZLessonOrderHandleTypeORefundReject://协商退款商家
         {
             
         }
             break;
-        case 10://支付退款
+        case ZLessonOrderHandleTypeRefundPay://支付退款
         {
             [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
                 if (index == 0) {
@@ -381,14 +398,14 @@
             }];
         }
             break;
-        case 100://俱乐部
+        case ZLessonOrderHandleTypeClub://俱乐部
         {
-            
+            //外部做
         }
             break;
-        case 101://电话
+        case ZLessonOrderHandleTypeTel://电话
         {
-            
+            //外部做
         }
             break;
             

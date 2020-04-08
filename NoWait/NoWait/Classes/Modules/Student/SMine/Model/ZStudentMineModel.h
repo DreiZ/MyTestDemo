@@ -10,14 +10,21 @@
 
 //购买课程流程
 typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
-    ZLessonOrderHandleTypePay    =  0,  //支付
-    ZLessonOrderHandleTypeCancel,  //取消
-    ZLessonOrderHandleTypeDelete,  //删除
-    ZLessonOrderHandleTypeEva,  //评价
-    ZLessonOrderHandleTypeRefuse,  //退款
-    ZLessonOrderHandleTypeOrderReceive,  //接受预约
-    ZLessonOrderHandleTypeTel,  //电话
-    ZLessonOrderHandleTypeDetail,  //详情
+    ZLessonOrderHandleTypePay                       =  0,  //支付
+    ZLessonOrderHandleTypeCancel                    =  1,  //取消
+    ZLessonOrderHandleTypeDelete                    =  2,  //删除
+    ZLessonOrderHandleTypeEva                       =  3,  //评价
+    ZLessonOrderHandleTypeOrderReceive              =  4,  //接受预约
+    ZLessonOrderHandleTypeOrderNOReceive            =  40,  //拒绝预约
+    ZLessonOrderHandleTypeSRefund                   =  5,  //退款
+    ZLessonOrderHandleTypeSRefundReject             =  6,  //拒绝商家提议退款
+    ZLessonOrderHandleTypeSRefundCancle             =  7,  //取消退款
+    ZLessonOrderHandleTypeORefund                   =  8,  //同意退款（商家）
+    ZLessonOrderHandleTypeORefundReject             =  9,  //拒绝退款重新协商（商家）
+    ZLessonOrderHandleTypeRefundPay                 =  10, //支付退款（商家）
+    ZLessonOrderHandleTypeTel                       =  101,  //电话
+    ZLessonOrderHandleTypeDetail                    =  102,  //详情
+    ZLessonOrderHandleTypeClub                      =  103,  //校区详情
 };
   
 
