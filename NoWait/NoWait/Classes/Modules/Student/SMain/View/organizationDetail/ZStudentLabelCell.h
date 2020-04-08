@@ -7,13 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZStudentMainModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentLabelCell : ZBaseCell
 @property (nonatomic,strong) NSArray *titleArr;
 
-@property (nonatomic,strong) void (^handleBlock)(NSString *);
+@property (nonatomic,strong) void (^handleBlock)(ZComplaintModel *);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,6 +36,14 @@
 @property (nonatomic,strong) NSString *image;
 @end
 
+@interface ZComplaintModel : NSObject
+@property (nonatomic,strong) NSString *complaintId;
+@property (nonatomic,strong) NSString *type;
+@end
+
+@interface ZComplaintNetModel : NSObject
+@property (nonatomic,strong) NSArray *list;
+@end
 
 @interface ZStudentMainModel : NSObject
 

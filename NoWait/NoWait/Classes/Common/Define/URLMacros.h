@@ -429,6 +429,9 @@
 
 #define URL_merchants_v1_stores_deteail_info          @"merchants/v1/stores_deteail_info"
 
+#define URL_account_v1_add_complaint                  @"account/v1/add_complaint"
+
+#define URL_account_v1_get_complaint_type             @"account/v1/get_complaint_type"
 
 
 #pragma mark - 签课

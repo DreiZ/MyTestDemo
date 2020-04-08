@@ -32,6 +32,24 @@
 
 @end
 
+
+@implementation ZComplaintModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"complaintId" : @"id",
+    };
+}
+@end
+
+@implementation ZComplaintNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZComplaintModel"
+             };
+}
+@end
+
 @implementation ZStudentMainModel
 
 @end

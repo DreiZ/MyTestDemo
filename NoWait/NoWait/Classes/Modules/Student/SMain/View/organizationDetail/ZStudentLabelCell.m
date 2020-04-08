@@ -56,16 +56,16 @@
     CGFloat topY = CGFloatIn750(10);
 
     for (int i = 0; i < adeptArr.count; i++) {
-       CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+        ZComplaintModel *model = adeptArr[i];
+       CGSize tempSize = [model.type tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
        if (leftX + tempSize.width + kLabelAddWidth + kLabelSpace > labelWidth) {
            topY += kLabelHeight + kLabelSpaceY;
            leftX = CGFloatIn750(30);
        }
            
-        __weak typeof(self) weakSelf = self;
        UIButton *tBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
        tBtn.tag = i;
-        [tBtn setTitle:adeptArr[i] forState:UIControlStateNormal];
+        [tBtn setTitle:model.type forState:UIControlStateNormal];
         [tBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [tBtn.titleLabel setFont:[UIFont fontContent]];
         tBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -93,14 +93,14 @@
                 tBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
             }
         }
-        
         UIButton *tBtn = self.btnArr[sender.tag];
-        if (self.handleBlock) {
-            self.handleBlock(tBtn.titleLabel.text);
+        if (tBtn.tag < self.titleArr.count) {
+            ZComplaintModel *model = self.titleArr[sender.tag];
+            if (self.handleBlock) {
+                self.handleBlock(model);
+            }
         }
-        
     }
-    
 }
 
 -(void)setTitleArr:(NSArray *)titleArr {
@@ -126,7 +126,8 @@
     CGFloat topY = CGFloatIn750(10);
 
     for (int i = 0; i < adeptArr.count; i++) {
-       CGSize tempSize = [adeptArr[i] tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
+        ZComplaintModel *model = adeptArr[i];
+       CGSize tempSize = [model.type tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(labelWidth, MAXFLOAT)];
        if (leftX + tempSize.width + kLabelAddWidth + kLabelSpace > labelWidth) {
            topY += kLabelHeight + kLabelSpaceY;
            leftX = CGFloatIn750(30);

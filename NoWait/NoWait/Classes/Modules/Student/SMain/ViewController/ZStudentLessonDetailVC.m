@@ -33,9 +33,14 @@
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
 #import "ZStudentTeacherDetailVC.h"
+#import "ZAlertMoreView.h"
+#import "ZOriganizationReportVC.h"
+#import "ZUMengShareManager.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) UIButton *navRightBtn;
+
 @property (nonatomic,strong) UIView *topNavView;
 @property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
 @property (nonatomic,strong) ZOriganizationLessonDetailModel *addModel;
@@ -84,6 +89,13 @@
         make.bottom.equalTo(self.topNavView.mas_bottom).offset(-CGFloatIn750(17));
     }];
     
+    [self.view addSubview:self.navRightBtn];
+    [self.navRightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(50));
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+        make.bottom.equalTo(self.topNavView.mas_bottom).offset(-CGFloatIn750(17));
+    }];
+    
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
@@ -100,7 +112,7 @@
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(50), CGFloatIn750(50))];
-        [_navLeftBtn setBackgroundColor:[UIColor colorGrayBG] forState:UIControlStateNormal];
+        [_navLeftBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
@@ -108,6 +120,33 @@
         }];
     }
     return _navLeftBtn;
+}
+
+
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setTitle:@"..." forState:UIControlStateNormal];
+        _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
+        [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
+        ViewRadius(_navRightBtn, CGFloatIn750(25));
+        [_navRightBtn bk_whenTapped:^{
+            [ZAlertMoreView setMoreAlertWithHandlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+                    rvc.sTitle = self.addModel.name;
+                    rvc.course_id = self.addModel.lessonID;
+                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                }else{
+                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"向心力" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
+                }
+            }];
+        }];
+    }
+    return _navRightBtn;
 }
 
 - (UIView *)topNavView {

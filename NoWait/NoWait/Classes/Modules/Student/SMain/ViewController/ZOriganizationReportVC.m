@@ -10,9 +10,10 @@
 #import "ZMultiseriateContentLeftLineCell.h"
 #import "ZStudentLabelCell.h"
 #import "ZAlertView.h"
+#import "ZStudentMainViewModel.h"
+#import "ZStudentMainModel.h"
 
 @interface ZOriganizationReportVC ()
-@property (nonatomic,strong) NSArray *titleArr;
 
 @end
 
@@ -20,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self refreshHeadData:@{}];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -33,7 +34,7 @@
 
 - (void)setDataSource {
     [super setDataSource];
-    _titleArr = @[@"垃圾营销", @"涉黄信息",@"不实信息", @"人身攻击",@"有害信息", @"内容信息",@"内容抄袭", @"诈骗信息"];
+    
 }
 
 - (void)initCellConfigArr {
@@ -41,7 +42,7 @@
     
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = @"所得到的";
+        model.rightTitle = self.sTitle;
         model.isHiddenLine = YES;
         model.leftTitle = @"投诉";
         model.cellWidth = KScreenWidth - CGFloatIn750(60);
@@ -75,7 +76,7 @@
         [self.cellConfigArr  addObject:menuCellConfig];
     }
     
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:self.titleArr] cellType:ZCellTypeClass dataModel:self.titleArr];
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:self.dataSources] cellType:ZCellTypeClass dataModel:self.dataSources];
     
     [self.cellConfigArr  addObject:menuCellConfig];
     
@@ -91,14 +92,51 @@
 
 
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"label"]) {
         ZStudentLabelCell *lcell = (ZStudentLabelCell *)cell;
-        lcell.handleBlock = ^(NSString * text) {
-            [ZAlertView setAlertWithTitle:@"提示" subTitle:[NSString stringWithFormat:@"确定举报 %@ %@",self.sTitle,text] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
-                
+        lcell.handleBlock = ^(ZComplaintModel *model) {
+            [ZAlertView setAlertWithTitle:@"提示" subTitle:[NSString stringWithFormat:@"确定举报 %@ %@",self.sTitle,model.type] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                NSMutableDictionary *param = @{}.mutableCopy;
+                if (self.stores_id) {
+                    [param setObject:self.stores_id forKey:@"stores_id"];
+                    [param setObject:@"2" forKey:@"object"];
+                }
+                if (self.course_id) {
+                    [param setObject:self.course_id forKey:@"course_id"];
+                    [param setObject:@"1" forKey:@"object"];
+                }
+                [param setObject:model.complaintId forKey:@"type"];
+                [ZStudentMainViewModel addComplaint:param completeBlock:^(BOOL isSuccess, id data) {
+                    weakSelf.loading = NO;
+                    if (isSuccess && data) {
+//                        [TLUIUtility showAlertWithTitle:data];
+                        [TLUIUtility showSuccessHint:data];
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                }];
             }];
         };
     }
 }
+
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getComplaintType:param completeBlock:^(BOOL isSuccess, ZComplaintNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
 @end
 

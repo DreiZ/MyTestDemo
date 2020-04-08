@@ -146,7 +146,7 @@
                 if (index == 1) {
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
                     rvc.sTitle = self.detailModel.name;
-                    rvc.sid = self.detailModel.schoolID;
+                    rvc.stores_id = self.detailModel.schoolID;
                     [weakSelf.navigationController pushViewController:rvc animated:rvc];
                 }else{
                     [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"向心力" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
