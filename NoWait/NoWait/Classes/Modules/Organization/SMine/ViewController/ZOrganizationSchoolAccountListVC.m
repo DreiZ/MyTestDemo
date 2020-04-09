@@ -7,13 +7,12 @@
 //
 
 #import "ZOrganizationSchoolAccountListVC.h"
-#import "ZOrganizationAccountSchoolListCell.h"
-#import "ZOriganizationTopTitleView.h"
+#import "ZOrganizationAccountSchoolNOListCell.h"
+#import "ZOriganizationAccountFilteView.h"
+#import "ZAlertBeginAndEndTimeView.h"
 
 @interface ZOrganizationSchoolAccountListVC ()
-@property (nonatomic,strong) ZOriganizationTopTitleView *topView;
-@property (nonatomic,strong) UILabel *accountLabel;
-@property (nonatomic,strong) UILabel *accountDetailLabel;
+@property (nonatomic,strong) ZOriganizationAccountFilteView *topView;
 
 @end
 
@@ -30,7 +29,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAccountSchoolListCell className] title:[ZOrganizationAccountSchoolListCell className] showInfoMethod:nil heightOfCell:[ZOrganizationAccountSchoolListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAccountSchoolNOListCell className] title:[ZOrganizationAccountSchoolNOListCell className] showInfoMethod:nil heightOfCell:[ZOrganizationAccountSchoolNOListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:topCellConfig];
     [self.cellConfigArr addObject:topCellConfig];
     [self.cellConfigArr addObject:topCellConfig];
@@ -56,79 +55,35 @@
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(90));
-    }];
-    
-    
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [bottomView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(bottomView);
-        make.centerY.equalTo(bottomView.mas_centerY);
-        make.height.mas_equalTo(0.5);
-    }];
-    
-    [bottomView addSubview:self.accountLabel];
-    [bottomView addSubview:self.accountDetailLabel];
-    [self.accountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(bottomView.mas_bottom).multipliedBy(1/4.0);
-    }];
-    
-    [self.accountDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(30));
-        make.centerY.equalTo(bottomView.mas_bottom).multipliedBy(3/4.0);
-    }];
-    
-    [self.view addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(182));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(40));
+        make.height.mas_equalTo(CGFloatIn750(106));
     }];
     
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-         make.bottom.equalTo(bottomView.mas_top).offset(-CGFloatIn750(0));
+         make.left.right.bottom.equalTo(self.view);
          make.top.equalTo(self.topView.mas_bottom).offset(CGFloatIn750(0));
     }];
 }
 
 #pragma mark - lazy loading...
-- (ZOriganizationTopTitleView *)topView {
+- (ZOriganizationAccountFilteView *)topView {
     if (!_topView) {
-        _topView = [[ZOriganizationTopTitleView alloc] init];
-        _topView.titleArr = @[@"转账金额",@"质押金",@"手续费",@"到账金额"];
+//        __weak typeof(self) weakSelf = self;
+        _topView = [[ZOriganizationAccountFilteView alloc] init];
+        _topView.handleBlock = ^(NSInteger index) {
+            [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {
+                NSLog(@"-begin-%@-end-%@",[NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]],[NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]]);
+//                weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
+//                weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
+//
+//                [weakSelf initCellConfigArr];
+//                [weakSelf.iTableView reloadData];
+            }];
+        };
+        if (self.type == 2) {
+            _topView.isHandle = NO;
+        }
     }
     return _topView;
-}
-
-- (UILabel *)accountLabel {
-    if (!_accountLabel) {
-        _accountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _accountLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _accountLabel.text = @"收款信息：023509230598023";
-        _accountLabel.numberOfLines = 1;
-        _accountLabel.textAlignment = NSTextAlignmentLeft;
-        [_accountLabel setFont:[UIFont fontContent]];
-    }
-    return _accountLabel;
-}
-
-- (UILabel *)accountDetailLabel {
-    if (!_accountDetailLabel) {
-        _accountDetailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _accountDetailLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _accountDetailLabel.text = @"账户信息：阿搜狗还是狗效果";
-        _accountDetailLabel.numberOfLines = 1;
-        _accountDetailLabel.textAlignment = NSTextAlignmentLeft;
-        [_accountDetailLabel setFont:[UIFont fontContent]];
-    }
-    return _accountDetailLabel;
 }
 
 @end

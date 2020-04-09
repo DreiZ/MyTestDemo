@@ -25,6 +25,7 @@
 @property (nonatomic,strong) UIButton *switchUserBtn;
 @property (nonatomic,strong) UILabel *stateLabel;
 @property (nonatomic,strong) UIView *stateBackView;
+@property (nonatomic,strong) UIButton *stateBtn;
 
 @end
 
@@ -129,7 +130,13 @@
         make.bottom.equalTo(self.switchUserBtn.mas_bottom).offset(CGFloatIn750(30));
     }];
     
-    
+    [self addSubview:self.stateBtn];
+    [self.stateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.stateBackView.mas_left).offset(CGFloatIn750(-20));
+        make.right.equalTo(self.stateBackView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.stateBackView.mas_top).offset(CGFloatIn750(-20));
+        make.bottom.equalTo(self.stateBackView.mas_bottom).offset(CGFloatIn750(20));
+    }];
     [self setSubViewFrame];
 }
 
@@ -180,6 +187,18 @@
 }
 
 #pragma mark - - 懒加载---
+- (UIButton *)stateBtn {
+    if (!_stateBtn) {
+        __weak typeof(self) weakSelf = self;
+        _stateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_stateBtn bk_whenTapped:^{
+            if (weakSelf.topHandleBlock) {
+                weakSelf.topHandleBlock(5);
+            }
+        }];
+    }
+    return _stateBtn;
+}
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
@@ -316,18 +335,19 @@
     //    1：学员 2：教师 6：校区 8：机构
     _stateLabel.hidden = YES;
     _stateBackView.hidden = YES;
+    _stateBtn.hidden = YES;
     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         typestr = @"学员端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
         typestr = @"教师端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
         typestr = @"校区端";
-        _stateBackView.hidden = NO;
-        _stateLabel.hidden = NO;
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {
-        typestr = @"机构端";
+        typestr = @"总账户";
         _stateLabel.hidden = NO;
         _stateBackView.hidden = NO;
+        _stateLabel.hidden = NO;
+        _stateBtn.hidden = NO;
     }
     _stateLabel.text = typestr;
 }

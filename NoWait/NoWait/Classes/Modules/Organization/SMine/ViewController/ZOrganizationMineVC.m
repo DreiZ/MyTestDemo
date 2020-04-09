@@ -32,6 +32,7 @@
 #import "ZOrganizationMineOrderManageVC.h"
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZOrganizationTeachingScheduleLessonVC.h"
+#import "ZOrganizationSchoolAccountVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -103,6 +104,10 @@
             }else if (index == 3){
                 ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
+            }else if (index == 5){
+                ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
+                [weakSelf.navigationController pushViewController:svc animated:YES];
+                
             }
         };
     }
@@ -142,7 +147,7 @@
                 ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"account"]){
-                ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
+                ZOrganizationSchoolAccountVC *svc = [[ZOrganizationSchoolAccountVC alloc] init];
                 [self.navigationController pushViewController:svc animated:YES];
             }else if ([model.uid isEqualToString:@"order"]){
                 ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];

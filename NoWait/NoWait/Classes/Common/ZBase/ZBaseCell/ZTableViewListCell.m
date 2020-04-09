@@ -134,7 +134,8 @@
         for (id smodel in list) {
             if ([smodel isKindOfClass:[ZCellConfig class]]) {
                 ZCellConfig *config = smodel;
-                height += [NSClassFromString(config.className) z_getCellHeight:config.dataModel];
+                height += config.heightOfCell;
+//                height += [NSClassFromString(config.className) z_getCellHeight:config.dataModel];
             }
         }
         return height;

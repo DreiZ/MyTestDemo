@@ -85,7 +85,6 @@
 - (ZOrganizationAccountTopMainView *)topView {
     if (!_topView) {
         _topView = [[ZOrganizationAccountTopMainView alloc] init];
-        _topView.isSchool = NO;
     }
     return _topView;
 }

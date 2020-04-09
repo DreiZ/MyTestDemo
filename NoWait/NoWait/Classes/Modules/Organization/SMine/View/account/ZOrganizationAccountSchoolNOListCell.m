@@ -1,25 +1,24 @@
 //
-//  ZOrganizationAccountSchoolListCell.m
+//  ZOrganizationAccountSchoolNOListCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/2/27.
+//  Created by zhuang zhang on 2020/4/9.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationAccountSchoolListCell.h"
+#import "ZOrganizationAccountSchoolNOListCell.h"
 
-@interface ZOrganizationAccountSchoolListCell ()
+@interface ZOrganizationAccountSchoolNOListCell ()
 
-@property (nonatomic,strong) UILabel *zhuanPriceLabel;
-@property (nonatomic,strong) UILabel *zhiLabel;
-@property (nonatomic,strong) UILabel *feiLabel;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *orderNOLabel;
 @property (nonatomic,strong) UILabel *daoLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
 
 @property (nonatomic,strong) UIView *contView;
 @end
 
-@implementation ZOrganizationAccountSchoolListCell
+@implementation ZOrganizationAccountSchoolNOListCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -43,35 +42,30 @@
     }];
     
     
-    [self.contView addSubview:self.zhiLabel];
+    [self.contView addSubview:self.orderNOLabel];
     [self.contView addSubview:self.timeLabel];
-    [self.contView addSubview:self.zhuanPriceLabel];
+    [self.contView addSubview:self.nameLabel];
     [self.contView addSubview:self.daoLabel];
-    [self.contView addSubview:self.feiLabel];
     
-    [self.zhuanPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(38));
     }];
 
-    [self.zhiLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.zhuanPriceLabel.mas_left);
-        make.top.equalTo(self.zhuanPriceLabel.mas_bottom).offset(CGFloatIn750(24));
+    [self.orderNOLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
     
-    [self.feiLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.zhiLabel.mas_right).offset(CGFloatIn750(26));
-        make.centerY.equalTo(self.zhiLabel.mas_centerY);
-    }];
     
     [self.daoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-        make.centerY.equalTo(self.zhuanPriceLabel.mas_centerY);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.zhuanPriceLabel.mas_left).offset(CGFloatIn750(6));
-        make.bottom.equalTo(self.contView.mas_bottom).offset(CGFloatIn750(-40));
+        make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(6));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(CGFloatIn750(-34));
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -93,29 +87,29 @@
     return _contView;
 }
 
-- (UILabel *)zhuanPriceLabel {
-    if (!_zhuanPriceLabel) {
-        _zhuanPriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _zhuanPriceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _zhuanPriceLabel.text = @"￥23432";
-        _zhuanPriceLabel.numberOfLines = 1;
-        _zhuanPriceLabel.textAlignment = NSTextAlignmentLeft;
-        [_zhuanPriceLabel setFont:[UIFont boldFontContent]];
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _nameLabel.text = @"课程收入";
+        _nameLabel.numberOfLines = 1;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
+        [_nameLabel setFont:[UIFont fontContent]];
     }
-    return _zhuanPriceLabel;
+    return _nameLabel;
 }
 
 
-- (UILabel *)zhiLabel {
-    if (!_zhiLabel) {
-        _zhiLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _zhiLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _zhiLabel.text = @"￥12(未结课质押金)";
-        _zhiLabel.numberOfLines = 1;
-        _zhiLabel.textAlignment = NSTextAlignmentCenter;
-        [_zhiLabel setFont:[UIFont fontMin]];
+- (UILabel *)orderNOLabel {
+    if (!_orderNOLabel) {
+        _orderNOLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _orderNOLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark    ]);
+        _orderNOLabel.text = @"订单编号：030923905209";
+        _orderNOLabel.numberOfLines = 1;
+        _orderNOLabel.textAlignment = NSTextAlignmentLeft;
+        [_orderNOLabel setFont:[UIFont fontContent]];
     }
-    return _zhiLabel;
+    return _orderNOLabel;
 }
 
 
@@ -126,7 +120,7 @@
         _timeLabel.text = @"2020-01-02 15:25";
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
-        [_timeLabel setFont:[UIFont fontMin]];
+        [_timeLabel setFont:[UIFont fontSmall]];
     }
     return _timeLabel;
 }
@@ -144,18 +138,6 @@
     return _daoLabel;
 }
 
-- (UILabel *)feiLabel {
-    if (!_feiLabel) {
-        _feiLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _feiLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _feiLabel.text = @"￥3454(技术服务费)";
-        _feiLabel.numberOfLines = 1;
-        _feiLabel.textAlignment = NSTextAlignmentCenter;
-        [_feiLabel setFont:[UIFont fontMin]];
-    }
-    return _feiLabel;
-}
-
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
@@ -163,6 +145,7 @@
 }
 
 @end
+
 
 
 
