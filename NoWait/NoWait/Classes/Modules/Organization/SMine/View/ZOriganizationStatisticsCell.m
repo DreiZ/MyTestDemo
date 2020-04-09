@@ -96,13 +96,13 @@
         make.centerX.equalTo(self.rightContentLabel.mas_centerX);
         make.top.equalTo(self.rightContentLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
-    
+    [self.menuBackView removeAllSubviews];
     NSArray *titleArr = @[@"实时",@"日报",@"周报",@"月报"].mutableCopy;
     UIButton *tempBtn = nil;
     for (int i = 0; i < titleArr.count; i++) {
         UIButton *menuBtn = [self getBtnWithText:titleArr[i] index:i];
+
         [_menuBtnArr addObject:menuBtn];
-        
         [self.menuBackView addSubview:menuBtn];
         if (tempBtn) {
             [menuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -119,6 +119,7 @@
         }
         tempBtn = menuBtn;
     }
+    self.selectedIndex = 0;
 }
 
 
@@ -211,7 +212,7 @@
     menuBtn.tag = index;
     __weak typeof(self) weakSelf = self;
     [menuBtn bk_whenTapped:^{
-        [weakSelf menuBtn:index];
+        [weakSelf menuBtn:menuBtn.tag];
     }];
     menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [menuBtn setTitle:text forState:UIControlStateNormal];
@@ -222,7 +223,24 @@
 }
 
 - (void)menuBtn:(NSInteger)index {
+    self.selectedIndex = index;
     
+    if (self.handleBlock) {
+        self.handleBlock(index);
+    }
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    _selectedIndex = selectedIndex;
+    
+    for (int i = 0; i < self.menuBtnArr.count; i++) {
+        UIButton *menuBtn = self.menuBtnArr[i];
+        if (i == selectedIndex) {
+            menuBtn.backgroundColor = adaptAndDarkColor(HexAColor(0x4dd599, 0.5), HexAColor(0x4dd599, 0.5));
+        }else{
+            menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        }
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

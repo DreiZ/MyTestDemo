@@ -198,11 +198,8 @@
                case ZOrganizationLessonTypeClose:
                [param setObject:@"2" forKey:@"status"];
                break;
-               case ZOrganizationLessonTypeExamine:
-               [param setObject:@"3" forKey:@"status"];
-               break;
                case ZOrganizationLessonTypeExamineFail:
-               [param setObject:@"4" forKey:@"status"];
+               [param setObject:@"3" forKey:@"status"];
                break;
                case ZOrganizationLessonTypeAll:
                [param setObject:@"0" forKey:@"status"];
