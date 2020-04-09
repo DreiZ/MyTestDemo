@@ -124,6 +124,9 @@
 }
 @end
 
+@implementation ZOriganizationStudentCodeAddModel
+
+@end
 
 @implementation ZOriganizationStudentListNetModel
 + (NSDictionary *)mj_objectClassInArray {

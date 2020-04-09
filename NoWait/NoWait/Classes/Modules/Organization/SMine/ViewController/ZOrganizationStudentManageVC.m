@@ -18,6 +18,8 @@
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
 #import "ZOriganizationStudentViewModel.h"
+#import "ZAlertMoreView.h"
+#import "ZOrganizationStudentCodeAddVC.h"
 
 @interface ZOrganizationStudentManageVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -193,8 +195,16 @@
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }else{
-                ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
-                [weakSelf.navigationController pushViewController:avc animated:YES];
+                NSArray *weekArr = @[@[@"手动新增学员",@"listadd",@"add"],@[@"二维码新增学员",@"erweimlist",@"code"]];
+                [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+                    if ([index isEqualToString:@"code"]) {
+                        ZOrganizationStudentCodeAddVC *avc = [[ZOrganizationStudentCodeAddVC alloc] init];
+                        [weakSelf.navigationController pushViewController:avc animated:YES];
+                    }else{
+                        ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
+                        [weakSelf.navigationController pushViewController:avc animated:YES];
+                    }
+                }];
             }
         }];
     }

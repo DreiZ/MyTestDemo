@@ -11,6 +11,7 @@
 
 @interface ZOriganizationStudentViewModel : ZBaseViewModel
 @property (nonatomic,strong) ZOriganizationStudentAddModel *addModel;
+@property (nonatomic,strong) ZOriganizationStudentCodeAddModel *codeAddModel;
 
 
 + (void)getStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
@@ -33,6 +34,9 @@
 + (void)starStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 //删除课程
 + (void)deleteStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)addStudentQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 

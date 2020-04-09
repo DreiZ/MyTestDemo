@@ -183,6 +183,7 @@ static ZAlertView *sharedManager;
     [rightBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(1);
+            [self removeFromSuperview];
         }else{
             [self removeFromSuperview];
         }

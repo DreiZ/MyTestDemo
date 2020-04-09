@@ -204,6 +204,19 @@
 @end
 
 
+@interface ZOriganizationStudentCodeAddModel : ZBaseModel
+@property (nonatomic,strong) NSString *teacher_id; //门店id
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *courses_id;
+@property (nonatomic,strong) NSString *courses_name;
+
+@property (nonatomic,strong) NSString *url;
+@property (nonatomic,strong) NSString *nick_name;
+@property (nonatomic,strong) NSString *image;
+
+@end
+
 @interface ZOriganizationStudentListNetModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZOriganizationStudentListModel *>*list;
 @property (nonatomic,copy) NSString *total;

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
 #import "AFNetworkReachabilityManager.h"
+#import "ZAlertView.h"
 
 @implementation ZPublicTool
 
@@ -36,6 +37,45 @@
         
         //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",phoneNum]]];
     }
+}
+
+#pragma mark - 截屏
++ (UIImage *)snapshotForView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, [UIScreen mainScreen].scale);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return snapshotImage;
+}
+
++ (void)saveImageToPhoto:(UIImage *)image {
+    // 判断授权状态
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        if (status != PHAuthorizationStatusAuthorized) return;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = nil;
+            
+            // 保存相片到相机胶卷
+            __block PHObjectPlaceholder *createdAsset = nil;
+            [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+                createdAsset = [PHAssetCreationRequest creationRequestForAssetFromImage:image].placeholderForCreatedAsset;
+            } error:&error];
+            
+            if (error) {
+                NSLog(@"保存失败：%@", error);
+                [TLUIUtility showErrorHint:@"保存失败"];
+                return;
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [ZAlertView setAlertWithTitle:@"已成功保存到相册" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
+                });
+                
+            }
+        });
+    }];
 }
 
 // 行间距

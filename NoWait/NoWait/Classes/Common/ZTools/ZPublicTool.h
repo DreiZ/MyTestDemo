@@ -29,6 +29,12 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 //拨打电话
 + (void)callTel:(NSString *)tel;
 
+//截图
++ (UIImage *)snapshotForView:(UIView *)view;
+
+//保存图片到相册
++ (void)saveImageToPhoto:(UIImage *)image;
+
 // 行间距
 + (void)setLineSpacing:(CGFloat)spacing label:(UILabel *)label;
 

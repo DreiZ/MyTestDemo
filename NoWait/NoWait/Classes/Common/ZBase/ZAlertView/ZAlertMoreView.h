@@ -10,7 +10,7 @@
 
 
 @interface ZAlertMoreView : UIView
-+ (void)setMoreAlertWithHandlerBlock:(void(^)(NSInteger))handleBlock ;
++ (void)setMoreAlertWithTitleArr:(NSArray *)titleArr handlerBlock:(void(^)(NSString *))handleBlock ;
 @end
 
 

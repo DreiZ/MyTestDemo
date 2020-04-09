@@ -14,9 +14,11 @@
 @property (nonatomic,strong) UIView *contView;
 
 @property (nonatomic,strong) UITableView *iTableView;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(NSString *);
  
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) NSArray *titleArr;
+
 @end
 
 @implementation ZAlertMoreView
@@ -110,30 +112,28 @@ static ZAlertMoreView *sharedManager;
 - (void)setCellData {
     [_cellConfigArr removeAllObjects];
     
-    
-    NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
-    for (int i = 0; i < weekArr.count; i++) {
+    for (int i = 0; i < _titleArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = weekArr[i][0];
-        model.leftImage = weekArr[i][1];
+        model.leftTitle = _titleArr[i][0];
+        model.leftImage = _titleArr[i][1];
         model.leftMargin = CGFloatIn750(44);
         model.cellHeight = CGFloatIn750(106);
         model.leftFont = [UIFont fontContent];
         model.isHiddenLine = NO;
         model.lineLeftMargin = CGFloatIn750(88);
         model.lineRightMargin = CGFloatIn750(88);
-        model.cellTitle = weekArr[i][2];
+        model.cellTitle = _titleArr[i][2];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:[ZSingleLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr addObject:menuCellConfig];
         
     }
 }
 
-- (void)handlerBlock:(void(^)(NSInteger))handleBlock {
+- (void)setTitleArr:(NSArray *)titleArr handlerBlock:(void(^)(NSString *))handleBlock {
     self.handleBlock = handleBlock;
-    
+    _titleArr = titleArr;
     self.alpha = 0;
     self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].window addSubview:self];
@@ -145,8 +145,8 @@ static ZAlertMoreView *sharedManager;
     [self.iTableView reloadData];
 }
 
-+ (void)setMoreAlertWithHandlerBlock:(void(^)(NSInteger))handleBlock  {
-    [[ZAlertMoreView sharedManager] handlerBlock:handleBlock];
++ (void)setMoreAlertWithTitleArr:(NSArray *)titleArr handlerBlock:(void(^)(NSString *))handleBlock  {
+    [[ZAlertMoreView sharedManager] setTitleArr:titleArr handlerBlock:handleBlock];
 }
 
 #pragma mark tableView -------datasource-----
@@ -167,14 +167,10 @@ static ZAlertMoreView *sharedManager;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"share"]){
+    if ([cellConfig.title isEqualToString:@"ZSingleLineCell"]){
+        ZBaseSingleCellModel *model = cellConfig.dataModel;
         if (self.handleBlock) {
-            self.handleBlock(0);
-        }
-        [self removeFromSuperview];
-    }else if ([cellConfig.title isEqualToString:@"report"]){
-        if (self.handleBlock) {
-            self.handleBlock(1);
+            self.handleBlock(model.cellTitle);
         }
         [self removeFromSuperview];
     }

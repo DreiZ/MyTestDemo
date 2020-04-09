@@ -166,7 +166,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.schoolID forKey:@"courses_id"];
+       [param setObject:self.schoolID forKey:@"course_id"];
 //       [param setObject:@"0" forKey:@"status"];
     return param;
 }

@@ -142,8 +142,9 @@
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
         [_navRightBtn bk_whenTapped:^{
-            [ZAlertMoreView setMoreAlertWithHandlerBlock:^(NSInteger index) {
-                if (index == 1) {
+            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+                if ([index isEqualToString:@"share"]) {
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
                     rvc.sTitle = self.detailModel.name;
                     rvc.stores_id = self.detailModel.schoolID;

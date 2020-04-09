@@ -18,6 +18,13 @@
     return self;
 }
 
+- (ZOriganizationStudentCodeAddModel *)codeAddModel {
+    if (!_codeAddModel) {
+        _codeAddModel = [[ZOriganizationStudentCodeAddModel alloc] init];
+    }
+    return _codeAddModel;
+}
+
 
 + (void)getStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_student_list params:params completionHandler:^(id data, NSError *error) {
@@ -188,5 +195,26 @@
         }
     }];
 }
+
+
++ (void)addStudentQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_get_add_student_qrcode params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZOriganizationStudentCodeAddModel *model = [ZOriganizationStudentCodeAddModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 
 @end

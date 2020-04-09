@@ -42,7 +42,7 @@ static ZAlertLessonCheckBoxView *sharedLessonManager;
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationLessonListModel *listModel = self.dataSources[i];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = listModel.name;
+        model.leftTitle = listModel.short_name;
         model.leftMargin = CGFloatIn750(60);
         model.rightMargin = CGFloatIn750(60);
         model.cellHeight = CGFloatIn750(108);
