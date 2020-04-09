@@ -118,11 +118,14 @@
     [coverBtn addGestureRecognizer:longPress];
 }
 
-- (void)btnLong:(id)sender {
-    if (self.handleBlock) {
-        self.handleBlock(1);
+- (void)btnLong:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if (self.handleBlock) {
+            self.handleBlock(1);
+        }
     }
 }
+
 #pragma mark -Getter
 - (UIView *)contView {
     if (!_contView) {
