@@ -343,7 +343,7 @@
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_delBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(ZLessonOrderHandleTypeSRefund,self.model);
+                weakSelf.handleBlock(ZLessonOrderHandleTypeRefund,self.model);
             };
         }];
     }

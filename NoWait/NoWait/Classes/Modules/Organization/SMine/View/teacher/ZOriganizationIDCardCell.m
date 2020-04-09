@@ -97,7 +97,7 @@
         if ([data isKindOfClass:[UIImage class]]) {
             _leftImageView.image = data;
         }else{
-            [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)]];
+            [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)] placeholderImage:[UIImage imageNamed:@"cardImageup"]];
         }
         
         if (images.count > 1) {
@@ -105,7 +105,7 @@
             if ([data isKindOfClass:[UIImage class]]) {
                 _rightImageView.image = data;
             }else{
-                [_rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)]];
+                [_rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data)] placeholderImage:[UIImage imageNamed:@"cardImageback"]];
             }
         }
     }

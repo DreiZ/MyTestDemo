@@ -334,7 +334,7 @@
 }
 
 
-//学员同意t商家退款或再商议
+//商家退款或再商议
 + (void)ogriganizationRefundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_confirm params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
@@ -353,7 +353,7 @@
 }
 
 
-//学员同意t商家退款或再商议
+//商家退款或再商议
 + (void)refundOrderCanle:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_cancle params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
@@ -466,11 +466,24 @@
             }];
         }
             break;
-        case ZLessonOrderHandleTypeSRefund://申请退款
+        case ZLessonOrderHandleTypeRefund://申请退款
         {
             [ZOriganizationOrderViewModel refundOrder:params completeBlock:completeBlock];
         }
             break;
+        case ZLessonOrderHandleTypeSRefund://申请退款
+       {
+           [params setObject:@"2" forKey:@"refund_type"];
+           if ([data isKindOfClass:[ZOrderListModel class]]) {
+                  ZOrderListModel *model = data;
+                  [params setObject:model.refund_amount forKey:@"refund_amount"];
+              }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                  ZOrderDetailModel *model = data;
+                  [params setObject:model.refund_amount forKey:@"refund_amount"];
+              }
+           [ZOriganizationOrderViewModel refundOrderAgain:params completeBlock:completeBlock];
+       }
+           break;
         case ZLessonOrderHandleTypeSRefundReject://协商退款学员
         {
             [params setObject:@"1" forKey:@"refund_type"];
@@ -491,20 +504,25 @@
             break;
         case ZLessonOrderHandleTypeORefund://同意退款
         {
-            [params setObject:@"1" forKey:@"refund_type"];
-            if ([data isKindOfClass:[ZOrderListModel class]]) {
-               ZOrderListModel *model = data;
-               [params setObject:model.refund_amount forKey:@"refund_amount"];
-            }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
-               ZOrderDetailModel *model = data;
-               [params setObject:model.refund_amount forKey:@"refund_amount"];
-            }
-            [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];
+            [ZAlertView setAlertWithTitle:@"确定同意退款？" subTitle:@"确定退款后，商家需要支付相应的退款金额" leftBtnTitle:@"取消" rightBtnTitle:@"同意退款" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [params setObject:@"2" forKey:@"refund_type"];
+                    if ([data isKindOfClass:[ZOrderListModel class]]) {
+                       ZOrderListModel *model = data;
+                       [params setObject:model.refund_amount forKey:@"refund_amount"];
+                    }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                       ZOrderDetailModel *model = data;
+                       [params setObject:model.refund_amount forKey:@"refund_amount"];
+                    }
+                    [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];
+                }
+            }];
+            
         }
             break;
         case ZLessonOrderHandleTypeORefundReject://协商退款商家
         {
-            [params setObject:@"2" forKey:@"refund_type"];
+            [params setObject:@"1" forKey:@"refund_type"];
             if ([data isKindOfClass:[ZOrderListModel class]]) {
                    ZOrderListModel *model = data;
                    [params setObject:model.refund_amount forKey:@"refund_amount"];
@@ -520,11 +538,25 @@
             [ZPayAlertTypeView showWithHandlerBlock:^(NSInteger index) {
                 if (index == 0) {
                     [params setObject:@"1" forKey:@"pay_type"];
+                    if ([data isKindOfClass:[ZOrderListModel class]]) {
+                        ZOrderListModel *model = data;
+                        [params setObject:model.refund_amount forKey:@"pay_amount"];
+                    }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                        ZOrderDetailModel *model = data;
+                        [params setObject:model.refund_amount forKey:@"pay_amount"];
+                    }
                     [[ZPayManager sharedManager] getRefundWechatPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
                         
                     }];
                 }else{
                     [params setObject:@"2" forKey:@"pay_type"];
+                    if ([data isKindOfClass:[ZOrderListModel class]]) {
+                        ZOrderListModel *model = data;
+                        [params setObject:model.refund_amount forKey:@"pay_amount"];
+                    }else if ([data isKindOfClass:[ZOrderDetailModel class]]){
+                        ZOrderDetailModel *model = data;
+                        [params setObject:model.refund_amount forKey:@"pay_amount"];
+                    }
                     [[ZPayManager  sharedManager] getRefundAliPayInfo:params complete:^(BOOL isSuccess, NSString *message) {
                         
                     }];

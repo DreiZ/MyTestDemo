@@ -312,19 +312,19 @@
 // 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
                     if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3 ) {
                         self.bottomView.hidden = NO;
-                        self.refundSureBtn.hidden = NO;
-                        self.refundRefectBtn.hidden = NO;
+                        self.refundOSureBtn.hidden = NO;
+                        self.refundORefectBtn.hidden = NO;
                         
-                        [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                             make.centerY.equalTo(self.bottomView.mas_centerY);
                             make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
                             make.height.mas_equalTo(CGFloatIn750(56));
                             make.width.mas_equalTo(CGFloatIn750(172));
                         }];
                         
-                        [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                             make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.refundSureBtn.mas_left).offset(CGFloatIn750(-20));
+                            make.right.equalTo(self.refundOSureBtn.mas_left).offset(CGFloatIn750(-20));
                             make.height.mas_equalTo(CGFloatIn750(56));
                             make.width.mas_equalTo(CGFloatIn750(172));
                         }];

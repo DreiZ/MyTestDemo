@@ -91,7 +91,7 @@ static ZPayManager *sharedManager;
 
 - (void)getRefundAliPayInfo:(NSDictionary *)param complete:(resultBlock)complete{
     
-    [ZOriganizationOrderViewModel payOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
+    [ZOriganizationOrderViewModel refundPayOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
         if (isSuccess) {
             ZMineOrderPayBackModel *pay = backModel;
             [self aliPay:pay.pay_code];
@@ -109,7 +109,7 @@ static ZPayManager *sharedManager;
         complete(NO,@"");
         [TLUIUtility showAlertWithTitle:@"此设备没有安装微信"];
     }else{
-        [ZOriganizationOrderViewModel payOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
+        [ZOriganizationOrderViewModel refundPayOrder:param completeBlock:^(BOOL isSuccess, id backModel) {
             if (isSuccess) {
                 ZMineOrderPayBackModel *pay = backModel;
                 [self wechatPay:pay];

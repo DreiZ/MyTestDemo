@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
     ZLessonOrderHandleTypeEva                       =  3,  //评价
     ZLessonOrderHandleTypeOrderReceive              =  4,  //接受预约
     ZLessonOrderHandleTypeOrderNOReceive            =  40,  //拒绝预约
-    ZLessonOrderHandleTypeSRefund                   =  5,  //退款
+    ZLessonOrderHandleTypeRefund                    =  5,  //退款
+    ZLessonOrderHandleTypeSRefund                   =  50,  //同意退款
     ZLessonOrderHandleTypeSRefundReject             =  6,  //拒绝商家提议退款
     ZLessonOrderHandleTypeSRefundCancle             =  7,  //取消退款
     ZLessonOrderHandleTypeORefund                   =  8,  //同意退款（商家）

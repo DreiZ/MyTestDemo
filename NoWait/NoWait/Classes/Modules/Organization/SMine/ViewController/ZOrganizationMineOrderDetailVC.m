@@ -395,7 +395,7 @@
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineOrderDetailCell"]){
         ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {
-            if (index == ZLessonOrderHandleTypeSRefund) {
+            if (index == ZLessonOrderHandleTypeRefund) {
                 ZStudentOrderRefundHandleVC *handlevc = [[ZStudentOrderRefundHandleVC alloc] init];
                 handlevc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:handlevc animated:YES];

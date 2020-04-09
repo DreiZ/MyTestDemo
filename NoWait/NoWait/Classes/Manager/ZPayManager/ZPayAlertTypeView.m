@@ -132,7 +132,7 @@ static ZPayAlertTypeView *sharedManager;
         if (self.handleBlock) {
             self.handleBlock(1);
         }
-        
+        [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
     [self.contView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
