@@ -12,24 +12,16 @@
 #import "ZOrganizationStudentAddVC.h"
 
 #import "ZOriganizationStudentListCell.h"
-#import "ZOrganizationStudentTopFilterSeaarchView.h"
-#import "ZOriganizationTeachSearchTopHintView.h"
 
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZAlertMoreView.h"
 #import "ZOrganizationStudentCodeAddVC.h"
+#import "ZOrganizationSendMessageVC.h"
 
 @interface ZOrganizationStudentManageVC ()
-@property (nonatomic,strong) UIButton *navRightBtn;
-@property (nonatomic,strong) UIButton *navLeftBtn;
-@property (nonatomic,strong) UIButton *bottomBtn;
-@property (nonatomic,strong) NSMutableDictionary *param;
-@property (nonatomic,assign) BOOL isEdit;
 
-@property (nonatomic,strong) ZOrganizationStudentTopFilterSeaarchView *filterView;
-@property (nonatomic,strong) ZOriganizationTeachSearchTopHintView *searchTopView;
 
 @end
 
@@ -86,7 +78,7 @@
         [_navLeftBtn setImage:nil forState:UIControlStateNormal];
         
 
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(-safeAreaBottom()));
@@ -94,7 +86,7 @@
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-            make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
             make.top.equalTo(self.filterView.mas_bottom).offset(-CGFloatIn750(20));
         }];
     }else{
@@ -105,7 +97,7 @@
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:isDarkModel() ? @"navleftBackDark":@"navleftBack"] forState:UIControlStateNormal];
         
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(safeAreaBottom()));
@@ -144,9 +136,31 @@
         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
         make.height.mas_equalTo(CGFloatIn750(106));
     }];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView addSubview:self.sendBtn];
+    [self.bottomView addSubview:self.deleteBtn];
+    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.bottomView);
+        make.right.equalTo(self.bottomView.mas_centerX);
+    }];
+    
+    [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.equalTo(self.bottomView);
+        make.left.equalTo(self.bottomView.mas_centerX);
+    }];
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+    [self.bottomView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.bottomView.mas_centerX);
+        make.centerY.equalTo(self.bottomView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(26));
+        make.width.mas_equalTo(2);
+    }];
    
-    [self.view addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(88));
         make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
@@ -169,14 +183,18 @@
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navLeftBtn bk_whenTapped:^{
-            if (weakSelf.isEdit) {
-                weakSelf.isEdit = NO;
-            }else{
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }
+            [weakSelf leftBtnOnClick];
         }];
     }
     return _navLeftBtn;
+}
+
+- (void)leftBtnOnClick {
+    if (self.isEdit) {
+        self.isEdit = NO;
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (UIButton *)navRightBtn {
@@ -224,15 +242,15 @@
     return _searchTopView;
 }
 
-- (UIButton *)bottomBtn {
-    if (!_bottomBtn) {
+- (UIButton *)deleteBtn {
+    if (!_deleteBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
-        [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
-        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_deleteBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_deleteBtn.titleLabel setFont:[UIFont fontContent]];
+        [_deleteBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_deleteBtn bk_whenTapped:^{
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
                 [weakSelf deleteLesson:ids];
@@ -241,7 +259,40 @@
             }
         }];
     }
-    return _bottomBtn;
+    return _deleteBtn;
+}
+
+
+- (UIButton *)sendBtn {
+    if (!_sendBtn) {
+        __weak typeof(self) weakSelf = self;
+        _sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_sendBtn setTitle:@"发通知" forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_sendBtn.titleLabel setFont:[UIFont fontContent]];
+        [_sendBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_sendBtn bk_whenTapped:^{
+            NSArray *ids = [weakSelf getSelectedData];
+            if (ids && ids.count > 0) {
+                ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                mvc.storesName = [ZUserHelper sharedHelper].school.name;
+                mvc.studentList = [[NSMutableArray alloc] initWithArray:ids];
+                [weakSelf.navigationController pushViewController:mvc animated:YES];
+            }else{
+                [TLUIUtility showErrorHint:@"你还没有选中"];
+            }
+        }];
+    }
+    return _sendBtn;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.layer.masksToBounds = YES;
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    }
+    return _bottomView;
 }
 
 

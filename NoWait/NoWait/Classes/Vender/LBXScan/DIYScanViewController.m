@@ -143,9 +143,15 @@
                         lvc.viewModel.addModel.teacher_name = model.teacher_name;
                         lvc.viewModel.addModel.teacher_name = model.teacher_nick_name;
                         [self.navigationController pushViewController:lvc animated:YES];
+                    }else{
+                        [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
                     }
                 }else if ([dict[@"qrcode_type"] intValue] == 1){
-                    
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                        
+                    }else{
+                        [TLUIUtility showErrorHint:@"非教师端不可加入课程"];
+                    }
                 }
                 
             }

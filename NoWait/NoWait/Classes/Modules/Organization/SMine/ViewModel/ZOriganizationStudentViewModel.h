@@ -37,6 +37,10 @@
 
 
 + (void)addStudentQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+//发送消息
++ (void)addMessage:(NSDictionary *)params
+     completeBlock:(resultDataBlock)completeBlock ;
 @end
 
 

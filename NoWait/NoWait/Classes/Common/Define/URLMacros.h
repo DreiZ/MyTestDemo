@@ -467,6 +467,8 @@
 //签到二维码
 #define URL_account_v1_get_add_student_qrcode          @"account/v1/get_add_student_qrcode"
 
-
+#pragma mark - 签课
+//消息
+#define URL_message_v1_add_message                      @"message/v1/add_message"
 
 #endif /* URLMacros_h */

@@ -121,14 +121,14 @@
     }];
     [self addSubview:setBtn];
     [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.width.height.mas_equalTo(CGFloatIn750(80));
         make.center.equalTo(self.settingView);
     }];
     
     
     [self addSubview:self.qrCodeBtn];
     [self.qrCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.width.height.mas_equalTo(CGFloatIn750(80));
         make.center.equalTo(self.scanView);
     }];
     
@@ -166,7 +166,7 @@
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
-    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(44) - CGFloatIn750(20), self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
+    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(80) - CGFloatIn750(0), self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
     self.nameLabel.alpha = 1;
@@ -193,7 +193,7 @@
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
-    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(44) - CGFloatIn750(20), self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
+    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(80) - CGFloatIn750(0), self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
@@ -212,6 +212,9 @@
         self.scanQRCodeImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
     }
     
+    self.qrCodeBtn.hidden = YES;
+    self.scanQRCodeImageView.hidden = YES;
+    self.scanView.hidden = YES;
 }
 
 #pragma mark - - 懒加载---
@@ -422,9 +425,11 @@
     if ([userType intValue] == 1 || [userType intValue] == 2) {
         self.scanQRCodeImageView.hidden = NO;
         self.scanView.hidden = NO;
+        self.qrCodeBtn.hidden = NO;
     }else{
         self.scanQRCodeImageView.hidden = YES;
         self.scanView.hidden = YES;
+        self.qrCodeBtn.hidden = YES;
     }
 }
 
