@@ -27,6 +27,9 @@
 @property (nonatomic,strong) UIView *stateBackView;
 @property (nonatomic,strong) UIButton *stateBtn;
 
+@property (nonatomic,strong) UIView *scanView;
+@property (nonatomic,strong) UIImageView *scanQRCodeImageView;
+
 @end
 
 @implementation ZOrganizationMineHeaderView
@@ -53,18 +56,22 @@
     [self addSubview:self.switchUserBtn];
     [self addSubview:self.stateLabel];
     [self addSubview:self.midLabel];
-    
+    [self addSubview:self.scanView];
+    [self.scanView addSubview:self.scanQRCodeImageView];
     
     [self addSubview:self.stateBackView];
-    
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self);
     }];
     
-    
     [self.settingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.settingView);
+        make.height.width.mas_equalTo(CGFloatIn750(44));
+    }];
+    
+    [self.scanQRCodeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.scanView);
         make.height.width.mas_equalTo(CGFloatIn750(44));
     }];
     
@@ -116,6 +123,18 @@
         make.center.equalTo(self.settingView);
     }];
     
+    UIButton *scanBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [scanBtn bk_whenTapped:^{
+        if (weakSelf.topHandleBlock) {
+            weakSelf.topHandleBlock(8);
+        }
+    }];
+    [self addSubview:scanBtn];
+    [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.center.equalTo(self.scanView);
+    }];
+    
     UIButton *switchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [switchBtn bk_whenTapped:^{
         if (weakSelf.topHandleBlock) {
@@ -143,10 +162,14 @@
 #pragma mark -设置frame
 - (void)setSubViewFrame {
     self.settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
+    self.scanView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
+    
     self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
     
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
+    
+    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(44) - CGFloatIn750(20), self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
     self.nameLabel.alpha = 1;
@@ -173,6 +196,8 @@
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
+    self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(44) - CGFloatIn750(20), self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
+    
     self.headImageView.layer.cornerRadius = self.headImageView.height/2;
     self.settingImageView.transform = CGAffineTransformRotate(self.settingImageView.transform, M_PI_4 * 0.05);
     
@@ -182,6 +207,12 @@
         self.settingImageView.tintColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
     }else{
         self.settingImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
+    }
+    
+    if (!isDarkModel()) {
+        self.scanQRCodeImageView.tintColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
+    }else{
+        self.scanQRCodeImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
     }
     
 }
@@ -243,6 +274,18 @@
     return _settingImageView;
 }
 
+
+- (UIImageView *)scanQRCodeImageView {
+    if (!_scanQRCodeImageView) {
+        _scanQRCodeImageView = [[UIImageView alloc] init];
+        _scanQRCodeImageView.image = [[UIImage imageNamed:@"scanQRCode"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _scanQRCodeImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
+        _scanQRCodeImageView.layer.masksToBounds = YES;
+        _scanQRCodeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _scanQRCodeImageView;
+}
+
 - (UIButton *)userInfoBtn {
     if (!_userInfoBtn) {
         __weak typeof(self) weakSelf = self;
@@ -295,6 +338,15 @@
 //        _settingView.backgroundColor =[UIColor colorWhite];
     }
     return _settingView;
+}
+
+- (UIView *)scanView {
+    if (!_scanView) {
+        _scanView = [[UIView alloc] init];
+        _scanView.layer.masksToBounds = YES;
+//        _scanView.backgroundColor =[UIColor colorWhite];
+    }
+    return _scanView;
 }
 
 - (UIView *)backView {
@@ -356,6 +408,7 @@
     UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
     [_switchUserBtn setImage:image forState:UIControlStateNormal];
-    _settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1)) ;
+    _settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
+    _scanQRCodeImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
 }
 @end

@@ -30,8 +30,8 @@
 - (ZOriganizationStudentViewModel *)viewModel {
     if (!_viewModel) {
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
-        _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
-        _viewModel.addModel.stores_name = [ZUserHelper sharedHelper].school.name;
+        _viewModel.addModel.name = [ZUserHelper sharedHelper].user.nikeName;
+        _viewModel.addModel.phone = [ZUserHelper sharedHelper].user.phone;
     }
     return _viewModel;
 }
@@ -39,12 +39,12 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentJionInLessonCell className] title:[ZOrganizationStudentJionInLessonCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationStudentJionInLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentJionInLessonCell className] title:[ZOrganizationStudentJionInLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationStudentJionInLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
     [self.cellConfigArr addObject:progressCellConfig];
     
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"课程进度", @"20", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+                         @[@"课程进度", SafeStr(self.viewModel.addModel.total_progress), @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.viewModel.addModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.viewModel.addModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                         @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.viewModel.addModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
@@ -118,12 +118,20 @@
                 [TLUIUtility showErrorHint:@"请输入课程进度"];
                 return ;
             }
-            
+            if ([weakSelf.viewModel.addModel.now_progress intValue] > [weakSelf.viewModel.addModel.total_progress intValue]) {
+                [TLUIUtility showErrorHint:@"课程已大约总课时"];
+                return ;
+            }
             NSMutableDictionary *otherDict = @{}.mutableCopy;
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.phone forKey:@"phone"];
             
             [otherDict setObject:self.viewModel.addModel.now_progress forKey:@"now_progress"];
+            
+            [otherDict setObject:self.viewModel.addModel.teacher_id forKey:@"teacher_id"];
+            [otherDict setObject:self.viewModel.addModel.stores_courses_class_id forKey:@"stores_courses_class_id"];
+            [otherDict setObject:self.viewModel.addModel.stores_id forKey:@"stores_id"];
+            [otherDict setObject:self.viewModel.addModel.code_id forKey:@"code_id"];
             
             if (ValidStr(self.viewModel.addModel.emergency_name)) {
                 [otherDict setObject:self.viewModel.addModel.emergency_name forKey:@"emergency_name"];
@@ -143,9 +151,7 @@
 }
 
 - (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
-    if (ValidStr(self.viewModel.addModel.image)) {
-        [otherDict setObject:self.viewModel.addModel.image forKey:@"image"];
-    }
+ 
     
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationStudentViewModel addStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {

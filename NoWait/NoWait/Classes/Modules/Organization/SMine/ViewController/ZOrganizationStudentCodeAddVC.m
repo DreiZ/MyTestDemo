@@ -13,8 +13,6 @@
 #import "ZAddStudentCodeView.h"
 #import "ZUMengShareManager.h"
 
-#import "ZOrganizationStudentJionInLessonVC.h"
-
 @interface ZOrganizationStudentCodeAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIView *bottomView;
@@ -204,9 +202,6 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    ZOrganizationStudentJionInLessonVC *lvc = [[ZOrganizationStudentJionInLessonVC alloc] init];
-    [self.navigationController pushViewController:lvc animated:YES];
-    return;
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"lesson"]) {
        [self.iTableView endEditing:YES];

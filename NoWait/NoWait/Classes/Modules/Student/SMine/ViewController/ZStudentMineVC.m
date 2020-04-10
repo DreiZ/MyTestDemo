@@ -26,6 +26,7 @@
 #import "ZOriganizationClassViewModel.h"
 
 #import "ZMineSwitchRoleVC.h"
+#import "DIYScanViewController.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -97,6 +98,11 @@
             }else if (index == 3){
                 ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
+            }else if (index == 5){
+                
+            }else if (index == 8){
+                DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
     }

@@ -174,6 +174,7 @@
 @property (nonatomic,strong) NSString *sign_up_at; //报名日期  如：2020-01-01
 @property (nonatomic,strong) NSString *stores_courses_class_id;//课程id
 @property (nonatomic,strong) NSString *courses_name;//课程id
+@property (nonatomic,strong) NSString *courses_image;//课程id
 @property (nonatomic,strong) NSString *source;// 来源渠道
 @property (nonatomic,strong) NSString *teacher_id;//教师id
 @property (nonatomic,strong) NSString *teacher;//教师id

@@ -543,6 +543,12 @@
 		B2C35050243F1D23002929A8 /* ZAddStudentCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3504F243F1D23002929A8 /* ZAddStudentCodeView.m */; };
 		B2C35053243F3A21002929A8 /* ZOrganizationStudentJionInLessonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35052243F3A21002929A8 /* ZOrganizationStudentJionInLessonVC.m */; };
 		B2C35056243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35055243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m */; };
+		B2C3505A24403F84002929A8 /* DIYScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3505824403F84002929A8 /* DIYScanViewController.m */; };
+		B2C35064244049B3002929A8 /* LBXPermissionSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3505E244049B3002929A8 /* LBXPermissionSetting.m */; };
+		B2C35065244049B3002929A8 /* LBXPermissionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3505F244049B3002929A8 /* LBXPermissionPhotos.m */; };
+		B2C35066244049B3002929A8 /* LBXPermissionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35060244049B3002929A8 /* LBXPermissionCamera.m */; };
+		B2C35067244049B3002929A8 /* LBXPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35061244049B3002929A8 /* LBXPermission.m */; };
+		B2C3506A24404A0C002929A8 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3506924404A0C002929A8 /* Global.m */; };
 		B2C477732417402E00296D1B /* ZOriganizationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477722417402E00296D1B /* ZOriganizationViewModel.m */; };
 		B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C477752418B30200296D1B /* ZOrganizationLessonTextViewVC.m */; };
 		B2C9D2E6243C637300D67558 /* ZMineOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C9D2E5243C637300D67558 /* ZMineOrderListCell.m */; };
@@ -1649,6 +1655,18 @@
 		B2C35052243F3A21002929A8 /* ZOrganizationStudentJionInLessonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentJionInLessonVC.m; sourceTree = "<group>"; };
 		B2C35054243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationStudentJionInLessonCell.h; sourceTree = "<group>"; };
 		B2C35055243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentJionInLessonCell.m; sourceTree = "<group>"; };
+		B2C3505824403F84002929A8 /* DIYScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYScanViewController.m; sourceTree = "<group>"; };
+		B2C3505924403F84002929A8 /* DIYScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYScanViewController.h; sourceTree = "<group>"; };
+		B2C3505C244049B3002929A8 /* LBXPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermission.h; sourceTree = "<group>"; };
+		B2C3505D244049B3002929A8 /* LBXPermissionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionCamera.h; sourceTree = "<group>"; };
+		B2C3505E244049B3002929A8 /* LBXPermissionSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionSetting.m; sourceTree = "<group>"; };
+		B2C3505F244049B3002929A8 /* LBXPermissionPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionPhotos.m; sourceTree = "<group>"; };
+		B2C35060244049B3002929A8 /* LBXPermissionCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionCamera.m; sourceTree = "<group>"; };
+		B2C35061244049B3002929A8 /* LBXPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermission.m; sourceTree = "<group>"; };
+		B2C35062244049B3002929A8 /* LBXPermissionPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionPhotos.h; sourceTree = "<group>"; };
+		B2C35063244049B3002929A8 /* LBXPermissionSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionSetting.h; sourceTree = "<group>"; };
+		B2C3506824404A0C002929A8 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		B2C3506924404A0C002929A8 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		B2C477712417402E00296D1B /* ZOriganizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationViewModel.h; sourceTree = "<group>"; };
 		B2C477722417402E00296D1B /* ZOriganizationViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationViewModel.m; sourceTree = "<group>"; };
 		B2C477742418B30200296D1B /* ZOrganizationLessonTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonTextViewVC.h; sourceTree = "<group>"; };
@@ -2449,6 +2467,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2C3505724403F47002929A8 /* LBXScan */,
 				B2BA39AE2435CD63005A3FFB /* XYTakePhotoController */,
 				B2BA398624357D46005A3FFB /* Alipay */,
 				B28D90FB240766930021E05A /* PGDatePicker */,
@@ -3936,6 +3955,33 @@
 			path = cameraIcon;
 			sourceTree = "<group>";
 		};
+		B2C3505724403F47002929A8 /* LBXScan */ = {
+			isa = PBXGroup;
+			children = (
+				B2C3505B244049B3002929A8 /* LBXPermissions */,
+				B2C3505924403F84002929A8 /* DIYScanViewController.h */,
+				B2C3505824403F84002929A8 /* DIYScanViewController.m */,
+			);
+			path = LBXScan;
+			sourceTree = "<group>";
+		};
+		B2C3505B244049B3002929A8 /* LBXPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				B2C3506824404A0C002929A8 /* Global.h */,
+				B2C3506924404A0C002929A8 /* Global.m */,
+				B2C3505C244049B3002929A8 /* LBXPermission.h */,
+				B2C3505D244049B3002929A8 /* LBXPermissionCamera.h */,
+				B2C3505E244049B3002929A8 /* LBXPermissionSetting.m */,
+				B2C3505F244049B3002929A8 /* LBXPermissionPhotos.m */,
+				B2C35060244049B3002929A8 /* LBXPermissionCamera.m */,
+				B2C35061244049B3002929A8 /* LBXPermission.m */,
+				B2C35062244049B3002929A8 /* LBXPermissionPhotos.h */,
+				B2C35063244049B3002929A8 /* LBXPermissionSetting.h */,
+			);
+			path = LBXPermissions;
+			sourceTree = "<group>";
+		};
 		B2CF933C24249D55007AF66E /* eva */ = {
 			isa = PBXGroup;
 			children = (
@@ -4405,6 +4451,7 @@
 				B223BCB923C6C90B00AC0158 /* ZStudentLessonDetailLessonListCell.m in Sources */,
 				B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */,
 				B2A77F6023BDE42E00407BF0 /* TZLocationManager.m in Sources */,
+				B2C3506A24404A0C002929A8 /* Global.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
 				B2EE5BA723F7D99300ECCFF4 /* ZOrganizationMineHeaderView.m in Sources */,
 				B2C35044243EEE99002929A8 /* ZOrganizationSchoolAccountDetailVC.m in Sources */,
@@ -4432,6 +4479,7 @@
 				B2A7810823C0749A00407BF0 /* ZMineMenuItemCell.m in Sources */,
 				B24D993B23FBDD1B0078A458 /* ZOrganizationTimeItemCell.m in Sources */,
 				B2A781B823C5D24800407BF0 /* ZStudentLessonDetailBannerCell.m in Sources */,
+				B2C35064244049B3002929A8 /* LBXPermissionSetting.m in Sources */,
 				B28D90D82406435F0021E05A /* ZOrganizationClassManageDetailVC.m in Sources */,
 				B2A77FE123BDEAA100407BF0 /* ZSpaceEmptyCell.m in Sources */,
 				B29795AF242850AA004490F5 /* ZStudentLessonSelectOrderLessonView.m in Sources */,
@@ -4451,6 +4499,7 @@
 				B223BCBC23C6C93C00AC0158 /* ZStudentLessonDetailLessonItemCell.m in Sources */,
 				B24D995F23FE29A00078A458 /* ZAlertDataSinglePickerView.m in Sources */,
 				B24D992C23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m in Sources */,
+				B2C35065244049B3002929A8 /* LBXPermissionPhotos.m in Sources */,
 				B2A7816923C4517800407BF0 /* ZHFilterModel.m in Sources */,
 				B2A77FD023BDEAA100407BF0 /* DWKWebView.m in Sources */,
 				B2C35050243F1D23002929A8 /* ZAddStudentCodeView.m in Sources */,
@@ -4575,9 +4624,11 @@
 				B234D09123CC1A6D00210CD8 /* ZStudentMessageListCell.m in Sources */,
 				B279D06723C99E6F00391A33 /* ZStudentLessonOrderHintCell.m in Sources */,
 				B2A7816423C4517800407BF0 /* ZHFilterTitleTableViewCell.m in Sources */,
+				B2C35067244049B3002929A8 /* LBXPermission.m in Sources */,
 				B297957C2425A33C004490F5 /* ZStudentTeacherDetailVC.m in Sources */,
 				B2A781B723C5D24800407BF0 /* ZStudentLessonDetailMainCell.m in Sources */,
 				B27B2EEC241A2DAC00CB473C /* ZOriganizationStudentViewModel.m in Sources */,
+				B2C3505A24403F84002929A8 /* DIYScanViewController.m in Sources */,
 				B2DB9B4C241CAC2900340464 /* ZSingleLeftRoundImageCell.m in Sources */,
 				B2A780A723BDFB0100407BF0 /* TLUploadRequest.m in Sources */,
 				B28D913E240766940021E05A /* PGDatePicker+TimeAndSecond.m in Sources */,
@@ -4718,6 +4769,7 @@
 				B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */,
 				B2A77F6923BDE61100407BF0 /* ZPublicTool.m in Sources */,
 				B2A7803123BDFA3800407BF0 /* NSString+Message.m in Sources */,
+				B2C35066244049B3002929A8 /* LBXPermissionCamera.m in Sources */,
 				B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */,
 				B2A780A223BDFB0100407BF0 /* RealReachability.m in Sources */,
 				B2A77F5B23BDE42E00407BF0 /* TZProgressView.m in Sources */,

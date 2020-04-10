@@ -104,7 +104,7 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _nameLabel.numberOfLines = 0;
-        _nameLabel.text = @"东方大港";
+        
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontTitle]];
     }
@@ -117,7 +117,7 @@
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _lessonLabel.numberOfLines = 1;
-        _lessonLabel.text = @"瑜伽单方事故";
+        
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontSmall]];
     }
@@ -128,7 +128,7 @@
     if (!_teacherLabel) {
         _teacherLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _teacherLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _teacherLabel.text = @"是是是";
+        
         _teacherLabel.numberOfLines = 1;
         _teacherLabel.textAlignment = NSTextAlignmentRight;
         [_teacherLabel setFont:[UIFont fontSmall]];
@@ -143,7 +143,7 @@
         _teacherImageView = [[UIImageView alloc] init];
         _teacherImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_teacherImageView, CGFloatIn750(20));
-        [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gdnpylf59xj31400qo1k6.jpg"]];
+        
     }
     return _teacherImageView;
 }
@@ -154,11 +154,18 @@
         _userImageView = [[UIImageView alloc] init];
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_userImageView, CGFloatIn750(12));
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gdnpylf59xj31400qo1k6.jpg"]];
+        
     }
     return _userImageView;
 }
 
+- (void)setModel:(ZOriganizationStudentAddModel *)model {
+    _teacherLabel.text = model.teacher_name;
+    _lessonLabel.text = model.courses_name;
+    _nameLabel.text = model.teacher_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.courses_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:model.coach_img]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(238);

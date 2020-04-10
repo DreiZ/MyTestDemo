@@ -380,6 +380,11 @@
                 [self.navigationController pushViewController:dvc animated:YES];
             }
         };
+    }else if ([cellConfig.title isEqualToString:@"refundAmout"]){
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.detailModel.refund_amount = text;
+        };
     }
 }
 
@@ -574,7 +579,7 @@
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         {
-            NSArray *titleArr = @[@[@"交易金额", @"lessonName",@"",@10,[NSNumber numberWithInt:ZFormatterTypeAny],@NO,[NSString stringWithFormat:@"￥%@",self.detailModel.pay_amount]],@[@"退款金额",@"lessonIntro",@"填写退款金额",@10,[NSNumber numberWithInt:ZFormatterTypeAny],@YES,SafeStr(self.detailModel.refund_amount)]];
+            NSArray *titleArr = @[@[@"交易金额", @"lessonName",@"",@10,[NSNumber numberWithInt:ZFormatterTypeAny],@NO,[NSString stringWithFormat:@"￥%@",self.detailModel.pay_amount]],@[@"退款金额",@"refundAmout",@"填写退款金额",@10,[NSNumber numberWithInt:ZFormatterTypeAny],@YES,SafeStr(self.detailModel.refund_amount)]];
             
             for (int i = 0 ; i < titleArr.count; i++) {
                 ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];

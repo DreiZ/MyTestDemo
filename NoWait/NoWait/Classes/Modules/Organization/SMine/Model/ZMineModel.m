@@ -26,3 +26,11 @@
 }
 
 @end
+
+
+@implementation ZQRCodeMode
+@end
+
+
+@implementation ZQRCodeAddStudentMode
+@end
