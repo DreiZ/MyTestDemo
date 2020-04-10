@@ -764,15 +764,28 @@
     if (self.model) {
         [params setObject:SafeStr(self.model.stores_id) forKey:@"stores_id"];
     }
-    [ZOriganizationOrderViewModel getOrderDetail:params completeBlock:^(BOOL isSuccess, id data) {
-        if (isSuccess) {
-            weakSelf.detailModel = data;
-            weakSelf.detailModel.isStudent = weakSelf.model.isStudent;
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }else{
-            [TLUIUtility showErrorHint:data];
-        }
-    }];
+    if (self.model.isRefund) {
+        [ZOriganizationOrderViewModel getOrderRefundDetail:params completeBlock:^(BOOL isSuccess, id data) {
+            if (isSuccess) {
+                weakSelf.detailModel = data;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }else{
+                [TLUIUtility showErrorHint:data];
+            }
+        }];
+        
+    }else{
+        [ZOriganizationOrderViewModel getOrderDetail:params completeBlock:^(BOOL isSuccess, id data) {
+            if (isSuccess) {
+                weakSelf.detailModel = data;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }else{
+                [TLUIUtility showErrorHint:data];
+            }
+        }];
+    }
+    
 }
 @end

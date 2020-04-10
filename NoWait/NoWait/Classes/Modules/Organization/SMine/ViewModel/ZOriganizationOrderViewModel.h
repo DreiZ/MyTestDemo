@@ -25,6 +25,8 @@
 + (void)getOrderDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
++ (void)getOrderRefundDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 + (void)getOrderList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 

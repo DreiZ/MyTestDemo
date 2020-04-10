@@ -29,8 +29,8 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
 };
   
 
-// 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时 7:申请退款 8:确认退款 9:退款中 10:已退款 11:取消订单 12:订单已完成 13：订单已删除
-//课程管理 课程类别
+//默认0 1:等待支付 2:支付成功 3:支付失败 4:待接受预约 5:已接受预约 6:订单超时  11:取消订单 12:订单已完成 13：订单已删除 14:拒绝预约
+//订单状态
 typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZStudentOrderTypeForPay  =   0,         //待付款（去支付，取消）
     ZStudentOrderTypeHadPay,                //已付款（评价，退款，删除）
@@ -61,6 +61,16 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZOrganizationOrderTypeAll,                   //全部
 };
 
+//1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+typedef NS_ENUM(NSInteger, ZRefundOrderType) {
+    ZRefundOrderTypeRefund  =   1,
+    ZRefundOrderTypeOrganizationReject,
+    ZRefundOrderTypeStudentReject,
+    ZRefundOrderTypeStudentAgree,
+    ZRefundOrderTypeOrganizationAgree,
+    ZRefundOrderTypeStudentCancle,
+    ZRefundOrderTypeOrganizationPay,
+};
 
 @interface ZStudentOrderEvaModel : NSObject
 @property (nonatomic,strong) NSString *orderImage;

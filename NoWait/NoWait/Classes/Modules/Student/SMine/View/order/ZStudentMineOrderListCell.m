@@ -367,7 +367,7 @@
             || listModel.order_type == ZStudentOrderTypeCancel
             || listModel.order_type == ZStudentOrderTypeOrderForPay
             || listModel.order_type == ZStudentOrderTypeOrderOutTime
-            
+    
             || listModel.order_type == ZOrganizationOrderTypeOutTime
             || listModel.order_type == ZOrganizationOrderTypeCancel
             || listModel.order_type == ZOrganizationOrderTypeOrderOutTime

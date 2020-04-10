@@ -210,7 +210,6 @@
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"statusStr" : @"status_msg",
-             @"order_id" : @"id"
     };
 }
 @end

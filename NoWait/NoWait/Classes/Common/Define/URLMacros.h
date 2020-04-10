@@ -401,6 +401,9 @@
 //协商退款取消
 #define URL_order_v1_refund_order_cancle             @"order/v1/cancle_refund_order"
 
+//退款详情
+#define URL_order_v1_get_refund_order_info            @"order/v1/get_refund_order_info"
+
 #pragma mark - 相册------------------------------------------------
 //相册类型列表
 #define URL_coupons_v1_get_stores_image_type_list                   @"merchants/v1/get_stores_image_type_list"

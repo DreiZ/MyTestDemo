@@ -206,7 +206,7 @@
         }
         case ZFormatterTypeDecimal:
         {
-            regexString = [NSString stringWithFormat:@"^(\\d+)\\.?(\\d{0,%lu})$", (unsigned long)1];
+            regexString = [NSString stringWithFormat:@"^(\\d+)\\.?(\\d{0,%lu})$", (unsigned long)2];
             break;
         }
         case ZFormatterTypeAlphabet:

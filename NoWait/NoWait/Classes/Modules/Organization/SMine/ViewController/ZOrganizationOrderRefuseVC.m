@@ -18,6 +18,12 @@
 
 @implementation ZOrganizationOrderRefuseVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -26,8 +32,6 @@
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
     [self setTableViewEmptyDataDelegate];
-    
-    [self refreshData];
 }
 
 - (void)initCellConfigArr {
@@ -192,7 +196,6 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:[NSString stringWithFormat:@"%d",7] forKey:@"status"];
     if (self.isStudent) {
         [self.param setObject:@"0" forKey:@"type"];
     }else{
