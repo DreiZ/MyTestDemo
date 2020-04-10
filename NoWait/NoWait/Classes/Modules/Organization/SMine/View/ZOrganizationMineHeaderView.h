@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationMineHeaderView : UIView
+@property (nonatomic,strong) NSString *userType;
+
 @property (nonatomic,strong) void (^topHandleBlock)(NSInteger);
 - (void)updateSubViewFrame;
 - (void)updateData;

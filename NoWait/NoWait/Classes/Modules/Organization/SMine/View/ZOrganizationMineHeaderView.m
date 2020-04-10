@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) UIView *scanView;
 @property (nonatomic,strong) UIImageView *scanQRCodeImageView;
+@property (nonatomic,strong) UIButton *qrCodeBtn;
+
 
 @end
 
@@ -123,14 +125,9 @@
         make.center.equalTo(self.settingView);
     }];
     
-    UIButton *scanBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [scanBtn bk_whenTapped:^{
-        if (weakSelf.topHandleBlock) {
-            weakSelf.topHandleBlock(8);
-        }
-    }];
-    [self addSubview:scanBtn];
-    [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self addSubview:self.qrCodeBtn];
+    [self.qrCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(88));
         make.center.equalTo(self.scanView);
     }];
@@ -230,6 +227,22 @@
     }
     return _stateBtn;
 }
+
+- (UIButton *)qrCodeBtn {
+    if (!_qrCodeBtn) {
+        __weak typeof(self) weakSelf = self;
+        _qrCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_qrCodeBtn bk_whenTapped:^{
+            if (weakSelf.topHandleBlock) {
+                weakSelf.topHandleBlock(8);
+            }
+        }];
+    }
+    return _qrCodeBtn;
+}
+
+
+
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
@@ -402,6 +415,17 @@
         _stateBtn.hidden = NO;
     }
     _stateLabel.text = typestr;
+}
+
+- (void)setUserType:(NSString *)userType {
+    _userType = userType;
+    if ([userType intValue] == 1 || [userType intValue] == 2) {
+        self.scanQRCodeImageView.hidden = NO;
+        self.scanView.hidden = NO;
+    }else{
+        self.scanQRCodeImageView.hidden = YES;
+        self.scanView.hidden = YES;
+    }
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

@@ -32,6 +32,7 @@
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
         _viewModel.addModel.name = [ZUserHelper sharedHelper].user.nikeName;
         _viewModel.addModel.phone = [ZUserHelper sharedHelper].user.phone;
+        _viewModel.addModel.code_id = [ZUserHelper sharedHelper].user.userCodeID;
     }
     return _viewModel;
 }
@@ -39,7 +40,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentJionInLessonCell className] title:[ZOrganizationStudentJionInLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationStudentJionInLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
+    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentJionInLessonCell className] title:[ZOrganizationStudentJionInLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationStudentJionInLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel];
     [self.cellConfigArr addObject:progressCellConfig];
     
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],

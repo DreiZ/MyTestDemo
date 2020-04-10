@@ -134,6 +134,14 @@
                         lvc.viewModel.addModel.stores_id = model.stores_id;
                         lvc.viewModel.addModel.total_progress = model.course_number;
                         lvc.viewModel.addModel.code_id = [ZUserHelper sharedHelper].user.userCodeID;
+                        
+
+                        lvc.viewModel.addModel.courses_image = model.course_image;
+                        lvc.viewModel.addModel.courses_name = model.course_name;
+                        lvc.viewModel.addModel.stores_name = model.stores_name;
+                        lvc.viewModel.addModel.coach_img = model.teacher_image;
+                        lvc.viewModel.addModel.teacher_name = model.teacher_name;
+                        lvc.viewModel.addModel.teacher_name = model.teacher_nick_name;
                         [self.navigationController pushViewController:lvc animated:YES];
                     }
                 }else if ([dict[@"qrcode_type"] intValue] == 1){

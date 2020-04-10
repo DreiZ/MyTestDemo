@@ -59,7 +59,7 @@
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.contView.mas_top).offset(-CGFloatIn750(34));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(34));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
     }];
     
@@ -162,7 +162,7 @@
 - (void)setModel:(ZOriganizationStudentAddModel *)model {
     _teacherLabel.text = model.teacher_name;
     _lessonLabel.text = model.courses_name;
-    _nameLabel.text = model.teacher_name;
+    _nameLabel.text = model.stores_name;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.courses_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:model.coach_img]];
 }

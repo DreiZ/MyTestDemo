@@ -31,6 +31,13 @@
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *course_number;
+
+@property (nonatomic,strong) NSString *course_image;
+@property (nonatomic,strong) NSString *course_name;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *teacher_nick_name;
 @end
 
 
