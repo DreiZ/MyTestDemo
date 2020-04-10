@@ -61,10 +61,10 @@
                          @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@8,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",SafeStr(self.viewModel.addModel.birthday),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"身份证号码", @"请输入身份号(选填)", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",SafeStr(self.viewModel.addModel.sign_up_at),@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          
                          @[@"微信", @"选填", @YES, @"", @"weixin",SafeStr(self.viewModel.addModel.wechat),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -391,14 +391,14 @@
     }else if ([cellConfig.title isEqualToString:@"birthday"]) {
         [self.iTableView endEditing:YES];
         [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
-            weakSelf.viewModel.addModel.birthday = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
+            weakSelf.viewModel.addModel.birthday = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"registrationDate"]) {
         [self.iTableView endEditing:YES];
         [ZDatePickerManager showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
-            weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)date.year,date.month,date.day];
+            weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];

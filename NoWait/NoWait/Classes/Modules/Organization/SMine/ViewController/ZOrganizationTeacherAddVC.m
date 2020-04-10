@@ -69,13 +69,13 @@
     ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachAddHeadImageCell className] title:[ZOriganizationTeachAddHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachAddHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
     [self.cellConfigArr addObject:progressCellConfig];
     
-    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@8,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@20,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
+    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@10,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@10,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",@2,[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",@11,SafeStr(self.viewModel.addModel.phone),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",@18,SafeStr(self.viewModel.addModel.id_card),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"教师等级", @"请选择等级", @NO, @"rightBlackArrowN", @"class",@18,level,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                        @[@"教师职称", @"请输入教师职称", @YES, @"", @"title",@20,SafeStr(self.viewModel.addModel.position),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                        @[@"教师职称", @"请输入教师职称", @YES, @"", @"title",@10,SafeStr(self.viewModel.addModel.position),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"任课课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"特长技能", @"请添加特长技能", @NO, @"rightBlackArrowN", @"skill",@40,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
@@ -178,7 +178,9 @@
                 
                 model.uid = [NSString stringWithFormat:@"%d", j];
             }
-            model.name = @"必选";
+            model.name = @"添加图片";
+            model.subName = @"必选";
+            model.isEdit = YES;
         //            model.name = tempArr[j][0];
         //            model.imageName = tempArr[j][1];
         //            model.uid = tempArr[j][2];

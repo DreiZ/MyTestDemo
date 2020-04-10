@@ -18,7 +18,6 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZSingleLeftRoundImageCell.h"
 #import "ZSingleLineRightImageCell.h"
-#import "ZOrganizationLessonAddPhotosCell.h"
 
 #import "ZStudentOrderPayVC.h"
 #import "ZBaseUnitModel.h"

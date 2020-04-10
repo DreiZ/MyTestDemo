@@ -206,8 +206,13 @@
         }
     }
     if (model.isEdit) {
-        
+        self.hintImageView.hidden = NO;
+        _titleLabel.hidden = NO;
+        _subTitleLabel.hidden = NO;
     }else{
+        _titleLabel.hidden = YES;
+        _subTitleLabel.hidden = YES;
+        self.hintImageView.hidden = YES;
         self.deleteBtn.hidden = YES;
         self.deleteBigBtn.hidden = YES;
     }

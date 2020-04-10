@@ -34,3 +34,18 @@
 
 @implementation ZQRCodeAddStudentMode
 @end
+
+@implementation ZMineMessageModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"message_id" : @"id",
+            };
+}
+
+@end
+
+@implementation ZMineMessageNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"list":@"ZMineMessageModel"};
+}
+
+@end

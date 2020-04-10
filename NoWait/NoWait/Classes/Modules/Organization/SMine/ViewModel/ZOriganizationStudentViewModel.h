@@ -41,6 +41,9 @@
 //发送消息
 + (void)addMessage:(NSDictionary *)params
      completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)getMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 

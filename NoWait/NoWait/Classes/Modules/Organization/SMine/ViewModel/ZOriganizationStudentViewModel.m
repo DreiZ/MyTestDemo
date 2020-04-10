@@ -7,6 +7,7 @@
 //
 
 #import "ZOriganizationStudentViewModel.h"
+#import "ZMineModel.h"
 
 @implementation ZOriganizationStudentViewModel
 
@@ -234,4 +235,22 @@
     }];
 }
 
+
++ (void)getMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_message_v1_get_message params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZMineMessageNetModel *model = [ZMineMessageNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 @end

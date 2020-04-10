@@ -136,8 +136,6 @@
                 model.data = imageFullUrl(SafeStr(self.addModel.images_list_net[j]));
             }
             
-//            model.uid = tempArr[j][2];
-            model.name = @"必选";
             model.isEdit = NO;
             [menulist addObject:model];
         }

@@ -91,6 +91,7 @@
                 }
                 model.name = @"添加图片";
                 model.subName = @"选填";
+                model.isEdit = YES;
             //            model.name = tempArr[j][0];
             //            model.imageName = tempArr[j][1];
             //            model.uid = tempArr[j][2];

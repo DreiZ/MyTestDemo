@@ -471,4 +471,8 @@
 //消息
 #define URL_message_v1_add_message                      @"message/v1/add_message"
 
+//消息
+#define URL_message_v1_get_message                      @"message/v1/get_message"
+
+
 #endif /* URLMacros_h */
