@@ -469,181 +469,119 @@
            make.centerY.equalTo(self.telBtn.mas_centerY);
         }];
         
-        if (model.order_type == ZStudentOrderTypeOrderForReceived
-            || model.order_type == ZStudentOrderTypeForRefundComplete
-            || model.order_type == ZStudentOrderTypeHadEva
-            || model.order_type == ZStudentOrderTypeOrderRefuse
-            || model.order_type == ZStudentOrderTypeOrderComplete
-            || model.order_type == ZStudentOrderTypeForRefund//退款
-            || model.order_type == ZStudentOrderTypeRefundReceive//退款
-            || model.order_type == ZStudentOrderTypeRefunding//退款中
-            || model.order_type == ZStudentOrderTypeForRefundComplete
-            || model.order_type == ZStudentOrderTypeRefundCancle) {
-            if (model.isRefund) {
-                if (model.order_type == ZStudentOrderTypeForRefund) {
-                    if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3 || [model.refund_status intValue] == 4 || [model.refund_status intValue] == 5 || [model.refund_status intValue] == 2) {
-                        
-                        [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
-                            make.top.bottom.equalTo(self.bottomView);
-                            make.width.mas_equalTo(CGFloatIn750(126));
-                        }];
-                        
-                        [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                           make.width.mas_equalTo(CGFloatIn750(31));
-                           make.height.mas_equalTo(CGFloatIn750(31));
-                           make.center.equalTo(self.telBtn);
-                        }];
-                        
-                        [_telBtn setTitle:@"" forState:UIControlStateNormal];
-                        _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-                        if ([model.refund_status intValue] == 2) {
-                            self.refundSureBtn.hidden = NO;
-                            self.refundRefectBtn.hidden = NO;
-                            [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                make.top.right.bottom.equalTo(self.bottomView);
-                                make.width.mas_equalTo(CGFloatIn750(384));
-                            }];
-                            [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                make.top.bottom.equalTo(self.bottomView);
-                                make.left.equalTo(self.telBtn.mas_right);
-                                make.right.equalTo(self.refundSureBtn.mas_left);
-                            }];
-                        }else{
-                            self.statusLabel.hidden = NO;
-                            [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                make.top.right.bottom.equalTo(self.bottomView);
-                                make.left.equalTo(self.telBtn.mas_right);
-                            }];
-                            if ([model.refund_status intValue] == 1){
-                                self.statusLabel.text = @"已申请，待商家确认";
-                            }else if ([model.refund_status intValue] == 3){
-                                self.statusLabel.text = @"已拒绝，待商家确认";
-                            }else if ([model.refund_status intValue] == 4){
-                                self.statusLabel.text = @"已同意商家提议金额，待商家退款";
-                            }else if ([model.refund_status intValue] == 5){
-                                self.statusLabel.text = @"商家已同意，待商家退款";
-                            }else{
-                                self.statusLabel.hidden = YES;
-                            }
-                        }
-                    } else{
-                       [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                           make.top.right.left.equalTo(self.bottomView);
-                           make.height.mas_equalTo(CGFloatIn750(88));
-                       }];
-                    }
-                }else if (model.order_type == ZStudentOrderTypeForRefundComplete){
-                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
-                        make.top.bottom.equalTo(self.bottomView);
-                        make.width.mas_equalTo(CGFloatIn750(126));
-                    }];
-                    
-                    [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                       make.width.mas_equalTo(CGFloatIn750(31));
-                       make.height.mas_equalTo(CGFloatIn750(31));
-                       make.center.equalTo(self.telBtn);
-                    }];
-                    
-                    [_telBtn setTitle:@"" forState:UIControlStateNormal];
-                    _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-                    self.statusLabel.hidden = NO;
-                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.right.bottom.equalTo(self.bottomView);
-                        make.left.equalTo(self.telBtn.mas_right);
-                    }];
-                    self.statusLabel.text = @"退款已完成";
-                }else if (model.order_type == ZStudentOrderTypeRefundCancle){
-                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
-                        make.top.bottom.equalTo(self.bottomView);
-                        make.width.mas_equalTo(CGFloatIn750(126));
-                    }];
-                    
-                    [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                       make.width.mas_equalTo(CGFloatIn750(31));
-                       make.height.mas_equalTo(CGFloatIn750(31));
-                       make.center.equalTo(self.telBtn);
-                    }];
-                    
-                    [_telBtn setTitle:@"" forState:UIControlStateNormal];
-                    _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-                    self.statusLabel.hidden = NO;
-                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.right.bottom.equalTo(self.bottomView);
-                        make.left.equalTo(self.telBtn.mas_right);
-                    }];
-                    self.statusLabel.text = @"已取消退款";
-                }else{
-                    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.right.left.equalTo(self.bottomView);
-                        make.height.mas_equalTo(CGFloatIn750(88));
-                    }];
-                }
+        if (model.isRefund) {
+            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
+                make.top.bottom.equalTo(self.bottomView);
+                make.width.mas_equalTo(CGFloatIn750(126));
+            }];
+            
+            [self.telImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+               make.width.mas_equalTo(CGFloatIn750(31));
+               make.height.mas_equalTo(CGFloatIn750(31));
+               make.center.equalTo(self.telBtn);
+            }];
+            
+            [_telBtn setTitle:@"" forState:UIControlStateNormal];
+            _telImageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+            if ([model.refund_status intValue] == 2) {
+                self.refundSureBtn.hidden = NO;
+                self.refundRefectBtn.hidden = NO;
+                [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.right.bottom.equalTo(self.bottomView);
+                    make.width.mas_equalTo(CGFloatIn750(384));
+                }];
+                [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.bottom.equalTo(self.bottomView);
+                    make.left.equalTo(self.telBtn.mas_right);
+                    make.right.equalTo(self.refundSureBtn.mas_left);
+                }];
             }else{
+                self.statusLabel.hidden = NO;
+                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.right.bottom.equalTo(self.bottomView);
+                    make.left.equalTo(self.telBtn.mas_right);
+                }];
+                if ([model.refund_status intValue] == 1){
+                    self.statusLabel.text = @"已申请，待商家确认";
+                }else if ([model.refund_status intValue] == 3){
+                    self.statusLabel.text = @"已拒绝，待商家确认";
+                }else if ([model.refund_status intValue] == 4){
+                    self.statusLabel.text = @"已同意商家提议金额，待商家退款";
+                }else if ([model.refund_status intValue] == 5){
+                    self.statusLabel.text = @"商家已同意，待商家退款";
+                }else if ([model.refund_status intValue] == 6){
+                    self.statusLabel.text = @"已取消退款";
+                }else if ([model.refund_status intValue] == 7){
+                    self.statusLabel.text = @"退款已完成";
+                }else{
+                    self.statusLabel.hidden = YES;
+                }
+            }
+        }else{
+            if (model.order_type == ZStudentOrderTypeOrderForReceived
+                || model.order_type == ZStudentOrderTypeHadEva
+                || model.order_type == ZStudentOrderTypeOrderRefuse
+                || model.order_type == ZStudentOrderTypeOrderComplete) {
+                
                 [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.right.left.equalTo(self.bottomView);
                     make.height.mas_equalTo(CGFloatIn750(88));
                 }];
+                
+            }else{
+                [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
+                    make.top.bottom.equalTo(self.bottomView);
+                    make.width.mas_equalTo(CGFloatIn750(180));
+                }];
             }
-        }else{
-            
-            [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
-                make.top.bottom.equalTo(self.bottomView);
-                make.width.mas_equalTo(CGFloatIn750(180));
-            }];
+            [self setNormalState];
         }
     }else{
-        //机构端
-        if (model.order_type == ZOrganizationOrderTypeForRefund//退款
-        || model.order_type == ZOrganizationOrderTypeRefundReceive//退款
-        || model.order_type == ZOrganizationOrderTypeRefunding//退款中
-        || model.order_type == ZOrganizationOrderTypeForRefundComplete
-        || model.order_type == ZOrganizationOrderTypeRefundCancle) {
-            if (model.order_type == ZOrganizationOrderTypeForRefund) {
-                //状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
-                if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3) {
-                    self.refundOSureBtn.hidden = NO;
-                    self.refundORefectBtn.hidden = NO;
-                    [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.right.bottom.equalTo(self.bottomView);
-                        make.left.equalTo(self.bottomView.mas_centerX);
-                    }];
-                    [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.top.bottom.equalTo(self.bottomView);
-                        make.right.equalTo(self.bottomView.mas_centerX);
-                    }];
-                }else if ([model.refund_status intValue] == 2){
-                    self.statusLabel.hidden = NO;
-                    [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.top.right.bottom.equalTo(self.bottomView);
-                    }];
+        if (model.isRefund) {
+            //状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+            if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3) {
+                self.refundOSureBtn.hidden = NO;
+                self.refundORefectBtn.hidden = NO;
+                [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.right.bottom.equalTo(self.bottomView);
+                    make.left.equalTo(self.bottomView.mas_centerX);
+                }];
+                [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.bottom.equalTo(self.bottomView);
+                    make.right.equalTo(self.bottomView.mas_centerX);
+                }];
+            }else if ([model.refund_status intValue] == 4 || [model.refund_status intValue] == 5){
+                self.refundPayBtn.hidden = NO;
+                [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.right.bottom.equalTo(self.bottomView);
+                }];
+            }else if ([model.refund_status intValue] == 2 || [model.refund_status intValue] == 6 || [model.refund_status intValue] == 7){
+                
+                self.statusLabel.hidden = NO;
+                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.right.bottom.equalTo(self.bottomView);
+                }];
+                if ([model.refund_status intValue] == 2) {
                     self.statusLabel.text = @"已拒绝学员退款，待学员确认";
-                }else if ([model.refund_status intValue] == 4 || [model.refund_status intValue] == 5){
-                    self.refundPayBtn.hidden = NO;
-                    [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.top.right.bottom.equalTo(self.bottomView);
-                    }];
+                }else if ([model.refund_status intValue] == 6) {
+                    self.statusLabel.text = @"学员已取消退款";
+                }else if ([model.refund_status intValue] == 7) {
+                    self.statusLabel.text = @"退款已完成";
                 }
-            }else if (model.order_type == ZOrganizationOrderTypeForRefundComplete){
-                self.statusLabel.hidden = NO;
-                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.top.right.bottom.equalTo(self.bottomView);
-                }];
-                self.statusLabel.text = @"退款已完成";
-            }else if (model.order_type == ZOrganizationOrderTypeRefundCancle){
-                self.statusLabel.hidden = NO;
-                [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.top.right.bottom.equalTo(self.bottomView);
-                }];
-                self.statusLabel.text = @"学员已取消退款";
+                
+            }else {
+                self.statusLabel.hidden = YES;
             }
+        }else{
+            [self setNormalState];
         }
     }
-    
-    switch (model.order_type) {
+}
+
+- (void)setNormalState {
+    switch (self.model.order_type) {
         case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
         {

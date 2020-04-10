@@ -49,18 +49,6 @@
                     return ZStudentOrderTypeOrderOutTime;//超时(删除)
                 }
                 break;
-            case 7:
-                return ZStudentOrderTypeForRefund;//待退款
-                break;
-            case 8:
-                return ZStudentOrderTypeForRefund;//确认退款
-                break;
-            case 9:
-                return ZStudentOrderTypeForRefund;//退款中
-                break;
-            case 10:
-                return ZStudentOrderTypeForRefundComplete;//完成退款
-                break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
                 break;
@@ -69,9 +57,6 @@
                 break;
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
-                break;
-            case 15:
-                return ZStudentOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -109,18 +94,6 @@
                     return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
                 }
                 break;
-            case 7:
-                return ZOrganizationOrderTypeForRefund;//待退款
-                break;
-            case 8:
-                return ZOrganizationOrderTypeForRefund;//确认退款
-                break;
-            case 9:
-                return ZOrganizationOrderTypeForRefund;//退款中
-                break;
-            case 10:
-                return ZOrganizationOrderTypeForRefundComplete;//完成退款
-                break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)
                 break;
@@ -129,9 +102,6 @@
                 break;
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
-                break;
-            case 15:
-                return ZOrganizationOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -177,18 +147,6 @@
                     return ZStudentOrderTypeOrderOutTime;//超时(删除)
                 }
                 break;
-            case 7:
-                return ZStudentOrderTypeForRefund;//待退款
-                break;
-            case 8:
-                return ZStudentOrderTypeForRefund;//确认退款
-                break;
-            case 9:
-                return ZStudentOrderTypeForRefund;//退款中
-                break;
-            case 10:
-                return ZStudentOrderTypeForRefundComplete;//完成退款
-                break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
                 break;
@@ -197,9 +155,6 @@
                 break;
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
-                break;
-            case 15:
-                return ZStudentOrderTypeRefundCancle;//拒绝预约
                 break;
             default:
                 return ZStudentOrderTypeAll;
@@ -237,18 +192,6 @@
                     return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
                 }
                 break;
-            case 7:
-                return ZOrganizationOrderTypeForRefund;//待退款
-                break;
-            case 8:
-                return ZOrganizationOrderTypeForRefund;//确认退款
-                break;
-            case 9:
-                return ZOrganizationOrderTypeForRefund;//退款中
-                break;
-            case 10:
-                return ZOrganizationOrderTypeForRefundComplete;//完成退款
-                break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)
                 break;
@@ -257,9 +200,6 @@
                 break;
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
-                break;
-            case 15:
-                return ZOrganizationOrderTypeRefundCancle;
                 break;
             default:
                 return ZStudentOrderTypeAll;

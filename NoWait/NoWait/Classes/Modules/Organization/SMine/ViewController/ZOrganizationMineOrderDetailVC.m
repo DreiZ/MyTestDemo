@@ -65,132 +65,114 @@
     }
     self.detailModel.isStudent = self.model.isStudent;
     self.detailModel.isRefund = self.model.isRefund;
-    switch (self.detailModel.order_type) {
-        case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
-            ;
-        case ZStudentOrderTypeForPay://待付款（去支付，取消）
-            {
-                [self setTopStateCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-                [self setPayTypeCell];
-            }
-            break;
-        case ZOrganizationOrderTypeHadPay://已付款（评价，退款，删除）
-            ;
-        case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
-        case ZOrganizationOrderTypeHadEva://完成已评价(删除)
-            ;
-        case ZStudentOrderTypeHadEva://完成已评价(删除)
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
-        case ZOrganizationOrderTypeOutTime://超时(删除)
-            ;
-        case ZStudentOrderTypeOutTime://超时(删除)
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
-        case ZOrganizationOrderTypeCancel://已取消(删除)
-            ;
-        case ZStudentOrderTypeCancel://已取消(删除)
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayDetailCell];
-            }
-            break;
-        case ZOrganizationOrderTypeOrderForPay://待付款（去支付，取消）
-            ;
-        case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
-            {
-                [self setTopStateCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setOrderPriceCell];
-                [self setPayTypeCell];
-                [self setTipsCell];
-            }
-            break;
-        case ZOrganizationOrderTypeOrderForReceived://待接收（预约）
-        ;
-        case ZStudentOrderTypeOrderForReceived://待接收（预约）
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-        case ZOrganizationOrderTypeOrderComplete://已完成（预约，删除）
-            ;
-        case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
-            {
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-        case ZOrganizationOrderTypeOrderRefuse://已拒绝（预约
-            ;
-        case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
-            {
-                [self setTopHintCell];
-                [self setOrderDetailCell];
-                [self setUserCell];
-                [self setPayDetailCell];
-                [self setTipsCell];
-            }
-            break;
-            
-        case ZStudentOrderTypeForRefund://退款
-        case ZStudentOrderTypeRefundReceive://退款
-        case ZStudentOrderTypeRefunding://退款中
-        case ZStudentOrderTypeForRefundComplete://退款
-        case ZStudentOrderTypeRefundCancle://退款
-        case ZOrganizationOrderTypeForRefund://退款
-        case ZOrganizationOrderTypeRefundReceive://退款中
-        case ZOrganizationOrderTypeRefunding://退款中
-        case ZOrganizationOrderTypeForRefundComplete://退款
-        case ZOrganizationOrderTypeRefundCancle://退款
-            {
-                if (self.detailModel.isRefund) {
-                    [self setTableViewWhiteBack];
-                    [self setRefuseCell];
-                }else{
+    if (self.detailModel.isRefund) {
+        [self setTableViewWhiteBack];
+        [self setRefuseCell];
+    }else{
+        switch (self.detailModel.order_type) {
+            case ZOrganizationOrderTypeForPay://待付款（去支付，取消）
+                ;
+            case ZStudentOrderTypeForPay://待付款（去支付，取消）
+                {
+                    [self setTopStateCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setOrderPriceCell];
+                    [self setPayDetailCell];
+                    [self setPayTypeCell];
+                }
+                break;
+            case ZOrganizationOrderTypeHadPay://已付款（评价，退款，删除）
+                ;
+            case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
+                {
                     [self setOrderDetailCell];
                     [self setUserCell];
                     [self setOrderPriceCell];
                     [self setPayDetailCell];
                 }
-                
-            }
-            break;
-        default:
-            break;
+                break;
+            case ZOrganizationOrderTypeHadEva://完成已评价(删除)
+                ;
+            case ZStudentOrderTypeHadEva://完成已评价(删除)
+                {
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setOrderPriceCell];
+                    [self setPayDetailCell];
+                }
+                break;
+            case ZOrganizationOrderTypeOutTime://超时(删除)
+                ;
+            case ZStudentOrderTypeOutTime://超时(删除)
+                {
+                    [self setTopHintCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setOrderPriceCell];
+                    [self setPayDetailCell];
+                }
+                break;
+            case ZOrganizationOrderTypeCancel://已取消(删除)
+                ;
+            case ZStudentOrderTypeCancel://已取消(删除)
+                {
+                    [self setTopHintCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setOrderPriceCell];
+                    [self setPayDetailCell];
+                }
+                break;
+            case ZOrganizationOrderTypeOrderForPay://待付款（去支付，取消）
+                ;
+            case ZStudentOrderTypeOrderForPay://待付款（去支付，取消）
+                {
+                    [self setTopStateCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setOrderPriceCell];
+                    [self setPayTypeCell];
+                    [self setTipsCell];
+                }
+                break;
+            case ZOrganizationOrderTypeOrderForReceived://待接收（预约）
+            ;
+            case ZStudentOrderTypeOrderForReceived://待接收（预约）
+                {
+                    [self setTopHintCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setPayDetailCell];
+                    [self setTipsCell];
+                }
+                break;
+            case ZOrganizationOrderTypeOrderComplete://已完成（预约，删除）
+                ;
+            case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+                {
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setPayDetailCell];
+                    [self setTipsCell];
+                }
+                break;
+            case ZOrganizationOrderTypeOrderRefuse://已拒绝（预约
+                ;
+            case ZStudentOrderTypeOrderRefuse://已拒绝（预约）
+                {
+                    [self setTopHintCell];
+                    [self setOrderDetailCell];
+                    [self setUserCell];
+                    [self setPayDetailCell];
+                    [self setTipsCell];
+                }
+                break;
+            default:
+                break;
+        }
     }
+    
 
     [self updateBottom];
 }
@@ -266,16 +248,6 @@
             || self.detailModel.order_type == ZStudentOrderTypeCancel
             || self.detailModel.order_type == ZStudentOrderTypeOrderForReceived
             || self.detailModel.order_type == ZStudentOrderTypeOrderRefuse
-            || self.detailModel.order_type == ZStudentOrderTypeForRefund//退款
-            || self.detailModel.order_type == ZStudentOrderTypeRefundReceive//退款
-            || self.detailModel.order_type == ZStudentOrderTypeRefunding//退款中
-            || self.detailModel.order_type == ZStudentOrderTypeForRefundComplete//退款
-            || self.detailModel.order_type == ZOrganizationOrderTypeForRefund//退款
-            || self.detailModel.order_type == ZOrganizationOrderTypeRefundReceive//退款中
-            || self.detailModel.order_type == ZOrganizationOrderTypeRefunding//退款中
-            || self.detailModel.order_type == ZOrganizationOrderTypeForRefundComplete
-            || self.detailModel.order_type == ZOrganizationOrderTypeRefundCancle
-            || self.detailModel.order_type == ZStudentOrderTypeRefundCancle
             || self.detailModel.isRefund) {
             
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -627,25 +599,15 @@
                 if (i == 1) {
                     if (self.detailModel.isStudent) {
                         //申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
-                        if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
-                            if ([self.detailModel.refund_status intValue] == 2) {
-                                model.isTextEnabled = YES;
-                            }else{
-                                model.isTextEnabled = NO;
-                                model.placeholder = @"";
-                            }
+                        if ([self.detailModel.refund_status intValue] == 2) {
+                            model.isTextEnabled = YES;
                         }else{
                             model.isTextEnabled = NO;
                             model.placeholder = @"";
                         }
                     }else{
-                        if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
-                            if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
-                                model.isTextEnabled = YES;
-                            }else{
-                                model.isTextEnabled = NO;
-                                model.placeholder = @"";
-                            }
+                        if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
+                            model.isTextEnabled = YES;
                         }else{
                             model.isTextEnabled = NO;
                             model.placeholder = @"";
@@ -661,47 +623,43 @@
             
             if (self.detailModel.isStudent) {
                 //申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
-                if (self.detailModel.order_type == ZStudentOrderTypeForRefund) {
-                    if ([self.detailModel.refund_status intValue] == 2) {
-                        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                        model.rightTitle = @"商家已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
-                        model.isHiddenLine = YES;
-                        model.cellWidth = KScreenWidth;
-                        model.leftMargin = CGFloatIn750(160);
-                        model.rightMargin = CGFloatIn750(20);
-                        model.singleCellHeight = CGFloatIn750(32);
-                        model.cellHeight = CGFloatIn750(34);
-                        model.lineSpace = CGFloatIn750(10);
-                        model.rightFont = [UIFont fontSmall];
-                        model.rightColor = [UIColor colorRedForLabel];
-                        model.rightDarkColor =  [UIColor colorRedForLabel];
-                        
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                        [self.cellConfigArr addObject:menuCellConfig];
-                    }
+                if ([self.detailModel.refund_status intValue] == 2) {
+                    ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+                    model.rightTitle = @"商家已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
+                    model.isHiddenLine = YES;
+                    model.cellWidth = KScreenWidth;
+                    model.leftMargin = CGFloatIn750(160);
+                    model.rightMargin = CGFloatIn750(20);
+                    model.singleCellHeight = CGFloatIn750(32);
+                    model.cellHeight = CGFloatIn750(34);
+                    model.lineSpace = CGFloatIn750(10);
+                    model.rightFont = [UIFont fontSmall];
+                    model.rightColor = [UIColor colorRedForLabel];
+                    model.rightDarkColor =  [UIColor colorRedForLabel];
+                    
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                    [self.cellConfigArr addObject:menuCellConfig];
                 }
             }else{
-                if (self.detailModel.order_type == ZOrganizationOrderTypeForRefund) {
-                    if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
-                        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                        model.rightTitle = @"如重新协商金额，请先修改此金额然后“协商退款”";
-                        if ([self.detailModel.refund_status intValue] == 3) {
-                            model.rightTitle = @"学员已拒绝你提供的退款金额提议,如重新协商金额，请先修改此金额然后”协商退款“";
-                        }
-                        model.isHiddenLine = YES;
-                        model.cellWidth = KScreenWidth;
-                        model.leftMargin = CGFloatIn750(160);
-                        model.rightMargin = CGFloatIn750(18);
-                        model.singleCellHeight = CGFloatIn750(32);
-                        model.cellHeight = CGFloatIn750(34);
-                        model.lineSpace = CGFloatIn750(10);
-                        model.rightFont = [UIFont fontSmall];
-                        model.rightColor = [UIColor colorRedForLabel];
-                        model.rightDarkColor =  [UIColor colorRedForLabel];
-                        
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                        [self.cellConfigArr addObject:menuCellConfig];
+                if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
+                    ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+                    model.rightTitle = @"如重新协商金额，请先修改此金额然后“协商退款”";
+                    if ([self.detailModel.refund_status intValue] == 3) {
+                        model.rightTitle = @"学员已拒绝你提供的退款金额提议,如重新协商金额，请先修改此金额然后”协商退款“";
                     }
+                    model.isHiddenLine = YES;
+                    model.cellWidth = KScreenWidth;
+                    model.leftMargin = CGFloatIn750(160);
+                    model.rightMargin = CGFloatIn750(18);
+                    model.singleCellHeight = CGFloatIn750(32);
+                    model.cellHeight = CGFloatIn750(34);
+                    model.lineSpace = CGFloatIn750(10);
+                    model.rightFont = [UIFont fontSmall];
+                    model.rightColor = [UIColor colorRedForLabel];
+                    model.rightDarkColor =  [UIColor colorRedForLabel];
+                    
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                    [self.cellConfigArr addObject:menuCellConfig];
                 }
             }
             [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];

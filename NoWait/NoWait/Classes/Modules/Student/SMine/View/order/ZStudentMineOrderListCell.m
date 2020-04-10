@@ -71,6 +71,11 @@
     self.refundORefectBtn.hidden = YES;
     self.refundPayBtn.hidden = YES;
     
+    if (model.isRefund) {//退款列表
+        [self setRefundHandle];
+        return;
+    }
+    
     switch (model.order_type) {
         case ZStudentOrderTypeOrderForPay:
         case ZStudentOrderTypeForPay: //待付款（去支付，取消）
@@ -200,185 +205,6 @@
             }];
         }
             break;
-        case ZStudentOrderTypeForRefund:
-        case ZStudentOrderTypeRefundReceive:
-        case ZStudentOrderTypeRefunding:
-        case ZStudentOrderTypeForRefundComplete:
-        case ZOrganizationOrderTypeForRefund:
-        case ZOrganizationOrderTypeRefundReceive:
-        case ZOrganizationOrderTypeRefunding:
-        case ZOrganizationOrderTypeForRefundComplete:
-        case ZStudentOrderTypeRefundCancle:
-        case ZOrganizationOrderTypeRefundCancle:
-        {
-            if (model.isRefund) {
-                self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
-                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.equalTo(self.contView);
-                    make.bottom.equalTo(self.contView.mas_bottom);
-                    make.height.mas_equalTo(CGFloatIn750(136));
-                }];
-                
-                NSString *fail = self.model.refund_amount? [NSString stringWithFormat:@"￥%@",self.model.refund_amount] : @"";
-                CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-    
-                [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.equalTo(self.contView);
-                    make.bottom.equalTo(self.bottomView.mas_top);
-                    make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
-                }];
-    
-                [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(self.leftImageView);
-                    make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
-                }];
-    
-    
-                [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
-                    make.top.equalTo(self.failHintLabel.mas_top);
-                    make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
-                }];
-    
-                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.equalTo(self.contView);
-                    make.top.equalTo(self.topView.mas_bottom);
-                    make.bottom.equalTo(self.failView.mas_top);
-                }];
-    
-                [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
-                
-                self.failView.hidden = NO;
-                
-                if (model.order_type == ZStudentOrderTypeForRefund) {
-// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
-                    if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3 || [model.refund_status intValue] == 4) {
-                        self.bottomView.hidden = NO;
-                        self.refundCancle.hidden = NO;
-                        [self.refundCancle mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(182));
-                        }];
-                    }else if ([model.refund_status intValue] == 2){
-                        self.bottomView.hidden = NO;
-                        self.refundSureBtn.hidden = NO;
-                        self.refundRefectBtn.hidden = NO;
-                        self.refundCancle.hidden = NO;
-                        
-                        [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                        
-                        [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.refundSureBtn.mas_left).offset(CGFloatIn750(-20));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                        
-                        [self.refundCancle mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.refundRefectBtn.mas_left).offset(CGFloatIn750(-20));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                    }else if ([model.refund_status intValue] == 5
-                              || [model.refund_status intValue] == 6
-                              || [model.refund_status intValue] == 7){
-                        [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(self.contView);
-                            make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                        }];
-                    }else{
-                        [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(self.contView);
-                            make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                        }];
-                    }
-                }else if (model.order_type == ZStudentOrderTypeRefundReceive
-                          || model.order_type == ZStudentOrderTypeRefunding
-                          || model.order_type == ZStudentOrderTypeForRefundComplete
-                          || model.order_type == ZStudentOrderTypeRefundCancle){
-                    [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.equalTo(self.contView);
-                        make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                    }];
-                }else if (model.order_type == ZOrganizationOrderTypeForRefund){
-// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
-                    if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3 ) {
-                        self.bottomView.hidden = NO;
-                        self.refundOSureBtn.hidden = NO;
-                        self.refundORefectBtn.hidden = NO;
-                        
-                        [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                        
-                        [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.refundOSureBtn.mas_left).offset(CGFloatIn750(-20));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                    }else if ([model.refund_status intValue] == 4 || [model.refund_status intValue] == 5){
-                        self.bottomView.hidden = NO;
-                        self.refundPayBtn.hidden = NO;
-                        
-                        [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.centerY.equalTo(self.bottomView.mas_centerY);
-                            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                            make.height.mas_equalTo(CGFloatIn750(56));
-                            make.width.mas_equalTo(CGFloatIn750(172));
-                        }];
-                    }else if ([model.refund_status intValue] == 2){
-                        [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(self.contView);
-                            make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                        }];
-                    }else if ([model.refund_status intValue] == 6 ||[model.refund_status intValue] == 7){
-                        [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(self.contView);
-                            make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                        }];
-                    }else{
-                        [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                            make.left.right.equalTo(self.contView);
-                            make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                        }];
-                    }
-                }else if (model.order_type == ZOrganizationOrderTypeRefundReceive){
-                    [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.equalTo(self.contView);
-                        make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                    }];
-                }else if (model.order_type == ZOrganizationOrderTypeRefunding
-                          ||model.order_type == ZOrganizationOrderTypeForRefundComplete
-                          ||model.order_type == ZOrganizationOrderTypeRefundCancle){
-                    [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.equalTo(self.contView);
-                        make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                    }];
-                }
-             
-            }else{
-                self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-                
-                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                 make.left.right.equalTo(self.contView);
-                 make.top.equalTo(self.topView.mas_bottom);
-                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
-                }];
-            }
-        }
-            break;
         default:
             {
                 self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
@@ -393,6 +219,128 @@
     }
 }
 
+- (void)setRefundHandle {
+    self.statelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.contView.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(136));
+    }];
+    
+    NSString *fail = self.model.refund_amount? [NSString stringWithFormat:@"￥%@",self.model.refund_amount] : @"";
+    CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+
+    [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.bottom.equalTo(self.bottomView.mas_top);
+        make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
+    }];
+
+    [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.leftImageView);
+        make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
+    }];
+
+
+    [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
+        make.top.equalTo(self.failHintLabel.mas_top);
+        make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
+    }];
+
+    [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.contView);
+        make.top.equalTo(self.topView.mas_bottom);
+        make.bottom.equalTo(self.failView.mas_top);
+    }];
+
+    [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
+    
+    self.failView.hidden = NO;
+    
+    if (self.model.isStudent) {
+// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+        if ([self.model.refund_status intValue] == 1 || [self.model.refund_status intValue] == 3 || [self.model.refund_status intValue] == 4) {
+            self.bottomView.hidden = NO;
+            self.refundCancle.hidden = NO;
+            [self.refundCancle mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(182));
+            }];
+        }else if ([self.model.refund_status intValue] == 2){
+            self.bottomView.hidden = NO;
+            self.refundSureBtn.hidden = NO;
+            self.refundRefectBtn.hidden = NO;
+            self.refundCancle.hidden = NO;
+            
+            [self.refundSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+            
+            [self.refundRefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.refundSureBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+            
+            [self.refundCancle mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.refundRefectBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }else{
+            [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+            }];
+        }
+    
+    }else {
+// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+        if ([self.model.refund_status intValue] == 1 || [self.model.refund_status intValue] == 3 ) {
+            self.bottomView.hidden = NO;
+            self.refundOSureBtn.hidden = NO;
+            self.refundORefectBtn.hidden = NO;
+            
+            [self.refundOSureBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+            
+            [self.refundORefectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.refundOSureBtn.mas_left).offset(CGFloatIn750(-20));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }else if ([self.model.refund_status intValue] == 4 || [self.model.refund_status intValue] == 5){
+            self.bottomView.hidden = NO;
+            self.refundPayBtn.hidden = NO;
+            
+            [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(172));
+            }];
+        }else {
+            [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.contView);
+                make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4); make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+            }];
+        }
+    }
+}
+
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderListModel class]]) {
         ZOrderListModel *listModel = (ZOrderListModel *)sender;
@@ -400,34 +348,18 @@
             NSString *fail = listModel.refund_amount ?  [NSString stringWithFormat:@"￥%@",listModel.refund_amount] : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             
-            if (listModel.order_type == ZStudentOrderTypeForRefund
-            ) {
+            if (listModel.isStudent) {
                 if ([listModel.refund_status intValue] == 2 || [listModel.refund_status intValue] == 1 || [listModel.refund_status intValue] == 3 || [listModel.refund_status intValue] == 4) {
                     return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
                 }else{
                     return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
                 }
-            }else if(listModel.order_type == ZStudentOrderTypeRefundReceive
-                     ||  listModel.order_type == ZStudentOrderTypeRefunding
-                     ||  listModel.order_type == ZStudentOrderTypeForRefundComplete
-                     ||  listModel.order_type == ZStudentOrderTypeRefundCancle){
-                
-                return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
-                
-            }else if (listModel.order_type == ZOrganizationOrderTypeForRefund
-                      ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
-            ) {
+            }else{
                 if ([listModel.refund_status intValue] == 1 || [listModel.refund_status intValue] == 3 || [listModel.refund_status intValue] == 4|| [listModel.refund_status intValue] == 5) {
                     return CGFloatIn750(414) + failSize.height + CGFloatIn750(40);
                 }else{
                     return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
                 }
-            }else if(listModel.order_type == ZOrganizationOrderTypeRefunding
-                     ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete
-                     || listModel.order_type == ZOrganizationOrderTypeCancel){
-                return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
-            } else{
-                return CGFloatIn750(318) + failSize.height + CGFloatIn750(40);
             }
         }else if (listModel.order_type == ZStudentOrderTypeForPay
             || listModel.order_type == ZStudentOrderTypeHadPay

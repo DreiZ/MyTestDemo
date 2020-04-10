@@ -438,17 +438,6 @@
                 [self setDetailSubViewBottom];
             }
             break;
-            
-        case ZStudentOrderTypeForRefund:
-        case ZStudentOrderTypeRefundReceive:
-        case ZStudentOrderTypeRefunding:
-        case ZStudentOrderTypeForRefundComplete:
-        case ZStudentOrderTypeRefundCancle:
-        case ZOrganizationOrderTypeForRefund:
-        case ZOrganizationOrderTypeRefundReceive:
-        case ZOrganizationOrderTypeRefunding:
-        case ZOrganizationOrderTypeForRefundComplete:
-        case ZOrganizationOrderTypeRefundCancle:
         case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
             {
                 [self setDetailDes];
@@ -536,49 +525,17 @@
         default:
             break;
     }
-    
-    if (self.model.order_type == ZStudentOrderTypeHadPay) {
-        self.delBtn.enabled = YES;
-        [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.bottomView.mas_centerY);
-            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-            make.height.mas_equalTo(CGFloatIn750(56));
-            make.width.mas_equalTo(CGFloatIn750(142));
-        }];
-    }else if (self.model.order_type == ZStudentOrderTypeRefundReceive
-              || self.model.order_type == ZStudentOrderTypeRefunding
-              || self.model.order_type == ZOrganizationOrderTypeForRefund
-              || self.model.order_type == ZOrganizationOrderTypeRefundReceive
-              || self.model.order_type == ZOrganizationOrderTypeRefunding){
-        [_delBtn setTitle:@"退款中" forState:UIControlStateNormal];
-        self.delBtn.hidden = NO;
-        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.bottomView.mas_centerY);
-            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-            make.height.mas_equalTo(CGFloatIn750(56));
-            make.width.mas_equalTo(CGFloatIn750(142));
-        }];
-    }else if (self.model.order_type == ZStudentOrderTypeForRefundComplete
-              || self.model.order_type == ZOrganizationOrderTypeForRefundComplete){
-        [_delBtn setTitle:@"退款已完成" forState:UIControlStateNormal];
-        self.delBtn.hidden = NO;
-        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.bottomView.mas_centerY);
-            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-            make.height.mas_equalTo(CGFloatIn750(56));
-            make.width.mas_equalTo(CGFloatIn750(172));
-        }];
-    }else if (self.model.order_type == ZStudentOrderTypeRefundCancle
-              || self.model.order_type == ZOrganizationOrderTypeRefundCancle){
-        [_delBtn setTitle:@"退款已取消" forState:UIControlStateNormal];
-        self.delBtn.hidden = NO;
-        [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.bottomView.mas_centerY);
-            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-            make.height.mas_equalTo(CGFloatIn750(56));
-            make.width.mas_equalTo(CGFloatIn750(172));
-        }];
+    if ([self.model.has_can_refund intValue] == 1 && !model.isRefund) {
+        if (self.model.isStudent) {
+            self.delBtn.enabled = YES;
+            [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                make.height.mas_equalTo(CGFloatIn750(56));
+                make.width.mas_equalTo(CGFloatIn750(142));
+            }];
+        }
     }else{
         [_delBtn setTitle:@"" forState:UIControlStateNormal];
         self.delBtn.hidden = YES;
@@ -694,14 +651,7 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZOrderDetailModel class]]) {
         ZOrderDetailModel *listModel = (ZOrderDetailModel *)sender;
-        if (listModel.order_type == ZStudentOrderTypeForRefund
-            ||  listModel.order_type == ZStudentOrderTypeRefundReceive
-            ||  listModel.order_type == ZStudentOrderTypeRefunding
-            ||  listModel.order_type == ZStudentOrderTypeForRefundComplete
-            ||  listModel.order_type == ZOrganizationOrderTypeForRefund
-            ||  listModel.order_type == ZOrganizationOrderTypeRefundReceive
-            ||  listModel.order_type == ZOrganizationOrderTypeRefunding
-            ||  listModel.order_type == ZOrganizationOrderTypeForRefundComplete) {
+        if (!listModel.isRefund && [listModel.has_can_refund intValue] == 1) {
             return CGFloatIn750(328 + 56 * 3 + 28 + 56);
         }
         switch (listModel.order_type) {
