@@ -8,7 +8,6 @@
 
 #import "DIYScanViewController.h"
 #import <LBXScanViewStyle.h>
-#import <ZXBarcodeFormat.h>
 #import "ZAlertView.h"
 #import "LBXPermission.h"
 #import "Global.h"
@@ -21,13 +20,17 @@
 @end
 
 @implementation DIYScanViewController
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.style = [self OnStyle];
     self.isOpenInterestRect = YES;
-    self.libraryType = SLT_ZXing;
+    self.libraryType = SLT_Native;
     self.scanCodeType = SCT_QRCode;
     self.cameraInvokeMsg = @"相机启动中";
     
@@ -214,26 +217,7 @@
             }
         }
             break;
-        case SLT_ZBar:
-        {
-            __weak __typeof(self) weakSelf = self;
-            
-            [LBXZBarWrapper recognizeImage:image block:^(NSArray<LBXZbarResult *> *result) {
-                
-                //测试，只使用扫码结果第一项
-                LBXZbarResult *firstObj = result[0];
-                
-                LBXScanResult *scanResult = [[LBXScanResult alloc]init];
-                scanResult.strScanned = firstObj.strScanned;
-                scanResult.imgScanned = firstObj.imgScanned;
-                scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
-                
-                [weakSelf scanResultWithArray:@[scanResult]];
-                
-            }];
-        }
-            break;
-            
+        
         default:
             break;
     }
