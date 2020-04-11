@@ -93,6 +93,7 @@
     [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(10));
     }];
 
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -104,6 +105,7 @@
     
     [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.userImageView.mas_left).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
@@ -281,8 +283,8 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
-    _lessonNameLabel.text = model.stores_courses_name;
-    _classNameLabel.text = model.courses_class_name;
+    _lessonNameLabel.text = model.name;
+    _classNameLabel.text = model.stores_courses_name;
     
     _userLabel.text = model.teacher_name;
     _nameLabel.text = model.stores_name;
@@ -308,6 +310,22 @@
     _numLabel.text = status;
     _stateLabel.text = @"";
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
+    
+    if ([model.status intValue] == 1) {
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        _openBtn.enabled = YES;
+    }else{
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        _openBtn.enabled = NO;
+    }
+    
+    CGSize tempSize = [model.teacher_name sizeForFont:[UIFont fontSmall] size:CGSizeMake(KScreenWidth/3.0, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    [self.userLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_equalTo(tempSize.width + 2);
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

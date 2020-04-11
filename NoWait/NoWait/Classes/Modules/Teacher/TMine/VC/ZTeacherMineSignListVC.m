@@ -12,6 +12,7 @@
 #import "ZStudentMineSignDetailVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationClassDetailStudentListVC.h"
+#import "ZAlertView.h"
 
 @interface ZTeacherMineSignListVC ()
 
@@ -57,20 +58,26 @@
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
         ZTeacherMineSignListCell *enteryCell = (ZTeacherMineSignListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOriganizationClassListModel *model) {
             if (index == 0) {
                 ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC alloc] init];
+                lvc.listModel = model;
                 [self.navigationController pushViewController:lvc animated:YES];
             }else{
-                
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [weakSelf openClass:model];
+                    }
+                }];
             }
         };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+     if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
          ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
          
          [self.navigationController pushViewController:dvc animated:YES];
@@ -149,6 +156,21 @@
     [param setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
     [param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
     return param;
+}
+
+
+- (void)openClass:(ZOriganizationClassListModel*)model {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].stores.stores_id),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showErrorHint:message];
+        };
+    }];
 }
 
 @end

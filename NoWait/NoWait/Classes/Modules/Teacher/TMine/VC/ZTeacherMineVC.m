@@ -8,6 +8,7 @@
 
 #import "ZTeacherMineVC.h"
 #import "ZOrganizationMineHeaderView.h"
+#import "ZOriganizationLessonViewModel.h"
 
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"
@@ -35,6 +36,7 @@
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     [self getStoresStatistical];
+    [self refreshCurriculumList];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -59,14 +61,9 @@
 }
 
 - (void)setDataSource {
-    
     [super setDataSource];
     _lessonList = @[].mutableCopy;
     
-    for (int i = 0; i < 5; i++) {
-        
-//        [_lessonList addSafeObject:[[ZStudentLessonModel alloc] init]];
-    }
 }
 
 - (void)setupMainView {
@@ -150,7 +147,7 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    NSArray *tempArr = @[@[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher_dark",@"sign", @"我的签课", @"rightBlackArrowN"],
+    NSArray *tempArr = @[@[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher",@"sign", @"我的签课", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
@@ -170,6 +167,12 @@
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
     
+    for (int i = 0; i < 10; i++) {
+        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
+        limo.time = @"11:21~12:12";
+        limo.course_name = @"感受感受";
+        [_lessonList addObject:limo];
+    }
     if (_lessonList.count > 0) {
         ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
         [self.cellConfigArr addObject:timeCellConfig];
@@ -197,6 +200,24 @@
         if (isSuccess && data && [data isKindOfClass:[ZOriganizationDetailModel class]]) {
             [ZUserHelper sharedHelper].stores = data;
             [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
+
+- (void)refreshCurriculumList {
+    NSMutableDictionary *param = @{@"is_today":@"0"}.mutableCopy;
+    
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel getCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.lessonList removeAllObjects];
+            [weakSelf.lessonList addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
             [weakSelf.iTableView reloadData];
         }
     }];

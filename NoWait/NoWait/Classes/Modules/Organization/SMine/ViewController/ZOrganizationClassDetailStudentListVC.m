@@ -197,8 +197,14 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.model.stores_id forKey:@"stores_id"];
-       [param setObject:self.model.classID forKey:@"courses_class_id"];
+    if (self.listModel) {
+        [param setObject:self.listModel.course_id forKey:@"stores_id"];
+        [param setObject:self.listModel.classID forKey:@"courses_class_id"];
+    }else if (self.model){
+        [param setObject:self.model.stores_id forKey:@"stores_id"];
+        [param setObject:self.model.classID forKey:@"courses_class_id"];
+    }
+   
     return param;
 }
 

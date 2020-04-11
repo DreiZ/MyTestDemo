@@ -139,7 +139,7 @@
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(64), CGFloatIn750(20), CGFloatIn750(64));
+    return UIEdgeInsetsMake(CGFloatIn750(0), CGFloatIn750(64), CGFloatIn750(20), CGFloatIn750(64));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

@@ -124,38 +124,46 @@
         NSString *temp = strResult.strScanned;
         NSDictionary *dict = [temp zz_JSONValue];
         if (ValidDict(dict)) {
-            if ([dict objectForKey:@"qrcode_type"]) {
-                if ([dict[@"qrcode_type"] intValue] == 2) {
-                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
-                        ZQRCodeAddStudentMode *model = [ZQRCodeAddStudentMode mj_objectWithKeyValues:dict];
-                        ZOrganizationStudentJionInLessonVC *lvc = [[ZOrganizationStudentJionInLessonVC alloc] init];
-                        lvc.viewModel.addModel.stores_courses_class_id = model.course_id;
-                        lvc.viewModel.addModel.teacher_id = model.teacher_id;
-                        lvc.viewModel.addModel.stores_id = model.stores_id;
-                        lvc.viewModel.addModel.total_progress = model.course_number;
-                        lvc.viewModel.addModel.code_id = [ZUserHelper sharedHelper].user.userCodeID;
-                        
+            if ([dict objectForKey:@"source_type"] && [dict[@"source_type"] isEqualToString:@"xiangcenter.com"]) {
+                if ([dict objectForKey:@"qrcode_type"]) {
+                        if ([dict[@"qrcode_type"] intValue] == 2) {
+                            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                                ZQRCodeAddStudentMode *model = [ZQRCodeAddStudentMode mj_objectWithKeyValues:dict];
+                                ZOrganizationStudentJionInLessonVC *lvc = [[ZOrganizationStudentJionInLessonVC alloc] init];
+                                lvc.viewModel.addModel.stores_courses_class_id = model.course_id;
+                                lvc.viewModel.addModel.teacher_id = model.teacher_id;
+                                lvc.viewModel.addModel.stores_id = model.stores_id;
+                                lvc.viewModel.addModel.total_progress = model.course_number;
+                                lvc.viewModel.addModel.code_id = [ZUserHelper sharedHelper].user.userCodeID;
+                                
 
-                        lvc.viewModel.addModel.courses_image = model.course_image;
-                        lvc.viewModel.addModel.courses_name = model.course_name;
-                        lvc.viewModel.addModel.stores_name = model.stores_name;
-                        lvc.viewModel.addModel.coach_img = model.teacher_image;
-                        lvc.viewModel.addModel.teacher_name = model.teacher_name;
-                        lvc.viewModel.addModel.teacher_name = model.teacher_nick_name;
-                        [self.navigationController pushViewController:lvc animated:YES];
-                    }else{
-                        [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
-                    }
-                }else if ([dict[@"qrcode_type"] intValue] == 1){
-                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                                lvc.viewModel.addModel.courses_image = model.course_image;
+                                lvc.viewModel.addModel.courses_name = model.course_name;
+                                lvc.viewModel.addModel.stores_name = model.stores_name;
+                                lvc.viewModel.addModel.coach_img = model.teacher_image;
+                                lvc.viewModel.addModel.teacher_name = model.teacher_name;
+                                lvc.viewModel.addModel.teacher_name = model.teacher_nick_name;
+                                [self.navigationController pushViewController:lvc animated:YES];
+                            }else{
+                                [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
+                            }
+                        }else if ([dict[@"qrcode_type"] intValue] == 1){
+                            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                                
+                            }else{
+                                [TLUIUtility showErrorHint:@"非教师端不可加入课程"];
+                            }
+                        }
                         
-                    }else{
-                        [TLUIUtility showErrorHint:@"非教师端不可加入课程"];
                     }
                 }
-                
+            }else{
+                [ZAlertView setAlertWithTitle:@"二维码不是本应用二维码" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                    
+                }];
             }
-        }
+            
+            
     }
     
 }
