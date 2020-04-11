@@ -150,7 +150,6 @@
     if (!_amountLabel) {
         _amountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _amountLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _amountLabel.text = @"￥2309450239";
         _amountLabel.numberOfLines = 1;
         _amountLabel.textAlignment = NSTextAlignmentCenter;
         [_amountLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(56)]];
@@ -171,6 +170,9 @@
     return _detailLabel;
 }
 
-
+- (void)setModel:(ZStoresAccountModel *)model {
+    _model = model;
+    _amountLabel.text = [NSString stringWithFormat:@"￥%@",model.total_amount];
+}
 @end
 

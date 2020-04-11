@@ -16,8 +16,11 @@
 #import "ZOrganizationSchoolAccountListVC.h"
 #import "ZOrganizationSchoolAccountDetailVC.h"
 
+#import "ZOriganizationViewModel.h"
+
 @interface ZOrganizationSchoolAccountVC ()
 @property (nonatomic,strong) ZSchoolAccountTopMainView *topView;
+@property (nonatomic,strong) ZStoresAccountModel *model;
 
 @end
 
@@ -25,6 +28,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
+    
+    [self getAccountBill];
 }
 
 - (void)viewDidLoad {
@@ -39,7 +44,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray *topArr = @[@[@"已打款金额￥",@"2001",@NO,@"hadPay"],@[@"应打款金额￥",@"2001",@NO,@"shouldPay"],@[@"剩余金额￥",@"2001",@YES,@"left"]];
+    NSArray *topArr = @[@[@"已打款金额￥",SafeStr(self.model.received_amount),@NO,@"hadPay"],@[@"应打款金额￥",SafeStr(self.model.should_receive_amount),@NO,@"shouldPay"],@[@"剩余金额￥",SafeStr(self.model.wait_receive_amount),@YES,@"left"]];
     for (NSArray *arr in topArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = arr[0];
@@ -92,6 +97,7 @@
         ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
         [self.cellConfigArr addObject:bottomCellConfig];
     }
+    _topView.model = self.model;
 }
 
 - (void)setNavigation {
@@ -151,5 +157,16 @@
         lvc.type = 2;
         [self.navigationController pushViewController:lvc animated:YES];
     }
+}
+
+- (void)getAccountBill {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationViewModel getMerchantsAccount:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"merchants_id":SafeStr([ZUserHelper sharedHelper].user.userID)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data && [data isKindOfClass:[ZStoresAccountModel class]]) {
+            weakSelf.model = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

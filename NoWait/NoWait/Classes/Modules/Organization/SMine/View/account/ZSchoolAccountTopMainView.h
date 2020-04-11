@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZSchoolAccountTopMainView : UIView
+@property (nonatomic,strong) ZStoresAccountModel *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
