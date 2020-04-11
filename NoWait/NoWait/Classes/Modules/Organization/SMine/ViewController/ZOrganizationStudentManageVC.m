@@ -275,6 +275,7 @@
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
                 ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                mvc.type = @"2";
                 mvc.storesName = [ZUserHelper sharedHelper].school.name;
                 mvc.studentList = [[NSMutableArray alloc] initWithArray:ids];
                 [weakSelf.navigationController pushViewController:mvc animated:YES];

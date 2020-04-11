@@ -286,3 +286,48 @@
 
 
 @end
+
+@implementation ZStoresStatisticalModel
+
+@end
+
+
+@implementation ZStoresAccountListModel
+
+@end
+
+@implementation ZStoresAccountModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list_stores" : @"ZStoresAccountListModel",
+             };
+}
+@end
+
+
+@implementation ZStoresAccountDetaliListModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"lid" : @"id"};
+}
+@end
+
+
+@implementation ZStoresAccountDetaliListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZStoresAccountDetaliListModel",
+             };
+}
+@end
+
+
+@implementation ZStoresAccountBillListModel
+
+@end
+
+
+@implementation ZStoresAccountBillListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZStoresAccountDetaliListModel",
+             };
+}
+@end
+

@@ -40,9 +40,11 @@
 
 @interface ZOrganizationMineVC ()
 @property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
+@property (nonatomic,strong) ZStoresStatisticalModel *statisticalModel;
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
 @property (nonatomic,strong) NSMutableArray *lessonList;
+
 @end
 
 @implementation ZOrganizationMineVC
@@ -108,7 +110,6 @@
             }else if (index == 5){
                 ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
                 [weakSelf.navigationController pushViewController:svc animated:YES];
-                
             }
         };
     }
@@ -166,8 +167,6 @@
                 ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
-            
-            
         };
    }else if ([cellConfig.title isEqualToString:@"ZOriganizationClubSelectedCell"]){
        ZOriganizationClubSelectedCell *lcell = (ZOriganizationClubSelectedCell *)cell;
@@ -175,7 +174,23 @@
            ZOriganizationSchoolListModel *smodel = [[ZOriganizationSchoolListModel alloc] init];
            smodel.schoolID = model.uid;
            smodel.name = model.name;
-           [ZUserHelper sharedHelper].school = smodel;
+           smodel.statistical_type = [model.subName intValue];
+           for (ZOriganizationSchoolListModel *listModel in self.topchannelList) {
+               if ([listModel.schoolID isEqualToString:model.uid]) {
+                   listModel.statistical_type = smodel.statistical_type;
+                   [ZUserHelper sharedHelper].school = listModel;
+               }
+           }
+           
+           [weakSelf initCellConfigArr];
+           [weakSelf getStoresStatistical];
+       };
+   }else if ([cellConfig.title isEqualToString:@"ZOriganizationStatisticsCell"]){
+       ZOriganizationStatisticsCell *lcell = (ZOriganizationStatisticsCell *)cell;
+       lcell.selectedIndex = [ZUserHelper sharedHelper].school.statistical_type;
+       lcell.handleBlock = ^(NSInteger index) {
+           [ZUserHelper sharedHelper].school.statistical_type = index;
+           [weakSelf getStoresStatistical];
        };
    }
 }
@@ -210,18 +225,18 @@
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
             model.name = SafeStr(listModel.name);
             model.uid = SafeStr(listModel.schoolID);
-            [channnliset addObject:model];
-            if (i == 0) {
-                [ZUserHelper sharedHelper].school = listModel;
+            model.subName = [NSString stringWithFormat:@"%ld",listModel.statistical_type];
+            if ([model.uid isEqualToString:[ZUserHelper sharedHelper].school.schoolID]) {
                 model.isSelected = YES;
             }
+            [channnliset addObject:model];
         }
         ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
         [self.cellConfigArr addObject:channelCellConfig];
     }
     
     
-    ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:nil heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.statisticalModel];
     [self.cellConfigArr addObject:statisticsCellConfig];
     NSArray *menuArr = @[@[@"财务管理",
   @[@[@"账户",isDarkModel() ? @"stores_account_dark":@"stores_account",@"account"],
@@ -275,10 +290,26 @@
             if (model && model.list) {
                 [weakSelf.topchannelList removeAllObjects];
                 [weakSelf.topchannelList addObjectsFromArray:model.list];
+                if (ValidArray(model.list)) {
+                    ZOriganizationSchoolListModel *listModel = model.list[0];
+                    [ZUserHelper sharedHelper].school = listModel;
+                }
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
+                [weakSelf getStoresStatistical];
             }
-            
+        }
+    }];
+}
+
+
+- (void)getStoresStatistical {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationViewModel getStoresStatistical:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"statistical_type":[NSString stringWithFormat:@"%ld",[ZUserHelper sharedHelper].school.statistical_type]} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data && [data isKindOfClass:[ZStoresStatisticalModel class]]) {
+            weakSelf.statisticalModel = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         }
     }];
 }

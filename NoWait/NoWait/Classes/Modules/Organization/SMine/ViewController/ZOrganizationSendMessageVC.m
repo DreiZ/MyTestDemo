@@ -179,14 +179,15 @@
     NSMutableArray *ids = @[].mutableCopy;
    for (ZOriganizationStudentListModel *model in self.studentList) {
    //        NSMutableDictionary *para = @{}.mutableCopy;
-       if (model && model.studentID) {
-           [ids addObject:model.studentID];
+       if (model && model.account_id) {
+           [ids addObject:model.account_id];
        }
     
    }
     [params setObject:ids forKey:@"account_ids"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
     [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [params setObject:SafeStr(self.type) forKey:@"type"];
     
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];

@@ -447,6 +447,17 @@
 
 #define URL_account_v1_get_complaint_type             @"account/v1/get_complaint_type"
 
+#define URL_merchants_v1_get_merchants_account             @"merchants/v1/get_merchants_account"
+
+//账户信息
+#define URL_merchants_v1_get_merchants_account             @"merchants/v1/get_merchants_account"
+//账单明细
+#define URL_merchants_v1_get_merchants_account_list             @"merchants/v1/get_merchants_account_list"
+//校区统计相关
+#define URL_merchants_v1_get_stores_statistical             @"merchants/v1/get_stores_statistical"
+//账单明细详情（订单明细）
+#define URL_merchants_v1_get_merchants_account_order_list             @"merchants/v1/get_merchants_account_order_list"
+
 
 #pragma mark - 签课
 //教师签课

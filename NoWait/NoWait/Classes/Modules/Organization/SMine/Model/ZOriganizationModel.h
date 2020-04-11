@@ -97,6 +97,7 @@
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *schoolID;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,assign) NSInteger statistical_type;
 @end
 
 @interface ZOriganizationSchoolListNetModel : ZBaseNetworkBackDataModel
@@ -151,6 +152,8 @@
 @property (nonatomic,strong) NSString *stores_courses_class_id;
 @property (nonatomic,strong) NSString *coach_img;
 @property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *account_id;
+
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) NSString *level;// 1: 初级，2：进阶 3：精英
@@ -402,3 +405,65 @@
 @property (nonatomic,strong) NSString *remark;
 @end
 
+
+@interface ZStoresStatisticalModel : NSObject
+@property (nonatomic,strong) NSString *visit_num;
+@property (nonatomic,strong) NSString *total_amount;
+@property (nonatomic,strong) NSString *date;
+@end
+
+
+@interface ZStoresAccountListModel : NSObject
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *merchants_id;
+@property (nonatomic,strong) NSString *total_amount;
+@end
+
+@interface ZStoresAccountModel : NSObject
+@property (nonatomic,strong) NSString *received_amount;
+@property (nonatomic,strong) NSString *should_receive_amount;
+@property (nonatomic,strong) NSString *wait_receive_amount;
+@property (nonatomic,strong) NSString *total_amount;
+@property (nonatomic,strong) NSArray <ZStoresAccountListModel *>*list_stores;
+@end
+
+@interface ZStoresAccountDetaliListModel : NSObject
+@property (nonatomic,strong) NSString *lid;
+@property (nonatomic,strong) NSString *merchant_id;        //机构id
+@property (nonatomic,strong) NSString *stores_id;          //校区id
+@property (nonatomic,strong) NSString *account_card;      //校区账号
+@property (nonatomic,strong) NSString *account_name;      //校区账户
+@property (nonatomic,strong) NSString *amount;      //交易流水
+@property (nonatomic,strong) NSString *poundage;      //手续费
+@property (nonatomic,strong) NSString *real_amount;  //实际金额
+@property (nonatomic,strong) NSString *month;           //年份
+@property (nonatomic,strong) NSString *week;                 //月份
+@property (nonatomic,strong) NSString *status;               //状态 1：待打款 2：已打款
+@property (nonatomic,strong) NSString *create_at;
+@property (nonatomic,strong) NSString *update_at;
+@end
+
+
+@interface ZStoresAccountDetaliListNetModel : NSObject
+@property (nonatomic,strong) NSString *account_card;
+@property (nonatomic,strong) NSString *account_name;
+@property (nonatomic,strong) NSString *total;
+@property (nonatomic,strong) NSArray <ZStoresAccountDetaliListModel *>*list;
+@end
+
+
+@interface ZStoresAccountBillListModel : NSObject
+@property (nonatomic,strong) NSString *pay_amount;
+@property (nonatomic,strong) NSString *poundage_fee;
+@property (nonatomic,strong) NSString *pledge_fee;
+@property (nonatomic,strong) NSString *order_id;
+@end
+
+
+@interface ZStoresAccountBillListNetModel : NSObject
+@property (nonatomic,strong) NSString *poundage_amount;
+@property (nonatomic,strong) NSString *pledge_amount;
+@property (nonatomic,strong) NSString *total;
+@property (nonatomic,strong) NSArray <ZStoresAccountDetaliListModel *>*list;
+@end

@@ -128,7 +128,6 @@
     if (!_refreshLabel) {
         _refreshLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _refreshLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _refreshLabel.text = @"图形俱乐部";
         _refreshLabel.numberOfLines = 1;
         _refreshLabel.textAlignment = NSTextAlignmentRight;
         [_refreshLabel setFont:[UIFont fontMin]];
@@ -141,7 +140,7 @@
     if (!_leftContentLabel) {
         _leftContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _leftContentLabel.text = @"300";
+        
         _leftContentLabel.numberOfLines = 1;
         _leftContentLabel.textAlignment = NSTextAlignmentCenter;
         [_leftContentLabel setFont:[UIFont boldFontMax2Title]];
@@ -166,7 +165,7 @@
     if (!_rightTitleLabel) {
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _rightTitleLabel.text = @"校区访问人数";
+        _rightTitleLabel.text = @"今日缴费总额";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentCenter;
         [_rightTitleLabel setFont:[UIFont fontSmall]];
@@ -178,7 +177,7 @@
     if (!_rightContentLabel) {
         _rightContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _rightContentLabel.text = @"300";
+        
         _rightContentLabel.numberOfLines = 1;
         _rightContentLabel.textAlignment = NSTextAlignmentCenter;
         [_rightContentLabel setFont:[UIFont boldFontMax2Title]];
@@ -241,6 +240,14 @@
             menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         }
     }
+}
+
+
+- (void)setModel:(ZStoresStatisticalModel *)model {
+    _model = model;
+    _refreshLabel.text = [ZUserHelper sharedHelper].school.name;
+    _rightContentLabel.text = ValidStr(model.total_amount)? model.total_amount :@"0";
+    _leftContentLabel.text = ValidStr(model.visit_num)? model.visit_num :@"0";
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
