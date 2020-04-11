@@ -57,9 +57,9 @@
     [self.bottomView addSubview:self.telBtn];
     
     [self.telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
+        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
         make.top.bottom.equalTo(self.bottomView);
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.width.mas_equalTo(CGFloatIn750(200));
     }];
     
     [self.bottomView addSubview:self.payBtn];
@@ -531,9 +531,9 @@
                 
             }else{
                 [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(20));
+                    make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(0));
                     make.top.bottom.equalTo(self.bottomView);
-                    make.width.mas_equalTo(CGFloatIn750(180));
+                    make.width.mas_equalTo(CGFloatIn750(200));
                 }];
             }
             [self setNormalState];

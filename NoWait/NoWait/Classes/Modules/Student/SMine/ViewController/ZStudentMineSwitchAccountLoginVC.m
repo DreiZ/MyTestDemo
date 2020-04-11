@@ -264,8 +264,8 @@
         [_userNameTF setPlaceholder:@"请输入密码"];
         [_userNameTF setSecureTextEntry:YES];
         [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-            if (x.length > 11) {
-                x = [x substringWithRange:NSMakeRange(0, 11)];
+            if (x.length > 20) {
+                x = [x substringWithRange:NSMakeRange(0, 20)];
                 weakSelf.userNameTF.text = x;
             }
 //            if (weakSelf.editBlock) {
@@ -434,6 +434,7 @@
        if (self.userNameTF.text && self.userNameTF.text.length >= 8) {
            [params setObject:self.userNameTF.text forKey:@"password"];
        }else{
+           [TLUIUtility showErrorHint:@"请输入正确的密码"];
            return;
        }
     [params setObject:self.model.type forKey:@"type"];
@@ -463,6 +464,7 @@
     }else{
         return;
     }
+    [params setObject:self.model.type forKey:@"type"];
     __weak typeof(self) weakSelf = self;
     [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
         if (isSuccess) {

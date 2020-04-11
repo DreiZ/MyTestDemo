@@ -162,7 +162,7 @@
 @property (nonatomic,strong) NSString *pay_amount;
 @property (nonatomic,strong) NSString *order_amount;
 @property (nonatomic,strong) NSString *reply_desc;
-
+@property (nonatomic,assign) BOOL isTeacher;
 @end
 
 

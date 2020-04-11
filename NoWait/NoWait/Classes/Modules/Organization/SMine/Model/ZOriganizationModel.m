@@ -12,6 +12,9 @@
 
 @end
 
+@implementation ZOriganizationDetailModel
+
+@end
 
 @implementation ZOriganizationAddClassModel 
 - (instancetype)init {

@@ -16,6 +16,19 @@
 @end
 
 
+@interface ZOriganizationDetailModel : ZBaseModel
+@property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *stores_image;
+@property (nonatomic,strong) NSString *account_id;
+@property (nonatomic,strong) NSString *teacher_id;
+@property (nonatomic,strong) NSString *nick_name;
+@property (nonatomic,strong) NSString *real_name;
+@property (nonatomic,strong) NSString *phone;
+@property (nonatomic,strong) NSString *stores_courses_count;
+@end
+
+
 @interface ZOriganizationAddClassModel : NSObject
 @property (nonatomic,strong) NSMutableArray *lessonTimeArr;
 @property (nonatomic,strong) NSArray *lessonOrderArr;

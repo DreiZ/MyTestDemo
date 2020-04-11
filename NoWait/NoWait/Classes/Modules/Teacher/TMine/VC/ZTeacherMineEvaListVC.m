@@ -1,21 +1,21 @@
 //
-//  ZOrganizationMineEvaListVC.m
+//  ZTeacherMineEvaListVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/20.
+//  Created by zhuang zhang on 2020/4/11.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationMineEvaListVC.h"
+#import "ZTeacherMineEvaListVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
 
-@interface ZOrganizationMineEvaListVC ()
+@interface ZTeacherMineEvaListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
-@implementation ZOrganizationMineEvaListVC
+@implementation ZTeacherMineEvaListVC
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self refreshData];
@@ -37,6 +37,8 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
+        ZOrderEvaListModel *model = self.dataSources[i];
+        model.isTeacher = YES;
         ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:evaCellConfig];
     }
@@ -95,7 +97,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getMerchantsCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+    [ZOriganizationOrderViewModel getTeacherCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -123,7 +125,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getMerchantsCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+    [ZOriganizationOrderViewModel getTeacherCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -156,6 +158,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
 }
 @end

@@ -305,10 +305,10 @@
     
     if (self.type == 2) {
         [_param setObject:@"5" forKey:@"status"];
-    }else if (self.type == 2) {
-        [_param setObject:@"0" forKey:@"status"];
-    }else{
+    }else if (self.type == 1) {
         [_param setObject:@"1" forKey:@"status"];
+    }else{
+        [_param setObject:@"0" forKey:@"status"];
     }
 }
 @end

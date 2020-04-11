@@ -16,6 +16,8 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 @property (nonatomic, strong) ZUser *user;
 @property (nonatomic, strong) ZOriganizationSchoolListModel *school;
+@property (nonatomic, strong) ZOriganizationDetailModel *stores;
+
 
 @property (nonatomic, strong, readonly) NSString *user_id;
 

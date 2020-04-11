@@ -13,18 +13,19 @@
 #import "ZStudentMineLessonTimetableCell.h"
 #import "ZTeacherMineEntryStoresCell.h"
 
-#import "ZStudentMineEvaListHadVC.h"
-#import "ZStudentMineSignListVC.h"
+#import "ZTeacherMineEvaListVC.h"
+#import "ZTeacherMineSignListVC.h"
 #import "ZStudentMineSettingVC.h"
 
 #import "ZMineSwitchRoleVC.h"
 #import "DIYScanViewController.h"
+#import "ZTeacherViewModel.h"
+#import "ZStudentOrganizationDetailDesVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
 @interface ZTeacherMineVC ()
 @property (nonatomic,strong) ZOrganizationMineHeaderView *headerView;
-
 @property (nonatomic,strong) NSMutableArray *lessonList;
 @end
 
@@ -33,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
-    
+    [self getStoresStatistical];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -110,11 +111,19 @@
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
             if ([scellConfig.title isEqualToString:@"eva"]) {
-                ZStudentMineEvaListHadVC *elvc = [[ZStudentMineEvaListHadVC alloc] init];
+                ZTeacherMineEvaListVC *elvc = [[ZTeacherMineEvaListVC alloc] init];
                 [weakSelf.navigationController pushViewController:elvc animated:YES];
             }else if ([scellConfig.title isEqualToString:@"sign"]) {
-                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
+                ZTeacherMineSignListVC *lvc = [[ZTeacherMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
+                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
+                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                lmodel.stores_id = detailModel.stores_id;
+                lmodel.name = detailModel.stores_name;
+                dvc.listModel = lmodel;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
     }
@@ -160,14 +169,17 @@
     }
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
-
     
-    ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
-    [self.cellConfigArr addObject:timeCellConfig];
+    if (_lessonList.count > 0) {
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+        [self.cellConfigArr addObject:timeCellConfig];
+    }
     
-    {
+    
+    
+    if([ZUserHelper sharedHelper].stores){
         NSMutableArray *configArr = @[].mutableCopy;
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineEntryStoresCell className] title:@"ZTeacherMineEntryStoresCell" showInfoMethod:nil heightOfCell:[ZTeacherMineEntryStoresCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineEntryStoresCell className] title:@"ZTeacherMineEntryStoresCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZTeacherMineEntryStoresCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:[ZUserHelper sharedHelper].stores];
         
         [configArr addObject:menuCellConfig];
         
@@ -177,6 +189,19 @@
     
     [self.iTableView reloadData];
 }
+
+
+- (void)getStoresStatistical {
+    __weak typeof(self) weakSelf = self;
+    [ZTeacherViewModel getStoresInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data && [data isKindOfClass:[ZOriganizationDetailModel class]]) {
+            [ZUserHelper sharedHelper].stores = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
+
 @end
 
 

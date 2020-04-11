@@ -299,6 +299,9 @@
 //课程教师list
 #define URL_account_get_teacher_by_courses            @"account/v1/get_teacher_by_courses"
 
+//教师获取机构信息
+#define URL_account_get_store_info_by_teacher            @"account/v1/get_store_info_by_teacher"
+
 
 #pragma mark - 卡券------------------------------------------------
 //添加卡券
@@ -364,6 +367,9 @@
 
 //我的班级
 #define URL_merchants_v1_get_my_courses_class_list                   @"merchants/v1/get_my_courses_class_list"
+ 
+//教师我的班级 签课
+#define URL_merchants_v1_get_teacher_courses_class_list                   @"merchants/v1/get_teacher_courses_class_list"
  
 
 #pragma mark - 订单------------------------------------------------

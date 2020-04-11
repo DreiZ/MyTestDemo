@@ -145,7 +145,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"user"]){
          ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-         if (!cellModel.isSelected) {
+//         if (!cellModel.isSelected) {
 //             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
 //             [self.navigationController popToRootViewControllerAnimated:YES];
 //             ZUser *user = cellModel.data;
@@ -156,7 +156,7 @@
              ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
              lvc.model = cellModel.data;
              [self.navigationController pushViewController:lvc animated:YES];
-         }
+//         }
          
      }
 }

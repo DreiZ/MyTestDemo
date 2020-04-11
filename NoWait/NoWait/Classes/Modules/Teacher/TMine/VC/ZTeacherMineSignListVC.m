@@ -1,86 +1,79 @@
 //
-//  ZOrganizationMineEvaListVC.m
+//  ZTeacherMineSignListVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/20.
+//  Created by zhuang zhang on 2020/4/11.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationMineEvaListVC.h"
-#import "ZOrganizationMineEvaDetailVC.h"
-#import "ZOrganizationEvaListCell.h"
-#import "ZOriganizationOrderViewModel.h"
+#import "ZTeacherMineSignListVC.h"
+#import "ZTeacherMineSignListCell.h"
 
-@interface ZOrganizationMineEvaListVC ()
-@property (nonatomic,strong) NSMutableDictionary *param;
+#import "ZStudentMineSignDetailVC.h"
+#import "ZOriganizationClassViewModel.h"
+#import "ZOrganizationClassDetailStudentListVC.h"
+
+@interface ZTeacherMineSignListVC ()
 
 @end
-@implementation ZOrganizationMineEvaListVC
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self refreshData];
-}
+@implementation ZTeacherMineSignListVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
-//    [self setNavigation];
-    [self initCellConfigArr];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+    [self setNavigation];
     
+    [self refreshData];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:evaCellConfig];
+    for (ZOriganizationClassListModel *model in self.dataSources) {
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineSignListCell className] title:[ZTeacherMineSignListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZTeacherMineSignListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:orderCellConfig];
     }
-    
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"评价管理"];
+    [self.navigationItem setTitle:@"我的签课"];
 }
 
 - (void)setupMainView {
     [super setupMainView];
-    
+    [self.view addSubview:self.iTableView];
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
 }
-- (NSMutableDictionary *)param {
-    if (!_param) {
-        _param = @{}.mutableCopy;
-    }
-    return _param;
-}
-#pragma mark lazy loading...
+
+
+#pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]){
-        ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
-        enteryCell.evaBlock = ^(NSInteger index) {
-            ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+    if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+        ZTeacherMineSignListCell *enteryCell = (ZTeacherMineSignListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index, ZOriganizationClassListModel *model) {
+            if (index == 0) {
+                ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC alloc] init];
+                [self.navigationController pushViewController:lvc animated:YES];
+            }else{
+                
+            }
         };
     }
 }
-
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]) {
-        ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-        dvc.listModel = self.dataSources[indexPath.row];
-        [self.navigationController pushViewController:dvc animated:YES];
+     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+         ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+         
+         [self.navigationController pushViewController:dvc animated:YES];
     }
 }
 
@@ -89,13 +82,12 @@
 - (void)refreshData {
     self.currentPage = 1;
     self.loading = YES;
-    [self setPostCommonData];
-    [self refreshHeadData:_param];
+    [self refreshHeadData:[self setPostCommonData]];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getMerchantsCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+    [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -120,10 +112,10 @@
 - (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
-    [self setPostCommonData];
+    NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getMerchantsCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+     [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -146,16 +138,18 @@
 
 - (void)refreshAllData {
     self.loading = YES;
-    
-    [self setPostCommonData];
-    [_param setObject:@"1" forKey:@"page"];
-    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
-    
-    [self refreshHeadData:_param];
+    NSMutableDictionary *param = [self setPostCommonData];
+    [param setObject:@"1" forKey:@"page"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    [self refreshHeadData:param];
 }
 
-- (void)setPostCommonData {
-    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
+    return param;
 }
+
 @end
+

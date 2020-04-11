@@ -72,8 +72,6 @@
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationStudentAddModel *model = [ZOriganizationStudentAddModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                model.birthday = [model.birthday timeStringWithFormatter:@"yyyy-MM-dd"];
-                model.sign_up_at = [model.sign_up_at timeStringWithFormatter:@"yyyy-MM-dd"];
                 completeBlock(YES, model);
                 return ;
             }else {
