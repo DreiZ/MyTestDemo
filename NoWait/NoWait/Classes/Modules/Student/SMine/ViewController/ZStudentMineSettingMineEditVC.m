@@ -32,7 +32,7 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"设置昵称"];
     
-    
+    __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
@@ -40,7 +40,16 @@
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
-    
+    [sureBtn bk_whenTapped:^{
+        if (weakSelf.userNameTF.text > 0) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(weakSelf.userNameTF.text);
+            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }else{
+            [TLUIUtility showErrorHint:@"你还没有输入任何昵称"];
+        }
+    }];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
@@ -61,14 +70,7 @@
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
     [_userNameTF setPlaceholder:@"请输入昵称"];
     [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-       if (x.length > 8) {
-           x = [x substringWithRange:NSMakeRange(0, 8)];
-//           weakSelf.userNameTF.text = x;
-       }
-    //           if (weakSelf.editBlock) {
-    //               weakSelf.editBlock(0, x);
-    //           }
-    //           weakSelf.loginViewModel.loginModel.tel = x;
+        [ZPublicTool textField:self.userNameTF maxLenght:10 type:ZFormatterTypeAny];
     }];
     _userNameTF.delegate = self;
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);

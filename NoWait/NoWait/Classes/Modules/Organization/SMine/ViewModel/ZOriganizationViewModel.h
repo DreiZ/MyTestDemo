@@ -28,6 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)getMerchantsAccountDetailList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)updateUserInfo:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)getUserInfo:(NSDictionary *)params
+      completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END
