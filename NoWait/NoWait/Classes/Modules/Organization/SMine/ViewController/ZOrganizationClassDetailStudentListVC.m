@@ -217,7 +217,7 @@
                 ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
                 dvc.courses_class_id = self.model.classID;
                 dvc.student_id = model.studentID;
-                dvc.type = 1;
+                dvc.type = self.type;
 //                dvc.stores_id = model.studentID;
                 [self.navigationController pushViewController:dvc animated:YES];
             }else if(index == 1){

@@ -72,6 +72,27 @@ static ZAlertQRCodeView *sharedManager;
         make.top.equalTo(self.codeImageView.mas_bottom).offset(CGFloatIn750(40));
         make.centerX.equalTo(self.contView.mas_centerX);
     }];
+    
+    UIView *longView = [[UIView alloc] init];
+        
+    [self.contView addSubview:longView];
+    [longView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.codeImageView);
+    }];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+        longPress.minimumPressDuration = 0.5; //定义按的时间
+    [longView addGestureRecognizer:longPress];
+    
+}
+
+- (void)btnLong:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+         UIImage *shortImage = [ZPublicTool snapshotForView:self.contView];
+       if (shortImage) {
+           [ZPublicTool saveImageToPhoto:shortImage];
+       }
+    }
 }
 
 - (UIView *)contView {

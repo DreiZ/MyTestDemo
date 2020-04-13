@@ -49,3 +49,7 @@
 }
 
 @end
+
+@implementation ZQRCodeStudentSignMode
+
+@end

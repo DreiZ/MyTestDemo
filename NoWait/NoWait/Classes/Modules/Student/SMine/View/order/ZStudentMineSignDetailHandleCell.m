@@ -216,6 +216,10 @@
         }
             break;
     }
+    
+    if (model.isOrganzation) {
+        self.signBtn.hidden = YES;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

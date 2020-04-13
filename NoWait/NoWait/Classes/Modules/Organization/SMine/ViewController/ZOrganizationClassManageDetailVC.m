@@ -175,11 +175,11 @@
     }
     
     
-    if (_isOpen) {
-        [self.navigationItem setRightBarButtonItem:nil] ;
-    }else{
+//    if (_isOpen) {
+//        [self.navigationItem setRightBarButtonItem:nil] ;
+//    }else{
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
-    }
+//    }
 }
 
 - (void)setNavigation {
@@ -305,10 +305,10 @@
         
     }else if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
-        lvc.isOpen = self.isOpen;
+        lvc.isOpen = NO;
         lvc.model = self.model;
         lvc.type = 2;
-        lvc.can_operation = [self.model.can_operation intValue] == 1;
+        lvc.can_operation = NO;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }

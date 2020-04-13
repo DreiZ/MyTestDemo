@@ -94,6 +94,8 @@
            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
            
            for (int i = 0; i < self.detailModel.list.count; i++) {
+               ZSignInfoListModel *model = self.detailModel.list[i];
+               model.isOrganzation = YES;
                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(76) cellType:ZCellTypeClass dataModel:self.detailModel.list[i]];
                
                [self.cellConfigArr addObject:menuCellConfig];
