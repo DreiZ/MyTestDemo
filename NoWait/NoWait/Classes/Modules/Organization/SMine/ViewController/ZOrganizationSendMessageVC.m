@@ -184,8 +184,8 @@
            NSMutableDictionary *para = @{}.mutableCopy;
        if (model && model.account_id) {
            [para setObject:model.account_id forKey:@"account_id"];
-           [para setObject:model.courses_name forKey:@"title"];
-           [ids addObject:model.account_id];
+           [para setObject:self.lessonName forKey:@"title"];
+           [ids addObject:para];
        }
     
    }
@@ -193,7 +193,12 @@
     [params setObject:SafeStr(self.teacherName) forKey:@"sender1"];
     [params setObject:SafeStr(self.storesName) forKey:@"sender2"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
-    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    if ([ZUserHelper sharedHelper].stores) {
+        [params setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    }
+    if ([ZUserHelper sharedHelper].school) {
+        [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    }
     [params setObject:SafeStr(self.type) forKey:@"type"];
     
     __weak typeof(self) weakSelf = self;

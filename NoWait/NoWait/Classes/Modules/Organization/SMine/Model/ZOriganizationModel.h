@@ -50,6 +50,8 @@
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *course_id;
+@property (nonatomic,strong) NSString *can_sign;
+@property (nonatomic,strong) NSString *can_operation;
 
 
 @property (nonatomic,strong) NSString *stores_courses_name;
@@ -105,6 +107,9 @@
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *can_operation;
+
+@property (nonatomic,assign) NSInteger index;
 @end
 
 #pragma mark - 校区管理
@@ -168,6 +173,8 @@
 @property (nonatomic,strong) NSString *coach_img;
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *account_id;
+
+@property (nonatomic,strong) NSString *nums;
 
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;

@@ -357,7 +357,7 @@
 #define URL_merchants_v1_del_courses_class                   @"merchants/v1/del_courses_class"
  
 //开课接口
-#define URL_merchants_v1_courses_class_start                   @"merchants/v1/courses_class_start"
+#define URL_merchants_v1_courses_class_start                   @"merchants/v1/add_class_sign"
 
 //班级添加学员
 #define URL_merchants_v1_add_courses_class_students                   @"merchants/v1/add_courses_class_students"

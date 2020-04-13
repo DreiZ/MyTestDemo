@@ -307,6 +307,8 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isOpen = self.isOpen;
         lvc.model = self.model;
+        lvc.type = 2;
+        lvc.can_operation = [self.model.can_operation intValue] == 1;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }

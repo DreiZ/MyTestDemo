@@ -125,7 +125,7 @@
 }
 
 + (void)openClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_courses_class_start params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_account_v1_add_class_sign params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

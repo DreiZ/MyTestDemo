@@ -67,10 +67,12 @@
             if (index == 0) {
                 ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC alloc] init];
                 lvc.listModel = model;
-                lvc.isOpen = [model.status intValue] != 1;
+                lvc.type = 1;
+                lvc.can_operation = [model.can_operation intValue] == 1;
+                lvc.isOpen = [model.status intValue] == 3;
                 [self.navigationController pushViewController:lvc animated:YES];
             }else{
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开始课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
                     if (index == 1) {
                         [weakSelf openClass:model];
                     }

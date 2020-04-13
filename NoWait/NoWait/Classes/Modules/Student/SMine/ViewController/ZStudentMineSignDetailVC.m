@@ -150,6 +150,7 @@
         }
     }];
 }
+
 - (void)teacherSign:(ZSignInfoListModel *)model {
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:self.courses_class_id forKey:@"courses_class_id"];

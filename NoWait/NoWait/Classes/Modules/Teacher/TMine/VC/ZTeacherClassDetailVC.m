@@ -44,6 +44,7 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+//    self.model.status  = @"3";
 //     0：全部 1：待开课 2：已开课 3：已结课
     NSString *status = @"";
     switch ([SafeStr(self.model.status) intValue]) {
@@ -74,6 +75,11 @@
                          @[@"上课时间", @"", @"", @"beginTime",@""]];
     
     for (int i = 0; i < textArr.count; i++) {
+        if ([textArr[i][3] isEqualToString:@"detail"]) {
+            if ([self.model.now_progress intValue] == 0) {
+                continue;
+            }
+        }
         if ([textArr[i][3] isEqualToString:@"beginTime"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
@@ -154,8 +160,30 @@
             [self.cellConfigArr addObject:textCellConfig];
         }
     }
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+    if ([self.model.status intValue] == 3) {
+        self.bottomView.hidden = YES;
+        [self.navigationItem setRightBarButtonItem:nil] ;
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+        }];
+    }else{
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+        self.bottomView.hidden = NO;
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(182));
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+        }];
+    }
 }
 
 - (void)setNavigation {
@@ -230,7 +258,7 @@
                     if (isSuccess && data) {
                         ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
                         mvc.storesName = self.model.stores_name;
-                        mvc.lessonName = self.model.courses_name;
+                        mvc.lessonName = self.model.stores_courses_name;
                         mvc.type = @"3";
                         mvc.teacherName = self.model.teacher_name;
                         mvc.studentList = [[NSMutableArray alloc] initWithArray:data.list];
@@ -264,6 +292,8 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isOpen = [self.model.status intValue] != 1;
         lvc.model = self.model;
+        lvc.type = 1;
+        lvc.can_operation = [self.model.can_operation intValue] == 1;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];

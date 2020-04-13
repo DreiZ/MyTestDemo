@@ -317,7 +317,7 @@
     _stateLabel.text = @"";
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
     
-    if ([model.status intValue] == 1) {
+    if ([model.can_sign intValue] == 1) {
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         _openBtn.enabled = YES;
     }else{
@@ -339,7 +339,7 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+//    ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
 }
 @end
 

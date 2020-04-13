@@ -14,12 +14,15 @@
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZAlertView.h"
+#import "ZTeacherSignStudentListBottomView.h"
+#import "ZSignViewModel.h"
 
 @interface ZOrganizationClassDetailStudentListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) ZTeacherSignStudentListBottomView *bottomView;
 
 @property (nonatomic,strong) ZOriganizationTopTitleView *topView;
-
+@property (nonatomic,assign) BOOL isEdit;
 @end
 
 @implementation ZOrganizationClassDetailStudentListVC
@@ -33,7 +36,7 @@
     [super viewDidLoad];
     
     self.emptyDataStr = @"没有学员数据";
-    self.isOpen = [self.model.status intValue] != 1 ? NO : YES;
+    self.isOpen = [self.model.status intValue] == 3 ? YES : NO;
     [self setNavigation];
     [self initCellConfigArr];
     [self setTableViewRefreshFooter];
@@ -76,12 +79,29 @@
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-     make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-     make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-     make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-     make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
-    }];
+    if (self.can_operation) {
+        [self.view addSubview:self.bottomView];
+        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            make.height.mas_equalTo(CGFloatIn750(90));
+        }];
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+         make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+        }];
+    }else{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+        }];
+    }
+    
+    
 }
 
 #pragma mark - lazy loading...
@@ -89,15 +109,33 @@
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
-        [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
+        if (self.type == 2) {
+            [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
+        }else{
+            [_navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
+        }
+        
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
-            ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
-            avc.model = weakSelf.model;
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            if (self.type == 2) {
+                ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+                avc.model = weakSelf.model;
+                [weakSelf.navigationController pushViewController:avc animated:YES];
+            }else{
+                weakSelf.isEdit = !weakSelf.isEdit;
+                [weakSelf changeType:weakSelf.isEdit];
+                if (weakSelf.isEdit) {
+                    [weakSelf.navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
+                }else{
+                    [weakSelf.navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
+                }
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+            
         }];
     }
     return _navLeftBtn;
@@ -110,6 +148,65 @@
     return _topView;
 }
 
+- (ZTeacherSignStudentListBottomView *)bottomView {
+    if (!_bottomView) {
+        __weak typeof(self) weakSelf = self;
+        _bottomView = [[ZTeacherSignStudentListBottomView alloc] init];
+        _bottomView.handleBlock = ^(NSInteger index) {
+            [weakSelf teacherSign:index];
+        };
+    }
+    return _bottomView;
+}
+
+
+- (void)teacherSign:(NSInteger)index {
+    NSMutableDictionary *param = @{}.mutableCopy;
+    if (self.listModel) {
+        [param setObject:self.listModel.classID forKey:@"courses_class_id"];
+    }
+    
+    if (self.model) {
+        [param setObject:self.model.classID forKey:@"courses_class_id"];
+    }
+    
+    if (index == 0) {
+        [param setObject:@"2" forKey:@"type"];
+    }else if (index == 1){
+        [param setObject:@"4" forKey:@"type"];
+    }else if (index == 2){
+        [param setObject:@"5" forKey:@"type"];
+    }else if (index == 3){
+        [param setObject:@"3" forKey:@"type"];
+    }
+    
+    
+    
+    NSMutableArray *ids = @[].mutableCopy;
+    NSArray *studentlist = [self selectLessonOrderArr];
+    
+    
+    if (studentlist.count == 0) {
+        
+        [TLUIUtility showErrorHint:@"您还没有选择学员"];
+        return;
+    }
+    
+    for (ZOriganizationStudentListModel *studentModel in studentlist) {
+        [ids addObject:@{@"student_id":studentModel.studentID,@"course_num":SafeStr(studentModel.nums)}];
+    }
+    [param setObject:ids forKey:@"students"];
+    [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self refreshData];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
+#pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOriganizationClassStudentListCell"]) {
@@ -133,6 +230,23 @@
             }
         };
     }
+}
+
+
+- (NSMutableArray *)selectLessonOrderArr {
+    NSMutableArray *selectArr = @[].mutableCopy;
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
+        if (model.isSelected) {
+            [selectArr addObject:model];
+        }
+    }
+    return selectArr;
+}
+
+- (void)changeType:(BOOL)type {
+    for (ZOriganizationStudentListModel *model in self.dataSources) {
+        model.isEdit = type;
+    };
 }
 
 #pragma mark - 数据处理
