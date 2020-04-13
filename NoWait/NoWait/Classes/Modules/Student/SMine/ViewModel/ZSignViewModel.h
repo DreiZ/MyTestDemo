@@ -11,5 +11,7 @@
 
 @interface ZSignViewModel : ZBaseViewModel
 + (void)getSignDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+//教师签课
++ (void)teacherSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 

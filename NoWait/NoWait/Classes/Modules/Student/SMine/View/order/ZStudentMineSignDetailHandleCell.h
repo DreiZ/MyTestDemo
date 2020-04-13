@@ -7,13 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZSignModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineSignDetailHandleCell : ZBaseCell
-@property (nonatomic,strong) ZBaseSingleCellModel *model;
+@property (nonatomic,strong) ZSignInfoListModel *model;
 
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(ZSignInfoListModel *);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,7 @@
 #import "ZTeacherMineSignListVC.h"
 #import "ZTeacherMineSignListCell.h"
 
-#import "ZStudentMineSignDetailVC.h"
+#import "ZTeacherClassDetailVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZAlertView.h"
@@ -23,6 +23,8 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    
+    [self setTableViewGaryBack];
     
     [self refreshData];
     [self setTableViewRefreshFooter];
@@ -65,6 +67,7 @@
             if (index == 0) {
                 ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC alloc] init];
                 lvc.listModel = model;
+                lvc.isOpen = [model.status intValue] != 1;
                 [self.navigationController pushViewController:lvc animated:YES];
             }else{
                 [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
@@ -78,8 +81,13 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
-         ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-         
+         ZOriganizationClassListModel *model = cellConfig.dataModel;
+         ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
+         dvc.model.courses_name = model.courses_name;
+         dvc.model.classID = model.classID;
+         dvc.model.name = model.name;
+         dvc.model.nums = model.nums;
+         dvc.model.status = model.status;
          [self.navigationController pushViewController:dvc animated:YES];
     }
 }

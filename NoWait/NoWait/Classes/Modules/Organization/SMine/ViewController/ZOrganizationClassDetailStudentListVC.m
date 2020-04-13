@@ -9,6 +9,7 @@
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOriganizationClassStudentListCell.h"
 
+#import "ZStudentMineSignDetailVC.h"
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
@@ -32,7 +33,7 @@
     [super viewDidLoad];
     
     self.emptyDataStr = @"没有学员数据";
-    self.isOpen = [self.model.status intValue] == 1 ? NO : YES;
+    self.isOpen = [self.model.status intValue] != 1 ? NO : YES;
     [self setNavigation];
     [self initCellConfigArr];
     [self setTableViewRefreshFooter];
@@ -43,6 +44,11 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    if (self.isOpen) {
+        self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
+    }else{
+        self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
+    }
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClassStudentListCell className] title:@"ZOriganizationClassStudentListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationClassStudentListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -100,11 +106,6 @@
 - (ZOriganizationTopTitleView *)topView {
     if (!_topView) {
         _topView = [[ZOriganizationTopTitleView alloc] init];
-        if (self.isOpen) {
-            _topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
-        }else{
-            _topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
-        }
     }
     return _topView;
 }
@@ -116,7 +117,12 @@
         lcell.isOpen = self.isOpen;
         lcell.handleBlock = ^(NSInteger index,ZOriganizationStudentListModel *model) {
             if (index == 0) {
-                
+                ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+                dvc.courses_class_id = self.model.classID;
+                dvc.student_id = model.studentID;
+                dvc.type = 1;
+//                dvc.stores_id = model.studentID;
+                [self.navigationController pushViewController:dvc animated:YES];
             }else if(index == 1){
                 //out
                 [ZAlertView setAlertWithTitle:@"小提醒" subTitle:[NSString stringWithFormat:@"确定将\"%@\"移除班级",model.name] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {

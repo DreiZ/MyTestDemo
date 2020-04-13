@@ -15,7 +15,6 @@
 
 @end
 
-
 @interface ZOriganizationDetailModel : ZBaseModel
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *stores_name;
@@ -92,7 +91,8 @@
 @property (nonatomic,strong) NSString *stores_courses_name;
 @property (nonatomic,strong) NSString *course_number;
 @property (nonatomic,strong) NSString *limit_nums;
-
+@property (nonatomic,strong) NSString *now_progress;
+@property (nonatomic,strong) NSString *total_progress;
 
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *classes_date;
@@ -481,4 +481,22 @@
 @property (nonatomic,strong) NSString *pledge_amount;
 @property (nonatomic,strong) NSString *total;
 @property (nonatomic,strong) NSArray <ZStoresAccountDetaliListModel *>*list;
+@end
+
+
+@interface ZOriganizationSignListStudentModel : ZBaseModel
+@property (nonatomic,strong) NSString *student_id;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *image;
+@end
+
+@interface ZOriganizationSignListModel : ZBaseModel
+@property (nonatomic,assign) BOOL isMore;
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *total;
+@property (nonatomic,strong) NSArray <ZOriganizationSignListStudentModel *>*list;
+@end
+
+@interface ZOriganizationSignListNetModel : ZBaseModel
+@property (nonatomic,strong) NSArray <ZOriganizationSignListModel *>*list;
 @end

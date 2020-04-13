@@ -63,7 +63,7 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonLabel.text = @"第1节";
+        
         _lessonLabel.numberOfLines = 1;
         _lessonLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonLabel setFont:[UIFont fontContent]];
@@ -75,7 +75,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _timeLabel.text = @"2019.05.12 15:30";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontSmall]];
@@ -87,7 +87,7 @@
     if (!_rightLabel) {
         _rightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _rightLabel.text = @"已扫码签课";
+        
         _rightLabel.numberOfLines = 1;
         _rightLabel.textAlignment = NSTextAlignmentRight;
         [_rightLabel setFont:[UIFont fontContent]];
@@ -101,7 +101,7 @@
         _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         ViewRadius(_signBtn, CGFloatIn750(24));
         
-        [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
+        
         [_signBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
         _signBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
@@ -109,14 +109,114 @@
         __weak typeof(self) weakSelf = self;
         [_signBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
+                weakSelf.handleBlock(self.model);
             }
         }];
     }
     return _signBtn;
 }
 
-
+- (void)setModel:(ZSignInfoListModel *)model {
+    _model = model;
+//    类型 1：签课 2：老师代签 3：补签 4：请假 5：旷课 6:待签课
+    _lessonLabel.text = [NSString stringWithFormat:@"第%@节",model.nums];
+    _timeLabel.text = [model.sign_time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    
+    _signBtn.hidden = YES;
+    _timeLabel.hidden = YES;
+    switch ([model.type intValue]) {
+        case 1:
+        {
+            _rightLabel.text = @"已扫码签课";
+            _timeLabel.hidden = NO;
+            
+            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+            
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.signBtn.mas_left).offset(-CGFloatIn750(30));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+        case 2:
+        {
+            _rightLabel.text = @"老师代签";
+            _timeLabel.hidden = NO;
+            
+            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+            
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+        case 3:
+        {
+            _rightLabel.text = @"已补签";
+            _timeLabel.hidden = NO;
+            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+            
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+        case 4:
+        {
+            _rightLabel.text = @"请假";
+            _signBtn.hidden = NO;
+            [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
+            
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+        case 5:
+        {
+            _rightLabel.text = @"旷课";
+            _signBtn.hidden = NO;
+            [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+        case 6:
+        {
+            _rightLabel.text = @"待签课";
+            _signBtn.hidden = NO;
+            [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
+            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                make.centerY.equalTo(self.mas_centerY);
+            }];
+        }
+            break;
+            
+        default:
+        {
+            _rightLabel.hidden = YES;
+            _signBtn.hidden = YES;
+            _timeLabel.hidden = YES;
+            
+        }
+            break;
+    }
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(80);

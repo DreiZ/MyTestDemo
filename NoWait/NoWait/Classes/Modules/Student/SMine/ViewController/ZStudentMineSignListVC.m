@@ -64,7 +64,9 @@
         enteryCell.handleBlock = ^(ZOriganizationClassListModel *model) {
             ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
 //            dvc.student_id = model.student_id;
+            dvc.type = 0;
             dvc.courses_class_id = model.courses_class_id;
+            
             [self.navigationController pushViewController:dvc animated:YES];
         };
     }
@@ -72,7 +74,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
          ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-         
+         dvc.type = 0;
          [self.navigationController pushViewController:dvc animated:YES];
     }
 }

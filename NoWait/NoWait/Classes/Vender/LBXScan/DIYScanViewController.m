@@ -126,6 +126,16 @@
         if (ValidDict(dict)) {
             if ([dict objectForKey:@"source_type"] && [dict[@"source_type"] isEqualToString:@"xiangcenter.com"]) {
                 if ([dict objectForKey:@"qrcode_type"]) {
+                    if ([dict objectForKey:@"timestamp"] ) {
+                        NSString *timestamp = dict[@"timestamp"];
+                        NSInteger now = [[NSDate new] timeIntervalSince1970];
+                        if (now - [timestamp intValue] > 3600) {
+                            [ZAlertView setAlertWithTitle:@"二维码已过期" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                                
+                            }];
+                            return;
+                        }
+                    }
                         if ([dict[@"qrcode_type"] intValue] == 2) {
                             if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
                                 ZQRCodeAddStudentMode *model = [ZQRCodeAddStudentMode mj_objectWithKeyValues:dict];

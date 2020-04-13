@@ -36,13 +36,14 @@
 
 -(void)setupView {
     [super setupView];
+    self.contentView.backgroundColor =  adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(0));
     }];
     
     [self.contView addSubview:self.bottomView];
@@ -109,33 +110,38 @@
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
+    UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [_bottomView addSubview:topLineView];
+    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.bottomView);
+        make.top.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(40));
+        make.height.mas_equalTo(1);
+    }];
+    
     [self.bottomView addSubview:self.openBtn];
     [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.bottomView);
+        make.right.bottom.equalTo(self.bottomView);
+        make.top.equalTo(topLineView.mas_bottom);
         make.left.equalTo(self.bottomView.mas_centerX);
     }];
     
     
     [self.bottomView addSubview:self.studentListBtn];
     [self.studentListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.bottomView);
+        make.left.bottom.equalTo(self.bottomView);
+        make.top.equalTo(topLineView.mas_bottom);
         make.right.equalTo(self.bottomView.mas_centerX);
     }];
     
-    UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
-    [self.contentView addSubview:topLineView];
-    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.mas_equalTo(1);
-    }];
+    
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
-    [self.contentView addSubview:bottomLineView];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.bottomView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.bottomView.mas_centerX);
-        make.centerY.equalTo(self.bottomView.mas_centerY);
+        make.top.equalTo(topLineView.mas_bottom).offset(CGFloatIn750(40));
         make.height.mas_equalTo(CGFloatIn750(30));
         make.width.mas_equalTo(1);
     }];

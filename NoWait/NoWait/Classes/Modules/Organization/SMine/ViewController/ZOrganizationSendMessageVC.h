@@ -13,6 +13,7 @@
 @property (nonatomic,strong) NSMutableArray <ZOriganizationStudentListModel *>*studentList;
 @property (nonatomic,strong) NSString *lessonName;
 @property (nonatomic,strong) NSString *storesName;
+@property (nonatomic,strong) NSString *teacherName;
 @property (nonatomic,strong) NSString *type;
 
 @end

@@ -31,7 +31,7 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"上课进度";
-        model.rightTitle = @"4/10节";
+        model.rightTitle = [NSString stringWithFormat:@"%@/%@节",SafeStr(self.detailModel.now_progress),SafeStr(self.detailModel.total_progress)];
         model.isHiddenLine = NO;
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);
@@ -47,7 +47,11 @@
         
         [self.cellConfigArr addObject:topCellConfig];
         
-        NSArray *tempArr = @[@[@"已签课", @"2节"],@[@"补签", @"2节"],@[@"请假", @"2节"],@[@"旷课", @"2节"],@[@"待签课", @"2节"]];
+        NSArray *tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue] + [self.detailModel.replenish_nums intValue]]],
+                             @[@"补签", [NSString stringWithFormat:@"%@节", self.detailModel.replenish_nums]]
+                             ,@[@"请假", [NSString stringWithFormat:@"%@节", self.detailModel.vacate_nums]],
+                             @[@"旷课", [NSString stringWithFormat:@"%@节", self.detailModel.truancy_nums]],
+                             @[@"待签课", [NSString stringWithFormat:@"%@节", self.detailModel.wait_progress]]];
         for (int i = 0; i < tempArr.count; i++) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = tempArr[i][0];
@@ -73,7 +77,7 @@
     
     {
            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-           model.leftTitle = @"多咪屋";
+           model.leftTitle = self.detailModel.courses_name;
            model.isHiddenLine = NO;
            model.lineLeftMargin = CGFloatIn750(30);
            model.lineRightMargin = CGFloatIn750(30);
@@ -87,17 +91,8 @@
        {
            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
            
-           NSArray *tempArr = @[@[@"已签课", @"2节"],@[@"补签", @"2节"],@[@"请假", @"2节"],@[@"旷课", @"2节"],@[@"待签课", @"2节"]];
-           for (int i = 0; i < tempArr.count; i++) {
-               ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-               model.leftTitle = tempArr[i][0];
-               model.rightTitle = tempArr[i][1];
-               model.leftMargin = CGFloatIn750(30);
-               model.isHiddenLine = YES;
-               model.cellHeight = CGFloatIn750(80);
-               model.leftFont = [UIFont fontContent];
-               
-               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:model.cellHeight cellType:ZCellTypeClass dataModel:model];
+           for (int i = 0; i < self.detailModel.list.count; i++) {
+               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(76) cellType:ZCellTypeClass dataModel:self.detailModel.list[i]];
                
                [self.cellConfigArr addObject:menuCellConfig];
            }
@@ -125,10 +120,15 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignDetailHandleCell"]){
         ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
-        scell.handleBlock = ^(NSInteger index) {
-            [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:@"http://api.k780.com:88/?app=qr.get&data=http://www.baidu.com" handlerBlock:^(NSInteger index) {
-                
-            }];
+        scell.handleBlock = ^(ZSignInfoListModel *model) {
+            if (self.type == 1) {
+                [self teacherSign:model];
+            }else if (self.type == 0){
+                [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:@"http://api.k780.com:88/?app=qr.get&data=http://www.baidu.com" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }
+            
         };
     }
 }
@@ -138,9 +138,6 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     if (ValidStr(self.courses_class_id)) {
         [params setObject:SafeStr(self.courses_class_id) forKey:@"courses_class_id"];
-    }
-    if (ValidStr(self.stores_id)) {
-        [params setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
     }
     if (ValidStr(self.student_id)) {
         [params setObject:SafeStr(self.student_id) forKey:@"student_id"];
@@ -153,4 +150,19 @@
         }
     }];
 }
+- (void)teacherSign:(ZSignInfoListModel *)model {
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:self.courses_class_id forKey:@"courses_class_id"];
+    [param setObject:@"2" forKey:@"type"];
+    [param setObject:@[@{@"student_id":SafeStr(self.student_id),@"course_num":model.nums}] forKey:@"students"];
+    [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self refreshData];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
 @end

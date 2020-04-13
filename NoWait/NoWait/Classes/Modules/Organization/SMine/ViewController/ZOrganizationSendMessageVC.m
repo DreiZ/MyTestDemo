@@ -41,7 +41,10 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"收件人:";
-        model.rightImage = @"rightBlackArrowN";
+        if ([self.type isEqualToString:@"2"]) {
+            model.rightImage = @"rightBlackArrowN";
+        }
+        
         model.rightTitle = [NSString stringWithFormat:@"已选择%ld人",self.studentList.count];
         model.cellTitle = @"student";
         model.isHiddenLine = YES;
@@ -178,13 +181,17 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableArray *ids = @[].mutableCopy;
    for (ZOriganizationStudentListModel *model in self.studentList) {
-   //        NSMutableDictionary *para = @{}.mutableCopy;
+           NSMutableDictionary *para = @{}.mutableCopy;
        if (model && model.account_id) {
+           [para setObject:model.account_id forKey:@"account_id"];
+           [para setObject:model.courses_name forKey:@"title"];
            [ids addObject:model.account_id];
        }
     
    }
-    [params setObject:ids forKey:@"account_ids"];
+    [params setObject:ids forKey:@"receive"];
+    [params setObject:SafeStr(self.teacherName) forKey:@"sender1"];
+    [params setObject:SafeStr(self.storesName) forKey:@"sender2"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
     [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [params setObject:SafeStr(self.type) forKey:@"type"];
@@ -221,7 +228,7 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"student"]) {
+    if ([cellConfig.title isEqualToString:@"student"] && [self.type isEqualToString:@"2"]) {
        [self.iTableView endEditing:YES];
         ZOrganizationStudentSelectVC *svc = [[ZOrganizationStudentSelectVC alloc] init];
         svc.ids = self.studentList;

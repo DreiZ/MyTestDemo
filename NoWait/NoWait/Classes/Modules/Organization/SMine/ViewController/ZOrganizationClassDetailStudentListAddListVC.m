@@ -129,7 +129,7 @@
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];
         if (i == index) {
-            model.isSelected = !model.isSelected;
+//            model.isSelected = !model.isSelected;
         }
     }
     [self initCellConfigArr];
@@ -220,7 +220,7 @@
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [_param setObject:SafeStr(self.model.stores_id) forKey:@"stores_id"];
     [_param setObject:SafeStr(self.model.courses_id) forKey:@"stores_courses_id"];
     [_param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"status"];
 }

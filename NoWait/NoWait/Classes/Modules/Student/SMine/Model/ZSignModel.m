@@ -8,9 +8,15 @@
 
 #import "ZSignModel.h"
 
+@implementation ZSignInfoListModel
+
+@end
 
 @implementation ZSignInfoModel
-
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZSignInfoListModel",
+             };
+}
 @end
 
 

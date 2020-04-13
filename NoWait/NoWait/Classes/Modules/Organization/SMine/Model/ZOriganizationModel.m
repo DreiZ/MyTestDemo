@@ -334,3 +334,23 @@
 }
 @end
 
+
+@implementation ZOriganizationSignListStudentModel
+
+@end
+
+@implementation ZOriganizationSignListModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationSignListStudentModel",
+             };
+}
+
+@end
+
+@implementation ZOriganizationSignListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationSignListModel",
+             };
+}
+
+@end

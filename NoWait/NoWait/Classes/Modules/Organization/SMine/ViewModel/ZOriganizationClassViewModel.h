@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getTeacherClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
+
++ (void)getMyClassSignList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 + (void)getMyClassList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 //搜素班级
