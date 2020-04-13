@@ -35,6 +35,7 @@
 @property (nonatomic,assign) NSString *singleTime;
 @property (nonatomic,strong) NSString *teacherName;
 @property (nonatomic,strong) NSString *teacherID;
+@property (nonatomic,strong) NSString *openTime;
 @end
 
 

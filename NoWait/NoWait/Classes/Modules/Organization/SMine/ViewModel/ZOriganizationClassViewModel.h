@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 //删除班级学生
 + (void)delClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)getSignQrcode:(NSDictionary *)params
+        completeBlock:(resultDataBlock)completeBlock ;
 @end
 
 NS_ASSUME_NONNULL_END

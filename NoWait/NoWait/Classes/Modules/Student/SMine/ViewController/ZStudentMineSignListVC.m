@@ -7,9 +7,8 @@
 //
 
 #import "ZStudentMineSignListVC.h"
-#import "ZCellConfig.h"
 
-#import "ZSpaceEmptyCell.h"
+#import "ZAlertQRCodeView.h"
 #import "ZStudentMineSignListCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
@@ -62,12 +61,9 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
         ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
         enteryCell.handleBlock = ^(ZOriganizationClassListModel *model) {
-            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-//            dvc.student_id = model.student_id;
-            dvc.type = 0;
-            dvc.courses_class_id = model.courses_class_id;
-            
-            [self.navigationController pushViewController:dvc animated:YES];
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:model.courses_class_id forKey:@"courses_class_id"];
+            [self getSignQrcode:params];
         };
     }
 }
@@ -150,5 +146,24 @@
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
     return param;
 }
+
+
+
+- (void)getSignQrcode:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getSignQrcode:param completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            ZOriganizationStudentCodeAddModel *model = data;
+            [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:model.url handlerBlock:^(NSInteger index) {
+                
+            }];
+           
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
 
 @end

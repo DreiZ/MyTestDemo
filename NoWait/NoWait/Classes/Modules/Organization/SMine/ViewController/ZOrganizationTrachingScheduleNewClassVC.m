@@ -44,7 +44,8 @@
     {
         NSArray *textArr = @[@[@"班级名称", @"请输入班级名称", @YES, @"", @"name"],
                              @[@"上课时间", @"选择", @NO, @"rightBlackArrowN", @"time"],
-                             @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"]];
+                             @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"],
+                             @[@"开课日期", @"选择", @NO, @"rightBlackArrowN",  @"openTime"]];
         
         for (int i = 0; i < textArr.count; i++) {
             if (i == 1) {
@@ -123,7 +124,9 @@
                     cellModel.content = self.viewModel.addModel.class_Name;
                     cellModel.max = 10;
                     cellModel.formatterType = ZFormatterTypeAny;
-                }else{
+                }else if (i == 3){
+                    cellModel.content = [self.viewModel.addModel.openTime timeStringWithFormatter:@"yyyy-MM-dd"];
+                } else{
                     cellModel.content = self.viewModel.addModel.teacherName;
                 }
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
@@ -176,10 +179,10 @@
                 [TLUIUtility showErrorHint:@"请输入班级名称"];
                 return ;
             }
-            if (!ValidArray(weakSelf.viewModel.addModel.lessonTimeArr)) {
-                [TLUIUtility showErrorHint:@"请添加开课时间"];
-                return ;
-            }
+//            if (!ValidArray(weakSelf.viewModel.addModel.lessonTimeArr)) {
+//                [TLUIUtility showErrorHint:@"请添加开课时间"];
+//                return ;
+//            }
             if (!ValidStr(weakSelf.viewModel.addModel.teacherName)) {
                 [TLUIUtility showErrorHint:@"请选择任课老师"];
                 return ;
@@ -209,22 +212,28 @@
     }
     [params setObject:tempArr forKey:@"student_ids"];
     
-    NSMutableDictionary *orderDict = @{}.mutableCopy;
-    for (ZBaseMenuModel *menuModel in self.viewModel.addModel.lessonTimeArr) {
-        if (menuModel && menuModel.units && menuModel.units.count > 0) {
-            
-            NSMutableArray *tempSubArr = @[].mutableCopy;
-            for (int k = 0; k < menuModel.units.count; k++) {
-                ZBaseUnitModel *unitModel = menuModel.units[k];
-                [tempSubArr addObject:SafeStr(unitModel.data)];
+    if (self.viewModel.addModel.lessonTimeArr.count > 0) {
+        NSMutableDictionary *orderDict = @{}.mutableCopy;
+        for (ZBaseMenuModel *menuModel in self.viewModel.addModel.lessonTimeArr) {
+            if (menuModel && menuModel.units && menuModel.units.count > 0) {
                 
+                NSMutableArray *tempSubArr = @[].mutableCopy;
+                for (int k = 0; k < menuModel.units.count; k++) {
+                    ZBaseUnitModel *unitModel = menuModel.units[k];
+                    [tempSubArr addObject:SafeStr(unitModel.data)];
+                    
+                }
+                
+                [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name zz_weekToIndex])];
             }
-            
-            [orderDict setObject:tempSubArr forKey:SafeStr([menuModel.name zz_weekToIndex])];
         }
+        
+        [params setObject:orderDict forKey:@"classes_date"];
+    }
+    if (self.viewModel.addModel.openTime) {
+        [params setObject:self.viewModel.addModel.openTime forKey:@"start_time"];
     }
     
-    [params setObject:orderDict forKey:@"classes_date"];
     
     [TLUIUtility showLoading:@""];
     [ZOriganizationTeachingScheduleViewModel addCourseClass:params completeBlock:^(BOOL isSuccess, NSString *message) {
@@ -277,6 +286,13 @@
                 [weakSelf.iTableView reloadData];
             }
         }];
-    } 
+    }else if ([cellConfig.title isEqualToString:@"openTime"]){
+        [self.iTableView endEditing:YES];
+        [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
+            weakSelf.viewModel.addModel.openTime = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }];
+    }
 }
 @end

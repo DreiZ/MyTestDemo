@@ -11,6 +11,8 @@
 #import "ZStudentMineSignDetailHandleCell.h"
 #import "ZSignViewModel.h"
 #import "ZSignModel.h"
+#import "ZOriganizationClassViewModel.h"
+
 @interface ZStudentMineSignDetailVC ()
 @property (nonatomic,strong) ZSignInfoModel *detailModel;
 
@@ -124,13 +126,29 @@
             if (self.type == 1) {
                 [self teacherSign:model];
             }else if (self.type == 0){
-                [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:@"http://api.k780.com:88/?app=qr.get&data=http://www.baidu.com" handlerBlock:^(NSInteger index) {
-                    
-                }];
+                [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
             }
             
         };
     }
+}
+
+
+#pragma mark - handele data
+- (void)getSignQrcode:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getSignQrcode:param completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            ZOriganizationStudentCodeAddModel *model = data;
+            [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:model.url handlerBlock:^(NSInteger index) {
+                
+            }];
+           
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
 }
 
 - (void)refreshData {
