@@ -131,15 +131,23 @@
 {
     ZTeacherMineSignListDetailListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZTeacherMineSignListDetailListItemCell className] forIndexPath:indexPath];
     ZOriganizationSignListStudentModel *listModel = self.model.list[indexPath.row];
-    cell.nameLabel.text = listModel.name;
-    [cell.imageView tt_setImageWithURL:[NSURL URLWithString:listModel.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    listModel.isEdit = self.model.isEdit;
+    cell.model = listModel;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.menuBlock) {
-//        self.menuBlock(_channelList[indexPath.row]);
+    if (self.model.isEdit) {
+        ZOriganizationSignListStudentModel *listModel = self.model.list[indexPath.row];
+        listModel.isSelected = !listModel.isSelected;
+        [self.iCollectionView reloadData];
+    }else{
+        if (self.menuBlock) {
+            self.menuBlock(self.model.list[indexPath.row]);
+        }
     }
+    
+    
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -163,7 +171,7 @@
     _model = model;
     
     self.moreBtn.hidden = model.isMore;
-    if (_model.list.count < 5) {
+    if (_model.list.count <= 5) {
         self.moreBtn.hidden = YES;
     }
     [self.iCollectionView reloadData];
@@ -172,7 +180,7 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     ZOriganizationSignListModel *model = sender;
     NSArray *list = model.list;
-    if (!model.isMore || model.list.count < 5) {
+    if (!model.isMore || model.list.count <= 5) {
         return (1) * CGFloatIn750(180);
     }
     

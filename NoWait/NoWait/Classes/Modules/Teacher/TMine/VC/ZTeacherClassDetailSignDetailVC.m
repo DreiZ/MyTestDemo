@@ -46,7 +46,7 @@
         ZOriganizationSignListModel *model = [[ZOriganizationSignListModel alloc] init];
         model.type = [NSString stringWithFormat:@"%d",i+1];
         NSMutableArray *tempArr = @[].mutableCopy;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             ZOriganizationSignListStudentModel *model = [[ZOriganizationSignListStudentModel alloc] init];
             model.name = @"我姐的记得记得";
             model.image = @"http://wx2.sinaimg.cn/mw600/005H5u3yly1gdref7tvxdj32ip1oh4qu.jpg";
@@ -55,17 +55,19 @@
         model.list = tempArr;
         [_list addObject:model];
     }
+    [_list addObjectsFromArray:self.detailModel.list];
+    self.detailModel.list = _list;
 //    /类型 1：签课 2：老师代签 3：补签 4：请假 5：旷课 6:待签课
     NSArray *tarr = @[@"签课",@"老师代签",@"补签",@"请假",@"旷课",@"待签课"];
     NSArray *iarr = @[@"signbu",@"signbu",@"signbu",@"signbu",@"signbu",@"signbu"];
-    for (ZOriganizationSignListModel *model in _list) {
+    for (ZOriganizationSignListModel *model in self.detailModel.list) {
         ZBaseSingleCellModel *cellmodel = [[ZBaseSingleCellModel alloc] init];
          cellmodel.rightTitle = [NSString stringWithFormat:@"%ld人",model.list.count];
         if ([model.type intValue] <= tarr.count && [model.type intValue] > 0) {
             cellmodel.leftImage = iarr[[model.type intValue] -1];
             cellmodel.leftTitle = tarr[[model.type intValue] -1];
         }
-        
+        cellmodel.data = model;
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineSignListDetailTitleCell className] title:[ZTeacherMineSignListDetailTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZTeacherMineSignListDetailTitleCell z_getCellHeight:cellmodel] cellType:ZCellTypeClass dataModel:cellmodel];
         [self.cellConfigArr addObject:orderCellConfig];
         
@@ -75,12 +77,13 @@
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
     }
     _topTitleView.model = self.model;
+    _topTitleView.time = self.detailModel.sign_time;
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:self.model.stores_name];
+    [self.navigationItem setTitle:self.model.courses_name];
 }
 
 - (void)setupMainView {
@@ -109,7 +112,7 @@
             if (index == 0) {
                 weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] - 1];
             }else{
-                weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] - 1];
+                weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] + 1];
             }
             [weakSelf refreshData];
         };
@@ -125,6 +128,25 @@
         enteryCell.handleBlock = ^(ZOriganizationSignListModel *model) {
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListDetailTitleCell"]){
+        ZTeacherMineSignListDetailTitleCell *lcell = (ZTeacherMineSignListDetailTitleCell *)cell;
+        lcell.handleBlock = ^(ZOriganizationSignListModel *model) {
+            if (model.isEdit) {
+                model.isEdit = NO;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }else{
+                [self.detailModel.list enumerateObjectsUsingBlock:^(ZOriganizationSignListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj == model) {
+                        obj.isEdit = YES;
+                    }else{
+                        obj.isEdit = NO;
+                    }
+                }];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
         };
     }
 }

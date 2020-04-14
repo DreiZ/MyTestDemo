@@ -500,10 +500,13 @@
 @property (nonatomic,strong) NSString *student_id;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image;
+@property (nonatomic,assign) BOOL isEdit;
+@property (nonatomic,assign) BOOL isSelected;
 @end
 
 @interface ZOriganizationSignListModel : ZBaseModel
 @property (nonatomic,assign) BOOL isMore;
+@property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *total;
 @property (nonatomic,strong) NSArray <ZOriganizationSignListStudentModel *>*list;
@@ -511,4 +514,6 @@
 
 @interface ZOriganizationSignListNetModel : ZBaseModel
 @property (nonatomic,strong) NSArray <ZOriganizationSignListModel *>*list;
+@property (nonatomic,strong) NSString *sign_time;
+
 @end

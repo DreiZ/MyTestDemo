@@ -152,10 +152,18 @@
         _lastBtn.hidden = NO;
     }
     
-    _timeLabel.text = [model.start_time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    
     _titleLabel.text = [NSString stringWithFormat:@"第%ld节课",model.index];
 }
 
+- (void)setTime:(NSString *)time {
+    if ([time isEqualToString:@"0"]) {
+        _timeLabel.text = @"未开课";
+    }else{
+        _timeLabel.text = [time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    }
+    
+}
 @end
 
 

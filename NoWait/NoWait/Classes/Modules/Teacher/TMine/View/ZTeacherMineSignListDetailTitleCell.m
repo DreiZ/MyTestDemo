@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong) UILabel *zhuanPriceLabel;
 @property (nonatomic,strong) UILabel *leftTitleLabel;
+@property (nonatomic,strong) UIButton *editBtn;
+
 @end
 
 @implementation ZTeacherMineSignListDetailTitleCell
@@ -50,6 +52,14 @@
     [self.zhuanPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.stateImageView.mas_right).offset(CGFloatIn750(6));
         make.centerY.equalTo(self.leftTitleLabel.mas_centerY);
+    }];
+    
+    [self.contentView addSubview:self.editBtn];
+    [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(140));
+        make.height.mas_equalTo(CGFloatIn750(50));
+        make.centerY.equalTo(self.mas_centerY);
     }];
 }
 
@@ -90,14 +100,47 @@
     return _stateImageView;
 }
 
+
+- (UIButton *)editBtn {
+    if (!_editBtn) {
+        __weak typeof(self) weakSelf = self;
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_editBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_editBtn, CGFloatIn750(24), 1, [UIColor colorMain]);
+        [_editBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(self.model.data);
+            };
+        }];
+    }
+    return _editBtn;
+}
+
+
 - (void)setModel:(ZBaseSingleCellModel *)model {
+    _model = model;
     _leftTitleLabel.text = model.leftTitle;
     _zhuanPriceLabel.text = model.rightTitle;
     _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];;
+    
+    ZOriganizationSignListModel *lModel = model.data;
+    if ([lModel.type intValue] == 4 || [lModel.type intValue] == 5 || [lModel.type intValue] == 6 ) {
+        self.editBtn.hidden = NO;
+    }else{
+        self.editBtn.hidden = YES;
+    }
+    
+    if (lModel.isEdit) {
+        [_editBtn setTitle:@"取消" forState:UIControlStateNormal];
+    }else{
+        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(30);
+    return CGFloatIn750(64);
 }
 
 @end

@@ -66,7 +66,7 @@
             model.cellHeight = CGFloatIn750(116);
             model.leftTitle = [NSString stringWithFormat:@"%@(%@)",user.phone,typestr];
             model.cellTitle = @"user";
-            model.leftImage = imageFullUrl(user.avatar);
+            model.leftImage = ValidStr(user.avatar)? imageFullUrl(user.avatar):@"default_head";
             if (i == userList.count-1) {
                 model.isHiddenLine = YES;
             }
@@ -106,6 +106,18 @@
 }
 
 #pragma mark tableView ------delegate-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"user"]) {
+        ZSingleLineCell *lcell = (ZSingleLineCell *)cell;
+        lcell.leftImageView.layer.cornerRadius = CGFloatIn750(40);
+        [lcell.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lcell.mas_left).offset(CGFloatIn750(30));
+            make.width.height.mas_equalTo(CGFloatIn750(80));
+            make.centerY.equalTo(lcell.mas_centerY);
+        }];
+    }
+}
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
      if ([cellConfig.title isEqualToString:@"switch"]){

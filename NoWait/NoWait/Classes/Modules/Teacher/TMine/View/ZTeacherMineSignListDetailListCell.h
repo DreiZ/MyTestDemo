@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZTeacherMineSignListDetailListCell : ZBaseCell
 @property (nonatomic,strong) void (^handleBlock)(ZOriganizationSignListModel *);
-@property (nonatomic,strong) void (^menuBlock)(NSInteger);
+@property (nonatomic,strong) void (^menuBlock)(ZOriganizationSignListStudentModel *);
 @property (nonatomic,strong) ZOriganizationSignListModel *model;
 @end
 

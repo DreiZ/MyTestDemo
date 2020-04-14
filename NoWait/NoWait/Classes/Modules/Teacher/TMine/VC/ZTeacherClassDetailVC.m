@@ -13,7 +13,6 @@
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
-#import "ZOrganizationTimeSelectVC.h"
 #import "ZTeacherClassDetailSignDetailVC.h"
 #import "ZOrganizationSendMessageVC.h"
 

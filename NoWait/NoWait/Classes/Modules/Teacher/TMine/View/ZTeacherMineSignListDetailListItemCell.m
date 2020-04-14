@@ -9,6 +9,7 @@
 #import "ZTeacherMineSignListDetailListItemCell.h"
 
 @interface ZTeacherMineSignListDetailListItemCell ()
+@property (nonatomic,strong) UIView *contView;
 
 @end
 
@@ -26,6 +27,7 @@
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     
+    [self.contentView addSubview:self.contView];
     [self.contentView addSubview:self.imageView];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView.mas_centerX);
@@ -35,10 +37,17 @@
     
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageView.mas_bottom).offset(16);
+        make.top.equalTo(self.imageView.mas_bottom).offset(CGFloatIn750(16));
         make.left.equalTo(self.contentView.mas_left).offset(4);
         make.right.equalTo(self.contentView.mas_right).offset(-4);
-        make.bottom.lessThanOrEqualTo(self.contentView.mas_bottom);
+        make.bottom.lessThanOrEqualTo(self.contentView.mas_bottom).offset(-CGFloatIn750(12));
+    }];
+    
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.top.equalTo(self.imageView.mas_top).offset(CGFloatIn750(-18));
+        make.width.mas_equalTo(CGFloatIn750(100));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
     }];
 }
 
@@ -63,5 +72,35 @@
         [_nameLabel setFont:[UIFont fontMin]];
     }
     return _nameLabel;
+}
+
+
+- (UIView *)contView {
+    if (!_contView) {
+        _contView = [[UIView alloc] init];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _contView.layer.cornerRadius = CGFloatIn750(24);
+        ViewBorderRadius(_contView, CGFloatIn750(24), 1, [UIColor colorMainSub]);
+    }
+    return _contView;
+}
+
+- (void)setModel:(ZOriganizationSignListStudentModel *)model {
+    _model = model;
+    _nameLabel.text = model.name;
+    [_imageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    
+    if (model.isEdit) {
+        if (model.isSelected) {
+            _contView.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);
+            ViewBorderRadius(_contView, CGFloatIn750(24), 1, [UIColor colorMain]);
+        }else{
+            _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+            ViewBorderRadius(_contView, CGFloatIn750(24), 1, [UIColor colorMain]);
+        }
+    }else{
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        ViewBorderRadius(_contView, CGFloatIn750(24), 1, [UIColor colorWhite]);
+    }
 }
 @end
