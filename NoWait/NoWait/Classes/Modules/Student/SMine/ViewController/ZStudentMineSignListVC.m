@@ -72,7 +72,7 @@
          ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
          ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
          dvc.type = 0;
-         dvc.courses_class_id = cellmodel.classID;
+         dvc.courses_class_id = cellmodel.courses_class_id;
          dvc.student_id = cellmodel.student_id;
          [self.navigationController pushViewController:dvc animated:YES];
     }
