@@ -494,6 +494,7 @@
 
 //消息
 #define URL_message_v1_get_message                      @"message/v1/get_message"
+#define URL_message_v1_get_sended_message               @"message/v1/get_sended_message"
 
 
 #endif /* URLMacros_h */

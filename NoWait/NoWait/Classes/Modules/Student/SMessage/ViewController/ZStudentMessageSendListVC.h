@@ -1,18 +1,18 @@
 //
-//  ZMessageCell.h
+//  ZStudentMessageSendListVC.h
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/4/10.
+//  Created by zhuang zhang on 2020/4/14.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZBaseCell.h"
+#import "ZTableViewViewController.h"
 #import "ZMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZMessageCell : ZBaseCell
+@interface ZStudentMessageSendListVC : ZTableViewViewController
 @property (nonatomic,strong) ZMineMessageModel *model;
-@property (nonatomic,strong) void (^handleBlock)(ZMineMessageModel *);
+
 @end
 
 NS_ASSUME_NONNULL_END

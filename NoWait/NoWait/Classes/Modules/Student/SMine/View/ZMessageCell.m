@@ -50,6 +50,19 @@
         make.height.mas_equalTo(CGFloatIn750(106));
         make.left.right.top.equalTo(self.contView);
     }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [sendBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(self.model);
+        }
+    }];
+    [topView addSubview:sendBtn];
+    [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(CGFloatIn750(160));
+        make.left.top.bottom.equalTo(topView);
+    }];
 
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -208,14 +221,20 @@
 
 - (void)setModel:(ZMineMessageModel *)model {
     _model = model;
-    _hintLabel.text = @"通知";
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+        _hintLabel.text = [NSString stringWithFormat:@"%@:%@人 >",model.type_msg,model.send_num];
+    }
+    
     _timeLabel.text = [model.create_at timeStringWithFormatter:@"MM-dd HH:mm"];
-    _titleLabel.text = model.content;
-    _contentLabel.text = @"实际上静静地记得就觉得静静地记得记得记得记得记得记少时诵诗书所所所少时诵诗书得记得";
+    _titleLabel.text = model.title;
+    _contentLabel.text = model.content;
+    _bRightLabel.text = model.sender1;
+    _bLeftLabel.text = model.sender2;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    CGSize tempSize = [@"实际上静静地记得就觉得静静地记得记得记得记得记得记少时诵诗书所所所少时诵诗书得记得" tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+    ZMineMessageModel *model = sender;
+    CGSize tempSize = [model.content tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
     return CGFloatIn750(334) + tempSize.height;
 }
 @end

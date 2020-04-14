@@ -64,7 +64,7 @@ static ZAlertView *sharedManager;
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.layer.cornerRadius = 6;
-        _contView.backgroundColor = [UIColor whiteColor];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     
     return _contView;

@@ -44,6 +44,9 @@
 
 
 + (void)getMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getSendsMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 

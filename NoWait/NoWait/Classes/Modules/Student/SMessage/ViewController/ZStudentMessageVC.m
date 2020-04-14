@@ -13,6 +13,7 @@
 #import "ZMessageCell.h"
 #import "ZMineModel.h"
 #import "ZOriganizationStudentViewModel.h"
+#import "ZStudentMessageSendListVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -68,11 +69,22 @@
     }];
 }
 
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentMessageListCell"]) {
-        ZStudentMessageDetailVC *dvc = [[ZStudentMessageDetailVC alloc] init];
-        [self.navigationController pushViewController:dvc animated:YES];
+
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZMessageCell"]) {
+        ZMessageCell *lcell = (ZMessageCell *)cell;
+        lcell.handleBlock = ^(ZMineMessageModel * message) {
+            ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
+            svc.model = message;
+            [self.navigationController pushViewController:svc animated:YES];
+        };
     }
+}
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+//    if ([cellConfig.title isEqualToString:@"ZStudentMessageListCell"]) {
+//        ZStudentMessageDetailVC *dvc = [[ZStudentMessageDetailVC alloc] init];
+//        [self.navigationController pushViewController:dvc animated:YES];
+//    }
 }
 
 
@@ -86,26 +98,50 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-            
-            [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+        [ZOriganizationStudentViewModel getSendsMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZOriganizationStudentViewModel getMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
+    
 }
 
 - (void)refreshMoreData {
@@ -113,25 +149,47 @@
     self.loading = YES;
     [self setPostCommonData];
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-            
-            [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+        [ZOriganizationStudentViewModel getSendsMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZOriganizationStudentViewModel getMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
 }
 
 
