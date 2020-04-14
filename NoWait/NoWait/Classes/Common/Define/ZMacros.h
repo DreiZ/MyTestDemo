@@ -50,6 +50,9 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 
 #define KNotificationPayBack @"payBack"
 
+#define kNotificationUpdateToken  @"token"
+
+
 #define kAppKey_Wechat @"wx411f6beb954283c6"
 
 #define UMengKey @"5e85513e895cca4f46000017"

@@ -22,6 +22,7 @@
 #import "DIYScanViewController.h"
 #import "ZTeacherViewModel.h"
 #import "ZStudentOrganizationDetailDesVC.h"
+#import "ZTeacherLessonDetailListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -126,6 +127,12 @@
                     [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }
             }];
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
+        ZStudentMineLessonTimetableCell *tcell = (ZStudentMineLessonTimetableCell *)cell;
+        tcell.moreBlock = ^(NSInteger index) {
+            ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
+            [self.navigationController pushViewController:lvc animated:YES];
         };
     }
 }

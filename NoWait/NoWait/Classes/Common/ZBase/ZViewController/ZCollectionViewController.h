@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) CGFloat minimumInteritemSpacing;
 @property (nonatomic,assign) CGFloat minimumLineSpacing;
 @property (nonatomic,assign) UIEdgeInsets edgeInsets;
+@property (nonatomic,assign) UICollectionViewScrollDirection scrollDirection;
 
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) UIView *safeFooterView;

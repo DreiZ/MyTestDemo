@@ -74,9 +74,11 @@
                     [TLUIUtility showErrorHint:backModel.message];
                     
                 }else if ([backModel.code integerValue] == 100008 ){
-                    [TLUIUtility showErrorHint:backModel.message];
                     [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
-                        if (!isSuccess) {
+                        if (isSuccess) {
+                            [ZNetworkingManager postWithUrl:path params:params completionHandler:completionHandler];
+                        }else {
+                            [TLUIUtility showErrorHint:backModel.message];
                         }
                     }];
                 }else if ([backModel.code integerValue] == 100005 ){
