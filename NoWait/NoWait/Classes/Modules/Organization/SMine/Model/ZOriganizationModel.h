@@ -228,6 +228,8 @@
 @property (nonatomic,strong) NSString *specialty_desc;
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *courses_class_id;
+
 @end
 
 

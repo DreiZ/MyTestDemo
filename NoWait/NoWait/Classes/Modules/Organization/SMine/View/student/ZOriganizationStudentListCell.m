@@ -251,7 +251,7 @@
         default:
             break;
     }
-    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",ValidNum(model.now_progress)? SafeStr(model.now_progress):@"0",ValidNum(model.total_progress) ? SafeStr(model.total_progress):@"0"];
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",ValidStr(model.now_progress)? SafeStr(model.now_progress):@"0",ValidStr(model.total_progress) ? SafeStr(model.total_progress):@"0"];
     
     if (model.isEdit) {
         _rightImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];

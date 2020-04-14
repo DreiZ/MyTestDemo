@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
 
-#import "ZOrganizationStudentSignDetailVC.h"
+#import "ZStudentMineSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
 #import "ZOrganizationStudentAddVC.h"
 
@@ -244,7 +244,11 @@
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"sign"]) {
-        ZOrganizationStudentSignDetailVC *dvc = [[ZOrganizationStudentSignDetailVC alloc] init];
+        ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+        dvc.student_id = self.addModel.studentID;
+        dvc.courses_class_id = self.addModel.courses_class_id;
+        dvc.type = 2;
+        
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
