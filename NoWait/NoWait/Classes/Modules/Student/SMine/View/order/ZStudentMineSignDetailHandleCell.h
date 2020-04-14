@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineSignDetailHandleCell : ZBaseCell
 @property (nonatomic,strong) ZSignInfoListModel *model;
+@property (nonatomic,strong) NSString *can_operation;
 
 @property (nonatomic,strong) void (^handleBlock)(ZSignInfoListModel *,NSInteger signType);//0签课 1补签
 @end

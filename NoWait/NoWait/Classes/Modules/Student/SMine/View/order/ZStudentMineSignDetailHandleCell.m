@@ -226,6 +226,13 @@
     }
 }
 
+- (void)setCan_operation:(NSString *)can_operation {
+    _can_operation = can_operation;
+    if ([can_operation intValue] != 1) {
+        self.signBtn.hidden = YES;
+    }
+}
+
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(80);
 }

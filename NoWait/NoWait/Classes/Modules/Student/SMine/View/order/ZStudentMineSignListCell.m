@@ -20,6 +20,7 @@
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIButton *signBtn;
 @end
 
@@ -51,58 +52,57 @@
         make.height.mas_equalTo(CGFloatIn750(136));
     }];
     
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.contView addSubview:topView];
-    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contView addSubview:self.topView];
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.contView);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
     
     
-    [topView addSubview:self.userImageView];
-    [topView addSubview:self.nameLabel];
-    [topView addSubview:self.userLabel];
-    [topView addSubview:self.stateLabel];
-    [topView addSubview:self.numLabel];
-    [topView addSubview:self.classNameLabel];
+    [self.topView addSubview:self.userImageView];
+    [self.topView addSubview:self.nameLabel];
+    [self.topView addSubview:self.userLabel];
+    [self.topView addSubview:self.stateLabel];
+    [self.topView addSubview:self.numLabel];
+    [self.topView addSubview:self.classNameLabel];
     
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(topView.mas_top).offset(CGFloatIn750(30));
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(30));
     }];
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
-    [topView addSubview:self.lessonNameLabel];
+    [self.topView addSubview:self.lessonNameLabel];
     [self.lessonNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(topView.mas_top).offset(CGFloatIn750(88));
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(88));
     }];
 
     [self.stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.lessonNameLabel.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
     [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
 
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.userLabel.mas_left).offset(-CGFloatIn750(10));
-        make.bottom.equalTo(topView.mas_bottom);
+        make.bottom.equalTo(self.topView.mas_bottom);
         make.width.height.mas_equalTo(CGFloatIn750(44));
     }];
     
     
     [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
@@ -127,6 +127,14 @@
         _bottomView.layer.masksToBounds = YES;
     }
     return _bottomView;
+}
+
+- (UIView *)topView {
+    if (!_topView) {
+        _topView = [[UIView alloc] init];
+        _topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+    return _topView;
 }
 
 - (UIView *)contView {
@@ -270,9 +278,27 @@
     _numLabel.text = status;
     _stateLabel.text = @"";
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
+    
+    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
+        _bottomView.hidden = YES;
+        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.equalTo(self.contView);
+            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
+        }];
+    }else {
+        _bottomView.hidden = NO;
+        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.equalTo(self.contView);
+            make.bottom.equalTo(self.bottomView.mas_top);
+        }];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
+    ZOriganizationClassListModel *model = sender;
+    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
+        return CGFloatIn750(246);
+    }
     return CGFloatIn750(348);
 }
 

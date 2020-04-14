@@ -26,6 +26,8 @@
 @property (nonatomic,strong) NSString *truancy_nums;
 @property (nonatomic,strong) NSString *vacate_nums;
 @property (nonatomic,strong) NSString *wait_progress;
+@property (nonatomic,strong) NSString *can_operation;
+
 @end
 
 @interface ZSignModel : ZBaseModel

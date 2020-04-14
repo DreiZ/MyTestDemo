@@ -124,6 +124,7 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignDetailHandleCell"]){
         ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
+        scell.can_operation = self.detailModel.can_operation;
         scell.handleBlock = ^(ZSignInfoListModel *model ,NSInteger signType) {
             if (self.type == 1) {
                 [self teacherSign:model signType:signType];
