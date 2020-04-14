@@ -79,7 +79,7 @@
                         if (!isSuccess) {
                         }
                     }];
-                }else if ([backModel.code integerValue] == 100009  || [backModel.code integerValue] == 100005 ){
+                }else if ([backModel.code integerValue] == 100005 ){
                     [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                     [[ZLaunchManager sharedInstance] showLoginVC];
                 } else{

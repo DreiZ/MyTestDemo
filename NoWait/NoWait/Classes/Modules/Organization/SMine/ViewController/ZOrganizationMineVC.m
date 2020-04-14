@@ -101,16 +101,18 @@
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.userType = @"8";
         _headerView.topHandleBlock = ^(NSInteger index) {
-            if (index == 1) {
-                ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }else if (index == 3){
-                ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
-                [weakSelf.navigationController pushViewController:avc animated:YES];
-            }else if (index == 5){
-                ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                if (index == 1) {
+                    ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
+                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                }else if (index == 3){
+                    ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
+                    [weakSelf.navigationController pushViewController:avc animated:YES];
+                }else if (index == 5){
+                    ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
+                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                }
+            }];
         };
     }
     return _headerView;
@@ -123,74 +125,82 @@
    if ([cellConfig.title isEqualToString:@"ZOrganizationMenuCell"]){
         ZOrganizationMenuCell *lcell = (ZOrganizationMenuCell *)cell;
         lcell.menuBlock = ^(ZBaseUnitModel * model) {
-            if (![ZUserHelper sharedHelper].school.schoolID) {
-                [TLUIUtility showErrorHint:@"获取校区信息出错"];
-                return ;
-            }
-            if ([model.uid isEqualToString:@"lesson"]) {
-                ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
-                
-            }else if ([model.uid isEqualToString:@"school"]){
-                ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
-            }else if ([model.uid isEqualToString:@"teacher"]){
-                ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
-            }else if ([model.uid isEqualToString:@"student"]){
-                ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
-            }else if ([model.uid isEqualToString:@"manageLesson"]){
-                ZOrganizationTeachingScheduleLessonVC *lvc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
-                [self.navigationController pushViewController:lvc animated:YES];
-//                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
-//                [self.navigationController pushViewController:svc animated:YES];
-            }else if ([model.uid isEqualToString:@"class"]){
-                ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
-                [self.navigationController pushViewController:svc animated:YES];
-            }else if ([model.uid isEqualToString:@"account"]){
-                ZOrganizationSchoolAccountVC *svc = [[ZOrganizationSchoolAccountVC alloc] init];
-                [self.navigationController pushViewController:svc animated:YES];
-            }else if ([model.uid isEqualToString:@"order"]){
-                ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([model.uid isEqualToString:@"eva"]){
-                ZOrganizationMineEvaManageVC *elvc = [[ZOrganizationMineEvaManageVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([model.uid isEqualToString:@"cart"]){
-                ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([model.uid isEqualToString:@"photo"]){
-                ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }else if ([model.uid isEqualToString:@"refund"]){
-                ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                if (![ZUserHelper sharedHelper].school.schoolID) {
+                    [TLUIUtility showErrorHint:@"获取校区信息出错"];
+                    return ;
+                }
+                if ([model.uid isEqualToString:@"lesson"]) {
+                    ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
+                    [self.navigationController pushViewController:mvc animated:YES];
+                    
+                }else if ([model.uid isEqualToString:@"school"]){
+                    ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
+                    [self.navigationController pushViewController:mvc animated:YES];
+                }else if ([model.uid isEqualToString:@"teacher"]){
+                    ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
+                    [self.navigationController pushViewController:mvc animated:YES];
+                }else if ([model.uid isEqualToString:@"student"]){
+                    ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
+                    [self.navigationController pushViewController:mvc animated:YES];
+                }else if ([model.uid isEqualToString:@"manageLesson"]){
+                    ZOrganizationTeachingScheduleLessonVC *lvc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
+                    [self.navigationController pushViewController:lvc animated:YES];
+                    //                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+                    //                [self.navigationController pushViewController:svc animated:YES];
+                }else if ([model.uid isEqualToString:@"class"]){
+                    ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
+                    [self.navigationController pushViewController:svc animated:YES];
+                }else if ([model.uid isEqualToString:@"account"]){
+                    ZOrganizationSchoolAccountVC *svc = [[ZOrganizationSchoolAccountVC alloc] init];
+                    [self.navigationController pushViewController:svc animated:YES];
+                }else if ([model.uid isEqualToString:@"order"]){
+                    ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];
+                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                }else if ([model.uid isEqualToString:@"eva"]){
+                    ZOrganizationMineEvaManageVC *elvc = [[ZOrganizationMineEvaManageVC alloc] init];
+                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                }else if ([model.uid isEqualToString:@"cart"]){
+                    ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
+                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                }else if ([model.uid isEqualToString:@"photo"]){
+                    ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if ([model.uid isEqualToString:@"refund"]){
+                    ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }
+            }];
+            
         };
    }else if ([cellConfig.title isEqualToString:@"ZOriganizationClubSelectedCell"]){
        ZOriganizationClubSelectedCell *lcell = (ZOriganizationClubSelectedCell *)cell;
        lcell.menuBlock = ^(ZBaseUnitModel * model) {
-           ZOriganizationSchoolListModel *smodel = [[ZOriganizationSchoolListModel alloc] init];
-           smodel.schoolID = model.uid;
-           smodel.name = model.name;
-           smodel.statistical_type = [model.subName intValue];
-           for (ZOriganizationSchoolListModel *listModel in self.topchannelList) {
-               if ([listModel.schoolID isEqualToString:model.uid]) {
-                   listModel.statistical_type = smodel.statistical_type;
-                   [ZUserHelper sharedHelper].school = listModel;
+           [[ZUserHelper sharedHelper] checkLogin:^{
+               ZOriganizationSchoolListModel *smodel = [[ZOriganizationSchoolListModel alloc] init];
+               smodel.schoolID = model.uid;
+               smodel.name = model.name;
+               smodel.statistical_type = [model.subName intValue];
+               for (ZOriganizationSchoolListModel *listModel in self.topchannelList) {
+                   if ([listModel.schoolID isEqualToString:model.uid]) {
+                       listModel.statistical_type = smodel.statistical_type;
+                       [ZUserHelper sharedHelper].school = listModel;
+                   }
                }
-           }
-           
-           [weakSelf initCellConfigArr];
-           [weakSelf getStoresStatistical];
+               
+               [weakSelf initCellConfigArr];
+               [weakSelf getStoresStatistical];
+           }];
        };
    }else if ([cellConfig.title isEqualToString:@"ZOriganizationStatisticsCell"]){
        ZOriganizationStatisticsCell *lcell = (ZOriganizationStatisticsCell *)cell;
        lcell.selectedIndex = [ZUserHelper sharedHelper].school.statistical_type;
        lcell.handleBlock = ^(NSInteger index) {
-           [ZUserHelper sharedHelper].school.statistical_type = index;
-           [weakSelf getStoresStatistical];
+           [[ZUserHelper sharedHelper] checkLogin:^{
+               [ZUserHelper sharedHelper].school.statistical_type = index;
+               [weakSelf getStoresStatistical];
+           }];
+           
        };
    }
 }

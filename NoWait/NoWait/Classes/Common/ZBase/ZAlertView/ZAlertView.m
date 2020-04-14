@@ -103,7 +103,7 @@ static ZAlertView *sharedManager;
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
-    [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
+    [leftBtn setBackgroundColor:HexAColor(0xcccccc, 1.0) forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (handleBlock) {
             handleBlock(0);

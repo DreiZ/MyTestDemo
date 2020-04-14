@@ -172,7 +172,7 @@
 - (void)openClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel openClass:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].stores.stores_id),@"id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel openClass:@{@"courses_class_id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];

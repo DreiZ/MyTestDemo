@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentMainOrganizationListCell.h"
+#import "ZLocationManager.h"
 
 @interface ZStudentMainOrganizationListCell ()
 
@@ -143,7 +144,7 @@
     _model = model;
     _titleLabel.text = model.name;
     _payPeopleNumLabel.text = [NSString stringWithFormat:@"%@人已付款",model.pay_nums];
-    _addressLabel.text = @"<1.3km";
+    _addressLabel.text = model.distance;
     [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_loadFail276"]];
     
     [self setActivityData];

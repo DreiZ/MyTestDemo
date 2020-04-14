@@ -382,6 +382,8 @@
 @property (nonatomic,strong) NSString *pay_nums;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSArray *tags;
+@property (nonatomic,strong) NSString *distance;
+
 @end
 
 @interface ZStoresListNetModel : ZBaseNetworkBackDataModel

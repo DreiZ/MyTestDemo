@@ -395,9 +395,13 @@
 }
 
 - (void)updateData {
+    NSString *name = @"游客";
+    if ([ZUserHelper sharedHelper].user) {
+        name = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);;
+    }
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    self.nameLabel.text = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);
-    _midLabel.text = [NSString stringWithFormat:@"MID：%@",[ZUserHelper sharedHelper].uuid];
+    self.nameLabel.text = name;
+    _midLabel.text = [NSString stringWithFormat:@"MID：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
     
     NSString *typestr = @"学员端";
     //    1：学员 2：教师 6：校区 8：机构

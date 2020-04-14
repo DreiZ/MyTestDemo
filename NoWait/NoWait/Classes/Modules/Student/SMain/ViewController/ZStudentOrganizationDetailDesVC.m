@@ -97,7 +97,9 @@
             if (index == 0) {
                 [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
             }else{
-                [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
+                }];
             }
         };
     }
@@ -142,9 +144,10 @@
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
         [_navRightBtn bk_whenTapped:^{
-            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+            NSArray *weekArr = @[@[@"投诉",@"peoples_hint",@"report"]];
             [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
-                if ([index isEqualToString:@"share"]) {
+                if ([index isEqualToString:@"report"]) {
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
                     rvc.sTitle = self.detailModel.name;
                     rvc.stores_id = self.detailModel.schoolID;

@@ -23,30 +23,31 @@
     [self setTableViewGaryBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    self.iTableView.tableHeaderView = self.topView;
 }
 
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    NSArray <NSArray *>*titleArr = @[@[@"特别声明", @"rightBlackArrowN"],@[@"使用帮助", @"rightBlackArrowN"],@[@"给我评分", @"rightBlackArrowN"],@[@"商务合作", @"rightBlackArrowN"],@[@"意见反馈", @"rightBlackArrowN"]];
-    
-    for (int i = 0; i < titleArr.count; i++) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = titleArr[i][0];
-        model.rightImage = titleArr[i][1];
-        model.leftFont = [UIFont fontContent];
-        model.cellHeight = CGFloatIn750(110);
-        model.cellTitle = titleArr[i][0];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
-        
-        if (i == 2) {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
-        }
-    }
+//    
+//    NSArray <NSArray *>*titleArr = @[@[@"特别声明", @"rightBlackArrowN"],@[@"使用帮助", @"rightBlackArrowN"],@[@"给我评分", @"rightBlackArrowN"],@[@"商务合作", @"rightBlackArrowN"],@[@"意见反馈", @"rightBlackArrowN"]];
+//    
+//    for (int i = 0; i < titleArr.count; i++) {
+//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//        model.leftTitle = titleArr[i][0];
+//        model.rightImage = titleArr[i][1];
+//        model.leftFont = [UIFont fontContent];
+//        model.cellHeight = CGFloatIn750(110);
+//        model.cellTitle = titleArr[i][0];
+//        
+//        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+//        [self.cellConfigArr addObject:menuCellConfig];
+//        
+//        if (i == 2) {
+//            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+//            [self.cellConfigArr addObject:topCellConfig];
+//        }
+//    }
 }
 
 

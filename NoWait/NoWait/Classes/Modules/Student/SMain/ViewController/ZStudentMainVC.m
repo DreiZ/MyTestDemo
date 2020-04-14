@@ -26,6 +26,7 @@
 #import "ZStudentMainViewModel.h"
 #import "ZOrigantionMoveInVC.h"
 #import "ZMianSearchVC.h"
+#import "ZLocationManager.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -66,6 +67,14 @@
     [self setTableViewEmptyDataDelegate];
     [self refreshData];
     [self getAdverData];
+    
+    __weak typeof(self) weakSelf = self;
+    [[ZLocationManager shareManager] startLocation];
+    [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
+        NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude );
+        [weakSelf initCellConfigArr];
+        [weakSelf.iTableView reloadData];
+    }];
 }
 
 - (void)setDataSource {
@@ -279,16 +288,13 @@
 //    [self.navigationController pushViewController:ivc animated:YES];
 //    return;
     if (indexPath.section == 1) {
-        [[ZUserHelper sharedHelper] checkLogin:^{
-            NSArray *tempArr = self.cellConfigArr[indexPath.section];
-            ZCellConfig *cellConfig = tempArr[indexPath.row];
-            if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
-                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-                dvc.listModel = cellConfig.dataModel;
-                [self.navigationController pushViewController:dvc animated:YES];
-            }
-        }];
-        
+        NSArray *tempArr = self.cellConfigArr[indexPath.section];
+        ZCellConfig *cellConfig = tempArr[indexPath.row];
+        if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+            dvc.listModel = cellConfig.dataModel;
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
     }
 }
 
@@ -366,6 +372,11 @@
     [self setPostCommonData];
     [_param setObject:@"1" forKey:@"page"];
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    if ([ZLocationManager shareManager].cureUserLocation) {
+        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+        
+    }
     
     [self refreshHeadData:_param];
 }

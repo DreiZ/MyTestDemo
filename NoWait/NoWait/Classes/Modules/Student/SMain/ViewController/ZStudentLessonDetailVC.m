@@ -134,9 +134,10 @@
         [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_whenTapped:^{
-            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+            NSArray *weekArr = @[@[@"投诉",@"peoples_hint",@"report"]];
             [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
-                if ([index isEqualToString:@"share"]) {
+                if ([index isEqualToString:@"report"]) {
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
                     rvc.sTitle = self.addModel.name;
                     rvc.course_id = self.addModel.lessonID;
@@ -201,7 +202,9 @@
             if (index == 0) {
                 [ZPublicTool callTel:SafeStr(weakSelf.addModel.stores_id)];
             }else{
-                [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
+                }];
             }
         };
     }

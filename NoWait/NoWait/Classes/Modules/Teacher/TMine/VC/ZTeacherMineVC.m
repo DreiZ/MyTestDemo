@@ -84,16 +84,18 @@
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.userType = @"2";
         _headerView.topHandleBlock = ^(NSInteger index) {
-            if (index == 1) {
-                ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }else if (index == 3){
-                ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
-                [weakSelf.navigationController pushViewController:avc animated:YES];
-            }else if (index == 8){
-                DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
-            }
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                if (index == 1) {
+                    ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
+                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                }else if (index == 3){
+                    ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
+                    [weakSelf.navigationController pushViewController:avc animated:YES];
+                }else if (index == 8){
+                    DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }
+            }];
         };
     }
     return _headerView;
@@ -107,21 +109,23 @@
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
-            if ([scellConfig.title isEqualToString:@"eva"]) {
-                ZTeacherMineEvaListVC *elvc = [[ZTeacherMineEvaListVC alloc] init];
-                [weakSelf.navigationController pushViewController:elvc animated:YES];
-            }else if ([scellConfig.title isEqualToString:@"sign"]) {
-                ZTeacherMineSignListVC *lvc = [[ZTeacherMineSignListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
-                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-                ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
-                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                lmodel.stores_id = detailModel.stores_id;
-                lmodel.name = detailModel.stores_name;
-                dvc.listModel = lmodel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
-            }
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                if ([scellConfig.title isEqualToString:@"eva"]) {
+                    ZTeacherMineEvaListVC *elvc = [[ZTeacherMineEvaListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                }else if ([scellConfig.title isEqualToString:@"sign"]) {
+                    ZTeacherMineSignListVC *lvc = [[ZTeacherMineSignListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
+                    ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                    ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
+                    ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                    lmodel.stores_id = detailModel.stores_id;
+                    lmodel.name = detailModel.stores_name;
+                    dvc.listModel = lmodel;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }
+            }];
         };
     }
 }
