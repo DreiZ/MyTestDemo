@@ -95,7 +95,7 @@
            
            for (int i = 0; i < self.detailModel.list.count; i++) {
                ZSignInfoListModel *model = self.detailModel.list[i];
-               model.isOrganzation = YES;
+               model.isOrganzation = self.type == 2;
                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(76) cellType:ZCellTypeClass dataModel:self.detailModel.list[i]];
                
                [self.cellConfigArr addObject:menuCellConfig];
@@ -124,9 +124,9 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignDetailHandleCell"]){
         ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
-        scell.handleBlock = ^(ZSignInfoListModel *model) {
+        scell.handleBlock = ^(ZSignInfoListModel *model ,NSInteger signType) {
             if (self.type == 1) {
-                [self teacherSign:model];
+                [self teacherSign:model signType:signType];
             }else if (self.type == 0){
                 [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
             }
@@ -171,11 +171,16 @@
     }];
 }
 
-- (void)teacherSign:(ZSignInfoListModel *)model {
+- (void)teacherSign:(ZSignInfoListModel *)model signType:(NSInteger )index{
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:self.courses_class_id forKey:@"courses_class_id"];
-    [param setObject:@"2" forKey:@"type"];
-    [param setObject:@[@{@"student_id":SafeStr(self.student_id),@"course_num":model.nums}] forKey:@"students"];
+    if (index == 0) {
+        [param setObject:@"2" forKey:@"type"];
+    }else{
+        [param setObject:@"3" forKey:@"type"];
+    }
+    
+    [param setObject:@[@{@"student_id":SafeStr(self.student_id),@"nums":model.nums}] forKey:@"students"];
     [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];

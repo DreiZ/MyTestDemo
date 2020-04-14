@@ -69,8 +69,11 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
+         ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
          ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
          dvc.type = 0;
+         dvc.courses_class_id = cellmodel.classID;
+         dvc.student_id = cellmodel.student_id;
          [self.navigationController pushViewController:dvc animated:YES];
     }
 }

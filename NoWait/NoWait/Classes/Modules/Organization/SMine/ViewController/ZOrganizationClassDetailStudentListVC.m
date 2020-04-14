@@ -36,7 +36,7 @@
     [super viewDidLoad];
     
     self.emptyDataStr = @"没有学员数据";
-    self.isOpen = [self.model.status intValue] == 3 ? YES : NO;
+    self.isEnd = [self.model.status intValue] == 3 ? YES : NO;
     [self setNavigation];
     [self initCellConfigArr];
     [self setTableViewRefreshFooter];
@@ -47,13 +47,14 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    if (self.isOpen) {
+    if (self.isEnd) {
         self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
     }else{
         self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
     }
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {
+        model.isEdit = self.isEdit;
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClassStudentListCell className] title:@"ZOriganizationClassStudentListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationClassStudentListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
     }
@@ -63,7 +64,7 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"学员列表"];
     
-    if (self.isOpen) {
+    if (self.isEnd) {
         [self.navigationItem setRightBarButtonItem:nil];
     }else{
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
@@ -79,7 +80,7 @@
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
-    if (self.can_operation) {
+    if (self.can_operation && !self.isEnd) {
         [self.view addSubview:self.bottomView];
         [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -193,7 +194,7 @@
     }
     
     for (ZOriganizationStudentListModel *studentModel in studentlist) {
-        [ids addObject:@{@"student_id":studentModel.studentID,@"course_num":SafeStr(studentModel.nums)}];
+        [ids addObject:@{@"student_id":studentModel.studentID,@"nums":SafeStr(studentModel.nums)}];
     }
     [param setObject:ids forKey:@"students"];
     [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
@@ -211,11 +212,16 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOriganizationClassStudentListCell"]) {
         ZOriganizationClassStudentListCell *lcell = (ZOriganizationClassStudentListCell *)cell;
-        lcell.isOpen = self.isOpen;
+        lcell.isEnd = self.isEnd;
         lcell.handleBlock = ^(NSInteger index,ZOriganizationStudentListModel *model) {
             if (index == 0) {
                 ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-                dvc.courses_class_id = self.model.classID;
+                if (self.listModel) {
+                    dvc.courses_class_id = self.listModel.classID;
+                }else{
+                    dvc.courses_class_id = self.model.classID;
+                }
+                
                 dvc.student_id = model.studentID;
                 dvc.type = self.type;
 //                dvc.stores_id = model.studentID;

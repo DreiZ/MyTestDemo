@@ -305,7 +305,7 @@
         
     }else if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
-        lvc.isOpen = NO;
+        lvc.isEnd = [self.model.status intValue] == 3;
         lvc.model = self.model;
         lvc.type = 2;
         lvc.can_operation = NO;

@@ -165,12 +165,14 @@
                         
                         
                         NSMutableArray *ids = @[].mutableCopy;
-                        [ids addObject:@{@"student_id":model.student_id,@"course_num":SafeStr(model.nums)}];
+                        [ids addObject:@{@"student_id":model.student_id,@"nums":SafeStr(model.nums)}];
                         
                         [param setObject:ids forKey:@"students"];
                         [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
                             if (isSuccess) {
-                                [TLUIUtility showSuccessHint:data];
+                                [ZAlertView setAlertWithTitle:data btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                                    
+                                }];
                             }else{
                                 [TLUIUtility showErrorHint:data];
                             }

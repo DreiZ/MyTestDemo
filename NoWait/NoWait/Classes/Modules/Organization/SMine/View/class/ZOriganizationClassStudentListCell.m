@@ -217,9 +217,9 @@
     }
 }
 
-- (void)setIsOpen:(BOOL)isOpen {
-    _isOpen = isOpen;
-    if (isOpen) {
+- (void)setIsEnd:(BOOL)isEnd {
+    _isEnd = isEnd;
+    if (isEnd) {
         [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left);
             make.width.equalTo(self.mas_width).multipliedBy(1/3.0);

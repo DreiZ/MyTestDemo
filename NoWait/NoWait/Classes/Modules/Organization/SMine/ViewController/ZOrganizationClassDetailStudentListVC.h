@@ -11,7 +11,7 @@
 #import "ZOriganizationLessonModel.h"
 
 @interface ZOrganizationClassDetailStudentListVC : ZTableViewViewController
-@property (nonatomic,assign) BOOL isOpen;
+@property (nonatomic,assign) BOOL isEnd;
 @property (nonatomic,assign) BOOL can_operation;
 @property (nonatomic,assign) NSInteger type; //1:教师 2：机构
 

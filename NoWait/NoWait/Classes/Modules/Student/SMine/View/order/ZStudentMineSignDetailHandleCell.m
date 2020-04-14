@@ -109,7 +109,11 @@
         __weak typeof(self) weakSelf = self;
         [_signBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(self.model);
+                if ([self.model.type intValue] == 6) {
+                    weakSelf.handleBlock(self.model,0);
+                }else{
+                    weakSelf.handleBlock(self.model,1);
+                }
             }
         }];
     }
@@ -136,7 +140,7 @@
             }];
             
             [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.signBtn.mas_left).offset(-CGFloatIn750(30));
+                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
                 make.centerY.equalTo(self.mas_centerY);
             }];
         }

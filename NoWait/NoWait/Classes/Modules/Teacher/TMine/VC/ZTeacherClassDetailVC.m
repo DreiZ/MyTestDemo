@@ -290,7 +290,7 @@
 //    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
-        lvc.isOpen = [self.model.status intValue] != 1;
+        lvc.isEnd = [self.model.status intValue] == 3;
         lvc.model = self.model;
         lvc.type = 1;
         lvc.can_operation = [self.model.can_operation intValue] == 1;

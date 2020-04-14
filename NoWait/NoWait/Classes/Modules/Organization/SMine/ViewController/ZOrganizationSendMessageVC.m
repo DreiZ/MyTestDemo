@@ -185,6 +185,7 @@
        if (model && model.account_id) {
            [para setObject:model.account_id forKey:@"account_id"];
            [para setObject:self.lessonName forKey:@"title"];
+           [para setObject:model.name forKey:@"sender"];
            [ids addObject:para];
        }
     
