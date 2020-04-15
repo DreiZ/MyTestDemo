@@ -79,6 +79,9 @@
                             [ZNetworkingManager postWithUrl:path params:params completionHandler:completionHandler];
                         }else {
                             [TLUIUtility showErrorHint:backModel.message];
+                            [[ZUserHelper sharedHelper] checkLogin:^{
+                                
+                            }];
                         }
                     }];
                 }else if ([backModel.code integerValue] == 100005 ){

@@ -113,7 +113,7 @@
     NSArray *temparr = sender;
     
     if (ValidArray(temparr)) {
-        return [ZStudentLabelCell setActivityData:KScreenWidth textArr:temparr] + 50;
+        return [ZStudentLabelCell setActivityData:KScreenWidth textArr:temparr] + CGFloatIn750(20);
     }
     
     return 0;

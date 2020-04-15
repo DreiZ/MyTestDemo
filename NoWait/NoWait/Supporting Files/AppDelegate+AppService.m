@@ -26,6 +26,11 @@
     [AMapServices sharedServices].apiKey = KMapKey;
     [[ZUMengShareManager sharedManager] umengShare];
     [[ZPayManager sharedManager] wxPayRefisterApp];
+    //更新用户信息
+    [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
+        if (!isSuccess) {
+        }
+    }];
 }
 
 

@@ -40,7 +40,7 @@
 @property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *token;
 @property (nonatomic,strong) NSString *notice_msg;
-@property (nonatomic,strong) NSString *pre_login_type;
+@property (nonatomic,strong) NSString *type;
 @end
 
 
