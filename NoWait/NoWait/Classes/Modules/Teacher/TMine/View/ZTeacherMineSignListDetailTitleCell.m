@@ -126,11 +126,16 @@
     _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];;
     
     ZOriganizationSignListModel *lModel = model.data;
-    if ([lModel.type intValue] == 4 || [lModel.type intValue] == 5 || [lModel.type intValue] == 6 ) {
-        self.editBtn.hidden = NO;
+    if (lModel.isOpen) {
+        if ([lModel.type intValue] == 4 || [lModel.type intValue] == 5 || [lModel.type intValue] == 6 ) {
+            self.editBtn.hidden = NO;
+        }else{
+            self.editBtn.hidden = YES;
+        }
     }else{
         self.editBtn.hidden = YES;
     }
+    
     
     if (lModel.isEdit) {
         [_editBtn setTitle:@"取消" forState:UIControlStateNormal];

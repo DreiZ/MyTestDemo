@@ -59,7 +59,7 @@
     }];
     
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(CGFloatIn750(120));
+        make.width.mas_equalTo(CGFloatIn750(170));
         make.centerY.equalTo(self.payPeopleNumLabel.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
@@ -144,7 +144,7 @@
     _model = model;
     _titleLabel.text = model.name;
     _payPeopleNumLabel.text = [NSString stringWithFormat:@"%@人已付款",model.pay_nums];
-    _addressLabel.text = model.distance;
+    _addressLabel.text = [NSString stringWithFormat:@"%@km",model.distance];
     [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_loadFail276"]];
     
     [self setActivityData];

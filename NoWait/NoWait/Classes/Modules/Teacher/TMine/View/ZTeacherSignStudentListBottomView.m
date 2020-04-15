@@ -134,4 +134,40 @@
     return _buBtn;
 }
 
+- (void)setType:(NSString *)type {
+    
+    self.signBtn.hidden = YES;
+    self.qingBtn.hidden = YES;
+    self.kuangBtn.hidden = YES;
+    self.buBtn.hidden = YES;
+//    1：签课 2：老师代签 3：补签 4：请假 5：旷课
+    if ([type intValue] == 6) {
+        self.signBtn.hidden = NO;
+        self.qingBtn.hidden = NO;
+        self.kuangBtn.hidden = NO;
+        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self);
+            make.left.equalTo(self.mas_left);
+            make.width.mas_equalTo(KScreenWidth/3.0f);
+        }];
+        ;
+        [self.qingBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self);
+            make.left.equalTo(self.signBtn.mas_right);
+            make.width.mas_equalTo(KScreenWidth/3.0f);
+        }];
+        
+        [self.kuangBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self);
+            make.left.equalTo(self.qingBtn.mas_right);
+            make.width.mas_equalTo(KScreenWidth/3.0f);
+        }];
+    }else if([type intValue] == 4 || [type intValue] == 5){
+        self.buBtn.hidden = NO;
+        [self.buBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self);
+            make.left.right.equalTo(self);
+        }];
+    }
+}
 @end

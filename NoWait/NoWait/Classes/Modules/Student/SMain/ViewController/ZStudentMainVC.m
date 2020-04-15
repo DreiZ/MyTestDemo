@@ -69,12 +69,14 @@
     [self getAdverData];
     
     __weak typeof(self) weakSelf = self;
-    [[ZLocationManager shareManager] startLocation];
+    
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
-        NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude );
-        [weakSelf initCellConfigArr];
-        [weakSelf.iTableView reloadData];
+        NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
+        [weakSelf refreshData];
+//        [weakSelf initCellConfigArr];
+//        [weakSelf.iTableView reloadData];
     }];
+    [[ZLocationManager shareManager] startLocation];
 }
 
 - (void)setDataSource {
@@ -372,17 +374,17 @@
     [self setPostCommonData];
     [_param setObject:@"1" forKey:@"page"];
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
-    if ([ZLocationManager shareManager].cureUserLocation) {
-        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
-         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
-        
-    }
+    
     
     [self refreshHeadData:_param];
 }
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    if ([ZLocationManager shareManager].cureUserLocation) {
+        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+    }
 }
 
 - (void)getAdverData {

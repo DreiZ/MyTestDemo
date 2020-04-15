@@ -80,28 +80,28 @@
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
-    if (self.can_operation && !self.isEnd) {
-        [self.view addSubview:self.bottomView];
-        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-            make.height.mas_equalTo(CGFloatIn750(90));
-        }];
-        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-         make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
-         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
-        }];
-    }else{
-        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
-        }];
-    }
-    
+//    if (self.can_operation && !self.isEnd) {
+//        [self.view addSubview:self.bottomView];
+//        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.equalTo(self.view);
+//            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+//            make.height.mas_equalTo(CGFloatIn750(90));
+//        }];
+//        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+//         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+//         make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
+//         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+//        }];
+//    }else{
+//
+//    }
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+     make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+     make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+     make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+     make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+    }];
     
 }
 
@@ -110,11 +110,12 @@
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
-        if (self.type == 2) {
-            [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
-        }else{
-            [_navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
-        }
+        [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
+//        if (self.type == 2) {
+//            [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
+//        }else{
+//            [_navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
+//        }
         
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -126,13 +127,13 @@
                 avc.model = weakSelf.model;
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }else{
-                weakSelf.isEdit = !weakSelf.isEdit;
-                [weakSelf changeType:weakSelf.isEdit];
-                if (weakSelf.isEdit) {
-                    [weakSelf.navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
-                }else{
-                    [weakSelf.navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
-                }
+//                weakSelf.isEdit = !weakSelf.isEdit;
+//                [weakSelf changeType:weakSelf.isEdit];
+//                if (weakSelf.isEdit) {
+//                    [weakSelf.navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
+//                }else{
+//                    [weakSelf.navLeftBtn setTitle:@"多选" forState:UIControlStateNormal];
+//                }
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }
