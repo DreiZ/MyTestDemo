@@ -16,27 +16,25 @@
 
 @implementation ZOrganizationPhotoListCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-        [self setupView];
+        [self initMainView];
     }
     return self;
 }
 
--(void)setupView
-{
-    [super setupView];
+- (void)initMainView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.photoImageView];
     
     [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(0));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(0));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(0));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(0));
     }];
 
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];

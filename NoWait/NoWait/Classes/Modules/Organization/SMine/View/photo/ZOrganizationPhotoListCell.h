@@ -9,7 +9,7 @@
 #import "ZBaseCell.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationPhotoListCell : ZBaseCell
+@interface ZOrganizationPhotoListCell : UICollectionViewCell
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) ZOriganizationPhotoListModel *model;
 

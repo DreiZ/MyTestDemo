@@ -8,74 +8,129 @@
 
 #import "ZOrganizationPhotoManageVC.h"
 #import "ZOrganizationPhotoListCell.h"
-#import "ZOrganizationPhotoCollectionVC.h"
 #import "ZOriganizationPhotoViewModel.h"
+#import "ZOrganizationPhotoCollectionVC.h"
 
-@interface ZOrganizationPhotoManageVC ()
+@interface ZOrganizationPhotoManageVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic,strong) UICollectionView *iCollectionView;
+@property (nonatomic,strong) NSMutableArray *list;
 @property (nonatomic,strong) NSMutableDictionary *param;
-
 @end
 
 @implementation ZOrganizationPhotoManageVC
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     [self refreshData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+         
+    [self setNavigation];
+    [self setMainView];
 }
 
 - (void)setNavigation {
+    self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"相册管理"];
 }
 
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    NSArray *stemparr = @[@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnimudx9rj30u0190x6r.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnik9gg1zj30rt167qv5.jpg",
-      @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnih592ymj30u012mkjl.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnifebkgxj30u011i41n.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni9yq6txj30in0skdh8.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcni67jfp0j30u01907wi.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcni0ntc2oj30ia0rfgpz.jpg",
-    @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gcnhw86vyej30rs15ojti.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhm4ar5rj30m90xc4mp.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhgm151mj30tm18gwrz.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnhcwlaihj30u011in00.jpg",
-    @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gcnhbdlq2fj30hs0hsdin.jpg",
-    @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gcnh64taa2j30u011iqfx.jpg",
-    @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gcnh1f4yvfj30u0140dsy.jpg",
-    @"http://tva1.sinaimg.cn/mw600/00831rSTly1gcngrcu9g5j30hs0m7ta9.jpg",
-    ];
+- (void)setMainView {
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationPhotoListCell className] title:@"ZOrganizationPhotoListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationPhotoListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
+    [self.view addSubview:self.iCollectionView];
+    [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(0);
+    }];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.iCollectionView tt_addRefreshHeaderWithAction:^{
+        [weakSelf refreshData];
+    }];
+    
+    [self.iCollectionView tt_addLoadMoreFooterWithAction:^{
+        [weakSelf refreshMoreData];
+    }];
 }
 
 
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZOrganizationPhotoListCell"]) {
-        ZOriganizationPhotoListModel *model = (ZOriganizationPhotoListModel *)cellConfig.dataModel;
-        ZOrganizationPhotoCollectionVC *lvc = [[ZOrganizationPhotoCollectionVC alloc] init];
-        lvc.model = model;
-        [self.navigationController pushViewController:lvc animated:YES];
+#pragma mark - 懒加载
+- (UICollectionView *)iCollectionView {
+    if (!_iCollectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight) collectionViewLayout:flowLayout];
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iCollectionView.dataSource = self;
+        _iCollectionView.delegate = self;
+        _iCollectionView.scrollEnabled = YES;
+        _iCollectionView.showsHorizontalScrollIndicator = NO;
+        _iCollectionView.showsVerticalScrollIndicator = NO;
+//
+//        [_iCollectionView registerClass:[ZOrganizationLessonAddPhotosItemCell class] forCellWithReuseIdentifier:[ZOrganizationLessonAddPhotosItemCell className]];
     }
+    
+    return _iCollectionView;
+}
+
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
+}
+
+-(NSMutableArray *)list {
+    if (!_list) {
+        _list = @[].mutableCopy;
+    }
+    return _list;
+}
+
+#pragma mark - collectionview delegate
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _list.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZOrganizationPhotoListCell *cell = [ZOrganizationPhotoListCell z_cellWithCollection:collectionView indexPath:indexPath];
+//    ZOrganizatioPhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizatioPhotosCollectionCell className] forIndexPath:indexPath];
+    cell.model = _list[indexPath.row];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZOrganizationPhotoCollectionVC *cvc = [[ZOrganizationPhotoCollectionVC alloc] init];
+    cvc.model = _list[indexPath.row];
+    [self.navigationController pushViewController:cvc animated:YES];
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(24));
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(30);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(30);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }
 
 
@@ -84,7 +139,7 @@
     self.currentPage = 1;
     self.loading = YES;
     [self setPostCommonData];
-    [self refreshHeadData:_param];
+    [self refreshHeadData:self.param];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
@@ -92,21 +147,20 @@
     [ZOriganizationPhotoViewModel getStoresImageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            [weakSelf.list removeAllObjects];
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
             
-            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iCollectionView tt_endLoadMore];
             }
         }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
         }
     }];
 }
@@ -120,20 +174,19 @@
     [ZOriganizationPhotoViewModel getStoresImageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf.iCollectionView reloadData];
             
-            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iCollectionView tt_endLoadMore];
             }
         }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
         }
     }];
 }
@@ -142,14 +195,17 @@
     self.loading = YES;
     
     [self setPostCommonData];
-    [_param setObject:@"1" forKey:@"page"];
+    [self.param setObject:@"1" forKey:@"page"];
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
     
     [self refreshHeadData:_param];
 }
 
 - (void)setPostCommonData {
-    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 @end
+
+
+
