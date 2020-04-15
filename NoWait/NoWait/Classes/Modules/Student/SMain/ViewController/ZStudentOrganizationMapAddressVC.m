@@ -149,6 +149,7 @@
         _iMapView.showsUserLocation = YES;
         _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _iMapView.zoomLevel = 19;
+        _iMapView.userTrackingMode = MAUserTrackingModeNone;
         [_iMapView addSubview:self.checkSelfBtn];
         [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.iMapView.mas_right).offset(CGFloatIn750(-10));
@@ -280,7 +281,7 @@
     // 百度地图与高德地图、苹果地图采用的坐标系不一样，故高德和苹果只能用地名不能用后台返回的坐标
     CGFloat latitude  = self.cureUserLocation.location.coordinate.latitude;  // 纬度
     CGFloat longitude = self.cureUserLocation.location.coordinate.longitude; // 经度
-    NSString *address = self.cureUserLocation.title; // 送达地址
+    NSString *address = self.detailModel.name; // 送达地址
     
     // 打开地图的优先级顺序：高德地图-->百度地图->苹果地图
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
@@ -307,7 +308,7 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     }else{
         // 快递员没有安装上面三种地图APP，弹窗提示安装地图APP
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请安装地图APP" message:@"建议安装百度地图APP" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请安装地图APP" message:@"建议安装高德地图APP" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertVC animated:NO completion:nil];
     }
 }
