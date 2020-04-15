@@ -284,8 +284,8 @@
         }];
         
         
-        UIView *leftView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"微信登录" tag:0];
-        UIView *midView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"密码登录" tag:1];
+        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
+        UIView *midView = [self getMenuBtnWithImageName:@"loginpassword" title:@"密码登录" tag:1];
         [_footerView addSubview:leftView];
         [_footerView addSubview:midView];
         
@@ -302,7 +302,7 @@
                 make.width.height.mas_equalTo(CGFloatIn750(120));
             }];
         }else{
-            UIView *rightView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"游客模式" tag:2];
+            UIView *rightView = [self getMenuBtnWithImageName:@"loginUserName" title:@"游客模式" tag:2];
             [_footerView addSubview:rightView];
             
             [leftView mas_makeConstraints:^(MASConstraintMaker *make) {

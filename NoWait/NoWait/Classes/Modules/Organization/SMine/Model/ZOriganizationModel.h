@@ -153,7 +153,7 @@
 @property (nonatomic,strong) NSMutableArray *months;
 @property (nonatomic,strong) NSMutableArray *stores_info;
 @property (nonatomic,strong) NSMutableArray *week_days;
-@property (nonatomic,strong) NSMutableArray *merchant_stores_tags;
+@property (nonatomic,strong) NSMutableArray *merchants_stores_tags;
 @end
 
 

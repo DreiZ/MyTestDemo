@@ -81,7 +81,7 @@
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
                          @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time",time],
                          @[@"基础设置", @"请添加基础设施", @NO, @YES, @"setting",self.model? self.model.stores_info:@[]],
-                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic",self.model.merchant_stores_tags? self.model.merchant_stores_tags:@[]]];
+                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]]];
     
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] boolValue]) {
@@ -224,7 +224,7 @@
                 [TLUIUtility showErrorHint:@"请添加基础设施"];
                 return ;
             }
-            if (!ValidArray(weakSelf.model.merchant_stores_tags)) {
+            if (!ValidArray(weakSelf.model.merchants_stores_tags)) {
                 [TLUIUtility showErrorHint:@"请添加机构特色"];
                 return ;
             }
@@ -245,7 +245,7 @@
             [params setObject:self.model.months forKey:@"months"];
             [params setObject:self.model.opend_start forKey:@"opend_start"];
             [params setObject:self.model.opend_end forKey:@"opend_end"];
-            [params setObject:self.model.merchant_stores_tags forKey:@"merchant_stores_tags"];
+            [params setObject:self.model.merchants_stores_tags forKey:@"merchants_stores_tags"];
             [params setObject:self.model.stores_info forKey:@"stores_info"];
             
             [weakSelf updateImageWithOtherParams:params];
@@ -368,10 +368,10 @@
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
         lvc.max = 5;
-        lvc.list = self.model.merchant_stores_tags;
+        lvc.list = self.model.merchants_stores_tags;
         lvc.handleBlock = ^(NSArray * labelArr) {
-            [weakSelf.model.merchant_stores_tags removeAllObjects];
-            [weakSelf.model.merchant_stores_tags addObjectsFromArray:labelArr];
+            [weakSelf.model.merchants_stores_tags removeAllObjects];
+            [weakSelf.model.merchants_stores_tags addObjectsFromArray:labelArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         };
@@ -432,10 +432,10 @@
                 weakSelf.model.week_days = @[].mutableCopy;
             }
             
-            if (ValidArray(weakSelf.model.merchant_stores_tags)) {
-                weakSelf.model.merchant_stores_tags = [[NSMutableArray alloc] initWithArray:weakSelf.model.merchant_stores_tags];
+            if (ValidArray(weakSelf.model.merchants_stores_tags)) {
+                weakSelf.model.merchants_stores_tags = [[NSMutableArray alloc] initWithArray:weakSelf.model.merchants_stores_tags];
             }else{
-                weakSelf.model.merchant_stores_tags = @[].mutableCopy;
+                weakSelf.model.merchants_stores_tags = @[].mutableCopy;
             }
             
             [weakSelf initCellConfigArr];

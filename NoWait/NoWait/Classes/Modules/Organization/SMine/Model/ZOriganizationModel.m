@@ -104,7 +104,7 @@
         _months = @[].mutableCopy;
         _stores_info = @[].mutableCopy;
         _week_days = @[].mutableCopy;
-        _merchant_stores_tags = @[].mutableCopy;
+        _merchants_stores_tags = @[].mutableCopy;
     }
     return self;
 }

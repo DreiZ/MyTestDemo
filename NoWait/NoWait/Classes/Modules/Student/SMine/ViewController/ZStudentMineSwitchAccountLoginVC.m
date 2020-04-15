@@ -133,8 +133,8 @@
         }];
         
         
-        UIView *leftView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"微信登录" tag:0];
-        UIView *midView = [self getMenuBtnWithImageName:@"mineOrderCard" title:@"验证码登录" tag:1];
+        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
+        UIView *midView = [self getMenuBtnWithImageName:@"loginpassword" title:@"验证码登录" tag:1];
         [self.view addSubview:leftView];
         [self.view addSubview:midView];
         

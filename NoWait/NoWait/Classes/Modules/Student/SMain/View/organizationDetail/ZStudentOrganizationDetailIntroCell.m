@@ -176,14 +176,14 @@
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
-    if (ValidArray(self.model.merchant_stores_tags)){
+    if (ValidArray(self.model.merchants_stores_tags)){
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
-        mModel.data = self.model.merchant_stores_tags;
+        mModel.data = self.model.merchants_stores_tags;
         mModel.cellTitle = @"label";
         mModel.leftFont = [UIFont fontMax1Title];
         mModel.rightColor = [UIColor colorMain];
@@ -242,12 +242,12 @@
         
        
     }
-    if (ValidArray(detailModel.merchant_stores_tags)) {
+    if (ValidArray(detailModel.merchants_stores_tags)) {
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
-        mModel.data = detailModel.merchant_stores_tags;
+        mModel.data = detailModel.merchants_stores_tags;
         mModel.leftFont = [UIFont fontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
         

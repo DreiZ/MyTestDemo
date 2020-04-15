@@ -204,7 +204,10 @@
     [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [params setObject:SafeStr(self.viewModel.addModel.teacherID) forKey:@"teacher_id"];
     [params setObject:SafeStr(self.viewModel.addModel.class_Name) forKey:@"name"];
+    [params setObject:SafeStr(self.viewModel.addModel.openTime) forKey:@"start_time"];
+    
     NSMutableArray *tempArr = @[].mutableCopy;
+    
     if (ValidArray(self.viewModel.addModel.lessonOrderArr)) {
         for (ZOriganizationStudentListModel *model in self.viewModel.addModel.lessonOrderArr) {
             [tempArr addObject:model.studentID];
@@ -288,7 +291,7 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"openTime"]){
         [self.iTableView endEditing:YES];
-        [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
+        [ZDatePickerManager showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
             weakSelf.viewModel.addModel.openTime = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
