@@ -108,7 +108,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
-            [ZPhotoManager sharedManager].maxImageSelected = 9;
+            [ZPhotoManager sharedManager].maxImageSelected = 9 - self.list.count;
             
             [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0){

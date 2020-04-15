@@ -302,7 +302,6 @@
 @property (nonatomic,strong) NSArray *card_image;
 
 @property (nonatomic,strong) NSMutableArray *images_list;
-@property (nonatomic,strong) NSMutableArray *images_list_net;
 @end
 
 

@@ -171,8 +171,7 @@
         _skills = @[].mutableCopy;
         _lessonList = @[].mutableCopy;
         _des = @"";
-        _images_list = @[].mutableCopy;;
-        _images_list_net = @[].mutableCopy;
+        _images_list = @[].mutableCopy;
     }
     return self;
 }

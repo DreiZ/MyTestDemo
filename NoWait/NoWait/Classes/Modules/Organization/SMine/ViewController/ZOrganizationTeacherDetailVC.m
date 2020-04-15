@@ -129,11 +129,11 @@
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         
         NSMutableArray *menulist = @[].mutableCopy;
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < self.addModel.images_list.count; j++) {
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
 //            model.name = tempArr[j][0];
-            if (j < self.addModel.images_list_net.count) {
-                model.data = imageFullUrl(SafeStr(self.addModel.images_list_net[j]));
+            if (j < self.addModel.images_list.count) {
+                model.data = imageFullUrl(SafeStr(self.addModel.images_list[j]));
             }
             
             model.isEdit = NO;
@@ -192,7 +192,7 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationTeacherViewModel getTeacherDetail:@{@"id":SafeStr(self.addModel.teacherID)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
+    [ZOriganizationTeacherViewModel getStoresTeacherDetail:@{@"id":SafeStr(self.addModel.teacherID)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
         if (isSuccess) {
             weakSelf.addModel = addModel;
             [weakSelf initCellConfigArr];

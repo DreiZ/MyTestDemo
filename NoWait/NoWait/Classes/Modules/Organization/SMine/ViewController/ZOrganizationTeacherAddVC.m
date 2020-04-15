@@ -9,7 +9,7 @@
 #import "ZOrganizationTeacherAddVC.h"
 #import "ZOriganizationTeachListCell.h"
 #import "ZOriganizationTeachAddHeadImageCell.h"
-#import "ZOrganizationLessonAddPhotosCell.h"
+#import "ZAddPhotosCell.h"
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
@@ -50,10 +50,10 @@
         _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
         _viewModel.addModel.sex = @"1";
         _viewModel.addModel.c_level = @"1";
-        for (int j = 0; j < 9; j++) {
-            [_viewModel.addModel.images_list addObject:@""];
-            [_viewModel.addModel.images_list_net addObject:@""];
-        }
+//        for (int j = 0; j < 9; j++) {
+//            [_viewModel.addModel.images_list addObject:@""];
+//            [_viewModel.addModel.images_list_net addObject:@""];
+//        }
     }
     return _viewModel;
 }
@@ -167,7 +167,7 @@
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         NSMutableArray *menulist = @[].mutableCopy;
 
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < self.viewModel.addModel.images_list.count; j++) {
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
             if (j < self.viewModel.addModel.images_list.count) {
                 if (![self.viewModel.addModel.images_list[j] isKindOfClass:[UIImage class]]) {
@@ -178,18 +178,19 @@
                 
                 model.uid = [NSString stringWithFormat:@"%d", j];
             }
-            model.name = @"添加图片";
-            model.subName = @"必选";
+            
             model.isEdit = YES;
         //            model.name = tempArr[j][0];
         //            model.imageName = tempArr[j][1];
         //            model.uid = tempArr[j][2];
             [menulist addObject:model];
         }
-
+        model.name = @"添加图片";
+        model.subName = @"选填";
+        model.uid = @"9";
         model.units = menulist;
 
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZAddPhotosCell className] title:[ZAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:progressCellConfig];
     }
 }
@@ -406,25 +407,11 @@
     [TLUIUtility showLoading:[NSString stringWithFormat:@"上传课程相册中 %ld/%ld",index+1,self.viewModel.addModel.images_list.count]];
     
     id temp = self.viewModel.addModel.images_list[index];
-    NSString *tempNet = self.viewModel.addModel.images_list_net[index];
     UIImage *image;
     if ([temp isKindOfClass:[UIImage class]]) {
         image = temp;
-        if (tempNet && tempNet.length > 0) {
-            complete(YES,index);
-            return;
-        }
-    }else if ([temp isKindOfClass:[NSString class]]){
-        NSString *tempStr = temp;
-        if (tempStr.length > 0) {
-            [self.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:tempStr];
-        }
-        complete(YES,index);
-        return;
-    }else{
-        complete(YES,index);
-        return;
     }
+    
     if (!image) {
         complete(YES,index);
         return;
@@ -433,7 +420,7 @@
     __weak typeof(self) weakSelf = self;
     [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
-            [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:message];
+            [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:message];
             complete(YES,index);
         }else{
             [TLUIUtility hiddenLoading];
@@ -457,8 +444,8 @@
     
     if ([self checkIsHavePhotos] > 0) {
         NSMutableArray *photos = @[].mutableCopy;
-        for (int i = 0; i < self.viewModel.addModel.images_list_net.count; i++) {
-            NSString *temp = self.viewModel.addModel.images_list_net[i];
+        for (int i = 0; i < self.viewModel.addModel.images_list.count; i++) {
+            NSString *temp = self.viewModel.addModel.images_list[i];
             if (ValidStr(temp)) {
                 [photos addObject:temp];
             }
@@ -527,26 +514,37 @@
                 }
             }];
         };
-    }else if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddPhotosCell"]) {
-        ZOrganizationLessonAddPhotosCell *tCell = (ZOrganizationLessonAddPhotosCell *)cell;
+    }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
+        ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 74/111.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
-                    if (list && list.count > 0) {
-                        if (index < weakSelf.viewModel.addModel.images_list.count) {
-                            LLImagePickerModel *model = list[0];
-                            [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:model.image];
-                            [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:@""];
-                            [weakSelf initCellConfigArr];
-                            [weakSelf.iTableView reloadData];
+                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.addModel.images_list.count;
+                
+                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                    if (list && list.count > 0){;
+                        for (LLImagePickerModel *model in list) {
+//                            [weakSelf.uploadArr addObject:model.image];
+                            [weakSelf.viewModel.addModel.images_list addObject:model.image];
                         }
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
                     }
                 }];
+//                [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 74/111.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+//                    if (list && list.count > 0) {
+//                        if (index < weakSelf.viewModel.addModel.images_list.count) {
+//                            LLImagePickerModel *model = list[0];
+//                            [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:model.image];
+//                            [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:@""];
+//                            [weakSelf initCellConfigArr];
+//                            [weakSelf.iTableView reloadData];
+//                        }
+//                    }
+//                }];
             }else{
                 if (index < weakSelf.viewModel.addModel.images_list.count) {
-                    [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:@""];
-                    [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:@""];
+                    [weakSelf.viewModel.addModel.images_list removeObjectAtIndex:index];
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
                 }

@@ -64,22 +64,22 @@
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationTeacherAddModel *model = [ZOriganizationTeacherAddModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                if (model.images_list && [model.images_list isKindOfClass:[NSArray class]]) {
-                    for (NSInteger i = 0; i < model.images_list.count; i++) {
-                        [model.images_list_net addObject:model.images_list[i]];
-                    }
-                    for (NSInteger i = model.images_list.count; i < 9; i++) {
-                        [model.images_list addObject:@""];
-                        [model.images_list_net addObject:@""];
-                    }
-                }else {
-                    model.images_list = @[].mutableCopy;
-                    model.images_list_net = @[].mutableCopy;
-                    for (NSInteger i = model.images_list.count; i < 9; i++) {
-                        [model.images_list addObject:@""];
-                        [model.images_list_net addObject:@""];
-                    }
-                }
+//                if (model.images_list && [model.images_list isKindOfClass:[NSArray class]]) {
+//                    for (NSInteger i = 0; i < model.images_list.count; i++) {
+//                        [model.images_list_net addObject:model.images_list[i]];
+//                    }
+//                    for (NSInteger i = model.images_list.count; i < 9; i++) {
+//                        [model.images_list addObject:@""];
+//                        [model.images_list_net addObject:@""];
+//                    }
+//                }else {
+//                    model.images_list = @[].mutableCopy;
+//                    model.images_list_net = @[].mutableCopy;
+//                    for (NSInteger i = model.images_list.count; i < 9; i++) {
+//                        [model.images_list addObject:@""];
+//                        [model.images_list_net addObject:@""];
+//                    }
+//                }
                 if (ValidArray(model.card_image)) {
                     NSArray *tempArr = model.card_image;
                     if (tempArr.count == 2) {
@@ -128,18 +128,55 @@
 }
 
 
++ (void)getStoresTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_stores_teacher_info params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZOriganizationTeacherAddModel *model = [ZOriganizationTeacherAddModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                if (ValidArray(model.card_image)) {
+                    NSArray *tempArr = model.card_image;
+                    if (tempArr.count == 2) {
+                        model.cardImageUp = tempArr[0];
+                        model.cardImageDown = tempArr[1];
+                    }
+                }
+                
+                if (ValidArray(model.class_ids)) {
+                    for (id temp in model.class_ids) {
+                        if ([temp isKindOfClass:[ZOriganizationLessonListModel class]]) {
+                            ZOriganizationLessonListModel *lessonModel = temp;
+                            lessonModel.name = lessonModel.courses_name;
+                            lessonModel.short_name = lessonModel.courses_name;
+                            lessonModel.lessonID = lessonModel.courses_id;
+                            if (ValidStr(lessonModel.teacherPirce)) {
+                                lessonModel.teacherPirce = lessonModel.price;
+                            }
+                            [model.lessonList addObject:lessonModel];
+                        }
+                    }
+                }
+                
+                completeBlock(YES, model);
+                return ;
+            }else {
+                completeBlock(NO, dataModel.message);
+                return ;
+            }
+        }else {
+            completeBlock(NO, dataModel.message);
+            return ;
+        }
+    }];
+}
+
+
 + (void)getStTeacherDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_teacher_info params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
             ZOriganizationTeacherAddModel *model = [ZOriganizationTeacherAddModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                if (model.images_list && [model.images_list isKindOfClass:[NSArray class]]) {
-                    for (NSInteger i = 0; i < model.images_list.count; i++) {
-                        [model.images_list_net addObject:model.images_list[i]];
-                    }
-                    
-                }
                 if (ValidArray(model.card_image)) {
                     NSArray *tempArr = model.card_image;
                     if (tempArr.count == 2) {
