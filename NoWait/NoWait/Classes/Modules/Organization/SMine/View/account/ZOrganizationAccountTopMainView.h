@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationAccountTopMainView : UIView
-
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic,strong) UILabel *detailLabel;
 @end
 
 NS_ASSUME_NONNULL_END

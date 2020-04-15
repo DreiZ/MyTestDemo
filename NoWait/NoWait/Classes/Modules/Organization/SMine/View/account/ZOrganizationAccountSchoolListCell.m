@@ -97,7 +97,7 @@
     if (!_zhuanPriceLabel) {
         _zhuanPriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _zhuanPriceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _zhuanPriceLabel.text = @"￥23432";
+        
         _zhuanPriceLabel.numberOfLines = 1;
         _zhuanPriceLabel.textAlignment = NSTextAlignmentLeft;
         [_zhuanPriceLabel setFont:[UIFont boldFontContent]];
@@ -110,7 +110,7 @@
     if (!_zhiLabel) {
         _zhiLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _zhiLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _zhiLabel.text = @"￥12(未结课质押金)";
+        
         _zhiLabel.numberOfLines = 1;
         _zhiLabel.textAlignment = NSTextAlignmentCenter;
         [_zhiLabel setFont:[UIFont fontMin]];
@@ -123,7 +123,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"2020-01-02 15:25";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontMin]];
@@ -136,7 +136,7 @@
     if (!_daoLabel) {
         _daoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _daoLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
-        _daoLabel.text = @"￥23";
+        
         _daoLabel.numberOfLines = 1;
         _daoLabel.textAlignment = NSTextAlignmentRight;
         [_daoLabel setFont:[UIFont boldFontContent]];
@@ -148,7 +148,7 @@
     if (!_feiLabel) {
         _feiLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _feiLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _feiLabel.text = @"￥3454(技术服务费)";
+        
         _feiLabel.numberOfLines = 1;
         _feiLabel.textAlignment = NSTextAlignmentCenter;
         [_feiLabel setFont:[UIFont fontMin]];
@@ -156,7 +156,14 @@
     return _feiLabel;
 }
 
-
+- (void)setModel:(ZStoresAccountDetaliListModel *)model {
+    _model = model;
+    _daoLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.should_amount)];
+    _feiLabel.text = @"";
+    _timeLabel.text = [NSString stringWithFormat:@"%@~%@",[SafeStr(model.start_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"],[SafeStr(model.end_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"]];
+    _zhiLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.title)];
+    _zhuanPriceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.should_amount)];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(202);

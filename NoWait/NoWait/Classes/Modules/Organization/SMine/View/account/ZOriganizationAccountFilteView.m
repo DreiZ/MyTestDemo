@@ -111,7 +111,7 @@
     if (!_inLabel) {
         _inLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _inLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _inLabel.text = @"888";
+        
         _inLabel.numberOfLines = 1;
         _inLabel.textAlignment = NSTextAlignmentRight;
         [_inLabel setFont:[UIFont fontSmall]];
@@ -123,7 +123,7 @@
     if (!_outLabel) {
         _outLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _outLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _outLabel.text = @"23423";
+        
         _outLabel.numberOfLines = 1;
         _outLabel.textAlignment = NSTextAlignmentRight;
         [_outLabel setFont:[UIFont fontSmall]];
@@ -136,7 +136,7 @@
     if (!_inHintLabel) {
         _inHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _inHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _inHintLabel.text = @"收入￥";
+        
         _inHintLabel.numberOfLines = 1;
         _inHintLabel.textAlignment = NSTextAlignmentRight;
         [_inHintLabel setFont:[UIFont fontSmall]];
@@ -149,7 +149,6 @@
     if (!_outHintLabel) {
         _outHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _outHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _outHintLabel.text = @"支出￥";
         _outHintLabel.numberOfLines = 1;
         _outHintLabel.textAlignment = NSTextAlignmentRight;
         [_outHintLabel setFont:[UIFont fontSmall]];
@@ -163,7 +162,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"本月";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentRight;
         [_timeLabel setFont:[UIFont fontSmall]];
@@ -197,6 +196,15 @@
             make.centerY.equalTo(self.mas_centerY);
         }];
     }
+}
+
+- (void)setModel:(ZStoresAccountBillListNetModel *)model {
+    _model = model;
+    _timeLabel.text = [NSString stringWithFormat:@"%@至%@",[SafeStr(model.start_time) timeStringWithFormatter:@"yyyy-MM-dd"],[SafeStr(model.end_time) timeStringWithFormatter:@"yyyy-MM-dd"]];
+    _outHintLabel.text = @"支出￥";
+    _inHintLabel.text = @"收入￥";
+    _outLabel.text = ValidStr(model.spending) ? SafeStr(model.spending):@"0";
+    _inLabel.text = ValidStr(model.income) ? SafeStr(model.income):@"0";
 }
 @end
 

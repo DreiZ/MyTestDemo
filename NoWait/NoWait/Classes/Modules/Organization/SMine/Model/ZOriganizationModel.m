@@ -306,11 +306,22 @@
 }
 @end
 
+@implementation ZStoresAccountDetaliListLogModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"bill_id" : @"id"};
+}
+@end
 
 @implementation ZStoresAccountDetaliListModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"lid" : @"id"};
 }
+
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"logs" : @"ZStoresAccountDetaliListLogModel",
+             };
+}
+
 @end
 
 
@@ -329,7 +340,7 @@
 
 @implementation ZStoresAccountBillListNetModel
 + (NSDictionary *)mj_objectClassInArray {
-    return @{ @"list" : @"ZStoresAccountDetaliListModel",
+    return @{ @"list" : @"ZStoresAccountBillListModel",
              };
 }
 @end

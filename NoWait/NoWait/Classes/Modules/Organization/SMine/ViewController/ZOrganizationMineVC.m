@@ -153,6 +153,7 @@
                     [self.navigationController pushViewController:svc animated:YES];
                 }else if ([model.uid isEqualToString:@"account"]){
                     ZOrganizationSchoolAccountVC *svc = [[ZOrganizationSchoolAccountVC alloc] init];
+                    svc.stores_id = [ZUserHelper sharedHelper].school.schoolID;
                     [self.navigationController pushViewController:svc animated:YES];
                 }else if ([model.uid isEqualToString:@"order"]){
                     ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];

@@ -12,13 +12,20 @@
 #import "ZOrganizationAccountTopMainView.h"
 
 #import "ZOrganizationSchoolAccountVC.h"
+#import "ZOriganizationViewModel.h"
 
 @interface ZOrganizationAccountVC ()
 @property (nonatomic,strong) ZOrganizationAccountTopMainView *topView;
+@property (nonatomic,strong) ZStoresAccountModel *model;
 
 @end
 
 @implementation ZOrganizationAccountVC
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self getAccountBill];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,27 +42,28 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"才玩俱乐部";
-    model.rightTitle = @"￥120";
-    model.rightImage = @"rightBlackArrowN";
-    model.rightMargin = CGFloatIn750(40);
-    model.cellHeight = CGFloatIn750(106);
-    model.leftFont = [UIFont fontContent];
-    model.rightFont = [UIFont fontContent];
-    model.rightColor = [UIColor colorTextBlack];
-    model.rightDarkColor = [UIColor colorTextBlackDark];
-    
-    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:[ZSingleLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-    [self.cellConfigArr addObject:textCellConfig];
-  
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
-    [self.cellConfigArr addObject:textCellConfig];
+    [self.model.list_stores  enumerateObjectsUsingBlock:^(ZStoresAccountListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = ValidStr(obj.stores_name)? obj.stores_name : @"";
+        model.rightTitle = [NSString stringWithFormat:@"￥%@",ValidStr(obj.total_amount) ? SafeStr(obj.total_amount):@"0"];
+        model.rightImage = @"rightBlackArrowN";
+        model.rightMargin = CGFloatIn750(40);
+        model.cellHeight = CGFloatIn750(106);
+        model.leftFont = [UIFont fontContent];
+        model.rightFont = [UIFont fontContent];
+        model.rightColor = [UIColor colorTextBlack];
+        model.rightDarkColor = [UIColor colorTextBlackDark];
+        model.data = obj;
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:[ZSingleLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:textCellConfig];
+    }];
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@""];
     [self.cellConfigArr addObject:bottomCellConfig];
+    
+    _topView.nameLabel.text = [NSString stringWithFormat:@"账户信息：%@",ValidStr(self.model.mechanism_name)? self.model.mechanism_name : @""];
+    _topView.numLabel.text = [NSString stringWithFormat:@"￥%@",ValidStr(self.model.total_amount) ? SafeStr(self.model.total_amount):@"0"];
 }
 
 - (void)setNavigation {
@@ -101,8 +109,22 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZSingleLineCell"]) {
         ZOrganizationSchoolAccountVC *avc = [[ZOrganizationSchoolAccountVC alloc] init];
+        ZBaseSingleCellModel *cellModel = cellConfig.dataModel;
+        ZStoresAccountListModel *listModel = cellModel.data;
+        avc.stores_id = listModel.stores_id;
         [self.navigationController pushViewController:avc animated:YES];
     }
 }
 
+
+- (void)getAccountBill {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationViewModel getMerchantsAccount:@{@"merchants_id":SafeStr([ZUserHelper sharedHelper].user.userID)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data && [data isKindOfClass:[ZStoresAccountModel class]]) {
+            weakSelf.model = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
+}
 @end

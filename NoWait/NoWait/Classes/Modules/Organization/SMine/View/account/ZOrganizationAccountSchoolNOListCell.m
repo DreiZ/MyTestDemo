@@ -91,7 +91,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"课程收入";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -104,7 +104,7 @@
     if (!_orderNOLabel) {
         _orderNOLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orderNOLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark    ]);
-        _orderNOLabel.text = @"订单编号：030923905209";
+        
         _orderNOLabel.numberOfLines = 1;
         _orderNOLabel.textAlignment = NSTextAlignmentLeft;
         [_orderNOLabel setFont:[UIFont fontContent]];
@@ -117,7 +117,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"2020-01-02 15:25";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontSmall]];
@@ -130,7 +130,7 @@
     if (!_daoLabel) {
         _daoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _daoLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
-        _daoLabel.text = @"￥23";
+        
         _daoLabel.numberOfLines = 1;
         _daoLabel.textAlignment = NSTextAlignmentRight;
         [_daoLabel setFont:[UIFont boldFontContent]];
@@ -138,6 +138,19 @@
     return _daoLabel;
 }
 
+- (void)setModel:(ZStoresAccountBillListModel *)model {
+    _model = model;
+    _daoLabel.text = [NSString stringWithFormat:@"￥%@",model.show_amount];
+    _timeLabel.text = [model.end_time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    _orderNOLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.order_no];
+    _nameLabel.text = SafeStr(model.title);
+    
+    if ([model.show_amount doubleValue] > 0.0001) {
+        _daoLabel.textColor = [UIColor colorYellow];
+    }else{
+        _daoLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }
+}
 
 
 +(CGFloat)z_getCellHeight:(id)sender {

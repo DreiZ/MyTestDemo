@@ -97,6 +97,11 @@
     return HexAColor(0xF49015, 0.3);
 }
 
++ (UIColor *)colorYellow {
+    return HexAColor(0xffa13e, 1);
+}
+
+
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar {
     return HexAColor(0x141414, 1.0);

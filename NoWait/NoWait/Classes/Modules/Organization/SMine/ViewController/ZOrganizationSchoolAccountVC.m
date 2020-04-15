@@ -44,7 +44,9 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray *topArr = @[@[@"已打款金额￥",SafeStr(self.model.received_amount),@NO,@"hadPay"],@[@"应打款金额￥",SafeStr(self.model.should_receive_amount),@NO,@"shouldPay"],@[@"剩余金额￥",SafeStr(self.model.wait_receive_amount),@YES,@"left"]];
+    NSArray *topArr = @[@[@"已打款金额￥",ValidStr(self.model.received_amount)?SafeStr(self.model.received_amount):@"0",@NO,@"hadPay"],
+  @[@"应打款金额￥",ValidStr(self.model.should_receive_amount)?SafeStr(self.model.should_receive_amount):@"0",@NO,@"shouldPay"],
+                        @[@"剩余金额￥",ValidStr(self.model.wait_receive_amount)?SafeStr(self.model.wait_receive_amount):@"0",@YES,@"left"]];
     for (NSArray *arr in topArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = arr[0];
@@ -58,11 +60,11 @@
     
     {
         NSArray *tempArr = @[@"账户信息",
-                            @"有限公司",
+                            SafeStr(self.model.mechanism_name),
                             @"结算方式",
-                            @"月结",
+                            SafeStr(self.model.settlement_method),
                             @"须知",
-                            @"坎坎坷坷扩所扩所扩扩所扩所扩"];
+                            SafeStr(self.model.notice)];
         NSInteger index = 1;
         NSMutableArray *configArr = @[].mutableCopy;
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
@@ -134,6 +136,8 @@
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else if (index == 3){
                 ZOrganizationSchoolAccountListVC *lvc = [[ZOrganizationSchoolAccountListVC alloc] init];
+                lvc.type = @"0";
+                lvc.stores_id = weakSelf.stores_id;
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
@@ -151,17 +155,19 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"hadPay"]){
         ZOrganizationSchoolAccountDetailVC *dvc = [[ZOrganizationSchoolAccountDetailVC alloc] init];
+        dvc.stores_id = self.stores_id;
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"shouldPay"]){
         ZOrganizationSchoolAccountListVC *lvc = [[ZOrganizationSchoolAccountListVC alloc] init];
-        lvc.type = 2;
+        lvc.type = @"1";
+        lvc.stores_id = self.stores_id;
         [self.navigationController pushViewController:lvc animated:YES];
     }
 }
 
 - (void)getAccountBill {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationViewModel getMerchantsAccount:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"merchants_id":SafeStr([ZUserHelper sharedHelper].user.userID)} completeBlock:^(BOOL isSuccess, id data) {
+    [ZOriganizationViewModel getMerchantsAccount:@{@"stores_id":SafeStr(self.stores_id),@"merchants_id":SafeStr([ZUserHelper sharedHelper].user.userID)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && data && [data isKindOfClass:[ZStoresAccountModel class]]) {
             weakSelf.model = data;
             [weakSelf initCellConfigArr];

@@ -12,6 +12,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import "ZLocationManager.h"
 
 @interface ZStudentOrganizationMapAddressVC ()<MAMapViewDelegate,AMapSearchDelegate>
 @property (nonatomic,strong) UIView *bottomView;
@@ -285,7 +286,13 @@
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
            // 高德地图
            // 起点为“我的位置”，终点为后台返回的address
-           NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=BGVIS1&sname=%@&did=BGVIS2&dname=%@&dev=0&t=0",@"我的位置",address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urlString = @"";
+        if (self.cureUserLocation) {
+            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }else{
+            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=&slat=%f&slon=%f&sname=%@&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",latitude,longitude,@"我的位置",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+    
            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
         // 百度地图

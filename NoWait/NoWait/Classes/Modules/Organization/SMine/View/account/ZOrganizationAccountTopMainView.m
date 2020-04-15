@@ -9,9 +9,7 @@
 #import "ZOrganizationAccountTopMainView.h"
 
 @interface ZOrganizationAccountTopMainView ()
-@property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *numLabel;
-@property (nonatomic,strong) UILabel *detailLabel;
+
 @property (nonatomic,strong) UIView *contView;
 @end
 
