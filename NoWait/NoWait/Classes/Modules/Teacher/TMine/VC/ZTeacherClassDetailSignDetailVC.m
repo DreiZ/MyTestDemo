@@ -91,7 +91,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:self.model.courses_name];
+    [self.navigationItem setTitle:self.model.stores_courses_name];
 }
 
 - (void)setupMainView {

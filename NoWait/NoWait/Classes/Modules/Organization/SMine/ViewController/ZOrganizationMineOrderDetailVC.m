@@ -250,6 +250,21 @@
             || self.detailModel.order_type == ZStudentOrderTypeOrderRefuse
             || self.detailModel.isRefund) {
             
+            if (self.detailModel.order_type == ZStudentOrderTypeHadPay && [self.detailModel.can_comment intValue] != 1) {
+                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    self.handleView.hidden = YES;
+                    
+                    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.equalTo(self.view);
+                        make.bottom.equalTo(self.view.mas_bottom);
+                        make.top.equalTo(self.view.mas_top).offset(0);
+                    }];
+                } completion:^(BOOL finished) {
+                    
+                }];
+                [self loadViewIfNeeded];
+                return;
+            }
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.handleView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.bottom.right.equalTo(self.view);
@@ -265,7 +280,7 @@
             } completion:^(BOOL finished) {
                 
             }];
-            
+            [self loadViewIfNeeded];
             return;
         }
     }else{
@@ -289,7 +304,7 @@
             } completion:^(BOOL finished) {
                 
             }];
-            
+            [self loadViewIfNeeded];
             return;
         }
     }

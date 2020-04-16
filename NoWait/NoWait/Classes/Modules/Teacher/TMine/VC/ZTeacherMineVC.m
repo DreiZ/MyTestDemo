@@ -35,6 +35,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.isHidenNaviBar = YES;
     [self getStoresStatistical];
     [self refreshCurriculumList];

@@ -115,27 +115,34 @@
         case ZStudentOrderTypeHadPay:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.evaBtn.hidden = NO;
-            
-            [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(116));
-            }];
+            if ([model.can_comment intValue] == 1) {
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.bottom.right.equalTo(self.contView);
+                    make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.top.equalTo(self.topView.mas_bottom);
+                    make.bottom.equalTo(self.bottomView.mas_top);
+                }];
+                
+                self.bottomView.hidden = NO;
+                self.evaBtn.hidden = NO;
+                
+                [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+            }else{
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                 make.left.right.equalTo(self.contView);
+                 make.top.equalTo(self.topView.mas_bottom);
+                 make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+                }];
+            }
         }
             break;
         case ZStudentOrderTypeOrderOutTime:
@@ -372,6 +379,9 @@
             || listModel.order_type == ZOrganizationOrderTypeCancel
             || listModel.order_type == ZOrganizationOrderTypeOrderOutTime
             || listModel.order_type == ZOrganizationOrderTypeOrderForReceived){
+            if (listModel.order_type == ZStudentOrderTypeHadPay && [listModel.can_comment intValue] != 1) {
+                return CGFloatIn750(318);
+            }
             return CGFloatIn750(414);
         } else{
             return CGFloatIn750(318);

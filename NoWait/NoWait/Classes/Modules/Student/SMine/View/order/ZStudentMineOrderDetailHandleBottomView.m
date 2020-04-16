@@ -605,14 +605,16 @@
             break;
         case ZStudentOrderTypeHadPay:
         {
-            self.evaBtn.hidden = NO;
-            
-            [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(116));
-            }];
+            if ([self.model.can_comment intValue] == 1) {
+                self.evaBtn.hidden = NO;
+                
+                [self.evaBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+            }
         }
             break;
         case ZStudentOrderTypeOutTime:
