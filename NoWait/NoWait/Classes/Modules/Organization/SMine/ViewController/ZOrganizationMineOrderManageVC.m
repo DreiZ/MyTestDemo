@@ -111,6 +111,7 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationMineOrderSearchVC *svc = [[ZOrganizationMineOrderSearchVC alloc] init];
             svc.title = @"搜索订单";
+            svc.type = @"1";
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

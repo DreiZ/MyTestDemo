@@ -220,7 +220,9 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        _userImageView.contentMode = UIViewContentModeCenter;
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _userImageView.layer.cornerRadius = CGFloatIn750(44);
+        ViewRadius(_userImageView, CGFloatIn750(44));
     }
     return _userImageView;
 }
@@ -262,6 +264,10 @@
             break;
         case 4:
             _typeLabel.text = @"已结课";
+            if ([model.end_class_type intValue] == 1) {
+                _typeLabel.text = @"已结课(已退款)";
+            }
+            
             break;
         case 5:
             _typeLabel.text = @"待补课";

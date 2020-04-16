@@ -30,7 +30,7 @@
         self.clubImageView.hidden = YES;
         self.userImgeView.hidden = NO;
         [self.userImgeView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.account_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-        self.clubLabel.text = model.students_name;
+        self.clubLabel.text = ValidStr(model.nick_name)? model.nick_name: model.students_name;
         [self.clubLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.userImgeView.mas_right).offset(CGFloatIn750(20));
             make.centerY.equalTo(self.topView.mas_centerY);

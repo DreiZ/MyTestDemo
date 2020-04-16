@@ -289,11 +289,11 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
-    _lessonNameLabel.text = model.name;
-    _classNameLabel.text = model.stores_courses_name;
+    _lessonNameLabel.text = SafeStr(model.name);
+    _classNameLabel.text = SafeStr(model.stores_courses_short_name);
     
-    _userLabel.text = model.teacher_name;
-    _nameLabel.text = model.stores_name;
+    _userLabel.text = SafeStr(model.teacher_name);
+    _nameLabel.text = SafeStr(model.stores_name);
     
     _numLabel.hidden = NO;
     _stateLabel.hidden = YES;

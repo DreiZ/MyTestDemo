@@ -57,34 +57,74 @@
                          @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
                          @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
     
-    if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4) {
-        NSArray *temp = @[@[@"课程进度", [NSString stringWithFormat:@"%@/%@节",SafeStr(self.addModel.now_progress),SafeStr(self.addModel.total_progress)]],
-        @[@"优惠明细", SafeStr(self.addModel.coupons_name)],
-        @[@"学员状态", [SafeStr(self.addModel.status) intValue] == 1 ? @"未开课":@"已开课"],
-        @[@"开课日期", SafeStr(self.addModel.update_at)],
-        @[@"班级名称", SafeStr(self.addModel.coupons_name)],
-        @[@"签到详情", @"查看"],
-                          @[@"报名须知", SafeStr(self.addModel.remark)]];
+    if (ValidStr(self.addModel.courses_class_id)) {
+        NSString *statusStr = @"";
+        switch ([self.addModel.status intValue]) {
+            case 1:
+                statusStr = @"待排课";
+                break;
+            case 2:
+                statusStr = @"待开课";
+                break;
+            case 3:
+                statusStr = @"已开课";
+                break;
+            case 4:
+                statusStr = @"已结课";
+                if ([self.addModel.end_class_type intValue] == 1) {
+                    statusStr = @"已结课(已退款)";
+                }
+                
+                break;
+            case 5:
+                statusStr = @"待补课";
+                break;
+            case 6:
+                statusStr = @"已过期";
+                break;
+                
+            default:
+                break;
+        }
+        NSMutableArray *temp = @[@[@"课程进度", [NSString stringWithFormat:@"%@/%@节",SafeStr(self.addModel.now_progress),SafeStr(self.addModel.total_progress)]],
+                          @[@"优惠明细", ValidStr(self.addModel.coupons_name) ?  SafeStr(self.addModel.coupons_name):@"未使用优惠券"],
+        @[@"学员状态", statusStr],
+        @[@"开课日期", [SafeStr(self.addModel.start_time) timeStringWithFormatter:@"yyyy-MM-dd"]],
+        @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
+        
+        @[@"报名须知", @""]].mutableCopy;
+        
+        if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
+            [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
+        }
         [textArr addObjectsFromArray:temp];
     }
     for (int i = 0; i < textArr.count; i++) {
+        
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.leftTitle = textArr[i][0];
         cellModel.isTextEnabled = NO;
         cellModel.isHiddenLine = YES;
-        cellModel.cellHeight = CGFloatIn750(108);
+        if ([textArr[i][0] isEqualToString:@"报名须知"]) {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+            cellModel.cellHeight = CGFloatIn750(48);
+        }else{
+            cellModel.cellHeight = CGFloatIn750(108);
+        }
+        
+        if ([textArr[i][0] isEqualToString:@"签到详情"]) {
+            cellModel.cellTitle = @"sign";
+            cellModel.rightImage = @"rightBlackArrowN";
+        }
+        
         cellModel.content = textArr[i][1];
         cellModel.textColor = [UIColor colorTextGray];
         cellModel.textDarkColor = [UIColor colorTextGrayDark];
         cellModel.leftContentWidth = CGFloatIn750(324);
-        if (i == 17 || i == 18) {
-            cellModel.rightImage = @"rightBlackArrowN";
-            if (i == 17) {
-                cellModel.cellTitle = @"sign";
-            }
-        }
+        
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
+        
         if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4) {
             if(i == 11){
                 [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
@@ -100,6 +140,24 @@
                 
               [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             }
+        }
+        
+        if ([textArr[i][0] isEqualToString:@"报名须知"]) {
+            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+            model.rightTitle = self.addModel.p_information;
+            model.isHiddenLine = YES;
+            model.cellWidth = KScreenWidth ;
+            model.singleCellHeight = CGFloatIn750(86);
+            model.cellHeight = CGFloatIn750(88);
+            model.lineSpace = CGFloatIn750(10);
+            model.rightFont = [UIFont fontContent];
+            model.rightColor = [UIColor colorTextGray];
+            model.rightDarkColor =  [UIColor colorTextGrayDark];
+            
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr  addObject:menuCellConfig];
         }
     }
     

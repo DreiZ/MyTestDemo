@@ -53,6 +53,7 @@
 @property (nonatomic,strong) NSString *course_id;
 @property (nonatomic,strong) NSString *can_sign;
 @property (nonatomic,strong) NSString *can_operation;
+@property (nonatomic,strong) NSString *stores_courses_short_name;
 
 
 @property (nonatomic,strong) NSString *stores_courses_name;
@@ -174,6 +175,8 @@
 @property (nonatomic,strong) NSString *coach_img;
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *account_id;
+@property (nonatomic,strong) NSString *end_class_type;
+//结课方式 0:正常结课 1：退款结课 2：非正常结课
 
 @property (nonatomic,strong) NSString *nums;
 
@@ -216,7 +219,7 @@
 @property (nonatomic,strong) NSString *now_progress;
 @property (nonatomic,strong) NSString *stores_coach_id;
 @property (nonatomic,strong) NSString *coach_img;
-
+@property (nonatomic,strong) NSString *start_time;
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *coupons_id;
 @property (nonatomic,strong) NSString *coupons_name;
@@ -228,7 +231,10 @@
 @property (nonatomic,strong) NSString *specialty_desc;
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *courses_class_name;
 @property (nonatomic,strong) NSString *courses_class_id;
+@property (nonatomic,strong) NSString *end_class_type;
+////结课方式 0:正常结课 1：退款结课 2：非正常结课
 
 @end
 

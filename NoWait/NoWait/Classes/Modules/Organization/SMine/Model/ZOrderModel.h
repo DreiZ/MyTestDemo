@@ -25,8 +25,7 @@
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *can_comment;//是否可评价  1：是  0：否
-
-
+@property (nonatomic,strong) NSString *nick_name;
 
 @property (nonatomic,strong) NSString *experience_duration;
 
@@ -161,6 +160,7 @@
 @property (nonatomic,strong) NSString *type_id;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSString *student_name;
+@property (nonatomic,strong) NSString *nick_name;
 @property (nonatomic,strong) NSString *student_image;
 @property (nonatomic,strong) NSString *pay_amount;
 @property (nonatomic,strong) NSString *order_amount;
