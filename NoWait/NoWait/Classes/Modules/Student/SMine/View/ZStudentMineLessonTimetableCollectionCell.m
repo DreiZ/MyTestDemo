@@ -29,7 +29,7 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(CGFloatIn750(18));
-        make.top.equalTo(self.backView.mas_top).offset(CGFloatIn750(8));
+        make.top.equalTo(self.backView.mas_top).offset(CGFloatIn750(10));
         make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(8));
     }];
     
@@ -59,7 +59,7 @@
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont fontMin]];
+        [_titleLabel setFont:[UIFont boldFontMin]];
         [_titleLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _titleLabel;

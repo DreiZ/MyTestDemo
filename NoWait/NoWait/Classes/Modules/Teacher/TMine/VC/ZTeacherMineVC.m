@@ -179,12 +179,12 @@
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
     
-    for (int i = 0; i < 10; i++) {
-        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
-        limo.time = @"11:21~12:12";
-        limo.course_name = @"感受感受";
-        [_lessonList addObject:limo];
-    }
+//    for (int i = 0; i < 10; i++) {
+//        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
+//        limo.time = @"11:21~12:12";
+//        limo.course_name = @"感受感受";
+//        [_lessonList addObject:limo];
+//    }
     if (_lessonList.count > 0) {
         ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
         [self.cellConfigArr addObject:timeCellConfig];
@@ -219,10 +219,8 @@
 
 
 - (void)refreshCurriculumList {
-    NSMutableDictionary *param = @{@"is_today":@"0"}.mutableCopy;
-    
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel getCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
+    [ZOriganizationLessonViewModel getCurriculumList:@{} completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.lessonList removeAllObjects];
