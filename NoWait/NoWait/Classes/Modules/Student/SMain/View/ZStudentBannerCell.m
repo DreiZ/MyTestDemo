@@ -41,8 +41,8 @@
     if (!_iCycleScrollView) {
         _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(30), CGFloatIn750(0), KScreenWidth-CGFloatIn750(60), CGFloatIn750(248)) delegate:self placeholderImage:nil];
         _iCycleScrollView.autoScrollTimeInterval = 5;
-        _iCycleScrollView.currentPageDotImage =  [UIImage imageNamed:@"pageControlCurrentDot"];
-        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+//        _iCycleScrollView.currentPageDotImage =  [UIImage imageNamed:@"pageControlCurrentDot"];
+//        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
         _iCycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
         _iCycleScrollView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);

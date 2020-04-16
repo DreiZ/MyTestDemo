@@ -150,6 +150,9 @@
             user.avatar = userModel.image? userModel.image:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             [[ZUserHelper sharedHelper] setUser:user];
+            completeBlock(YES);
+        }else{
+            completeBlock(NO);
         }
     }];
 }

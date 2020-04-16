@@ -144,7 +144,7 @@
     _model = model;
     _titleLabel.text = model.name;
     _payPeopleNumLabel.text = [NSString stringWithFormat:@"%@人已付款",model.pay_nums];
-    _addressLabel.text = [NSString stringWithFormat:@"%@km",model.distance];
+    _addressLabel.text = [NSString stringWithFormat:@"%@",model.distance];
     [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_loadFail276"]];
     
     [self setActivityData];

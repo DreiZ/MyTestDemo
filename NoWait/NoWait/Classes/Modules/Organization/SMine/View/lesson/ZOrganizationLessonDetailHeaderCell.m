@@ -40,12 +40,12 @@
 #pragma mark - lazy loading
 - (SDCycleScrollView *)iCycleScrollView {
     if (!_iCycleScrollView) {
-        UIImage *dot = [[UIImage imageNamed:@"pageControlCurrentDot"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        UIImage *dot = [[UIImage imageNamed:@"pageControlCurrentDot"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(0), CGFloatIn750(0), KScreenWidth-CGFloatIn750(0), CGFloatIn750(500)) delegate:self placeholderImage:[UIImage imageNamed:@"lessonDetail"]];
-        _iCycleScrollView.autoScrollTimeInterval = 5;
-        _iCycleScrollView.currentPageDotImage = dot;
-        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+        _iCycleScrollView.autoScrollTimeInterval = 8;
+//        _iCycleScrollView.currentPageDotImage = dot;
+//        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
         _iCycleScrollView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iCycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;

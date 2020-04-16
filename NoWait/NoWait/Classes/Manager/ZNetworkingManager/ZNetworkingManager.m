@@ -79,15 +79,16 @@
                             [ZNetworkingManager postWithUrl:path params:params completionHandler:completionHandler];
                         }else {
                             [TLUIUtility showErrorHint:backModel.message];
-                            [[ZUserHelper sharedHelper] checkLogin:^{
-                                
-                            }];
+                            [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+//                            [[ZUserHelper sharedHelper] checkLogin:^{
+//
+//                            }];
                         }
                     }];
                 }else if ([backModel.code integerValue] == 100005 ){
                     [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                     [[ZLaunchManager sharedInstance] showLoginVC];
-                } else{
+                }else{
                     
                     NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
     

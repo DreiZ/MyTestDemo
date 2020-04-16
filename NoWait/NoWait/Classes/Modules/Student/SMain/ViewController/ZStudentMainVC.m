@@ -39,7 +39,7 @@
 @property (nonatomic,strong) NSMutableArray *AdverArr;
 @property (nonatomic,strong) NSMutableArray *placeholderArr;
 @property (nonatomic,strong) NSMutableDictionary *param;
-
+@property (nonatomic,assign) BOOL isLoacation;
 @end
 
 @implementation ZStudentMainVC
@@ -71,10 +71,12 @@
     __weak typeof(self) weakSelf = self;
     
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
-        NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
-        [weakSelf refreshData];
-//        [weakSelf initCellConfigArr];
-//        [weakSelf.iTableView reloadData];
+//
+        if (!weakSelf.isLoacation && userLocation) {
+             NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
+            [weakSelf refreshData];
+            weakSelf.isLoacation = YES;
+        }
     }];
     [[ZLocationManager shareManager] startLocation];
 }
