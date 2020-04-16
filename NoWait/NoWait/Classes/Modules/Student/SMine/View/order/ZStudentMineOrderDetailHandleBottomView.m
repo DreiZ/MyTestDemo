@@ -172,6 +172,7 @@
     }
     return _bottomView;
 }
+
 - (UIButton *)payBtn {
     if (!_payBtn) {
         __weak typeof(self) weakSelf = self;

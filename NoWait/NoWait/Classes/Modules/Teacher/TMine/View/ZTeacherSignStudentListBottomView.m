@@ -150,7 +150,7 @@
             make.left.equalTo(self.mas_left);
             make.width.mas_equalTo(KScreenWidth/3.0f);
         }];
-        ;
+        
         [self.qingBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self);
             make.left.equalTo(self.signBtn.mas_right);

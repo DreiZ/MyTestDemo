@@ -45,21 +45,21 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     self.model.index = [self.model.now_progress intValue];
-    for (int i = 0; i < 5; i++) {
-        ZOriganizationSignListModel *model = [[ZOriganizationSignListModel alloc] init];
-        model.type = [NSString stringWithFormat:@"%d",i+1];
-        NSMutableArray *tempArr = @[].mutableCopy;
-        for (int i = 0; i < 5; i++) {
-            ZOriganizationSignListStudentModel *model = [[ZOriganizationSignListStudentModel alloc] init];
-            model.name = [NSString stringWithFormat:@"我姐的记得记得%d",i];
-            model.image = @"http://wx2.sinaimg.cn/mw600/005H5u3yly1gdref7tvxdj32ip1oh4qu.jpg";
-            [tempArr addObject:model];
-        }
-        model.list = tempArr;
-        [_list addObject:model];
-    }
-    [_list addObjectsFromArray:self.detailModel.list];
-    self.detailModel.list = _list;
+//    for (int i = 0; i < 5; i++) {
+//        ZOriganizationSignListModel *model = [[ZOriganizationSignListModel alloc] init];
+//        model.type = [NSString stringWithFormat:@"%d",i+1];
+//        NSMutableArray *tempArr = @[].mutableCopy;
+//        for (int i = 0; i < 5; i++) {
+//            ZOriganizationSignListStudentModel *model = [[ZOriganizationSignListStudentModel alloc] init];
+//            model.name = [NSString stringWithFormat:@"我姐的记得记得%d",i];
+//            model.image = @"http://wx2.sinaimg.cn/mw600/005H5u3yly1gdref7tvxdj32ip1oh4qu.jpg";
+//            [tempArr addObject:model];
+//        }
+//        model.list = tempArr;
+//        [_list addObject:model];
+//    }
+//    [_list addObjectsFromArray:self.detailModel.list];
+//    self.detailModel.list = _list;
 //    /类型 1：签课 2：老师代签 3：补签 4：请假 5：旷课 6:待签课
     NSArray *tarr = @[@"签课",@"老师代签",@"补签",@"请假",@"旷课",@"待签课"];
     NSArray *iarr = @[@"signbu",@"signbu",@"signbu",@"signbu",@"signbu",@"signbu"];
@@ -259,8 +259,8 @@
         return;
     }
     
-    for (ZOriganizationStudentListModel *studentModel in studentlist) {
-        [ids addObject:@{@"student_id":studentModel.studentID,@"nums":SafeStr(studentModel.nums)}];
+    for (ZOriganizationSignListStudentModel *studentModel in studentlist) {
+        [ids addObject:@{@"student_id":studentModel.student_id,@"nums":SafeStr(studentModel.nums)}];
     }
     [param setObject:ids forKey:@"students"];
     [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {

@@ -146,8 +146,6 @@
             self.menuBlock(self.model.list[indexPath.row]);
         }
     }
-    
-    
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

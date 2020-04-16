@@ -509,6 +509,8 @@
 @property (nonatomic,strong) NSString *student_id;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *nums;
+
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,assign) BOOL isSelected;
 @end
