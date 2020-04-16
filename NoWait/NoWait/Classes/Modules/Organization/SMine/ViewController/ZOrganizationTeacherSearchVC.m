@@ -15,8 +15,10 @@
 
 @interface ZOrganizationTeacherSearchVC ()
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) UIView *bottomView;
 
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UIButton *allBtn;
 @property (nonatomic,assign) BOOL isEdit;
 @end
 
@@ -25,27 +27,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-       self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self.view addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(88));
         make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
     }];
-}
-- (void)cancleBtnOnClick {
-    if (_isEdit) {
-        self.isEdit = NO;
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    
+    self.isEdit = YES;
 }
 
 - (void)setIsEdit:(BOOL)isEdit {
     _isEdit = isEdit;
     if (isEdit) {
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(-safeAreaBottom()));
@@ -53,12 +48,11 @@
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-            make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
             make.top.equalTo(self.searchView.mas_bottom).offset(0);
         }];
     }else{
-        
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(safeAreaBottom()));
@@ -74,14 +68,32 @@
     [self selectDataEdit:isEdit];
 }
 
-
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _bottomView.layer.masksToBounds = YES;
+        [_bottomView addSubview:self.bottomBtn];
+        [_bottomView addSubview:self.allBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.bottomView);
+            make.right.equalTo(self.bottomView.mas_centerX).offset(-0.5);
+        }];
+        
+        [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(self.bottomView);
+            make.left.equalTo(self.bottomView.mas_centerX).offset(0.5);
+        }];
+    }
+    return _bottomView;
+}
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_whenTapped:^{
             NSArray *ids = [weakSelf getSelectedData];
@@ -95,6 +107,25 @@
     return _bottomBtn;
 }
 
+
+- (UIButton *)allBtn {
+    if (!_allBtn) {
+        __weak typeof(self) weakSelf = self;
+        _allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_allBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_allBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_allBtn.titleLabel setFont:[UIFont boldFontContent]];
+        [_allBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_allBtn bk_whenTapped:^{
+            [weakSelf selectAllData];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }];
+    }
+    return _allBtn;
+}
+
+#pragma mark - fun
 - (NSMutableArray *)getSelectedData {
     NSMutableArray *temp = @[].mutableCopy;
     for (int i = 0; i < self.dataSources.count; i++) {
@@ -105,6 +136,26 @@
     }
     return temp;
 }
+
+- (void)selectAllData {
+    if (!_isEdit) {
+        return;
+    }
+    if ([self getSelectedData].count == self.dataSources.count) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationTeacherListModel *model = self.dataSources[i];
+            model.isSelected = NO;
+        }
+        [self.allBtn setTitle:@"全选" forState:UIControlStateNormal];
+    }else{
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationTeacherListModel *model = self.dataSources[i];
+            model.isSelected = YES;
+        }
+        [self.allBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }
+}
+
 
 - (void)deleteTeacher:(NSArray <ZOriganizationTeacherListModel *>*)studentArr {
     __weak typeof(self) weakSelf = self;
@@ -131,27 +182,57 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
     for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        ZOriganizationTeacherListModel *model = self.dataSources[i];
+        model.isEdit = YES;
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
-    }
-
-    if (self.cellConfigArr.count > 0) {
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }else{
-        self.isEdit = NO;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
 }
 
-- (void)valueChange:(NSString *)text {
-    [super valueChange:text];
+-(void)searchClick:(NSString *)text {
+    [super searchClick:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {
         [self refreshData];
     }
 }
+
+#pragma mark - tableview
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    [self.iTableView endEditing:YES];
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
+        ZOriganizationTeachListCell *enteryCell = (ZOriganizationTeachListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index) {
+            [weakSelf.searchView.iTextField resignFirstResponder];
+            if (weakSelf.isEdit) {
+                if (index == 0) {
+                    [weakSelf selectData:indexPath.row];
+                }else if (index == 1){
+                    
+                }
+            }else{
+                if (index == 0) {
+                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
+                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                    dvc.addModel.account_id = listmodel.account_id;
+                    dvc.addModel.c_level = listmodel.c_level;
+                    dvc.addModel.teacherID = listmodel.teacherID;
+                    dvc.addModel.image = listmodel.image;
+                    dvc.addModel.nick_name = listmodel.nick_name;
+                    dvc.addModel.phone = listmodel.phone;
+                    dvc.addModel.position = listmodel.position;
+                    dvc.addModel.real_name = listmodel.teacher_name;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }else if (index == 1){
+                    weakSelf.isEdit = YES;
+                }
+            }
+        };
+    }
+}
+
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -226,41 +307,6 @@
     return param;
 }
 
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    [self.iTableView endEditing:YES];
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
-        ZOriganizationTeachListCell *enteryCell = (ZOriganizationTeachListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
-            [weakSelf.searchView.iTextField resignFirstResponder];
-            if (weakSelf.isEdit) {
-                if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
-                }else if (index == 1){
-                    
-                }
-            }else{
-                if (index == 0) {
-                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.addModel.account_id = listmodel.account_id;
-                    dvc.addModel.c_level = listmodel.c_level;
-                    dvc.addModel.teacherID = listmodel.teacherID;
-                    dvc.addModel.image = listmodel.image;
-                    dvc.addModel.nick_name = listmodel.nick_name;
-                    dvc.addModel.phone = listmodel.phone;
-                    dvc.addModel.position = listmodel.position;
-                    dvc.addModel.real_name = listmodel.teacher_name;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
-                }else if (index == 1){
-                    weakSelf.isEdit = YES;
-                }
-            }
-        };
-        
-    }
-}
-
 
 - (void)selectDataEdit:(BOOL)isEdit {
     for (int i = 0; i < self.dataSources.count; i++) {
@@ -279,6 +325,7 @@
             model.isSelected = !model.isSelected;
         }
     }
+    [self.allBtn setTitle:[NSString stringWithFormat:@"全选(%ld)",[self getSelectedData].count] forState:UIControlStateNormal];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }

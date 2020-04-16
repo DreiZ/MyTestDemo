@@ -136,7 +136,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc] init];
         _backBtn.clipsToBounds = YES;
-        [_backBtn setImage:[UIImage imageNamed:@"leftBlackArrow"] forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         _backBtn.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
         [_backBtn addTarget:self action:@selector(backOnclick:) forControlEvents:UIControlEventTouchUpInside];
     }

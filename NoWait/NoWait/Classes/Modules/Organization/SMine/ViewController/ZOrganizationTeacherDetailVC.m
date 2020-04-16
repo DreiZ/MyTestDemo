@@ -56,6 +56,7 @@
             cellModel.leftTitle = textArr[i][0];
             cellModel.isTextEnabled = NO;
             cellModel.isHiddenLine = YES;
+            cellModel.cellWidth = KScreenWidth;
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
@@ -170,7 +171,7 @@
          _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
+         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
          [_navRightBtn bk_whenTapped:^{
             ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
             avc.viewModel.addModel = weakSelf.addModel;

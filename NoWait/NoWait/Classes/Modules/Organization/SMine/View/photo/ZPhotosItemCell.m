@@ -81,7 +81,7 @@
     if (!_deleteBtn) {
         _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _deleteBtn.backgroundColor = [UIColor blackColor];
-        [_deleteBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
+        [_deleteBtn setImage:[UIImage imageNamed:@"LoginClose"] forState:UIControlStateNormal];
         [_deleteBtn.titleLabel setFont:[UIFont fontMin]];
         ViewRadius(_deleteBtn, CGFloatIn750(8));
     }

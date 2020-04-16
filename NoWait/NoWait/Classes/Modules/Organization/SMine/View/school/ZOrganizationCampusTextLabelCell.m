@@ -273,7 +273,7 @@
     _inputTextField.placeholder = model.placeholder;
     _inputTextField.text = model.content;
     _inputTextField.textAlignment = model.textAlignment;
-    _inputTextField.enabled = model.isTextEnabled;
+    _inputTextField.enabled = NO;
     
     _bottomLineView.hidden = model.isHiddenLine;
     _inputLine.hidden = model.isHiddenInputLine;
