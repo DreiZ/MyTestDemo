@@ -57,7 +57,7 @@
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(70));
     }];
     
     [self.addressHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +68,7 @@
     
     [self.contView addSubview:self.searhBackView];
     [self.searhBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.addressHintImageView.mas_right).offset(CGFloatIn750(18));
+        make.left.equalTo(self.addressHintImageView.mas_right).offset(CGFloatIn750(2));
         make.height.mas_equalTo(CGFloatIn750(64));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.addressHintImageView);
@@ -96,6 +96,8 @@
         make.right.top.bottom.equalTo(self.contView);
         make.left.equalTo(self.searhBackView.mas_left);
     }];
+    
+    self.addressHintImageView.hidden = YES;
 }
 
 - (UIView *)contView {

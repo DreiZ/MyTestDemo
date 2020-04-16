@@ -53,6 +53,7 @@
 		B2296A952409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A942409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m */; };
 		B2296A9824090F0100E299AC /* ZMineMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A9724090F0100E299AC /* ZMineMainVC.m */; };
 		B22B5A2424483F8D001894BB /* ZOrganizationMineOrderSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B22B5A2324483F8D001894BB /* ZOrganizationMineOrderSearchVC.m */; };
+		B22B5A2724487C70001894BB /* ZStudentTeacherDetailEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B22B5A2624487C70001894BB /* ZStudentTeacherDetailEvaListVC.m */; };
 		B230F1A924444D040084BCC6 /* ZTeacherSignTopTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1A824444D040084BCC6 /* ZTeacherSignTopTitleView.m */; };
 		B230F1AC244457560084BCC6 /* ZTeacherSignStudentListBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1AB244457560084BCC6 /* ZTeacherSignStudentListBottomView.m */; };
 		B230F1B02444881F0084BCC6 /* ZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1AF2444881F0084BCC6 /* ZLocationManager.m */; };
@@ -746,6 +747,8 @@
 		B2296A9724090F0100E299AC /* ZMineMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMineMainVC.m; sourceTree = "<group>"; };
 		B22B5A2224483F8D001894BB /* ZOrganizationMineOrderSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationMineOrderSearchVC.h; sourceTree = "<group>"; };
 		B22B5A2324483F8D001894BB /* ZOrganizationMineOrderSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationMineOrderSearchVC.m; sourceTree = "<group>"; };
+		B22B5A2524487C70001894BB /* ZStudentTeacherDetailEvaListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentTeacherDetailEvaListVC.h; sourceTree = "<group>"; };
+		B22B5A2624487C70001894BB /* ZStudentTeacherDetailEvaListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentTeacherDetailEvaListVC.m; sourceTree = "<group>"; };
 		B230F1A724444D040084BCC6 /* ZTeacherSignTopTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherSignTopTitleView.h; sourceTree = "<group>"; };
 		B230F1A824444D040084BCC6 /* ZTeacherSignTopTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherSignTopTitleView.m; sourceTree = "<group>"; };
 		B230F1AA244457560084BCC6 /* ZTeacherSignStudentListBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherSignStudentListBottomView.h; sourceTree = "<group>"; };
@@ -3495,6 +3498,8 @@
 				B2BA397824334940005A3FFB /* ZOrigantionMoveInVC.m */,
 				B297957A2425A33C004490F5 /* ZStudentTeacherDetailVC.h */,
 				B297957B2425A33C004490F5 /* ZStudentTeacherDetailVC.m */,
+				B22B5A2524487C70001894BB /* ZStudentTeacherDetailEvaListVC.h */,
+				B22B5A2624487C70001894BB /* ZStudentTeacherDetailEvaListVC.m */,
 				B297958C2425C50C004490F5 /* ZStudentStudentDetailVC.h */,
 				B297958D2425C50C004490F5 /* ZStudentStudentDetailVC.m */,
 				B2A7816F23C48E1E00407BF0 /* ZStudentOrganizationDetailVC.h */,
@@ -4874,6 +4879,7 @@
 				B28EA68E240FA88E00C8E225 /* ZOriganizationTeachingScheduleViewModel.m in Sources */,
 				B2A77EC723BDE29E00407BF0 /* MWTapDetectingView.m in Sources */,
 				B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */,
+				B22B5A2724487C70001894BB /* ZStudentTeacherDetailEvaListVC.m in Sources */,
 				B2A77F5C23BDE42E00407BF0 /* TZImageManager.m in Sources */,
 				B2A7819623C5B4DB00407BF0 /* ZStudentOrganizationDetailImageCell.m in Sources */,
 				B28EA663240E0A8200C8E225 /* ZMineModel.m in Sources */,

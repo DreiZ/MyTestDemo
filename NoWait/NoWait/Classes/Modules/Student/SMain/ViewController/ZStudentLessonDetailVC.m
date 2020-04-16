@@ -380,6 +380,7 @@
         model.image = imageFullUrl(listModel.image);
         model.name = listModel.teacher_name;
         model.skill = listModel.position;
+        model.account_id = listModel.teacher_id;
         [peoples addObject:model];
     }
     

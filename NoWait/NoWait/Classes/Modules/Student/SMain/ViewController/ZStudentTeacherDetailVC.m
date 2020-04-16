@@ -19,6 +19,9 @@
 #import "ZStudentMineModel.h"
 #import "ZOriganizationOrderViewModel.h"
 
+#import "ZStudentLessonDetailVC.h"
+#import "ZStudentTeacherDetailEvaListVC.h"
+
 @interface ZStudentTeacherDetailVC ()
 @property (nonatomic,strong) ZOriganizationTeacherAddModel *detailModel;
 
@@ -128,13 +131,24 @@
     }else if ([cellConfig.title isEqualToString:@"ZStudentDetailEvaAboutCell"]){
         ZStudentDetailEvaAboutCell *lcell = (ZStudentDetailEvaAboutCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *cellconfig) {
-            [weakSelf refreshMoreData];
+//            [weakSelf refreshMoreData];
+            ZStudentTeacherDetailEvaListVC *evc = [[ZStudentTeacherDetailEvaListVC alloc] init];
+            evc.stores_id = weakSelf.stores_id;
+            evc.teacher_id = weakSelf.teacher_id;
+            evc.teacher_name = weakSelf.detailModel.nick_name;
+            [weakSelf.navigationController pushViewController:evc animated:YES];
         };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
+    if([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]){
+        ZOriganizationLessonListModel *model = cellConfig.dataModel;
+        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+        model.lessonID = model.courses_id;
+        dvc.model = model;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
 }
 
 
