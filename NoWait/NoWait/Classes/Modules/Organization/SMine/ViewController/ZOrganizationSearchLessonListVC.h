@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationSearchVC.h"
+#import "ZSearchClickVC.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationSearchLessonListVC : ZOrganizationSearchVC
+@interface ZOrganizationSearchLessonListVC : ZSearchClickVC
 @property (nonatomic,strong) NSString *stores_id;
 
 @end

@@ -102,7 +102,7 @@
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_whenTapped:^{
             ZOrganizationTeachingScheduleNoVC *nvc = weakSelf.vcArr[weakSelf.selectIndex];
             if (nvc) {
@@ -125,7 +125,6 @@
             svc.stores_courses_id = weakSelf.stores_courses_id;
             svc.type = weakSelf.selectIndex;
             svc.lessonModel = weakSelf.lessonModel;
-            svc.searchType = ZSearchTypeLessonOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

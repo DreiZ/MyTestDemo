@@ -6,13 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationSearchVC.h"
+#import "ZSearchClickVC.h"
 
 #import "ZOriganizationLessonModel.h"
 #import "ZOriganizationModel.h"
 
 
-@interface ZOrganizationSearchTeachingScheduleVC : ZOrganizationSearchVC
+@interface ZOrganizationSearchTeachingScheduleVC : ZSearchClickVC
 @property (nonatomic,strong) NSString *stores_courses_id;
 @property (nonatomic,assign) NSInteger type;
 @property (nonatomic,strong) ZOriganizationLessonScheduleListModel *lessonModel;

@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-       self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
 }
 
 
@@ -41,7 +41,7 @@
     }
 }
 
-- (void)valueChange:(NSString *)text {
+- (void)searchClick:(NSString *)text{
     [super valueChange:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {

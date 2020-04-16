@@ -24,12 +24,12 @@
 @implementation ZOrganizationTeachingScheduleNoVC
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshData];
+    [self refreshAllData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigation];
+    
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
@@ -39,17 +39,6 @@
 - (void)setDataSource {
     [super setDataSource];
     _param = @{}.mutableCopy;
-//    for (int i = 0; i < 10; i++) {
-//        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
-//        model.lessonName = @"瑜伽课";
-//        model.lessonDes = @"很好学但是很痛苦哇啊啊";
-//        model.lessonNum = @"12";
-//        model.lessonHadNum = @"2";
-//        model.validity = @"2012.12.1";
-//        model.teacherName = @"史蒂夫老师";
-//        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
-//        [self.dataSources addObject:model];
-//    }
 }
 
 - (void)initCellConfigArr {
@@ -184,17 +173,6 @@
         };
         
     }
-//    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]) {
-//        ZOrganizationTeachingScheduleNoCell *ncell = (ZOrganizationTeachingScheduleNoCell *)cell;
-//        ncell.handleBlock = ^(NSInteger index) {
-////            ZOriganizationLessonOrderListModel *model = cellConfig.dataModel;
-////            model.isSelected = !model.isSelected;
-//            if (weakSelf.isEdit) {
-//                NSInteger count = [weakSelf selectLessonOrderArr].count;
-//                [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%ld）",(long)count,(long)weakSelf.dataSources.count] forState:UIControlStateNormal];
-//            }
-//        };
-//    }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if (!_isEdit) {

@@ -194,7 +194,7 @@
 }
 
 
-#pragma mark lazy loading...
+#pragma mark - lazy loading...
 - (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(140)+ safeAreaBottom())];
@@ -218,7 +218,7 @@
          _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
+         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
          [_navRightBtn bk_whenTapped:^{
              ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
              avc.viewModel.addModel = weakSelf.addModel;

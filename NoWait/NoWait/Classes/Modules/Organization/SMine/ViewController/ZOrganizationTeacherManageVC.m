@@ -31,7 +31,7 @@
 #pragma mark - vc delegate
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshData];
+    [self refreshAllData];
 }
 
 - (void)viewDidLoad {
