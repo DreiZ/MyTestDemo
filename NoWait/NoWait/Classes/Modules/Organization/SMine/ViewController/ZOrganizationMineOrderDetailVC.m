@@ -36,26 +36,26 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self refreshData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-   [self refreshData];
 }
 
 - (void)setDataSource {
     [super setDataSource];
     __weak typeof(self) weakSelf = self;
     [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
-            if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *backDict = notfication.object;
-                if (backDict && [backDict objectForKey:@"payState"]) {
-                    [weakSelf refreshData];
-                }
+        if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *backDict = notfication.object;
+            if (backDict && [backDict objectForKey:@"payState"]) {
+                [weakSelf refreshData];
             }
-        }];
+        }
+    }];
 }
 
 - (void)initCellConfigArr {

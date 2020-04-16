@@ -23,11 +23,13 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self refreshAllData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self refreshData];
+    
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

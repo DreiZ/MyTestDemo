@@ -17,6 +17,8 @@
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
 
+#import "ZOrganizationMineOrderDetailVC.h"
+
 @interface ZOrganizationMineEvaDetailVC ()
 @property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
 @property (nonatomic,strong) NSString *stores_reply_text;
@@ -199,7 +201,7 @@
     }];
 }
 
-#pragma mark lazy loading...
+#pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]){
@@ -249,6 +251,17 @@
     }
 }
 
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]) {
+        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+        ZOrderListModel *model = [[ZOrderListModel alloc] init];
+        model.isStudent = NO;
+        model.order_id = self.detailModel.order_id;
+        evc.model = model;
+        [self.navigationController pushViewController:evc animated:YES];
+
+    }
+}
 
 #pragma mark - refresha
 - (void)refreshData {
