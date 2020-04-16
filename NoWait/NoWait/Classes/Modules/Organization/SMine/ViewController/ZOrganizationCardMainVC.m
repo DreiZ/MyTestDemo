@@ -98,7 +98,7 @@
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontMin]];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_whenTapped:^{
@@ -117,7 +117,6 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationSearchCouponVC *svc = [[ZOrganizationSearchCouponVC alloc] init];
             svc.title = @"搜索卡券";
-            svc.searchType = ZSearchTypeOrganizationCart;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

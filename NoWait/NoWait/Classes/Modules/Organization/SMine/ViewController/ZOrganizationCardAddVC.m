@@ -141,7 +141,7 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_whenTapped:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];

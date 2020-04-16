@@ -1,24 +1,29 @@
 //
-//  ZOrganizationSearchCouponVC.m
+//  ZOrganizationMineOrderSearchVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/16.
+//  Created by zhuang zhang on 2020/4/16.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationSearchCouponVC.h"
-#import "ZOriganizationCartListCell.h"
+#import "ZOrganizationMineOrderSearchVC.h"
+#import "ZStudentMineOrderListCell.h"
 
-@interface ZOrganizationSearchCouponVC ()
+#import "ZOriganizationOrderViewModel.h"
+
+@interface ZOrganizationMineOrderSearchVC ()
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
 
-@implementation ZOrganizationSearchCouponVC
+@implementation ZOrganizationMineOrderSearchVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.searchView.iTextField.placeholder = @"请输入校区名称或者课程名称";
+    _param = @{}.mutableCopy;
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
 }
@@ -29,18 +34,13 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationCartListCell className] title:[ZOriganizationCartListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationCartListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
-
-    if (self.cellConfigArr.count > 0) {
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }else{
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+//        ZOrderListModel *model = self.dataSources[i];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:orderCellConfig];
     }
 }
 
-- (void)searchClick:(NSString *)text {
+- (void)searchClick:(NSString *)text{
     [super valueChange:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {
@@ -52,12 +52,13 @@
 - (void)refreshData {
     self.currentPage = 1;
     self.loading = YES;
-    [self refreshHeadData:[self setPostCommonData]];
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    [ZOriganizationOrderViewModel getOrderList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -82,10 +83,10 @@
 - (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
-    NSMutableDictionary *param = [self setPostCommonData];
+    [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+    [ZOriganizationOrderViewModel getOrderList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -108,18 +109,20 @@
 
 - (void)refreshAllData {
     self.loading = YES;
-    NSMutableDictionary *param = [self setPostCommonData];
-    [param setObject:@"1" forKey:@"page"];
-    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
-    [self refreshHeadData:param];
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
 }
 
-- (NSMutableDictionary *)setPostCommonData {
-    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
-       [param setObject:self.name forKey:@"title"];
-    return param;
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+    [self.param setObject:@"1" forKey:@"type"];
+    [self.param setObject:SafeStr(self.name) forKey:@"name"];
+    
 }
-
 @end
 

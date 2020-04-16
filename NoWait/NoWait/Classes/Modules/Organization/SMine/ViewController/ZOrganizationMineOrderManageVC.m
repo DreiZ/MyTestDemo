@@ -10,7 +10,7 @@
 #import "ZOrganizationMineOrderListVC.h"
 
 #import "ZOrganizationLessonTopSearchView.h"
-#import "ZOrganizationSearchVC.h"
+#import "ZOrganizationMineOrderSearchVC.h"
 
 @interface ZOrganizationMineOrderManageVC ()
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
@@ -109,9 +109,8 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索订单";
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchVC *svc = [[ZOrganizationSearchVC alloc] init];
+            ZOrganizationMineOrderSearchVC *svc = [[ZOrganizationMineOrderSearchVC alloc] init];
             svc.title = @"搜索订单";
-            svc.searchType = ZSearchTypeStudentOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

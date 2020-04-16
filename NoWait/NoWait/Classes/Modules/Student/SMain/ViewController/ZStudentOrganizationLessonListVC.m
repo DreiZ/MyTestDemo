@@ -96,7 +96,6 @@
             ZOrganizationSearchLessonListVC *svc = [[ZOrganizationSearchLessonListVC alloc] init];
             svc.navTitle = @"搜索课程名称";
             svc.stores_id = weakSelf.detailModel.schoolID;
-            svc.searchType = ZSearchTypeLesson;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }

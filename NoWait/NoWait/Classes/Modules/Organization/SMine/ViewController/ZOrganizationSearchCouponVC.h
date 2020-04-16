@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationSearchVC.h"
+#import "ZSearchClickVC.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationSearchCouponVC : ZOrganizationSearchVC
+@interface ZOrganizationSearchCouponVC : ZSearchClickVC
  
 @end
 

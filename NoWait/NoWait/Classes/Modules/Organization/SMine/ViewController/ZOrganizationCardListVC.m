@@ -19,15 +19,19 @@
 @implementation ZOrganizationCardListVC
 
 #pragma mark - vc delegate
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
-    [self refreshData];
 }
 
 - (void)setDataSource {
