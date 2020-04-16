@@ -81,7 +81,7 @@
     return _photoImageView;
 }
 - (void)setImage:(NSString *)image {
-    [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+    [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
 }
 
 - (void)setModel:(ZOriganizationPhotoListModel *)model {

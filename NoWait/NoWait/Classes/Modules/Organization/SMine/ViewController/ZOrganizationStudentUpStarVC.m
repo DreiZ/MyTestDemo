@@ -8,7 +8,7 @@
 
 #import "ZOrganizationStudentUpStarVC.h"
 #import "ZOriganizationTeachListCell.h"
-#import "ZOriganizationTeachAddHeadImageCell.h"
+#import "ZAddPhotosCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
@@ -27,6 +27,8 @@
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) NSMutableArray *images;
 @property (nonatomic,strong) NSString *des;
+@property (nonatomic,strong) UIView *bottomView;
+
 @end
 
 @implementation ZOrganizationStudentUpStarVC
@@ -34,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _images = @[@"",@"",@"",@"",@"",@"",@"",@"",@""].mutableCopy;
+    _images = @[].mutableCopy;
     [self setNavigation];
     [self initCellConfigArr];
 }
@@ -63,47 +65,42 @@
         
     }
     {
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"学员风采";
-            model.leftFont = [UIFont boldFontTitle];
-            model.isHiddenLine = YES;
-            model.cellHeight = CGFloatIn750(92);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"学员风采";
+        model.leftFont = [UIFont boldFontTitle];
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(92);
         
-        {
-            ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
-            
-            NSMutableArray *menulist = @[].mutableCopy;
-            for (int j = 0; j < 9; j++) {
-                ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-                if (j < _images.count) {
-                    if (![_images[j] isKindOfClass:[UIImage class]]) {
-                        model.data = imageFullUrl(_images[j]);
-                    }else{
-                        model.data = _images[j];
-                    }
-                    
-                    model.uid = [NSString stringWithFormat:@"%d", j];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+        
+    {
+        ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
+        NSMutableArray *menulist = @[].mutableCopy;
+        for (int j = 0; j < self.images.count; j++) {
+            ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+            if (j < _images.count) {
+                if (![_images[j] isKindOfClass:[UIImage class]]) {
+                    model.data = imageFullUrl(_images[j]);
+                }else{
+                    model.data = _images[j];
                 }
-                model.name = @"添加图片";
-                model.subName = @"选填";
-                model.isEdit = YES;
-            //            model.name = tempArr[j][0];
-            //            model.imageName = tempArr[j][1];
-            //            model.uid = tempArr[j][2];
-                [menulist addObject:model];
+                model.uid = [NSString stringWithFormat:@"%d", j];
             }
-
-            model.units = menulist;
             
-            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:progressCellConfig];
+            model.isEdit = YES;
+            [menulist addObject:model];
         }
-   
+        model.uid = @"9";
+        model.name = @"添加图片";
+        model.subName = @"选填";
+        model.units = menulist;
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZAddPhotosCell className] title:[ZAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:progressCellConfig];
+    }
 }
 
 - (void)setNavigation {
@@ -114,20 +111,26 @@
 - (void)setupMainView {
     [super setupMainView];
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(140))];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.tableFooterView = bottomView;
-    
-    [bottomView addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
-        make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(bottomView.mas_centerY);
-    }];
+    self.iTableView.tableFooterView = self.bottomView;
 }
 
 #pragma mark lazy loading...
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(160))];
+        _bottomView.layer.masksToBounds = YES;
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        [_bottomView addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(60));
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-60));
+            make.height.mas_equalTo(CGFloatIn750(80));
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+        }];
+    }
+    return _bottomView;
+}
+
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
@@ -152,29 +155,30 @@
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddPhotosCell"]) {
-           ZOrganizationLessonAddPhotosCell *tCell = (ZOrganizationLessonAddPhotosCell *)cell;
-           tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
-               [weakSelf.iTableView endEditing:YES];
-               if (isAdd) {
-                   [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 74/111.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
-                       if (list && list.count > 0) {
-                           if (index < weakSelf.images.count) {
-                               LLImagePickerModel *model = list[0];
-                               [weakSelf.images replaceObjectAtIndex:index withObject:model.image];
-                               [weakSelf initCellConfigArr];
-                               [weakSelf.iTableView reloadData];
-                           }
-                       }
-                   }];
-               }else{
-                   if (index < weakSelf.images.count) {
-                       [weakSelf.images replaceObjectAtIndex:index withObject:@""];
-                       [weakSelf initCellConfigArr];
-                       [weakSelf.iTableView reloadData];
-                   }
-               }
-           };
+    if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
+        ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
+            [weakSelf.iTableView endEditing:YES];
+            if (isAdd) {
+                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.images.count;
+                
+                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                    if (list && list.count > 0){;
+                        for (LLImagePickerModel *model in list) {
+                            [weakSelf.images addObject:model.image];
+                        }
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
+                    }
+                }];
+            }else{
+                if (index < weakSelf.images.count) {
+                    [weakSelf.images removeObjectAtIndex:index];
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                }
+            }
+        };
     }else if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]){
         ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
         lcell.max = 400;
@@ -269,10 +273,9 @@
             }
         }
         if (photos.count > 0) {
-            [otherDict setObject:photos forKey:@"images_list"];
+            [otherDict setObject:photos forKey:@"images"];
         }
     }
-    
     
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationStudentViewModel starStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {

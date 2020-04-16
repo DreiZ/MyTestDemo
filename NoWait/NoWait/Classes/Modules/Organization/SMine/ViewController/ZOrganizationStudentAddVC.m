@@ -61,7 +61,7 @@
                          @[@"MID", @"请输入MID", @YES, @"", @"MID",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@8,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"身份证号码", @"请输入身份号(选填)", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],

@@ -14,6 +14,7 @@
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationTimeSelectVC.h"
+#import "ZTeacherClassDetailSignDetailVC.h"
 
 @interface ZOrganizationClassManageDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -61,15 +62,19 @@
             break;
     }
     
-    NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
+    NSMutableArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
                          @[@"班级人数", @"", @"", @"num",[NSString stringWithFormat:@"%@人",SafeStr(self.model.nums)]],
                          @[@"班级状态", @"", @"", @"classStutas",status],
                          @[@"课程名称", @"", @"", @"lessonName",SafeStr(self.model.stores_courses_name)],
                          @[@"教师名称", @"", @"", @"techerName",SafeStr(self.model.teacher_name)],
-                         @[@"开课日期", @"请选择开课日期", @"rightBlackArrowN", @"openTime",[self.model.start_time isEqualToString:@"0"]? @"":SafeStr([self.model.start_time timeStringWithFormatter:@"yyyy-MM-dd"])],
+                                @[@"开课日期", @"请选择开课日期", !self.isOpen ?@"rightBlackArrowN":@"", @"openTime",[self.model.start_time isEqualToString:@"0"]? @"":SafeStr([self.model.start_time timeStringWithFormatter:@"yyyy-MM-dd"])],
                          @[@"学员列表", @"查看", @"rightBlackArrowN", @"studentList",@"查看"],
-                         @[@"上课时间", @"选择上课时间", @"rightBlackArrowN", @"beginTime",@""]];
+                        @[@"上课时间", @"选择上课时间", @"rightBlackArrowN", @"beginTime",@""]].mutableCopy;
+    
+    if ([self.model.status intValue] == 2 || [self.model.status intValue] == 3) {
+        [textArr insertObject:@[@"班级签到", @"查看", @"rightBlackArrowN", @"detail",@"查看"] atIndex:textArr.count-1];
+    }
     
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] isEqualToString:@"beginTime"]) {
@@ -138,7 +143,12 @@
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
             cellModel.placeholder = textArr[i][1];
-            cellModel.isTextEnabled = NO;
+            if (!self.isOpen && [textArr[i][3] isEqualToString:@"className"]) {
+                cellModel.isTextEnabled = YES;
+            }else{
+                cellModel.isTextEnabled = NO;
+            }
+            
             cellModel.rightImage = textArr[i][2];
             cellModel.cellTitle = textArr[i][3];
             cellModel.content = textArr[i][4];
@@ -289,6 +299,11 @@
             };
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
+    }else if([cellConfig.title isEqualToString:@"className"]){
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.model.name = text;
+        };
     }
 }
 
@@ -310,13 +325,17 @@
         lvc.type = 2;
         lvc.can_operation = NO;
         [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"detail"]){
+        ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
+        sdvc.model = self.model;
+        [self.navigationController pushViewController:sdvc animated:YES];
     }
 }
 
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationClassViewModel getClassDetail:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
+    [ZOriganizationClassViewModel getClassDetail:@{@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
         if (isSuccess) {
             weakSelf.model = addModel;
             [weakSelf initCellConfigArr];

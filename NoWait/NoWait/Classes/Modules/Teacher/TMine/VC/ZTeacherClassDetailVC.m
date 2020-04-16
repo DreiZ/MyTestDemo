@@ -304,7 +304,7 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationClassViewModel getClassDetail:@{@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID),@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
+    [ZOriganizationClassViewModel getClassDetail:@{@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
         if (isSuccess) {
             weakSelf.model = addModel;
             [weakSelf initCellConfigArr];

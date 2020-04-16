@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationSearchVC.h"
+#import "ZSearchClickVC.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationClassManageListSearchVC : ZOrganizationSearchVC
+@interface ZOrganizationClassManageListSearchVC : ZSearchClickVC
  
 @end
 

@@ -27,6 +27,8 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    
+    [self setTableViewGaryBack];
     [self setTableViewEmptyDataDelegate];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

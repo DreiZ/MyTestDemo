@@ -29,10 +29,6 @@
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
 }
 
-- (void)cancleBtnOnClick {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 - (void)deleteClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
@@ -81,7 +77,7 @@
     }
 }
 
-- (void)valueChange:(NSString *)text {
+- (void)searchClick:(NSString *)text {
     [super valueChange:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {

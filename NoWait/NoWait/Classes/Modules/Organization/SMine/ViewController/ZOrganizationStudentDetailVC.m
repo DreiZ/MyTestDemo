@@ -10,6 +10,7 @@
 #import "ZOriganizationTeachAddHeadImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
+#import "ZMultiseriateContentLeftLineCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
@@ -18,18 +19,24 @@
 @interface ZOrganizationStudentDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIButton *navRightBtn;
+@property (nonatomic,strong) UIView *bottomView;
+
 @end
 
 @implementation ZOrganizationStudentDetailVC
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNavigation];
     [self initCellConfigArr];
-    [self refreshData];
 }
-
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
@@ -78,29 +85,26 @@
         }
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
-        
-        if(i == 11){
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
-              
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.isHiddenLine = NO;
-            model.lineLeftMargin = CGFloatIn750(30);
-            model.lineRightMargin = CGFloatIn750(30);
-            model.cellHeight = CGFloatIn750(1);
-              
-          ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-          [self.cellConfigArr addObject:menuCellConfig];
-            
-   
-          ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-          [self.cellConfigArr addObject:bottomCellConfig];
+        if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4) {
+            if(i == 11){
+                [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+                  
+                ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+                model.isHiddenLine = NO;
+                model.lineLeftMargin = CGFloatIn750(30);
+                model.lineRightMargin = CGFloatIn750(30);
+                model.cellHeight = CGFloatIn750(1);
+                  
+              ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+              [self.cellConfigArr addObject:menuCellConfig];
+                
+              [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+            }
         }
     }
     
     {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-         [self.cellConfigArr addObject:topCellConfig];
+         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
            
          ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
          model.isHiddenLine = NO;
@@ -111,15 +115,12 @@
        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
        [self.cellConfigArr addObject:menuCellConfig];
          
-
-       ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-       [self.cellConfigArr addObject:bottomCellConfig];
+       [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
     }
     
     if ([self.addModel.is_star intValue] == 1) {
         {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员介绍";
@@ -136,14 +137,13 @@
             mModel.rightColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
             mModel.singleCellHeight = CGFloatIn750(50);
             mModel.rightTitle = self.addModel.specialty_desc;
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
             [self.cellConfigArr addObject:textCellConfig];
             
-            ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:bottomCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
         }
             
-        {
+        if (ValidArray(self.addModel.images_list)) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员相册";
             model.leftFont = [UIFont boldFontTitle];
@@ -155,13 +155,15 @@
             [self.cellConfigArr addObject:menuCellConfig];
         }
         
-        {
+        if (ValidArray(self.addModel.images_list)) {
             ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
             
             NSMutableArray *menulist = @[].mutableCopy;
-            for (int j = 0; j < 9; j++) {
+            
+            for (int j = 0; j < self.addModel.images_list.count; j++) {
                 ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
                 model.isEdit = NO;
+                model.data = self.addModel.images_list[j];
                 [menulist addObject:model];
             }
             
@@ -170,6 +172,11 @@
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:progressCellConfig];
         }
+    }
+    if ([self.addModel.is_star intValue] == 1) {
+        self.iTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
+    }else{
+        self.iTableView.tableFooterView = self.bottomView;
     }
 }
 
@@ -183,21 +190,28 @@
 - (void)setupMainView {
     [super setupMainView];
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(140))];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.tableFooterView = bottomView;
-    
-    [bottomView addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
-        make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(bottomView.mas_centerY);
-    }];
+    self.iTableView.tableFooterView = self.bottomView;
 }
 
 
 #pragma mark lazy loading...
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(140)+ safeAreaBottom())];
+        _bottomView.layer.masksToBounds = YES;
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        [_bottomView addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(60));
+            make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-60));
+            make.height.mas_equalTo(CGFloatIn750(80));
+            make.top.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(20));
+        }];
+    }
+    return _bottomView;
+}
+
+
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {
          __weak typeof(self) weakSelf = self;

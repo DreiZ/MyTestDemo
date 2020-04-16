@@ -95,7 +95,6 @@
         _searchBtn.handleBlock = ^{
             ZOrganizationClassManageListSearchVC *svc = [[ZOrganizationClassManageListSearchVC alloc] init];
             svc.title = @"搜索班级";
-            svc.searchType = ZSearchTypeStudentOrder;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
