@@ -34,11 +34,11 @@
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
-    self.contentView.backgroundColor = [UIColor colorWithRGB:0xffffff alpha:0.01];
+    self.contentView.backgroundColor = isDarkModel() ? [UIColor colorWithRGB:0x000000 alpha:0.01] : [UIColor colorWithRGB:0xffffff alpha:0.01];
     
 
     _titelBack = [[UIView alloc] initWithFrame:CGRectZero];
-    _titelBack.backgroundColor = [UIColor colorWithRGB:0xffffff alpha:0.7];
+    _titelBack.backgroundColor = isDarkModel() ? [UIColor colorWithRGB:0x000000 alpha:0.3]: [UIColor colorWithRGB:0xffffff alpha:0.7];
     [self.contentView addSubview:_titelBack];
     [_titelBack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -104,7 +104,8 @@
 - (UIImageView *)upBlackArrow {
     if (!_upBlackArrow) {
         _upBlackArrow = [[UIImageView alloc] init];
-        _upBlackArrow.image = [UIImage imageNamed:@"upBlackArrow"];
+        _upBlackArrow.image = [[UIImage imageNamed:@"upBlackArrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+           _upBlackArrow.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _upBlackArrow.transform = CGAffineTransformRotate(_upBlackArrow.transform, M_PI);
     }
     return _upBlackArrow;
