@@ -21,9 +21,9 @@
 @property (nonatomic,strong) UILabel *addressLabel;
 @property (nonatomic,strong) UILabel *distanceLabel;
 
+@property (nonatomic,assign) BOOL isLocation;
 @property (nonatomic,strong) MAMapView *iMapView;
 @property (nonatomic,strong) UIButton *checkSelfBtn;
-
 @property (nonatomic,strong) MAUserLocation *cureUserLocation;
 @end
 
@@ -95,13 +95,12 @@
 - (void)setLocation {
     // 开启定位
     self.iMapView.showsUserLocation = YES;
-    self.iMapView.userTrackingMode = MAUserTrackingModeFollow;
+    self.iMapView.userTrackingMode = MAUserTrackingModeNone;
 }
 
 - (void)setData {
     self.nameLabel.text = self.detailModel.name;
     self.addressLabel.text = self.detailModel.address;
-    
     
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.detailModel.latitude doubleValue], [self.detailModel.longitude doubleValue]);
     [self.iMapView setCenterCoordinate:coordinate];
@@ -109,21 +108,6 @@
     pin1.coordinate =  coordinate;
     pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
     [_iMapView addAnnotation:pin1];
-    
-    
-    CLLocationCoordinate2D loc1 = coordinate;
-    CLLocationCoordinate2D loc2 = self.cureUserLocation.coordinate;
-    
-    MAMapPoint p1 = MAMapPointForCoordinate(loc1);
-    MAMapPoint p2 = MAMapPointForCoordinate(loc2);
-    
-    CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
-    if (distance < 1000) {
-        self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.0fm",distance];
-    }else{
-        self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.2fkm",distance/1000];
-    }
-    
 }
 
 #pragma mark - lazy loading
@@ -142,13 +126,13 @@
 
 - (MAMapView *)iMapView {
     if (!_iMapView) {
-        _iMapView = [[MAMapView alloc] init];
+        _iMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - CGFloatIn750(300))];
         _iMapView.delegate = self;
-        [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
+        
         
         _iMapView.showsUserLocation = YES;
         _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _iMapView.zoomLevel = 19;
+//        _iMapView.zoomLevel = 1;
         _iMapView.userTrackingMode = MAUserTrackingModeNone;
         [_iMapView addSubview:self.checkSelfBtn];
         [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -225,16 +209,35 @@
 #pragma mark - MAMapViewDelegate
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     _cureUserLocation = userLocation;
+    if (!self.isLocation) {
+        
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.detailModel.latitude doubleValue], [self.detailModel.longitude doubleValue]);
+        
+        CLLocationCoordinate2D loc1 = coordinate;
+        CLLocationCoordinate2D loc2 = self.cureUserLocation.coordinate;
+        
+        MAMapPoint p1 = MAMapPointForCoordinate(loc1);
+        MAMapPoint p2 = MAMapPointForCoordinate(loc2);
+        
+        CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
+        if (distance < 1000) {
+            self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.0fm",distance];
+        }else{
+            self.distanceLabel.text = [NSString stringWithFormat:@"距离您%.2fkm",distance/1000];
+        }
+        
+        [_iMapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
+//        UIImage *lbsImage = [UIImage imageNamed:@"hng_im_lbs_ann"];
+//        UIImageView *lbsImageView = [[UIImageView alloc] initWithImage:lbsImage];
+//        lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y);
+//        [self.iMapView addSubview:lbsImageView];
+        
+//        [UIView animateWithDuration:0.5 animations:^{
+//            lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y);
+//        }];
+    }
     
-    [_iMapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
-    UIImage *lbsImage = [UIImage imageNamed:@"hng_im_lbs_ann"];
-    UIImageView *lbsImageView = [[UIImageView alloc] initWithImage:lbsImage];
-    lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64-70);
-    [self.iMapView addSubview:lbsImageView];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64);
-    }];
+    self.isLocation = YES;
 }
 - (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
 //    if ([annotation isKindOfClass:[MAPointAnnotation class]])
@@ -293,15 +296,16 @@
         }else{
             urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=&slat=%f&slon=%f&sname=%@&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",latitude,longitude,@"我的位置",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         }
-    
+
            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
         // 百度地图
         // 起点为“我的位置”，终点为后台返回的坐标
-        NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=%f,%f&mode=riding&src=%@", latitude, longitude,address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin=name:%@|latlng:%f,%f&destination=name:%@|latlng:%@,%@&coord_type=gcj02&mode=driving&src=xiangXinLi.noWait",@"我的位置",latitude,longitude,address,self.detailModel.latitude,self.detailModel.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
-    }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]){
+    }else
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]){
         // 苹果地图
         // 起点为“我的位置”，终点为后台返回的address
         NSString *urlString = [[NSString stringWithFormat:@"http://maps.apple.com/?daddr=%@",address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
