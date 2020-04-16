@@ -178,10 +178,10 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(80), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_whenTapped:^{
             [weakSelf leftBtnOnClick];
         }];
@@ -206,7 +206,7 @@
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_whenTapped:^{
             if (weakSelf.isEdit) {
                 [weakSelf selectAllData];
@@ -355,9 +355,25 @@
         enteryCell.handleBlock = ^(NSInteger index) {
             if (weakSelf.isEdit) {
                 if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
+                    ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
+                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+                    dvc.addModel.studentID = listmodel.studentID;
+                    dvc.addModel.name = listmodel.name;
+                    dvc.addModel.status = listmodel.status;
+                    dvc.addModel.teacher = listmodel.teacher_name;
+                    dvc.addModel.courses_name = listmodel.courses_name;
+                    dvc.addModel.total_progress = listmodel.total_progress;
+                    dvc.addModel.now_progress = listmodel.now_progress;
+                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
+                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
+                    dvc.addModel.coach_img = listmodel.coach_img;
+                    dvc.addModel.teacher_id = listmodel.teacher_id;
+                    
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     
+                }else if(index == 10){
+                    [weakSelf selectData:indexPath.row];
                 }
             }else{
                 if (index == 0) {

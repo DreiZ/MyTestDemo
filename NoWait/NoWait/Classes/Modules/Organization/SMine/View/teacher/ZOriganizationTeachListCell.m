@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UIImageView *rightImageView;
-
+@property (nonatomic,strong) UIButton *selectBtn;
 @end
 
 @implementation ZOriganizationTeachListCell
@@ -86,6 +86,13 @@
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
     }];
     
+    [self.contView addSubview:self.selectBtn];
+    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contView);
+        make.left.equalTo(self.contView.mas_left);
+        make.width.mas_equalTo(CGFloatIn750(160));
+    }];
+    
     __weak typeof(self) weakSelf = self;
     UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [coverBtn bk_whenTapped:^{
@@ -97,7 +104,8 @@
     
     [self.contView addSubview:coverBtn];
     [coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contView);
+        make.left.top.bottom.equalTo(self.contView);
+        make.right.equalTo(self.selectBtn.mas_left);
     }];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
@@ -114,7 +122,7 @@
     }
 }
 
-#pragma mark -Getter
+#pragma mark - Getter
 - (UIView *)contView {
     if (!_contView) {
         _contView = [[UIView alloc] init];
@@ -190,6 +198,20 @@
     return _rightImageView;
 }
 
+
+- (UIButton *)selectBtn {
+    if (!_selectBtn) {
+        __weak typeof(self) weakSelf = self;
+        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_selectBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(10);
+            }
+        }];
+    }
+    return _selectBtn;
+}
+
 - (void)setModel:(ZOriganizationTeacherListModel *)model {
     _model = model;
     _nameLabel.text = model.teacher_name;
@@ -206,8 +228,17 @@
     
     if (model.isEdit) {
         _rightImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
+        [self.selectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(self.contView);
+            make.width.mas_equalTo(CGFloatIn750(160));
+        }];
     }else{
         _rightImageView.image =  [UIImage imageNamed:@"unSelectedCycleMin"];
+        [self.selectBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contView);
+            make.left.equalTo(self.contView.mas_right);
+            make.width.mas_equalTo(CGFloatIn750(160));
+        }];
     }
 }
 

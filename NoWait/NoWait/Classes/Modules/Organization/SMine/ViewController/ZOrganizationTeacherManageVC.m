@@ -230,9 +230,21 @@
         enteryCell.handleBlock = ^(NSInteger index) {
             if (weakSelf.isEdit) {
                 if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
+                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
+                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                    dvc.addModel.account_id = listmodel.account_id;
+                    dvc.addModel.c_level = listmodel.c_level;
+                    dvc.addModel.teacherID = listmodel.teacherID;
+                    dvc.addModel.image = listmodel.image;
+                    dvc.addModel.nick_name = listmodel.nick_name;
+                    dvc.addModel.phone = listmodel.phone;
+                    dvc.addModel.position = listmodel.position;
+                    dvc.addModel.real_name = listmodel.teacher_name;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     
+                }else if(index == 10){
+                    [weakSelf selectData:indexPath.row];
                 }
             }else{
                 if (index == 0) {

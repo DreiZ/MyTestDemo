@@ -43,6 +43,8 @@
     if (!_viewModel) {
         _viewModel = [[ZOriganizationStudentViewModel alloc] init];
         _viewModel.addModel.sex = @"1";
+        _viewModel.addModel.birthday = [NSString stringWithFormat:@"%.0f",[[NSDate new] timeIntervalSince1970]];
+        _viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%.0f",[[NSDate new] timeIntervalSince1970]];
         _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
         _viewModel.addModel.stores_name = [ZUserHelper sharedHelper].school.name;
     }
@@ -366,9 +368,6 @@
             weakSelf.viewModel.addModel.remark = text;
         };
     }
-    
-    
-    
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -407,7 +406,7 @@
         [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
-                weakSelf.viewModel.addModel.courses_name = model.name;
+                weakSelf.viewModel.addModel.courses_name = model.short_name;
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }
@@ -417,7 +416,7 @@
         if (ValidStr(self.viewModel.addModel.stores_courses_class_id)) {
             [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.viewModel.addModel.stores_courses_class_id  handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
                 if (model) {
-                    weakSelf.viewModel.addModel.teacher = model.teacher_name;
+                    weakSelf.viewModel.addModel.teacher = model.nick_name;
                     weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];

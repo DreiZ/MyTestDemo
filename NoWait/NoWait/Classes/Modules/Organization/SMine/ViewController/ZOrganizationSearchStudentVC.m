@@ -11,11 +11,16 @@
 #import "ZOriganizationStudentListCell.h"
 
 #import "ZOrganizationStudentDetailVC.h"
+#import "ZOrganizationSendMessageVC.h"
 
 @interface ZOrganizationSearchStudentVC ()
 @property (nonatomic,strong) NSString *name;
-
+@property (nonatomic,strong) UIButton *allBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UIButton *sendBtn;
+@property (nonatomic,strong) UIView *bottomView;
+
+
 @property (nonatomic,assign) BOOL isEdit;
 @end
 
@@ -24,27 +29,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-       self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self.view addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(88));
         make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
     }];
+    self.isEdit = YES;
 }
-- (void)cancleBtnOnClick {
-    if (_isEdit) {
-        self.isEdit = NO;
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
+//
+//- (void)cancleBtnOnClick {
+//    if (_isEdit) {
+//        self.isEdit = NO;
+//    }else{
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//}
 
 - (void)setIsEdit:(BOOL)isEdit {
     _isEdit = isEdit;
+    
     if (isEdit) {
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(-safeAreaBottom()));
@@ -52,12 +58,12 @@
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-            make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
             make.top.equalTo(self.searchView.mas_bottom).offset(0);
         }];
     }else{
         
-        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88));
             make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(safeAreaBottom()));
@@ -70,10 +76,10 @@
         }];
     }
     
-    [self selectDataEdit:isEdit];
+//    [self selectDataEdit:isEdit];
 }
 
-
+#pragma mark - lazy loading
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
@@ -93,6 +99,98 @@
     }
     return _bottomBtn;
 }
+
+
+- (UIButton *)sendBtn {
+    if (!_sendBtn) {
+        __weak typeof(self) weakSelf = self;
+        _sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_sendBtn setTitle:@"发通知" forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_sendBtn.titleLabel setFont:[UIFont fontContent]];
+        [_sendBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_sendBtn bk_whenTapped:^{
+            NSArray *ids = [weakSelf getSelectedData];
+            if (ids && ids.count > 0) {
+                ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                mvc.type = @"2";
+                mvc.storesName = [ZUserHelper sharedHelper].school.name;
+                mvc.studentList = [[NSMutableArray alloc] initWithArray:ids];
+                [weakSelf.navigationController pushViewController:mvc animated:YES];
+            }else{
+                [TLUIUtility showErrorHint:@"你还没有选中"];
+            }
+        }];
+    }
+    return _sendBtn;
+}
+
+
+- (UIButton *)allBtn {
+    if (!_allBtn) {
+        __weak typeof(self) weakSelf = self;
+        _allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_allBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_allBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_allBtn.titleLabel setFont:[UIFont boldFontContent]];
+        [_allBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_allBtn bk_whenTapped:^{
+            [weakSelf selectAllData];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }];
+    }
+    return _allBtn;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.layer.masksToBounds = YES;
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_bottomView addSubview:self.sendBtn];
+        [_bottomView addSubview:self.bottomBtn];
+        [_bottomView addSubview:self.allBtn];
+        
+        [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.equalTo(self.bottomView);
+            make.width.mas_equalTo(KScreenWidth/3.f);
+        }];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.bottomView);
+            make.left.equalTo(self.sendBtn.mas_right);
+            make.width.mas_equalTo(KScreenWidth/3.f);
+        }];
+        
+        [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(self.bottomView);
+            make.width.mas_equalTo(KScreenWidth/3.f);
+        }];
+        
+        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+        [self.bottomView addSubview:bottomLineView];
+        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.sendBtn.mas_right);
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.height.mas_equalTo(CGFloatIn750(26));
+            make.width.mas_equalTo(2);
+        }];
+        {
+            UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+            bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+            [self.bottomView addSubview:bottomLineView];
+            [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.bottomBtn.mas_right);
+                make.centerY.equalTo(self.bottomView.mas_centerY);
+                make.height.mas_equalTo(CGFloatIn750(26));
+                make.width.mas_equalTo(2);
+            }];
+        }
+    }
+    return _bottomView;
+}
+
 
 - (NSMutableArray *)getSelectedData {
     NSMutableArray *temp = @[].mutableCopy;
@@ -131,27 +229,49 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
+    self.isEdit = YES;
     for (int i = 0; i < self.dataSources.count; i++) {
+        ZOriganizationStudentListModel *model= self.dataSources[i];
+        model.isEdit = YES;
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStudentListCell className] title:[ZOriganizationStudentListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStudentListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:progressCellConfig];
     }
-
-    if (self.cellConfigArr.count > 0) {
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }else{
-        self.isEdit = NO;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    }
+//
+//    if (self.cellConfigArr.count > 0) {
+//        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+//    }else{
+//        self.isEdit = NO;
+//        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+//    }
 }
 
-- (void)valueChange:(NSString *)text {
-    [super valueChange:text];
+- (void)searchClick:(NSString *)text{
+    [super searchClick:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {
         [self refreshData];
     }
 }
+
+
+- (void)selectAllData {
+    
+    if ([self getSelectedData].count == self.dataSources.count) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = NO;
+        }
+        [self.allBtn setTitle:@"全选" forState:UIControlStateNormal];
+    }else{
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOriganizationStudentListModel *model = self.dataSources[i];
+            model.isSelected = YES;
+        }
+        [self.allBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }
+    
+}
+
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -235,9 +355,24 @@
             [weakSelf.searchView.iTextField resignFirstResponder];
             if (weakSelf.isEdit) {
                 if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
+                    ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
+                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+                    dvc.addModel.studentID = listmodel.studentID;
+                    dvc.addModel.name = listmodel.name;
+                    dvc.addModel.status = listmodel.status;
+                    dvc.addModel.teacher = listmodel.teacher_name;
+                    dvc.addModel.courses_name = listmodel.courses_name;
+                    dvc.addModel.total_progress = listmodel.total_progress;
+                    dvc.addModel.now_progress = listmodel.now_progress;
+                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
+                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
+                    dvc.addModel.coach_img = listmodel.coach_img;
+                    dvc.addModel.teacher_id = listmodel.teacher_id;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     
+                }else if(index == 10){
+                    [weakSelf selectData:indexPath.row];
                 }
             }else{
                 if (index == 0) {
@@ -254,6 +389,7 @@
                     dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
                     dvc.addModel.coach_img = listmodel.coach_img;
                     dvc.addModel.teacher_id = listmodel.teacher_id;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     weakSelf.isEdit = YES;
                 }
@@ -280,6 +416,7 @@
             model.isSelected = !model.isSelected;
         }
     }
+    [self.allBtn setTitle:[NSString stringWithFormat:@"全选(%ld)",[self getSelectedData].count] forState:UIControlStateNormal];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }

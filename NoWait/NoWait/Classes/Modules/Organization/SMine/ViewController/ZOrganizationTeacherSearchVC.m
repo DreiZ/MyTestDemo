@@ -77,12 +77,21 @@
         [_bottomView addSubview:self.allBtn];
         [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.bottomView);
-            make.right.equalTo(self.bottomView.mas_centerX).offset(-0.5);
+            make.right.equalTo(self.bottomView.mas_centerX).offset(0);
         }];
         
         [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.top.bottom.equalTo(self.bottomView);
-            make.left.equalTo(self.bottomView.mas_centerX).offset(0.5);
+            make.left.equalTo(self.bottomView.mas_centerX).offset(0);
+        }];
+        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+        [self.bottomView addSubview:bottomLineView];
+        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.bottomView.mas_centerX);
+            make.centerY.equalTo(self.bottomView.mas_centerY);
+            make.height.mas_equalTo(CGFloatIn750(26));
+            make.width.mas_equalTo(2);
         }];
     }
     return _bottomView;
@@ -208,9 +217,22 @@
             [weakSelf.searchView.iTextField resignFirstResponder];
             if (weakSelf.isEdit) {
                 if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
+                    
+                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
+                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                    dvc.addModel.account_id = listmodel.account_id;
+                    dvc.addModel.c_level = listmodel.c_level;
+                    dvc.addModel.teacherID = listmodel.teacherID;
+                    dvc.addModel.image = listmodel.image;
+                    dvc.addModel.nick_name = listmodel.nick_name;
+                    dvc.addModel.phone = listmodel.phone;
+                    dvc.addModel.position = listmodel.position;
+                    dvc.addModel.real_name = listmodel.teacher_name;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else if (index == 1){
                     
+                }else if (index == 10){
+                    [weakSelf selectData:indexPath.row];
                 }
             }else{
                 if (index == 0) {
