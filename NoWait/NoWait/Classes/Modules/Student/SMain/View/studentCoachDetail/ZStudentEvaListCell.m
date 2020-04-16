@@ -31,7 +31,7 @@
 -(void)setupView
 {
     [super setupView];
-    
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.cellConfigArr = @[].mutableCopy;
     [self.contentView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,6 +59,7 @@
         } else {
             
         }
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -129,6 +130,7 @@
         model.leftMargin = CGFloatIn750(86);
         model.rightMargin = CGFloatIn750(30);
         model.cellHeight = CGFloatIn750(62);
+        model.isHiddenLine = YES;
         cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
     }
     {
