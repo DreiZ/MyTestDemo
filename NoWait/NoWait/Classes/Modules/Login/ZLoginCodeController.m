@@ -16,7 +16,7 @@
 
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
-
+#import "ZMultiseriateContentLeftLineCell.h"
 #import <WechatOpenSDK/WXApi.h>
 
 @interface ZLoginCodeController ()
@@ -115,19 +115,37 @@
 
     [self.cellConfigArr addObject:titleCellConfig];
     {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"未注册手机号码验证后即可登录";
+        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+        model.rightColor = [UIColor colorTextGray];
+        model.rightDarkColor = [UIColor colorTextGrayDark];
+        if (self.type == 1) {
+            model.leftTitle = @"未注册手机号码验证后即可登录";
+        }else if(self.type == 2){
+            model.rightColor = [UIColor colorRedForLabel];
+            model.rightDarkColor = [UIColor colorRedForLabel];
+            model.rightTitle = @"教师账号不可短信登录自动注册，教师账号由机构或者校区账号绑定后生成";
+        }else if(self.type == 6){
+            model.rightColor = [UIColor colorRedForLabel];
+            model.rightDarkColor = [UIColor colorRedForLabel];
+            model.rightTitle = @"校区账号不可短信登录自动注册，如您需要校区账号请联系平台，申请账号";
+        }else if(self.type == 8){
+            model.rightColor = [UIColor colorRedForLabel];
+            model.rightDarkColor = [UIColor colorRedForLabel];
+            model.rightTitle = @"机构账号不可短信登录自动注册，如您需要机构账号请联系平台，申请账号";
+        }
+        
         model.cellTitle = @"title";
         model.leftFont = [UIFont fontSmall];
-        model.leftColor = [UIColor colorTextGray];
-        model.leftDarkColor = [UIColor colorTextGrayDark];
         model.leftMargin = CGFloatIn750(50);
         model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(54);
+        model.cellWidth = KScreenWidth;
+        model.singleCellHeight = CGFloatIn750(54);;
+        model.cellHeight = CGFloatIn750(56);
+        model.lineSpace = CGFloatIn750(6);
 
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
-        [self.cellConfigArr addObject:titleCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
     }
     
     {

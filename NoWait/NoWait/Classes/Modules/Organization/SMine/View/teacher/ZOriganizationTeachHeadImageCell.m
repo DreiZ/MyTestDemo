@@ -52,7 +52,7 @@
 - (void)setImage:(id)image {
     _image = image;
     if (ValidStr(image)) {
-        [self.headImageView tt_setImageWithURL:[NSURL URLWithString:image]];
+        [self.headImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_head_noLogin"]];
     }else if (ValidClass(image, [UIImage class])){
         self.image = image;
     }
