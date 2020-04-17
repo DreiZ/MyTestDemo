@@ -212,6 +212,12 @@
         self.scanQRCodeImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
     }
     
+    if (!isDarkModel()) {
+        self.midLabel.textColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
+    }else{
+        self.midLabel.textColor = [UIColor colorWithWhite:(0.9) alpha:1];
+    }
+    
     self.qrCodeBtn.hidden = YES;
     self.scanQRCodeImageView.hidden = YES;
     self.scanView.hidden = YES;
@@ -252,6 +258,7 @@
         _headImageView.layer.masksToBounds = YES;
         _headImageView.layer.cornerRadius = headImageHeight/2.0f;
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headImageView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _headImageView;
 }

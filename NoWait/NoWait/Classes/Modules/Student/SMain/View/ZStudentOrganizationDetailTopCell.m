@@ -85,7 +85,7 @@
 {
     ZStudentLessonDetailPeoplesItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentLessonDetailPeoplesItemCell className] forIndexPath:indexPath];
     ZBaseUnitModel *model = _list[indexPath.row];
-    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.imageName)]];
+    [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.imageName)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     cell.titleLabel.text = model.name;
     cell.titleLabel.font = [UIFont fontMin];
     cell.titelBack.backgroundColor = adaptAndDarkColor(HexAColor(0x00000, 0.7), HexAColor(0xffffff, 0.7));
