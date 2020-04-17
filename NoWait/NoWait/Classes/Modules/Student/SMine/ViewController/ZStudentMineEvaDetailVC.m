@@ -12,7 +12,7 @@
 #import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationEvaListEvaTextViewCell.h"
 #import "ZOrganizationEvaListEvaBtnCell.h"
-#import "ZOrganizationEvaListReEvaCell.h"
+#import "ZStudentEvaDetailReEvaCell.h"
 
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
@@ -83,7 +83,7 @@
          [self.cellConfigArr  addObject:menuCellConfig];
      }
     if ([self.detailModel.course_is_reply intValue] == 1) {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.courses_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.courses_reply_desc)];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaDetailReEvaCell className] title:[ZStudentEvaDetailReEvaCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentEvaDetailReEvaCell z_getCellHeight:SafeStr(self.detailModel.courses_reply_desc)] cellType:ZCellTypeClass dataModel:@{@"title":SafeStr(self.detailModel.stores_name),@"content":SafeStr(self.detailModel.courses_reply_desc)}];
         [self.cellConfigArr addObject:orderCellConfig];
     }
     
@@ -116,7 +116,7 @@
          [self.cellConfigArr  addObject:menuCellConfig];
      }
     if ([self.detailModel.teacher_is_reply intValue] == 1) {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.teacher_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.teacher_reply_desc)];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaDetailReEvaCell className] title:[ZStudentEvaDetailReEvaCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentEvaDetailReEvaCell z_getCellHeight:SafeStr(self.detailModel.teacher_reply_desc)] cellType:ZCellTypeClass dataModel:@{@"title":SafeStr(self.detailModel.teacher_nick_name),@"content":SafeStr(self.detailModel.teacher_reply_desc)}];
         [self.cellConfigArr addObject:orderCellConfig];
     }
     
@@ -149,7 +149,7 @@
      }
     
      if ([self.detailModel.stores_is_reply intValue] == 1) {
-         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.stores_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.stores_reply_desc)];
+         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaDetailReEvaCell className] title:[ZStudentEvaDetailReEvaCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentEvaDetailReEvaCell z_getCellHeight:SafeStr(self.detailModel.stores_reply_desc)] cellType:ZCellTypeClass dataModel:@{@"title":SafeStr(self.detailModel.stores_name),@"content":SafeStr(self.detailModel.stores_reply_desc)}];
          [self.cellConfigArr addObject:orderCellConfig];
      }
 }

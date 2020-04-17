@@ -134,7 +134,7 @@
 
 - (void)setDetailModel:(ZOrderEvaDetailModel *)detailModel {
     _detailModel = detailModel;
-    _cocahLabel.text = [NSString stringWithFormat:@"教师%@",SafeStr(detailModel.teacher_name)];
+    _cocahLabel.text = [NSString stringWithFormat:@"教师%@",SafeStr(detailModel.teacher_nick_name)];
     _lessonLabel.text = detailModel.courses_name;
     _priceLabel.text = [NSString stringWithFormat:@"%@",SafeStr(detailModel.pay_amount)];
     [_lessonImageVIew tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(detailModel.courses_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];

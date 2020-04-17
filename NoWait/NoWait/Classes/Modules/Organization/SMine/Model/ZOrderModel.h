@@ -193,6 +193,7 @@
 @property (nonatomic,strong) NSString *courses_reply_desc;
 @property (nonatomic,strong) NSString *teacher_reply_desc;
 @property (nonatomic,strong) NSString *has_update;
+@property (nonatomic,strong) NSString *teacher_nick_name;
 
 @end
 
