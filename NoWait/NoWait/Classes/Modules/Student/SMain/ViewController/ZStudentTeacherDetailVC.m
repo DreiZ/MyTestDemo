@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.loading = YES;
     [self refreshInfoData];
     [self refreshData];
 }

@@ -38,6 +38,7 @@
 - (void)setDataSource {
     [super setDataSource];
     _param = @{}.mutableCopy;
+    self.loading = YES;
 }
 
 - (void)initCellConfigArr {

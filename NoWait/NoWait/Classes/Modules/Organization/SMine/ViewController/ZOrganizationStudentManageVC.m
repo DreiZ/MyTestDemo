@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    self.loading = YES;
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

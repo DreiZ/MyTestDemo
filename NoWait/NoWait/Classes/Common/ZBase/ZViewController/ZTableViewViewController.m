@@ -48,7 +48,7 @@
     _cellConfigArr = @[].mutableCopy;
     
     self.currentPage = 1;
-    self.loading = NO;
+    self.loading = YES;
 }
 
 - (void)initCellConfigArr {

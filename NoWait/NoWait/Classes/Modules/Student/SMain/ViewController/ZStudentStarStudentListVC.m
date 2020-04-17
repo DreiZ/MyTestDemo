@@ -34,6 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
          
+    self.loading = YES;
+    [self setCollectionViewRefreshFooter];
+    [self setCollectionViewRefreshHeader];
+    [self setCollectionViewEmptyDataDelegate];
 }
 
 - (void)setDataSource {

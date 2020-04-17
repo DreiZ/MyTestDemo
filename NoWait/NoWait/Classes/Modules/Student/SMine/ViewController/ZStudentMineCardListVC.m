@@ -20,13 +20,19 @@
 @implementation ZStudentMineCardListVC
 
 #pragma mark - vc delegate
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.loading = YES;
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self refreshData];
 }
 
 - (void)setDataSource {

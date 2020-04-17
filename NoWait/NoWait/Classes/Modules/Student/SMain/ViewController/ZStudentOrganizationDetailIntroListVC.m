@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
          
-    [self setNavigation];
+    self.loading = YES;
     [self setMainView];
     [self setData];
     [self refreshData];

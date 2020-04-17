@@ -13,6 +13,7 @@
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) UILabel *lessonTitleLabel;
 @property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIView *contView;
 
 @end
 
@@ -31,26 +32,23 @@
 {
     [super setupView];
     
-    UIView *contView = [[UIView alloc] initWithFrame:CGRectZero];
-    contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    contView.layer.cornerRadius = CGFloatIn750(16);
-    [self.contentView addSubview:contView];
-    [contView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.contentView addSubview:self.contView];
+    [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(20));
     }];
-    ViewShadowRadius(contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
     topTitleBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    [contView addSubview:topTitleBackView];
+    [self.contView addSubview:topTitleBackView];
     [topTitleBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(66));
-        make.right.equalTo(contView);
-        make.left.equalTo(contView.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(contView.mas_top).offset(CGFloatIn750(14));
+        make.right.equalTo(self.contView);
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(14));
     }];
     
     [topTitleBackView addSubview:self.lessonTitleLabel];
@@ -60,17 +58,17 @@
     }];
     
     
-    [contView addSubview:self.bottomView];
+    [self.contView addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(contView);
+        make.left.bottom.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(108));
     }];
     
-    [contView addSubview:self.iTableView];
+    [self.contView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(topTitleBackView.mas_bottom).offset(CGFloatIn750(0));
-        make.left.equalTo(contView.mas_left);
-        make.right.equalTo(contView.mas_right);
+        make.left.equalTo(self.contView.mas_left);
+        make.right.equalTo(self.contView.mas_right);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
     
@@ -95,6 +93,7 @@
         } else {
             
         }
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.layer.masksToBounds = YES;
@@ -144,6 +143,18 @@
     }
     return _bottomView;
 }
+
+- (UIView *)contView {
+    if (!_contView) {
+        _contView = [[UIView alloc] initWithFrame:CGRectZero];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _contView.layer.cornerRadius = CGFloatIn750(16);
+
+        ViewShadowRadius(self.contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]));
+    }
+    return _contView;
+}
+
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -204,5 +215,9 @@
 - (void)setList:(NSArray<ZOriganizationClassListModel *> *)list {
     _list = list;
     [_iTableView reloadData];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    ViewShadowRadius(self.contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]));
 }
 @end

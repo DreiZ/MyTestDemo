@@ -69,6 +69,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.loading = YES;
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
 }

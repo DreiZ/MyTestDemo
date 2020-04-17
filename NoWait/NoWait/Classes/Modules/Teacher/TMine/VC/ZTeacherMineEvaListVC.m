@@ -24,9 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.loading = YES;
     [self setTableViewGaryBack];
-//    [self setNavigation];
-    [self initCellConfigArr];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
@@ -42,7 +41,6 @@
         ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListCell className] title:[ZOrganizationEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:evaCellConfig];
     }
-    
 }
 
 

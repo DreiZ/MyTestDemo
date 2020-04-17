@@ -33,6 +33,7 @@
     [super viewDidLoad];
     
     _param = @{}.mutableCopy;
+    self.loading = YES;
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

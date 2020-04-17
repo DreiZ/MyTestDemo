@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
          
+    self.loading = YES;
     [self setMainView];
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];

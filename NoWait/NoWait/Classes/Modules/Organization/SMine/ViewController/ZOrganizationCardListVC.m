@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
@@ -36,6 +37,7 @@
 
 - (void)setDataSource {
     [super setDataSource];
+    self.loading = YES;
     _param = @{}.mutableCopy;
 }
 

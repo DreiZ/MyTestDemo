@@ -20,6 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.loading = YES;
     [self.navigationItem setTitle:SafeStr(self.teacher_name)];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];

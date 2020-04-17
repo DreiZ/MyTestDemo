@@ -71,9 +71,8 @@
     __weak typeof(self) weakSelf = self;
     
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
-//
         if (!weakSelf.isLoacation && userLocation) {
-             NSLog(@"哈哈哈 %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
+             NSLog(@"userLocation %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
             [weakSelf refreshData];
             weakSelf.isLoacation = YES;
         }
@@ -83,6 +82,8 @@
 
 - (void)setDataSource {
     [super setDataSource];
+    
+    self.loading = YES;
     _enteryArr = @[].mutableCopy;
     _photoWallArr = @[].mutableCopy;
     _AdverArr = @[].mutableCopy;

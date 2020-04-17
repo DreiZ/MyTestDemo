@@ -37,7 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.loading = YES;
     [self setTableViewGaryBack];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)setDataSource {

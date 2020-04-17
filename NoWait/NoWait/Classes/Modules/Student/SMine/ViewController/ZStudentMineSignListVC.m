@@ -19,12 +19,15 @@
 @end
 @implementation ZStudentMineSignListVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    
-    [self refreshData];
+    self.loading = YES;
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
     [self setTableViewEmptyDataDelegate];

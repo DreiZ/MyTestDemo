@@ -37,12 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    self.loading = YES;
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    [self initCellConfigArr];
     self.isEdit = NO;
 }
 
