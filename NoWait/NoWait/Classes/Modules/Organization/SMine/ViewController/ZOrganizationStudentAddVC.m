@@ -222,7 +222,7 @@
     if (self.viewModel.addModel.image && [self.viewModel.addModel.image isKindOfClass:[UIImage class]]) {
         [TLUIUtility showLoading:@"上传图片中"];
         __weak typeof(self) weakSelf = self;
-        [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"1",@"imageKey":@{@"file":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
             if (isSuccess) {
                 weakSelf.viewModel.addModel.image = message;
                 if (weakSelf.isEdit) {

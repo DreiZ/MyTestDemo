@@ -309,7 +309,7 @@
         return;
     }
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"1",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             [weakSelf.uploadNetArr addObject:message];
             complete(YES,index);

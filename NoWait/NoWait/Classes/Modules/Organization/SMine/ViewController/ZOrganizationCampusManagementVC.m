@@ -263,7 +263,7 @@
     }
     [TLUIUtility showLoading:@"上传封面图片中"];
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":self.model.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"1",@"imageKey":@{@"file":self.model.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             weakSelf.model.image = message;
             [weakSelf updateOtherParams:otherDict];

@@ -86,7 +86,7 @@
                     weakSelf.avterImage = list[0].image;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
-                    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
+                    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"5",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
                         if (isSuccess) {
                             [weakSelf updateUserInfo:@{@"image":SafeStr(data)}];
                         }
