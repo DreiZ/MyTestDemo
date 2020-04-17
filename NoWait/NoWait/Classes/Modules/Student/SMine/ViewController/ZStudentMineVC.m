@@ -27,6 +27,7 @@
 
 #import "ZMineSwitchRoleVC.h"
 #import "DIYScanViewController.h"
+#import "ZTeacherLessonDetailListVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -147,6 +148,12 @@
                 ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }];
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
+        ZStudentMineLessonTimetableCell *tcell = (ZStudentMineLessonTimetableCell *)cell;
+        tcell.moreBlock = ^(NSInteger index) {
+            ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
+            [self.navigationController pushViewController:lvc animated:YES];
         };
     }
 }

@@ -18,20 +18,23 @@
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) ZLessonWeekHandlerView *weekTitleView;
 @property (nonatomic,strong) ZLessonWeekSectionView *sectionView;
-
+@property (nonatomic,strong) ZOriganizationLessonWeekListNetModel *model;
+@property (nonatomic,assign) NSInteger index;
 @end
 
 @implementation ZTeacherLessonDetailListVC
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refreshData];
+    [self refreshCurriculumList];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
         
     self.loading = YES;
+    
+    [self setCollectionViewEmptyDataDelegate];
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
 }
@@ -41,9 +44,9 @@
     self.scrollDirection = UICollectionViewScrollDirectionVertical;
     [super setDataSource];
     
-    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(24), CGFloatIn750(20), CGFloatIn750(24));
-    self.minimumLineSpacing = CGFloatIn750(10);
-    self.minimumInteritemSpacing = CGFloatIn750(10);
+    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
+    self.minimumLineSpacing = CGFloatIn750(8);
+    self.minimumInteritemSpacing = CGFloatIn750(8);
     self.iCollectionView.scrollEnabled = YES;
 }
 
@@ -79,22 +82,44 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    for (int i = 0; i < 30; i++) {
-        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
-        limo.time = @"11:21~12:12";
-        limo.course_name = @"感受感受";
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZLessonTimeTableCollectionCell className] title:[ZLessonTimeTableCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(76) - CGFloatIn750(30) - CGFloatIn750(60))/7.0f, (KScreenWidth - CGFloatIn750(76) - CGFloatIn750(30) - CGFloatIn750(60))/7.0f) cellType:ZCellTypeClass dataModel:limo];
-        [self.cellConfigArr addObject:cellConfig];
+    __block NSInteger max = 0;
+    [self.model.list enumerateObjectsUsingBlock:^(ZOriganizationLessonDayListNetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.list.count > max) {
+            max = obj.list.count;
+        }
+    }];
+    
+    for (int i = 0; i < max; i++) {
+        for (int j = 0; j < self.model.list.count; j++) {
+            ZOriganizationLessonDayListNetModel *model = self.model.list[j];
+            if (model.list.count > i) {
+                ZOriganizationLessonListModel *listModel = model.list[i];
+                ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZLessonTimeTableCollectionCell className] title:[ZLessonTimeTableCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZLessonTimeTableCollectionCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:listModel];
+                
+                [self.cellConfigArr addObject:cellConfig];
+            }else{
+                ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZLessonTimeTableCollectionCell className] title:[ZLessonTimeTableCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZLessonTimeTableCollectionCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:nil];
+                [self.cellConfigArr addObject:cellConfig];
+            }
+        }
     }
-
+    
+    self.sectionView.date = [NSDate dateWithDaysFromNow:self.index * 7];
+    self.weekTitleView.index = self.index;
 }
 
 #pragma mark - view
 -(ZLessonWeekHandlerView *)weekTitleView {
     if (!_weekTitleView) {
+        __weak typeof(self) weakSelf = self;
         _weekTitleView = [[ZLessonWeekHandlerView alloc] init];
         _weekTitleView.handleBlock = ^(NSInteger index) {
-            
+            if (index == 0) {
+                weakSelf.index --;
+            }else{
+                weakSelf.index++;
+            }
+            [weakSelf refreshCurriculumList];
         };
     }
     return _weekTitleView;
@@ -108,14 +133,13 @@
 }
 
 - (void)refreshCurriculumList {
-    NSMutableDictionary *param = @{@"is_today":@"0"}.mutableCopy;
-    self.loading = YES;
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel getCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:[NSString stringWithFormat:@"%ld",self.index] forKey:@"week_page"];
+    [ZOriganizationLessonViewModel getWeekCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonWeekListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
+            weakSelf.model = data;
             [weakSelf initCellConfigArr];
             [weakSelf.iCollectionView reloadData];
         }else{
@@ -123,5 +147,6 @@
         }
     }];
 }
+
 @end
 

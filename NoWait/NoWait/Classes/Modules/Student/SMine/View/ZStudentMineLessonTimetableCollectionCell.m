@@ -10,7 +10,7 @@
 
 @interface ZStudentMineLessonTimetableCollectionCell ()
 @property (nonatomic,strong) UIView *backView;
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *lessonLabel;
 @end
 
@@ -20,14 +20,14 @@
 - (void)setupView {
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contentView addSubview:self.backView];
-    [self.backView addSubview:self.titleLabel];
+    [self.backView addSubview:self.timeLabel];
     [self.backView addSubview:self.lessonLabel];
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
     
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(CGFloatIn750(18));
         make.top.equalTo(self.backView.mas_top).offset(CGFloatIn750(10));
         make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(8));
@@ -35,7 +35,7 @@
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(CGFloatIn750(8));
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(16));
+        make.top.equalTo(self.timeLabel.mas_bottom).offset(CGFloatIn750(16));
         make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(8));
         make.bottom.lessThanOrEqualTo(self.backView.mas_bottom);
     }];
@@ -53,16 +53,16 @@
     return _backView;
 }
 
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
-        _titleLabel.numberOfLines = 1;
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont boldFontMin]];
-        [_titleLabel setAdjustsFontSizeToFitWidth:YES];
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _timeLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+        _timeLabel.numberOfLines = 1;
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
+        [_timeLabel setFont:[UIFont boldFontMin]];
+        [_timeLabel setAdjustsFontSizeToFitWidth:YES];
     }
-    return _titleLabel;
+    return _timeLabel;
 }
 
 
@@ -81,7 +81,7 @@
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     _lessonLabel.text = model.course_name;
-    _titleLabel.text = model.time;
+    _timeLabel.text = model.time;
 }
 
 +(CGSize)z_getCellSize:(id)sender {

@@ -54,7 +54,7 @@
     leftImage.image = [[UIImage imageNamed:@"leftBlackArrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     leftImage.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     
-    [self addSubview:leftImage];
+    [self.lastBtn addSubview:leftImage];
     [leftImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.lastBtn.titleLabel.mas_left).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.mas_centerY);
@@ -64,7 +64,7 @@
     rightImage.image = [[UIImage imageNamed:@"rightBlackArrowN"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     rightImage.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     
-    [self addSubview:rightImage];
+    [self.nextBtn addSubview:rightImage];
     [rightImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nextBtn.titleLabel.mas_right).offset(CGFloatIn750(20));;
         make.centerY.equalTo(self.mas_centerY);
@@ -124,6 +124,16 @@
     return _nextBtn;
 }
 
+- (void)setIndex:(NSInteger)index {
+    _index = index;
+    if (index == 0) {
+        _lastBtn.hidden = YES;
+        _titleLabel.hidden = NO;
+    }else{
+        _titleLabel.hidden = YES;
+        _lastBtn.hidden = NO;
+    }
+}
 @end
 
 

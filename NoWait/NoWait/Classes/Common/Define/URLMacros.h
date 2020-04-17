@@ -257,6 +257,8 @@
 #define URL_merchants_get_experience_courses               @"merchants/v1/get_experience_courses"
 
 #define URL_merchants_get_courses_curriculum               @"merchants/v1/get_courses_curriculum"
+
+#define URL_merchants_get_week_courses_curriculum               @"merchants/v1/get_week_courses_curriculum"
 #pragma mark - 学员------------------------------------------------
 //添加学员
 #define URL_account_add_student                     @"account/v1/add_student"

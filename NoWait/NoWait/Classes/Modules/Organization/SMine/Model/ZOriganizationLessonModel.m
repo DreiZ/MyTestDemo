@@ -248,6 +248,25 @@
 
 @end
 
+
+@implementation ZOriganizationLessonDayListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationLessonListModel"
+             };
+}
+@end
+
+@implementation ZOriganizationLessonWeekListNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZOriganizationLessonDayListNetModel"
+             };
+}
+@end
+
 @implementation ZOriganizationLessonScheduleListModel
 - (NSMutableArray *)fix_timeArr {
     if (!_fix_timeArr) {

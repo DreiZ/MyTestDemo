@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLessonWeekHandlerView : UIView
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,assign) NSInteger index;
 @end
 
 NS_ASSUME_NONNULL_END

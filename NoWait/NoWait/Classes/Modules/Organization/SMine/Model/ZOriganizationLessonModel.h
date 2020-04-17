@@ -65,9 +65,10 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *experience_price;
 @property (nonatomic,strong) NSArray <ZOriganizationLessonExperienceTimeModel *>*experience_time;
 
-
+//课程表用
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *course_name;
+@property (nonatomic,strong) NSString *course_id;
 @property (nonatomic,strong) NSString *key;
 @end
 
@@ -129,6 +130,17 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 
 @interface ZOriganizationLessonListNetModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
+@property (nonatomic,copy) NSString *total;
+@end
+
+
+@interface ZOriganizationLessonDayListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*list;
+@property (nonatomic,copy) NSString *day_date;
+@end
+
+@interface ZOriganizationLessonWeekListNetModel : ZBaseNetworkBackDataModel
+@property (nonatomic,strong) NSArray <ZOriganizationLessonDayListNetModel *>*list;
 @property (nonatomic,copy) NSString *total;
 @end
 
