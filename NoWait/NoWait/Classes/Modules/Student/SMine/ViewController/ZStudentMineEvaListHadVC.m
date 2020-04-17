@@ -12,6 +12,7 @@
 
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaDetailVC.h"
+#import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZStudentMineEvaListHadVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -64,12 +65,24 @@
 }
 #pragma mark lazy loading...
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZMineStudentEvaListHadEvaCell"]){
         ZMineStudentEvaListHadEvaCell *enteryCell = (ZMineStudentEvaListHadEvaCell *)cell;
         enteryCell.evaBlock = ^(NSInteger index) {
-            ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+            if (index == 1) {
+                ZOrderEvaListModel *listModel = cellConfig.dataModel;
+                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                lmodel.stores_id = listModel.stores_id;
+                lmodel.name = listModel.stores_name;
+                dvc.listModel = lmodel;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+
+            }else{
+                ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
+                dvc.listModel = cellConfig.dataModel;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }
         };
 //        enteryCell.evaBlock = ^(NSInteger index) {
 //            ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];

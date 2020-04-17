@@ -223,7 +223,7 @@
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(60);
-        mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",detailModel.opend_start,detailModel.opend_end];
+        mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",ValidStr(detailModel.opend_start)?detailModel.opend_start:@"9:00",ValidStr(detailModel.opend_end)? detailModel.opend_end:@"18:00"];
         height += [ZMultiseriateLineCell z_getCellHeight:mModel];
     }
     if (ValidArray(detailModel.coupons_list)) {

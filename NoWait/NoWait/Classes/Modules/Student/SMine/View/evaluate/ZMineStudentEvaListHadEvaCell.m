@@ -79,6 +79,17 @@
         make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(20));
     }];
     
+    __weak typeof(self) weakSelf = self;
+    UIButton *clubtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [clubtn bk_whenTapped:^{
+        if (weakSelf.evaBlock) {
+            weakSelf.evaBlock(1);
+        }
+    }];
+    [self.topView addSubview:clubtn];
+    [clubtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.topView);
+    }];
 }
 
 #pragma mark lazy loading...

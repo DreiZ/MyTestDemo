@@ -85,7 +85,8 @@
 - (UIImageView *)editImageView {
     if (!_editImageView) {
         _editImageView = [[UIImageView alloc] init];
-        _editImageView.image = [UIImage imageNamed:@"mineSetting"];
+        _editImageView.image = [[UIImage imageNamed:@"changeEva"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _editImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     return _editImageView;
 }

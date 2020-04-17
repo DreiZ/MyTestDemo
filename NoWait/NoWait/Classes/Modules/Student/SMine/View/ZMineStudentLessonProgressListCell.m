@@ -103,10 +103,10 @@
 - (void)setModel:(ZOriganizationClassListModel *)model {
     _model = model;
     _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",ValidStr(model.now_progress) ? model.now_progress: @"0",@"/",SafeStr(model.total_progress)];
-    _lessonTitleLabel.text = model.stores_courses_name;
+    _lessonTitleLabel.text = model.stores_courses_short_name;
     _lessonProgressView.backgroundColor = randomColor();
     
-    CGSize leftSize = [model.stores_courses_name tt_sizeWithFont:[UIFont fontContent]];
+    CGSize leftSize = [model.stores_courses_short_name tt_sizeWithFont:[UIFont fontContent]];
     CGFloat labelMin = (leftSize.width + CGFloatIn750(30) + 4)/(KScreenWidth - CGFloatIn750(60));
     CGFloat labelMax = (KScreenWidth - CGFloatIn750(90))/(KScreenWidth - CGFloatIn750(60));
     CGFloat muti = [model.now_progress floatValue] / [model.total_progress floatValue];
