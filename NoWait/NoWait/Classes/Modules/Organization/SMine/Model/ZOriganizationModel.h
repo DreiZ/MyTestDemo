@@ -10,6 +10,7 @@
 #import "ZBaseModel.h"
 #import "ZBaseNetworkBackModel.h"
 #import "ZOriganizationLessonModel.h"
+#import "ZOrderModel.h"
 
 @interface ZOriganizationModel : ZBaseModel
 
@@ -301,6 +302,8 @@
 @property (nonatomic,strong) NSString *position;
 @property (nonatomic,strong) NSMutableArray *class_ids_net;
 @property (nonatomic,strong) NSMutableArray <ZOriganizationLessonListModel *>*class_ids;//{“courses_id”: “课程id”,”price”:”课程价格”}]
+@property (nonatomic,strong) NSMutableArray <ZOrderEvaListModel *>*comment_list;
+
 @property (nonatomic,strong) NSMutableArray *skills;
 @property (nonatomic,strong) NSMutableArray *lessonList;
 

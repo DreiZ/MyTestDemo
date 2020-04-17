@@ -34,7 +34,7 @@
     
     self.loading = YES;
     [self refreshInfoData];
-    [self refreshData];
+//    [self refreshData];
 }
 
 - (void)initCellConfigArr {
@@ -71,14 +71,14 @@
         [self.cellConfigArr  addObject:menuCellConfig];
     }
     
-    if (self.dataSources && self.dataSources.count > 0) {
+    if (self.detailModel.comment_list && self.detailModel.comment_list.count > 0) {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
         ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练评价"];
         [self.cellConfigArr addObject:titleCellConfig];
         
         NSMutableArray *configArr = @[].mutableCopy;
-        for (ZOrderEvaListModel *evaModel in self.dataSources) {
+        for (ZOrderEvaListModel *evaModel in self.detailModel.comment_list) {
             evaModel.isTeacher = YES;
             ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
             [configArr addObject:evaCellConfig];

@@ -182,7 +182,8 @@
 }
 
 + (NSDictionary *)mj_objectClassInArray {
-    return @{ @"class_ids" : @"ZOriganizationLessonListModel"
+    return @{ @"class_ids" : @"ZOriganizationLessonListModel",
+              @"comment_list" : @"ZOrderEvaListModel"
              };
 }
 @end

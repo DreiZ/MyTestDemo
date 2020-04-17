@@ -48,7 +48,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.lessonImageView.mas_top);
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(120));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +68,7 @@
     }];
     
     [self.sellCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.titleLabel.mas_centerY);
+        make.centerY.equalTo(self.goodReputationLabel.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
 }
@@ -146,7 +146,7 @@
 
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     _sellCountLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     _goodReputationLabel.text = [NSString stringWithFormat:@"%d%@好评",[model.score intValue] * 20,@"%"];
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];

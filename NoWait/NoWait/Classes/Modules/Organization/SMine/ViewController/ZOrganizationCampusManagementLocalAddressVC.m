@@ -352,7 +352,7 @@
 
 #pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"donggggs-----");
+    NSLog(@"textFieldShouldReturn-----");
     [self searchPoiByKeyword:textField.text];
     return YES;
 }

@@ -42,14 +42,14 @@
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(20));
-        make.top.equalTo(self.lessonImageView.mas_bottom).offset(CGFloatIn750(16));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(130));
+        make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(18));
+        make.top.equalTo(self.lessonImageView.mas_bottom).offset(CGFloatIn750(14));
+        make.right.equalTo(self.goodReputationLabel.mas_left).offset(-CGFloatIn750(10));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(20));
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(14));
+        make.bottom.equalTo(self.backView.mas_bottom).offset(-CGFloatIn750(20));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(130));
     }];
     
@@ -102,7 +102,7 @@
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [_titleLabel setFont:[UIFont fontContent]];
-        [_titleLabel setAdjustsFontSizeToFitWidth:YES];
+//        [_titleLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _titleLabel;
 }
@@ -157,18 +157,20 @@
 
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
-    _titleLabel.text = @"图形俱乐部";
-    _sellCountLabel.text = @"已售200";
-    _goodReputationLabel.text = @"90%好评";
-    _favourablePriceLabel.text = @"￥256";
-    _priceLabel.text = @"￥543";
-    
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@""]];
     _titleLabel.text = model.name;
     _sellCountLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     _goodReputationLabel.text = [NSString stringWithFormat:@"%@好评",model.score];
     _favourablePriceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+    
+    CGSize tempSize = [self.goodReputationLabel.text sizeForFont:[UIFont fontSmall] size:CGSizeMake(CGFloatIn750(130), MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    [self.goodReputationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(tempSize.width+2);
+        make.centerY.equalTo(self.titleLabel.mas_centerY);
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+    }];
 }
 
 +(CGSize)z_getCellSize:(id)sender {
