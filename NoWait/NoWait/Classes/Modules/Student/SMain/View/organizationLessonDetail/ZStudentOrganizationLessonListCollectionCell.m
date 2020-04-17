@@ -157,7 +157,7 @@
 
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@""]];
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     _titleLabel.text = model.name;
     _sellCountLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     _goodReputationLabel.text = [NSString stringWithFormat:@"%@好评",model.score];

@@ -197,8 +197,8 @@
     [self.cellConfigArr addObject:desCellConfig];
     
     if (self.detailModel.teacher_list && self.detailModel.teacher_list.count > 0) {
-        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
-        
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+//        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
         moreModel.leftTitle = @"教师团队";
         ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];

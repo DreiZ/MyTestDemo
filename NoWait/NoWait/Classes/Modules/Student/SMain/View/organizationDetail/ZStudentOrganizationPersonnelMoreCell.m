@@ -80,7 +80,6 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _titleLabel.text = @"明星教练";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [_titleLabel setFont:[UIFont boldFontTitle]];
@@ -89,7 +88,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(88);
+    return CGFloatIn750(40);
 }
 
 - (void)setModel:(ZStudentDetailOrderSubmitListModel *)model {
