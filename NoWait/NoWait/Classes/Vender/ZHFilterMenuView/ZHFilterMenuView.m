@@ -83,7 +83,7 @@
         self.selectedTabIndex = -1;
         self.titleColor = adaptAndDarkColor(KTitleColor, [UIColor colorTextGray1]);
         self.titleSelectedColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        self.lineColor = [UIColor colorGrayLine];
+        self.lineColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         self.titleFontSize = 15;
         self.showLine = YES;
         self.titleLeft = NO;
@@ -809,7 +809,7 @@
         _leftTableView.rowHeight = KTableViewCellHeight;
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
-        _leftTableView.separatorColor = [UIColor colorGrayLine];
+        _leftTableView.separatorColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         _leftTableView.separatorInset = UIEdgeInsetsZero;
         _leftTableView.tableFooterView = [[UIView alloc]init];
         _leftTableView.showsVerticalScrollIndicator = NO;
@@ -826,7 +826,7 @@
         _mediumTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _mediumTableView.dataSource = self;
         _mediumTableView.delegate = self;
-        _mediumTableView.separatorColor = [UIColor colorGrayLine];
+        _mediumTableView.separatorColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         _mediumTableView.separatorInset = UIEdgeInsetsZero;
         _mediumTableView.tableFooterView = [[UIView alloc]init];
         _mediumTableView.showsVerticalScrollIndicator = NO;
@@ -842,7 +842,7 @@
         _rightTableView.rowHeight = KTableViewCellHeight;
         _rightTableView.dataSource = self;
         _rightTableView.delegate = self;
-        _rightTableView.separatorColor = [UIColor colorGrayLine];
+        _rightTableView.separatorColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         _rightTableView.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayLine]);
         _rightTableView.separatorInset = UIEdgeInsetsZero;
         _rightTableView.tableFooterView = [[UIView alloc]init];
@@ -876,7 +876,7 @@
 {
     if (!_lineView) {
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.frame) - 0.5, CGRectGetWidth(self.frame), 0.5)];
-        _lineView.backgroundColor = [UIColor colorGrayLine];
+        _lineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         [self addSubview:_lineView];
     }
     return _lineView;

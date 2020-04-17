@@ -132,7 +132,7 @@
         }];
         
         UIView *spaceLineView = [[UIView alloc] initWithFrame:CGRectZero];
-        spaceLineView.backgroundColor = [UIColor colorGrayLine];
+        spaceLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]) ;
         [_bottomView addSubview:spaceLineView];
         [spaceLineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.bottomView.mas_top);

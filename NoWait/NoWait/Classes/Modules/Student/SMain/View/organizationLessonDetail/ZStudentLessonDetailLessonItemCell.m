@@ -50,7 +50,7 @@
         _dotView = [[UIView alloc] init];
         _dotView.layer.masksToBounds = YES;
         _dotView.layer.cornerRadius = CGFloatIn750(6);
-        _dotView.backgroundColor = [UIColor colorGrayLine];
+        _dotView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     }
     return _dotView;
 }
