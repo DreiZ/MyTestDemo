@@ -275,7 +275,7 @@ static ZPhotoManager *sharedPhotoManager;
     imagePickController.oKButtonTitleColorNormal = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     imagePickController.oKButtonTitleColorDisabled = [UIColor  colorMainSub];
     imagePickController.allowCrop = _allowCrop;
-    imagePickController.cropRect = _cropRect;
+    imagePickController.cropRect =_cropRect;
     imagePickController.showSelectBtn = _showSelectBtn;
     
     //是否 在相册中显示拍照按钮
@@ -288,7 +288,8 @@ static ZPhotoManager *sharedPhotoManager;
     if (!_allowMultipleSelection) {
         imagePickController.selectedAssets = _selectedImageAssets;
     }
-    
+    imagePickController.modalPresentationStyle = UIModalPresentationFullScreen;
+    imagePickController.edgesForExtendedLayout = YES;
     [[self viewController] presentViewController:imagePickController animated:YES completion:nil];
 }
 
