@@ -79,6 +79,7 @@
         
         NSMutableArray *configArr = @[].mutableCopy;
         for (ZOrderEvaListModel *evaModel in self.dataSources) {
+            evaModel.isTeacher = YES;
             ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
             [configArr addObject:evaCellConfig];
         }

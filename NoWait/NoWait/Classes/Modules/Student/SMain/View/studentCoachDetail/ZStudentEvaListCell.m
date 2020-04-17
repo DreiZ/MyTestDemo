@@ -204,7 +204,7 @@
         [self.cellConfigArr  addObject:menuCellConfig];
     }
     if ([_model.is_reply intValue] == 1) {
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListReEvaCell className] title:[ZStudentEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZStudentEvaListReEvaCell z_getCellHeight:_model.reply_desc] cellType:ZCellTypeClass dataModel:_model.reply_desc];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListReEvaCell className] title:[ZStudentEvaListReEvaCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentEvaListReEvaCell z_getCellHeight:_model.reply_desc] cellType:ZCellTypeClass dataModel:@{@"title":_model.isTeacher ? SafeStr(_model.teacher_name):SafeStr(_model.stores_name),@"content":SafeStr(_model.reply_desc)}];
         [self.cellConfigArr addObject:orderCellConfig];
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }

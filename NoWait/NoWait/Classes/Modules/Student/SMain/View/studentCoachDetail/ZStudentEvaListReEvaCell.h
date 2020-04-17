@@ -7,11 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentEvaListReEvaCell : ZBaseCell
-@property (nonatomic,strong) NSString *evaDes;
+@property (nonatomic,strong) NSDictionary *data;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -40,6 +40,8 @@
 
 + (void)getAccountCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getLessonCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 
 + (void)getTeacherCommentListList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 

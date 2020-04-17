@@ -19,7 +19,7 @@
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZOrganizationDetailBottomView.h"
 
-#import "ZStudentOrganizationLessonDetailVC.h"
+//#import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentStarStudentListVC.h"
 #import "ZStudentStarCoachListVC.h"
 #import "ZStudentStarCoachInfoVC.h"
@@ -145,8 +145,8 @@
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
         [_navRightBtn bk_whenTapped:^{
-//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
-            NSArray *weekArr = @[@[@"投诉",@"peoples_hint",@"report"]];
+//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"举报",@"peoples_hint",@"report"]];
+            NSArray *weekArr = @[@[@"举报",@"peoples_hint",@"report"]];
             [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
                 if ([index isEqualToString:@"report"]) {
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];

@@ -445,6 +445,9 @@
 //获取机构评论列表
 #define URL_account_v1_get_merchants_comment_list   @"account/v1/get_merchants_comment_list"
 
+//获取课程评论列表
+#define URL_account_v1_get_courses_comment_list   @"account/v1/get_courses_comment_list"
+
 //获取教师评论列表
 #define URL_account_v1_get_teacher_comment_list              @"account/v1/get_teacher_comment_list"
 

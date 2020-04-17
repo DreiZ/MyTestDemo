@@ -724,7 +724,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getAccountCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+    [ZOriganizationOrderViewModel getLessonCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -752,7 +752,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationOrderViewModel getAccountCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
+    [ZOriganizationOrderViewModel getLessonCommentListList:self.param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -775,7 +775,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:self.addModel.lessonID forKey:@"stores_courses_id"];
+    [self.param setObject:self.model.lessonID forKey:@"stores_courses_id"];
     
 }
 @end
