@@ -31,7 +31,7 @@
 
 @property (nonatomic,strong) ZLocationModel *location;
 @property (nonatomic,strong) MAUserLocation *cureUserLocation;
-
+@property (nonatomic,assign) BOOL isLocation;
 @end
 
 @implementation ZOrganizationCampusManagementLocalAddressVC
@@ -58,12 +58,12 @@
         ZLocationModel *model = [[ZLocationModel alloc] init];
         model.coordinate = annotation.coordinate;
         model.distance = annotation.poi.distance;
-        model.city = annotation.poi.city;
-        model.province = annotation.poi.province;
-        model.district = annotation.poi.district;
-        model.address = annotation.poi.address;
+        model.city = annotation.poi.citycode;
+        model.province = annotation.poi.pcode;
+        model.district = annotation.poi.adcode;
+        model.businessArea = [NSString stringWithFormat:@"%@%@%@%@",annotation.poi.province,annotation.poi.city,annotation.poi.district,annotation.poi.address];
         model.name = annotation.poi.name;
-        model.businessArea = annotation.poi.businessArea;
+        model.address = annotation.poi.name;
         if (i == 0) {
             _location = model;
         
@@ -107,10 +107,17 @@
         make.left.bottom.right.equalTo(self.view);
         make.top.equalTo(self.topSearchView.mas_bottom);
     }];
-//    self.searhView.alpha = 0;
+    self.searhView.hidden = YES;
     
 //    [self.iMapView setZoomLevel:216.1 animated:YES];
+    UIImage *lbsImage = [UIImage imageNamed:@"hng_im_lbs_ann"];
+    UIImageView *lbsImageView = [[UIImageView alloc] initWithImage:lbsImage];
+    lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64-70);
+    [self.iMapView addSubview:lbsImageView];
     
+    [UIView animateWithDuration:0.5 animations:^{
+        lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64);
+    }];
 }
 
 #pragma mark lazy loading...
@@ -121,6 +128,9 @@
         _topSearchView.iTextField.delegate = self;
         _topSearchView.cancleBlock = ^{
             weakSelf.searhView.hidden = YES;
+        };
+        _topSearchView.textChangeBlock = ^(NSString * text) {
+            [weakSelf searchPoiByKeyword:text];
         };
     }
     return _topSearchView;
@@ -156,16 +166,17 @@
 
 - (MAMapView *)iMapView {
     if (!_iMapView) {
-        _iMapView = [[MAMapView alloc] init];
+        _iMapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, CGFloatIn750(100), KScreenWidth, CGFloatIn750(460))];
         _iMapView.delegate = self;
-        MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
-        pin1.coordinate =  CLLocationCoordinate2DMake(39.992520, 116.336170);
-        pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
-        [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
-        [_iMapView addAnnotation:pin1];
+//        MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
+//        pin1.coordinate =  CLLocationCoordinate2DMake(39.992520, 116.336170);
+//        pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
+//        [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
+//        [_iMapView addAnnotation:pin1];
         _iMapView.showsUserLocation = YES;
+        _iMapView.zoomLevel = 15;
         _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _iMapView.zoomLevel = 19;
+//        _iMapView.zoomLevel = 1;
         [_iMapView addSubview:self.checkSelfBtn];
         [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.iMapView.mas_right).offset(CGFloatIn750(-10));
@@ -214,7 +225,7 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZOrganizationAddressLocationCell"]){
+    if ( [cellConfig.title isEqualToString:@"ZOrganizationAddressLocationCell"] || [cellConfig.title isEqualToString:@"location"]){
         ZLocationModel *model = cellConfig.dataModel;
         self.location = model;
         if (self.addressBlock) {
@@ -228,16 +239,11 @@
 #pragma mark - MAMapViewDelegate
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     _cureUserLocation = userLocation;
-    
-    [_iMapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
-    UIImage *lbsImage = [UIImage imageNamed:@"hng_im_lbs_ann"];
-    UIImageView *lbsImageView = [[UIImageView alloc] initWithImage:lbsImage];
-    lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64-70);
-    [self.iMapView addSubview:lbsImageView];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        lbsImageView.center  = CGPointMake(self.iMapView.center.x, self.iMapView.center.y-64);
-    }];
+    if (!_isLocation) {
+        _isLocation = YES;
+        [_iMapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
+        [self searchPoiByCenterCoordinate];
+    }
 }
 - (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
 //    if ([annotation isKindOfClass:[MAPointAnnotation class]])
@@ -272,9 +278,15 @@
 //        CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
 //
 //        [self.view makeToast:[NSString stringWithFormat:@"distance between two pins = %.2f", distance] duration:1.0];
+        
+        
     }
 }
 
+- (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction{
+    NSLog(@"0000");
+    [self searchPoiByCenterCoordinate];
+}
 
 
 #pragma mark - AMapSearchDelegate
@@ -300,6 +312,7 @@
     
     /* 将结果以annotation的形式加载到地图上. */
 //    [self.iMapView addAnnotations:poiAnnotations];
+    [self.dataSources removeAllObjects];
     for (int i = 0; i < (poiAnnotations.count > 10 ? 10 : poiAnnotations.count); i++) {
         [self.dataSources addObject:poiAnnotations[i]];
     }
@@ -324,8 +337,8 @@
 {
     AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
     
-    request.location            = [AMapGeoPoint locationWithLatitude:39.990459 longitude:116.481476];
-    request.keywords            = @"电影院";
+    request.location            = [AMapGeoPoint locationWithLatitude:self.iMapView.centerCoordinate.latitude longitude:self.iMapView.centerCoordinate.longitude];
+//    request.keywords            = @"电影院";
     /* 按照距离排序. */
     request.sortrule            = 0;
     request.requireExtension    = YES;
@@ -352,7 +365,7 @@
 
 #pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"textFieldShouldReturn-----");
+//    NSLog(@"donggggs-----");
     [self searchPoiByKeyword:textField.text];
     return YES;
 }

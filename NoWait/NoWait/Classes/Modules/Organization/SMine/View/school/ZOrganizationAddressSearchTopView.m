@@ -220,6 +220,9 @@
 
 - (void)textFieldDidChange:(UITextField *)textField {
     [ZPublicTool textField:textField maxLenght:30 type:ZFormatterTypeAny];
+    if (self.textChangeBlock) {
+        self.textChangeBlock(textField.text);
+    }
  
 }
 @end

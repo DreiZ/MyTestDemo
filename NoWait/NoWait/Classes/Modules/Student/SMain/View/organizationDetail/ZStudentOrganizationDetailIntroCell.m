@@ -141,7 +141,7 @@
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.rightImage = @"rightBlackArrowN";
         mModel.isHiddenLine = YES;
-        mModel.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",self.model.province,self.model.city,self.model.county,self.model.address];
+        mModel.rightTitle = [NSString stringWithFormat:@"%@%@",self.model.brief_address,self.model.address];
         mModel.cellTitle = @"address";
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
@@ -216,7 +216,7 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.rightImage = @"rightBlackArrowN";
-        mModel.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",detailModel.province,detailModel.city,detailModel.county,detailModel.address];
+        mModel.rightTitle = [NSString stringWithFormat:@"%@%@",detailModel.brief_address,detailModel.address];
         height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
     }
     {

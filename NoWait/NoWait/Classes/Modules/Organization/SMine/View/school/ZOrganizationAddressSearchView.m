@@ -136,10 +136,10 @@
         ZLocationModel *model = [[ZLocationModel alloc] init];
         model.coordinate = annotation.coordinate;
         model.distance = annotation.poi.distance;
-        model.city = annotation.poi.city;
-        model.province = annotation.poi.province;
-        model.district = annotation.poi.district;
-        model.address = annotation.poi.address;
+        model.city = annotation.poi.citycode;
+        model.province = annotation.poi.pcode;
+        model.district = annotation.poi.adcode;
+        model.address = [NSString stringWithFormat:@"%@%@%@%@",annotation.poi.province,annotation.poi.city,annotation.poi.district,annotation.poi.address];
         model.name = annotation.poi.name;
         model.businessArea = annotation.poi.businessArea;
         

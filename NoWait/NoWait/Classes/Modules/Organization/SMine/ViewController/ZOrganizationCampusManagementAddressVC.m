@@ -39,7 +39,7 @@
         if (i == 0) {
             ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
             model.leftTitle = tempArr[0];
-            model.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.province),SafeStr(self.city),SafeStr(self.county),SafeStr(self.brief_address)].length > 0 ? [NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.province),SafeStr(self.city),SafeStr(self.county),SafeStr(self.brief_address)] : @"请选择地址";
+            model.rightTitle = [NSString stringWithFormat:@"%@",SafeStr(self.address)].length > 0 ? [NSString stringWithFormat:@"%@",SafeStr(self.brief_address)] : @"请选择地址";
             model.isHiddenLine = YES;
             model.cellWidth = KScreenWidth;
             model.rightColor = [UIColor colorBlack];

@@ -105,7 +105,7 @@
                 if (self.model.address && self.model.address.length > 0) {
                     ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
                     model.leftTitle = textArr[i][0];
-                    model.rightTitle = [NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.model.province),SafeStr(self.model.city),SafeStr(self.model.county),SafeStr(self.model.brief_address)].length > 0 ? [NSString stringWithFormat:@"%@%@%@%@%@",SafeStr(self.model.province),SafeStr(self.model.city),SafeStr(self.model.county),SafeStr(self.model.brief_address),SafeStr(self.model.address)] : @"请选择地址";
+                    model.rightTitle = [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)].length > 0 ? [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)] : @"请选择地址";
                     model.isHiddenLine = YES;
                     model.cellWidth = KScreenWidth - CGFloatIn750(60);
                     model.rightColor = [UIColor colorBlack];
@@ -329,10 +329,10 @@
             return;
         }
     }else if ([cellConfig.title isEqualToString:@"address"]) {
-//        if ([SafeStr(self.model.hash_update_address) boolValue]) {
-//            [TLUIUtility showErrorHint:@"地址已不可修改"];
-//            return;
-//        }
+        if ([SafeStr(self.model.hash_update_address) boolValue]) {
+            [TLUIUtility showErrorHint:@"地址已不可修改"];
+            return;
+        }
         ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
         mvc.addressBlock = ^(NSString * province, NSString * city, NSString * county, NSString * brief_address, NSString * address, double latitude, double  longitude) {
             weakSelf.model.province = province;
