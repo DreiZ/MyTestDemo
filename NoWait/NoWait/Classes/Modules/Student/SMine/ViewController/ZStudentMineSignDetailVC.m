@@ -156,6 +156,7 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     NSMutableDictionary *params = @{}.mutableCopy;
     if (ValidStr(self.courses_class_id)) {
         [params setObject:SafeStr(self.courses_class_id) forKey:@"courses_class_id"];
@@ -164,6 +165,7 @@
         [params setObject:SafeStr(self.student_id) forKey:@"student_id"];
     }
     [ZSignViewModel getSignDetail:params completeBlock:^(BOOL isSuccess, ZSignInfoModel *addModel) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.detailModel = addModel;
             [weakSelf initCellConfigArr];

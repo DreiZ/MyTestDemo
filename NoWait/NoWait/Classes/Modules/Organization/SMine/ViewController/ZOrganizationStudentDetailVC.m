@@ -330,6 +330,7 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationStudentViewModel getStudentDetail:@{@"id":SafeStr(self.addModel.studentID)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
         if (isSuccess) {
             weakSelf.addModel = addModel;

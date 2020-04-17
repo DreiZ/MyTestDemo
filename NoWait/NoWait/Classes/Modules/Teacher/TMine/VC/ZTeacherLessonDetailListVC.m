@@ -109,7 +109,7 @@
 
 - (void)refreshCurriculumList {
     NSMutableDictionary *param = @{@"is_today":@"0"}.mutableCopy;
-    
+    self.loading = YES;
     __weak typeof(self) weakSelf = self;
     [ZOriganizationLessonViewModel getCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonScheduleListNetModel *data) {
         weakSelf.loading = NO;

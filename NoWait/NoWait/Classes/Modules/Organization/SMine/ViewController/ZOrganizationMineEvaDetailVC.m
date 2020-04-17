@@ -266,7 +266,9 @@
 #pragma mark - refresha
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(self.listModel.order_id),@"stores_id":SafeStr([ZUserHelper sharedHelper].school.schoolID)} completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.detailModel = data;
             [weakSelf initCellConfigArr];

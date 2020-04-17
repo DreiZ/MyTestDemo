@@ -210,6 +210,7 @@
     __weak typeof(self) weakSelf = self;
     [ZTeacherViewModel getStoresInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && data && [data isKindOfClass:[ZOriganizationDetailModel class]]) {
+            self.loading = NO;
             [ZUserHelper sharedHelper].stores = data;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

@@ -52,6 +52,11 @@
 
 @implementation ZStudentLessonDetailVC
 
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
@@ -68,6 +73,7 @@
     [self setTableViewEmptyDataDelegate];
 }
 
+#pragma mark - set data view
 - (void)setDataSource {
     [super setDataSource];
     _param = @{}.mutableCopy;
@@ -696,7 +702,9 @@
 
 - (void)refreshHeader {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonDetailModel *addModel) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.addModel = addModel;
             [weakSelf initCellConfigArr];

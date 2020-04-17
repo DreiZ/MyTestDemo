@@ -21,6 +21,13 @@
     return self;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle{//状态栏颜色
+
+// 黑色 UIStatusBarStyleDefault;  白色 UIStatusBarStyleLightContent
+    return UIStatusBarStyleDefault;
+}
+
+#pragma mark - vc fun
 - (void)viewDidLoad
 {
     [super viewDidLoad];

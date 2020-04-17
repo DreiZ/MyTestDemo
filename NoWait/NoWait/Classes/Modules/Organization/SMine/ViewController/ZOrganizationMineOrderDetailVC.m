@@ -779,6 +779,8 @@
 
 #pragma mark - 网络数据
 - (void)refreshData {
+    self.loading = YES;
+    
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *params = @{@"order_id":SafeStr(self.model.order_id)}.mutableCopy;
     if (self.model) {
@@ -786,6 +788,7 @@
     }
     if (self.model.isRefund) {
         [ZOriganizationOrderViewModel getOrderRefundDetail:params completeBlock:^(BOOL isSuccess, id data) {
+            weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.detailModel = data;
                 [weakSelf initCellConfigArr];
@@ -797,6 +800,7 @@
         
     }else{
         [ZOriganizationOrderViewModel getOrderDetail:params completeBlock:^(BOOL isSuccess, id data) {
+            weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.detailModel = data;
                 [weakSelf initCellConfigArr];

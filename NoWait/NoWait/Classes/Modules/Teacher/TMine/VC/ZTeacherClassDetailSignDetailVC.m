@@ -218,7 +218,9 @@
 #pragma mark - 数据处理
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationClassViewModel getMyClassSignList:@{@"courses_class_id":SafeStr(self.model.classID),@"courses_num":SafeStr(self.model.now_progress)} completeBlock:^(BOOL isSuccess, ZOriganizationSignListNetModel *addModel) {
+        self.loading = NO;
         if (isSuccess) {
             [weakSelf setIsEdit:NO];
             weakSelf.detailModel = addModel;

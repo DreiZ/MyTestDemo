@@ -193,7 +193,9 @@
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationTeacherViewModel getStoresTeacherDetail:@{@"id":SafeStr(self.addModel.teacherID)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.addModel = addModel;
             [weakSelf initCellConfigArr];

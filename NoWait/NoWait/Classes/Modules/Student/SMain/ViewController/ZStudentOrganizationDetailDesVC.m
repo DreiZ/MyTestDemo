@@ -373,6 +373,7 @@
 - (void)refreshDetailData {
     __weak typeof(self) weakSelf = self;
     [ZStudentMainViewModel getStoresDetail:@{@"stores_id":SafeStr(self.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.detailModel = data;
             [weakSelf initCellConfigArr];

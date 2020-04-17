@@ -131,7 +131,9 @@
 #pragma mark - refresha
 - (void)refreshInfoData {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationStudentViewModel getStudentDetail:@{@"id":SafeStr(self.student_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
+        weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.addModel = addModel;
             [weakSelf initCellConfigArr];

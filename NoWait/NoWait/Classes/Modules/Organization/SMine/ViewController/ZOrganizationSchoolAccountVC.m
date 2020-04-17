@@ -167,7 +167,9 @@
 
 - (void)getAccountBill {
     __weak typeof(self) weakSelf = self;
+    self.loading = YES;
     [ZOriganizationViewModel getMerchantsAccount:@{@"stores_id":SafeStr(self.stores_id),@"merchants_id":SafeStr([ZUserHelper sharedHelper].user.userID)} completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = NO;
         if (isSuccess && data && [data isKindOfClass:[ZStoresAccountModel class]]) {
             weakSelf.model = data;
             [weakSelf initCellConfigArr];
