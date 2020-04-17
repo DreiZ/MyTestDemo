@@ -164,7 +164,6 @@
         self.info = @"";
         self.price = @"";
         self.images = @[].mutableCopy;
-        self.net_images = @[].mutableCopy;
         self.school = @"";
         self.level = @"1";
         self.course_min = @"";

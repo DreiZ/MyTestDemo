@@ -82,7 +82,6 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *info;
 @property (nonatomic,strong) NSString *price;
 @property (nonatomic,strong) NSMutableArray *images;
-@property (nonatomic,strong) NSMutableArray *net_images;
 @property (nonatomic,strong) NSString *school;
 @property (nonatomic,strong) NSString *level;// 1: 初级，2：进阶 3：精英
 @property (nonatomic,strong) NSString *course_min;

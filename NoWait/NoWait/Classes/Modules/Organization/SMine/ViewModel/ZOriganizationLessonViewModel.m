@@ -108,22 +108,22 @@
                     model.image_net_url = model.image_url;
                 }
                 
-                if (model.images && [model.images isKindOfClass:[NSArray class]]) {
-                    for (NSInteger i = 0; i < model.images.count; i++) {
-                        [model.net_images addObject:model.images[i]];
-                    }
-                    for (NSInteger i = model.images.count; i < 9; i++) {
-                        [model.images addObject:@""];
-                        [model.net_images addObject:@""];
-                    }
-                }else {
-                    model.images = @[].mutableCopy;
-                    model.net_images = @[].mutableCopy;
-                    for (NSInteger i = model.images.count; i < 9; i++) {
-                        [model.images addObject:@""];
-                        [model.net_images addObject:@""];
-                    }
-                }
+//                if (model.images && [model.images isKindOfClass:[NSArray class]]) {
+//                    for (NSInteger i = 0; i < model.images.count; i++) {
+//                        [model.net_images addObject:model.images[i]];
+//                    }
+//                    for (NSInteger i = model.images.count; i < 9; i++) {
+//                        [model.images addObject:@""];
+//                        [model.net_images addObject:@""];
+//                    }
+//                }else {
+//                    model.images = @[].mutableCopy;
+//                    model.net_images = @[].mutableCopy;
+//                    for (NSInteger i = model.images.count; i < 9; i++) {
+//                        [model.images addObject:@""];
+//                        [model.net_images addObject:@""];
+//                    }
+//                }
                 
                 if (ValidStr(model.fix_time_net)) {
                     id tempDict1 = [model.fix_time_net zz_JSONValue];

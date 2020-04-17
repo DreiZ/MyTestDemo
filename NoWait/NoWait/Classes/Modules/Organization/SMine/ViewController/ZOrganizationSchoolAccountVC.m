@@ -25,6 +25,12 @@
 @end
 
 @implementation ZOrganizationSchoolAccountVC
+
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;

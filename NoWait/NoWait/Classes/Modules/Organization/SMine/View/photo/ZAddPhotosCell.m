@@ -177,10 +177,14 @@
     if (!list || list.count == 0) {
         return CGFloatIn750(148) + CGFloatIn750(32);
     }
-    if (list.count%3 > 0) {
-        return (list.count/3 + 1) * CGFloatIn750(148) + ((list.count/3) * CGFloatIn750(12))+ CGFloatIn750(20);
+    NSInteger count = list.count;
+    if (count < 9) {
+        count += 1;
     }
-    return list.count/3  * CGFloatIn750(148) + (list.count/3 - 1)  * CGFloatIn750(12) + CGFloatIn750(20);
+    if (count%3 > 0) {
+        return (count/3 + 1) * CGFloatIn750(148) + ((count/3) * CGFloatIn750(12))+ CGFloatIn750(20);
+    }
+    return count/3  * CGFloatIn750(148) + (count/3 - 1)  * CGFloatIn750(12) + CGFloatIn750(20);
 }
 
 @end

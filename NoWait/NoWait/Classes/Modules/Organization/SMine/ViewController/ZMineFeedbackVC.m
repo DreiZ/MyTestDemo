@@ -8,7 +8,7 @@
 
 #import "ZMineFeedbackVC.h"
 #import "ZStudentLessonOrderMoreInputCell.h"
-#import "ZOrganizationLessonAddPhotosCell.h"
+#import "ZAddPhotosCell.h"
 #import "ZBaseUnitModel.h"
 #import "ZFeedBackViewModel.h"
 
@@ -33,8 +33,6 @@
     [super setDataSource];
     
     self.viewModel = [[ZFeedBackViewModel alloc] init];
-    [self.viewModel.model.images addObject:@""];
-    [self.viewModel.model.images addObject:@""];
 }
 
 - (void)initCellConfigArr {
@@ -65,23 +63,22 @@
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         NSMutableArray *menulist = @[].mutableCopy;
 
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < self.viewModel.model.images.count; j++) {
             ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
             if (j < self.viewModel.model.images.count) {
                 model.data = self.viewModel.model.images[j];
                 model.uid = [NSString stringWithFormat:@"%d", j];
             }
-            model.name = @"添加图片";
-            model.subName = @"选填";
+            
             model.isEdit = YES;
-        //            model.imageName = tempArr[j][1];
-        //            model.uid = tempArr[j][2];
             [menulist addObject:model];
         }
-
+        model.name = @"添加图片";
+        model.subName = @"选填";
+        model.uid = @"2";
         model.units = menulist;
 
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZAddPhotosCell className] title:[ZAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:progressCellConfig];
     }
     
@@ -195,24 +192,25 @@
         lcell.valueBlock = ^(NSString *text) {
             weakSelf.viewModel.model.des = text;
         };
-    }else if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddPhotosCell"]){
-        ZOrganizationLessonAddPhotosCell *lcell = (ZOrganizationLessonAddPhotosCell *)cell;
-        lcell.menuBlock = ^(NSInteger index, BOOL isAdd) {
+    }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]){
+        ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 2/3.0 * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
-                    if (list && list.count > 0) {
-                        if (index < weakSelf.viewModel.model.images.count) {
-                            LLImagePickerModel *model = list[0];
-                            [weakSelf.viewModel.model.images replaceObjectAtIndex:index withObject:model.image];
-                            [weakSelf initCellConfigArr];
-                            [weakSelf.iTableView reloadData];
+                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.model.images.count;
+                
+                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                    if (list && list.count > 0){;
+                        for (LLImagePickerModel *model in list) {
+                            [weakSelf.viewModel.model.images addObject:model.image];
                         }
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
                     }
                 }];
             }else{
                 if (index < weakSelf.viewModel.model.images.count) {
-                    [weakSelf.viewModel.model.images replaceObjectAtIndex:index withObject:@""];
+                    [weakSelf.viewModel.model.images removeObjectAtIndex:index];
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
                 }

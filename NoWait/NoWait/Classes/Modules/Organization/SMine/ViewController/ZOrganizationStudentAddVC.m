@@ -295,7 +295,7 @@
         ZOriganizationTeachAddHeadImageCell *lcell = (ZOriganizationTeachAddHeadImageCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [self.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth*0.6, KScreenWidth*0.6) complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     LLImagePickerModel *model = list[0];
                     weakSelf.viewModel.addModel.image = model.image;
