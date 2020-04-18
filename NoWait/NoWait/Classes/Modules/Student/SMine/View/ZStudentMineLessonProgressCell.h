@@ -13,5 +13,6 @@
 @interface ZStudentMineLessonProgressCell : ZBaseCell
 @property (nonatomic,strong) NSArray<ZOriganizationClassListModel*> *list;
 @property (nonatomic,strong) void (^moreBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationClassListModel *);
 @end
 

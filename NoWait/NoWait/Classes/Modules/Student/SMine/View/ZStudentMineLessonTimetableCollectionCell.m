@@ -71,7 +71,7 @@
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = [UIColor colorWhite];
         _lessonLabel.numberOfLines = 1;
-        _lessonLabel.textAlignment = NSTextAlignmentLeft;
+        _lessonLabel.textAlignment = NSTextAlignmentCenter;
         [_lessonLabel setFont:[UIFont boldFontSmall]];
         [_lessonLabel setAdjustsFontSizeToFitWidth:YES];
     }

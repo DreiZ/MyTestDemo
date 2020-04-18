@@ -28,6 +28,7 @@
 #import "ZMineSwitchRoleVC.h"
 #import "DIYScanViewController.h"
 #import "ZTeacherLessonDetailListVC.h"
+#import "ZStudentMineSignDetailVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -149,11 +150,27 @@
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }];
         };
+        
+        lcell.handleBlock = ^(ZOriganizationClassListModel * model) {
+            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+            dvc.type = 0;
+            dvc.courses_class_id = model.courses_class_id;
+            dvc.student_id = model.student_id;
+            [self.navigationController pushViewController:dvc animated:YES];
+        };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
         ZStudentMineLessonTimetableCell *tcell = (ZStudentMineLessonTimetableCell *)cell;
         tcell.moreBlock = ^(NSInteger index) {
             ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
             [self.navigationController pushViewController:lvc animated:YES];
+        };
+        
+        tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
+//            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+//            dvc.type = 0;
+//            dvc.courses_class_id = model.courses_class_id;
+//            dvc.student_id = model.student_id;
+//            [self.navigationController pushViewController:dvc animated:YES];
         };
     }
 }

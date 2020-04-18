@@ -13,6 +13,7 @@
 @interface ZStudentMineLessonTimetableCell : ZBaseCell
 @property (nonatomic,strong) NSArray<ZOriganizationLessonListModel*> *list;
 @property (nonatomic,strong) void (^moreBlock)(NSInteger);
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonListModel *);
 @end
 
 

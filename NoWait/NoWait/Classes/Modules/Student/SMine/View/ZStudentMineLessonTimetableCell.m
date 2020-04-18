@@ -145,6 +145,9 @@
 //    ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
 //    dvc.model = self.dataSources[indexPath.row];
 //    [self.navigationController pushViewController:dvc animated:YES];
+    if (self.handleBlock) {
+        self.handleBlock(self.dataSources[indexPath.row]);
+    }
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

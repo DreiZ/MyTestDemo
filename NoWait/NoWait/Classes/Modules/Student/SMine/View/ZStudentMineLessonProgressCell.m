@@ -199,7 +199,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.handleBlock) {
+        self.handleBlock(self.list[indexPath.row]);
+    }
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
