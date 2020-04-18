@@ -105,7 +105,7 @@
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
         _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_editBtn setTitle:@"签课" forState:UIControlStateNormal];
         [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_editBtn, CGFloatIn750(24), 1, [UIColor colorMain]);
