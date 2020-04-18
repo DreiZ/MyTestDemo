@@ -87,7 +87,7 @@
                 }];
             } 
         };
-        if ([self.type intValue] == 1) {
+        if ([self.type intValue] == 1 || [self.type intValue] == 2) {
             _topView.isHandle = NO;
         }
     }

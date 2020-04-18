@@ -103,7 +103,7 @@
 - (UILabel *)orderNOLabel {
     if (!_orderNOLabel) {
         _orderNOLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _orderNOLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark    ]);
+        _orderNOLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         
         _orderNOLabel.numberOfLines = 1;
         _orderNOLabel.textAlignment = NSTextAlignmentLeft;
@@ -140,7 +140,7 @@
 
 - (void)setModel:(ZStoresAccountBillListModel *)model {
     _model = model;
-    _daoLabel.text = [NSString stringWithFormat:@"￥%@",model.show_amount];
+    _daoLabel.text = [NSString stringWithFormat:@"%.2f",[model.show_amount doubleValue]];
     _timeLabel.text = [model.end_time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
     _orderNOLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.order_no];
     _nameLabel.text = SafeStr(model.title);
