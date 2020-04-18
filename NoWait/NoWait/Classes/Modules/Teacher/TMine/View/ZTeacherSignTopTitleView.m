@@ -153,7 +153,7 @@
     }
     
     
-    _titleLabel.text = [NSString stringWithFormat:@"第%ld节课",model.index];
+    _titleLabel.text = [NSString stringWithFormat:@"第%ld节课",model.index+1];
 }
 
 - (void)setTime:(NSString *)time {

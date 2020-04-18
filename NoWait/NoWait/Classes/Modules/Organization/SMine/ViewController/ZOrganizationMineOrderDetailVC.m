@@ -378,7 +378,7 @@
         ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
         lcell.titleLabel.font = [UIFont fontContent];
         lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
+        lcell.contentView.backgroundColor = adaptAndDarkColor(HexAColor(0xf4f4f4, 1), HexAColor(0x040404, 1));
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineOrderDetailCell"]){
         ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {

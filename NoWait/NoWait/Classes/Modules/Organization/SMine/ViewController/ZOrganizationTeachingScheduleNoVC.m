@@ -149,27 +149,28 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]){
         ZOrganizationTeachingScheduleNoCell *enteryCell = (ZOrganizationTeachingScheduleNoCell *)cell;
         enteryCell.handleBlock = ^BOOL(NSInteger index) {
-            NSInteger allcount = [weakSelf selectLessonOrderArr].count;
-            if (allcount < [weakSelf.lessonModel.course_class_number intValue]) {
-                if (weakSelf.isEdit) {
-                    if (index == 0) {
-                        [weakSelf selectData:indexPath.row];
-                    }else if (index == 1){
-                        
-                    }
-                    NSInteger count = [weakSelf selectLessonOrderArr].count;
-                    [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,weakSelf.lessonModel.course_class_number] forState:UIControlStateNormal];
-                }else{
-                    
-                }
-                return YES;
-            }
+//            NSInteger allcount = [weakSelf selectLessonOrderArr].count;
+//            if (allcount < [weakSelf.lessonModel.course_class_number intValue]) {
+//                if (weakSelf.isEdit) {
+//                    if (index == 0) {
+//                        [weakSelf selectData:indexPath.row];
+//                    }else if (index == 1){
+//
+//                    }
+//                    NSInteger count = [weakSelf selectLessonOrderArr].count;
+//                    [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,weakSelf.lessonModel.course_class_number] forState:UIControlStateNormal];
+//                }else{
+//
+//                }
+//                return YES;
+//            }
             if (weakSelf.isEdit) {
                 NSInteger count = [weakSelf selectLessonOrderArr].count;
                 [weakSelf.bottomBtn setTitle:[NSString stringWithFormat:@"下一步（%ld/%@）",(long)count,weakSelf.lessonModel.course_class_number] forState:UIControlStateNormal];
             }
-            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.lessonModel.course_class_number]];
-            return NO;
+            return YES;
+//            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.lessonModel.course_class_number]];
+//            return NO;
         };
         
     }

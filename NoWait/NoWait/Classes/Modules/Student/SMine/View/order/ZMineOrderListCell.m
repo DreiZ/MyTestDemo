@@ -139,6 +139,7 @@
     [self.bottomView addSubview:self.refundOSureBtn];
     [self.bottomView addSubview:self.refundORefectBtn];
     [self.bottomView addSubview:self.refundPayBtn];
+    [self.bottomView addSubview:self.receivedNOBtn];
     
     [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bottomView);
@@ -466,7 +467,7 @@
             };
         }];
     }
-    return _receivedBtn;
+    return _receivedNOBtn;
 }
 
 - (UIButton *)refundSureBtn {

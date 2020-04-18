@@ -47,7 +47,7 @@
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
     self.detailModel.type = @"2";
-    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
+//    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
     self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
     [self initCellConfigArr];
     [self.iTableView reloadData];

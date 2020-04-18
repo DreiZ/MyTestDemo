@@ -296,6 +296,7 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
+        sdvc.isTeacher = YES;
         sdvc.model = self.model;
         [self.navigationController pushViewController:sdvc animated:YES];
     }

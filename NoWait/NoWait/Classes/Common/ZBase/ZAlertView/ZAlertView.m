@@ -86,7 +86,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = [UIColor colorTextGray];
+    titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -162,7 +162,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = [UIColor colorTextGray];
+    titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     titleLabel.text = title;
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -220,7 +220,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = [UIColor colorTextBlack];
+    titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     titleLabel.text = title;
     titleLabel.numberOfLines = 1;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -233,7 +233,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    subTitleLabel.textColor = [UIColor colorTextGray];
+    subTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     subTitleLabel.text = subTitle;
     subTitleLabel.numberOfLines = 0;
     subTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -289,7 +289,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.textColor = [UIColor colorTextBlack];
+    titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     titleLabel.text = title;
     titleLabel.numberOfLines = 1;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -302,7 +302,7 @@ static ZAlertView *sharedManager;
     }];
     
     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    subTitleLabel.textColor = [UIColor colorTextGray];
+    subTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     subTitleLabel.text = subTitle;
     subTitleLabel.numberOfLines = 0;
     subTitleLabel.textAlignment = NSTextAlignmentCenter;

@@ -111,17 +111,23 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleNoCell"]){
         ZOrganizationTeachingScheduleNoCell *enteryCell = (ZOrganizationTeachingScheduleNoCell *)cell;
         enteryCell.handleBlock = ^BOOL(NSInteger index) {
-            NSInteger allcount = [weakSelf getSelectedData].count;
-            if (allcount < [weakSelf.model.limit_nums intValue]) {
-                if (index == 0) {
-                    [weakSelf selectData:indexPath.row];
-                }else if (index == 1){
-                    
-                }
-                return YES;
-            }
-            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.model.limit_nums]];
-            return NO;
+//            NSInteger allcount = [weakSelf getSelectedData].count;
+            if (index == 0) {
+               [weakSelf selectData:indexPath.row];
+           }else if (index == 1){
+               
+           }
+           return YES;
+//            if (allcount < [weakSelf.model.limit_nums intValue]) {
+//                if (index == 0) {
+//                    [weakSelf selectData:indexPath.row];
+//                }else if (index == 1){
+//
+//                }
+//                return YES;
+//            }
+//            [TLUIUtility showErrorHint:[NSString stringWithFormat:@"人数已达到上线（%@人）",weakSelf.model.limit_nums]];
+//            return NO;
         };
     }
 }
@@ -129,7 +135,7 @@
 
 - (void)selectData:(NSInteger)index {
     for (int i = 0; i < self.dataSources.count; i++) {
-        ZOriganizationStudentListModel *model = self.dataSources[i];
+//        ZOriganizationStudentListModel *model = self.dataSources[i];
         if (i == index) {
 //            model.isSelected = !model.isSelected;
         }

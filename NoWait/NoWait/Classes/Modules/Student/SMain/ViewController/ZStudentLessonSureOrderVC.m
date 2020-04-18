@@ -410,7 +410,7 @@
 
 
 - (void)setUserCell {
-    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
+//    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
     self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.detailModel.students_name),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],

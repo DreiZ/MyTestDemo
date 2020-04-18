@@ -100,7 +100,7 @@
         }
     }else{
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewBorderRadius(_contView, CGFloatIn750(24), 1, [UIColor colorWhite]);
+        ViewBorderRadius(_contView, CGFloatIn750(24), 1, adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]));
     }
 }
 @end

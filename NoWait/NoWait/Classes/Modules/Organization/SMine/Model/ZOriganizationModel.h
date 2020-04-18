@@ -540,6 +540,7 @@
 @property (nonatomic,assign) BOOL isMore;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,assign) BOOL isOpen;
+@property (nonatomic,assign) BOOL isTeacher;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *total;
 @property (nonatomic,strong) NSArray <ZOriganizationSignListStudentModel *>*list;

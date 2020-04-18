@@ -116,11 +116,11 @@ static ZAlertDataCheckBoxView *sharedManager;
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
        [topView addSubview:bottomLineView];
        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.right.bottom.equalTo(topView);
-           make.height.mas_equalTo(1);
+           make.height.mas_equalTo(0.5);
        }];
        
     [self.contView addSubview:self.iTableView];
@@ -176,7 +176,7 @@ static ZAlertDataCheckBoxView *sharedManager;
         _nameLabel.text = @"0";
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        [_nameLabel setFont:[UIFont boldFontContent]];
+        [_nameLabel setFont:[UIFont boldFontTitle]];
     }
     return _nameLabel;
 }

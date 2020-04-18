@@ -27,12 +27,12 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshData];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self refreshData];
     [self setNavigation];
     [self initCellConfigArr];
 }

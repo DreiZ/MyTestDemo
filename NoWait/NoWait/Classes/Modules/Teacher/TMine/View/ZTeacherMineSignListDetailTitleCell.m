@@ -126,22 +126,27 @@
     _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     ZOriganizationSignListModel *lModel = model.data;
-    if (lModel.isOpen) {
-        if ([lModel.type intValue] == 4 || [lModel.type intValue] == 5 || [lModel.type intValue] == 6 ) {
-            self.editBtn.hidden = NO;
+    if (lModel.isTeacher) {
+        if (lModel.isOpen) {
+            if ([lModel.type intValue] == 4 || [lModel.type intValue] == 5 || [lModel.type intValue] == 6 ) {
+                self.editBtn.hidden = NO;
+            }else{
+                self.editBtn.hidden = YES;
+            }
         }else{
             self.editBtn.hidden = YES;
+        }
+        
+        
+        if (lModel.isEdit) {
+            [_editBtn setTitle:@"取消" forState:UIControlStateNormal];
+        }else{
+            [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         }
     }else{
         self.editBtn.hidden = YES;
     }
     
-    
-    if (lModel.isEdit) {
-        [_editBtn setTitle:@"取消" forState:UIControlStateNormal];
-    }else{
-        [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -175,6 +175,7 @@
     [self.iCollectionView reloadData];
 }
 
+
 +(CGFloat)z_getCellHeight:(id)sender {
     ZOriganizationSignListModel *model = sender;
     NSArray *list = model.list;
