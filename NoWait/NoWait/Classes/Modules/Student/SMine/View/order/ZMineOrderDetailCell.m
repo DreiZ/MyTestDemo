@@ -62,14 +62,14 @@
    }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.detailLabel.mas_centerY);
+        make.centerY.equalTo(self.timeLabel.mas_centerY);
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
     }];
 
     [self.orderNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.leftImageView.mas_top).offset(CGFloatIn750(2));
-        make.right.equalTo(self.priceLabel.mas_left).offset(-CGFloatIn750(10));
+        make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(10));
     }];
     
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,7 +112,7 @@
         _orderNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orderNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _orderNameLabel.text = @"";
-        _orderNameLabel.numberOfLines = 1;
+        _orderNameLabel.numberOfLines = 0;
         _orderNameLabel.textAlignment = NSTextAlignmentLeft;
         [_orderNameLabel setFont:[UIFont boldFontContent]];
     }
@@ -186,7 +186,7 @@
     _model = model;
     [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.course_image_url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     self.orderNameLabel.text = SafeStr(model.course_name);
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.order_amount)];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.pay_amount)];
     self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",SafeStr(self.model.teacher_name)];
     self.timeLabel.text = [NSString stringWithFormat:@"课节：%@节",SafeStr(self.model.course_number)];
 }

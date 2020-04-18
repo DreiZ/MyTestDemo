@@ -659,6 +659,9 @@
                     
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                     [self.cellConfigArr addObject:menuCellConfig];
+                    [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];
+                }else{
+                    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
                 }
             }else{
                 if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
@@ -680,9 +683,12 @@
                     
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                     [self.cellConfigArr addObject:menuCellConfig];
+                    [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];
+                }else{
+                    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
                 }
             }
-            [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];
+            
         }
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         NSArray *tempArr = @[@[@"联系人姓名", SafeStr(self.detailModel.students_name)],@[@"手机号", SafeStr(self.detailModel.account_phone)]];
