@@ -47,7 +47,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_phoneCell && _phoneCell.inputTextField.text.length == 0) {
-        [_phoneCell.inputTextField becomeFirstResponder];
+//        [_phoneCell.inputTextField becomeFirstResponder];
     }
 }
 

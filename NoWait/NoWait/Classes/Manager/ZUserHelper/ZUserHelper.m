@@ -54,15 +54,15 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userCodeID"];
     
-    
-    [self logoutWithParams:@{} block:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            [TLUIUtility showSuccessHint:message];
-            [[ZLaunchManager sharedInstance] showLoginVC];
-        }else{
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLoginStateChange object:nil];
+//    [self logoutWithParams:@{} block:^(BOOL isSuccess, NSString *message) {
+//        if (isSuccess) {
+//            [TLUIUtility showSuccessHint:message];
+//            [[ZLaunchManager sharedInstance] showLoginVC];
+//        }else{
+//            [TLUIUtility showErrorHint:message];
+//        }
+//    }];
 }
 
 - (void)deleteUserStore:(NSString *)userCodeID {

@@ -134,7 +134,7 @@
         [self.codeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(topBtnView.mas_bottom).offset(CGFloatIn750(20));
             make.left.right.equalTo(self.bottomView);
-            make.height.mas_equalTo(CGFloatIn750(742) - CGFloatIn750(70));
+            make.height.mas_equalTo(CGFloatIn750(742));
         }];
         
     }
@@ -147,7 +147,7 @@
         _codeImageView = [[ZAddStudentCodeView alloc] init];
         _codeImageView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:SafeStr(weakSelf.viewModel.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.viewModel.codeAddModel.teacher_name),SafeStr(weakSelf.viewModel.codeAddModel.courses_name)] image:weakSelf.codeImageView.userImageView.image url:SafeStr(weakSelf.viewModel.codeAddModel.url) vc:weakSelf];
+                [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:SafeStr(weakSelf.viewModel.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.viewModel.codeAddModel.teacher_name),SafeStr(weakSelf.viewModel.codeAddModel.courses_name)] image:weakSelf.codeImageView.userImageView.image url:SafeStr(weakSelf.viewModel.codeAddModel.url) vc:weakSelf];
             }else if (index == 2){
                 UIImage *shortImage = [ZPublicTool snapshotForView:weakSelf.codeImageView.topView];
                 if (shortImage) {

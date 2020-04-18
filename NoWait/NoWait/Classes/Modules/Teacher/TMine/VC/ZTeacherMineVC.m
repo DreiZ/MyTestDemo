@@ -67,6 +67,16 @@
     [super setDataSource];
     _lessonList = @[].mutableCopy;
     
+    __weak typeof(self) weakSelf = self;
+    [[kNotificationCenter rac_addObserverForName:KNotificationLoginStateChange object:nil] subscribeNext:^(NSNotification *notfication) {
+        
+        [weakSelf.lessonList removeAllObjects];
+        [weakSelf getStoresStatistical];
+        [weakSelf refreshCurriculumList];
+        [weakSelf initCellConfigArr];
+        [weakSelf.iTableView reloadData];
+    }];
+    
 }
 
 - (void)setupMainView {

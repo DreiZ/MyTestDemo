@@ -45,6 +45,7 @@
     [self.bottomView addSubview:self.hintLabel];
     [self.bottomView addSubview:self.leftBtn];
     [self.bottomView addSubview:self.rightBtn];
+    self.rightBtn.hidden = YES;
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
@@ -97,9 +98,11 @@
         make.width.mas_equalTo(2);
         make.height.mas_equalTo(CGFloatIn750(30));
     }];
+    bottomLineView.hidden = YES;
     
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_right).multipliedBy(0.25);
+//        make.centerX.equalTo(self.mas_right).multipliedBy(0.25);
+        make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(bottomLineView.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(180));
         make.height.mas_equalTo(CGFloatIn750(90));

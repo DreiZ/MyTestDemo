@@ -44,7 +44,6 @@
 @property (nonatomic,strong) ZStoresStatisticalModel *statisticalModel;
 
 @property (nonatomic,strong) NSMutableArray *topchannelList;
-@property (nonatomic,strong) NSMutableArray *lessonList;
 
 @end
 
@@ -81,7 +80,14 @@
 - (void)setDataSource {
     [super setDataSource];
     _topchannelList = @[].mutableCopy;
-    _lessonList = @[].mutableCopy;
+    
+    __weak typeof(self) weakSelf = self;
+    [[kNotificationCenter rac_addObserverForName:KNotificationLoginStateChange object:nil] subscribeNext:^(NSNotification *notfication) {
+        [weakSelf.topchannelList removeAllObjects];
+        [weakSelf getSchoolList];
+        [weakSelf initCellConfigArr];
+        [weakSelf.iTableView reloadData];
+    }];
 }
 
 - (void)setupMainView {
