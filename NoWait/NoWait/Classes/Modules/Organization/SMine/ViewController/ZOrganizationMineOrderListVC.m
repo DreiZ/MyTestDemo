@@ -212,7 +212,7 @@
             break;
         case ZStudentOrderTypeHadEva:
             //已完成
-            [_param setObject:@"12" forKey:@"status"];
+            [_param setObject:@"3" forKey:@"status"];
             break;
         default:
             break;

@@ -382,7 +382,7 @@
 }
 
 - (void)setPayTypeCell {
-    NSArray *tempArr = @[@[@"wechatPay", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipay", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
+    NSArray *tempArr = @[@[@"wepaylist", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipaylist", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
