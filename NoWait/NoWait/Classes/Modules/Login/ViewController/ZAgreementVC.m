@@ -8,15 +8,55 @@
 
 #import "ZAgreementVC.h"
 
-@interface ZAgreementVC ()
+@interface ZAgreementVC ()<UIWebViewDelegate>
+@property (nonatomic,strong) UIWebView *contentWebView;
 
 @end
 
 @implementation ZAgreementVC
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.analyzeTitle = @"协议页";
+    }
+    return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    
+    [self.navigationItem setTitle:self.navTitle];
+    
+    [self setMainView];
+    [self.contentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.0]];
+//    [self.contentWebView loadRequest:[NSURLRequest ]];
+}
+
+- (void)setMainView {
+    _contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-(kNavBarHeight+kStatusBarHeight))];
+    _contentWebView.delegate = self;
+    [_contentWebView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:_contentWebView];
+    UIScrollView *tempView = (UIScrollView *)[_contentWebView.subviews objectAtIndex:0];
+    tempView.scrollEnabled = YES;
+    tempView.pinchGestureRecognizer.enabled = YES;
+}
+
+
+#pragma mark  webViewDelegate
+- (void) webViewDidStartLoad:(UIWebView *)webView {
+    
+}
+
+- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+}
 @end
+

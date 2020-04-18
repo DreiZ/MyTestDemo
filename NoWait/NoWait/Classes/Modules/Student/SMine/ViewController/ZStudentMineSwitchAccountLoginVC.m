@@ -370,6 +370,7 @@
     return tempView;
 }
 
+#pragma mark - fun
 - (UIView *)getMenuBtnWithImageName:(NSString *)image  title:(NSString *)title tag:(NSInteger)tag {
     UIView *tempView = [[UIView alloc] init];
     
@@ -421,6 +422,11 @@
     }];
     
     return tempView;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等

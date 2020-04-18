@@ -13,6 +13,7 @@
 #import "ZAccountChangePasswordVC.h"
 #import "ZLoginPasswordController.h"
 #import "ZLaunchManager.h"
+#import "ZAgreementVC.h"
 
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
@@ -106,11 +107,14 @@
 #pragma mark - set data
 - (void)initCellConfigArr {
     [super initCellConfigArr];
- 
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(25) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+    
+    if (KScreenHeight < 812) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    }else{
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(25))];
     }
+    
+    
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = @"登录莫等闲";
     model.cellTitle = @"title";
@@ -155,16 +159,22 @@
 
         [self.cellConfigArr addObject:menuCellConfig];
     }
+    if (KScreenHeight < 812) {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(90))];
+    }else{
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(130))];
+    }
     
-    
-    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(130))];
-    
-   ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
-   
-   [self.cellConfigArr addObject:textCellConfig];
+    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
+
+    [self.cellConfigArr addObject:textCellConfig];
     
     {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        if (KScreenHeight < 812) {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(16))];
+        }else{
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        }
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
         
@@ -172,7 +182,11 @@
     }
     
     {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        if (KScreenHeight < 812) {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(16))];
+        }else{
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        }
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"短信验证码"];
         
@@ -245,10 +259,14 @@
         [doneBtn.titleLabel setFont:[UIFont fontTitle]];
         [_footerView addSubview:doneBtn ];
         [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (KScreenHeight < 812) {
+                make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(60));
+            }else{
+                make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(100));
+            }
             make.height.mas_equalTo(CGFloatIn750(100));
             make.left.equalTo(self.footerView.mas_left).offset(CGFloatIn750(60));
             make.right.equalTo(self.footerView.mas_right).offset(-CGFloatIn750(60));
-            make.top.equalTo(self.footerView.mas_top).offset(CGFloatIn750(100));
         }];
         _loginBtn = doneBtn;
         
@@ -373,17 +391,19 @@
         //    __weak typeof(self) weakself = self;
         
         [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-    //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-    //        avc.navTitle = @"莫等闲服务条款";
-    //        avc.type = @"service_agreement";
-    //        [self.navigationController pushViewController:avc animated:YES];
+            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            avc.navTitle = @"莫等闲服务条款";
+            avc.type = @"service_agreement";
+            avc.url = @"http://www.xiangcenter.com/Android/useragreement.html";
+            [self.navigationController pushViewController:avc animated:YES];
         }];
         
         [text setTextHighlightRange:NSMakeRange(15, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-    //        ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-    //        avc.navTitle = @"隐私协议";
-    //        avc.type = @"privacy_policy";
-    //        [self.navigationController pushViewController:avc animated:YES];
+            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            avc.navTitle = @"隐私协议";
+            avc.type = @"privacy_policy";
+            avc.url = @"http://www.xiangcenter.com/Android/privacyprotocol.html";
+            [self.navigationController pushViewController:avc animated:YES];
         }];
         
         
