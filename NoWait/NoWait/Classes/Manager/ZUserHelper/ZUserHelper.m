@@ -48,7 +48,7 @@
 {
     _user = user;
     
-//    [self deleteUserStore:user.userCodeID];
+    [self deleteUserStore:user.userCodeID];
     [ZUserHelper sharedHelper].user = nil;
     [[ZDBManager sharedInstance] loginout];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];

@@ -36,6 +36,7 @@
     [super viewDidLoad];
     
     self.isHidenNaviBar = NO;
+    [self.navigationItem setTitle:SafeStr(self.navTitle)];
     [self initMainView];
 }
 

@@ -56,6 +56,7 @@ static ZRouteManager *sharedManager;
         if ([model.ad_type isEqualToString:@"3"] && model.ad_type_content) {
             ZWebBridgeViewController *wvc = [[ZWebBridgeViewController alloc] init];
             wvc.url = model.ad_type_content.url;
+            wvc.navTitle = model.name;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:wvc animated:YES];
         }else if ([model.ad_type isEqualToString:@"1"] && model.ad_type_content) {
             ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];

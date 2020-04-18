@@ -53,6 +53,7 @@ static ZCouponListView *sharedManager;
     self.backgroundColor = RGBAColor(1, 1, 1, 0.5);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    
     _cellConfigArr = @[].mutableCopy;
     _dataSources = @[].mutableCopy;
     _param = @{}.mutableCopy;
@@ -70,7 +71,7 @@ static ZCouponListView *sharedManager;
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(610 + CGFloatIn750(190)));
         make.left.right.equalTo(self);
-        make.bottom.equalTo(self).offset(CGFloatIn750(32));
+        make.bottom.equalTo(self).offset(0);
     }];
     
     [self.contView addSubview:self.iTableView];
@@ -126,7 +127,7 @@ static ZCouponListView *sharedManager;
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel  = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = [UIColor colorTextBlack];
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _titleLabel.numberOfLines = 0;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont boldFontContent]];
@@ -140,7 +141,7 @@ static ZCouponListView *sharedManager;
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.layer.cornerRadius = 16;
-        _contView.backgroundColor = [UIColor whiteColor];
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     
     return _contView;
@@ -300,7 +301,7 @@ static ZCouponListView *sharedManager;
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
     if ([self.type isEqualToString:@"school"]) {
-        [ZOriganizationCardViewModel getCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+        [ZOriganizationCardViewModel getLessonCardList:param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
             if (isSuccess && data) {
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -368,7 +369,7 @@ static ZCouponListView *sharedManager;
     
     __weak typeof(self) weakSelf = self;
     if ([self.type isEqualToString:@"school"]) {
-        [ZOriganizationCardViewModel getCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
+        [ZOriganizationCardViewModel getLessonCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
             if (isSuccess && data) {
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 [weakSelf initCellConfigArr];

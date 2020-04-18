@@ -329,6 +329,7 @@
 @property (nonatomic,strong) NSString *unused_nums;
 @property (nonatomic,strong) NSString *nums;
 
+@property (nonatomic,strong) NSString *received;
 @property (nonatomic,strong) NSString *limit;
 @property (nonatomic,assign) BOOL isStudent;
 @property (nonatomic,assign) BOOL isUse;

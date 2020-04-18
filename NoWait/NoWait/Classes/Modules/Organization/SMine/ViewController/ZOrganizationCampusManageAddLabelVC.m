@@ -72,7 +72,7 @@
         make.height.mas_equalTo(CGFloatIn750(1));
     }];
     UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
+    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     [self.LabelView addSubview:topLineView];
     [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.LabelView);
@@ -80,7 +80,7 @@
         make.height.mas_equalTo(0.5);
     }];
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     UIView *hintView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(30), CGFloatIn750(80))];
 
     _userNameTF  = [[UITextField alloc] init];

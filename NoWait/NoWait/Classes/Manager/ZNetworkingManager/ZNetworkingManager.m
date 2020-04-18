@@ -88,6 +88,9 @@
                 }else if ([backModel.code integerValue] == 100005 ){
                     [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
                     [[ZLaunchManager sharedInstance] showLoginVC];
+                    [ZAlertView setAlertWithTitle:@"登录口令token已过期" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
                 }else{
                     
                     NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];

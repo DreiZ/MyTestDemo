@@ -11,6 +11,7 @@
 
 @interface ZWebBridgeViewController : ZViewController
 @property (nonatomic,strong) NSString *url;
+@property (nonatomic,strong) NSString *navTitle;
 
 @end
 

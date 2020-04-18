@@ -59,6 +59,8 @@ static AFHTTPSessionManager *manager = nil;
     
     if([ZUserHelper sharedHelper].user && [ZUserHelper sharedHelper].user.token.length > 0 && [ZUserHelper sharedHelper].user.token){
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[ZUserHelper sharedHelper].user.token] forHTTPHeaderField:@"Authorization"];
+    }else{
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@" %@",@""] forHTTPHeaderField:@"Authorization"];
     }
     
     return [[ZNetworking defaultAFManager] POST:path parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {

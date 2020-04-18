@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UILabel *timeLabel;
 @property (nonatomic,strong) UILabel *handleLabel;
 @property (nonatomic,strong) UIView *backView;
+@property (nonatomic,strong) UILabel *priceHintLabel;
 
 @end
 
@@ -56,19 +57,17 @@
     }];
     
     
-    UILabel *priceHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    priceHintLabel.textColor = [UIColor colorRedForLabel];
-    priceHintLabel.text = @"￥";
-    [priceHintLabel setFont:[UIFont fontSmall]];
-    [self.backView addSubview:priceHintLabel];
-    [priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.backView addSubview:self.priceHintLabel];
+    [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.backView.mas_top).offset(CGFloatIn750(40));
+        make.width.mas_equalTo(CGFloatIn750(26));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(priceHintLabel.mas_right);
-        make.bottom.equalTo(priceHintLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.left.equalTo(self.priceHintLabel.mas_right);
+        make.bottom.equalTo(self.priceHintLabel.mas_bottom).offset(CGFloatIn750(10));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,7 +77,7 @@
     }];
     
     [self.manLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(priceHintLabel.mas_left);
+        make.left.equalTo(self.priceHintLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(16));
         make.right.equalTo(self.priceLabel.mas_right);
     }];
@@ -110,6 +109,17 @@
 
 
 #pragma mark -Getter
+- (UILabel *)priceHintLabel {
+    if (!_priceHintLabel) {
+        _priceHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _priceHintLabel.textColor = [UIColor colorRedForLabel];
+        _priceHintLabel.text = @"￥";
+        [_priceHintLabel setFont:[UIFont boldFontSmall]];
+    }
+    return _priceHintLabel;
+}
+
+
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -200,7 +210,27 @@
         _handleLabel.text = @"立即使用";
     }else{
         _handleLabel.text = @"立即领取";
+        if ([model.received intValue] == 1) {
+            _handleLabel.text = @"已领取";
+            _manLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);;
+            _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            _handleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            _backView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        }else{
+            _manLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _nameLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);;
+            _priceLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _handleLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _timeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _backView.backgroundColor = [UIColor colorRedForLabelSub];
+        }
     }
+    
+    
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

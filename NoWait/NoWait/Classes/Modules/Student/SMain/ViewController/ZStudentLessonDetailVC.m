@@ -260,13 +260,17 @@
         __weak typeof(self) weakSelf = self;
         [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"lesson" stores_id:self.addModel.stores_id course_id:self.addModel.lessonID
                               teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
-            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
-                if (isSuccess) {
-                    [TLUIUtility showSuccessHint:data];
-                }else{
-                    [TLUIUtility showErrorHint:data];
-                }
-            }];
+            if ([model.received intValue] == 0) {
+                [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
+                    if (isSuccess) {
+                        [[ZCouponListView sharedManager] refreshData];
+                        [TLUIUtility showSuccessHint:data];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                }];
+            }
+            
         }];
 //        [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.addModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
 //            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
