@@ -306,7 +306,7 @@
             if (model && model.list) {
                 [weakSelf.topchannelList removeAllObjects];
                 [weakSelf.topchannelList addObjectsFromArray:model.list];
-                if (ValidArray(model.list)) {
+                if (ValidArray(model.list) && ![ZUserHelper sharedHelper].school) {
                     ZOriganizationSchoolListModel *listModel = model.list[0];
                     [ZUserHelper sharedHelper].school = listModel;
                 }

@@ -10,6 +10,8 @@
 #import "ZOrganizationAccountSchoolListCell.h"
 #import "ZOriganizationViewModel.h"
 
+#import "ZOrganizationSchoolAccountDetailListVC.h"
+
 @interface ZOrganizationSchoolAccountDetailVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) UILabel *accountLabel;
@@ -116,6 +118,15 @@
         [_accountDetailLabel setFont:[UIFont fontContent]];
     }
     return _accountDetailLabel;
+}
+
+#pragma mark - tableview delegate
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationAccountSchoolListCell"]) {
+        ZOrganizationSchoolAccountDetailListVC *lvc = [[ZOrganizationSchoolAccountDetailListVC alloc] init];
+        lvc.model = cellConfig.dataModel;
+        [self.navigationController pushViewController:lvc animated:YES];
+    }
 }
 
 #pragma mark - 数据处理
