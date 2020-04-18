@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    [self setTableViewWhiteBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
