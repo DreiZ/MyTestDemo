@@ -401,11 +401,21 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+@interface ZAdverListContentModel : ZBaseModel
+@property (nonatomic,strong) NSString *course;//课程
+@property (nonatomic,strong) NSString *stores;//校区，
+@property (nonatomic,strong) NSString *url;//链接，
+@property (nonatomic,strong) NSString *fix_html;//固定页
+@end
 
 @interface ZAdverListModel : ZBaseModel
 @property (nonatomic,strong) NSString *ad_id;
 @property (nonatomic,strong) NSString *ad_image;
 @property (nonatomic,strong) NSString *ad_url;
+
+@property (nonatomic,strong) NSString *ad_type;//广告类型：1：课程 2：校区 3：URL 4：固定页面
+@property (nonatomic,strong) ZAdverListContentModel *ad_type_content;
+@property (nonatomic,strong) NSString *name;
 @end
 
 @interface ZAdverListNetModel : ZBaseNetworkBackDataModel

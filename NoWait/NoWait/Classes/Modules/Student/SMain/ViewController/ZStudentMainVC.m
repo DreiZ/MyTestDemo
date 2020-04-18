@@ -27,6 +27,7 @@
 #import "ZOrigantionMoveInVC.h"
 #import "ZMianSearchVC.h"
 #import "ZLocationManager.h"
+#import "ZRouteManager.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -248,6 +249,16 @@
             lvc.vcTitle = model.name;
             lvc.type = model.sid;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
+        };
+    }else if([cellConfig.title isEqualToString:@"ZStudentBannerCell"]){
+        ZStudentBannerCell *lcell = (ZStudentBannerCell *)cell;
+        lcell.bannerBlock = ^(ZStudentBannerModel *model) {
+            [ZRouteManager pushToVC:model.data];
+        };
+    }else if([cellConfig.title isEqualToString:@"ZStudentMainPhotoWallCell"]){
+           ZStudentMainPhotoWallCell *lcell = (ZStudentMainPhotoWallCell *)cell;
+        lcell.menuBlock = ^(ZStudentPhotoWallItemModel *model) {
+               [ZRouteManager pushToVC:model.data];
         };
     }
 

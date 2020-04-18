@@ -251,6 +251,9 @@
 }
 @end
 
+@implementation ZAdverListContentModel
+
+@end
 
 @implementation ZAdverListModel : ZBaseModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {

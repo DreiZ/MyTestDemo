@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.isHidenNaviBar = YES;
+    self.isHidenNaviBar = NO;
     [self initMainView];
 }
 

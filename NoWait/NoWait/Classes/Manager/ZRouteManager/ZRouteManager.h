@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ZBaseNetworkBannerModel;
+@class ZAdverListModel;
 
 @interface ZRouteManager : NSObject
-+ (void)pushToVC:(ZBaseNetworkBannerModel *)model;
++ (void)pushToVC:(ZAdverListModel *)model;
 @end
 
