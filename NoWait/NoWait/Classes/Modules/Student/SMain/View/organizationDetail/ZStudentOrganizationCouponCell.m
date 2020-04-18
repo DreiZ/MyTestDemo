@@ -68,6 +68,7 @@
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.priceHintLabel.mas_right);
         make.bottom.equalTo(self.priceHintLabel.mas_bottom).offset(CGFloatIn750(10));
+        make.width.mas_equalTo(CGFloatIn750(120));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,6 +128,7 @@
         
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceLabel setAdjustsFontSizeToFitWidth:YES];
         [_priceLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(50)]];
     }
     return _priceLabel;

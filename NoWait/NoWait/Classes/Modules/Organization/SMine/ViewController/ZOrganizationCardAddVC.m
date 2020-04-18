@@ -54,7 +54,7 @@
                          @[@"面额", @"0", @YES, @"", @"price",@6, @"元",SafeStr(self.viewModel.addModel.amount),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"满减条件", @"不填写则无条件限制", @YES, @"", @"tiaojian",@6, @"元",SafeStr(self.viewModel.addModel.min_amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
                          @[@"有效时间", @"不填写则无时间限制", @NO, @"rightBlackArrowN", @"time", @30, @"",time,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"发行量", @"最大发行量不能超过1000张", @YES, @"", @"num",@3, @"张",SafeStr(self.viewModel.addModel.nums),[NSNumber numberWithInt:ZFormatterTypeNumber]],
+                         @[@"发行量", @"最大发行量不能超过1000张", @YES, @"", @"num",@4, @"张",SafeStr(self.viewModel.addModel.nums),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"每人限领", @"0", @YES, @"", @"preNum",@3, @"张",SafeStr(self.viewModel.addModel.limit),[NSNumber numberWithInt:ZFormatterTypeNumber]]];
     
     for (int i = 0; i < textArr.count; i++) {
@@ -179,8 +179,19 @@
                 [TLUIUtility showErrorHint:@"请输入发行量"];
                 return ;
             }
+            
+            if ([weakSelf.viewModel.addModel.nums intValue] > 1000) {
+                [TLUIUtility showErrorHint:@"发行量不可大于1000"];
+                return ;
+            }
+            
             if (!ValidStr(weakSelf.viewModel.addModel.limit)) {
                 [TLUIUtility showErrorHint:@"请输入个人限领"];
+                return ;
+            }
+            
+            if ([weakSelf.viewModel.addModel.limit intValue] > [weakSelf.viewModel.addModel.nums intValue]) {
+                [TLUIUtility showErrorHint:@"个人限领不可大于发行量"];
                 return ;
             }
             NSMutableDictionary *params = @{}.mutableCopy;
@@ -191,13 +202,13 @@
             [params setObject:self.viewModel.addModel.nums forKey:@"nums"];
             [params setObject:self.viewModel.addModel.limit forKey:@"limit"];
             [params setObject:self.viewModel.addModel.status forKey:@"status"];
-            if (!SafeStr(self.viewModel.addModel.min_amount)) {
-                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满0.01元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-                                   
-                     }];
-            }
+//            if (!ValidStr(self.viewModel.addModel.min_amount)) {
+//                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满0.01元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+//                                   
+//                     }];
+//            }
             
-            if (SafeStr(self.viewModel.addModel.min_amount)) {
+            if (!SafeStr(self.viewModel.addModel.min_amount)) {
                 [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
             }else{
                 [params setObject:@"0.01" forKey:@"min_amount"];

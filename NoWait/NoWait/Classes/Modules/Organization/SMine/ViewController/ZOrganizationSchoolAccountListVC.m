@@ -169,7 +169,7 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
-    [self.param setObject:self.type forKey:@"is_should_receive"];
+    [self.param setObject:self.type forKey:@"type"];
     if ([self.type isEqualToString:@"0"]) {
         if (self.start_time) {
             [self.param setObject:self.start_time forKey:@"start_time"];

@@ -253,11 +253,11 @@
     }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
-            if ([scellConfig.title isEqualToString:@"wechatPay"]){
+            if ([scellConfig.title isEqualToString:@"wepaylist"]){
                  self.isAlipay = NO;
                  [self initCellConfigArr];
                  [self.iTableView reloadData];
-            }else if ([scellConfig.title isEqualToString:@"alipay"]){
+            }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
                  self.isAlipay = YES;
                 [self initCellConfigArr];
                 [self.iTableView reloadData];

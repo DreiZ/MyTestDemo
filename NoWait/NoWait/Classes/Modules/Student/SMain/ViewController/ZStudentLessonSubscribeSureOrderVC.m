@@ -255,11 +255,11 @@
             }
         };
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
-            if ([scellConfig.title isEqualToString:@"wechatPay"]){
+            if ([scellConfig.title isEqualToString:@"wepaylist"]){
                  self.isAlipay = NO;
                  [self initCellConfigArr];
                  [self.iTableView reloadData];
-            }else if ([scellConfig.title isEqualToString:@"alipay"]){
+            }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
                  self.isAlipay = YES;
                 [self initCellConfigArr];
                 [self.iTableView reloadData];
@@ -306,7 +306,7 @@
 }
 
 - (void)setPayTypeCell {
-    NSArray *tempArr = @[@[@"wechatPay", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipay", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
+    NSArray *tempArr = @[@[@"wepaylist", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipaylist", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

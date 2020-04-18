@@ -50,6 +50,8 @@
     
     [self deleteUserStore:user.userCodeID];
     [ZUserHelper sharedHelper].user = nil;
+    [ZUserHelper sharedHelper].school = nil;
+    [ZUserHelper sharedHelper].stores = nil;
     [[ZDBManager sharedInstance] loginout];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userCodeID"];
@@ -75,6 +77,8 @@
 
 - (void)switchUser:(ZUser *)user {
     _user = user;
+    [ZUserHelper sharedHelper].school = nil;
+    [ZUserHelper sharedHelper].stores = nil;
     [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
     [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
 }
@@ -172,6 +176,8 @@
                 }];
             }
             
+            [ZUserHelper sharedHelper].school = nil;
+            [ZUserHelper sharedHelper].stores = nil;
             ZUser *user = [[ZUser alloc] init];
             user.userID = userModel.userID? userModel.userID:@"";
             user.userCodeID = userModel.code_id? userModel.code_id:@"888888";

@@ -51,7 +51,8 @@
     [super initCellConfigArr];
     
     NSArray *topArr = @[@[@"已打款金额￥",ValidStr(self.model.received_amount)?SafeStr(self.model.received_amount):@"0",@NO,@"hadPay"],
-  @[@"应打款金额￥",ValidStr(self.model.should_receive_amount)?SafeStr(self.model.should_receive_amount):@"0",@NO,@"shouldPay"],
+  @[@"上周期结算金额￥",ValidStr(self.model.pre_receive_amount)?SafeStr(self.model.pre_receive_amount):@"0",@NO,@"shouldPay"],
+                        @[@"本周期待计算金额￥",ValidStr(self.model.now_receive_amount)?SafeStr(self.model.now_receive_amount):@"0",@NO,@"benPay"],
                         @[@"剩余金额￥",ValidStr(self.model.wait_receive_amount)?SafeStr(self.model.wait_receive_amount):@"0",@YES,@"left"]];
     for (NSArray *arr in topArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -166,6 +167,11 @@
     }else if ([cellConfig.title isEqualToString:@"shouldPay"]){
         ZOrganizationSchoolAccountListVC *lvc = [[ZOrganizationSchoolAccountListVC alloc] init];
         lvc.type = @"1";
+        lvc.stores_id = self.stores_id;
+        [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"benPay"]){
+        ZOrganizationSchoolAccountListVC *lvc = [[ZOrganizationSchoolAccountListVC alloc] init];
+        lvc.type = @"2";
         lvc.stores_id = self.stores_id;
         [self.navigationController pushViewController:lvc animated:YES];
     }

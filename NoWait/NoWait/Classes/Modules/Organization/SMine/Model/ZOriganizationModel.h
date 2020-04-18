@@ -471,7 +471,8 @@
 @property (nonatomic,strong) NSString *notice;
 @property (nonatomic,strong) NSString *received_amount;
 @property (nonatomic,strong) NSString *settlement_method;
-@property (nonatomic,strong) NSString *should_receive_amount;
+@property (nonatomic,strong) NSString *now_receive_amount;
+@property (nonatomic,strong) NSString *pre_receive_amount;
 @property (nonatomic,strong) NSString *total_amount;
 @property (nonatomic,strong) NSString *wait_receive_amount;
 

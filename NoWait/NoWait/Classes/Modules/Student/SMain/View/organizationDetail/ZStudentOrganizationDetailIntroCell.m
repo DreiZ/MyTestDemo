@@ -153,7 +153,7 @@
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.isHiddenLine = YES;
         mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",self.model.opend_start,self.model.opend_end];
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
     if (ValidArray(self.model.coupons_list)){
@@ -224,7 +224,7 @@
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",ValidStr(detailModel.opend_start)?detailModel.opend_start:@"9:00",ValidStr(detailModel.opend_end)? detailModel.opend_end:@"18:00"];
-        height += [ZMultiseriateLineCell z_getCellHeight:mModel];
+        height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
     }
     if (ValidArray(detailModel.coupons_list)) {
         NSMutableArray *coupons = @[].mutableCopy;

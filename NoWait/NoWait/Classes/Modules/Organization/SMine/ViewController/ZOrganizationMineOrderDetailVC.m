@@ -79,7 +79,7 @@
                     [self setUserCell];
                     [self setOrderPriceCell];
                     [self setPayDetailCell];
-                    [self setPayTypeCell];
+//                    [self setPayTypeCell];
                 }
                 break;
             case ZOrganizationOrderTypeHadPay://已付款（评价，退款，删除）
@@ -132,7 +132,7 @@
                     [self setOrderDetailCell];
                     [self setUserCell];
                     [self setOrderPriceCell];
-                    [self setPayTypeCell];
+//                    [self setPayTypeCell];
                     [self setTipsCell];
                 }
                 break;
