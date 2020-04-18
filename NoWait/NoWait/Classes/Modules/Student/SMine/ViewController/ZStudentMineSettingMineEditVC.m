@@ -10,6 +10,7 @@
 
 @interface ZStudentMineSettingMineEditVC ()<UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *userNameTF;
+@property (nonatomic,strong) UILabel *hintLabel;
 
 @end
 
@@ -18,6 +19,13 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.userNameTF resignFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_userNameTF) {
+        [_userNameTF becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLoad {
@@ -83,8 +91,28 @@
         make.height.mas_equalTo(CGFloatIn750(100));
         make.top.equalTo(self.view.mas_top).offset(20);
     }];
+    
+    self.userNameTF.text = self.text;
+    
+    [self.view addSubview:self.hintLabel];
+    [self.hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.userNameTF.mas_bottom).offset(CGFloatIn750(20));
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+    }];
 }
 
+- (UILabel *)hintLabel {
+    if (!_hintLabel) {
+        _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _hintLabel.textColor = [UIColor colorTextGray];
+        _hintLabel.text = @"昵称只可有汉字字母数字下划线组成，10字以内";
+        _hintLabel.numberOfLines = 0;
+        _hintLabel.textAlignment = NSTextAlignmentLeft;
+        [_hintLabel setFont:[UIFont fontContent]];
+    }
+    return _hintLabel;
+}
 
 #pragma mark textField delegate ---------
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

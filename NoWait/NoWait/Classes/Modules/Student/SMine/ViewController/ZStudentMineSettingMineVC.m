@@ -71,7 +71,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"设置"];
+    [self.navigationItem setTitle:@"个人信息"];
 }
 
 
@@ -100,6 +100,7 @@
             }];
      }else if([cellConfig.title isEqualToString:@"昵称"]){
          ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
+         edit.text = weakSelf.user.nikeName;
          edit.handleBlock = ^(NSString *text) {
              weakSelf.user.nikeName = text;
              [weakSelf initCellConfigArr];
@@ -136,7 +137,9 @@
 
 - (void)updateUserInfo:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@"更新信息中"];
     [ZOriganizationViewModel updateUserInfo:param completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [weakSelf refreshData];
         }else{

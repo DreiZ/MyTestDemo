@@ -10,6 +10,8 @@
 
 
 @interface ZStudentMineSettingMineEditVC : ZViewController
+@property (nonatomic,strong) NSString *text;
+
 @property (nonatomic,strong) void (^handleBlock)(NSString *text);
 @end
 
