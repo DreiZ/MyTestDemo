@@ -29,6 +29,7 @@
 #import "DIYScanViewController.h"
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSignDetailVC.h"
+#import "ZStudentMineSettingMineVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -106,6 +107,10 @@
                 }else if (index == 8){
                     DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
                     [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }else if(index == 10){
+                    ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                    
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }
             }];
         };

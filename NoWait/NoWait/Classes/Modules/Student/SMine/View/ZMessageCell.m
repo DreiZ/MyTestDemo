@@ -185,7 +185,7 @@
 - (UILabel *)contentLabel {
     if (!_contentLabel) {
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _contentLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlack]);
+        _contentLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         
         _contentLabel.numberOfLines = 0;
         _contentLabel.textAlignment = NSTextAlignmentLeft;

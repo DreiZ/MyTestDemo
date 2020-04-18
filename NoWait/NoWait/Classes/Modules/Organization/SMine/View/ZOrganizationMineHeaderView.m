@@ -107,12 +107,24 @@
         make.centerY.equalTo(self.stateLabel.mas_centerY);
     }];
     
+    __weak typeof(self) weakSelf = self;
+    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [userBtn bk_whenTapped:^{
+        if (weakSelf.topHandleBlock) {
+            weakSelf.topHandleBlock(10);
+        }
+    }];
+    [self addSubview:userBtn];
+    [userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.headImageView);
+    }];
+    
     [self addSubview:self.userInfoBtn];
     [self.userInfoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.userInfoBtn);
     }];
     
-    __weak typeof(self) weakSelf = self;
+    
     UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [setBtn bk_whenTapped:^{
         if (weakSelf.topHandleBlock) {

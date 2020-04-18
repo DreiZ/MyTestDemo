@@ -33,6 +33,7 @@
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
+#import "ZStudentMineSettingMineVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -111,6 +112,10 @@
                 }else if (index == 5){
                     ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
                     [weakSelf.navigationController pushViewController:svc animated:YES];
+                }else if(index == 10){
+                    ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                    
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }
             }];
         };
