@@ -236,8 +236,8 @@
 - (UIImageView *)backImageView {
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [UIImage imageNamed:@"navleftBack"];
-        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+        _backImageView.image = [[UIImage imageNamed:@"navleftBack"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     }
     return _backImageView;
 }
@@ -315,7 +315,7 @@
         } forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *otherLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        otherLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        otherLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         otherLabel.text = @"其他登录方式";
         otherLabel.textAlignment = NSTextAlignmentCenter;
         [otherLabel setFont:[UIFont fontMin]];

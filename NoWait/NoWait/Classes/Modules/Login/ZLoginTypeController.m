@@ -201,8 +201,8 @@
 - (UIImageView *)backImageView {
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [UIImage imageNamed:@"lessonSelectClose"];
-        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+        _backImageView.image = [[UIImage imageNamed:@"lessonSelectClose"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     }
     return _backImageView;
 }

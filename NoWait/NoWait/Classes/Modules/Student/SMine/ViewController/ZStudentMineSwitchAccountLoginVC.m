@@ -198,8 +198,8 @@
 - (UIImageView *)backImageView {
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [UIImage imageNamed:@"navleftBack"];
-        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+        _backImageView.image = [[UIImage imageNamed:@"navleftBack"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
     }
     return _backImageView;
 }

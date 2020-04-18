@@ -123,7 +123,7 @@
     _model = model;
     _leftTitleLabel.text = model.leftTitle;
     _zhuanPriceLabel.text = model.rightTitle;
-    _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];;
+    _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     ZOriganizationSignListModel *lModel = model.data;
     if (lModel.isOpen) {

@@ -37,7 +37,7 @@ static NSTimer *retrieveTimer = nil;
     [super setupView];
     
     UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
-    backView.backgroundColor = adaptAndDarkColor(HexColor(0xf5f9f8), HexColor(0xf5f9f8));
+    backView.backgroundColor = adaptAndDarkColor(HexColor(0xf5f9f8), HexColor(0x050908));
     ViewRadius(backView, [ZMineAccountTextFieldCell z_getCellHeight:nil]/2.0f);
     _backView = backView;
     [self.contentView addSubview:backView];
@@ -93,7 +93,7 @@ static NSTimer *retrieveTimer = nil;
         [_inputTextField setTextAlignment:NSTextAlignmentLeft];
         [_inputTextField setPlaceholder:@""];
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
-        _inputTextField.backgroundColor = adaptAndDarkColor(HexColor(0xf5f9f8), HexColor(0xf5f9f8));
+        _inputTextField.backgroundColor = adaptAndDarkColor(HexColor(0xf5f9f8), HexColor(0x050908));
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
