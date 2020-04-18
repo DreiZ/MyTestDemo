@@ -22,7 +22,8 @@
 //                                                 name:KNotificationLoginStateChange
 //                                               object:nil];
 //
-  
+    [IQKeyboardManager sharedManager].toolbarTintColor = [UIColor colorMain];
+    
     [AMapServices sharedServices].apiKey = KMapKey;
     [[ZUMengShareManager sharedManager] umengShare];
     [[ZPayManager sharedManager] wxPayRefisterApp];

@@ -29,9 +29,8 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassword"],
-                                     @[@"更换绑定手机号", @"rightBlackArrowN", @"188*****553",@"changePhone"]];
-    
+    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassword"]];
+//    @[@"更换绑定手机号", @"rightBlackArrowN", @"188*****553",@"changePhone"]
     for (int i = 0; i < titleArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = titleArr[i][0];

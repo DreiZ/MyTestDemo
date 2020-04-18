@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBaseTextViewCell : ZBaseCell
 @property (nonatomic,strong) ZBaseTextFieldCellModel *model;
 @property (nonatomic,strong) void (^valueBlock)(NSString *);
+@property (nonatomic,strong) UITextView *iTextView;
 @end
 
 NS_ASSUME_NONNULL_END

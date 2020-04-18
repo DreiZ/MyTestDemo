@@ -30,6 +30,11 @@
     [self.iTextView resignFirstResponder];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.iTextView becomeFirstResponder];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -99,6 +104,7 @@
         _iTextView.delegate = self;
         _iTextView.backgroundColor = [UIColor whiteColor];
         [_iTextView setFont:[UIFont fontSmall]];
+        _iTextView.returnKeyType = UIReturnKeyDone;
     }
     return _iTextView;
 }
@@ -114,8 +120,7 @@
     return _hintLabel;
 }
 
-
-
+#pragma mark - textView delegate
 - (void)textViewDidChange:(UITextView *)textView {
     NSInteger _isMaxLength = 500;
     if (textView.text.length > 0) {
@@ -133,6 +138,20 @@
         str = [str substringToIndex:length];
         textView.text = str;
     }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+
+    if ([text isEqualToString:@"\n"]) {
+
+        [textView resignFirstResponder];
+
+        return NO;
+
+    }
+
+    return YES;
+
 }
 
 -(UIView *)footerView {

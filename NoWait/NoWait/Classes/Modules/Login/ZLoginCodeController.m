@@ -27,6 +27,7 @@
 @property (nonatomic,strong) UIImageView *agreementView;
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *loginBtn;
+@property (nonatomic,strong) ZMineAccountTextFieldCell *phoneCell;
 
 @property (nonatomic,assign) BOOL isAgree;
 
@@ -40,6 +41,13 @@
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_phoneCell) {
+        [_phoneCell.inputTextField becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLoad {
@@ -148,18 +156,15 @@
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(130) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
-    }
-
+    
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(130))];
+    
    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
    
    [self.cellConfigArr addObject:textCellConfig];
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
         
@@ -167,8 +172,7 @@
     }
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"短信验证码"];
         
@@ -497,6 +501,7 @@
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.tel = text;
         };
+        _phoneCell = bCell;
     }else if ([cellConfig.title isEqualToString:@"imageCode"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 2;

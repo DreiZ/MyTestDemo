@@ -14,7 +14,7 @@ static NSUInteger myRetrieveTime = 59;
 static NSTimer *retrieveTimer = nil;
 
 @interface ZMineAccountTextFieldCell ()<UITextFieldDelegate>
-@property (nonatomic,strong) UITextField *inputTextField;
+
 @property (nonatomic,strong) UIButton *getCodeBtn;
 @property (nonatomic,strong) UIView *getCodeView;
 @property (nonatomic,strong) UIButton *pooCodeView;
@@ -120,6 +120,7 @@ static NSTimer *retrieveTimer = nil;
         _getCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_getCodeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.getCodeBlock) {
+                [weakSelf.inputTextField becomeFirstResponder];
                 weakSelf.getCodeBlock(^(NSString *message) {
                     if (myRetrieveTime == CountTimer) {
                         [weakSelf.getCodeBtn setTitle:@"60秒" forState:UIControlStateDisabled];
@@ -156,6 +157,11 @@ static NSTimer *retrieveTimer = nil;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:self.formatterType];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.inputTextField resignFirstResponder];
+    return YES;
 }
 
 - (void)setFormatterType:(ZFormatterType)formatterType {
@@ -253,6 +259,7 @@ static NSTimer *retrieveTimer = nil;
        [_pooCodeView setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
        [_pooCodeView.titleLabel setFont:[UIFont fontSmall]];
        [_pooCodeView bk_whenTapped:^{
+           [weakSelf.inputTextField becomeFirstResponder];
            [weakSelf getImageCode];
        }];
     }

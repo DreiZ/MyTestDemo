@@ -33,6 +33,17 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_isCode && _bCell) {
+        [_bCell.inputTextField becomeFirstResponder];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

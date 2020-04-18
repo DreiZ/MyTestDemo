@@ -85,7 +85,8 @@
 
 #pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
+    [textField resignFirstResponder];
+    [self searchClick:textField.text];
 //    [self searchPoiByKeyword:textField.text];
     return YES;
 }

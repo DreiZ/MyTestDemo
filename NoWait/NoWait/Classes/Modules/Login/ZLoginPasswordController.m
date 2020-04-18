@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic,strong) UIView *footerView;
 @property (nonatomic,strong) UIButton *loginBtn;
+@property (nonatomic,strong) ZMineAccountTextFieldCell *phoneTextCell;
 
 @property (nonatomic,strong) ZLoginViewModel *loginViewModel;
 @end
@@ -31,6 +32,12 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_phoneTextCell) {
+        [_phoneTextCell.inputTextField becomeFirstResponder];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,17 +94,12 @@
     ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
     [self.cellConfigArr addObject:titleCellConfig];
-    
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(180) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
-    }
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(180))];
 
    ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
    [self.cellConfigArr addObject:phoneCellConfig];
     
-   ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [self.cellConfigArr addObject:coachSpaceCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     
     ZCellConfig *codeCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"密码"];
     [self.cellConfigArr addObject:codeCellConfig];
@@ -235,6 +237,7 @@
         bCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.loginViewModel.loginModel.tel = text;
         };
+        self.phoneTextCell = bCell;
     }else if ([cellConfig.title isEqualToString:@"password"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
         bCell.type = 3;

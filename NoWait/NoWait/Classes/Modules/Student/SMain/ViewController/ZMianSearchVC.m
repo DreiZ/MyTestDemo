@@ -26,11 +26,17 @@
 
 @implementation ZMianSearchVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.searchView.iTextField becomeFirstResponder];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.name = @"";
     self.search_type = @"1";
-    _param = @{}.mutableCopy;
 }
 
 - (void)setupMainView{
@@ -47,6 +53,14 @@
            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
            make.top.equalTo(self.typeView.mas_bottom).offset(-CGFloatIn750(0));
        }];
+}
+
+#pragma mark - lazy loading
+- (NSMutableDictionary *)param {
+    if (!_param) {
+        _param = @{}.mutableCopy;
+    }
+    return _param;
 }
 
 - (UIView *)typeView {
@@ -147,7 +161,7 @@
 - (void)searchClick:(NSString *)text {
     [super searchClick:text];
     self.name = SafeStr(text);
-    if (self.name.length > 0) {
+    if (self.name) {
         [self refreshData];
     }
 }
@@ -283,9 +297,9 @@
 
 - (void)setPostCommonData {
     if ([self.search_type isEqualToString:@"1"]) {
-        [_param setObject:self.name forKey:@"search_name"];
+        [self.param setObject:self.name forKey:@"search_name"];
     }else{
-        [_param setObject:self.name forKey:@"name"];
+        [self.param setObject:self.name forKey:@"name"];
     }
     
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];

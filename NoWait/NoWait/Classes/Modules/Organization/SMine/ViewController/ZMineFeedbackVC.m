@@ -15,10 +15,20 @@
 @interface ZMineFeedbackVC ()
 @property (nonatomic,strong) UIView *footerView;
 @property (nonatomic,strong) ZFeedBackViewModel *viewModel;
+@property (nonatomic,strong) ZBaseTextViewCell *textCell;
 
 @end
 
 @implementation ZMineFeedbackVC
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_textCell) {
+        [self.textCell.iTextView becomeFirstResponder];
+    }
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,8 +66,7 @@
     ZCellConfig *moreIntputCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextViewCell className] title:[ZBaseTextViewCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextViewCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:moreIntputCellConfig];
     
-    ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    [self.cellConfigArr addObject:coachSpaceCellConfig];
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     
     {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
@@ -83,8 +92,7 @@
     }
     
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"请输入联系人信息（选填）";
@@ -192,6 +200,7 @@
         lcell.valueBlock = ^(NSString *text) {
             weakSelf.viewModel.model.des = text;
         };
+        _textCell = lcell;
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]){
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {

@@ -182,6 +182,11 @@
     return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:self.model.formatterType];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 + (CGFloat)z_getCellHeight:(id)sender {
     ZBaseTextFieldCellModel *model = sender;
     if (!model) {

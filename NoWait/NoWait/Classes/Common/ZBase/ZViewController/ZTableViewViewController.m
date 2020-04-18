@@ -25,7 +25,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.iTableView) {
+    if (_iTableView) {
         [self.iTableView endEditing:YES];
     }
 }

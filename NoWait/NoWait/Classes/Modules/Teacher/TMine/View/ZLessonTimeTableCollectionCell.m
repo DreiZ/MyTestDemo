@@ -91,6 +91,7 @@
         }
     }else{
         _lessonLabel.text = @"";
+        _timeLabel.text = @"";
         _backView.backgroundColor = [UIColor clearColor];
     }
 }

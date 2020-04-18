@@ -17,6 +17,9 @@
 @property (nonatomic,strong) UIImageView *backImageView;
 @property (nonatomic,strong) UIView *footerView;
 @property (nonatomic,strong) ZLoginViewModel *loginViewModel;
+
+@property (nonatomic,strong) ZMineAccountTextFieldCell *codeCell;
+
 @end
 
 @implementation ZAccountChangePasswordVC
@@ -28,6 +31,12 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_codeCell) {
+        [_codeCell.inputTextField becomeFirstResponder];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,10 +91,8 @@
 
     [self.cellConfigArr addObject:titleCellConfig];
     
-    {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(100) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
-    }
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
+    
     
     ZCellConfig *phoneCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"phone" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(104) cellType:ZCellTypeClass dataModel:self.loginViewModel.loginModel.tel];
     
@@ -96,16 +103,14 @@
         
         [self.cellConfigArr addObject:textCellConfig];
         
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     
    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
    
    [self.cellConfigArr addObject:textCellConfig];
     {
-        ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:coachSpaceCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
         
@@ -114,8 +119,7 @@
     
      
      {
-         ZCellConfig *coachSpaceCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-         [self.cellConfigArr addObject:coachSpaceCellConfig];
+         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
          
          ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
          
@@ -263,6 +267,7 @@
         bCell.imageCodeBlock = ^(NSString * ckey) {
             weakSelf.loginViewModel.loginModel.ckey = ckey;
         };
+        _codeCell = bCell;
         [bCell getImageCode];
     }else if ([cellConfig.title isEqualToString:@"code"]) {
         ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;

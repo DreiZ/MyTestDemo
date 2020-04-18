@@ -9,7 +9,7 @@
 #import "ZBaseTextViewCell.h"
 
 @interface ZBaseTextViewCell ()<UITextViewDelegate>
-@property (nonatomic,strong) UITextView *iTextView;
+
 @property (nonatomic,strong) UILabel *thintLabel;
 @property (nonatomic,strong) UIView *backView;
 
