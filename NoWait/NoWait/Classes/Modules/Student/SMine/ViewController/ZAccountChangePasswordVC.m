@@ -33,7 +33,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (_codeCell) {
+    if (_codeCell && _codeCell.inputTextField.text.length == 0) {
         [_codeCell.inputTextField becomeFirstResponder];
     }
 }

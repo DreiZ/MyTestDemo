@@ -32,7 +32,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.iTextView becomeFirstResponder];
+    if (_iTextView && _iTextView.text.length == 0) {
+        [self.iTextView becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLoad {

@@ -40,7 +40,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (_isCode && _bCell) {
+    if (_isCode && _bCell.inputTextField.text.length == 0) {
         [_bCell.inputTextField becomeFirstResponder];
     }
 }

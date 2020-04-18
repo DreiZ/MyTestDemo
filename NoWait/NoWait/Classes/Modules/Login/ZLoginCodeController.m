@@ -46,25 +46,24 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (_phoneCell) {
+    if (_phoneCell && _phoneCell.inputTextField.text.length == 0) {
         [_phoneCell.inputTextField becomeFirstResponder];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setNavigation];
     [self initCellConfigArr];
     [self setOtherData];
 }
 
 - (void)setOtherData {
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];
-    // 是否可以登录
-    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
+//    // 是否可以登录
+//    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginEnable);
 
     NSString *hadLogin = [[NSUserDefaults standardUserDefaults] objectForKey:@"hadLogin"];
     if (hadLogin) {
@@ -274,6 +273,7 @@
         [doneBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iTableView endEditing:YES];
             
+            
             if (!self.isAgree) {
                 [TLUIUtility showErrorHint:@"请阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
                 return ;
@@ -283,6 +283,7 @@
             if (self.loginViewModel.loginModel.tel && self.loginViewModel.loginModel.tel.length == 11) {
                 [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
             }else{
+                [TLUIUtility showErrorHint:@"请输入正确的手机号"];
                 return;
             }
             
@@ -290,6 +291,7 @@
             if (self.loginViewModel.loginModel.messageCode && self.loginViewModel.loginModel.messageCode.length == 6) {
                 [params setObject:self.loginViewModel.loginModel.messageCode forKey:@"code"];
             }else{
+                [TLUIUtility showErrorHint:@"请输入正确的验证码"];
                 return;
             }
 
