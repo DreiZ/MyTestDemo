@@ -79,11 +79,13 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.stateLabel.mas_left);
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(88));
+        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
     [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(44));
     }];
 
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,12 +97,14 @@
     [topView addSubview:self.detailLabel];
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
+        make.right.equalTo(self.userImageView.mas_left).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(50));
     }];
     
     [self.buLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -276,7 +280,21 @@
     _nameLabel.text = model.name;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     
+    CGSize numSize = [self.numLabel.text sizeForFont:[UIFont fontSmall] size:CGSizeMake(KScreenWidth/2.0f, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    CGSize teacherNameSize = [self.userLabel.text sizeForFont:[UIFont fontContent] size:CGSizeMake(KScreenWidth/2.0f, MAXFLOAT) mode:NSLineBreakByWordWrapping];
     
+    [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(numSize.width + 2);
+    }];
+    
+    [self.userLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_equalTo(teacherNameSize.width + 2);
+    }];
+
     _buLabel.hidden = [model.type intValue] == 1 ? YES : YES;
     
     [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {

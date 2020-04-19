@@ -59,7 +59,7 @@
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentCenter;
-        [_timeLabel setFont:[UIFont boldFontMin]];
+        [_timeLabel setFont:[UIFont boldFontSmall]];
         [_timeLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _timeLabel;
@@ -82,6 +82,10 @@
     _model = model;
     _lessonLabel.text = model.course_name;
     _timeLabel.text = model.time;
+    NSArray *tempList = [model.time componentsSeparatedByString:@"~"];
+    if (tempList && tempList.count > 0) {
+        _timeLabel.text = tempList[0];
+    }
 }
 
 +(CGSize)z_getCellSize:(id)sender {

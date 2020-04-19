@@ -329,6 +329,9 @@
                         smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
                         smodel.subName = [NSString stringWithFormat:@"%ld",(long)date.minute];
                         smodel.data = [NSString stringWithFormat:@"%@",[self getTime:date]];
+                        if (ValidStr(self.course_min)) {
+                            smodel.data =  [NSString stringWithFormat:@"%@~%@",[self getTime:date],[self getEndTime:smodel]];
+                        }
                         [model.units addObject:smodel];
                         [weakSelf initCellConfigArr];
                         [weakSelf.iRightTableView reloadData];
@@ -352,5 +355,37 @@
     }else{
         return  [NSString stringWithFormat:@"%ld:%ld",(long)date.hour,(long)date.minute];
     }
+}
+
+
+#pragma mark - getEndTime
+- (NSString *)getStartTime:(ZBaseUnitModel *)model {
+    if ([model.subName intValue] < 10) {
+        return  [NSString stringWithFormat:@"%@:0%@",model.name,model.subName];
+    }else{
+        return  [NSString stringWithFormat:@"%@:%@",model.name,model.subName];
+    }
+}
+
+- (NSString *)getEndTime:(ZBaseUnitModel *)model {
+    NSInteger temp = [self.course_min intValue]/60;
+    NSInteger subTemp = [self.course_min intValue]%60;
+    
+    NSInteger hourTemp = [model.name intValue] + temp;
+    NSInteger minTemp = [model.subName intValue] + subTemp;
+    if (minTemp > 59) {
+        minTemp -= 60;
+        hourTemp++;
+    }
+    
+    if (hourTemp > 24) {
+        hourTemp -= 24;
+    }
+    
+    ZBaseUnitModel *uModel = [[ZBaseUnitModel alloc] init];
+    uModel.name = [NSString stringWithFormat:@"%ld",hourTemp];
+    uModel.subName = [NSString stringWithFormat:@"%ld",minTemp];
+    
+    return [self getStartTime:uModel];
 }
 @end

@@ -80,16 +80,21 @@
     [timeArr addObject:date];
     
     NSInteger weekIndex =  date.weekday;
+    if (weekIndex == 1) {
+        weekIndex = 7;
+    }else{
+        weekIndex -= 1;
+    }
     NSInteger timeInt = [date timeIntervalSince1970];
     
-    for (NSInteger i = weekIndex+1; i <= 8; i++) {
+    for (NSInteger i = weekIndex; i < 7; i++) {
         
         timeInt += 3600*24;
         [timeArr addObject:[NSDate dateWithTimeIntervalSince1970:timeInt]];
     }
     
     timeInt = [date timeIntervalSince1970];
-    for (NSInteger i = weekIndex-1; i > 1; i--) {
+    for (NSInteger i = weekIndex-1; i > 0; i--) {
         timeInt -= 3600*24;
         [timeArr insertObject:[NSDate dateWithTimeIntervalSince1970:timeInt] atIndex:0];
     }

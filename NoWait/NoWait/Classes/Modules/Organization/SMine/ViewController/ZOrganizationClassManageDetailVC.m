@@ -163,14 +163,16 @@
         }
     }
     
-    if (self.isOpen) {
+    if ([SafeStr(self.model.status) intValue] == 3) {
          [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
              make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
              make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
              make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
          }];
+        self.bottomView.hidden = YES;
     }else{
+        self.bottomView.hidden = NO;
         [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(182));
@@ -200,14 +202,16 @@
 
 - (void)setupMainView {
     [super setupMainView];
-    if (_isOpen) {
+    if ([SafeStr(self.model.status) intValue] == 3) {
          [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
              make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
              make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
              make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
              make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
          }];
+        self.bottomView.hidden = YES;
     }else{
+        self.bottomView.hidden = NO;
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(182))];
         _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         [self.view addSubview:_bottomView];
@@ -291,7 +295,8 @@
         ZTextFieldMultColCell *lcell = (ZTextFieldMultColCell *)cell;
         lcell.selectBlock = ^{
             ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
-            svc.timeArr = weakSelf.model.classes_dateArr;
+            svc.course_min = weakSelf.model.course_min;
+            svc.timeArr =  [[NSMutableArray alloc] initWithArray: weakSelf.model.classes_dateArr];
             svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
                 weakSelf.model.classes_dateArr = timeArr;
                 [weakSelf initCellConfigArr];

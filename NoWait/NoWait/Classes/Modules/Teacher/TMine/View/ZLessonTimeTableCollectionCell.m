@@ -84,7 +84,11 @@
     if (model) {
         if (ValidStr(model.course_name)) {
             _lessonLabel.text = model.course_name;
-            _timeLabel.text = model.time;
+            NSArray *tempList = [model.time componentsSeparatedByString:@"~"];
+            if (tempList && tempList.count > 0) {
+                _timeLabel.text = tempList[0];
+            }
+//            _timeLabel.text = model.time;
             _backView.backgroundColor = randomColor();
         }else{
             _backView.backgroundColor = [UIColor clearColor];

@@ -150,6 +150,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *image_url;
 @property (nonatomic,strong) NSString *course_class_number;
+@property (nonatomic,strong) NSString *course_min;
+
 
 @property (nonatomic,strong) NSString *wait_students;
 @property (nonatomic,strong) NSString *fill_students;

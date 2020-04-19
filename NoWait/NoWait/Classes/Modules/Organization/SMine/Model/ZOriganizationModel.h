@@ -31,6 +31,7 @@
 
 @interface ZOriganizationAddClassModel : NSObject
 @property (nonatomic,strong) NSMutableArray *lessonTimeArr;
+@property (nonatomic,strong) NSMutableArray *lessonEndTimeArr;
 @property (nonatomic,strong) NSArray *lessonOrderArr;
 @property (nonatomic,strong) NSString *class_Name;
 @property (nonatomic,assign) NSString *singleTime;
@@ -98,6 +99,8 @@
 @property (nonatomic,strong) NSString *limit_nums;
 @property (nonatomic,strong) NSString *now_progress;
 @property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *course_min;
+
 
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *classes_date;

@@ -87,7 +87,7 @@
                 
                 for (int j = 0; j < tempArr.count; j++) {
                     ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-                    mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;
+                    mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 3;
                     mModel.rightFont = [UIFont fontSmall];
                     mModel.leftFont = [UIFont fontSmall];
                     mModel.rightColor = [UIColor colorTextGray];
@@ -251,13 +251,14 @@
     }];
 }
 
-#pragma mark tableView ------delegate-----
+#pragma mark - tableView ------delegate-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig{
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"lessonTime"]) {
         ZTextFieldMultColCell *lcell = (ZTextFieldMultColCell *)cell;
         lcell.selectBlock = ^{
             ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+            svc.course_min = weakSelf.lessonModel.course_min;
             svc.timeArr = weakSelf.viewModel.addModel.lessonTimeArr;
             svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
                 weakSelf.viewModel.addModel.lessonTimeArr = timeArr;
@@ -298,4 +299,5 @@
         }];
     }
 }
+
 @end

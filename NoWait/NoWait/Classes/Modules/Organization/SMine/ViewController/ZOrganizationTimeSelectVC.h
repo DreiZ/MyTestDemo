@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) void (^timeBlock)(NSMutableArray <ZBaseMenuModel *>*);
 @property (nonatomic,strong) NSMutableArray *timeArr;
 @property (nonatomic,assign) BOOL isStartAndEnd;
+@property (nonatomic,strong) NSString *course_min;
+
 @end
 
 NS_ASSUME_NONNULL_END
