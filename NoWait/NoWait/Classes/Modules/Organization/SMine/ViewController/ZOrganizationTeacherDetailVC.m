@@ -164,6 +164,19 @@
     
 }
 
+#pragma mark - tableview
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachHeadImageCell"]) {
+        if (ValidClass(self.addModel.image, [UIImage class]) || ValidStr(self.addModel.image)) {
+            [[ZPhotoManager sharedManager] showBrowser:@[self.addModel.image] withIndex:0];
+        }
+    }
+}
+
 #pragma mark - lazy loading...
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {

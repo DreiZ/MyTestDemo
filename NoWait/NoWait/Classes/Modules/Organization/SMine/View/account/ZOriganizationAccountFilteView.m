@@ -72,7 +72,7 @@
     [self addSubview:self.arrowImageView];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(60));
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(50));
         make.centerY.equalTo(self.mas_centerY);
     }];
     
@@ -103,7 +103,6 @@
         make.top.equalTo(timeBack.mas_top).offset(-CGFloatIn750(40));
         make.bottom.equalTo(timeBack.mas_bottom).offset(CGFloatIn750(40));
     }];
-    
 }
 
 
@@ -203,8 +202,8 @@
     _timeLabel.text = [NSString stringWithFormat:@"%@至%@",[SafeStr(model.start_time) timeStringWithFormatter:@"yyyy-MM-dd"],[SafeStr(model.end_time) timeStringWithFormatter:@"yyyy-MM-dd"]];
     _outHintLabel.text = @"支出￥";
     _inHintLabel.text = @"收入￥";
-    _outLabel.text = ValidStr(model.spending) ? SafeStr(model.spending):@"0";
-    _inLabel.text = ValidStr(model.income) ? SafeStr(model.income):@"0";
+    _outLabel.text = ValidStr(model.spending) ? [NSString stringWithFormat:@"%.2f",[SafeStr(model.spending) doubleValue]]:@"0.00";
+    _inLabel.text = ValidStr(model.income) ? [NSString stringWithFormat:@"%.2f",[SafeStr(model.income) doubleValue]]:@"0.00";
 }
 @end
 

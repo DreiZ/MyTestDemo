@@ -12,6 +12,7 @@
 @interface ZAddPhotosCell : ZBaseCell
 
 @property (nonatomic,strong) void (^menuBlock)(NSInteger, BOOL);
+@property (nonatomic,strong) void (^seeBlock)(NSInteger);
 @property (nonatomic,strong) ZBaseMenuModel *model;
 @end
 

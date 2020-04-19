@@ -157,6 +157,10 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        tCell.seeBlock = ^(NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.images withIndex:index];
+        } ;
+        
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {

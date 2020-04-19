@@ -13,6 +13,7 @@
 @interface ZPhotosItemCell : UICollectionViewCell
 @property (nonatomic,strong) ZBaseUnitModel *model;
 @property (nonatomic,strong) void (^delBlock)(void);
+@property (nonatomic,strong) void (^seeBlock)(void);
 @end
 
 

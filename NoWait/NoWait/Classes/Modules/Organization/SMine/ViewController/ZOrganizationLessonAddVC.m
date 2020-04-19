@@ -41,7 +41,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
     _viewModel.addModel.school = [ZUserHelper sharedHelper].school.name;
     _viewModel.addModel.stores_id = [ZUserHelper sharedHelper].school.schoolID;
     [self initCellConfigArr];
@@ -76,7 +75,12 @@
 
 #pragma mark - setmain
 - (void)setNavigation {
-    [self.navigationItem setTitle:@"新增课程"];
+    if (ValidStr(self.viewModel.addModel.lessonID)) {
+        [self.navigationItem setTitle:@"编辑课程"];
+    }else{
+        [self.navigationItem setTitle:@"新增课程"];
+    }
+    
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
     [self.navigationItem setRightBarButtonItem:item];
@@ -265,119 +269,6 @@
     return _bottomBtn;
 }
 
-#pragma mark - 提交数据Z
-- (void)updateImageWithOtherParams:(NSMutableDictionary *)otherDict {
-    if (self.viewModel.addModel.image_net_url && self.viewModel.addModel.image_net_url.length > 0) {
-        [self updatePhotosStep1WithOtherParams:otherDict];
-        return;
-    }
-    [TLUIUtility showLoading:@"上传封面图片中"];
-    __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image_url}} completeBlock:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            weakSelf.viewModel.addModel.image_net_url = message;
-            [weakSelf updatePhotosStep1WithOtherParams:otherDict];
-        }else{
-            [TLUIUtility hiddenLoading];
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
-}
-
-- (NSInteger)checkIsHavePhotos {
-    NSInteger index = 0;
-    for (int i = 0; i < self.viewModel.addModel.images.count; i++) {
-        id temp = self.viewModel.addModel.images[i];
-        if ([temp isKindOfClass:[UIImage class]]) {
-            index++;
-        }else if ([temp isKindOfClass:[NSString class]]){
-            NSString *tempStr = temp;
-            if (tempStr.length > 0) {
-                index++;
-            }
-        }
-    }
-    return index;
-}
-
-- (void)updatePhotosStep1WithOtherParams:(NSMutableDictionary *)otherDict {
-    if ([self checkIsHavePhotos] > 0) {
-        [TLUIUtility showLoading:@"上传课程相册中"];
-        NSInteger tindex = 0;
-        [self updatePhotosStep2WithImage:tindex otherParams:otherDict];
-    }else{
-        [self updateOtherDataWithParams:otherDict];
-    }
-    
-}
-
- - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
-     [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
-         if (index == self.viewModel.addModel.images.count-1) {
-             [self updateOtherDataWithParams:otherDict];
-         }else{
-             index++;
-             [self updatePhotosStep2WithImage:index otherParams:otherDict];
-         }
-    }];
-}
-
-- (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
-    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传课程相册中 %ld/%ld",index+1,self.viewModel.addModel.images.count]];
-    
-    id temp = self.viewModel.addModel.images[index];
-    UIImage *image;
-    if ([temp isKindOfClass:[UIImage class]]) {
-        image = temp;
-    }
-    if (!image) {
-        complete(YES,index);
-        return;
-    }
-    __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
-        if (isSuccess) {
-            [weakSelf.viewModel.addModel.images replaceObjectAtIndex:index withObject:message];
-            complete(YES,index);
-        }else{
-            [TLUIUtility hiddenLoading];
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
-}
-
-
-- (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
-    if (self.viewModel.addModel.image_net_url) {
-        [otherDict setObject:self.viewModel.addModel.image_net_url forKey:@"image_url"];
-        
-    }
-    if ([self checkIsHavePhotos] > 0) {
-        NSMutableArray *photos = @[].mutableCopy;
-        for (int i = 0; i < self.viewModel.addModel.images.count; i++) {
-            NSString *temp = self.viewModel.addModel.images[i];
-            if (ValidStr(temp)) {
-                [photos addObject:temp];
-            }
-        }
-        if (photos.count > 0) {
-            [otherDict setObject:photos forKey:@"images"];
-        }
-        
-    }
-    [TLUIUtility showLoading:@"上传其他数据"];
-    [ZOriganizationLessonViewModel addLesson:otherDict isEdit:ValidStr(self.viewModel.addModel.lessonID) ? YES:NO completeBlock:^(BOOL isSuccess, NSString *message) {
-        [TLUIUtility hiddenLoading];
-        if (isSuccess) {
-            [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
-            return ;
-        }else {
-            [TLUIUtility showErrorHint:message];
-        }
-    }];
-}
-
 #pragma mark - setCellData
 - (void)addTopAndNameDetai {
     id image = self.viewModel.addModel.image_url;
@@ -387,6 +278,9 @@
     ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:image];
     [self.cellConfigArr addObject:addImageCellConfig];
     
+    if (ValidStr(self.viewModel.addModel.lessonID)) {
+        return;
+    }
     NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简称",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
     for (int i = 0 ; i < titleArr.count; i++) {
@@ -494,6 +388,9 @@
     if ([self.viewModel.addModel.level intValue] < 1) {
         self.viewModel.addModel.level = @"1";
     }
+    if (ValidStr(self.viewModel.addModel.lessonID)) {
+        return;
+    }
     NSArray *temp = @[@"初级",@"进阶",@"精英"];
     NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO, @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"课程级别", @"请选择课程级别", @NO, @"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -589,7 +486,7 @@
 }
 
 - (void)addValidity {
-    {
+    if (!ValidStr(self.viewModel.addModel.lessonID)) {
         ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.leftTitle = @"课程有效期";
         cellModel.placeholder = @"请输入课程有效期";
@@ -606,7 +503,7 @@
         [self.cellConfigArr addObject:textCellConfig];
     }
     
-    {
+    if (!ValidStr(self.viewModel.addModel.lessonID)) {
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.type];
         
         [self.cellConfigArr addObject:menuCellConfig];
@@ -850,6 +747,9 @@
         };
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        tCell.seeBlock = ^(NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images withIndex:index];
+        } ;
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
@@ -1004,4 +904,119 @@
         [self.navigationController pushViewController:tvc animated:YES];
     }
 }
+
+
+#pragma mark - 提交数据Z
+- (void)updateImageWithOtherParams:(NSMutableDictionary *)otherDict {
+    if (self.viewModel.addModel.image_net_url && self.viewModel.addModel.image_net_url.length > 0) {
+        [self updatePhotosStep1WithOtherParams:otherDict];
+        return;
+    }
+    [TLUIUtility showLoading:@"上传封面图片中"];
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image_url}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            weakSelf.viewModel.addModel.image_net_url = message;
+            [weakSelf updatePhotosStep1WithOtherParams:otherDict];
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+- (NSInteger)checkIsHavePhotos {
+    NSInteger index = 0;
+    for (int i = 0; i < self.viewModel.addModel.images.count; i++) {
+        id temp = self.viewModel.addModel.images[i];
+        if ([temp isKindOfClass:[UIImage class]]) {
+            index++;
+        }else if ([temp isKindOfClass:[NSString class]]){
+            NSString *tempStr = temp;
+            if (tempStr.length > 0) {
+                index++;
+            }
+        }
+    }
+    return index;
+}
+
+- (void)updatePhotosStep1WithOtherParams:(NSMutableDictionary *)otherDict {
+    if ([self checkIsHavePhotos] > 0) {
+        [TLUIUtility showLoading:@"上传课程相册中"];
+        NSInteger tindex = 0;
+        [self updatePhotosStep2WithImage:tindex otherParams:otherDict];
+    }else{
+        [self updateOtherDataWithParams:otherDict];
+    }
+    
+}
+
+ - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
+         if (index == self.viewModel.addModel.images.count-1) {
+             [self updateOtherDataWithParams:otherDict];
+         }else{
+             index++;
+             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+         }
+    }];
+}
+
+- (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传课程相册中 %ld/%ld",index+1,self.viewModel.addModel.images.count]];
+    
+    id temp = self.viewModel.addModel.images[index];
+    UIImage *image;
+    if ([temp isKindOfClass:[UIImage class]]) {
+        image = temp;
+    }
+    if (!image) {
+        complete(YES,index);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            [weakSelf.viewModel.addModel.images replaceObjectAtIndex:index withObject:message];
+            complete(YES,index);
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
+
+- (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
+    if (self.viewModel.addModel.image_net_url) {
+        [otherDict setObject:self.viewModel.addModel.image_net_url forKey:@"image_url"];
+        
+    }
+    if ([self checkIsHavePhotos] > 0) {
+        NSMutableArray *photos = @[].mutableCopy;
+        for (int i = 0; i < self.viewModel.addModel.images.count; i++) {
+            NSString *temp = self.viewModel.addModel.images[i];
+            if (ValidStr(temp)) {
+                [photos addObject:temp];
+            }
+        }
+        if (photos.count > 0) {
+            [otherDict setObject:photos forKey:@"images"];
+        }
+        
+    }
+    [TLUIUtility showLoading:@"上传其他数据"];
+    [ZOriganizationLessonViewModel addLesson:otherDict isEdit:ValidStr(self.viewModel.addModel.lessonID) ? YES:NO completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:message];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
+
 @end

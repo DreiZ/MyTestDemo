@@ -121,6 +121,11 @@
                     weakSelf.menuBlock(indexPath.row,NO);
                 }
             };
+            cell.seeBlock = ^{
+                if (weakSelf.seeBlock) {
+                    weakSelf.seeBlock(indexPath.row);
+                }
+            };
             return cell;
         }
     }else{
@@ -130,6 +135,11 @@
         cell.delBlock = ^{
             if (weakSelf.menuBlock) {
                 weakSelf.menuBlock(indexPath.row,NO);
+            }
+        };
+        cell.seeBlock = ^{
+            if (weakSelf.seeBlock) {
+                weakSelf.seeBlock(indexPath.row);
             }
         };
         return cell;

@@ -516,6 +516,11 @@
         };
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        
+        tCell.seeBlock = ^(NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
+        } ;
+        
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {

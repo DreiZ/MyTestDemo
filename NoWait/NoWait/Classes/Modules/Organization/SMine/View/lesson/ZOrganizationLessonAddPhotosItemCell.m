@@ -138,6 +138,7 @@
 - (UIImageView *)detailImageView {
     if (!_detailImageView) {
         _detailImageView = [[UIImageView alloc] init];
+        _detailImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _detailImageView;
 }

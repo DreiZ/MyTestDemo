@@ -191,6 +191,7 @@
           
             
             ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+            mModel.isHiddenLine = YES;
             mModel.rightFont = [UIFont fontContent];
             mModel.rightColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
             mModel.singleCellHeight = CGFloatIn750(50);
@@ -324,6 +325,10 @@
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
+    }else if ([cellConfig.title isEqualToString:@"ZOriganizationTeachHeadImageCell"]) {
+        if (ValidClass(self.addModel.image, [UIImage class]) || ValidStr(self.addModel.image)) {
+            [[ZPhotoManager sharedManager] showBrowser:@[self.addModel.image] withIndex:0];
+        }
     }
 }
 

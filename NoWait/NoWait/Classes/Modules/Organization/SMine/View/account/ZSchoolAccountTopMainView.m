@@ -172,7 +172,7 @@
 
 - (void)setModel:(ZStoresAccountModel *)model {
     _model = model;
-    _amountLabel.text = [NSString stringWithFormat:@"￥%@",model.total_amount];
+    _amountLabel.text = [NSString stringWithFormat:@"￥%.2f",[model.total_amount doubleValue]];
 }
 @end
 

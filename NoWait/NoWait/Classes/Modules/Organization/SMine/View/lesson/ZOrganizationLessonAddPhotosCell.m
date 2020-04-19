@@ -108,8 +108,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.menuBlock) {
-        self.menuBlock(indexPath.row,YES);
+    NSMutableArray *tempImageList = @[].mutableCopy;
+    for (int i = 0; i < self.model.units.count; i++) {
+        ZBaseUnitModel *model = self.model.units[i];
+        [tempImageList addObject:model.data];
+    }
+    if (tempImageList.count > 0) {
+        [[ZPhotoManager sharedManager] showBrowser:tempImageList withIndex:indexPath.row];
     }
 }
 
@@ -134,6 +139,7 @@
 
 #pragma mark 类型
 - (void)setModel:(ZBaseMenuModel *)model {
+    _model = model;
     self.channelList = model.units;
 }
 

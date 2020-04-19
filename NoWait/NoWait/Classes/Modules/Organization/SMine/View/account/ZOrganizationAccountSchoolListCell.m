@@ -162,7 +162,7 @@
     _feiLabel.text = @"";
     _timeLabel.text = [NSString stringWithFormat:@"%@~%@",[SafeStr(model.start_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"],[SafeStr(model.end_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"]];
     _zhiLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.title)];
-    _zhuanPriceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.should_amount)];
+    _zhuanPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[SafeStr(model.should_amount) doubleValue]];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

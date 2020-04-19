@@ -33,6 +33,16 @@
     
     [self.contentView addSubview:self.hintView];
     [self.hintView addSubview:self.detailImageView];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [seeBtn bk_whenTapped:^{
+        if (weakSelf.seeBlock) {
+            weakSelf.seeBlock();
+        }
+    }];
+    [self.hintView addSubview:seeBtn];
+    
     [self.hintView addSubview:self.deleteBtn];
     [self.hintView addSubview:self.deleteBigBtn];
     
@@ -46,6 +56,11 @@
     
     [self.detailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.hintView);
+    }];
+    
+    
+    [seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.detailImageView);
     }];
     
     [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,6 +79,7 @@
 - (UIImageView *)detailImageView {
     if (!_detailImageView) {
         _detailImageView = [[UIImageView alloc] init];
+        _detailImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _detailImageView;
 }
