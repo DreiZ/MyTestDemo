@@ -15,6 +15,7 @@
 
 
 @property (nonatomic,strong) UIButton *seeBtn;
+@property (nonatomic,strong) UIButton *userBtn;
 @property (nonatomic,strong) UIView *delView;
 @property (nonatomic,strong) UIButton *delBtn;
 
@@ -47,6 +48,7 @@
 
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.numLabel];
+    [self.contentView addSubview:self.userBtn];
     
     [self.contentView addSubview:self.seeBtn];
     [self.contentView addSubview:self.delView];
@@ -63,6 +65,12 @@
         make.centerY.equalTo(self.mas_centerY);
     }];
     
+    [self.userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.top.bottom.equalTo(self);
+        make.width.mas_equalTo(KScreenWidth/3.0f);
+    }];
+    
     
     [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.numLabel.mas_right);
@@ -72,7 +80,7 @@
     }];
     
     [self.delView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.seeBtn.mas_right);
+        make.right.equalTo(self.mas_right);
         make.top.bottom.equalTo(self);
         make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
     }];
@@ -80,7 +88,7 @@
     [self.delView addSubview:self.delBtn];
     [self.delBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.delView.mas_centerY);
-        make.centerX.equalTo(self.delView.mas_centerX).offset(-CGFloatIn750(8));
+        make.centerX.equalTo(self.delView.mas_centerX).offset(CGFloatIn750(8));
         make.height.mas_equalTo(CGFloatIn750(56));
         make.width.mas_equalTo(CGFloatIn750(142));
     }];
@@ -136,6 +144,20 @@
     return _delView;
 }
 
+
+- (UIButton *)userBtn {
+    if (!_userBtn) {
+        __weak typeof(self) weakSelf = self;
+        _userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_userBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2,weakSelf.model);
+            };
+        }];
+    }
+    return _userBtn;
+}
+
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
         __weak typeof(self) weakSelf = self;
@@ -143,10 +165,10 @@
         [_seeBtn setTitle:@"签课详情" forState:UIControlStateNormal];
         [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewBorderRadius(_seeBtn, CGFloatIn750(28), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_seeBtn.titleLabel setFont:[UIFont fontContent]];
+        [_seeBtn.titleLabel setFont:[UIFont fontSmall]];
         [_seeBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(0,self.model);
+                weakSelf.handleBlock(0,weakSelf.model);
             };
         }];
     }
@@ -163,7 +185,7 @@
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
         [_delBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1,self.model);
+                weakSelf.handleBlock(1,weakSelf.model);
             };
         }];
     }
@@ -232,11 +254,16 @@
             make.centerY.equalTo(self.mas_centerY);
         }];
         
+        [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self);
+            make.top.bottom.equalTo(self);
+            make.width.mas_equalTo(KScreenWidth/3.0f);
+        }];
+        
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.numLabel.mas_right);
             make.centerY.equalTo(self.mas_centerY);
-            make.width.equalTo(self.mas_width).multipliedBy(1/3.0);
             make.height.mas_equalTo(CGFloatIn750(56));
             make.width.mas_equalTo(CGFloatIn750(142));
         }];
@@ -258,17 +285,21 @@
             make.centerY.equalTo(self.mas_centerY);
         }];
         
+        [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self);
+            make.top.bottom.equalTo(self);
+            make.width.mas_equalTo(KScreenWidth/4.0f);
+        }];
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.numLabel.mas_right);
             make.centerY.equalTo(self.mas_centerY);
-            make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
             make.height.mas_equalTo(CGFloatIn750(56));
             make.width.mas_equalTo(CGFloatIn750(142));
         }];
         
         [self.delView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.seeBtn.mas_right);
+            make.right.equalTo(self.mas_right);
             make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
             make.top.bottom.equalTo(self);
         }];

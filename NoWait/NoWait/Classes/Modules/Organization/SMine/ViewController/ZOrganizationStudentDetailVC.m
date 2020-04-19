@@ -57,6 +57,20 @@
                          @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
                          @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
     
+    if (self.isTeacher) {
+        textArr = @[@[@"真实姓名",SafeStr(self.addModel.name)],
+        @[@"手机号",SafeStr(self.addModel.phone)],
+        @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
+        @[@"出生日期",[SafeStr(self.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"]],
+        @[@"所属校区",SafeStr(self.addModel.stores_name)],
+        @[@"报名日期",[SafeStr(self.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"]],
+        @[@"报名课程",SafeStr(self.addModel.courses_name)],
+        @[@"分配教师",SafeStr(self.addModel.teacher_name)],
+        @[@"紧急联系人姓名",SafeStr(self.addModel.emergency_name)],
+        @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
+        @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
+    }
+    
     if (ValidStr(self.addModel.courses_class_id)) {
         NSString *statusStr = @"";
         switch ([self.addModel.status intValue]) {
@@ -93,10 +107,12 @@
         @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
         
         @[@"报名须知", @""]].mutableCopy;
-        
-        if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
-            [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
+        if (!self.isTeacher) {
+            if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
+                [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
+            }
         }
+        
         [textArr addObjectsFromArray:temp];
     }
     for (int i = 0; i < textArr.count; i++) {
@@ -235,7 +251,9 @@
     if ([self.addModel.is_star intValue] == 1) {
         self.iTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
     }else{
-        self.iTableView.tableFooterView = self.bottomView;
+        if (!self.isTeacher) {
+            self.iTableView.tableFooterView = self.bottomView;
+        }
     }
 }
 
@@ -243,13 +261,16 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"学员详情"];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    if (!self.isTeacher) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    }
 }
 
 - (void)setupMainView {
     [super setupMainView];
-    
-    self.iTableView.tableFooterView = self.bottomView;
+    if (!self.isTeacher) {
+        self.iTableView.tableFooterView = self.bottomView;
+    }
 }
 
 

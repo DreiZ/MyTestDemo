@@ -12,6 +12,8 @@
 #import "ZStudentMineSignDetailVC.h"
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
+#import "ZOrganizationStudentDetailVC.h"
+
 #import "ZOriganizationClassViewModel.h"
 #import "ZAlertView.h"
 #import "ZTeacherSignStudentListBottomView.h"
@@ -234,10 +236,16 @@
                         [weakSelf deleteStudent:model];
                     }
                 }];
+            }else if (index == 2){
+                ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
+                dvc.isTeacher = self.type == 1;
+                dvc.addModel.studentID = model.studentID;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
     }
 }
+
 
 
 - (NSMutableArray *)selectLessonOrderArr {

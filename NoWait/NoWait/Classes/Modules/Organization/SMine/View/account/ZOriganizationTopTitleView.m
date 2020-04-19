@@ -46,7 +46,7 @@
                make.left.equalTo(self.mas_left);
             }
             make.centerY.equalTo(self.mas_centerY);
-            make.width.equalTo(self.mas_width).multipliedBy(1.0/titleArr.count);
+            make.width.mas_equalTo(KScreenWidth/titleArr.count);
         }];
         
         tempLabel = label;
