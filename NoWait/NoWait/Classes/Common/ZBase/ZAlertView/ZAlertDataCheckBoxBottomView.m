@@ -351,7 +351,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
         if ([self getNetworkStatus]) {
             return [UIImage imageNamed:_emptyImage? _emptyImage : @"emptyData"];
         }else{
-            return [UIImage imageNamed: @"noNetwork"];
+            return [UIImage imageNamed: (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }
     }
 }

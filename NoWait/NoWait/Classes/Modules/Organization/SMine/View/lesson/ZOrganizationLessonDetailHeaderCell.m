@@ -42,7 +42,7 @@
     if (!_iCycleScrollView) {
 //        UIImage *dot = [[UIImage imageNamed:@"pageControlCurrentDot"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
-        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(0), CGFloatIn750(0), KScreenWidth-CGFloatIn750(0), CGFloatIn750(500)) delegate:self placeholderImage:[UIImage imageNamed:@"lessonDetail"]];
+        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(0), CGFloatIn750(0), KScreenWidth-CGFloatIn750(0), CGFloatIn750(500)) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
         _iCycleScrollView.autoScrollTimeInterval = 8;
 //        _iCycleScrollView.currentPageDotImage = dot;
 //        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
@@ -61,7 +61,7 @@
 #pragma mark -  scrollview回调
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     if (_bannerBlock && _list && _list.count > index) {
-        _bannerBlock(_list[index]);
+        _bannerBlock(_list[index],index);
     }
 }
 

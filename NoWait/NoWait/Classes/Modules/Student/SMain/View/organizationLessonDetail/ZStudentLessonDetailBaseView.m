@@ -121,9 +121,9 @@
         return [UIImage imageNamed:@"zphoto_number_icon"];
     }else{
         if ([self getNetworkStatus]) {
-            return [UIImage imageNamed: @"emptyData"];
+            return [UIImage imageNamed: (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }else{
-            return [UIImage imageNamed: @"noNetwork"];
+            return [UIImage imageNamed: (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }
     }
 }

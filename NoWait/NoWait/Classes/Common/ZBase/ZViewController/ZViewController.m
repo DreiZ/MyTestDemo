@@ -15,7 +15,7 @@
 {
     if (self = [super init]) {
         [self setStatusBarStyle:UIStatusBarStyleDefault];
-        self.emptyImage = @"HNRequestNoDataHit";
+        self.emptyImage = isDarkModel()? @"emptyDataDark" : @"emptyData";
         self.emptyDataStr = @"暂无数据，点击重新加载";
     }
     return self;
@@ -192,9 +192,9 @@
         return [UIImage imageNamed:@"hng_im_lbs_ann"];
     }else{
         if ([self getNetworkStatus]) {
-            return [UIImage imageNamed:_emptyImage? _emptyImage : @"HNRequestNoDataHit"];
+            return [UIImage imageNamed:_emptyImage? _emptyImage : (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }else{
-            return [UIImage imageNamed: @"noNetwork"];
+            return [UIImage imageNamed: (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }
     }
 }
@@ -269,7 +269,8 @@
         return nil;
     }
     if (![self getNetworkStatus]) {
-        return [UIImage imageNamed:@"HNRequestNoDataHit"];
+        return nil;
+//        return [UIImage imageNamed:isDarkModel()? @"emptyDataDark" : @"emptyData"];
     }else {
         return nil;
     }

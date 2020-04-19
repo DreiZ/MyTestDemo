@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonDetailHeaderCell : ZBaseCell
 @property (nonatomic,strong) NSArray <ZStudentBannerModel *>*list;
-@property (nonatomic,strong) void (^bannerBlock)(ZStudentBannerModel *);
+@property (nonatomic,strong) void (^bannerBlock)(ZStudentBannerModel *,NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END

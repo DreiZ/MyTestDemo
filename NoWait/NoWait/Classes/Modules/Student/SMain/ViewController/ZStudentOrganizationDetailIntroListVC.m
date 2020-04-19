@@ -92,7 +92,12 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSMutableArray *temp = @[].mutableCopy;
+    for (int i = 0; i < self.list.count; i++) {
+        ZOriganizationPhotoTypeListModel *model = self.list[i];
+        [temp addObject:model.images_url];
+    }
+    [[ZPhotoManager sharedManager] showBrowser:temp withIndex:indexPath.row];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

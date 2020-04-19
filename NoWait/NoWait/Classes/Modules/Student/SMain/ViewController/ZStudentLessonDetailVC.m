@@ -242,13 +242,18 @@
             dvc.listModel = listModel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         };
-    }if ([cellConfig.title isEqualToString:@"starCoach"]) {
+    }else if ([cellConfig.title isEqualToString:@"starCoach"]) {
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
             ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
             mvc.teacher_id = model.account_id;
             mvc.stores_id = weakSelf.addModel.stores_id;
             [weakSelf.navigationController pushViewController:mvc animated:YES];
+        };
+    }else if([cellConfig.title isEqualToString:@"ZOrganizationLessonDetailHeaderCell"]){
+        ZOrganizationLessonDetailHeaderCell *lcell = (ZOrganizationLessonDetailHeaderCell *)cell;
+        lcell.bannerBlock = ^(ZStudentBannerModel *model, NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
         };
     }
     
