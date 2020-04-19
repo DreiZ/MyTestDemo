@@ -12,6 +12,8 @@
 #import "ZStudentMainFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
 
+#import "ZStudentOrganizationDetailDesVC.h"
+
 @interface ZStudentClassificationListVC ()
 @property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -77,6 +79,18 @@
     return _sectionView;
 }
 
+#pragma mark - tableview delegate
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+        ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+        dvc.listModel = cellConfig.dataModel;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+}
 
 #pragma mark - 数据处理
 - (void)refreshData {

@@ -20,8 +20,6 @@
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
 @property (nonatomic,strong) ZOrderAddModel *orderModel;
 
-@property (nonatomic,strong) ZOriganizationLessonListModel *listModel;
-@property (nonatomic,strong) ZOriganizationLessonExperienceTimeModel *timeModel;
 
 @end
 
@@ -120,6 +118,7 @@
     _detailModel = model;
     self.lessonView.addModel = self.orderModel;
     self.lessonView.detailModel = model;
+    self.lessonView.listModel = nil;
     [self addSubview:self.lessonView];
     self.lessonView.frame = CGRectMake(0, KScreenHeight, KScreenWidth, KScreenHeight/5.0f * 3.2);
     

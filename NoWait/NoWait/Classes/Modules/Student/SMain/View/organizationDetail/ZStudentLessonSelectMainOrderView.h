@@ -10,6 +10,10 @@
 #import "ZOrderModel.h"
 
 @interface ZStudentLessonSelectMainOrderView : UIView
+
+@property (nonatomic,strong) ZOriganizationLessonListModel *listModel;
+@property (nonatomic,strong) ZOriganizationLessonExperienceTimeModel *timeModel;
+
 @property (nonatomic,strong) void (^completeBlock)(ZOriganizationLessonListModel *,ZOriganizationLessonExperienceTimeModel*);
 - (void)showSelectViewWithModel:(ZStoresDetailModel*)model;
 @end

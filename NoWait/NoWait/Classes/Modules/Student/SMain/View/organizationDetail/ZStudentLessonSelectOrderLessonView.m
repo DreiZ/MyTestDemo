@@ -20,7 +20,7 @@
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) NSMutableArray *dataSources;
-@property (nonatomic,strong) ZOriganizationLessonListModel *listModel;
+
 
 @end
 

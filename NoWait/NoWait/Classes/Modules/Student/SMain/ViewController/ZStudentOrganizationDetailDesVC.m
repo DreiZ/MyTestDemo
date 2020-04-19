@@ -123,7 +123,7 @@
             detailModel.order_amount = lessonModel.experience_price;
             detailModel.experience_price = lessonModel.experience_price;
             detailModel.experience_duration = lessonModel.experience_duration;
-            
+            detailModel.course_image_url = weakSelf.detailModel.image;
             NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]];
             NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)date.year,date.month,date.day,timeModel.time];
             detailModel.schedule_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
