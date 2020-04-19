@@ -26,7 +26,7 @@ static ZIntroductryPagesManager *shareInstance = nil;
     return shareInstance;
 }
 
-+(void)showIntroductryPageView:(NSArray<NSString *> *)imageArray {
++(void)showIntroductryPageView:(NSArray<NSArray <NSString *>*> *)imageArray {
     
     if (![ZIntroductryPagesManager shareInstance].pageView) {
         [ZIntroductryPagesManager shareInstance].pageView = [ZIntroductryPagesView pagesViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) images:imageArray];

@@ -10,6 +10,6 @@
 
 @interface ZIntroductryPagesView : UIView
 
-+ (instancetype)pagesViewWithFrame:(CGRect)frame images:(NSArray<NSString *> *)images;
++ (instancetype)pagesViewWithFrame:(CGRect)frame images:(NSArray<NSArray <NSString *>*> *)images;
 
 @end

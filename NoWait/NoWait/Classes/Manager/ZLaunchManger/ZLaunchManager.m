@@ -119,24 +119,25 @@
 #pragma mark  ------介绍页面-----------------------
 - (void)showIntroductionOrAdvertise {
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kHadInApp];
-    if (isFirst) {
-        NSString *isLoginFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kHadAppLogin];
-        if (isLoginFirst) {
-            [self showAdvertise];
-        }
-    }else{
+//    if (isFirst) {
+//        NSString *isLoginFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kHadAppLogin];
+//        if (isLoginFirst) {
+//            [self showAdvertise];
+//        }
+//    }else{
         [self showIntroduction];
         [[NSUserDefaults standardUserDefaults] setObject:kHadInApp forKey:kHadInApp];
-    }
+//    }
 }
 
 - (void)showIntroduction {
-    if (kStatusBarHeight > 20) {
-        [ZIntroductryPagesManager showIntroductryPageView:@[@"introX_0.jpg", @"introX_1.jpg", @"introX_2"]];
-        return;
-    }
-    [ZIntroductryPagesManager showIntroductryPageView:@[@"intro_0.jpg", @"intro_1.jpg", @"intro_2"]];
-    
+//    if (kStatusBarHeight > 20) {
+//        [ZIntroductryPagesManager showIntroductryPageView:@[@"introX_0.jpg", @"introX_1.jpg", @"introX_2"]];
+//        return;
+//    }
+//    [ZIntroductryPagesManager showIntroductryPageView:@[@"intro_0.jpg", @"intro_1.jpg", @"intro_2"]];
+//
+    [ZIntroductryPagesManager showIntroductryPageView:@[@[@"intro1_1",@"intro1_2"], @[@"intro2_1",@"intro2_2"], @[@"intro3_1",@"intro3_2"]]];
 }
 
 #pragma mark  ------广告页面-----------------------

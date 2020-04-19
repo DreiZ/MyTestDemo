@@ -11,5 +11,5 @@
 @interface ZIntroductryPagesManager : NSObject
 + (instancetype)shareInstance;
 
-+(void)showIntroductryPageView:(NSArray <NSString *>*)imageArray;
++(void)showIntroductryPageView:(NSArray<NSArray <NSString *>*> *)imageArray;
 @end
