@@ -711,9 +711,9 @@
             cell.titleLabel.textColor = itemModel.selected?self.titleSelectedColor:adaptAndDarkColor(self.titleColor, [UIColor colorWhite]);
         }
         if (tableView == self.rightTableView) {
-            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayLine]);
+            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorBlackBGDark]);
         }else if (tableView == self.leftTableView){
-            cell.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
+            cell.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         }
         return cell;
     } else {
@@ -730,7 +730,7 @@
             cell.itemManager = self.itemManager;
             cell.modelArr = [self getSelectedTabIndexFilterModelArr];
             cell.filterModel = filterModel;
-            cell.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorGrayBGDark]);
+            cell.contentView.backgroundColor = adaptAndDarkColor(KItemBGColor, [UIColor colorBlackBGDark]);
             return cell;
         }
         return nil;

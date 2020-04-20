@@ -117,15 +117,15 @@
 #pragma mark  ------介绍页面-----------------------
 - (void)showIntroductionOrAdvertise {
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kHadInApp];
-//    if (isFirst) {
+    if (isFirst) {
 //        NSString *isLoginFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kHadAppLogin];
 //        if (isLoginFirst) {
 //            [self showAdvertise];
 //        }
-//    }else{
+    }else{
         [self showIntroduction];
         [[NSUserDefaults standardUserDefaults] setObject:kHadInApp forKey:kHadInApp];
-//    }
+    }
 }
 
 - (void)showIntroduction {

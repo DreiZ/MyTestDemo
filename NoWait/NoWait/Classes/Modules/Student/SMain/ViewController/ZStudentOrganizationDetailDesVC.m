@@ -143,7 +143,7 @@
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
-        [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
+        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_whenTapped:^{
             ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
             rvc.sTitle = self.detailModel.name;

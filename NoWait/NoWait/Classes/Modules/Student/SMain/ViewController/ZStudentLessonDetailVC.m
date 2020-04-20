@@ -33,6 +33,7 @@
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
 #import "ZStudentTeacherDetailVC.h"
+#import "ZStudentLessonCoachListVC.h"
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
@@ -136,7 +137,7 @@
         [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
         _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
-        [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
+        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_whenTapped:^{
@@ -291,7 +292,13 @@
 //                }
 //            }];
 //        }];
+    }else if([cellConfig.title isEqualToString:@"moreTeacher"]){
+        ZStudentLessonCoachListVC *lvc = [[ZStudentLessonCoachListVC alloc] init];
+        lvc.lesson_id = self.model.lessonID;
+        [self.navigationController pushViewController:lvc animated:YES];
     }
+    
+    
 }
 
 #pragma mark - setDetailData
@@ -381,14 +388,15 @@
     if (!ValidArray(self.addModel.teacher_list)) {
         return;
     }
-   [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
-   ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-   model.leftTitle = @"课程教师";
-   model.isHiddenLine = YES;
-   model.leftFont = [UIFont boldFontContent];
-   model.cellHeight = CGFloatIn750(50);
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
+    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+    model.leftTitle = @"课程教师";
+    model.cellTitle = @"moreTeacher";
+    model.isHiddenLine = YES;
+    model.leftFont = [UIFont boldFontContent];
+    model.cellHeight = CGFloatIn750(50);
    
-   ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+   ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
    
    [self.cellConfigArr addObject:menuCellConfig];
     

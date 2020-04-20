@@ -108,8 +108,9 @@
         _menuView = [[ZHFilterMenuView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88)) maxHeight:CGRectGetHeight(self.frame) - CGFloatIn750(88)];
         _menuView.zh_delegate = self;
         _menuView.zh_dataSource = self;
-       _menuView.titleArr = @[@"机构类型",@"综合排序",@"筛选"];
-        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown",@"mineLessonDown"];
+       _menuView.titleArr = @[@"机构类型",@"综合排序"];
+//        _menuView.titleArr = @[@"机构类型",@"综合排序",@"筛选"];
+        _menuView.imageNameArr = @[@"mineLessonDown",@"mineLessonDown"];
         _menuView.menuTapBlock = ^(NSInteger index) {
             if (weakSelf.titleSelect) {
                 weakSelf.titleSelect(index);

@@ -286,6 +286,10 @@
 //明星学员list
 #define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
 
+
+//明星老师list
+#define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
+
 //明星学员
 #define URL_account_add_star_student                 @"account/v1/add_star_student"
 
