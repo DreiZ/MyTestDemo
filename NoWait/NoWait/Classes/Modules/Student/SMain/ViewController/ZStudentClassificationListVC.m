@@ -9,13 +9,13 @@
 #import "ZStudentClassificationListVC.h"
 #import "ZStudentMainModel.h"
 #import "ZStudentMainOrganizationListCell.h"
-#import "ZStudentMainFiltrateSectionView.h"
+#import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZStudentClassificationListVC ()
-@property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
+@property (nonatomic,strong) ZStudentClassFiltrateSectionView *sectionView;
 @property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
@@ -67,10 +67,10 @@
     }];
 }
 #pragma mark - lazy loading
-- (ZStudentMainFiltrateSectionView *)sectionView {
+- (ZStudentClassFiltrateSectionView *)sectionView {
     if (!_sectionView) {
 //        __weak typeof(self) weakSelf = self;
-        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
+        _sectionView = [[ZStudentClassFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         _sectionView.titleSelect = ^(NSInteger index) {
             

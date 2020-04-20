@@ -105,24 +105,29 @@
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
         _headerView.userType = @"1";
         _headerView.topHandleBlock = ^(NSInteger index) {
-            [[ZUserHelper sharedHelper] checkLogin:^{
-                if (index == 1) {
-                    ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                    [weakSelf.navigationController pushViewController:svc animated:YES];
-                }else if (index == 3){
-                    ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
-                    [weakSelf.navigationController pushViewController:avc animated:YES];
-                }else if (index == 5){
-                    
-                }else if (index == 8){
-                    DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
-                }else if(index == 10){
-                    ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
-                    
-                    [weakSelf.navigationController pushViewController:mvc animated:YES];
-                }
-            }];
+            if (index == 8) {
+                DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }else{
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    if (index == 1) {
+                        ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
+                        [weakSelf.navigationController pushViewController:svc animated:YES];
+                    }else if (index == 3){
+                        ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
+                        [weakSelf.navigationController pushViewController:avc animated:YES];
+                    }else if (index == 5){
+                        
+                    }else if (index == 8){
+                        DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
+                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    }else if(index == 10){
+                        ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                        
+                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    }
+                }];
+            }
         };
     }
     return _headerView;
