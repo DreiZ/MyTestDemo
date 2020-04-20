@@ -119,11 +119,11 @@ static ZAlertDataSinglePickerView *sharedManager;
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
        [topView addSubview:bottomLineView];
        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.right.bottom.equalTo(topView);
-           make.height.mas_equalTo(1);
+           make.height.mas_equalTo(0.5);
        }];
        
     
@@ -137,7 +137,7 @@ static ZAlertDataSinglePickerView *sharedManager;
     
     //设置分割线
     for (UIView *line in self.pickView.subviews) {
-        if (line.frame.size.height < 1) {//0.6667
+        if (line.frame.size.height <= 1) {//0.6667
             line.backgroundColor = [UIColor clearColor];
         }
     }

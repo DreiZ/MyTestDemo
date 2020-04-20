@@ -219,6 +219,16 @@
     if (_model.rightImage && [_model.rightImage isEqualToString:@"rightBlackArrowN"]) {
         self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
     }
+    
+    if ([_model.leftImage isEqualToString:@"peoples_hint"] ||
+        [_model.leftImage isEqualToString:@"erweimlist"] ||
+        [_model.leftImage isEqualToString:@"listadd"] ) {
+        self.leftImageView.image = [[UIImage imageNamed:model.leftImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.leftImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    }else{
+        self.leftImageView.image = [[UIImage imageNamed:model.leftImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.leftImageView.tintColor = nil;
+    }
 }
 
 

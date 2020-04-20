@@ -66,13 +66,16 @@ static ZDatePickerManager *sharedDateManager;
         _datePickManager.titleLabel.font = [UIFont boldFontTitle];
         _datePickManager.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _datePickManager.headerHeight = CGFloatIn750(116);
-        
+        _datePickManager.headerViewBackgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
         //设置半透明的背景颜色
         _datePickManager.isShadeBackground = true;
         //设置头部的背景颜色
         _datePickManager.headerViewBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+        _datePickManager.datePicker.lineBackgroundColor =  adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
         //设置线条的颜色
-        datePicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        datePicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         //设置选中行的字体颜色
         datePicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         //设置未选中行的字体颜色

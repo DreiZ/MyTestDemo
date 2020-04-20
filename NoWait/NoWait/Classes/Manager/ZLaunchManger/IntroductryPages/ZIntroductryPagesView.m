@@ -132,7 +132,7 @@
                     }else if(KScreenHeight >= 667) {
                         make.top.equalTo(imageView.mas_bottom).offset(CGFloatIn750(18));
                     }else{
-                        make.top.equalTo(imageView.mas_bottom).offset(10);
+                        make.top.equalTo(imageView.mas_bottom).offset(8);
                     }
                 }
                 make.centerX.equalTo(imageView.mas_centerX);

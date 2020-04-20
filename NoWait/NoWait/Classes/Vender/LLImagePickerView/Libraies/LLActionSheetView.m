@@ -33,7 +33,7 @@
     CGFloat CellHeight = 50.f;
     CGFloat CellSpace = 5.0f;
     
-    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1f];    
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWithRed:0 green:0 blue:0 alpha:0.1f], [UIColor colorWithRed:1 green:1 blue:1 alpha:0.1f]);    
     CGSize size = [UIScreen mainScreen].bounds.size;
     CGFloat bgHeight;
     if (self.isShow) {
@@ -47,8 +47,8 @@
     CGFloat bgWidth = self.btnBgView.frame.size.width;
     UIButton  *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setBackgroundColor:[UIColor whiteColor]];
+    [btn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+    [btn setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
     [btn addTarget:self action:@selector(btnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 0;
     btn.frame = CGRectMake(0, bgHeight - CellHeight, bgWidth, CellHeight);
@@ -71,9 +71,9 @@
         
         UIButton  *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:self.titleArr[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [btn setBackgroundImage:highLightImage forState:UIControlStateHighlighted];
-        [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
         btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
         btn.tag   = i+1;
         [btn addTarget:self action:@selector(btnClickAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -114,7 +114,7 @@
 - (UIView *)btnBgView{
     if (!_btnBgView) {
         _btnBgView = [[UIView alloc]init];
-        _btnBgView.backgroundColor = [UIColor colorWithRed:223.0f/255.0f green:226.0f/255.f blue:236.0f/255.0f alpha:1];
+        _btnBgView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
     return _btnBgView;
 }

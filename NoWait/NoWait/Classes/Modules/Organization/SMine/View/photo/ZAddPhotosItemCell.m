@@ -59,7 +59,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"999999"]);
     [self.hintImageView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.hintImageView);
@@ -68,7 +68,7 @@
     }];
     
     UIView *lineView1 = [[UIView alloc] init];
-    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"999999"]);
     [self.hintImageView addSubview:lineView1];
     [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.hintImageView);

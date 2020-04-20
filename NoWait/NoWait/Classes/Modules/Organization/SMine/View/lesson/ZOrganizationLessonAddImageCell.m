@@ -58,7 +58,7 @@
     }];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    lineView.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"999999"]);
     [self.leftImageView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.leftImageView);
@@ -67,7 +67,7 @@
     }];
     
     UIView *lineView1 = [[UIView alloc] init];
-    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"333333"]);
+    lineView1.backgroundColor = adaptAndDarkColor([UIColor colorWithHexString:@"bbbbbb"], [UIColor colorWithHexString:@"999999"]);
     [self.leftImageView addSubview:lineView1];
     [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.leftImageView);
@@ -82,7 +82,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlack]);
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorTextGray1]);
         _titleLabel.text = @"上传课程封面";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -110,7 +110,7 @@
 - (UIView *)backContentView {
     if (!_backContentView) {
         _backContentView = [[UIView alloc] init];
-        _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
+        _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
 
     }
     return _backContentView;
