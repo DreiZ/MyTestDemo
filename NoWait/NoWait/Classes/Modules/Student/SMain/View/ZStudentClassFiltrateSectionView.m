@@ -7,12 +7,12 @@
 //
 
 #import "ZStudentClassFiltrateSectionView.h"
-#import "ZHFilterMenuView.h"
+
 #import "FilterDataUtil.h"
 
 @interface ZStudentClassFiltrateSectionView ()<ZHFilterMenuViewDelegate,ZHFilterMenuViewDetaSource>
 @property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, strong) ZHFilterMenuView *menuView;
+
 @end
 
 @implementation ZStudentClassFiltrateSectionView
@@ -35,7 +35,7 @@
     [self addSubview:self.menuView];
     
     FilterDataUtil *dataUtil = [[FilterDataUtil alloc] init];
-    self.menuView.filterDataArr = [dataUtil getTabDataByType:FilterTypeFilterMain];
+    self.menuView.filterDataArr = [dataUtil getTabDataByType:FilterTypeISRent];
     //开始显示
     [self.menuView beginShowMenuView];
     
@@ -64,6 +64,7 @@
         }else if ([model.code isEqualToString:@"more"]) {
             [params setObject:SafeStr(model.parentCode) forKey:@"more"];
         }
+        [self.menuView reloadMenuTitle:@[SafeStr(model.name)]];
     }
     if (self.dataBlock) {
         self.dataBlock(params);

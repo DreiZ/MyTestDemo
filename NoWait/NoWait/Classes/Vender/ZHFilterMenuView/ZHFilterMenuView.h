@@ -140,6 +140,9 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 /** 菜单列表消失 */
 - (void)hideMenuList;
 
+//菜单标题
+- (void)reloadMenuTitle:(NSArray *)titleArr;
+
 @end
 
 

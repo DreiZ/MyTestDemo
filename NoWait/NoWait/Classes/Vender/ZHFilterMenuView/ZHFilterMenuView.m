@@ -242,6 +242,15 @@
     [self bringSubviewToFront:self.lineView];
 }
 
+- (void)reloadMenuTitle:(NSArray *)titleArr {
+    if (titleArr.count == self.buttonArr.count) {
+        for (int i = 0; i < self.buttonArr.count; i++) {
+            UIButton *btn = self.buttonArr[i];
+            [btn setTitle:titleArr[i] forState:UIControlStateNormal];
+        }
+    }
+}
+
 - (UIImage *)imageTintedWithImage:(UIImage *)fromImage color:(UIColor *)color fraction:(CGFloat)fraction
 {
     if (color) {

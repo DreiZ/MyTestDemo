@@ -84,21 +84,6 @@
 }
 
 #pragma mark 支付回调
-///**
-// *  @author gitKong
-// *
-// *  iOS 9.0 之前 会调用
-// */
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
-    if (!result) {
-//         其他如支付等SDK的回调
-        return [[ZPayManager sharedManager] pay_handleUrl:url];
-    }
-    return result;
-    
-}
-
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {

@@ -69,11 +69,22 @@
 #pragma mark - lazy loading
 - (ZStudentClassFiltrateSectionView *)sectionView {
     if (!_sectionView) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _sectionView = [[ZStudentClassFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         _sectionView.titleSelect = ^(NSInteger index) {
             
+        };
+        
+        
+        _sectionView.dataBlock = ^(NSDictionary *tDict) {
+            if (tDict && [tDict objectForKey:@"sort"]) {
+                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"sort"];
+            }
+
+            [weakSelf refreshData];
         };
     }
     return _sectionView;

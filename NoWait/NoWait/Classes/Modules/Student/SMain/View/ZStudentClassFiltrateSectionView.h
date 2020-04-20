@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZHFilterMenuView.h"
 
 @interface ZStudentClassFiltrateSectionView : UIView
 @property (nonatomic,strong) void (^titleSelect)(NSInteger);
 @property (nonatomic,strong) void (^dataBlock)(NSDictionary *);
+@property (nonatomic,strong) ZHFilterMenuView *menuView;
 @end
 
-NS_ASSUME_NONNULL_END

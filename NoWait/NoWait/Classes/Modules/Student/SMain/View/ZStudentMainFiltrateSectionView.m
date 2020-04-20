@@ -56,14 +56,18 @@
     NSArray *dictArr = [ZHFilterItemModel mj_keyValuesArrayWithObjectArray:selectedModelArr];
     NSLog(@"结果回调：%@",dictArr.mj_JSONString);
     NSMutableDictionary *params = @{}.mutableCopy;
+    NSMutableArray *titleArr = @[@"机构类型",@"综合排序"].mutableCopy;
     for (ZHFilterItemModel *model in selectedModelArr) {
         if ([model.code isEqualToString:@"type"]) {
             [params setObject:SafeStr(model.parentCode) forKey:@"type"];
+            [titleArr replaceObjectAtIndex:0 withObject:model.name];
         }else if ([model.code isEqualToString:@"sort"]) {
             [params setObject:SafeStr(model.parentCode) forKey:@"sort"];
+            [titleArr replaceObjectAtIndex:1 withObject:model.name];
         }else if ([model.code isEqualToString:@"more"]) {
             [params setObject:SafeStr(model.parentCode) forKey:@"more"];
         }
+        [self.menuView reloadMenuTitle:titleArr];
     }
     if (self.dataBlock) {
         self.dataBlock(params);

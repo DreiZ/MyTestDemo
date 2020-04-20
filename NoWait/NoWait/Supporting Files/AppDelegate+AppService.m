@@ -28,12 +28,13 @@
     [[ZUMengShareManager sharedManager] umengShare];
     [[ZPayManager sharedManager] wxPayRefisterApp];
     //更新用户信息
-    [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
-        if (!isSuccess) {
-        }
-    }];
+    if ([ZUserHelper sharedHelper].user) {
+        [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
+            if (!isSuccess) {
+            }
+        }];
+    }
 }
-
 
 
 #pragma mark ————— 登录状态处理 —————

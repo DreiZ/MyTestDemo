@@ -39,9 +39,14 @@
     [sortArr addObject:[ZHFilterModel createFilterModelWithHeadTitle:@"" modelArr:[self getSortData] selectFirst:YES multiple:NO]];
     
 //    [dataArr addObject:areaArr];
-    [dataArr addObject:roomTypeArr];
-    [dataArr addObject:sortArr];
-    [dataArr addObject:moreArr];
+    if (type == FilterTypeFilterMain) {
+        [dataArr addObject:roomTypeArr];
+        [dataArr addObject:sortArr];
+        [dataArr addObject:moreArr];
+    }else if(type == FilterTypeISRent){
+        [dataArr addObject:sortArr];
+    }
+    
     
     
     return dataArr;
@@ -66,7 +71,7 @@
 
 - (NSArray *)getClassificationData
 {
-    NSArray *classification = @[@"体育竞技",@"艺术舞蹈",@"兴趣爱好",@"其他"].mutableCopy;
+    NSArray *classification = @[@"体育竞技",@"艺术舞蹈",@"兴趣爱好",@"其他分类"].mutableCopy;
     NSMutableArray *infoArr = [NSMutableArray array];
     
     for (int i = 0; i < classification.count; i++) {
