@@ -270,6 +270,8 @@
 //学员详情
 #define URL_account_get_student_info                @"account/v1/get_student_info"
 
+#define URL_account_get_stores_student_info                @"account/v1/get_stores_student_info"
+
 //学员list
 #define URL_account_get_student_list                @"account/v1/get_student_list"
 

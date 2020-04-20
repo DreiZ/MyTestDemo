@@ -215,6 +215,8 @@
                     
                 }];
             }
+            [ZUserHelper sharedHelper].school = nil;
+            [ZUserHelper sharedHelper].stores = nil;
             
             ZUser *user = [[ZUser alloc] init];
             user.userID = userModel.userID? userModel.userID:@"";

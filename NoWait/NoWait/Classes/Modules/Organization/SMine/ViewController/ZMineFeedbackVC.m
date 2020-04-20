@@ -181,7 +181,7 @@
             if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
                 [params setObject:@"2" forKey:@"type"];
             }
-            if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 6 || [[ZUserHelper sharedHelper].user.type intValue] == 8) {
                 [params setObject:@"3" forKey:@"type"];
             }
             [weakSelf updatePhotosStep1WithOtherParams:params];
@@ -333,8 +333,9 @@
         if (photos.count > 0) {
             [otherDict setObject:photos forKey:@"images"];
         }
-        
     }
+    
+    
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZFeedBackViewModel addFeedback:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];

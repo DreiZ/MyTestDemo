@@ -63,7 +63,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>似锦需要您的同意，才能使用拍摄照片，如不同意则无法使用拍摄发图片等功能。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>似锦需要您的同意，才能使用您的定位数据</string>
+	<string>似锦需要您的同意，才能根据您的定位数据推荐你周边的培训机构</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>似锦需要您的同意，才能访问您的相册，如不同意则无法保存报告信息您的相册。</string>
 	<key>NSPhotoLibraryUsageDescription</key>

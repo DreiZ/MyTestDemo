@@ -26,6 +26,8 @@
 + (void)getStudentFromList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 
++ (void)getStoresStudentDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 + (void)getStudentLessonFromList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)addStudent:(NSDictionary *)params

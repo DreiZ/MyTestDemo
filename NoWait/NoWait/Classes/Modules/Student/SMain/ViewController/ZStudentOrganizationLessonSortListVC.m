@@ -36,6 +36,7 @@
          
     self.loading = YES;
     [self setMainView];
+    
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];
     [self setCollectionViewEmptyDataDelegate];

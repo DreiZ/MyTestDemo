@@ -122,7 +122,7 @@
 - (void)refreshInfoData {
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
-    [ZOriganizationStudentViewModel getStudentDetail:@{@"id":SafeStr(self.student_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
+    [ZOriganizationStudentViewModel getStoresStudentDetail:@{@"student_id":SafeStr(self.student_id),@"stores_id":SafeStr(self.stores_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
         weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.addModel = addModel;

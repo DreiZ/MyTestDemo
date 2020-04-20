@@ -46,8 +46,9 @@
 //        self.window = window;
 //    }
     
+    NSString *isHadInApp = [[NSUserDefaults standardUserDefaults] objectForKey:kHadInApp];
     
-    if ([ZUserHelper sharedHelper].isLogin) {      // 已登录
+    if ([ZUserHelper sharedHelper].isLogin || isHadInApp) {      // 已登录
         [self showMainTab];
     }
     else
