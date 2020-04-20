@@ -158,10 +158,10 @@
 
 - (void)setModel:(ZStoresAccountDetaliListModel *)model {
     _model = model;
-    _daoLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.should_amount)];
+    _daoLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.real_amount)];
     _feiLabel.text = @"";
     _timeLabel.text = [NSString stringWithFormat:@"%@~%@",[SafeStr(model.start_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"],[SafeStr(model.end_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM"]];
-    _zhiLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.title)];
+    _zhiLabel.text = [NSString stringWithFormat:@"%@",SafeStr(model.title)];
     _zhuanPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",[SafeStr(model.should_amount) doubleValue]];
 }
 

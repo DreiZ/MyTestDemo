@@ -497,6 +497,8 @@
 @property (nonatomic,strong) NSString *start_time;
 @property (nonatomic,strong) NSString *end_time;
 @property (nonatomic,strong) NSString *should_amount;
+@property (nonatomic,strong) NSString *real_amount;
+
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSArray <ZStoresAccountDetaliListLogModel *>*logs;
 @end
