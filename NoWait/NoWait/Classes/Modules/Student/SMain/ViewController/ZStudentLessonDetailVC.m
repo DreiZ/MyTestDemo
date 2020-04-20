@@ -271,7 +271,7 @@
         [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"lesson" stores_id:self.addModel.stores_id course_id:self.addModel.lessonID
                               teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                if ([model.received intValue] == 0) {
+                if ([model.received intValue] == 1) {
                     [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
                         if (isSuccess) {
                             [[ZCouponListView sharedManager] refreshData];

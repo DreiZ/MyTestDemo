@@ -327,7 +327,7 @@
             }else if (index == 2){
                 [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
                     [[ZUserHelper sharedHelper] checkLogin:^{
-                        if ([model.received intValue] == 0) {
+                        if ([model.received intValue] == 1) {
                             [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
                                 if (isSuccess) {
                                     [[ZCouponListView sharedManager] refreshData];

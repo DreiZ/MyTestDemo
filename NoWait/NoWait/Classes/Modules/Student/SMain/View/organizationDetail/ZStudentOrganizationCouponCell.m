@@ -212,7 +212,7 @@
         _handleLabel.text = @"立即使用";
     }else{
         _handleLabel.text = @"立即领取";
-        if ([model.received intValue] == 1) {
+        if ([model.received intValue] == 0) {
             _handleLabel.text = @"已领取";
             _manLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
             _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);;
