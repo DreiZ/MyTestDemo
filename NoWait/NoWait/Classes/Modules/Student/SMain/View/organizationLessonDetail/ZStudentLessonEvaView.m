@@ -150,7 +150,7 @@
     NSArray *eva = @[@"挺好的，不错，坚持下来肯定有结果",
                     @"还不错，加油",@"要坚持下去，我自己坚持下来，效果很明显，加油吧少年，我们还要很长时间才能做出很好的效果",
                     @"加油不错",
-    @"这家还不错，欢迎大家前来锻炼，教练小姐姐很漂亮，器材很新，很干净，很好看，到董事更多"];
+    @"这家还不错，欢迎大家前来锻炼，教师小姐姐很漂亮，器材很新，很干净，很好看，到董事更多"];
     for (int i = 0; i < 15; i++) {
         ZStudentDetailEvaListModel *model = [[ZStudentDetailEvaListModel alloc] init];
         model.userImage = [NSString stringWithFormat:@"studentHeadImage%d",i%5 + 1];

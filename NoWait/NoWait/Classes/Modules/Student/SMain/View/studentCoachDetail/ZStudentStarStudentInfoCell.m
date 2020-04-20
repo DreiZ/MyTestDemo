@@ -47,7 +47,7 @@
     
     UILabel *cocahHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     cocahHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-    cocahHintLabel.text = @"教练";
+    cocahHintLabel.text = @"教师";
     cocahHintLabel.numberOfLines = 1;
     cocahHintLabel.textAlignment = NSTextAlignmentCenter;
     [cocahHintLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(26)]];

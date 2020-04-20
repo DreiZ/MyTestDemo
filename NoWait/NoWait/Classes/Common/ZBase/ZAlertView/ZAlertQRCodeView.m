@@ -110,7 +110,7 @@ static ZAlertQRCodeView *sharedManager;
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _titleLabel.text = @"请教练扫码完成签课";
+        _titleLabel.text = @"请教师扫码完成签课";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont fontContent]];

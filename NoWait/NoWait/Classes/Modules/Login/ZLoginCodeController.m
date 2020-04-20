@@ -115,7 +115,7 @@
     
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"登录莫等闲";
+    model.leftTitle = @"登录似锦";
     model.cellTitle = @"title";
     model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
     model.leftMargin = CGFloatIn750(50);
@@ -206,7 +206,7 @@
 - (void)setNavigation {
     self.isHidenNaviBar = YES;
 
-    [self.navigationItem setTitle:@"登录莫等闲"];
+    [self.navigationItem setTitle:@"登录似锦"];
 }
 
 #pragma mark - lazy loading...
@@ -275,7 +275,7 @@
             
             
             if (!self.isAgree) {
-                [TLUIUtility showErrorHint:@"请阅读并同意遵守《莫等闲服务条款》和《隐私协议》"];
+                [TLUIUtility showErrorHint:@"请阅读并同意遵守《似锦服务条款》和《隐私协议》"];
                 return ;
             }
             
@@ -394,7 +394,7 @@
         
         [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
             ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-            avc.navTitle = @"莫等闲服务条款";
+            avc.navTitle = @"似锦服务条款";
             avc.type = @"service_agreement";
             avc.url = @"http://www.xiangcenter.com/Android/useragreement.html";
             [self.navigationController pushViewController:avc animated:YES];

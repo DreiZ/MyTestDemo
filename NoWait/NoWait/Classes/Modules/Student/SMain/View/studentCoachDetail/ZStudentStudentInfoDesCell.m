@@ -49,7 +49,7 @@
     
     UILabel *nameHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     nameHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-    nameHintLabel.text = @"教练";
+    nameHintLabel.text = @"教师";
     nameHintLabel.numberOfLines = 1;
     nameHintLabel.textAlignment = NSTextAlignmentLeft;
     [nameHintLabel setFont:[UIFont fontContent]];

@@ -93,7 +93,7 @@
         [_inputTextField setBackgroundColor:[UIColor clearColor]];
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentRight];
-        [_inputTextField setPlaceholder:@"教练带课价格"];
+        [_inputTextField setPlaceholder:@"教师带课价格"];
         _inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         _inputTextField.delegate = self;

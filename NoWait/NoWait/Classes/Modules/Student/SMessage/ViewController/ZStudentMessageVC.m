@@ -47,6 +47,11 @@
 - (void)setDataSource {
     [super setDataSource];
     _param = @{}.mutableCopy;
+    if (!ValidStr([ZUserHelper sharedHelper].user_id)) {
+        self.emptyDataStr = @"您还没有收到过消息";
+    }else{
+        self.emptyDataStr = @"您还没有登录";
+    }
 }
 
 - (void)initCellConfigArr {

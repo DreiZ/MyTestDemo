@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZCollectionViewController.h"
 #import "ZOrderModel.h"
 #import "ZOriganizationModel.h"
 
-@interface ZStudentOrganizationDetailIntroListVC : ZViewController
+@interface ZStudentOrganizationDetailIntroListVC : ZCollectionViewController
 @property (nonatomic,strong) ZImagesModel *imageModel;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
 

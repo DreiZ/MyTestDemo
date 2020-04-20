@@ -35,7 +35,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"明星教练"];
+    [self.navigationItem setTitle:@"明星教师"];
 }
 
 - (void)setMainView {

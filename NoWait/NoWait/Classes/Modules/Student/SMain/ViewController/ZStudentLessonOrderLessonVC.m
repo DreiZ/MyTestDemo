@@ -78,7 +78,7 @@
     [self.cellConfigArr addObject:spacCellConfig];
     
     ZStudentDetailOrderSubmitListModel *coachHModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
-    coachHModel.leftTitle = @"教练";
+    coachHModel.leftTitle = @"教师";
     coachHModel.rightImage = @"rightBlackArrowN";
     ZCellConfig *menu1CellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:coachHModel];
     [self.cellConfigArr addObject:menu1CellConfig];
@@ -86,7 +86,7 @@
     ZStudentDetailLessonOrderCoachModel *coachModel = [[ZStudentDetailLessonOrderCoachModel alloc] init];
     coachModel.coachImage = @"orderCoachLesson";
     coachModel.coachName = @"赵忠";
-    coachModel.auth = @"平台认证教练";
+    coachModel.auth = @"平台认证教师";
     coachModel.labelArr = @[@"明星教师", @"明星教师"];
     coachModel.adeptArr = @[@"蛙泳", @"蝶泳", @"塑性",@"好频率b100%",];
     coachModel.desStr = @"高傲机构按时间哦给大家哦我按设计工具偶见过的搜啊解耦股建瓯市大家宫颈癌搜";

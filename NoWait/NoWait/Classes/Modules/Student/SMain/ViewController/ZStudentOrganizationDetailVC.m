@@ -95,7 +95,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"环境", @"资质", @"教练", @"视频"].mutableCopy;
+        _titleArr = @[@"环境", @"资质", @"教师", @"视频"].mutableCopy;
     }
     return _titleArr;
 }

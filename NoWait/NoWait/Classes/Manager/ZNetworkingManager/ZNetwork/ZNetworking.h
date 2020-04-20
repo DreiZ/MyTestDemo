@@ -21,7 +21,7 @@ typedef enum : NSUInteger {
     ZServerTypeUser,               //用户服务器
     ZServerTypeOrder,               //订单服务
     ZServerTypeFile,                 //文件服务器
-    ZServerTypeCoach,               //教练服务器
+    ZServerTypeCoach,               //教师服务器
     ZServerTypeOrganization,        //机构服务器
 } ZServerType;
 

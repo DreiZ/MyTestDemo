@@ -179,7 +179,7 @@
     if (!_lessonTitleLabel) {
         _lessonTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _lessonTitleLabel.text = @"请选择教练";
+        _lessonTitleLabel.text = @"请选择教师";
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonTitleLabel setFont:[UIFont boldSystemFontOfSize:CGFloatIn750(38)]];

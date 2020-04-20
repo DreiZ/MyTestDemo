@@ -84,7 +84,7 @@
     [super initCellConfigArr];
  
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"欢迎回到莫等闲";
+    model.leftTitle = @"欢迎回到似锦";
     model.cellTitle = @"title";
     model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
     model.leftMargin = CGFloatIn750(50);

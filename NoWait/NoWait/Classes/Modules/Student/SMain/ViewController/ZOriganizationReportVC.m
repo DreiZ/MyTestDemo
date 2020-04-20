@@ -33,7 +33,7 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     
-    [self.navigationItem setTitle:@"投诉"];
+    [self.navigationItem setTitle:@"举报"];
 }
 
 - (void)setDataSource {
@@ -48,7 +48,7 @@
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
         model.rightTitle = self.sTitle;
         model.isHiddenLine = YES;
-        model.leftTitle = @"投诉";
+        model.leftTitle = @"举报";
         model.cellWidth = KScreenWidth - CGFloatIn750(60);
         model.singleCellHeight = CGFloatIn750(78);
         model.cellHeight = CGFloatIn750(80);
@@ -67,7 +67,7 @@
     
     {
         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = @"选择你想要投诉的类型";
+        model.leftTitle = @"选择你想要举报的类型";
         model.isHiddenLine = YES;
         model.cellWidth = KScreenWidth - CGFloatIn750(60);
         model.singleCellHeight = CGFloatIn750(78);
@@ -126,7 +126,7 @@
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
-        [_bottomBtn setTitle:@"投诉" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"举报" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];

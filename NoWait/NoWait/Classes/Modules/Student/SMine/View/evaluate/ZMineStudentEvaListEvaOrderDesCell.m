@@ -42,7 +42,7 @@
     if (!_evaTitleLabel) {
         _evaTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _evaTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _evaTitleLabel.text = @"教练评价";
+        _evaTitleLabel.text = @"教师评价";
         _evaTitleLabel.numberOfLines = 0;
         _evaTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_evaTitleLabel setFont:[UIFont fontSmall]];

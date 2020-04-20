@@ -170,8 +170,8 @@
      
        //须知
        ZStudentDetailSectionModel *model = [[ZStudentDetailSectionModel alloc] init];
-       model.title = @"教练";
-       model.right = @"更多教练";
+       model.title = @"教师";
+       model.right = @"更多教师";
        model.isShowRight = YES;
        ZCellConfig *lessonTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSectionTitleCell className] title:[ZStudentLessonSectionTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonSectionTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
        [_cellConfigArr addObject:lessonTitleCellConfig];

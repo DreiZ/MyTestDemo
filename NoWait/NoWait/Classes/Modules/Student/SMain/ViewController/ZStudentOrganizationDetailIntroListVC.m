@@ -13,7 +13,6 @@
 @interface ZStudentOrganizationDetailIntroListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
-@property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *list;
 @property (nonatomic,strong) NSMutableDictionary *param;
 
@@ -25,9 +24,14 @@
     [super viewDidLoad];
          
     self.loading = YES;
-    [self setMainView];
+    
     [self setData];
     [self refreshData];
+    
+    [self setCollectionViewRefreshFooter];
+    [self setCollectionViewRefreshHeader];
+    [self setCollectionViewEmptyDataDelegate];
+    [self setEmptyDataStr:@"暂无图片"];
 }
 
 - (void)setNavigation {
@@ -35,85 +39,57 @@
     [self.navigationItem setTitle:self.imageModel.name];
 }
 
-- (void)setMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+- (void)setupMainView {
+    [super setupMainView];
     
-    [self.view addSubview:self.iCollectionView];
-    [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-    }];
+
 }
 
 - (void)setData {
     _list = @[].mutableCopy;
     _param = @{}.mutableCopy;
-}
-
-
-#pragma mark -懒加载
-- (UICollectionView *)iCollectionView {
-    if (!_iCollectionView) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        
-        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight) collectionViewLayout:flowLayout];
-        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iCollectionView.dataSource = self;
-        _iCollectionView.delegate = self;
-        _iCollectionView.scrollEnabled = YES;
-        _iCollectionView.showsHorizontalScrollIndicator = NO;
-        _iCollectionView.showsVerticalScrollIndicator = NO;
-        
-        [_iCollectionView registerClass:[ZOrganizationDetailIntroCollectionViewCell class] forCellWithReuseIdentifier:[ZOrganizationDetailIntroCollectionViewCell className]];
-    }
     
-    return _iCollectionView;
+    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(24), CGFloatIn750(30), CGFloatIn750(24), CGFloatIn750(30));
+    self.minimumLineSpacing = CGFloatIn750(20);
+    self.minimumInteritemSpacing = CGFloatIn750(20);
+    self.iCollectionView.scrollEnabled = YES;
 }
 
 
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
+    
+    [self.list enumerateObjectsUsingBlock:^(ZOriganizationPhotoTypeListModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationDetailIntroCollectionViewCell className] title:[ZOrganizationDetailIntroCollectionViewCell className] showInfoMethod:@selector(setImage:) sizeOfCell:[ZOrganizationDetailIntroCollectionViewCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:obj.images_url];
+        [self.cellConfigArr addObject:cellConfig];
+    }];
+}
 #pragma mark collectionview delegate
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
+//-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+//{
+//    return 1;
+//}
+//
+//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+//{
+//    return _list.count;
+//}
+//
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    ZOrganizationDetailIntroCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizationDetailIntroCollectionViewCell className] forIndexPath:indexPath];
+//    ZOriganizationPhotoTypeListModel *model = self.list[indexPath.row];
+//    [cell.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.images_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+//    return cell;
+//}
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return _list.count;
-}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ZOrganizationDetailIntroCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizationDetailIntroCollectionViewCell className] forIndexPath:indexPath];
-    ZOriganizationPhotoTypeListModel *model = self.list[indexPath.row];
-    [cell.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.images_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     NSMutableArray *temp = @[].mutableCopy;
     for (int i = 0; i < self.list.count; i++) {
         ZOriganizationPhotoTypeListModel *model = self.list[i];
         [temp addObject:model.images_url];
     }
     [[ZPhotoManager sharedManager] showBrowser:temp withIndex:indexPath.row];
-}
-
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CGFloatIn750(24), CGFloatIn750(30), CGFloatIn750(24), CGFloatIn750(30));
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return CGFloatIn750(20);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return CGFloatIn750(20);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }
 
 
@@ -132,6 +108,7 @@
         if (isSuccess && data) {
             [weakSelf.list removeAllObjects];
             [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
             [weakSelf.iCollectionView reloadData];
             
             [weakSelf.iCollectionView tt_endRefreshing];
@@ -158,6 +135,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.list addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
             [weakSelf.iCollectionView reloadData];
             
             [weakSelf.iCollectionView tt_endRefreshing];

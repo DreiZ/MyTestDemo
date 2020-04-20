@@ -46,7 +46,7 @@
     [self.cellConfigArr addObject:desCellConfig];
 
     {
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练简介"];
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教师简介"];
         [self.cellConfigArr addObject:titleCellConfig];
         
     }
@@ -74,7 +74,7 @@
     if (self.detailModel.comment_list && self.detailModel.comment_list.count > 0) {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练评价"];
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教师评价"];
         [self.cellConfigArr addObject:titleCellConfig];
         
         NSMutableArray *configArr = @[].mutableCopy;
@@ -103,7 +103,7 @@
     if (self.detailModel.images_list && self.detailModel.images_list.count > 0) {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教练相册"];
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教师相册"];
         [self.cellConfigArr addObject:titleCellConfig];
         
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];

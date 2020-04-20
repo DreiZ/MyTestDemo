@@ -92,7 +92,7 @@
     if (!_navgationView) {
         __weak typeof(self) weakSelf = self;
         _navgationView = [[ZStudentStarDetailNav alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, kTopHeight)];
-        _navgationView.title = @"明星教练";
+        _navgationView.title = @"明星教师";
         _navgationView.backBlock = ^(NSInteger index) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         };
@@ -140,9 +140,9 @@
     [self.cellConfigArr addObject:spacCellConfig];
     
     {
-        //教练介绍
+        //教师介绍
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = @"教练介绍";
+        model.leftTitle = @"教师介绍";
         model.isHiddenBottomLine = YES;
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
@@ -165,9 +165,9 @@
         [self.cellConfigArr addObject:spac1CellConfig];
     }
     {
-        //教练评价
+        //教师评价
         ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = @"教练评价";
+        model.leftTitle = @"教师评价";
         model.isHiddenBottomLine = NO;
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonOrderCompleteCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentLessonOrderCompleteCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
@@ -177,7 +177,7 @@
         NSArray *eva = @[@"挺好的，不错，坚持下来肯定有结果",
                         @"还不错，加油",@"要坚持下去，我自己坚持下来，效果很明显，加油吧少年，我们还要很长时间才能做出很好的效果",
                         @"加油不错",
-        @"这家还不错，欢迎大家前来锻炼，教练小姐姐很漂亮，器材很新，很干净，很好看"];
+        @"这家还不错，欢迎大家前来锻炼，教师小姐姐很漂亮，器材很新，很干净，很好看"];
         for (int i = 0; i < 5; i++) {
             ZStudentDetailEvaListModel *model = [[ZStudentDetailEvaListModel alloc] init];
             model.userImage = [NSString stringWithFormat:@"studentHeadImage%d",i%5 + 1];

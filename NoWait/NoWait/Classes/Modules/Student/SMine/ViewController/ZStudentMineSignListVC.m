@@ -161,7 +161,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             ZOriganizationStudentCodeAddModel *model = data;
-            [ZAlertQRCodeView setAlertWithTitle:@"请教练扫码完成签课" qrCode:model.url handlerBlock:^(NSInteger index) {
+            [ZAlertQRCodeView setAlertWithTitle:@"请教师扫码完成签课" qrCode:model.url handlerBlock:^(NSInteger index) {
                 
             }];
            

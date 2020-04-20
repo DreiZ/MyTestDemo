@@ -141,22 +141,26 @@
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-        [_navRightBtn setTitle:@"..." forState:UIControlStateNormal];
+        [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont boldFontMaxTitle]];
         [_navRightBtn bk_whenTapped:^{
+            ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+            rvc.sTitle = self.detailModel.name;
+            rvc.stores_id = self.detailModel.schoolID;
+            [weakSelf.navigationController pushViewController:rvc animated:rvc];
 //            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"举报",@"peoples_hint",@"report"]];
-            NSArray *weekArr = @[@[@"举报",@"peoples_hint",@"report"]];
-            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
-                if ([index isEqualToString:@"report"]) {
-                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                    rvc.sTitle = self.detailModel.name;
-                    rvc.stores_id = self.detailModel.schoolID;
-                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
-                }else{
-                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"向心力" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
-                }
-            }];
+//            NSArray *weekArr = @[@[@"举报",@"peoples_hint",@"report"]];
+//            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+//                if ([index isEqualToString:@"report"]) {
+//                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+//                    rvc.sTitle = self.detailModel.name;
+//                    rvc.stores_id = self.detailModel.schoolID;
+//                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
+//                }else{
+//                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
+//                }
+//            }];
         }];
     }
     return _navRightBtn;
@@ -260,7 +264,7 @@
             [self.cellConfigArr addObject:lessonCellConfig];
         }
         
-        {
+        if (self.dataSources.count > 0) {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"机构评价";
@@ -322,16 +326,18 @@
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }else if (index == 2){
                 [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
-                    if ([model.received intValue] == 0) {
-                        [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
-                            if (isSuccess) {
-                                [[ZCouponListView sharedManager] refreshData];
-                                [TLUIUtility showSuccessHint:data];
-                            }else{
-                                [TLUIUtility showErrorHint:data];
-                            }
-                        }];
-                    }
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        if ([model.received intValue] == 0) {
+                            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
+                                if (isSuccess) {
+                                    [[ZCouponListView sharedManager] refreshData];
+                                    [TLUIUtility showSuccessHint:data];
+                                }else{
+                                    [TLUIUtility showErrorHint:data];
+                                }
+                            }];
+                        }
+                    }];
                 }];
 //                [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.detailModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
 //                    [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {

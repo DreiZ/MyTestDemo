@@ -47,7 +47,7 @@
 #define URL_order                       @"http://116.62.232.213"
 //文件服务器
 #define URL_file                        @"http://116.62.232.213"
-//教练服务器
+//教师服务器
 #define URL_coach                       @"http://116.62.232.213"
 //机构服务器
 #define URL_organization                @"http://116.62.232.213"
@@ -93,7 +93,7 @@
 #define URL_order                       @"http://api.xiangcenter.com"
 //文件服务器
 #define URL_file                        @"http://api.xiangcenter.com"
-//教练服务器
+//教师服务器
 #define URL_coach                       @"http://api.xiangcenter.com"
 //机构服务器
 #define URL_organization                @"http://api.xiangcenter.com"

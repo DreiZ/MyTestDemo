@@ -60,5 +60,12 @@
     return _detailImageView;
 }
 
+- (void)setImage:(NSString *)image {
+    _image = image;
+    [_detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+}
++(CGSize)z_getCellSize:(id)sender {
+    return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
+}
 @end
 
