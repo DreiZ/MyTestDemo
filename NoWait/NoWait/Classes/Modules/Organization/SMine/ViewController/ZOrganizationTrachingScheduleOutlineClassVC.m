@@ -41,9 +41,9 @@
     {
         NSArray *textArr = @[@[@"班级名称", @"请输入班级名称", @YES, @"", @"name"],
                              @[@"选择课程", @"选择", @NO, @"rightBlackArrowN",  @"lesson"],
-                             @[@"上课时间", @"选择", @NO, @"rightBlackArrowN", @"time"],
                              @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"],
-                             @[@"开课日期", @"选择", @NO, @"rightBlackArrowN",  @"openTime"]];
+                             @[@"上课时间", @"选择(非必选)", @NO, @"rightBlackArrowN", @"time"],
+                             @[@"开课日期", @"选择(非必选)", @NO, @"rightBlackArrowN",  @"openTime"]];
         
         for (int i = 0; i < textArr.count; i++) {
             if ([textArr[i][4] isEqualToString:@"time"]) {

@@ -157,6 +157,7 @@
 		B262B541244D500100A27542 /* ZStudentClassFiltrateSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B262B540244D500000A27542 /* ZStudentClassFiltrateSectionView.m */; };
 		B262B544244DB7FA00A27542 /* ZOrganizationTrachingScheduleOutlineClassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B262B543244DB7F900A27542 /* ZOrganizationTrachingScheduleOutlineClassVC.m */; };
 		B262B547244DC7EC00A27542 /* ZOrganizationTrachingScheduleOutlineErweimaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B262B546244DC7EC00A27542 /* ZOrganizationTrachingScheduleOutlineErweimaVC.m */; };
+		B262B54A244ECA5200A27542 /* ZAddClassCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B262B549244ECA5200A27542 /* ZAddClassCodeView.m */; };
 		B26F2DA6240121C900BBF533 /* ZOrganizationStudentUpStarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26F2DA5240121C900BBF533 /* ZOrganizationStudentUpStarVC.m */; };
 		B279D03123C722BB00391A33 /* ZStudentLessonSelectMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03023C722BB00391A33 /* ZStudentLessonSelectMainView.m */; };
 		B279D03423C722F200391A33 /* ZStudentLessonSelectLessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D03323C722F200391A33 /* ZStudentLessonSelectLessonView.m */; };
@@ -963,6 +964,8 @@
 		B262B543244DB7F900A27542 /* ZOrganizationTrachingScheduleOutlineClassVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTrachingScheduleOutlineClassVC.m; sourceTree = "<group>"; };
 		B262B545244DC7EC00A27542 /* ZOrganizationTrachingScheduleOutlineErweimaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTrachingScheduleOutlineErweimaVC.h; sourceTree = "<group>"; };
 		B262B546244DC7EC00A27542 /* ZOrganizationTrachingScheduleOutlineErweimaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTrachingScheduleOutlineErweimaVC.m; sourceTree = "<group>"; };
+		B262B548244ECA5200A27542 /* ZAddClassCodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAddClassCodeView.h; sourceTree = "<group>"; };
+		B262B549244ECA5200A27542 /* ZAddClassCodeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAddClassCodeView.m; sourceTree = "<group>"; };
 		B26F2DA4240121C900BBF533 /* ZOrganizationStudentUpStarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationStudentUpStarVC.h; sourceTree = "<group>"; };
 		B26F2DA5240121C900BBF533 /* ZOrganizationStudentUpStarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentUpStarVC.m; sourceTree = "<group>"; };
 		B279D02F23C722BB00391A33 /* ZStudentLessonSelectMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectMainView.h; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 				B296E3AB240507D200507509 /* ZOrganizationTopFilterView.m */,
 				B2C3504E243F1D23002929A8 /* ZAddStudentCodeView.h */,
 				B2C3504F243F1D23002929A8 /* ZAddStudentCodeView.m */,
+				B262B548244ECA5200A27542 /* ZAddClassCodeView.h */,
+				B262B549244ECA5200A27542 /* ZAddClassCodeView.m */,
 				B2C35054243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.h */,
 				B2C35055243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m */,
 			);
@@ -5031,6 +5036,7 @@
 				B2EE5BC023F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m in Sources */,
 				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B252ED892416191E00190804 /* ZBaseCollectionViewCell.m in Sources */,
+				B262B54A244ECA5200A27542 /* ZAddClassCodeView.m in Sources */,
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,
 				B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */,

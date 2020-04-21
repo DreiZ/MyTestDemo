@@ -42,7 +42,7 @@
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_class_qrcode params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
-            ZBaseNetworkImageBackModel *model = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:data];
+            ZBaseNetworkImageBackModel *model = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
                 completeBlock(YES, model.url);
                 return ;
