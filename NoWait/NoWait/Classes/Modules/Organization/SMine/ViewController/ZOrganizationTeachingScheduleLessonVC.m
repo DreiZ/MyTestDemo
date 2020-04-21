@@ -11,9 +11,11 @@
 #import "ZOriganizationLessonViewModel.h"
 
 #import "ZOrganizationTeachingScheduleVC.h"
+#import "ZOrganizationTrachingScheduleOutlineClassVC.h"
 
 @interface ZOrganizationTeachingScheduleLessonVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,strong) UIButton *navRightBtn;
 
 @end
 
@@ -26,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
     [self setTableViewGaryBack];
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
@@ -61,6 +62,8 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"待排课列表"];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 - (void)setupMainView {
@@ -71,6 +74,7 @@
     }];
 }
 
+#pragma mark - lazy loading
 - (NSMutableArray *)selectLessonOrderArr {
     NSMutableArray *selectArr = @[].mutableCopy;
     for (ZOriganizationStudentListModel *model in self.dataSources) {
@@ -81,12 +85,30 @@
     return selectArr;
 }
 
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setTitle:@"线下排课" forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
+        [_navRightBtn bk_whenTapped:^{
+            ZOrganizationTrachingScheduleOutlineClassVC *ovc = [[ZOrganizationTrachingScheduleOutlineClassVC alloc] init];
+            
+            [weakSelf.navigationController pushViewController:ovc animated:YES];
+            
+        }];
+    }
+    return _navRightBtn;
+}
+
 - (void)changeType:(BOOL)type {
     for (ZOriganizationStudentListModel *model in self.dataSources) {
         model.isEdit = type;
     };
 }
 
+#pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleLessonCell"]) {

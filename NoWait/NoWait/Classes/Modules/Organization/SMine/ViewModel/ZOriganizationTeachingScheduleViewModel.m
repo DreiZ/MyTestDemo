@@ -20,7 +20,7 @@
 
 //添加排课
 + (void)addCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_add_course_class params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_add_course_class params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -36,5 +36,24 @@
     }];
 }
 
+
+//获取二维码
++ (void)addClassQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_get_class_qrcode params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            ZBaseNetworkImageBackModel *model = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model.url);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
 
 @end

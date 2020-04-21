@@ -61,7 +61,7 @@
         cellModel.max = [textArr[i][6] intValue];
         cellModel.formatterType = [textArr[i][7] intValue];
         cellModel.isHiddenLine = YES;
-        if (i == 2) {
+        if ([textArr[i][4] isEqualToString:@"now_progress"]) {
             cellModel.rightTitle = @"节";
         }
         cellModel.cellHeight = CGFloatIn750(108);

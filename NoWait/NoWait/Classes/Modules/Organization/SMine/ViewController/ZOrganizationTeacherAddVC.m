@@ -80,7 +80,7 @@
                         @[@"特长技能", @"请添加特长技能", @YES, @"rightBlackArrowN", @"skill",@40,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
     for (int i = 0; i < textArr.count; i++) {
-        if (i == 8 || i == 7) {
+        if ([textArr[i][4] isEqualToString:@"skill"] || [textArr[i][4] isEqualToString:@"lesson"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
             cellModel.placeholder = textArr[i][1];
@@ -91,7 +91,7 @@
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
             cellModel.leftFont = [UIFont boldFontTitle];
-            if (i == 8) {
+            if ([textArr[i][4] isEqualToString:@"skill"]) {
                 cellModel.data = self.viewModel.addModel.skills;
             }else{
                 NSMutableArray *temp = @[].mutableCopy;
@@ -128,7 +128,7 @@
             }else{
                 [tempArr addObject:@""];
             }
-            if (i == 4) {
+            if ([textArr[i][4] isEqualToString:@"cid"]) {
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationIDCardCell className] title:@"IDCard" showInfoMethod:@selector(setImages:) heightOfCell:[ZOriganizationIDCardCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempArr];
                 [self.cellConfigArr addObject:textCellConfig];
             }

@@ -296,6 +296,19 @@
 #define URL_account_add_star_student                 @"account/v1/add_star_student"
 
 
+//扫码添加班级学员
+#define URL_account_add_student_by_qrcode                 @"account/v1/add_student_by_qrcode"
+
+//设置扫码学员进度
+#define URL_account_set_qrcode_progress                 @"account/v1/set_qrcode_progress"
+
+
+//学员进度列表
+#define URL_account_get_student_progress                 @"account/v1/get_student_progress"
+
+//生成班级二维码
+#define URL_account_get_class_qrcode                 @"account/v1/get_class_qrcode"
+
 
 #pragma mark - 教师------------------------------------------------
 //教师list

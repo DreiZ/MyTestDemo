@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,18 +16,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1585032885842" translatesAutoresizingMaskIntoConstraints="NO" id="l7J-WE-Hg8">
-                                <rect key="frame" x="107" y="348" width="200" height="200"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backwither" translatesAutoresizingMaskIntoConstraints="NO" id="Npx-v6-cbQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoHint" translatesAutoresizingMaskIntoConstraints="NO" id="MG6-uo-kCV">
+                                <rect key="frame" x="193" y="195" width="28" height="329"/>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="qyU-Kz-ikv">
+                                <rect key="frame" x="180.5" y="766" width="53" height="53"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="2wn-rr-lBK"/>
-                                    <constraint firstAttribute="width" constant="200" id="8FA-Xs-dN2"/>
+                                    <constraint firstAttribute="width" constant="53" id="09x-if-TXq"/>
+                                    <constraint firstAttribute="height" constant="53" id="5Lv-nf-QFL"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="l7J-WE-Hg8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Q2Z-2Y-sVb"/>
-                            <constraint firstItem="l7J-WE-Hg8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="acV-gP-obL"/>
+                            <constraint firstItem="Npx-v6-cbQ" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="ADd-UR-8dk"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="qyU-Kz-ikv" secondAttribute="bottom" constant="43" id="Ckj-1h-7dt"/>
+                            <constraint firstItem="MG6-uo-kCV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ezi-uX-F5q"/>
+                            <constraint firstItem="Npx-v6-cbQ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Hyi-rS-Nxo"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="Npx-v6-cbQ" secondAttribute="bottom" constant="-34" id="QKj-nz-qbW"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="Npx-v6-cbQ" secondAttribute="trailing" id="kN3-fZ-VN5"/>
+                            <constraint firstItem="qyU-Kz-ikv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tDw-Qy-rEr"/>
+                            <constraint firstItem="MG6-uo-kCV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" constant="1" id="tfW-v8-wAK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
@@ -38,6 +51,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1585032885842" width="348" height="332"/>
+        <image name="backwither" width="150" height="151"/>
+        <image name="logo" width="341.66665649414062" height="341.33334350585938"/>
+        <image name="logoHint" width="28" height="329"/>
     </resources>
 </document>

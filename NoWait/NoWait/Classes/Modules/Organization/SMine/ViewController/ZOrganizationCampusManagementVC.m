@@ -80,8 +80,8 @@
                          @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone", self.model? SafeStr(self.model.phone):@""],
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
                          @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time",time],
-                         @[@"基础设置", @"请添加基础设施", @NO, @YES, @"setting",self.model? self.model.stores_info:@[]],
-                         @[@"机构特色", @"请添加结构特色", @NO, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]]];
+                         @[@"基础设置", @"请添加基础设施", @YES, @YES, @"setting",self.model? self.model.stores_info:@[]],
+                         @[@"机构特色", @"请添加结构特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]]];
     
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] boolValue]) {
@@ -101,7 +101,7 @@
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{
-            if (i == 3) {
+            if ([textArr[i][4] isEqualToString:@"address"]) {
                 if (self.model.address && self.model.address.length > 0) {
                     ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
                     model.leftTitle = textArr[i][0];
@@ -134,7 +134,7 @@
             cellModel.isHiddenLine = YES;
             cellModel.cellHeight = CGFloatIn750(108);
             cellModel.content = textArr[i][5];
-            if (i == 2) {
+            if ([textArr[i][4] isEqualToString:@"phone"]) {
                 cellModel.formatterType = ZFormatterTypePhoneNumber;
                 cellModel.max = 20;
             }

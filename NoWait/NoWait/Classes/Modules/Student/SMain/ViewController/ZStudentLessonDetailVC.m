@@ -154,7 +154,7 @@
 //                    rvc.course_id = self.addModel.lessonID;
 //                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
 //                }else{
-//                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"1585032885842"] url:@"www.baidu.com" vc:self];
+//                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"logo"] url:@"www.baidu.com" vc:self];
 //                }
 //            }];
         }];

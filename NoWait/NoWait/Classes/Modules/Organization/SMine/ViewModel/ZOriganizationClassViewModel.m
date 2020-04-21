@@ -108,7 +108,7 @@
 }
 //删除
 + (void)deleteClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_del_courses_class params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_del_courses_class params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -125,7 +125,7 @@
 }
 
 + (void)openClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_account_v1_add_class_sign params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_add_class_sign params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -200,7 +200,7 @@
 
 
 + (void)editClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_edit_courses_class params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_edit_courses_class params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -237,7 +237,7 @@
 
 
 + (void)addClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_add_courses_class_students params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_add_courses_class_students params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -255,7 +255,7 @@
 
 
 + (void)delClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_merchants_v1_del_courses_class_students params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_del_courses_class_students params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

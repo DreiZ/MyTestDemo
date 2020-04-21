@@ -225,8 +225,12 @@
         [_model.leftImage isEqualToString:@"listadd"] ) {
         self.leftImageView.image = [[UIImage imageNamed:model.leftImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         self.leftImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    }else{
-        self.leftImageView.image = [[UIImage imageNamed:model.leftImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }else if(ValidStr(model.leftImage)){
+        if (![model.leftImage tt_isValidUrl]) {
+            self.leftImageView.image = [[UIImage imageNamed:model.leftImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        }else{
+            [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:model.leftImage]];
+        }
         self.leftImageView.tintColor = nil;
     }
 }

@@ -51,7 +51,7 @@
                         @[@"特长技能", @""]];
     
     for (int i = 0; i < textArr.count; i++) {
-        if (i == 8 || i == 7) {
+        if ([textArr[i][0] isEqualToString:@"特长技能"] || [textArr[i][0] isEqualToString:@"任课课程"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
             cellModel.isTextEnabled = NO;
@@ -63,7 +63,7 @@
             cellModel.leftFont = [UIFont boldFontTitle];
             cellModel.textColor = [UIColor colorTextGray];
             cellModel.textDarkColor = [UIColor colorTextGrayDark];
-            if (i == 8) {
+            if ([textArr[i][0] isEqualToString:@"特长技能"]) {
                 cellModel.data = self.addModel.skills;
             }else{
                 NSMutableArray *temp = @[].mutableCopy;

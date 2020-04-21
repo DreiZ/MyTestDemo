@@ -143,16 +143,18 @@
                     [self setTopHintCell];
                     [self setOrderDetailCell];
                     [self setUserCell];
+                    [self setOrderPriceCell];
                     [self setPayDetailCell];
                     [self setTipsCell];
                 }
                 break;
-            case ZOrganizationOrderTypeOrderComplete://已完成（预约，删除）
-                ;
             case ZStudentOrderTypeOrderComplete://已完成（预约，删除）
+                [self setTopHintCell];
+            case ZOrganizationOrderTypeOrderComplete://已完成（预约，删除）
                 {
                     [self setOrderDetailCell];
                     [self setUserCell];
+                    [self setOrderPriceCell];
                     [self setPayDetailCell];
                     [self setTipsCell];
                 }
@@ -164,6 +166,7 @@
                     [self setTopHintCell];
                     [self setOrderDetailCell];
                     [self setUserCell];
+                    [self setOrderPriceCell];
                     [self setPayDetailCell];
                     [self setTipsCell];
                 }

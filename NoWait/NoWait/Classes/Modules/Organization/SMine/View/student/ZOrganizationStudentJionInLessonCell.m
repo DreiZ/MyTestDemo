@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *lessonLabel;
 @property (nonatomic,strong) UILabel *teacherLabel;
+@property (nonatomic,strong) UILabel *classLabel;
 
 @property (nonatomic,strong) UIImageView *teacherImageView;
 
@@ -40,7 +41,7 @@
     [self.contView addSubview:self.lessonLabel];
     [self.contView addSubview:self.teacherLabel];
     [self.contView addSubview:self.teacherImageView];
-    
+    [self.contView addSubview:self.classLabel];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(10));
@@ -70,11 +71,10 @@
     }];
     
     
-    
     [self.teacherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
         make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(30));
-        make.width.mas_lessThanOrEqualTo(CGFloatIn750(340));
+        make.width.mas_equalTo(CGFloatIn750(340));
     }];
     
     
@@ -82,6 +82,12 @@
         make.right.equalTo(self.teacherLabel.mas_left).offset(-CGFloatIn750(12));
         make.centerY.equalTo(self.teacherLabel.mas_centerY);
         make.height.width.mas_equalTo(CGFloatIn750(40));
+    }];
+    
+    [self.classLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.teacherLabel.mas_left);
+        make.right.equalTo(self.teacherImageView.mas_left).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.textLabel.mas_centerY);
     }];
 }
 
@@ -136,6 +142,17 @@
     return _teacherLabel;
 }
 
+- (UILabel *)classLabel {
+    if (!_classLabel) {
+        _classLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _classLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        
+        _classLabel.numberOfLines = 1;
+        _classLabel.textAlignment = NSTextAlignmentLeft;
+        [_classLabel setFont:[UIFont fontSmall]];
+    }
+    return _classLabel;
+}
 
 
 - (UIImageView *)teacherImageView {

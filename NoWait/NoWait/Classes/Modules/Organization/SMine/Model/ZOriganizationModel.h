@@ -36,8 +36,13 @@
 @property (nonatomic,strong) NSString *class_Name;
 @property (nonatomic,assign) NSString *singleTime;
 @property (nonatomic,strong) NSString *teacherName;
+@property (nonatomic,strong) NSString *teacherImage;
 @property (nonatomic,strong) NSString *teacherID;
 @property (nonatomic,strong) NSString *openTime;
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *courses_id;
+@property (nonatomic,strong) NSString *course_min;
+
 @end
 
 
@@ -249,6 +254,7 @@
 @property (nonatomic,strong) NSString *teacher_image;
 @property (nonatomic,strong) NSString *courses_id;
 @property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *class_name;
 
 @property (nonatomic,strong) NSString *url;
 @property (nonatomic,strong) NSString *nick_name;

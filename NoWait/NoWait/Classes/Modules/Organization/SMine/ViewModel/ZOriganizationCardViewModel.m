@@ -132,7 +132,7 @@
 
 
 + (void)deleteCard:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_coupons_v1_update_coupons_status params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_coupons_v1_update_coupons_status params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

@@ -63,6 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"color-----%f,%fm%f",[UIColor darkGrayColor].red,[UIColor darkGrayColor].green,[UIColor darkGrayColor].blue);
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];

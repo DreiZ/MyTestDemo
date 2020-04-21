@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 //添加排课
 + (void)addCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
+//获取二维码
++ (void)addClassQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

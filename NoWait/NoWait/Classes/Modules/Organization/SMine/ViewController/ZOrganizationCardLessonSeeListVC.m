@@ -10,6 +10,9 @@
 #import "ZOriganizationCardViewModel.h"
 #import "ZOriganizationModel.h"
 #import "ZOriganizationLessonModel.h"
+#import "ZStudentOrganizationLessonListCell.h"
+
+#import "ZStudentLessonDetailVC.h"
 
 @interface ZOrganizationCardLessonSeeListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -56,15 +59,15 @@
     [super initCellConfigArr];
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationLessonListModel *listModel = self.dataSources[i];
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = listModel.name;
-        model.leftMargin = CGFloatIn750(60);
-        model.rightMargin = CGFloatIn750(60);
-        model.cellHeight = CGFloatIn750(108);
-        model.leftFont = [UIFont fontMaxTitle];
-        model.isHiddenLine = YES;
+//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//        model.leftTitle = listModel.name;
+//        model.leftMargin = CGFloatIn750(60);
+//        model.rightMargin = CGFloatIn750(60);
+//        model.cellHeight = CGFloatIn750(108);
+//        model.leftFont = [UIFont fontMaxTitle];
+//        model.isHiddenLine = YES;
 
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:@"ZStudentOrganizationLessonListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:listModel] cellType:ZCellTypeClass dataModel:listModel];
 
         [self.cellConfigArr addObject:menuCellConfig];
 
@@ -73,7 +76,11 @@
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
+        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+        dvc.model = cellConfig.dataModel;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
 }
 
 

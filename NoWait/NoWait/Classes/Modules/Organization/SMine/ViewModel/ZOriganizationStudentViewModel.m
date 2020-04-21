@@ -202,7 +202,7 @@
 
 //删除课程
 + (void)deleteStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_account_del_student params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_del_student params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -240,7 +240,7 @@
 
 //发送消息
 + (void)addMessage:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-    [ZNetworkingManager postImageServerType:ZServerTypeOrganization url:URL_message_v1_add_message params:params completionHandler:^(id data, NSError *error) {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_message_v1_add_message params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

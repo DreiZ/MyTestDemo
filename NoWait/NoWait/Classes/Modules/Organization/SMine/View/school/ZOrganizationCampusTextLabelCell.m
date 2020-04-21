@@ -338,7 +338,7 @@
             make.centerY.equalTo(self.subTitleLabel.mas_centerY);
         }];
     }
-    self.inputTextField.enabled = model.isTextEnabled;
+    self.inputTextField.enabled = NO;//model.isTextEnabled;
     self.arrowImageView.hidden = !model.isTextEnabled;
     
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
