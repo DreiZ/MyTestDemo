@@ -106,6 +106,7 @@
 @property (nonatomic,strong) NSString *total_progress;
 @property (nonatomic,strong) NSString *course_min;
 
+@property (nonatomic,strong) NSString *stores_course_image;
 
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *classes_date;

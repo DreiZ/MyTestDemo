@@ -41,6 +41,8 @@
 @property (nonatomic,strong) NSString *teacher_image;
 @property (nonatomic,strong) NSString *teacher_name;
 @property (nonatomic,strong) NSString *teacher_nick_name;
+
+@property (nonatomic,strong) NSString *courses_class_id;
 @end
 
 

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationStudentJionInLessonCell : ZBaseCell
-@property (nonatomic,strong) ZOriganizationStudentAddModel *model;
+@property (nonatomic,strong) ZOriganizationClassDetailModel *model;
 
 @end
 

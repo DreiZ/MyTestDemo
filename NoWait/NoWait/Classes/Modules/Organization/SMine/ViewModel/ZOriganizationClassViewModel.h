@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getSignQrcode:(NSDictionary *)params
         completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)getClassQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

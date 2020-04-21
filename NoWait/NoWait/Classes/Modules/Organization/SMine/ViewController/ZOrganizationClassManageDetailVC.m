@@ -15,6 +15,8 @@
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationTimeSelectVC.h"
 #import "ZTeacherClassDetailSignDetailVC.h"
+#import "ZAlertMoreView.h"
+#import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
 
 @interface ZOrganizationClassManageDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -250,9 +252,26 @@
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
-            ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
-            avc.model = weakSelf.model;
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            NSArray *weekArr = @[@[@"手动新增学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
+            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+                if ([index isEqualToString:@"code"]) {
+                    ZOriganizationStudentCodeAddModel *addModel = [[ZOriganizationStudentCodeAddModel alloc] init];
+                    ZOrganizationTrachingScheduleOutlineErweimaVC *avc = [[ZOrganizationTrachingScheduleOutlineErweimaVC alloc] init];
+                    avc.class_id = weakSelf.model.classID;
+                    addModel.class_name = weakSelf.model.name;
+                    addModel.nick_name = weakSelf.model.teacher_name;
+                    addModel.teacher_image = weakSelf.model.teacher_image;
+                    addModel.image = weakSelf.model.stores_course_image;
+                    addModel.courses_name = weakSelf.model.stores_courses_name;
+                    avc.codeAddModel = addModel;
+                    [weakSelf.navigationController pushViewController:avc animated:YES];
+                }else{
+                    ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+                    avc.model = weakSelf.model;
+                    [weakSelf.navigationController pushViewController:avc animated:YES];
+                }
+            }];
+            
         }];
     }
     return _navLeftBtn;

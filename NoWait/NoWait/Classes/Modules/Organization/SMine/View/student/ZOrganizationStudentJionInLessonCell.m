@@ -60,20 +60,20 @@
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(34));
+        make.top.equalTo(self.userImageView.mas_top).offset(CGFloatIn750(0));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
     }];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(0));
-        make.top.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(6));
+        make.centerY.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(0));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
     }];
     
     
     [self.teacherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(28));
         make.width.mas_equalTo(CGFloatIn750(340));
     }];
     
@@ -85,9 +85,9 @@
     }];
     
     [self.classLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.teacherLabel.mas_left);
+        make.left.equalTo(self.lessonLabel.mas_left);
         make.right.equalTo(self.teacherImageView.mas_left).offset(-CGFloatIn750(30));
-        make.centerY.equalTo(self.textLabel.mas_centerY);
+        make.centerY.equalTo(self.teacherLabel.mas_centerY);
     }];
 }
 
@@ -176,12 +176,27 @@
     return _userImageView;
 }
 
-- (void)setModel:(ZOriganizationStudentAddModel *)model {
+- (void)setModel:(ZOriganizationClassDetailModel *)model {
+    _model = model;
     _teacherLabel.text = model.teacher_name;
-    _lessonLabel.text = model.courses_name;
-    _nameLabel.text = model.stores_name;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.courses_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
-    [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:model.coach_img]];
+    _lessonLabel.text = model.stores_name;
+    _classLabel.text = model.name;
+    _nameLabel.text = model.stores_courses_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image]];
+    
+    CGSize tempSize = [model.teacher_name sizeForFont:[UIFont fontSmall] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    [self.teacherLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(28));
+        make.width.mas_equalTo(tempSize.width+ 2);
+    }];
+    
+    [self.teacherImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.teacherLabel.mas_left).offset(-CGFloatIn750(12));
+        make.centerY.equalTo(self.teacherLabel.mas_centerY);
+        make.height.width.mas_equalTo(CGFloatIn750(40));
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

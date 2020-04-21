@@ -13,6 +13,7 @@
 @property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic,strong) UILabel *classLabel;
 @property (nonatomic,strong) UILabel *hintLabel;
+@property (nonatomic,strong) UILabel *classHintLabel;
 
 
 @property (nonatomic,strong) UIButton *leftBtn;
@@ -44,6 +45,7 @@
     [self.topView addSubview:self.detailLabel];
     [self.topView addSubview:self.classLabel];
     [self.topView addSubview:self.codeImageView];
+    [self.topView addSubview:self.classHintLabel];
     [self.bottomView addSubview:self.hintLabel];
     [self.bottomView addSubview:self.leftBtn];
     [self.bottomView addSubview:self.rightBtn];
@@ -51,7 +53,7 @@
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
-        make.height.mas_equalTo(CGFloatIn750(606));
+        make.height.mas_equalTo(CGFloatIn750(666));
     }];
     
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,8 +89,13 @@
     
     [self.codeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
-        make.top.equalTo(self.detailLabel.mas_bottom).offset(CGFloatIn750(38));
+        make.top.equalTo(self.detailLabel.mas_bottom).offset(CGFloatIn750(30));
         make.width.height.mas_equalTo(CGFloatIn750(342));
+    }];
+    
+    [self.classHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.top.equalTo(self.codeImageView.mas_bottom).offset(CGFloatIn750(16));
     }];
     
     [self.hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -194,6 +201,20 @@
     return _hintLabel;
 }
 
+
+- (UILabel *)classHintLabel {
+    if (!_classHintLabel) {
+        _classHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _classHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _classHintLabel.text = @"扫描二维码加入班级为线下学员";
+        _classHintLabel.numberOfLines = 1;
+        _classHintLabel.textAlignment = NSTextAlignmentCenter;
+        [_classHintLabel setFont:[UIFont fontSmall]];
+    }
+    return _classHintLabel;
+}
+
+
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
@@ -217,7 +238,7 @@
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
         _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_leftBtn setTitle:@"分享二维码" forState:UIControlStateNormal];
+        [_leftBtn setTitle:@"分享班级二维码" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontContent]];
         [_leftBtn bk_whenTapped:^{

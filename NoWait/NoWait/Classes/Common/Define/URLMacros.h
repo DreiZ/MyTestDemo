@@ -513,8 +513,13 @@
 
 //签到二维码
 #define URL_account_v1_get_sign_qrcode                 @"account/v1/get_sign_qrcode"
-//签到二维码
+
+//添加学员二维码
 #define URL_account_v1_get_add_student_qrcode          @"account/v1/get_add_student_qrcode"
+
+//添加班级二维码
+#define URL_account_v1_get_new_class_qrcode          @"account/v1/get_new_class_qrcode"
+
 
 #pragma mark - 签课
 //消息

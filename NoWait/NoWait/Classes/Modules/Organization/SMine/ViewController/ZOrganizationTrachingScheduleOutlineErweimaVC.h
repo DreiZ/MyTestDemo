@@ -12,6 +12,7 @@
 
 @interface ZOrganizationTrachingScheduleOutlineErweimaVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationStudentCodeAddModel *codeAddModel;
+@property (nonatomic,strong) NSString *class_id;
 
 @end
 

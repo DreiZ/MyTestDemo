@@ -155,6 +155,18 @@
                     }else{
                         [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
                     }
+                }else if([mainModel.qrcode_type intValue] == 3){
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                        ZQRCodeAddStudentMode *model = [ZQRCodeAddStudentMode mj_objectWithKeyValues:dict];
+                        ZOrganizationStudentJionInLessonVC *lvc = [[ZOrganizationStudentJionInLessonVC alloc] init];
+                        lvc.viewModel.addModel.courses_class_id = model.courses_class_id;
+                        lvc.viewModel.addModel.stores_id = model.stores_id;
+                        lvc.viewModel.addModel.phone = [ZUserHelper sharedHelper].user.phone;
+                        
+                        [self.navigationController pushViewController:lvc animated:YES];
+                    }else{
+                        [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
+                    }
                 }else if ([mainModel.qrcode_type intValue] == 1){
                     if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
                         ZQRCodeStudentSignMode *model = [ZQRCodeStudentSignMode mj_objectWithKeyValues:dict];
