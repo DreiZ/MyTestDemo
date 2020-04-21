@@ -11,7 +11,9 @@
 
 @interface ZOrganizationCardLessonSeeListVC : ZTableViewViewController
 @property (nonatomic,strong) NSString *coupons_id;
+@property (nonatomic,strong) NSString *stores_id;
 
+@property (nonatomic,assign) BOOL isAll;
 @end
 
 

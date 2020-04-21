@@ -24,6 +24,7 @@
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSettingMineVC.h"
+#import "ZTeacherClassDetailVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -154,6 +155,13 @@
         tcell.moreBlock = ^(NSInteger index) {
             ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
             [self.navigationController pushViewController:lvc animated:YES];
+        };
+        tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
+            ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
+            dvc.model.courses_name = model.courses_name;
+            dvc.model.classID = model.courses_class_id;
+            dvc.model.name = model.name;
+            [self.navigationController pushViewController:dvc animated:YES];
         };
     }
 }

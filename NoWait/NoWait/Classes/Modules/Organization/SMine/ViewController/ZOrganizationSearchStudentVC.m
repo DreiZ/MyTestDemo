@@ -36,6 +36,8 @@
         make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
     }];
     self.isEdit = YES;
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
 }
 //
 //- (void)cancleBtnOnClick {

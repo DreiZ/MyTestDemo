@@ -59,8 +59,14 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *courses_name;
 @property (nonatomic,strong) NSString *courses_price;
 @property (nonatomic,strong) NSString *course_min;
+//课程表单用
+@property (nonatomic,strong) NSString *course_id;
+@property (nonatomic,strong) NSString *courses_class_id;
+@property (nonatomic,strong) NSString *student_id;
+
 
 @property (nonatomic,strong) NSString *total_course_min;
+
 
 @property (nonatomic,strong) NSString *experience_duration;
 @property (nonatomic,strong) NSString *experience_price;
@@ -69,7 +75,6 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 //课程表用
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *course_name;
-@property (nonatomic,strong) NSString *course_id;
 @property (nonatomic,strong) NSString *key;
 @end
 

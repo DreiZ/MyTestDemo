@@ -67,6 +67,10 @@
             if (index == 2) {
                 ZOrganizationCardLessonSeeListVC *svc = [[ZOrganizationCardLessonSeeListVC alloc] init];
                 svc.coupons_id = model.couponsID;
+                if ([model.type intValue] == 1) {
+                    svc.isAll = YES;
+                    svc.stores_id = model.stores_id;
+                }
                 [weakSelf.navigationController pushViewController:svc animated:YES];
             }else{
                 if ([weakSelf.status intValue] == 1) {

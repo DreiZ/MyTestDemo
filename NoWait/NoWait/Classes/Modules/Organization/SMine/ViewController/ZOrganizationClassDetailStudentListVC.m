@@ -74,7 +74,9 @@
     if (self.isEnd) {
         [self.navigationItem setRightBarButtonItem:nil];
     }else{
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+        if (self.type != 1) {
+            [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+        }
     }
 }
 
@@ -104,20 +106,28 @@
 //
 //    }
     
-    [self.view addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(80));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-    }];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-     make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-     make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-     make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
-     make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
-    }];
-    
+    if (self.type != 1) {
+        [self.view addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(80));
+            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+         make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+        }];
+    }else{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+        }];
+    }
 }
 
 #pragma mark - lazy loading...

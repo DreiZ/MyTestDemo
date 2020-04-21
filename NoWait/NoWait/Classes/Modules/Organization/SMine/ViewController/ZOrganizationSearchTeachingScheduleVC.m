@@ -36,6 +36,8 @@
     _param = @{}.mutableCopy;
     [self setTableViewGaryBack];
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
 }
 
 

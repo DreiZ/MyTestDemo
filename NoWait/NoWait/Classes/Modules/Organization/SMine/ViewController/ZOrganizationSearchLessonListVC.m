@@ -22,6 +22,8 @@
     
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
 }
 
 

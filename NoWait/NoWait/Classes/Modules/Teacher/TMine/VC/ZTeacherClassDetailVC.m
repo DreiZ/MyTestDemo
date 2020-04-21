@@ -173,7 +173,7 @@
             make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
         }];
     }else{
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
         self.bottomView.hidden = NO;
         [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);

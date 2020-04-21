@@ -209,7 +209,7 @@
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.model.images.count;
+                [ZPhotoManager sharedManager].maxImageSelected = 2 - weakSelf.viewModel.model.images.count;
                 
                 [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
                     if (list && list.count > 0){;

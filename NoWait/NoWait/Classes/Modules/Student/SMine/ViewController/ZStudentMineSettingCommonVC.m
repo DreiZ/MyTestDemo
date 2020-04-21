@@ -31,7 +31,8 @@
     [super initCellConfigArr];
 //    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchCell className] title:[ZStudentMineSettingSwitchCell className] showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(110) cellType:ZCellTypeClass dataModel:@"消息推送"];
 //    [self.cellConfigArr addObject:messageCellConfig];
-//    
+//
+    [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(10))];
     ZCellConfig *loginOutCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"cache" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(110) cellType:ZCellTypeClass dataModel:@"清空缓存"];
     [self.cellConfigArr addObject:loginOutCellConfig];
 }

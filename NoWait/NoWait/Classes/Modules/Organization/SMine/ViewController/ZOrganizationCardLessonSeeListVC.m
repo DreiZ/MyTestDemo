@@ -8,6 +8,7 @@
 
 #import "ZOrganizationCardLessonSeeListVC.h"
 #import "ZOriganizationCardViewModel.h"
+#import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationModel.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZStudentOrganizationLessonListCell.h"
@@ -26,8 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self initCellConfigArr];
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
     [self.iTableView reloadData];
     [self refreshData];
 }
@@ -93,26 +95,51 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-            weakSelf.total = [data.total intValue];
-            [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+    if (self.isAll) {
+        __weak typeof(self) weakSelf = self;
+        [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZOriganizationCardViewModel getCardLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                weakSelf.total = [data.total intValue];
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
+    
 }
 
 - (void)refreshMoreData {
@@ -121,31 +148,60 @@
     NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationCardViewModel getCardLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-            weakSelf.total = [data.total intValue];
-            [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+    if (self.isAll) {
+        [ZOriganizationLessonViewModel getLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZOriganizationCardViewModel getCardLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+                weakSelf.total = [data.total intValue];
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
+    
 }
 
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.coupons_id forKey:@"id"];
+       
+    if (self.isAll) {
+         [param setObject:self.stores_id forKey:@"stores_id"];
+              [param setObject:@"1" forKey:@"status"];
+    }else{
+        [param setObject:self.coupons_id forKey:@"id"];
+    }
     return param;
 }
 @end

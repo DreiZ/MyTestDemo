@@ -183,7 +183,7 @@
         ZOriganizationStudentListModel *listModel = self.dataSources[i];
         if (ValidStr(listModel.nowNums)) {
             if ([listModel.nowNums intValue] - [self.total_progress intValue] > 0) {
-                [TLUIUtility showErrorHint:[NSString stringWithFormat:@"%@的进度大于课程总进度了",listModel.name]];
+                [TLUIUtility showErrorHint:[NSString stringWithFormat:@"%@的进度大于班级最大节数了",listModel.name]];
                 return;
             }
             [students addObject:@{@"student_id":SafeStr(listModel.studentID),@"now_progress":[NSString stringWithFormat:@"%d",[self.total_progress intValue] - [listModel.nowNums intValue]]}];
