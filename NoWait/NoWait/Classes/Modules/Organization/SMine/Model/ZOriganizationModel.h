@@ -189,6 +189,7 @@
 //结课方式 0:正常结课 1：退款结课 2：非正常结课
 
 @property (nonatomic,strong) NSString *nums;
+@property (nonatomic,strong) NSString *nowNums;
 
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;

@@ -119,14 +119,14 @@
 //        make.centerX.equalTo(self.mas_right).multipliedBy(0.25);
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(bottomLineView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.width.mas_equalTo(CGFloatIn750(220));
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_right).multipliedBy(0.75);
         make.centerY.equalTo(bottomLineView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(180));
+        make.width.mas_equalTo(CGFloatIn750(220));
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     UIView *longView = [[UIView alloc] init];
@@ -206,7 +206,7 @@
     if (!_classHintLabel) {
         _classHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _classHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _classHintLabel.text = @"扫描二维码加入班级为线下学员";
+        _classHintLabel.text = @"此二维码仅供添加线下学员使用";
         _classHintLabel.numberOfLines = 1;
         _classHintLabel.textAlignment = NSTextAlignmentCenter;
         [_classHintLabel setFont:[UIFont fontSmall]];
@@ -238,7 +238,7 @@
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
         _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_leftBtn setTitle:@"分享班级二维码" forState:UIControlStateNormal];
+        [_leftBtn setTitle:@"分享二维码" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontContent]];
         [_leftBtn bk_whenTapped:^{

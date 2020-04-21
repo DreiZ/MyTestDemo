@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 //班级学生列表
 + (void)getClassStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
+
++ (void)getQrcodeStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 //班级添加学生
 + (void)addClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
@@ -51,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)getClassQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)setQrcodeStudentProgress:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

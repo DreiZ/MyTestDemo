@@ -29,6 +29,31 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    NSString *temp = @"1.0.0";
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    if ([infoDictionary objectForKey:@"CFBundleShortVersionString"]) {
+        temp = [NSString stringWithFormat:@"v%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    }
+
+    NSArray <NSArray *>*titleArr = @[@[@"当前版本", temp],@[@"微信公众号", @"xiangcenter"]];
+
+    for (int i = 0; i < titleArr.count; i++) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = titleArr[i][0];
+        model.rightTitle = titleArr[i][1];
+        model.leftFont = [UIFont fontContent];
+        model.cellHeight = CGFloatIn750(110);
+        model.cellTitle = titleArr[i][0];
+
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+
+        if (i == 2) {
+            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
+            [self.cellConfigArr addObject:topCellConfig];
+        }
+    }
 //    
 //    NSArray <NSArray *>*titleArr = @[@[@"特别声明", @"rightBlackArrowN"],@[@"使用帮助", @"rightBlackArrowN"],@[@"给我评分", @"rightBlackArrowN"],@[@"商务合作", @"rightBlackArrowN"],@[@"意见反馈", @"rightBlackArrowN"]];
 //    
@@ -60,22 +85,23 @@
 #pragma mark lazy loading...
 - (UIView *)topView {
     if (!_topView) {
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(500))];
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(470))];
         _topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
         UIImageView *logoImageView = [[UIImageView alloc] init];
-        logoImageView.image = [UIImage imageNamed:@"loginLogo"];
+        logoImageView.image = [UIImage imageNamed:@"logo"];
         logoImageView.layer.masksToBounds = YES;
         [_topView addSubview:logoImageView];
         [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.topView);
-            make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(90));
+            make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(80));
+            make.width.height.mas_equalTo(CGFloatIn750(240));
         }];
         
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        nameLabel.text = @"艺动";
+        nameLabel.text = @"似锦";
         nameLabel.numberOfLines = 0;
         nameLabel.textAlignment = NSTextAlignmentLeft;
         [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
@@ -84,12 +110,12 @@
             make.centerX.equalTo(self.topView);
             make.top.equalTo(logoImageView.mas_bottom).offset(CGFloatIn750(28));
         }];
-        
-        [_topView addSubview:self.versionLabel];
-        [self.versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.topView);
-            make.top.equalTo(nameLabel.mas_bottom).offset(CGFloatIn750(28));
-        }];
+//
+//        [_topView addSubview:self.versionLabel];
+//        [self.versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerX.equalTo(self.topView);
+//            make.top.equalTo(nameLabel.mas_bottom).offset(CGFloatIn750(28));
+//        }];
         
     }
     
@@ -100,7 +126,7 @@
     if (!_versionLabel) {
         _versionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _versionLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        _versionLabel.text = @"V12.1";
+        _versionLabel.text = @"V1.0.0";
         _versionLabel.numberOfLines = 1;
         _versionLabel.textAlignment = NSTextAlignmentCenter;
         [_versionLabel setFont:[UIFont fontTitle]];

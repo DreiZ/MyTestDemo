@@ -400,6 +400,9 @@
 //教师我的班级 签课
 #define URL_merchants_v1_get_teacher_courses_class_list                   @"merchants/v1/get_teacher_courses_class_list"
  
+//班级未设置进度学员列表
+#define URL_account_v1_get_qrcode_student_list                   @"account/v1/get_qrcode_student_list"
+ 
 
 #pragma mark - 订单------------------------------------------------
 //创建订单

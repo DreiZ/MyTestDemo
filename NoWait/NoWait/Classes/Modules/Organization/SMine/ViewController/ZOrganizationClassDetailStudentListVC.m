@@ -13,17 +13,22 @@
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOrganizationStudentDetailVC.h"
+#import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
+#import "ZOrganizationClassStudentProgressEditVC.h"
 
 #import "ZOriganizationClassViewModel.h"
 #import "ZAlertView.h"
 #import "ZTeacherSignStudentListBottomView.h"
 #import "ZSignViewModel.h"
+#import "ZAlertMoreView.h"
 
 @interface ZOrganizationClassDetailStudentListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) ZTeacherSignStudentListBottomView *bottomView;
 
 @property (nonatomic,strong) ZOriganizationTopTitleView *topView;
+@property (nonatomic,strong) UIButton *bottomBtn;
+
 @property (nonatomic,assign) BOOL isEdit;
 @end
 
@@ -98,10 +103,18 @@
 //    }else{
 //
 //    }
+    
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+    }];
+    
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
      make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
      make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-     make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+     make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
      make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
     }];
     
@@ -125,9 +138,26 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             if (self.type == 2) {
-                ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
-                avc.model = weakSelf.model;
-                [weakSelf.navigationController pushViewController:avc animated:YES];
+                NSArray *weekArr = @[@[@"手动新增学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
+               [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+                   if ([index isEqualToString:@"code"]) {
+                       ZOriganizationStudentCodeAddModel *addModel = [[ZOriganizationStudentCodeAddModel alloc] init];
+                       ZOrganizationTrachingScheduleOutlineErweimaVC *avc = [[ZOrganizationTrachingScheduleOutlineErweimaVC alloc] init];
+                       avc.class_id = weakSelf.model.classID;
+                       addModel.class_name = weakSelf.model.name;
+                       addModel.nick_name = weakSelf.model.teacher_name;
+                       addModel.teacher_image = weakSelf.model.teacher_image;
+                       addModel.image = weakSelf.model.stores_course_image;
+                       addModel.courses_name = weakSelf.model.stores_courses_name;
+                       avc.codeAddModel = addModel;
+                       [weakSelf.navigationController pushViewController:avc animated:YES];
+                   }else{
+                       ZOrganizationClassDetailStudentListAddVC *avc = [[ZOrganizationClassDetailStudentListAddVC alloc] init];
+                       avc.model = weakSelf.model;
+                       [weakSelf.navigationController pushViewController:avc animated:YES];
+                   }
+               }];
+                
             }else{
 //                weakSelf.isEdit = !weakSelf.isEdit;
 //                [weakSelf changeType:weakSelf.isEdit];
@@ -164,6 +194,33 @@
 }
 
 
+#pragma mark - lazy loading...
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        [_bottomBtn setTitle:@"设置线下学员学习进度" forState:UIControlStateNormal];
+
+        [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        
+        [_bottomBtn bk_whenTapped:^{
+            ZOrganizationClassStudentProgressEditVC *evc = [[ZOrganizationClassStudentProgressEditVC alloc] init];
+            if (weakSelf.listModel) {
+                evc.total_progress = weakSelf.listModel.total_progress;
+                evc.courses_class_id = weakSelf.listModel.courses_class_id;
+            }else if(weakSelf.model){
+                evc.total_progress = weakSelf.model.total_progress;
+                evc.courses_class_id = weakSelf.model.classID;
+            }
+            
+            [weakSelf.navigationController pushViewController:evc animated:YES];
+        }];
+    }
+    return _bottomBtn;
+}
+#pragma mark - fun
 - (void)teacherSign:(NSInteger)index {
     NSMutableDictionary *param = @{}.mutableCopy;
     if (self.listModel) {
