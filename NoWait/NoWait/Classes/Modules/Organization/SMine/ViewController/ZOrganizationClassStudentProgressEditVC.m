@@ -9,6 +9,7 @@
 #import "ZOrganizationClassStudentProgressEditVC.h"
 #import "ZOrganizationStudentProcressEditCell.h"
 #import "ZOriganizationClassViewModel.h"
+#import "ZAlertView.h"
 
 @interface ZOrganizationClassStudentProgressEditVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -56,7 +57,11 @@
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         
         [_bottomBtn bk_whenTapped:^{
-            [weakSelf updateData];
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"学员进度只可修改一次，请谨慎修改提交" leftBtnTitle:@"取消" rightBtnTitle:@"提交" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [weakSelf updateData];
+                }
+            }];
         }];
     }
     return _bottomBtn;
