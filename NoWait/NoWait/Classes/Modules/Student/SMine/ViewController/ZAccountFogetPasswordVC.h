@@ -1,8 +1,8 @@
 //
-//  ZStudentMineChangePasswordVC.h
+//  ZAccountFogetPasswordVC.h
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/16.
+//  Created by zhuang zhang on 2020/4/22.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMineChangePasswordVC : ZTableViewViewController
+@interface ZAccountFogetPasswordVC : ZTableViewViewController
 @property (nonatomic, assign) BOOL isSwitch;
 
 @property (nonatomic, copy) void (^loginSuccess)(void);

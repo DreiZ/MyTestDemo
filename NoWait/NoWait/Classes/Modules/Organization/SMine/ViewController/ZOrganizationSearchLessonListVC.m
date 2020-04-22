@@ -25,11 +25,14 @@
     if (self.searchView.iTextField && (self.searchView.iTextField.text.length == 0)) {
         [self.searchView.iTextField becomeFirstResponder];
     }
+    self.loading = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.emptyDataStr = @"暂无数据";
+    self.loading = NO;
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     [self setTableViewRefreshFooter];

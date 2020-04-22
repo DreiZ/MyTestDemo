@@ -10,7 +10,7 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
 
-#import "ZAccountChangePasswordVC.h"
+#import "ZAccountFogetPasswordVC.h"
 #import "ZLoginViewModel.h"
 
 @interface ZLoginPasswordController ()
@@ -217,7 +217,7 @@
         }];
         
         [forgetBtn bk_whenTapped:^{
-            ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
+            ZAccountFogetPasswordVC *pvc = [[ZAccountFogetPasswordVC alloc] init];
             [weakSelf.navigationController pushViewController:pvc animated:YES];
         }];
     }
