@@ -200,16 +200,16 @@
                 return ;
             }
             
-            if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length > 8) {
+            if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length >= 8) {
                 if ([self checkPassword:self.loginViewModel.loginModel.pwd]) {
                     [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
                 }else{
-                    [TLUIUtility showErrorHint:@"密码必须大于8位，且由字母开头，包含大小写字母及数字"];
+                    [TLUIUtility showErrorHint:@"密码必须大于等于8位，且由字母开头，包含大小写字母及数字"];
                     return;
                 }
                 
             }else{
-                [TLUIUtility showErrorHint:@"密码必须大于8位，且由字母开头，包含大小写字母及数字"];
+                [TLUIUtility showErrorHint:@"密码必须大于等于8位，且由字母开头，包含大小写字母及数字"];
                 return;
             }
             

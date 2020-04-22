@@ -175,12 +175,14 @@
             if (self.loginViewModel.loginModel.tel && self.loginViewModel.loginModel.tel.length == 11) {
                 [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
             }else{
+                [TLUIUtility showErrorHint:@"请填写正确的手机号"];
                 return;
             }
             
             if (self.loginViewModel.loginModel.pwd && self.loginViewModel.loginModel.pwd.length >= 8) {
                 [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
             }else{
+                [TLUIUtility showErrorHint:@"请填写正确的密码，密码长度不小于8位"];
                 return;
             }
             [params setObject:[NSString stringWithFormat:@"%ld",self.type] forKey:@"type"];

@@ -455,7 +455,7 @@
         }
     }
     
-    if (ValidStr(self.addModel.notice_msg)) {
+    if (ValidStr(self.addModel.p_information)) {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(24))];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"购买须知：";
@@ -469,7 +469,7 @@
         
         {
             ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-            model.rightTitle = self.addModel.notice_msg;
+            model.rightTitle = self.addModel.p_information;
             model.isHiddenLine = YES;
             model.cellWidth = KScreenWidth;
             model.singleCellHeight = CGFloatIn750(60);

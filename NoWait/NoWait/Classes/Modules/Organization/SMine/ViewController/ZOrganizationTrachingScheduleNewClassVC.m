@@ -124,9 +124,9 @@
                     cellModel.content = self.viewModel.addModel.class_Name;
                     cellModel.max = 10;
                     cellModel.formatterType = ZFormatterTypeAny;
-                }else if ([textArr[i][4] isEqualToString:@"teacher"]){
+                }else if ([textArr[i][4] isEqualToString:@"openTime"]){
                     cellModel.content = [self.viewModel.addModel.openTime timeStringWithFormatter:@"yyyy-MM-dd"];
-                } else{
+                } else if ([textArr[i][4] isEqualToString:@"teacher"]){
                     cellModel.content = self.viewModel.addModel.teacherName;
                 }
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];

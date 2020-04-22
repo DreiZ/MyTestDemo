@@ -12,6 +12,7 @@
 
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationTrachingScheduleOutlineClassVC.h"
+#import "ZStudentLessonDetailVC.h"
 
 @interface ZOrganizationTeachingScheduleLessonVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -114,10 +115,18 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleLessonCell"]) {
         ZOrganizationTeachingScheduleLessonCell *lcell = (ZOrganizationTeachingScheduleLessonCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOriganizationLessonScheduleListModel *model) {
-            ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
-            svc.stores_courses_id = model.lessonID;
-            svc.lessonModel = model;
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            if (index == 0) {
+                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+                svc.stores_courses_id = model.lessonID;
+                svc.lessonModel = model;
+                [weakSelf.navigationController pushViewController:svc animated:YES];
+            }else{
+                ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
+                ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+                smodel.lessonID = model.lessonID;
+                dvc.model = smodel;
+                [self.navigationController pushViewController:dvc animated:YES];
+            }
         };
     }
 }

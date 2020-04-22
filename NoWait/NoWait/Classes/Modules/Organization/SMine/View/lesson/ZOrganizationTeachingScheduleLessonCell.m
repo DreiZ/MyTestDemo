@@ -68,6 +68,18 @@
         make.bottom.equalTo(self.editBtn.mas_top);
     }];
     
+    __weak typeof(self) weakSelf = self;
+    UIButton *lessonBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [lessonBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(1, weakSelf.model);
+        }
+    }];
+    [topView addSubview:lessonBtn];
+    [lessonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(topView);
+    }];
+    
     
     [topView addSubview:self.lessonImageView];
     [topView addSubview:self.detailLabel];
