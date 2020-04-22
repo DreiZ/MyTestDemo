@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationMineOrderSearchVC : ZSearchClickVC
 @property (nonatomic,strong) NSString *type;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -63,7 +63,7 @@
     if (!self.detailModel) {
         return;
     }
-    self.detailModel.isStudent = self.model.isStudent;
+    self.detailModel.isStudent = [[ZUserHelper sharedHelper].user.type intValue] == 1;
     self.detailModel.isRefund = self.model.isRefund;
     if (self.detailModel.isRefund) {
         [self setTableViewWhiteBack];

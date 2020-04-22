@@ -45,7 +45,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"评价管理"];
+    [self.navigationItem setTitle:@"我的评价"];
 }
 
 - (void)setupMainView {

@@ -145,10 +145,12 @@
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_whenTapped:^{
-            ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-            rvc.sTitle = self.detailModel.name;
-            rvc.stores_id = self.detailModel.schoolID;
-            [weakSelf.navigationController pushViewController:rvc animated:rvc];
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+                rvc.sTitle = self.detailModel.name;
+                rvc.stores_id = self.detailModel.schoolID;
+                [weakSelf.navigationController pushViewController:rvc animated:rvc];
+            }];
 //            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"举报",@"peoples_hint",@"report"]];
 //            NSArray *weekArr = @[@[@"举报",@"peoples_hint",@"report"]];
 //            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {

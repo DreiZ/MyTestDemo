@@ -10,6 +10,7 @@
 #import "ZStudentMineOrderListCell.h"
 
 #import "ZOriganizationOrderViewModel.h"
+#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZOrganizationMineOrderSearchVC ()
 @property (nonatomic,strong) NSString *name;
@@ -53,7 +54,10 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
-//        ZOrderListModel *model = self.dataSources[i];
+        ZOrderListModel *model = self.dataSources[i];
+        if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+            model.isStudent = YES;
+        }
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -73,6 +77,14 @@
     }
 }
 
+#pragma mark - tableview
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]) {
+        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+        evc.model = cellConfig.dataModel;
+        [self.navigationController pushViewController:evc animated:YES];
+    }
+}
 #pragma mark - 数据处理
 - (void)refreshData {
     self.currentPage = 1;

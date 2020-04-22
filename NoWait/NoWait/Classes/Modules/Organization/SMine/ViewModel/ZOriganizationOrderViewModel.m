@@ -552,7 +552,11 @@
             break;
         case ZLessonOrderHandleTypeSRefundCancle://取消退款
         {
-            [ZOriganizationOrderViewModel refundOrderCanle:params completeBlock:completeBlock];
+            [ZAlertView setAlertWithTitle:@"取消退款" subTitle:@"确定取消退款吗，取消后将不可再次申请退款" leftBtnTitle:@"取消" rightBtnTitle:@"确定取消" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [ZOriganizationOrderViewModel refundOrderCanle:params completeBlock:completeBlock];
+                }
+            }];
         }
             break;
         case ZLessonOrderHandleTypeORefund://同意退款
