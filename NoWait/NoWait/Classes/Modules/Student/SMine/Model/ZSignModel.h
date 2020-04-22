@@ -13,7 +13,6 @@
 @property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *sign_time;
 @property (nonatomic,strong) NSString *type;
-@property (nonatomic,assign) BOOL isOrganzation;
 
 @end
 

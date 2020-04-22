@@ -169,6 +169,7 @@
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_whenTapped:^{
+            [weakSelf sortTime];
             if (weakSelf.timeBlock) {
                 weakSelf.timeBlock(weakSelf.dataSources);
             }
@@ -177,6 +178,37 @@
     }
     return _navRightBtn;
 }
+
+- (void)sortTime {
+    [self.dataSources enumerateObjectsUsingBlock:^(ZBaseMenuModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.units = [self logArrayFunction:obj.units];
+    }];
+}
+
+- (NSMutableArray *)logArrayFunction:(NSArray *)tempArr {
+    int count  = 0;
+    int forcount  = 0;
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:tempArr];
+    
+    for (int i = 0; i < arr.count; i++) {
+        forcount++;
+        // 依次定位左边的
+        for (int j = (int)arr.count-2; j >= i; j--) {
+            count++;
+            ZBaseUnitModel *tempModel = arr[j];
+            ZBaseUnitModel *tempModel1 = arr[j+1];
+            NSInteger startTime = [tempModel.name intValue] *60 + [tempModel.subName intValue];
+            NSInteger startTime1 = [tempModel1.name intValue] *60 + [tempModel1.subName intValue];
+            
+            if (startTime > startTime1) {
+                [arr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+            }
+        }
+    }
+    return arr;
+}
+
 
 #pragma mark tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -321,23 +353,7 @@
             }];
         }else{
             [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
-                for (int i = 0; i < self.dataSources.count; i++) {
-                    ZBaseMenuModel *model = self.dataSources[i];
-                    if (model.isSelected) {
-                        
-                        ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
-                        smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
-                        smodel.subName = [NSString stringWithFormat:@"%ld",(long)date.minute];
-                        smodel.data = [NSString stringWithFormat:@"%@",[self getTime:date]];
-                        if (ValidStr(self.course_min)) {
-                            smodel.data =  [NSString stringWithFormat:@"%@~%@",[self getTime:date],[self getEndTime:smodel]];
-                        }
-                        [model.units addObject:smodel];
-                        [weakSelf initCellConfigArr];
-                        [weakSelf.iRightTableView reloadData];
-                        
-                    }
-                }
+                [weakSelf checkSeletTime:date];
             }];
         }
     }];
@@ -387,5 +403,50 @@
     uModel.subName = [NSString stringWithFormat:@"%ld",minTemp];
     
     return [self getStartTime:uModel];
+}
+
+- (void)checkSeletTime:(NSDateComponents *)date{
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZBaseMenuModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            
+            ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
+            smodel.name = [NSString stringWithFormat:@"%ld",(long)date.hour];
+            smodel.subName = [NSString stringWithFormat:@"%ld",(long)date.minute];
+            smodel.data = [NSString stringWithFormat:@"%@",[self getTime:date]];
+            if (ValidStr(self.course_min)) {
+                smodel.data =  [NSString stringWithFormat:@"%@~%@",[self getTime:date],[self getEndTime:smodel]];
+                
+                if ([self checkSeletTime:smodel units:model]) {
+                    [model.units addObject:smodel];
+                    [self initCellConfigArr];
+                    [self.iRightTableView reloadData];
+                }
+            }else{
+                [model.units addObject:smodel];
+                [self initCellConfigArr];
+                [self.iRightTableView reloadData];
+            }
+        }
+    }
+    
+    
+}
+
+- (BOOL)checkSeletTime:(ZBaseUnitModel *)smodel units:(ZBaseMenuModel *)model{
+    __block NSInteger startTime = [smodel.name intValue] *60 + [smodel.subName intValue];
+    
+    __block NSInteger endTime = [smodel.name intValue] *60 + [smodel.subName intValue] + [self.course_min intValue];
+    for (int i = 0; i < model.units.count; i++) {
+        ZBaseUnitModel *obj = model.units[i];
+        NSInteger tStartTime = [obj.name intValue] *60 + [obj.subName intValue];
+        
+        NSInteger tEndTime = [obj.name intValue] *60 + [obj.subName intValue] + [self.course_min intValue];
+        if (startTime <=tEndTime && endTime>=tStartTime) {
+            [TLUIUtility showErrorHint:@"时间段不可重合"];
+            return NO;
+        }
+    }
+    return YES;
 }
 @end

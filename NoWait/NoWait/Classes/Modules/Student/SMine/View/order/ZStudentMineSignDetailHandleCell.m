@@ -128,102 +128,276 @@
     
     _signBtn.hidden = YES;
     _timeLabel.hidden = YES;
-    switch ([model.type intValue]) {
-        case 1:
-        {
-            _rightLabel.text = @"已扫码签课";
-            _timeLabel.hidden = NO;
-            
-            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-            
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+        switch ([model.type intValue]) {
+            case 1:
+            {
+                _rightLabel.text = @"已扫码签课";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 2:
+            {
+                _rightLabel.text = @"老师代签";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 3:
+            {
+                _rightLabel.text = @"已补签";
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 4:
+            {
+                _rightLabel.text = @"请假";
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 5:
+            {
+                _rightLabel.text = @"旷课";
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 6:
+            {
+                _rightLabel.text = @"待签课";
+                _signBtn.hidden = NO;
+                [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+                
+            default:
+            {
+                _rightLabel.hidden = YES;
+                _signBtn.hidden = YES;
+                _timeLabel.hidden = YES;
+                
+            }
+                break;
         }
-            break;
-        case 2:
-        {
-            _rightLabel.text = @"老师代签";
-            _timeLabel.hidden = NO;
-            
-            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-            
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
+    }else if([[ZUserHelper sharedHelper].user.type intValue] == 2){
+        switch ([model.type intValue]) {
+            case 1:
+            {
+                _rightLabel.text = @"已扫码签课";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 2:
+            {
+                _rightLabel.text = @"老师代签";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 3:
+            {
+                _rightLabel.text = @"已补签";
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 4:
+            {
+                _rightLabel.text = @"请假";
+                _signBtn.hidden = NO;
+                [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 5:
+            {
+                _rightLabel.text = @"旷课";
+                _signBtn.hidden = NO;
+                [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 6:
+            {
+                _rightLabel.text = @"待签课";
+                _signBtn.hidden = NO;
+                [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+                
+            default:
+            {
+                _rightLabel.hidden = YES;
+                _signBtn.hidden = YES;
+                _timeLabel.hidden = YES;
+                
+            }
+                break;
         }
-            break;
-        case 3:
-        {
-            _rightLabel.text = @"已补签";
-            _timeLabel.hidden = NO;
-            [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-            
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
+    }else{
+        _signBtn.hidden = YES;
+        switch ([model.type intValue]) {
+            case 1:
+            {
+                _rightLabel.text = @"已扫码签课";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 2:
+            {
+                _rightLabel.text = @"老师代签";
+                _timeLabel.hidden = NO;
+                
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 3:
+            {
+                _rightLabel.text = @"已补签";
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 4:
+            {
+                _rightLabel.text = @"请假";
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 5:
+            {
+                _rightLabel.text = @"旷课";
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+            case 6:
+            {
+                _rightLabel.text = @"待签课";
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+            }
+                break;
+                
+            default:
+            {
+                _rightLabel.hidden = YES;
+                _signBtn.hidden = YES;
+                _timeLabel.hidden = YES;
+                
+            }
+                break;
         }
-            break;
-        case 4:
-        {
-            _rightLabel.text = @"请假";
-            _signBtn.hidden = NO;
-            [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
-            
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-        }
-            break;
-        case 5:
-        {
-            _rightLabel.text = @"旷课";
-            _signBtn.hidden = NO;
-            [_signBtn setTitle:@"补签" forState:UIControlStateNormal];
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-        }
-            break;
-        case 6:
-        {
-            _rightLabel.text = @"待签课";
-            _signBtn.hidden = NO;
-            [_signBtn setTitle:@"签课" forState:UIControlStateNormal];
-            [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
-                make.centerY.equalTo(self.mas_centerY);
-            }];
-        }
-            break;
-            
-        default:
-        {
-            _rightLabel.hidden = YES;
-            _signBtn.hidden = YES;
-            _timeLabel.hidden = YES;
-            
-        }
-            break;
     }
-    
-    if (model.isOrganzation) {
-        self.signBtn.hidden = YES;
-    }
+
 }
 
 - (void)setCan_operation:(NSString *)can_operation {
