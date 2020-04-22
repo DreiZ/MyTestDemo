@@ -567,3 +567,10 @@
 @property (nonatomic,strong) NSString *sign_time;
 
 @end
+
+
+@interface ZTeacherSignNetModel : ZBaseModel
+@property (nonatomic,strong) NSString *code;
+@property (nonatomic,strong) NSString *notice_msg;
+
+@end

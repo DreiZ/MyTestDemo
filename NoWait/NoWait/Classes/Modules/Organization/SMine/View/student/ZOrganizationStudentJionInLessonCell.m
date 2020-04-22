@@ -61,12 +61,12 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.userImageView.mas_top).offset(CGFloatIn750(0));
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(0));
-        make.centerY.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(0));
+        make.centerY.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(8));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
     }];
     
@@ -112,7 +112,7 @@
         _nameLabel.numberOfLines = 0;
         
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont boldFontTitle]];
+        [_nameLabel setFont:[UIFont boldFontContent]];
     }
     return _nameLabel;
 }

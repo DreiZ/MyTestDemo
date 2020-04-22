@@ -172,10 +172,18 @@
 - (void)openClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
-    [ZOriganizationClassViewModel openClass:@{@"courses_class_id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationClassViewModel openClass:@{@"courses_class_id":SafeStr(model.classID)} completeBlock:^(BOOL isSuccess, id message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:message];
+            ZTeacherSignNetModel *model = message;
+            if (model.code && [model.code intValue] == 1) {
+                [ZAlertView setAlertWithTitle:@"提示" subTitle:model.notice_msg btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }else{
+                [TLUIUtility showSuccessHint:model.notice_msg];
+            }
+            
             [weakSelf refreshAllData];
         }else{
             [TLUIUtility showErrorHint:message];

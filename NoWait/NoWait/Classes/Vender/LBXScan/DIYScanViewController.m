@@ -17,6 +17,8 @@
 
 @interface DIYScanViewController ()
 @property (nonatomic,strong) UIButton *fromPhotoBtn;
+@property (nonatomic,strong) UIButton *btnFlash;
+@property (nonatomic,strong) UIButton *btnPhoto;
 
 @end
 
@@ -36,18 +38,30 @@
     self.cameraInvokeMsg = @"相机启动中";
     
     [self.navigationItem setTitle:@"扫码中"];
-    [self.view addSubview:self.fromPhotoBtn];
-    [self.fromPhotoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
+    
+    [self.view addSubview:self.btnFlash];
+    [self.btnFlash mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX).offset(-CGFloatIn750(100));
         make.top.equalTo(self.view.mas_centerY).offset(CGFloatIn750(0) + (KScreenWidth - 120)/2);
-        make.height.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(80));
+        make.height.equalTo(self.btnFlash.mas_width).multipliedBy(174.0/130.0f);
+    }];
+    
+    [self.view addSubview:self.btnPhoto];
+    [self.btnPhoto mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX).offset(CGFloatIn750(100));
+        make.top.equalTo(self.view.mas_centerY).offset(CGFloatIn750(0) + (KScreenWidth - 120)/2);
+        make.width.mas_equalTo(CGFloatIn750(80));
+        make.height.equalTo(self.btnFlash.mas_width).multipliedBy(174.0/130.0f);
     }];
 }
 
 - (void)viewDidLayoutSubviews {
-    [self.view bringSubviewToFront:self.fromPhotoBtn];
+    [self.view bringSubviewToFront:self.btnPhoto];
+    [self.view bringSubviewToFront:self.btnFlash];
 }
 
+#pragma mark - lazyloading
 - (LBXScanViewStyle*)OnStyle
 {
     //设置扫码区域参数
@@ -59,6 +73,8 @@
     style.photoframeAngleH = 24;
     style.isNeedShowRetangle = YES;
     style.anmiationStyle = LBXScanViewAnimationStyle_NetGrid;
+    style.colorRetangleLine = [UIColor colorMain];
+    style.colorAngle = [UIColor colorMain];
     
     //使用的支付宝里面网格图片
     UIImage *imgPartNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];
@@ -70,7 +86,43 @@
     return style;
 }
 
+-(UIButton *)btnFlash {
+    if (!_btnFlash) {
+        _btnFlash = [[UIButton alloc]init];
+         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+        [_btnFlash addTarget:self action:@selector(openOrCloseFlash) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _btnFlash;
+}
+
+- (UIButton *)btnPhoto {
+    if (!_btnPhoto) {
+        _btnPhoto = [[UIButton alloc]init];
+        _btnPhoto.bounds = _btnFlash.bounds;
+        [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_nor"] forState:UIControlStateNormal];
+        [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_down"] forState:UIControlStateHighlighted];
+        [_btnPhoto addTarget:self action:@selector(openLocalPhotoAlbum) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _btnPhoto;;
+}
+
+
 #pragma mark -实现类继承该方法，作出对应处理
+//开关闪光灯
+- (void)openOrCloseFlash
+{
+    [super openOrCloseFlash];
+   
+    if (self.isOpenFlash)
+    {
+        [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
+    }
+    else
+        [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+}
+
 
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {

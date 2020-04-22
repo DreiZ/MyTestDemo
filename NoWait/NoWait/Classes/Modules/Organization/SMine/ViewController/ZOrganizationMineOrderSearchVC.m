@@ -19,13 +19,32 @@
 
 @implementation ZOrganizationMineOrderSearchVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.searchView.iTextField && !ValidStr(self.searchView.iTextField.text)) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
+    self.loading = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.searchView.iTextField.placeholder = @"请输入校区名称或者课程名称";
     _param = @{}.mutableCopy;
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+//    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    
+    
+    self.loading = YES;
+    [self setTableViewGaryBack];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    if (self.cellConfigArr.count > 0) {
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
 }
 
 
@@ -37,6 +56,12 @@
 //        ZOrderListModel *model = self.dataSources[i];
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orderCellConfig];
+    }
+    
+    if (self.cellConfigArr.count > 0) {
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
 }
 

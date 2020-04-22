@@ -192,7 +192,7 @@
 //    if (_isOpen) {
 //        [self.navigationItem setRightBarButtonItem:nil] ;
 //    }else{
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
+//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
 //    }
 }
 

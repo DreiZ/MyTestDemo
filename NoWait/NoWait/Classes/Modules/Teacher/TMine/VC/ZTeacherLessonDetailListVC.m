@@ -13,6 +13,7 @@
 #import "ZLessonWeekSectionView.h"
 #import "ZStudentMineSignDetailVC.h"
 #import "ZTeacherClassDetailVC.h"
+#import "ZStudentMineSignDetailVC.h"
 
 @interface ZTeacherLessonDetailListVC ()
 
@@ -135,13 +136,24 @@
 
 #pragma mark - tableview delegate
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    ZOriganizationLessonListModel *model = cellConfig.dataModel;
-    ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
-    dvc.model.courses_name = model.courses_name;
-    dvc.model.classID = model.courses_class_id;
-    dvc.model.name = model.name;
-    dvc.model.status = model.status;
-    [self.navigationController pushViewController:dvc animated:YES];
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+        ZOriganizationLessonListModel *model = cellConfig.dataModel;
+        ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+        dvc.type = 0;
+        //未完成
+        dvc.courses_class_id = model.courses_class_id;
+        dvc.student_id = model.student_id;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }else{
+        ZOriganizationLessonListModel *model = cellConfig.dataModel;
+        ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
+        dvc.model.courses_name = model.courses_name;
+        dvc.model.classID = model.courses_class_id;
+        dvc.model.name = model.name;
+        dvc.model.status = model.status;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+    
 }
 
 - (void)refreshCurriculumList {

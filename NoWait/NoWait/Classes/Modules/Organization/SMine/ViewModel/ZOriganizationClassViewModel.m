@@ -129,7 +129,18 @@
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, dataModel.message);
+                ZTeacherSignNetModel *model = [ZTeacherSignNetModel mj_objectWithKeyValues:dataModel.data];
+                if (!model) {
+                    model = [[ZTeacherSignNetModel alloc] init];
+                    model.notice_msg = dataModel.message;
+                }
+                
+                if ([model.code intValue] == 1) {
+                    completeBlock(YES, model);
+                }else{
+                    completeBlock(YES, model);
+                }
+                
                 return ;
             }else{
                 completeBlock(NO, dataModel.message);

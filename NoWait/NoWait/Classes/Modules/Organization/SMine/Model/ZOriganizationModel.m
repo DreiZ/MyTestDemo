@@ -368,3 +368,7 @@
 }
 
 @end
+
+@implementation ZTeacherSignNetModel
+
+@end
