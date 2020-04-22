@@ -21,7 +21,6 @@
         self.phone = @"";
         self.sex = @"";
         self.status = @"";
-        self.type = @"";
         self.token = @"";
         
         [ZUser mj_setupReplacedKeyFromPropertyName:^NSDictionary *{

@@ -340,6 +340,7 @@
 @property (nonatomic,strong) NSString *unused_nums;
 @property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *stores_id;
+@property (nonatomic,strong) NSString *use_nums;
 
 @property (nonatomic,strong) NSString *received;
 @property (nonatomic,strong) NSString *limit;

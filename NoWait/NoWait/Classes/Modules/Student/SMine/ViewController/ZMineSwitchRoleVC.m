@@ -28,6 +28,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self refreshData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -43,7 +45,7 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
-    [self refreshData];
+    
 }
 
 #pragma mark - set data

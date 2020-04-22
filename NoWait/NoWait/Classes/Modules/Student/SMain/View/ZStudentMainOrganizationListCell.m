@@ -72,7 +72,14 @@
         make.height.mas_equalTo(CGFloatIn750(40));
     }];
     
-    [self setActivityData];
+    [self.contentView addSubview:self.introductionView];
+    [self.introductionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(40));
+    }];
+    
 }
 
 
@@ -148,6 +155,13 @@
     [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_loadFail276"]];
     
     [self setActivityData];
+    if (model.coupons && model.coupons.count > 0) {
+        [self setIntroData];
+        self.introductionView.hidden = NO;
+    }else{
+        self.introductionView.hidden = YES;
+    }
+    
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
@@ -155,10 +169,6 @@
     if (model) {
         NSMutableArray *ttArr = @[].mutableCopy;
         [ttArr addObjectsFromArray:model.tags];
-        for (int i = 0; i < model.coupons.count; i++) {
-            ZOriganizationCardListModel *smodel = model.coupons[i];
-            [ttArr addObject:smodel.title];
-        }
         NSArray *textArr = ttArr;
         
         CGFloat leftX = 0;
@@ -168,11 +178,38 @@
             leftY = label.y;
             leftX = label.x;
         }
+        
+        CGFloat couponHeight = 0;
+        if (model.coupons && model.coupons.count > 0) {
+            NSMutableArray *ttArr = @[].mutableCopy;
+            for (int i = 0; i < model.coupons.count; i++) {
+                ZOriganizationCardListModel *smodel = model.coupons[i];
+                [ttArr addObject:smodel.title];
+            }
+            NSArray *textArr = ttArr;
+            
+            CGFloat leftX = 0;
+            CGFloat leftY = 0;
+            for (int i = 0; i < textArr.count; i++) {
+                CGPoint label = [ZStudentMainOrganizationListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY];
+                leftY = label.y;
+                leftX = label.x;
+            }
+            couponHeight = leftY + CGFloatIn750(40);
+        }
         if (textArr.count == 0) {
-            return CGFloatIn750(188);
+            if (!model.coupons || model.coupons.count == 0) {
+                return CGFloatIn750(188);
+            }else{
+                return CGFloatIn750(188) + couponHeight;
+            }
+        }
+        if (!model.coupons || model.coupons.count == 0) {
+            return CGFloatIn750(188) + leftY;
+        }else{
+            return CGFloatIn750(188) + leftY + couponHeight;
         }
         
-        return CGFloatIn750(188) + leftY;
     }
     return CGFloatIn750(188);
 }
@@ -182,10 +219,7 @@
     [self.activityView removeAllSubviews];
     NSMutableArray *ttArr = @[].mutableCopy;
     [ttArr addObjectsFromArray:self.model.tags];
-    for (int i = 0; i < self.model.coupons.count; i++) {
-        ZOriganizationCardListModel *model = self.model.coupons[i];
-        [ttArr addObject:model.title];
-    }
+    
     NSArray *textArr = ttArr;
     
     CGFloat leftX = 0;
@@ -200,6 +234,34 @@
     [self.activityView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(18));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.height.mas_equalTo(leftY + CGFloatIn750(40));
+    }];
+}
+
+
+- (void)setIntroData {
+    [self.introductionView removeAllSubviews];
+    NSMutableArray *ttArr = @[].mutableCopy;
+    for (int i = 0; i < self.model.coupons.count; i++) {
+        ZOriganizationCardListModel *smodel = self.model.coupons[i];
+        [ttArr addObject:smodel.title];
+    }
+    
+    NSArray *textArr = ttArr;
+    
+    CGFloat leftX = 0;
+    CGFloat leftY = 0;
+    for (int i = 0; i < textArr.count; i++) {
+        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY];
+        leftY = label.top;
+        [self.introductionView addSubview:label];
+        leftX = label.right + CGFloatIn750(8);
+    }
+    
+    [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
         make.height.mas_equalTo(leftY + CGFloatIn750(40));
     }];

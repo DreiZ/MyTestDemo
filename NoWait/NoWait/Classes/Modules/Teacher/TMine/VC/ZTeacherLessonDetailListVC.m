@@ -11,7 +11,8 @@
 #import "ZLessonTimeTableCollectionCell.h"
 #import "ZLessonWeekHandlerView.h"
 #import "ZLessonWeekSectionView.h"
-
+#import "ZStudentMineSignDetailVC.h"
+#import "ZTeacherClassDetailVC.h"
 
 @interface ZTeacherLessonDetailListVC ()
 
@@ -130,6 +131,17 @@
         _sectionView = [[ZLessonWeekSectionView alloc] init];
     }
     return _sectionView;
+}
+
+#pragma mark - tableview delegate
+- (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    ZOriganizationLessonListModel *model = cellConfig.dataModel;
+    ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
+    dvc.model.courses_name = model.courses_name;
+    dvc.model.classID = model.courses_class_id;
+    dvc.model.name = model.name;
+    dvc.model.status = model.status;
+    [self.navigationController pushViewController:dvc animated:YES];
 }
 
 - (void)refreshCurriculumList {

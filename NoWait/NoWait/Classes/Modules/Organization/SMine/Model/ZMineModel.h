@@ -51,7 +51,7 @@
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *student_id;
 @property (nonatomic,strong) NSString *nums;
-
+@property (nonatomic,strong) NSString *use_nums;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *course_name;
 @property (nonatomic,strong) NSString *stores_name;

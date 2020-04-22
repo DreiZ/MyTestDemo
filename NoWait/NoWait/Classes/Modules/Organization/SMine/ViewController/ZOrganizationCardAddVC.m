@@ -194,6 +194,11 @@
                 [TLUIUtility showErrorHint:@"个人限领不可大于发行量"];
                 return ;
             }
+            
+            if (ValidStr(weakSelf.viewModel.addModel.limit_end) && [weakSelf.viewModel.addModel.limit_end intValue] - [weakSelf.viewModel.addModel.limit_start intValue] < 60 * 60 * 24 ) {
+                [TLUIUtility showErrorHint:@"有效期不得小于1天"];
+                return;
+            }
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
             [params setObject:self.viewModel.addModel.title forKey:@"title"];
