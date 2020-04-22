@@ -191,6 +191,7 @@
         [data setObject:[NSString stringWithFormat:@"￥%@起",self.model.price] forKey:@"name"];
         [data setObject:@"请选择教师" forKey:@"lesson"];
     }
+    [data setObject:@"selectTeacher" forKey:@"teacher"];
     {
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonTeacherSelectedCell className] title:[ZStudentLessonTeacherSelectedCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZStudentLessonTeacherSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:data];
         [self.cellConfigArr addObject:menuCellConfig];

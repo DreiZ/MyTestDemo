@@ -88,6 +88,7 @@
 
 - (void)setDataSource {
     [super setDataSource];
+    __weak typeof(self) weakSelf = self;
     [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
         if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
             NSDictionary *backDict = notfication.object;
@@ -106,6 +107,14 @@
                         [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
                     }
                 }
+                
+                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                listModel.order_id = weakSelf.order_id;
+                listModel.stores_id = weakSelf.detailModel.stores_id;
+                listModel.isStudent = YES;
+                evc.model = listModel;
+                [weakSelf.navigationController pushViewController:evc animated:YES];
             }
         }
     }];
@@ -194,6 +203,27 @@
             if (self.cartModel) {
                 [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
             }
+            
+            if (ValidStr(weakSelf.detailModel.emergency_name)) {
+                [params setObject:weakSelf.detailModel.emergency_name forKey:@"emergency_name"];
+                
+                if (!ValidStr(weakSelf.detailModel.emergency_phone)) {
+                    [TLUIUtility showErrorHint:@"您还没有输入紧急联系人电话"];
+                    return;
+                }
+            }
+            if (ValidStr(weakSelf.detailModel.emergency_phone)) {
+                if (weakSelf.detailModel.emergency_phone.length != 11) {
+                    [TLUIUtility showErrorHint:@"请输入正确的紧急联系人电话"];
+                    return;
+                }
+                [params setObject:weakSelf.detailModel.emergency_phone forKey:@"emergency_phone"];
+            }
+            if (ValidStr(weakSelf.detailModel.emergency_contact)) {
+                [params setObject:weakSelf.detailModel.emergency_contact forKey:@"emergency_contact"];
+            }
+            
+            
             [TLUIUtility showLoading:@"获取支付信息"];
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
                 [TLUIUtility hiddenLoading];
@@ -202,23 +232,23 @@
                     weakSelf.order_id = payModel.order_id;
                     if (weakSelf.isAlipay) {
                         [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"2",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
-                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                            listModel.order_id = weakSelf.order_id;
-                            listModel.stores_id = weakSelf.detailModel.stores_id;
-                            listModel.isStudent = YES;
-                            evc.model = listModel;
-                            [weakSelf.navigationController pushViewController:evc animated:YES];
+//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                            listModel.order_id = weakSelf.order_id;
+//                            listModel.stores_id = weakSelf.detailModel.stores_id;
+//                            listModel.isStudent = YES;
+//                            evc.model = listModel;
+//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }else{
                         [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"1",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
-                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                            listModel.order_id = weakSelf.order_id;
-                            listModel.stores_id = weakSelf.detailModel.stores_id;
-                            listModel.isStudent = YES;
-                            evc.model = listModel;
-                            [weakSelf.navigationController pushViewController:evc animated:YES];
+//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                            listModel.order_id = weakSelf.order_id;
+//                            listModel.stores_id = weakSelf.detailModel.stores_id;
+//                            listModel.isStudent = YES;
+//                            evc.model = listModel;
+//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }
 //                    ZOrderAddNetModel *model = data;

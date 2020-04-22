@@ -76,12 +76,13 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
-            if (index == ZLessonOrderHandleTypePay) {
-                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                [self.navigationController pushViewController:evc animated:YES];
-//                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
-//                [weakSelf.navigationController pushViewController:pvc animated:YES];
-            }else if (index == ZLessonOrderHandleTypeEva) {
+//            if (index == ZLessonOrderHandleTypePay) {
+//                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//                [self.navigationController pushViewController:evc animated:YES];
+////                ZStudentOrderPayVC *pvc = [[ZStudentOrderPayVC alloc] init];
+////                [weakSelf.navigationController pushViewController:pvc animated:YES];
+//            }else
+            if (index == ZLessonOrderHandleTypeEva) {
                 ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
                 evc.listModel = model;
                 [self.navigationController pushViewController:evc animated:YES];

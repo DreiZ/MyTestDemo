@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *lessonNameLabel;
 @property (nonatomic,strong) UILabel *stateLabel;
 @property (nonatomic,strong) UILabel *classNameLabel;
+@property (nonatomic,strong) UILabel *studentLabel;
 
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *userLabel;
@@ -112,6 +113,12 @@
         make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
         make.width.mas_equalTo(CGFloatIn750(116));
         make.height.mas_equalTo(CGFloatIn750(56));
+    }];
+    
+    [self.bottomView addSubview:self.studentLabel];
+    [self.studentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.bottomView.mas_centerY);
+        make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(30));
     }];
     
     
@@ -232,6 +239,18 @@
 }
 
 
+- (UILabel *)studentLabel {
+    if (!_studentLabel) {
+        _studentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _studentLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        
+        _studentLabel.numberOfLines = 1;
+        _studentLabel.textAlignment = NSTextAlignmentLeft;
+        [_studentLabel setFont:[UIFont fontContent]];
+    }
+    return _studentLabel;
+}
+
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
@@ -253,6 +272,7 @@
     _model = model;
     _lessonNameLabel.text = model.stores_courses_name;
     _classNameLabel.text = model.courses_class_name;
+    _studentLabel.text = model.student_name;
     
     _userLabel.text = model.teacher_name;
     _nameLabel.text = model.stores_name;
@@ -280,25 +300,28 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
     
     if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
-        _bottomView.hidden = YES;
-        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self.contView);
-            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
-        }];
+        _bottomView.hidden = NO;
+        self.signBtn.hidden = YES;
+//        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.right.equalTo(self.contView);
+//            make.bottom.equalTo(self.bottomView.mas_top);
+////            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
+//        }];
     }else {
         _bottomView.hidden = NO;
-        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self.contView);
-            make.bottom.equalTo(self.bottomView.mas_top);
-        }];
+        self.signBtn.hidden = NO;
+//        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.right.equalTo(self.contView);
+//            make.bottom.equalTo(self.bottomView.mas_top);
+//        }];
     }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    ZOriganizationClassListModel *model = sender;
-    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
-        return CGFloatIn750(246);
-    }
+//    ZOriganizationClassListModel *model = sender;
+//    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
+//        return CGFloatIn750(246);
+//    }
     return CGFloatIn750(348);
 }
 

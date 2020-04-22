@@ -78,6 +78,8 @@
 @property (nonatomic,strong) NSString *stores_courses_id;
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,strong) NSString *student_id;
+@property (nonatomic,strong) NSString *student_name;
+
 @property (nonatomic,strong) NSString *total_progress;
 @property (nonatomic,strong) NSString *truancy_nums;
 @property (nonatomic,strong) NSString *update_at;

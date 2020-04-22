@@ -130,7 +130,6 @@ static ZPayManager *sharedManager;
 - (void)aliPay:(NSString *)orderMessage {
 //    orderMessage = [NSString stringWithFormat:@"%@%@",orderMessage,@"2"];
     [[AlipaySDK defaultService] payOrder:orderMessage fromScheme:@"cxhuanqing" callback:^(NSDictionary *resultDic){
-        DLog(@"pay return-------------------%@", resultDic);
         NSString *resultStatus = @"";
         if ([resultDic objectForKey:@"resultStatus"]) {
             resultStatus = resultDic[@"resultStatus"];
@@ -166,9 +165,6 @@ static ZPayManager *sharedManager;
                 errorCode = ZPayErrCodeFailure;
                 break;
         }
-        
-        DLog(@"--------------pay return  %@ %ld",errStr, errorCode);
-        
         if (errStr) {
             NSDictionary *backDict = @{@"payState":@(errorCode), @"msg":errStr};
             [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationPayBack object:backDict];
@@ -206,7 +202,7 @@ static ZPayManager *sharedManager;
 
 #pragma mark - 回调
 - (BOOL)pay_handleUrl:(NSURL *)url{
-    DLog(@"usl.host      %@",url.host);
+//    DLog(@"usl.host      %@",url.host);
     if ([url.host isEqualToString:@"www.xiangcenter.com"]) {// 微信
         return [WXApi handleOpenURL:url delegate:self];
     }else if ([url.host isEqualToString:@"safepay"]) {// 支付宝
@@ -244,7 +240,7 @@ static ZPayManager *sharedManager;
         
         // 授权跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"result = %@",resultDic);
+//            DLog(@"result = %@",resultDic);
             // 解析 auth code
             NSString *result = resultDic[@"result"];
             NSString *authCode = nil;
@@ -269,8 +265,8 @@ static ZPayManager *sharedManager;
 #pragma mark - WXApiDelegate
 - (void)onResp:(BaseResp *)resp {
     if ([resp isKindOfClass:[SendAuthResp class]]) {
-        SendAuthResp *auth = (SendAuthResp *)resp;
-        NSLog(@"zzz %@--\n %@--\n%@--\n%@",auth.code,auth.state,auth.country,auth.lang);
+//        SendAuthResp *auth = (SendAuthResp *)resp;
+//        NSLog(@"zzz %@--\n %@--\n%@--\n%@",auth.code,auth.state,auth.country,auth.lang);
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
         NSString *strMsg = @"";

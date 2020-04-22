@@ -51,6 +51,8 @@
     self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
+    __weak typeof(self) weakSelf = self;
     [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
         if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
             NSDictionary *backDict = notfication.object;
@@ -69,6 +71,13 @@
                         [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
                     }
                 }
+                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                listModel.order_id = weakSelf.order_id;
+                listModel.stores_id = weakSelf.detailModel.stores_id;
+                listModel.isStudent = YES;
+                evc.model = listModel;
+                [weakSelf.navigationController pushViewController:evc animated:YES];
 //                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
 //                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
 //                listModel.order_id = self.order_id;
@@ -198,24 +207,24 @@
                     if (weakSelf.isAlipay) {
                         [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"2",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
                             
-                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                            listModel.order_id = weakSelf.order_id;
-                            listModel.stores_id = weakSelf.detailModel.stores_id;
-                            listModel.isStudent = YES;
-                            evc.model = listModel;
-                            [weakSelf.navigationController pushViewController:evc animated:YES];
+//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                            listModel.order_id = weakSelf.order_id;
+//                            listModel.stores_id = weakSelf.detailModel.stores_id;
+//                            listModel.isStudent = YES;
+//                            evc.model = listModel;
+//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }else{
                         [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"1",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
                             
-                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                            listModel.order_id = weakSelf.order_id;
-                            listModel.stores_id = weakSelf.detailModel.stores_id;
-                            listModel.isStudent = YES;
-                            evc.model = listModel;
-                            [weakSelf.navigationController pushViewController:evc animated:YES];
+//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                            listModel.order_id = weakSelf.order_id;
+//                            listModel.stores_id = weakSelf.detailModel.stores_id;
+//                            listModel.isStudent = YES;
+//                            evc.model = listModel;
+//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }
 //                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];

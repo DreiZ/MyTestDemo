@@ -194,6 +194,7 @@
             detailModel.course_number = weakSelf.addModel.course_number;
             detailModel.course_min = weakSelf.addModel.course_min;
             detailModel.valid_at = weakSelf.addModel.valid_at;
+            detailModel.course_image_url = weakSelf.addModel.image_url;
             detailModel.course_total_min = [NSString stringWithFormat:@"%d",[weakSelf.addModel.course_number intValue]*[weakSelf.addModel.course_min intValue]];
             
             order.detailModel = detailModel;

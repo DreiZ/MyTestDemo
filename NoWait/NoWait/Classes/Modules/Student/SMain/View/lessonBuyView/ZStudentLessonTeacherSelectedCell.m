@@ -92,7 +92,7 @@
     if (ValidDict(data)) {
         if ([data objectForKey:@"image"]) {
             self.organizationImageView.hidden = NO;
-            [_organizationImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data[@"image"])] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+            [_organizationImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(data[@"image"])] placeholderImage:[UIImage imageNamed:[data objectForKey:@"teacher"] ? @"teacher_login":@"default_image32"]];
             
             
             [self.organizationImageView mas_remakeConstraints:^(MASConstraintMaker *make) {

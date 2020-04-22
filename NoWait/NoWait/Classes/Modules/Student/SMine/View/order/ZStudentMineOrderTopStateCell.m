@@ -164,11 +164,11 @@
 
 - (void)changeLeftTime {
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[self getSurplusTime:_serviceTime]];
-    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-    textAttachment.image = [UIImage imageNamed:@"pay_time"];
-    textAttachment.bounds = CGRectMake(0, -2, 15, 15);
-    NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    [attStr insertAttributedString:attachmentAttrStr atIndex:0];
+//    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+////    textAttachment.image = [UIImage imageNamed:@"pay_time"];
+//    textAttachment.bounds = CGRectMake(0, -2, 15, 15);
+//    NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];
+//    [attStr insertAttributedString:attachmentAttrStr atIndex:0];
     [_detailLabel setAttributedText:attStr];
 //    _timeLab.text = [NSString stringWithFormat:@"剩余支付时间：%@",[self getSurplusTime:_serviceTime]];
 }
