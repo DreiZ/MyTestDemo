@@ -82,7 +82,7 @@
             }else{
                 ZStudentTeacherDetailVC *dvc = [[ZStudentTeacherDetailVC alloc] init];
                 dvc.teacher_id = listModel.teacherID;
-                dvc.stores_id = weakSelf.listModel.stores_id;
+                dvc.stores_id = weakSelf.stores_id;
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
             
@@ -202,7 +202,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.listModel.stores_id forKey:@"stores_id"];
+       [param setObject:self.stores_id forKey:@"stores_id"];
 //       [param setObject:@"0" forKey:@"status"];
     return param;
 }

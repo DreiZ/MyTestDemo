@@ -13,6 +13,7 @@
 #import "ZStudentMainViewModel.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
+#import "ZLocationManager.h"
 
 @interface ZStudentClassificationListVC ()
 @property (nonatomic,strong) ZStudentClassFiltrateSectionView *sectionView;
@@ -175,5 +176,9 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:self.type forKey:@"stores_type"];
+    if ([ZLocationManager shareManager].cureUserLocation) {
+        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+        [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+    }
 }
 @end

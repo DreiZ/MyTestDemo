@@ -363,12 +363,12 @@
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         lvc.type = 0;
-        lvc.listModel = self.listModel;
+        lvc.stores_id = self.listModel.stores_id;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         lvc.type = 1;
-        lvc.listModel = self.listModel;
+        lvc.stores_id = self.listModel.stores_id;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"allLesson"]){
         ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];

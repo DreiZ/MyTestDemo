@@ -9,6 +9,9 @@
 #import "ZOrganizationSearchLessonListVC.h"
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOrganizationLessonManageListCell.h"
+#import "ZStudentOrganizationLessonListCell.h"
+
+#import "ZStudentLessonDetailVC.h"
 
 @interface ZOrganizationSearchLessonListVC ()
 @property (nonatomic,strong) NSString *name;
@@ -17,6 +20,13 @@
 
 @implementation ZOrganizationSearchLessonListVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.searchView.iTextField && (self.searchView.iTextField.text.length == 0)) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -24,6 +34,7 @@
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 
 
@@ -32,14 +43,14 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
+        ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:lessonCellConfig];
     }
 
     if (self.cellConfigArr.count > 0) {
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }else{
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
 }
 
@@ -48,6 +59,16 @@
     self.name = SafeStr(text);
     if (self.name.length > 0) {
         [self refreshData];
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
+            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            dvc.model = cellConfig.dataModel;
+            [self.navigationController pushViewController:dvc animated:YES];
+    //        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
+    //        [self.navigationController pushViewController:lessond_vc animated:YES];
     }
 }
 

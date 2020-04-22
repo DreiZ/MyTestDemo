@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentStarStudentListVC : ZCollectionViewController
 @property (nonatomic,assign) NSInteger type;
-@property (nonatomic,strong) ZStoresListModel *listModel;
+@property (nonatomic,strong) NSString *stores_id;
 @end
 
 NS_ASSUME_NONNULL_END

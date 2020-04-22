@@ -295,6 +295,9 @@
     }else if([cellConfig.title isEqualToString:@"moreTeacher"]){
         ZStudentLessonCoachListVC *lvc = [[ZStudentLessonCoachListVC alloc] init];
         lvc.lesson_id = self.model.lessonID;
+        lvc.stores_id = self.addModel.stores_id;
+        
+        lvc.type = 1;
         [self.navigationController pushViewController:lvc animated:YES];
     }
     
