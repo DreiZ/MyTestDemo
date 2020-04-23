@@ -50,10 +50,10 @@
     
     
     UIView *contBackView = [[UIView alloc] init];
-    contBackView.backgroundColor = [UIColor whiteColor];
+    contBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     contBackView.layer.masksToBounds = YES;
     contBackView.layer.cornerRadius = 3.0f;
-    contBackView.layer.borderColor = [UIColor colorGrayLine].CGColor;
+    contBackView.layer.borderColor = isDarkModel()? [UIColor colorGrayLineDark].CGColor:[UIColor colorGrayLine].CGColor;
     contBackView.layer.borderWidth = 0.5;
     [self.view addSubview:contBackView];
     [contBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +93,7 @@
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] initWithFrame:CGRectMake(CGFloatIn750(20), 0, KScreenWidth - CGFloatIn750(40), 118)];
         _iTextView.delegate = self;
-        _iTextView.backgroundColor = [UIColor whiteColor];
+        _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         [_iTextView setFont:[UIFont fontSmall]];
     }
     return _iTextView;
