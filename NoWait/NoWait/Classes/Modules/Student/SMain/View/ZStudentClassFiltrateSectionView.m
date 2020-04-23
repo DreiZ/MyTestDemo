@@ -54,7 +54,7 @@
 - (void)menuView:(ZHFilterMenuView *)menuView didSelectConfirmAtSelectedModelArr:(NSArray *)selectedModelArr
 {
     NSArray *dictArr = [ZHFilterItemModel mj_keyValuesArrayWithObjectArray:selectedModelArr];
-    NSLog(@"结果回调：%@",dictArr.mj_JSONString);
+    DLog(@"结果回调：%@",dictArr.mj_JSONString);
     NSMutableDictionary *params = @{}.mutableCopy;
     for (ZHFilterItemModel *model in selectedModelArr) {
         if ([model.code isEqualToString:@"type"]) {
@@ -75,7 +75,7 @@
 - (void)menuView:(ZHFilterMenuView *)menuView wangType:(ZHFilterMenuViewWangType)wangType
 {
     if (wangType == ZHFilterMenuViewWangTypeInput) {
-        NSLog(@"请输入正确的数据区间！");
+        DLog(@"请输入正确的数据区间！");
     }
 }
 

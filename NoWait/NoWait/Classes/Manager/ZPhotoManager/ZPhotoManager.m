@@ -323,8 +323,8 @@ static ZPhotoManager *sharedPhotoManager;
 
 /** 身份证相册 */
 - (void)openIDCardCamera:(NSInteger)type {
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    
+//    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+//    
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
         __weak typeof(self) weakSelf = self;
         [XYTakePhotoController presentFromVC:[self viewController] mode:type resultHandler:^(NSArray<UIImage *> * _Nonnull images, NSString * _Nonnull errorMsg) {

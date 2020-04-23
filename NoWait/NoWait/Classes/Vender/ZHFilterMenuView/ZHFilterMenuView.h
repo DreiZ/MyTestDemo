@@ -66,18 +66,18 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 @protocol ZHFilterMenuViewDelegate <NSObject>
 
 /** 确定回调 */
-- (void)menuView:(ZHFilterMenuView *)menuView didSelectConfirmAtSelectedModelArr:(NSArray *)selectedModelArr;
+- (void)menuView:(ZHFilterMenuView *_Nullable)menuView didSelectConfirmAtSelectedModelArr:(NSArray *_Nullable)selectedModelArr;
 
 @optional
 
 /** 警告回调(用于错误提示) */
-- (void)menuView:(ZHFilterMenuView *)menuView wangType:(ZHFilterMenuViewWangType)wangType;
+- (void)menuView:(ZHFilterMenuView *_Nullable)menuView wangType:(ZHFilterMenuViewWangType)wangType;
 
 /** 消失回调 */
-- (void)menuView:(ZHFilterMenuView *)menuView didHideAtSelectedModelArr:(NSArray *)selectedModelArr;
+- (void)menuView:(ZHFilterMenuView *)menuView didHideAtSelectedModelArr:(NSArray *_Nullable)selectedModelArr;
 
 /** 列表将要显示回调 */
-- (void)menuView:(ZHFilterMenuView *)menuView willShowAtTabIndex:(NSInteger)tabIndex;
+- (void)menuView:(ZHFilterMenuView *_Nullable)menuView willShowAtTabIndex:(NSInteger)tabIndex;
 
 @end
 
@@ -85,10 +85,10 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 @protocol ZHFilterMenuViewDetaSource <NSObject>
 
 /** 返回每个 tabIndex 下的确定类型 */
-- (ZHFilterMenuConfirmType)menuView:(ZHFilterMenuView *)menuView confirmTypeInTabIndex:(NSInteger)tabIndex;
+- (ZHFilterMenuConfirmType)menuView:(ZHFilterMenuView *_Nullable)menuView confirmTypeInTabIndex:(NSInteger)tabIndex;
 
 /** 返回每个 tabIndex 下的下拉展示类型 */
-- (ZHFilterMenuDownType)menuView:(ZHFilterMenuView *)menuView downTypeInTabIndex:(NSInteger)tabIndex;
+- (ZHFilterMenuDownType)menuView:(ZHFilterMenuView *_Nullable)menuView downTypeInTabIndex:(NSInteger)tabIndex;
 
 
 @end
@@ -96,17 +96,17 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 @interface ZHFilterMenuView : UIView
 @property (nonatomic, strong) void (^ _Nullable menuTapBlock)(NSInteger);
 
-@property (nonatomic, weak) id<ZHFilterMenuViewDelegate> zh_delegate;
-@property (nonatomic, weak) id<ZHFilterMenuViewDetaSource> zh_dataSource;
+@property (nonatomic, weak) id<ZHFilterMenuViewDelegate> _Nullable zh_delegate;
+@property (nonatomic, weak) id<ZHFilterMenuViewDetaSource> _Nullable zh_dataSource;
 
-@property (nonatomic, strong) NSMutableArray *filterDataArr;          //传入数据源(必传)
-@property (nonatomic, strong) NSArray<NSString *> *titleArr;          //传入标题数据源(必传)
-@property (nonatomic, strong) NSArray<NSString *> *imageNameArr;      //传入折叠图片数据源(不传不展示图片)
-@property (nonatomic, strong) NSArray<NSString *> *selectImageNameArr;//传入选择状态下的折叠图片数据源(不传默认取imageNameArr里的图片)
+@property (nonatomic, strong) NSMutableArray * _Nullable filterDataArr;          //传入数据源(必传)
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable titleArr;          //传入标题数据源(必传)
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable imageNameArr;      //传入折叠图片数据源(不传不展示图片)
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable selectImageNameArr;//传入选择状态下的折叠图片数据源(不传默认取imageNameArr里的图片)
 
-@property (nonatomic, strong) UIColor *titleColor;           //菜单标题文本颜色（默认333333）
-@property (nonatomic, strong) UIColor *titleSelectedColor;   //菜单标题选择状态下的颜色（默认3072F5）
-@property (nonatomic, strong) UIColor *lineColor;            //菜单标题底部分割线颜色（默认e8e8e8）
+@property (nonatomic, strong) UIColor * _Nullable titleColor;           //菜单标题文本颜色（默认333333）
+@property (nonatomic, strong) UIColor * _Nullable titleSelectedColor;   //菜单标题选择状态下的颜色（默认3072F5）
+@property (nonatomic, strong) UIColor * _Nullable lineColor;            //菜单标题底部分割线颜色（默认e8e8e8）
 @property (nonatomic, assign) CGFloat titleFontSize;         //菜单标题字号（默认15）
 
 @property (nonatomic, assign) BOOL showLine;                 //菜单标题底部分割线是否显示（默认YES）
@@ -116,20 +116,20 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 @property (nonatomic, assign) CGFloat bottomHeight;          //列表底部的高度（默认80）
 
 @property (nonatomic, assign) CGFloat itemTitleFontSize;     //item标题字号大小（默认12）
-@property (nonatomic, strong) UIColor *itemBGColor;          //item背景颜色（默认f5f5f5）
-@property (nonatomic, strong) UIColor *itemBGSelectedColor;  //item选择时背景颜色（默认eef6ff）
+@property (nonatomic, strong) UIColor * _Nullable itemBGColor;          //item背景颜色（默认f5f5f5）
+@property (nonatomic, strong) UIColor * _Nullable itemBGSelectedColor;  //item选择时背景颜色（默认eef6ff）
 @property (nonatomic, assign) CGFloat space;                 //item间隔（默认15）
 @property (nonatomic, assign) CGFloat itemHeight;            //item高（默认30）
 @property (nonatomic, assign) NSInteger lineNum;             //一行展示数量（默认4，当内容字符数大于7时lineNum = 2）
 @property (nonatomic, assign) NSInteger maxLength;           //输入框最大文本数量（默认7位）
 
-@property (nonatomic, strong) NSMutableArray *buttonArr;//菜单tab标题button数据
+@property (nonatomic, strong) NSMutableArray * _Nullable buttonArr;//菜单tab标题button数据
 
 
 /** 快速初始化
  *  maxHeight:下拉列表最大展示高度
  */
-- (instancetype)initWithFrame:(CGRect)frame maxHeight:(CGFloat)maxHeight;
+- (instancetype _Nullable )initWithFrame:(CGRect)frame maxHeight:(CGFloat)maxHeight;
 
 /** 参数传完后开始调用以显示 */
 - (void)beginShowMenuView;
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, ZHFilterMenuViewWangType) {
 - (void)hideMenuList;
 
 //菜单标题
-- (void)reloadMenuTitle:(NSArray *)titleArr;
+- (void)reloadMenuTitle:(NSArray *_Nullable)titleArr;
 
 @end
 

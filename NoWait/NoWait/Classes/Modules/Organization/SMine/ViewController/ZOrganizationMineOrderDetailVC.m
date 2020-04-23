@@ -25,6 +25,7 @@
 #import "ZStudentMineEvaEditVC.h"
 #import "ZStudentOrderRefundHandleVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
+#import "ZStudentLessonDetailVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -225,6 +226,7 @@
 
 - (void)setupMainView {
     [super setupMainView];
+    
     [self.view addSubview:self.handleView];
     [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
@@ -395,7 +397,13 @@
                 lmodel.stores_id = model.stores_id;
                 lmodel.name = model.store_name;
                 dvc.listModel = lmodel;
-                [self.navigationController pushViewController:dvc animated:YES];
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            }else if(index == ZLessonOrderHandleTypeLesson){
+                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
+                ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+                listmodel.lessonID = model.course_id;
+                dvc.model = listmodel;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
     }else if ([cellConfig.title isEqualToString:@"refundAmout"]){
@@ -411,7 +419,13 @@
          if (!self.detailModel.isStudent) {
              [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
          }
-    }
+     }else if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
+         ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
+         ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+         listmodel.lessonID = self.detailModel.course_id;
+         dvc.model = listmodel;
+         [self.navigationController pushViewController:dvc animated:YES];
+     }
 }
 
 
@@ -583,7 +597,7 @@
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = self.detailModel.nick_name ;
         model.leftImage = self.detailModel.course_image_url;
-        model.isHiddenLine = NO;
+        model.isHiddenLine = YES;
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);
         model.cellHeight = CGFloatIn750(84);
@@ -641,7 +655,9 @@
 
                 ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [self.cellConfigArr addObject:nameCellConfig];
-                [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(10)]];
+                if (i == 0) {
+                    [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(10)]];
+                }
             }
             
             if (self.detailModel.isStudent) {

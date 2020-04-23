@@ -591,7 +591,7 @@
     CGFloat listHeight = 0.f;
     NSArray *sectionArr = self.dataArr[self.selectedTabIndex];
     if (!sectionArr.count) {
-        NSLog(@"当前下拉列表数据为空!");
+        DLog(@"当前下拉列表数据为空!");
         return 0.f;
     }
     if (confirmType == ZHFilterMenuDownTypeTwoLists) {

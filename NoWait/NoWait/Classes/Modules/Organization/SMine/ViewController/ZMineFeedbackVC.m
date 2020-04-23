@@ -169,6 +169,10 @@
                 return ;
             }
             if (ValidStr(weakSelf.viewModel.model.phone)) {
+                if (weakSelf.viewModel.model.phone.length != 11) {
+                    [TLUIUtility showErrorHint:@"请输入正确的手机号"];
+                    return;
+                }
                 [params setObject:SafeStr(weakSelf.viewModel.model.phone) forKey:@"phone"];
             }
             if (ValidStr(weakSelf.viewModel.model.name)) {

@@ -162,7 +162,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:formotter];
     NSString *dateString       = [formatter stringFromDate: date];
-//    NSLog(@"服务器返回的时间戳对应的时间是:%@",dateString);
+//    DLog(@"服务器返回的时间戳对应的时间是:%@",dateString);
     
     return dateString;
 }

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationDetailBottomView : UIView
 @property (nonatomic,strong) NSString *title;
-
+@property (nonatomic,strong) UIButton *handleBtn;
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

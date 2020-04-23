@@ -158,6 +158,17 @@
         make.top.equalTo(self.detailLabel.mas_bottom).offset(CGFloatIn750(14));
     }];
  
+
+    UIButton *lessonBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [lessonBtn bk_whenTapped:^{
+       if (weakSelf.handleBlock) {
+           weakSelf.handleBlock(ZLessonOrderHandleTypeLesson, weakSelf.model);
+       }
+    }];
+    [self.midView addSubview:lessonBtn];
+    [lessonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       make.edges.equalTo(self.midView);
+    }];
     
     [self.subView addSubview:self.iTableView];
     [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {

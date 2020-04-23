@@ -144,20 +144,20 @@
         }];
         
         
-        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
+//        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
         UIView *midView = [self getMenuBtnWithImageName:@"loginpassword" title:@"验证码登录" tag:1];
-        [self.view addSubview:leftView];
+//        [self.view addSubview:leftView];
         [self.view addSubview:midView];
         
-        [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-            make.centerX.equalTo(self.view.mas_right).multipliedBy(1.0/4);
-            make.width.height.mas_equalTo(CGFloatIn750(120));
-        }];
+//        [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+//            make.centerX.equalTo(self.view.mas_right).multipliedBy(1.0/4);
+//            make.width.height.mas_equalTo(CGFloatIn750(120));
+//        }];
         
         [midView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-            make.centerX.equalTo(self.view.mas_right).multipliedBy(3.0/4);
+            make.centerX.equalTo(self.view.mas_right).multipliedBy(2.0/4);
             make.width.height.mas_equalTo(CGFloatIn750(120));
         }];
     }

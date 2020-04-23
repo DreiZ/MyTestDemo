@@ -101,7 +101,7 @@
 
 #pragma mark -star delegate
 -(void)starRateView:(CWStarRateView *)starRateView scroePercentDidChange:(CGFloat)newScorePercent {
-    NSLog(@"------------  %f",newScorePercent);
+    DLog(@"------------  %f",newScorePercent);
     if (self.handleBlock) {
         self.handleBlock(newScorePercent);
     }

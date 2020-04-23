@@ -55,20 +55,20 @@ static ZRouteManager *sharedManager;
     if (model && model.ad_type) {
         if ([model.ad_type isEqualToString:@"3"] && model.ad_type_content) {
             ZWebBridgeViewController *wvc = [[ZWebBridgeViewController alloc] init];
-            wvc.url = model.ad_type_content;
+            wvc.url = model.ad_type_content.url;
             wvc.navTitle = model.name;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:wvc animated:YES];
         }else if ([model.ad_type isEqualToString:@"1"] && model.ad_type_content) {
             ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
             ZOriganizationLessonListModel *listModel = [[ZOriganizationLessonListModel alloc] init];
-            listModel.lessonID = model.ad_type_content;
+            listModel.lessonID = model.ad_type_content.course;
             dvc.model = listModel;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
 
         }else if ([model.ad_type isEqualToString:@"2"] && model.ad_type_content) {
             ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-            lmodel.stores_id = model.ad_type_content;
+            lmodel.stores_id = model.ad_type_content.stores;
             dvc.listModel = lmodel;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
 

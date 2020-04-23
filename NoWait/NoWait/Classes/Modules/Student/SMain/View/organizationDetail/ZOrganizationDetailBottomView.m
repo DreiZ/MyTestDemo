@@ -10,7 +10,7 @@
 
 @interface ZOrganizationDetailBottomView ()
 @property (nonatomic,strong) UIButton *telBtn;
-@property (nonatomic,strong) UIButton *handleBtn;
+
 
 @end
 

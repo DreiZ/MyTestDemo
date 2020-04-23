@@ -45,7 +45,7 @@
 
 
 - (void)setOtherData {
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];
 }

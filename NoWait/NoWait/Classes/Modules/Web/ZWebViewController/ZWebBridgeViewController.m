@@ -51,7 +51,7 @@
     [self.view addSubview:_iWebView];
     [self.iWebView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(0);
     }];
     
     [self.view addSubview:self.navView];

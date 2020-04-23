@@ -130,7 +130,7 @@
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
                 ZTeacherSignNetModel *model = [ZTeacherSignNetModel mj_objectWithKeyValues:dataModel.data];
-                if (!model) {
+                if (!model && [model.code intValue] != 1) {
                     model = [[ZTeacherSignNetModel alloc] init];
                     model.notice_msg = dataModel.message;
                 }
@@ -162,7 +162,7 @@
                 if (ValidStr(model.classes_date)) {
                     id tempDict1 = [model.classes_date zz_JSONValue];
                     if (ValidDict(tempDict1)) {
-                        NSArray *allKey = [tempDict1 allKeys];
+                        NSArray *allKey = [ZOriganizationClassViewModel sortArrayFunction:[tempDict1 allKeys]];
                         for (int i = 0; i < allKey.count; i++) {
                             
                             if ([allKey[i] intValue] <=7 && [allKey[i] intValue] > 0) {
@@ -208,7 +208,24 @@
     }];
 }
 
-
++ (NSMutableArray *)sortArrayFunction:(NSArray *)allKey {
+    int count  = 0;
+    int forcount  = 0;
+    NSMutableArray * arr = allKey.mutableCopy;
+    
+    for (int i = 0; i < arr.count; i++) {
+        forcount++;
+        // 依次定位左边的
+        for (int j = (int)arr.count-2; j >= i; j--) {
+            count++;
+            if ([arr[j] intValue]> [arr[j+1] intValue]) {
+                [arr exchangeObjectAtIndex:j withObjectAtIndex:j+1];
+            }
+        }
+    }
+    
+    return arr;
+}
 
 + (void)editClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_edit_courses_class params:params completionHandler:^(id data, NSError *error) {

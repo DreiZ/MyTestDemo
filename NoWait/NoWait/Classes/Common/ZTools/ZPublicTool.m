@@ -63,7 +63,7 @@
             } error:&error];
             
             if (error) {
-                NSLog(@"保存失败：%@", error);
+                DLog(@"保存失败：%@", error);
                 [TLUIUtility showErrorHint:@"保存失败"];
                 return;
             }else{

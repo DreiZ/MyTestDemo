@@ -75,7 +75,7 @@
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.orderNameLabel.mas_left);
         make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.orderNameLabel.mas_bottom).offset(CGFloatIn750(38));
+        make.centerY.equalTo(self.leftImageView.mas_centerY).offset(CGFloatIn750(14));
     }];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {

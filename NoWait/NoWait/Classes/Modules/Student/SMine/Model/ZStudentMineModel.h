@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
     ZLessonOrderHandleTypeTel                       =  101,  //电话
     ZLessonOrderHandleTypeDetail                    =  102,  //详情
     ZLessonOrderHandleTypeClub                      =  103,  //校区详情
+    ZLessonOrderHandleTypeLesson                    =  104,  //校区详情
 };
   
 

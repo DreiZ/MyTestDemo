@@ -147,7 +147,7 @@
             make.top.equalTo(self.footerView.mas_top);
         }];
         
-        __weak typeof(self) weakSelf = self;
+//        __weak typeof(self) weakSelf = self;
         [doneBtn bk_addEventHandler:^(id sender) {
 //            if (weakSelf.payModel.isAliPay) {
 //                if (weakSelf.payModel.order_sn) {

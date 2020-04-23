@@ -53,11 +53,11 @@
 
 
 - (void)setOtherData {
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     self.iTableView.scrollEnabled = NO;
     [self.iTableView reloadData];
     // 是否可以登录
-    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginPwdEnable);
+//    RAC(self.loginBtn, enabled) = RACObserve(weakSelf.loginViewModel, isLoginPwdEnable);
 }
 
 - (void)setupMainView {

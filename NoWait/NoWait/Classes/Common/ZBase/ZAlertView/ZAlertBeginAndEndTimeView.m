@@ -272,7 +272,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
 
 #pragma PGDatePickerDelegate
 - (void)datePicker:(PGDatePicker *)datePicker didSelectDate:(NSDateComponents *)dateComponents {
-    NSLog(@"dateComponents = %@", dateComponents);
+    DLog(@"dateComponents = %@", dateComponents);
     if (datePicker == self.dateBeginPicker) {
         self.beginComponents = dateComponents;
     }

@@ -26,7 +26,6 @@
         [ZUser mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
             return @{@"userID":@"id",
                      @"userCodeID":@"code_id",
-                     @"type":@"pre_login_type",
                      @"avatar":@"image",
                      @"nikeName":@"nick_name"
             };

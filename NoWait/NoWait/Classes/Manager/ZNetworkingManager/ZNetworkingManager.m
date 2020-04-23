@@ -224,7 +224,7 @@
             [percentPath appendFormat:@"&%@=%@", keys[i], params[keys[i]]];
         }
     }
-    return [percentPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [percentPath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
 + (NSString*)getMUrl:(NSString*)url serverType:(ZServerType)serverType {
@@ -278,10 +278,10 @@
     
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:originalDict];
     
-//    [newDict setObject:[ZAppConfig sharedConfig].version forKey:@"version"];
+    [newDict setObject:[ZAppConfig sharedConfig].version forKey:@"v"];
 //    [newDict setObject:@"customer" forKey:@"identity"];
 //    [newDict setObject:SERVICE_APP_KEY forKey:@"app_key"];
-//    [newDict setObject:@"ios" forKey:@"terminal"];
+    [newDict setObject:@"ios" forKey:@"app_type"];
 //    [newDict setObject:[ZNetworking randomStringWithLength:16] forKey:@"nonce"];
 //    [newDict setObject:[[NSString stringWithFormat:@"%@%@%@",SERVICE_APP_SECRET,newDict[@"nonce"],newDict[@"curtime"]] sha1String] forKey:@"checksum"];
     

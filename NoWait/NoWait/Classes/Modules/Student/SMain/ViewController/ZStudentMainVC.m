@@ -63,7 +63,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"color-----%f,%fm%f",[UIColor darkGrayColor].red,[UIColor darkGrayColor].green,[UIColor darkGrayColor].blue);
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
@@ -74,7 +73,7 @@
     
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
         if (!weakSelf.isLoacation && userLocation) {
-             NSLog(@"userLocation %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
+             DLog(@"userLocation %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
             [weakSelf refreshData];
             weakSelf.isLoacation = YES;
         }

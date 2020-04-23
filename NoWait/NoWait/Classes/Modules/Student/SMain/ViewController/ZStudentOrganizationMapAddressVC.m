@@ -292,23 +292,23 @@
            // 起点为“我的位置”，终点为后台返回的address
         NSString *urlString = @"";
         if (self.cureUserLocation) {
-            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         }else{
-            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=&slat=%f&slon=%f&sname=%@&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",latitude,longitude,@"我的位置",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=&slat=%f&slon=%f&sname=%@&did=&dlat=%@&dlon=%@&dname=%@&dev=0&t=0",latitude,longitude,@"我的位置",self.detailModel.latitude,self.detailModel.longitude,self.detailModel.name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         }
 
            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
         // 百度地图
         // 起点为“我的位置”，终点为后台返回的坐标
-            NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin=name:%@|latlng:%f,%f&destination=name:%@|latlng:%@,%@&coord_type=gcj02&mode=driving&src=xiangXinLi.noWait",@"我的位置",latitude,longitude,address,self.detailModel.latitude,self.detailModel.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin=name:%@|latlng:%f,%f&destination=name:%@|latlng:%@,%@&coord_type=gcj02&mode=driving&src=xiangXinLi.noWait",@"我的位置",latitude,longitude,address,self.detailModel.latitude,self.detailModel.longitude] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
     }else
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]){
         // 苹果地图
         // 起点为“我的位置”，终点为后台返回的address
-        NSString *urlString = [[NSString stringWithFormat:@"http://maps.apple.com/?daddr=%@",address] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urlString = [[NSString stringWithFormat:@"http://maps.apple.com/?daddr=%@",address] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     }else{
         // 快递员没有安装上面三种地图APP，弹窗提示安装地图APP

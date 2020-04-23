@@ -284,7 +284,6 @@
 }
 
 - (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction{
-    NSLog(@"0000");
     [self searchPoiByCenterCoordinate];
 }
 
@@ -365,7 +364,6 @@
 
 #pragma mark - -textField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//    NSLog(@"donggggs-----");
     [self searchPoiByKeyword:textField.text];
     return YES;
 }

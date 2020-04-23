@@ -430,8 +430,8 @@
 @property (nonatomic,strong) NSString *ad_url;
 
 @property (nonatomic,strong) NSString *ad_type;//广告类型：1：课程 2：校区 3：URL 4：固定页面
-//@property (nonatomic,strong) ZAdverListContentModel *ad_type_content;
-@property (nonatomic,strong) NSString *ad_type_content;
+@property (nonatomic,strong) ZAdverListContentModel *ad_type_content;
+//@property (nonatomic,strong) NSString *ad_type_content;
 @property (nonatomic,strong) NSString *name;
 @end
 

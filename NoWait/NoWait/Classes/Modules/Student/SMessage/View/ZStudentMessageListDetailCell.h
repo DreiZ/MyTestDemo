@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMessageListDetailCell : ZBaseCell
-@property (nonatomic,strong) void (^detailBlock)();
+@property (nonatomic,strong) void (^detailBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

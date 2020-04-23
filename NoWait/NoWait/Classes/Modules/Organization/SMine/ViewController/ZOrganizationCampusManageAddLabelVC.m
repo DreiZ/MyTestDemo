@@ -262,9 +262,7 @@
 }
 #pragma mark - -textField delegate
 - (void)textFieldDidChange:(UITextField *)textField {
-    NSLog(@"__before________%ld--%ld",(long)self.max,textField.text.length);
     [ZPublicTool textField:textField maxLenght:self.max > 0 ? self.max:20 type:ZFormatterTypeAny];
-    NSLog(@"__________%ld--%ld",(long)self.max,textField.text.length);
 //    self.userNameTF.text = textField.text;
  
     self.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",textField.text.length,self.max > 0 ? self.max:20];

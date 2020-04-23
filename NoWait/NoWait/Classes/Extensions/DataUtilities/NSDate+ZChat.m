@@ -64,7 +64,7 @@
     //    NSString *dateStr = @"2001/01/01";
     NSTimeInterval dateDiff = [self timeIntervalSinceNow];
     long age = fabs(dateDiff/(60*60*24))/365;
-    NSLog(@"年龄是:%@",[NSString stringWithFormat:@"%ld岁",age]);
+    DLog(@"年龄是:%@",[NSString stringWithFormat:@"%ld岁",age]);
     
     //    NSString *year = [dateStr substringWithRange:NSMakeRange(0, 4)];
     //    NSString *month = [dateStr substringWithRange:NSMakeRange(5, 2)];
@@ -72,7 +72,7 @@
     NSString *year = [NSString stringWithFormat:@"%lu",(unsigned long)self.year];
     NSString *month = [NSString stringWithFormat:@"%lu",(unsigned long)self.month];
     NSString *day = [NSString stringWithFormat:@"%lu",(unsigned long)self.day];
-//    NSLog(@"出生于%@年%@月%@日", year, month, day);
+//    DLog(@"出生于%@年%@月%@日", year, month, day);
     
     NSDate *nowDate = [NSDate date];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierISO8601];
@@ -80,14 +80,14 @@
     NSInteger nowYear = compomemts.year;
     NSInteger nowMonth = compomemts.month;
     NSInteger nowDay = compomemts.day;
-//    NSLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
+//    DLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
     
     // 计算年龄
     NSInteger userAge = nowYear - year.intValue - 1;
     if ((nowMonth > month.intValue) || (nowMonth == month.intValue && nowDay >= day.intValue)) {
         userAge++;
     }
-//    NSLog(@"用户年龄是%ld",userAge);
+//    DLog(@"用户年龄是%ld",userAge);
     
     return userAge;
 }

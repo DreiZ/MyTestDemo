@@ -325,43 +325,43 @@
             make.top.equalTo(doneBtn.mas_bottom).offset(CGFloatIn750(120));
         }];
         
-        
-        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
+//
+//        UIView *leftView = [self getMenuBtnWithImageName:@"loginwechat" title:@"微信登录" tag:0];
         UIView *midView = [self getMenuBtnWithImageName:@"loginpassword" title:@"密码登录" tag:1];
-        [_footerView addSubview:leftView];
+//        [_footerView addSubview:leftView];
         [_footerView addSubview:midView];
         
         if (_isSwitch) {
-            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/4);
-                make.width.height.mas_equalTo(CGFloatIn750(120));
-            }];
+//            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+//                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/4);
+//                make.width.height.mas_equalTo(CGFloatIn750(120));
+//            }];
             
             [midView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/4);
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(2.0/4);
                 make.width.height.mas_equalTo(CGFloatIn750(120));
             }];
         }else{
             UIView *rightView = [self getMenuBtnWithImageName:@"loginUserName" title:@"游客模式" tag:2];
             [_footerView addSubview:rightView];
             
-            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/6);
-                make.width.height.mas_equalTo(CGFloatIn750(120));
-            }];
+//            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
+//                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/6);
+//                make.width.height.mas_equalTo(CGFloatIn750(120));
+//            }];
             
             [midView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/6);
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(1.0/4);
                 make.width.height.mas_equalTo(CGFloatIn750(120));
             }];
             
             [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(otherLabel.mas_bottom).offset(CGFloatIn750(60));
-                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(5.0/6);
+                make.centerX.equalTo(self.footerView.mas_right).multipliedBy(3.0/4);
                 make.width.height.mas_equalTo(CGFloatIn750(120));
             }];
         }
@@ -380,7 +380,7 @@
         _protocolLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _protocolLabel.numberOfLines = 0;
         _protocolLabel.textAlignment = NSTextAlignmentCenter;
-        [_protocolLabel setFont:[UIFont fontSmall]];
+        [_protocolLabel setFont:[UIFont fontContent]];
         [_bottomView addSubview:_protocolLabel];
         [_protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.bottomView.mas_centerX);

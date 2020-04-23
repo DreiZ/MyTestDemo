@@ -266,7 +266,7 @@ static ZPayManager *sharedManager;
 - (void)onResp:(BaseResp *)resp {
     if ([resp isKindOfClass:[SendAuthResp class]]) {
 //        SendAuthResp *auth = (SendAuthResp *)resp;
-//        NSLog(@"zzz %@--\n %@--\n%@--\n%@",auth.code,auth.state,auth.country,auth.lang);
+//        DLog(@"zzz %@--\n %@--\n%@--\n%@",auth.code,auth.state,auth.country,auth.lang);
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
         NSString *strMsg = @"";

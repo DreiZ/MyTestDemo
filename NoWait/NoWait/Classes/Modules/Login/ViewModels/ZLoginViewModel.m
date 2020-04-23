@@ -19,20 +19,20 @@
     if (self) {
         _loginModel = [[ZLoginModel alloc] init];
         _registerModel = [[ZRegisterModel alloc] init];
-        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),
-                                                             RACObserve(self, self.loginModel.messageCode)]]
-        map:^id(id value) {
-        RACTupleUnpack(NSString *tel, NSString *messageCode) = value;
-            return @(tel && tel.length == 11 && messageCode && messageCode.length == 6);
-        }];
-        
-        RAC(self, isLoginPwdEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),
-                                                                 
-                                                                 RACObserve(self, self.registerModel.pwd)]]
-               map:^id(id value) {
-               RACTupleUnpack(NSString *tel, NSString *pwd) = value;
-                   return @(tel && tel.length == 11 && pwd && pwd.length >= 8);
-               }];
+//        RAC(self, isLoginEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.loginModel.tel),
+//                                                             RACObserve(self, self.loginModel.messageCode)]]
+//        map:^id(id value) {
+//        RACTupleUnpack(NSString *tel, NSString *messageCode) = value;
+//            return @(tel && tel.length == 11 && messageCode && messageCode.length == 6);
+//        }];
+//        
+//        RAC(self, isLoginPwdEnable)= [[RACSignal combineLatest:@[RACObserve(self, self.registerModel.tel),
+//                                                                 
+//                                                                 RACObserve(self, self.registerModel.pwd)]]
+//               map:^id(id value) {
+//               RACTupleUnpack(NSString *tel, NSString *pwd) = value;
+//                   return @(tel && tel.length == 11 && pwd && pwd.length >= 8);
+//               }];
     }
     return self;
 }
