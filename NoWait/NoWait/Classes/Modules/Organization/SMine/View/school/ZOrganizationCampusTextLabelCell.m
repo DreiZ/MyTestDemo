@@ -232,7 +232,10 @@
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
         NSArray *_hotProductArr = (NSArray *)model.data;
         CGSize titleSize = [model.leftTitle tt_sizeWithFont:[UIFont fontTitle]];
-        CGFloat labelWidth = KScreenWidth - 2 * model.contBackMargin - leftX - (kCellContentSpace +titleSize.width+2 );
+        CGFloat labelWidth = model.cellWidth - 2 * model.contBackMargin - leftX - (model.contentSpace +titleSize.width+2);
+        if (model.isTextEnabled) {
+            labelWidth -= (CGFloatIn750(10) + model.contentSpace);
+        }
         
         CGFloat maxWidth = labelWidth - leftX ;
         CGFloat offSetX = labelWidth - leftX;
