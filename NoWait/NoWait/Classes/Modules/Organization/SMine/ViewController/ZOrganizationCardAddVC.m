@@ -52,7 +52,7 @@
     NSArray *textArr = @[@[@"类型", @"请选择可用课程", @NO, @"rightBlackArrowN", @"type",@30, @"",ftitle,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"名称", @"10字以内", @YES, @"", @"name",@10, @"",SafeStr(self.viewModel.addModel.title),[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"面额", @"0", @YES, @"", @"price",@6, @"元",SafeStr(self.viewModel.addModel.amount),[NSNumber numberWithInt:ZFormatterTypeNumber]],
-                         @[@"满减条件", @"不填写则无条件限制", @YES, @"", @"tiaojian",@6, @"元",SafeStr(self.viewModel.addModel.min_amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
+                         @[@"满减条件", @"最低1元，默认满1元可用", @YES, @"", @"tiaojian",@6, @"元",SafeStr(self.viewModel.addModel.min_amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
                          @[@"有效时间", @"不填写则无时间限制", @NO, @"rightBlackArrowN", @"time", @30, @"",time,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"发行量", @"最大发行量不能超过1000张", @YES, @"", @"num",@4, @"张",SafeStr(self.viewModel.addModel.nums),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"每人限领", @"0", @YES, @"", @"preNum",@3, @"张",SafeStr(self.viewModel.addModel.limit),[NSNumber numberWithInt:ZFormatterTypeNumber]]];
@@ -174,6 +174,12 @@
                 [TLUIUtility showErrorHint:@"请输入卡券面额"];
                 return ;
             }
+            if (ValidStr(weakSelf.viewModel.addModel.min_amount)) {
+                if ([weakSelf.viewModel.addModel.min_amount intValue] < 1) {
+                    [TLUIUtility showErrorHint:@"满减金额不得小于1元"];
+                    return;
+                }
+            }
             
             if (!ValidStr(weakSelf.viewModel.addModel.nums)) {
                 [TLUIUtility showErrorHint:@"请输入发行量"];
@@ -208,15 +214,15 @@
             [params setObject:self.viewModel.addModel.limit forKey:@"limit"];
             [params setObject:self.viewModel.addModel.status forKey:@"status"];
 //            if (!ValidStr(self.viewModel.addModel.min_amount)) {
-//                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满0.01元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-//                                   
+//                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满1元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+//
 //                     }];
 //            }
             
             if (!SafeStr(self.viewModel.addModel.min_amount)) {
                 [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
             }else{
-                [params setObject:@"0.01" forKey:@"min_amount"];
+                [params setObject:@"1" forKey:@"min_amount"];
             }
             
             if (self.viewModel.addModel.isAll) {

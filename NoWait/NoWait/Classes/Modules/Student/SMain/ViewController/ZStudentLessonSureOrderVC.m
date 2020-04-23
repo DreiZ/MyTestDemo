@@ -64,6 +64,7 @@
     [self setOrderPriceCell];
     [self setPayTypeCell];
     [self setUserCell];
+    [self setTipsCell];
 }
 
 - (void)setNavigation {
@@ -378,8 +379,8 @@
     }
     if ([self.detailModel.use_coupons intValue] == 2) {
         double amount = [self.detailModel.pay_amount doubleValue] - [self.cartModel.amount doubleValue];
-        if (amount <= 0.01) {
-            amount = 0.01;
+        if (amount <= 1) {
+            amount = 1;
         }
         
         tempArr = @[@[@"合计",[NSString stringWithFormat:@"%@", SafeStr(self.detailModel.order_amount)]],@[@"平台优惠", [NSString stringWithFormat:@"-￥%@",SafeStr(self.cartModel.amount)]],@[@"",[NSString stringWithFormat:@"订单合计：￥%.2f",amount]]];
@@ -437,6 +438,31 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 
+
+- (void)setTipsCell {
+    NSArray *tempArr = @[@[@"小提醒", @"订单金额不可小于1元，若使用优惠券后，订单金额小于1元，将按照最低1元支付"]];
+    NSMutableArray *configArr = @[].mutableCopy;
+    for (NSArray *tArr in tempArr) {
+        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
+        model.leftTitle = tArr[0];
+        model.rightTitle = tArr[1];
+        model.isHiddenLine = YES;
+        model.cellWidth = KScreenWidth - CGFloatIn750(60);
+        model.singleCellHeight = CGFloatIn750(60);
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
+        model.cellHeight = CGFloatIn750(62);
+        model.leftFont = [UIFont fontSmall];
+        model.rightFont = [UIFont fontSmall];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [configArr addObject:menuCellConfig];
+    }
+    
+    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
+    [self.cellConfigArr addObject:bottomCellConfig];
+}
 
 
 - (void)setUserCell {

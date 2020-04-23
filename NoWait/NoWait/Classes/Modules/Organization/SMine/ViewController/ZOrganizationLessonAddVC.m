@@ -143,11 +143,15 @@
                 return ;
             }
             if (!ValidStr(weakSelf.viewModel.addModel.info)) {
-                [TLUIUtility showErrorHint:@"请添加课程介绍"];
+                [TLUIUtility showErrorHint:@"请添加课程详情"];
                 return ;
             }
             if (!ValidStr(weakSelf.viewModel.addModel.price)) {
                 [TLUIUtility showErrorHint:@"请输入课程价格"];
+                return ;
+            }
+            if ([weakSelf.viewModel.addModel.price intValue] - 1 < 0) {
+                [TLUIUtility showErrorHint:@"课程价格不得少于1元"];
                 return ;
             }
             if (!ValidStr(weakSelf.viewModel.addModel.stores_id)) {
@@ -174,6 +178,10 @@
             if([weakSelf.viewModel.addModel.is_experience intValue] == 1){
                 if (!ValidStr(weakSelf.viewModel.addModel.experience_price)) {
                     [TLUIUtility showErrorHint:@"请输入预约价格"];
+                    return ;
+                }
+                if ([weakSelf.viewModel.addModel.experience_price intValue] < 1) {
+                    [TLUIUtility showErrorHint:@"预约价格不得小于1元"];
                     return ;
                 }
                 if (!ValidStr(weakSelf.viewModel.addModel.experience_duration)) {

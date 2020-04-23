@@ -516,7 +516,7 @@
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = self.addModel.price;
-    model.rightTitle = [NSString stringWithFormat:@"%@/%@",SafeStr(self.addModel.pay_nums).length > 0? SafeStr(self.addModel.pay_nums):@"0",self.addModel.course_class_number];
+    model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.course_class_number];
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];

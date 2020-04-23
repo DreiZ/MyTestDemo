@@ -159,7 +159,8 @@
 - (UIImageView *)hintImageView {
     if (!_hintImageView) {
         _hintImageView = [[UIImageView alloc] init];
-        _hintImageView.image = [UIImage imageNamed:@"questionHint"];
+        _hintImageView.image = [[UIImage imageNamed:@"questionHint"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _hintImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     return _hintImageView;
 }
