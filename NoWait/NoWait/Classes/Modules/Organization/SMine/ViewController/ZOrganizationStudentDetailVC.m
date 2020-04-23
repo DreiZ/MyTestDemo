@@ -103,7 +103,7 @@
         NSMutableArray *temp = @[@[@"课程进度", [NSString stringWithFormat:@"%@/%@节",SafeStr(self.addModel.now_progress),SafeStr(self.addModel.total_progress)]],
                           @[@"优惠明细", ValidStr(self.addModel.coupons_name) ?  SafeStr(self.addModel.coupons_name):@"未使用优惠券"],
         @[@"学员状态", statusStr],
-        @[@"开课日期", [SafeStr(self.addModel.start_time) timeStringWithFormatter:@"yyyy-MM-dd"]],
+                                 @[@"开课日期", [SafeStr(self.addModel.start_time) isEqualToString:@"0"]?@"": [SafeStr(self.addModel.start_time) timeStringWithFormatter:@"yyyy-MM-dd"]],
         @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
         
         @[@"报名须知", @""]].mutableCopy;
