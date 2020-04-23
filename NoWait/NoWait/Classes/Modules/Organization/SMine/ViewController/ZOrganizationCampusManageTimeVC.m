@@ -49,7 +49,7 @@
     self.mounthData1 = menulist;
     if (self.months) {
         for (int i = 0; i < self.months.count; i++) {
-            if ([self.months[i] intValue] - 1 < 12) {
+            if ([self.months[i] intValue] - 1 < 12 && [self.months[i] intValue] - 1 >= 0) {
                 ZBaseUnitModel *model = menulist[[self.months[i] intValue] - 1];
                 model.isSelected = YES;
             }

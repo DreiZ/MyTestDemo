@@ -277,7 +277,7 @@
 
 #pragma mark - 上传图片
 - (void)updatePhotosStep1 {
-    [TLUIUtility showLoading:@"上传图片中"];
+    [TLUIUtility showLoading:@"上传图片中..."];
     NSInteger tindex = 0;
     [self updatePhotosStep2WithImage:tindex];
 }
@@ -285,7 +285,7 @@
  - (void)updatePhotosStep2WithImage:(NSInteger)index {
      [self updatePhotosStep3WithImage:index complete:^(BOOL isSuccess, NSInteger index) {
          if (index == self.uploadArr.count-1) {
-             [TLUIUtility showLoading:@"上传其他数据"];
+             [TLUIUtility showLoading:@"上传图片中..."];
              [self updateData];
          }else{
              index++;
@@ -295,7 +295,7 @@
 }
 
 - (void)updatePhotosStep3WithImage:(NSInteger)index complete:(void(^)(BOOL, NSInteger))complete{
-    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传课程相册中 %ld/%ld",index+1,self.uploadArr.count]];
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传图片中 %ld/%ld",index+1,self.uploadArr.count]];
     
     id temp = self.uploadArr[index];
    
@@ -311,6 +311,7 @@
     __weak typeof(self) weakSelf = self;
     [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"1",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
+//            [TLUIUtility hiddenLoading];
             [weakSelf.uploadNetArr addObject:message];
             complete(YES,index);
         }else{
@@ -331,7 +332,7 @@
     }
     [params setObject:imageUrlArr forKey:@"images"];
     
-    [TLUIUtility showLoading:@""];
+    [TLUIUtility showLoading:@"上传图片中..."];
     [ZOriganizationPhotoViewModel addImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {

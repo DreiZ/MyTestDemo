@@ -39,7 +39,7 @@
     for (int i = 0; i < 24; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
-            model.name = [NSString stringWithFormat:@"0%d:00",i];
+            model.name = [NSString stringWithFormat:@"%d:00",i];
         }else{
             model.name = [NSString stringWithFormat:@"%d:00",i];
         }
@@ -149,9 +149,8 @@
             _cityIndex = i;
         }
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.pickView selectRow:self.proIndex inComponent:self.cityIndex animated:YES];
-    });
+    [self.pickView selectRow:self.proIndex inComponent:0 animated:YES];
+    [self.pickView selectRow:self.cityIndex inComponent:1 animated:YES];
 }
 
 
