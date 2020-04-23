@@ -267,7 +267,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [self.cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZOrganizationTimeLeftCell"]) {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationTimeLeftCell"] && self.iTableView == tableView) {
         for (int i = 0; i < self.dataSources.count; i++) {
             ZBaseUnitModel *model = self.dataSources[i];
             if (i == indexPath.row) {

@@ -87,7 +87,7 @@ static ZAlertDateHourPickerView *sharedManager;
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
@@ -132,11 +132,11 @@ static ZAlertDateHourPickerView *sharedManager;
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+       bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
        [topView addSubview:bottomLineView];
        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.right.bottom.equalTo(topView);
-           make.height.mas_equalTo(1);
+           make.height.mas_equalTo(0.5);
        }];
        
     
@@ -150,7 +150,7 @@ static ZAlertDateHourPickerView *sharedManager;
     
     //设置分割线
     for (UIView *line in self.pickView.subviews) {
-        if (line.frame.size.height < 1) {//0.6667
+        if (line.frame.size.height <= 1) {//0.6667
             line.backgroundColor = [UIColor clearColor];
         }
     }
@@ -210,6 +210,8 @@ static ZAlertDateHourPickerView *sharedManager;
     
     self.proIndex = 0;
     self.cityIndex = 0;
+    [self.pickView selectRow:0 inComponent:0 animated:YES];
+    [self.pickView selectRow:0 inComponent:1 animated:YES];
     for (int i = 0; i < 24; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
@@ -253,13 +255,13 @@ static ZAlertDateHourPickerView *sharedManager;
 //自定义每个pickview的label
 -(UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UIView *sectionView = [[UIView alloc] init];
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
-    [sectionView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(sectionView);
-        make.height.mas_equalTo(0.5);
-    }];
+//    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+//    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLine]);
+//    [sectionView addSubview:bottomLineView];
+//    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(sectionView);
+//        make.height.mas_equalTo(0.5);
+//    }];
 
     UILabel* pickerLabel = [UILabel new];
     pickerLabel.numberOfLines = 0;
