@@ -180,16 +180,21 @@
 - (void)updateData {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableArray *ids = @[].mutableCopy;
+    
+    NSMutableDictionary *extra = @{}.mutableCopy;
+    NSMutableArray *name = @[].mutableCopy;
    for (ZOriganizationStudentListModel *model in self.studentList) {
            NSMutableDictionary *para = @{}.mutableCopy;
        if (model && model.account_id) {
            [para setObject:model.account_id forKey:@"account_id"];
            [para setObject:self.lessonName forKey:@"title"];
-           [para setObject:model.name forKey:@"sender"];
+           [name addObject:model.name];
            [ids addObject:para];
        }
     
    }
+    [extra setObject:name forKey:@"name"];
+    [params setObject:extra forKey:@"extra"];
     [params setObject:ids forKey:@"receive"];
     [params setObject:SafeStr(self.teacherName) forKey:@"sender1"];
     [params setObject:SafeStr(self.storesName) forKey:@"sender2"];

@@ -223,6 +223,8 @@
     _model = model;
     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
         _hintLabel.text = [NSString stringWithFormat:@"%@:%@人 >",model.type_msg,model.send_num];
+    }else{
+        _hintLabel.text = model.type_msg;
     }
     
     _timeLabel.text = [model.create_at timeStringWithFormatter:@"MM-dd HH:mm"];
@@ -230,7 +232,6 @@
     _contentLabel.text = model.content;
     _bRightLabel.text = model.sender1;
     _bLeftLabel.text = model.sender2;
-    _hintLabel.text = model.type_msg;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

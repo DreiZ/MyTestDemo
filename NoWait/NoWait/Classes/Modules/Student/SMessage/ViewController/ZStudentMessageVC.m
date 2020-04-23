@@ -83,9 +83,11 @@
     if ([cellConfig.title isEqualToString:@"ZMessageCell"]) {
         ZMessageCell *lcell = (ZMessageCell *)cell;
         lcell.handleBlock = ^(ZMineMessageModel * message) {
-            ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
-            svc.model = message;
-            [self.navigationController pushViewController:svc animated:YES];
+            if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
+                svc.model = message;
+                [self.navigationController pushViewController:svc animated:YES];
+            }
         };
     }
 }
