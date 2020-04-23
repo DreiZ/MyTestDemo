@@ -64,9 +64,15 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
         ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
         enteryCell.handleBlock = ^(ZOriganizationClassListModel *model) {
-            NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:model.courses_class_id forKey:@"courses_class_id"];
-            [self getSignQrcode:params];
+//            NSMutableDictionary *params = @{}.mutableCopy;
+//            [params setObject:model.courses_class_id forKey:@"courses_class_id"];
+//            [self getSignQrcode:params];
+            ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
+            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
+            dvc.type = 0;
+            dvc.courses_class_id = cellmodel.courses_class_id;
+            dvc.student_id = cellmodel.student_id;
+            [self.navigationController pushViewController:dvc animated:YES];
         };
     }
 }

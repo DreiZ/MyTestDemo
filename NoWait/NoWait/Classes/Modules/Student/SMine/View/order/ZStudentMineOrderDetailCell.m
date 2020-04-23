@@ -453,7 +453,11 @@
             {
                 [self setDetailDes];
                 [self setSubDetail];
-                [self setDetailBottomViewBottom];
+                if ([self.model.has_can_refund intValue] == 1 ) {
+                    [self setDetailBottomViewBottom];
+                }else{
+                    [self setDetailSubViewBottom];
+                }
             }
             break;
         case ZOrganizationOrderTypeHadEva:
@@ -674,7 +678,12 @@
                 return CGFloatIn750(328 + 56 * 3 + 28);
                 break;
             case ZStudentOrderTypeHadPay://已付款（评价，退款，删除）
-                return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                if ([listModel.has_can_refund intValue] == 1) {
+                    return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+                }else{
+                    return CGFloatIn750(328 + 56 * 3 + 28 );
+                }
+                
                 break;
             case ZOrganizationOrderTypeHadEva:
                 return CGFloatIn750(328 + 56 * 3 + 28);

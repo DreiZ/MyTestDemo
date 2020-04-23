@@ -523,7 +523,8 @@
             if (model.order_type == ZStudentOrderTypeOrderForReceived
                 || model.order_type == ZStudentOrderTypeHadEva
                 || model.order_type == ZStudentOrderTypeOrderRefuse
-                || model.order_type == ZStudentOrderTypeOrderComplete) {
+                || model.order_type == ZStudentOrderTypeOrderComplete
+                || (model.order_type == ZStudentOrderTypeHadPay && [model.can_comment intValue] != 1)) {
                 
                 [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.right.left.equalTo(self.bottomView);

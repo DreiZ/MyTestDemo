@@ -52,7 +52,7 @@
 - (void)setDataSource {
     [super setDataSource];
     _items = @[].mutableCopy;
-    _typeList = @[@"体育",@"艺术",@"兴趣",@"其他"];
+    _typeList = @[@"体育竞技",@"艺术舞蹈",@"兴趣爱好",@"其他"];
     _model = [[ZOriganizationSchoolDetailModel alloc] init];
 }
 

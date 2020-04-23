@@ -73,7 +73,7 @@
     self.weeksData2 = tweeks;
     if (self.weeks) {
         for (int i = 0; i < self.weeks.count; i++) {
-            if ([self.weeks[i] intValue] - 1 < 7) {
+            if ([self.weeks[i] intValue] - 1 < 7 && [self.weeks[i] intValue] - 1 >= 0) {
                 ZBaseSingleCellModel *model = _weeksData2[[self.weeks[i] intValue] - 1];
                 model.isSelected = YES;
                 model.rightImage = @"selectedCycle";
