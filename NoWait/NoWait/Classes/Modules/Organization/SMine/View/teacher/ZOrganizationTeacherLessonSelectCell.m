@@ -94,7 +94,7 @@
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentRight];
         [_inputTextField setPlaceholder:@"教师带课价格"];
-        _inputTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _inputTextField.keyboardType = UIKeyboardTypeDecimalPad;
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -155,6 +155,10 @@
         _leftImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
     }
     return _leftImageView;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:ZFormatterTypeDecimal];
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {

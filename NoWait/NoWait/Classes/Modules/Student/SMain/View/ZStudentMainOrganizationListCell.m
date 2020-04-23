@@ -225,7 +225,7 @@
     CGFloat leftX = 0;
     CGFloat leftY = 0;
     for (int i = 0; i < textArr.count; i++) {
-        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY];
+        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY colorType:YES];
         leftY = label.top;
         [self.activityView addSubview:label];
         leftX = label.right + CGFloatIn750(8);
@@ -253,7 +253,7 @@
     CGFloat leftX = 0;
     CGFloat leftY = 0;
     for (int i = 0; i < textArr.count; i++) {
-        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY];
+        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY colorType:NO];
         leftY = label.top;
         [self.introductionView addSubview:label];
         leftX = label.right + CGFloatIn750(8);
@@ -267,12 +267,18 @@
     }];
 }
 
-- (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY{
+- (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY colorType:(BOOL)isTags{
      CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, leftY, tempSize.width+6, CGFloatIn750(36))];
-    actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub],[UIColor colorMainSub]);
-    actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    if (isTags) {
+        actLabel.backgroundColor = adaptAndDarkColor([UIColor colorMainSub],[UIColor colorMainSub]);
+        actLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    }else{
+        actLabel.backgroundColor = adaptAndDarkColor([UIColor colorRedForLabelSub],[UIColor colorRedForLabelSub]);
+        actLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+    }
+    
     actLabel.layer.masksToBounds = YES;
     actLabel.layer.cornerRadius = 2;
     actLabel.text = text;

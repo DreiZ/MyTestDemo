@@ -138,6 +138,10 @@
     return _leftImageView;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:ZFormatterTypeDecimal];
+}
+
 - (void)textFieldDidChange:(UITextField *)textField {
     [ZPublicTool textField:textField maxLenght:10 type:ZFormatterTypeDecimal];
     

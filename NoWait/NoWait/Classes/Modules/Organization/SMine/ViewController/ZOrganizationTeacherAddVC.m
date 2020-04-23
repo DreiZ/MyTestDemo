@@ -74,7 +74,7 @@
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",@2,[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",@11,SafeStr(self.viewModel.addModel.phone),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"身份证号码", @"请输入身份号", @YES, @"", @"cid",@18,SafeStr(self.viewModel.addModel.id_card),[NSNumber numberWithInt:ZFormatterTypeAny]],
-                        @[@"教师等级", @"请选择等级", @NO, @"rightBlackArrowN", @"class",@18,level,[NSNumber numberWithInt:ZFormatterTypeAny]],
+//                        @[@"教师等级", @"请选择等级", @NO, @"rightBlackArrowN", @"class",@18,level,[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"教师职称", @"请输入教师职称", @YES, @"", @"title",@10,SafeStr(self.viewModel.addModel.position),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"任课课程", @"请选择课程", @YES, @"rightBlackArrowN", @"lesson",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"特长技能", @"请添加特长技能", @YES, @"rightBlackArrowN", @"skill",@40,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]]];
@@ -276,7 +276,7 @@
             [params setObject:SafeStr(weakSelf.viewModel.addModel.sex) forKey:@"sex"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.phone) forKey:@"phone"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.id_card) forKey:@"id_card"];
-            [params setObject:SafeStr(weakSelf.viewModel.addModel.c_level) forKey:@"c_level"];
+//            [params setObject:SafeStr(weakSelf.viewModel.addModel.c_level) forKey:@"c_level"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.position) forKey:@"position"];
             
             if (ValidArray(weakSelf.viewModel.addModel.lessonList)) {
