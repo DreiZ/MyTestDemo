@@ -230,6 +230,7 @@
     _contentLabel.text = model.content;
     _bRightLabel.text = model.sender1;
     _bLeftLabel.text = model.sender2;
+    _hintLabel.text = model.type_msg;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

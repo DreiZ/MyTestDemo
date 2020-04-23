@@ -164,7 +164,7 @@
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _contView.layer.cornerRadius = CGFloatIn750(20);
-        ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, [UIColor colorGrayBG]);
+        ViewShadowRadius(_contView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]));
     }
     return _contView;
 }

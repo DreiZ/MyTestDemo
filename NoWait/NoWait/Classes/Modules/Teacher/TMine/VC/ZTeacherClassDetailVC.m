@@ -234,7 +234,7 @@
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
-            NSArray *weekArr = @[@[@"手动新增学员",@"listadd",@"add"],@[@"二维码新增学员",@"erweimlist",@"code"]];
+            NSArray *weekArr = @[@[@"新增线上学员",@"listadd",@"add"],@[@"二维码新增学员",@"erweimlist",@"code"]];
             [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
                 if ([index isEqualToString:@"code"]) {
                     ZOriganizationStudentCodeAddModel *addModel = [[ZOriganizationStudentCodeAddModel alloc] init];

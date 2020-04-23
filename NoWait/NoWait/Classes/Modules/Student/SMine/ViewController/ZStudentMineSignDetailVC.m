@@ -33,7 +33,7 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"上课进度";
-        model.rightTitle = [NSString stringWithFormat:@"%@/%@节",SafeStr(self.detailModel.now_progress),SafeStr(self.detailModel.total_progress)];
+        model.rightTitle = [NSString stringWithFormat:@"%d/%@节",[self.detailModel.now_progress intValue] + [self.detailModel.replenish_nums intValue],SafeStr(self.detailModel.total_progress)];
         model.isHiddenLine = NO;
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);
@@ -49,7 +49,7 @@
         
         [self.cellConfigArr addObject:topCellConfig];
         
-        NSArray *tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue] + [self.detailModel.replenish_nums intValue]]],
+        NSArray *tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue]]],
                              @[@"补签", [NSString stringWithFormat:@"%@节", self.detailModel.replenish_nums]]
                              ,@[@"请假", [NSString stringWithFormat:@"%@节", self.detailModel.vacate_nums]],
                              @[@"旷课", [NSString stringWithFormat:@"%@节", self.detailModel.truancy_nums]],

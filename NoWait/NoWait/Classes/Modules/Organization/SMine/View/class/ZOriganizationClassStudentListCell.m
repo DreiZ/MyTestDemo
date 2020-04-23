@@ -227,7 +227,7 @@
 - (void)setModel:(ZOriganizationStudentListModel *)model {
     _model = model;
     _nameLabel.text = model.name;
-    _numLabel.text = [NSString stringWithFormat:@"%@/%@",model.now_progress,model.total_progress];
+    _numLabel.text = [NSString stringWithFormat:@"%d/%@",[model.now_progress intValue] + [model.replenish_nums intValue],model.total_progress];
     
     if (model.isEdit) {
         _selectedBtn.hidden = NO;

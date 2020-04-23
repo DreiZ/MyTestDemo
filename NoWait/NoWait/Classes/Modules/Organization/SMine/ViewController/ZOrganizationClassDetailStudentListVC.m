@@ -148,7 +148,7 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             if (self.type == 2) {
-                NSArray *weekArr = @[@[@"手动新增学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
+                NSArray *weekArr = @[@[@"新增线上学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
                [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
                    if ([index isEqualToString:@"code"]) {
                        ZOriganizationStudentCodeAddModel *addModel = [[ZOriganizationStudentCodeAddModel alloc] init];

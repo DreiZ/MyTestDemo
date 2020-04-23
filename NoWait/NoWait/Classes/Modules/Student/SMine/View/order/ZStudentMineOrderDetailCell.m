@@ -585,8 +585,8 @@
         mModel.rightDarkColor = [UIColor colorTextGrayDark];
         mModel.leftColor = [UIColor colorTextBlack];
         mModel.leftDarkColor = [UIColor colorTextBlackDark];
-        mModel.singleCellHeight = CGFloatIn750(54);
-        mModel.cellHeight = CGFloatIn750(55);
+        mModel.singleCellHeight = CGFloatIn750(52);
+        mModel.cellHeight = CGFloatIn750(54);
         mModel.titleWidth = CGFloatIn750(250);
         mModel.cellWidth = KScreenWidth - CGFloatIn750(60);
         mModel.rightTitle = [NSString stringWithFormat:@"%@",tempArr[1]];
