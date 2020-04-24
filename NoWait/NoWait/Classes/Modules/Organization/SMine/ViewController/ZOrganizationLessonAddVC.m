@@ -125,7 +125,7 @@
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
-        [_bottomBtn setTitle:@"提交审核" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
@@ -286,9 +286,6 @@
     ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:image];
     [self.cellConfigArr addObject:addImageCellConfig];
     
-    if (ValidStr(self.viewModel.addModel.lessonID)) {
-        return;
-    }
     NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简称",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
     for (int i = 0 ; i < titleArr.count; i++) {
@@ -303,7 +300,12 @@
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineLeftMargin = CGFloatIn750(30);
         model.textFieldHeight = CGFloatIn750(110);
-        model.isTextEnabled = YES;
+        if (ValidStr(self.viewModel.addModel.lessonID)) {
+            model.isTextEnabled = NO;
+        }else{
+            model.isTextEnabled = YES;
+        }
+        
         model.leftMargin = CGFloatIn750(10);
         
         model.placeholder = titleArr[i][0];
@@ -396,12 +398,10 @@
     if ([self.viewModel.addModel.level intValue] < 1) {
         self.viewModel.addModel.level = @"1";
     }
-    if (ValidStr(self.viewModel.addModel.lessonID)) {
-        return;
-    }
+    
     NSArray *temp = @[@"初级",@"进阶",@"精英"];
-    NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO, @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"课程级别", @"请选择课程级别", @NO, @"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+    NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO,ValidStr(self.viewModel.addModel.lessonID) ?@"": @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"课程级别", @"请选择课程级别", @NO, ValidStr(self.viewModel.addModel.lessonID)? @"":@"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",self.viewModel.addModel.course_min,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",self.viewModel.addModel.course_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"班级人数", @"请输入班级人数", @YES, @"", @"人", @"peoples",self.viewModel.addModel.course_class_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
@@ -414,7 +414,12 @@
         
         cellModel.leftTitle = textArr[i][0];
         cellModel.placeholder = textArr[i][1];
-        cellModel.isTextEnabled = [textArr[i][2] boolValue];
+        if (ValidStr(self.viewModel.addModel.lessonID)) {
+            cellModel.isTextEnabled = NO;
+        }else{
+            cellModel.isTextEnabled = [textArr[i][2] boolValue];
+        }
+        
         cellModel.rightImage = textArr[i][3];
         cellModel.rightTitle = textArr[i][4];
         cellModel.cellTitle = textArr[i][5];
@@ -494,40 +499,45 @@
 }
 
 - (void)addValidity {
-    if (!ValidStr(self.viewModel.addModel.lessonID)) {
-        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-        cellModel.leftTitle = @"课程有效期";
-        cellModel.placeholder = @"请输入课程有效期";
+
+    ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+    cellModel.leftTitle = @"课程有效期";
+    cellModel.placeholder = @"请输入课程有效期";
+    if (ValidStr(self.viewModel.addModel.lessonID)) {
+        cellModel.isTextEnabled = NO;
+    }else{
         cellModel.isTextEnabled = YES;
-        cellModel.rightTitle = @"月";
-        cellModel.cellTitle = @"validityTime";
-        cellModel.isHiddenLine = YES;
-        cellModel.cellHeight = CGFloatIn750(116);
-        cellModel.textColor = [UIColor colorTextGray];
-        cellModel.content = self.viewModel.addModel.valid_at;
-        cellModel.max = 3;
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-        [self.cellConfigArr addObject:textCellConfig];
     }
     
-    if (!ValidStr(self.viewModel.addModel.lessonID)) {
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.type];
+    cellModel.rightTitle = @"月";
+    cellModel.cellTitle = @"validityTime";
+    cellModel.isHiddenLine = YES;
+    cellModel.cellHeight = CGFloatIn750(116);
+    cellModel.textColor = [UIColor colorTextGray];
+    cellModel.content = self.viewModel.addModel.valid_at;
+    cellModel.max = 3;
+
+    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+    [self.cellConfigArr addObject:textCellConfig];
+
+
+
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.type];
+
+    [self.cellConfigArr addObject:menuCellConfig];
+    if ([self.viewModel.addModel.type intValue] == 1) {
+        [self addTimeLesson];
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.isHiddenLine = NO;
+        model.cellHeight = CGFloatIn750(20);
+        model.lineLeftMargin = CGFloatIn750(30);
+        model.lineRightMargin = CGFloatIn750(30);
         
-        [self.cellConfigArr addObject:menuCellConfig];
-        if ([self.viewModel.addModel.type intValue] == 1) {
-            [self addTimeLesson];
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.isHiddenLine = NO;
-            model.cellHeight = CGFloatIn750(20);
-            model.lineLeftMargin = CGFloatIn750(30);
-            model.lineRightMargin = CGFloatIn750(30);
-            
-            ZCellConfig *spaceLineCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:spaceLineCellConfig];
-        }
+        ZCellConfig *spaceLineCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:spaceLineCellConfig];
     }
+
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -784,23 +794,28 @@
     }else if ([cellConfig.title isEqualToString:@"type"]) {
         ZOrganizationLessonTypeCell *tCell = (ZOrganizationLessonTypeCell *)cell;
         tCell.handleBlock = ^(NSInteger index) {
-            weakSelf.viewModel.addModel.type = (index==0? @"1":@"2");
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            if (!ValidStr(weakSelf.viewModel.addModel.lessonID)) {
+                weakSelf.viewModel.addModel.type = (index==0? @"1":@"2");
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
         };
+        tCell.isEdit = !ValidStr(self.viewModel.addModel.lessonID);
     }else if ([cellConfig.title isEqualToString:@"lessonTime"]){
         
         ZTextFieldMultColCell *tCell = (ZTextFieldMultColCell *)cell;
         tCell.selectBlock = ^{
             [weakSelf.iTableView endEditing:YES];
-            ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
-            svc.timeArr = weakSelf.viewModel.addModel.fix_time;
-            svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
-                weakSelf.viewModel.addModel.fix_time = timeArr;
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-            };
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            if (!ValidStr(weakSelf.viewModel.addModel.lessonID)) {
+                ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+                svc.timeArr = weakSelf.viewModel.addModel.fix_time;
+                svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
+                    weakSelf.viewModel.addModel.fix_time = timeArr;
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                };
+                [weakSelf.navigationController pushViewController:svc animated:YES];
+            }
         };
         
     }else if ([cellConfig.title isEqualToString:@"orderTimeToTime"]){
@@ -854,21 +869,24 @@
 //        }];
     }else if ([cellConfig.title isEqualToString:@"class"]) {
         [self.iTableView endEditing:YES];
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = @[@"初级",@"进阶",@"精英"];
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           [items addObject:model];
-        }
+        if (!ValidStr(self.viewModel.addModel.lessonID)) {
+            NSMutableArray *items = @[].mutableCopy;
+            NSArray *temp = @[@"初级",@"进阶",@"精英"];
+            for (int i = 0; i < temp.count; i++) {
+               ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+               model.name = temp[i];
+               [items addObject:model];
+            }
 
-        [self.items removeAllObjects];
-        [self.items addObjectsFromArray:items];
-        [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
-            weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
-           [weakSelf initCellConfigArr];
-           [weakSelf.iTableView reloadData];
-        }];
+            [self.items removeAllObjects];
+            [self.items addObjectsFromArray:items];
+            [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
+                weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
+               [weakSelf initCellConfigArr];
+               [weakSelf.iTableView reloadData];
+            }];
+        }
+        
     } else if ([cellConfig.title isEqualToString:@"orderTimeToTime"]) {
         [self.iTableView endEditing:YES];
         ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];

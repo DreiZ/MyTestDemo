@@ -32,6 +32,9 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 //截图
 + (UIImage *)snapshotForView:(UIView *)view;
 
+//压缩
+-(UIImage *)compressImage:(UIImage *)image;
+
 //保存图片到相册
 + (void)saveImageToPhoto:(UIImage *)image;
 

@@ -73,10 +73,12 @@
     __weak typeof(self) weakSelf = self;
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn bk_whenTapped:^{
-        if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(0);
+        if (weakSelf.isEdit) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(0);
+            }
+            weakSelf.isGu = @"1";
         }
-        weakSelf.isGu = @"1";
     }];
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,10 +89,12 @@
     
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn bk_whenTapped:^{
-        if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(1);
+        if (weakSelf.isEdit) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            }
+            weakSelf.isGu = @"2";
         }
-        weakSelf.isGu = @"2";
     }];
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -176,6 +180,10 @@
         _leftImageView.image = [UIImage imageNamed:@"unSelectedCycle"];
         _rightImageView.image = [UIImage imageNamed:@"selectedCycle"];
     }
+}
+
+- (void)setIsEdit:(BOOL)isEdit {
+    _isEdit = isEdit;
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

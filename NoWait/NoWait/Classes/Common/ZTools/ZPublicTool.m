@@ -39,6 +39,33 @@
     }
 }
 
+#pragma mark -
+-(UIImage *)compressImage:(UIImage *)image {
+    NSData *imgdata = UIImagePNGRepresentation(image);
+    if (imgdata.length > 1024000 || image.size.width>600) {
+        if(image.size.width>600)
+        {
+            image  = [self OriginImage:image scaleToSize:CGSizeMake(600., (image.size.height*600.)/image.size.width)];
+        }else{
+            image  = [self OriginImage:image scaleToSize:CGSizeMake(image.size.width/2.0, image.size.height/2.0)];
+        }
+        
+        image = [self compressImage:image];
+        return image;
+    }else{
+        return image;
+    }
+}
+
+//图片处理，图片压缩
+- (UIImage*)OriginImage:(UIImage *)image scaleToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);  //size 为CGSize类型，即你所需要的图片尺寸
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;   //返回的就是已经改变的图片
+}
+
 #pragma mark - 截屏
 + (UIImage *)snapshotForView:(UIView *)view {
     UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, [UIScreen mainScreen].scale);
