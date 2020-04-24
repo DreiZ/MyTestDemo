@@ -323,7 +323,7 @@
     NSMutableArray *parameters = [[NSMutableArray alloc] init];
     NSMutableDictionary *parameterDic = [[NSMutableDictionary alloc] init];
     [parameterDic addEntriesFromDictionary:postDic];
-
+    
     for (NSString *key  in [parameterDic allKeys]) {
         NSString *valueStr = parameterDic[key];
         if ([parameterDic[key] isKindOfClass:[UIImage class]] || [key isEqualToString:@"imageKey"]){
