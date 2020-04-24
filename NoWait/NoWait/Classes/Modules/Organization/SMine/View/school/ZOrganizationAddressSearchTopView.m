@@ -58,7 +58,7 @@
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(120));
     }];
     
     [self.addressHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,7 +76,7 @@
     
     [self.contView addSubview:self.searhBackView];
     [self.searhBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.addressHintImageView.mas_right).offset(CGFloatIn750(18));
+        make.left.equalTo(self.addressLabel.mas_right).offset(CGFloatIn750(18));
         make.height.mas_equalTo(CGFloatIn750(64));
         make.right.equalTo(self.cancleBtn.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.addressHintImageView);
@@ -92,7 +92,7 @@
         make.right.equalTo(self.searhBackView.mas_left);
     }];
     
-    
+    self.addressHintImageView.hidden = YES;
 }
 
 - (UIView *)contView {
@@ -112,6 +112,7 @@
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
         [_addressLabel setFont:[UIFont fontTitle]];
+        [_addressLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _addressLabel;
 }
@@ -207,6 +208,10 @@
     return _iTextField;
 }
 
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    _addressLabel.text = title;
+}
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{

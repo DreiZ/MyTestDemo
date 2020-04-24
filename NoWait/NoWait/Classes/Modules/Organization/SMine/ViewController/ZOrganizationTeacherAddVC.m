@@ -268,6 +268,10 @@
                 [TLUIUtility showErrorHint:@"请输入教师职称"];
                 return ;
             }
+            if (!ValidStr(weakSelf.viewModel.addModel.des)) {
+                [TLUIUtility showErrorHint:@"请输入教师描述"];
+                return ;
+            }
             
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
@@ -289,7 +293,12 @@
                 if (temp.count > 0) {
                     [params setObject:temp forKey:@"class_ids"];
                 }
+            }else{
+                if (ValidStr(self.viewModel.addModel.teacherID)) {
+                    [params setObject:@[] forKey:@"class_ids"];
+                }
             }
+            
             if (ValidArray(weakSelf.viewModel.addModel.skills)) {
                 NSMutableArray *temp = @[].mutableCopy;
                 for (NSString *str in self.viewModel.addModel.skills) {
@@ -298,9 +307,15 @@
                 if (temp.count > 0) {
                     [params setObject:temp forKey:@"skills"];
                 }
+            }else{
+                if (ValidStr(self.viewModel.addModel.teacherID)) {
+                    [params setObject:@[] forKey:@"skills"];
+                }
             }
             
             if (ValidStr(weakSelf.viewModel.addModel.des)) {
+                [params setObject:weakSelf.viewModel.addModel.des forKey:@"description"];
+            }else{
                 [params setObject:weakSelf.viewModel.addModel.des forKey:@"description"];
             }
             [weakSelf updateImageWithOtherParams:params];

@@ -53,6 +53,7 @@
 //    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
 //    [self.cellConfigArr addObject:campusCellConfig];
 
+    
     for (int i = 0; i < self.dataSources.count; i++) {
         POIAnnotation *annotation = self.dataSources[i];
         ZLocationModel *model = [[ZLocationModel alloc] init];
@@ -66,12 +67,13 @@
         model.address = annotation.poi.name;
         if (i == 0) {
             _location = model;
-        
+            [_topSearchView setTitle:annotation.poi.city];
         }
         
         ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressLocationCell className] title:@"location" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressLocationCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:campusCellConfig];
     }
+    
 }
 
 

@@ -139,9 +139,9 @@
         model.city = annotation.poi.citycode;
         model.province = annotation.poi.pcode;
         model.district = annotation.poi.adcode;
-        model.address = [NSString stringWithFormat:@"%@%@%@%@",annotation.poi.province,annotation.poi.city,annotation.poi.district,annotation.poi.address];
+        model.businessArea = [NSString stringWithFormat:@"%@%@%@%@",annotation.poi.province,annotation.poi.city,annotation.poi.district,annotation.poi.address];
         model.name = annotation.poi.name;
-        model.businessArea = annotation.poi.businessArea;
+        model.address = annotation.poi.name;
         
          ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAddressSearchResultCell className] title:@"result" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAddressSearchResultCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];

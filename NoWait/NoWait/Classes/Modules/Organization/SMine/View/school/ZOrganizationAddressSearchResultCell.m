@@ -95,7 +95,7 @@
     _model = model;
     
     self.titleLabel.text = model.name;
-    self.subTitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@",model.province,model.city,model.district,model.address];
+    self.subTitleLabel.text = [NSString stringWithFormat:@"%@%@",model.businessArea,model.address];
     if (model.isSelected) {
         self.titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
     }else{
@@ -108,7 +108,7 @@
 
 +(CGFloat)z_getCellHeight:(id)sender {
     ZLocationModel *model = (ZLocationModel *)sender;
-    CGSize tempSize = [[NSString stringWithFormat:@"%@%@%@%@",model.province,model.city,model.district,model.address] tt_sizeWithFont:[UIFont fontSmall] constrainedToWidth:KScreenWidth - CGFloatIn750(150)];
+    CGSize tempSize = [[NSString stringWithFormat:@"%@%@",model.businessArea,model.address] tt_sizeWithFont:[UIFont fontSmall] constrainedToWidth:KScreenWidth - CGFloatIn750(150)];
     return CGFloatIn750(106) + tempSize.height;
 }
 
