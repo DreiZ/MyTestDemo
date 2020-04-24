@@ -210,8 +210,7 @@ static ZAlertDateHourPickerView *sharedManager;
     
     self.proIndex = 0;
     self.cityIndex = 1;
-    [self.pickView selectRow:0 inComponent:0 animated:YES];
-    [self.pickView selectRow:0 inComponent:1 animated:YES];
+    
     for (int i = 0; i < 24; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
@@ -243,6 +242,9 @@ static ZAlertDateHourPickerView *sharedManager;
         self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     }];
     [self.pickView reloadAllComponents];
+    
+    [self.pickView selectRow:0 inComponent:0 animated:YES];
+    [self.pickView selectRow:1 inComponent:1 animated:YES];
 }
 
 + (void)setAlertName:(NSString *)title handlerBlock:(void(^)(NSString *,NSString * ))handleBlock  {
@@ -284,7 +286,7 @@ static ZAlertDateHourPickerView *sharedManager;
     
     if (component == 0) {
         _proIndex = row;
-        if (_cityIndex < _proIndex) {
+        if (_cityIndex <= _proIndex) {
             if (_proIndex < 23) {
                 _cityIndex = _proIndex+1;
             }else{

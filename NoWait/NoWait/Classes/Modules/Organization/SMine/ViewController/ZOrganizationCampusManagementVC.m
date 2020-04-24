@@ -329,10 +329,10 @@
             return;
         }
     }else if ([cellConfig.title isEqualToString:@"address"]) {
-//        if ([SafeStr(self.model.hash_update_address) boolValue]) {
-//            [TLUIUtility showErrorHint:@"地址已不可修改"];
-//            return;
-//        }
+        if ([SafeStr(self.model.hash_update_address) boolValue]) {
+            [TLUIUtility showErrorHint:@"地址已不可修改"];
+            return;
+        }
         ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
         mvc.addressBlock = ^(NSString * province, NSString * city, NSString * county, NSString * brief_address, NSString * address, double latitude, double  longitude) {
             weakSelf.model.province = province;

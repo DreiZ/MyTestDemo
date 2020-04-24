@@ -339,17 +339,11 @@
     [addBtn bk_whenTapped:^{
         if (weakSelf.isStartAndEnd) {
             [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
-                for (int i = 0; i < self.dataSources.count; i++) {
-                    ZBaseMenuModel *model = self.dataSources[i];
-                    if (model.isSelected) {
-                        ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
-                        smodel.name = start;
-                        smodel.subName = end;
-                        [model.units addObject:smodel];
-                        [weakSelf initCellConfigArr];
-                        [weakSelf.iRightTableView reloadData];
-                    }
-                }
+                ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
+                smodel.name = start;
+                smodel.subName = end;
+                
+                [weakSelf checkStartAndEnd:smodel];
             }];
         }else{
             [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
@@ -405,6 +399,55 @@
     return [self getStartTime:uModel];
 }
 
+#pragma mark - 检查开始节数时间
+- (void)checkStartAndEnd:(ZBaseUnitModel *)smodel{
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZBaseMenuModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            if ([self checkStartAndEndTime:smodel units:model]) {
+                [model.units addObject:smodel];
+                [self initCellConfigArr];
+                [self.iRightTableView reloadData];
+            }
+        }
+    }
+}
+
+
+- (BOOL)checkStartAndEndTime:(ZBaseUnitModel *)smodel units:(ZBaseMenuModel *)model{
+    NSArray *tempStart = [smodel.name componentsSeparatedByString:@":"];
+    NSArray *tempEnd = [smodel.subName componentsSeparatedByString:@":"];
+    __block NSInteger startTime = (tempStart && tempStart.count > 0) ? [self checkO:tempStart[0]]:0;
+    
+    __block NSInteger endTime = (tempEnd && tempEnd.count > 0) ? [self checkO:tempEnd[0]]:0;
+    for (int i = 0; i < model.units.count; i++) {
+        ZBaseUnitModel *obj = model.units[i];
+        NSArray *tempStartIn = [obj.name componentsSeparatedByString:@":"];
+        NSArray *tempEndIn = [obj.subName componentsSeparatedByString:@":"];
+        
+        NSInteger tStartTime = (tempStartIn && tempStartIn.count > 0) ? [self checkO:tempStartIn[0]]:0;
+        
+        NSInteger tEndTime = (tempEndIn && tempEndIn.count > 0) ? [self checkO:tempEndIn[0]]:0;
+        
+        if (startTime <=tEndTime && endTime>=tStartTime) {
+            [TLUIUtility showErrorHint:@"时间段不可重合"];
+            return NO;
+        }
+    }
+    return YES;
+}
+- (NSInteger )checkO:(NSString *)name {
+    if (name && name.length > 0) {
+        NSString *str3 = [name substringToIndex:1];//str3 = "this"
+        if ([str3 isEqualToString:@"0"]) {
+            NSString *str2 = [name substringWithRange:NSMakeRange(1,1)];//s
+            return [str2 intValue];
+        }
+    }
+    return [name intValue];
+}
+
+#pragma mark - 检查时间
 - (void)checkSeletTime:(NSDateComponents *)date{
     for (int i = 0; i < self.dataSources.count; i++) {
         ZBaseMenuModel *model = self.dataSources[i];
@@ -429,8 +472,6 @@
             }
         }
     }
-    
-    
 }
 
 - (BOOL)checkSeletTime:(ZBaseUnitModel *)smodel units:(ZBaseMenuModel *)model{
