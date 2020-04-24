@@ -32,6 +32,9 @@
 
 @end
 
+@implementation ZUserTokenModel
+
+@end
 
 @implementation ZUserRolesListNetModel
 + (NSDictionary *)mj_objectClassInArray {

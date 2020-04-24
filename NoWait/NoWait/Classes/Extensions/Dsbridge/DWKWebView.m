@@ -306,9 +306,9 @@ initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completi
                 id ret;
                 id(*action)(id,SEL,id) = (id(*)(id,SEL,id))objc_msgSend;
                 ret=action(JavascriptInterfaceObject,sel,arg);
-                [result setValue:@0 forKey:@"code"];
+                [result setObject:@0 forKey:@"code"];
                 if(ret!=nil){
-                    [result setValue:ret forKey:@"data"];
+                    [result setObject:ret forKey:@"data"];
                 }
                 break;
             }

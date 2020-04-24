@@ -92,6 +92,7 @@
          [self.navigationController pushViewController:avc animated:YES];
      }else if ([cellConfig.title isEqualToString:@"logout"]){
          [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+         [[ZUserHelper sharedHelper] updateToken:NO];
          [self.navigationController popToRootViewControllerAnimated:YES];
      }else if ([cellConfig.title isEqualToString:@"switch"]){
          ZStudentMineSwitchAccountVC *accountvc = [[ZStudentMineSwitchAccountVC alloc] init];

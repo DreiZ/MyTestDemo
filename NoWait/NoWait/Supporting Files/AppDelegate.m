@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ZLaunchManager.h"
 #import "AppDelegate+AppService.h"
+#import "AppDelegate+PushService.h"
 #import "ZPayManager.h"
 #import <UMCommon/UMCommon.h>
 #import <UMShare/UMShare.h>
@@ -29,6 +30,9 @@
 //
     [self initService];
     [self launchAnimation];
+    
+    //注册推送通知
+    [self registerNotificationDidFinishLaunchingWithOptions:launchOptions];
     return YES;
 }
 

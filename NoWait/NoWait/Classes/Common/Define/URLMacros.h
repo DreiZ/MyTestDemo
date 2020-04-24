@@ -532,5 +532,10 @@
 #define URL_message_v1_get_message                      @"message/v1/get_message"
 #define URL_message_v1_get_sended_message               @"message/v1/get_sended_message"
 
+#pragma mark - device_token
+#define URL_message_v1_add_device_token                 @"account/v1/add_device_token"
+
+#define URL_message_v1_get_device_token_info                 @"account/v1/get_device_token_info"
+
 
 #endif /* URLMacros_h */

@@ -140,6 +140,14 @@
     }
 }
 
+- (void)updateToken:(BOOL)isOpen {
+    if ([ZUserHelper sharedHelper].push_token) {
+        [[ZUserHelper sharedHelper] deviceTokenWithParams:@{@"device_token":SafeStr([ZUserHelper sharedHelper].push_token),@"status":isOpen?@"1":@"2"} block:^(BOOL isSuccess, NSString *message) {
+            
+        }];
+    }
+}
+
 #pragma mark 更新用户数据
 - (void)updateUserInfoWithCompleteBlock:(void(^)(BOOL))completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeUser url:URL_account_v1_refresh params:@{} completionHandler:^(id data, NSError *error) {
@@ -154,6 +162,8 @@
             user.avatar = userModel.image? userModel.image:@"";
             user.nikeName = userModel.nick_name? userModel.nick_name:@"";
             [[ZUserHelper sharedHelper] setUser:user];
+            
+            [[ZUserHelper sharedHelper] updateToken:YES];
             completeBlock(YES);
         }else{
             completeBlock(NO);
@@ -189,6 +199,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
             [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
             [[ZUserHelper sharedHelper] setUser:user];
+            [[ZUserHelper sharedHelper] updateToken:YES];
             block(YES,dataModel.message);
         }else {
             if ([ZPublicTool getNetworkStatus]) {
@@ -229,6 +240,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:user.userID forKey:@"userID"];
             [[NSUserDefaults standardUserDefaults] setObject:user.userCodeID forKey:@"userCodeID"];
             [[ZUserHelper sharedHelper] setUser:user];
+            [[ZUserHelper sharedHelper] updateToken:YES];
             block(YES,dataModel.message);
         }else {
             if ([ZPublicTool getNetworkStatus]) {
@@ -258,4 +270,46 @@
         }
     }];
 }
+
+
+//device token
+- (void)deviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_message_v1_add_device_token params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            block(YES,dataModel.message);
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
+
+//device token
+- (void)getDeviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_message_v1_get_device_token_info params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            if (dataModel.data) {
+                ZUserTokenModel *model = [ZUserTokenModel mj_objectWithKeyValues:dataModel.data];
+                block(YES,model.status);
+            }else {
+                block(NO,dataModel.message);
+            }
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
 @end

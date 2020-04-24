@@ -286,7 +286,7 @@
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
         status = @"已开课";
-        status = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        status = [NSString stringWithFormat:@"%@%@/%@(班级进度)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

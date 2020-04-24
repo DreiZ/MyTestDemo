@@ -279,6 +279,8 @@
 //            [params setObject:SafeStr(weakSelf.viewModel.addModel.c_level) forKey:@"c_level"];
             [params setObject:SafeStr(weakSelf.viewModel.addModel.position) forKey:@"position"];
             
+            [params setObject:@"1" forKey:@"c_level"];
+            
             if (ValidArray(weakSelf.viewModel.addModel.lessonList)) {
                 NSMutableArray *temp = @[].mutableCopy;
                 for (ZOriganizationLessonListModel *model in self.viewModel.addModel.lessonList) {

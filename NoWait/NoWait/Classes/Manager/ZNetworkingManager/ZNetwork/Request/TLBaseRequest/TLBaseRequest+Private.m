@@ -79,7 +79,7 @@
     requestSerializer.allowsCellularAccess = !self.disableCellularAccess;
     for (NSString *key in self.headerField.allKeys) {
         NSString *value = [self.headerField valueForKey:key];
-        [requestSerializer setValue:value forHTTPHeaderField:key];
+        [requestSerializer setObject:value forHTTPHeaderField:key];
     }
     
     return requestSerializer;

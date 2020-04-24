@@ -57,6 +57,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _titleLabel.numberOfLines = 1;
+        _titleLabel.text = @"消息推送";
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel setFont:[UIFont fontContent]];
     }
@@ -66,13 +67,30 @@
 - (UISwitch *)iSwitch {
     if (!_iSwitch) {
         _iSwitch = [[UISwitch alloc] init];
+        [_iSwitch addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
     }
     return _iSwitch;
 }
 
-- (void)setTitle:(NSString *)title {
-    _title = title;
-    _titleLabel.text = title;
+- (void)setIsOpen:(NSString *)isOpen {
+    _isOpen = isOpen;
+    if ([isOpen intValue] == 1) {
+        self.iSwitch.on = YES;
+    }else{
+        self.iSwitch.on = NO;
+    }
+}
+
+- (void)valueChanged:(UISwitch *)sender {
+    if (sender.isOn) {
+        if (self.handleBlock) {
+            self.handleBlock(@"1");
+        }
+    }else{
+        if (self.handleBlock) {
+            self.handleBlock(@"2");
+        }
+    }
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

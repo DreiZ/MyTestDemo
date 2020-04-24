@@ -212,6 +212,8 @@ PODS:
   - UMCAnalytics (6.0.5):
     - UMCCommon
   - UMCCommon (2.1.1)
+  - UMCPush (3.2.4):
+    - UMCCommon
   - UMCSecurityPlugins (1.0.6)
   - UMCShare/Core (6.9.6):
     - UMCCommon
@@ -256,6 +258,7 @@ DEPENDENCIES:
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
   - UMCAnalytics
   - UMCCommon
+  - UMCPush
   - UMCSecurityPlugins
   - UMCShare/Social/ReducedWeChat
   - UMCShare/UI
@@ -275,6 +278,7 @@ SPEC REPOS:
     - PGPickerView
     - UMCAnalytics
     - UMCCommon
+    - UMCPush
     - UMCSecurityPlugins
     - UMCShare
     - WechatOpenSDK
@@ -358,6 +362,7 @@ SPEC CHECKSUMS:
   TLTabBarController: 6e91813f0ae019e8cd2ae35d6f4f6315085f7c44
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
+  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
   WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
@@ -366,6 +371,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: 28ef5d9f5ee113712bea066ae24ace95f83a8a59
+PODFILE CHECKSUM: 5ac992c9e0246abe682cec9ca4cd04e804fb9537
 
 COCOAPODS: 1.8.4

@@ -111,6 +111,8 @@
         make.left.equalTo(self.hintImageView.mas_left).offset(-CGFloatIn750(26));
         make.right.equalTo(self.contentView.mas_right);
     }];
+    
+    _hintImageView.hidden = YES;
 }
 
 

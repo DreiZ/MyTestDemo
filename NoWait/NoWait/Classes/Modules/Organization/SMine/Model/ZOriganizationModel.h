@@ -81,6 +81,8 @@
 @property (nonatomic,strong) NSString *student_name;
 
 @property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *class_now_progress;
+@property (nonatomic,strong) NSString *class_total_progress;
 @property (nonatomic,strong) NSString *truancy_nums;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSString *vacate_nums;

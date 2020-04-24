@@ -68,6 +68,10 @@
 	<string>似锦需要您的同意，才能访问您的相册，如不同意则无法保存报告信息您的相册。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>似锦需要您的同意，才能访问您的相册，如不同意则无法使用相册拍摄发图片等功能。</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

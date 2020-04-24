@@ -126,7 +126,7 @@ static ZAdvertiseHelper* _instance = nil;
         if ([data writeToFile:filePath atomically:YES]) {// 保存成功
             DLog(@"保存成功");
             [self deleteOldImage];
-            [NSUserDefaults.standardUserDefaults setValue:imageName forKey:adImageName];
+            [NSUserDefaults.standardUserDefaults setObject:imageName forKey:adImageName];
             [NSUserDefaults.standardUserDefaults synchronize];
             // 如果有广告链接，将广告链接也保存下来
         }else{

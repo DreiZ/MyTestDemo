@@ -54,6 +54,11 @@
 @end
 
 
+@interface ZUserTokenModel : NSObject
+@property (nonatomic,strong) NSString *status;
+@end
+
+
 @interface ZUserRolesListNetModel : ZBaseNetworkBackModel
 @property (nonatomic,strong) NSArray <ZUserRolesListModel *>*list;
 @end

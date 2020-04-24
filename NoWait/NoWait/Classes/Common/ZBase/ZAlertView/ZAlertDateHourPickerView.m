@@ -209,7 +209,7 @@ static ZAlertDateHourPickerView *sharedManager;
     self.data2 = @[].mutableCopy;
     
     self.proIndex = 0;
-    self.cityIndex = 0;
+    self.cityIndex = 1;
     [self.pickView selectRow:0 inComponent:0 animated:YES];
     [self.pickView selectRow:0 inComponent:1 animated:YES];
     for (int i = 0; i < 24; i++) {
@@ -285,13 +285,27 @@ static ZAlertDateHourPickerView *sharedManager;
     if (component == 0) {
         _proIndex = row;
         if (_cityIndex < _proIndex) {
-            _cityIndex = _proIndex;
+            if (_proIndex < 23) {
+                _cityIndex = _proIndex+1;
+            }else{
+                _cityIndex = _proIndex;
+            }
+            
             [pickerView selectRow:_cityIndex inComponent:1 animated:YES];
         }
     }
     
     if (component == 1) {
         _cityIndex = row;
+        if (_cityIndex <= _proIndex) {
+            if (_proIndex < 23) {
+                _cityIndex = _proIndex+1;
+            }else{
+                _cityIndex = _proIndex;
+            }
+            
+            [pickerView selectRow:_cityIndex inComponent:1 animated:YES];
+        }
     }
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{

@@ -41,6 +41,7 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 - (void)checkLogin:(void (^)(void))login;
 
+- (void)updateToken:(BOOL)isOpen;
 
 //更新用户信息
 - (void)updateUserInfoWithCompleteBlock:(void(^)(BOOL))completeBlock;
@@ -50,5 +51,11 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 //登录
 - (void)loginPwdWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
+
+//device token
+- (void)deviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
+
+
+- (void)getDeviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
 @end
 

@@ -43,7 +43,7 @@ target :NoWait do
     pod 'UMCCommon'
     pod 'UMCSecurityPlugins'
     pod 'UMCAnalytics'
-
+    pod 'UMCPush'
  # U-Share SDK UI模块（分享面板，建议添加）
     pod 'UMCShare/UI'
 #    pod 'AlipaySDK-iOS'
