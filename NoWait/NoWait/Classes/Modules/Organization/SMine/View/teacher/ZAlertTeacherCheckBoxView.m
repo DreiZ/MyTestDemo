@@ -48,13 +48,27 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
         model.rightMargin = CGFloatIn750(60);
         model.cellHeight = CGFloatIn750(108);
         model.leftFont = [UIFont fontMaxTitle];
+        model.rightImageH = @80;
+        model.leftImage = listModel.image;
         model.rightImage = listModel.isSelected ? @"selectedCycle" :@"unSelectedCycle";
         model.isHiddenLine = YES;
 
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"teacher" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
         [self.cellConfigArr addObject:menuCellConfig];
 
+    }
+}
+
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"teacher"]) {
+        ZSingleLineCell *lcell = (ZSingleLineCell *)cell;
+        lcell.leftImageView.layer.cornerRadius = CGFloatIn750(40);
+        [lcell.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lcell.mas_left).offset(CGFloatIn750(30));
+            make.width.height.mas_equalTo(CGFloatIn750(80));
+            make.centerY.equalTo(lcell.mas_centerY);
+        }];
     }
 }
 
