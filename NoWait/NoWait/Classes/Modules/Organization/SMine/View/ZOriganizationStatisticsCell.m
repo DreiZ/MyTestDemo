@@ -245,7 +245,7 @@
 
 - (void)setModel:(ZStoresStatisticalModel *)model {
     _model = model;
-    _refreshLabel.text = [ZUserHelper sharedHelper].school.name;
+    _refreshLabel.text = model.date;
     _rightContentLabel.text = ValidStr(model.total_amount)? model.total_amount :@"0";
     _leftContentLabel.text = ValidStr(model.visit_num)? model.visit_num :@"0";
 }

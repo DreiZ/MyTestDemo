@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
+    [self setTableViewRefreshHeader];
     [self initCellConfigArr];
     [self refreshData];
 }
@@ -168,6 +168,7 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }
+        [weakSelf.iTableView tt_endRefreshing];
     }];
 }
 
@@ -185,9 +186,11 @@
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
             [self refreshData];
+            
         }else{
             [TLUIUtility showErrorHint:data];
         }
+        
     }];
 }
 

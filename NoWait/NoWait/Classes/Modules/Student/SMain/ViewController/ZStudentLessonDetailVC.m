@@ -368,7 +368,7 @@
 
 - (void)setLessonName {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.addModel.short_name;
+    model.leftTitle = self.addModel.name;
     model.rightTitle = [NSString stringWithFormat:@"%@分钟/节   共%@节",self.addModel.course_min, self.addModel.course_number];
     model.isHiddenLine = YES;
     model.leftFont = [UIFont boldFontMax1Title];
@@ -380,17 +380,17 @@
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:menuCellConfig];
     
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = self.addModel.name;
-        model.isHiddenLine = YES;
-        model.leftFont = [UIFont fontContent];
-        model.rightFont = [UIFont fontSmall];
-        model.cellHeight = CGFloatIn750(50);
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
+//    {
+//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//        model.leftTitle = self.addModel.name;
+//        model.isHiddenLine = YES;
+//        model.leftFont = [UIFont fontContent];
+//        model.rightFont = [UIFont fontSmall];
+//        model.cellHeight = CGFloatIn750(50);
+//        
+//        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+//        [self.cellConfigArr addObject:menuCellConfig];
+//    }
     
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];

@@ -190,9 +190,8 @@
         if (ValidArray(self.model.merchants_stores_tags)) {
             [labelArr addObjectsFromArray:self.model.merchants_stores_tags];
         }
-        
         mModel.data = labelArr;
-        mModel.cellTitle = @"label";
+        mModel.cellTitle = @"tag";
         mModel.leftFont = [UIFont fontMax1Title];
         mModel.rightColor = [UIColor colorMain];
         mModel.rightDarkColor = [UIColor colorMainSub];
@@ -250,12 +249,19 @@
         
        
     }
-    if (ValidArray(detailModel.stores_info)) {
+    if (ValidArray(detailModel.stores_info) || ValidArray(detailModel.merchants_stores_tags)) {
+        NSMutableArray *labelArr = @[].mutableCopy;
+        if (ValidArray(detailModel.stores_info)) {
+            [labelArr addObjectsFromArray:detailModel.stores_info];
+        }
+        if (ValidArray(detailModel.merchants_stores_tags)) {
+            [labelArr addObjectsFromArray:detailModel.merchants_stores_tags];
+        }
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
-        mModel.data = detailModel.stores_info;
+        mModel.data = labelArr;
         mModel.leftFont = [UIFont fontMax1Title];
         height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
         
