@@ -267,7 +267,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
     if (self.loading) {
         text = @"数据加载中...";
         font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0];
-        textColor = [UIColor colorWithHexString:@"999999"];
+        textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         
         
         if (!text) {
@@ -282,7 +282,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
         if ([self getNetworkStatus]) {
             text = self.emptyDataStr;
             font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0];
-            textColor = [UIColor colorWithHexString:@"222222"];
+            textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
             
             
             if (!text) {
@@ -304,7 +304,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
             
             //标题
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontContent] range:netRangeTitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextBlack] range:netRangeTitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) range:netRangeTitle];
             NSMutableParagraphStyle * titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [titleParagraphStyle setLineSpacing:CGFloatIn750(40)];
             [titleParagraphStyle setAlignment:NSTextAlignmentCenter];
@@ -312,7 +312,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
             
             //副标题
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontContent] range:netRangeSubtitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeSubtitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) range:netRangeSubtitle];
             NSMutableParagraphStyle * subParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [subParagraphStyle setLineSpacing:CGFloatIn750(24)];
             [subParagraphStyle setAlignment:NSTextAlignmentLeft];
@@ -320,7 +320,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
             
             //内容
             [attributedSting addAttribute:NSFontAttributeName value:[UIFont fontSmall] range:netRangeDetailTitle];
-            [attributedSting addAttribute:NSForegroundColorAttributeName value:[UIColor colorTextGray1] range:netRangeDetailTitle];
+            [attributedSting addAttribute:NSForegroundColorAttributeName value:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) range:netRangeDetailTitle];
             NSMutableParagraphStyle * detailParagraphStyle = [[NSMutableParagraphStyle alloc] init];
             [detailParagraphStyle setLineSpacing:CGFloatIn750(16)];
             [detailParagraphStyle setAlignment:NSTextAlignmentLeft];
@@ -346,10 +346,10 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
     if (self.isLoading) {
-        return [UIImage imageNamed:@"zphoto_number_icon"];
+        return [UIImage imageNamed:@"hng_im_lbs_ann"];
     }else{
         if ([self getNetworkStatus]) {
-            return [UIImage imageNamed:_emptyImage? _emptyImage : @"emptyData"];
+            return [UIImage imageNamed:_emptyImage? _emptyImage : (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }else{
             return [UIImage imageNamed: (isDarkModel()? @"emptyDataDark" : @"emptyData")];
         }
@@ -366,7 +366,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
     //    animation.repeatCount = MAXFLOAT;
     CGFloat duration = 0.8f;
     
-    CGFloat height = 50.f;
+    CGFloat height = 0.f;
     
     CAAnimationGroup *group = [CAAnimationGroup animation];
     
@@ -376,7 +376,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
     animScale.keyPath = @"transform.scale";
     
     // 0 ~ 1
-    static CGFloat scale = 0.5;
+    static CGFloat scale = 0.6;
 
     animScale.values = @[@(scale/(4.0/8.0)), @(scale/(5.0/8.0)), @(scale/(6.0/8.0)), @(scale/(7.0/8.0)), @(scale/(8.0/8.0)), @(scale/(7.0/8.0)), @(scale/(6.0/8.0)), @(scale/(5.0/8.0)), @(scale/(4.0/8.0))];
     
@@ -408,7 +408,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [UIColor whiteColor];
+    return self.backgroundColor;
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
@@ -426,7 +426,8 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
         return nil;
     }
     if (![self getNetworkStatus]) {
-        return [UIImage imageNamed:@"emptyReload"];
+        return nil;
+//        return [UIImage imageNamed:isDarkModel()? @"emptyDataDark" : @"emptyData"];
     }else {
         return nil;
     }
@@ -470,6 +471,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
     [scrollView reloadEmptyDataSet];
     [self refreshData];
 }
+
 
 
 - (BOOL)getNetworkStatus {
