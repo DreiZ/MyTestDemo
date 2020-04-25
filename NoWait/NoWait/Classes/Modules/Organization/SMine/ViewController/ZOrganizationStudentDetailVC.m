@@ -336,6 +336,22 @@
 }
 
 #pragma mark tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:[ZOriganizationTeachHeadImageCell className]]) {
+        ZOriganizationTeachHeadImageCell *lcell = (ZOriganizationTeachHeadImageCell *)cell;
+        __weak typeof(self) weakSelf = self;
+        lcell.isTeacher = NO;
+        lcell.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                if (ValidClass(weakSelf.addModel.image, [UIImage class]) || ValidStr(weakSelf.addModel.image)) {
+                    [[ZPhotoManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
+                }
+            }else{
+                
+            }
+        };
+    }
+}
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"sign"]) {
         ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
@@ -346,10 +362,6 @@
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
-    }else if ([cellConfig.title isEqualToString:@"ZOriganizationTeachHeadImageCell"]) {
-        if (ValidClass(self.addModel.image, [UIImage class]) || ValidStr(self.addModel.image)) {
-            [[ZPhotoManager sharedManager] showBrowser:@[self.addModel.image] withIndex:0];
-        }
     }
 }
 

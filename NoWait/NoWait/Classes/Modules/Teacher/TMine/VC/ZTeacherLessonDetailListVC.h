@@ -10,6 +10,6 @@
 
 
 @interface ZTeacherLessonDetailListVC : ZCollectionViewController
-
+@property (nonatomic,copy) NSString *teacher_id;
 @end
 

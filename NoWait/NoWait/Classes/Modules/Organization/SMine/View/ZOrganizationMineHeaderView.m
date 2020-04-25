@@ -231,8 +231,8 @@
     }
     
     self.qrCodeBtn.hidden = YES;
-    self.scanQRCodeImageView.hidden = YES;
-    self.scanView.hidden = YES;
+//    self.scanQRCodeImageView.hidden = YES;
+//    self.scanView.hidden = YES;
 }
 
 #pragma mark - - 懒加载---

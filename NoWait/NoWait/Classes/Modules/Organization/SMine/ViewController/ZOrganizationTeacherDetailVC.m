@@ -15,6 +15,7 @@
 #import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZOrganizationTeacherAddVC.h"
+#import "ZTeacherLessonDetailListVC.h"
 
 @interface ZOrganizationTeacherDetailVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -166,14 +167,28 @@
 
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:[ZOriganizationTeachHeadImageCell className]]) {
+        ZOriganizationTeachHeadImageCell *lcell = (ZOriganizationTeachHeadImageCell *)cell;
+        __weak typeof(self) weakSelf = self;
+        lcell.isTeacher = NO;
+        lcell.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                if (ValidClass(weakSelf.addModel.image, [UIImage class]) || ValidStr(weakSelf.addModel.image)) {
+                    [[ZPhotoManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
+                }
+            }else{
+                ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
+                lvc.teacher_id = weakSelf.addModel.teacherID;
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }
+        };
+    }
     
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOriganizationTeachHeadImageCell"]) {
-        if (ValidClass(self.addModel.image, [UIImage class]) || ValidStr(self.addModel.image)) {
-            [[ZPhotoManager sharedManager] showBrowser:@[self.addModel.image] withIndex:0];
-        }
+        
     }
 }
 

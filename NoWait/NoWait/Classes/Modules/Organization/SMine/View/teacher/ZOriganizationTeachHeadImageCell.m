@@ -10,6 +10,7 @@
 
 @interface ZOriganizationTeachHeadImageCell ()
 @property (nonatomic,strong) UIImageView *headImageView;
+@property (nonatomic,strong) UIButton *openBtn;
 
 @end
 
@@ -31,10 +32,31 @@
     
     [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(38));
-        make.centerX.equalTo(self.mas_centerX);
+        make.centerX.equalTo(self.mas_right).multipliedBy(0.5);
         make.height.width.mas_equalTo(CGFloatIn750(104));
     }];
     
+    [self.contentView addSubview:self.openBtn];
+    [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_right).multipliedBy(0.75);
+        make.centerY.equalTo(self.headImageView.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(66));
+        make.width.mas_equalTo(CGFloatIn750(170));
+    }];
+    
+    self.openBtn.hidden = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [userBtn bk_whenTapped:^{
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(0);
+        }
+    }];
+    [self.contentView addSubview:userBtn];
+    [userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.headImageView);
+    }];
 }
 
 #pragma mark -Getter
@@ -55,6 +77,51 @@
         [self.headImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_head_noLogin"]];
     }else if (ValidClass(image, [UIImage class])){
         self.image = image;
+    }
+}
+
+
+- (UIButton *)openBtn {
+    if (!_openBtn) {
+        __weak typeof(self) weakSelf = self;
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_openBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_openBtn setTitle:@"查看教师课表" forState:UIControlStateNormal];
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        ViewRadius(_openBtn, CGFloatIn750(33));
+        _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        [_openBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            };
+        }];
+    }
+    return _openBtn;
+}
+
+- (void)setIsTeacher:(BOOL)isTeacher {
+    _isTeacher = isTeacher;
+    if (isTeacher) {
+        [self.headImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(38));
+            make.centerX.equalTo(self.mas_right).multipliedBy(0.25);
+            make.height.width.mas_equalTo(CGFloatIn750(104));
+        }];
+        
+        [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.mas_right).multipliedBy(0.75);
+            make.centerY.equalTo(self.headImageView.mas_centerY);
+            make.height.mas_equalTo(CGFloatIn750(66));
+            make.width.mas_equalTo(CGFloatIn750(170));
+        }];
+        self.openBtn.hidden = NO;
+    }else{
+        [self.headImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(38));
+            make.centerX.equalTo(self.mas_right).multipliedBy(0.5);
+            make.height.width.mas_equalTo(CGFloatIn750(104));
+        }];
+        self.openBtn.hidden = YES;
     }
 }
 

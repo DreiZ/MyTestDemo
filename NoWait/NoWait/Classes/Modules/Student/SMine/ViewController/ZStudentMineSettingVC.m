@@ -44,7 +44,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"rightBlackArrowN",@"us"], @[@"账号与安全", @"rightBlackArrowN",@"safe"],@[@"通用", @"rightBlackArrowN",@"common"],@[@"意见反馈", @"rightBlackArrowN",@"opinion"],@[@"关于小莫", @"rightBlackArrowN",@"about"]];
+    NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"rightBlackArrowN",@"us"], @[@"账号与安全", @"rightBlackArrowN",@"safe"],@[@"通用", @"rightBlackArrowN",@"common"],@[@"意见反馈", @"rightBlackArrowN",@"opinion"],@[@"关于似锦", @"rightBlackArrowN",@"about"]];
     
     for (int i = 0; i < titleArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

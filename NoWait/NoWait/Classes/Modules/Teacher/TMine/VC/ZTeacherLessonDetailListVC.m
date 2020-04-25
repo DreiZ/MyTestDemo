@@ -160,6 +160,9 @@
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:[NSString stringWithFormat:@"%ld",self.index] forKey:@"week_page"];
+    if (ValidStr(self.teacher_id)) {
+        [param setObject:SafeStr(self.teacher_id) forKey:@"teacher_id"];
+    }
     [ZOriganizationLessonViewModel getWeekCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonWeekListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {

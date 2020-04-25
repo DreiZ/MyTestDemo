@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationTeachHeadImageCell : ZBaseCell
 @property (nonatomic,strong) id image;
-
+@property (nonatomic,assign) BOOL isTeacher;
+@property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END
