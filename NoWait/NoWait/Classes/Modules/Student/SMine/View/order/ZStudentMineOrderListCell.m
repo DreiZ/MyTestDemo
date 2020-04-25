@@ -266,7 +266,7 @@
     self.failView.hidden = NO;
     
     if (self.model.isStudent) {
-// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功 8:商家支付失败
         if ([self.model.refund_status intValue] == 1 || [self.model.refund_status intValue] == 3 || [self.model.refund_status intValue] == 4 || [self.model.refund_status intValue] == 5) {
             self.bottomView.hidden = NO;
             self.refundCancle.hidden = NO;

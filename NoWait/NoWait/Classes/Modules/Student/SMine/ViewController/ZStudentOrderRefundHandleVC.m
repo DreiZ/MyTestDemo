@@ -120,6 +120,10 @@
             NSMutableDictionary *params = @{}.mutableCopy;
             if (ValidStr(weakSelf.detailModel.refund_msg)) {
                 [params setObject:SafeStr(weakSelf.detailModel.refund_msg) forKey:@"refund_desc"];
+            }else{
+                [TLUIUtility showErrorHint:@"请输入退款原因"];
+                return ;
+                
             }
             if (ValidStr(weakSelf.detailModel.refund_amount) && [weakSelf.detailModel.refund_amount doubleValue] >= 0.01) {
                 [params setObject:SafeStr(weakSelf.detailModel.refund_amount) forKey:@"refund_amount"];
@@ -200,7 +204,7 @@
 - (void)setUserCell {
     self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
     self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
-    NSArray *textArr = @[@[@"退款原因", @"选填", @YES, @"", @"name",SafeStr(self.detailModel.refund_msg),@50,[NSNumber numberWithInt:ZFormatterTypeAny]],
+    NSArray *textArr = @[@[@"退款原因", @"必填", @YES, @"", @"name",SafeStr(self.detailModel.refund_msg),@50,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"退款金额", @"0", @YES, @"", @"price",SafeStr(self.detailModel.pay_amount),@10,[NSNumber numberWithInt:ZFormatterTypeDecimal]]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (int i = 0; i < textArr.count; i++) {

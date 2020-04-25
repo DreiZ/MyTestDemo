@@ -74,6 +74,8 @@ static ZDatePickerManager *sharedDateManager;
         
         _datePickManager.datePicker.lineBackgroundColor =  adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
+        _datePickManager.datePicker.backgroundColor =  adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
         //设置线条的颜色
         datePicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         //设置选中行的字体颜色
