@@ -133,7 +133,7 @@
              textArr = @[];
              return model.cellHeight;
          }
-        CGFloat cellHeight = model.singleCellHeight - model.leftFont.lineHeight;
+        CGFloat cellHeight = model.cellHeight - kLabelHeight;
          
          if (model.leftTitle && model.leftTitle.length > 0) {
              CGSize leftLabelSize = [SafeStr(model.leftTitle) tt_sizeWithFont:model.leftFont];

@@ -111,7 +111,7 @@
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
         _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_leftBtn setTitle:@"带课老师" forState:UIControlStateNormal];
+        [_leftBtn setTitle:@"带课教师" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_leftBtn addSubview:self.leftArrow];
@@ -232,7 +232,7 @@
     if (ValidStr(left)) {
         [_leftBtn setTitle:SafeStr(left) forState:UIControlStateNormal];
     }else{
-//        [_leftBtn setTitle:@"带课老师" forState:UIControlStateNormal];
+//        [_leftBtn setTitle:@"带课教师" forState:UIControlStateNormal];
     }
     if (ValidStr(right)) {
         [_midBtn setTitle:SafeStr(right) forState:UIControlStateNormal];

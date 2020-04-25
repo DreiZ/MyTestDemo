@@ -122,7 +122,7 @@
 
 - (void)setModel:(ZSignInfoListModel *)model {
     _model = model;
-//    类型 1：签课 2：老师代签 3：补签 4：请假 5：旷课 6:待签课
+//    类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课
     _lessonLabel.text = [NSString stringWithFormat:@"第%@节",model.nums];
     _timeLabel.text = [model.sign_time timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
     
@@ -148,7 +148,7 @@
                 break;
             case 2:
             {
-                _rightLabel.text = @"老师代签";
+                _rightLabel.text = @"教师代签";
                 _timeLabel.hidden = NO;
                 
                 [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -236,7 +236,7 @@
                 break;
             case 2:
             {
-                _rightLabel.text = @"老师代签";
+                _rightLabel.text = @"教师代签";
                 _timeLabel.hidden = NO;
                 
                 [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -330,7 +330,7 @@
                 break;
             case 2:
             {
-                _rightLabel.text = @"老师代签";
+                _rightLabel.text = @"教师代签";
                 _timeLabel.hidden = NO;
                 
                 [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

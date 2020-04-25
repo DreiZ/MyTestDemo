@@ -140,7 +140,7 @@
     self.qingBtn.hidden = YES;
     self.kuangBtn.hidden = YES;
     self.buBtn.hidden = YES;
-//    1：签课 2：老师代签 3：补签 4：请假 5：旷课
+//    1：签课 2：教师代签 3：补签 4：请假 5：旷课
     if ([type intValue] == 6) {
         self.signBtn.hidden = NO;
         self.qingBtn.hidden = NO;

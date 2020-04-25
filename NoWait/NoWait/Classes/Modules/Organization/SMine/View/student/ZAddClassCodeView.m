@@ -256,7 +256,7 @@
     if (!_rightBtn) {
         __weak typeof(self) weakSelf = self;
         _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_rightBtn setTitle:@"推送给老师" forState:UIControlStateNormal];
+        [_rightBtn setTitle:@"推送给教师" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontContent]];
         [_rightBtn bk_whenTapped:^{

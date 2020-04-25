@@ -60,8 +60,8 @@
 //    }
 //    [_list addObjectsFromArray:self.detailModel.list];
 //    self.detailModel.list = _list;
-//    /类型 1：签课 2：老师代签 3：补签 4：请假 5：旷课 6:待签课
-    NSArray *tarr = @[@"签课",@"老师代签",@"补签",@"请假",@"旷课",@"待签课"];
+//    /类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课
+    NSArray *tarr = @[@"签课",@"教师代签",@"补签",@"请假",@"旷课",@"待签课"];
     NSArray *iarr = @[@"signbu",@"signbu",@"signbu",@"signbu",@"signbu",@"signbu"];
     for (ZOriganizationSignListModel *model in self.detailModel.list) {
         ZBaseSingleCellModel *cellmodel = [[ZBaseSingleCellModel alloc] init];

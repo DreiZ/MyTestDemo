@@ -45,7 +45,7 @@
 //        model.lessonNum = @"12";
 //        model.lessonHadNum = @"2";
 //        model.validity = @"2012.12.1";
-//        model.teacherName = @"史蒂夫老师";
+//        model.teacherName = @"史蒂夫教师";
 //        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
 //        [self.dataSources addObject:model];
 //    }

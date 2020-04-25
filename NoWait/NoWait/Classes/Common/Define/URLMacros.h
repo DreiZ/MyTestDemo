@@ -289,7 +289,7 @@
 #define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
 
 
-//明星老师list
+//明星教师list
 #define URL_account_get_star_student_list          @"account/v1/get_star_student_list"
 
 //明星学员

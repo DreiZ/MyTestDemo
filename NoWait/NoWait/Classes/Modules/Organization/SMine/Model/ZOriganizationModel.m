@@ -109,7 +109,9 @@
     return self;
 }
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"schoolID" : @"id"};
+    return @{@"schoolID" : @"id",
+             @"merchants_stores_tags" : @"merchant_stores_tags"
+    };
 }
 @end
 

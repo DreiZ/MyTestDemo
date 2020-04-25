@@ -88,7 +88,7 @@
         _thintLabel.textAlignment = NSTextAlignmentLeft;
         [_thintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_thintLabel setFont:[UIFont fontSmall]];
-        [_thintLabel setText:@"介绍一下任课老师吧"];
+        [_thintLabel setText:@"介绍一下任课教师吧"];
     }
     return _thintLabel;
 }

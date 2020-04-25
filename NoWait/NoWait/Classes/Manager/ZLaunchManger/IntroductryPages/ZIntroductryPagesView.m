@@ -74,7 +74,7 @@
         make.height.equalTo(bottomImageView.mas_width).multipliedBy(830.0/669.0);
     }];
 
-    NSArray *titleArr = @[@[@"启蒙老师找好的",@"海量机构入驻，选择少犯错，找到合适你的培训机构"],@[@"精准课程表",@"实时掌握课程时间，不错过每一节课"],@[@"线上交易有保障",@"保证您的资金安全，避免资金纠纷"]];
+    NSArray *titleArr = @[@[@"启蒙教师找好的",@"海量机构入驻，选择少犯错，找到合适你的培训机构"],@[@"精准课程表",@"实时掌握课程时间，不错过每一节课"],@[@"线上交易有保障",@"保证您的资金安全，避免资金纠纷"]];
     NSArray *multiArr = @[@(1422.0f/945.0),@(1314.0/991.0),@(1343.0/935.0)];
     __block UIView *tempImageView = nil;
     [self.imagesArray enumerateObjectsUsingBlock:^(NSArray <NSString *>* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

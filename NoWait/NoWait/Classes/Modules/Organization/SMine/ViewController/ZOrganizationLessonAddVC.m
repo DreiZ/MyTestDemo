@@ -26,6 +26,7 @@
 @interface ZOrganizationLessonAddVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UILabel *topHintView;
 
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
 @end
@@ -65,6 +66,19 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
+    if (ValidStr(self.viewModel.addModel.lessonID)) {
+        [self.topHintView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(70));
+            make.top.equalTo(self.view.mas_top);
+        }];
+    }else{
+        [self.topHintView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(70));
+            make.bottom.equalTo(self.view.mas_top);
+        }];
+    }
     [self addTopAndNameDetai];//封面、简称、简介
     [self addDesAndPrice];//详情、价格
     [self addImages];
@@ -86,6 +100,19 @@
     [self.navigationItem setRightBarButtonItem:item];
 }
 
+- (UILabel *)topHintView {
+    if (!_topHintView) {
+        _topHintView = [[UILabel alloc] initWithFrame:CGRectZero];
+        _topHintView.textColor = [UIColor whiteColor];
+        _topHintView.text = @"只能编辑:价格 封面 相册 须知 详情 预约信息";
+        _topHintView.numberOfLines = 1;
+        _topHintView.backgroundColor = [UIColor colorMain];
+        _topHintView.textAlignment = NSTextAlignmentCenter;
+        [_topHintView setFont:[UIFont fontSmall]];
+    }
+    return _topHintView;
+}
+
 - (void)setupMainView {
     [super setupMainView];
     
@@ -99,6 +126,17 @@
         make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(30));
     }];
     
+    [self.view addSubview:self.topHintView];
+    [self.topHintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.bottom.equalTo(self.view.mas_top);
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.topHintView.mas_bottom);
+    }];
     self.iTableView.tableFooterView = bottomView;
 }
 
@@ -400,7 +438,7 @@
     }
     
     NSArray *temp = @[@"初级",@"进阶",@"精英"];
-    NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO,ValidStr(self.viewModel.addModel.lessonID) ?@"": @"rightBlackArrowN", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+    NSArray *textArr = @[@[@"适用校区", @"请选择适用校区", @NO,ValidStr(self.viewModel.addModel.lessonID) ?@"": @"", @"", @"school",self.viewModel.addModel.school,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"课程级别", @"请选择课程级别", @NO, ValidStr(self.viewModel.addModel.lessonID)? @"":@"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",self.viewModel.addModel.course_min,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",self.viewModel.addModel.course_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],

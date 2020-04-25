@@ -575,7 +575,7 @@
     }else if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]) {
         ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
         lcell.max = 300;
-        lcell.hint = @"介绍一下任课老师吧";
+        lcell.hint = @"介绍一下任课教师吧";
         lcell.content = self.viewModel.addModel.des;
         lcell.textChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.des = text;

@@ -176,14 +176,22 @@
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
-    if (ValidArray(self.model.stores_info)){
+    if (ValidArray(self.model.stores_info) || ValidArray(self.model.merchants_stores_tags)){
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
         mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         mModel.singleCellHeight = CGFloatIn750(60);
         mModel.cellHeight = CGFloatIn750(62);
         mModel.isHiddenLine = YES;
-        mModel.data = self.model.stores_info;
+        NSMutableArray *labelArr = @[].mutableCopy;
+        if (ValidArray(self.model.stores_info)) {
+            [labelArr addObjectsFromArray:self.model.stores_info];
+        }
+        if (ValidArray(self.model.merchants_stores_tags)) {
+            [labelArr addObjectsFromArray:self.model.merchants_stores_tags];
+        }
+        
+        mModel.data = labelArr;
         mModel.cellTitle = @"label";
         mModel.leftFont = [UIFont fontMax1Title];
         mModel.rightColor = [UIColor colorMain];

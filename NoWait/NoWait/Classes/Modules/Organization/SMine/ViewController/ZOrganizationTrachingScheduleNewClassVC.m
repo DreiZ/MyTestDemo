@@ -184,7 +184,7 @@
 //                return ;
 //            }
             if (!ValidStr(weakSelf.viewModel.addModel.teacherName)) {
-                [TLUIUtility showErrorHint:@"请选择任课老师"];
+                [TLUIUtility showErrorHint:@"请选择任课教师"];
                 return ;
             }
             [weakSelf updateData];

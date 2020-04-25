@@ -70,7 +70,7 @@
     
 
     NSArray *imageArr = @[@"student_login",@"teacher_login",@"all_login",@"school_login"];
-    NSArray *titleArr = @[@"我是学员",@"我是老师",@"我是机构",@"我是校区"];
+    NSArray *titleArr = @[@"我是学员",@"我是教师",@"我是机构",@"我是校区"];
     
     CGFloat leftY = CGFloatIn750(394);
     UIButton *sBtn = nil;

@@ -5230,8 +5230,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5331,7 +5331,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "似锦";
-				PROVISIONING_PROFILE_SPECIFIER = nowait202004011;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5342,7 +5342,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5443,7 +5443,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
 				PRODUCT_NAME = "似锦";
-				PROVISIONING_PROFILE_SPECIFIER = nowait202004011;
+				PROVISIONING_PROFILE_SPECIFIER = xiangxinlirelease0720;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

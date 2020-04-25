@@ -217,7 +217,7 @@
             ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
             model.account_id = teacherModel.teacherID;
             model.image = teacherModel.image;
-            model.name = teacherModel.teacher_name;
+            model.name = teacherModel.nick_name;
             model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
             model.data = teacherModel;
             [peoples addObject:model];
