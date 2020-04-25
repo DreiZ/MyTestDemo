@@ -311,7 +311,7 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isEnd = [self.model.status intValue] == 3;
         lvc.model = self.model;
-        lvc.type = 1;
+        lvc.type = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? 1:2;
         lvc.can_operation = [self.model.can_operation intValue] == 1;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){

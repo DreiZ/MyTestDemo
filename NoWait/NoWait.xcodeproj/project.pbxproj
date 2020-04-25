@@ -188,6 +188,8 @@
 		B27B2EEF241A4A8400CB473C /* ZOriganizationTeacherViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B27B2EEE241A4A8400CB473C /* ZOriganizationTeacherViewModel.m */; };
 		B28861F4245283370073AEE4 /* AppDelegate+PushService.m in Sources */ = {isa = PBXBuildFile; fileRef = B28861F3245283370073AEE4 /* AppDelegate+PushService.m */; };
 		B28861F7245285E80073AEE4 /* ZPushModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B28861F6245285E80073AEE4 /* ZPushModel.m */; };
+		B28861FA2454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28861F92454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m */; };
+		B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28861FC245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m */; };
 		B28D90C52405FEE40021E05A /* ZOrganizationTrachingScheduleNewClassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90C42405FEE40021E05A /* ZOrganizationTrachingScheduleNewClassVC.m */; };
 		B28D90C8240602370021E05A /* ZAlertDataCheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90C7240602370021E05A /* ZAlertDataCheckBoxView.m */; };
 		B28D90CB240604C80021E05A /* ZTextFieldMultColCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B28D90CA240604C80021E05A /* ZTextFieldMultColCell.m */; };
@@ -1030,6 +1032,10 @@
 		B28861F3245283370073AEE4 /* AppDelegate+PushService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+PushService.m"; sourceTree = "<group>"; };
 		B28861F5245285E80073AEE4 /* ZPushModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPushModel.h; sourceTree = "<group>"; };
 		B28861F6245285E80073AEE4 /* ZPushModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPushModel.m; sourceTree = "<group>"; };
+		B28861F82454374A0073AEE4 /* ZOrganizationLessonDetailListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationLessonDetailListVC.h; sourceTree = "<group>"; };
+		B28861F92454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationLessonDetailListVC.m; sourceTree = "<group>"; };
+		B28861FB245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertStoresTeacherCheckBoxView.h; sourceTree = "<group>"; };
+		B28861FC245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertStoresTeacherCheckBoxView.m; sourceTree = "<group>"; };
 		B28D90C32405FEE40021E05A /* ZOrganizationTrachingScheduleNewClassVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTrachingScheduleNewClassVC.h; sourceTree = "<group>"; };
 		B28D90C42405FEE40021E05A /* ZOrganizationTrachingScheduleNewClassVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTrachingScheduleNewClassVC.m; sourceTree = "<group>"; };
 		B28D90C6240602370021E05A /* ZAlertDataCheckBoxView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDataCheckBoxView.h; sourceTree = "<group>"; };
@@ -2180,6 +2186,8 @@
 				B20C480323FFDAAB00E0CE35 /* ZOriganizationTeachHeadImageCell.m */,
 				B2DB9B21241B222B00340464 /* ZAlertTeacherCheckBoxView.h */,
 				B2DB9B22241B222B00340464 /* ZAlertTeacherCheckBoxView.m */,
+				B28861FB245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.h */,
+				B28861FC245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m */,
 				B2DB9B24241B2E5800340464 /* ZAlertLessonCheckBoxView.h */,
 				B2DB9B25241B2E5800340464 /* ZAlertLessonCheckBoxView.m */,
 			);
@@ -3855,6 +3863,8 @@
 				B2C3506C2440625D002929A8 /* ZOrganizationSendMessageVC.m */,
 				B2212B7B244AE3E000B4507D /* ZOrganizationSchoolAccountDetailListVC.h */,
 				B2212B7C244AE3E000B4507D /* ZOrganizationSchoolAccountDetailListVC.m */,
+				B28861F82454374A0073AEE4 /* ZOrganizationLessonDetailListVC.h */,
+				B28861F92454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4699,6 +4709,7 @@
 				B29795882425B650004490F5 /* ZStudentDetailEvaAboutCell.m in Sources */,
 				B28861F7245285E80073AEE4 /* ZPushModel.m in Sources */,
 				B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */,
+				B28861FA2454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m in Sources */,
 				B2A7809723BDFB0100407BF0 /* PingFoundation.m in Sources */,
 				B2C9D2E6243C637300D67558 /* ZMineOrderListCell.m in Sources */,
 				B2342C8E23FE787000F31C34 /* ZOriganizationTeachSwitchView.m in Sources */,
@@ -4868,6 +4879,7 @@
 				B28D90D1240621D10021E05A /* ZOrganizationClassManageListVC.m in Sources */,
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B28EA672240E4A1400C8E225 /* ZOrganizationCardListVC.m in Sources */,
+				B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
 				B24D993523FBDBDE0078A458 /* ZOrganizationCampusManageTimeVC.m in Sources */,
 				B28D914E2407926B0021E05A /* ZOriganizationLessonViewModel.m in Sources */,

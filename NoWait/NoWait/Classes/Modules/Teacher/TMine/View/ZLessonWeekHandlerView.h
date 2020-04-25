@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLessonWeekHandlerView : UIView
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) void (^moreBlock)(NSInteger);
 @property (nonatomic,assign) NSInteger index;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,assign) BOOL isOrganization;
 @end
 
 NS_ASSUME_NONNULL_END

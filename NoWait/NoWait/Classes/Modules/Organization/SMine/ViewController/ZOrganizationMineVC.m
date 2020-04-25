@@ -34,6 +34,7 @@
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
 #import "ZStudentMineSettingMineVC.h"
+#import "ZOrganizationLessonDetailListVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -181,6 +182,9 @@
                 }else if ([model.uid isEqualToString:@"refund"]){
                     ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if([model.uid isEqualToString:@"teacher_lesson"]){
+                    ZOrganizationLessonDetailListVC *lvc = [[ZOrganizationLessonDetailListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }
             }];
             
@@ -274,7 +278,8 @@
     @[@"班级管理",isDarkModel() ? @"store_class_dark":@"store_class",@"class"],
     @[@"排课管理",isDarkModel() ? @"store_pai_dark":@"store_pai",@"manageLesson"],
     @[@"课程管理",isDarkModel() ? @"store_lesson_dark":@"store_lesson",@"lesson"],
-    @[@"评价管理",isDarkModel() ? @"store_eva_dark":@"store_eva",@"eva"]]]];
+    @[@"评价管理",isDarkModel() ? @"store_eva_dark":@"store_eva",@"eva"],
+    @[@"教师课表",isDarkModel() ? @"teacherLessonDark":@"teacherLesson",@"teacher_lesson"]]]];
     
     for (int i = 0; i < menuArr.count; i++) {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];

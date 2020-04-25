@@ -12,6 +12,7 @@
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIButton *lastBtn;
 @property (nonatomic,strong) UIButton *nextBtn;
+@property (nonatomic,strong) UIImageView *arrowImageView;
 
 @end
 
@@ -74,6 +75,42 @@
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY);
     }];
+    
+    [self addSubview:self.arrowImageView];
+    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.titleLabel.mas_centerY);
+        make.left.equalTo(self.titleLabel.mas_right).offset(CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(14));
+        make.height.mas_equalTo(CGFloatIn750(8));
+    }];
+    
+    self.arrowImageView.hidden = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *midBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [midBtn bk_whenTapped:^{
+        if (weakSelf.moreBlock) {
+            weakSelf.moreBlock(3);
+        }
+    }];
+    [self addSubview:midBtn];
+    [midBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self);
+        make.centerX.equalTo(self.mas_centerX);
+        make.width.mas_equalTo(CGFloatIn750(180));
+    }];
+}
+
+
+- (UIImageView *)arrowImageView {
+    if (!_arrowImageView) {
+        _arrowImageView = [[UIImageView alloc] init];
+        _arrowImageView.image = [[UIImage imageNamed:@"upBlackArrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _arrowImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _arrowImageView.transform = CGAffineTransformRotate(_arrowImageView.transform, M_PI);
+        _arrowImageView.layer.masksToBounds = YES;
+    }
+    return _arrowImageView;
 }
 
 
@@ -126,13 +163,29 @@
 
 - (void)setIndex:(NSInteger)index {
     _index = index;
+    _arrowImageView.hidden = YES;
     if (index == 0) {
         _lastBtn.hidden = YES;
-        _titleLabel.hidden = NO;
+        if (!self.isOrganization) {
+            _titleLabel.hidden = NO;
+        }else{
+            _arrowImageView.hidden = NO;
+        }
+        
     }else{
-        _titleLabel.hidden = YES;
+        if (!self.isOrganization) {
+            _titleLabel.hidden = YES;
+        }else{
+            _arrowImageView.hidden = NO;
+        }
+        
         _lastBtn.hidden = NO;
     }
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    _titleLabel.text = title;
 }
 @end
 
