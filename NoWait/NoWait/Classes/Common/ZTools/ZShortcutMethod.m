@@ -27,12 +27,31 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
 }
 
 UIColor *randomColor(void) {
-    NSArray *temp = @[@"f7e155",@"adb9ff",@"e08ffd",@"7282ae",@"ff7674",@"ffa0c7",@"48e8a1",@"ffc15c",@"4dd599"];
+    NSArray *temp = @[@"f7e155",@"ff7674",@"48e8a1",@"ffc15c",@"4dd599",
+    @"ff9900",@"fccfba",@"b7ae8f",@"abb0b9",@"f1939c",@"f26b1f",@"F7C173",@"B89485",
+    @"70A3FF",@"FFD111",@"FFB100",@"FFB100",@"FFB100",@"ADB9FF",@"CAD3C3",@"BACF65",
+    @"CC3951",@"7282AE",@"66C18C",@"C8ADC4",@"D0DEAA",@"317523",@"2BAE85",@"FF62C3",
+    @"0EB0C9",@"A974FF",@"E08FFD",@"6F48E8",@"813C85",@"CE5E8A",@"ED556A",
+    @"2B73AF",@"61649F",@"E77C8E",@"FFA0C7"];
     if (color_index >= temp.count) {
         color_index = 0;
     }
     UIColor *tempColor = [UIColor colorWithHexString:temp[color_index]];
     color_index++;
+    return tempColor;
+}
+
+
+UIColor *randomColorWithNum(NSInteger index) {
+    NSArray *temp = @[@"f7e155",@"ff7674",@"48e8a1",@"ffc15c",@"4dd599",
+    @"ff9900",@"fccfba",@"b7ae8f",@"abb0b9",@"f1939c",@"f26b1f",@"F7C173",@"B89485",
+    @"70A3FF",@"FFD111",@"FFB100",@"FFB100",@"FFB100",@"ADB9FF",@"CAD3C3",@"BACF65",
+    @"CC3951",@"7282AE",@"66C18C",@"C8ADC4",@"D0DEAA",@"317523",@"2BAE85",@"FF62C3",
+    @"0EB0C9",@"A974FF",@"E08FFD",@"6F48E8",@"813C85",@"CE5E8A",@"ED556A",
+    @"2B73AF",@"61649F",@"E77C8E",@"FFA0C7"];
+    index = index % temp.count;
+    UIColor *tempColor = [UIColor colorWithHexString:temp[index]];
+  
     return tempColor;
 }
 

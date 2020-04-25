@@ -104,7 +104,7 @@
     _model = model;
     _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",ValidStr(model.now_progress) ? model.now_progress: @"0",@"/",SafeStr(model.total_progress)];
     _lessonTitleLabel.text = model.stores_courses_short_name;
-    _lessonProgressView.backgroundColor = randomColor();
+    _lessonProgressView.backgroundColor = randomColorWithNum([model.course_id intValue]);
     
     CGSize leftSize = [model.stores_courses_short_name tt_sizeWithFont:[UIFont fontContent]];
     CGFloat labelMin = (leftSize.width + CGFloatIn750(30) + 4)/(KScreenWidth - CGFloatIn750(60));

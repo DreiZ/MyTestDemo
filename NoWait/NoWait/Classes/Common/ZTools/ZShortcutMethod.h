@@ -22,6 +22,8 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
 
 UIColor *randomColor(void);
 
+UIColor *randomColorWithNum(NSInteger index);
+
 UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark);
 
 BOOL isDarkModel(void);

@@ -48,7 +48,7 @@
         _backView = [[UIView alloc] init];
         _backView.layer.masksToBounds = YES;
         _backView.layer.cornerRadius = CGFloatIn750(12);
-        _backView.backgroundColor = randomColor();
+        
     }
     return _backView;
 }
@@ -86,6 +86,7 @@
     if (tempList && tempList.count > 0) {
         _timeLabel.text = tempList[0];
     }
+    _backView.backgroundColor = randomColorWithNum([model.course_id intValue]+[model.courses_class_id intValue]);
 }
 
 +(CGSize)z_getCellSize:(id)sender {
