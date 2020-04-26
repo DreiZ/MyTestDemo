@@ -64,7 +64,7 @@
 
 - (void)setNavgation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:SafeStr(self.detailModel.name)];
+    [self.navigationItem setTitle:@"详情"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

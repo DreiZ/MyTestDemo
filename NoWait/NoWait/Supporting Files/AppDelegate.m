@@ -73,12 +73,19 @@
 #pragma mark - Private Methods
 - (void)launchAnimation {
     UIViewController *viewController = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil] instantiateViewControllerWithIdentifier:@"LaunchScreen"];
-    
+    UIImageView *logo = nil;
+    for (UIView *temp in viewController.view.subviews) {
+        if ([temp.restorationIdentifier isEqualToString:@"logo"]) {
+            logo = (UIImageView *)temp;
+            temp.frame = CGRectMake((KScreenWidth - 53)/2.0, (KScreenHeight - 53 - 43)-safeAreaBottom(), 53, 53);
+            logo.hidden = YES;
+        }
+    }
     UIView *launchView = viewController.view;
-    UIWindow *mainWindow = [[UIApplication sharedApplication] windows][0];
-    launchView.frame = [UIApplication sharedApplication].keyWindow.frame;
-    [mainWindow addSubview:launchView];
     
+    UIWindow *mainWindow = [[UIApplication sharedApplication] windows][0];
+    launchView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    [mainWindow addSubview:launchView];
     [UIView animateWithDuration:1.0f delay:0.5f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         launchView.alpha = 0.0f;
         launchView.layer.transform = CATransform3DScale(CATransform3DIdentity, 2.0f, 2.0f, 1.0f);
