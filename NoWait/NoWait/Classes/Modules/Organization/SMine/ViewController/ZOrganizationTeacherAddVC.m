@@ -107,7 +107,14 @@
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
             cellModel.placeholder = textArr[i][1];
+            
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            if ([textArr[i][4] isEqualToString:@"cid"]) {
+                if (_isEdit) {
+                    cellModel.isTextEnabled = NO;
+                }
+            }
+            
             cellModel.rightImage = textArr[i][3];
             cellModel.max = [textArr[i][5] intValue];
             cellModel.content = textArr[i][6];
@@ -584,20 +591,22 @@
         ZOriganizationIDCardCell *lcell = (ZOriganizationIDCardCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [weakSelf.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showIDCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(720), CGFloatIn750(452)) complete:^(NSArray<LLImagePickerModel *> *list) {
-                if (list && list.count > 0) {
-                    LLImagePickerModel *model = list[0];
-                    if (index == 0) {
-                        weakSelf.viewModel.addModel.cardImageUp = model.image;
+            if (!weakSelf.isEdit) {
+                [[ZPhotoManager sharedManager] showIDCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(720), CGFloatIn750(452)) complete:^(NSArray<LLImagePickerModel *> *list) {
+                    if (list && list.count > 0) {
+                        LLImagePickerModel *model = list[0];
+                        if (index == 0) {
+                            weakSelf.viewModel.addModel.cardImageUp = model.image;
+                        }
+                        if (index == 1 ) {
+                            weakSelf.viewModel.addModel.cardImageDown = model.image;
+                        }
+                        
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
                     }
-                    if (index == 1 ) {
-                        weakSelf.viewModel.addModel.cardImageDown = model.image;
-                    }
-                    
-                    [weakSelf initCellConfigArr];
-                    [weakSelf.iTableView reloadData];
-                }
-            }];
+                }];
+            }
         };
     }
 }

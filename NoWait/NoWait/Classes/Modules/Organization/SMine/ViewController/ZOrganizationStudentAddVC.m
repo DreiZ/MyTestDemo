@@ -447,7 +447,7 @@
         if (ValidStr(self.viewModel.addModel.stores_courses_class_id)) {
             [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.viewModel.addModel.stores_courses_class_id  handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
                 if (model) {
-                    weakSelf.viewModel.addModel.teacher = model.nick_name;
+                    weakSelf.viewModel.addModel.teacher = model.teacher_name;
                     weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];

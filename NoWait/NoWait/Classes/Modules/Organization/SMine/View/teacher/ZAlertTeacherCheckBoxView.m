@@ -43,7 +43,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationTeacherListModel *listModel = self.dataSources[i];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = listModel.nick_name;
+        model.leftTitle = listModel.teacher_name;
         model.leftMargin = CGFloatIn750(60);
         model.rightMargin = CGFloatIn750(60);
         model.cellHeight = CGFloatIn750(108);

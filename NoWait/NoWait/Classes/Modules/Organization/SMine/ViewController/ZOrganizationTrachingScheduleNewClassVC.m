@@ -122,7 +122,7 @@
                 cellModel.textColor = [UIColor colorTextGray];
                 if ([textArr[i][4] isEqualToString:@"name"]) {
                     cellModel.content = self.viewModel.addModel.class_Name;
-                    cellModel.max = 10;
+                    cellModel.max = 20;
                     cellModel.formatterType = ZFormatterTypeAny;
                 }else if ([textArr[i][4] isEqualToString:@"openTime"]){
                     cellModel.content = [self.viewModel.addModel.openTime timeStringWithFormatter:@"yyyy-MM-dd"];
