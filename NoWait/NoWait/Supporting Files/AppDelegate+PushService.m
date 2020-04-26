@@ -2,8 +2,8 @@
 //  AppDelegate+PushService.m
 //  ZBigHealth
 //
-//  Created by 承希-开发 on 2018/10/27.
-//  Copyright © 2018 承希-开发. All rights reserved.
+//  Created by zzz on 2018/10/27.
+//  Copyright © 2018 zzz. All rights reserved.
 //
 
 #import "AppDelegate+PushService.h"
