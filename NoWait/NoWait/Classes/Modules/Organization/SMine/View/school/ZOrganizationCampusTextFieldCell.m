@@ -110,7 +110,7 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrowN"];
     }
     return _arrowImageView;
 }
@@ -260,7 +260,7 @@
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
-    self.arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+//    self.arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
 }
 @end
 

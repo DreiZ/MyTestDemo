@@ -124,7 +124,7 @@
 -(UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrowN"];
         _arrowImageView.contentMode = UIViewContentModeScaleAspectFill;
         _arrowImageView.clipsToBounds = YES;
     }
@@ -195,7 +195,7 @@
     [super traitCollectionDidChange:previousTraitCollection];
     
     // darkmodel change
-    _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+//    _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
 }
 @end
 

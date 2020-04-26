@@ -156,26 +156,6 @@
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
     }
-    if (ValidArray(self.model.coupons_list)){
-        NSMutableArray *coupons = @[].mutableCopy;
-        for (ZOriganizationCardListModel *cartModel in self.model.coupons_list) {
-            [coupons addObject:cartModel.title];
-        }
-        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-        mModel.rightFont = [UIFont fontContent];
-        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        mModel.singleCellHeight = CGFloatIn750(60);
-        mModel.cellHeight = CGFloatIn750(62);
-        mModel.isHiddenLine = YES;
-        mModel.data = coupons;
-        mModel.cellTitle = @"label";
-        mModel.rightImage = @"rightBlackArrowN";
-        mModel.leftFont = [UIFont fontMax1Title];
-        mModel.rightColor = [UIColor colorRedForLabel];
-        mModel.rightDarkColor = [UIColor colorRedForLabelSub];
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-        [self.cellConfigArr addObject:textCellConfig];
-    }
     if (ValidArray(self.model.stores_info) || ValidArray(self.model.merchants_stores_tags)){
         ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
         mModel.rightFont = [UIFont fontContent];
@@ -199,6 +179,28 @@
         [self.cellConfigArr addObject:textCellConfig];
         
     }
+    
+    if (ValidArray(self.model.coupons_list)){
+        NSMutableArray *coupons = @[].mutableCopy;
+        for (ZOriganizationCardListModel *cartModel in self.model.coupons_list) {
+            [coupons addObject:cartModel.title];
+        }
+        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+        mModel.rightFont = [UIFont fontContent];
+        mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        mModel.singleCellHeight = CGFloatIn750(60);
+        mModel.cellHeight = CGFloatIn750(62);
+        mModel.isHiddenLine = YES;
+        mModel.data = coupons;
+        mModel.cellTitle = @"label";
+        mModel.rightImage = @"rightBlackArrowN";
+        mModel.leftFont = [UIFont fontMax1Title];
+        mModel.rightColor = [UIColor colorRedForLabel];
+        mModel.rightDarkColor = [UIColor colorRedForLabelSub];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        [self.cellConfigArr addObject:textCellConfig];
+    }
+    
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     [self.iTableView reloadData];
 }
@@ -233,22 +235,6 @@
         mModel.leftTitle = [NSString stringWithFormat:@"营业时间：%@~%@",ValidStr(detailModel.opend_start)?detailModel.opend_start:@"9:00",ValidStr(detailModel.opend_end)? detailModel.opend_end:@"18:00"];
         height += [ZMultiseriateContentLeftLineCell z_getCellHeight:mModel];
     }
-    if (ValidArray(detailModel.coupons_list)) {
-        NSMutableArray *coupons = @[].mutableCopy;
-        for (ZOriganizationCardListModel *cartModel in detailModel.coupons_list) {
-            [coupons addObject:cartModel.title];
-        }
-        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-        mModel.rightFont = [UIFont fontContent];
-        mModel.singleCellHeight = CGFloatIn750(60);
-        mModel.cellHeight = CGFloatIn750(62);
-        mModel.rightImage = @"rightBlackArrowN";
-        mModel.data = coupons;
-        mModel.leftFont = [UIFont fontMax1Title];
-        height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
-        
-       
-    }
     if (ValidArray(detailModel.stores_info) || ValidArray(detailModel.merchants_stores_tags)) {
         NSMutableArray *labelArr = @[].mutableCopy;
         if (ValidArray(detailModel.stores_info)) {
@@ -267,6 +253,24 @@
         
         
     }
+    
+    if (ValidArray(detailModel.coupons_list)) {
+        NSMutableArray *coupons = @[].mutableCopy;
+        for (ZOriganizationCardListModel *cartModel in detailModel.coupons_list) {
+            [coupons addObject:cartModel.title];
+        }
+        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
+        mModel.rightFont = [UIFont fontContent];
+        mModel.singleCellHeight = CGFloatIn750(60);
+        mModel.cellHeight = CGFloatIn750(62);
+        mModel.rightImage = @"rightBlackArrowN";
+        mModel.data = coupons;
+        mModel.leftFont = [UIFont fontMax1Title];
+        height += [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
+        
+       
+    }
+    
     height += CGFloatIn750(20);
     
     return height;

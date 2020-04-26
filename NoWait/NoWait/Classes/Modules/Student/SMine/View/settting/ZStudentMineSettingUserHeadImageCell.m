@@ -84,7 +84,7 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrowN"];
         _arrowImageView.layer.masksToBounds = YES;
     }
     return _arrowImageView;
@@ -208,7 +208,7 @@
     [super traitCollectionDidChange:previousTraitCollection];
     
     // darkmodel change
-    _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+//    _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

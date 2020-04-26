@@ -76,7 +76,7 @@
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
-        _rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"]: [UIImage imageNamed:@"rightBlackArrowN"];
+        _rightImageView.image =  [UIImage imageNamed:@"rightBlackArrowN"];
         _rightImageView.layer.masksToBounds = YES;
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
     }

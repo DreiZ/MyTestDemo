@@ -591,9 +591,9 @@
     }else{
         self.multColView.hidden = YES;
     }
-    if (_model.rightImage && [_model.rightImage isEqualToString:@"rightBlackArrowN"]) {
-        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
-    }
+//    if (_model.rightImage && [_model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+//        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+//    }
     [self bringSubviewToFront:self.selectBtn];
 }
 
@@ -629,9 +629,9 @@
 
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
-        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
-    }
+//    if (self.model.rightImage && [self.model.rightImage isEqualToString:@"rightBlackArrowN"]) {
+//        self.rightImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] :  [UIImage imageNamed:@"rightBlackArrowN"];
+//    }
 }
 @end
 

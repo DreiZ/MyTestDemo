@@ -117,7 +117,7 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.image = isDarkModel() ? [UIImage imageNamed:@"rightBlackArrowDarkN"] : [UIImage imageNamed:@"rightBlackArrowN"];
+        _arrowImageView.image = [UIImage imageNamed:@"rightBlackArrowN"];
         _arrowImageView.layer.masksToBounds = YES;
     }
     return _arrowImageView;
