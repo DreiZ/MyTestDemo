@@ -398,7 +398,7 @@
             ZAgreementVC *avc = [[ZAgreementVC alloc] init];
             avc.navTitle = @"似锦服务条款";
             avc.type = @"service_agreement";
-            avc.url = @"http://www.xiangcenter.com/Android/useragreement.html";
+            avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
             [self.navigationController pushViewController:avc animated:YES];
         }];
         
@@ -406,7 +406,7 @@
             ZAgreementVC *avc = [[ZAgreementVC alloc] init];
             avc.navTitle = @"隐私协议";
             avc.type = @"privacy_policy";
-            avc.url = @"http://www.xiangcenter.com/Android/privacyprotocol.html";
+            avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
             [self.navigationController pushViewController:avc animated:YES];
         }];
         
