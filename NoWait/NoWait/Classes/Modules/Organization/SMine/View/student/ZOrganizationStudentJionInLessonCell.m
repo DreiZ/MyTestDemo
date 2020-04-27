@@ -182,7 +182,7 @@
     _lessonLabel.text = model.stores_name;
     _classLabel.text = model.name;
     _nameLabel.text = model.stores_courses_name;
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.stores_course_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     [_teacherImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image]];
     
     CGSize tempSize = [model.teacher_name sizeForFont:[UIFont fontSmall] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByCharWrapping];

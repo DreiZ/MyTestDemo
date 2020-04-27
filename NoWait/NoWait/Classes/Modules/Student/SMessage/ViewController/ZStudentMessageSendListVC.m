@@ -22,7 +22,7 @@
 }
 
 - (void)setNavigation {
-    [self.navigationItem setTitle:@"发件人列表"];
+    [self.navigationItem setTitle:@"收件人列表"];
 }
 
 - (void)initCellConfigArr {

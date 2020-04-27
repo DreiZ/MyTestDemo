@@ -221,7 +221,7 @@
             [params setObject:self.loginViewModel.loginModel.tel forKey:@"phone"];
             [params setObject:self.loginViewModel.loginModel.pwd forKey:@"password"];
             [params setObject:self.loginViewModel.loginModel.messageCode forKey:@"code"];
-            [params setObject:@"1" forKey:@"login_type"];
+            [params setObject:[ZUserHelper sharedHelper].user.type forKey:@"login_type"];
             [params setObject:@YES forKey:@"is_login"];
             [TLUIUtility showLoading:nil];
             [weakSelf.loginViewModel updatePwdWithParams:params block:^(BOOL isSuccess, NSString *message) {
