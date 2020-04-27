@@ -224,6 +224,8 @@
 @property (nonatomic,strong) NSString *source;// 来源渠道
 @property (nonatomic,strong) NSString *teacher_id;//教师id
 @property (nonatomic,strong) NSString *teacher;//教师id
+@property (nonatomic,strong) NSString *teacher_nick_name;
+
 @property (nonatomic,strong) NSString *wechat;// 微信号
 @property (nonatomic,strong) NSString *referees;//推荐人
 @property (nonatomic,strong) NSString *emergency_name;//紧急联系人名称

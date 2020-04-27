@@ -648,6 +648,7 @@
         ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
         lvc.max = 5;
         lvc.list = self.viewModel.addModel.skills;
+        lvc.navTitle = @"特长技能s";
         lvc.handleBlock = ^(NSArray * labelArr) {
             [weakSelf.self.viewModel.addModel.skills removeAllObjects];
             [weakSelf.self.viewModel.addModel.skills addObjectsFromArray:labelArr];

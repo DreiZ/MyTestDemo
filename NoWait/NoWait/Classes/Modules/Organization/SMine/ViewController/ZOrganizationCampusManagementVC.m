@@ -369,6 +369,7 @@
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
         lvc.max = 5;
         lvc.list = self.model.merchants_stores_tags;
+        lvc.navTitle = @"机构特色";
         lvc.handleBlock = ^(NSArray * labelArr) {
             [weakSelf.model.merchants_stores_tags removeAllObjects];
             [weakSelf.model.merchants_stores_tags addObjectsFromArray:labelArr];
@@ -380,6 +381,7 @@
         ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
         lvc.max = 5;
         lvc.list = self.model.stores_info;
+        lvc.navTitle = @"基础设置";
         lvc.handleBlock = ^(NSArray * labelArr) {
             [weakSelf.model.stores_info removeAllObjects];
             [weakSelf.model.stores_info addObjectsFromArray:labelArr];

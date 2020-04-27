@@ -133,7 +133,7 @@
 - (void)setAddModel:(ZOriganizationStudentAddModel *)addModel {
     _addModel = addModel;
     _lessonLabel.text = addModel.courses_name;
-    _coachLabel.text = addModel.teacher_name;
+    _coachLabel.text = addModel.teacher_nick_name;
     _nameLabel.text = addModel.name;
 
     [ _userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(addModel.image)] placeholderImage:[UIImage imageNamed:@"default_image"]];

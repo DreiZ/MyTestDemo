@@ -97,7 +97,7 @@
         make.top.equalTo(self.rightContentLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
     [self.menuBackView removeAllSubviews];
-    NSArray *titleArr = @[@"实时",@"日报",@"周报",@"月报"].mutableCopy;
+    NSArray *titleArr = @[@"今天",@"昨天",@"本周",@"本月"].mutableCopy;
     UIButton *tempBtn = nil;
     for (int i = 0; i < titleArr.count; i++) {
         UIButton *menuBtn = [self getBtnWithText:titleArr[i] index:i];

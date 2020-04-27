@@ -47,7 +47,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"添加标签"];
+    [self.navigationItem setTitle:_navTitle? _navTitle: @"添加标签"];
     
     __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];

@@ -40,7 +40,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"相册管理"];
+    [self.navigationItem setTitle:SafeStr(self.model.name)];
 }
 
 - (void)setMainView {

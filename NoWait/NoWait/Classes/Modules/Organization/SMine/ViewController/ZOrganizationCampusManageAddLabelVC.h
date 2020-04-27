@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSArray *list;
 @property (nonatomic,strong) void (^handleBlock)(NSArray *);
 @property (nonatomic,assign) NSInteger max;
+@property (nonatomic,strong) NSString *navTitle;
+
 @end
 
 NS_ASSUME_NONNULL_END
