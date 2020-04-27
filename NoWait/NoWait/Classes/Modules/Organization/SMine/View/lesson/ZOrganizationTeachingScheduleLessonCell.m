@@ -193,8 +193,8 @@
     _model = model;
     
     _nameLabel.text = model.name;
-    _detailLabel.text = [NSString stringWithFormat:@"排课人数：%@人",model.fill_students];
-    _numLabel.text = [NSString stringWithFormat:@"补课人数：%@人",model.wait_students];
+    _detailLabel.text = [NSString stringWithFormat:@"排课人数：%@人",model.wait_students];
+    _numLabel.text = [NSString stringWithFormat:@"补课人数：%@人",model.fill_students];
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
 }
 

@@ -52,6 +52,7 @@
             model.rightImage = @"hnglocaladdress";
             model.rightImageWidth = CGFloatIn750(20);
             model.cellTitle = tempTitleArr[i];
+    
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
@@ -71,7 +72,7 @@
                 model.rightImageWidth = CGFloatIn750(10);
                 model.isTextEnabled = NO;
             }
-
+            model.max = 50;
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }

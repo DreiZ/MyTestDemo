@@ -294,6 +294,8 @@
                 [TLUIUtility showErrorHint:@"请输入正确的验证码"];
                 return;
             }
+            
+            [params setObject:[NSString stringWithFormat:@"%ld",weakSelf.type] forKey:@"type"];
 
             [self.loginViewModel loginWithParams:params block:^(BOOL isSuccess, id message) {
                 if (isSuccess) {

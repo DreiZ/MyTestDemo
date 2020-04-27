@@ -84,15 +84,22 @@
     if (model) {
         if (ValidStr(model.course_name)) {
             _lessonLabel.text = model.course_name;
+            
+//            _timeLabel.text = model.time;
+            
+        }else{
+//            _backView.backgroundColor = [UIColor clearColor];
+        }
+        
+        if (ValidStr(model.time)) {
             NSArray *tempList = [model.time componentsSeparatedByString:@"~"];
             if (tempList && tempList.count > 0) {
                 _timeLabel.text = tempList[0];
+            }else{
+                _timeLabel.text = model.time;
             }
-//            _timeLabel.text = model.time;
-            _backView.backgroundColor = randomColorWithNum([model.course_id intValue]+[model.courses_class_id intValue]);
-        }else{
-            _backView.backgroundColor = [UIColor clearColor];
         }
+        _backView.backgroundColor = randomColorWithNum([model.course_id intValue]+[model.courses_class_id intValue]);
     }else{
         _lessonLabel.text = @"";
         _timeLabel.text = @"";

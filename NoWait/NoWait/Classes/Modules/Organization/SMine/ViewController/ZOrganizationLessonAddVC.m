@@ -844,8 +844,13 @@
         ZTextFieldMultColCell *tCell = (ZTextFieldMultColCell *)cell;
         tCell.selectBlock = ^{
             [weakSelf.iTableView endEditing:YES];
+            if (!ValidStr(weakSelf.viewModel.addModel.course_min)) {
+                [TLUIUtility showErrorHint:@"请先输入单节课时"];
+                return;
+            }
             if (!ValidStr(weakSelf.viewModel.addModel.lessonID)) {
                 ZOrganizationTimeSelectVC *svc = [[ZOrganizationTimeSelectVC alloc] init];
+                svc.course_min = weakSelf.viewModel.addModel.course_min;
                 svc.timeArr = weakSelf.viewModel.addModel.fix_time;
                 svc.timeBlock = ^(NSMutableArray <ZBaseMenuModel *>*timeArr) {
                     weakSelf.viewModel.addModel.fix_time = timeArr;

@@ -78,6 +78,7 @@
         options.version = PHImageRequestOptionsVersionCurrent;
         //返回图片的质量类型 （效率高，质量低）
         options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+        options.networkAccessAllowed = YES;
         //同步请求获取iCloud图片（默认为NO）
         //options.synchronous = YES;
         [[PHImageManager defaultManager] requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
