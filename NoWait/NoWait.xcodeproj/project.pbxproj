@@ -50,6 +50,7 @@
 		B2257E83242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2257E82242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m */; };
 		B229401C2462526F00B3FD43 /* ZCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B22940182462526E00B3FD43 /* ZCellModel.m */; };
 		B229401D2462526F00B3FD43 /* ZBaseLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B229401B2462526F00B3FD43 /* ZBaseLineCell.m */; };
+		B2294021246259A400B3FD43 /* ZIMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2294020246259A400B3FD43 /* ZIMManager.m */; };
 		B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */; };
 		B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8A2408ED8700E299AC /* ZMineTeacherMenuCell.m */; };
 		B2296A8E2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8D2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m */; };
@@ -757,6 +758,8 @@
 		B22940192462526F00B3FD43 /* ZCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCellModel.h; sourceTree = "<group>"; };
 		B229401A2462526F00B3FD43 /* ZBaseLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBaseLineCell.h; sourceTree = "<group>"; };
 		B229401B2462526F00B3FD43 /* ZBaseLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBaseLineCell.m; sourceTree = "<group>"; };
+		B229401F246259A400B3FD43 /* ZIMManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZIMManager.h; sourceTree = "<group>"; };
+		B2294020246259A400B3FD43 /* ZIMManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZIMManager.m; sourceTree = "<group>"; };
 		B2296A852408EC3A00E299AC /* ZTeacherMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherMineVC.h; sourceTree = "<group>"; };
 		B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherMineVC.m; sourceTree = "<group>"; };
 		B2296A892408ED8700E299AC /* ZMineTeacherMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineTeacherMenuCell.h; sourceTree = "<group>"; };
@@ -2053,6 +2056,15 @@
 			path = StarRatingView;
 			sourceTree = "<group>";
 		};
+		B229401E2462598200B3FD43 /* ZIMManager */ = {
+			isa = PBXGroup;
+			children = (
+				B229401F246259A400B3FD43 /* ZIMManager.h */,
+				B2294020246259A400B3FD43 /* ZIMManager.m */,
+			);
+			path = ZIMManager;
+			sourceTree = "<group>";
+		};
 		B2296A822408EBD700E299AC /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
@@ -2683,6 +2695,7 @@
 		B2A77E8923BDD8C400407BF0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B229401E2462598200B3FD43 /* ZIMManager */,
 				B230F1AD244487FB0084BCC6 /* ZLocationManager */,
 				B2BA39AA24358775005A3FFB /* ZUMengManager */,
 				B2BA397B24349EF3005A3FFB /* ZPayManager */,
@@ -4314,6 +4327,7 @@
 				B2A77E1823BDA38400407BF0 /* Frameworks */,
 				B2A77E1923BDA38400407BF0 /* Resources */,
 				8E2AC1FD91B270F77292BEC4 /* [CP] Copy Pods Resources */,
+				AB31DB4D062AFCD04AC55297 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4522,6 +4536,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB31DB4D062AFCD04AC55297 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoWait/Pods-NoWait-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoWait/Pods-NoWait-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoWait/Pods-NoWait-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4785,6 +4816,7 @@
 				B279D04323C8430C00391A33 /* ZStudentLessonSelectTimeCell.m in Sources */,
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
 				B2342C9123FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.m in Sources */,
+				B2294021246259A400B3FD43 /* ZIMManager.m in Sources */,
 				B2A77F6623BDE5B900407BF0 /* ZShortcutMethod.m in Sources */,
 				B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */,
 				B2A781A923C5C96900407BF0 /* ZStudentLessonEvaView.m in Sources */,

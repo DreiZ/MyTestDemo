@@ -52,8 +52,12 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 
 #define kNotificationUpdateToken  @"token"
 
-
+//微信
 #define kAppKey_Wechat @"wx411f6beb954283c6"
 
+//友盟
 #define UMengKey @"5e85513e895cca4f46000017"
+
+//网易云信
+#define kNIMKey @"ad733c99f8b2486a524048ad73208bd3"
 #endif /* ZMacros_h */

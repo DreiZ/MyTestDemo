@@ -9,6 +9,7 @@
 #import "AppDelegate+PushService.h"
 #import <UMCommon/UMCommon.h>
 #import <UMPush/UMessage.h>
+#import "ZIMManager.h"
 #import "ZAppConfig.h"
 
 #import "ZUMengShareManager.h"
@@ -22,7 +23,7 @@
 - (void)registerNotificationDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    NSString *version = [UIDevice currentDevice].systemVersion;
-    
+    [[ZIMManager shareManager] registerIM];
     [[ZUMengShareManager sharedManager] umengShare];
     
     // Push's basic setting

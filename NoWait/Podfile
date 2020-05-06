@@ -51,10 +51,13 @@ target :NoWait do
 # 集成微信(精简版0.2M)
     pod 'UMCShare/Social/ReducedWeChat'
     pod 'WechatOpenSDK'
+#扫一扫
+    pod 'LBXScan/LBXNative','~> 2.3'
+    #pod 'LBXScan/LBXZXing','~> 2.3'
+    #pod 'LBXScan/LBXZBar','~> 2.3'
+    pod 'LBXScan/UI','~> 2.3'
 
-pod 'LBXScan/LBXNative','~> 2.3'
-#pod 'LBXScan/LBXZXing','~> 2.3'
-#pod 'LBXScan/LBXZBar','~> 2.3'
-pod 'LBXScan/UI','~> 2.3'
+#网易云信
+    pod 'NIMSDK' 
 
 end
