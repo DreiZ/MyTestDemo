@@ -30,6 +30,7 @@
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineVC.h"
+#import "ZRewardCenterVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -141,7 +142,7 @@
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
-            [[ZUserHelper sharedHelper] checkLogin:^{
+//            [[ZUserHelper sharedHelper] checkLogin:^{
                 if ([scellConfig.title isEqualToString:@"eva"]) {
                     ZStudentMineEvaListHadVC *elvc = [[ZStudentMineEvaListHadVC alloc] init];
                     [weakSelf.navigationController pushViewController:elvc animated:YES];
@@ -158,8 +159,13 @@
                 }else if ([scellConfig.title isEqualToString:@"sign"]) {
                     ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if ([scellConfig.title isEqualToString:@"reward"]) {
+                    ZRewardCenterVC *lvc = [[ZRewardCenterVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }
-            }];
+                
+                
+//            }];
             
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonProgressCell"]){
@@ -221,7 +227,10 @@
                          @[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher",@"sign", @"我的签课", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"stores_card_dark":@"stores_card",@"card", @"我的卡券", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"],
-                         @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"refund", @"我的退款", @"rightBlackArrowN"]];
+                         @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"refund", @"我的退款", @"rightBlackArrowN"],
+    @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"reward", @"奖励中心", @"rightBlackArrowN"]];
+    
+    
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

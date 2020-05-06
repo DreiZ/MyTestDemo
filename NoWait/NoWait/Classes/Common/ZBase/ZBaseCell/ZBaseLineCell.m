@@ -151,10 +151,6 @@
     return _bottomLineView;
 }
 
-- (void)layoutSubviews {
-    NSLog(@"layout rightLabel.x %f  %f",self.rightTitleLabel.left,self.rightTitleLabel.width);
-}
-
 #pragma mark - set model
 - (void)setModel:(ZLineCellModel *)model {
     _model = model;
