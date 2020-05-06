@@ -23,8 +23,8 @@
  这样做切换方便,不用来回每个网络请求修改请求域名,降低出错事件
  */
 
-#define DevelopSever    0
-#define TestSever       1
+#define DevelopSever    1
+#define TestSever       0
 #define ProductSever    0
 
 // 表情服务器
@@ -40,17 +40,17 @@
 
 #pragma mark - /**开发服务器*/
 //验证码服务器@"http://api.xiangcenter.com"
-#define URL_code                        @"http://116.62.232.213"
+#define URL_code                        @"http://apitest.xiangcenter.com"
 //用户服务器
-#define URL_user                        @"http://116.62.232.213"
+#define URL_user                        @"http://apitest.xiangcenter.com"
 //订单服务
-#define URL_order                       @"http://116.62.232.213"
+#define URL_order                       @"http://apitest.xiangcenter.com"
 //文件服务器
-#define URL_file                        @"http://116.62.232.213"
+#define URL_file                        @"http://apitest.xiangcenter.com"
 //教师服务器
-#define URL_coach                       @"http://116.62.232.213"
+#define URL_coach                       @"http://apitest.xiangcenter.com"
 //机构服务器
-#define URL_organization                @"http://116.62.232.213"
+#define URL_organization                @"http://apitest.xiangcenter.com"
 
 //IM服务器
 #define SocketServiceUrl                @"172.17.100.32"
