@@ -11,6 +11,12 @@
 
 @interface ZIMManager : NSObject
 + (ZIMManager *)shareManager;
-- (void)registerIM ;
+
+- (void)setupNIMSDK;
+
+- (void)registerIM;
+
+//登录
+- (void)loginIMComplete:(void(^)(BOOL))complete;
 @end
 

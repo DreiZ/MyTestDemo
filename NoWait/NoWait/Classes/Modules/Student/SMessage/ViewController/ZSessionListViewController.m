@@ -8,6 +8,9 @@
 
 #import "ZSessionListViewController.h"
 
+#import "ZSessionViewController.h"
+#import "ZContactViewController.h"
+
 @interface ZSessionListViewController ()
 
 @end
@@ -16,17 +19,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = @"会话";
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSession)];
+    self.navigationItem.rightBarButtonItem = item;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)onSelectedRecent:(NIMRecentSession *)recent
+             atIndexPath:(NSIndexPath *)indexPath
+{
+    ZSessionViewController *vc = [[ZSessionViewController alloc] initWithSession:recent.session];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-*/
+
+- (void)addSession
+{
+    ZContactViewController *vc = [[ZContactViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end

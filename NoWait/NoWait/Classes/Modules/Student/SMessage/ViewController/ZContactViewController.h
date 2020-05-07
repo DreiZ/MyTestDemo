@@ -8,10 +8,8 @@
 
 #import "ZViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZContactViewController : ZViewController
+@interface ZContactViewController : ZTableViewViewController
 
 @end
 
-NS_ASSUME_NONNULL_END

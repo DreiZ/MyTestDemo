@@ -7,11 +7,10 @@
 //
 
 #import "ZViewController.h"
+#import <NIMKit/NIMKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZSessionListViewController : ZViewController
+@interface ZSessionListViewController : NIMSessionListViewController
 
 @end
 
-NS_ASSUME_NONNULL_END

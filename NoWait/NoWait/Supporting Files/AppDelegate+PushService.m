@@ -23,7 +23,12 @@
 - (void)registerNotificationDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    NSString *version = [UIDevice currentDevice].systemVersion;
+    
+    //初始化IM
+    [[ZIMManager shareManager] setupNIMSDK];
     [[ZIMManager shareManager] registerIM];
+    
+    //友盟
     [[ZUMengShareManager sharedManager] umengShare];
     
     // Push's basic setting

@@ -14,9 +14,12 @@
 #import "ZMineModel.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZStudentMessageSendListVC.h"
+#import "ZIMManager.h"
+#import "ZSessionListViewController.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,strong) UIButton *navLeftBtn;
 
 @end
 @implementation ZStudentMessageVC
@@ -67,6 +70,7 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"消息"];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
 }
 
 - (void)setupMainView {
@@ -78,7 +82,28 @@
     }];
 }
 
+#pragma mark - lazy loading...
+- (UIButton *)navLeftBtn {
+    if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        ViewRadius(_navLeftBtn, CGFloatIn750(25));
+        [_navLeftBtn bk_whenTapped:^{
+            
+            [[ZIMManager shareManager] loginIMComplete:^(BOOL isSuccess) {
+                ZSessionListViewController *lvc = [[ZSessionListViewController alloc] init];
+                [self.navigationController pushViewController:lvc animated:YES];
+            }];
+        }];
+    }
+    return _navLeftBtn;
+}
 
+#pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZMessageCell"]) {
         ZMessageCell *lcell = (ZMessageCell *)cell;
