@@ -7,7 +7,9 @@ target :NoWait do
 
     # --------------------- 第三方Pod -----------------------
     pod 'AFNetworking', '~> 3.1.0'
-    pod 'SDWebImage', '~> 3.7'
+    pod 'Reachability'
+    pod 'SDWebImage', '~> 5.7.4'
+#    pod 'SDWebImage'
     pod 'Masonry', '~> 1.1.0'
     pod 'MJRefresh', '~> 3.1.15'
     pod 'MJExtension', '~> 3.0.13'
@@ -23,8 +25,8 @@ target :NoWait do
     pod 'IQKeyboardManager'
     pod 'DACircularProgress'
     pod 'MBProgressHUD'
-    pod 'SJVideoPlayer'
-    pod 'SJBaseVideoPlayer', :git => 'https://github.com/changsanjiang/SJBaseVideoPlayer.git'
+#    pod 'SJVideoPlayer'
+#    pod 'SJBaseVideoPlayer', :git => 'https://github.com/changsanjiang/SJBaseVideoPlayer.git'
 
 
 # 全能tabBarController
@@ -58,6 +60,6 @@ target :NoWait do
     pod 'LBXScan/UI','~> 2.3'
 
 #网易云信
-    pod 'NIMSDK' 
-
+#    pod 'NIMKit'
+    pod 'NIMKit', :git => 'https://github.com/jinke5245/NIM_iOS_UIKit.git'
 end

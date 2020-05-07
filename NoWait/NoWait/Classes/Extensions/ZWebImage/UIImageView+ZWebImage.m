@@ -48,7 +48,7 @@
 
 - (void)tt_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(ZWebImageOptions)options progress:(ZWebImageDownloaderProgressBlock)progressBlock completed:(ZWebImageDownloadCompleteBlock)completedBlock
 {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:(SDWebImageOptions)options progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    [self sd_setImageWithURL:url placeholderImage:placeholder options:(SDWebImageOptions)options progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         if (progressBlock) {
             progressBlock(receivedSize, expectedSize, nil);
         }
@@ -57,11 +57,21 @@
             completedBlock(image, error, (ZImageCacheType)cacheType, imageURL);
         }
     }];
+//    [self sd_setImageWithURL:url placeholderImage:placeholder options:(SDWebImageOptions)options progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//        if (progressBlock) {
+//            progressBlock(receivedSize, expectedSize, nil);
+//        }
+//    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//        if (completedBlock) {
+//            completedBlock(image, error, (ZImageCacheType)cacheType, imageURL);
+//        }
+//    }];
 }
 
 - (void)tt_cancelCurrentImageLoad
 {
-    [self sd_cancelCurrentImageLoad];
+    [self tt_cancelCurrentImageLoad];
+//    [self sd_cancelCurrentImageLoad];
 }
 
 @end

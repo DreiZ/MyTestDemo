@@ -8,8 +8,8 @@
 
 #import "ZVideoPlayerManager.h"
 #import "AppDelegate.h"
-#import "SJVideoPlayer.h"
-#import <SJBaseVideoPlayer.h>
+//#import "SJVideoPlayer.h"
+//#import <SJBaseVideoPlayer.h>
 
 
 static ZVideoPlayerManager *videoPlayerManager;
@@ -17,7 +17,7 @@ static ZVideoPlayerManager *videoPlayerManager;
 
 @interface ZVideoPlayerManager ()
 @property (nonatomic,strong) UIView *playerView;
-@property (nonatomic, strong) SJVideoPlayer *player;
+//@property (nonatomic, strong) SJVideoPlayer *player;
 
 @end
 
@@ -38,44 +38,44 @@ static ZVideoPlayerManager *videoPlayerManager;
         _playerView.layer.masksToBounds = YES;
         _playerView.backgroundColor = [UIColor blackColor];
         
-        __weak typeof(self) weakSelf = self;
-        UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];
-        close.backgroundColor = [UIColor colorGrayBG];
-        close.layer.masksToBounds = YES;
-        close.layer.cornerRadius = CGFloatIn750(35);
-        close.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [close setImage:[UIImage imageNamed:@"videoClose"] forState:UIControlStateNormal];
-        [close bk_addEventHandler:^(id sender) {
-            [weakSelf.player stop];
-            [weakSelf.playerView removeFromSuperview];
-        } forControlEvents:UIControlEventTouchUpInside];
-        [_playerView addSubview:close];
-        [close mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.playerView.mas_left).offset(CGFloatIn750(20));
-            make.top.equalTo(self.playerView.mas_top).offset(CGFloatIn750(-60)+kTopHeight);
-            make.width.height.mas_equalTo(CGFloatIn750(70));
-        }];
+//        __weak typeof(self) weakSelf = self;
+//        UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];
+//        close.backgroundColor = [UIColor colorGrayBG];
+//        close.layer.masksToBounds = YES;
+//        close.layer.cornerRadius = CGFloatIn750(35);
+//        close.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        [close setImage:[UIImage imageNamed:@"videoClose"] forState:UIControlStateNormal];
+//        [close bk_addEventHandler:^(id sender) {
+//            [weakSelf.player stop];
+//            [weakSelf.playerView removeFromSuperview];
+//        } forControlEvents:UIControlEventTouchUpInside];
+//        [_playerView addSubview:close];
+//        [close mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.playerView.mas_left).offset(CGFloatIn750(20));
+//            make.top.equalTo(self.playerView.mas_top).offset(CGFloatIn750(-60)+kTopHeight);
+//            make.width.height.mas_equalTo(CGFloatIn750(70));
+//        }];
+//        
+//        
+//        _player = [SJVideoPlayer player];
+//        
+//        [_playerView addSubview:_player.view];
+//        [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.playerView.mas_centerY).offset(-CGFloatIn750(120));
+//            make.leading.trailing.offset(0);
+//            make.height.equalTo(self->_player.view.mas_width).multipliedBy(9 / 16.0f);
+//        }];
+//        
         
-        
-        _player = [SJVideoPlayer player];
-        
-        [_playerView addSubview:_player.view];
-        [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.playerView.mas_centerY).offset(-CGFloatIn750(120));
-            make.leading.trailing.offset(0);
-            make.height.equalTo(self->_player.view.mas_width).multipliedBy(9 / 16.0f);
-        }];
-        
-        
-        
-//        _player.hideBackButtonWhenOrientationIsPortrait = YES;
-        _player.pausedToKeepAppearState = YES;
-//        _player.enableFilmEditing = NO;
-        _player.filmEditingConfig.saveResultToAlbumWhenExportSuccess = YES;
-        _player.resumePlaybackWhenAppDidEnterForeground = YES;
-        
-        SJEdgeControlButtonItem *titleItem = [_player.defaultEdgeControlLayer.topAdapter itemForTag:SJEdgeControlLayerTopItem_Title];
-        titleItem.numberOfLines = 1;
+//
+////        _player.hideBackButtonWhenOrientationIsPortrait = YES;
+//        _player.pausedToKeepAppearState = YES;
+////        _player.enableFilmEditing = NO;
+//        _player.filmEditingConfig.saveResultToAlbumWhenExportSuccess = YES;
+//        _player.resumePlaybackWhenAppDidEnterForeground = YES;
+//
+//        SJEdgeControlButtonItem *titleItem = [_player.defaultEdgeControlLayer.topAdapter itemForTag:SJEdgeControlLayerTopItem_Title];
+//        titleItem.numberOfLines = 1;
     }
     return _playerView;
 }
@@ -88,9 +88,9 @@ static ZVideoPlayerManager *videoPlayerManager;
         self.playerView.alpha = 1;
         self.playerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     }];
-    
-    _player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:url]];
-    _player.URLAsset.title = title;
+//
+//    _player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:url]];
+//    _player.URLAsset.title = title;
     //    _player.URLAsset.playableLimit = 10;
 }
 @end

@@ -16,11 +16,11 @@ PODS:
     - AFNetworking/NSURLSession
   - AMap2DMap (5.6.1):
     - AMapFoundation (~> 1.4)
-  - AMapFoundation (1.6.1)
-  - AMapLocation (2.6.4):
-    - AMapFoundation (~> 1.6.1)
-  - AMapSearch (7.1.0):
-    - AMapFoundation (~> 1.4)
+  - AMapFoundation (1.6.3)
+  - AMapLocation (2.6.5):
+    - AMapFoundation (~> 1.6.3)
+  - AMapSearch (7.3.0):
+    - AMapFoundation (~> 1.6.3)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -47,17 +47,28 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - IQKeyboardManager (6.5.0)
+  - IQKeyboardManager (6.5.5)
   - LBXScan/LBXNative (2.3):
     - LBXScan/Types (~> 2.2)
   - LBXScan/Types (2.3)
   - LBXScan/UI (2.3):
     - LBXScan/Types (~> 2.2)
+  - M80AttributedLabel (1.9.9)
   - Masonry (1.1.0)
-  - MBProgressHUD (1.1.0)
+  - MBProgressHUD (1.2.0)
   - MJExtension (3.0.17)
   - MJRefresh (3.1.17)
-  - NIMSDK (7.5.0)
+  - NIMKit (2.11.14):
+    - NIMKit/Lite (= 2.11.14)
+  - NIMKit/Core (2.11.14):
+    - M80AttributedLabel
+    - SDWebImage
+    - Toast
+    - TZImagePickerController
+  - NIMKit/Lite (2.11.14):
+    - NIMKit/Core
+    - NIMSDK_LITE (~> 6.6.7)
+  - NIMSDK_LITE (6.6.7)
   - PGPickerView (1.3.8)
   - Reachability (3.2)
   - ReactiveCocoa (2.5):
@@ -67,61 +78,11 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SDCycleScrollView (1.65):
-    - SDWebImage (~> 3.7)
-  - SDWebImage (3.8.3):
-    - SDWebImage/Core (= 3.8.3)
-  - SDWebImage/Core (3.8.3)
-  - SJBaseVideoPlayer (3.1.8):
-    - Masonry
-    - Reachability
-    - SJBaseVideoPlayer/AVPlayer (= 3.1.8)
-    - SJBaseVideoPlayer/Common (= 3.1.8)
-    - SJUIKit/AttributesFactory (>= 0.0.0.38)
-    - SJUIKit/ObserverHelper (>= 0.0.0.38)
-    - SJUIKit/Queues (>= 0.0.0.38)
-  - SJBaseVideoPlayer/AVPlayer (3.1.8):
-    - Masonry
-    - Reachability
-    - SJBaseVideoPlayer/Common
-    - SJUIKit/AttributesFactory (>= 0.0.0.38)
-    - SJUIKit/ObserverHelper (>= 0.0.0.38)
-    - SJUIKit/Queues (>= 0.0.0.38)
-  - SJBaseVideoPlayer/Common (3.1.8):
-    - Masonry
-    - Reachability
-    - SJBaseVideoPlayer/ResourceLoader
-    - SJUIKit/AttributesFactory (>= 0.0.0.38)
-    - SJUIKit/ObserverHelper (>= 0.0.0.38)
-    - SJUIKit/Queues (>= 0.0.0.38)
-  - SJBaseVideoPlayer/ResourceLoader (3.1.8):
-    - Masonry
-    - Reachability
-    - SJUIKit/AttributesFactory (>= 0.0.0.38)
-    - SJUIKit/ObserverHelper (>= 0.0.0.38)
-    - SJUIKit/Queues (>= 0.0.0.38)
-  - SJUIKit/AttributesFactory (0.0.0.39):
-    - SJUIKit/AttributesFactory/Deprecated (= 0.0.0.39)
-    - SJUIKit/AttributesFactory/UIKitText (= 0.0.0.39)
-  - SJUIKit/AttributesFactory/Deprecated (0.0.0.39)
-  - SJUIKit/AttributesFactory/UIKitText (0.0.0.39)
-  - SJUIKit/ObserverHelper (0.0.0.39)
-  - SJUIKit/Queues (0.0.0.39)
-  - SJVideoPlayer (3.1.1):
-    - SJBaseVideoPlayer (>= 3.1.7)
-    - SJVideoPlayer/Common (= 3.1.1)
-    - SJVideoPlayer/ControlLayers (= 3.1.1)
-    - SJVideoPlayer/ResourceLoader (= 3.1.1)
-  - SJVideoPlayer/Common (3.1.1):
-    - Masonry
-    - SJBaseVideoPlayer (>= 3.1.7)
-    - SJUIKit/AttributesFactory
-    - SJVideoPlayer/ResourceLoader
-  - SJVideoPlayer/ControlLayers (3.1.1):
-    - SJBaseVideoPlayer (>= 3.1.7)
-    - SJVideoPlayer/Common
-  - SJVideoPlayer/ResourceLoader (3.1.1):
-    - SJBaseVideoPlayer (>= 3.1.7)
+  - SDCycleScrollView (1.80):
+    - SDWebImage (>= 5.0.0)
+  - SDWebImage (5.7.4):
+    - SDWebImage/Core (= 5.7.4)
+  - SDWebImage/Core (5.7.4)
   - SVProgressHUD (2.2.5)
   - TLKit (0.0.27):
     - TLKit/TLCategories (= 0.0.27)
@@ -210,21 +171,23 @@ PODS:
     - TLKit/TLCategories/UIKit/UIWindow
   - TLKit/TLShortcut (0.0.27)
   - TLTabBarController (0.0.6)
-  - UMCAnalytics (6.0.5):
+  - Toast (4.0.0)
+  - TZImagePickerController (3.3.1)
+  - UMCAnalytics (6.1.0):
     - UMCCommon
-  - UMCCommon (2.1.1)
+  - UMCCommon (2.1.4)
   - UMCPush (3.2.4):
     - UMCCommon
   - UMCSecurityPlugins (1.0.6)
-  - UMCShare/Core (6.9.6):
+  - UMCShare/Core (6.9.8):
     - UMCCommon
-  - UMCShare/Social/ReducedWeChat (6.9.6):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/UI (6.9.6):
+  - UMCShare/Social/ReducedWeChat (6.9.8):
     - UMCCommon
     - UMCShare/Core
-  - WechatOpenSDK (1.8.6)
+  - UMCShare/UI (6.9.8):
+    - UMCCommon
+    - UMCShare/Core
+  - WechatOpenSDK (1.8.7.1)
   - WMPageController (2.5.2)
   - WXSTransition (1.2.1)
   - YYKit (1.0.9):
@@ -249,13 +212,12 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJExtension (~> 3.0.13)
   - MJRefresh (~> 3.1.15)
-  - NIMSDK
+  - NIMKit (from `https://github.com/jinke5245/NIM_iOS_UIKit.git`)
   - PGPickerView
+  - Reachability
   - ReactiveCocoa (~> 2.5)
   - SDCycleScrollView
-  - SDWebImage (~> 3.7)
-  - SJBaseVideoPlayer (from `https://github.com/changsanjiang/SJBaseVideoPlayer.git`)
-  - SJVideoPlayer
+  - SDWebImage (~> 5.7.4)
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
   - UMCAnalytics
@@ -284,19 +246,20 @@ SPEC REPOS:
     - FMDB
     - IQKeyboardManager
     - LBXScan
+    - M80AttributedLabel
     - Masonry
     - MBProgressHUD
     - MJExtension
     - MJRefresh
-    - NIMSDK
+    - NIMSDK_LITE
     - PGPickerView
     - Reachability
     - ReactiveCocoa
     - SDCycleScrollView
     - SDWebImage
-    - SJUIKit
-    - SJVideoPlayer
     - SVProgressHUD
+    - Toast
+    - TZImagePickerController
     - UMCAnalytics
     - UMCCommon
     - UMCPush
@@ -308,8 +271,8 @@ SPEC REPOS:
     - YYKit
 
 EXTERNAL SOURCES:
-  SJBaseVideoPlayer:
-    :git: https://github.com/changsanjiang/SJBaseVideoPlayer.git
+  NIMKit:
+    :git: https://github.com/jinke5245/NIM_iOS_UIKit.git
   TLKit:
     :git: https://github.com/tbl00c/TLKit.git
     :tag: 0.0.27
@@ -321,9 +284,9 @@ EXTERNAL SOURCES:
     :tag: 0.0.6
 
 CHECKOUT OPTIONS:
-  SJBaseVideoPlayer:
-    :commit: 80b591151d4b5b1c79903f1305da41804af48a81
-    :git: https://github.com/changsanjiang/SJBaseVideoPlayer.git
+  NIMKit:
+    :commit: 5c097815b5589957a92c075e917f85ba20f794e8
+    :git: https://github.com/jinke5245/NIM_iOS_UIKit.git
   TLKit:
     :git: https://github.com/tbl00c/TLKit.git
     :tag: 0.0.27
@@ -337,43 +300,44 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
-  AMapFoundation: df9a0ceec845ae2b5f57bdf9884666f2ed73bf5b
-  AMapLocation: b4162db67f813508a14ee7e05c7ee4073785221d
-  AMapSearch: 6bd6d361c5eb00110e0bffa4acf88b7bb9f7e059
+  AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
+  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
+  AMapSearch: a048bcca3bf0b8083345070e1f193f814bd8dc01
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  IQKeyboardManager: 700e5155d6a292383b54e8678aec769e14fc78fc
+  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
+  M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
   MJRefresh: ee5b68f639775462faba4db0fd243baf4d42c2cf
-  NIMSDK: a43eb9b8bf83ddb0338c51ae2d756b683edc0cb8
+  NIMKit: e94ee05f42803f593f150cd9bc8397a054caed41
+  NIMSDK_LITE: 2c25cf42ebd937cc5337430f70c8fe9bc9130768
   PGPickerView: 037acfb132a4c8054fb43aaa59a5ff50c7f747f5
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
-  SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
-  SJBaseVideoPlayer: 7c3d6d0e8c9cbd731143d2ddb53a2157e74479de
-  SJUIKit: 5479a150083e606937a796801ecaae6317e046f5
-  SJVideoPlayer: 02bafffeb014806167be201f2860462fdc4d9e87
+  SDCycleScrollView: b3c9a5ed840c771c4938978174c7c9d9feefeb96
+  SDWebImage: 48b88379b798fd1e4298f95bb25d2cdabbf4deb3
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TLKit: e06e6018c04c6c13a96faefe980a13ff124ebeb1
   TLTabBarController: 6e91813f0ae019e8cd2ae35d6f4f6315085f7c44
-  UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
-  UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  TZImagePickerController: 99f03b64145a8c92c55b9b1b931410967d9be4cb
+  UMCAnalytics: 3503f179f7af932b30af9ac161ac11fb48fa72b6
+  UMCCommon: b0703b0053323f598e01670ea702b8eb1e66e611
   UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
-  UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
-  WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
+  UMCShare: a250203b34a56cde25cc4c28335449b542f0255d
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   WXSTransition: 0bd758aaa1f5869a908b1bb103c4a9e26ad1d3eb
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: b3cb73e2f9dcba773cc7445941cc2c5f4188ef3d
+PODFILE CHECKSUM: e10342024477959be7406155c491963d34a6940f
 
 COCOAPODS: 1.9.1

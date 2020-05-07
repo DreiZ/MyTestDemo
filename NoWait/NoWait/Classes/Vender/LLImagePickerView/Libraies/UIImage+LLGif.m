@@ -12,11 +12,12 @@
 @implementation UIImage (LLGif)
 
 + (UIImage *)ll_setGifWithName: (NSString *)name {
-    return [self sd_animatedGIFNamed:name];
+    return nil;
 }
 
 + (UIImage *)ll_setGifWithData: (NSData *)data {
-    return [self sd_animatedGIFWithData:data];
+//    return [self sd_animatedGIFWithData:data];
+    return [self sd_imageWithGIFData:data];
 }
 
 

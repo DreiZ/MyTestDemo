@@ -143,7 +143,10 @@ typedef NS_ENUM(NSInteger, ZImageDownloadState) {
             task.completeAction(task.success, task.image);
             if (task.success) {
                 [self.historyRecord addObject:task];
-                [[SDImageCache sharedImageCache] storeImage:task.image forKey:task.url.absoluteString toDisk:YES];
+                [[SDImageCache sharedImageCache] storeImage:task.image forKey:task.url.absoluteString toDisk:YES completion:^{
+                    
+                }];
+//                [[SDImageCache sharedImageCache] storeImage:task.image forKey:task.url.absoluteString toDisk:YES];
             }
         }
         if (self.downloadTasks.count > 0 && self.downloadTasks.firstObject.downloadState == ZImageDownloadStateComplete) {
