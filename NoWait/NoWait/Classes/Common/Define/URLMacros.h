@@ -537,5 +537,7 @@
 
 #define URL_message_v1_get_device_token_info                 @"account/v1/get_device_token_info"
 
+#define URL_message_v1_unbind_device_token                 @"account/v1/unbind_device_token"
+
 
 #endif /* URLMacros_h */

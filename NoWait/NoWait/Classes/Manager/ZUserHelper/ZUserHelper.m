@@ -65,6 +65,9 @@
 //            [TLUIUtility showErrorHint:message];
 //        }
 //    }];
+    [self unbindDeviceTokenWithParams:@{} block:^(BOOL isSuccess, NSString *message) {
+        
+    }];
 }
 
 - (void)deleteUserStore:(NSString *)userCodeID {
@@ -271,7 +274,6 @@
     }];
 }
 
-
 //device token
 - (void)deviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
     [ZNetworkingManager postServerType:ZServerTypeUser url:URL_message_v1_add_device_token params:params completionHandler:^(id data, NSError *error) {
@@ -302,6 +304,24 @@
             }else {
                 block(NO,dataModel.message);
             }
+        }else {
+            if ([ZPublicTool getNetworkStatus]) {
+                block(NO, dataModel.message);
+            }else{
+                block(NO, @"天呐，您的网络好像出了点小问题...");
+            }
+        }
+    }];
+}
+
+
+//device token
+- (void)unbindDeviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_message_v1_unbind_device_token params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            block(YES,dataModel.message);
         }else {
             if ([ZPublicTool getNetworkStatus]) {
                 block(NO, dataModel.message);
