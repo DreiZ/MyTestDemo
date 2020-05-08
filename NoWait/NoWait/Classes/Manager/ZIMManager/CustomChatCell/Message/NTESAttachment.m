@@ -11,7 +11,7 @@
 @implementation NTESAttachment
 
 - (NSString *)encodeAttachment{
-    NSDictionary *dict = @{@"title":self.title,@"subTitle":self.subTitle};
+    NSDictionary *dict = @{@"title":self.title,@"subTitle":self.subTitle,@"extra":self.extra};
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
     NSString *encodeString = @"";
     if (data) {
@@ -36,6 +36,14 @@
         _subTitle = @"";
     }
     return _subTitle;
+}
+
+
+- (NSString *)extra{
+    if (!_extra) {
+        _extra = @"";
+    }
+    return _extra;
 }
 
 @end

@@ -52,6 +52,7 @@
     NTESAttachment *attachment = [[NTESAttachment alloc] init];
     attachment.title = @"这是一条自定义消息";
     attachment.subTitle = @"这是自定义消息的副标题";
+    attachment.extra = @"hahaha";
     
     //构造自定义MessageObject
     NIMCustomObject *object = [[NIMCustomObject alloc] init];

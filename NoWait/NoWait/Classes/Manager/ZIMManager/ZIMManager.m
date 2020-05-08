@@ -63,6 +63,8 @@ static ZIMManager *shareManager = NULL;
     
     //多端登录时，告知其他端，这个端的登录类型，目前对于android的TV端，手表端使用。
     [[NIMSDKConfig sharedConfig] setCustomTag:[NSString stringWithFormat:@"%ld",(long)NIMLoginClientTypeiOS]];
+    
+    [self setCellConfig];
 }
 
 - (void)loginIMComplete:(void(^)(BOOL))complete {

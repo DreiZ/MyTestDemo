@@ -491,6 +491,8 @@
 @interface ZStoresAccountModel : NSObject
 @property (nonatomic,strong) NSString *mechanism_name;
 @property (nonatomic,strong) NSString *notice;
+@property (nonatomic,strong) NSString *annotations;
+
 @property (nonatomic,strong) NSString *received_amount;
 @property (nonatomic,strong) NSString *settlement_method;
 @property (nonatomic,strong) NSString *now_receive_amount;

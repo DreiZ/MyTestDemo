@@ -92,9 +92,9 @@
     ZCellConfig *detailCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterDetailCell className] title:[ZRewardCenterDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZRewardCenterDetailCell z_getCellHeight:self.infoModel] cellType:ZCellTypeClass dataModel:self.infoModel];
     [self.cellConfigArr addObject:detailCellConfig];
     
-    NSArray *tempArr = @[@[@"sign_teacher",@"team", @"我的团队"],
-                         @[@"eva_teacher",@"rank", @"奖励排行"],
-                         @[@"eva_teacher",@"detail", @"奖励说明"]];
+    NSArray *tempArr = @[@[@"moneyTeam",@"team", @"我的团队"],
+                         @[@"moneyIntro",@"rank", @"奖励排行"],
+                         @[@"moneypaihang",@"detail", @"奖励说明"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZLineCellModel *model = [[ZLineCellModel alloc] init];

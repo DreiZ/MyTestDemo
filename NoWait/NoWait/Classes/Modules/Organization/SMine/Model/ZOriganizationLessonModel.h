@@ -124,6 +124,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @end
 
 @interface ZOriganizationLessonDetailModel : ZOriganizationLessonAddModel
+@property (nonatomic,strong) NSString *phone;
+
 @property (nonatomic,strong) NSString *create_at;
 @property (nonatomic,strong) NSString *notice_msg;
 @property (nonatomic,strong) NSString *stores_courses_nums;

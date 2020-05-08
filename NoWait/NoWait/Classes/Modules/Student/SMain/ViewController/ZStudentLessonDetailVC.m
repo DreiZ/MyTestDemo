@@ -215,7 +215,7 @@
         _bottomView.title = @"立即购买";
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [ZPublicTool callTel:SafeStr(weakSelf.addModel.stores_id)];
+                [ZPublicTool callTel:SafeStr(weakSelf.addModel.phone)];
             }else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];

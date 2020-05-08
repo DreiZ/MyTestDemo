@@ -14,4 +14,6 @@
 
 @property (nonatomic,copy) NSString *subTitle;
 
+@property (nonatomic,copy) NSString *extra;
+
 @end
