@@ -7,9 +7,9 @@
 //
 
 #import "ZViewController.h"
-
+#import "ZRewardModel.h"
 
 @interface ZReflectMoneyVC : ZTableViewViewController
-
+@property (nonatomic,strong) ZRewardInfoModel *infoModel;
 @end
 

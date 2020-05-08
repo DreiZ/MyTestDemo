@@ -83,7 +83,7 @@
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+        
         ViewRadius(_userImageView, CGFloatIn750(50));
     }
     return _userImageView;
@@ -93,7 +93,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.text = [ZUserHelper sharedHelper].user.nikeName;
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontMaxTitle]];
@@ -118,7 +118,7 @@
     if (!_midLabel) {
         _midLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _midLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _midLabel.text = [NSString stringWithFormat:@"MID:%@",[ZUserHelper sharedHelper].uuid];
+        
         _midLabel.numberOfLines = 1;
         _midLabel.textAlignment = NSTextAlignmentLeft;
         [_midLabel setFont:[UIFont fontSmall]];
@@ -135,6 +135,13 @@
         _erweimageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _erweimageView;
+}
+
+- (void)setModel:(ZRewardInfoModel *)model {
+    _model = model;
+    _midLabel.text = [NSString stringWithFormat:@"MID:%@",model.inviter_code];
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _nameLabel.text = [ZUserHelper sharedHelper].user.nikeName;
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

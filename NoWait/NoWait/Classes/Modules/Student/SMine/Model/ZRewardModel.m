@@ -9,6 +9,9 @@
 #import "ZRewardModel.h"
 
 
+@implementation ZRewardReflectHandleModel 
+@end
+
 
 @implementation ZRewardReflectDetailListModel
 @end

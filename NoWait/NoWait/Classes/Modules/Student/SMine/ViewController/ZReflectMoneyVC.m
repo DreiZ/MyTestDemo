@@ -10,8 +10,13 @@
 #import "ZTableViewListCell.h"
 #import "ZBaseLineCell.h"
 #import "ZRewardMoneyBottomBtnCell.h"
+#import "ZRewardModel.h"
+#import "ZRewardCenterViewModel.h"
 
 @interface ZReflectMoneyVC ()
+@property (nonatomic,strong) ZRewardReflectHandleModel *handleModel;
+@property (nonatomic,strong) ZBaseLineCell *hintCell;
+
 @end
 
 @implementation ZReflectMoneyVC
@@ -35,6 +40,10 @@
     [self.navigationItem setTitle:@"提现"];
 }
 
+- (void)setDataSource {
+    [super setDataSource];
+    _handleModel = [[ZRewardReflectHandleModel alloc] init];
+}
 
 
 - (void)initCellConfigArr {
@@ -56,8 +65,8 @@
         [configArr addObject:menuCellConfig];
     }
     {
-        NSArray *textArr = @[@[@"真实姓名", @"必填", @"name",@"zhang8520322@sina.com",@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                             @[@"支付宝账号", @"必填", @"account",@"zhang8520322@sina.com",@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+        NSArray *textArr = @[@[@"真实姓名", @"必填", @"name",SafeStr(self.handleModel.realName),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                             @[@"支付宝账号", @"必填", @"account",SafeStr(self.handleModel.aliPay),@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
         
         for (int i = 0; i < textArr.count; i++) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -73,6 +82,7 @@
             cellModel.textFont = [UIFont fontContent];
             cellModel.textAlignment = NSTextAlignmentLeft;
             cellModel.leftContentWidth = CGFloatIn750(160);
+            
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [configArr addObject:textCellConfig];
@@ -99,9 +109,9 @@
         cellModel.leftTitle = @"￥";
         cellModel.placeholder = @"0";
         cellModel.cellTitle = @"money";
-        cellModel.content = @"";
+        cellModel.content = SafeStr(self.handleModel.amount);
         cellModel.max = 10;
-        cellModel.formatterType = ZFormatterTypeNumber;
+        cellModel.formatterType = ZFormatterTypeDecimal;
         cellModel.isHiddenLine = NO;
         cellModel.cellHeight = CGFloatIn750(180);
         cellModel.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(60)];
@@ -117,13 +127,21 @@
     {
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         ZLineCellModel *model = [[ZLineCellModel alloc] init];
-        model.leftTitle = @"可提现余额";
-        model.cellTitle = @"lest";
+        NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
+        if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
+            model.leftColor = [UIColor colorRedDefault];
+            model.leftDarkColor = [UIColor colorRedDefault];
+            hintStr = @"超出可提现金额";
+        }else{
+            model.leftColor = [UIColor colorTextGray];
+            model.leftDarkColor = [UIColor colorTextGrayDark];
+        }
+        model.leftTitle = hintStr;
+        model.cellTitle = @"last";
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(100);
         model.leftFont = [UIFont fontSmall];
-        model.leftColor = [UIColor colorTextGray];
-        model.leftDarkColor = [UIColor colorTextGrayDark];
+        
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -143,6 +161,7 @@
 
 #pragma mark - tableview datasource
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.contView.backgroundColor = adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0));
@@ -154,10 +173,95 @@
                 lcell.contentView.backgroundColor = adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0));
             }else if ([lcellConfig.title isEqualToString:@"name"] || [lcellConfig.title isEqualToString:@"account"]) {
                 lcell.contentView.backgroundColor = adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0));
+                if ([lcellConfig.title isEqualToString:@"name"]) {
+                    ZTextFieldCell *tcell = (ZTextFieldCell *)lcell;
+                    tcell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.handleModel.realName = text;
+                    };
+                }else if ([lcellConfig.title isEqualToString:@"account"]) {
+                    ZTextFieldCell *tcell = (ZTextFieldCell *)lcell;
+                    tcell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.handleModel.aliPay = text;
+                    };
+                }
+            }else if ([lcellConfig.title isEqualToString:@"money"]){
+                ZTextFieldCell *tcell = (ZTextFieldCell *)lcell;
+                tcell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.handleModel.amount = text;
+                    
+                    ZLineCellModel *model = [[ZLineCellModel alloc] init];
+                    NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
+                    if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
+                        hintStr = @"超出可提现金额";
+                        model.leftColor = [UIColor colorRedDefault];
+                        model.leftDarkColor = [UIColor colorRedDefault];
+                    }else{
+                        model.leftColor = [UIColor colorTextGray];
+                        model.leftDarkColor = [UIColor colorTextGrayDark];
+                    }
+                    
+                    model.leftTitle = hintStr;
+                    model.cellTitle = @"last";
+                    model.isHiddenLine = YES;
+                    model.cellHeight = CGFloatIn750(100);
+                    model.leftFont = [UIFont fontSmall];
+                    
+                    if (weakSelf.hintCell) {
+                        weakSelf.hintCell.model = model;
+                    }
+                };
+            }else if ([lcellConfig.title isEqualToString:@"last"]){
+                weakSelf.hintCell = (ZBaseLineCell *)lcell;
+            }else if ([lcellConfig.title isEqualToString:@"ZRewardMoneyBottomBtnCell"]){
+                ZRewardMoneyBottomBtnCell *bcell = (ZRewardMoneyBottomBtnCell *)lcell;
+                bcell.handleBlock = ^(NSInteger index) {
+                    [weakSelf handelReflect];
+                };
             }
-            
-            
         };
     }
+}
+
+- (void)handelReflect {
+    [self.iTableView endEditing:YES];
+    if (!ValidStr(self.handleModel.realName)) {
+        [TLUIUtility showErrorHint:@"请填写真实姓名"];
+        return;
+    }
+    
+    if (!ValidStr(self.handleModel.aliPay)) {
+        [TLUIUtility showErrorHint:@"请填写支付宝账号"];
+        return;
+    }
+    
+    if (!ValidStr(self.handleModel.amount)) {
+        [TLUIUtility showErrorHint:@"请填写提现金额"];
+        return;
+    }
+    
+    if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
+        [TLUIUtility showErrorHint:@"超出可提现金额"];
+        return;
+    }
+    if ([SafeStr(self.handleModel.amount) doubleValue] < 0.1) {
+        [TLUIUtility showErrorHint:@"最低可提现金不得少于0.1元"];
+        return;
+        
+    }
+    
+    [TLUIUtility showLoading:@"提交中..."];
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:self.handleModel.realName forKey:@"name"];
+    [param setObject:self.handleModel.amount forKey:@"amount"];
+    [param setObject:self.handleModel.aliPay forKey:@"phone"];
+    [ZRewardCenterViewModel refectMoney:param completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else {
+            [TLUIUtility showErrorHint:data];
+        }
+    } ];
 }
 @end

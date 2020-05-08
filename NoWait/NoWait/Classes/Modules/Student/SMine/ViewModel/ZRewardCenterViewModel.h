@@ -25,5 +25,8 @@
 
 
 + (void)refectDetailList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)refectMoney:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 

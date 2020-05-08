@@ -9,6 +9,12 @@
 #import "ZBaseModel.h"
 
 
+@interface ZRewardReflectHandleModel : ZBaseModel
+@property (nonatomic,copy) NSString *amount;
+@property (nonatomic,copy) NSString *aliPay;
+@property (nonatomic,copy) NSString *realName;
+@end
+
 @interface ZRewardReflectDetailListModel : ZBaseModel
 @property (nonatomic,copy) NSString *amount;
 @property (nonatomic,copy) NSString *nick_name;

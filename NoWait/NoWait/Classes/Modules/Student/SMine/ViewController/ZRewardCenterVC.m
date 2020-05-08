@@ -29,13 +29,17 @@
 
 @implementation ZRewardCenterVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
     [self setTableViewRefreshHeader];
-    [self refreshData];
 }
 
 
@@ -82,7 +86,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterTopCell className] title:[ZRewardCenterTopCell className] showInfoMethod:nil heightOfCell:[ZRewardCenterTopCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterTopCell className] title:[ZRewardCenterTopCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZRewardCenterTopCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
     [self.cellConfigArr addObject:topCellConfig];
     
     ZCellConfig *detailCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterDetailCell className] title:[ZRewardCenterDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZRewardCenterDetailCell z_getCellHeight:self.infoModel] cellType:ZCellTypeClass dataModel:self.infoModel];
@@ -139,6 +143,7 @@
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 ZReflectMoneyVC *fvc = [[ZReflectMoneyVC alloc] init];
+                fvc.infoModel = weakSelf.infoModel;
                 [self.navigationController pushViewController:fvc animated:YES];
             }else if(index == 1){
                 ZReflectListLogVC *fvc = [[ZReflectListLogVC alloc] init];
@@ -160,6 +165,7 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }
+        [weakSelf.iTableView tt_endRefreshing];
     }];
 }
 @end
