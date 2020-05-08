@@ -78,7 +78,7 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+       
         _userImageView.layer.masksToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.cornerRadius = CGFloatIn750(30);
@@ -90,7 +90,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"斯柯达公司两个";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -113,6 +113,19 @@
     return _statusLabel;
 }
 
+- (void)setModel:(ZRewardTeamListModel *)model {
+    _model = model;
+    _nameLabel.text = model.nick_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _statusLabel.text = model.level;
+    if (ValidStr(model.level)) {
+        _statusLabel.hidden = NO;
+        self.contView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }else{
+        _statusLabel.hidden = YES;
+        self.contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(120);

@@ -539,5 +539,23 @@
 
 #define URL_message_v1_unbind_device_token                 @"account/v1/unbind_device_token"
 
+#pragma mark - 奖励中心
+//奖励中心详情
+#define URL_message_v1_rewardCenterInfo                 @"account/v1/reward/center/info"
+
+//提现
+#define URL_message_v1_cashOut               @"account/v1/account/cash/out"
+
+//提现记录
+#define URL_message_v1_cashOutRecord               @"account/v1/account/cash/out/record"
+
+//奖励明细
+#define URL_message_v1_getRewardDetails               @"account/v1/getRewardDetails"
+
+//奖励中心排行榜
+#define URL_message_v1_rewardRankList               @"account/v1/reward/center/rank/list"
+
+//团队列表
+#define URL_message_v1_rewardTeamList               @"account/v1/reward/center/team/list"
 
 #endif /* URLMacros_h */

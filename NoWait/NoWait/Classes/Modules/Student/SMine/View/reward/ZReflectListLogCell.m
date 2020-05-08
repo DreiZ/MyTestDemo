@@ -99,7 +99,7 @@
     if (!_typeTitleLabel) {
         _typeTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _typeTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _typeTitleLabel.text = @"提现到支付宝账号";
+        
         _typeTitleLabel.numberOfLines = 1;
         _typeTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_typeTitleLabel setFont:[UIFont fontContent]];
@@ -112,7 +112,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"斯柯达公司两个";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -125,7 +125,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"03-11 19:08";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontMin]];
@@ -138,7 +138,7 @@
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _statusLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
-        _statusLabel.text = @"受理成功";
+        
         _statusLabel.numberOfLines = 1;
         _statusLabel.textAlignment = NSTextAlignmentRight;
         [_statusLabel setFont:[UIFont fontSmall]];
@@ -150,12 +150,21 @@
     if (!_moneyLabel) {
         _moneyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _moneyLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _moneyLabel.text = @"234";
+        
         _moneyLabel.numberOfLines = 1;
         _moneyLabel.textAlignment = NSTextAlignmentCenter;
         [_moneyLabel setFont:[UIFont boldFontContent]];
     }
     return _moneyLabel;
+}
+
+- (void)setModel:(ZRewardReflectListModel *)model {
+    _model = model;
+    _moneyLabel.text = model.amount;
+    _statusLabel.text = model.status;
+    _timeLabel.text = model.created_at;
+    _nameLabel.text = model.real_name;
+    _typeTitleLabel.text = model.tip;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

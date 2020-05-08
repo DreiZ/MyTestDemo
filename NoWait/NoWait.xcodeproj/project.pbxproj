@@ -80,6 +80,8 @@
 		B22940702463F36800B3FD43 /* ZSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B229406F2463F36800B3FD43 /* ZSessionListViewController.m */; };
 		B22940732463F3E100B3FD43 /* ZSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B22940722463F3E100B3FD43 /* ZSessionViewController.m */; };
 		B22940762463F3FB00B3FD43 /* ZContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B22940752463F3FB00B3FD43 /* ZContactViewController.m */; };
+		B2294079246419F500B3FD43 /* ZRewardCenterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2294078246419F500B3FD43 /* ZRewardCenterViewModel.m */; };
+		B229407C24641A7100B3FD43 /* ZRewardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B229407B24641A7100B3FD43 /* ZRewardModel.m */; };
 		B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */; };
 		B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8A2408ED8700E299AC /* ZMineTeacherMenuCell.m */; };
 		B2296A8E2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2296A8D2408EDCD00E299AC /* ZMineTeacherMenuItemCell.m */; };
@@ -825,6 +827,10 @@
 		B22940722463F3E100B3FD43 /* ZSessionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSessionViewController.m; sourceTree = "<group>"; };
 		B22940742463F3FB00B3FD43 /* ZContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZContactViewController.h; sourceTree = "<group>"; };
 		B22940752463F3FB00B3FD43 /* ZContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZContactViewController.m; sourceTree = "<group>"; };
+		B2294077246419F500B3FD43 /* ZRewardCenterViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRewardCenterViewModel.h; sourceTree = "<group>"; };
+		B2294078246419F500B3FD43 /* ZRewardCenterViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRewardCenterViewModel.m; sourceTree = "<group>"; };
+		B229407A24641A7100B3FD43 /* ZRewardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRewardModel.h; sourceTree = "<group>"; };
+		B229407B24641A7100B3FD43 /* ZRewardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZRewardModel.m; sourceTree = "<group>"; };
 		B2296A852408EC3A00E299AC /* ZTeacherMineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherMineVC.h; sourceTree = "<group>"; };
 		B2296A862408EC3A00E299AC /* ZTeacherMineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherMineVC.m; sourceTree = "<group>"; };
 		B2296A892408ED8700E299AC /* ZMineTeacherMenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMineTeacherMenuCell.h; sourceTree = "<group>"; };
@@ -2064,6 +2070,8 @@
 			children = (
 				B21887B42436D9F300EB7155 /* ZSignViewModel.h */,
 				B21887B52436D9F300EB7155 /* ZSignViewModel.m */,
+				B2294077246419F500B3FD43 /* ZRewardCenterViewModel.h */,
+				B2294078246419F500B3FD43 /* ZRewardCenterViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4029,6 +4037,8 @@
 				B2A7810423C073B200407BF0 /* ZStudentMineModel.m */,
 				B21887B02436D95700EB7155 /* ZSignModel.h */,
 				B21887B12436D95700EB7155 /* ZSignModel.m */,
+				B229407A24641A7100B3FD43 /* ZRewardModel.h */,
+				B229407B24641A7100B3FD43 /* ZRewardModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5147,6 +5157,7 @@
 				B28D9143240766940021E05A /* PGDatePicker+Year.m in Sources */,
 				B28D9133240766940021E05A /* PGDatePicker+YearAndMonth.m in Sources */,
 				B2A7808A23BDFB0100407BF0 /* UIScrollView+ZLoadMoreFooter.m in Sources */,
+				B2294079246419F500B3FD43 /* ZRewardCenterViewModel.m in Sources */,
 				B2DB9B43241C7A6E00340464 /* ZOrganizationMineOrderListVC.m in Sources */,
 				B28D9138240766940021E05A /* PGDatePicker+MonthDayHourMinute.m in Sources */,
 				B2296A8B2408ED8700E299AC /* ZMineTeacherMenuCell.m in Sources */,
@@ -5195,6 +5206,7 @@
 				B2A780A323BDFB0100407BF0 /* TLResponse.m in Sources */,
 				B24D995623FD18CB0078A458 /* ZOrganizationLessonAddPhotosCell.m in Sources */,
 				B2C35076244193AA002929A8 /* ZTeacherMineSignListVC.m in Sources */,
+				B229407C24641A7100B3FD43 /* ZRewardModel.m in Sources */,
 				B279D07023C9B88B00391A33 /* ZStudentLessonOrderDetailOrganizationCell.m in Sources */,
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
 				B28EA666240E2B7B00C8E225 /* ZMineAccountTextFieldCell.m in Sources */,

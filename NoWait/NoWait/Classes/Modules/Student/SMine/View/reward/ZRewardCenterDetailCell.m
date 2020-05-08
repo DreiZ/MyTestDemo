@@ -186,7 +186,7 @@
     if (!_leftContentLabel) {
         _leftContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _leftContentLabel.text = @"120323.0";
+        
         _leftContentLabel.numberOfLines = 1;
         _leftContentLabel.textAlignment = NSTextAlignmentLeft;
         [_leftContentLabel setFont:[UIFont boldFontMax2Title]];
@@ -222,7 +222,7 @@
     if (!_rightContentLabel) {
         _rightContentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightContentLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _rightContentLabel.text = @"2323";
+        
         _rightContentLabel.numberOfLines = 1;
         _rightContentLabel.textAlignment = NSTextAlignmentLeft;
         [_rightContentLabel setFont:[UIFont boldFontMax2Title]];
@@ -245,7 +245,7 @@
     if (!_moneyLabel) {
         _moneyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _moneyLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _moneyLabel.text = @"230";
+        
         _moneyLabel.numberOfLines = 1;
         _moneyLabel.textAlignment = NSTextAlignmentCenter;
         [_moneyLabel setFont:[UIFont fontContent]];
@@ -294,7 +294,7 @@
 - (UIImageView *)logImageView {
     if (!_logImageView) {
         _logImageView = [[UIImageView alloc] init];
-        _logImageView.image = [UIImage imageNamed:@"signbu"];
+        _logImageView.image = [UIImage imageNamed:@"moneyLog"];
         _logImageView.layer.masksToBounds = YES;
         _logImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -304,11 +304,18 @@
 - (UIImageView *)detailImageView {
     if (!_detailImageView) {
         _detailImageView = [[UIImageView alloc] init];
-        _detailImageView.image = [UIImage imageNamed:@"signbu"];
+        _detailImageView.image = [UIImage imageNamed:@"moneyDetail"];
         _detailImageView.layer.masksToBounds = YES;
         _detailImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _detailImageView;
+}
+
+- (void)setModel:(ZRewardInfoModel *)model {
+    _model = model;
+    _moneyLabel.text = [NSString stringWithFormat:@"%.2f",[model.cash_out_amount doubleValue]];
+    _rightContentLabel.text = [NSString stringWithFormat:@"%.2f",[model.cash_out doubleValue]];
+    _leftContentLabel.text = [NSString stringWithFormat:@"%.2f",[model.bonus doubleValue]];
 }
 
 

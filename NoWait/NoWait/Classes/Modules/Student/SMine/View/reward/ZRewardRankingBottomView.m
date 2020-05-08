@@ -77,7 +77,7 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx2.sinaimg.cn/mw600/0085KTY1gy1geivpt8wtij30kg10cgsz.jpg"] placeholderImage:[UIImage imageNamed:@"default_head"]];
+        
         _userImageView.layer.masksToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.cornerRadius = CGFloatIn750(40);
@@ -89,7 +89,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _nameLabel.text = @"斯柯达公司两个";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -102,7 +102,7 @@
     if (!_statusLabel) {
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _statusLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _statusLabel.text = @"暂未上榜";
+        
         _statusLabel.numberOfLines = 0;
         _statusLabel.textAlignment = NSTextAlignmentCenter;
         [_statusLabel setFont:[UIFont boldFontSmall]];
@@ -115,7 +115,7 @@
     if (!_codeLabel) {
         _codeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _codeLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _codeLabel.text = @"0积分";
+        
         _codeLabel.numberOfLines = 1;
         _codeLabel.textAlignment = NSTextAlignmentRight;
         [_codeLabel setFont:[UIFont boldFontContent]];
@@ -128,7 +128,7 @@
     if (!_codelHintLabel) {
         _codelHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _codelHintLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
-        _codelHintLabel.text = @"距离上一名还差140积分";
+        
         _codelHintLabel.numberOfLines = 1;
         _codelHintLabel.textAlignment = NSTextAlignmentCenter;
         [_codelHintLabel setFont:[UIFont fontSmall]];
@@ -136,6 +136,14 @@
     return _codelHintLabel;
 }
 
+- (void)setRank:(ZRewardRankingMyModel *)rank {
+    _rank = rank;
+    _codelHintLabel.text = [NSString stringWithFormat:@"距离上一名还差%@积分",rank.prev];
+    _codeLabel.text = [NSString stringWithFormat:@"%@积分",rank.total_amount];
+    _statusLabel.text = rank.rank_desc;
+    _nameLabel.text = rank.name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:rank.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(140);

@@ -7,11 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBaseViewModel.h"
+#import "ZRewardModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface ZRewardCenterViewModel : ZBaseViewModel
 
-@interface ZRewardCenterViewModel : NSObject
++ (void)rewardCenterInfo:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
+
++ (void)rewardTeamList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)rankingList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
+
++ (void)refectList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)refectDetailList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
-NS_ASSUME_NONNULL_END

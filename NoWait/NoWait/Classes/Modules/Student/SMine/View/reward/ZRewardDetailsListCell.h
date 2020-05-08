@@ -7,11 +7,10 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZRewardModel.h"
 
 @interface ZRewardDetailsListCell : ZBaseCell
+@property (nonatomic,strong) ZRewardReflectDetailListModel *model;
 
 @end
 
-NS_ASSUME_NONNULL_END

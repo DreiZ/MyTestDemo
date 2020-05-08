@@ -94,7 +94,7 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+        
         _userImageView.layer.masksToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.cornerRadius = CGFloatIn750(30);
@@ -106,7 +106,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"斯柯达公司两个";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
@@ -119,7 +119,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
-        _timeLabel.text = @"03-11 19:08";
+        
         _timeLabel.numberOfLines = 1;
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         [_timeLabel setFont:[UIFont fontMin]];
@@ -132,12 +132,20 @@
     if (!_moneyLabel) {
         _moneyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _moneyLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _moneyLabel.text = @"234";
+        
         _moneyLabel.numberOfLines = 1;
         _moneyLabel.textAlignment = NSTextAlignmentCenter;
         [_moneyLabel setFont:[UIFont boldFontContent]];
     }
     return _moneyLabel;
+}
+
+- (void)setModel:(ZRewardReflectDetailListModel *)model {
+    _model = model;
+    _moneyLabel.text = model.amount ;
+    _timeLabel.text = model.created_at;
+    _nameLabel.text = model.nick_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

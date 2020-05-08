@@ -19,8 +19,11 @@
 #import "ZRewardMyTeamListVC.h"
 #import "ZRewardRankingVC.h"
 
+#import "ZRewardCenterViewModel.h"
+
 @interface ZRewardCenterVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
+@property (nonatomic,strong) ZRewardInfoModel *infoModel;
 
 @end
 
@@ -31,6 +34,8 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    [self setTableViewRefreshHeader];
+    [self refreshData];
 }
 
 
@@ -80,7 +85,7 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterTopCell className] title:[ZRewardCenterTopCell className] showInfoMethod:nil heightOfCell:[ZRewardCenterTopCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     [self.cellConfigArr addObject:topCellConfig];
     
-    ZCellConfig *detailCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterDetailCell className] title:[ZRewardCenterDetailCell className] showInfoMethod:nil heightOfCell:[ZRewardCenterDetailCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *detailCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardCenterDetailCell className] title:[ZRewardCenterDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZRewardCenterDetailCell z_getCellHeight:self.infoModel] cellType:ZCellTypeClass dataModel:self.infoModel];
     [self.cellConfigArr addObject:detailCellConfig];
     
     NSArray *tempArr = @[@[@"sign_teacher",@"team", @"我的团队"],
@@ -108,7 +113,7 @@
 
 #pragma mark - tableView datasource
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig * lcellConfig) {
@@ -126,6 +131,7 @@
         ZRewardCenterTopCell *lcell = (ZRewardCenterTopCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             ZInvitationFriendVC *fvc = [[ZInvitationFriendVC alloc] init];
+            fvc.model = weakSelf.infoModel;
             [self.navigationController pushViewController:fvc animated:YES];
         };
     }else if ([cellConfig.title isEqualToString:@"ZRewardCenterDetailCell"]) {
@@ -143,5 +149,17 @@
             }
         };
     }
+}
+
+#pragma mark - refresh data
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZRewardCenterViewModel rewardCenterInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            weakSelf.infoModel = data;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

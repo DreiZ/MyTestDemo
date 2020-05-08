@@ -93,7 +93,7 @@
 - (UIImageView *)userImageView {
     if (!_userImageView) {
         _userImageView = [[UIImageView alloc] init];
-        [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+        
         _userImageView.layer.masksToBounds = YES;
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.cornerRadius = CGFloatIn750(40);
@@ -105,7 +105,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _nameLabel.text = @"斯柯达公司两个";
+        
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
@@ -118,7 +118,7 @@
     if (!_indexLabel) {
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _indexLabel.textColor = adaptAndDarkColor(HexAColor(0xfebe4d, 1),HexAColor(0xfebe4d, 1));
-        _indexLabel.text = @"1";
+        
         _indexLabel.numberOfLines = 1;
         _indexLabel.textAlignment = NSTextAlignmentCenter;
         [_indexLabel setFont:[UIFont fontContent]];
@@ -133,7 +133,7 @@
     if (!_moneyLabel) {
         _moneyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _moneyLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _moneyLabel.text = @"234";
+        
         _moneyLabel.numberOfLines = 1;
         _moneyLabel.textAlignment = NSTextAlignmentRight;
         [_moneyLabel setFont:[UIFont boldFontContent]];
@@ -149,6 +149,28 @@
         ViewRadius(_progressView, CGFloatIn750(4));
     }
     return _progressView;
+}
+
+- (void)setModel:(ZRewardRankingListModel *)model {
+    _model = model;
+    _moneyLabel.text = model.total_amount;
+    _indexLabel.text = model.index;
+    if ([model.index intValue] < 4) {
+        _indexLabel.backgroundColor = HexAColor(0xfebe4d, 0.1);
+        _indexLabel.textColor = adaptAndDarkColor(HexAColor(0xfebe4d, 1),HexAColor(0xfebe4d, 1));
+    }else{
+        _indexLabel.backgroundColor = [UIColor clearColor];
+        _indexLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+    }
+    _nameLabel.text = model.nick_name;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    
+    [self.progressView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.userImageView.mas_centerY).offset(CGFloatIn750(12));
+        make.height.mas_equalTo(CGFloatIn750(8));
+        make.width.mas_equalTo((KScreenWidth - CGFloatIn750(260))/([model.total_amount doubleValue]/[model.max_amount doubleValue]));
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

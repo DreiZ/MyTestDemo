@@ -7,11 +7,9 @@
 //
 
 #import "ZViewController.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZRewardModel.h"
 
 @interface ZInvitationFriendVC : ZViewController
-
+@property (nonatomic,strong) ZRewardInfoModel *model;
 @end
 
-NS_ASSUME_NONNULL_END
