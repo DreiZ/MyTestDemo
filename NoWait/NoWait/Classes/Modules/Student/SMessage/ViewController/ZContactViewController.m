@@ -38,8 +38,8 @@
     ];
     
     for (NSString *data in self.contact) {
-        ZLineCellModel *model = [[ZLineCellModel alloc] init];
-        model.leftTitle = data;
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title").titleLeft(data);
+//        model.leftTitle = data;
         ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:[ZBaseLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:messageCellConfig];
     }

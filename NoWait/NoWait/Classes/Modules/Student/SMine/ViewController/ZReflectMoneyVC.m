@@ -51,15 +51,16 @@
     
     NSMutableArray *configArr = @[].mutableCopy;
     {
-        [configArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+        {
+            ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0))];
+            [configArr addObject:cellConfig];
+        }
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
+        .titleLeft(@"提现到支付宝")
+        .lineHidden(YES)
+        .height(CGFloatIn750(50))
+        .fontLeft([UIFont boldFontContent]);
         
-        ZLineCellModel *model = [[ZLineCellModel alloc] init];
-        model.leftTitle = @"提现到支付宝";
-        model.cellTitle = @"type";
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(50);
-        model.leftFont = [UIFont boldFontContent];
-
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
         [configArr addObject:menuCellConfig];
@@ -87,19 +88,21 @@
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [configArr addObject:textCellConfig];
 
-            [configArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+            {
+                ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0))];
+                [configArr addObject:cellConfig];
+            }
         }
     }
     
     {
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        ZLineCellModel *model = [[ZLineCellModel alloc] init];
-        model.leftTitle = @"提现金额";
-        model.cellTitle = @"hint";
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(30);
-        model.leftFont = [UIFont boldFontContent];
-
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"hint")
+        .titleLeft(@"提现金额")
+        .lineHidden(YES)
+        .height(CGFloatIn750(30))
+        .fontLeft([UIFont boldFontContent]);
+   
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
         [configArr addObject:menuCellConfig];
@@ -126,22 +129,19 @@
     
     {
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        ZLineCellModel *model = [[ZLineCellModel alloc] init];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"last")
+        .lineHidden(YES)
+        .height(CGFloatIn750(100))
+        .fontLeft([UIFont fontSmall]);
+        
         NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
         if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
-            model.leftColor = [UIColor colorRedDefault];
-            model.leftDarkColor = [UIColor colorRedDefault];
             hintStr = @"超出可提现金额";
+            
+            model.colorLeft([UIColor colorRedDefault]).colorDarkLeft([UIColor colorRedDefault]).titleLeft(hintStr);
         }else{
-            model.leftColor = [UIColor colorTextGray];
-            model.leftDarkColor = [UIColor colorTextGrayDark];
+            model.colorLeft([UIColor colorTextGray]).colorDarkLeft([UIColor colorTextGrayDark]).titleLeft(hintStr);
         }
-        model.leftTitle = hintStr;
-        model.cellTitle = @"last";
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(100);
-        model.leftFont = [UIFont fontSmall];
-        
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -189,22 +189,19 @@
                 tcell.valueChangeBlock = ^(NSString * text) {
                     weakSelf.handleModel.amount = text;
                     
-                    ZLineCellModel *model = [[ZLineCellModel alloc] init];
+                   ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"last")
+                    .lineHidden(YES)
+                    .height(CGFloatIn750(100))
+                    .fontLeft([UIFont fontSmall]);
+                    
                     NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
                     if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
                         hintStr = @"超出可提现金额";
-                        model.leftColor = [UIColor colorRedDefault];
-                        model.leftDarkColor = [UIColor colorRedDefault];
+                        
+                        model.colorLeft([UIColor colorRedDefault]).colorDarkLeft([UIColor colorRedDefault]).titleLeft(hintStr);
                     }else{
-                        model.leftColor = [UIColor colorTextGray];
-                        model.leftDarkColor = [UIColor colorTextGrayDark];
+                        model.colorLeft([UIColor colorTextGray]).colorDarkLeft([UIColor colorTextGrayDark]).titleLeft(hintStr);
                     }
-                    
-                    model.leftTitle = hintStr;
-                    model.cellTitle = @"last";
-                    model.isHiddenLine = YES;
-                    model.cellHeight = CGFloatIn750(100);
-                    model.leftFont = [UIFont fontSmall];
                     
                     if (weakSelf.hintCell) {
                         weakSelf.hintCell.model = model;

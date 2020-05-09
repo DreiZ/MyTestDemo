@@ -884,6 +884,7 @@
 		B23184EC2421FEE10033F875 /* ZOrganizationSearchTeachingScheduleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationSearchTeachingScheduleVC.m; sourceTree = "<group>"; };
 		B23184EE24222DE50033F875 /* ZOrganizationClassManageListSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationClassManageListSearchVC.h; sourceTree = "<group>"; };
 		B23184EF24222DE50033F875 /* ZOrganizationClassManageListSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationClassManageListSearchVC.m; sourceTree = "<group>"; };
+		B233BB0C2466525400165716 /* ZChainCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZChainCommon.h; sourceTree = "<group>"; };
 		B2342C7C23FE370700F31C34 /* ZAlertDateHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateHourPickerView.h; sourceTree = "<group>"; };
 		B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertDateHourPickerView.m; sourceTree = "<group>"; };
 		B2342C7F23FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateWeekAndHourPickerView.h; sourceTree = "<group>"; };
@@ -2170,6 +2171,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B229407D24656A2100B3FD43 /* ZChain */ = {
+			isa = PBXGroup;
+			children = (
+				B233BB0C2466525400165716 /* ZChainCommon.h */,
+			);
+			path = ZChain;
+			sourceTree = "<group>";
+		};
 		B2296A822408EBD700E299AC /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
@@ -2778,6 +2787,7 @@
 		B2A77E8323BDD67600407BF0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B229407D24656A2100B3FD43 /* ZChain */,
 				B2A77F7D23BDEA8500407BF0 /* ZTools */,
 				B2A77F7C23BDEA7700407BF0 /* ZBase */,
 				B2A77E8423BDD6AC00407BF0 /* Define */,

@@ -97,16 +97,15 @@
                          @[@"moneypaihang",@"detail", @"奖励说明"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZLineCellModel *model = [[ZLineCellModel alloc] init];
-        model.leftImage = tArr[0];
-        model.leftTitle = tArr[2];
-        model.cellTitle = tArr[1];
-        model.leftContentSpace = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(96);
-        model.leftFont = [UIFont fontContent];
-        model.leftImageH = CGFloatIn750(50);
-        
+
+       ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[1])
+        .imageLeft(tArr[0]).titleLeft(tArr[2])
+        .contentSpaceLeft(CGFloatIn750(50))
+        .fontLeft([UIFont fontContent])
+        .imageLeftHeight(CGFloatIn750(50))
+        .lineHidden(YES)
+        .height(CGFloatIn750(96));
+
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [configArr addObject:menuCellConfig];
