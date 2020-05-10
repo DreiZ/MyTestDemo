@@ -99,10 +99,10 @@
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_whenTapped:^{
             
-            [[ZIMManager shareManager] loginIMComplete:^(BOOL isSuccess) {
+//            [[ZIMManager shareManager] loginIMComplete:^(BOOL isSuccess) {
                 ZSessionListViewController *lvc = [[ZSessionListViewController alloc] init];
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
-            }];
+//            }];
         }];
     }
     return _navLeftBtn;

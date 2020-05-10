@@ -7,9 +7,9 @@
 //
 
 #import "ZViewController.h"
-
+#import <NIMContactSelectConfig.h>
 
 @interface ZContactViewController : ZTableViewViewController
-
+@property (nonatomic, strong, readonly) id<NIMContactSelectConfig> config;
 @end
 

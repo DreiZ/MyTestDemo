@@ -196,6 +196,14 @@
     if (self.model.leftImage) {
         self.leftImageView.hidden = NO;
         
+        if (self.model.isLeftImageRadius) {
+            self.leftImageView.layer.masksToBounds = YES;
+            self.leftImageView.layer.cornerRadius = self.model.leftImageH/2.0f;
+        }else{
+            self.leftImageView.layer.masksToBounds = NO;
+            self.leftImageView.layer.cornerRadius = 0.0f;
+        }
+        
         if ([self.model.leftImage isKindOfClass:[UIImage class]]) {
             self.leftImageView.image = self.model.leftImage;
         }else if ([self.model.leftImage tt_isValidUrl]) {

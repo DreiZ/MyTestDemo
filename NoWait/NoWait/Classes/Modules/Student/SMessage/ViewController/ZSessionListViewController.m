@@ -38,4 +38,42 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+-(NSAttributedString *)contentForRecentSession:(NIMRecentSession *)recent {
+    NIMMessage *lastMessage = recent.lastMessage;
+    NSString *text = @"";
+    switch (lastMessage.messageType) {
+        case NIMMessageTypeText:
+            text = lastMessage.text;
+            break;
+        case NIMMessageTypeAudio:
+            text = @"[语音]";
+            break;
+        case NIMMessageTypeImage:
+            text = @"[图片]";
+            break;
+        case NIMMessageTypeVideo:
+            text = @"[视频]";
+            break;
+        case NIMMessageTypeLocation:
+            text = @"[位置]";
+            break;
+        case NIMMessageTypeNotification:{
+//            return [self notificationMessageContent:lastMessage];
+            text = @"系统通知";
+            break;
+        }
+        case NIMMessageTypeFile:
+            text = @"[文件]";
+            break;
+        case NIMMessageTypeTip:
+            text = lastMessage.text;
+            break;
+        case NIMMessageTypeRobot:
+            text = @"机器人消息";
+            break;
+        default:
+            text = @"[未知消息]";
+    }
+    return [super contentForRecentSession:recent];
+}
 @end

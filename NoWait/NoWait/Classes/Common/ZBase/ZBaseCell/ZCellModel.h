@@ -64,6 +64,7 @@
 @property (nonatomic,assign) CGFloat rightMargin;
 @property (nonatomic,assign) CGFloat leftImageH;
 @property (nonatomic,strong) id leftImage;
+@property (nonatomic,assign) BOOL isLeftImageRadius;
 
 @property (nonatomic,strong) NSString *leftTitle;
 @property (nonatomic,strong) UIColor *leftColor;
@@ -118,6 +119,7 @@ ZCHAIN_LINECELLMODEL_PROPERTY(marginLeft, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(marginRight, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(imageLeftHeight, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(imageLeft, id)
+ZCHAIN_LINECELLMODEL_PROPERTY(imageLeftRadius, BOOL)
 
 
 ZCHAIN_LINECELLMODEL_PROPERTY(titleLeft, NSString *)

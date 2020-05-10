@@ -27,6 +27,7 @@
     //初始化IM
     [[ZIMManager shareManager] setupNIMSDK];
     [[ZIMManager shareManager] registerIM];
+    [[ZIMManager shareManager] autoLoginIM];
     
     //友盟
     [[ZUMengShareManager sharedManager] umengShare];

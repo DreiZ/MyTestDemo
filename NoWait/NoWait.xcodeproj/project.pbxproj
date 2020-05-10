@@ -111,6 +111,7 @@
 		B233BB0F2466A9B200165716 /* ZSysNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB0E2466A9B200165716 /* ZSysNotificationViewController.m */; };
 		B233BB122466AA7F00165716 /* ZMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB112466AA7F00165716 /* ZMessageListCell.m */; };
 		B233BB162466AB3100165716 /* ZMessgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB152466AB3100165716 /* ZMessgeModel.m */; };
+		B233BB192467970500165716 /* ZMessageSystemNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB182467970500165716 /* ZMessageSystemNoticeView.m */; };
 		B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */; };
 		B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8023FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m */; };
 		B2342C8B23FE757B00F31C34 /* ZOriganizationTeachListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8A23FE757B00F31C34 /* ZOriganizationTeachListCell.m */; };
@@ -894,6 +895,8 @@
 		B233BB112466AA7F00165716 /* ZMessageListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessageListCell.m; sourceTree = "<group>"; };
 		B233BB142466AB3100165716 /* ZMessgeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMessgeModel.h; sourceTree = "<group>"; };
 		B233BB152466AB3100165716 /* ZMessgeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessgeModel.m; sourceTree = "<group>"; };
+		B233BB172467970500165716 /* ZMessageSystemNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMessageSystemNoticeView.h; sourceTree = "<group>"; };
+		B233BB182467970500165716 /* ZMessageSystemNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessageSystemNoticeView.m; sourceTree = "<group>"; };
 		B2342C7C23FE370700F31C34 /* ZAlertDateHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateHourPickerView.h; sourceTree = "<group>"; };
 		B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertDateHourPickerView.m; sourceTree = "<group>"; };
 		B2342C7F23FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateWeekAndHourPickerView.h; sourceTree = "<group>"; };
@@ -2353,6 +2356,8 @@
 				B2F7D36D23CDDE0700F7A17D /* ZStudentMessageListDetailCell.m */,
 				B233BB102466AA7F00165716 /* ZMessageListCell.h */,
 				B233BB112466AA7F00165716 /* ZMessageListCell.m */,
+				B233BB172467970500165716 /* ZMessageSystemNoticeView.h */,
+				B233BB182467970500165716 /* ZMessageSystemNoticeView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5259,6 +5264,7 @@
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B234D0B023CC5A4900210CD8 /* ZStudentStarCoachInfoCell.m in Sources */,
 				B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */,
+				B233BB192467970500165716 /* ZMessageSystemNoticeView.m in Sources */,
 				B279D07323C9BEA400391A33 /* ZStudentLessonBottomView.m in Sources */,
 				B2A77FD623BDEAA100407BF0 /* UIViewController+PopGesture.m in Sources */,
 				B24D993823FBDC650078A458 /* ZOrganizationTimeSelectCell.m in Sources */,
