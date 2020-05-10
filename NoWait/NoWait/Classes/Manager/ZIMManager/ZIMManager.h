@@ -18,5 +18,9 @@
 
 //登录
 - (void)loginIMComplete:(void(^)(BOOL))complete;
+
+- (void)autoLoginIM;
+
+- (void)logoutIM;
 @end
 

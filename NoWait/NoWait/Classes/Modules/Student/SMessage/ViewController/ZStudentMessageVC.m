@@ -17,6 +17,8 @@
 #import "ZIMManager.h"
 #import "ZSessionListViewController.h"
 
+#import "ZMessageListCell.h"
+
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -64,6 +66,9 @@
         ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageCell className] title:[ZMessageCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageCell z_getCellHeight:data] cellType:ZCellTypeClass dataModel:data];
         [self.cellConfigArr addObject:messageCellConfig];
     }
+    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    [self.cellConfigArr addObject:messageCellConfig];
+    
 }
 
 

@@ -16,7 +16,7 @@
 
 static ZIMManager *shareManager = NULL;
 
-@interface ZIMManager ()<NIMSDKConfigDelegate>
+@interface ZIMManager ()<NIMSDKConfigDelegate, NIMLoginManagerDelegate>
 
 @end
 
@@ -67,6 +67,11 @@ static ZIMManager *shareManager = NULL;
     [self setCellConfig];
 }
 
+- (void)setCellConfig {
+    [NIMKit sharedKit].config.cellBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+}
+
+#pragma mark - 登录
 - (void)loginIMComplete:(void(^)(BOOL))complete {
     //请将 NIMMyAccount 以及 NIMMyToken 替换成您自己提交到此App下的账号和密码
     [[NIMSDK sharedSDK].loginManager login:@"hanmeimei" token:@"123456" completion:^(NSError *error) {
@@ -87,7 +92,26 @@ static ZIMManager *shareManager = NULL;
     }];
 }
 
-- (void)setCellConfig {
-    [NIMKit sharedKit].config.cellBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+- (void)autoLoginIM {
+    NIMAutoLoginData *loginData = [[NIMAutoLoginData alloc] init];
+    loginData.account = @"hanmeimei";
+    loginData.token = @"123456";
+
+    [[[NIMSDK sharedSDK] loginManager] autoLogin:loginData];
+}
+
+- (void)logoutIM {
+    [[[NIMSDK sharedSDK] loginManager] logout:^(NSError *error) {
+        //jump to login page
+    }];
+}
+
+#pragma mark - login delegate
+- (void)onLogin:(NIMLoginStep)step {
+    
+}
+
+- (void)onAutoLoginFailed:(NSError *)error {
+    
 }
 @end

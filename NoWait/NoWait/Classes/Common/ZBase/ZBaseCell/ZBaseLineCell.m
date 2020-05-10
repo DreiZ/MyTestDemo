@@ -359,7 +359,7 @@
         self.rightTitleLabel.text = self.model.rightTitle;
         self.rightTitleLabel.font = self.model.rightFont;
         
-        self.rightTitleLabel.textColor = adaptAndDarkColor(self.model.leftSubColor, self.model.leftSubDarkColor);
+        self.rightTitleLabel.textColor = adaptAndDarkColor(self.model.rightColor, self.model.rightDarkColor);
         self.rightTitleLabel.numberOfLines = self.model.isRightMultiLine ? 0:1;
         if (self.model.isRightMultiLine) {
             [ZPublicTool setLineSpacing:self.model.lineSpace label:self.rightTitleLabel];
