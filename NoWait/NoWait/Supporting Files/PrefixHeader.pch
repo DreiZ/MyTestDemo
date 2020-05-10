@@ -43,6 +43,7 @@
 #import <MJRefresh.h>
 #import <NSString+Hash.h>
 #import <TLKit/TLKit.h>
-
+#import <NIMKit.h>
+#import <NIMSDK/NIMSDK.h>
 
 #endif /* PrefixHeader_pch */

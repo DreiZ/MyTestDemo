@@ -112,6 +112,11 @@
 		B233BB122466AA7F00165716 /* ZMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB112466AA7F00165716 /* ZMessageListCell.m */; };
 		B233BB162466AB3100165716 /* ZMessgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB152466AB3100165716 /* ZMessgeModel.m */; };
 		B233BB192467970500165716 /* ZMessageSystemNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB182467970500165716 /* ZMessageSystemNoticeView.m */; };
+		B233BB212467D9AF00165716 /* NTESContactDataMember.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB1C2467D9AE00165716 /* NTESContactDataMember.m */; };
+		B233BB222467D9AF00165716 /* NTESGroupedContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB1F2467D9AF00165716 /* NTESGroupedContacts.m */; };
+		B233BB232467D9AF00165716 /* NTESGroupedDataCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB202467D9AF00165716 /* NTESGroupedDataCollection.m */; };
+		B233BB292467DB8000165716 /* NTESPinyinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB252467DB8000165716 /* NTESPinyinConverter.m */; };
+		B233BB2A2467DB8000165716 /* NTESSpellingCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B233BB272467DB8000165716 /* NTESSpellingCenter.m */; };
 		B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */; };
 		B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8023FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m */; };
 		B2342C8B23FE757B00F31C34 /* ZOriganizationTeachListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2342C8A23FE757B00F31C34 /* ZOriganizationTeachListCell.m */; };
@@ -897,6 +902,16 @@
 		B233BB152466AB3100165716 /* ZMessgeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessgeModel.m; sourceTree = "<group>"; };
 		B233BB172467970500165716 /* ZMessageSystemNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMessageSystemNoticeView.h; sourceTree = "<group>"; };
 		B233BB182467970500165716 /* ZMessageSystemNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessageSystemNoticeView.m; sourceTree = "<group>"; };
+		B233BB1B2467D9AE00165716 /* NTESContactDataMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESContactDataMember.h; sourceTree = "<group>"; };
+		B233BB1C2467D9AE00165716 /* NTESContactDataMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESContactDataMember.m; sourceTree = "<group>"; };
+		B233BB1D2467D9AE00165716 /* NTESGroupedContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGroupedContacts.h; sourceTree = "<group>"; };
+		B233BB1E2467D9AE00165716 /* NTESGroupedDataCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGroupedDataCollection.h; sourceTree = "<group>"; };
+		B233BB1F2467D9AF00165716 /* NTESGroupedContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESGroupedContacts.m; sourceTree = "<group>"; };
+		B233BB202467D9AF00165716 /* NTESGroupedDataCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESGroupedDataCollection.m; sourceTree = "<group>"; };
+		B233BB252467DB8000165716 /* NTESPinyinConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESPinyinConverter.m; sourceTree = "<group>"; };
+		B233BB262467DB8000165716 /* NTESSpellingCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSpellingCenter.h; sourceTree = "<group>"; };
+		B233BB272467DB8000165716 /* NTESSpellingCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSpellingCenter.m; sourceTree = "<group>"; };
+		B233BB282467DB8000165716 /* NTESPinyinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESPinyinConverter.h; sourceTree = "<group>"; };
 		B2342C7C23FE370700F31C34 /* ZAlertDateHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateHourPickerView.h; sourceTree = "<group>"; };
 		B2342C7D23FE370700F31C34 /* ZAlertDateHourPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZAlertDateHourPickerView.m; sourceTree = "<group>"; };
 		B2342C7F23FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZAlertDateWeekAndHourPickerView.h; sourceTree = "<group>"; };
@@ -2114,6 +2129,7 @@
 		B229401E2462598200B3FD43 /* ZIMManager */ = {
 			isa = PBXGroup;
 			children = (
+				B233BB242467DB8000165716 /* Spelling */,
 				B22940612463F21000B3FD43 /* Resources */,
 				B22940502463F20B00B3FD43 /* CustomChatCell */,
 				B229401F246259A400B3FD43 /* ZIMManager.h */,
@@ -2310,10 +2326,35 @@
 		B233BB132466AB0700165716 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B233BB1A2467D94300165716 /* Contact */,
 				B233BB142466AB3100165716 /* ZMessgeModel.h */,
 				B233BB152466AB3100165716 /* ZMessgeModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B233BB1A2467D94300165716 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				B233BB1B2467D9AE00165716 /* NTESContactDataMember.h */,
+				B233BB1C2467D9AE00165716 /* NTESContactDataMember.m */,
+				B233BB1D2467D9AE00165716 /* NTESGroupedContacts.h */,
+				B233BB1F2467D9AF00165716 /* NTESGroupedContacts.m */,
+				B233BB1E2467D9AE00165716 /* NTESGroupedDataCollection.h */,
+				B233BB202467D9AF00165716 /* NTESGroupedDataCollection.m */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		B233BB242467DB8000165716 /* Spelling */ = {
+			isa = PBXGroup;
+			children = (
+				B233BB252467DB8000165716 /* NTESPinyinConverter.m */,
+				B233BB262467DB8000165716 /* NTESSpellingCenter.h */,
+				B233BB272467DB8000165716 /* NTESSpellingCenter.m */,
+				B233BB282467DB8000165716 /* NTESPinyinConverter.h */,
+			);
+			path = Spelling;
 			sourceTree = "<group>";
 		};
 		B2342C8223FE6FE400F31C34 /* teacher */ = {
@@ -4990,8 +5031,10 @@
 				B252ED9824163FDA00190804 /* ZStudentOrganizationCouponCell.m in Sources */,
 				B234D09A23CC431800210CD8 /* ZStudentStarCoachInfoVC.m in Sources */,
 				B2A780CF23BED3C800407BF0 /* ZStudentMessageVC.m in Sources */,
+				B233BB2A2467DB8000165716 /* NTESSpellingCenter.m in Sources */,
 				B279D03D23C72A9A00391A33 /* ZStudentLessonListItemCell.m in Sources */,
 				B2A77F7123BDE89C00407BF0 /* AppDelegate+AppService.m in Sources */,
+				B233BB212467D9AF00165716 /* NTESContactDataMember.m in Sources */,
 				B2A7809123BDFB0100407BF0 /* TLNetworking.m in Sources */,
 				B2A77F2F23BDE37A00407BF0 /* UIView+LLExtension.m in Sources */,
 				B25146CE23CF2931009A64D4 /* ZStudentMineSettingSafeVC.m in Sources */,
@@ -5068,6 +5111,7 @@
 				B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
 				B24D993523FBDBDE0078A458 /* ZOrganizationCampusManageTimeVC.m in Sources */,
+				B233BB222467D9AF00165716 /* NTESGroupedContacts.m in Sources */,
 				B28D914E2407926B0021E05A /* ZOriganizationLessonViewModel.m in Sources */,
 				B2212B80244AE5A600B4507D /* ZOrganizationAccountSchoolListLogsCell.m in Sources */,
 				B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */,
@@ -5088,6 +5132,7 @@
 				B22940492462BC3F00B3FD43 /* ZRewardMyTeamListCell.m in Sources */,
 				B28D9142240766940021E05A /* PGDatePickManagerHeaderView.m in Sources */,
 				B2CF933F24249DD4007AF66E /* ZOrganizationEvaListCell.m in Sources */,
+				B233BB292467DB8000165716 /* NTESPinyinConverter.m in Sources */,
 				B2FCA18224137AA300D2D6A2 /* ZStudentOrganizationDetailTopCell.m in Sources */,
 				B2A7802123BDF8B200407BF0 /* ZAdvertiseHelper.m in Sources */,
 				B234D0A123CC449A00210CD8 /* ZStudentStarListCollectionViewCell.m in Sources */,
@@ -5238,6 +5283,7 @@
 				B2A77F3023BDE37A00407BF0 /* UIViewController+LLExtension.m in Sources */,
 				B2A7809423BDFB0100407BF0 /* TLNetworkSerializer.m in Sources */,
 				B28EA685240F569400C8E225 /* ZLoginCodeController.m in Sources */,
+				B233BB232467D9AF00165716 /* NTESGroupedDataCollection.m in Sources */,
 				B20C48072400DD4300E0CE35 /* ZOrganizationStudentManageVC.m in Sources */,
 				B2D83E9D23FA621A0099C2C9 /* ZAlertDataPickerView.m in Sources */,
 				B2A781A323C5C93400407BF0 /* ZStudentLessonDetailView.m in Sources */,

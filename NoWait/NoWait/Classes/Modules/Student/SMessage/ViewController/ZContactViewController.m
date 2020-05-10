@@ -10,10 +10,13 @@
 #import "ZSessionViewController.h"
 #import "ZBaseLineCell.h"
 #import <NIMGroupedUsrInfo.h>
+#import "NTESGroupedContacts.h"
+#import "NTESContactDataMember.h"
 
 @interface ZContactViewController ()<NIMUserManagerDelegate,NIMSystemNotificationManagerDelegate>
 
 @property (nonatomic,copy) NSArray *contact;
+@property (nonatomic,strong) NTESGroupedContacts *contacts;
 
 @end
 
@@ -32,9 +35,9 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (NIMUser *user in self.dataSources) {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title").titleLeft(user.userInfo.nickName)
-        .imageLeft(user.userInfo.avatarUrl?user.userInfo.avatarUrl:@"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gemh0lvw6dj20gd0m8wge.jpg").imageLeftHeight(CGFloatIn750(70)).height(CGFloatIn750(90)).imageLeftRadius(YES).lineHidden(NO).marginLineLeft(CGFloatIn750(60)).marginLineRight(CGFloatIn750(30)).setData(user);
+    for (NIMKitInfo *user in self.dataSources) {
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title").titleLeft(user.showName)
+        .imageLeft(user.avatarUrlString?user.avatarUrlString:@"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gemh0lvw6dj20gd0m8wge.jpg").imageLeftHeight(CGFloatIn750(70)).height(CGFloatIn750(90)).imageLeftRadius(YES).lineHidden(NO).marginLineLeft(CGFloatIn750(60)).marginLineRight(CGFloatIn750(30)).setData(user);
         
         ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:[ZBaseLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:messageCellConfig];
@@ -45,8 +48,8 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ZLineCellModel *model = cellConfig.dataModel;
-    NIMUser *user = model.data;
-    NIMSession *session = [NIMSession session:user.userId type:NIMSessionTypeP2P];
+    NIMKitInfo *user = model.data;
+    NIMSession *session = [NIMSession session:user.infoId type:NIMSessionTypeP2P];
     ZSessionViewController *vc = [[ZSessionViewController alloc] initWithSession:session];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -54,20 +57,11 @@
 
 #pragma mark - 获取我的好友列表
 - (void)prepareData{
-    NSMutableArray *data = [[NIMSDK sharedSDK].userManager.myFriends mutableCopy];
-//    NSMutableArray *myFriendArray = [[NSMutableArray alloc] init];
-    for (NIMUser *user in data) {
-        [self.dataSources addObject:user];
+    _contacts = [[NTESGroupedContacts alloc] init];
+    for (NTESContactDataMember *user in _contacts.members) {
+        [self.dataSources addObject:user.info];
         
     }
-//    NSArray *uids = [self filterData:myFriendArray];
-//    //    self.data = [self makeUserInfoData:uids];
-//    NSMutableArray *members = [[NSMutableArray alloc] init];
-//    for (NSString *uid in uids) {
-//        NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
-//        [members addObject:user];
-//    }
-//    self.dataSources = members;
 }
 
 
