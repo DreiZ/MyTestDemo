@@ -204,6 +204,10 @@
                 [TLUIUtility showErrorHint:@"请输入单节课时"];
                 return ;
             }
+            if ([weakSelf.viewModel.addModel.course_min intValue] < 1) {
+                [TLUIUtility showErrorHint:@"单节课时不能小于1"];
+                return ;
+            }
             if (!ValidStr(weakSelf.viewModel.addModel.course_number)) {
                 [TLUIUtility showErrorHint:@"请输入课程节数"];
                 return ;
@@ -212,7 +216,11 @@
                 [TLUIUtility showErrorHint:@"请输入课程人数"];
                 return ;
             }
-            
+            if ([weakSelf.viewModel.addModel.course_number intValue] < 1) {
+                [TLUIUtility showErrorHint:@"课程节数不能小于1"];
+                return ;
+            }
+
             if([weakSelf.viewModel.addModel.is_experience intValue] == 1){
                 if (!ValidStr(weakSelf.viewModel.addModel.experience_price)) {
                     [TLUIUtility showErrorHint:@"请输入预约价格"];
@@ -244,6 +252,12 @@
                     return ;
                 }
             }
+            
+            if ([weakSelf.viewModel.addModel.valid_at intValue] < 1) {
+                [TLUIUtility showErrorHint:@"课程有效期不能小于1个月"];
+                return ;
+            }
+            
             if (!ValidStr(weakSelf.viewModel.addModel.p_information)) {
                 [TLUIUtility showErrorHint:@"请添加购买须知"];
                 return ;
@@ -883,7 +897,7 @@
     
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonAddImageCell"]){
         [self.iTableView endEditing:YES];
-        [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, CGFloatIn750(400)) complete:^(NSArray<LLImagePickerModel *> *list) {
+        [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, (66.0/105.0)*KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
             if (list && list.count > 0) {
                 LLImagePickerModel *model = list[0];
                 weakSelf.viewModel.addModel.image_url = model.image;

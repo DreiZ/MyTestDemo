@@ -71,7 +71,7 @@
                             @"结算方式",
                             SafeStr(self.model.settlement_method),
                             @"须知",
-                            SafeStr(self.model.notice)];
+                            [NSString stringWithFormat:@"%@\n%@",SafeStr(self.model.notice),SafeStr(self.model.annotations)]];
         NSInteger index = 1;
         NSMutableArray *configArr = @[].mutableCopy;
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];

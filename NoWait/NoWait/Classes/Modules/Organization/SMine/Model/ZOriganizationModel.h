@@ -497,6 +497,7 @@
 @property (nonatomic,strong) NSString *pre_receive_amount;
 @property (nonatomic,strong) NSString *total_amount;
 @property (nonatomic,strong) NSString *wait_receive_amount;
+@property (nonatomic,strong) NSString *annotations;
 
 @property (nonatomic,strong) NSArray <ZStoresAccountListModel *>*list_stores;
 @end

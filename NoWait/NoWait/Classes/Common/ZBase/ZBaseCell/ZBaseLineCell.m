@@ -192,13 +192,21 @@
             make.height.mas_equalTo(0.5);
         }];
     }
-    
 }
 
 - (UIView *)setLeftViewWith:(UIView *)rightTempView {
     UIView *leftTempView = nil;
     if (self.model.leftImage) {
         self.leftImageView.hidden = NO;
+        
+        if (self.model.isLeftImageRadius) {
+            self.leftImageView.layer.masksToBounds = YES;
+            self.leftImageView.layer.cornerRadius = self.model.leftImageH/2.0f;
+        }else{
+            self.leftImageView.layer.masksToBounds = NO;
+            self.leftImageView.layer.cornerRadius = 0.0f;
+        }
+        
         
         if ([self.model.leftImage isKindOfClass:[UIImage class]]) {
             self.leftImageView.image = self.model.leftImage;
@@ -363,7 +371,8 @@
         self.rightTitleLabel.text = self.model.rightTitle;
         self.rightTitleLabel.font = self.model.rightFont;
         
-        self.rightTitleLabel.textColor = adaptAndDarkColor(self.model.leftSubColor, self.model.leftSubDarkColor);
+        self.rightTitleLabel.textColor = adaptAndDarkColor(self.model.rightColor, self.model.rightDarkColor);
+
         self.rightTitleLabel.numberOfLines = self.model.isRightMultiLine ? 0:1;
         if (self.model.isRightMultiLine) {
             [ZPublicTool setLineSpacing:self.model.lineSpace label:self.rightTitleLabel];
