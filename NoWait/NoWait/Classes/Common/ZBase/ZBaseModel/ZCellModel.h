@@ -155,3 +155,32 @@ ZCHAIN_LINECELLMODEL_PROPERTY(rightMultiLine, BOOL)
 @end
 
 
+@interface ZTextFieldModel : ZLineCellModel
+
+@property (nonatomic,strong) UIColor *textColor;
+@property (nonatomic,strong) UIColor *textDarkColor;
+@property (nonatomic,strong) UIFont *textFont;
+
+@property (nonatomic,assign) ZFormatterType formatterType;
+@property (nonatomic,assign) NSTextAlignment textAlignment;
+
+@property (nonatomic,strong) NSString *placeholderText;
+@property (nonatomic,assign) NSInteger maxLength;
+@property (nonatomic,strong) NSString *textContent;
+@property (nonatomic,assign) CGFloat textFieldHeight;
+
+@property (nonatomic,assign) BOOL isHiddenInputLine;
+@property (nonatomic,assign) BOOL isTextEnabled;
+
+ZCHAIN_LINECELLMODEL_PROPERTY(colorText, UIColor *)
+ZCHAIN_LINECELLMODEL_PROPERTY(colorDarkText, UIColor *)
+ZCHAIN_LINECELLMODEL_PROPERTY(fontText, UIFont *)
+ZCHAIN_LINECELLMODEL_PROPERTY(alignmentText, NSTextAlignment)
+ZCHAIN_LINECELLMODEL_PROPERTY(formatter, ZFormatterType)
+ZCHAIN_LINECELLMODEL_PROPERTY(placeholder, NSString *)
+ZCHAIN_LINECELLMODEL_PROPERTY(max, NSInteger)
+ZCHAIN_LINECELLMODEL_PROPERTY(content, NSString *)
+ZCHAIN_LINECELLMODEL_PROPERTY(heightTextField, CGFloat)
+ZCHAIN_LINECELLMODEL_PROPERTY(lineInputHidden, BOOL)
+ZCHAIN_LINECELLMODEL_PROPERTY(textEnabled, BOOL)
+@end

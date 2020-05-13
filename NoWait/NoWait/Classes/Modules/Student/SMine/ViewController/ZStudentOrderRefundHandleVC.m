@@ -12,8 +12,6 @@
 #import "ZMultiseriateContentLeftLineCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineSettingBottomCell.h"
-#import "ZSingleLeftRoundImageCell.h"
-#import "ZSingleLineRightImageCell.h"
 
 #import "ZStudentOrderPayVC.h"
 #import "ZBaseUnitModel.h"

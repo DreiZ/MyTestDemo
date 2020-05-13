@@ -10,16 +10,6 @@
 #import <UIImage+YYAdd.h>
 
 @interface ZBaseLineCell ()
-@property (nonatomic,strong) UIImageView *rightImageView;
-@property (nonatomic,strong) UIImageView *leftImageView;
-
-@property (nonatomic,strong) UILabel *leftTitleLabel;
-@property (nonatomic,strong) UILabel *rightTitleLabel;
-
-@property (nonatomic,strong) UILabel *leftSubTitleLabel;
-@property (nonatomic,strong) UILabel *rightSubTitleLabel;
-
-@property (nonatomic,strong) UIView *bottomLineView;
 
 @end
 

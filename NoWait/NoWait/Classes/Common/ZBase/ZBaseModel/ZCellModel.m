@@ -115,3 +115,42 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(contentLeftWidth, CGFloat, leftContentWidth)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(leftMultiLine, BOOL, isLeftMultiLine)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(rightMultiLine, BOOL, isRightMultiLine)
 @end
+
+@implementation ZTextFieldModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+
+        self.textColor = [UIColor colorTextBlack];
+        self.textDarkColor = [UIColor colorTextBlackDark];
+        self.textFont = [UIFont fontContent];;
+
+        self.formatterType = ZFormatterTypeAny;
+        self.textAlignment = NSTextAlignmentRight;
+
+        self.placeholderText = @"请输入";
+        self.maxLength = 50;
+        self.textContent = @"";
+        self.textFieldHeight = self.cellHeight;
+
+        self.isHiddenInputLine = YES;
+        self.isTextEnabled = YES;
+    }
+    return self;
+}
+
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(colorText, UIColor *, textColor)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(colorDarkText, UIColor *, textDarkColor)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(fontText, UIFont *, textFont)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(alignmentText, NSTextAlignment, textAlignment)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(formatter, ZFormatterType, formatterType)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(placeholder, NSString *, placeholderText)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(max, NSInteger, maxLength)
+
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(content, NSString *, textContent)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(heightTextField, CGFloat, textFieldHeight)
+
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(lineInputHidden, BOOL, isHiddenInputLine)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(textEnabled, BOOL, isTextEnabled)
+
+@end
