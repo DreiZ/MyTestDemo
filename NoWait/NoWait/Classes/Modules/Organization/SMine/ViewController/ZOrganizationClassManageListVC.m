@@ -77,17 +77,12 @@
         ZOrganizationClassManageListCell *lcell = (ZOrganizationClassManageListCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"删除后学员可以从新排课" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除班级？" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
                     if (index == 1) {
                         [weakSelf deleteClass:model];
                     }
                 }];
             }else if (index == 1){
-//                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"开课后不可以添加或者删除学员" leftBtnTitle:@"取消" rightBtnTitle:@"开课" handlerBlock:^(NSInteger index) {
-//                    if (index == 1) {
-//                        [weakSelf openClass:model];
-//                    }
-//                }];
                 ZOriganizationClassListModel *model = cellConfig.dataModel;
                 
                 ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];

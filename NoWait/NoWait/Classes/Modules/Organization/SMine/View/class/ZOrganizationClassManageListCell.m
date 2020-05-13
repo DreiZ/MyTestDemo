@@ -119,7 +119,7 @@
     [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.bottomView);
         make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
-        make.width.mas_equalTo(CGFloatIn750(192));
+        make.width.mas_equalTo(CGFloatIn750(116));
         make.height.mas_equalTo(CGFloatIn750(56));
     }];
     
@@ -323,17 +323,80 @@
                 make.left.top.right.equalTo(self.contView);
                 make.bottom.equalTo(self.bottomView.mas_top);
             }];
+            [self.deleteBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.bottomView);
+                make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
+                make.width.mas_equalTo(CGFloatIn750(116));
+                make.height.mas_equalTo(CGFloatIn750(56));
+            }];
         }
             break;
         case 2:
+        {
             _stateLabel.text = @"已开课";
+            if ([_model.nums intValue] == 0) {
+                _deleteBtn.hidden = NO;
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.bottom.right.equalTo(self.contView);
+                  make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+                [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.top.right.equalTo(self.contView);
+                  make.bottom.equalTo(self.bottomView.mas_top);
+                }];
+                [self.deleteBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView);
+                    make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                }];
+            }
+        }
             break;
         case 3:
+        {
             _stateLabel.text = @"已结课";
+            if ([_model.nums intValue] == 0) {
+                _deleteBtn.hidden = NO;
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.bottom.right.equalTo(self.contView);
+                  make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+                [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.top.right.equalTo(self.contView);
+                  make.bottom.equalTo(self.bottomView.mas_top);
+                }];
+                [self.deleteBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView);
+                    make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                }];
+            }
+        }
             break;
 
         default:
+        {
             _stateLabel.text = @"";
+            if ([_model.nums intValue] == 0) {
+                _deleteBtn.hidden = NO;
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.bottom.right.equalTo(self.contView);
+                  make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+                [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                  make.left.top.right.equalTo(self.contView);
+                  make.bottom.equalTo(self.bottomView.mas_top);
+                }];
+                [self.deleteBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView);
+                    make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                }];
+            }
+        }
             break;
     }
 }
@@ -341,7 +404,7 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     if (ValidClass(sender, [ZOriganizationClassListModel class])) {
         ZOriganizationClassListModel *model = sender;
-        if ([model.status intValue] == 1) {
+        if ([model.status intValue] == 1 || [model.nums intValue] == 0) {
             return CGFloatIn750(348);
         }
     }
