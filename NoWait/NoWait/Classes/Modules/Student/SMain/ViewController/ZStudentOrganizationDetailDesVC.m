@@ -98,7 +98,15 @@
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
-            }else{
+            }else if (index == 2){
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    if ([weakSelf.detailModel.collection intValue] == 1) {
+                        [weakSelf collectionStore:NO];
+                    }else{
+                        [weakSelf collectionStore:YES];
+                    }
+                }];
+            }else {
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
                 }];
@@ -286,6 +294,8 @@
             }
         }
     }
+    
+    _bottomView.isCollection = [self.detailModel.collection intValue] == 1 ? YES:NO;
 }
 
 #pragma mark - tableView -------datasource-----
@@ -468,6 +478,25 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:self.listModel.stores_id forKey:@"stores_id"];
-    
+}
+
+
+- (void)collectionStore:(BOOL)isCollection {
+    [TLUIUtility showLoading:@""];
+    __weak typeof(self) weakSelf = self;
+    [ZStudentCollectionViewModel collectionStore:@{@"store":SafeStr(self.detailModel.schoolID),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            if ([weakSelf.detailModel.collection intValue] == 1) {
+                weakSelf.detailModel.collection = @"0";
+            }else{
+                weakSelf.detailModel.collection = @"1";
+            }
+            weakSelf.bottomView.isCollection = [weakSelf.detailModel.collection intValue] == 1 ? YES:NO;
+            [TLUIUtility showSuccessHint:data];
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
 }
 @end

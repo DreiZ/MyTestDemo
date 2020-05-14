@@ -12,7 +12,7 @@
 
 
 + (void)getCollectionOrganizationList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_index params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_message_v1_collectionStoreList params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -67,4 +67,21 @@
     }];
 }
 
+
++ (void)collectionStore:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_message_v1_collectionStore params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           if (data) {
+               ZBaseNetworkBackModel *dataModel = data;
+               if ([dataModel.code integerValue] == 0 ) {
+                   completeBlock(YES, dataModel.message);
+                   return ;
+               }else{
+                   completeBlock(NO, dataModel.message);
+                   return;
+               }
+           }
+           completeBlock(NO, @"操作失败");
+    }];
+}
 @end

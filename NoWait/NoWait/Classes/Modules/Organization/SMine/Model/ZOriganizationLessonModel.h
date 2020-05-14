@@ -132,6 +132,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *stores_courses_nums;
 @property (nonatomic,strong) NSString *stores_image;
 @property (nonatomic,strong) NSString *stores_name;
+@property (nonatomic,strong) NSString *collection;
+
 @property (nonatomic,strong) NSArray <ZOriganizationLessonTeacherModel *>*teacher_list;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*coupons_list;;

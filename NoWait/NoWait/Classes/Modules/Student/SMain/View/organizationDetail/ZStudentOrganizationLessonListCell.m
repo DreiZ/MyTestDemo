@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentOrganizationLessonListCell.h"
+#import "CWStarRateView.h"
 
 @interface ZStudentOrganizationLessonListCell ()
 
@@ -17,7 +18,7 @@
 @property (nonatomic,strong) UILabel *goodReputationLabel;
 @property (nonatomic,strong) UILabel *sellCountLabel;
 @property (nonatomic,strong) UIButton *collectionBtn;
-
+@property (nonatomic,strong) CWStarRateView *crView;
 @end
 
 @implementation ZStudentOrganizationLessonListCell
@@ -40,6 +41,7 @@
     [self.contentView addSubview:self.goodReputationLabel];
     [self.contentView addSubview:self.sellCountLabel];
     [self.contentView addSubview:self.collectionBtn];
+    [self.contentView addSubview:self.crView];
     
     [self.lessonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
@@ -80,6 +82,14 @@
         make.centerY.equalTo(self.goodReputationLabel.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
+    
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(16));
+        make.left.equalTo(self.lessonImageView.mas_right).offset(CGFloatIn750(24));
+        make.width.offset(CGFloatIn750(100));
+        make.bottom.equalTo(self.lessonImageView.mas_bottom).offset(-CGFloatIn750(8));
+    }];
+    self.goodReputationLabel.hidden = YES;
 }
 
 
@@ -177,6 +187,14 @@
 }
 
 
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
+    }
+    return _crView;
+}
+
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
@@ -185,7 +203,7 @@
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _titleLabel.text = model.name;
 //    _favourablePriceLabel.text = @"￥256";
-    
+    _crView.scorePercent = [model.score intValue]/5.0f;
     if (model.isStudentCollection) {
         [self.collectionBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top);

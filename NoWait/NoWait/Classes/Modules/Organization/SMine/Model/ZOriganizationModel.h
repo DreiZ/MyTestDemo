@@ -164,6 +164,8 @@
 @property (nonatomic,strong) NSString *regional_id;
 @property (nonatomic,strong) NSString *status;
 @property (nonatomic,strong) NSString *store_type_id;
+@property (nonatomic,strong) NSString *collection;
+
 
 @property (nonatomic,strong) NSMutableArray *months;
 @property (nonatomic,strong) NSMutableArray *stores_info;
@@ -415,7 +417,7 @@
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSArray *tags;
 @property (nonatomic,strong) NSString *distance;
-
+@property (nonatomic,assign) BOOL isStudentCollection;
 @end
 
 @interface ZStoresListNetModel : ZBaseNetworkBackDataModel

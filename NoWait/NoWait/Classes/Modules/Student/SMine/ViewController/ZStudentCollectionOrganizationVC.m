@@ -11,6 +11,7 @@
 
 #import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentCollectionViewModel.h"
+#import "ZLocationManager.h"
 
 @interface ZStudentCollectionOrganizationVC ()
 
@@ -34,7 +35,8 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (id model in self.dataSources) {
+    for (ZStoresListModel *model in self.dataSources) {
+        model.isStudentCollection = YES;
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:[ZStudentMainOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:orderCellConfig];
     }
@@ -59,8 +61,12 @@
 
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]){
-   
+        ZStudentMainOrganizationListCell *lcell = (ZStudentMainOrganizationListCell *)cell;
+        lcell.handleBlock = ^(ZStoresListModel *model) {
+            [weakSelf collectionStore:NO model:model];
+        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -140,7 +146,26 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    if ([ZLocationManager shareManager].cureUserLocation) {
+        [param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+        [param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+    }
     return param;
+}
+
+
+- (void)collectionStore:(BOOL)isCollection model:(ZStoresListModel *)model{
+    [TLUIUtility showLoading:@""];
+    __weak typeof(self) weakSelf = self;
+    [ZStudentCollectionViewModel collectionStore:@{@"store":SafeStr(model.stores_id),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [weakSelf refreshAllData];
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
 }
 @end
 

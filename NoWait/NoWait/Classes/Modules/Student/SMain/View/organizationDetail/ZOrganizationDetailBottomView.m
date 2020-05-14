@@ -89,9 +89,8 @@
 - (UIButton *)telBtn {
     if (!_telBtn) {
         _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
+        [_telBtn setImage:[UIImage imageNamed:@"telGray"] forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont fontSmall]];
-        
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_whenTapped:^{
             if (weakSelf.handleBlock) {
@@ -109,6 +108,7 @@
         [_collectionBtn addSubview:self.messageImageView];
         [self.messageImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.collectionBtn);
+            make.width.height.mas_equalTo(CGFloatIn750(32));
         }];
         
         __weak typeof(self) weakSelf = self;
@@ -141,5 +141,10 @@
 
 - (void)setTitle:(NSString *)title {
     [_handleBtn setTitle:title forState:UIControlStateNormal];
+}
+
+- (void)setIsCollection:(BOOL)isCollection {
+    _isCollection = isCollection;
+    _messageImageView.image = isCollection ? [UIImage imageNamed:@"collectionHandle"]:[UIImage imageNamed:@"handleStore"];
 }
 @end

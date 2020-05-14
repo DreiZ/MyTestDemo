@@ -11,6 +11,6 @@
 
 @interface ZStudentMainOrganizationListCell : ZBaseCell
 @property (nonatomic,strong) ZStoresListModel *model;
-
+@property (nonatomic,strong) void (^handleBlock)(ZStoresListModel *);
 @end
 

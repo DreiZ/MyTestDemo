@@ -566,4 +566,9 @@
 //收藏列表
 #define URL_message_v1_collectionCourseList       @"account/v1/collection/course/list"
 
+//添加机构收藏
+#define URL_message_v1_collectionStoreList         @"account/v1/collection/store/list"
+
+//添加机构收藏
+#define URL_message_v1_collectionStore            @"account/v1/collection/store"
 #endif /* URLMacros_h */

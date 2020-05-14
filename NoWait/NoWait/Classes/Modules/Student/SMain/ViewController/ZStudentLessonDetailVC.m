@@ -219,7 +219,11 @@
               [ZPublicTool callTel:SafeStr(weakSelf.addModel.phone)];
             }else if (index == 2){
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    [weakSelf collectionLesson:YES];
+                    if ([weakSelf.addModel.collection intValue] == 1) {
+                        [weakSelf collectionLesson:NO];
+                    }else{
+                        [weakSelf collectionLesson:YES];
+                    }
                 }];
             } else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
@@ -336,6 +340,7 @@
         _bottomView.handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     [self.iTableView reloadData];
+    _bottomView.isCollection = [self.addModel.collection intValue] == 1 ? YES:NO;
 }
 
 - (void)setTime {
@@ -823,10 +828,17 @@
 
 - (void)collectionLesson:(BOOL)isCollection {
     [TLUIUtility showLoading:@""];
+    __weak typeof(self) weakSelf = self;
     [ZStudentCollectionViewModel collectionLesson:@{@"course":SafeStr(self.addModel.lessonID),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
+            if ([weakSelf.addModel.collection intValue] == 1) {
+                weakSelf.addModel.collection = @"0";
+            }else{
+                weakSelf.addModel.collection = @"1";
+            }
+            weakSelf.bottomView.isCollection = [weakSelf.addModel.collection intValue] == 1 ? YES:NO;
         }else{
             [TLUIUtility showInfoHint:data];
         }

@@ -68,6 +68,11 @@
     return _evaTitleLabel;
 }
 
+- (void)setModel:(ZOrderEvaListModel *)model {
+    _model = model;
+    _evaTitleLabel.text = [model.update_at timeStringWithFormatter:@"yyyy-MM-dd"];
+    _crView.scorePercent = [model.score intValue]/5.0f;
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(38);

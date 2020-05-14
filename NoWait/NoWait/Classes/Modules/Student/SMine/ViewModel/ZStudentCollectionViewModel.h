@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getCollectionLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
++ (void)collectionStore:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 + (void)collectionLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 

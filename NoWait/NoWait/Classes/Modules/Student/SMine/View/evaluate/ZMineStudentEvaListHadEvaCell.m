@@ -238,7 +238,7 @@
 
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(18))];
     
-    ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListEvaCoachCell className] title:[ZMineStudentEvaListEvaCoachCell className] showInfoMethod:nil heightOfCell:[ZMineStudentEvaListEvaCoachCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentEvaListEvaCoachCell className] title:[ZMineStudentEvaListEvaCoachCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMineStudentEvaListEvaCoachCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
     [self.cellConfigArr addObject:coachCellConfig];
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(8))];
     
