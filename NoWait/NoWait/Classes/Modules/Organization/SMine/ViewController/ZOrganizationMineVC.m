@@ -35,7 +35,7 @@
 #import "ZOrganizationSchoolAccountVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationLessonDetailListVC.h"
-
+#import "ZRewardCenterVC.h"
 #import "ZOriganizationViewModel.h"
 
 #define kHeaderHeight CGFloatIn750(270)
@@ -121,6 +121,10 @@
                     [weakSelf.navigationController pushViewController:svc animated:YES];
                 }else if(index == 10){
                     ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                    
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                }else if(index == 12){
+                    ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
                     
                     [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }

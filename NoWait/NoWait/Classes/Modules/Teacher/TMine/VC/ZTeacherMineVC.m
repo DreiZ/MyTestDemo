@@ -25,6 +25,7 @@
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZTeacherClassDetailVC.h"
+#import "ZRewardCenterVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -114,6 +115,10 @@
                         [weakSelf.navigationController pushViewController:dvc animated:YES];
                     }else if(index == 10){
                         ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                        
+                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    }else if(index == 12){
+                        ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
                         
                         [weakSelf.navigationController pushViewController:mvc animated:YES];
                     }

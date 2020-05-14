@@ -30,6 +30,7 @@
 @property (nonatomic,strong) UIView *scanView;
 @property (nonatomic,strong) UIImageView *scanQRCodeImageView;
 @property (nonatomic,strong) UIButton *qrCodeBtn;
+@property (nonatomic,strong) UIButton *rewardBtn;
 
 
 @end
@@ -59,6 +60,7 @@
     [self addSubview:self.stateLabel];
     [self addSubview:self.midLabel];
     [self addSubview:self.scanView];
+    [self addSubview:self.rewardBtn];
     [self.scanView addSubview:self.scanQRCodeImageView];
     
     [self addSubview:self.stateBackView];
@@ -78,8 +80,9 @@
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.headImageView.mas_centerY).offset(-CGFloatIn750(20));
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.headImageView.mas_top).offset(CGFloatIn750(12));
+        make.left.equalTo(self.headImageView.mas_right).offset(CGFloatIn750(20));
+        make.width.mas_lessThanOrEqualTo(KScreenWidth - headImageHeight - CGFloatIn750(60) - CGFloatIn750(54) - CGFloatIn750(136) - CGFloatIn750(20) * 2);
     }];
     
     [self.switchUserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,6 +102,14 @@
         make.top.equalTo(self.midLabel.mas_bottom).offset(CGFloatIn750(8));
         make.height.mas_equalTo(CGFloatIn750(54));
     }];
+    
+    [self.rewardBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.headImageView.mas_centerY).offset(CGFloatIn750(16));
+        make.height.mas_equalTo(CGFloatIn750(40));
+        make.width.mas_equalTo(CGFloatIn750(136));
+    }];
+    ViewShadowRadius(self.rewardBtn, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
     
     [self.stateBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(32));
@@ -173,8 +184,8 @@
     self.settingImageView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
     self.scanView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
     
-    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
-    
+//    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
@@ -186,6 +197,7 @@
     
     self.backView.alpha = 0;
     self.switchUserBtn.alpha = 1;
+    self.rewardBtn.alpha = 1;
 }
 
 - (void)setAnimationSubViewFrame {
@@ -196,12 +208,14 @@
     self.switchUserBtn.alpha = alpha;
     self.stateLabel.alpha = alpha;
     self.stateBackView.alpha = alpha;
+    self.rewardBtn.alpha = alpha;
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36) - (1-self.nameLabel.alpha)*CGFloatIn750(20)];
     
     CGFloat changeHeadImageHeight = headImageHeight- (1-self.nameLabel.alpha)*CGFloatIn750(60);
      
-    self.headImageView.frame = CGRectMake(KScreenWidth - changeHeadImageHeight -  CGFloatIn750(30) - (KScreenWidth/2.0 - changeHeadImageHeight/2.0 -  CGFloatIn750(30)) * (1-alpha), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
+//    self.headImageView.frame = CGRectMake(KScreenWidth - changeHeadImageHeight -  CGFloatIn750(30) - (KScreenWidth/2.0 - changeHeadImageHeight/2.0 -  CGFloatIn750(30)) * (1-alpha), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
@@ -263,7 +277,6 @@
 }
 
 
-
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
@@ -279,9 +292,9 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.numberOfLines = 1;
+        _nameLabel.numberOfLines = 0;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont fontMaxTitle]];
+        [_nameLabel setFont:[UIFont fontTitle]];
     }
     return _nameLabel;
 }
@@ -351,6 +364,46 @@
         }];
     }
     return _switchUserBtn;
+}
+
+- (UIButton *)rewardBtn {
+    if (!_rewardBtn) {
+        __weak typeof(self) weakSelf = self;
+        _rewardBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _rewardBtn.backgroundColor = [UIColor colorMain];
+        ViewRadius(_rewardBtn, CGFloatIn750(20));
+        [_rewardBtn bk_whenTapped:^{
+            if (weakSelf.topHandleBlock) {
+                weakSelf.topHandleBlock(12);
+            }
+        }];
+        
+        
+        UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        hintLabel.textColor = [UIColor colorWhite];
+        hintLabel.text = @"奖励中心";
+        hintLabel.numberOfLines = 0;
+        hintLabel.textAlignment = NSTextAlignmentLeft;
+        [hintLabel setFont:[UIFont fontMin]];
+        [_rewardBtn addSubview:hintLabel];
+        [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.rewardBtn.mas_centerY);
+            make.left.equalTo(self.rewardBtn.mas_left).offset(CGFloatIn750(20));
+        }];
+        
+        UIImageView *hintImage = [[UIImageView alloc] init];
+        hintImage.image = [[UIImage imageNamed:@"rightGrayArrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        hintImage.tintColor = [UIColor colorWhite];
+        hintImage.layer.masksToBounds = YES;
+        [_rewardBtn addSubview:hintImage];
+        [hintImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(CGFloatIn750(9));
+            make.height.mas_equalTo(CGFloatIn750(12));
+            make.centerY.equalTo(self.rewardBtn.mas_centerY);
+            make.right.equalTo(self.rewardBtn.mas_right).offset(-CGFloatIn750(14));
+        }];
+    }
+    return _rewardBtn;
 }
 
 - (UILabel *)stateLabel {

@@ -42,8 +42,9 @@
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(40));
-        make.bottom.equalTo(self.userImageView.mas_centerY).offset(CGFloatIn750(-4));
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(30));
+        make.top.equalTo(self.userImageView.mas_top).offset(CGFloatIn750(4));
+        make.right.equalTo(self.inviteLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
     [self.midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,9 +95,9 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         
-        _nameLabel.numberOfLines = 1;
+        _nameLabel.numberOfLines = 0;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont fontMaxTitle]];
+        [_nameLabel setFont:[UIFont fontTitle]];
     }
     return _nameLabel;
 }

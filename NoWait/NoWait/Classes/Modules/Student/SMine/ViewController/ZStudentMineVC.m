@@ -127,6 +127,10 @@
                         ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
                         
                         [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    }else if(index == 12){
+                        ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
+                        
+                        [weakSelf.navigationController pushViewController:mvc animated:YES];
                     }
                 }];
             }
