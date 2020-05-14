@@ -559,5 +559,11 @@
 //团队列表
 #define URL_message_v1_rewardTeamList               @"account/v1/reward/center/team/list"
 
+#pragma mark - 收藏
+//添加课程收藏
+#define URL_message_v1_collectionCourse            @"account/v1/collection/course"
+
+//收藏列表
+#define URL_message_v1_collectionCourseList       @"account/v1/collection/course/list"
 
 #endif /* URLMacros_h */

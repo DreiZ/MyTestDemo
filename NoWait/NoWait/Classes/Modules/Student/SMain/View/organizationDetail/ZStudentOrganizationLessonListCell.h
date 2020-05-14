@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentOrganizationLessonListCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationLessonListModel *model;
-
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonListModel *);
 @end
 
 NS_ASSUME_NONNULL_END

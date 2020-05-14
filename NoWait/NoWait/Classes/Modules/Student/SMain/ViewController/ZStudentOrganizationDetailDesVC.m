@@ -42,6 +42,7 @@
 #import "ZStudentMainViewModel.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOriganizationCardViewModel.h"
+#import "ZStudentCollectionViewModel.h"
 #import "ZCouponListView.h"
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"

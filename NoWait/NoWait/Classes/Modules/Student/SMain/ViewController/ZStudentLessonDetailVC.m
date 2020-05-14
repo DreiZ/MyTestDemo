@@ -37,6 +37,7 @@
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
+#import "ZStudentCollectionViewModel.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -216,7 +217,11 @@
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
               [ZPublicTool callTel:SafeStr(weakSelf.addModel.phone)];
-            }else{
+            }else if (index == 2){
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    [weakSelf collectionLesson:YES];
+                }];
+            } else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
                 }];
@@ -814,7 +819,18 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:self.model.lessonID forKey:@"stores_courses_id"];
-    
+}
+
+- (void)collectionLesson:(BOOL)isCollection {
+    [TLUIUtility showLoading:@""];
+    [ZStudentCollectionViewModel collectionLesson:@{@"course":SafeStr(self.addModel.lessonID),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
 }
 @end
 

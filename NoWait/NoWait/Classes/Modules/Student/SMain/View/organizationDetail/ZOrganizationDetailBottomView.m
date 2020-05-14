@@ -10,7 +10,8 @@
 
 @interface ZOrganizationDetailBottomView ()
 @property (nonatomic,strong) UIButton *telBtn;
-
+@property (nonatomic,strong) UIButton *collectionBtn;
+@property (nonatomic,strong) UIImageView *messageImageView;
 
 @end
 
@@ -40,14 +41,21 @@
     
     [backView addSubview:self.telBtn];
     [backView addSubview:self.handleBtn];
+    [backView addSubview:self.collectionBtn];
     [self.telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(backView);
         make.width.mas_equalTo(CGFloatIn750(128));
     }];
     
+    [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(backView);
+        make.left.equalTo(self.telBtn.mas_right);
+        make.width.mas_equalTo(CGFloatIn750(128));
+    }];
+    
     [self.handleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.top.bottom.equalTo(backView);
-        make.left.equalTo(self.telBtn.mas_right);
+        make.left.equalTo(self.collectionBtn.mas_right);
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -92,6 +100,43 @@
         }];
     }
     return _telBtn;
+}
+
+
+- (UIButton *)collectionBtn {
+    if (!_collectionBtn) {
+        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_collectionBtn addSubview:self.messageImageView];
+        [self.messageImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.collectionBtn);
+        }];
+        
+        __weak typeof(self) weakSelf = self;
+        [_collectionBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2);
+            }
+        }];
+        
+        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+        [_collectionBtn addSubview:bottomLineView];
+        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.top.equalTo(self.collectionBtn);
+            make.width.mas_equalTo(1);
+        }];
+    }
+    return _collectionBtn;
+}
+
+- (UIImageView *)messageImageView {
+    if (!_messageImageView) {
+        _messageImageView = [[UIImageView alloc] init];
+        _messageImageView.image = [UIImage imageNamed:@"handleStore"];
+        _messageImageView.layer.masksToBounds = YES;
+        _messageImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _messageImageView;
 }
 
 - (void)setTitle:(NSString *)title {

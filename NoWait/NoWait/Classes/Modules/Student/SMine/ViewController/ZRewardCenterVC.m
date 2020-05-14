@@ -159,7 +159,7 @@
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     [ZRewardCenterViewModel rewardCenterInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
-        if (isSuccess) {
+        if (isSuccess && data) {
             weakSelf.infoModel = data;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

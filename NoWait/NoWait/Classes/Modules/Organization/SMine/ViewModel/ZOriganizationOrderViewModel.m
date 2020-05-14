@@ -290,11 +290,11 @@
                 completeBlock(YES, model);
                 return ;
             }else{
-                completeBlock(NO, dataModel.message);
+                completeBlock(NO, nil);
                 return;
             }
         }
-        completeBlock(NO, @"操作失败");
+        completeBlock(NO, nil);
     }];
 }
 

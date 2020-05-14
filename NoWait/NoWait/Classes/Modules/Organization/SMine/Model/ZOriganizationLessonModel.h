@@ -76,6 +76,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *course_name;
 @property (nonatomic,strong) NSString *key;
+
+@property (nonatomic,assign) BOOL isStudentCollection;
 @end
 
 

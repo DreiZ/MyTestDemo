@@ -16,6 +16,8 @@
 @property (nonatomic,strong) UILabel *favourablePriceLabel;
 @property (nonatomic,strong) UILabel *goodReputationLabel;
 @property (nonatomic,strong) UILabel *sellCountLabel;
+@property (nonatomic,strong) UIButton *collectionBtn;
+
 @end
 
 @implementation ZStudentOrganizationLessonListCell
@@ -37,6 +39,7 @@
     [self.contentView addSubview:self.favourablePriceLabel];
     [self.contentView addSubview:self.goodReputationLabel];
     [self.contentView addSubview:self.sellCountLabel];
+    [self.contentView addSubview:self.collectionBtn];
     
     [self.lessonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
@@ -45,10 +48,16 @@
         make.height.mas_equalTo(CGFloatIn750(140));
     }];
     
+    [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_top);
+        make.left.equalTo(self.mas_right);
+        make.height.width.mas_equalTo(CGFloatIn750(84));
+    }];
+    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.lessonImageView.mas_top);
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.collectionBtn.mas_left).offset(-CGFloatIn750(20));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,6 +153,30 @@
     return _sellCountLabel;
 }
 
+
+- (UIButton *)collectionBtn {
+    if (!_collectionBtn) {
+        __weak typeof(self) weakSelf = self;
+        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+//        [_collectionBtn setImage:[UIImage imageNamed:@"collectionHandle"] forState:UIControlStateNormal];
+        UIImageView *collectionImageView = [[UIImageView alloc] init];
+        collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];
+        collectionImageView.layer.masksToBounds = YES;
+        [_collectionBtn addSubview:collectionImageView];
+        [collectionImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.collectionBtn);
+            make.height.width.mas_equalTo(CGFloatIn750(20));
+        }];
+        [_collectionBtn bk_whenTapped:^{
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(self.model);
+            };
+        }];
+    }
+    return _collectionBtn;
+}
+
+
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
@@ -152,6 +185,20 @@
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _titleLabel.text = model.name;
 //    _favourablePriceLabel.text = @"￥256";
+    
+    if (model.isStudentCollection) {
+        [self.collectionBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_top);
+            make.right.equalTo(self.mas_right);
+            make.height.width.mas_equalTo(CGFloatIn750(84));
+        }];
+    }else {
+        [self.collectionBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_top);
+            make.left.equalTo(self.mas_right);
+            make.height.width.mas_equalTo(CGFloatIn750(84));
+        }];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -12,6 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentCollectionViewModel : ZBaseViewModel
 
++ (void)getCollectionOrganizationList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getCollectionLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
+
++ (void)collectionLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,6 +31,7 @@
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZRewardCenterVC.h"
+#import "ZStudentCollectionPageVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -162,8 +163,10 @@
                 }else if ([scellConfig.title isEqualToString:@"reward"]) {
                     ZRewardCenterVC *lvc = [[ZRewardCenterVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if ([scellConfig.title isEqualToString:@"store"]) {
+                    ZStudentCollectionPageVC *lvc = [[ZStudentCollectionPageVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }
-
             }];
             
         };
@@ -227,7 +230,7 @@
                          @[isDarkModel() ? @"stores_card_dark":@"stores_card",@"card", @"我的卡券", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"refund", @"我的退款", @"rightBlackArrowN"],
-                         @[isDarkModel() ? @"refund_money_dark":@"refund_money",@"reward", @"奖励中心", @"rightBlackArrowN"]];
+                         @[@"minestore",@"store", @"我的收藏", @"rightBlackArrowN"]];
 
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
