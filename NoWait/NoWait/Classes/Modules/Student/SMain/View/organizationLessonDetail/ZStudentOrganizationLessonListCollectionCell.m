@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentOrganizationLessonListCollectionCell.h"
+#import "CWStarRateView.h"
 
 @interface ZStudentOrganizationLessonListCollectionCell ()
 @property (nonatomic,strong) UIView *backView;
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) UILabel *favourablePriceLabel;
 @property (nonatomic,strong) UILabel *goodReputationLabel;
 @property (nonatomic,strong) UILabel *sellCountLabel;
+@property (nonatomic,strong) CWStarRateView *crView;
 @end
 
 @implementation ZStudentOrganizationLessonListCollectionCell
@@ -31,6 +33,7 @@
     [self.backView addSubview:self.favourablePriceLabel];
     [self.backView addSubview:self.goodReputationLabel];
     [self.backView addSubview:self.sellCountLabel];
+    [self.backView addSubview:self.crView];
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
@@ -49,7 +52,7 @@
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.backView.mas_bottom).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(18));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(130));
     }];
     
@@ -67,8 +70,15 @@
     
     [self.sellCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_lessThanOrEqualTo(CGFloatIn750(120));
-        make.centerY.equalTo(self.priceLabel.mas_centerY);
+        make.centerY.equalTo(self.crView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(16));
+        make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(22));
+        make.width.offset(CGFloatIn750(100));
+        make.bottom.equalTo(self.backView.mas_bottom).offset(-CGFloatIn750(20));
     }];
 }
 
@@ -155,6 +165,15 @@
     return _sellCountLabel;
 }
 
+
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
+    }
+    return _crView;
+}
+
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
@@ -163,6 +182,8 @@
     _goodReputationLabel.text = [NSString stringWithFormat:@"%@好评",model.score];
     _favourablePriceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+    _goodReputationLabel.hidden = YES;
+    _crView.scorePercent = [model.score intValue]/5.0f;
     
     CGSize tempSize = [self.goodReputationLabel.text sizeForFont:[UIFont fontSmall] size:CGSizeMake(CGFloatIn750(130), MAXFLOAT) mode:NSLineBreakByWordWrapping];
     
@@ -174,7 +195,7 @@
 }
 
 +(CGSize)z_getCellSize:(id)sender {
-    return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, 175/165 * (KScreenWidth-CGFloatIn750(90))/2);
+    return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, 175/165 * (KScreenWidth-CGFloatIn750(90))/2 + CGFloatIn750(40));
 }
 @end
 

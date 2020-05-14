@@ -7,6 +7,7 @@
 //
 
 #import "ZOrganizationLessonManageListCell.h"
+#import "CWStarRateView.h"
 
 @interface ZOrganizationLessonManageListCell ()
 
@@ -19,6 +20,7 @@
 
 @property (nonatomic,strong) UILabel *failHintLabel;
 @property (nonatomic,strong) UILabel *failLabel;
+@property (nonatomic,strong) CWStarRateView *crView;
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *bottomView;
@@ -96,6 +98,7 @@
     [self.midView addSubview:self.salesNumLabel];
     [self.midView addSubview:self.lessonNameLabel];
     [self.midView addSubview:self.scoreLabel];
+    [self.midView addSubview:self.crView];
 
    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(self.midView.mas_left).offset(CGFloatIn750(30));
@@ -125,6 +128,12 @@
         make.centerY.equalTo(self.salesNumLabel.mas_centerY);
     }];
 
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(16));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.width.offset(CGFloatIn750(100));
+        make.bottom.equalTo(self.leftImageView.mas_bottom).offset(-CGFloatIn750(8));
+    }];
     
     [self.bottomView addSubview:self.editBtn];
     [self.bottomView addSubview:self.openBtn];
@@ -375,6 +384,14 @@
     return _openBtn;
 }
 
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
+    }
+    return _crView;
+}
+
 #pragma mark - set model
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
@@ -386,6 +403,8 @@
     self.salesNumLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     self.scoreLabel.text = [NSString stringWithFormat:@"%@分",model.score];
     self.failLabel.text = model.fail;
+    self.scoreLabel.hidden = YES;
+    self.crView.scorePercent = [model.score intValue]/5.0f;
     
     switch (model.type) {
         case ZOrganizationLessonTypeOpen:
@@ -562,6 +581,8 @@
         default:
             break;
     }
+    
+    self.delBtn.hidden = YES;
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

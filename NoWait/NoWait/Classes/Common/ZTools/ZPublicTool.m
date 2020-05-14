@@ -108,12 +108,14 @@
 // 行间距
 + (void)setLineSpacing:(CGFloat)spacing label:(UILabel *)label
 {
-    NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:label.text];
-    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:spacing];
-    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [label.text length])];
-    [label setAttributedText:attributedString];
+    if (label && ValidStr(label.text)) {
+        NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:label.text];
+        NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:spacing];
+        paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [label.text length])];
+        [label setAttributedText:attributedString];
+    }
 //    [label sizeToFit];
 }
 

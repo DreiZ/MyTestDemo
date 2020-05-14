@@ -15,8 +15,8 @@
 typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
     ZOrganizationLessonTypeOpen  =   0,   //开放
     ZOrganizationLessonTypeClose,         //未开放
-    ZOrganizationLessonTypeExamine,       //审核中
     ZOrganizationLessonTypeExamineFail,   //审核失败
+    ZOrganizationLessonTypeExamine,       //审核中
     ZOrganizationLessonTypeAll,           //全部
 };
 

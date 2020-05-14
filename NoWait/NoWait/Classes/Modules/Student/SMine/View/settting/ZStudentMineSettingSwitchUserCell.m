@@ -60,6 +60,7 @@
     [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_centerY).offset(-CGFloatIn750(4));
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(40));
     }];
     
     [self.rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

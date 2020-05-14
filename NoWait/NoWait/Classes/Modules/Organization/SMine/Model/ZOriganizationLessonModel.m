@@ -111,7 +111,7 @@
             return @"未开放课程";
             break;
             case 3:
-            return @"课程审核中";
+            return @"课程审核失败";
             break;
             case 4:
             return @"课程审核失败";
@@ -135,15 +135,16 @@
             return ZOrganizationLessonTypeClose;
             break;
             case 3:
-            return ZOrganizationLessonTypeExamine;
-            break;
-            case 4:
             return ZOrganizationLessonTypeExamineFail;
             break;
             
         default:
             break;
     }
+
+//    case 4:
+//    return ZOrganizationLessonTypeExamine;
+//    break;
     return ZOrganizationLessonTypeClose;
 }
 
