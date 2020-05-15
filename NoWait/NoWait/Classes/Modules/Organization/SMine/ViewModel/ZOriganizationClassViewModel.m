@@ -373,4 +373,21 @@
     }];
 }
 
+
++ (void)upLessonImageStr:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_upload_sign_image params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0) {;
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 @end

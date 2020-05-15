@@ -48,6 +48,7 @@
 //        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
         _iCycleScrollView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorBlackBGDark]);
+        _iCycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     }
     return _iCycleScrollView;
 }

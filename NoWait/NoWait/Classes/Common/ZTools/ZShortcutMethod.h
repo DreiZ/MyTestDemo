@@ -28,6 +28,7 @@ UIColor *adaptAndDarkColor(UIColor *adapt, UIColor *dark);
 
 BOOL isDarkModel(void);
 
+NSString *getJSONStr(id data);
 
 CGFloat CGFloatIn640(CGFloat value);
 

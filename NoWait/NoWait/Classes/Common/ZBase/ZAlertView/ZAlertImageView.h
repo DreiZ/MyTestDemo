@@ -18,13 +18,8 @@ typedef NS_ENUM(NSInteger, ZAlertType) {
 @interface ZAlertImageView : UIView
 + (ZAlertImageView *)sharedManager ;
 
-//单按钮弹框
-+ (void)setAlertWithTitle:(NSString *)title image:(NSString *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock;
++ (void)setAlertWithTitle:(NSString *)title  subTitle:(NSString *)subTitle image:(UIImage *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock ;
 
-//两个按钮弹框
-+ (void)setAlertWithTitle:(NSString *)title image:(NSString *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock ;
-
-//预约相关
-+ (void)setAlertWithType:(ZAlertType)type  handlerBlock:(void(^)(NSInteger))handleBlock ;
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle image:(UIImage *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock;
 @end
 

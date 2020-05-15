@@ -82,6 +82,18 @@ static ZPhotoManager *sharedPhotoManager;
 }
 
 #pragma mark 选择照片
+//单次选择照片
+- (void)showOriginalSelectMenuWithType:(LLImageType)type complete:(LLSelecttImageBackBlock)complete{
+    _type = type;
+    _maxImageSelected = 1;
+    [_mediaArray removeAllObjects];
+    [_selectedImageAssets removeAllObjects];
+    [_selectedVideoModels removeAllObjects];
+    [_selectedImageModels removeAllObjects];
+    
+    [self setSelectMenu:complete];
+}
+
 //选择照片
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete
 {

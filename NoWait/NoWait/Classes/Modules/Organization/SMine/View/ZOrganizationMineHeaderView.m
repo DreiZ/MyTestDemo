@@ -104,12 +104,11 @@
     }];
     
     [self.rewardBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.headImageView.mas_centerY).offset(CGFloatIn750(16));
-        make.height.mas_equalTo(CGFloatIn750(40));
-        make.width.mas_equalTo(CGFloatIn750(136));
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(166));
     }];
-    ViewShadowRadius(self.rewardBtn, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
     
     [self.stateBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(32));
@@ -372,8 +371,10 @@
     if (!_rewardBtn) {
         __weak typeof(self) weakSelf = self;
         _rewardBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _rewardBtn.backgroundColor = [UIColor colorMain];
-        ViewRadius(_rewardBtn, CGFloatIn750(20));
+//        _rewardBtn.backgroundColor = [UIColor colorMain];
+//        ViewBorderRadius(_rewardBtn, CGFloatIn750(20), 1, [UIColor colorMain]);
+//        ViewRadius(_rewardBtn, CGFloatIn750(20));
+//        ViewShadowRadius(_rewardBtn, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
         [_rewardBtn bk_whenTapped:^{
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(12);
@@ -382,27 +383,27 @@
         
         
         UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        hintLabel.textColor = [UIColor colorWhite];
+        hintLabel.textColor = [UIColor colorMain];
         hintLabel.text = @"奖励中心";
         hintLabel.numberOfLines = 0;
         hintLabel.textAlignment = NSTextAlignmentLeft;
-        [hintLabel setFont:[UIFont fontMin]];
+        [hintLabel setFont:[UIFont fontSmall]];
         [_rewardBtn addSubview:hintLabel];
         [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.rewardBtn.mas_centerY);
-            make.left.equalTo(self.rewardBtn.mas_left).offset(CGFloatIn750(20));
+            make.left.equalTo(self.rewardBtn.mas_left).offset(CGFloatIn750(18));
         }];
         
         UIImageView *hintImage = [[UIImageView alloc] init];
         hintImage.image = [[UIImage imageNamed:@"rightGrayArrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        hintImage.tintColor = [UIColor colorWhite];
+        hintImage.tintColor = [UIColor colorMain];
         hintImage.layer.masksToBounds = YES;
         [_rewardBtn addSubview:hintImage];
         [hintImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(CGFloatIn750(9));
-            make.height.mas_equalTo(CGFloatIn750(12));
+            make.width.mas_equalTo(CGFloatIn750(12));
+            make.height.mas_equalTo(CGFloatIn750(16));
             make.centerY.equalTo(self.rewardBtn.mas_centerY);
-            make.right.equalTo(self.rewardBtn.mas_right).offset(-CGFloatIn750(14));
+            make.right.equalTo(self.rewardBtn.mas_right).offset(-CGFloatIn750(24));
         }];
     }
     return _rewardBtn;

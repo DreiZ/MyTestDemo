@@ -363,9 +363,15 @@
 
 @end
 
+@implementation ZOriganizationSignListImageNetModel
+
+
+@end
+
 @implementation ZOriganizationSignListNetModel
 + (NSDictionary *)mj_objectClassInArray {
     return @{ @"list" : @"ZOriganizationSignListModel",
+              @"image" : @"ZOriganizationSignListImageNetModel",
              };
 }
 

@@ -60,6 +60,8 @@
 - (void)showSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController;
 
 //单次选择照片
+- (void)showOriginalSelectMenuWithType:(LLImageType)type complete:(LLSelecttImageBackBlock)complete;
+//单次选择照片
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete;
 - (void)showOriginalSelectMenu:(LLSelecttImageBackBlock)complete navgation:(UIViewController *)viewController ;
 

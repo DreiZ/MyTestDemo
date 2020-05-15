@@ -82,26 +82,17 @@ static ZAlertImageView *sharedManager;
 }
 
 #pragma mark ---设置显示内容
-- (void)setTitle:(NSString *)title image:(NSString *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
+- (void)setTitle:(NSString *)title  subTitle:(NSString *)subTitle image:(UIImage *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
     
     [self.contView removeAllSubviews];
-    self.hintImageView.image = [UIImage imageNamed:image];
+    self.hintImageView.image = image;
+//    [UIImage imageNamed:image];
+    
+    CGFloat fixelW = CGImageGetWidth(image.CGImage);
+    CGFloat fixelH = CGImageGetHeight(image.CGImage);
     
     CGSize titleSize = [title sizeForFont:[UIFont boldFontMaxTitle] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
-    
-    [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110));
-        make.width.mas_equalTo(CGFloatIn750(570));
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
-    }];
-    
-    [self.contView addSubview:self.hintImageView];
-    [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.contView.mas_centerX);
-        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(30));
-        make.width.height.mas_equalTo(CGFloatIn750(110));
-    }];
+    CGSize subTitleSize = [subTitle sizeForFont:[UIFont fontContent] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     titleLabel.textColor = [UIColor colorTextBlack];
@@ -113,7 +104,36 @@ static ZAlertImageView *sharedManager;
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.hintImageView.mas_bottom).offset(CGFloatIn750(30));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(30));
+    }];
+    
+    
+    [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110)+(CGFloatIn750(510) * (fixelW/fixelH)) + (subTitleSize.height > 10 ? (subTitleSize.height + CGFloatIn750(20)):0));
+        make.width.mas_equalTo(CGFloatIn750(570));
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
+    }];
+    
+    [self.contView addSubview:self.hintImageView];
+    [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contView.mas_centerX);
+        make.top.equalTo(titleLabel.mas_bottom).offset(CGFloatIn750(30));
+        make.height.mas_equalTo(CGFloatIn750(510) * (fixelH/fixelW));
+        make.width.mas_equalTo(CGFloatIn750(510));
+    }];
+    
+    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    subTitleLabel.textColor = [UIColor colorTextBlack];
+    subTitleLabel.text = subTitle;
+    subTitleLabel.numberOfLines = 0;
+    subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    [subTitleLabel setFont:[UIFont fontContent]];
+    [self.contView addSubview:subTitleLabel];
+    [subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.hintImageView.mas_bottom).offset(CGFloatIn750(20));
     }];
     
     
@@ -166,25 +186,21 @@ static ZAlertImageView *sharedManager;
 
 
 
-- (void)setTitle:(NSString *)title image:(NSString *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
+- (void)setTitle:(NSString *)title  subTitle:(NSString *)subTitle image:(UIImage *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
     
     [self.contView removeAllSubviews];
-    self.hintImageView.image = [UIImage imageNamed:image];
-    
+    self.hintImageView.image = image;
+//    [UIImage imageNamed:image];
+    CGFloat fixelW = CGImageGetWidth(image.CGImage);
+    CGFloat fixelH = CGImageGetHeight(image.CGImage);
     CGSize titleSize = [title sizeForFont:[UIFont boldFontMaxTitle] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
+    CGSize subTitleSize = [subTitle sizeForFont:[UIFont fontContent] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110));
+        make.height.mas_equalTo(CGFloatIn750(205) + titleSize.height + (CGFloatIn750(510) * (fixelH/fixelW)) + (subTitleSize.height > 10 ?  (subTitleSize.height + CGFloatIn750(20)):0));
         make.width.mas_equalTo(CGFloatIn750(570));
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
-    }];
-    
-    [self.contView addSubview:self.hintImageView];
-    [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.contView.mas_centerX);
-        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(30));
-        make.width.height.mas_equalTo(CGFloatIn750(110));
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -197,7 +213,29 @@ static ZAlertImageView *sharedManager;
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.hintImageView.mas_bottom).offset(CGFloatIn750(30));
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(30));
+    }];
+    
+    
+    [self.contView addSubview:self.hintImageView];
+    [self.hintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contView.mas_centerX);
+        make.top.equalTo(titleLabel.mas_bottom).offset(CGFloatIn750(30));
+        make.height.mas_equalTo(CGFloatIn750(510) * (fixelH/fixelW));
+        make.width.mas_equalTo(CGFloatIn750(510));
+    }];
+    
+    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    subTitleLabel.textColor = [UIColor colorTextBlack];
+    subTitleLabel.text = subTitle;
+    subTitleLabel.numberOfLines = 0;
+    subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    [subTitleLabel setFont:[UIFont fontContent]];
+    [self.contView addSubview:subTitleLabel];
+    [subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.hintImageView.mas_bottom).offset(CGFloatIn750(20));
     }];
     
     
@@ -230,29 +268,13 @@ static ZAlertImageView *sharedManager;
     }];
 }
 
-+ (void)setAlertWithTitle:(NSString *)title image:(NSString *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
-    [[ZAlertImageView sharedManager] setTitle:title image:image leftBtnTitle:leftBtnTitle rightBtnTitle:rightBtnTitle handlerBlock:handleBlock];
++ (void)setAlertWithTitle:(NSString *)title  subTitle:(NSString *)subTitle image:(UIImage *)image leftBtnTitle:(NSString *)leftBtnTitle rightBtnTitle:(NSString *)rightBtnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
+    [[ZAlertImageView sharedManager] setTitle:title subTitle:subTitle image:image leftBtnTitle:leftBtnTitle rightBtnTitle:rightBtnTitle handlerBlock:handleBlock];
 }
 
-+ (void)setAlertWithTitle:(NSString *)title image:(NSString *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
-    [[ZAlertImageView sharedManager] setTitle:title image:(NSString *)image btnTitle:btnTitle handlerBlock:handleBlock];
++ (void)setAlertWithTitle:(NSString *)title subTitle:(NSString *)subTitle image:(UIImage *)image btnTitle:(NSString *)btnTitle handlerBlock:(void(^)(NSInteger))handleBlock {
+    [[ZAlertImageView sharedManager] setTitle:title subTitle:subTitle image:image btnTitle:btnTitle handlerBlock:handleBlock];
 }
 
-+ (void)setAlertWithType:(ZAlertType)type  handlerBlock:(void(^)(NSInteger))handleBlock {
-    NSString *image = @"repealSubscribeSuccess";
-    if (type == ZAlertTypeSubscribeFail) {
-        image = @"repealSubscribeFail";
-        [[ZAlertImageView sharedManager] setTitle:@"预约失败" image:image leftBtnTitle:@"返回首页" rightBtnTitle:@"重新预约" handlerBlock:handleBlock];
-    }else if (type == ZAlertTypeRepealSubscribe){
-        image = @"repealSubscribe";
-        [[ZAlertImageView sharedManager] setTitle:@"确定撤销预约" image:image leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:handleBlock];
-    }else if (type == ZAlertTypeRepealSubscribeSuccess){
-        image = @"repealSubscribeSuccess";
-        [[ZAlertImageView sharedManager] setTitle:@"撤销预约成功" image:image btnTitle:@"返回首页" handlerBlock:handleBlock];
-    }else if (type == ZAlertTypeRepealSubscribeFail){
-        image = @"repealSubscribeFail";
-        [[ZAlertImageView sharedManager] setTitle:@"撤销失败" image:image leftBtnTitle:@"取消" rightBtnTitle:@"重新撤销" handlerBlock:handleBlock];
-    }
-}
 @end
 

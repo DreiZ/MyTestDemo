@@ -19,12 +19,19 @@
 #import "ZTeacherSignTopTitleView.h"
 #import "ZTeacherSignStudentListBottomView.h"
 #import "ZSignViewModel.h"
+#import "ZMineSignListDetailImageCell.h"
+
+#import "ZOriganizationLessonViewModel.h"
+#import "ZAlertImageView.h"
 
 @interface ZTeacherClassDetailSignDetailVC ()
 @property (nonatomic,strong) ZOriganizationSignListNetModel *detailModel;
 @property (nonatomic,strong) NSMutableArray *list;
 @property (nonatomic,strong) ZTeacherSignTopTitleView *topTitleView;
 @property (nonatomic,strong) ZTeacherSignStudentListBottomView *bottomView;
+@property (nonatomic,strong) UIButton *navRightBtn;
+@property (nonatomic,strong) UIImage *avterImage;
+
 @end
 
 @implementation ZTeacherClassDetailSignDetailVC
@@ -45,22 +52,17 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     self.model.index = [self.model.now_progress intValue];
-//    for (int i = 0; i < 5; i++) {
-//        ZOriganizationSignListModel *model = [[ZOriganizationSignListModel alloc] init];
-//        model.type = [NSString stringWithFormat:@"%d",i+1];
-//        NSMutableArray *tempArr = @[].mutableCopy;
-//        for (int i = 0; i < 5; i++) {
-//            ZOriganizationSignListStudentModel *model = [[ZOriganizationSignListStudentModel alloc] init];
-//            model.name = [NSString stringWithFormat:@"我姐的记得记得%d",i];
-//            model.image = @"http://wx2.sinaimg.cn/mw600/005H5u3yly1gdref7tvxdj32ip1oh4qu.jpg";
-//            [tempArr addObject:model];
-//        }
-//        model.list = tempArr;
-//        [_list addObject:model];
-//    }
-//    [_list addObjectsFromArray:self.detailModel.list];
-//    self.detailModel.list = _list;
 //    /类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课
+    
+    if (ValidArray(self.detailModel.image)) {
+        ZCellConfig *listCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineSignListDetailImageCell className] title:[ZMineSignListDetailImageCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZMineSignListDetailImageCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
+        [self.cellConfigArr addObject:listCellConfig];
+        
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    }
+    
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    
     NSArray *tarr = @[@"签课",@"教师代签",@"补签",@"请假",@"旷课",@"待签课"];
     NSArray *iarr = @[@"signbu",@"signbu",@"signbu",@"signbu",@"signbu",@"signbu"];
     for (ZOriganizationSignListModel *model in self.detailModel.list) {
@@ -87,12 +89,20 @@
     }
     _topTitleView.model = self.model;
     _topTitleView.time = self.detailModel.sign_time;
+    
+    if (![self.detailModel.sign_time isEqualToString:@"0"] && !ValidArray(self.detailModel.image)) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    }else{
+       [self.navigationItem setRightBarButtonItem:nil];
+    }
 }
 
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
+    
     [self.navigationItem setTitle:self.model.stores_courses_name];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 - (void)setupMainView {
@@ -114,7 +124,7 @@
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.bottomView.mas_top);
-        make.top.equalTo(self.topTitleView.mas_bottom).offset(20);
+        make.top.equalTo(self.topTitleView.mas_bottom).offset(10);
     }];
 }
 
@@ -165,7 +175,44 @@
 }
 
 
-#pragma mark tableView -------datasource-----
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
+        
+        UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(CGFloatIn750(30), CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(30) *(45.0/55.0f))];
+        photo.image = [[UIImage imageNamed:@"camera_hint"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        photo.tintColor = [UIColor whiteColor];
+        photo.layer.masksToBounds = YES;
+        [_navRightBtn addSubview:photo];
+        
+        ViewRadius(_navRightBtn, CGFloatIn750(25));
+        [_navRightBtn bk_whenTapped:^{
+            [[ZPhotoManager sharedManager] showOriginalSelectMenuWithType:LLImageTypePhotoAndCamera complete:^(NSArray<LLImagePickerModel *> *list) {
+                if (list && list.count > 0) {
+                    weakSelf.avterImage = list[0].image;
+                    if (weakSelf.avterImage) {
+                        [ZAlertImageView setAlertWithTitle:@"小提示" subTitle:@"确定上传此签到照片？" image:weakSelf.avterImage leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                            if (index == 1) {
+                                 [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"10",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
+                                   if (isSuccess) {
+                                       [weakSelf updateLessonSign:SafeStr(data)];
+                                   }else{
+                                       weakSelf.avterImage = nil;
+                                   }
+                               }];
+                            }
+                        }];
+                    }
+                }
+            }];
+        }];
+    }
+    return _navRightBtn;
+}
+
+#pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListDetailListCell"]){
@@ -230,8 +277,6 @@
         }
     }];
 }
-
-
 
 - (void)teacherSign:(NSInteger)index {
     NSMutableDictionary *param = @{}.mutableCopy;
@@ -298,6 +343,21 @@
         }
     }
     return selectArr;
+}
+
+- (void)updateLessonSign:(NSString *)signImageStr {
+    __weak typeof(self) weakSelf = self;
+    
+    [ZOriganizationClassViewModel upLessonImageStr:@{@"courses_class_id":SafeStr(self.model.classID),@"nums":SafeStr(self.model.nums),@"image":getJSONStr(@[SafeStr(signImageStr)])} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
 }
 @end
 

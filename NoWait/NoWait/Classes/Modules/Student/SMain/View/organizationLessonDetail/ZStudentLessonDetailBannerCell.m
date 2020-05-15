@@ -40,12 +40,13 @@
 #pragma mark - lazy loading
 - (SDCycleScrollView *)iCycleScrollView {
     if (!_iCycleScrollView) {
-        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(10), CGFloatIn750(10), KScreenWidth-CGFloatIn750(20), CGFloatIn750(232)) delegate:self placeholderImage:[UIImage imageNamed:@"lessonDetail"]];
+        _iCycleScrollView =  [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(CGFloatIn750(10), CGFloatIn750(10), KScreenWidth-CGFloatIn750(20), CGFloatIn750(232)) delegate:self placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
         _iCycleScrollView.autoScrollTimeInterval = 8;
 //        _iCycleScrollView.currentPageDotImage =  [UIImage imageNamed:@"pageControlCurrentDot"];
 //        _iCycleScrollView.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
         _iCycleScrollView.imageURLStringsGroup = @[];
         _iCycleScrollView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iCycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     }
     return _iCycleScrollView;
 }

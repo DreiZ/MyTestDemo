@@ -573,8 +573,16 @@
 @property (nonatomic,strong) NSArray <ZOriganizationSignListStudentModel *>*list;
 @end
 
+
+@interface ZOriganizationSignListImageNetModel : ZBaseModel
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *time;
+
+@end
+
 @interface ZOriganizationSignListNetModel : ZBaseModel
 @property (nonatomic,strong) NSArray <ZOriganizationSignListModel *>*list;
+@property (nonatomic,strong) NSArray <ZOriganizationSignListImageNetModel *>*image;
 @property (nonatomic,strong) NSString *sign_time;
 
 @end

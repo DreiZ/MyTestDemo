@@ -523,8 +523,9 @@
 //添加班级二维码
 #define URL_account_v1_get_new_class_qrcode          @"account/v1/get_new_class_qrcode"
 
+#define URL_account_v1_upload_sign_image          @"account/v1/upload/sign/image"
 
-#pragma mark - 签课
+#pragma mark - 消息
 //消息
 #define URL_message_v1_add_message                      @"message/v1/add_message"
 
