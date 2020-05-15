@@ -185,14 +185,15 @@
     self.scanView.tintColor = adaptAndDarkColor(HexAColor(0x000000, 1), HexAColor(0xeeeeee, 1));
     
 //    self.headImageView.frame = CGRectMake(KScreenWidth - headImageHeight -  CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
-    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight, headImageHeight, headImageHeight);
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(38) - headImageHeight - [ZOrganizationMineHeaderView getNameOffset], headImageHeight, headImageHeight);
     
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
     self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(80) - CGFloatIn750(0), self.height - CGFloatIn750(180) - settingImageHeight, settingImageHeight, settingImageHeight);
     
-    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36)];
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(32)];
     self.nameLabel.alpha = 1;
+    self.midLabel.alpha = 1;
     self.headImageView.layer.cornerRadius = headImageHeight/2.0f;
     
     self.backView.alpha = 0;
@@ -209,14 +210,15 @@
     self.stateLabel.alpha = alpha;
     self.stateBackView.alpha = alpha;
     self.rewardBtn.alpha = alpha;
+    self.midLabel.alpha = alpha;
     
-    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(36) - (1-self.nameLabel.alpha)*CGFloatIn750(20)];
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(32) - (1-self.nameLabel.alpha)*CGFloatIn750(20)];
     
     CGFloat changeHeadImageHeight = headImageHeight- (1-self.nameLabel.alpha)*CGFloatIn750(60);
      
-//    self.headImageView.frame = CGRectMake(KScreenWidth - changeHeadImageHeight -  CGFloatIn750(30) - (KScreenWidth/2.0 - changeHeadImageHeight/2.0 -  CGFloatIn750(30)) * (1-alpha), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
-    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
-    
+//    self.headImageView.frame = CGRectMake(KScreenWidth - changeHeadImageHeight -  CGFloatIn750(30) - (KScreenWidth/2.0 - changeHeadImageHeight/2.0 -  CGFloatIn750(30)) * (1-alpha) + [ZOrganizationMineHeaderView getNameOffset]*(1-alpha), self.height - (CGFloatIn750(38) - (1-alpha)*CGFloatIn750(14)) - changeHeadImageHeight, changeHeadImageHeight, changeHeadImageHeight);
+    self.headImageView.frame = CGRectMake(CGFloatIn750(30), self.height - CGFloatIn750(38) + (1-alpha)*CGFloatIn750(14) - changeHeadImageHeight - [ZOrganizationMineHeaderView getNameOffset] + [ZOrganizationMineHeaderView getNameOffset]*(1-alpha), changeHeadImageHeight, changeHeadImageHeight);
+
     self.settingView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight, self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
     
     self.scanView.frame = CGRectMake(KScreenWidth - CGFloatIn750(44) - settingImageHeight - CGFloatIn750(80) - CGFloatIn750(0), self.height - CGFloatIn750(180) - settingImageHeight + ((1-alpha) * CGFloatIn750(170)), settingImageHeight, settingImageHeight);
@@ -238,11 +240,11 @@
         self.scanQRCodeImageView.tintColor = [UIColor colorWithWhite:(0.9) alpha:1];
     }
     
-    if (!isDarkModel()) {
-        self.midLabel.textColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
-    }else{
-        self.midLabel.textColor = [UIColor colorWithWhite:(0.9) alpha:1];
-    }
+//    if (!isDarkModel()) {
+//        self.midLabel.textColor = [UIColor colorWithWhite:(1-alpha) alpha:1];
+//    }else{
+//        self.midLabel.textColor = [UIColor colorWithWhite:(0.9) alpha:1];
+//    }
     
     self.qrCodeBtn.hidden = YES;
 //    self.scanQRCodeImageView.hidden = YES;
@@ -507,6 +509,15 @@
         self.scanView.hidden = YES;
         self.qrCodeBtn.hidden = YES;
     }
+}
+
++ (CGFloat)getNameOffset {
+    if ([ZUserHelper sharedHelper].user) {
+        CGSize nameSize = [[ZUserHelper sharedHelper].user.nikeName tt_sizeWithFont:[UIFont boldSystemFontOfSize:CGFloatIn750(32)] constrainedToSize:CGSizeMake((KScreenWidth - headImageHeight - CGFloatIn750(60) - CGFloatIn750(54) - CGFloatIn750(136) - CGFloatIn750(20) * 2), MAXFLOAT)];
+        CGSize oneSize = [@"行行行" tt_sizeWithFont:[UIFont boldSystemFontOfSize:CGFloatIn750(32)] constrainedToSize:CGSizeMake(KScreenWidth, MAXFLOAT)];
+        return nameSize.height - oneSize.height;
+    }
+    return 0;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) void (^topHandleBlock)(NSInteger);
 - (void)updateSubViewFrame;
 - (void)updateData;
++ (CGFloat)getNameOffset;
 @end
 
 NS_ASSUME_NONNULL_END

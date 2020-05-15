@@ -98,7 +98,7 @@
         make.edges.equalTo(self.view);
     }];
     
-    [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];
+    [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+[ZOrganizationMineHeaderView getNameOffset]+kStatusBarHeight, 0, 0, 0)];
     [self.iTableView addSubview:self.headerView];
 }
 
@@ -106,7 +106,7 @@
 - (ZOrganizationMineHeaderView *)headerView {
     if (!_headerView) {
         __weak typeof(self) weakSelf = self;
-        _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight, KScreenWidth, kHeaderHeight+kStatusBarHeight)];
+        _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight-[ZOrganizationMineHeaderView getNameOffset], KScreenWidth, kHeaderHeight+kStatusBarHeight+[ZOrganizationMineHeaderView getNameOffset])];
         _headerView.userType = @"8";
         _headerView.topHandleBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
