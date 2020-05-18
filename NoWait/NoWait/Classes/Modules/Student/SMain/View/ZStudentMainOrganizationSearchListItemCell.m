@@ -45,7 +45,7 @@
     if (!_clubImageView) {
         _clubImageView = [[UIImageView alloc] init];
         _clubImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_clubImageView tt_setImageWithURL:[NSURL URLWithString:@"http://ww3.sinaimg.cn/mw600/0073ob6Ply1g2wrd00gg4j30u01404qq.jpg"] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
+        
         _clubImageView.clipsToBounds = YES;
         _clubImageView.layer.masksToBounds = YES;
         ViewRadius(_clubImageView, CGFloatIn750(12));
@@ -58,10 +58,10 @@
     if (!_clubLabel) {
         _clubLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _clubLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _clubLabel.text = @"二恶烷";
+        
         _clubLabel.numberOfLines = 1;
         _clubLabel.textAlignment = NSTextAlignmentCenter;
-        [_clubLabel setFont:[UIFont fontContent]];
+        [_clubLabel setFont:[UIFont fontSmall]];
     }
     return _clubLabel;
 }
@@ -71,12 +71,19 @@
     if (!_pricebLabel) {
         _pricebLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _pricebLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorTextBlackDark]);
-        _pricebLabel.text = @"￥1232";
+        
         _pricebLabel.numberOfLines = 1;
         _pricebLabel.textAlignment = NSTextAlignmentCenter;
         [_pricebLabel setFont:[UIFont fontContent]];
     }
     return _pricebLabel;
+}
+
+- (void)setModel:(ZStoresCourse *)model {
+    _model = model;
+    _pricebLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+    _clubLabel.text = model.name;
+    [_clubImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

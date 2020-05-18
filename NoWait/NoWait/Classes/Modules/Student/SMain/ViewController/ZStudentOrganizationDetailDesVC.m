@@ -18,6 +18,7 @@
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZOrganizationDetailBottomView.h"
+#import "ZStudentOrganizationBannerCell.h"
 
 //#import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentStarStudentListVC.h"
@@ -195,18 +196,24 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    NSMutableArray *mList = @[].mutableCopy;
-    for (int i = 0; i < self.detailModel.images_list.count; i ++) {
-        ZImagesModel *imageModel = self.detailModel.images_list[i];
-        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-        model.name = imageModel.name;
-        model.imageName = imageModel.image;
-        model.data = imageModel;
-        [mList addObject:model];
+    {
+        ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationBannerCell className] title:[ZStudentOrganizationBannerCell className] showInfoMethod:@selector(setImages_list:) heightOfCell:[ZStudentOrganizationBannerCell z_getCellHeight:self.detailModel.images_list] cellType:ZCellTypeClass dataModel:self.detailModel.images_list];
+        [self.cellConfigArr addObject:bannerCellConfig];
+        
     }
-    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailTopCell className] title:[ZStudentOrganizationDetailTopCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentOrganizationDetailTopCell z_getCellHeight:mList] cellType:ZCellTypeClass dataModel:mList];
-    [self.cellConfigArr addObject:bannerCellConfig];
     
+//    NSMutableArray *mList = @[].mutableCopy;
+//    for (int i = 0; i < self.detailModel.images_list.count; i ++) {
+//        ZImagesModel *imageModel = self.detailModel.images_list[i];
+//        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+//        model.name = imageModel.name;
+//        model.imageName = imageModel.image;
+//        model.data = imageModel;
+//        [mList addObject:model];
+//    }
+//    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailTopCell className] title:[ZStudentOrganizationDetailTopCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentOrganizationDetailTopCell z_getCellHeight:mList] cellType:ZCellTypeClass dataModel:mList];
+//    [self.cellConfigArr addObject:bannerCellConfig];
+//
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroCell className] title:[ZStudentOrganizationDetailIntroCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:desCellConfig];
@@ -307,6 +314,14 @@
         lcell.selectBlock = ^(ZBaseUnitModel * model) {
             ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
             ivc.imageModel = model.data;
+            ivc.detailModel = weakSelf.detailModel;
+            [weakSelf.navigationController pushViewController:ivc animated:YES];
+        };
+    }else if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
+        ZStudentOrganizationBannerCell *lcell = (ZStudentOrganizationBannerCell *)cell;
+        lcell.bannerBlock = ^(ZImagesModel * model) {
+            ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
+            ivc.imageModel = model;
             ivc.detailModel = weakSelf.detailModel;
             [weakSelf.navigationController pushViewController:ivc animated:YES];
         };

@@ -31,6 +31,26 @@
 }
 
 
++ (void)searchStoresList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_search_course params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZStoresListNetModel *model = [ZStoresListNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
+
 + (void)getAdverList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_get_ad_list params:params completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);

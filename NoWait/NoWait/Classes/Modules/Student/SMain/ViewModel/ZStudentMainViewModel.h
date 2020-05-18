@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getIndexList:(NSDictionary *)params
        completeBlock:(resultDataBlock)completeBlock ;
 
+
++ (void)searchStoresList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
 + (void)getAdverList:(NSDictionary *)params
        completeBlock:(resultDataBlock)completeBlock ;
 

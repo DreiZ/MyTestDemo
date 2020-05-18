@@ -238,10 +238,16 @@
 }
 @end
 
+@implementation ZStoresCourse
 
-@implementation ZStoresListModel : ZBaseModel
+
+@end
+
+
+@implementation ZStoresListModel
 + (NSDictionary *)mj_objectClassInArray {
-    return @{ @"coupons" : @"ZOriganizationCardListModel"
+    return @{ @"coupons" : @"ZOriganizationCardListModel",
+              @"course" : @"ZStoresCourse"
              };
 }
 @end

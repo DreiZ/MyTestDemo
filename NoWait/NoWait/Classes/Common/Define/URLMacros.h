@@ -490,6 +490,8 @@
 
 #define URL_merchants_v1_get_merchants_account             @"merchants/v1/get_merchants_account"
 
+#define URL_merchants_v1_search_course             @"merchants/v1/search/course"
+
 //账户信息
 #define URL_merchants_v1_get_merchants_account             @"merchants/v1/get_merchants_account"
 //账单明细

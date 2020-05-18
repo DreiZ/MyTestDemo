@@ -408,8 +408,18 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+@interface ZStoresCourse : ZBaseModel
+@property (nonatomic,copy) NSString *course_id;
+@property (nonatomic,copy) NSString *image_url;
+@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *pay_nums;
+@property (nonatomic,copy) NSString *price;
+@end
+
 
 @interface ZStoresListModel : ZBaseModel
+@property (nonatomic,strong) NSArray <ZStoresCourse *>*course;
+
 @property (nonatomic,strong) NSArray <ZOriganizationCardListModel *>*coupons;
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *name;
