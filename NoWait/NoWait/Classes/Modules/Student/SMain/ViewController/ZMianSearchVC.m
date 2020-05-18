@@ -13,6 +13,7 @@
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonDetailVC.h"
+#import "ZStudentMainOrganizationSearchListCell.h"
 
 @interface ZMianSearchVC ()
 @property (nonatomic,strong) NSString *name;
@@ -143,8 +144,10 @@
         for (int i = 0; i < self.dataSources.count; i++) {
             id data = self.dataSources[i];
             if ([data isKindOfClass:[ZStoresListModel class]]) {
-                ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+                ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListCell className] title:@"ZStudentMainOrganizationSearchListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationSearchListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
                 [self.cellConfigArr addObject:orCellCon1fig];
+                
+                [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
             }
         }
     }else{
@@ -166,7 +169,18 @@
     }
 }
 
-
+#pragma mark - tableview
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if([cellConfig.title isEqualToString:@"ZStudentMainOrganizationSearchListCell"]){
+       ZStudentMainOrganizationSearchListCell *lcell = (ZStudentMainOrganizationSearchListCell *)cell;
+        lcell.moreBlock = ^(ZStoresListModel *model) {
+            model.isMore = !model.isMore;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
+    }
+}
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
         ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];

@@ -1,15 +1,18 @@
 //
-//  ZStudentMainOrganizationListCell.m
+//  ZStudentMainOrganizationSearchListCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/6.
+//  Created by zhuang zhang on 2020/5/18.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMainOrganizationListCell.h"
+#import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
+#import "ZStudentMainOrganizationSearchListItemCell.h"
 
-@interface ZStudentMainOrganizationListCell ()
+@interface ZStudentMainOrganizationSearchListCell ()<UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@property (nonatomic,strong) UIView *funBackView;
+@property (nonatomic,strong) UICollectionView *iCollectionView;
 
 @property (nonatomic,strong) UIImageView *goodsImageView;
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -22,9 +25,11 @@
 @property (nonatomic,strong) UIImageView *moreImageView;
 @property (nonatomic,strong) UIView *moreHiddenView;
 
+@property (nonatomic,strong) NSMutableArray *cellConfigArr;
+
 @end
 
-@implementation ZStudentMainOrganizationListCell
+@implementation ZStudentMainOrganizationSearchListCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -36,6 +41,8 @@
 
 -(void)setupView {
     [super setupView];
+    
+    _cellConfigArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.goodsImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -102,6 +109,18 @@
         make.right.equalTo(self.moreImageView.mas_left);
         make.left.bottom.equalTo(self.contentView);
         make.top.equalTo(self.goodsImageView.mas_bottom);
+    }];
+    
+    [self.contentView addSubview:self.funBackView];
+    [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.bottom.equalTo(self.mas_bottom);
+        make.height.mas_equalTo([ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height);
+    }];
+    
+    [self.funBackView addSubview:self.iCollectionView];
+    [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.funBackView);
     }];
 }
 
@@ -232,6 +251,36 @@
     return _moreHiddenView;
 }
 
+- (UIView *)funBackView {
+    if (!_funBackView) {
+        _funBackView = [[UIView alloc] init];
+        _funBackView.layer.masksToBounds = YES;
+        _funBackView.clipsToBounds = YES;
+        _funBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorBlackBGDark]);
+    }
+    return _funBackView;
+}
+
+
+- (UICollectionView *)iCollectionView {
+    if (!_iCollectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(100)) collectionViewLayout:flowLayout];
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iCollectionView.dataSource = self;
+        _iCollectionView.delegate = self;
+        _iCollectionView.scrollEnabled = YES;
+        _iCollectionView.showsHorizontalScrollIndicator = NO;
+        
+        [_iCollectionView registerClass:[ZStudentMainOrganizationSearchListItemCell class] forCellWithReuseIdentifier:[ZStudentMainOrganizationSearchListItemCell className]];
+    }
+    
+    return _iCollectionView;
+}
+
+#pragma mark - setModel
 - (void)setModel:(ZStoresListModel *)model {
     _model = model;
     _titleLabel.text = model.name;
@@ -282,13 +331,19 @@
         _moreImageView.transform =  CGAffineTransformMakeRotation(M_PI);
         _moreHiddenView.hidden = NO;
     }
+    for (int i = 0; i < 20; i++) {
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListItemCell className] title:[ZStudentMainOrganizationSearchListItemCell className] showInfoMethod:nil sizeOfCell:[ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:nil];
+        
+        [self.cellConfigArr addObject:cellConfig];
+    }
+    [self.iCollectionView reloadData];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
     ZStoresListModel *model = sender;
     if (model) {
         if (!model.isMore) {
-            return CGFloatIn750(188);
+            return CGFloatIn750(188) + [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
         }
         NSMutableArray *ttArr = @[].mutableCopy;
         [ttArr addObjectsFromArray:model.tags];
@@ -297,7 +352,7 @@
         CGFloat leftX = 0;
         CGFloat leftY = 0;
         for (int i = 0; i < textArr.count; i++) {
-            CGPoint label = [ZStudentMainOrganizationListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
+            CGPoint label = [ZStudentMainOrganizationSearchListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
             leftY = label.y;
             leftX = label.x;
         }
@@ -314,7 +369,7 @@
             CGFloat leftX = 0;
             CGFloat leftY = 0;
             for (int i = 0; i < textArr.count; i++) {
-                CGPoint label = [ZStudentMainOrganizationListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
+                CGPoint label = [ZStudentMainOrganizationSearchListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
                 leftY = label.y;
                 leftX = label.x;
             }
@@ -322,19 +377,19 @@
         }
         if (textArr.count == 0) {
             if (!model.coupons || model.coupons.count == 0) {
-                return CGFloatIn750(188);
+                return CGFloatIn750(188) + [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
             }else{
-                return CGFloatIn750(188) + couponHeight;
+                return CGFloatIn750(188) + couponHeight + [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
             }
         }
         if (!model.coupons || model.coupons.count == 0) {
-            return CGFloatIn750(188) + leftY;
+            return CGFloatIn750(188) + leftY  + [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
         }else{
-            return CGFloatIn750(188) + leftY + couponHeight;
+            return CGFloatIn750(188) + leftY + couponHeight  +  [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
         }
         
     }
-    return CGFloatIn750(188);
+    return CGFloatIn750(188) + [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height;
 }
 
 
@@ -437,4 +492,48 @@
          return CGPointMake(tempSize.width+6 + CGFloatIn750(8), leftY + CGFloatIn750(36) + CGFloatIn750(20));
      }
 }
+
+
+#pragma mark collectionview delegate
+#pragma mark - collectionview delegate
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.cellConfigArr.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    ZBaseCollectionViewCell *cell;
+    cell = (ZBaseCollectionViewCell*)[cellConfig cellOfCellConfigWithCollection:collectionView indexPath:indexPath dataModel:cellConfig.dataModel];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, CGFloatIn750(30), 0, CGFloatIn750(30));
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(20);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(20);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGSize cellSize =  cellConfig.sizeOfCell;
+    return cellSize;
+}
+
 @end

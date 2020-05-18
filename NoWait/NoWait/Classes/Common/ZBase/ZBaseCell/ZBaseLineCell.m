@@ -142,7 +142,7 @@
 }
 
 - (void)layoutSubviews {
-    NSLog(@"layout rightLabel.x %f  %f",self.rightTitleLabel.left,self.rightTitleLabel.width);
+//    NSLog(@"layout rightLabel.x %f  %f",self.rightTitleLabel.left,self.rightTitleLabel.width);
 }
 
 #pragma mark - set model

@@ -418,6 +418,7 @@
 @property (nonatomic,strong) NSArray *tags;
 @property (nonatomic,strong) NSString *distance;
 @property (nonatomic,assign) BOOL isStudentCollection;
+@property (nonatomic,assign) BOOL isMore;
 @end
 
 @interface ZStoresListNetModel : ZBaseNetworkBackDataModel

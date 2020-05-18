@@ -101,6 +101,23 @@
     }
 }
 
+- (void)setupMainView {
+    [super setupMainView];
+    
+    [self.view addSubview:self.searchView];
+    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.mas_equalTo(KSearchTopViewHeight + kStatusBarHeight);
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.searchView.mas_bottom).offset(1);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+    }];
+}
+
+
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     NSMutableArray *sectionArr = @[].mutableCopy;
@@ -146,21 +163,6 @@
     [self.cellConfigArr addObject:section1Arr];
 }
 
-- (void)setupMainView {
-    [super setupMainView];
-    
-    [self.view addSubview:self.searchView];
-    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
-        make.height.mas_equalTo(KSearchTopViewHeight + kStatusBarHeight);
-    }];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.searchView.mas_bottom).offset(1);
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
-    }];
-}
 
 #pragma mark - lazy loading
 - (ZStudentMainTopSearchView *)searchView {
@@ -256,9 +258,16 @@
             [ZRouteManager pushToVC:model.data];
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentMainPhotoWallCell"]){
-           ZStudentMainPhotoWallCell *lcell = (ZStudentMainPhotoWallCell *)cell;
+        ZStudentMainPhotoWallCell *lcell = (ZStudentMainPhotoWallCell *)cell;
         lcell.menuBlock = ^(ZStudentPhotoWallItemModel *model) {
                [ZRouteManager pushToVC:model.data];
+        };
+    }else if([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]){
+       ZStudentMainOrganizationListCell *lcell = (ZStudentMainOrganizationListCell *)cell;
+        lcell.moreBlock = ^(ZStoresListModel *model) {
+            model.isMore = !model.isMore;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         };
     }
 
