@@ -153,7 +153,7 @@
 - (void)collectionLesson:(BOOL)isCollection model:(ZOriganizationLessonListModel *)model{
     [TLUIUtility showLoading:@""];
     __weak typeof(self) weakSelf = self;
-    [ZStudentCollectionViewModel collectionLesson:@{@"course":SafeStr(model.course_id),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
+    [ZStudentCollectionViewModel collectionLesson:@{@"course":SafeStr(model.lessonID),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
