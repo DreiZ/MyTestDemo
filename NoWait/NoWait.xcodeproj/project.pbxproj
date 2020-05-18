@@ -96,6 +96,7 @@
 		B234D0B623CC8C8600210CD8 /* ZStudentStarInfoImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B234D0B523CC8C8600210CD8 /* ZStudentStarInfoImageCell.m */; };
 		B23DECE024722EAE005A9E72 /* ZStudentMainOrganizationSearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECDF24722EAE005A9E72 /* ZStudentMainOrganizationSearchListCell.m */; };
 		B23DECE324723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECE224723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.m */; };
+		B23DECE624725D0A005A9E72 /* ZReflectHintTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECE524725D0A005A9E72 /* ZReflectHintTopCell.m */; };
 		B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992423FB98C00078A458 /* POIAnnotation.m */; };
 		B24D992923FBA61F0078A458 /* ZOrganizationAddressSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992823FBA61F0078A458 /* ZOrganizationAddressSearchView.m */; };
 		B24D992C23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992B23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m */; };
@@ -874,6 +875,8 @@
 		B23DECDF24722EAE005A9E72 /* ZStudentMainOrganizationSearchListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainOrganizationSearchListCell.m; sourceTree = "<group>"; };
 		B23DECE124723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMainOrganizationSearchListItemCell.h; sourceTree = "<group>"; };
 		B23DECE224723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMainOrganizationSearchListItemCell.m; sourceTree = "<group>"; };
+		B23DECE424725D0A005A9E72 /* ZReflectHintTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZReflectHintTopCell.h; sourceTree = "<group>"; };
+		B23DECE524725D0A005A9E72 /* ZReflectHintTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZReflectHintTopCell.m; sourceTree = "<group>"; };
 		B24D992423FB98C00078A458 /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
 		B24D992523FB98C00078A458 /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
 		B24D992723FBA61F0078A458 /* ZOrganizationAddressSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationAddressSearchView.h; sourceTree = "<group>"; };
@@ -4412,6 +4415,8 @@
 				B2F371CB246B8DAA00678B19 /* ZRewardRankingCell.h */,
 				B2F371CC246B8DAA00678B19 /* ZRewardCenterTopCell.m */,
 				B2F371CD246B8DAA00678B19 /* ZRewardMyTeamListCell.m */,
+				B23DECE424725D0A005A9E72 /* ZReflectHintTopCell.h */,
+				B23DECE524725D0A005A9E72 /* ZReflectHintTopCell.m */,
 			);
 			path = reward;
 			sourceTree = "<group>";
@@ -4868,6 +4873,7 @@
 				B28861F7245285E80073AEE4 /* ZPushModel.m in Sources */,
 				B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */,
 				B28861FA2454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m in Sources */,
+				B23DECE624725D0A005A9E72 /* ZReflectHintTopCell.m in Sources */,
 				B2A7809723BDFB0100407BF0 /* PingFoundation.m in Sources */,
 				B2C9D2E6243C637300D67558 /* ZMineOrderListCell.m in Sources */,
 				B2342C8E23FE787000F31C34 /* ZOriganizationTeachSwitchView.m in Sources */,
