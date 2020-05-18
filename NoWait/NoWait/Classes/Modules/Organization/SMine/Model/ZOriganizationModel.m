@@ -239,7 +239,9 @@
 @end
 
 @implementation ZStoresCourse
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"course_id" : @"id"};
+}
 
 @end
 
@@ -278,7 +280,9 @@
 @end
 
 @implementation ZImagesModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"image_count" : @"count"};
+}
 @end
 
 

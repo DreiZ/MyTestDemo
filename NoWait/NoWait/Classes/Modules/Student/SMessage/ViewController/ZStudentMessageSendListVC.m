@@ -31,7 +31,8 @@
     if (ValidStr(self.model.extra)) {
         NSDictionary *extra = [self.model.extra zz_JSONValue];
         if ([extra objectForKey:@"name"]) {
-            if (ValidArray(extra[@"name"])) {
+            id temp = extra[@"name"];
+            if ([temp isKindOfClass:[NSArray class]]) {
                 NSArray *send = extra[@"name"];
 
                 for (NSString *name in send) {

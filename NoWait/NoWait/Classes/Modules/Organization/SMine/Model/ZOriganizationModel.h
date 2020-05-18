@@ -459,10 +459,11 @@
 @property (nonatomic,strong) NSArray <ZAdverListModel *>*placeholder;
 @end
 
-@interface ZImagesModel : NSObject
+@interface ZImagesModel : ZBaseModel
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) NSString *image_count;
 @end
 
 @interface ZStoresDetailModel : ZOriganizationSchoolDetailModel

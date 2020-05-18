@@ -11,6 +11,8 @@
 @interface ZStudentOrganizationBannerCell ()<SDCycleScrollViewDelegate>
 @property (nonatomic,strong) SDCycleScrollView *iCycleScrollView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic,strong) UIImageView *numHintImageView;
 
 @end
 
@@ -34,12 +36,27 @@
         make.height.mas_equalTo(CGFloatIn750(70));
     }];
     [backView addSubview:self.titleLabel];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.iCycleScrollView.mas_left).offset(CGFloatIn750(30));
+    
+    [backView addSubview:self.numLabel];
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.iCycleScrollView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(backView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(40));
     }];
     
+    [backView addSubview:self.numHintImageView];
+    [self.numHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(6));
+        make.centerY.equalTo(backView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(27));
+        make.height.mas_equalTo(CGFloatIn750(22));
+    }];
+    
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iCycleScrollView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(backView.mas_centerY);
+        make.right.equalTo(self.numHintImageView.mas_left).offset(-CGFloatIn750(30));
+    }];
 }
 
 #pragma mark - lazy loading
@@ -71,6 +88,28 @@
     }
     return _titleLabel;
 }
+
+- (UILabel *)numLabel {
+    if (!_numLabel) {
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
+        _numLabel.numberOfLines = 1;
+        _numLabel.textAlignment = NSTextAlignmentLeft;
+        [_numLabel setFont:[UIFont fontContent]];
+        
+    }
+    return _numLabel;
+}
+
+- (UIImageView *)numHintImageView {
+    if (!_numHintImageView) {
+        _numHintImageView = [[UIImageView alloc] init];
+        _numHintImageView.image = [UIImage imageNamed:@"photonumHint"];
+        _numHintImageView.layer.masksToBounds = YES;
+        _numHintImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _numHintImageView;
+}
     
 
 #pragma mark -  scrollview回调
@@ -82,6 +121,8 @@
 
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index {
     _titleLabel.text = _images_list[index].name;
+    _numLabel.text = _images_list[index].image_count;
+    
 }
 
 - (void)setImages_list:(NSArray<ZImagesModel *> *)images_list {
@@ -91,9 +132,11 @@
         [mList addObject:images_list[i].image];
         if (i == 0) {
             _titleLabel.text = images_list[i].name;
+            _numLabel.text = images_list[0].image_count;
         }
     }
     _iCycleScrollView.imageURLStringsGroup = mList;
+    
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

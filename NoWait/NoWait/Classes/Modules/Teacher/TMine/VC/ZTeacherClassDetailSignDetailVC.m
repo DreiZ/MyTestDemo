@@ -189,7 +189,7 @@
         
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_whenTapped:^{
-            [[ZPhotoManager sharedManager] showOriginalSelectMenuWithType:LLImageTypePhotoAndCamera complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZPhotoManager sharedManager] showOriginalSelectMenuWithType:LLImageTypeCamera complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     weakSelf.avterImage = list[0].image;
                     if (weakSelf.avterImage) {
