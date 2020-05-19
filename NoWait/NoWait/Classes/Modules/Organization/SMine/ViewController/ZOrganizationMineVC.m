@@ -54,6 +54,7 @@
     self.isHidenNaviBar = YES;
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -64,8 +65,10 @@
 //                [[ZLaunchManager sharedInstance] showSaveUserInfo];
 //            }
 //        }];
+    [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+[ZOrganizationMineHeaderView getNameOffset]+kStatusBarHeight, 0, 0, 0)];
     [self getSchoolList];
     [self.headerView updateData];
+    [_headerView updateSubViewFrame];
 }
 
 
@@ -311,6 +314,7 @@
 
     
     [self.iTableView reloadData];
+    [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+[ZOrganizationMineHeaderView getNameOffset]+kStatusBarHeight, 0, 0, 0)];
 }
 
 - (void)getSchoolList {

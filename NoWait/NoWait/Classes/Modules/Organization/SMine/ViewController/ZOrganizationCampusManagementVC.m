@@ -229,6 +229,11 @@
                 return ;
             }
             
+            NSMutableArray *months = @[].mutableCopy;
+            [self.model.months enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [months addObject:[obj stringByReplacingOccurrencesOfString:@"月" withString:@""]];
+            }];
+            
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:self.model.schoolID forKey:@"id"];
             [params setObject:self.model.store_type_id forKey:@"store_type_id"];
@@ -242,7 +247,7 @@
             [params setObject:self.model.longitude forKey:@"longitude"];
             [params setObject:self.model.latitude forKey:@"latitude"];
             [params setObject:self.model.week_days forKey:@"week_days"];
-            [params setObject:self.model.months forKey:@"months"];
+            [params setObject:months forKey:@"months"];
             [params setObject:self.model.opend_start forKey:@"opend_start"];
             [params setObject:self.model.opend_end forKey:@"opend_end"];
             [params setObject:self.model.merchants_stores_tags forKey:@"merchants_stores_tags"];

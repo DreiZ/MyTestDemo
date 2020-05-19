@@ -53,7 +53,9 @@
 //                [[ZLaunchManager sharedInstance] showSaveUserInfo];
 //            }
 //        }];
+     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+[ZOrganizationMineHeaderView getNameOffset]+kStatusBarHeight, 0, 0, 0)];
      [self.headerView updateData];
+     [_headerView updateSubViewFrame];
 }
 
 
