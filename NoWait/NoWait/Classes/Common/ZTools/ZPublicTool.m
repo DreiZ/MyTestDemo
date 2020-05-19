@@ -168,11 +168,10 @@
             NSString *str = [textField.text substringToIndex:textField.text.length - 1];
             textField.text = str;
         }
-        
-        
         return textField.text;
-        
     }
+    
+    NSLog(@"----length  %d",[ZPublicTool convertToInt:textField.text]);
     //限制输入字符数
     NSString *lang = [textField.textInputMode primaryLanguage]; // 键盘输入模式
     if([lang isEqualToString:@"zh-Hans"]) { //简体中文输入，包括简体拼音，健体五笔，简体手写
@@ -182,11 +181,26 @@
         //没有高亮选择的字，则对已输入的文字进行字数统计和限制
         if(!position) {
             //                textField.text = [self getStrWith:textField.text];
-            if (textField.text.length > maxLength) {
-                [TLUIUtility showErrorHint:@"输入内容超出限制"];
-                textField.text = [textField.text substringToIndex:maxLength];
+            if (type == ZFormatterTypeAnyByte) {
+                if ([ZPublicTool convertToInt:textField.text] > maxLength) {
+                    [TLUIUtility showErrorHint:@"输入内容超出限制"];
+                    NSRange range;
+                    NSUInteger byteLength = 0;
+                    for(int i=0; i < textField.text.length && byteLength <= maxLength; i += range.length) {
+                       range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
+                       byteLength += strlen([[textField.text substringWithRange:range] UTF8String]);
+                       if (byteLength > maxLength) {
+                           NSString* newText = [textField.text substringWithRange:NSMakeRange(0, range.location)];
+                           textField.text = newText;
+                       }
+                    }
+                }
+            }else{
+                if (textField.text.length > maxLength) {
+                    [TLUIUtility showErrorHint:@"输入内容超出限制"];
+                    textField.text = [textField.text substringToIndex:maxLength];
+                }
             }
-            
         }
         //有高亮选择的字符串，则暂不对文字进行统计和限制
         else{
@@ -204,13 +218,45 @@
     //中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
     else{
         //            textField.text = [self getStrWith:textField.text];
-        if (textField.text.length > maxLength) {
-            textField.text = [textField.text substringToIndex:maxLength];
-            [TLUIUtility showErrorHint:@"输入内容超出限制"];
+        if (type == ZFormatterTypeAnyByte) {
+            if ([ZPublicTool convertToInt:textField.text] > maxLength) {
+                [TLUIUtility showErrorHint:@"输入内容超出限制"];
+                NSRange range;
+                NSUInteger byteLength = 0;
+                for(int i=0; i < textField.text.length && byteLength <= maxLength; i += range.length) {
+                   range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
+                   byteLength += strlen([[textField.text substringWithRange:range] UTF8String]);
+                   if (byteLength > maxLength) {
+                       NSString* newText = [textField.text substringWithRange:NSMakeRange(0, range.location)];
+                       textField.text = newText;
+                   }
+                }
+            }
+        }else{
+            if (textField.text.length > maxLength) {
+                textField.text = [textField.text substringToIndex:maxLength];
+                [TLUIUtility showErrorHint:@"输入内容超出限制"];
+            }
         }
-        
     }
+    
     return textField.text;
+}
+
++ (int)convertToInt:(NSString*)strtemp//判断中英混合的的字符串长度
+{
+    int strlength = 0;
+    char *p = (char *)[strtemp cStringUsingEncoding:NSUTF8StringEncoding];
+    for (int i=0; i < [strtemp lengthOfBytesUsingEncoding:NSUTF8StringEncoding]; i++) {
+        if (*p) {
+            p++;
+            strlength++;
+        }
+        else {
+            p++;
+        }
+    }
+    return strlength;
 }
 
 
@@ -220,6 +266,10 @@
     NSString *regexString;
     switch (type) {
         case ZFormatterTypeAny:
+        {
+            return YES;
+        }
+        case ZFormatterTypeAnyByte:
         {
             return YES;
         }

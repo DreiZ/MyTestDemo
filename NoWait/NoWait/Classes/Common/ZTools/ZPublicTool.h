@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
     ZFormatterTypeAlphabet,            //英文字母
     ZFormatterTypeNumberAndAlphabet,   //数字+英文字母
     ZFormatterTypeIDCard,              //18位身份证
-    ZFormatterTypeCustom               //自定义
+    ZFormatterTypeCustom,               //自定义
+    ZFormatterTypeAnyByte               //按字节数算
 };
 
 
