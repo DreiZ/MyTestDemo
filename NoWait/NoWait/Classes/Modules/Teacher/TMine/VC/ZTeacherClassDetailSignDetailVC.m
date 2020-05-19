@@ -275,6 +275,7 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }
+        [weakSelf.iTableView tt_endRefreshing];
     }];
 }
 
@@ -348,12 +349,11 @@
 - (void)updateLessonSign:(NSString *)signImageStr {
     __weak typeof(self) weakSelf = self;
     
-    [ZOriganizationClassViewModel upLessonImageStr:@{@"courses_class_id":SafeStr(self.model.classID),@"nums":SafeStr(self.model.nums),@"image":getJSONStr(@[SafeStr(signImageStr)])} completeBlock:^(BOOL isSuccess, id data) {
+    [ZOriganizationClassViewModel upLessonImageStr:@{@"courses_class_id":SafeStr(self.model.classID),@"nums":[NSString stringWithFormat:@"%ld",self.model.index],@"image":getJSONStr(@[SafeStr(signImageStr)])} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            [weakSelf refreshData];
         }else{
             [TLUIUtility showInfoHint:data];
         }

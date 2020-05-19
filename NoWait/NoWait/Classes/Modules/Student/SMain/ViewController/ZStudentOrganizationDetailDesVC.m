@@ -10,8 +10,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZStudentEvaListCell.h"
 
-#import "ZStudentOrganizationDetailTopCell.h"
-//#import "ZStudentOrganizationDetailBannerCell.h"
 #import "ZStudentOrganizationDetailIntroCell.h"
 #import "ZStudentOrganizationDetailDesCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
@@ -202,18 +200,6 @@
         
     }
     
-//    NSMutableArray *mList = @[].mutableCopy;
-//    for (int i = 0; i < self.detailModel.images_list.count; i ++) {
-//        ZImagesModel *imageModel = self.detailModel.images_list[i];
-//        ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
-//        model.name = imageModel.name;
-//        model.imageName = imageModel.image;
-//        model.data = imageModel;
-//        [mList addObject:model];
-//    }
-//    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailTopCell className] title:[ZStudentOrganizationDetailTopCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentOrganizationDetailTopCell z_getCellHeight:mList] cellType:ZCellTypeClass dataModel:mList];
-//    [self.cellConfigArr addObject:bannerCellConfig];
-//
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroCell className] title:[ZStudentOrganizationDetailIntroCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:desCellConfig];
@@ -309,15 +295,7 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
 {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailTopCell"]){
-           ZStudentOrganizationDetailTopCell *lcell = (ZStudentOrganizationDetailTopCell *)cell;
-        lcell.selectBlock = ^(ZBaseUnitModel * model) {
-            ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
-            ivc.imageModel = model.data;
-            ivc.detailModel = weakSelf.detailModel;
-            [weakSelf.navigationController pushViewController:ivc animated:YES];
-        };
-    }else if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
+    if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
         ZStudentOrganizationBannerCell *lcell = (ZStudentOrganizationBannerCell *)cell;
         lcell.bannerBlock = ^(ZImagesModel * model) {
             ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];

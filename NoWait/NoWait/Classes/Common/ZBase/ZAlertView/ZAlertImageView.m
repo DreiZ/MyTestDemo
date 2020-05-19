@@ -88,8 +88,11 @@ static ZAlertImageView *sharedManager;
     self.hintImageView.image = image;
 //    [UIImage imageNamed:image];
     
-    CGFloat fixelW = CGImageGetWidth(image.CGImage);
-    CGFloat fixelH = CGImageGetHeight(image.CGImage);
+    CGFloat fixelW = image.size.width;
+    CGFloat fixelH = image.size.height;
+    if (fixelH > fixelW * 1.5) {
+        fixelH = fixelW*1.5;
+    }
     
     CGSize titleSize = [title sizeForFont:[UIFont boldFontMaxTitle] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
     CGSize subTitleSize = [subTitle sizeForFont:[UIFont fontContent] size:CGSizeMake(CGFloatIn750(570 - 60), MAXFLOAT) mode:NSLineBreakByCharWrapping];
@@ -109,7 +112,7 @@ static ZAlertImageView *sharedManager;
     
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + CGFloatIn750(110)+(CGFloatIn750(510) * (fixelW/fixelH)) + (subTitleSize.height > 10 ? (subTitleSize.height + CGFloatIn750(20)):0));
+        make.height.mas_equalTo(CGFloatIn750(205)+titleSize.height + (CGFloatIn750(510) * (fixelH/fixelW)) + (subTitleSize.height > 10 ? (subTitleSize.height + CGFloatIn750(20)):0));
         make.width.mas_equalTo(CGFloatIn750(570));
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
@@ -139,7 +142,7 @@ static ZAlertImageView *sharedManager;
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
-    [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn setBackgroundColor:[UIColor colorGrayLine] forState:UIControlStateNormal];
     [leftBtn bk_addEventHandler:^(id sender) {
