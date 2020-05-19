@@ -57,7 +57,7 @@
 //    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachAddHeadImageCell className] title:[ZOriganizationTeachAddHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachAddHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
 //    [self.cellConfigArr addObject:progressCellConfig];
     
-    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
+    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@30,[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"MID", @"请输入MID", @YES, @"", @"MID",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],

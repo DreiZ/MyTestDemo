@@ -338,7 +338,7 @@
     ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:image];
     [self.cellConfigArr addObject:addImageCellConfig];
     
-    NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@20,[NSNumber numberWithInt:ZFormatterTypeAny]],@[@"请输入课程简称",@"lessonIntro",self.viewModel.addModel.short_name,@6,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+    NSArray *titleArr = @[@[@"请输入课程名称", @"lessonName",self.viewModel.addModel.name,@60,[NSNumber numberWithInt:ZFormatterTypeAnyByte]],@[@"请输入课程简称",@"lessonIntro",self.viewModel.addModel.short_name,@18,[NSNumber numberWithInt:ZFormatterTypeAnyByte]]];
     
     for (int i = 0 ; i < titleArr.count; i++) {
         ZBaseTextFieldCellModel *model = [[ZBaseTextFieldCellModel alloc] init];

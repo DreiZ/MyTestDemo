@@ -122,8 +122,8 @@
                 cellModel.textColor = [UIColor colorTextGray];
                 if ([textArr[i][4] isEqualToString:@"name"]) {
                     cellModel.content = self.viewModel.addModel.class_Name;
-                    cellModel.max = 20;
-                    cellModel.formatterType = ZFormatterTypeAny;
+                    cellModel.max = 60;
+                    cellModel.formatterType = ZFormatterTypeAnyByte;
                 }else if ([textArr[i][4] isEqualToString:@"openTime"]){
                     cellModel.content = [self.viewModel.addModel.openTime timeStringWithFormatter:@"yyyy-MM-dd"];
                 } else if ([textArr[i][4] isEqualToString:@"teacher"]){

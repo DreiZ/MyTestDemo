@@ -78,7 +78,7 @@
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
     [_userNameTF setPlaceholder:@"请输入昵称"];
     [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-        [ZPublicTool textField:self.userNameTF maxLenght:10 type:ZFormatterTypeAny];
+        [ZPublicTool textField:self.userNameTF maxLenght:30 type:ZFormatterTypeAnyByte];
     }];
     _userNameTF.delegate = self;
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -106,7 +106,7 @@
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _hintLabel.textColor = [UIColor colorTextGray];
-        _hintLabel.text = @"昵称只可有汉字字母数字下划线组成，10字以内";
+        _hintLabel.text = @"昵称只可有汉字字母数字下划线组成，30字符以内";
         _hintLabel.numberOfLines = 0;
         _hintLabel.textAlignment = NSTextAlignmentLeft;
         [_hintLabel setFont:[UIFont fontContent]];

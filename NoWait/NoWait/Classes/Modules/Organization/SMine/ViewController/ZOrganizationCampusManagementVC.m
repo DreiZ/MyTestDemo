@@ -138,7 +138,8 @@
                 cellModel.formatterType = ZFormatterTypePhoneNumber;
                 cellModel.max = 20;
             }else if ([textArr[i][4] isEqualToString:@"name"]) {
-                cellModel.max = 20;
+                cellModel.max = 60;
+                cellModel.formatterType = ZFormatterTypeAnyByte;
             }
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];

@@ -50,7 +50,7 @@
     }
     
     NSArray *textArr = @[@[@"类型", @"请选择可用课程", @NO, @"rightBlackArrowN", @"type",@30, @"",ftitle,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"名称", @"10字以内", @YES, @"", @"name",@10, @"",SafeStr(self.viewModel.addModel.title),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                         @[@"名称", @"30字节以内", @YES, @"", @"name",@10, @"",SafeStr(self.viewModel.addModel.title),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"面额", @"0", @YES, @"", @"price",@6, @"元",SafeStr(self.viewModel.addModel.amount),[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"满减条件", @"最低1元，默认满1元可用", @YES, @"", @"tiaojian",@6, @"元",SafeStr(self.viewModel.addModel.min_amount),[NSNumber numberWithInt:ZFormatterTypeDecimal]],
                          @[@"有效时间", @"不填写则无时间限制", @NO, @"rightBlackArrowN", @"time", @30, @"",time,[NSNumber numberWithInt:ZFormatterTypeAny]],
