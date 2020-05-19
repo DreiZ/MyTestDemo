@@ -7,7 +7,6 @@
 //
 
 #import "ZStudentLessonSureOrderVC.h"
-#import "ZStudentLessonOrderSuccessVC.h"
 
 #import "ZStudentMineOrderDetailHandleBottomView.h"
 
@@ -93,8 +92,7 @@
             NSDictionary *backDict = notfication.object;
             if (backDict && [backDict objectForKey:@"payState"]) {
                 if ([backDict[@"payState"] integerValue] == 0) {
-//                    ZStudentLessonOrderSuccessVC *svc = [[ZStudentLessonOrderSuccessVC alloc] init];
-//                    [self.navigationController pushViewController:svc animated:YES];
+                    
                 }else if ([backDict[@"payState"] integerValue] == 1) {
                     if (backDict && [backDict objectForKey:@"msg"]) {
                         [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
