@@ -277,9 +277,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIVideoCell"]) {
-       
-    }
+    
 }
 
 
