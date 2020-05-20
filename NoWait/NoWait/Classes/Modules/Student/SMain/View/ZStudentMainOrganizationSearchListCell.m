@@ -110,6 +110,7 @@
         make.left.bottom.equalTo(self.contentView);
         make.top.equalTo(self.goodsImageView.mas_bottom);
     }];
+//    self.contentView.backgroundColor = [UIColor orangeColor];
     
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -292,21 +293,6 @@
     if (model.coupons && model.coupons.count > 0) {
         [self setIntroData];
         self.introductionView.hidden = NO;
-        if (ValidArray(self.model.tags)) {
-            [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-                make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
-                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-                make.height.mas_equalTo(CGFloatIn750(40));
-            }];
-        }else{
-            [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-                make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(18));
-                make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-                make.height.mas_equalTo(CGFloatIn750(40));
-            }];
-        }
     }else{
         self.introductionView.hidden = YES;
     }
@@ -349,6 +335,7 @@
         [ttArr addObjectsFromArray:model.tags];
         NSArray *textArr = ttArr;
         
+        CGFloat tagHeight = 0;
         CGFloat leftX = 0;
         CGFloat leftY = 0;
         for (int i = 0; i < textArr.count; i++) {
@@ -356,10 +343,16 @@
             leftY = label.y;
             leftX = label.x;
         }
+        if (ValidArray(textArr)) {
+            tagHeight = leftY + CGFloatIn750(40);
+        }
         
         CGFloat couponHeight = 0;
+        if (tagHeight > 0) {
+            couponHeight = CGFloatIn750(18);
+        }
+        [ttArr removeAllObjects];
         if (model.coupons && model.coupons.count > 0) {
-            NSMutableArray *ttArr = @[].mutableCopy;
             for (int i = 0; i < model.coupons.count; i++) {
                 ZOriganizationCardListModel *smodel = model.coupons[i];
                 [ttArr addObject:smodel.title];
@@ -373,21 +366,19 @@
                 leftY = label.y;
                 leftX = label.x;
             }
-            couponHeight = leftY + CGFloatIn750(40);
-        }
-        if (textArr.count == 0) {
-            if (!model.coupons || model.coupons.count == 0) {
-                return CGFloatIn750(188) + (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
-            }else{
-                return CGFloatIn750(188) + couponHeight + (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
+            if (ValidArray(textArr)) {
+                couponHeight = leftY + CGFloatIn750(40);
             }
-        }
-        if (!model.coupons || model.coupons.count == 0) {
-            return CGFloatIn750(188) + leftY  + (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
-        }else{
-            return CGFloatIn750(188) + leftY + couponHeight  +  (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
+        }else {
+            couponHeight = 0;
         }
         
+        CGFloat offsetHeight = couponHeight + tagHeight;
+        
+        if (offsetHeight > CGFloatIn750(38)) {
+            offsetHeight = offsetHeight - CGFloatIn750(40);
+        }
+        return CGFloatIn750(188) + offsetHeight + CGFloatIn750(20) + (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
     }
     return CGFloatIn750(188) + (ValidArray(model.course)? [ZStudentMainOrganizationSearchListItemCell z_getCellSize:nil].height:0);
 }
@@ -444,7 +435,12 @@
     
     [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
+        if (ValidArray(self.model.tags)) {
+            make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
+        }else{
+            make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(18));
+        }
+//        make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
 //        make.height.mas_equalTo(leftY + CGFloatIn750(40));
         if (self.model.isMore) {
@@ -453,6 +449,22 @@
             make.height.mas_equalTo(CGFloatIn750(40));
         }
     }];
+    
+//    if (ValidArray(self.model.tags)) {
+//        [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+//            make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
+//            make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+//            make.height.mas_equalTo(CGFloatIn750(40));
+//        }];
+//    }else{
+//        [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+//            make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(18));
+//            make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
+//            make.height.mas_equalTo(CGFloatIn750(40));
+//        }];
+//    }
 }
 
 - (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY colorType:(BOOL)isTags{
