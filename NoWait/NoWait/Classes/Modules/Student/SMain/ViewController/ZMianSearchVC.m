@@ -7,10 +7,7 @@
 //
 
 #import "ZMianSearchVC.h"
-#import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentMainViewModel.h"
-#import "ZOriganizationLessonViewModel.h"
-#import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonDetailVC.h"
 #import "ZStudentMainOrganizationSearchListCell.h"
@@ -86,20 +83,21 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         };
+        lcell.lessonBlock = ^(ZStoresCourse *model) {
+            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            ZOriganizationLessonListModel *lmodel = [[ZOriganizationLessonListModel alloc] init];
+            lmodel.lessonID = model.course_id;
+            dvc.model = lmodel;
+            [weakSelf.navigationController pushViewController:dvc animated:YES];
+        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+    if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationSearchListCell"]) {
         ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
         dvc.listModel = cellConfig.dataModel;
         [self.navigationController pushViewController:dvc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-            dvc.model = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
-    //        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-    //        [self.navigationController pushViewController:lessond_vc animated:YES];
-        }
+    }
 }
 
 #pragma mark - 数据处理

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) ZStoresListModel *model;
 @property (nonatomic,strong) void (^handleBlock)(ZStoresListModel *);
+@property (nonatomic,strong) void (^lessonBlock)(ZStoresCourse *);
 @property (nonatomic,strong) void (^moreBlock)(ZStoresListModel *);
 @end
 

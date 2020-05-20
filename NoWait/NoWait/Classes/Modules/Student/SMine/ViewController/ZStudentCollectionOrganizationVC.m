@@ -12,6 +12,7 @@
 #import "ZStudentMainOrganizationListCell.h"
 #import "ZStudentCollectionViewModel.h"
 #import "ZLocationManager.h"
+#import "ZAlertView.h"
 
 @interface ZStudentCollectionOrganizationVC ()
 
@@ -65,7 +66,12 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]){
         ZStudentMainOrganizationListCell *lcell = (ZStudentMainOrganizationListCell *)cell;
         lcell.handleBlock = ^(ZStoresListModel *model) {
-            [weakSelf collectionStore:NO model:model];
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此机构？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消机构" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [weakSelf collectionStore:NO model:model];
+                }
+            }];
+            
         };
     }
 }

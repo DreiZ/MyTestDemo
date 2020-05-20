@@ -515,6 +515,10 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    if (self.lessonBlock) {
+        self.lessonBlock(cellConfig.dataModel);
+    }
 }
 
 

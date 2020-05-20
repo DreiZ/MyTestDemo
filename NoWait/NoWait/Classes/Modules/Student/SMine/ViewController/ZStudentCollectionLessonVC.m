@@ -11,6 +11,7 @@
 
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentCollectionViewModel.h"
+#import "ZAlertView.h"
 
 @interface ZStudentCollectionLessonVC ()
 
@@ -64,7 +65,12 @@
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]){
         ZStudentOrganizationLessonListCell *lcell = (ZStudentOrganizationLessonListCell *)cell;
         lcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
-            [weakSelf collectionLesson:NO model:model];
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此课程？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消课程" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [weakSelf collectionLesson:NO model:model];
+                }
+            }];
+            
         };
     }
 }

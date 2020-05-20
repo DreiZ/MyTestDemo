@@ -171,7 +171,6 @@
         return textField.text;
     }
     
-    NSLog(@"----length  %d",[ZPublicTool convertToInt:textField.text]);
     //限制输入字符数
     NSString *lang = [textField.textInputMode primaryLanguage]; // 键盘输入模式
     if([lang isEqualToString:@"zh-Hans"]) { //简体中文输入，包括简体拼音，健体五笔，简体手写
@@ -349,7 +348,7 @@
 + (BOOL)getNetworkStatus {
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
     if(mgr.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable){
-        //        [[HNPublicTool shareInstance] showHudMessage:@"没有网络，请检查手机网络连接"];
+        //没有网络，请检查手机网络连接
         return NO;
     }else{
         return YES;
