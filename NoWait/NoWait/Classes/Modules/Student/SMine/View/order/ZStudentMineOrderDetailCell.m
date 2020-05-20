@@ -107,12 +107,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [clubBtn bk_whenTapped:^{
+    UIButton *clubBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [clubBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(ZLessonOrderHandleTypeClub, weakSelf.model);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:clubBtn];
     [clubBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.topView);
@@ -159,12 +159,12 @@
     }];
  
 
-    UIButton *lessonBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [lessonBtn bk_whenTapped:^{
+    UIButton *lessonBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [lessonBtn bk_addEventHandler:^(id sender) {
        if (weakSelf.handleBlock) {
            weakSelf.handleBlock(ZLessonOrderHandleTypeLesson, weakSelf.model);
        }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.midView addSubview:lessonBtn];
     [lessonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        make.edges.equalTo(self.midView);
@@ -347,16 +347,16 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_delBtn bk_whenTapped:^{
+        [_delBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeRefund,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _delBtn;
 }

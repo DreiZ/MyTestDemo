@@ -68,12 +68,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [detailBtn bk_whenTapped:^{
+    UIButton *detailBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [detailBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.detailBlock) {
             weakSelf.detailBlock(weakSelf.userImageView);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:detailBtn];
     [detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);

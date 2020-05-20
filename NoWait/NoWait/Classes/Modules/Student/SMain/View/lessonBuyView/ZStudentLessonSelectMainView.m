@@ -40,10 +40,10 @@
     self.layer.masksToBounds = YES;
     
     __weak typeof(self) weakSelf = self;
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [backBtn bk_whenTapped:^{
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [backBtn bk_addEventHandler:^(id sender) {
         [weakSelf removeFromSuperview];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:backBtn];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {

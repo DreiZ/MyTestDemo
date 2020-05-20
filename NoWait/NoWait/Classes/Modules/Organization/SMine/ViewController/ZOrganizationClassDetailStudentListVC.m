@@ -134,7 +134,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
 //        if (self.type == 2) {
 //            [_navLeftBtn setTitle:@"加入学员" forState:UIControlStateNormal];
@@ -146,7 +146,7 @@
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
             if (self.type == 2) {
                 NSArray *weekArr = @[@[@"新增线上学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
                [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
@@ -180,7 +180,7 @@
                 [weakSelf.iTableView reloadData];
             }
             
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }
@@ -208,14 +208,14 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
         [_bottomBtn setTitle:@"设置线下学员学习进度" forState:UIControlStateNormal];
 
         [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             ZOrganizationClassStudentProgressEditVC *evc = [[ZOrganizationClassStudentProgressEditVC alloc] init];
             if (weakSelf.listModel) {
                 evc.total_progress = weakSelf.listModel.total_progress;
@@ -226,7 +226,7 @@
             }
             
             [weakSelf.navigationController pushViewController:evc animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

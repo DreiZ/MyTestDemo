@@ -47,7 +47,7 @@
 - (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX topY:(CGFloat)topY  tag:(NSInteger)index{
     ZStudentDetailLessonTimeSubModel *model = self.list[index];
     __weak typeof(self) weakSelf = self;
-    UIButton *timeBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, CGFloatIn750(120), CGFloatIn750(50))];
+    UIButton *timeBtn = [[ZButton alloc] initWithFrame:CGRectMake(leftX, topY, CGFloatIn750(120), CGFloatIn750(50))];
     [timeBtn setTitle:text forState:UIControlStateNormal];
     [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
     [timeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateSelected];

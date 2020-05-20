@@ -65,10 +65,10 @@
         make.centerY.equalTo(self.contView.mas_centerY);
     }];
     
-    UIButton *addressBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [addressBtn bk_whenTapped:^{
+    UIButton *addressBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [addressBtn bk_addEventHandler:^(id sender) {
         
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contView addSubview:addressBtn];
     [addressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.contView);
@@ -116,17 +116,17 @@
 - (UIButton *)cancleBtn {
     if (!_cancleBtn) {
         __weak typeof(self) weakSelf = self;
-        _cancleBtn = [[UIButton alloc] init];
+        _cancleBtn = [[ZButton alloc] init];
         _cancleBtn.clipsToBounds = YES;
         [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
-        [_cancleBtn bk_whenTapped:^{
+        [_cancleBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iTextField resignFirstResponder];
             if (weakSelf.cancleBlock) {
                 weakSelf.cancleBlock();
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancleBtn;
 }

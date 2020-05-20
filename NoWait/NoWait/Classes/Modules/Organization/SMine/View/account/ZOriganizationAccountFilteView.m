@@ -89,12 +89,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [allBtn bk_whenTapped:^{
+    UIButton *allBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [allBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(3);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:allBtn];
     [allBtn mas_makeConstraints:^(MASConstraintMaker *make) {

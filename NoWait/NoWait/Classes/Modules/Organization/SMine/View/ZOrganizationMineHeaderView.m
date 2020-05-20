@@ -118,12 +118,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [userBtn bk_whenTapped:^{
+    UIButton *userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(10);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:userBtn];
     [userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.headImageView);
@@ -135,12 +135,12 @@
     }];
     
     
-    UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [setBtn bk_whenTapped:^{
+    UIButton *setBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [setBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(1);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:setBtn];
     [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(80));
@@ -154,12 +154,12 @@
         make.center.equalTo(self.scanView);
     }];
     
-    UIButton *switchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [switchBtn bk_whenTapped:^{
+    UIButton *switchBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [switchBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(3);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:switchBtn];
     [switchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.switchUserBtn.mas_left).offset(CGFloatIn750(-40));
@@ -254,12 +254,12 @@
 - (UIButton *)stateBtn {
     if (!_stateBtn) {
         __weak typeof(self) weakSelf = self;
-        _stateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_stateBtn bk_whenTapped:^{
+        _stateBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_stateBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(5);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _stateBtn;
 }
@@ -267,12 +267,12 @@
 - (UIButton *)qrCodeBtn {
     if (!_qrCodeBtn) {
         __weak typeof(self) weakSelf = self;
-        _qrCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_qrCodeBtn bk_whenTapped:^{
+        _qrCodeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_qrCodeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(8);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _qrCodeBtn;
 }
@@ -338,12 +338,12 @@
 - (UIButton *)userInfoBtn {
     if (!_userInfoBtn) {
         __weak typeof(self) weakSelf = self;
-        _userInfoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_userInfoBtn bk_whenTapped:^{
+        _userInfoBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_userInfoBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _userInfoBtn;
 }
@@ -353,16 +353,16 @@
         __weak typeof(self) weakSelf = self;
         UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
-        _switchUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _switchUserBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_switchUserBtn setTitle:@"" forState:UIControlStateNormal];
         [_switchUserBtn setImage:image forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchUserBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_switchUserBtn bk_whenTapped:^{
+        [_switchUserBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(3);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _switchUserBtn;
 }
@@ -370,16 +370,16 @@
 - (UIButton *)rewardBtn {
     if (!_rewardBtn) {
         __weak typeof(self) weakSelf = self;
-        _rewardBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _rewardBtn = [[ZButton alloc] initWithFrame:CGRectZero];
 //        _rewardBtn.backgroundColor = [UIColor colorMain];
 //        ViewBorderRadius(_rewardBtn, CGFloatIn750(20), 1, [UIColor colorMain]);
 //        ViewRadius(_rewardBtn, CGFloatIn750(20));
 //        ViewShadowRadius(_rewardBtn, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        [_rewardBtn bk_whenTapped:^{
+        [_rewardBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(12);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         
         
         UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];

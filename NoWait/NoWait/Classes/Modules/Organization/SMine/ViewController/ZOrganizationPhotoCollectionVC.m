@@ -102,12 +102,12 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"上传图片" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             [ZPhotoManager sharedManager].maxImageSelected = 9 - self.list.count;
             
             [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
@@ -120,7 +120,7 @@
                     [weakSelf updatePhotosStep1];
                 }
             }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

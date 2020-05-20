@@ -206,12 +206,12 @@
         }];
         
         __weak typeof(self) weakSelf = self;
-        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [moreBtn bk_whenTapped:^{
+        UIButton *moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [moreBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.moreBlock) {
                 weakSelf.moreBlock(weakSelf.model);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_moreView addSubview:moreBtn];
         [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.moreView);
@@ -224,7 +224,7 @@
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
         __weak typeof(self) weakSelf = self;
-        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
 //        [_collectionBtn setImage:[UIImage imageNamed:@"collectionHandle"] forState:UIControlStateNormal];
         UIImageView *collectionImageView = [[UIImageView alloc] init];
         collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];
@@ -234,11 +234,11 @@
             make.center.equalTo(self.collectionBtn);
             make.height.width.mas_equalTo(CGFloatIn750(20));
         }];
-        [_collectionBtn bk_whenTapped:^{
+        [_collectionBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _collectionBtn;
 }

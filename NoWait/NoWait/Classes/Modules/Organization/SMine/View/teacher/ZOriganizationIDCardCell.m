@@ -48,24 +48,24 @@
     
     
     __weak typeof(self) weakSelf = self;
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [leftBtn bk_whenTapped:^{
+    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [leftBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.leftImageView);
     }];
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [rightBtn bk_whenTapped:^{
+    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [rightBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {

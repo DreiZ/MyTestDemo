@@ -44,7 +44,7 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
     self.layer.masksToBounds = YES;
     _cellConfigArr = @[].mutableCopy;
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -138,16 +138,16 @@ static ZAlertDataCheckBoxBottomView *sharedManager;
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1, nil);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

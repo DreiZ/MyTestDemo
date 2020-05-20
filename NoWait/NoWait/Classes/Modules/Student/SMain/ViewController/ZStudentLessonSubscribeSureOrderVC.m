@@ -167,14 +167,14 @@
 
 - (UIButton *)payBtn {
     if (!_payBtn) {
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _payBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_payBtn setTitle:@"立即支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont boldFontContent]];
         
         __weak typeof(self) weakSelf = self;
-        [_payBtn bk_whenTapped:^{
+        [_payBtn bk_addEventHandler:^(id sender) {
             if (!ValidStr(weakSelf.detailModel.account_phone)) {
                 [TLUIUtility showErrorHint:@"请输入联系号码"];
                 return ;
@@ -227,7 +227,7 @@
                     [TLUIUtility showErrorHint:data];
                 }
             }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _payBtn;
 }

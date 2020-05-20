@@ -149,17 +149,17 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isEdit) {
                 weakSelf.isEdit = NO;
             }else{
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }
@@ -167,14 +167,14 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navRightBtn bk_whenTapped:^{
+        [_navRightBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isEdit) {
                 [weakSelf selectAllData];
                 [weakSelf initCellConfigArr];
@@ -183,7 +183,7 @@
                 ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
 }
@@ -204,19 +204,19 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
                 [weakSelf deleteTeacher:ids];
             }else{
                 [TLUIUtility showErrorHint:@"你还没有选中"];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

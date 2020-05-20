@@ -77,7 +77,7 @@
 
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
-        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _deleteBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _deleteBtn.backgroundColor = [UIColor blackColor];
         [_deleteBtn setTitle:@"x" forState:UIControlStateNormal];
         [_deleteBtn.titleLabel setFont:[UIFont fontMin]];
@@ -89,12 +89,12 @@
 - (UIButton *)deleteBigBtn {
     if (!_deleteBigBtn) {
         __weak typeof(self) weakSelf = self;
-        _deleteBigBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_deleteBigBtn bk_whenTapped:^{
+        _deleteBigBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_deleteBigBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.delBlock) {
                 weakSelf.delBlock(weakSelf.model);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteBigBtn;
 }

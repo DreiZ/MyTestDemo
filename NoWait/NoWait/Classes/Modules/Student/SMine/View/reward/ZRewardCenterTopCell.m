@@ -64,12 +64,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *inviteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [inviteBtn bk_whenTapped:^{
+    UIButton *inviteBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [inviteBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:inviteBtn];
     [inviteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.inviteLabel.mas_left).offset(-CGFloatIn750(20));

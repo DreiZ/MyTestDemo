@@ -41,14 +41,14 @@
     [self.navigationItem setTitle:@"设置昵称"];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
     sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
-    [sureBtn bk_whenTapped:^{
+    [sureBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.userNameTF.text > 0) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(weakSelf.userNameTF.text);
@@ -57,7 +57,7 @@
         }else{
             [TLUIUtility showErrorHint:@"你还没有输入任何昵称"];
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 

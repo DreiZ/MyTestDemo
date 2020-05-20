@@ -59,12 +59,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [moreBtn bk_whenTapped:^{
+    UIButton *moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [moreBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock ) {
             weakSelf.handleBlock(nil);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.titelBack addSubview:moreBtn];
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.titelBack);

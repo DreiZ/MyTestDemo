@@ -51,12 +51,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *seletBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [seletBtn bk_whenTapped:^{
+    UIButton *seletBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [seletBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handerBlock) {
             weakSelf.handerBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:seletBtn];
     [seletBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);

@@ -91,19 +91,19 @@
 - (UIButton *)moreBtn {
     if (!_moreBtn) {
         __weak typeof(self) weakSelf = self;
-        _moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_moreBtn setTitle:@"..." forState:UIControlStateNormal];
         [_moreBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_moreBtn.titleLabel setFont:[UIFont boldFontTitle]];
         _moreBtn.backgroundColor = adaptAndDarkColor([UIColor colorMainSub],[UIColor colorMainSub]);
         _moreBtn.titleEdgeInsets = UIEdgeInsetsMake(CGFloatIn750(-18), 0, 0, 0);
         ViewRadius(_moreBtn, CGFloatIn750(30));
-        [_moreBtn bk_whenTapped:^{
+        [_moreBtn bk_addEventHandler:^(id sender) {
             weakSelf.model.isMore = YES;
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreBtn;
 }

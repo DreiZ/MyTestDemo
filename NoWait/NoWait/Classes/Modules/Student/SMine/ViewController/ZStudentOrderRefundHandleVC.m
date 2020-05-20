@@ -62,12 +62,12 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
         [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
              
                NSArray *viewControllers = self.navigationController.viewControllers;
                NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
@@ -87,7 +87,7 @@
                    return;
                }
                [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }
@@ -113,8 +113,8 @@
 -(UIButton *)handleView {
     if (!_handleView) {
         __weak typeof(self) weakSelf = self;
-        _handleView = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_handleView bk_whenTapped:^{
+        _handleView = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_handleView bk_addEventHandler:^(id sender) {
             NSMutableDictionary *params = @{}.mutableCopy;
             if (ValidStr(weakSelf.detailModel.refund_msg)) {
                 [params setObject:SafeStr(weakSelf.detailModel.refund_msg) forKey:@"refund_desc"];
@@ -150,7 +150,7 @@
                     [TLUIUtility showErrorHint:data];
                 }
             }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_handleView setTitle:@"提交申请" forState:UIControlStateNormal];
         [_handleView setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_handleView.titleLabel setFont:[UIFont fontContent]];

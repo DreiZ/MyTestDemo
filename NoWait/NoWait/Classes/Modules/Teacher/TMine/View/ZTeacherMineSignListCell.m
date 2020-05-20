@@ -257,15 +257,15 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"开始上课" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
-        [_openBtn bk_whenTapped:^{
+        [_openBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1,self.model);
             };
-        }];
+        }forControlEvents:UIControlEventTouchUpInside];
     }
     return _openBtn;
 }
@@ -274,15 +274,15 @@
 - (UIButton *)studentListBtn {
     if (!_studentListBtn) {
         __weak typeof(self) weakSelf = self;
-        _studentListBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _studentListBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_studentListBtn setTitle:@"学员列表" forState:UIControlStateNormal];
         [_studentListBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_studentListBtn.titleLabel setFont:[UIFont fontContent]];
-        [_studentListBtn bk_whenTapped:^{
+        [_studentListBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0,self.model);
             };
-        }];
+        }forControlEvents:UIControlEventTouchUpInside];
     }
     return _studentListBtn;
 }

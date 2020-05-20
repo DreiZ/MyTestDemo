@@ -85,19 +85,19 @@
     [self.navigationItem setTitle:@"校区地址"];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
     sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
-    [sureBtn bk_whenTapped:^{
+    [sureBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.addressBlock) {
             weakSelf.addressBlock(weakSelf.province, weakSelf.city, weakSelf.county, weakSelf.brief_address, weakSelf.address,weakSelf.latitude,weakSelf.longitude);
         }
         [weakSelf.navigationController popViewControllerAnimated:YES];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }

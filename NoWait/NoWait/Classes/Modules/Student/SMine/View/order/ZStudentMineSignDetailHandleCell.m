@@ -98,7 +98,7 @@
 
 - (UIButton *)signBtn {
     if (!_signBtn) {
-        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         ViewRadius(_signBtn, CGFloatIn750(24));
         
         
@@ -107,7 +107,7 @@
         _signBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         
         __weak typeof(self) weakSelf = self;
-        [_signBtn bk_whenTapped:^{
+        [_signBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 if ([self.model.type intValue] == 6) {
                     weakSelf.handleBlock(self.model,0);
@@ -115,7 +115,7 @@
                     weakSelf.handleBlock(self.model,1);
                 }
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _signBtn;
 }

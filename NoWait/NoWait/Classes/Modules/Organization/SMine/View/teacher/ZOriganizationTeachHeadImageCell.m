@@ -47,12 +47,12 @@
     self.openBtn.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
-    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [userBtn bk_whenTapped:^{
+    UIButton *userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:userBtn];
     [userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.headImageView);
@@ -84,17 +84,17 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontSmall]];
         [_openBtn setTitle:@"查看教师课表" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewRadius(_openBtn, CGFloatIn750(33));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_openBtn bk_whenTapped:^{
+        [_openBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _openBtn;
 }

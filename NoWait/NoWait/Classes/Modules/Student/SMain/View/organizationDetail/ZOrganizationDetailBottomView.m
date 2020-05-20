@@ -69,18 +69,18 @@
 
 - (UIButton *)handleBtn {
     if (!_handleBtn) {
-        _handleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _handleBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_handleBtn.titleLabel setFont:[UIFont boldFontContent]];
         
         __weak typeof(self) weakSelf = self;
-        [_handleBtn bk_whenTapped:^{
+        [_handleBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _handleBtn;
 }
@@ -88,15 +88,15 @@
 
 - (UIButton *)telBtn {
     if (!_telBtn) {
-        _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _telBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_telBtn setImage:[UIImage imageNamed:@"telGray"] forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont fontSmall]];
         __weak typeof(self) weakSelf = self;
-        [_telBtn bk_whenTapped:^{
+        [_telBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _telBtn;
 }
@@ -104,7 +104,7 @@
 
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
-        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_collectionBtn addSubview:self.messageImageView];
         [self.messageImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.collectionBtn);
@@ -112,11 +112,11 @@
         }];
         
         __weak typeof(self) weakSelf = self;
-        [_collectionBtn bk_whenTapped:^{
+        [_collectionBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         
         UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
         bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);

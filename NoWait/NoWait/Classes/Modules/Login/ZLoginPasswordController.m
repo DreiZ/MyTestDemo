@@ -117,10 +117,10 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
+        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(CGFloatIn750(98));
@@ -151,7 +151,7 @@
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(480))];
         _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
-        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(50);
         [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
@@ -206,7 +206,7 @@
             }];
         } forControlEvents:UIControlEventTouchUpInside];
         
-        UIButton *forgetBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *forgetBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
         [forgetBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [forgetBtn.titleLabel setFont:[UIFont fontContent]];
@@ -218,10 +218,10 @@
             make.centerX.equalTo(self.footerView.mas_centerX);
         }];
         
-        [forgetBtn bk_whenTapped:^{
+        [forgetBtn bk_addEventHandler:^(id sender) {
             ZAccountFogetPasswordVC *pvc = [[ZAccountFogetPasswordVC alloc] init];
             [weakSelf.navigationController pushViewController:pvc animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _footerView;

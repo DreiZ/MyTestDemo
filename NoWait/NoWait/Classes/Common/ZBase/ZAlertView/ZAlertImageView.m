@@ -42,7 +42,7 @@ static ZAlertImageView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -140,7 +140,7 @@ static ZAlertImageView *sharedManager;
     }];
     
     
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:leftBtnTitle forState:UIControlStateNormal];
     [leftBtn setTitleColor:[UIColor colorTextGray] forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -159,7 +159,7 @@ static ZAlertImageView *sharedManager;
         make.right.equalTo(self.contView.mas_centerX);
     }];
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:rightBtnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
@@ -242,7 +242,7 @@ static ZAlertImageView *sharedManager;
     }];
     
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:btnTitle forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];

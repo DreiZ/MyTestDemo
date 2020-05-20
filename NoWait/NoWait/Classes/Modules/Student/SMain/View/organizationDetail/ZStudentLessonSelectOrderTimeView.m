@@ -50,13 +50,13 @@
         make.left.right.top.equalTo(self);
     }];
     
-    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [closeBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
-    [closeBtn bk_whenTapped:^{
+    [closeBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.closeBlock) {
             weakSelf.closeBlock();
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:closeBtn];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(80));
@@ -147,16 +147,16 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"提交预约" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.bottomBlock) {
                 weakSelf.bottomBlock();
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }
@@ -164,13 +164,13 @@
 - (UIButton *)lastStepBtn {
     if (!_lastStepBtn) {
         __weak typeof(self) weakSelf = self;
-        _lastStepBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _lastStepBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_lastStepBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
-        [_lastStepBtn bk_whenTapped:^{
+        [_lastStepBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.lastStepBlock) {
                 weakSelf.lastStepBlock();
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _lastStepBtn;
 }

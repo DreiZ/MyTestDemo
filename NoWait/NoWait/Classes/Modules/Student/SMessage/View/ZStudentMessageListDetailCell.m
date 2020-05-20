@@ -172,13 +172,13 @@
 
 - (UIButton *)detailbtn {
     if (!_detailbtn) {
-        _detailbtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _detailbtn = [[ZButton alloc] initWithFrame:CGRectZero];
         __weak typeof(self) weakSelf = self;
-        [_detailbtn bk_whenTapped:^{
+        [_detailbtn bk_addEventHandler:^(id sender) {
             if (weakSelf.detailBlock) {
                 weakSelf.detailBlock();
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _detailbtn;
 }

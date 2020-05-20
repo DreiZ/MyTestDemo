@@ -114,19 +114,19 @@
 - (UIButton *)searchBtn {
     if (!_searchBtn) {
         __weak typeof(self) weakSelf = self;
-        _searchBtn = [[UIButton alloc] init];
+        _searchBtn = [[ZButton alloc] init];
         _searchBtn.clipsToBounds = YES;
         [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
         [_searchBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_searchBtn.titleLabel setFont:[UIFont fontContent]];
         
         ViewBorderRadius(_searchBtn, CGFloatIn750(25), 1, [UIColor colorMain]);
-        [_searchBtn bk_whenTapped:^{
+        [_searchBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iTextField resignFirstResponder];
             if (weakSelf.searchBlock) {
                 weakSelf.searchBlock(self.iTextField.text);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _searchBtn;
 }
@@ -134,7 +134,7 @@
 
 - (UIButton *)backBtn {
     if (!_backBtn) {
-        _backBtn = [[UIButton alloc] init];
+        _backBtn = [[ZButton alloc] init];
         _backBtn.clipsToBounds = YES;
         [_backBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         _backBtn.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);

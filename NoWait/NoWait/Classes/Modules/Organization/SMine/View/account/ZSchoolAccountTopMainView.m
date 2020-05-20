@@ -54,12 +54,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [backBtn bk_whenTapped:^{
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [backBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(topView);
@@ -97,12 +97,12 @@
         make.top.equalTo(self.amountLabel.mas_bottom).offset(CGFloatIn750(12));
     }];
     
-    UIButton *allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [allBtn bk_whenTapped:^{
+    UIButton *allBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [allBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(3);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self.contView addSubview:allBtn];
     [allBtn mas_makeConstraints:^(MASConstraintMaker *make) {

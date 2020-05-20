@@ -157,11 +157,11 @@
     if (!_checkSelfBtn) {
         __weak  typeof(self) weakSelf = self;
         UIImage *checkSelfImage = [UIImage imageNamed:@"hng_im_lbs_self"];
-        _checkSelfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        _checkSelfBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
         [_checkSelfBtn setBackgroundImage:checkSelfImage forState:UIControlStateNormal];
-        [_checkSelfBtn bk_whenTapped:^{
+        [_checkSelfBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iMapView setCenterCoordinate:weakSelf.cureUserLocation.location.coordinate animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _checkSelfBtn;
 }
@@ -200,19 +200,19 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontTitle]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.addressBlock) {
                 weakSelf.addressBlock(weakSelf.location.province, weakSelf.location.city, weakSelf.location.district, weakSelf.location.businessArea, weakSelf.location.address,weakSelf.location.coordinate.latitude,weakSelf.location.coordinate.longitude);
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

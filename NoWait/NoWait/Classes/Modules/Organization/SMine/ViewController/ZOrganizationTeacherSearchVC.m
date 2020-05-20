@@ -99,19 +99,19 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
                 [weakSelf deleteTeacher:ids];
             }else{
                 [TLUIUtility showErrorHint:@"你还没有选中"];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }
@@ -120,16 +120,16 @@
 - (UIButton *)allBtn {
     if (!_allBtn) {
         __weak typeof(self) weakSelf = self;
-        _allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _allBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_allBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_allBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_allBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_allBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_allBtn bk_whenTapped:^{
+        [_allBtn bk_addEventHandler:^(id sender) {
             [weakSelf selectAllData];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _allBtn;
 }

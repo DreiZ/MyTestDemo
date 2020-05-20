@@ -52,12 +52,12 @@
 - (UIButton *)selectBtn {
     if (!_selectBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _selectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_selectBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_selectBtn.titleLabel setFont:[UIFont fontContent]];
         [_selectBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_selectBtn bk_whenTapped:^{
+        [_selectBtn bk_addEventHandler:^(id sender) {
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
                 if (self.bottomBlock) {
@@ -67,7 +67,7 @@
             }else{
                 [TLUIUtility showErrorHint:@"你还没有选中"];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _selectBtn;
 }

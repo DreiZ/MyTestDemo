@@ -131,7 +131,7 @@
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
         _footerView.backgroundColor = [UIColor whiteColor];
         
-        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(40);
         [doneBtn setTitle:@"确定提交" forState:UIControlStateNormal];

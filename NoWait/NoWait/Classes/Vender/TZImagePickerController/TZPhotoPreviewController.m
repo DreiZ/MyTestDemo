@@ -104,12 +104,12 @@
     _naviBar = [[UIView alloc] initWithFrame:CGRectZero];
     _naviBar.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:0.7];
     
-    _backButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _backButton = [[ZButton alloc] initWithFrame:CGRectZero];
     [_backButton setImage:[UIImage tz_imageNamedFromMyBundle:@"navi_back"] forState:UIControlStateNormal];
     [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
-    _selectButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _selectButton = [[ZButton alloc] initWithFrame:CGRectZero];
     [_selectButton setImage:tzImagePickerVc.photoDefImage forState:UIControlStateNormal];
     [_selectButton setImage:tzImagePickerVc.photoSelImage forState:UIControlStateSelected];
     _selectButton.imageView.clipsToBounds = YES;

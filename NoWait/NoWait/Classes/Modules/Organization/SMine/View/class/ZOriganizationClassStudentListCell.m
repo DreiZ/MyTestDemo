@@ -148,12 +148,12 @@
 - (UIButton *)userBtn {
     if (!_userBtn) {
         __weak typeof(self) weakSelf = self;
-        _userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_userBtn bk_whenTapped:^{
+        _userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_userBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2,weakSelf.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _userBtn;
 }
@@ -161,16 +161,16 @@
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
         __weak typeof(self) weakSelf = self;
-        _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_seeBtn setTitle:@"签课详情" forState:UIControlStateNormal];
         [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewBorderRadius(_seeBtn, CGFloatIn750(28), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_seeBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_seeBtn bk_whenTapped:^{
+        [_seeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0,weakSelf.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _seeBtn;
 }
@@ -178,16 +178,16 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"移除班级" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontSmall]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_delBtn bk_whenTapped:^{
+        [_delBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1,weakSelf.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _delBtn;
 }
@@ -196,18 +196,18 @@
 - (UIButton *)selectedBtn {
     if (!_selectedBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _selectedBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_selectedBtn addSubview:self.rightImageView];
         [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.selectedBtn);
         }];
-        [_selectedBtn bk_whenTapped:^{
+        [_selectedBtn bk_addEventHandler:^(id sender) {
             self.model.isSelected = !self.model.isSelected;
             self.rightImageView.image = self.model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(10,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _selectedBtn;
 }

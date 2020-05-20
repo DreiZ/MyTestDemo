@@ -117,15 +117,15 @@
 - (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
-        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [moreBtn setTitle:@"查看全部课程  >" forState:UIControlStateNormal];
         [moreBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [moreBtn.titleLabel setFont:[UIFont fontSmall]];
-        [moreBtn bk_whenTapped:^{
+        [moreBtn bk_addEventHandler:^(id sender) {
             if (self.moreBlock) {
                 self.moreBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_bottomView addSubview:moreBtn];
         [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.bottomView);

@@ -127,10 +127,10 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
+        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(CGFloatIn750(98));
@@ -172,7 +172,7 @@
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(480))];
         _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
-        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(40);
         [doneBtn setTitle:@"提交申请" forState:UIControlStateNormal];

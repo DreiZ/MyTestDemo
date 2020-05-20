@@ -55,7 +55,7 @@ static ZAlertDateWeekAndHourPickerView *sharedManager;
     self.layer.masksToBounds = YES;
     _cellConfigArr = @[].mutableCopy;
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -103,7 +103,7 @@ static ZAlertDateWeekAndHourPickerView *sharedManager;
         make.center.equalTo(topView);
     }];
     
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -121,7 +121,7 @@ static ZAlertDateWeekAndHourPickerView *sharedManager;
         make.top.equalTo(topView);
     }];
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];

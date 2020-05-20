@@ -50,16 +50,16 @@
     [self.navigationItem setTitle:_navTitle? _navTitle: @"添加标签"];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontContent]];
-    [sureBtn bk_whenTapped:^{
+    [sureBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(weakSelf.labelArr);
         }
         [weakSelf.navigationController popViewControllerAnimated:YES];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
 }
 
@@ -138,18 +138,18 @@
 - (UIButton *)addBtn {
     if (!_addBtn) {
         __weak typeof(self) weakSelf = self;
-        _addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(60), CGFloatIn750(50))];
+        _addBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(60), CGFloatIn750(50))];
         [_addBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_addBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_addBtn bk_whenTapped:^{
+        [_addBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.userNameTF.text.length > 0) {
                 [weakSelf.labelArr addObject:weakSelf.userNameTF.text];
                 [weakSelf setLabel];
                 weakSelf.userNameTF.text = @"";
                 weakSelf.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",weakSelf.userNameTF.text.length,weakSelf.max];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _addBtn;
 }

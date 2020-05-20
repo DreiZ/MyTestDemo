@@ -46,12 +46,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [coverBtn bk_whenTapped:^{
+    UIButton *coverBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [coverBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview:coverBtn];
     [coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {

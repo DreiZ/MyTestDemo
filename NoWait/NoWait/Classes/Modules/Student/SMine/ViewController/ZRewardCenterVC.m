@@ -53,12 +53,12 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"]  forState:UIControlStateNormal];
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
              
                NSArray *viewControllers = self.navigationController.viewControllers;
                NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
@@ -78,7 +78,7 @@
                    return;
                }
                [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }

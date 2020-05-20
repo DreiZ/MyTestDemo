@@ -66,16 +66,16 @@
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
-        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_signBtn setTitle:@"  签课" forState:UIControlStateNormal];
         [_signBtn setImage:[UIImage imageNamed:@"signzheng"] forState:UIControlStateNormal];
         [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
-        [_signBtn bk_whenTapped:^{
+        [_signBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _signBtn;
 }
@@ -84,16 +84,16 @@
 - (UIButton *)qingBtn {
     if (!_qingBtn) {
         __weak typeof(self) weakSelf = self;
-        _qingBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _qingBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_qingBtn setTitle:@"  请假" forState:UIControlStateNormal];
         [_qingBtn setImage:[UIImage imageNamed:@"signqing"] forState:UIControlStateNormal];
         [_qingBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_qingBtn.titleLabel setFont:[UIFont fontContent]];
-        [_qingBtn bk_whenTapped:^{
+        [_qingBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _qingBtn;
 }
@@ -102,16 +102,16 @@
 - (UIButton *)kuangBtn {
     if (!_kuangBtn) {
         __weak typeof(self) weakSelf = self;
-        _kuangBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _kuangBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_kuangBtn setTitle:@"  旷课" forState:UIControlStateNormal];
         [_kuangBtn setImage:[UIImage imageNamed:@"signkuang"] forState:UIControlStateNormal];
         [_kuangBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_kuangBtn.titleLabel setFont:[UIFont fontContent]];
-        [_kuangBtn bk_whenTapped:^{
+        [_kuangBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _kuangBtn;
 }
@@ -120,16 +120,16 @@
 - (UIButton *)buBtn {
     if (!_buBtn) {
         __weak typeof(self) weakSelf = self;
-        _buBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _buBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_buBtn setTitle:@"  补签" forState:UIControlStateNormal];
         [_buBtn setImage:[UIImage imageNamed:@"signbu"] forState:UIControlStateNormal];
         [_buBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_buBtn.titleLabel setFont:[UIFont fontContent]];
-        [_buBtn bk_whenTapped:^{
+        [_buBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(3);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _buBtn;
 }

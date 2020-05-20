@@ -194,16 +194,16 @@
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
-        _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_leftBtn setTitle:@"分享二维码" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontContent]];
-        [_leftBtn bk_whenTapped:^{
+        [_leftBtn bk_addEventHandler:^(id sender) {
             
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftBtn;
 }
@@ -212,16 +212,16 @@
 - (UIButton *)rightBtn {
     if (!_rightBtn) {
         __weak typeof(self) weakSelf = self;
-        _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_rightBtn setTitle:@"推送给教师" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontContent]];
-        [_rightBtn bk_whenTapped:^{
+        [_rightBtn bk_addEventHandler:^(id sender) {
             
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightBtn;
 }

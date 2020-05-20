@@ -99,17 +99,17 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontMin]];
         [_openBtn setTitle:@"进入机构" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewRadius(_openBtn, CGFloatIn750(24));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_openBtn bk_whenTapped:^{
+        [_openBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _openBtn;
 }

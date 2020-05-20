@@ -207,12 +207,12 @@
 
 
 - (UIButton *)getBtnWithText:(NSString *)text index:(NSInteger)index{
-    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = index;
     __weak typeof(self) weakSelf = self;
-    [menuBtn bk_whenTapped:^{
+    [menuBtn bk_addEventHandler:^(id sender) {
         [weakSelf menuBtn:menuBtn.tag];
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     [menuBtn setTitle:text forState:UIControlStateNormal];
     [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];

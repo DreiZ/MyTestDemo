@@ -107,11 +107,11 @@
         leftX = actLabel.right + kLabelSpace;
         
         __weak typeof(self) weakSelf = self;
-        UIButton *tBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
+        UIButton *tBtn = [[ZButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
         tBtn.tag = i;
-        [tBtn bk_whenTapped:^{
+        [tBtn bk_addEventHandler:^(id sender) {
             [weakSelf btnClick:i];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [self.activityView addSubview:tBtn];
         [tBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(actLabel);

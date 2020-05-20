@@ -74,12 +74,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [addBtn bk_whenTapped:^{
+    UIButton *addBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:addBtn];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.backContentView);

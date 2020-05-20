@@ -130,12 +130,12 @@
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
-        _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_leftBtn setTitle:@"复制邀请链接" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontContent]];
         _leftBtn.backgroundColor = [UIColor colorMain];
-        [_leftBtn bk_whenTapped:^{
+        [_leftBtn bk_addEventHandler:^(id sender) {
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
             pasteboard.string = weakSelf.model.inviter_url;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -143,7 +143,7 @@
                     
                 }];
             });
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftBtn;
 }
@@ -152,17 +152,17 @@
 - (UIButton *)rightBtn {
     if (!_rightBtn) {
         __weak typeof(self) weakSelf = self;
-        _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_rightBtn setTitle:@"保存图片到相册" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontContent]];
         _rightBtn.backgroundColor = [UIColor colorMain];
-        [_rightBtn bk_whenTapped:^{
+        [_rightBtn bk_addEventHandler:^(id sender) {
             UIImage *shortImage = [ZPublicTool snapshotForView:weakSelf.view];
             if (shortImage) {
                 [ZPublicTool saveImageToPhoto:shortImage];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightBtn;
 }

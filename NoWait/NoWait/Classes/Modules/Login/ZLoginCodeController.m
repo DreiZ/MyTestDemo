@@ -214,10 +214,10 @@
     if (!_navView) {
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
+        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(CGFloatIn750(98));
@@ -248,7 +248,7 @@
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(520))];
         _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
-        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(50);
         [doneBtn setTitle:@"确定" forState:UIControlStateNormal];
@@ -420,7 +420,7 @@
             make.width.height.mas_equalTo(CGFloatIn750(26));
         }];
         
-        UIButton *agreementBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *agreementBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [agreementBtn bk_addEventHandler:^(id sender) {
             weakSelf.isAgree = !weakSelf.isAgree;
         } forControlEvents:UIControlEventTouchUpInside];
@@ -477,9 +477,9 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = tag;
-    [menuBtn bk_whenTapped:^{
+    [menuBtn bk_addEventHandler:^(id sender) {
         if (tag == 0) {
            if ([WXApi isWXAppInstalled]) {
               SendAuthReq *req = [[SendAuthReq alloc] init];
@@ -505,7 +505,7 @@
                 [[ZLaunchManager sharedInstance] showMainTab];
             }
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:menuBtn];
     [menuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(tempView);

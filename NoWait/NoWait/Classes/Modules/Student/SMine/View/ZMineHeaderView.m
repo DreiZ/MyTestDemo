@@ -65,12 +65,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [setBtn bk_whenTapped:^{
+    UIButton *setBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [setBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(1);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:setBtn];
     [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(88));
@@ -151,12 +151,12 @@
 - (UIButton *)userInfoBtn {
     if (!_userInfoBtn) {
         __weak typeof(self) weakSelf = self;
-        _userInfoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_userInfoBtn bk_whenTapped:^{
+        _userInfoBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_userInfoBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _userInfoBtn;
 }

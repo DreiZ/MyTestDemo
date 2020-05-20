@@ -83,7 +83,7 @@
             multi = 0.75;
         }
         
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *btn = [[ZButton alloc] initWithFrame:CGRectZero];
         [btn addTarget:self action:@selector(btnOnclick:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:[UIImage imageNamed:imageArr[i]] forState:UIControlStateNormal];
         ViewRadius(btn, CGFloatIn750(100));
@@ -129,7 +129,7 @@
     if (!_loginBtn) {
         //    1：学员 2：教师 6：校区 8：机构
         __weak typeof(self) weakSelf = self;
-        _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _loginBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
             ZLoginCodeController *lvc = [[ZLoginCodeController alloc] init];
             if (weakSelf.selectIndex == 0) {
@@ -174,14 +174,14 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
+        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isSwitch) {
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             } else {
                 [[ZLaunchManager sharedInstance] showMainTab];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(CGFloatIn750(98));

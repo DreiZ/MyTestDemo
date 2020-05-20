@@ -21,6 +21,7 @@
 #import "UIScrollView+ZRefreshHeader.h"
 #import "UIScrollView+ZLoadMoreFooter.h"
 
+#import "ZButton.h"
 #import "ZBaseCellModel.h"
 #import "ZBaseCell.h"
 #import "ZBaseCollectionViewCell.h"
@@ -39,6 +40,7 @@
 #import "NSMutableArray+LYNil.h"
 #import "NSDictionary+LYNil.h"
 #import "NSMutableDictionary+LYNil.h"
+#import "UIControl+JQ.h"
 
 #import "ZPhotoManager.h"
 #import "DarkModel.h"

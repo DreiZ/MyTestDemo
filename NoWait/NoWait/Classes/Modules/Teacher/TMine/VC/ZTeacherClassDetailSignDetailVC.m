@@ -178,7 +178,8 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        
         [_navRightBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
         
         UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(CGFloatIn750(30), CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(30) *(45.0/55.0f))];
@@ -188,7 +189,7 @@
         [_navRightBtn addSubview:photo];
         
         ViewRadius(_navRightBtn, CGFloatIn750(25));
-        [_navRightBtn bk_whenTapped:^{
+        [_navRightBtn bk_addEventHandler:^(id sender) {
             [[ZPhotoManager sharedManager] showOriginalSelectMenuWithType:LLImageTypeCamera complete:^(NSArray<LLImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     weakSelf.avterImage = list[0].image;
@@ -207,7 +208,7 @@
                     }
                 }
             }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
 }

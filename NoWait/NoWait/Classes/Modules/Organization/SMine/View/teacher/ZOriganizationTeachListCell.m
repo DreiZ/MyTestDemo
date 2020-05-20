@@ -94,12 +94,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [coverBtn bk_whenTapped:^{
+    UIButton *coverBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [coverBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.contView addSubview:coverBtn];
@@ -202,12 +202,12 @@
 - (UIButton *)selectBtn {
     if (!_selectBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_selectBtn bk_whenTapped:^{
+        _selectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_selectBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(10);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _selectBtn;
 }

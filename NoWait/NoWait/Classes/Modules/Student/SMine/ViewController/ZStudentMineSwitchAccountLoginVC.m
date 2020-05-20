@@ -176,10 +176,10 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_whenTapped:^{
+        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         [_navView addSubview:backBtn];
         [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(CGFloatIn750(98));
@@ -218,7 +218,7 @@
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
         __weak typeof(self) weakSelf = self;
-        _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _loginBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isCode) {
                 [weakSelf codeLogin];
@@ -404,9 +404,9 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = tag;
-    [menuBtn bk_whenTapped:^{
+    [menuBtn bk_addEventHandler:^(id sender) {
         if (tag == 0) {
             
         }else if (tag == 1){
@@ -415,7 +415,7 @@
             lvc.isCode = YES;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:menuBtn];
     [menuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(tempView);

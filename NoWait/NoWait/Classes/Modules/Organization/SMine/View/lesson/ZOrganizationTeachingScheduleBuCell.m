@@ -226,10 +226,10 @@
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_editBtn setImage:[UIImage imageNamed:@"unSelectedCycle"] forState:UIControlStateNormal];
         ViewRadius(_editBtn, CGFloatIn750(22));
-        [_editBtn bk_whenTapped:^{
+        [_editBtn bk_addEventHandler:^(id sender) {
             weakSelf.model.isSelected = !weakSelf.model.isSelected;
             if (weakSelf.model.isSelected) {
                 [weakSelf.editBtn setImage:[UIImage imageNamed:@"selectedCycle"] forState:UIControlStateNormal];
@@ -239,7 +239,7 @@
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _editBtn;
 }

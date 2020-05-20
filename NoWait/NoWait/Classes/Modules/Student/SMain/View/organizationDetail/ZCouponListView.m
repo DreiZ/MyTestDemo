@@ -58,7 +58,7 @@ static ZCouponListView *sharedManager;
     _dataSources = @[].mutableCopy;
     _param = @{}.mutableCopy;
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -107,19 +107,19 @@ static ZCouponListView *sharedManager;
 
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_bottomBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             if ([self.type isEqualToString:@"use"]) {
                 if (self.handleBlock) {
                     self.handleBlock(nil);
                 }
             }
             [self removeFromSuperview];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

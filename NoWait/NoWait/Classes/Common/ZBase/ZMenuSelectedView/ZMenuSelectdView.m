@@ -55,7 +55,7 @@
         CGSize atomTitleWidth = [atomTempStr tt_sizeWithFont:[UIFont fontContent]];
         rc.size.width = atomTitleWidth.width + atomWidth;
         [_ratioWidthArr addObject:[NSNumber numberWithFloat:atomTitleWidth.width + atomWidth]];
-        UIButton *tempBtn = [[UIButton alloc] initWithFrame:rc];
+        UIButton *tempBtn = [[ZButton alloc] initWithFrame:rc];
         [tempBtn setTitle:atomTempStr forState:UIControlStateNormal];
         [tempBtn.titleLabel setFont:[UIFont fontTitle]];
         [tempBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];

@@ -80,12 +80,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *clubtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [clubtn bk_whenTapped:^{
+    UIButton *clubtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [clubtn bk_addEventHandler:^(id sender) {
         if (weakSelf.evaBlock) {
             weakSelf.evaBlock(1);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:clubtn];
     [clubtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.topView);

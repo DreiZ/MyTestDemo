@@ -93,13 +93,13 @@
 
 - (UIButton *)editBtn {
     if (!_editBtn) {
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         __weak typeof(self) weakSelf = self;
-        [_editBtn bk_whenTapped:^{
+        [_editBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _editBtn;

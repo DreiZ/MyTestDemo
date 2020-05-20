@@ -295,16 +295,16 @@
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {
          __weak typeof(self) weakSelf = self;
-         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+         _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-         [_navRightBtn bk_whenTapped:^{
+         [_navRightBtn bk_addEventHandler:^(id sender) {
              ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
              avc.viewModel.addModel = weakSelf.addModel;
              avc.isEdit = YES;
              [weakSelf.navigationController pushViewController:avc animated:YES];
-         }];
+         } forControlEvents:UIControlEventTouchUpInside];
      }
      return _navRightBtn;
 }
@@ -312,18 +312,18 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"升级明星学员" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             ZOrganizationStudentUpStarVC *uvc = [[ZOrganizationStudentUpStarVC alloc] init];
             uvc.addModel = weakSelf.addModel;
             [weakSelf.navigationController pushViewController:uvc animated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

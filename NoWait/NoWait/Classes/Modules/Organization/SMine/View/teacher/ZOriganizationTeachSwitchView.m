@@ -82,7 +82,7 @@
 - (UIButton *)switchBtn {
     if (!_switchBtn) {
         __weak typeof(self) weakSelf = self;
-        _switchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _switchBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_switchBtn setTitle:@"切换账户" forState:UIControlStateNormal];
         [_switchBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -90,11 +90,11 @@
         [_switchBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_switchBtn setImage:image forState:UIControlStateNormal];
         
-        [_switchBtn bk_whenTapped:^{
+        [_switchBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _switchBtn;
 }

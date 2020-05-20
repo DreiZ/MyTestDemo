@@ -110,7 +110,7 @@
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
-        _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_leftBtn setTitle:@"带课教师" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -119,7 +119,7 @@
             make.left.equalTo(self.leftBtn.titleLabel.mas_right);
             make.centerY.equalTo(self.leftBtn.mas_centerY);
         }];
-        [_leftBtn bk_whenTapped:^{
+        [_leftBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isInside) {
                 if (weakSelf.filterBlock) {
                     weakSelf.filterBlock(0, nil);
@@ -135,7 +135,7 @@
                 [weakSelf.filterView setLeftName:self.leftBtn.titleLabel.text right:self.midBtn.titleLabel.text];
                 [weakSelf.filterView showFilterWithIndex:0];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftBtn;
 }
@@ -143,7 +143,7 @@
 - (UIButton *)midBtn {
     if (!_midBtn) {
         __weak typeof(self) weakSelf = self;
-        _midBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _midBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_midBtn setTitle:@"学员状态" forState:UIControlStateNormal];
         [_midBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_midBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -152,7 +152,7 @@
             make.left.equalTo(self.midBtn.titleLabel.mas_right);
             make.centerY.equalTo(self.midBtn.mas_centerY);
         }];
-        [_midBtn bk_whenTapped:^{
+        [_midBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isInside) {
                 if (weakSelf.filterBlock) {
                     weakSelf.filterBlock(1, nil);
@@ -168,14 +168,14 @@
                 [weakSelf.filterView setLeftName:self.leftBtn.titleLabel.text right:self.midBtn.titleLabel.text];
                 [weakSelf.filterView showFilterWithIndex:1];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _midBtn;
 }
 
 - (UIButton *)rightBtn {
     if (!_rightBtn) {
-        _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_rightBtn setTitle:@"来源渠道" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontSmall]];

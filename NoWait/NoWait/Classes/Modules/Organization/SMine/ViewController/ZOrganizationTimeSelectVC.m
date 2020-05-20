@@ -164,17 +164,17 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navRightBtn bk_whenTapped:^{
+        [_navRightBtn bk_addEventHandler:^(id sender) {
             [weakSelf sortTime];
             if (weakSelf.timeBlock) {
                 weakSelf.timeBlock(weakSelf.dataSources);
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
 }
@@ -334,9 +334,9 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *addBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [addView addSubview:addBtn];
-    [addBtn bk_whenTapped:^{
+    [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isStartAndEnd) {
             [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
                 ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
@@ -350,7 +350,7 @@
                 [weakSelf checkSeletTime:date];
             }];
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(addView);
     }];

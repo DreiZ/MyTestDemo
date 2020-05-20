@@ -69,12 +69,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *lessonBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [lessonBtn bk_whenTapped:^{
+    UIButton *lessonBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [lessonBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1, weakSelf.model);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:lessonBtn];
     [lessonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(topView);
@@ -175,16 +175,16 @@
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_editBtn setTitle:@"新建排课" forState:UIControlStateNormal];
         [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
-        [_editBtn bk_whenTapped:^{
+        [_editBtn bk_addEventHandler:^(id sender) {
             
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _editBtn;
 }

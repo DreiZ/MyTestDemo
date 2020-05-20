@@ -56,7 +56,7 @@ static ZAlertUpdateAppView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-//    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+//    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
 //    [backBtn bk_addEventHandler:^(id sender) {
 //        [self removeFromSuperview];
 //    } forControlEvents:UIControlEventTouchUpInside];
@@ -234,7 +234,7 @@ static ZAlertUpdateAppView *sharedManager;
             make.bottom.equalTo(self.closeView.mas_bottom);
         }];
         
-        UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        UIButton *closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [closeBtn bk_addEventHandler:^(id sender) {
             if (self.handleBlock) {
                 self.handleBlock(0);
@@ -252,7 +252,7 @@ static ZAlertUpdateAppView *sharedManager;
 
 - (UIButton *)updateBtn {
     if (!_updateBtn) {
-        _updateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _updateBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_updateBtn setTitle:@"立即更新" forState:UIControlStateNormal];
         [_updateBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_updateBtn.titleLabel setFont:[UIFont fontContent]];

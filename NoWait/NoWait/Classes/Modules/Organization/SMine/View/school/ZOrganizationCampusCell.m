@@ -99,7 +99,7 @@
 - (UIButton *)switchUserBtn {
     if (!_switchUserBtn) {
 //        __weak typeof(self) weakSelf = self;
-        _switchUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _switchUserBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_switchUserBtn setTitle:@"切换账户" forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_switchUserBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -107,9 +107,9 @@
         [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_switchUserBtn setImage:image forState:UIControlStateNormal];
         
-        [_switchUserBtn bk_whenTapped:^{
+        [_switchUserBtn bk_addEventHandler:^(id sender) {
             
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _switchUserBtn;
 }

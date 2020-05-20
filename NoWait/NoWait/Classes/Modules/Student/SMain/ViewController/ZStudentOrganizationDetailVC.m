@@ -115,14 +115,14 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"财源俱乐部" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
         [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }
@@ -130,16 +130,16 @@
 - (UIButton *)subscribeBtn {
     if (!_subscribeBtn) {
         __weak typeof(self) weakSelf = self;
-        _subscribeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _subscribeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _subscribeBtn.layer.masksToBounds = YES;
         _subscribeBtn.layer.cornerRadius = CGFloatIn750(44);
         _subscribeBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_subscribeBtn.titleLabel setFont:[UIFont fontTitle]];
         [_subscribeBtn setTitle:@"体验" forState:UIControlStateNormal];
         [_subscribeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_subscribeBtn bk_whenTapped:^{
+        [_subscribeBtn bk_addEventHandler:^(id sender) {
             [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeSubscribeInitial];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _subscribeBtn;
 }
@@ -148,16 +148,16 @@
 - (UIButton *)buyBtn {
     if (!_buyBtn) {
         __weak typeof(self) weakSelf = self;
-        _buyBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _buyBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _buyBtn.layer.masksToBounds = YES;
         _buyBtn.layer.cornerRadius = CGFloatIn750(44);
         _buyBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_buyBtn.titleLabel setFont:[UIFont fontTitle]];
         [_buyBtn setTitle:@"购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
-        [_buyBtn bk_whenTapped:^{
+        [_buyBtn bk_addEventHandler:^(id sender) {
             [weakSelf.selectView showSelectViewWithType:ZLessonBuyTypeBuyInitial];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _buyBtn;
 }

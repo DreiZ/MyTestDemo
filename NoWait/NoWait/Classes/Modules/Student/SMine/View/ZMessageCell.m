@@ -52,12 +52,12 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [sendBtn bk_whenTapped:^{
+    UIButton *sendBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [sendBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(self.model);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:sendBtn];
     [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(160));

@@ -58,13 +58,13 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_navLeftBtn bk_whenTapped:^{
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
 }
@@ -72,14 +72,14 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_navRightBtn bk_whenTapped:^{
+        [_navRightBtn bk_addEventHandler:^(id sender) {
             NSMutableArray *temp = [weakSelf getSelect];
             if (temp && temp.count > 0) {
                 if (weakSelf.handleBlock) {
@@ -89,7 +89,7 @@
             }else{
                 [TLUIUtility showErrorHint:@"您还没有选择课程"];
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
 }

@@ -148,11 +148,11 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navRightBtn bk_whenTapped:^{
+        [_navRightBtn bk_addEventHandler:^(id sender) {
             [[ZUserHelper sharedHelper] checkLogin:^{
                 ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
                 rvc.sTitle = self.detailModel.name;
@@ -171,7 +171,7 @@
 //                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"logo"] url:@"www.baidu.com" vc:self];
 //                }
 //            }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
 }

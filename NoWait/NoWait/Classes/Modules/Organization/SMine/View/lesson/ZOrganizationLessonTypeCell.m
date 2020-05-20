@@ -71,15 +71,15 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [leftBtn bk_whenTapped:^{
+    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [leftBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isEdit) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);
             }
             weakSelf.isGu = @"1";
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
@@ -87,15 +87,15 @@
         make.right.equalTo(self.leftImageView.mas_right);
     }];
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [rightBtn bk_whenTapped:^{
+    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [rightBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isEdit) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
             }
             weakSelf.isGu = @"2";
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
@@ -103,12 +103,12 @@
         make.right.equalTo(self.rightImageView.mas_right);
     }];
     
-    UIButton *hintBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [hintBtn bk_whenTapped:^{
+    UIButton *hintBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    [hintBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(2);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:hintBtn];
     [hintBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);

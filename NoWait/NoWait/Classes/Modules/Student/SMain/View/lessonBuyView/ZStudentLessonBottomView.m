@@ -53,7 +53,7 @@
 
 - (UIButton *)cancelBtn {
     if (!_cancelBtn) {
-        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _cancelBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _cancelBtn.layer.masksToBounds = YES;
         _cancelBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_cancelBtn setTitle:@"撤销预约" forState:UIControlStateNormal];
@@ -66,7 +66,7 @@
 
 - (UIButton *)payBtn {
     if (!_payBtn) {
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _payBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _payBtn.layer.masksToBounds = YES;
         _payBtn.layer.borderColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]).CGColor;
         _payBtn.layer.borderWidth = 1;

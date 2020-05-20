@@ -196,16 +196,16 @@
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {
          __weak typeof(self) weakSelf = self;
-         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+         _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-         [_navRightBtn bk_whenTapped:^{
+         [_navRightBtn bk_addEventHandler:^(id sender) {
             ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
             avc.viewModel.addModel = weakSelf.addModel;
             avc.isEdit = YES;
             [weakSelf.navigationController pushViewController:avc animated:YES];
-         }];
+         } forControlEvents:UIControlEventTouchUpInside];
      }
      return _navRightBtn;
 }

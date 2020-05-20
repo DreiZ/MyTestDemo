@@ -12,7 +12,7 @@
 
 - (id)initWithBackTitle:(NSString *)title target:(id)target action:(SEL)action
 {
-    UIButton *view = [[UIButton alloc] init];
+    UIButton *view = [[ZButton alloc] init];
     [view addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_arrow"]];

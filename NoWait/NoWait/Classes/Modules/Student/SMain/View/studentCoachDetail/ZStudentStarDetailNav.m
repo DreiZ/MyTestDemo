@@ -73,13 +73,13 @@
 - (UIButton *)arrowBtn {
     if (!_arrowBtn) {
         __weak typeof(self) weakSelf = self;
-        _arrowBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _arrowBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_arrowBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBackDark"] forState:UIControlStateNormal];
-        [_arrowBtn bk_whenTapped:^{
+        [_arrowBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.backBlock) {
                 weakSelf.backBlock(0);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _arrowBtn;
 }

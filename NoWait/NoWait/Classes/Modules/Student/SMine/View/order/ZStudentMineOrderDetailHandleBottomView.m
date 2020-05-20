@@ -176,17 +176,17 @@
 - (UIButton *)payBtn {
     if (!_payBtn) {
         __weak typeof(self) weakSelf = self;
-        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _payBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont fontContent]];
         _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         ViewBorderRadius(_payBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_payBtn bk_whenTapped:^{
+        [_payBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypePay);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _payBtn;
 }
@@ -194,16 +194,16 @@
 - (UIButton *)cancleBtn {
     if (!_cancleBtn) {
         __weak typeof(self) weakSelf = self;
-        _cancleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _cancleBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_cancleBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_cancleBtn bk_whenTapped:^{
+        [_cancleBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeCancel);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancleBtn;
 }
@@ -211,16 +211,16 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_delBtn bk_whenTapped:^{
+        [_delBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeDelete);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _delBtn;
 }
@@ -229,16 +229,16 @@
 - (UIButton *)evaBtn {
     if (!_evaBtn) {
         __weak typeof(self) weakSelf = self;
-        _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _evaBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_evaBtn setTitle:@"评价" forState:UIControlStateNormal];
         [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_evaBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_evaBtn bk_whenTapped:^{
+        [_evaBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeEva);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _evaBtn;
 }
@@ -246,7 +246,7 @@
 
 - (UIButton *)telBtn {
     if (!_telBtn) {
-        _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _telBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         _telBtn.layer.masksToBounds = YES;
 //        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
         _telBtn.imageView.size = CGSizeMake(CGFloatIn750(22), CGFloatIn750(28));
@@ -255,11 +255,11 @@
         [_telBtn.titleLabel setFont:[UIFont boldFontContent]];
         _telBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         __weak typeof(self) weakSelf = self;
-        [_telBtn bk_whenTapped:^{
+        [_telBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeTel);
             }
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
         
         [_telBtn addSubview:self.telImageView];
         [self.telImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -283,17 +283,17 @@
 - (UIButton *)refuseBtn {
     if (!_refuseBtn) {
         __weak typeof(self) weakSelf = self;
-        _refuseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refuseBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refuseBtn setTitle:@"同意退款" forState:UIControlStateNormal];
         [_refuseBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refuseBtn.titleLabel setFont:[UIFont fontContent]];
         _refuseBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         ViewBorderRadius(_refuseBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_refuseBtn bk_whenTapped:^{
+        [_refuseBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeORefund);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refuseBtn;
 }
@@ -301,17 +301,17 @@
 - (UIButton *)receivedBtn {
     if (!_receivedBtn) {
         __weak typeof(self) weakSelf = self;
-        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _receivedBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
         [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
         _receivedBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
 //        ViewBorderRadius(_receivedBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_receivedBtn bk_whenTapped:^{
+        [_receivedBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeOrderReceive);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _receivedBtn;
 }
@@ -320,16 +320,16 @@
 - (UIButton *)receivedNOBtn {
     if (!_receivedNOBtn) {
         __weak typeof(self) weakSelf = self;
-        _receivedNOBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _receivedNOBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_receivedNOBtn setTitle:@"拒绝预约" forState:UIControlStateNormal];
         [_receivedNOBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_receivedNOBtn.titleLabel setFont:[UIFont boldFontContent]];
         ViewBorderRadius(_receivedNOBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_receivedNOBtn bk_whenTapped:^{
+        [_receivedNOBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeOrderNOReceive);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _receivedBtn;
 }
@@ -337,16 +337,16 @@
 - (UIButton *)refundSureBtn {
     if (!_refundSureBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refundSureBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refundSureBtn setTitle:@"接受退款" forState:UIControlStateNormal];
         [_refundSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundSureBtn.titleLabel setFont:[UIFont boldFontContent]];
         _refundSureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_refundSureBtn bk_whenTapped:^{
+        [_refundSureBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeSRefund);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refundSureBtn;
 }
@@ -354,16 +354,16 @@
 - (UIButton *)refundRefectBtn {
     if (!_refundRefectBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundRefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refundRefectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refundRefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
         [_refundRefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_refundRefectBtn.titleLabel setFont:[UIFont boldFontContent]];
         _refundRefectBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        [_refundRefectBtn bk_whenTapped:^{
+        [_refundRefectBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeSRefundReject);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refundRefectBtn;
 }
@@ -372,16 +372,16 @@
 - (UIButton *)refundOSureBtn {
     if (!_refundOSureBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundOSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refundOSureBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refundOSureBtn setTitle:@"同意退款" forState:UIControlStateNormal];
         [_refundOSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundOSureBtn.titleLabel setFont:[UIFont boldFontContent]];
         _refundOSureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_refundOSureBtn bk_whenTapped:^{
+        [_refundOSureBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeORefund);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refundOSureBtn;
 }
@@ -390,16 +390,16 @@
 - (UIButton *)refundORefectBtn {
     if (!_refundORefectBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundORefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refundORefectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refundORefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
         [_refundORefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_refundORefectBtn.titleLabel setFont:[UIFont boldFontContent]];
         _refundORefectBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        [_refundORefectBtn bk_whenTapped:^{
+        [_refundORefectBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeORefundReject);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refundORefectBtn;
 }
@@ -408,16 +408,16 @@
 - (UIButton *)refundPayBtn {
     if (!_refundPayBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundPayBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _refundPayBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_refundPayBtn setTitle:@"支付退款" forState:UIControlStateNormal];
         [_refundPayBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundPayBtn.titleLabel setFont:[UIFont boldFontContent]];
         _refundPayBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_refundPayBtn bk_whenTapped:^{
+        [_refundPayBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(ZLessonOrderHandleTypeRefundPay);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _refundPayBtn;
 }

@@ -49,20 +49,20 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
         [_bottomBtn setTitle:@"设置线下学员学习进度" forState:UIControlStateNormal];
 
         [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         
-        [_bottomBtn bk_whenTapped:^{
+        [_bottomBtn bk_addEventHandler:^(id sender) {
             [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"学员进度只可修改一次，请谨慎修改提交" leftBtnTitle:@"取消" rightBtnTitle:@"提交" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     [weakSelf updateData];
                 }
             }];
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
 }

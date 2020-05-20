@@ -20,7 +20,7 @@
 
 -(void)setupView
 {
-    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     doneBtn.layer.masksToBounds = YES;
     doneBtn.layer.cornerRadius = CGFloatIn750(50);
     [doneBtn setTitle:@"提现" forState:UIControlStateNormal];
@@ -37,11 +37,11 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    [doneBtn bk_whenTapped:^{
+    [doneBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
         }
-    }];
+    } forControlEvents:UIControlEventTouchUpInside];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

@@ -317,16 +317,16 @@
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
-        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_editBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_editBtn bk_whenTapped:^{
+        [_editBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _editBtn;
 }
@@ -334,16 +334,16 @@
 - (UIButton *)closeBtn {
     if (!_closeBtn) {
         __weak typeof(self) weakSelf = self;
-        _closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_closeBtn setTitle:@"关闭课程" forState:UIControlStateNormal];
         [_closeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_closeBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_closeBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_closeBtn bk_whenTapped:^{
+        [_closeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _closeBtn;
 }
@@ -351,16 +351,16 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_delBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_delBtn bk_whenTapped:^{
+        [_delBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _delBtn;
 }
@@ -369,17 +369,17 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"开放课程" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_openBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_openBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
-        [_openBtn bk_whenTapped:^{
+        [_openBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(3,self.model);
             };
-        }];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _openBtn;
 }
