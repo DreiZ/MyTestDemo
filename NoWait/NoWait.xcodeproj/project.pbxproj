@@ -23,6 +23,7 @@
 		B215843B23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843A23CD58DF007618CE /* ZStudentStarInfoCoachMoreEvaCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
+		B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B218063A24760D1F00A124D9 /* ZDBMainStore.m */; };
 		B21887B22436D95700EB7155 /* ZSignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B12436D95700EB7155 /* ZSignModel.m */; };
 		B21887B62436D9F300EB7155 /* ZSignViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B52436D9F300EB7155 /* ZSignViewModel.m */; };
 		B21887B92437085200EB7155 /* ZStudentOrderRefundHandleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B82437085200EB7155 /* ZStudentOrderRefundHandleVC.m */; };
@@ -726,6 +727,9 @@
 		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
 		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
 		B215844023CD6544007618CE /* MGWaterDorpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGWaterDorpView.h; sourceTree = "<group>"; };
+		B218063924760D1F00A124D9 /* ZDBMainStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDBMainStore.h; sourceTree = "<group>"; };
+		B218063A24760D1F00A124D9 /* ZDBMainStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZDBMainStore.m; sourceTree = "<group>"; };
+		B218063C24760D6900A124D9 /* ZDBMainStoreSQL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDBMainStoreSQL.h; sourceTree = "<group>"; };
 		B21887B02436D95700EB7155 /* ZSignModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSignModel.h; sourceTree = "<group>"; };
 		B21887B12436D95700EB7155 /* ZSignModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSignModel.m; sourceTree = "<group>"; };
 		B21887B42436D9F300EB7155 /* ZSignViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSignViewModel.h; sourceTree = "<group>"; };
@@ -2078,6 +2082,16 @@
 				B215843F23CD6544007618CE /* UIColor+MGHexColor.m */,
 			);
 			path = MGWaterDorpView;
+			sourceTree = "<group>";
+		};
+		B218063824760CDB00A124D9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B218063924760D1F00A124D9 /* ZDBMainStore.h */,
+				B218063A24760D1F00A124D9 /* ZDBMainStore.m */,
+				B218063C24760D6900A124D9 /* ZDBMainStoreSQL.h */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		B21887B32436D9D700EB7155 /* ViewModel */ = {
@@ -3627,6 +3641,7 @@
 		B2A780C623BED31500407BF0 /* SMain */ = {
 			isa = PBXGroup;
 			children = (
+				B218063824760CDB00A124D9 /* Store */,
 				B2A7811423C2E50800407BF0 /* ViewModel */,
 				B2A7811323C2E4FF00407BF0 /* Model */,
 				B2A7811223C2E4E900407BF0 /* View */,
@@ -5031,6 +5046,7 @@
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B28EA672240E4A1400C8E225 /* ZOrganizationCardListVC.m in Sources */,
 				B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */,
+				B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
 				B24D993523FBDBDE0078A458 /* ZOrganizationCampusManageTimeVC.m in Sources */,
 				B28D914E2407926B0021E05A /* ZOriganizationLessonViewModel.m in Sources */,

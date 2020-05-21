@@ -9,6 +9,7 @@
 #import "ZStudentMainViewModel.h"
 #import "ZOriganizationModel.h"
 #import "ZStudentMainModel.h"
+#import "ZDBMainStore.h"
 
 @implementation ZStudentMainViewModel
 
@@ -126,4 +127,35 @@
         }
     }];
 }
+
++ (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners {
+    return [[ZDBMainStore shareManager] updateMainBanners:banners];
+}
+
++ (BOOL)updateMainPlaceholders:(NSArray <ZAdverListModel *>*)banners {
+    return [[ZDBMainStore shareManager] updateMainPlaceholders:banners];
+}
+
++ (NSArray <ZAdverListModel *>*)mainBannerData {
+    return [[ZDBMainStore shareManager] mainBannerData];
+}
+
++ (NSArray <ZAdverListModel *>*)mainPlaceholderData {
+    return [[ZDBMainStore shareManager] mainPlaceholderData];
+}
+
+
++ (BOOL)updateMainClassifysOne:(NSArray <ZMainClassifyOneModel *>*)banners {
+    return [[ZDBMainStore shareManager] updateMainClassifysOne:banners];
+}
+
++ (NSArray <ZMainClassifyOneModel *>*)mainClassifyOneData {
+    return [[ZDBMainStore shareManager] mainClassifyOneData];
+}
+
++ (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoData {
+    return [[ZDBMainStore shareManager] mainClassifyTwoData];
+}
+
+
 @end

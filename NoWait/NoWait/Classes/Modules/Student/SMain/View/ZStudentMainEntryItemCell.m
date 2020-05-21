@@ -27,7 +27,7 @@
     [self.contentView addSubview:self.titleLabel];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView.mas_centerX);
-        make.width.height.mas_equalTo(CGFloatIn750(62));
+        make.width.height.mas_equalTo(CGFloatIn750(52));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(16));
     }];
     
@@ -42,6 +42,7 @@
         _imageView = [[UIImageView alloc] init];
         _imageView.layer.masksToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        ViewRadius(_imageView, CGFloatIn750(26));
     }
     return _imageView;
 }

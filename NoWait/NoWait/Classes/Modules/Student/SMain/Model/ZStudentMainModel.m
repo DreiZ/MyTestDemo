@@ -8,6 +8,20 @@
 
 #import "ZStudentMainModel.h"
 
+
+@implementation ZMainClassifyTwoModel
+
+@end
+
+@implementation ZMainClassifyOneModel
+
+@end
+
+@implementation ZMainClassifyModel
+
+
+@end
+
 @implementation ZStudentPhotoWallItemModel
 
 

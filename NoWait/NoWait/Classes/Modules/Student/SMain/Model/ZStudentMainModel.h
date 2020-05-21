@@ -8,6 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ZMainClassifyTwoModel : NSObject
+@property (nonatomic,strong) NSString *imageName;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *classify_id;
+@property (nonatomic,strong) NSString *superClassify_id;
+@end
+
+@interface ZMainClassifyOneModel : NSObject
+@property (nonatomic,strong) NSString *imageName;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *classify_id;
+@property (nonatomic,strong) NSArray <ZMainClassifyTwoModel *>*secondary;
+@end
+
+
+@interface ZMainClassifyModel : NSObject
+@property (nonatomic,strong) NSString *imageName;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *classify_id;
+
+@end
+
 @interface ZStudentPhotoWallItemModel : NSObject
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;

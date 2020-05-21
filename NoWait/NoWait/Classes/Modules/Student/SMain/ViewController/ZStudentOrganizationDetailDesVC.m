@@ -18,9 +18,7 @@
 #import "ZOrganizationDetailBottomView.h"
 #import "ZStudentOrganizationBannerCell.h"
 
-//#import "ZStudentOrganizationLessonDetailVC.h"
 #import "ZStudentStarStudentListVC.h"
-#import "ZStudentStarCoachListVC.h"
 #import "ZStudentStarCoachInfoVC.h"
 #import "ZStudentStarStudentInfoVC.h"
 

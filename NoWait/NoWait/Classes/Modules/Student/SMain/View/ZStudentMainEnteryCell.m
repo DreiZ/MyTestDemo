@@ -62,7 +62,7 @@
         layout.minimumLineSpacing= 0;
         layout.minimumInteritemSpacing = 0;
         layout.itemSize = CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
@@ -107,6 +107,11 @@
 }
 
 
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(0), CGFloatIn750(10), CGFloatIn750(0));
+}
+
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (_channelList.count < 5 && _channelList.count > 0) {
         return CGSizeMake(KScreenWidth/_channelList.count, CGFloatIn750(128));
@@ -121,6 +126,10 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(150);
+    NSArray *list = sender;
+    if (list.count%4 > 0) {
+        return (list.count/4 + 1) * CGFloatIn750(128) + ((list.count/4) * CGFloatIn750(10))+ CGFloatIn750(20);
+    }
+    return list.count/4  * CGFloatIn750(128) + (list.count/4 - 1)  * CGFloatIn750(10) + CGFloatIn750(20);
 }
 @end

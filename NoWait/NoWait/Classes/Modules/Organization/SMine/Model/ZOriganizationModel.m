@@ -263,12 +263,56 @@
 
 @implementation ZAdverListContentModel
 
+- (NSString *)tranModelToJSON {
+    NSMutableDictionary *dict = @{}.mutableCopy;
+    if (ValidStr(self.course)) {
+        [dict setObject:self.course forKey:@"course"];
+    }
+    
+    if (ValidStr(self.stores)) {
+        [dict setObject:self.stores forKey:@"stores"];
+    }
+
+    if (ValidStr(self.url)) {
+        [dict setObject:self.url forKey:@"url"];
+    }
+    
+    if (ValidStr(self.fix_html)) {
+        [dict setObject:self.fix_html forKey:@"fix_html"];
+    }
+    
+    return getJSONStr(dict);
+}
+
++ (ZAdverListContentModel *)getModelFromStr:(NSString *)jsonStr {
+    ZAdverListContentModel *model = [[ZAdverListContentModel alloc] init];
+    NSDictionary *dict = [jsonStr zz_JSONValue];
+    if (ValidDict(dict)) {
+        if ([dict objectForKey:@"course"]) {
+            model.course = dict[@"course"];
+        }
+        
+        if ([dict objectForKey:@"stores"]) {
+            model.stores = dict[@"stores"];
+        }
+        
+        if ([dict objectForKey:@"url"]) {
+            model.url = dict[@"url"];
+        }
+        
+        if ([dict objectForKey:@"fix_html"]) {
+            model.fix_html = dict[@"fix_html"];
+        }
+    }
+    return model;
+}
 @end
 
 @implementation ZAdverListModel : ZBaseModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"ad_id" : @"id"};
 }
+
 @end
 
 @implementation ZAdverListNetModel

@@ -39,6 +39,7 @@
 @property (nonatomic,strong) NSMutableArray *photoWallArr;
 @property (nonatomic,strong) NSMutableArray *AdverArr;
 @property (nonatomic,strong) NSMutableArray *placeholderArr;
+@property (nonatomic,strong) NSMutableArray *classifyArr;
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,assign) BOOL isLoacation;
 @end
@@ -62,6 +63,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
     
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
@@ -89,8 +93,9 @@
     _photoWallArr = @[].mutableCopy;
     _AdverArr = @[].mutableCopy;
     _placeholderArr = @[].mutableCopy;
+    _classifyArr = @[].mutableCopy;
     
-    NSArray *entryArr = @[@[@"体育竞技",@"main_bool",@"1"],@[@"艺术舞蹈",@"main_yi",@"2"],@[@"兴趣爱好",@"main_aihao",@"3"],@[@"其他",@"main_more",@"4"]];
+    NSArray *entryArr = @[@[@"体育竞技",@"main_bool",@"1"],@[@"艺术舞蹈",@"main_yi",@"2"],@[@"兴趣爱好",@"main_aihao",@"3"],@[@"其他",@"main_more",@"4"],@[@"兴趣爱好",@"main_aihao",@"3"],@[@"其他",@"main_more",@"4"]];
     
     for (int i = 0; i < entryArr.count; i++) {
         ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
@@ -99,6 +104,45 @@
         model.sid = entryArr[i][2];
         [_enteryArr addObject:model];
     }
+    
+    NSArray *advers = [ZStudentMainViewModel mainBannerData];
+    NSArray *placeholder = [ZStudentMainViewModel mainPlaceholderData];
+    NSArray *classify = [ZStudentMainViewModel mainClassifyOneData];
+    if (ValidArray(advers)) {
+        [_AdverArr addObjectsFromArray:advers];
+    }
+    if (ValidArray(placeholder)) {
+        [_placeholderArr addObjectsFromArray:placeholder];
+    }
+    if (ValidArray(classify)) {
+        [_classifyArr addObjectsFromArray:classify];
+    }
+    
+    NSArray *ctitle = @[@"体育竞技", @"艺术舞蹈", @"兴趣爱好", @"早教/学习", @"小学初中", @"高中/高考", @"技能考证"];
+    NSArray *image = @[@"http://wx4.sinaimg.cn/mw600/44f2ef1bgy1gf03aodsmij20mk0v0wrr.jpg",
+                       @"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gf03bivmamj20hx0lkdng.jpg",
+                        @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gf03ehltu0j30rs15owkm.jpg",
+                        @"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gf03bcqa2wj20u0190tsl.jpg"];
+    NSMutableArray *data = @[].mutableCopy;
+    for (int i = 0; i < ctitle.count; i++) {
+        ZMainClassifyOneModel *oneModel = [[ZMainClassifyOneModel alloc] init];
+        oneModel.classify_id = [NSString stringWithFormat:@"%d",i];
+        oneModel.name = ctitle[i];
+        oneModel.imageName = image[i % 3];
+        
+        NSMutableArray *tdata = @[].mutableCopy;
+        for (int j = 0; j < ctitle.count; j++) {
+            ZMainClassifyTwoModel *twoModel = [[ZMainClassifyTwoModel alloc] init];
+            twoModel.classify_id = [NSString stringWithFormat:@"%d",j];
+            twoModel.name = ctitle[j];
+            twoModel.imageName = image[j % 3];
+            twoModel.superClassify_id = [NSString stringWithFormat:@"%d",i];
+            [tdata addObject:twoModel];
+        }
+        oneModel.secondary = tdata;
+        [data addObject:oneModel];
+    }
+    [ZStudentMainViewModel updateMainClassifysOne:data];
 }
 
 - (void)setupMainView {
@@ -134,7 +178,7 @@
        [sectionArr addObject:topCellConfig];
     }
     
-    ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:_enteryArr];
+    ZCellConfig *enteryCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainEnteryCell className] title:@"ZStudentMainEnteryCell" showInfoMethod:@selector(setChannelList:) heightOfCell:[ZStudentMainEnteryCell z_getCellHeight:_enteryArr] cellType:ZCellTypeClass dataModel:_enteryArr];
     [sectionArr addObject:enteryCellConfig];
     
     if (self.placeholderArr && self.placeholderArr.count){
@@ -422,6 +466,8 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             
+            [ZStudentMainViewModel updateMainBanners:data.shuffling];
+            [ZStudentMainViewModel updateMainPlaceholders:data.placeholder];
         }else{
             [weakSelf.iTableView reloadData];
         }
