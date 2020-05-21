@@ -114,9 +114,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (_channelList.count < 5 && _channelList.count > 0) {
-        return CGSizeMake(KScreenWidth/_channelList.count, CGFloatIn750(128));
+        return CGSizeMake(KScreenWidth/_channelList.count, CGFloatIn750(138));
     }
-    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(128));
+    return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(138));
 }
 
 #pragma mark 类型
@@ -128,8 +128,8 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     NSArray *list = sender;
     if (list.count%4 > 0) {
-        return (list.count/4 + 1) * CGFloatIn750(128) + ((list.count/4) * CGFloatIn750(10))+ CGFloatIn750(20);
+        return (list.count/4 + 1) * CGFloatIn750(138) + ((list.count/4) * CGFloatIn750(10))+ CGFloatIn750(20);
     }
-    return list.count/4  * CGFloatIn750(128) + (list.count/4 - 1)  * CGFloatIn750(10) + CGFloatIn750(20);
+    return list.count/4  * CGFloatIn750(138) + (list.count/4 - 1)  * CGFloatIn750(10) + CGFloatIn750(20);
 }
 @end

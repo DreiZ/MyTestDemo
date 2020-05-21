@@ -28,12 +28,12 @@
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView.mas_centerX);
         make.width.height.mas_equalTo(CGFloatIn750(52));
-        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(16));
+        make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(10));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.imageView.mas_centerX);
-        make.top.equalTo(self.imageView.mas_bottom).offset(CGFloatIn750(8));
+        make.top.equalTo(self.imageView.mas_bottom).offset(CGFloatIn750(20));
     }];
 }
 
@@ -51,10 +51,9 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextGray1]);
-        _titleLabel.text = @"hahaha";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont fontSmall]];
+        [_titleLabel setFont:[UIFont fontContent]];
     }
     return _titleLabel;
 }
