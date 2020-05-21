@@ -122,32 +122,12 @@
             [configArr addObject:menuCellConfig];
             [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
         }
-        NSArray *titleArr = @[@"1.推荐机构入住似锦平台，可收取该机构在平台第一年内交易额的0.5%；",
-        @"2.推荐用户下载似锦APP，可收取该用户在平台第一年交易额的1%；"];
-        
-        for (NSString *str in titleArr) {
-
-           ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
-            .titleLeft(str)
-            .fontLeft([UIFont fontContent])
-            .colorLeft([UIColor colorTextGray])
-            .colorDarkLeft([UIColor colorTextGrayDark])
-            .leftMultiLine(YES)
-            .lineHidden(YES)
-            .height(CGFloatIn750(30));
-
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [configArr addObject:menuCellConfig];
-            [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        }
-        [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        
+       
         {
-            NSString *title = @"注：在界面中，点击“提现”按钮，在打开界面中，可提现到支付宝，每周只可提现一次，单次提现额度必须为100的倍数且不可大于1000元。到账时间为及时到账。";
+            NSString *title = self.infoModel.annotations;
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
             .titleLeft(title)
-            .fontLeft([UIFont fontSmall])
+            .fontLeft([UIFont fontContent])
             .colorLeft([UIColor colorTextGray])
             .colorDarkLeft([UIColor colorTextGrayDark])
             .leftMultiLine(YES)

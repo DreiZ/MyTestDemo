@@ -63,7 +63,7 @@
     [self.cellConfigArr addObject:bottomCellConfig];
     
     _topView.nameLabel.text = [NSString stringWithFormat:@"账户信息：%@",ValidStr(self.model.mechanism_name)? self.model.mechanism_name : @""];
-    _topView.numLabel.text = [NSString stringWithFormat:@"￥%@",ValidStr(self.model.total_amount) ? SafeStr(self.model.total_amount):@"0"];
+    _topView.numLabel.text = [NSString stringWithFormat:@"￥%@",ValidStr(self.model.merchants_total_amount) ? SafeStr(self.model.merchants_total_amount):@"0"];
 }
 
 - (void)setNavigation {

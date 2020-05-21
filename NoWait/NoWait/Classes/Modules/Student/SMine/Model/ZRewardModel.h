@@ -89,6 +89,7 @@
 @property (nonatomic,copy) NSString *real_name;
 @property (nonatomic,copy) NSString *inviter_url;
 @property (nonatomic,copy) NSString *qrcode;
+@property (nonatomic,copy) NSString *annotations;
 @end
 
 @interface ZRewardModel : ZBaseModel

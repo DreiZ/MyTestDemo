@@ -506,14 +506,16 @@
 @end
 
 @interface ZStoresAccountModel : NSObject
-@property (nonatomic,strong) NSString *mechanism_name;
-@property (nonatomic,strong) NSString *notice;
-@property (nonatomic,strong) NSString *received_amount;
-@property (nonatomic,strong) NSString *settlement_method;
-@property (nonatomic,strong) NSString *now_receive_amount;
-@property (nonatomic,strong) NSString *pre_receive_amount;
-@property (nonatomic,strong) NSString *total_amount;
-@property (nonatomic,strong) NSString *wait_receive_amount;
+@property (nonatomic,strong) NSString *received_amount;  //已打金额
+@property (nonatomic,strong) NSString *pre_receive_amount;  //上周期应打金额
+@property (nonatomic,strong) NSString *now_receive_amount;  //本周期应打金额
+@property (nonatomic,strong) NSString *surplus_course_deposit;  //剩余课程质押金
+@property (nonatomic,strong) NSString *surplus_payment_amount;  //剩余待回款金额
+@property (nonatomic,strong) NSString *store_total_amount;         //校区交易总流水
+@property (nonatomic,strong) NSString *merchants_total_amount;         //机构交易总流水
+@property (nonatomic,strong) NSString *mechanism_name;            //账户信息
+@property (nonatomic,strong) NSString *settlement_method;            //结算方式 结算方式（1: 周，2:月)
+@property (nonatomic,strong) NSString *notice;//须知
 @property (nonatomic,strong) NSString *annotations;
 
 @property (nonatomic,strong) NSArray <ZStoresAccountListModel *>*list_stores;
