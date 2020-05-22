@@ -227,7 +227,8 @@
         __weak typeof(self) weakSelf = self;
         _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
-        _sectionView.titleSelect = ^(NSInteger index) {
+        _sectionView.tableView = self.iTableView;
+        _sectionView.titleSelect = ^(NSInteger index, void (^menuAfterTime)(void)) {
             CGFloat topHeight = 0;
             topHeight += [ZStudentMainEnteryCell z_getCellHeight:self.enteryArr];
             if (self.AdverArr && self.AdverArr.count > 0) {
@@ -240,28 +241,35 @@
             
             if (weakSelf.iTableView.contentOffset.y < topHeight) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.iTableView setContentOffset:CGPointMake(0,topHeight) animated:YES];
+                    [weakSelf.iTableView setContentOffset:CGPointMake(0,topHeight) animated:NO];
+                    menuAfterTime();
                 });
+            }else{
+                menuAfterTime();
             }
+            
         };
-        _sectionView.dataBlock = ^(NSDictionary *tDict) {
-            if (tDict && [tDict objectForKey:@"type"]) {
-                [weakSelf.param setObject:tDict[@"type"] forKey:@"stores_type"];
-            }else{
-                [weakSelf.param removeObjectForKey:@"stores_type"];
-            }
-            if (tDict && [tDict objectForKey:@"sort"]) {
-                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
-            }else{
-                [weakSelf.param removeObjectForKey:@"sort"];
-            }
-            if (tDict && [tDict objectForKey:@"more"]) {
-                [weakSelf.param setObject:tDict[@"more"] forKey:@"stores_type"];
-            }else{
-                [weakSelf.param removeObjectForKey:@"more"];
-            }
-            [weakSelf refreshData];
-        };
+
+        
+//        _sectionView.dataBlock = ^(NSDictionary *tDict) {
+//            NSLog(@"---------- %@",tDict);
+//            if (tDict && [tDict objectForKey:@"type"]) {
+//                [weakSelf.param setObject:tDict[@"type"] forKey:@"stores_type"];
+//            }else{
+//                [weakSelf.param removeObjectForKey:@"stores_type"];
+//            }
+//            if (tDict && [tDict objectForKey:@"sort"]) {
+//                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
+//            }else{
+//                [weakSelf.param removeObjectForKey:@"sort"];
+//            }
+//            if (tDict && [tDict objectForKey:@"more"]) {
+//                [weakSelf.param setObject:tDict[@"more"] forKey:@"stores_type"];
+//            }else{
+//                [weakSelf.param removeObjectForKey:@"more"];
+//            }
+//            [weakSelf refreshData];
+//        };
     }
     return _sectionView;
 }

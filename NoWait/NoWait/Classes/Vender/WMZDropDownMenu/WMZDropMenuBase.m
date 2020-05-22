@@ -78,7 +78,7 @@
 //获取collectionView
 - (WMZDropCollectionView*)getCollectonView:(WMZDropIndexPath*)path layout:(UICollectionViewFlowLayout*)layout{
     WMZDropCollectionView *collection = [[WMZDropCollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-    collection.backgroundColor = [UIColor whiteColor];
+    collection.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
     collection.scrollsToTop = NO;
     collection.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     collection.showsHorizontalScrollIndicator = NO;
@@ -274,7 +274,7 @@
 - (UIScrollView *)titleView{
     if (!_titleView) {
         _titleView = [UIScrollView new];
-        _titleView.backgroundColor = menuMainClor;
+        _titleView.backgroundColor = adaptAndDarkColor(menuMainClor, [UIColor colorGrayBGDark]);
         _titleView.showsVerticalScrollIndicator = NO;
         _titleView.showsHorizontalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {

@@ -14,7 +14,7 @@
 #define footHeadHeight 35
 #define menuAnimalTime 0.3
 #define moreTableViewKey @"moreTableViewKey"
-#define menuMainClor [UIColor whiteColor]
+#define menuMainClor adaptAndDarkColor([UIColor whiteColor],[UIColor colorGrayLine])
 NS_ASSUME_NONNULL_BEGIN
 //树形节点model  传入对应的字典键值对就能获取相应的属性
 @interface WMZDropTree:NSObject

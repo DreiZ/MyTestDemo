@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMZDropDownMenu.h"
 
-@interface ZStudentMainFiltrateSectionView : UIView
-@property (nonatomic,strong) void (^titleSelect)(NSInteger);
+@interface ZStudentMainFiltrateSectionView : WMZDropDownMenu
+@property (nonatomic,strong) void (^titleSelect)(NSInteger,void (^)(void));
 @property (nonatomic,strong) void (^dataBlock)(NSDictionary *);
 @end
 

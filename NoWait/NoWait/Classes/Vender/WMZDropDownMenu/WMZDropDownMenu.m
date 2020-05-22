@@ -32,7 +32,7 @@ static NSString* const notificationRemove = @"notificationRemove";
 #pragma -mark UI
 - (void)updateUI{
     [self resetConfig];
-    self.backgroundColor = menuMainClor;
+    self.backgroundColor = adaptAndDarkColor(menuMainClor, [UIColor colorBlackBGDark]);
     //移除
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeView) name:notificationRemove object:nil];
     if([[WMZDropMenuTool getCurrentVC] respondsToSelector:@selector(viewWillDisappear:)]){

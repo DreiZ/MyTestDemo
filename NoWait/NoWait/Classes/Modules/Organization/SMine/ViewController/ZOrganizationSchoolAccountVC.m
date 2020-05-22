@@ -51,9 +51,10 @@
     [super initCellConfigArr];
     
     NSArray *topArr = @[@[@"已打款金额￥",ValidStr(self.model.received_amount)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.received_amount) doubleValue]]:@"0.00",@NO,@"hadPay"],
+        @[@"待回款金额￥",ValidStr(self.model.surplus_payment_amount)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.surplus_payment_amount) doubleValue]]:@"0.00",@YES,@"huikuanpay"],
   @[@"上周期结算金额￥",ValidStr(self.model.pre_receive_amount)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.pre_receive_amount) doubleValue]]:@"0.00",@NO,@"shouldPay"],
                         @[@"本周期待结算金额￥",ValidStr(self.model.now_receive_amount)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.now_receive_amount) doubleValue]]:@"0.00",@NO,@"benPay"],
-                        @[@"剩余金额￥",ValidStr(self.model.wait_receive_amount)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.wait_receive_amount) doubleValue]]:@"0",@YES,@"left"]];
+                        @[@"剩余课程质押金￥",ValidStr(self.model.surplus_course_deposit)?[NSString stringWithFormat:@"%.2f",[SafeStr(self.model.surplus_course_deposit) doubleValue]]:@"0",@YES,@"left"]];
     for (NSArray *arr in topArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = arr[0];

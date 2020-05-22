@@ -51,20 +51,23 @@ WMZMenuSetFuncImplementation(WMZDropMenuParam, BOOL,               wMenuLine)
     if (self = [super init]) {
         _wShadowAlpha = 0.4f;
         _wMainRadius = 15.0f;
-        _wShadowColor = MenuColor(0x333333);
+        _wShadowColor = adaptAndDarkColor(MenuColor(0x333333), MenuColor(0x999999));
         _wShadowCanTap = YES;
         _wShadowShow = YES;
-        _wTableViewColor = @[MenuColor(0xFFFFFF),MenuColor(0xF6F7FA),MenuColor(0xEBECF0),MenuColor(0xFFFFFF)];
+        _wTableViewColor = @[adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlack]),
+                             adaptAndDarkColor(MenuColor(0xF6F7FA), MenuColor(0x202020)),
+                             adaptAndDarkColor(MenuColor(0xEBECF0), MenuColor(0x505050)),
+                             adaptAndDarkColor(MenuColor(0xEBECF0), MenuColor(0x909090))];
         _wTextAlignment = NSTextAlignmentLeft;
         _wCollectionViewCellSpace = Menu_GetWNum(20);
-        _wCollectionViewCellBgColor = MenuColor(0xf2f2f2);
-        _wCollectionViewCellTitleColor = MenuColor(0x666666);
+        _wCollectionViewCellBgColor = adaptAndDarkColor(MenuColor(0xf2f2f2), MenuColor(0x2f2f2f));
+        _wCollectionViewCellTitleColor = adaptAndDarkColor(MenuColor(0x666666), MenuColor(0x999999));
         _wCollectionViewCellSelectTitleColor = [UIColor redColor];
-        _wCollectionViewCellSelectBgColor = MenuColor(0xffeceb);
+        _wCollectionViewCellSelectBgColor = adaptAndDarkColor(MenuColor(0xffeceb), MenuColor(0x001213));
         _wMaxWidthScale = 0.9f;
         _wMaxHeightScale = 0.4f;
         _wCollectionViewSectionShowExpandCount = 6;
-        _wMenuTitleEqualCount = 4;
+        _wMenuTitleEqualCount = 3;
         _wDefaultConfirmHeight = 40.0f;
         _wPopViewWidth = Menu_Width/3;
         _wFixBtnWidth = 80;
