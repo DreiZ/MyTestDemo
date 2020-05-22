@@ -129,10 +129,12 @@
 }
 
 + (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners {
+    [[ZDBMainStore shareManager] cleanBannder];
     return [[ZDBMainStore shareManager] updateMainBanners:banners];
 }
 
 + (BOOL)updateMainPlaceholders:(NSArray <ZAdverListModel *>*)banners {
+    [[ZDBMainStore shareManager] cleanPlaceholder];
     return [[ZDBMainStore shareManager] updateMainPlaceholders:banners];
 }
 
@@ -146,6 +148,8 @@
 
 
 + (BOOL)updateMainClassifysOne:(NSArray <ZMainClassifyOneModel *>*)banners {
+    [[ZDBMainStore shareManager] cleanClassifyOne];
+    [[ZDBMainStore shareManager] cleanClassifyTwo];
     return [[ZDBMainStore shareManager] updateMainClassifysOne:banners];
 }
 

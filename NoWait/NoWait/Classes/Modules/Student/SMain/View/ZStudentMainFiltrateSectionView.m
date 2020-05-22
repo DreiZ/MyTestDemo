@@ -10,11 +10,30 @@
 
 
 @interface ZStudentMainFiltrateSectionView ()<WMZDropMenuDelegate>
-@property (nonatomic, strong) NSDictionary *mydata;
+@property (nonatomic, strong) NSMutableArray *classifyOne;
+@property (nonatomic, strong) NSMutableArray *sortArr;
+
 @end
 
 @implementation ZStudentMainFiltrateSectionView
 
+- (instancetype)initWithFrame:(CGRect)frame classifys:(NSArray *)classifys {
+    WMZDropMenuParam *param =
+    MenuParam()
+    .wPopOraignYSet(CGFloatIn750(88) + kTopHeight)
+    .wMainRadiusSet(10)
+    .wCollectionViewCellSelectTitleColorSet([UIColor colorMain])
+    .wCollectionViewSectionRecycleCountSet(8)
+    .wMaxHeightScaleSet(0.5);
+    
+    
+    self = [super initWithFrame:frame withParam:param];
+    if (self) {
+        self.classifys = classifys;
+        self.delegate = self;
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     WMZDropMenuParam *param =
@@ -29,6 +48,7 @@
     self = [super initWithFrame:frame withParam:param];
     if (self) {
         self.delegate = self;
+
     }
     return self;
 }
@@ -69,11 +89,10 @@
 
 - (NSArray *)menu:(WMZDropDownMenu *)menu dataForRowAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
       if (dropIndexPath.section == 1){
-          return @[@"综合排序",@"评分优先",@"销量优先",@"距离优先"];
+          return self.sortArr;
 
       }else if (dropIndexPath.section == 0){
-          if (dropIndexPath.row == 0) return @[@"全部品类",@"美食",@"甜点饮品",@"超市便利",
-                                               @"生鲜果蔬",@"送药上门",@"鲜花绿植"];
+          if (dropIndexPath.row == 0) return [self classifyOne];
           if (dropIndexPath.row == 1) return @[];
       }else if (dropIndexPath.section == 2){
            return @[@"30分钟内",@"40分钟内",@"50分钟内",@"60分钟内",@"30km内",@"40km内",@"50km内",@"60km内"];
@@ -147,15 +166,33 @@
     return NO;
 }
 
+/*
+*是否关联 其他标题 即选中其他标题 此标题会不会取消选中状态 default YES
+*/
+- (BOOL)menu:(WMZDropDownMenu *)menu dropIndexPathConnectInSection:(NSInteger)section{
+    if (section == 1) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)menu:(WMZDropDownMenu *)menu didSelectRowAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath dataIndexPath:(NSIndexPath *)indexpath data:(WMZDropTree*)data{
     //手动更新二级联动数据
     if (dropIndexPath.section == 0) {
         if (dropIndexPath.row == 0) {
-            NSArray *arr = self.mydata[data.name];
+            NSArray *arr = [self classifyOne];
             if (arr.count == 0) {
                 [menu closeWith:dropIndexPath row:indexpath.row data:data];
             }
-            [menu updateData:self.mydata[data.name] ForRowAtDropIndexPath:dropIndexPath];
+            [menu updateData:[self classifyTwoWithSuperID:data.ID] ForRowAtDropIndexPath:dropIndexPath];
+        }else{
+            if (self.dataBlock) {
+                self.dataBlock(@{@"type":data.otherData?:@""});
+            }
+        }
+    }else if(dropIndexPath.section == 1){
+        if (self.dataBlock) {
+            self.dataBlock(@{@"sort":SafeStr(data.ID)});
         }
     }
 }
@@ -177,21 +214,54 @@
 }
 
 
-- (NSDictionary*)mydata{
-    if (!_mydata) {
-        _mydata = @{
-        //            @[@"全部",@"水果",@"蔬菜",@"冷冻速食",@"肉禽奶蛋",@"肉饼加墨"]
-                          @"全部品类":@[],
-                          @"美食":@[@"全部",@"水果1",@"蔬菜1",@"冷冻速食1",@"肉禽奶蛋1",@"肉饼加墨1"],
-                          @"甜点饮品":@[@"全部",@"水果2",@"蔬菜2",@"肉禽奶蛋2",@"肉饼加墨2"],
-                          @"超市便利":@[@"全部",@"水果3",@"蔬菜3",@"肉饼加墨3"],
-                          @"生鲜果蔬":@[@"全部",@"水果4",@"冷冻速食4",@"肉禽奶蛋4",@"肉饼加墨4"],
-                          @"送药上门":@[@"全部",@"冷冻速食5",@"肉禽奶蛋5",@"肉饼加墨5"],
-                          @"鲜花绿植":@[@"全部",@"冷冻速食6",@"肉禽奶蛋6",@"肉饼加墨6",@"蔬6"],
-                };
-    }
-    
-    return _mydata;
+- (void)setClassifys:(NSArray<ZMainClassifyOneModel *> *)classifys {
+    _classifys = classifys;
 }
 
+- (NSMutableArray *)classifyOne {
+    _classifyOne = @[].mutableCopy;
+    
+    if (ValidArray(_classifys)) {
+        [_classifys enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *temp = @{}.mutableCopy;
+            [temp setObject:obj.classify_id forKey:@"ID"];
+            [temp setObject:obj.name forKey:@"name"];
+            
+            [_classifyOne addObject:temp];
+        }];
+    }
+    
+    return _classifyOne;
+}
+
+
+- (NSMutableArray *)classifyTwoWithSuperID:(NSString *)superID {
+    NSMutableArray *classifyTwo = @[].mutableCopy;
+    
+    if (ValidArray(_classifys) && superID) {
+        [_classifys enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.classify_id isEqualToString:superID]) {
+                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyTwoModel * _Nonnull superObj, NSUInteger superIdx, BOOL * _Nonnull superStop) {
+                    NSMutableDictionary *temp = @{}.mutableCopy;
+                    [temp setObject:superObj.classify_id forKey:@"ID"];
+                    [temp setObject:superObj.name forKey:@"name"];
+                    [temp setObject:superObj forKey:@"otherData"];
+                    [classifyTwo addObject:temp];
+                }];
+            }
+        }];
+    }
+    
+    return classifyTwo;
+}
+
+- (NSMutableArray *)sortArr {
+    if (!_sortArr) {
+        _sortArr = @[@{@"name":@"综合排序", @"ID":@"0"},
+        @{@"name":@"评分优先", @"ID":@"1"},
+        @{@"name":@"销量优先", @"ID":@"2"},
+        @{@"name":@"距离优先", @"ID":@"3"}].mutableCopy;
+    }
+    return _sortArr;
+}
 @end

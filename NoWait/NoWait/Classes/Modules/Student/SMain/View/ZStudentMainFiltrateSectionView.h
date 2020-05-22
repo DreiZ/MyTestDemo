@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "WMZDropDownMenu.h"
+#import "ZStudentMainModel.h"
 
 @interface ZStudentMainFiltrateSectionView : WMZDropDownMenu
 @property (nonatomic,strong) void (^titleSelect)(NSInteger,void (^)(void));
 @property (nonatomic,strong) void (^dataBlock)(NSDictionary *);
+@property (nonatomic,strong) NSArray <ZMainClassifyOneModel *>*classifys;
+
+- (instancetype)initWithFrame:(CGRect)frame classifys:(NSArray *)classifys;
 @end
 
 

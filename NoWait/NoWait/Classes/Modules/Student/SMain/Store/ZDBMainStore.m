@@ -87,6 +87,7 @@
  *  更新banners信息
  */
 - (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners{
+    [self cleanBannder];
     __block NSInteger index = 0;
     [banners enumerateObjectsUsingBlock:^(ZAdverListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainBanner:obj];
@@ -186,6 +187,7 @@
  *  更新banners信息
  */
 - (BOOL)updateMainPlaceholders:(NSArray <ZAdverListModel *>*)banners{
+    [self cleanPlaceholder];
     __block NSInteger index = 0;
     [banners enumerateObjectsUsingBlock:^(ZAdverListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainPlaceholder:obj];
@@ -283,6 +285,7 @@
  *  更新classifys信息
  */
 - (BOOL)updateMainClassifys:(NSArray <ZMainClassifyModel *>*)banners{
+    [self cleanClassify];
     __block NSInteger index = 0;
     [banners enumerateObjectsUsingBlock:^(ZMainClassifyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassify:obj];
@@ -380,6 +383,7 @@
  *  更新classifys信息
  */
 - (BOOL)updateMainClassifysOne:(NSArray <ZMainClassifyOneModel *>*)banners{
+    [self cleanClassifyOne];
     __block NSInteger index = 0;
     [banners enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassifyOne:obj];
@@ -478,6 +482,7 @@
  *  更新classifys信息
  */
 - (BOOL)updateMainClassifysTwo:(NSArray <ZMainClassifyTwoModel *>*)classifysTwo{
+    [self cleanClassifyTwo];
     __block NSInteger index = 0;
     [classifysTwo enumerateObjectsUsingBlock:^(ZMainClassifyTwoModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassifyTwo:obj];

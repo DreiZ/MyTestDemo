@@ -28,6 +28,7 @@
 #import "ZMianSearchVC.h"
 #import "ZLocationManager.h"
 #import "ZRouteManager.h"
+#import "ZDBMainStore.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -108,6 +109,7 @@
     NSArray *advers = [ZStudentMainViewModel mainBannerData];
     NSArray *placeholder = [ZStudentMainViewModel mainPlaceholderData];
     NSArray *classify = [ZStudentMainViewModel mainClassifyOneData];
+    
     if (ValidArray(advers)) {
         [_AdverArr addObjectsFromArray:advers];
     }
@@ -118,23 +120,29 @@
         [_classifyArr addObjectsFromArray:classify];
     }
     
-    NSArray *ctitle = @[@"体育竞技", @"艺术舞蹈", @"兴趣爱好", @"早教/学习", @"小学初中", @"高中/高考", @"技能考证"];
+    
+    NSArray *cytitle = @[@"体育类",@"艺术类",@"兴趣爱好",@"学术类",@"其他"];
+    NSArray <NSArray *>*cyctitle =          @[@[@"全部",@"射箭",@"篮球",@"跆拳道",@"游泳",@"羽毛球"],
+                         @[@"全部",@"交谊舞",@"爵士",@"街舞",@"芭蕾舞",@"拉丁舞"],
+                         @[@"全部",@"围棋",@"象棋",@"跳棋",@"国际象棋",@"马术"],
+                         @[@"全部",@"初中辅导",@"中高考辅导",@"艺术辅导",@"学前交易",@"早教"],
+                         @[@"全部",@"教师资格证",@"公务员",@"会计职称",@"建筑师资格证"]];
     NSArray *image = @[@"http://wx4.sinaimg.cn/mw600/44f2ef1bgy1gf03aodsmij20mk0v0wrr.jpg",
                        @"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gf03bivmamj20hx0lkdng.jpg",
                         @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1gf03ehltu0j30rs15owkm.jpg",
                         @"http://wx2.sinaimg.cn/mw600/44f2ef1bgy1gf03bcqa2wj20u0190tsl.jpg"];
     NSMutableArray *data = @[].mutableCopy;
-    for (int i = 0; i < ctitle.count; i++) {
+    for (int i = 0; i < cytitle.count; i++) {
         ZMainClassifyOneModel *oneModel = [[ZMainClassifyOneModel alloc] init];
         oneModel.classify_id = [NSString stringWithFormat:@"%d",i];
-        oneModel.name = ctitle[i];
+        oneModel.name = cytitle[i];
         oneModel.imageName = image[i % 3];
         
         NSMutableArray *tdata = @[].mutableCopy;
-        for (int j = 0; j < ctitle.count; j++) {
+        for (int j = 0; j < cyctitle[i].count; j++) {
             ZMainClassifyTwoModel *twoModel = [[ZMainClassifyTwoModel alloc] init];
             twoModel.classify_id = [NSString stringWithFormat:@"%d",j];
-            twoModel.name = ctitle[j];
+            twoModel.name = cyctitle[i][j];
             twoModel.imageName = image[j % 3];
             twoModel.superClassify_id = [NSString stringWithFormat:@"%d",i];
             [tdata addObject:twoModel];
@@ -142,7 +150,9 @@
         oneModel.secondary = tdata;
         [data addObject:oneModel];
     }
+    
     [ZStudentMainViewModel updateMainClassifysOne:data];
+    self.sectionView.classifys = data;
 }
 
 - (void)setupMainView {
@@ -212,7 +222,7 @@
 - (ZStudentMainTopSearchView *)searchView {
     if (!_searchView) {
         __weak typeof(self) weakSelf = self;
-        _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight)];
+        _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight) ];
         _searchView.searchBlock = ^(NSInteger index) {
             ZMianSearchVC *svc = [[ZMianSearchVC alloc] init];
             [weakSelf.navigationController pushViewController:svc animated:YES];
@@ -223,9 +233,9 @@
 }
 
 - (ZStudentMainFiltrateSectionView *)sectionView {
-    if (!_sectionView) {
+    if (!_sectionView && _classifyArr) {
         __weak typeof(self) weakSelf = self;
-        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
+        _sectionView = [[ZStudentMainFiltrateSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88)) classifys:self.classifyArr];
         _sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayLine]);
         _sectionView.tableView = self.iTableView;
         _sectionView.titleSelect = ^(NSInteger index, void (^menuAfterTime)(void)) {
@@ -251,25 +261,29 @@
         };
 
         
-//        _sectionView.dataBlock = ^(NSDictionary *tDict) {
-//            NSLog(@"---------- %@",tDict);
-//            if (tDict && [tDict objectForKey:@"type"]) {
-//                [weakSelf.param setObject:tDict[@"type"] forKey:@"stores_type"];
-//            }else{
-//                [weakSelf.param removeObjectForKey:@"stores_type"];
-//            }
-//            if (tDict && [tDict objectForKey:@"sort"]) {
-//                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
-//            }else{
-//                [weakSelf.param removeObjectForKey:@"sort"];
-//            }
-//            if (tDict && [tDict objectForKey:@"more"]) {
-//                [weakSelf.param setObject:tDict[@"more"] forKey:@"stores_type"];
-//            }else{
-//                [weakSelf.param removeObjectForKey:@"more"];
-//            }
-//            [weakSelf refreshData];
-//        };
+        _sectionView.dataBlock = ^(NSDictionary *tDict) {
+            NSLog(@"--------******-- %@",tDict);
+            if (tDict && [tDict objectForKey:@"type"]) {
+                id tdata = tDict[@"type"];
+                if ([tdata isKindOfClass:[ZMainClassifyTwoModel class]]) {
+                    ZMainClassifyTwoModel *twoModel = tdata;
+                    [weakSelf.param setObject:SafeStr(twoModel.superClassify_id) forKey:@"stores_type"];
+                }
+            }else{
+                [weakSelf.param removeObjectForKey:@"stores_type"];
+            }
+            if (tDict && [tDict objectForKey:@"sort"]) {
+                [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"sort"];
+            }
+            if (tDict && [tDict objectForKey:@"more"]) {
+                [weakSelf.param setObject:tDict[@"more"] forKey:@"stores_type"];
+            }else{
+                [weakSelf.param removeObjectForKey:@"more"];
+            }
+            [weakSelf refreshData];
+        };
     }
     return _sectionView;
 }

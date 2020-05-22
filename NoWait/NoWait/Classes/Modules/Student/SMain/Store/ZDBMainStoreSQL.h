@@ -35,7 +35,7 @@
 
 #define     SQL_DELETE_MAINBANNER                 @"DELETE FROM %@ WHERE ad_id = %@"
 
-#define     SQL_CLEAN_MAINBANNER                  @"DELETE * FROM %@"
+#define     SQL_CLEAN_MAINBANNER                  @"DELETE FROM  %@"
 
 
 #pragma mark - placeholder
@@ -64,7 +64,7 @@
 
 #define     SQL_DELETE_PLACEHOLDER                 @"DELETE FROM %@ WHERE ad_id = %@"
 
-#define     SQL_CLEAN_PLACEHOLDER                  @"DELETE * FROM %@"
+#define     SQL_CLEAN_PLACEHOLDER                  @"DELETE FROM %@"
 
 
 #pragma mark - classify
@@ -90,7 +90,7 @@
 
 #define     SQL_DELETE_CLASSIFY                   @"DELETE FROM %@ WHERE classify_id = %@"
 
-#define     SQL_CLEAN_CLASSIFY                    @"DELETE * FROM %@"
+#define     SQL_CLEAN_CLASSIFY                    @"DELETE FROM  %@"
 
 
 #pragma mark - screen one
@@ -116,7 +116,7 @@
 
 #define     SQL_DELETE_CLASSIFY_ONE                @"DELETE FROM %@ WHERE classify_id = %@"
 
-#define     SQL_CLEAN_CLASSIFY_ONE                 @"DELETE * FROM %@"
+#define     SQL_CLEAN_CLASSIFY_ONE                 @"DELETE FROM %@"
 
 
 
@@ -143,6 +143,6 @@
 
 #define     SQL_DELETE_CLASSIFY_TWO                @"DELETE FROM %@ WHERE  superClassify_id = %@"
 
-#define     SQL_CLEAN_CLASSIFY_TWO                 @"DELETE * FROM %@"
+#define     SQL_CLEAN_CLASSIFY_TWO                 @"DELETE FROM  %@"
 
 #endif /* ZDBMainStoreSQL_h */
