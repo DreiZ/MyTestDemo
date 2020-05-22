@@ -262,12 +262,12 @@
 
         
         _sectionView.dataBlock = ^(NSDictionary *tDict) {
-            NSLog(@"--------******-- %@",tDict);
             if (tDict && [tDict objectForKey:@"type"]) {
                 id tdata = tDict[@"type"];
                 if ([tdata isKindOfClass:[ZMainClassifyTwoModel class]]) {
                     ZMainClassifyTwoModel *twoModel = tdata;
                     [weakSelf.param setObject:SafeStr(twoModel.superClassify_id) forKey:@"stores_type"];
+                    [weakSelf.param removeObjectForKey:@"sort"];
                 }
             }else{
                 [weakSelf.param removeObjectForKey:@"stores_type"];
@@ -282,7 +282,8 @@
             }else{
                 [weakSelf.param removeObjectForKey:@"more"];
             }
-            [weakSelf refreshData];
+//            [weakSelf refreshData];
+            [weakSelf.iTableView reloadData];
         };
     }
     return _sectionView;
@@ -360,7 +361,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section) {
+    if (section == 1) {
         return self.sectionView;
     }
     return nil;

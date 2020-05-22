@@ -441,6 +441,7 @@
 @property (nonatomic,strong) NSString *stores;//校区，
 @property (nonatomic,strong) NSString *url;//链接，
 @property (nonatomic,strong) NSString *fix_html;//固定页
+@property (nonatomic,strong) NSString *fix;
 
 + (ZAdverListContentModel *)getModelFromStr:(NSString *)jsonStr;
 - (NSString *)tranModelToJSON;

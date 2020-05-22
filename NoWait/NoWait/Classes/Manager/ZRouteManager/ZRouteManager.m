@@ -14,6 +14,7 @@
 #import "ZWebBridgeViewController.h"
 #import "ZStudentLessonDetailVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
+#import "ZRewardCenterVC.h"
 
 #import "ZOriganizationModel.h"
 
@@ -73,12 +74,12 @@ static ZRouteManager *sharedManager;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
 
         }else if ([model.ad_type isEqualToString:@"4"] && model.ad_type_content) {
-//            StudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-//            ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-//            lmodel.stores_id = model.ad_type_content.stores;
-//            dvc.listModel = lmodel;
-//            [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
-
+            if ([model.ad_type_content.fix isEqualToString:@"reward_center"]) {
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
+                    [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:cvc animated:YES];
+                }];
+            }
         }
     }
 }

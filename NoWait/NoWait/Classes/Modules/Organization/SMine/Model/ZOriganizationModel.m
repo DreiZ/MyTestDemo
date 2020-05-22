@@ -281,6 +281,10 @@
         [dict setObject:self.fix_html forKey:@"fix_html"];
     }
     
+    if (ValidStr(self.fix)) {
+        [dict setObject:self.fix forKey:@"fix"];
+    }
+    
     return getJSONStr(dict);
 }
 
@@ -302,6 +306,10 @@
         
         if ([dict objectForKey:@"fix_html"]) {
             model.fix_html = dict[@"fix_html"];
+        }
+        
+        if ([dict objectForKey:@"fix"]) {
+            model.fix = dict[@"fix"];
         }
     }
     return model;
