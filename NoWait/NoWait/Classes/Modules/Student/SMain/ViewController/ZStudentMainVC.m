@@ -257,9 +257,7 @@
             }else{
                 menuAfterTime();
             }
-            
         };
-
         
         _sectionView.dataBlock = ^(NSDictionary *tDict) {
             if (tDict && [tDict objectForKey:@"type"]) {
@@ -267,11 +265,10 @@
                 if ([tdata isKindOfClass:[ZMainClassifyTwoModel class]]) {
                     ZMainClassifyTwoModel *twoModel = tdata;
                     [weakSelf.param setObject:SafeStr(twoModel.superClassify_id) forKey:@"stores_type"];
-                    [weakSelf.param removeObjectForKey:@"sort"];
+                    [weakSelf.param removeObjectForKey:@"sort_type"];
                 }
-            }else{
-                [weakSelf.param removeObjectForKey:@"stores_type"];
             }
+            
             if (tDict && [tDict objectForKey:@"sort"]) {
                 [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
             }else{
@@ -282,8 +279,7 @@
             }else{
                 [weakSelf.param removeObjectForKey:@"more"];
             }
-//            [weakSelf refreshData];
-            [weakSelf.iTableView reloadData];
+            [weakSelf refreshData];
         };
     }
     return _sectionView;
@@ -368,17 +364,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [ZAlertImageView setAlertWithType:ZAlertTypeRepealSubscribeFail handlerBlock:^(NSInteger index) {
-//        
-//    }];
-//
-//    return;
-//    [ZServerCompleteAlertView setAlertWithHandlerBlock:^(NSInteger index) {
-//
-//    }];
-//    ZOrigantionMoveInVC *ivc = [[ZOrigantionMoveInVC alloc] init];
-//    [self.navigationController pushViewController:ivc animated:YES];
-//    return;
     if (indexPath.section == 1) {
         NSArray *tempArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = tempArr[indexPath.row];
