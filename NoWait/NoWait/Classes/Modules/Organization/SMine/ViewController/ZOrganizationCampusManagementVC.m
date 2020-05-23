@@ -29,6 +29,8 @@
 #import "ZOrganizationCampusManageTimeVC.h"
 #import "ZOriganizationViewModel.h"
 #import "ZOriganizationLessonViewModel.h"
+#import "ZAlertClassifyPickerView.h"
+#import "ZStudentMainViewModel.h"
 
 @interface ZOrganizationCampusManagementVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -356,22 +358,42 @@
         [self.navigationController pushViewController:mvc animated:YES];
         
     }else if ([cellConfig.title isEqualToString:@"type"]) {
-        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
-            [TLUIUtility showErrorHint:@"类型已不可修改"];
-            return;
-        }
-        NSMutableArray *items = @[].mutableCopy;
-        NSArray *temp = _typeList;
-        for (int i = 0; i < temp.count; i++) {
-           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-           model.name = temp[i];
-           [items addObject:model];
-        }
+//        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
+//            [TLUIUtility showErrorHint:@"类型已不可修改"];
+//            return;
+//        }
+//        NSMutableArray *items = @[].mutableCopy;
+//        NSArray *temp = _typeList;
+//        for (int i = 0; i < temp.count; i++) {
+//           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+//           model.name = temp[i];
+//           [items addObject:model];
+//        }
+//
+//        [ZAlertDataSinglePickerView setAlertName:@"类别选择" items:items handlerBlock:^(NSInteger index) {
+//            weakSelf.model.store_type_id = [NSString stringWithFormat:@"%ld",index+1];
+//            [weakSelf initCellConfigArr];
+//            [weakSelf.iTableView reloadData];
+//        }];
+        NSMutableArray *classify = @[].mutableCopy;
+        [classify addObjectsFromArray:[ZStudentMainViewModel mainClassifyOneData]];
+        [classify enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.name isEqualToString:@"全部"]) {
+                [classify removeObject:obj];
+            }else{
+                [obj.secondary enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([sobj.name isEqualToString:@"全部"]) {
+                        NSMutableArray *tempArr = @[].mutableCopy;
+                        [tempArr addObjectsFromArray:sobj.secondary];
+                        [tempArr removeObject:sobj];
+                        obj.secondary = tempArr;
+                    }
+                }];
+            }
+        }];
         
-        [ZAlertDataSinglePickerView setAlertName:@"类别选择" items:items handlerBlock:^(NSInteger index) {
-            weakSelf.model.store_type_id = [NSString stringWithFormat:@"%ld",index+1];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+        [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
+            NSLog(@"---%@",classify);
         }];
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];

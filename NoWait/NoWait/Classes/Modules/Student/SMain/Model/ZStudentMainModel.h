@@ -14,7 +14,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *classify_id;
 @property (nonatomic,strong) NSString *superClassify_id;
-@property (nonatomic,strong) NSArray <ZMainClassifyOneModel *>*secondary;
+@property (nonatomic,strong) NSMutableArray <ZMainClassifyOneModel *>*secondary;
 @end
 
 @interface ZMainClassifyNetModel : NSObject

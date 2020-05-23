@@ -210,7 +210,6 @@
 
 -(ZOrganizationDetailBottomView *)bottomView {
     if (!_bottomView) {
-        
         __weak typeof(self) weakSelf = self;
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
         _bottomView.title = @"立即购买";

@@ -100,7 +100,7 @@
                 id tdata = tDict[@"type"];
                 if ([tdata isKindOfClass:[ZMainClassifyOneModel class]]) {
                     ZMainClassifyOneModel *twoModel = tdata;
-                    [weakSelf.param setObject:SafeStr(twoModel.superClassify_id) forKey:@"stores_type"];
+                    [weakSelf.param setObject:SafeStr(twoModel.classify_id) forKey:@"stores_type"];
                     [weakSelf.param removeObjectForKey:@"sort_type"];
                 }
             }
@@ -115,10 +115,7 @@
             }else{
                 [weakSelf.param removeObjectForKey:@"more"];
             }
-//            [weakSelf refreshData];
-            [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:    weakSelf.sectionView.classifys handlerBlock:^(NSMutableArray *classify) {
-                
-            }];
+            [weakSelf refreshData];
         };
     }
     return _sectionView;

@@ -19,7 +19,6 @@
     [self getAdverData];
     [self getCategoryList];
     
-//    [[ZDBMainStore shareManager] cleanClassifyOne];
     __weak typeof(self) weakSelf = self;
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
         if (!weakSelf.isLoacation && userLocation) {
