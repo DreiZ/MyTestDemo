@@ -67,7 +67,7 @@
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
         
-//        [_iCollectionView setBounces:NO];
+        [_iCollectionView setBounces:NO];
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
         [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark])];
@@ -106,11 +106,9 @@
     }
 }
 
-
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(0), CGFloatIn750(10), CGFloatIn750(0));
 }
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (_channelList.count < 5 && _channelList.count > 0) {

@@ -87,13 +87,13 @@ static ZAlertClassifyPickerView *sharedManager;
     [topView addSubview:closeBtn];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(CGFloatIn750(80));
-        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(20));
+        make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
         make.top.bottom.equalTo(topView);
     }];
     
     [topView addSubview:self.sureBtn];
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
         make.top.bottom.equalTo(topView);
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
@@ -318,11 +318,14 @@ static ZAlertClassifyPickerView *sharedManager;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 14.01f;
+    if (tableView == self.rightTableView) {
+        return CGFloatIn750(30);
+    }
+    return CGFloatIn750(20);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 14.01f;
+    return CGFloatIn750(20);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -378,7 +381,7 @@ static ZAlertClassifyPickerView *sharedManager;
     [self.cellConfigArr removeAllObjects];
     for (int i = 0; i < _classifys.count; i++) {
         ZMainClassifyOneModel *model = _classifys[i];
-        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSelectTimeCell className] title:[ZStudentLessonSelectTimeCell className] showInfoMethod:@selector(setClassifyModel:) heightOfCell:[ZStudentLessonSelectTimeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLessonSelectTimeCell className] title:[ZStudentLessonSelectTimeCell className] showInfoMethod:@selector(setClassifyModel:) heightOfCell:CGFloatIn750(80) cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:timeCellConfig];
     }
     

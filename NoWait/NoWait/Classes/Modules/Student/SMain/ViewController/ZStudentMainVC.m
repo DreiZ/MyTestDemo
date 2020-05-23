@@ -205,11 +205,9 @@
         [sectionArr addObject:photoWallCellConfig];
     }
     
-    
     [self.cellConfigArr addObject:sectionArr];
     
     NSMutableArray *section1Arr = @[].mutableCopy;
-    
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
@@ -228,7 +226,6 @@
             ZMianSearchVC *svc = [[ZMianSearchVC alloc] init];
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
-        
     }
     return _searchView;
 }
