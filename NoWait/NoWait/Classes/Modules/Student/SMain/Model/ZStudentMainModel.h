@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ZMainClassifyTwoModel : NSObject
+@property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *classify_id;
@@ -16,6 +17,7 @@
 @end
 
 @interface ZMainClassifyOneModel : NSObject
+@property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,strong) NSString *imageName;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *classify_id;

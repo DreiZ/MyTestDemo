@@ -9,7 +9,7 @@
 #import "ZStudentLessonSelectTimeCell.h"
 
 @interface ZStudentLessonSelectTimeCell ()
-@property (nonatomic,strong) UILabel *titleLabel;
+//@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
 
@@ -47,9 +47,21 @@
 
 - (void)setModel:(ZStudentDetailLessonTimeModel *)model {
     _model = model;
-    
+    [_titleLabel setFont:[UIFont fontContent]];
     _titleLabel.text = model.time;
     if (model.isTimeSelected) {
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    }else {
+        self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    }
+}
+
+- (void)setClassifyModel:(ZMainClassifyOneModel *)classifyModel {
+    _classifyModel = classifyModel;
+
+    _titleLabel.text = classifyModel.name;
+    
+    if (classifyModel.isSelected) {
         self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }else {
         self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);

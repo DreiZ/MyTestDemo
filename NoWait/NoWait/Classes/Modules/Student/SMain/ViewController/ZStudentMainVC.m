@@ -29,6 +29,7 @@
 #import "ZLocationManager.h"
 #import "ZRouteManager.h"
 #import "ZDBMainStore.h"
+#import "ZAlertClassifyPickerView.h"
 
 #define KSearchTopViewHeight  CGFloatIn750(88)
 
@@ -279,7 +280,10 @@
             }else{
                 [weakSelf.param removeObjectForKey:@"more"];
             }
-            [weakSelf refreshData];
+//            [weakSelf refreshData];
+            [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:    weakSelf.sectionView.classifys handlerBlock:^(NSMutableArray *classify) {
+                
+            }];
         };
     }
     return _sectionView;
