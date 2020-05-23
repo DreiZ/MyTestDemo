@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ZBaseViewModel.h"
 @class ZMainClassifyOneModel;
-@class ZMainClassifyTwoModel;
+@class ZMainClassifyOneModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMainViewModel : ZBaseViewModel
+
++ (void)getCategoryList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getIndexList:(NSDictionary *)params
        completeBlock:(resultDataBlock)completeBlock ;
@@ -50,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray <ZMainClassifyOneModel *>*)mainClassifyOneData;
 
-+ (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoData;
++ (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -37,12 +37,12 @@
     }];
 }
 
--(void)setClassifysArr:(NSMutableArray<ZMainClassifyTwoModel *> *)classifysArr {
+-(void)setClassifysArr:(NSMutableArray<ZMainClassifyOneModel *> *)classifysArr {
     _classifysArr = classifysArr;
     [self.contView removeAllSubviews];
     [self.menuArr removeAllObjects];
     __block NSInteger row = 0;
-    [classifysArr enumerateObjectsUsingBlock:^(ZMainClassifyTwoModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [classifysArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         row = (idx)/3;
         UIButton *btn = [self getBtnWithText:obj.name index:idx];
         [self.contView addSubview:btn];
@@ -72,7 +72,7 @@
 }
 
 - (UIButton *)getBtnWithText:(NSString *)text index:(NSInteger)index{
-    ZMainClassifyTwoModel *model = _classifysArr[index];
+    ZMainClassifyOneModel *model = _classifysArr[index];
     
     UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = index;
@@ -98,7 +98,7 @@
 }
 
 - (void)menuBtn:(NSInteger)index {
-    ZMainClassifyTwoModel *model = _classifysArr[index];
+    ZMainClassifyOneModel *model = _classifysArr[index];
     model.isSelected = !model.isSelected;
     if (_menuArr.count == _classifysArr.count) {
         UIButton *menuBtn = _menuArr[index];

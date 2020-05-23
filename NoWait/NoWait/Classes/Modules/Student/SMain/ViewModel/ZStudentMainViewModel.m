@@ -13,6 +13,24 @@
 
 @implementation ZStudentMainViewModel
 
++ (void)getCategoryList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_get_category_list params:params completionHandler:^(id data, NSError *error) {
+             DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZMainClassifyNetModel *model = [ZMainClassifyNetModel mj_objectWithKeyValues:dataModel.data];
+                if ([dataModel.code integerValue] == 0 ) {
+                    completeBlock(YES, model);
+                    return ;
+                }else{
+                    completeBlock(NO, dataModel.message);
+                    return;
+                }
+           }
+           completeBlock(NO, @"操作失败");
+    }];
+}
+
 + (void)getIndexList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_v1_index params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
@@ -157,7 +175,7 @@
     return [[ZDBMainStore shareManager] mainClassifyOneData];
 }
 
-+ (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoData {
++ (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData {
     return [[ZDBMainStore shareManager] mainClassifyTwoData];
 }
 

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ZDBBaseStore.h"
 @class ZAdverListModel;
-@class ZMainClassifyModel;
-@class ZMainClassifyTwoModel;
+@class ZMainClassifyOneModel;
+@class ZMainClassifyOneModel;
 @class ZMainClassifyOneModel;
 
 @interface ZDBMainStore : ZDBBaseStore
@@ -85,17 +85,17 @@
 /**
  *  更新Classify信息
 */
-- (BOOL)updateMainClassify:(ZMainClassifyModel *)classify;
+- (BOOL)updateMainClassify:(ZMainClassifyOneModel *)classify;
 
 /**
  *  更新classifys信息
  */
-- (BOOL)updateMainClassifys:(NSArray <ZMainClassifyModel *>*)banners;
+- (BOOL)updateMainClassifys:(NSArray <ZMainClassifyOneModel *>*)banners;
 
 /**
  *  获取Classify信息
 */
-- (ZMainClassifyModel *)mainClassifyByID:(NSString *)classify_id;
+- (ZMainClassifyOneModel *)mainClassifyByID:(NSString *)classify_id;
 
 /**
  *  获取Classify信息
@@ -146,23 +146,23 @@
 /**
  *  更新ClassifyTwo信息
 */
-- (BOOL)updateMainClassifyTwo:(ZMainClassifyTwoModel *)classify;
+- (BOOL)updateMainClassifyTwo:(ZMainClassifyOneModel *)classify;
 
 /**
  *  更新ClassifyTwo信息
  */
-- (BOOL)updateMainClassifysTwo:(NSArray <ZMainClassifyTwoModel *>*)classifysTwo;
+- (BOOL)updateMainClassifysTwo:(NSArray <ZMainClassifyOneModel *>*)classifysTwo;
 
 
 /**
  *  获取ClassifyTwo信息
 */
-- (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id;
+- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id;
 
 /**
  *  获取ClassifyTwo信息
 */
-- (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoData;
+- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData;
 
 /**
  *  删除ClassifyTwo

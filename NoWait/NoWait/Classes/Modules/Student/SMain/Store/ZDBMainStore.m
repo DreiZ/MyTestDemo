@@ -266,7 +266,7 @@
     return [self createTable:MAIN_TABLE_CLASSIFY withSQL:sqlString];
 }
 
-- (BOOL)updateMainClassify:(ZMainClassifyModel *)classify
+- (BOOL)updateMainClassify:(ZMainClassifyOneModel *)classify
 {
     if (!classify || classify.classify_id.length == 0) {
         return NO;
@@ -284,10 +284,10 @@
 /**
  *  更新classifys信息
  */
-- (BOOL)updateMainClassifys:(NSArray <ZMainClassifyModel *>*)banners{
+- (BOOL)updateMainClassifys:(NSArray <ZMainClassifyOneModel *>*)banners{
     [self cleanClassify];
     __block NSInteger index = 0;
-    [banners enumerateObjectsUsingBlock:^(ZMainClassifyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [banners enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassify:obj];
         if (!update_ok) {
             index++;
@@ -300,10 +300,10 @@
 }
 
 
-- (ZMainClassifyModel *)mainClassifyByID:(NSString *)classify_id
+- (ZMainClassifyOneModel *)mainClassifyByID:(NSString *)classify_id
 {
     NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_CLASSIFY_BY_ID, MAIN_TABLE_CLASSIFY, classify_id];
-    __block ZMainClassifyModel * classify;
+    __block ZMainClassifyOneModel * classify;
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
             classify = [self p_createClassifyByFMResultSet:retSet];
@@ -320,7 +320,7 @@
     
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
-            ZMainClassifyModel *classify = [self p_createClassifyByFMResultSet:retSet];
+            ZMainClassifyOneModel *classify = [self p_createClassifyByFMResultSet:retSet];
             [data addObject:classify];
         }
         [retSet close];
@@ -343,9 +343,9 @@
 }
 
 // Private Methods
-- (ZMainClassifyModel *)p_createClassifyByFMResultSet:(FMResultSet *)retSet
+- (ZMainClassifyOneModel *)p_createClassifyByFMResultSet:(FMResultSet *)retSet
 {
-    ZMainClassifyModel *classify = [[ZMainClassifyModel alloc] init];
+    ZMainClassifyOneModel *classify = [[ZMainClassifyOneModel alloc] init];
     classify.classify_id = [retSet stringForColumn:@"classify_id"];
     classify.name = [retSet stringForColumn:@"name"];
     classify.imageName = [retSet stringForColumn:@"imageName"];
@@ -371,7 +371,8 @@
                         TLNoNilString(classify.classify_id),
                         TLNoNilString(classify.name),
                         TLNoNilString(classify.imageName),
-                        @"", @"", @"", @"", @"", @"", nil];
+                        TLNoNilString(classify.superClassify_id),
+                        @"", @"", @"", @"", @"", nil];
     BOOL ok = [self excuteSQL:sqlString withArrParameter:arrPara];
     if (ValidArray(classify.secondary)) {
         [self updateMainClassifysTwo:classify.secondary];
@@ -383,7 +384,6 @@
  *  更新classifys信息
  */
 - (BOOL)updateMainClassifysOne:(NSArray <ZMainClassifyOneModel *>*)banners{
-    [self cleanClassifyOne];
     __block NSInteger index = 0;
     [banners enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassifyOne:obj];
@@ -451,6 +451,7 @@
     classify.classify_id = [retSet stringForColumn:@"classify_id"];
     classify.name = [retSet stringForColumn:@"name"];
     classify.imageName = [retSet stringForColumn:@"imageName"];
+    classify.superClassify_id = [retSet stringForColumn:@"ext0"];
     return classify;
 }
 
@@ -462,7 +463,7 @@
     return [self createTable:MAIN_TABLE_CLASSIFY_TWO withSQL:sqlString];
 }
 
-- (BOOL)updateMainClassifyTwo:(ZMainClassifyTwoModel *)classify
+- (BOOL)updateMainClassifyTwo:(ZMainClassifyOneModel *)classify
 {
     if (!classify || classify.classify_id.length == 0) {
         return NO;
@@ -481,10 +482,9 @@
 /**
  *  更新classifys信息
  */
-- (BOOL)updateMainClassifysTwo:(NSArray <ZMainClassifyTwoModel *>*)classifysTwo{
-    [self cleanClassifyTwo];
+- (BOOL)updateMainClassifysTwo:(NSArray <ZMainClassifyOneModel *>*)classifysTwo{
     __block NSInteger index = 0;
-    [classifysTwo enumerateObjectsUsingBlock:^(ZMainClassifyTwoModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [classifysTwo enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL update_ok = [self updateMainClassifyTwo:obj];
         if (!update_ok) {
             index++;
@@ -497,14 +497,14 @@
 }
 
 
-- (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id
+- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id
 {
     NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_CLASSIFY_TWO_BY_ID, MAIN_TABLE_CLASSIFY_TWO, superClassify_id];
     
     __block NSMutableArray *data = [[NSMutableArray alloc] init];
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
-            ZMainClassifyTwoModel *classify = [self p_createClassifyTwoByFMResultSet:retSet];
+            ZMainClassifyOneModel *classify = [self p_createClassifyTwoByFMResultSet:retSet];
             [data addObject:classify];
         }
         [retSet close];
@@ -512,14 +512,14 @@
     return data;
 }
 
-- (NSArray <ZMainClassifyTwoModel *>*)mainClassifyTwoData
+- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData
 {
     __block NSMutableArray *data = [[NSMutableArray alloc] init];
     NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_CLASSIFYS_TWO, MAIN_TABLE_CLASSIFY_TWO];
     
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
-            ZMainClassifyTwoModel *classify = [self p_createClassifyTwoByFMResultSet:retSet];
+            ZMainClassifyOneModel *classify = [self p_createClassifyTwoByFMResultSet:retSet];
             [data addObject:classify];
         }
         [retSet close];
@@ -542,9 +542,9 @@
 }
 
 // Private Methods
-- (ZMainClassifyTwoModel *)p_createClassifyTwoByFMResultSet:(FMResultSet *)retSet
+- (ZMainClassifyOneModel *)p_createClassifyTwoByFMResultSet:(FMResultSet *)retSet
 {
-    ZMainClassifyTwoModel *classify = [[ZMainClassifyTwoModel alloc] init];
+    ZMainClassifyOneModel *classify = [[ZMainClassifyOneModel alloc] init];
     classify.classify_id = [retSet stringForColumn:@"classify_id"];
     classify.name = [retSet stringForColumn:@"name"];
     classify.imageName = [retSet stringForColumn:@"imageName"];

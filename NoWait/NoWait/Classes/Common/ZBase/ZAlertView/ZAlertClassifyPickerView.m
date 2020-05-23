@@ -179,7 +179,7 @@ static ZAlertClassifyPickerView *sharedManager;
                 ZMainClassifyOneModel *model = weakSelf.classifys[i];
                 if (model.isSelected) {
                     for (int j = 0; j < model.secondary.count; j++) {
-                        ZMainClassifyTwoModel *tmodel = model.secondary[j];
+                        ZMainClassifyOneModel *tmodel = model.secondary[j];
                         if (tmodel.isSelected) {
                             [selectArr addObject:tmodel];
                         }

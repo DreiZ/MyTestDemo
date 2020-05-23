@@ -241,7 +241,7 @@
     if (ValidArray(_classifys) && superID) {
         [_classifys enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj.classify_id isEqualToString:superID]) {
-                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyTwoModel * _Nonnull superObj, NSUInteger superIdx, BOOL * _Nonnull superStop) {
+                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull superObj, NSUInteger superIdx, BOOL * _Nonnull superStop) {
                     NSMutableDictionary *temp = @{}.mutableCopy;
                     [temp setObject:superObj.classify_id forKey:@"ID"];
                     [temp setObject:superObj.name forKey:@"name"];

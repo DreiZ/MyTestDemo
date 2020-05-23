@@ -7,10 +7,11 @@
 //
 
 #import "ZViewController.h"
+#import "ZStudentMainTableViewVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMainVC : ZTableViewViewController
+@interface ZStudentMainVC : ZStudentMainTableViewVC
 
 @end
 

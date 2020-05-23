@@ -8,18 +8,30 @@
 
 #import "ZStudentMainModel.h"
 
-
-@implementation ZMainClassifyTwoModel
-
-@end
-
 @implementation ZMainClassifyOneModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"classify_id" : @"id",
+             @"name" : @"title",
+             @"imageName" : @"path",
+             @"secondary" : @"children",
+    };
+}
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"secondary" : @"ZMainClassifyOneModel"
+             };
+}
 @end
 
-@implementation ZMainClassifyModel
-
-
+@implementation ZMainClassifyNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZMainClassifyOneModel"
+             };
+}
 @end
 
 @implementation ZStudentPhotoWallItemModel

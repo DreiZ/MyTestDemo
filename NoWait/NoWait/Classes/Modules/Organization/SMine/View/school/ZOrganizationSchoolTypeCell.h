@@ -10,7 +10,7 @@
 #import "ZStudentMainModel.h"
 
 @interface ZOrganizationSchoolTypeCell : ZBaseCell
-@property (nonatomic,strong) NSMutableArray <ZMainClassifyTwoModel *>*classifysArr;
+@property (nonatomic,strong) NSMutableArray <ZMainClassifyOneModel *>*classifysArr;
 
 @end
 

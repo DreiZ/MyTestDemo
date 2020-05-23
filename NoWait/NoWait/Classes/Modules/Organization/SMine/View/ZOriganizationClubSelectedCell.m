@@ -121,7 +121,8 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ( _channelList.count > 0) {
         ZBaseUnitModel *model = _channelList[indexPath.row];
-        CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
+//        CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent]];
+        CGSize cellSize = [model.name tt_sizeWithFont:[UIFont fontContent] constrainedToWidth:KScreenWidth*2.0/3.0f];
         return CGSizeMake(cellSize.width + CGFloatIn750(34), CGFloatIn750(72));
     }
     return CGSizeMake(KScreenWidth/4.0f, CGFloatIn750(72));
