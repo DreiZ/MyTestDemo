@@ -51,7 +51,7 @@ static ZAlertMoreView *sharedManager;
     
     UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
-        [self removeFromSuperview];
+        [self closeView];
     } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backBtn];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -131,6 +131,16 @@ static ZAlertMoreView *sharedManager;
     }
 }
 
+
+- (void)closeView {
+    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.alpha = 0;
+        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+}
+
 - (void)setTitleArr:(NSArray *)titleArr handlerBlock:(void(^)(NSString *))handleBlock {
     self.handleBlock = handleBlock;
     _titleArr = titleArr;
@@ -172,7 +182,7 @@ static ZAlertMoreView *sharedManager;
         if (self.handleBlock) {
             self.handleBlock(model.cellTitle);
         }
-        [self removeFromSuperview];
+        [self closeView];
     }
     
 }

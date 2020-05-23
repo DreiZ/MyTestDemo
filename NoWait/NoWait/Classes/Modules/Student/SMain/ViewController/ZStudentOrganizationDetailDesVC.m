@@ -45,6 +45,7 @@
 #import "ZOriganizationReportVC.h"
 #import <NSDate+YYAdd.h>
 #import "ZUMengShareManager.h"
+#import "ZPhoneAlertView.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -94,7 +95,12 @@
         _bottomView = [[ZOrganizationDetailBottomView alloc] init];
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
+                [ZPhoneAlertView setAlertName:@"联系我时，请说是在似锦APP看到的，谢谢！"  tel:@"1857621232" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+//                        [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
+                    }
+                }];
+                
             }else if (index == 2){
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     if ([weakSelf.detailModel.collection intValue] == 1) {

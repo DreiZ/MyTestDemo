@@ -89,8 +89,16 @@
 - (UIButton *)telBtn {
     if (!_telBtn) {
         _telBtn = [[ZButton alloc] initWithFrame:CGRectZero];
-        [_telBtn setImage:[UIImage imageNamed:@"telGray"] forState:UIControlStateNormal];
-        [_telBtn.titleLabel setFont:[UIFont fontSmall]];
+//        [_telBtn setImage:[UIImage imageNamed:@"telGray"] forState:UIControlStateNormal];
+        UIImageView *telImage = [[UIImageView alloc] init];
+        telImage.image = [UIImage imageNamed:@"telGray"];
+        telImage.layer.masksToBounds = YES;
+        [_telBtn addSubview:telImage];
+        [telImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.telBtn);
+            make.height.mas_equalTo(CGFloatIn750(34));
+            make.width.mas_equalTo(CGFloatIn750(26));
+        }];
         __weak typeof(self) weakSelf = self;
         [_telBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {

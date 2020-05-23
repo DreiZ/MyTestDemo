@@ -11,5 +11,8 @@
 
 @interface ZPhoneAlertView : UIView
 + (void)setAlertName:(NSString *)title detail:(NSString *)detail headImage:(NSString *)headImage tel:(NSString *)tel handlerBlock:(void(^)(NSInteger))handleBlock ;
+
+
++ (void)setAlertName:(NSString *)title tel:(NSString *)tel handlerBlock:(void(^)(NSInteger))handleBlock;
 @end
 

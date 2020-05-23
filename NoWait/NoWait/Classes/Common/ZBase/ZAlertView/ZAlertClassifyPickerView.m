@@ -54,7 +54,7 @@ static ZAlertClassifyPickerView *sharedManager;
     
     UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
-        [self removeFromSuperview];
+        [self closeView];
     } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backBtn];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +82,7 @@ static ZAlertClassifyPickerView *sharedManager;
     [closeBtn.titleLabel setFont:[UIFont fontContent]];
     [closeBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
     [closeBtn bk_addEventHandler:^(id sender) {
-        [weakSelf removeFromSuperview];
+        [weakSelf closeView];
     } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:closeBtn];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -189,7 +189,7 @@ static ZAlertClassifyPickerView *sharedManager;
             if (weakSelf.sureBlock) {
                 weakSelf.sureBlock(selectArr);
             }
-            [weakSelf removeFromSuperview];
+            [weakSelf closeView];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _sureBtn;
@@ -416,6 +416,15 @@ static ZAlertClassifyPickerView *sharedManager;
         self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     } completion:^(BOOL finished) {
         [self resetLeftArr];
+    }];
+}
+
+- (void)closeView {
+    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.alpha = 0;
+        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
     }];
 }
 
