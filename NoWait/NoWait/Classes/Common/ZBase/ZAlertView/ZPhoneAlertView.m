@@ -263,9 +263,9 @@ static ZPhoneAlertView *sharedManager;
     [self.contView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerX.equalTo(self.contView.mas_centerX);
+        make.left.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(40));
         make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(48));
-        make.width.mas_equalTo(CGFloatIn750(396));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,18 +277,22 @@ static ZPhoneAlertView *sharedManager;
     
 
     UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
-    [leftBtn setImage:[[UIImage imageNamed:@"LoginClose"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    [leftBtn setTintColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])];
+    [leftBtn setTitle:@"取消拨打" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+    [leftBtn.titleLabel setFont:[UIFont fontContent]];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(0);
         }
-        [self closeView];
+        [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
+    ViewBorderRadius(leftBtn, CGFloatIn750(40), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     [self.contView addSubview:leftBtn];
     [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.mas_equalTo(CGFloatIn750(82));
-        make.right.top.equalTo(self.contView);
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(40));
+        make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(30));
+        make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(48));
     }];
    
     

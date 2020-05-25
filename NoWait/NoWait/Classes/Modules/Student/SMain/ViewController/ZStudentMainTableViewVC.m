@@ -126,10 +126,10 @@
         _hintFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
         UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        hintLabel.textColor = [UIColor colorMain];
+        hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         hintLabel.text = @"更多机构火速入驻中~";
         hintLabel.textAlignment = NSTextAlignmentCenter;
-        [hintLabel setFont:[UIFont fontSmall]];
+        [hintLabel setFont:[UIFont fontMin]];
         [_hintFooterView addSubview:hintLabel];
         [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.hintFooterView.mas_centerX);

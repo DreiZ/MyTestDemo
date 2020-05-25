@@ -77,7 +77,6 @@
             
         };
         
-        
         _sectionView.dataBlock = ^(NSDictionary *tDict) {
             if (tDict && [tDict objectForKey:@"sort"]) {
                 [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
@@ -92,10 +91,6 @@
 }
 
 #pragma mark - tableview delegate
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
-}
-
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
         ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];

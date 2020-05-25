@@ -111,7 +111,7 @@
         _menuView.zh_dataSource = self;
        _menuView.titleArr = @[@"综合排序"];
 //        _menuView.titleArr = @[@"机构类型",@"综合排序",@"筛选"];
-        _menuView.imageNameArr = @[@"mineLessonDown"];
+        _menuView.imageNameArr = @[@"menu_dowm"];
         _menuView.menuTapBlock = ^(NSInteger index) {
             if (weakSelf.titleSelect) {
                 weakSelf.titleSelect(index);
