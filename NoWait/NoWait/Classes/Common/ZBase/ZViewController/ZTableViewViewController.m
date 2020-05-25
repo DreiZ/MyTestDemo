@@ -63,6 +63,7 @@
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
 }
 
 - (void)setTableViewRefreshHeader {
@@ -130,7 +131,7 @@
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        _iTableView.tableFooterView = self.safeFooterView;
+//        _iTableView.tableFooterView = self.safeFooterView;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _iTableView;

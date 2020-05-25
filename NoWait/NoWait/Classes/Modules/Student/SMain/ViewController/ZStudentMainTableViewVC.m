@@ -52,6 +52,8 @@
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
+    
+    
 }
 
 
@@ -115,6 +117,26 @@
         };
     }
     return _sectionView;
+}
+
+
+- (UIView *)hintFooterView {
+    if (!_hintFooterView) {
+        _hintFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(60))];
+        _hintFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+        UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        hintLabel.textColor = [UIColor colorMain];
+        hintLabel.text = @"更多机构火速入驻中~";
+        hintLabel.textAlignment = NSTextAlignmentCenter;
+        [hintLabel setFont:[UIFont fontSmall]];
+        [_hintFooterView addSubview:hintLabel];
+        [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.hintFooterView.mas_centerX);
+            make.top.equalTo(self.hintFooterView.mas_top).offset(CGFloatIn750(10));
+        }];
+    }
+    return _hintFooterView;
 }
 
 - (NSMutableDictionary *)param {

@@ -37,6 +37,7 @@
 @interface ZStudentMainTableViewVC : ZTableViewViewController
 @property (nonatomic,strong) ZStudentMainTopSearchView *searchView;
 @property (nonatomic,strong) ZStudentMainFiltrateSectionView *sectionView;
+@property (nonatomic,strong) UIView *hintFooterView;
 
 @property (nonatomic,strong) NSMutableArray *enteryArr;
 @property (nonatomic,strong) NSMutableArray *photoWallArr;

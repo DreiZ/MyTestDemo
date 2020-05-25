@@ -58,7 +58,7 @@ static ZPhoneAlertView *sharedManager;
     
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(562));
+        make.height.mas_equalTo(CGFloatIn750(354));
         make.width.mas_equalTo(KScreenWidth - CGFloatIn750(60));
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY).offset(-CGFloatIn750(80));
@@ -228,22 +228,22 @@ static ZPhoneAlertView *sharedManager;
     [self.contView addSubview:self.nameLabel];
     [self.contView addSubview:self.telLabel];
     
-    self.headImageView.image = [UIImage imageNamed:@"telhint"];
+//    self.headImageView.image = [UIImage imageNamed:@"telhint"];
     self.nameLabel.text = title;
     self.telLabel.text = tel;
     self.telLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
-
-    [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(CGFloatIn750(164));
-        make.height.mas_equalTo(CGFloatIn750(208));
-        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(40));
-        make.centerX.equalTo(self.contView.mas_centerX);
-    }];
+//
+//    [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(CGFloatIn750(164));
+//        make.height.mas_equalTo(CGFloatIn750(208));
+//        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(40));
+//        make.centerX.equalTo(self.contView.mas_centerX);
+//    }];
     
     [self.telLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.headImageView.mas_centerX);
-        make.top.equalTo(self.headImageView.mas_bottom).offset(CGFloatIn750(30));
+        make.centerX.equalTo(self.contView.mas_centerX);
+        make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(50));
     }];
 
    

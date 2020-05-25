@@ -38,6 +38,7 @@
 #import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
 #import "ZStudentCollectionViewModel.h"
+#import "ZPhoneAlertView.h"
 
 @interface ZStudentLessonDetailVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
@@ -215,7 +216,11 @@
         _bottomView.title = @"立即购买";
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-              [ZPublicTool callTel:SafeStr(weakSelf.addModel.phone)];
+              [ZPhoneAlertView setAlertName:@"联系我时，请说是在似锦APP看到的，谢谢！"  tel:SafeStr(weakSelf.addModel.phone) handlerBlock:^(NSInteger index) {
+                  if (index == 1) {
+//                        [ZPublicTool callTel:SafeStr(weakSelf.detailModel.phone)];
+                  }
+              }];
             }else if (index == 2){
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     if ([weakSelf.addModel.collection intValue] == 1) {

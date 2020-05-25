@@ -135,6 +135,7 @@
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
+                weakSelf.iTableView.tableFooterView = weakSelf.hintFooterView;
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
             }
@@ -142,6 +143,7 @@
             [weakSelf.iTableView reloadData];
             [weakSelf.iTableView tt_endRefreshing];
             [weakSelf.iTableView tt_removeLoadMoreFooter];
+            weakSelf.iTableView.tableFooterView = weakSelf.hintFooterView;
         }
     }];
 }
@@ -162,6 +164,7 @@
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
+                weakSelf.iTableView.tableFooterView = weakSelf.hintFooterView;
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
             }
@@ -169,6 +172,7 @@
             [weakSelf.iTableView reloadData];
             [weakSelf.iTableView tt_endRefreshing];
             [weakSelf.iTableView tt_removeLoadMoreFooter];
+            weakSelf.iTableView.tableFooterView = weakSelf.hintFooterView;
         }
     }];
 }
