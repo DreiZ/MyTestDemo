@@ -175,7 +175,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:self.type forKey:@"stores_type"];
+    [self.param setObject:self.type forKey:@"category"];
     if ([ZLocationManager shareManager].cureUserLocation) {
         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];

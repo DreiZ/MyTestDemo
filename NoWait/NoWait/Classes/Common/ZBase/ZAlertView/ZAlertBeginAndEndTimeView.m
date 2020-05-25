@@ -172,7 +172,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
 - (PGDatePicker *)dateBeginPicker {
     if (!_dateBeginPicker) {
         _dateBeginPicker = [[PGDatePicker alloc]init];
-        _dateBeginPicker.backgroundColor = [UIColor whiteColor];
+        _dateBeginPicker.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorGrayBGDark]);
         _dateBeginPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         //设置选中行的字体颜色
         _dateBeginPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
@@ -189,7 +189,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
 - (PGDatePicker *)dateEndPicker {
     if (!_dateEndPicker) {
         _dateEndPicker = [[PGDatePicker alloc]init];
-        _dateEndPicker.backgroundColor = [UIColor whiteColor];
+        _dateEndPicker.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorGrayBGDark]);
         _dateEndPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         //设置选中行的字体颜色
         _dateEndPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
