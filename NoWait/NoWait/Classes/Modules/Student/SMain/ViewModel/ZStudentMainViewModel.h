@@ -53,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray <ZMainClassifyOneModel *>*)mainClassifyOneData;
 
 + (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData;
+
+
++ (BOOL)updateMainEntryClassifys:(NSArray <ZMainClassifyOneModel *>*)banners;
+
++ (NSArray <ZMainClassifyOneModel *>*)mainClassifyEntryData;
 @end
 
 NS_ASSUME_NONNULL_END

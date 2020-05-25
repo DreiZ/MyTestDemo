@@ -101,6 +101,7 @@
         _status = @"";
         _store_type_id = @"";
 
+        _category = @[].mutableCopy;
         _months = @[].mutableCopy;
         _stores_info = @[].mutableCopy;
         _week_days = @[].mutableCopy;
@@ -110,8 +111,12 @@
 }
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"schoolID" : @"id",
-             @"merchants_stores_tags" : @"merchant_stores_tags"
+             @"merchants_stores_tags" : @"merchant_stores_tags",
     };
+}
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"category" : @"ZMainClassifyOneModel"
+             };
 }
 @end
 
@@ -326,7 +331,8 @@
 @implementation ZAdverListNetModel
 + (NSDictionary *)mj_objectClassInArray {
     return @{ @"shuffling" : @"ZAdverListModel",
-              @"placeholder" : @"ZAdverListModel"
+              @"placeholder" : @"ZAdverListModel",
+              @"category" : @"ZMainClassifyOneModel"
              };
 }
 @end

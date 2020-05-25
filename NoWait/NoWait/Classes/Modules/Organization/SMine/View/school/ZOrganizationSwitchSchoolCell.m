@@ -65,12 +65,13 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(16));
-        make.bottom.equalTo(self.leftImageView.mas_centerY).offset(-CGFloatIn750(8));
+        make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(16));
+        make.top.equalTo(self.leftImageView.mas_top).offset(CGFloatIn750(4));
     }];
     
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(16));
-        make.top.equalTo(self.leftImageView.mas_centerY).offset(CGFloatIn750(8));
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(8));
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -93,9 +94,9 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         
-        _titleLabel.numberOfLines = 1;
+        _titleLabel.numberOfLines = 0;
         _titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_titleLabel setFont:[UIFont boldFontMax1Title]];
+        [_titleLabel setFont:[UIFont boldFontMaxTitle]];
     }
     return _titleLabel;
 }

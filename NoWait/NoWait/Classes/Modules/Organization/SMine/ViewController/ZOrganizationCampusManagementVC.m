@@ -13,7 +13,6 @@
 #import "ZStudentDetailModel.h"
 
 #import "ZOrganizationCampusCell.h"
-#import "ZSpaceEmptyCell.h"
 #import "ZOrganizationCampusTextFieldCell.h"
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
@@ -36,7 +35,6 @@
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) ZOriganizationSchoolDetailModel *model;
 @property (nonatomic,strong) NSMutableArray <ZAlertDataItemModel*> *items;
-@property (nonatomic,strong) NSArray *typeList;
 
 @end
 
@@ -54,7 +52,6 @@
 - (void)setDataSource {
     [super setDataSource];
     _items = @[].mutableCopy;
-    _typeList = @[@"体育竞技",@"艺术舞蹈",@"兴趣爱好",@"其他"];
     _model = [[ZOriganizationSchoolDetailModel alloc] init];
 }
 
@@ -68,17 +65,20 @@
     ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:@"yes"];
     [self.cellConfigArr addObject:topCellConfig];
     
-    NSString *type = @"";
-    if (self.model && [SafeStr(self.model.store_type_id) intValue] > 0 && [SafeStr(self.model.store_type_id) intValue] <= _typeList.count) {
-        type = _typeList[[SafeStr(self.model.store_type_id) intValue] - 1];
-    }
     NSString *time = @"";
     if (self.model && ValidStr(self.model.opend_start)&& ValidStr(self.model.opend_end) && self.model.week_days && self.model.months && self.model.week_days.count > 0 && self.model.months.count > 0) {
         time = @"已编辑";
     }
     
-    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", SafeStr(self.model.hash_update_name), @NO, @"name",self.model? SafeStr(self.model.name):@""],
-                         @[@"校区类型", @"请选择校区类型", @NO, @NO, @"type", type],
+    NSMutableArray *classify = @[].mutableCopy;
+    for (int i = 0; i < self.model.category.count; i++) {
+        ZMainClassifyOneModel *model = self.model.category[i];
+        [classify addObject:model.name];
+    }
+    
+    
+    NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", [[NSNumber alloc] initWithBool: ![SafeStr(self.model.hash_update_name) boolValue]], @NO, @"name",self.model? SafeStr(self.model.name):@""],
+                         @[@"校区类型", @"请选择校区类型", @YES, @YES, @"type", classify],
                          @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone", self.model? SafeStr(self.model.phone):@""],
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
                          @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time",time],
@@ -201,7 +201,7 @@
                 [TLUIUtility showErrorHint:@"校区数据获取异常，请退出后从事"];
                 return ;
             }
-            if (!ValidStr(weakSelf.model.store_type_id)) {
+            if (!ValidArray(weakSelf.model.category)) {
                 [TLUIUtility showErrorHint:@"请选择校区类型"];
                 return ;
             }
@@ -241,7 +241,7 @@
             
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:self.model.schoolID forKey:@"id"];
-            [params setObject:self.model.store_type_id forKey:@"store_type_id"];
+//            [params setObject:self.model.store_type_id forKey:@"store_type_id"];
             [params setObject:self.model.phone forKey:@"phone"];
             [params setObject:self.model.name forKey:@"name"];
             [params setObject:self.model.province forKey:@"province"];
@@ -258,6 +258,17 @@
             [params setObject:self.model.merchants_stores_tags forKey:@"merchants_stores_tags"];
             [params setObject:self.model.stores_info forKey:@"stores_info"];
             
+            NSString *cat = @"";
+            for (int i = 0; i < self.model.category.count; i++) {
+                ZMainClassifyOneModel *model = self.model.category[i];
+                if (i == 0) {
+                    cat = model.classify_id;
+                }else{
+                    cat = [NSString stringWithFormat:@"%@,%@",cat,model.classify_id];
+                }
+            }
+            
+            [params setObject:cat forKey:@"category"];
             [weakSelf updateImageWithOtherParams:params];
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -378,13 +389,13 @@
         NSMutableArray *classify = @[].mutableCopy;
         [classify addObjectsFromArray:[ZStudentMainViewModel mainClassifyOneData]];
         [classify enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.name isEqualToString:@"全部"]) {
+            if ([obj.name hasPrefix:@"全部"]) {
                 [classify removeObject:obj];
             }else{
                 [obj.secondary enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([sobj.name isEqualToString:@"全部"]) {
+                    if ([sobj.name hasPrefix:@"全部"]) {
                         NSMutableArray *tempArr = @[].mutableCopy;
-                        [tempArr addObjectsFromArray:sobj.secondary];
+                        [tempArr addObjectsFromArray:obj.secondary];
                         [tempArr removeObject:sobj];
                         obj.secondary = tempArr;
                     }
@@ -394,6 +405,9 @@
         
         [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
             NSLog(@"---%@",classify);
+            [weakSelf.model.category addObjectsFromArray:classify];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];

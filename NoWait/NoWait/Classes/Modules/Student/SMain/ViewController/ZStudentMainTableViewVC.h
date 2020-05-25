@@ -41,6 +41,7 @@
 @property (nonatomic,strong) NSMutableArray *enteryArr;
 @property (nonatomic,strong) NSMutableArray *photoWallArr;
 
+@property (nonatomic,strong) NSMutableArray *enteryDataArr;
 @property (nonatomic,strong) NSMutableArray *AdverArr;
 @property (nonatomic,strong) NSMutableArray *placeholderArr;
 @property (nonatomic,strong) NSMutableArray *classifyArr;

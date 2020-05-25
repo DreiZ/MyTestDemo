@@ -37,6 +37,7 @@
     self.enteryArr = @[].mutableCopy;
     self.photoWallArr = @[].mutableCopy;
     
+    self.enteryDataArr = @[].mutableCopy;
     self.AdverArr = @[].mutableCopy;
     self.placeholderArr = @[].mutableCopy;
     self.classifyArr = @[].mutableCopy;
@@ -44,7 +45,7 @@
     NSArray *advers = [ZStudentMainViewModel mainBannerData];
     NSArray *placeholder = [ZStudentMainViewModel mainPlaceholderData];
     NSArray *classify = [ZStudentMainViewModel mainClassifyOneData];
-    
+    NSArray *entryData = [ZStudentMainViewModel mainClassifyEntryData];
     if (ValidArray(advers)) {
         [self.AdverArr addObjectsFromArray:advers];
     }
@@ -53,6 +54,9 @@
     }
     if (ValidArray(classify)) {
         [self.classifyArr addObjectsFromArray:classify];
+    }
+    if (ValidArray(entryData)) {
+        [self.enteryDataArr addObjectsFromArray:entryData];
     }
 }
 
@@ -74,8 +78,8 @@
        [sectionArr addObject:topCellConfig];
     }
     
-    if (ValidArray(self.classifyArr)) {
-        [self.classifyArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (ValidArray(self.enteryDataArr)) {
+        [self.enteryDataArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             ZStudentEnteryItemModel *model = [[ZStudentEnteryItemModel alloc] init];
             model.imageName = obj.imageName;
             model.name = obj.name;
@@ -192,11 +196,15 @@
         if (isSuccess && data) {
             [weakSelf.AdverArr removeAllObjects];
             [weakSelf.placeholderArr removeAllObjects];
+            [weakSelf.enteryDataArr removeAllObjects];
+            
             [weakSelf.AdverArr addObjectsFromArray:data.shuffling];
             [weakSelf.placeholderArr addObjectsFromArray:data.placeholder];
+            [weakSelf.enteryDataArr addObjectsFromArray:data.category];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             
+            [ZStudentMainViewModel updateMainEntryClassifys:data.category];
             [ZStudentMainViewModel updateMainBanners:data.shuffling];
             [ZStudentMainViewModel updateMainPlaceholders:data.placeholder];
         }else{
@@ -213,6 +221,11 @@
             weakSelf.sectionView = nil;
             [weakSelf.classifyArr removeAllObjects];
             [weakSelf.classifyArr addObjectsFromArray:model.list];
+            [weakSelf.classifyArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    sobj.superClassify_id = obj.classify_id;
+                }];
+            }];
             [ZStudentMainViewModel updateMainClassifysOne:weakSelf.classifyArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

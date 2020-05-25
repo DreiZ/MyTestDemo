@@ -180,4 +180,13 @@
 }
 
 
++ (BOOL)updateMainEntryClassifys:(NSArray <ZMainClassifyOneModel *>*)banners {
+    [[ZDBMainStore shareManager] cleanClassify];
+    return [[ZDBMainStore shareManager] updateMainClassifys:banners];
+}
+
++ (NSArray <ZMainClassifyOneModel *>*)mainClassifyEntryData {
+    return [[ZDBMainStore shareManager] mainClassifyData];
+}
+
 @end

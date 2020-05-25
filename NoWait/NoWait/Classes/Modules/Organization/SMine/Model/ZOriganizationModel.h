@@ -11,6 +11,7 @@
 #import "ZBaseNetworkBackModel.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZOrderModel.h"
+#import "ZStudentMainModel.h"
 
 @interface ZOriganizationModel : ZBaseModel
 
@@ -166,7 +167,7 @@
 @property (nonatomic,strong) NSString *store_type_id;
 @property (nonatomic,strong) NSString *collection;
 
-
+@property (nonatomic,strong) NSMutableArray *category;
 @property (nonatomic,strong) NSMutableArray *months;
 @property (nonatomic,strong) NSMutableArray *stores_info;
 @property (nonatomic,strong) NSMutableArray *week_days;
@@ -461,6 +462,7 @@
 @interface ZAdverListNetModel : ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZAdverListModel *>*shuffling;
 @property (nonatomic,strong) NSArray <ZAdverListModel *>*placeholder;
+@property (nonatomic,strong) NSArray <ZMainClassifyOneModel *>*category;
 @end
 
 @interface ZImagesModel : ZBaseModel
