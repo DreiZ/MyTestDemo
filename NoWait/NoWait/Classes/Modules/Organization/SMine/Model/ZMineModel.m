@@ -35,32 +35,6 @@
 @implementation ZQRCodeAddStudentMode
 @end
 
-@implementation ZMineMessageModel
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"message_id" : @"id",
-            };
-}
-
-- (NSArray<ZMineMessageReceiveModel *> *)receiveArr {
-    if (ValidStr(self.receive)) {
-          NSArray *temp = [self.receive zz_JSONValue];
-        NSArray *ss =  [ZMineMessageReceiveModel mj_objectArrayWithKeyValuesArray:temp];
-        return ss;
-    }
-    return nil;
-}
-@end
-
-@implementation ZMineMessageReceiveModel
-
-@end
-
-@implementation ZMineMessageNetModel
-+ (NSDictionary *)mj_objectClassInArray {
-    return @{@"list":@"ZMineMessageModel"};
-}
-
-@end
 
 @implementation ZQRCodeStudentSignMode
 

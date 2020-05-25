@@ -179,33 +179,27 @@
 
 - (void)updateData {
     NSMutableDictionary *params = @{}.mutableCopy;
-    NSMutableArray *ids = @[].mutableCopy;
-    
     NSMutableDictionary *extra = @{}.mutableCopy;
-    NSMutableArray *name = @[].mutableCopy;
-   for (ZOriganizationStudentListModel *model in self.studentList) {
-           NSMutableDictionary *para = @{}.mutableCopy;
-       if (model && model.account_id) {
-           [para setObject:model.account_id forKey:@"account_id"];
-           [para setObject:self.lessonName forKey:@"title"];
-           [name addObject:model.name];
-           [ids addObject:para];
-       }
+    __block NSString *name = @"";
+    [self.studentList enumerateObjectsUsingBlock:^(ZOriganizationStudentListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == 0) {
+            name = obj.studentID;
+        }else{
+            name = [NSString stringWithFormat:@"%@,%@",name,obj.studentID];
+        }
+    }];
     
-   }
-    [extra setObject:name forKey:@"name"];
     [params setObject:extra forKey:@"extra"];
-    [params setObject:ids forKey:@"receive"];
-    [params setObject:SafeStr(self.teacherName) forKey:@"sender1"];
-    [params setObject:SafeStr(self.storesName) forKey:@"sender2"];
+    [params setObject:name forKey:@"receive"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
+    [extra setObject:self.storesName forKey:@"store_name"];
     if ([ZUserHelper sharedHelper].stores) {
-        [params setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    [params setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"store_id"];
     }
     if ([ZUserHelper sharedHelper].school) {
-        [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
+        [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"store_id"];
     }
-    [params setObject:SafeStr(self.type) forKey:@"type"];
+
     
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];

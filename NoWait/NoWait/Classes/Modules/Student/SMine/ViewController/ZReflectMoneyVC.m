@@ -152,7 +152,6 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZRewardMoneyBottomBtnCell className] title:[ZRewardMoneyBottomBtnCell className] showInfoMethod:nil heightOfCell:[ZRewardMoneyBottomBtnCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
 
         [configArr addObject:menuCellConfig];
-        
     }
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
@@ -164,7 +163,10 @@
     __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
-        lcell.contView.backgroundColor = adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0));
+        lcell.contTopView.hidden = NO;
+        lcell.contBottomView.hidden = NO;
+        lcell.contTopView.backgroundColor = adaptAndDarkColor(HexAColor(0xf8f8f8,1.0), HexAColor(0x1c1c1c,1.0));
+//        lcell.contBottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         lcell.handleBlock = ^(ZCellConfig * lcellConfig) {
             
         };

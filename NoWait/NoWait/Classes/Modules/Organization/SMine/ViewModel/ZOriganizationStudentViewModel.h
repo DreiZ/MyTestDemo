@@ -48,7 +48,7 @@
 + (void)getMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
-+ (void)getSendsMessageList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
++ (void)getSendMessageInfo:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 
 + (void)addClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;

@@ -530,12 +530,12 @@
 #define URL_account_v1_upload_sign_image          @"account/v1/upload/sign/image"
 
 #pragma mark - 消息
-//消息
-#define URL_message_v1_add_message                      @"message/v1/add_message"
+#define URL_account_v1_get_news_list                    @"account/v1/get/news/list"
 
-//消息
-#define URL_message_v1_get_message                      @"message/v1/get_message"
-#define URL_message_v1_get_sended_message               @"message/v1/get_sended_message"
+#define URL_account_v1_send_student_news                @"account/v1/send/student/news"
+
+#define URL_account_v1_get_news_info                    @"account/v1/get/news/info"
+
 
 #pragma mark - device_token
 #define URL_message_v1_add_device_token                 @"account/v1/add_device_token"

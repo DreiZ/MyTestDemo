@@ -27,28 +27,28 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    if (ValidStr(self.model.extra)) {
-        NSDictionary *extra = [self.model.extra zz_JSONValue];
-        if ([extra objectForKey:@"name"]) {
-            id temp = extra[@"name"];
-            if ([temp isKindOfClass:[NSArray class]]) {
-                NSArray *send = extra[@"name"];
-
-                for (NSString *name in send) {
-                    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-                    model.leftTitle = name;
-                    model.isHiddenLine = YES;
-                    model.cellHeight = CGFloatIn750(96);
-                    model.leftFont = [UIFont fontContent];
-                    
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                    
-                    [self.cellConfigArr addObject:menuCellConfig];
-                }
-            }
-        }
-    }
+//    
+//    if (ValidStr(self.model.extra)) {
+//        NSDictionary *extra = [self.model.extra zz_JSONValue];
+//        if ([extra objectForKey:@"name"]) {
+//            id temp = extra[@"name"];
+//            if ([temp isKindOfClass:[NSArray class]]) {
+//                NSArray *send = extra[@"name"];
+//
+//                for (NSString *name in send) {
+//                    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//                    model.leftTitle = name;
+//                    model.isHiddenLine = YES;
+//                    model.cellHeight = CGFloatIn750(96);
+//                    model.leftFont = [UIFont fontContent];
+//                    
+//                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+//                    
+//                    [self.cellConfigArr addObject:menuCellConfig];
+//                }
+//            }
+//        }
+//    }
 }
 
 @end

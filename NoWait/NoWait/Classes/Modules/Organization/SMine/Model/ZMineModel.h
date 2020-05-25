@@ -60,35 +60,4 @@
 @property (nonatomic,strong) NSString *teacher_nick_name;
 @end
 
-@interface ZMineMessageReceiveModel : ZBaseModel
-@property (nonatomic,strong) NSString *account_id;
-@property (nonatomic,strong) NSString *title;
-@end
-
-@interface ZMineMessageModel : ZBaseModel
-@property (nonatomic,strong) NSString *message_id;
-@property (nonatomic,strong) NSString *account_id;
-@property (nonatomic,strong) NSString *content;
-@property (nonatomic,strong) NSString *create_at;
-@property (nonatomic,strong) NSString *extra;
-@property (nonatomic,strong) NSString *is_read;
-@property (nonatomic,strong) NSString *sender1;
-@property (nonatomic,strong) NSString *sender2;
-@property (nonatomic,strong) NSString *stores_id;
-@property (nonatomic,strong) NSString *title;
-@property (nonatomic,strong) NSString *type;
-@property (nonatomic,strong) NSString *type_msg;
-@property (nonatomic,strong) NSString *update_at;
-@property (nonatomic,strong) NSString *send_num;
-
-@property (nonatomic,strong) NSArray <ZMineMessageReceiveModel *>*receiveArr;
-
-@property (nonatomic,strong) NSString *receive;
-@end
-
-
-@interface ZMineMessageNetModel :  ZBaseNetworkBackDataModel
-@property (nonatomic,strong) NSArray <ZMineMessageModel *>*list;
-@property (nonatomic,copy) NSString *total;
-@end
 

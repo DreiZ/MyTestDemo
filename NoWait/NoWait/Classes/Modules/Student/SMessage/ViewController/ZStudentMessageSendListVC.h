@@ -7,11 +7,11 @@
 //
 
 #import "ZTableViewViewController.h"
-#import "ZMineModel.h"
+#import "ZMessgeModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMessageSendListVC : ZTableViewViewController
-@property (nonatomic,strong) ZMineMessageModel *model;
+@property (nonatomic,strong) ZMessgeModel *model;
 
 @end
 

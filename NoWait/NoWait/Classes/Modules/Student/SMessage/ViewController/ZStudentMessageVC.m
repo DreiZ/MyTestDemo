@@ -7,11 +7,11 @@
 //
 
 #import "ZStudentMessageVC.h"
-#import "ZStudentMessageListCell.h"
+#import "ZMessageListCell.h"
 
 #import "ZStudentMessageDetailVC.h"
-#import "ZMessageCell.h"
-#import "ZMineModel.h"
+#import "ZMessageListCell.h"
+#import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZStudentMessageSendListVC.h"
 
@@ -58,7 +58,7 @@
     [super initCellConfigArr];
     
     for (id data in self.dataSources) {
-        ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageCell className] title:[ZMessageCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageCell z_getCellHeight:data] cellType:ZCellTypeClass dataModel:data];
+        ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:data] cellType:ZCellTypeClass dataModel:data];
         [self.cellConfigArr addObject:messageCellConfig];
     }
 }
@@ -81,8 +81,8 @@
 
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZMessageCell"]) {
-        ZMessageCell *lcell = (ZMessageCell *)cell;
-        lcell.handleBlock = ^(ZMineMessageModel * message) {
+        ZMessageListCell *lcell = (ZMessageListCell *)cell;
+        lcell.handleBlock = ^(ZMessgeModel * message) {
             if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
                 ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
                 svc.model = message;
@@ -92,10 +92,7 @@
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-//    if ([cellConfig.title isEqualToString:@"ZStudentMessageListCell"]) {
-//        ZStudentMessageDetailVC *dvc = [[ZStudentMessageDetailVC alloc] init];
-//        [self.navigationController pushViewController:dvc animated:YES];
-//    }
+
 }
 
 
@@ -109,50 +106,27 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-        [ZOriganizationStudentViewModel getSendsMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-            weakSelf.loading = NO;
-            if (isSuccess && data) {
-                [weakSelf.dataSources removeAllObjects];
-                [weakSelf.dataSources addObjectsFromArray:data.list];
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-                
-                [weakSelf.iTableView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                    [weakSelf.iTableView tt_removeLoadMoreFooter];
-                }else{
-                    [weakSelf.iTableView tt_endLoadMore];
-                }
-            }else{
-                [weakSelf.iTableView reloadData];
-                [weakSelf.iTableView tt_endRefreshing];
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
-            }
-        }];
-    }else{
-        [ZOriganizationStudentViewModel getMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-            weakSelf.loading = NO;
-            if (isSuccess && data) {
-                [weakSelf.dataSources removeAllObjects];
-                [weakSelf.dataSources addObjectsFromArray:data.list];
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-                
-                [weakSelf.iTableView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                    [weakSelf.iTableView tt_removeLoadMoreFooter];
-                }else{
-                    [weakSelf.iTableView tt_endLoadMore];
-                }
-            }else{
-                [weakSelf.iTableView reloadData];
-                [weakSelf.iTableView tt_endRefreshing];
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
-            }
-        }];
-    }
     
+    [ZOriganizationStudentViewModel getMessageList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
 }
 
 - (void)refreshMoreData {
@@ -160,53 +134,31 @@
     self.loading = YES;
     [self setPostCommonData];
     __weak typeof(self) weakSelf = self;
-    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-        [ZOriganizationStudentViewModel getSendsMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-            weakSelf.loading = NO;
-            if (isSuccess && data) {
-                [weakSelf.dataSources addObjectsFromArray:data.list];
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-                
-                [weakSelf.iTableView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                    [weakSelf.iTableView tt_removeLoadMoreFooter];
-                }else{
-                    [weakSelf.iTableView tt_endLoadMore];
-                }
-            }else{
-                [weakSelf.iTableView reloadData];
-                [weakSelf.iTableView tt_endRefreshing];
+   
+    [ZOriganizationStudentViewModel getMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
-            }
-        }];
-    }else{
-        [ZOriganizationStudentViewModel getMessageList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
-            weakSelf.loading = NO;
-            if (isSuccess && data) {
-                [weakSelf.dataSources addObjectsFromArray:data.list];
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
-                
-                [weakSelf.iTableView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                    [weakSelf.iTableView tt_removeLoadMoreFooter];
-                }else{
-                    [weakSelf.iTableView tt_endLoadMore];
-                }
             }else{
-                [weakSelf.iTableView reloadData];
-                [weakSelf.iTableView tt_endRefreshing];
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+                [weakSelf.iTableView tt_endLoadMore];
             }
-        }];
-    }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
 }
 
 
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-
+    [_param setObject:@"10" forKey:@"page_size"];
 }
 @end
-
