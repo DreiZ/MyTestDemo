@@ -26,6 +26,25 @@ typedef NS_ENUM(NSInteger,ZCustomNoticeType){
     ZCustomNoticeTypeNotice  = 13,                        //机构老师通知
 };
 
+typedef NS_ENUM(NSInteger,ZCustomChannleType){
+    ZCustomChannleTypeInteract  =  1,         //  互动消息
+    ZCustomChannleTypeSystem   =  2,           //  系统消息
+    ZCustomChannleTypeStore   =  3,           //  校区消息
+    ZCustomChannleTypeTeacher   =  4,           //  老师消息
+    ZCustomChannleTypeStudent   =  5,           //  学员消息
+    ZCustomChannleTypeCustom   =  6,           //  自定义消息
+};
+
+
+typedef NS_ENUM(NSInteger,ZCustomTerminalType){
+    ZCustomTerminalTypeMechanism =  1,   //  机构端
+    ZCustomTerminalTypeStore =  2,    //  校区端
+    ZCustomTerminalTypeStudent =  3,   //  学员端
+    ZCustomTerminalTypeTeacher =  4,    //  教师端
+    ZCustomTerminalTypePlatform =  4,    //  平台
+};
+
+
 
 @interface ZMessageAccountModel : NSObject
 @property (nonatomic,strong) NSString *nick_name;
@@ -34,8 +53,9 @@ typedef NS_ENUM(NSInteger,ZCustomNoticeType){
 
 
 @interface ZMessageExtraModel : NSObject
-@property (nonatomic,strong) NSString *nick_name;
-@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *account_total;
+@property (nonatomic,strong) NSString *store_id;
+@property (nonatomic,strong) NSString *store_name;
 @end
 
 @interface ZMessageInfoModel : NSObject
