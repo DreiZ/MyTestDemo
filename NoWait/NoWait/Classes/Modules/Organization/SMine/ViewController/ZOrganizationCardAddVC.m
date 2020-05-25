@@ -219,7 +219,7 @@
 //                     }];
 //            }
             
-            if (!SafeStr(self.viewModel.addModel.min_amount)) {
+            if (ValidStr(self.viewModel.addModel.min_amount)) {
                 [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
             }else{
                 [params setObject:@"1" forKey:@"min_amount"];
