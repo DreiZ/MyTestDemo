@@ -210,7 +210,11 @@
                 break;
         case ZCustomNoticeTypeAppointment:                     //  预约通知
             {
-                
+                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
+                orderModel.order_id = model.extra.order_id;
+                dvc.model = orderModel;
+                [self.navigationController pushViewController:dvc animated:YES];
             }
                 break;
         case ZCustomNoticeTypeCourseBegins:                   //  开课通知

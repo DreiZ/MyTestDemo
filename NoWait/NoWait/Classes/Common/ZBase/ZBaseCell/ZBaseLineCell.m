@@ -181,6 +181,8 @@
             make.bottom.equalTo(self.contentView.mas_bottom);
             make.height.mas_equalTo(0.5);
         }];
+    }else{
+        self.bottomLineView.hidden = YES;
     }
 }
 
