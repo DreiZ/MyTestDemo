@@ -281,7 +281,7 @@
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
-        [_bottomBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
@@ -341,7 +341,6 @@
                 [weakSelf.iTableView reloadData];
             }];
         }
-        
     }else if ([cellConfig.title isEqualToString:@"studentList"]) {
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isEnd = [self.model.status intValue] == 3;

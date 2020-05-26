@@ -73,7 +73,7 @@
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
         _rightImageView.layer.masksToBounds = YES;
-        _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _rightImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _rightImageView;
 }

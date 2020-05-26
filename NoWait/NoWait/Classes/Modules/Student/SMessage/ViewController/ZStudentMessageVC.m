@@ -17,6 +17,7 @@
 #import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
+#import "ZAlertView.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -164,6 +165,12 @@
 
 #pragma mark - set handele
 - (void)setHandleModel:(ZMessgeModel *)model index:(NSInteger)index{
+    if (index == 200) {
+        [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此通知？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+            
+        }];
+        return;
+    }
     switch ([model.notice intValue]) {
         case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
             {

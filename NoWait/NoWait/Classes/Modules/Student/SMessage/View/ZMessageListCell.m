@@ -9,7 +9,6 @@
 #import "ZMessageListCell.h"
 #import "ZBaseLineCell.h"
 
-
 @interface ZMessageListCell ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UITableView *iTableView;
@@ -46,7 +45,25 @@
         make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(24));
         make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(10));
     }];
-    [self initCellConfigArr];
+    
+    UIView *coverBtn = [[UIView alloc] initWithFrame:CGRectZero];
+    coverBtn.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:coverBtn];
+    [coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contView);
+    }];
+
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+    longPress.minimumPressDuration = 0.5; //定义按的时间
+    [coverBtn addGestureRecognizer:longPress];
+}
+
+- (void)btnLong:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if (self.handleBlock) {
+            self.handleBlock(self.model, 200);
+        }
+    }
 }
 
 
@@ -92,78 +109,7 @@
 //    if (sender && [sender isKindOfClass:[ZMessgeModel class]]) {
 //        CGFloat cellHeight = CGFloatIn750(54)+CGFloatIn750(20) + CGFloatIn750(104);
 //        ZMessgeModel *model = sender;
-////        switch ([model.notice intValue]) {
-////            case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypePayment:                       //  支付交易通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeRefund:                          //  退款通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeMoneyBack:                      //  回款通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeRegister:                       //  注册通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeAppointment:                     //  预约通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeCourseBegins:                   //  开课通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeCourseEnd:                      //  结课通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeCourseSign:                     //  签课通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeEvaluate:                        //  评价通知
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeCustom:
-////                {
-////
-////                }
-////                    break;
-////            case ZCustomNoticeTypeNotice:                        //机构老师通知
-////                {
-////                    cellHeight = cellHeight + CGFloatIn750(54) + CGFloatIn750(20);
-////                    cellHeight = cellHeight +CGFloatIn750(50) + CGFloatIn750(2);
-////                    return cellHeight;
-////                }
-////                    break;
-////            default:
-////
-////                break;
-////        }
+
 ////    }
    
     CGFloat cellHeigt = CGFloatIn750(64) + CGFloatIn750(40);
@@ -487,7 +433,6 @@
 }
 
 + (ZCellConfig *)setMessageSend:(ZMessgeModel *)messageModel {
-    //校区
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
     .titleRight(SafeStr(messageModel.extra.store_name))
         .colorRight([UIColor colorTextBlack])
@@ -506,7 +451,7 @@
     .titleLeft(SafeStr(seeDetail))
     .fontLeft([UIFont fontSmall])
     .imageRight(@"rightBlackArrowN")
-    .imageRightHeight(CGFloatIn750(8))
+    .imageRightHeight(CGFloatIn750(12))
     .lineHidden(YES)
     .height(CGFloatIn750(54));
 
@@ -515,8 +460,6 @@
 }
 
 + (ZCellConfig *)setTeacher:(ZMessgeModel *)messageModel {
-    //老师
-
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
         .titleLeft(SafeStr(messageModel.extra.teacher))
         .imageLeft(SafeStr(messageModel.extra.teacher_image))
