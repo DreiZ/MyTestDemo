@@ -11,6 +11,6 @@
 
 @interface ZMessageListCell : ZBaseCell
 @property (nonatomic,strong) ZMessgeModel *model;
-@property (nonatomic,strong) void (^handleBlock)(ZMessgeModel *);
+@property (nonatomic,strong) void (^handleBlock)(ZMessgeModel *,NSInteger);
 @end
 

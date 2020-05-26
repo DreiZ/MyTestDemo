@@ -280,6 +280,7 @@
                         mvc.lessonName = self.model.stores_courses_name;
                         mvc.type = @"3";
                         mvc.teacherName = self.model.teacher_name;
+                        mvc.teacherImage = self.model.teacher_image;
                         mvc.studentList = [[NSMutableArray alloc] initWithArray:data.list];
                         [weakSelf.navigationController pushViewController:mvc animated:YES];
                     }else{

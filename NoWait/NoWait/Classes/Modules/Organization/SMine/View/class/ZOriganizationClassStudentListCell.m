@@ -241,7 +241,7 @@
 
 - (void)setIsEnd:(BOOL)isEnd {
     _isEnd = isEnd;
-    if (isEnd) {
+    if (isEnd || [[ZUserHelper sharedHelper].user.type intValue] == 2) {
         [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left);
             make.width.equalTo(self.mas_width).multipliedBy(1/3.0);
@@ -262,7 +262,7 @@
         
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.numLabel.mas_right);
+            make.centerX.equalTo(self.mas_right).multipliedBy(5.0/6);
             make.centerY.equalTo(self.mas_centerY);
             make.height.mas_equalTo(CGFloatIn750(56));
             make.width.mas_equalTo(CGFloatIn750(142));
@@ -272,6 +272,7 @@
         }else{
             self.seeBtn.hidden = NO;
         }
+        self.delView.hidden = YES;
     }else{
         [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left);

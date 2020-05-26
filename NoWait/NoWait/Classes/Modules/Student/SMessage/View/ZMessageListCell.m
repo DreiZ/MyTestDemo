@@ -89,9 +89,83 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-//    ZMessgeModel *model = sender;
-//    CGSize tempSize = [model.content tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-//    return CGFloatIn750(334) + tempSize.height;
+//    if (sender && [sender isKindOfClass:[ZMessgeModel class]]) {
+//        CGFloat cellHeight = CGFloatIn750(54)+CGFloatIn750(20) + CGFloatIn750(104);
+//        ZMessgeModel *model = sender;
+////        switch ([model.notice intValue]) {
+////            case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypePayment:                       //  支付交易通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeRefund:                          //  退款通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeMoneyBack:                      //  回款通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeRegister:                       //  注册通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeAppointment:                     //  预约通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeCourseBegins:                   //  开课通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeCourseEnd:                      //  结课通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeCourseSign:                     //  签课通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeEvaluate:                        //  评价通知
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeCustom:
+////                {
+////
+////                }
+////                    break;
+////            case ZCustomNoticeTypeNotice:                        //机构老师通知
+////                {
+////                    cellHeight = cellHeight + CGFloatIn750(54) + CGFloatIn750(20);
+////                    cellHeight = cellHeight +CGFloatIn750(50) + CGFloatIn750(2);
+////                    return cellHeight;
+////                }
+////                    break;
+////            default:
+////
+////                break;
+////        }
+////    }
+   
     CGFloat cellHeigt = CGFloatIn750(64) + CGFloatIn750(40);
     {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
@@ -204,153 +278,264 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZSpaceCell"]) {
-        
-    }
-}
-
-
-- (void)initCellConfigArr {
-    [self.cellConfigArr removeAllObjects];
-    {//标题;
-        NSString *image = @"";
-        NSString *type = @"";
-        switch ([self.model.terminal intValue]) {
-            case ZCustomChannleTypeInteract:
-            {
-                type = @"互动消息";
-                image = @"messageTypeHudong";
-            }
-                break;
-            case ZCustomChannleTypeSystem:
-            {
-                type = @"系统消息";
-                image = @"messageTypeSystem";
-            }
-                break;
-            case ZCustomChannleTypeStore:
-            {
-                type = @"校区消息";
-                image = @"messageTypeSchool";
-            }
-                break;
-            case ZCustomChannleTypeTeacher:
-            {
-                type = @"教师消息";
-                image = @"messageTypeStore";
-            }
-                break;
-            case ZCustomChannleTypeStudent:
-            {
-                type = @"学员消息";
-                image = @"messageTypeSystem";
-            }
-                break;
-            case ZCustomChannleTypeCustom:
-            {
-                type = @"通知消息";
-                image = @"ZCustomChannleTypeCustom";
-            }
-                break;
-                
-            default:
-                
-                break;
+    if ([cellConfig.title isEqualToString:@"seeDetail"]) {
+        if (self.handleBlock) {
+            self.handleBlock(self.model, 0);
         }
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-            .imageLeft(image).titleLeft(type)
-            .fontLeft([UIFont boldFontTitle])
-            .fontRight([UIFont fontSmall])
-            .titleRight(SafeStr(self.model.time)).colorRight([UIColor colorTextGray1])
-            .colorDarkRight([UIColor colorTextGray1Dark])
-            .imageLeftHeight(CGFloatIn750(30))
-            .lineHidden(YES)
-            .height(CGFloatIn750(54));
-
-            ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-        [self.cellConfigArr addObject:tempCellConfig];
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    }else{
+        if (self.handleBlock) {
+            self.handleBlock(self.model, 1);
+        }
     }
-    
-//    {//老师
-//
-//        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-//            .titleLeft(@"菜菜老师")
-//            .imageLeft(@"http://wx3.sinaimg.cn/mw600/44f2ef1bgy1gem93vp6cej20u00ylh35.jpg")
-//            .imageLeftHeight(CGFloatIn750(44))
-//            .lineHidden(YES)
-//        .height(CGFloatIn750(74)).imageLeftRadius(YES);
-//
-//            ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//
-//        [self.cellConfigArr addObject:tempCellConfig];
-//    }
-    {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .titleLeft(SafeStr(self.model.body))
-        .fontLeft([UIFont fontContent])
-        .colorLeft([UIColor colorTextGray])
-        .colorDarkLeft([UIColor colorTextGrayDark])
-        .width(KScreenWidth - CGFloatIn750(60))
-        .leftMultiLine(YES)
-        .lineHidden(YES)
-        .height(CGFloatIn750(36))
-        .spaceLine(CGFloatIn750(12));
-
-        ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:tempCellConfig];
-    }
-
-    {//校区
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .titleRight(SafeStr(self.model.extra.store_name))
-            .colorRight([UIColor colorTextBlack])
-            .colorDarkRight([UIColor colorTextBlackDark])
-            .fontRight([UIFont boldFontSmall])
-            .lineHidden(YES)
-            .height(CGFloatIn750(30));
-
-            ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-
-        [self.cellConfigArr addObject:tempCellConfig];
-    }
-//
-    {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .lineHidden(NO)
-        .height(CGFloatIn750(2))
-        .contentSpaceLeft(CGFloatIn750(46))
-        .contentSpaceRight(CGFloatIn750(46));
-
-        ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:tempCellConfig];
-    }
-    {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .titleLeft(@"查看详情")
-        .fontLeft([UIFont fontSmall])
-        .imageRight(@"rightBlackArrowN")
-        .imageRightHeight(CGFloatIn750(8))
-        .lineHidden(YES)
-        .height(CGFloatIn750(54));
-
-        ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:tempCellConfig];
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-    }
-    [self.iTableView reloadData];
 }
 
+#pragma mark - setcellconfig
 - (void)setModel:(ZMessgeModel *)model {
     _model = model;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
+
+- (void)initCellConfigArr {
+    [self.cellConfigArr removeAllObjects];
+    
+    [self.cellConfigArr addObject:[ZMessageListCell setTopTitle:self.model]];
+    [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+    switch ([self.model.notice intValue]) {
+        case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
+            {
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                
+                [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:@"去完善"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+            }
+                break;
+        case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypePayment:                       //  支付交易通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeRefund:                          //  退款通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeMoneyBack:                      //  回款通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeRegister:                       //  注册通知
+            {
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                
+                [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:@"去完善"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+            }
+                break;
+        case ZCustomNoticeTypeAppointment:                     //  预约通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseBegins:                   //  开课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseEnd:                      //  结课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseSign:                     //  签课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeEvaluate:                        //  评价通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCustom:
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeNotice:                        //机构老师通知
+            {
+                if ([[ZUserHelper sharedHelper].user.type intValue] != 2 && [self.model.terminal intValue] == ZCustomChannleTypeTeacher) {
+                    [self.cellConfigArr addObject:[ZMessageListCell setTeacher:self.model]];
+                    [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                }
+                
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                
+                if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                    [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
+                    [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                    [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:[NSString stringWithFormat:@"查看收件人(%@)",self.model.extra.account_total]]];
+                    [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                }else{
+                    [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                }
+            }
+                break;
+        default:
+            
+            break;
+    }
+    [self.iTableView reloadData];
+}
+
++ (ZCellConfig *)setTopTitle:(ZMessgeModel *)messageModel {
+//标题;
+    NSString *image = @"";
+    NSString *type = @"";
+    switch ([messageModel.type intValue]) {
+        case ZCustomChannleTypeInteract:
+        {
+            type = @"互动消息";
+            image = @"messageTypeHudong";
+        }
+            break;
+        case ZCustomChannleTypeSystem:
+        {
+            type = @"系统消息";
+            image = @"messageTypeSystem";
+        }
+            break;
+        case ZCustomChannleTypeStore:
+        {
+            type = @"校区消息";
+            image = @"messageTypeSchool";
+        }
+            break;
+        case ZCustomChannleTypeTeacher:
+        {
+            type = @"教师消息";
+            image = @"messageTypeStore";
+        }
+            break;
+        case ZCustomChannleTypeStudent:
+        {
+            type = @"学员消息";
+            image = @"messageTypeSystem";
+        }
+            break;
+        case ZCustomChannleTypeCustom:
+        {
+            type = @"通知消息";
+            image = @"ZCustomChannleTypeCustom";
+        }
+            break;
+            
+        default:
+            
+            break;
+    }
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
+        .imageLeft(image).titleLeft(type)
+        .fontLeft([UIFont boldFontTitle])
+        .fontRight([UIFont fontSmall])
+        .titleRight(SafeStr(messageModel.time)).colorRight([UIColor colorTextGray1])
+        .colorDarkRight([UIColor colorTextGray1Dark])
+        .imageLeftHeight(CGFloatIn750(30))
+        .lineHidden(YES)
+        .height(CGFloatIn750(54));
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+    return tempCellConfig;
+}
+
++ (ZCellConfig *)setMessageContent:(ZMessgeModel *)messageModel {
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
+    .titleLeft(SafeStr(messageModel.body))
+    .fontLeft([UIFont fontContent])
+    .colorLeft([UIColor colorTextGray])
+    .colorDarkLeft([UIColor colorTextGrayDark])
+    .width(KScreenWidth - CGFloatIn750(60))
+    .leftMultiLine(YES)
+    .lineHidden(YES)
+    .height(CGFloatIn750(36))
+    .spaceLine(CGFloatIn750(12));
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    return tempCellConfig;
+}
+
++ (ZCellConfig *)setMessageSend:(ZMessgeModel *)messageModel {
+    //校区
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
+    .titleRight(SafeStr(messageModel.extra.store_name))
+        .colorRight([UIColor colorTextBlack])
+        .colorDarkRight([UIColor colorTextBlackDark])
+        .fontRight([UIFont boldFontSmall])
+        .lineHidden(YES)
+        .height(CGFloatIn750(30));
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+    return tempCellConfig;
+}
+
++ (ZCellConfig *)setSeeDetail:(NSString *)seeDetail {
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"seeDetail")
+    .titleLeft(SafeStr(seeDetail))
+    .fontLeft([UIFont fontSmall])
+    .imageRight(@"rightBlackArrowN")
+    .imageRightHeight(CGFloatIn750(8))
+    .lineHidden(YES)
+    .height(CGFloatIn750(54));
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    return tempCellConfig;
+}
+
++ (ZCellConfig *)setTeacher:(ZMessgeModel *)messageModel {
+    //老师
+
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
+        .titleLeft(SafeStr(messageModel.extra.teacher))
+        .imageLeft(SafeStr(messageModel.extra.teacher_image))
+        .imageLeftHeight(CGFloatIn750(44))
+        .lineHidden(YES)
+    .height(CGFloatIn750(74)).imageLeftRadius(YES);
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    
+    return tempCellConfig;
+}
+
++ (ZCellConfig *)setEmptyCell:(CGFloat)height cellTitle:(NSString *)cellTitle{
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:cellTitle ? cellTitle:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:height cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+    return cellConfig;
+}
+
++ (ZCellConfig *)setLineCell:(CGFloat)height {
+     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
+       .lineHidden(NO)
+       .height(height)
+       .contentSpaceLeft(CGFloatIn750(46))
+       .contentSpaceRight(CGFloatIn750(46));
+
+    ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    return tempCellConfig;
+}
 @end
-
-
-
-

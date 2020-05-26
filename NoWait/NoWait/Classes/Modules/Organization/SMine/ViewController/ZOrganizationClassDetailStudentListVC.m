@@ -57,7 +57,11 @@
     if (self.isEnd) {
         self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
     }else{
-        self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
+        if (self.type == 2) {
+            self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
+        }else{
+            self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
+        }
     }
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {

@@ -192,7 +192,18 @@
     [params setObject:extra forKey:@"extra"];
     [params setObject:name forKey:@"receive"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
-    [extra setObject:self.storesName forKey:@"store_name"];
+    
+    if (ValidStr(self.storesName)) {
+        [extra setObject:self.storesName forKey:@"store_name"];
+    }
+    
+    if (ValidStr(self.teacherName)) {
+        [extra setObject:self.teacherName forKey:@"teacher"];
+    }
+    if (ValidStr(self.teacherImage)) {
+        [extra setObject:self.teacherImage forKey:@"teacher_image"];
+    }
+    
     if ([ZUserHelper sharedHelper].stores) {
     [params setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"store_id"];
     }

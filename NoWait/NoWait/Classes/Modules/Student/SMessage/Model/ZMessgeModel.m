@@ -19,11 +19,17 @@
 @end
 
 @implementation ZMessageInfoModel
-
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"account" : @"ZMessageAccountModel"};
+}
 @end
 
 @implementation ZMessgeModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"message_id" : @"id",
+    };
+}
 @end
 
 

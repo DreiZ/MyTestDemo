@@ -14,6 +14,8 @@
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZStudentMessageSendListVC.h"
+#import "ZStudentMineSettingMineVC.h"
+#import "ZOrganizationCampusManagementVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -80,13 +82,18 @@
 
 
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZMessageCell"]) {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {
         ZMessageListCell *lcell = (ZMessageListCell *)cell;
-        lcell.handleBlock = ^(ZMessgeModel * message) {
-            if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
-                svc.model = message;
-                [self.navigationController pushViewController:svc animated:YES];
+        lcell.handleBlock = ^(ZMessgeModel * message, NSInteger index) {
+            if (index == 0) {
+                if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                    ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
+                    svc.model = message;
+                    [self.navigationController pushViewController:svc animated:YES];
+                }
+            }else {
+                [weakSelf setHandleModel:message];
             }
         };
     }
@@ -160,5 +167,81 @@
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:@"10" forKey:@"page_size"];
+}
+
+#pragma mark - set handele
+- (void)setHandleModel:(ZMessgeModel *)model {
+    switch ([model.notice intValue]) {
+        case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
+            {
+                ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }
+                break;
+        case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypePayment:                       //  支付交易通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeRefund:                          //  退款通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeMoneyBack:                      //  回款通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeRegister:                       //  注册通知
+            {
+                ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }
+                break;
+        case ZCustomNoticeTypeAppointment:                     //  预约通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseBegins:                   //  开课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseEnd:                      //  结课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCourseSign:                     //  签课通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeEvaluate:                        //  评价通知
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeCustom:
+            {
+                
+            }
+                break;
+        case ZCustomNoticeTypeNotice:                        //机构老师通知
+            {
+               
+            }
+                break;
+        default:
+            
+            break;
+    }
 }
 @end
