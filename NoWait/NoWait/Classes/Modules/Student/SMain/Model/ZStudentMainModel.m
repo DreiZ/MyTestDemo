@@ -13,7 +13,7 @@
     return @{
              @"classify_id" : @"id",
              @"name" : @"title",
-             @"imageName" : @"path",
+             @"imageName" : @"image",
              @"secondary" : @"children",
     };
 }
@@ -45,7 +45,6 @@
 @end
 
 @implementation ZStudentBannerModel
-
 
 @end
 

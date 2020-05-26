@@ -95,8 +95,9 @@
     ZStudentMainEntryItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainEntryItemCell className] forIndexPath:indexPath];
     ZStudentEnteryItemModel *model = _channelList[indexPath.row];
     cell.titleLabel.text = model.name;
-    cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    cell.imageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+//    cell.imageView.image = [[UIImage imageNamed:model.imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    cell.imageView.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    [cell.imageView tt_setImageWithURL:[NSURL URLWithString:model.imageName] placeholderImage:[UIImage imageNamed:@"main_more"]];
     return cell;
 }
 
