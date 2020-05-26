@@ -45,7 +45,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"我的签课"];
+    [self.navigationItem setTitle:@"我的收藏"];
 }
 
 - (void)setupMainView {

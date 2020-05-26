@@ -194,7 +194,6 @@
     [self.navigationItem setTitle:@"班级详情"];
 }
 
-
 - (void)setupMainView {
     [super setupMainView];
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(182))];
@@ -312,8 +311,7 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isEnd = [self.model.status intValue] == 3;
         lvc.model = self.model;
-        lvc.type = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? 1:2;
-        lvc.can_operation = [self.model.can_operation intValue] == 1;
+//        lvc.type = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? 1:2;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];

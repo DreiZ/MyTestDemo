@@ -48,7 +48,8 @@
         
         _clubImageView.clipsToBounds = YES;
         _clubImageView.layer.masksToBounds = YES;
-        ViewRadius(_clubImageView, CGFloatIn750(12));
+        
+        ViewBorderRadius(_clubImageView, CGFloatIn750(12), 1, adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]));
     }
     return _clubImageView;
 }

@@ -125,7 +125,6 @@
     }];
 }
 
-
 #pragma mark - Getter
 -(UIImageView *)goodsImageView {
     if (!_goodsImageView) {
@@ -173,7 +172,6 @@
     return _addressLabel;
 }
 
-
 - (UIView *)introductionView {
     if (!_introductionView) {
         _introductionView = [[UIView alloc] init];
@@ -220,7 +218,6 @@
     }
     return _moreView;
 }
-
 
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {

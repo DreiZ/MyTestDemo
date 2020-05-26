@@ -10,7 +10,7 @@
 #import "ZOriganizationStudentViewModel.h"
 
 @interface ZOrganizationStudentDetailVC : ZTableViewViewController
-@property (nonatomic,assign) BOOL isTeacher;
+//@property (nonatomic,assign) BOOL isTeacher;
 @property (nonatomic,strong) ZOriganizationStudentAddModel *addModel;
  
 @end

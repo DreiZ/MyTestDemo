@@ -12,8 +12,7 @@
 
 @interface ZOrganizationClassDetailStudentListVC : ZTableViewViewController
 @property (nonatomic,assign) BOOL isEnd;
-@property (nonatomic,assign) BOOL can_operation;
-@property (nonatomic,assign) NSInteger type; //1:教师 2：机构
+//@property (nonatomic,assign) NSInteger type; //1:教师 2：机构
 
 @property (nonatomic,strong) ZOriganizationClassDetailModel *model;
 @property (nonatomic,strong) ZOriganizationClassListModel *listModel;

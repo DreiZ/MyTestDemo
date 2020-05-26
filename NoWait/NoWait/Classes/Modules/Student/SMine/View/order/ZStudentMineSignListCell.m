@@ -71,11 +71,13 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(30));
+        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
     [self.topView addSubview:self.lessonNameLabel];
@@ -306,7 +308,7 @@
 //            make.left.top.right.equalTo(self.contView);
 //            make.bottom.equalTo(self.bottomView.mas_top);
 ////            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
-//        }];
+//       }];
     }else {
         _bottomView.hidden = NO;
         self.signBtn.hidden = NO;
@@ -315,6 +317,12 @@
 //            make.bottom.equalTo(self.bottomView.mas_top);
 //        }];
     }
+    CGSize tempSize = [SafeStr(self.numLabel.text) tt_sizeWithFont:[UIFont fontSmall]];
+    [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(tempSize.width + 2);
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

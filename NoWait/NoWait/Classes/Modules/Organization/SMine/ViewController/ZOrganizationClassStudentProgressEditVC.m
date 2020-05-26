@@ -22,6 +22,8 @@
     [super viewDidLoad];
     
     [self refreshData];
+    self.emptyDataStr = @"暂无可设置的学员";
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)setNavigation {
@@ -70,17 +72,19 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = [NSString stringWithFormat:@"课程总节数：%@节",self.total_progress];
-    model.leftColor = [UIColor colorMain];
-    model.leftDarkColor = [UIColor colorMain];
-    model.isHiddenLine = YES;
-    model.cellHeight = CGFloatIn750(96);
-    model.leftFont = [UIFont fontContent];
-    
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    
-    [self.cellConfigArr addObject:menuCellConfig];
+    if (ValidArray(self.dataSources)) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = [NSString stringWithFormat:@"课程总节数：%@节",self.total_progress];
+        model.leftColor = [UIColor colorMain];
+        model.leftDarkColor = [UIColor colorMain];
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(96);
+        model.leftFont = [UIFont fontContent];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {
         model.now_progress = @"";
@@ -89,6 +93,19 @@
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
+    if (ValidArray(self.dataSources)) {
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(80));
+            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+        }];
+    }else{
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(80));
+            make.top.equalTo(self.view.mas_bottom).offset(0);
+        }];
+    }
 }
 
 #pragma mark - tableview
@@ -174,8 +191,6 @@
     return param;
 }
 
-
-
 - (void)updateData {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableArray *students = @[].mutableCopy;
@@ -188,6 +203,10 @@
             }
             [students addObject:@{@"student_id":SafeStr(listModel.studentID),@"now_progress":[NSString stringWithFormat:@"%d",[self.total_progress intValue] - [listModel.nowNums intValue]]}];
         }
+    }
+    if (!ValidArray(students)) {
+        [TLUIUtility showInfoHint:@"还没有设置数据"];
+        return;
     }
     [params setObject:students forKey:@"students"];
     

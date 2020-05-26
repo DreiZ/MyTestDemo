@@ -320,7 +320,13 @@
                 break;
         case ZCustomNoticeTypePayment:                       //  支付交易通知
             {
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
                 
+                [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:@"查看详情"]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
             }
                 break;
         case ZCustomNoticeTypeRefund:                          //  退款通知
@@ -382,7 +388,7 @@
                 }
                 
                 [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
-                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(30) cellTitle:nil]];
                 [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
                 [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
                 

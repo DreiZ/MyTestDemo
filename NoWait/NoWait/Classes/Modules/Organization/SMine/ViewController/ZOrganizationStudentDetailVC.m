@@ -57,7 +57,7 @@
                          @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
                          @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
     
-    if (self.isTeacher) {
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
         textArr = @[@[@"真实姓名",SafeStr(self.addModel.name)],
         @[@"手机号",SafeStr(self.addModel.phone)],
         @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
@@ -107,7 +107,7 @@
         @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
         
         @[@"报名须知", @""]].mutableCopy;
-        if (!self.isTeacher) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
             if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
                 [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
             }
@@ -251,7 +251,7 @@
     if ([self.addModel.is_star intValue] == 1) {
         self.iTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
     }else{
-        if (!self.isTeacher) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] != 6) {
             self.iTableView.tableFooterView = self.bottomView;
         }
     }
@@ -261,14 +261,14 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"学员详情"];
     
-    if (!self.isTeacher) {
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
     }
 }
 
 - (void)setupMainView {
     [super setupMainView];
-    if (!self.isTeacher) {
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
         self.iTableView.tableFooterView = self.bottomView;
     }
 }
@@ -357,14 +357,11 @@
         ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
         dvc.student_id = self.addModel.studentID;
         dvc.courses_class_id = self.addModel.courses_class_id;
-        dvc.type = 2;
-        
         [self.navigationController pushViewController:dvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
     }
 }
-
 
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;

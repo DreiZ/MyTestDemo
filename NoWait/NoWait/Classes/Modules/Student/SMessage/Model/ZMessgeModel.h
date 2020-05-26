@@ -58,6 +58,8 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 @property (nonatomic,strong) NSString *store_name;
 @property (nonatomic,strong) NSString *teacher;
 @property (nonatomic,strong) NSString *teacher_image;
+@property (nonatomic,strong) NSString *order_id;
+
 @end
 
 @interface ZMessageInfoModel : NSObject

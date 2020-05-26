@@ -16,6 +16,7 @@
 #import "ZStudentMessageSendListVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationCampusManagementVC.h"
+#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -86,18 +87,11 @@
     if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {
         ZMessageListCell *lcell = (ZMessageListCell *)cell;
         lcell.handleBlock = ^(ZMessgeModel * message, NSInteger index) {
-            if (index == 0) {
-                if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                    ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
-                    svc.model = message;
-                    [self.navigationController pushViewController:svc animated:YES];
-                }
-            }else {
-                [weakSelf setHandleModel:message];
-            }
+            [weakSelf setHandleModel:message index:index];
         };
     }
 }
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
 
 }
@@ -163,14 +157,13 @@
     }];
 }
 
-
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:@"10" forKey:@"page_size"];
 }
 
 #pragma mark - set handele
-- (void)setHandleModel:(ZMessgeModel *)model {
+- (void)setHandleModel:(ZMessgeModel *)model index:(NSInteger)index{
     switch ([model.notice intValue]) {
         case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
             {
@@ -185,7 +178,11 @@
                 break;
         case ZCustomNoticeTypePayment:                       //  支付交易通知
             {
-                
+                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
+                orderModel.order_id = model.extra.order_id;
+                dvc.model = orderModel;
+                [self.navigationController pushViewController:dvc animated:YES];
             }
                 break;
         case ZCustomNoticeTypeRefund:                          //  退款通知
@@ -236,7 +233,13 @@
                 break;
         case ZCustomNoticeTypeNotice:                        //机构老师通知
             {
-               
+                if (index == 0) {
+                    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                        ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
+                        svc.model = model;
+                        [self.navigationController pushViewController:svc animated:YES];
+                    }
+                }
             }
                 break;
         default:

@@ -48,19 +48,18 @@
     [self initCellConfigArr];
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
-    
+    [self setTableViewEmptyDataDelegate];
 }
-
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     if (self.isEnd) {
         self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
     }else{
-        if (self.type == 2) {
-            self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
-        }else{
+        if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
             self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
+        }else{
+            self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情" , @"操作"];
         }
     }
     
@@ -78,7 +77,7 @@
     if (self.isEnd) {
         [self.navigationItem setRightBarButtonItem:nil];
     }else{
-        if (self.type != 1) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] == 6 || [[ZUserHelper sharedHelper].user.type intValue] == 8) {
             [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]] ;
         }
     }
@@ -93,29 +92,16 @@
         make.height.mas_equalTo(CGFloatIn750(90));
     }];
     
-//    if (self.can_operation && !self.isEnd) {
-//        [self.view addSubview:self.bottomView];
-//        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.right.equalTo(self.view);
-//            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-//            make.height.mas_equalTo(CGFloatIn750(90));
-//        }];
-//        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-//         make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-//         make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
-//         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
-//        }];
-//    }else{
-//
-//    }
-    
-    if (self.type != 1) {
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 6 || [[ZUserHelper sharedHelper].user.type intValue] == 8) {
         [self.view addSubview:self.bottomBtn];
         [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(80));
-            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            if (self.isEnd) {
+                make.top.equalTo(self.view.mas_bottom).offset(0);
+            }else{
+                make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            }
         }];
         
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -151,7 +137,7 @@
         [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
         [_navLeftBtn bk_addEventHandler:^(id sender) {
-            if (self.type == 2) {
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 6 || [[ZUserHelper sharedHelper].user.type intValue] == 8) {
                 NSArray *weekArr = @[@[@"新增线上学员",@"listadd",@"add"],@[@"二维码添加线下学员",@"erweimlist",@"code"]];
                [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
                    if ([index isEqualToString:@"code"]) {
@@ -297,7 +283,7 @@
                 }
                 
                 dvc.student_id = model.studentID;
-                dvc.type = self.type;
+//                dvc.type = self.type;
 //                dvc.stores_id = model.studentID;
                 [self.navigationController pushViewController:dvc animated:YES];
             }else if(index == 1){
@@ -309,7 +295,6 @@
                 }];
             }else if (index == 2){
                 ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                dvc.isTeacher = self.type == 1;
                 dvc.addModel.studentID = model.studentID;
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
             }

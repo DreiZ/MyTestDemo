@@ -346,8 +346,7 @@
         ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC  alloc] init];
         lvc.isEnd = [self.model.status intValue] == 3;
         lvc.model = self.model;
-        lvc.type = 2;
-        lvc.can_operation = NO;
+//        lvc.type = 2;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];

@@ -322,7 +322,7 @@
         if (offsetHeight > CGFloatIn750(38)) {
             offsetHeight = offsetHeight - CGFloatIn750(40);
         }
-        return CGFloatIn750(188) + offsetHeight;
+        return CGFloatIn750(188) + offsetHeight - 2;
     }
     return CGFloatIn750(188);
 }

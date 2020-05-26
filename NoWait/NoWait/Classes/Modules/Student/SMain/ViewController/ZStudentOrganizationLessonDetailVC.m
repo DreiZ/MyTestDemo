@@ -276,7 +276,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
+//    ZCellConfig *cellConfig = [_cellConfigArr[indexPath.section] objectAtIndex:indexPath.row];
     
 }
 

@@ -68,8 +68,7 @@
             if (index == 0) {
                 ZOrganizationClassDetailStudentListVC *lvc = [[ZOrganizationClassDetailStudentListVC alloc] init];
                 lvc.listModel = model;
-                lvc.type = 1;
-                lvc.can_operation = [model.can_operation intValue] == 1;
+//                lvc.type = 1;
                 lvc.isEnd = [model.status intValue] == 3;
                 [self.navigationController pushViewController:lvc animated:YES];
             }else{

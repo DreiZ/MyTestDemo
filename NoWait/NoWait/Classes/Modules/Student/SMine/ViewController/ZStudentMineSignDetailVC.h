@@ -12,5 +12,5 @@
 @property (nonatomic,strong) NSString *courses_class_id;
 @property (nonatomic,strong) NSString *student_id;
 @property (nonatomic,strong) NSString *stores_id;
-@property (nonatomic,assign) NSInteger type;//0学员 1教师，2机构
+//@property (nonatomic,assign) NSInteger type;//0学员 1教师，2机构
 @end

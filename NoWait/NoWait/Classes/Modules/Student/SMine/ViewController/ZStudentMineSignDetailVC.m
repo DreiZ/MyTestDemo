@@ -78,29 +78,29 @@
     
     
     {
-           ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-           model.leftTitle = self.detailModel.courses_name;
-           model.isHiddenLine = NO;
-           model.lineLeftMargin = CGFloatIn750(30);
-           model.lineRightMargin = CGFloatIn750(30);
-           model.cellHeight = CGFloatIn750(110);
-           model.leftFont = [UIFont boldFontContent];
-           
-           ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+       ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+       model.leftTitle = self.detailModel.courses_name;
+       model.isHiddenLine = NO;
+       model.lineLeftMargin = CGFloatIn750(30);
+       model.lineRightMargin = CGFloatIn750(30);
+       model.cellHeight = CGFloatIn750(110);
+       model.leftFont = [UIFont boldFontContent];
+       
+       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+       
+       [self.cellConfigArr addObject:menuCellConfig];
+   }
+   {
+       [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
+       
+       for (int i = 0; i < self.detailModel.list.count; i++) {
+           ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(76) cellType:ZCellTypeClass dataModel:self.detailModel.list[i]];
            
            [self.cellConfigArr addObject:menuCellConfig];
        }
-       {
-           [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
-           
-           for (int i = 0; i < self.detailModel.list.count; i++) {
-               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSignDetailHandleCell className] title:@"ZStudentMineSignDetailHandleCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(76) cellType:ZCellTypeClass dataModel:self.detailModel.list[i]];
-               
-               [self.cellConfigArr addObject:menuCellConfig];
-           }
-           
-           [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-       }
+       
+       [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+   }
 }
 
 
@@ -124,9 +124,9 @@
         ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
         scell.can_operation = self.detailModel.can_operation;
         scell.handleBlock = ^(ZSignInfoListModel *model ,NSInteger signType) {
-            if (self.type == 1) {
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
                 [self teacherSign:model signType:signType];
-            }else if (self.type == 0){
+            }else if ([[ZUserHelper sharedHelper].user.type intValue] == 1){
                 [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
             }
         };

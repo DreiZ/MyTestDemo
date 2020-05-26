@@ -187,7 +187,7 @@
         
         lcell.handleBlock = ^(ZOriganizationClassListModel * model) {
             ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-            dvc.type = 0;
+//            dvc.type = 0;
             dvc.courses_class_id = model.courses_class_id;
             dvc.student_id = model.student_id;
             [self.navigationController pushViewController:dvc animated:YES];
@@ -201,7 +201,7 @@
         
         tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
             ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-            dvc.type = 0;
+//            dvc.type = 0;
             //未完成
             dvc.courses_class_id = model.courses_class_id;
             dvc.student_id = model.student_id;
