@@ -18,6 +18,7 @@
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZAlertView.h"
+#import "ZOrganizationLessonManageVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -191,7 +192,8 @@
                 break;
         case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
             {
-                
+                ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
+                [self.navigationController pushViewController:mvc animated:YES];
             }
                 break;
         case ZCustomNoticeTypePayment:                       //  支付交易通知
@@ -205,7 +207,12 @@
                 break;
         case ZCustomNoticeTypeRefund:                          //  退款通知
             {
-                
+                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
+                orderModel.order_id = model.extra.order_id;
+                orderModel.isRefund = YES;
+                dvc.model = orderModel;
+                [self.navigationController pushViewController:dvc animated:YES];
             }
                 break;
         case ZCustomNoticeTypeMoneyBack:                      //  回款通知

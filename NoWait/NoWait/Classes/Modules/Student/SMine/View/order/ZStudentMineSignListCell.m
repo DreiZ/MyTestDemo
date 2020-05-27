@@ -303,21 +303,36 @@
     _stateLabel.text = @"";
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
     
-    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
+    if ([model.status intValue] == 3) {
         _bottomView.hidden = NO;
-        self.signBtn.hidden = YES;
+        self.signBtn.hidden = NO;
+        [_signBtn setTitle:@"签课详情" forState:UIControlStateNormal];
 //        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
 //            make.left.top.right.equalTo(self.contView);
 //            make.bottom.equalTo(self.bottomView.mas_top);
 ////            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
 //       }];
+        
+        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
+            make.width.mas_equalTo(CGFloatIn750(176));
+            make.height.mas_equalTo(CGFloatIn750(56));
+        }];
     }else {
         _bottomView.hidden = NO;
         self.signBtn.hidden = NO;
+        [_signBtn setTitle:@"去签课" forState:UIControlStateNormal];
 //        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
 //            make.left.top.right.equalTo(self.contView);
 //            make.bottom.equalTo(self.bottomView.mas_top);
 //        }];
+        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
+            make.width.mas_equalTo(CGFloatIn750(116));
+            make.height.mas_equalTo(CGFloatIn750(56));
+        }];
     }
     CGSize tempSize = [SafeStr(self.numLabel.text) tt_sizeWithFont:[UIFont fontSmall]];
     [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

@@ -36,6 +36,7 @@
 
 -(void)setupView {
     [super setupView];
+    self.clipsToBounds = YES;
     
     [self.contentView addSubview:self.goodsImageView];
     [self.contentView addSubview:self.titleLabel];
@@ -100,7 +101,8 @@
     [self.contentView addSubview:self.moreHiddenView];
     [self.moreHiddenView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.moreImageView.mas_left);
-        make.left.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(2);
         make.top.equalTo(self.goodsImageView.mas_bottom);
     }];
 }

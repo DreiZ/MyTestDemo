@@ -126,13 +126,13 @@
             }
         } forControlEvents:UIControlEventTouchUpInside];
         
-        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
-        [_collectionBtn addSubview:bottomLineView];
-        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.top.equalTo(self.collectionBtn);
-            make.width.mas_equalTo(1);
-        }];
+//        UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+//        bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+//        [_collectionBtn addSubview:bottomLineView];
+//        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.bottom.top.equalTo(self.collectionBtn);
+//            make.width.mas_equalTo(1);
+//        }];
     }
     return _collectionBtn;
 }

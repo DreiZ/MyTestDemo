@@ -402,7 +402,7 @@
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
     self.salesNumLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
     self.scoreLabel.text = [NSString stringWithFormat:@"%@分",model.score];
-    self.failLabel.text = model.fail;
+    self.failLabel.text = model.notice_msg;
     self.scoreLabel.hidden = YES;
     self.crView.scorePercent = [model.score intValue]/5.0f;
     
@@ -524,7 +524,7 @@
                 make.height.mas_equalTo(CGFloatIn750(136));
             }];
             
-            NSString *fail = self.model.fail ? self.model.fail : @"";
+            NSString *fail = self.model.notice_msg ? self.model.notice_msg : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             
             [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -591,7 +591,7 @@
         if (listModel.type == ZOrganizationLessonTypeExamine) {
             return CGFloatIn750(308);
         }else if (listModel.type == ZOrganizationLessonTypeExamineFail){
-            NSString *fail = listModel.fail ? listModel.fail : @"";
+            NSString *fail = listModel.notice_msg ? listModel.notice_msg : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             return CGFloatIn750(404) + failSize.height + CGFloatIn750(40);
         } else{
