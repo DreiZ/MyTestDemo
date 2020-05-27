@@ -95,7 +95,6 @@
         [self.navigationItem setTitle:@"新增课程"];
     }
     
-    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
     [self.navigationItem setRightBarButtonItem:item];
 }
@@ -150,6 +149,7 @@
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
             ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+            dvc.isPreview = YES;
             dvc.addModel = weakSelf.viewModel.addModel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];

@@ -11,5 +11,6 @@
 
 @interface ZOrganizationLessonDetailVC : ZTableViewViewController
 @property (nonatomic,strong) ZOriganizationLessonAddModel *addModel;
+@property (nonatomic,assign) BOOL isPreview;
 @end
 

@@ -33,7 +33,9 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
-    [self refreshData];
+    if (!self.isPreview) {
+        [self refreshData];
+    }
 }
 
 - (void)setupMainView {

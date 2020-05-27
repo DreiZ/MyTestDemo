@@ -167,21 +167,24 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ZOrganizatioPhotosCollectionCell *cell = [ZOrganizatioPhotosCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
-//    ZOrganizatioPhotosCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZOrganizatioPhotosCollectionCell className] forIndexPath:indexPath];
     cell.delBlock = ^(ZOriganizationPhotoTypeListModel *model) {
         [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此图片" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
             if (index == 1) {
                 [self deleteData:model];
             }
         }];
-        
     };
     cell.model = _list[indexPath.row];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    __block NSMutableArray *tempList = @[].mutableCopy;
+    [_list enumerateObjectsUsingBlock:^(ZOriganizationPhotoTypeListModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [tempList addObject:obj.images_url];
+    }];
     
+    [[ZPhotoManager sharedManager] showBrowser:tempList withIndex:indexPath.row];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -199,8 +202,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }
-
-
 
 #pragma mark - 数据处理
 - (void)refreshData {
