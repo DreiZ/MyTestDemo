@@ -373,19 +373,7 @@
 //            [TLUIUtility showErrorHint:@"类型已不可修改"];
 //            return;
 //        }
-//        NSMutableArray *items = @[].mutableCopy;
-//        NSArray *temp = _typeList;
-//        for (int i = 0; i < temp.count; i++) {
-//           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-//           model.name = temp[i];
-//           [items addObject:model];
-//        }
-//
-//        [ZAlertDataSinglePickerView setAlertName:@"类别选择" items:items handlerBlock:^(NSInteger index) {
-//            weakSelf.model.store_type_id = [NSString stringWithFormat:@"%ld",index+1];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }];
+
         NSMutableArray *classify = @[].mutableCopy;
         [classify addObjectsFromArray:[ZStudentMainViewModel mainClassifyOneData]];
         [classify enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -404,7 +392,6 @@
         }];
         
         [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
-            NSLog(@"---%@",classify);
             [weakSelf.model.category addObjectsFromArray:classify];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

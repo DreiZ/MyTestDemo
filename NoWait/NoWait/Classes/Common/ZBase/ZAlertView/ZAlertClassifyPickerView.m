@@ -359,6 +359,9 @@ static ZAlertClassifyPickerView *sharedManager;
                model.isSelected = YES;
            }else{
                model.isSelected = NO;
+               [model.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                   obj.isSelected = NO;
+               }];
            }
         }
        [self resetLeftArr];
