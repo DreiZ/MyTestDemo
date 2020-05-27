@@ -374,7 +374,14 @@ static ZAlertClassifyPickerView *sharedManager;
 #pragma mark - 类型
 -(void)setClassifys:(NSArray<ZMainClassifyOneModel *> *)classifys {
     _classifys = classifys;
-    if (ValidArray(classifys)) {
+    __block BOOL isSelected = NO;
+    [classifys enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.isSelected) {
+            isSelected = YES;
+        }
+    }];
+    
+    if (!isSelected && ValidArray(classifys)) {
         classifys[0].isSelected = YES;
     }
     [self resetLeftArr];

@@ -58,7 +58,6 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    
     ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationSwitchSchoolCell className] title:[ZOrganizationSwitchSchoolCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationSwitchSchoolCell z_getCellHeight:self.model] cellType:ZCellTypeClass dataModel:self.model];
     [self.cellConfigArr addObject:imageCellConfig];
     
@@ -148,7 +147,6 @@
             [self.cellConfigArr addObject:textCellConfig];
         }
     }
-    
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationRadiusCell className] title:[ZOrganizationRadiusCell className] showInfoMethod:@selector(setIsTop:) heightOfCell:[ZOrganizationRadiusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@""];
     [self.cellConfigArr addObject:bottomCellConfig];
@@ -391,7 +389,19 @@
             }
         }];
         
+        [classify enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * sobj, NSUInteger sidx, BOOL * _Nonnull sstop) {
+                [self.model.category enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * cobj, NSUInteger cidx, BOOL * _Nonnull cstop) {
+                    if ([cobj.classify_id isEqualToString:sobj.classify_id]) {
+                        obj.isSelected = YES;
+                        sobj.isSelected = YES;
+                    }
+                }];
+            }];
+        }];
+        
         [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
+            [weakSelf.model.category removeAllObjects];
             [weakSelf.model.category addObjectsFromArray:classify];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
