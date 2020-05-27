@@ -620,9 +620,9 @@
         }
             break;
         case ZStudentOrderTypeOutTime:
-        case ZStudentOrderTypeOrderOutTime:
+//        case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeCancel:
-        case ZOrganizationOrderTypeOutTime:
+//        case ZOrganizationOrderTypeOutTime:
         case ZOrganizationOrderTypeCancel:
         {
             self.delBtn.hidden = NO;

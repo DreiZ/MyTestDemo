@@ -145,11 +145,11 @@
             }
         }
             break;
-        case ZStudentOrderTypeOrderOutTime:
+//        case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeOutTime:
         case ZOrganizationOrderTypeCancel:
         case ZStudentOrderTypeCancel:
-        case ZOrganizationOrderTypeOrderOutTime:
+//        case ZOrganizationOrderTypeOrderOutTime:
         case ZOrganizationOrderTypeOutTime:
         {
             self.statelabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
@@ -374,11 +374,9 @@
             || listModel.order_type == ZStudentOrderTypeOutTime
             || listModel.order_type == ZStudentOrderTypeCancel
             || listModel.order_type == ZStudentOrderTypeOrderForPay
-            || listModel.order_type == ZStudentOrderTypeOrderOutTime
     
             || listModel.order_type == ZOrganizationOrderTypeOutTime
             || listModel.order_type == ZOrganizationOrderTypeCancel
-            || listModel.order_type == ZOrganizationOrderTypeOrderOutTime
             || listModel.order_type == ZOrganizationOrderTypeOrderForReceived){
             if (listModel.order_type == ZStudentOrderTypeHadPay && [listModel.can_comment intValue] != 1) {
                 return CGFloatIn750(318);

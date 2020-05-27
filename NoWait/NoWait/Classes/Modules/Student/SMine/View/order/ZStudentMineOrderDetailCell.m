@@ -474,6 +474,7 @@
                 [self setDetailBottomViewBottom];
             }
             break;
+        case ZOrganizationOrderTypeOrderOutTime:
         case ZOrganizationOrderTypeOutTime:
             {
                 [self setDetailDes];
@@ -481,6 +482,7 @@
                 [self setDetailSubViewBottom];
             }
             break;
+        case ZStudentOrderTypeOrderOutTime:
         case ZStudentOrderTypeOutTime://超时(删除)
             {
                 [self setDetailDes];
@@ -691,9 +693,11 @@
             case ZStudentOrderTypeHadEva://完成已评价(删除)
                 return CGFloatIn750(328 + 56 * 3 + 28 + 56);
                 break;
+            case ZOrganizationOrderTypeOrderOutTime:
             case ZOrganizationOrderTypeOutTime:
                 return CGFloatIn750(328 + 56 * 3 + 28);
                 break;
+            case ZStudentOrderTypeOrderOutTime:
             case ZStudentOrderTypeOutTime://超时(删除)
                 return CGFloatIn750(328 + 56 * 3 + 28);
                 break;

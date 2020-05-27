@@ -103,6 +103,8 @@
                     [self setPayDetailCell];
                 }
                 break;
+            case ZOrganizationOrderTypeOrderOutTime:
+            case ZStudentOrderTypeOrderOutTime:
             case ZOrganizationOrderTypeOutTime://超时(删除)
                 ;
             case ZStudentOrderTypeOutTime://超时(删除)
