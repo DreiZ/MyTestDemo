@@ -17,6 +17,7 @@
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
+#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZStudentMineEvaDetailVC ()
 @property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
@@ -180,7 +181,16 @@
             [weakSelf.navigationController pushViewController:evc animated:YES];
         };
     }
-    
+}
+
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]){
+        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+        ZOrderListModel *model = [[ZOrderListModel alloc] init];
+        model.order_id = self.detailModel.order_id;
+        evc.model = model;
+        [self.navigationController pushViewController:evc animated:YES];
+    }
 }
 
 #pragma mark - refresha

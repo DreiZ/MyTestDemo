@@ -240,6 +240,8 @@
         make.bottom.equalTo(self.handleView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(0);
     }];
+    
+    [self setTableViewWhiteBack];
 }
 
 - (void)updateBottom {

@@ -38,7 +38,7 @@
 -(void)setupView {
     [super setupView];
     
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
     
     
     [self.contentView addSubview:self.backContentView];
@@ -269,7 +269,8 @@
         _backContentView = [[UIView alloc] init];
         _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _backContentView.layer.cornerRadius = CGFloatIn750(12);
-        ViewShadowRadius(_backContentView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, isDarkModel() ? [UIColor colorGrayBGDark] : [UIColor colorGrayBG]);
+        _backContentView.clipsToBounds = YES;
+//        ViewShadowRadius(_backContentView, CGFloatIn750(30), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, isDarkModel() ? [UIColor colorGrayBGDark] : [UIColor colorGrayBG]);
 
     }
     return _backContentView;

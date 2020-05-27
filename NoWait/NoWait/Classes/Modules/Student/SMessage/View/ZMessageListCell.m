@@ -128,6 +128,10 @@
             {
                 cellHeight = cellHeight + [ZMessageListCell setMessageContent:model].heightOfCell;
                 cellHeight = cellHeight + CGFloatIn750(20);
+                if (ValidStr(model.extra.store_name)) {
+                    cellHeight = cellHeight + [ZMessageListCell setMessageSend:model].heightOfCell;
+                    cellHeight = cellHeight + CGFloatIn750(20);
+                }
                 cellHeight = cellHeight + CGFloatIn750(2);
                 cellHeight = cellHeight + CGFloatIn750(20);
                 cellHeight = cellHeight + [ZMessageListCell setSeeDetail:@"查看详情"].heightOfCell;
@@ -263,8 +267,10 @@
         {
             [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
             [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
-            [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
-            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+            if (ValidStr(self.model.extra.store_name)) {
+                [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
+                [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+            }
             [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
             [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
             [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:@"查看详情"]];
@@ -274,6 +280,8 @@
         case ZCustomNoticeTypeAppointment:                     //  预约通知
         {
             [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+            [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
             [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
             
             [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];

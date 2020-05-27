@@ -56,6 +56,7 @@
         make.bottom.equalTo(self.view.mas_bottom);
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
+    [self setTableViewGaryBack];
 }
 
 

@@ -27,7 +27,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshData];
+    [self refreshAllData];
 }
 
 - (id)init
@@ -163,6 +163,17 @@
     [_param setObject:@"10" forKey:@"page_size"];
 }
 
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
 #pragma mark - set handele
 - (void)setHandleModel:(ZMessgeModel *)model index:(NSInteger)index{
     if (index == 200) {
@@ -245,6 +256,12 @@
         case ZCustomNoticeTypeNotice:                        //机构老师通知
             {
                 if (index == 0) {
+                    if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                        ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
+                        svc.model = model;
+                        [self.navigationController pushViewController:svc animated:YES];
+                    }
+                }else{
                     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
                         ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
                         svc.model = model;

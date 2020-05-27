@@ -33,6 +33,7 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
+    [self setTableViewGaryBack];
 }
 
 - (void)setDataSource {
