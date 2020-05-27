@@ -30,7 +30,7 @@
 -(void)setupView {
     [super setupView];
     
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,8 +74,9 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+//        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBG] : [UIColor colorGrayContentBG]);
         _contView.layer.cornerRadius = CGFloatIn750(12);
+        _contView.clipsToBounds = YES;
     }
     return _contView;
 }

@@ -9,6 +9,7 @@
 #import "ZViewController.h"
 #import "ZStudentMainTopSearchView.h"
 
+#import "ZNoDataCell.h"
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
 #import "ZStudentMainPhotoWallCell.h"

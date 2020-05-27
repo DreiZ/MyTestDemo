@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewWhiteBack];
+    [self setTableViewGaryBack];
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -63,7 +63,6 @@
         model.cellTitle = arr[3];
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAccountSchoolCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAccountSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
-        
     }
     
     {

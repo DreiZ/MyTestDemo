@@ -68,7 +68,7 @@
     }];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     ViewRadius(bottomView, CGFloatIn750(40));
     [self.contView addSubview:bottomView];
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -15,6 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
     [self refreshData];
     [self getAdverData];
     [self getCategoryList];
@@ -107,10 +109,16 @@
     [self.cellConfigArr addObject:sectionArr];
     
     NSMutableArray *section1Arr = @[].mutableCopy;
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+    if (self.dataSources.count > 0) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [section1Arr addObject:orCellCon1fig];
+        }
+    }else {
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"ZNoDataCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(500) cellType:ZCellTypeClass dataModel:nil];
         [section1Arr addObject:orCellCon1fig];
     }
+    
     [self.cellConfigArr addObject:section1Arr];
 }
 

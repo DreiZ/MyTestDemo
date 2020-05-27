@@ -26,6 +26,7 @@
 
 -(void)setupView {
     [super setupView];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     _cellConfigArr = @[].mutableCopy;
     
@@ -66,8 +67,9 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+//        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(20, 20), 0.5, isDarkModel() ? [UIColor colorGrayContentBG] : [UIColor colorGrayContentBG]);
         _contView.layer.cornerRadius = CGFloatIn750(12);
+        _contView.clipsToBounds = YES;
     }
     return _contView;
 }
@@ -76,8 +78,9 @@
     if (!_contTopView) {
         _contTopView = [[UIView alloc] init];
         _contTopView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+//        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBG] : [UIColor colorGrayContentBG]);
         _contTopView.layer.cornerRadius = CGFloatIn750(12);
+        _contTopView.clipsToBounds = YES;
     }
     return _contTopView;
 }
@@ -86,8 +89,9 @@
     if (!_contBottomView) {
         _contBottomView = [[UIView alloc] init];
         _contBottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+//        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBG] : [UIColor colorGrayContentBG]);
         _contBottomView.layer.cornerRadius = CGFloatIn750(12);
+        _contBottomView.clipsToBounds = YES;
     }
     return _contBottomView;
 }
