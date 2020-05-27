@@ -399,6 +399,7 @@
     .colorLeft([UIColor colorTextGray])
     .colorDarkLeft([UIColor colorTextGrayDark])
     .width(KScreenWidth - CGFloatIn750(60))
+    .marginRight(CGFloatIn750(32))
     .leftMultiLine(YES)
     .lineHidden(YES)
     .height(CGFloatIn750(36))

@@ -92,6 +92,7 @@
         _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftTitleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _leftTitleLabel.numberOfLines = 1;
+        _leftTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
         [_leftTitleLabel setFont:[UIFont fontContent]];
     }
