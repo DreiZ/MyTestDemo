@@ -120,7 +120,6 @@
             case ZCustomNoticeTypePayment:                       //  支付交易通知
             case ZCustomNoticeTypeRefund:                          //  退款通知
             case ZCustomNoticeTypeMoneyBack:                      //  回款通知
-            case ZCustomNoticeTypeAppointment:                     //  预约通知
             case ZCustomNoticeTypeCourseBegins:                   //  开课通知
             case ZCustomNoticeTypeCourseEnd:                      //  结课通知
             case ZCustomNoticeTypeCourseSign:                     //  签课通知
@@ -128,6 +127,18 @@
             case ZCustomNoticeTypeCustom:
             {
                 cellHeight = cellHeight + [ZMessageListCell setMessageContent:model].heightOfCell;
+                cellHeight = cellHeight + CGFloatIn750(20);
+                cellHeight = cellHeight + CGFloatIn750(2);
+                cellHeight = cellHeight + CGFloatIn750(20);
+                cellHeight = cellHeight + [ZMessageListCell setSeeDetail:@"查看详情"].heightOfCell;
+                cellHeight = cellHeight + CGFloatIn750(20);
+            }
+                break;
+            case ZCustomNoticeTypeAppointment:                     //  预约通知
+            {
+                cellHeight = cellHeight + [ZMessageListCell setMessageContent:model].heightOfCell;
+                cellHeight = cellHeight + CGFloatIn750(20);
+                cellHeight = cellHeight + [ZMessageListCell setMessageSend:model].heightOfCell;
                 cellHeight = cellHeight + CGFloatIn750(20);
                 cellHeight = cellHeight + CGFloatIn750(2);
                 cellHeight = cellHeight + CGFloatIn750(20);
@@ -244,12 +255,23 @@
         case ZCustomNoticeTypePayment:                       //  支付交易通知
         case ZCustomNoticeTypeRefund:                          //  退款通知
         case ZCustomNoticeTypeMoneyBack:                      //  回款通知
-        case ZCustomNoticeTypeAppointment:                     //  预约通知
         case ZCustomNoticeTypeCourseBegins:                   //  开课通知
         case ZCustomNoticeTypeCourseEnd:                      //  结课通知
         case ZCustomNoticeTypeCourseSign:                     //  签课通知
         case ZCustomNoticeTypeEvaluate:                        //  评价通知
         case ZCustomNoticeTypeCustom:
+        {
+            [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
+            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+            [self.cellConfigArr addObject:[ZMessageListCell setMessageSend:self.model]];
+            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
+            [self.cellConfigArr addObject:[ZMessageListCell setLineCell:CGFloatIn750(2)]];
+            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+            [self.cellConfigArr addObject:[ZMessageListCell setSeeDetail:@"查看详情"]];
+            [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:@"seeDetail"]];
+        }
+            break;
+        case ZCustomNoticeTypeAppointment:                     //  预约通知
         {
             [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
             [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];

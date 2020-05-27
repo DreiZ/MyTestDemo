@@ -43,11 +43,11 @@
                 return ZStudentOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.type intValue] == 1) {
+//                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeOutTime; //超时(删除)
-                }else{
+//                }else{
                     return ZStudentOrderTypeOrderOutTime;//超时(删除)
-                }
+//                }
                 break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
@@ -58,6 +58,10 @@
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
                 break;
+            case 16:
+                return ZStudentOrderTypeOrderOutTime;//超时(删除)
+            break;
+                
             default:
                 return ZStudentOrderTypeAll;
                 break;
@@ -88,11 +92,11 @@
                 return ZOrganizationOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.type intValue] == 1) {
+//                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeOutTime; //超时(删除)
-                }else{
-                    return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
-                }
+//                }else{
+                    
+//                }
                 break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)
@@ -103,6 +107,10 @@
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
                 break;
+            case 16:
+                return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
+            break;
+                
             default:
                 return ZStudentOrderTypeAll;
                 break;
@@ -141,11 +149,11 @@
                 return ZStudentOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.type intValue] == 1) {
+//                if ([self.type intValue] == 1) {
                     return ZStudentOrderTypeOutTime; //超时(删除)
-                }else{
-                    return ZStudentOrderTypeOrderOutTime;//超时(删除)
-                }
+//                }else{
+//
+//                }
                 break;
             case 11:
                 return ZStudentOrderTypeCancel;//已取消(删除)
@@ -156,6 +164,10 @@
             case 14:
                 return ZStudentOrderTypeOrderRefuse;//拒绝预约
                 break;
+            case 16:
+                return ZStudentOrderTypeOrderOutTime;//超时(删除)
+                break;
+                
             default:
                 return ZStudentOrderTypeAll;
                 break;
@@ -186,11 +198,11 @@
                 return ZOrganizationOrderTypeOrderComplete;//已完成（预约，删除）
                 break;
             case 6:
-                if ([self.type intValue] == 1) {
+//                if ([self.type intValue] == 1) {
                     return ZOrganizationOrderTypeOutTime; //超时(删除)
-                }else{
-                    return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
-                }
+//                }else{
+                    
+//                }
                 break;
             case 11:
                 return ZOrganizationOrderTypeCancel;//已取消(删除)
@@ -201,6 +213,10 @@
             case 14:
                 return ZOrganizationOrderTypeOrderRefuse;//拒绝预约
                 break;
+            case 16:
+                return ZOrganizationOrderTypeOrderOutTime;//超时(删除)
+                break;
+                
             default:
                 return ZStudentOrderTypeAll;
                 break;

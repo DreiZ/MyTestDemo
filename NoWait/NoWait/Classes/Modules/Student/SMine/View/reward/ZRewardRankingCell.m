@@ -169,7 +169,7 @@
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.userImageView.mas_centerY).offset(CGFloatIn750(12));
         make.height.mas_equalTo(CGFloatIn750(8));
-        make.width.mas_equalTo((KScreenWidth - CGFloatIn750(260))/([model.total_amount doubleValue]/[model.max_amount doubleValue]));
+        make.width.mas_equalTo((KScreenWidth - CGFloatIn750(260)) * ([model.total_amount doubleValue]/[model.max_amount doubleValue]));
     }];
 }
 
