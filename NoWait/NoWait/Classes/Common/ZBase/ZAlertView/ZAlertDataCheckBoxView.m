@@ -157,17 +157,14 @@ static ZAlertDataCheckBoxView *sharedManager;
     return _iTableView;
 }
 
-
 - (UIView *)contView {
     if (!_contView) {
         _contView = [[UIView alloc] init];
         ViewRadius(_contView, CGFloatIn750(32));
         _contView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
     }
-    
     return _contView;
 }
-
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
@@ -185,7 +182,6 @@ static ZAlertDataCheckBoxView *sharedManager;
 - (void)setCellData {
     [self initCellConfigArr];
 }
-
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
@@ -413,7 +409,7 @@ static ZAlertDataCheckBoxView *sharedManager;
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return self.backgroundColor;
+    return self.contView.backgroundColor;
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
