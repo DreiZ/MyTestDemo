@@ -148,7 +148,7 @@
     if (!_inputLine) {
         _inputLine = [[UIView alloc] init];
         _inputLine.layer.masksToBounds = YES;
-        _inputLine.backgroundColor = [UIColor colorRedDefault];
+        _inputLine.backgroundColor = [UIColor colorGrayLine];
     }
     return _inputLine;
 }
@@ -288,11 +288,11 @@
     }];
 
     [self.labelView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
-            make.right.equalTo(self.backContentView.mas_right).offset(-model.rightMargin);
-            make.top.bottom.equalTo(self.backContentView);
-    //        make.height.mas_equalTo(CGFloatIn750(108));
-        }];
+        make.left.equalTo(self.subTitleLabel.mas_right).offset(model.contentSpace);
+        make.right.equalTo(self.backContentView.mas_right).offset(-model.rightMargin);
+        make.top.bottom.equalTo(self.backContentView);
+//        make.height.mas_equalTo(CGFloatIn750(108));
+    }];
     
     [self.labelView removeAllSubviews];
     
@@ -419,8 +419,10 @@
         btn.font = [UIFont fontContent];
         btn.textAlignment = NSTextAlignmentCenter;
         btn.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        ViewRadius(btn, btnHeight/2.0);
+//        ViewRadius(btn, btnHeight/2.0);
+        ViewBorderRadius(btn, btnHeight/2.0f, 0.5, adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]));
         btn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        btn.clipsToBounds = YES;
         [_hotSearchBtn addObject:btn];
         
     }
