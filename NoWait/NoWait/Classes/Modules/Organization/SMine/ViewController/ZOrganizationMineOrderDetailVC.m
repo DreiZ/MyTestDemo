@@ -241,7 +241,7 @@
         make.top.equalTo(self.view.mas_top).offset(0);
     }];
     
-    [self setTableViewWhiteBack];
+    [self setTableViewGaryBack];
 }
 
 - (void)updateBottom {
@@ -415,15 +415,20 @@
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.detailModel.refund_amount = text;
         };
+    }else if([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
+        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        lcell.handleBlock = ^(ZCellConfig *lcellConfig) {
+            if ([lcellConfig.title isEqualToString:@"phone"]){
+                if (!self.detailModel.isStudent) {
+                    [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
+                }
+            }
+        };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"phone"]){
-         if (!self.detailModel.isStudent) {
-             [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
-         }
-     }else if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
+     if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
          ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
          ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
          listmodel.lessonID = self.detailModel.course_id;

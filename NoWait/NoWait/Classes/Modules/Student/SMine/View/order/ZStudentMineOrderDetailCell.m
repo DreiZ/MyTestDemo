@@ -45,6 +45,7 @@
 
 -(void)setupView {
     [super setupView];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     _cellConfigArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.contView];
@@ -185,8 +186,8 @@
         _contView = [[UIView alloc] init];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
-//        _contView.clipsToBounds = YES;
-        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
+        _contView.clipsToBounds = YES;
+//        ViewShadowRadius(_contView, CGFloatIn750(20), CGSizeMake(0, 0), 0.5, isDarkModel() ? [UIColor colorGrayContentBGDark] : [UIColor colorGrayContentBG]);
          _contView.layer.cornerRadius = CGFloatIn750(12);
     }
     return _contView;
