@@ -111,7 +111,7 @@
     NSMutableArray *section1Arr = @[].mutableCopy;
     if (self.dataSources.count > 0) {
         for (int i = 0; i < self.dataSources.count; i++) {
-            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [section1Arr addObject:orCellCon1fig];
         }
     }else {

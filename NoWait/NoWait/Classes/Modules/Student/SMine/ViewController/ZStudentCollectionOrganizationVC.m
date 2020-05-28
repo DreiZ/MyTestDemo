@@ -9,7 +9,7 @@
 #import "ZStudentCollectionOrganizationVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 
-#import "ZStudentMainOrganizationListCell.h"
+#import "ZStudentOrganizationListCell.h"
 #import "ZStudentCollectionViewModel.h"
 #import "ZLocationManager.h"
 #import "ZAlertView.h"
@@ -38,7 +38,7 @@
     
     for (ZStoresListModel *model in self.dataSources) {
         model.isStudentCollection = YES;
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:[ZStudentMainOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:[ZStudentOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:orderCellConfig];
     }
 }
@@ -63,8 +63,8 @@
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]){
-        ZStudentMainOrganizationListCell *lcell = (ZStudentMainOrganizationListCell *)cell;
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
+        ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
         lcell.handleBlock = ^(ZStoresListModel *model) {
             [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此机构？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消机构" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
@@ -73,10 +73,15 @@
             }];
             
         };
+        lcell.moreBlock = ^(ZStoresListModel *model) {
+            model.isMore = !model.isMore;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
          ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
          dvc.listModel = cellConfig.dataModel;
          [self.navigationController pushViewController:dvc animated:YES];

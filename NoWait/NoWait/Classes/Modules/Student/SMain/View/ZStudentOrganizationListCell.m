@@ -1,30 +1,17 @@
 //
-//  ZStudentMainOrganizationListCell.m
+//  ZStudentOrganizationListCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/1/6.
+//  Created by zhuang zhang on 2020/5/28.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZStudentMainOrganizationListCell.h"
-#import "ZLocationManager.h"
+#import "ZStudentOrganizationListCell.h"
 
-@interface ZStudentMainOrganizationListCell ()
-
-@property (nonatomic,strong) UIImageView *goodsImageView;
-@property (nonatomic,strong) UILabel *titleLabel;
-@property (nonatomic,strong) UILabel *payPeopleNumLabel;
-@property (nonatomic,strong) UILabel *addressLabel;
-@property (nonatomic,strong) UIView *introductionView;
-@property (nonatomic,strong) UIView *activityView;
-@property (nonatomic,strong) UIButton *collectionBtn;
-@property (nonatomic,strong) UIView *moreView;
-@property (nonatomic,strong) UIImageView *moreImageView;
-@property (nonatomic,strong) UIView *moreHiddenView;
-
+@interface ZStudentOrganizationListCell ()
 @end
 
-@implementation ZStudentMainOrganizationListCell
+@implementation ZStudentOrganizationListCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -83,30 +70,13 @@
         make.height.mas_equalTo(CGFloatIn750(40));
     }];
     
-    [self.contentView addSubview:self.introductionView];
-    [self.introductionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-        make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-        make.height.mas_equalTo(CGFloatIn750(40));
-    }];
-    
     [self.contentView addSubview:self.moreView];
     [self.moreView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right);
         make.top.equalTo(self.goodsImageView.mas_bottom).offset(-CGFloatIn750(38));
         make.width.height.mas_equalTo(CGFloatIn750(100));
     }];
-    
-    [self.contentView addSubview:self.moreHiddenView];
-    [self.moreHiddenView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.moreImageView.mas_left);
-        make.left.equalTo(self.contentView);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(2);
-        make.top.equalTo(self.goodsImageView.mas_bottom);
-    }];
 }
-
 
 #pragma mark - Getter
 -(UIImageView *)goodsImageView {
@@ -116,7 +86,6 @@
         _goodsImageView.clipsToBounds = YES;
         ViewRadius(_goodsImageView, CGFloatIn750(8));
     }
-    
     return _goodsImageView;
 }
 
@@ -135,7 +104,6 @@
     if (!_payPeopleNumLabel) {
         _payPeopleNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _payPeopleNumLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray]);
-        
         _payPeopleNumLabel.numberOfLines = 1;
         _payPeopleNumLabel.textAlignment = NSTextAlignmentLeft;
         [_payPeopleNumLabel setFont:[UIFont fontSmall]];
@@ -147,21 +115,11 @@
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray]);
-        
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentRight;
         [_addressLabel setFont:[UIFont fontSmall]];
     }
     return _addressLabel;
-}
-
-
-- (UIView *)introductionView {
-    if (!_introductionView) {
-        _introductionView = [[UIView alloc] init];
-        _introductionView.layer.masksToBounds = YES;
-    }
-    return _introductionView;
 }
 
 - (UIView *)activityView {
@@ -203,12 +161,10 @@
     return _moreView;
 }
 
-
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
         __weak typeof(self) weakSelf = self;
         _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
-//        [_collectionBtn setImage:[UIImage imageNamed:@"collectionHandle"] forState:UIControlStateNormal];
         UIImageView *collectionImageView = [[UIImageView alloc] init];
         collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];
         collectionImageView.layer.masksToBounds = YES;
@@ -226,28 +182,17 @@
     return _collectionBtn;
 }
 
-- (UIView *)moreHiddenView {
-    if (!_moreHiddenView) {
-        _moreHiddenView = [[UIView alloc] init];
-        _moreHiddenView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    }
-    return _moreHiddenView;
-}
-
 - (void)setModel:(ZStoresListModel *)model {
     _model = model;
+    
     _titleLabel.text = model.name;
     _payPeopleNumLabel.text = [NSString stringWithFormat:@"%@人已付款",model.pay_nums];
     _addressLabel.text = [NSString stringWithFormat:@"%@",model.distance];
     [_goodsImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_loadFail276"]];
+    
     self.moreView.hidden = YES;
     [self setActivityData];
-    if (model.coupons && model.coupons.count > 0) {
-        [self setIntroData];
-        self.introductionView.hidden = NO;
-    }else{
-        self.introductionView.hidden = YES;
-    }
+    
     if (model.isStudentCollection) {
         [self.collectionBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top);
@@ -264,87 +209,51 @@
     
     if (_model.isMore) {
         _moreImageView.transform =  CGAffineTransformMakeRotation(0);
-        _moreHiddenView.hidden = YES;
     }else{
         _moreImageView.transform =  CGAffineTransformMakeRotation(M_PI);
-        _moreHiddenView.hidden = NO;
     }
 }
-
-+(CGFloat)z_getCellHeight:(id)sender {
-    ZStoresListModel *model = sender;
-    if (model) {
-        if (!model.isMore) {
-            return CGFloatIn750(188);
-        }
-        NSMutableArray *ttArr = @[].mutableCopy;
-        [ttArr addObjectsFromArray:model.tags];
-        NSArray *textArr = ttArr;
-        
-        CGFloat tagHeight = 0;
-        CGFloat leftX = 0;
-        CGFloat leftY = 0;
-        for (int i = 0; i < textArr.count; i++) {
-            CGPoint label = [ZStudentMainOrganizationListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
-            leftY = label.y;
-            leftX = label.x;
-        }
-        if (ValidArray(textArr)) {
-            tagHeight = leftY + CGFloatIn750(40);
-        }
-        
-        CGFloat couponHeight = 0;
-        if (tagHeight > 0) {
-            couponHeight = CGFloatIn750(18);
-        }
-        [ttArr removeAllObjects];
-        if (model.coupons && model.coupons.count > 0) {
-            for (int i = 0; i < model.coupons.count; i++) {
-                ZOriganizationCardListModel *smodel = model.coupons[i];
-                [ttArr addObject:smodel.title];
-            }
-            NSArray *textArr = ttArr;
-            
-            CGFloat leftX = 0;
-            CGFloat leftY = 0;
-            for (int i = 0; i < textArr.count; i++) {
-                CGPoint label = [ZStudentMainOrganizationListCell getViewWithText:textArr[i] leftX:leftX leftY:leftY model:model];
-                leftY = label.y;
-                leftX = label.x;
-            }
-            if (ValidArray(textArr)) {
-                couponHeight = leftY + CGFloatIn750(40);
-            }
-        }else {
-            couponHeight = 0;
-        }
-        
-        CGFloat offsetHeight = couponHeight + tagHeight;
-        
-        if (offsetHeight > CGFloatIn750(38)) {
-            offsetHeight = offsetHeight - CGFloatIn750(40);
-        }
-        return CGFloatIn750(188) + offsetHeight - 2;
-    }
-    return CGFloatIn750(188);
-}
-
 
 - (void)setActivityData {
     [self.activityView removeAllSubviews];
-    NSMutableArray *ttArr = @[].mutableCopy;
-    [ttArr addObjectsFromArray:self.model.tags];
     
-    NSArray *textArr = ttArr;
-    
-    CGFloat leftX = 0;
-    CGFloat leftY = 0;
-    for (int i = 0; i < textArr.count; i++) {
-        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY colorType:YES];
-        leftY = label.top;
-        [self.activityView addSubview:label];
-        leftX = label.right + CGFloatIn750(8);
+    NSMutableArray <NSDictionary *>*ttArr = @[].mutableCopy;
+    if (ValidArray(self.model.tags)) {
+        [self.model.tags enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [ttArr addObject:@{@"title":SafeStr(obj), @"type":@"1"}];
+        }];
     }
+    
+    if (ValidArray(self.model.coupons)) {
+        [self.model.coupons enumerateObjectsUsingBlock:^(ZOriganizationCardListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [ttArr addObject:@{@"title":SafeStr(obj.title), @"type":@"0"}];
+        }];
+    }
+
+    __block CGFloat leftX = 0;
+    __block CGFloat leftY = 0;
+    
+    __block NSString *type;
+    if (ValidArray(ttArr)) {
+        type = ttArr[0][@"type"];
+    }
+    [ttArr enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *title = obj[@"title"];
+        BOOL isChange = NO;
+        if (![type isEqualToString:obj[@"type"]]) {
+            isChange = YES;
+        }
+        
+        UIView *label = [self getViewWithText:title leftX:leftX leftY:leftY colorType:[obj[@"type"] boolValue] isChange:isChange];
+        if (!label) {
+            *stop = YES;
+        }else{
+            leftY = label.top;
+            [self.activityView addSubview:label];
+            leftX = label.right + CGFloatIn750(8);
+            type = obj[@"type"];
+        }
+    }];
     
     [self.activityView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
@@ -355,47 +264,10 @@
         }else{
             make.height.mas_equalTo(CGFloatIn750(40));
         }
-        
     }];
 }
 
-
-- (void)setIntroData {
-    [self.introductionView removeAllSubviews];
-    NSMutableArray *ttArr = @[].mutableCopy;
-    for (int i = 0; i < self.model.coupons.count; i++) {
-        ZOriganizationCardListModel *smodel = self.model.coupons[i];
-        [ttArr addObject:smodel.title];
-    }
-    
-    NSArray *textArr = ttArr;
-    
-    CGFloat leftX = 0;
-    CGFloat leftY = 0;
-    for (int i = 0; i < textArr.count; i++) {
-        UIView *label = [self getViewWithText:textArr[i] leftX:leftX leftY:leftY colorType:NO];
-        leftY = label.top;
-        [self.introductionView addSubview:label];
-        leftX = label.right + CGFloatIn750(8);
-    }
-    
-    [self.introductionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
-        if (ValidArray(self.model.tags)) {
-            make.top.equalTo(self.activityView.mas_bottom).offset(CGFloatIn750(18));
-        }else{
-            make.top.equalTo(self.payPeopleNumLabel.mas_bottom).offset(CGFloatIn750(18));
-        }
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-        if (self.model.isMore) {
-            make.height.mas_equalTo(leftY + CGFloatIn750(40));
-        }else{
-            make.height.mas_equalTo(CGFloatIn750(40));
-        }
-    }];
-}
-
-- (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY colorType:(BOOL)isTags{
+- (UIView *)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY colorType:(BOOL)isTags isChange:(BOOL)isChange {
      CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
     
     UILabel *actLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftX, leftY, tempSize.width+6, CGFloatIn750(36))];
@@ -414,19 +286,75 @@
     actLabel.textAlignment = NSTextAlignmentCenter;
     [actLabel setFont:[UIFont fontMin]];
     
-    if (leftX + tempSize.width + 6 < (KScreenWidth - CGFloatIn750(134 * 2 + 20) - CGFloatIn750(48))) {
+    if ((leftX + tempSize.width + 6 < (KScreenWidth - CGFloatIn750(134 * 2 + 20) - CGFloatIn750(48))) && !isChange) {
         actLabel.frame = CGRectMake(leftX, leftY, tempSize.width+6, CGFloatIn750(36));
     }else{
         self.moreView.hidden = NO;
+        if (!self.model.isMore) {
+            return nil;
+        }
         actLabel.frame = CGRectMake(0, leftY + CGFloatIn750(36) + CGFloatIn750(20), tempSize.width+6, CGFloatIn750(36));
     }
     return actLabel;
 }
 
-+ (CGPoint)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY model:(ZStoresListModel *)model{
++(CGFloat)z_getCellHeight:(id)sender {
+    ZStoresListModel *model = sender;
+    if (model) {
+        if (!model.isMore) {
+            return CGFloatIn750(188);
+        }
+        NSMutableArray <NSDictionary *>*ttArr = @[].mutableCopy;
+        if (ValidArray(model.tags)) {
+            [model.tags enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [ttArr addObject:@{@"title":SafeStr(obj), @"type":@"1"}];
+            }];
+        }
+        
+        if (ValidArray(model.coupons)) {
+            [model.coupons enumerateObjectsUsingBlock:^(ZOriganizationCardListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [ttArr addObject:@{@"title":SafeStr(obj.title), @"type":@"0"}];
+            }];
+        }
+        
+        CGFloat tagHeight = 0;
+        __block CGFloat leftX = 0;
+        __block CGFloat leftY = 0;
+        __block NSString *type;
+        if (ValidArray(ttArr)) {
+            type = ttArr[0][@"type"];
+        }
+        
+        [ttArr enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = obj[@"title"];
+            BOOL isChange = NO;
+            if (![type isEqualToString:obj[@"type"]]) {
+                isChange = YES;
+            }
+            
+            CGPoint label = [ZStudentOrganizationListCell getViewWithText:title leftX:leftX leftY:leftY model:model isChange:isChange];
+            leftY = label.y;
+            leftX = label.x;
+            type = obj[@"type"];
+        }];
+        
+        if (ValidArray(ttArr)) {
+            tagHeight = leftY + CGFloatIn750(40);
+        }
+        
+        CGFloat offsetHeight = tagHeight;
+        if (offsetHeight > CGFloatIn750(38)) {
+            offsetHeight = offsetHeight - CGFloatIn750(40);
+        }
+        return CGFloatIn750(188) + offsetHeight;
+    }
+    return CGFloatIn750(188);
+}
+
++ (CGPoint)getViewWithText:(NSString *)text leftX:(CGFloat)leftX leftY:(CGFloat)leftY model:(ZStoresListModel *)model isChange:(BOOL)isChange{
      CGSize tempSize = [text tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(kScreenWidth/2, MAXFLOAT)];
      
-     if (leftX + tempSize.width + 6 < KScreenWidth - CGFloatIn750(134 * 2 + 20) - CGFloatIn750(48)) {
+     if ((leftX + tempSize.width + 6 < KScreenWidth - CGFloatIn750(134 * 2 + 20) - CGFloatIn750(48)) && !isChange) {
          return CGPointMake(leftX + tempSize.width+6 + CGFloatIn750(8), leftY);
      }else{
          return CGPointMake(tempSize.width+6 + CGFloatIn750(8), leftY + CGFloatIn750(36) + CGFloatIn750(20));

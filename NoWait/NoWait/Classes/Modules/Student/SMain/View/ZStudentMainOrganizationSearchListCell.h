@@ -7,15 +7,9 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZStudentOrganizationListCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZStudentMainOrganizationSearchListCell : ZBaseCell
-
-@property (nonatomic,strong) ZStoresListModel *model;
-@property (nonatomic,strong) void (^handleBlock)(ZStoresListModel *);
+@interface ZStudentMainOrganizationSearchListCell : ZStudentOrganizationListCell
 @property (nonatomic,strong) void (^lessonBlock)(ZStoresCourse *);
-@property (nonatomic,strong) void (^moreBlock)(ZStoresListModel *);
 @end
 
-NS_ASSUME_NONNULL_END

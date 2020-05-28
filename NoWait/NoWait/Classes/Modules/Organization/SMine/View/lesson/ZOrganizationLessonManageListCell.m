@@ -518,18 +518,18 @@
             self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
             self.salesNumLabel.text = @"";
             
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.bottom.equalTo(self.contView.mas_bottom);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
+//            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.right.equalTo(self.contView);
+//                make.top.equalTo(self.contView.mas_bottom);
+//                make.height.mas_equalTo(CGFloatIn750(136));
+//            }];
             
             NSString *fail = self.model.notice_msg ? self.model.notice_msg : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             
             [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.contView);
-                make.bottom.equalTo(self.bottomView.mas_top);
+                make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
                 make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
             }];
             
@@ -552,9 +552,9 @@
             }];
             
             
-            self.bottomView.hidden = NO;
+            self.bottomView.hidden = YES;
             self.failView.hidden = NO;
-            self.editBtn.hidden = NO;
+            self.editBtn.hidden = YES;
             self.closeBtn.hidden = YES;
                        
             self.openBtn.hidden = YES;
@@ -593,7 +593,7 @@
         }else if (listModel.type == ZOrganizationLessonTypeExamineFail){
             NSString *fail = listModel.notice_msg ? listModel.notice_msg : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
-            return CGFloatIn750(404) + failSize.height + CGFloatIn750(40);
+            return CGFloatIn750(308) + failSize.height + CGFloatIn750(40);
         } else{
             return CGFloatIn750(404);
         }

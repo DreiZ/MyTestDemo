@@ -8,7 +8,7 @@
 
 #import "ZStudentClassificationListVC.h"
 #import "ZStudentMainModel.h"
-#import "ZStudentMainOrganizationListCell.h"
+#import "ZStudentOrganizationListCell.h"
 #import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
 
@@ -48,7 +48,7 @@
     [super initCellConfigArr];
     
     for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationListCell className] title:@"ZStudentMainOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         [self.cellConfigArr addObject:orCellCon1fig];
     }
 }
@@ -91,8 +91,20 @@
 }
 
 #pragma mark - tableview delegate
+- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
+       ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
+        lcell.moreBlock = ^(ZStoresListModel *model) {
+            model.isMore = !model.isMore;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
+    }
+}
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
         ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
         dvc.listModel = cellConfig.dataModel;
         [self.navigationController pushViewController:dvc animated:YES];

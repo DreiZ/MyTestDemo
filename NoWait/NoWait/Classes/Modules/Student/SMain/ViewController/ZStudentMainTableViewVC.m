@@ -179,8 +179,8 @@
         lcell.menuBlock = ^(ZStudentPhotoWallItemModel *model) {
                [ZRouteManager pushToVC:model.data];
         };
-    }else if([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]){
-       ZStudentMainOrganizationListCell *lcell = (ZStudentMainOrganizationListCell *)cell;
+    }else if([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
+       ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
         lcell.moreBlock = ^(ZStoresListModel *model) {
             model.isMore = !model.isMore;
             [weakSelf initCellConfigArr];
@@ -221,7 +221,7 @@
     if (indexPath.section == 1) {
         NSArray *tempArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = tempArr[indexPath.row];
-        if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationListCell"]) {
+        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
             ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             dvc.listModel = cellConfig.dataModel;
             [self.navigationController pushViewController:dvc animated:YES];

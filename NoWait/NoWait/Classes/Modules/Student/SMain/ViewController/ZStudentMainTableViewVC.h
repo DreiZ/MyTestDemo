@@ -13,8 +13,9 @@
 #import "ZStudentBannerCell.h"
 #import "ZStudentMainEnteryCell.h"
 #import "ZStudentMainPhotoWallCell.h"
-#import "ZStudentMainOrganizationListCell.h"
+#import "ZStudentOrganizationListCell.h"
 #import "ZStudentMainFiltrateSectionView.h"
+#import "ZStudentOrganizationListCell.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentClassificationListVC.h"
