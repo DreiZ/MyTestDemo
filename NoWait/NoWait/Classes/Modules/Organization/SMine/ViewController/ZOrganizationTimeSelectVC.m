@@ -329,7 +329,7 @@
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        titleLabel.text = @"右滑删除";
+        titleLabel.text = @"左滑删除";
         titleLabel.numberOfLines = 0;
         titleLabel.textAlignment = NSTextAlignmentLeft;
         [titleLabel setFont:[UIFont fontSmall]];

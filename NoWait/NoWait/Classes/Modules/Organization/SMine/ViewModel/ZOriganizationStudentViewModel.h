@@ -52,6 +52,9 @@
 
 
 + (void)addClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)delMessage:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 

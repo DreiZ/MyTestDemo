@@ -537,6 +537,11 @@
 #define URL_account_v1_get_news_info                    @"account/v1/get/news/info"
 
 
+#define URL_account_v1_get_news_del                    @"account/v1/get/news/del"
+
+
+
+
 #pragma mark - device_token
 #define URL_message_v1_add_device_token                 @"account/v1/add_device_token"
 
