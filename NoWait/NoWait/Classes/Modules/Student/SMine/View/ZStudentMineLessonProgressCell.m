@@ -31,7 +31,7 @@
 -(void)setupView
 {
     [super setupView];
-    
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -149,8 +149,7 @@
         _contView = [[UIView alloc] initWithFrame:CGRectZero];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _contView.layer.cornerRadius = CGFloatIn750(16);
-
-        ViewShadowRadius(self.contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]));
+        _contView.clipsToBounds = YES;
     }
     return _contView;
 }

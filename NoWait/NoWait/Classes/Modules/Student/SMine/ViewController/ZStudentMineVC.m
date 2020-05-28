@@ -9,8 +9,6 @@
 #import "ZStudentMineVC.h"
 #import "ZOrganizationMineHeaderView.h"
 
-#import "ZMineMenuCell.h"
-#import "ZStudentMineAdverCell.h"
 #import "ZStudentMineLessonProgressCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"

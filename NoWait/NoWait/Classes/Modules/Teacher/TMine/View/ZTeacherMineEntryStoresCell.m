@@ -55,8 +55,6 @@
         make.centerY.equalTo(self.organizationImageView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
     }];
-    
-   
 }
 
 - (UILabel *)nameLabel {
@@ -92,7 +90,6 @@
     return _organizationImageView;
 }
 
-
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc] init];
@@ -112,7 +109,6 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(80);
 }
-
 @end
 
 

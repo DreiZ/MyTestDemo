@@ -34,6 +34,7 @@
 -(void)setupView
 {
     [super setupView];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.contentView addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,8 +110,7 @@
         _contView = [[UIView alloc] initWithFrame:CGRectZero];
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _contView.layer.cornerRadius = CGFloatIn750(16);
-
-        ViewShadowRadius(self.contView, CGFloatIn750(20), CGSizeMake(CGFloatIn750(0), CGFloatIn750(0)), 1, adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]));
+        _contView.clipsToBounds = YES;
     }
     return _contView;
 }
@@ -135,16 +135,12 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ZStudentOrganizationLessonListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className] forIndexPath:indexPath];
     ZStudentMineLessonTimetableCollectionCell *cell = [ZStudentMineLessonTimetableCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
     cell.model = self.dataSources[indexPath.row];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-//    dvc.model = self.dataSources[indexPath.row];
-//    [self.navigationController pushViewController:dvc animated:YES];
     if (self.handleBlock) {
         self.handleBlock(self.dataSources[indexPath.row]);
     }
