@@ -140,6 +140,17 @@ static ZDatePickerManager *sharedDateManager;
     [datepicker showDatePickerWithTitle:title type:type handle:handleBlock];
 }
 
+
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type showDate:(NSDate *)showDate handle:(void(^)(NSDateComponents *))handleBlock {
+    ZDatePickerManager *datepicker = [[ZDatePickerManager alloc] initWithMode:type];
+    
+    if (showDate) {
+        [datepicker.datePicker setDate:showDate];
+    }
+    
+    [datepicker showDatePickerWithTitle:title type:type handle:handleBlock];
+}
+
 + (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock {
     ZDatePickerManager *datepicker = [[ZDatePickerManager alloc] initWithMode:type];
     datepicker.viewController = viewController;

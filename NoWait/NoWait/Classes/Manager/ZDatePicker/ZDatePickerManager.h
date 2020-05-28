@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type handle:(void(^)(NSDateComponents *))handleBlock;
 
++ (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type showDate:(NSDate *)showDate handle:(void(^)(NSDateComponents *))handleBlock;
+
 + (void)showDatePickerWithTitle:(NSString *)title type:(PGDatePickerMode)type viewController:(UIViewController *)viewController handle:(void(^)(NSDateComponents *))handleBlock;
 @end
 

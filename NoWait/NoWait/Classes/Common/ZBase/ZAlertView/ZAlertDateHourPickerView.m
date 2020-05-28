@@ -251,6 +251,23 @@ static ZAlertDateHourPickerView *sharedManager;
     [[ZAlertDateHourPickerView sharedManager] setName:title handlerBlock:handleBlock];
 }
 
++ (void)setAlertName:(NSString *)title now:(NSString *)nowDate  handlerBlock:(void(^)(NSString *,NSString * ))handleBlock  {
+    [[ZAlertDateHourPickerView sharedManager] setName:title handlerBlock:handleBlock];
+    if (nowDate) {
+        NSArray *temp = [nowDate componentsSeparatedByString:@":"];
+        if (temp && temp.count == 2) {
+            NSInteger index = [temp[0] intValue];
+            if (index < 24) {
+                [ZAlertDateHourPickerView sharedManager].proIndex = index;
+                [ZAlertDateHourPickerView sharedManager].cityIndex = index+1;
+                [[ZAlertDateHourPickerView sharedManager].pickView selectRow:index inComponent:0 animated:YES];
+                [[ZAlertDateHourPickerView sharedManager].pickView selectRow:index + 1 inComponent:1 animated:YES];
+            }
+        }
+    }
+}
+
+
 
 #pragma mark -datapicker delegate
 

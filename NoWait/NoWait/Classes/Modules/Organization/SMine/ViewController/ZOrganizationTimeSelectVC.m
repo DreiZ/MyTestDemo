@@ -10,10 +10,12 @@
 #import "ZOrganizationTimeRightCell.h"
 #import "ZOrganizationTimeLeftCell.h"
 #import "ZAlertDateHourPickerView.h"
+#import "ZAlertView.h"
 
 @interface ZOrganizationTimeSelectVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iRightTableView;
 @property (nonatomic,strong) UIButton *navRightBtn;
+@property (nonatomic,strong) UIView *bottomView;
 
 @property (nonatomic,strong) NSMutableArray *cellRightConfigArr;
 @end
@@ -115,10 +117,17 @@
 - (void)setupMainView {
     [super setupMainView];
     
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+    }];
+    
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.width.mas_equalTo(CGFloatIn750(204));
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.bottomView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
     
@@ -126,7 +135,7 @@
     [self.iRightTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view);
         make.left.equalTo(self.iTableView.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.bottomView.mas_top);
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
 }
@@ -177,6 +186,52 @@
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        __weak typeof(self) weakSelf = self;
+        _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = [UIColor colorMain];
+        UIButton *bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [bottomBtn setTitle:@"将每天都设置此时间" forState:UIControlStateNormal];
+        [bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [bottomBtn bk_addEventHandler:^(id sender) {
+            ZBaseMenuModel *tmodel = nil;
+            for (int i = 0; i < weakSelf.dataSources.count; i++) {
+                ZBaseMenuModel *model = weakSelf.dataSources[i];
+                if (model.isSelected) {
+                    tmodel = model;
+                    if (model.units.count < 1) {
+                        [TLUIUtility showInfoHint:@"该日还没有设置数据"];
+                        return;
+                    }
+                }
+            }
+            [ZAlertView setAlertWithTitle:@"提示" subTitle:@"确定将每天都设置此时间？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    for (int i = 0; i < weakSelf.dataSources.count; i++) {
+                        ZBaseMenuModel *model = weakSelf.dataSources[i];
+                        if (model != tmodel) {
+                            [model.units removeAllObjects];
+                            [tmodel.units enumerateObjectsUsingBlock:^(ZBaseUnitModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                ZBaseUnitModel *ssModel = [[ZBaseUnitModel alloc] init];
+                                ssModel.name = obj.name;
+                                ssModel.subName = obj.subName;
+                                ssModel.data = obj.data;
+                                [model.units addObject:ssModel];
+                            }];
+                        }
+                    }
+                }
+            }];
+        } forControlEvents:UIControlEventTouchUpInside];
+        [_bottomView addSubview:bottomBtn];
+        [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.bottomView);
+        }];
+    }
+    return _bottomView;
 }
 
 - (void)sortTime {
@@ -262,7 +317,29 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0 && tableView == self.iRightTableView && _cellRightConfigArr && _cellRightConfigArr.count > 0) {
+        return CGFloatIn750(60);
+    }
     return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0  && tableView == self.iRightTableView && _cellRightConfigArr && _cellRightConfigArr.count > 0) {
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(60))];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        titleLabel.text = @"右滑删除";
+        titleLabel.numberOfLines = 0;
+        titleLabel.textAlignment = NSTextAlignmentLeft;
+        [titleLabel setFont:[UIFont fontSmall]];
+        [sectionView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(sectionView);
+        }];
+        return sectionView;
+    }
+    return nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -281,7 +358,6 @@
         [self.iTableView reloadData];
         [self.iRightTableView reloadData];
     }
-    
 }
 
 #pragma mark - 删除列表
@@ -330,7 +406,8 @@
     [addView addSubview:addLabel];
     [addLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(addView.mas_centerY);
-        make.centerX.equalTo(addView.mas_centerX);
+        make.right.equalTo(addView.mas_right);
+        make.left.equalTo(addView.mas_left);
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -338,27 +415,153 @@
     [addView addSubview:addBtn];
     [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isStartAndEnd) {
-            [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
+            NSString *selectDate = [self getStartAndEndLastSelectDate];
+            [ZAlertDateHourPickerView setAlertName:@"选择时间段" now:selectDate handlerBlock:^(NSString *start,NSString *end) {
                 ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
                 smodel.name = start;
                 smodel.subName = end;
                 
                 [weakSelf checkStartAndEnd:smodel];
             }];
+            
+//            [ZAlertDateHourPickerView setAlertName:@"选择时间段" handlerBlock:^(NSString *start,NSString *end) {
+//                ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
+//                smodel.name = start;
+//                smodel.subName = end;
+//
+//                [weakSelf checkStartAndEnd:smodel];
+//            }];
         }else{
-            [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
+            NSDate *selectDate = [self getLastSelectDate];
+            [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime showDate:selectDate handle:^(NSDateComponents * date) {
                 [weakSelf checkSeletTime:date];
             }];
+//            [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime handle:^(NSDateComponents * date) {
+//                [weakSelf checkSeletTime:date];
+//            }];
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(addView);
+        make.left.right.top.bottom.equalTo(addView);
+//        make.left.equalTo(addView.mas_centerX);
     }];
+    
+//    {
+//        UILabel *addLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+//        addLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+//        addLabel.text = @"智能添加";
+//        addLabel.textAlignment = NSTextAlignmentCenter;
+//        [addLabel setFont:[UIFont fontContent]];
+//
+//        [addView addSubview:addLabel];
+//        [addLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(addView.mas_centerY);
+//            make.left.equalTo(addView.mas_left);
+//            make.right.equalTo(addView.mas_centerX);
+//        }];
+//
+//        __weak typeof(self) weakSelf = self;
+//        UIButton *magciBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+//        [addView addSubview:magciBtn];
+//        [magciBtn bk_addEventHandler:^(id sender) {
+//            [weakSelf aiAddTime];
+//        } forControlEvents:UIControlEventTouchUpInside];
+//        [magciBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.bottom.equalTo(addView);
+//            make.right.equalTo(addView.mas_centerX);
+//        }];
+//    }
     
     return addView;
 }
 
+#pragma mark - 智能
+- (void)aiAddTime {
+    if (self.isStartAndEnd) {
+        
+    }else{
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZBaseMenuModel *model = self.dataSources[i];
+            if (model.isSelected) {
+                if (ValidArray(model.units)) {
+                    ZBaseUnitModel *subModel = model.units.lastObject;
+                    
+                    if ([subModel.name intValue] >= 23) {
+                        [TLUIUtility showInfoHint:@"选择日期已到次日凌晨"];
+                    }else{
+                        NSInteger off = 1;
+                        CGFloat tHour = [self.course_min doubleValue]/60.0f;
+                        off = ceil(tHour);
+                        
+                        if (model.units.count >= 2) {
+                            ZBaseUnitModel *zModel = model.units.lastObject;
+                            ZBaseUnitModel *tModel = model.units[model.units.count - 2];
+                            NSInteger toff = [zModel.name intValue] - [tModel.name intValue];
+                            if (toff > off) {
+                                off = toff;
+                            }
+                        }
+                        ZBaseUnitModel *nextModel = [[ZBaseUnitModel alloc] init];
+                        nextModel.name = [NSString stringWithFormat:@"%ld",[subModel.name intValue]+off];
+                        nextModel.subName = [NSString stringWithFormat:@"%d",[subModel.subName intValue]];
+                        nextModel.data = [NSString stringWithFormat:@"%@:%@%@~%@",nextModel.name,nextModel.subName.length != 1 ? @"":@"0",nextModel.subName,[self getEndTime:nextModel]];
+                        
+                        if ([self checkSeletTime:nextModel units:model]) {
+                            [model.units addObject:nextModel];
+                            [self initCellRightConfigArr];
+                            [self.iRightTableView reloadData];
+                        }else{
+                            [TLUIUtility showInfoHint:@"智能添加冲突，请手动添加"];
+                        }
+                    }
+                }else{
+                    if (i == 0) {
+                        ZBaseUnitModel *nextModel = [[ZBaseUnitModel alloc] init];
+                        nextModel.name = @"9";
+                        nextModel.subName = @"0";
+                        if (ValidStr(self.course_min)) {
+                            nextModel.data = [NSString stringWithFormat:@"%@:%@%@~%@",nextModel.name,nextModel.subName.length != 1 ? @"":@"0",nextModel.subName,[self getEndTime:nextModel]];
+                        }
+                        
+                        if ([self checkSeletTime:nextModel units:model]) {
+                            [model.units addObject:nextModel];
+                            [self initCellRightConfigArr];
+                            [self.iRightTableView reloadData];
+                        }
+                    }else{
+                        ZBaseMenuModel *lastModel = self.dataSources[i - 1];
+                        if (ValidArray(lastModel.units)) {
+                            [lastModel.units enumerateObjectsUsingBlock:^(ZBaseUnitModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                ZBaseUnitModel *sModel = [[ZBaseUnitModel alloc] init];
+                                sModel.name = obj.name;
+                                sModel.subName = obj.subName;
+                                sModel.data = obj.data;
+                                [model.units addObject:sModel];
+                            }];
+                            [self initCellRightConfigArr];
+                            [self.iRightTableView reloadData];
+                        }else{
+                            ZBaseUnitModel *nextModel = [[ZBaseUnitModel alloc] init];
+                            nextModel.name = @"9";
+                            nextModel.subName = @"0";
+                            if (ValidStr(self.course_min)) {
+                                nextModel.data = [NSString stringWithFormat:@"%@:%@%@~%@",nextModel.name,nextModel.subName.length != 1 ? @"":@"0",nextModel.subName,[self getEndTime:nextModel]];
+                            }
+                            
+                            if ([self checkSeletTime:nextModel units:model]) {
+                                [model.units addObject:nextModel];
+                                [self initCellRightConfigArr];
+                                [self.iRightTableView reloadData];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
+#pragma mark - date handle
 - (NSString *)getTime:(NSDateComponents *)date {
     if (date.minute < 10) {
         return  [NSString stringWithFormat:@"%ld:0%ld",(long)date.hour,(long)date.minute];
@@ -367,6 +570,53 @@
     }
 }
 
+//最后选择日期
+- (NSDate *)getLastSelectDate {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZBaseMenuModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            if (ValidArray(model.units)) {
+                ZBaseUnitModel *subModel = model.units.lastObject;
+                
+                NSDate *date = [[NSDate alloc] initWithTimeInterval:([subModel.name intValue] * 3600 + [subModel.subName intValue] * 60) sinceDate:[self zeroOfDate]];
+                return date;
+            }
+        }
+    }
+    
+    return nil;
+}
+
+
+//最后选择日期
+- (NSString *)getStartAndEndLastSelectDate {
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZBaseMenuModel *model = self.dataSources[i];
+        if (model.isSelected) {
+            if (ValidArray(model.units)) {
+                if (self.isStartAndEnd) {
+                    ZBaseUnitModel *subModel = model.units.lastObject;
+                    return subModel.name;
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+
+ - (NSDate *)zeroOfDate
+ {
+     NSCalendar *calendar = [NSCalendar currentCalendar];
+     NSDateComponents *components = [calendar components:NSUIntegerMax fromDate:[NSDate new]];
+     components.hour = 0;
+     components.minute = 0;
+     components.second = 0;
+
+    // components.nanosecond = 0 not available in iOS
+     NSTimeInterval ts = (double)(int)[[calendar dateFromComponents:components] timeIntervalSince1970];
+     return [NSDate dateWithTimeIntervalSince1970:ts];
+}
 
 #pragma mark - getEndTime
 - (NSString *)getStartTime:(ZBaseUnitModel *)model {
@@ -413,7 +663,6 @@
     }
 }
 
-
 - (BOOL)checkStartAndEndTime:(ZBaseUnitModel *)smodel units:(ZBaseMenuModel *)model{
     NSArray *tempStart = [smodel.name componentsSeparatedByString:@":"];
     NSArray *tempEnd = [smodel.subName componentsSeparatedByString:@":"];
@@ -429,13 +678,14 @@
         
         NSInteger tEndTime = (tempEndIn && tempEndIn.count > 0) ? [self checkO:tempEndIn[0]]:0;
         
-        if (startTime <=tEndTime && endTime>=tStartTime) {
-            [TLUIUtility showErrorHint:@"时间段不可重合"];
+        if (startTime < tEndTime && endTime > tStartTime) {
+            [TLUIUtility showInfoHint:@"时间段不可重合"];
             return NO;
         }
     }
     return YES;
 }
+
 - (NSInteger )checkO:(NSString *)name {
     if (name && name.length > 0) {
         NSString *str3 = [name substringToIndex:1];//str3 = "this"
@@ -483,8 +733,8 @@
         NSInteger tStartTime = [obj.name intValue] *60 + [obj.subName intValue];
         
         NSInteger tEndTime = [obj.name intValue] *60 + [obj.subName intValue] + [self.course_min intValue];
-        if (startTime <=tEndTime && endTime>=tStartTime) {
-            [TLUIUtility showErrorHint:@"时间段不可重合"];
+        if (startTime < tEndTime && endTime > tStartTime) {
+            [TLUIUtility showInfoHint:@"时间段不可重合"];
             return NO;
         }
     }

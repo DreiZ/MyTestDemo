@@ -640,7 +640,7 @@
 - (void)setOrderDetailDes {
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(self.model.experience_price)];
     self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",SafeStr(self.model.experience_duration)];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.schedule_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.schedule_time doubleValue]] formatWeekday],[self.model.schedule_time timeStringWithFormatter:@"HH:mm"]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@(%@) %@",[self.model.schedule_time timeStringWithFormatter:@"MM-dd"],[[[NSDate alloc] initWithTimeIntervalSince1970:[self.model.schedule_time doubleValue] - 24 * 60 * 60] formatWeekday],[self.model.schedule_time timeStringWithFormatter:@"HH:mm"]];
     
     CGSize priceSize = [[NSString stringWithFormat:@"￥%@",self.model.pay_amount] tt_sizeWithFont:[UIFont fontContent]];
     [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

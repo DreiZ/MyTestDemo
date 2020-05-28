@@ -116,7 +116,9 @@
         [textArr addObjectsFromArray:temp];
     }
     for (int i = 0; i < textArr.count; i++) {
-        
+        if ([textArr[i][0] isEqualToString:@"开课日期"] && [textArr[i][1] length] == 0) {
+            continue;
+        }
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.leftTitle = textArr[i][0];
         cellModel.isTextEnabled = NO;
