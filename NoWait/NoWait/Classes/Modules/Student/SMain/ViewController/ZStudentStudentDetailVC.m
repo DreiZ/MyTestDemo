@@ -94,22 +94,7 @@
         lcell.menuBlock = ^(NSInteger index) {
             [[ZPhotoManager sharedManager] showBrowser:weakSelf.addModel.images_list withIndex:index];
         };
-    }
-//    else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
-//        ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
-//        lcell.handleBlock = ^(NSInteger index) {
-//            if (index == 1) {
-//                ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
-//                [weakSelf.navigationController pushViewController:avc animated:YES];
-//            }else if (index == 2){
-//                [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:@[] handlerBlock:^(NSInteger index) {
-//
-//                }];
-//            }
-//        };
-//    }
-    
-    
+    }  
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
    

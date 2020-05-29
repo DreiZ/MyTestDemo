@@ -29,7 +29,6 @@
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
-#import "ZOrganizationCouponListView.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
 #import "ZStudentTeacherDetailVC.h"
@@ -300,15 +299,6 @@
                 }
             }];
         }];
-//        [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.addModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
-//            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.addModel.stores_id),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
-//                if (isSuccess) {
-//                    [TLUIUtility showSuccessHint:data];
-//                }else{
-//                    [TLUIUtility showErrorHint:data];
-//                }
-//            }];
-//        }];
     }else if([cellConfig.title isEqualToString:@"moreTeacher"]){
         ZStudentLessonCoachListVC *lvc = [[ZStudentLessonCoachListVC alloc] init];
         lvc.lesson_id = self.model.lessonID;

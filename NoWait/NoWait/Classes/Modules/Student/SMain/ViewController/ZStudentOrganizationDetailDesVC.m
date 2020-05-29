@@ -19,8 +19,6 @@
 
 #import "ZStudentStarStudentListVC.h"
 
-#import "ZStudentStarStudentInfoVC.h"
-
 #import "ZStudentOrganizationDetailIntroVC.h"
 #import "ZStudentOrganizationLessonListVC.h"
 #import "ZStudentOrganizationMapAddressVC.h"
@@ -28,10 +26,7 @@
 #import "ZStudentStudentDetailVC.h"
 #import "ZStudentLessonDetailVC.h"
 
-#import "ZStudentLessonSureOrderVC.h"
 #import "ZStudentLessonSubscribeSureOrderVC.h"
-
-#import "ZOrganizationCouponListView.h"
 #import "ZStudentLessonSelectMainOrderView.h"
 
 
@@ -311,8 +306,6 @@
             ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
             dvc.student_id = model.account_id;
             [self.navigationController pushViewController:dvc animated:YES];
-//            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
-//            [weakSelf.navigationController pushViewController:ivc animated:YES];
         };
  
     }else if ([cellConfig.title isEqualToString:@"starCoach"]){
@@ -345,15 +338,6 @@
                         }
                     }];
                 }];
-//                [ZOrganizationCouponListView setAlertWithTitle:@"优惠" ouponList:self.detailModel.coupons_list handlerBlock:^(ZOriganizationCardListModel *model) {
-//                    [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
-//                        if (isSuccess) {
-//                            [TLUIUtility showSuccessHint:data];
-//                        }else{
-//                            [TLUIUtility showErrorHint:data];
-//                        }
-//                    }];
-//                }];
             }
         };
     }

@@ -10,7 +10,6 @@
 #import "ZStudentDetailModel.h"
 #import "ZStudentStarNewListCollectionViewCell.h"
 
-#import "ZStudentStarStudentInfoVC.h"
 #import "ZOriganizationTeacherViewModel.h"
 #import "ZOriganizationStudentViewModel.h"
 
@@ -84,16 +83,11 @@
                 dvc.stores_id = weakSelf.stores_id;
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
             }
-            
-//            ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
-//            [self.navigationController pushViewController:ivc animated:YES];
         };
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZStudentStarStudentInfoVC *ivc = [[ZStudentStarStudentInfoVC alloc] init];
-    [self.navigationController pushViewController:ivc animated:YES];
 }
 
 #pragma mark - 数据处理

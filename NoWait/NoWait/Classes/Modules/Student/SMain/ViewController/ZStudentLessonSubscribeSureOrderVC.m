@@ -19,7 +19,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
-#import "ZOrganizationCouponListView.h"
 #import "ZOrderModel.h"
 #import "ZPayManager.h"
 #import "ZOrganizationMineOrderDetailVC.h"

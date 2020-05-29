@@ -6,7 +6,7 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZOrganizationCouponListView.h"
+#import <UIKit/UIKit.h>
 
 
 @interface ZCouponListView : UIView
