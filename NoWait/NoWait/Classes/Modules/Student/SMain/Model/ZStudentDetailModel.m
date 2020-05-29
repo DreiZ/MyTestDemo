@@ -32,22 +32,6 @@
 
 @end
 
-@implementation ZStudentDetailDesListModel
-
-@end
-
-@implementation ZStudentDetailSectionModel
-
-@end
-
-@implementation ZStudentDetailContentListModel
-
-@end
-
-@implementation ZStudentDetailBannerModel
-
-@end
-
 @implementation ZStudentDetailPersonnelModel
 
 @end

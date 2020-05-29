@@ -8,7 +8,7 @@
 
 #import "ZStudentLessonSelectMainOrderView.h"
 #import "ZStudentLessonSelectOrderLessonView.h"
-#import "ZStudentLessonSelectCoachView.h"
+
 #import "ZStudentLessonSelectOrderTimeView.h"
 
 #define  MenuWindow        [UIApplication sharedApplication].keyWindow
