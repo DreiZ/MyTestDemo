@@ -358,10 +358,6 @@
 }
 @end
 
-@implementation ZStoresMoveInModel
-
-
-@end
 
 @implementation ZStoresStatisticalModel
 

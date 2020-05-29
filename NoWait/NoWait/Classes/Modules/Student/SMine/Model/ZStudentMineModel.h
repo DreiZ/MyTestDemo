@@ -77,29 +77,3 @@ typedef NS_ENUM(NSInteger, ZRefundOrderType) {
 
 @end
 
-
-@interface ZStudentOrderListModel : NSObject
-@property (nonatomic,strong) NSString *orderType;  //0预约 1正常
-@property (nonatomic,strong) NSString *club;
-@property (nonatomic,strong) NSString *state;
-@property (nonatomic,strong) NSString *image;
-
-@property (nonatomic,strong) NSString *name;
-@property (nonatomic,strong) NSString *price;
-
-@property (nonatomic,strong) NSString *tiTime;
-@property (nonatomic,strong) NSString *teacher;
-@property (nonatomic,strong) NSString *fail;
-
-@property (nonatomic,strong) NSString *lessonNum;
-@property (nonatomic,strong) NSString *lessonSignleTime;
-@property (nonatomic,strong) NSString *lessonTime;
-@property (nonatomic,strong) NSString *lessonValidity;
-@property (nonatomic,strong) NSString *lessonFavourable;//优惠
-@property (nonatomic,strong) NSString *lessonPrice;//
-@property (nonatomic,assign) NSInteger payLimit;
-@property (nonatomic,assign) BOOL isRefuse;
-@property (nonatomic,assign) ZStudentOrderType type;
-
-@end
-

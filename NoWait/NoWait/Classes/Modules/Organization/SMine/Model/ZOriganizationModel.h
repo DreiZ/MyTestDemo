@@ -484,16 +484,6 @@
 @end
 
 
-@interface ZStoresMoveInModel : NSObject
-@property (nonatomic,strong) NSString *storeName;
-@property (nonatomic,strong) NSString *storeType;
-@property (nonatomic,strong) NSString *storeAddress;
-@property (nonatomic,strong) NSString *storePhone;
-@property (nonatomic,strong) NSString *contentName;
-@property (nonatomic,strong) NSString *remark;
-@end
-
-
 @interface ZStoresStatisticalModel : NSObject
 @property (nonatomic,strong) NSString *visit_num;
 @property (nonatomic,strong) NSString *total_amount;

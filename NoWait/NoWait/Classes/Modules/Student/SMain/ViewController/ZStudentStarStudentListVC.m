@@ -8,7 +8,6 @@
 
 #import "ZStudentStarStudentListVC.h"
 #import "ZStudentDetailModel.h"
-#import "ZStudentStarListCollectionViewCell.h"
 #import "ZStudentStarNewListCollectionViewCell.h"
 
 #import "ZStudentStarStudentInfoVC.h"

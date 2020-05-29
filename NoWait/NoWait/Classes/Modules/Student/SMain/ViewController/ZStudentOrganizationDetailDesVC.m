@@ -18,7 +18,7 @@
 #import "ZStudentOrganizationBannerCell.h"
 
 #import "ZStudentStarStudentListVC.h"
-#import "ZStudentStarCoachInfoVC.h"
+
 #import "ZStudentStarStudentInfoVC.h"
 
 #import "ZStudentOrganizationDetailIntroVC.h"
@@ -322,8 +322,6 @@
             mvc.teacher_id = model.account_id;
             mvc.stores_id = weakSelf.detailModel.schoolID;
             [weakSelf.navigationController pushViewController:mvc animated:YES];
-//            ZStudentStarCoachInfoVC *ivc = [[ZStudentStarCoachInfoVC alloc] init];
-//            [weakSelf.navigationController pushViewController:ivc animated:YES];
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
         ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;

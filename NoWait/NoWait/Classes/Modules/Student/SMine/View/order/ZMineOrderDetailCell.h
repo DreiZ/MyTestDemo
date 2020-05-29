@@ -12,6 +12,5 @@
 
 @interface ZMineOrderDetailCell : ZBaseCell
 @property (nonatomic,strong) ZOrderDetailModel *model;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger, ZStudentOrderListModel *);
 @end
 

@@ -11,9 +11,3 @@
 @implementation ZStudentMineModel
 
 @end
-
-
-@implementation ZStudentOrderListModel
-
-
-@end
