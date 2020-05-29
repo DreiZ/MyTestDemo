@@ -8,11 +8,6 @@
 
 #import "ZStudentDetailModel.h"
 
-@implementation ZStudentLessonOrderInfoCellModel
-
-@end
-
-
 @implementation ZStudentDetailOrderSubmitListModel
 
 
@@ -37,22 +32,7 @@
 
 @end
 
-@implementation ZStudentDetailEvaListModel
-
-@end
-
 @implementation ZStudentDetailDesListModel
-
-@end
-
-@implementation ZStudentDetailDesModel
-@end
-
-@implementation ZStudentDetailNoticeModel
-
-@end
-
-@implementation ZStudentDetailEvaModel
 
 @end
 

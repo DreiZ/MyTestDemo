@@ -7,7 +7,6 @@
 //
 
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZBaseUnitModel.h"
 #import "ZStudentEvaListCell.h"
 
 #import "ZStudentOrganizationDetailIntroCell.h"

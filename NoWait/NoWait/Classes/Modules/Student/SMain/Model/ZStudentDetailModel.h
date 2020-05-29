@@ -22,14 +22,6 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
     ZLessonOrderTypeHadPay,  //已支付
 };
 
-@interface ZStudentLessonOrderInfoCellModel : NSObject
-@property (nonatomic,strong) NSString *title;
-@property (nonatomic,strong) NSString *subTitle;
-@property (nonatomic,strong) UIColor *subColor;
-@end
-
-
-
 @interface ZStudentDetailOrderSubmitListModel : NSObject
 @property (nonatomic,strong) NSString *leftImage;
 @property (nonatomic,strong) NSString *leftTitle;
@@ -73,31 +65,13 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @property (nonatomic,assign) BOOL isLessonSelected;
 @end
 
-@interface ZStudentDetailEvaListModel : NSObject
-@property (nonatomic,strong) NSString *userImage;
-@property (nonatomic,strong) NSString *userName;
-@property (nonatomic,strong) NSString *time;
-@property (nonatomic,strong) NSString *star;
-@property (nonatomic,strong) NSString *evaDes;
-@end
-
 @interface ZStudentDetailDesListModel : NSObject
 @property (nonatomic,strong) NSString *desTitle;
 @property (nonatomic,strong) NSString *desSub;
 
 @end
 
-@interface ZStudentDetailDesModel : NSObject
 
-@end
-
-@interface ZStudentDetailNoticeModel : NSObject
-
-@end
-
-@interface ZStudentDetailEvaModel : NSObject
-
-@end
 
 @interface ZStudentDetailSectionModel : NSObject
 @property (nonatomic,strong) NSString *title;

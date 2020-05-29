@@ -375,11 +375,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZStudentLessonDetailLessonListCell"]) {
-//        ZStudentMineOrderDetailSubDesCell *listCell = (ZStudentMineOrderDetailSubDesCell *)cell;
-//        listCell.isHiddenBottomLine = YES;
-    }
-   
+    
     return cell;
 }
 
