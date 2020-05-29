@@ -49,11 +49,6 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-//
-//    ZCellConfig *campusCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZOrganizationCampusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-//    [self.cellConfigArr addObject:campusCellConfig];
-
-    
     for (int i = 0; i < self.dataSources.count; i++) {
         POIAnnotation *annotation = self.dataSources[i];
         ZLocationModel *model = [[ZLocationModel alloc] init];

@@ -8,20 +8,6 @@
 
 #import "ZStudentMineModel.h"
 
-@implementation ZStudentOrderEvaModel
-
-
-@end
-
-@implementation ZStudentLessonModel
-
-
-@end
-
-@implementation ZStudentMenuItemModel
-
-@end
-
 @implementation ZStudentMineModel
 
 @end

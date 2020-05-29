@@ -11,7 +11,6 @@
 #import "ZStudentMineOrderListCell.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
-#import "ZStudentOrderPayVC.h"
 #import "ZStudentMineEvaEditVC.h"
 
 @interface ZOrganizationMineOrderListVC ()

@@ -30,13 +30,6 @@
 
 @end
 
-//协议model
-@interface ZAgreementNetModel : ZBaseNetworkBackDataModel
-@property (nonatomic,strong) NSString *title;
-@property (nonatomic,strong) NSString *des;
-@property (nonatomic,strong) NSString *image;
-@property (nonatomic,strong) NSString *content;
-@end
 
 //分享model
 @interface ZShareNetModel : ZBaseNetworkBackDataModel

@@ -10,7 +10,7 @@
 #import "ZStudentOrganizationLessonSortListVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 #import "ZOrganizationSearchLessonListVC.h"
-#import "ZOrganizationSearchVC.h"
+
 
 @interface ZStudentOrganizationLessonListVC ()
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;

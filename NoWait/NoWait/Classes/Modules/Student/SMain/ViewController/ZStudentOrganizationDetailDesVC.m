@@ -11,7 +11,6 @@
 #import "ZStudentEvaListCell.h"
 
 #import "ZStudentOrganizationDetailIntroCell.h"
-#import "ZStudentOrganizationDetailDesCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"

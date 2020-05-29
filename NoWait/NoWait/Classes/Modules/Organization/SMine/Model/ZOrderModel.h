@@ -105,11 +105,6 @@
 @end
 
 
-@interface ZOrderDetailNetModel : ZBaseModel
-
-@end
-
-
 @interface ZOrderListNetModel :  ZBaseNetworkBackDataModel
 @property (nonatomic,strong) NSArray <ZOrderListModel *>*list;
 @property (nonatomic,copy) NSString *total;

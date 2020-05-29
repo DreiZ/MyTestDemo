@@ -17,7 +17,6 @@
 #import "ZStudentLessonOrderCompleteCell.h"
 #import "ZStudentLessonOrderMoreInputCell.h"
 #import "ZMineStudentEvaEditStarCell.h"
-#import "ZMineStudentEvaEditUpdateImageCell.h"
 
 #import "ZOriganizationOrderViewModel.h"
 

@@ -12,7 +12,6 @@
 #import "ZOriganizationModel.h"
 #import "ZStudentDetailModel.h"
 
-#import "ZOrganizationCampusCell.h"
 #import "ZOrganizationCampusTextFieldCell.h"
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"

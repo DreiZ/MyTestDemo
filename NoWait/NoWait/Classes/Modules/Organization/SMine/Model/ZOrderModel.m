@@ -230,10 +230,6 @@
 }
 @end
 
-@implementation ZOrderDetailNetModel
-
-@end
-
 @implementation ZOrderListNetModel
 + (NSDictionary *)mj_objectClassInArray
 {

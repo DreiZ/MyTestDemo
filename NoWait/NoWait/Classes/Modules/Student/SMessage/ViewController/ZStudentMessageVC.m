@@ -9,7 +9,6 @@
 #import "ZStudentMessageVC.h"
 #import "ZMessageListCell.h"
 
-#import "ZStudentMessageDetailVC.h"
 #import "ZMessageListCell.h"
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"

@@ -39,14 +39,6 @@
 @property (nonatomic,strong) id data;
 @end
 
-@interface ZStudentOrganizationListModel : NSObject
-@property (nonatomic,strong) NSString *image;
-@end
-
-@interface ZStudentLessonListModel : NSObject
-@property (nonatomic,strong) NSString *image;
-@end
-
 @interface ZComplaintModel : NSObject
 @property (nonatomic,strong) NSString *complaintId;
 @property (nonatomic,strong) NSString *type;

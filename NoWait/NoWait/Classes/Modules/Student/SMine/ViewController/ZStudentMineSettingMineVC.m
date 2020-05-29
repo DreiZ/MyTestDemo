@@ -12,7 +12,6 @@
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
-#import "ZStudentMineSettingSexVC.h"
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationViewModel.h"
 #import "ZAlertDataSinglePickerView.h"
@@ -109,8 +108,6 @@
          };
          [self.navigationController pushViewController:edit animated:YES];
      }else if([cellConfig.title isEqualToString:@"性别"]){
-//         ZStudentMineSettingSexVC *edit = [[ZStudentMineSettingSexVC alloc] init];
-//         [self.navigationController pushViewControllerAndSuicide:edit animated:YES];
          NSMutableArray *items = @[].mutableCopy;
          NSArray *temp = @[@"男",@"女"];
          for (int i = 0; i < temp.count; i++) {

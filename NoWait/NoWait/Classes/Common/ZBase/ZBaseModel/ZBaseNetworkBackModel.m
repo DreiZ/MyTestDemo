@@ -18,13 +18,6 @@
 
 @end
 
-@implementation ZAgreementNetModel
-
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"des" : @"description"};
-}
-@end
-
 @implementation ZShareNetModel
 
 @end

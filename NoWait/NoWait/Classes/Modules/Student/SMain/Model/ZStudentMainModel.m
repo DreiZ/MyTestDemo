@@ -48,16 +48,6 @@
 
 @end
 
-@implementation ZStudentOrganizationListModel
-
-@end
-
-@implementation ZStudentLessonListModel
-
-
-@end
-
-
 @implementation ZComplaintModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{

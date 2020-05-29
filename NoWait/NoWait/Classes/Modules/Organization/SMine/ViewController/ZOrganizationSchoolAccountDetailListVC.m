@@ -8,7 +8,6 @@
 
 #import "ZOrganizationSchoolAccountDetailListVC.h"
 #import "ZOrganizationAccountSchoolListCell.h"
-#import "ZOrganizationAccountSchoolListLogsCell.h"
 
 @interface ZOrganizationSchoolAccountDetailListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -39,9 +38,6 @@
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     
     [self.model.logs enumerateObjectsUsingBlock:^(ZStoresAccountDetaliListLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationAccountSchoolListLogsCell className] title:[ZOrganizationAccountSchoolListLogsCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationAccountSchoolListLogsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:obj];
-//        [self.cellConfigArr addObject:topCellConfig];
-        
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = obj.money;
         model.rightTitle = obj.created_at;
