@@ -22,35 +22,13 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
     ZLessonOrderTypeHadPay,  //已支付
 };
 
-@interface ZStudentLessonOrganizationModel : NSObject
-@property (nonatomic,strong) NSString *image;
-@property (nonatomic,strong) NSString *address;
-@property (nonatomic,strong) NSString *tel;
-@end
-
 @interface ZStudentLessonOrderInfoCellModel : NSObject
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *subTitle;
 @property (nonatomic,strong) UIColor *subColor;
 @end
 
-@interface ZStudentLessonOrderInfoModel : NSObject
-@property (nonatomic,strong) NSString *orderUserName;
-@property (nonatomic,strong) NSString *orderUserTel;
-@property (nonatomic,strong) NSString *orderTime;
-@property (nonatomic,strong) NSString *orderNum;
-@property (nonatomic,strong) NSString *orderLesson;
-@property (nonatomic,strong) NSString *orderStatus;
-@end
 
-@interface ZStudentDetailLessonOrderCoachModel : NSObject
-@property (nonatomic,strong) NSString *coachName;
-@property (nonatomic,strong) NSString *coachImage;
-@property (nonatomic,strong) NSString *auth;
-@property (nonatomic,strong) NSString *desStr;
-@property (nonatomic,strong) NSArray *labelArr;
-@property (nonatomic,strong) NSArray *adeptArr;
-@end
 
 @interface ZStudentDetailOrderSubmitListModel : NSObject
 @property (nonatomic,strong) NSString *leftImage;

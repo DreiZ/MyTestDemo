@@ -364,8 +364,6 @@
         ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
         dvc.model = cellConfig.dataModel;
         [self.navigationController pushViewController:dvc animated:YES];
-//        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-//        [self.navigationController pushViewController:lessond_vc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
         ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
         lvc.type = 0;

@@ -70,8 +70,6 @@
             ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
             dvc.model = cellConfig.dataModel;
             [self.navigationController pushViewController:dvc animated:YES];
-    //        ZStudentOrganizationLessonDetailVC *lessond_vc = [[ZStudentOrganizationLessonDetailVC alloc] init];
-    //        [self.navigationController pushViewController:lessond_vc animated:YES];
     }
 }
 
