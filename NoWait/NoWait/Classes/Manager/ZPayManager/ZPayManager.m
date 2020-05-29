@@ -130,6 +130,7 @@ static ZPayManager *sharedManager;
 - (void)aliPay:(NSString *)orderMessage {
 //    orderMessage = [NSString stringWithFormat:@"%@%@",orderMessage,@"2"];
     [[AlipaySDK defaultService] payOrder:orderMessage fromScheme:@"cxhuanqing" callback:^(NSDictionary *resultDic){
+        NSLog(@"----ali pay");
         NSString *resultStatus = @"";
         if ([resultDic objectForKey:@"resultStatus"]) {
             resultStatus = resultDic[@"resultStatus"];
