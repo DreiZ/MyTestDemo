@@ -22,16 +22,6 @@
 @end
 
 
-@implementation ZStudentDetailLessonCoachModel
-
-
-@end
-
-@implementation ZStudentDetailLessonListModel
-
-
-@end
-
 @implementation ZStudentDetailPersonnelModel
 
 @end

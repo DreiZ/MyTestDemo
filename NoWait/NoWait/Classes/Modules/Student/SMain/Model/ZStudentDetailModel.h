@@ -48,23 +48,6 @@ typedef NS_ENUM(NSInteger, ZLessonOrderType) {
 @property (nonatomic,assign) BOOL isTimeSelected;
 @end
 
-@interface ZStudentDetailLessonCoachModel : NSObject
-@property (nonatomic,strong) NSString *coachName;
-@property (nonatomic,strong) NSString *coachImage;
-@property (nonatomic,strong) NSString *coachPrice;
-@property (nonatomic,assign) BOOL isCoachSelected;
-@property (nonatomic,assign) BOOL isgold;
-@end
-
-@interface ZStudentDetailLessonListModel : NSObject
-@property (nonatomic,strong) NSString *lessonTitle;
-@property (nonatomic,strong) NSString *lessonNum;
-@property (nonatomic,strong) NSString *lessonTime;
-@property (nonatomic,strong) NSString *lessonStudentNum;
-@property (nonatomic,strong) NSString *lessonPrice;
-@property (nonatomic,assign) BOOL isLessonSelected;
-@end
-
 @interface ZStudentDetailPersonnelModel : NSObject
 @property (nonatomic,strong) NSString *account_id;
 @property (nonatomic,strong) NSString *name;
