@@ -41,6 +41,8 @@ static ZAlertCouponCheckBoxView *sharedCouponManager;
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    [self.cellConfigArr removeAllObjects];
+    
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationTeacherListModel *listModel = self.dataSources[i];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

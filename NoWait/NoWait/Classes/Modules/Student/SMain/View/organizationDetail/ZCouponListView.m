@@ -323,6 +323,7 @@ static ZCouponListView *sharedManager;
     }else if ([self.type isEqualToString:@"lesson"]){
         [ZOriganizationCardViewModel getLessonCardList:_param completeBlock:^(BOOL isSuccess, ZOriganizationCardListNetModel *data) {
             if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];

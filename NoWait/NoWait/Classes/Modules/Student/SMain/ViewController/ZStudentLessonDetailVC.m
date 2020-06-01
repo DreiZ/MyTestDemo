@@ -20,7 +20,6 @@
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
 #import "ZStudentLessonSelectMainNewView.h"
-#import "ZAlertCouponCheckBoxView.h"
 #import "ZOriganizationLessonViewModel.h"
 
 #import "ZOriganizationOrderViewModel.h"
