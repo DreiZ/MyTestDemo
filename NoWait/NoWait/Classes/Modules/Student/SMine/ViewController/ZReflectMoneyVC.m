@@ -24,7 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.handleModel.realName = self.infoModel.real_name;
+    self.handleModel.aliPay = self.infoModel.alipay;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -134,7 +135,7 @@
         .height(CGFloatIn750(100))
         .fontLeft([UIFont fontSmall]);
         
-        NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
+        NSString *hintStr = [NSString stringWithFormat:@"剩余可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
         if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
             hintStr = @"超出可提现金额";
             

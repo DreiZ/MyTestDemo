@@ -21,6 +21,8 @@
     [self.contentView addSubview:self.clubImageView];
     [self.contentView addSubview:self.pricebLabel];
     [self.contentView addSubview:self.clubLabel];
+    [self.contentView addSubview:self.minLabel];
+    [self.contentView addSubview:self.numLabel];
     
     [self.clubImageView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.left.right.equalTo(self.contentView.mas_top);
@@ -38,6 +40,16 @@
     [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
         make.top.equalTo(self.clubImageView.mas_bottom).offset(CGFloatIn750(14));
+    }];
+    
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self.clubLabel.mas_bottom).offset(CGFloatIn750(18));
+    }];
+    
+    [self.minLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self.numLabel.mas_bottom).offset(CGFloatIn750(10));
     }];
 }
 
@@ -61,7 +73,7 @@
         _clubLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         
         _clubLabel.numberOfLines = 1;
-        _clubLabel.textAlignment = NSTextAlignmentCenter;
+        _clubLabel.textAlignment = NSTextAlignmentLeft;
         [_clubLabel setFont:[UIFont fontSmall]];
     }
     return _clubLabel;
@@ -80,14 +92,42 @@
     return _pricebLabel;
 }
 
+
+- (UILabel *)minLabel {
+    if (!_minLabel) {
+        _minLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _minLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        
+        _minLabel.numberOfLines = 1;
+        _minLabel.textAlignment = NSTextAlignmentLeft;
+        [_minLabel setFont:[UIFont fontMin]];
+    }
+    return _minLabel;
+}
+
+
+- (UILabel *)numLabel {
+    if (!_numLabel) {
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _numLabel.numberOfLines = 1;
+        _numLabel.textAlignment = NSTextAlignmentLeft;
+        [_numLabel setFont:[UIFont fontMin]];
+    }
+    return _numLabel;
+}
+
 - (void)setModel:(ZStoresCourse *)model {
     _model = model;
     _pricebLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _clubLabel.text = model.name;
     [_clubImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
+    
+    _numLabel.text = @"12节课";
+    _minLabel.text = @"30分钟/节";
 }
 
 +(CGSize)z_getCellSize:(id)sender {
-    return CGSizeMake(CGFloatIn750(150), CGFloatIn750(184));
+    return CGSizeMake(CGFloatIn750(150), CGFloatIn750(270));
 }
 @end

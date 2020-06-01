@@ -315,7 +315,7 @@
     _model = model;
     _moneyLabel.text = [NSString stringWithFormat:@"%.2f",[model.cash_out_amount doubleValue]];
     _rightContentLabel.text = [NSString stringWithFormat:@"%.2f",[model.cash_out doubleValue]];
-    _leftContentLabel.text = [NSString stringWithFormat:@"%.2f",[model.bonus doubleValue]];
+    _leftContentLabel.text = [NSString stringWithFormat:@"%.2f",[model.total_amount doubleValue]];
 }
 
 

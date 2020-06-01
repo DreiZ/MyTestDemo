@@ -80,9 +80,9 @@
 
 
 @interface ZRewardInfoModel : ZBaseModel
+@property (nonatomic,copy) NSString *total_amount;
 @property (nonatomic,copy) NSString *inviter_code;
 @property (nonatomic,copy) NSString *inviter;
-@property (nonatomic,copy) NSString *bonus;
 @property (nonatomic,copy) NSString *cash_out_amount;
 @property (nonatomic,copy) NSString *cash_out;
 @property (nonatomic,copy) NSString *alipay;
@@ -90,6 +90,7 @@
 @property (nonatomic,copy) NSString *inviter_url;
 @property (nonatomic,copy) NSString *qrcode;
 @property (nonatomic,copy) NSString *annotations;
+
 @end
 
 @interface ZRewardModel : ZBaseModel

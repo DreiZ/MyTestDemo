@@ -13,6 +13,8 @@
 @interface ZStudentMainOrganizationSearchListItemCell : ZBaseCollectionViewCell
 @property (nonatomic,strong) UILabel *pricebLabel;
 @property (nonatomic,strong) UILabel *clubLabel;
+@property (nonatomic,strong) UILabel *minLabel;
+@property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UIImageView *clubImageView;
 @property (nonatomic,strong) ZStoresCourse *model;
 

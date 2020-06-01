@@ -10,7 +10,7 @@
 #import "ZBaseNetworkBackModel.h"
 #import "AppDelegate+AppService.h"
 
-
+#import "ZAlertView.h"
 #import "ZWebBridgeViewController.h"
 #import "ZStudentLessonDetailVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
@@ -76,8 +76,12 @@ static ZRouteManager *sharedManager;
         }else if ([model.ad_type isEqualToString:@"4"] && model.ad_type_content) {
             if ([model.ad_type_content.fix isEqualToString:@"reward_center"]) {
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
-                    [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:cvc animated:YES];
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
+                        
+                    }else{
+                        ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
+                        [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:cvc animated:YES];
+                    }
                 }];
             }
         }
