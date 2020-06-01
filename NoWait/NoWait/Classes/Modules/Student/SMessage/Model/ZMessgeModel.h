@@ -86,6 +86,8 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 @property (nonatomic,strong) NSString *body;
 @property (nonatomic,strong) ZMessageExtraModel *extra;
 @property (nonatomic,strong) NSString *message_id;
+@property (nonatomic,strong) NSString *is_read;
+
 @end
 
 @interface ZMessageNetModel : NSObject

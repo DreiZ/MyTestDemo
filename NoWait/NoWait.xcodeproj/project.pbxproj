@@ -19,6 +19,7 @@
 		B20C480D2400DD6A00E0CE35 /* ZOrganizationStudentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C480C2400DD6A00E0CE35 /* ZOrganizationStudentDetailVC.m */; };
 		B20C48112400DF4600E0CE35 /* ZOrganizationStudentTopFilterSeaarchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C48102400DF4600E0CE35 /* ZOrganizationStudentTopFilterSeaarchView.m */; };
 		B20C48142400DF7D00E0CE35 /* ZOriganizationStudentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20C48132400DF7D00E0CE35 /* ZOriganizationStudentListCell.m */; };
+		B20E57AA24849A4400D4226D /* ZMessageHistoryReadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20E57A924849A4400D4226D /* ZMessageHistoryReadCell.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
 		B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B218063A24760D1F00A124D9 /* ZDBMainStore.m */; };
@@ -666,6 +667,8 @@
 		B20C48102400DF4600E0CE35 /* ZOrganizationStudentTopFilterSeaarchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentTopFilterSeaarchView.m; sourceTree = "<group>"; };
 		B20C48122400DF7D00E0CE35 /* ZOriganizationStudentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOriganizationStudentListCell.h; sourceTree = "<group>"; };
 		B20C48132400DF7D00E0CE35 /* ZOriganizationStudentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOriganizationStudentListCell.m; sourceTree = "<group>"; };
+		B20E57A824849A4400D4226D /* ZMessageHistoryReadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMessageHistoryReadCell.h; sourceTree = "<group>"; };
+		B20E57A924849A4400D4226D /* ZMessageHistoryReadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMessageHistoryReadCell.m; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
 		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
 		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
@@ -2115,6 +2118,8 @@
 			children = (
 				B268814A247BBDA100BF8FCD /* ZMessageListCell.h */,
 				B268814B247BBDA100BF8FCD /* ZMessageListCell.m */,
+				B20E57A824849A4400D4226D /* ZMessageHistoryReadCell.h */,
+				B20E57A924849A4400D4226D /* ZMessageHistoryReadCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4788,6 +4793,7 @@
 				B2F371D5246B8DAA00678B19 /* ZRewardMyTeamListCell.m in Sources */,
 				B2CF933F24249DD4007AF66E /* ZOrganizationEvaListCell.m in Sources */,
 				B2A7802123BDF8B200407BF0 /* ZAdvertiseHelper.m in Sources */,
+				B20E57AA24849A4400D4226D /* ZMessageHistoryReadCell.m in Sources */,
 				B2A7818723C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.m in Sources */,
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
 				B28EA688240F56DB00C8E225 /* ZLoginPasswordController.m in Sources */,

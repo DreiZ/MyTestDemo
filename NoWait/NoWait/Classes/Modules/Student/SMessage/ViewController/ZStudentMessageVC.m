@@ -9,6 +9,7 @@
 #import "ZStudentMessageVC.h"
 #import "ZMessageListCell.h"
 
+#import "ZMessageHistoryReadCell.h"
 #import "ZMessageListCell.h"
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
@@ -61,8 +62,17 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (id data in self.dataSources) {
-        ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:data] cellType:ZCellTypeClass dataModel:data];
+    NSInteger hadRead = 0;
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZMessgeModel *model = self.dataSources[i];
+        if ([model.is_read intValue] >= 1) {
+            hadRead++;
+        }
+        if (i != 0 && hadRead == 1) {
+            ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
+            [self.cellConfigArr addObject:messageCellConfig];
+        }
+        ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:messageCellConfig];
     }
 }
