@@ -19,6 +19,7 @@
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZAlertView.h"
 #import "ZOrganizationLessonManageVC.h"
+#import "ZOrganizationAccountVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -235,7 +236,8 @@
                 break;
         case ZCustomNoticeTypeMoneyBack:                      //  回款通知
             {
-                
+                ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
+                [self.navigationController pushViewController:svc animated:YES];
             }
                 break;
         case ZCustomNoticeTypeRegister:                       //  注册通知

@@ -209,7 +209,7 @@
             //预约待支付
             [_param setObject:@"4" forKey:@"status"];
             break;
-        case ZStudentOrderTypeHadEva:
+        case ZOrganizationOrderTypeHadEva:
             //已完成
             [_param setObject:@"3" forKey:@"status"];
             break;
