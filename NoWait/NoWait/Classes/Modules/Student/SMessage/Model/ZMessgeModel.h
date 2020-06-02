@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 
 @interface ZMessageExtraModel : NSObject
 @property (nonatomic,strong) NSString *account_total;
-@property (nonatomic,strong) NSString *store_id;
+@property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *store_name;
 @property (nonatomic,strong) NSString *teacher;
 @property (nonatomic,strong) NSString *teacher_image;

@@ -20,6 +20,8 @@
 #import "ZAlertView.h"
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationAccountVC.h"
+#import "ZOrganizationMineEvaDetailVC.h"
+#import "ZStudentMineEvaDetailVC.h"
 
 @interface ZStudentMessageVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -272,7 +274,22 @@
                 break;
         case ZCustomNoticeTypeEvaluate:                        //  评价通知
             {
-                
+                if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                    ZOrderEvaListModel *smodel = [[ZOrderEvaListModel alloc] init];
+                    smodel.stores_id = model.extra.stores_id;
+                    smodel.order_id = model.extra.order_id;
+                    ZOrganizationMineEvaDetailVC *dvc =
+                    [[ZOrganizationMineEvaDetailVC alloc] init];
+                    dvc.listModel = smodel;
+                    [self.navigationController pushViewController:dvc animated:YES];
+                }else{
+                    ZOrderEvaListModel *smodel = [[ZOrderEvaListModel alloc] init];
+                    smodel.stores_id = model.extra.stores_id;
+                    smodel.order_id = model.extra.order_id;
+                    ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
+                    dvc.listModel = smodel;
+                    [self.navigationController pushViewController:dvc animated:YES];
+                }
             }
                 break;
         case ZCustomNoticeTypeCustom:
