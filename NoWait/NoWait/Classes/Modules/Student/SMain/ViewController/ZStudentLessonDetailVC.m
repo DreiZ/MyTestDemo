@@ -16,6 +16,7 @@
 #import "ZStudentOrganizationDetailEnteryCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
+#import "ZOrganizationDetailNumAndMinCell.h"
 #import "ZBaseUnitModel.h"
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
@@ -372,28 +373,24 @@
 - (void)setLessonName {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = self.addModel.name;
-    model.rightTitle = [NSString stringWithFormat:@"%@分钟/节   共%@节",self.addModel.course_min, self.addModel.course_number];
     model.isHiddenLine = YES;
     model.leftFont = [UIFont boldFontMax1Title];
     model.rightFont = [UIFont fontSmall];
     model.rightColor = [UIColor colorTextGray];
     model.rightDarkColor = [UIColor colorTextGrayDark];
-    model.cellHeight = CGFloatIn750(116);
+    model.cellHeight = CGFloatIn750(106);
     
     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:menuCellConfig];
     
-//    {
-//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-//        model.leftTitle = self.addModel.name;
-//        model.isHiddenLine = YES;
-//        model.leftFont = [UIFont fontContent];
-//        model.rightFont = [UIFont fontSmall];
-//        model.cellHeight = CGFloatIn750(50);
-//        
-//        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//        [self.cellConfigArr addObject:menuCellConfig];
-//    }
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+           model.leftTitle = [NSString stringWithFormat:@"%@分钟/节   共%@节",self.addModel.course_min, self.addModel.course_number];;
+           model.rightTitle = [NSString stringWithFormat:@"班级人数:%@",self.addModel.course_class_number];
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationDetailNumAndMinCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationDetailNumAndMinCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
     
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
@@ -519,7 +516,8 @@
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = self.addModel.price;
-    model.rightTitle = [NSString stringWithFormat:@"班级人数：%@",self.addModel.course_class_number];
+    model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.pay_nums];
+    model.data = self.addModel.score;
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];

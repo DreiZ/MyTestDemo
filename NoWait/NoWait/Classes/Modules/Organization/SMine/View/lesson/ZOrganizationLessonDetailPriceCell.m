@@ -7,15 +7,14 @@
 //
 
 #import "ZOrganizationLessonDetailPriceCell.h"
-
+#import "CWStarRateView.h"
 @interface ZOrganizationLessonDetailPriceCell ()
 
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *priceHintLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 
-@property (nonatomic,strong) UIImageView *numHintImageView;
-
+@property (nonatomic,strong) CWStarRateView *crView;
 @end
 
 @implementation ZOrganizationLessonDetailPriceCell
@@ -33,7 +32,7 @@
     
     [self.contentView addSubview:self.priceHintLabel];
     [self.contentView addSubview:self.priceLabel];
-    [self.contentView addSubview:self.numHintImageView];
+    [self.contentView addSubview:self.crView];
     [self.contentView addSubview:self.numLabel];
     
     [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -51,9 +50,11 @@
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
-    [self.numHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(12));
-        make.centerY.equalTo(self.contentView.mas_centerY);
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(12));
+        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(10));
+        make.width.offset(CGFloatIn750(100));
+        make.centerY.equalTo(self.mas_centerY);
     }];
 }
 
@@ -96,22 +97,21 @@
     return _numLabel;
 }
 
-
-- (UIImageView *)numHintImageView {
-    if (!_numHintImageView) {
-        _numHintImageView = [[UIImageView alloc] init];
-        _numHintImageView.image = [[UIImage imageNamed:@"peoples_hint"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _numHintImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _numHintImageView.layer.masksToBounds = YES;
-        _numHintImageView.contentMode = UIViewContentModeScaleAspectFill;
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
     }
-    return _numHintImageView;
+    return _crView;
 }
+
+
 
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
     _priceLabel.text = [NSString stringWithFormat:@"%@",model.leftTitle];
-    _numLabel.text = [NSString stringWithFormat:@"%@人",model.rightTitle];
+    _numLabel.text = [NSString stringWithFormat:@"已售:%@",model.rightTitle];
+    _crView.scorePercent = [model.data intValue]/5.0f;
 }
 
 
@@ -119,8 +119,5 @@
     return CGFloatIn750(112);
 }
 
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    _numHintImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-}
 @end
 

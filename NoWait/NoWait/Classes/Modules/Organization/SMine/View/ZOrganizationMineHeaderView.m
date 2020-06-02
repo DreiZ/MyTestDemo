@@ -470,6 +470,7 @@
 }
 
 - (void)updateData {
+    _rewardBtn.hidden = NO;
     NSString *name = @"游客";
     if ([ZUserHelper sharedHelper].user) {
         name = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);;
@@ -487,6 +488,7 @@
         typestr = @"学员端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
         typestr = @"教师端";
+        _rewardBtn.hidden = YES;
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 6) {
         typestr = @"校区端";
     }else if ([[ZUserHelper sharedHelper].user.type intValue] == 8) {

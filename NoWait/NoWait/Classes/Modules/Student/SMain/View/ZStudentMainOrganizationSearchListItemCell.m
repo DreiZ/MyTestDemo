@@ -123,8 +123,8 @@
     _clubLabel.text = model.name;
     [_clubImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
     
-    _numLabel.text = @"12节课";
-    _minLabel.text = @"30分钟/节";
+    _numLabel.text = [NSString stringWithFormat:@"%@节课",model.course_number];
+    _minLabel.text = [NSString stringWithFormat:@"%@分钟/节",model.course_min];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

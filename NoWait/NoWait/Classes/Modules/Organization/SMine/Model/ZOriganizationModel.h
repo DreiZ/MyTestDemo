@@ -415,6 +415,8 @@
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *pay_nums;
 @property (nonatomic,copy) NSString *price;
+@property (nonatomic,copy) NSString *course_min;
+@property (nonatomic,copy) NSString *course_number;
 @end
 
 
