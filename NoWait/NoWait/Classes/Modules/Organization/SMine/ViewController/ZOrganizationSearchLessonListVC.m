@@ -20,6 +20,13 @@
 
 @implementation ZOrganizationSearchLessonListVC
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.searchView.iTextField) {
+        [self.searchView.iTextField resignFirstResponder];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.searchView.iTextField && (self.searchView.iTextField.text.length == 0)) {

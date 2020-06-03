@@ -21,6 +21,12 @@
 
 @implementation ZMianSearchVC
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.searchView.iTextField resignFirstResponder];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     

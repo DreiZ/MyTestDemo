@@ -116,7 +116,7 @@
         cellModel.content = SafeStr(self.handleModel.amount);
         cellModel.max = 10;
         cellModel.formatterType = ZFormatterTypeDecimal;
-        cellModel.isHiddenLine = NO;
+        cellModel.isHiddenLine = YES;
         cellModel.cellHeight = CGFloatIn750(180);
         cellModel.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(60)];
         cellModel.textFont = [UIFont boldSystemFontOfSize:CGFloatIn750(60)];
@@ -125,11 +125,21 @@
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [configArr addObject:textCellConfig];
-        
     }
     
     {
-        [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
+        .lineHidden(NO)
+        .marginLineLeft(CGFloatIn750(50))
+        .marginLineRight(CGFloatIn750(50))
+        .height(CGFloatIn750(2));
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+        [configArr addObject:menuCellConfig];
+    }
+    
+    {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"last")
         .lineHidden(YES)
         .height(CGFloatIn750(100))

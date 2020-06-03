@@ -42,11 +42,11 @@
     [self.contView addSubview:self.contTopView];
     [self.contView addSubview:self.contBottomView];
     [self.contTopView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.contentView);
+        make.left.top.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(20));
     }];
     [self.contBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.contentView);
+        make.left.bottom.right.equalTo(self.contView);
         make.height.mas_equalTo(CGFloatIn750(20));
     }];
     

@@ -20,6 +20,13 @@
 
 @implementation ZOrganizationMineOrderSearchVC
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.searchView.iTextField) {
+        [self.searchView.iTextField resignFirstResponder];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.searchView.iTextField && !ValidStr(self.searchView.iTextField.text)) {
