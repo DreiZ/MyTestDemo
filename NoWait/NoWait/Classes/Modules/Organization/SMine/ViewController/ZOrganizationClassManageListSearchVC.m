@@ -22,11 +22,29 @@
 
 @implementation ZOrganizationClassManageListSearchVC
 
+-(void)viewWillDisappear:(BOOL)animated {
+    if (self.searchView.iTextField) {
+        [self.searchView.iTextField resignFirstResponder];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.searchView.iTextField && (self.searchView.iTextField.text.length == 0)) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
+    self.loading = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setTableViewGaryBack];
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
+    self.iTableView.tableFooterView = nil;
 }
 
 

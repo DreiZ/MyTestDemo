@@ -240,6 +240,8 @@
         make.top.equalTo(self.view.mas_top).offset(0);
     }];
     
+    self.handleView.hidden = YES;
+    
     [self setTableViewGaryBack];
 }
 

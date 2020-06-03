@@ -30,7 +30,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.searchView.iTextField becomeFirstResponder];
+    if (self.searchView.iTextField && self.searchView.iTextField.text.length < 1) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLoad {

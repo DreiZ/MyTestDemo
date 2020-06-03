@@ -45,6 +45,7 @@
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
     [self setTableViewEmptyDataDelegate];
+    self.iTableView.tableFooterView = nil;
 }
 
 
@@ -58,8 +59,10 @@
     }
 
     if (self.cellConfigArr.count > 0) {
+        self.iTableView.tableFooterView = self.safeFooterView;
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }else{
+        self.iTableView.tableFooterView = nil;
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
 }

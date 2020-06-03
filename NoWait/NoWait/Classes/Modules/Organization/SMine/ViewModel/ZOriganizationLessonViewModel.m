@@ -287,7 +287,7 @@
 
 
 + (void)searchLessonList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
-       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_search_courses params:params completionHandler:^(id data, NSError *error) {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_get_courses_list params:params completionHandler:^(id data, NSError *error) {
              DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
