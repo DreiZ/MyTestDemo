@@ -38,6 +38,7 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_reload_Net, void);
 //刷新UI
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_reload_ui, void);
 
+
 #pragma mark - Chain function tableview下拉刷新 空数据代理
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addRefreshHeader, void);
 
@@ -45,13 +46,16 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addLoadMoreFooter, void);
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addEmptyDataDelegate, void);
 
+
 #pragma mark - Chain block 设置刷新数据Block
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setRefreshHeaderNet, void (^)(void));
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setRefreshMoreNet, void (^)(void));
 
+
 #pragma mark -  Chain block configArr -------update-----
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setUpdateCellConfigData, void (^)(void (^)(NSMutableArray *)));
+
 
 #pragma mark -  Chain block tableView -------datasource-----
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setNumberOfSectionsInTableView, NSInteger (^)(UITableView *));
@@ -64,7 +68,8 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setViewForHeaderInSection,
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setViewForFooterInSection, UIView *(^)(UITableView *, NSInteger));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setCellConfigForRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, UITableViewCell*, ZCellConfig*));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setCellConfigForRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, UITableViewCell *, ZCellConfig *));
+
 
 #pragma mark - Chain block tableView ------delegate-----
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setHeightForRowAtIndexPath, CGFloat (^)(UITableView *, NSIndexPath *));
@@ -75,6 +80,6 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setHeightForFooterInSectio
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setDidSelectRowAtIndexPath, void (^)(UITableView *, NSIndexPath *));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setConfigDidSelectRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, ZCellConfig*));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setConfigDidSelectRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, ZCellConfig *));
 
 @end
