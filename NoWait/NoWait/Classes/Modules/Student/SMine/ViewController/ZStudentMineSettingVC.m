@@ -16,8 +16,6 @@
 #import "ZStudentMineSettingAboutUsVC.h"
 #import "ZStudentMineSwitchAccountVC.h"
 #import "ZMineFeedbackVC.h"
-#import "ZUserHelper.h"
-
 
 @interface ZStudentMineSettingVC ()
 
@@ -39,6 +37,7 @@
     
     self.setNavTitle(@"设置").setTableViewGary()
     .setUpdateConfigArr(^(void (^update)(NSMutableArray *cellConfig)) {
+        
         [weakSelf.cellConfigArr removeAllObjects];
         
         NSArray <NSArray *>*titleArr = @[@[@"个人信息", @"rightBlackArrowN",@"us"], @[@"账号与安全", @"rightBlackArrowN",@"safe"],@[@"通用", @"rightBlackArrowN",@"common"],@[@"意见反馈", @"rightBlackArrowN",@"opinion"],@[@"关于似锦", @"rightBlackArrowN",@"about"]];

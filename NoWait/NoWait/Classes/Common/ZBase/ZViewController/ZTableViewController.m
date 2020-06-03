@@ -245,6 +245,13 @@
 }
 
 #pragma mark - refresh data
+- (ZTableViewController *(^)(void))refreshNetData {
+    return ^ ZTableViewController *(void) {
+        [self refreshData];
+        return self;
+    };
+}
+
 - (ZTableViewController *(^)(void))reloadData {
     return ^ ZTableViewController *(void) {
         [self initCellConfigArr];
