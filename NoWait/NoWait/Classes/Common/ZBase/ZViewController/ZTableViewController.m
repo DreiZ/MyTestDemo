@@ -49,6 +49,10 @@
     
     self.currentPage = 1;
     self.loading = YES;
+    
+    if (_updateDataSource) {
+        _updateDataSource();
+    }
 }
 
 - (void)setupMainView {
@@ -174,7 +178,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    [self zz_tableView:tableView cell:cell cellForRowAtIndexPath:indexPath cellConfig:cellConfig];
+    
     return cell;
 }
 
@@ -220,20 +224,8 @@
     if (_didSelectRowAtIndexPath) {
         return _didSelectRowAtIndexPath(tableView, indexPath);
     }
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    [self zz_tableView:tableView didSelectRowAtIndexPath:indexPath cellConfig:cellConfig];
 }
 
-
-#pragma mark - tableview 数据处理
--(void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
-}
-
-
--(void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig{
-    
-}
 
 #pragma mark - 网络数据请求
 - (void)refreshData {
@@ -248,7 +240,9 @@
     }
 }
 
-#pragma mark - setMainView
+#pragma mark - setMainView datasource
+ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetDataSource, updateDataSource, void , void)
+
 ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetMainView, setMainView, void , void)
 
 #pragma mark - refresh data

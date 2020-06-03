@@ -8,7 +8,6 @@
 
 #import "ZViewController.h"
 
-
 #define  ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(methodName,ZZParamType) ZCHAIN_PROPERTY ZCHAIN_BLOCK(ZTableViewController *, methodName, ZZParamType)
 
 @interface ZTableViewController : ZViewController <UITableViewDelegate, UITableViewDataSource>
@@ -18,11 +17,12 @@
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
-- (void)setupMainView;
-- (void)setDataSource;
-
 #pragma mark - 重写数据方法
+@property (nonatomic,strong) void (^updateDataSource)(void);
+
 @property (nonatomic,strong) void (^setMainView)(void);
+
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(resetDataSource, void (^)(void));
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(resetMainView, void (^)(void));
 
@@ -32,6 +32,7 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setNavTitle, NSString *);
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(reloadData, void);
 
+#pragma mark - 刷新数据
 @property (nonatomic,strong) void (^refreshHead)(void);
 
 @property (nonatomic,strong) void (^refreshMore)(void);
@@ -44,7 +45,7 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setTableViewGary, void);
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setTableViewWhite, void);
 
-#pragma mark - 设置tableview 刷新数据 空数据代理
+#pragma mark - 设置tableview下拉刷新 空数据代理
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshHeader, void);
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshFooter, void);
@@ -78,7 +79,7 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setViewForHeaderInSection, UIView *(^)(
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setViewForFooterInSection, UIView *(^)(UITableView *, NSInteger));
 
 
-#pragma mark tableView ------delegate-----
+#pragma mark - tableView ------delegate-----
 @property (nonatomic,strong) CGFloat (^heightForRowAtIndexPath)(UITableView *,NSIndexPath *);
 
 @property (nonatomic,strong) CGFloat (^heightForHeaderInSection)(UITableView *,NSInteger);
@@ -95,4 +96,3 @@ ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setHeightForFooterInSection, CGFloat (^
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setDidSelectRowAtIndexPath, void (^)(UITableView *, NSIndexPath *));
 @end
-
