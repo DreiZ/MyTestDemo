@@ -19,25 +19,25 @@
 //tableview datasource block
 @property (nonatomic,strong) NSInteger (^zChain_block_numberOfSectionsInTableView)(UITableView *);
 
-@property (nonatomic,strong) NSInteger (^zChain_block_numberOfRowsInSection)(UITableView *,NSInteger);
+@property (nonatomic,strong) NSInteger (^zChain_block_numberOfRowsInSection)(UITableView *, NSInteger);
 
-@property (nonatomic,strong) UITableViewCell *(^zChain_block_cellForRowAtIndexPath)(UITableView *,NSIndexPath *);
+@property (nonatomic,strong) UITableViewCell *(^zChain_block_cellForRowAtIndexPath)(UITableView *, NSIndexPath *);
 
-@property (nonatomic,strong) UIView *(^zChain_block_viewForHeaderInSection)(UITableView *,NSInteger);
+@property (nonatomic,strong) UIView *(^zChain_block_viewForHeaderInSection)(UITableView *, NSInteger);
 
-@property (nonatomic,strong) UIView *(^zChain_block_viewForFooterInSection)(UITableView *,NSInteger);
+@property (nonatomic,strong) UIView *(^zChain_block_viewForFooterInSection)(UITableView *, NSInteger);
 
-@property (nonatomic,strong) CGFloat (^zChain_block_heightForRowAtIndexPath)(UITableView *,NSIndexPath *);
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForRowAtIndexPath)(UITableView *, NSIndexPath *);
 
-@property (nonatomic,strong) CGFloat (^zChain_block_heightForHeaderInSection)(UITableView *,NSInteger);
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForHeaderInSection)(UITableView *, NSInteger);
 
-@property (nonatomic,strong) CGFloat (^zChain_block_heightForFooterInSection)(UITableView *,NSInteger);
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForFooterInSection)(UITableView *, NSInteger);
 
-@property (nonatomic,strong) void (^zChain_block_didSelectRowAtIndexPath)(UITableView *,NSIndexPath *);
+@property (nonatomic,strong) void (^zChain_block_didSelectRowAtIndexPath)(UITableView *, NSIndexPath *);
 
-@property (nonatomic,strong) void (^zChain_block_configDidSelectRowAtIndexPath)(UITableView *,NSIndexPath *, ZCellConfig*);
+@property (nonatomic,strong) void (^zChain_block_configDidSelectRowAtIndexPath)(UITableView *, NSIndexPath *,  ZCellConfig *);
 
-@property (nonatomic,strong) void (^zChain_block_cellConfigForRowAtIndexPath)(UITableView *,NSIndexPath *,UITableViewCell*,ZCellConfig*);
+@property (nonatomic,strong) void (^zChain_block_cellConfigForRowAtIndexPath)(UITableView *, NSIndexPath *, UITableViewCell *, ZCellConfig *);
 @end
 
 
@@ -71,7 +71,7 @@
     [self setupMainView];
 }
 
-#pragma mark - setdata
+#pragma mark - 设置data
 - (void)setDataSource {
     _dataSources = @[].mutableCopy;
     _cellConfigArr = @[].mutableCopy;
@@ -80,6 +80,16 @@
     self.loading = YES;
 }
 
+//设置列表 cellConfig
+- (void)initCellConfigArr {
+    if (_zChain_block_updateConfigArr) {
+        _zChain_block_updateConfigArr(^(NSMutableArray *cellConfigArr) {
+            self.cellConfigArr = cellConfigArr;
+        });
+    }
+}
+
+#pragma mark - 设置UI
 - (void)setupMainView {
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
@@ -89,15 +99,21 @@
     }];
 }
 
-#pragma mark - handle
-- (void)initCellConfigArr {
-    if (_zChain_block_updateConfigArr) {
-        _zChain_block_updateConfigArr(^(NSMutableArray *cellConfigArr) {
-            self.cellConfigArr = cellConfigArr;
-        });
-    }
+
+- (void)setTableViewGaryBack {
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
 }
 
+- (void)setTableViewWhiteBack {
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+}
+
+
+#pragma mark - 设置 tableview refresh
 - (void)setTableViewRefreshHeader {
     __weak typeof(self) weakSelf = self;
     [self.iTableView tt_addRefreshHeaderWithAction:^{
@@ -124,18 +140,19 @@
     [self.iTableView reloadEmptyDataSet];
 }
 
-- (void)setTableViewGaryBack {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+
+#pragma mark - refresh data 网络数据请求
+- (void)refreshData {
+    if (_zChain_block_refreshHeaderNet) {
+        _zChain_block_refreshHeaderNet();
+    }
 }
 
-- (void)setTableViewWhiteBack {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    _safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+- (void)refreshMoreData {
+    if (_zChain_block_refreshMoreNet) {
+        _zChain_block_refreshMoreNet();
+    }
 }
-
 
 #pragma mark - lazy loading...
 -(UITableView *)iTableView {
@@ -207,16 +224,6 @@
     return cell;
 }
 
-#pragma mark - tableView ------delegate-----
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_zChain_block_heightForRowAtIndexPath) {
-        return _zChain_block_heightForRowAtIndexPath(tableView, indexPath);
-    }
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (_zChain_block_viewForHeaderInSection) {
         return _zChain_block_viewForHeaderInSection(tableView, section);
@@ -229,6 +236,17 @@
         return _zChain_block_viewForFooterInSection(tableView, section);
     }
     return nil;
+}
+
+
+#pragma mark - tableView ------delegate-----
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_zChain_block_heightForRowAtIndexPath) {
+        return _zChain_block_heightForRowAtIndexPath(tableView, indexPath);
+    }
+    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
+    CGFloat cellHeight =  cellConfig.heightOfCell;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -257,18 +275,7 @@
 }
 
 
-#pragma mark - 网络数据请求
-- (void)refreshData {
-    if (_zChain_block_refreshHeaderNet) {
-        _zChain_block_refreshHeaderNet();
-    }
-}
 
-- (void)refreshMoreData {
-    if (_zChain_block_refreshMoreNet) {
-        _zChain_block_refreshMoreNet();
-    }
-}
 
 #pragma mark - Chain function (设置数据、UI)********************************
 -(ZTableViewController *(^)(void (^)(void)))zChain_updateDataSource {
@@ -329,7 +336,7 @@
     };
 }
 
-#pragma mark - Chain function (刷新数据、UI)********************************
+#pragma mark - Chain function (刷新数据、UI)
 - (ZTableViewController *(^)(void))zChain_reload_ui {
     return ^ ZTableViewController *(void) {
         [self initCellConfigArr];
@@ -345,13 +352,13 @@
     };
 }
 
-#pragma mark - Chain block(获取数据header、获取数据footer) ************************
+#pragma mark - Chain block(获取数据header、获取数据footer)
 ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setRefreshHeaderNet, zChain_block_refreshHeaderNet, void, void)
 
 ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setRefreshMoreNet, zChain_block_refreshMoreNet, void, void)
 
 
-#pragma mark - Chain block update cellConfigData
+#pragma mark - Chain block (更新cell config)
 - (ZTableViewController *(^)(void (^)(void (^)(NSMutableArray *))))zChain_block_setUpdateCellConfigData {
     return ^ ZTableViewController *(void (^value)(void (^)(NSMutableArray *))) {
             self.zChain_block_updateConfigArr = value;
@@ -359,7 +366,8 @@ ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setRefreshMoreN
         };
 }
 
-#pragma mark - Chain block  tableview-datasource
+
+#pragma mark - Chain block  (列表 tableview datasource block)
 ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setNumberOfSectionsInTableView, zChain_block_numberOfSectionsInTableView, NSInteger, UITableView *)
 
 ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setNumberOfRowsInSection, zChain_block_numberOfRowsInSection, NSInteger, UITableView *, NSInteger)
@@ -370,10 +378,10 @@ ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setViewForHe
 
 ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setViewForFooterInSection, zChain_block_viewForFooterInSection, UIView *, UITableView *, NSInteger)
 
-//tableview setcell block 设置tableViewCell block
+//设置tableViewCell block
 ZCHAIN_BLOCKFOUR_IMPLEMENTATION(ZTableViewController *, zChain_block_setCellConfigForRowAtIndexPath, zChain_block_cellConfigForRowAtIndexPath, void, UITableView *, NSIndexPath *, UITableViewCell *, ZCellConfig *)
 
-#pragma mark - tableview block - delegate
+#pragma mark - Chain block (列表 tableview delegate block)
 ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightForRowAtIndexPath, zChain_block_heightForRowAtIndexPath, CGFloat , UITableView *, NSIndexPath *)
 
 ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightForHeaderInSection, zChain_block_heightForHeaderInSection, CGFloat , UITableView *, NSInteger)
@@ -382,6 +390,6 @@ ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightFor
 
 ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setDidSelectRowAtIndexPath, zChain_block_didSelectRowAtIndexPath, void, UITableView *, NSIndexPath *)
 
-//tableview setcell block 设置tableView didSelect block
+//设置tableView didSelect block
 ZCHAIN_BLOCKTHREE_IMPLEMENTATION(ZTableViewController *, zChain_block_setConfigDidSelectRowAtIndexPath, zChain_block_configDidSelectRowAtIndexPath, void, UITableView *, NSIndexPath *, ZCellConfig *)
 @end
