@@ -58,6 +58,10 @@
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    if (_setMainView) {
+        _setMainView();
+    }
 }
 
 #pragma mark - handle
@@ -243,6 +247,9 @@
         _refreshMore();
     }
 }
+
+#pragma mark - setMainView
+ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetMainView, setMainView, void , void)
 
 #pragma mark - refresh data
 - (ZTableViewController *(^)(void))refreshNetData {

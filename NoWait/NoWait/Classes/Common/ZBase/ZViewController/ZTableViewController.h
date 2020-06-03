@@ -22,6 +22,10 @@
 - (void)setDataSource;
 
 #pragma mark - 重写数据方法
+@property (nonatomic,strong) void (^setMainView)(void);
+
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(resetMainView, void (^)(void));
+
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(refreshNetData, void);
 
 ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setNavTitle, NSString *);
