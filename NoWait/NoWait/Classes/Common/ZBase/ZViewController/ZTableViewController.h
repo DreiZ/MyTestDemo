@@ -17,82 +17,64 @@
 @property (nonatomic,strong) NSMutableArray *dataSources;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
-#pragma mark - 重写数据方法
-@property (nonatomic,strong) void (^updateDataSource)(void);
+#pragma mark - Chain function 调用方法(设置数据、UI)
+//更新DataSource
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_updateDataSource, void (^)(void));
 
-@property (nonatomic,strong) void (^setMainView)(void);
+//更新mainview
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_resetMainView, void (^)(void));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(resetDataSource, void (^)(void));
+//设置nav title
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_setNavTitle, NSString *);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(resetMainView, void (^)(void));
+//tableView颜色
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_setTableViewGary, void);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(refreshNetData, void);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_setTableViewWhite, void);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setNavTitle, NSString *);
+//刷新数据
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_reload_Net, void);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(reloadData, void);
+//刷新UI
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_reload_ui, void);
 
-#pragma mark - 刷新数据
-@property (nonatomic,strong) void (^refreshHead)(void);
+#pragma mark - Chain function tableview下拉刷新 空数据代理
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addRefreshHeader, void);
 
-@property (nonatomic,strong) void (^refreshMore)(void);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addLoadMoreFooter, void);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshNet, void (^)(void));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_addEmptyDataDelegate, void);
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshMoreNet, void (^)(void));
+#pragma mark - Chain block 设置刷新数据Block
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setRefreshHeaderNet, void (^)(void));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setTableViewGary, void);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setRefreshMoreNet, void (^)(void));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setTableViewWhite, void);
+#pragma mark -  Chain block configArr -------update-----
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setUpdateCellConfigData, void (^)(void (^)(NSMutableArray *)));
 
-#pragma mark - 设置tableview下拉刷新 空数据代理
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshHeader, void);
+#pragma mark -  Chain block tableView -------datasource-----
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setNumberOfSectionsInTableView, NSInteger (^)(UITableView *));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setRefreshFooter, void);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setNumberOfRowsInSection, NSInteger (^)(UITableView *, NSInteger));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setEmptyDataDelegate, void);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setCellForRowAtIndexPath, UITableViewCell *(^)(UITableView *, NSIndexPath *));
 
-#pragma mark - configArr -------update-----
-@property (nonatomic,strong) void (^updateConfigArr)(void (^)(NSMutableArray *));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setViewForHeaderInSection, UIView *(^)(UITableView *, NSInteger));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setUpdateConfigArr, void (^)(void (^)(NSMutableArray *)));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setViewForFooterInSection, UIView *(^)(UITableView *, NSInteger));
 
-#pragma mark - tableView -------datasource-----
-@property (nonatomic,strong) NSInteger (^numberOfSectionsInTableView)(UITableView *);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setCellConfigForRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, UITableViewCell*, ZCellConfig*));
 
-@property (nonatomic,strong) NSInteger (^numberOfRowsInSection)(UITableView *,NSInteger);
+#pragma mark - Chain block tableView ------delegate-----
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setHeightForRowAtIndexPath, CGFloat (^)(UITableView *, NSIndexPath *));
 
-@property (nonatomic,strong) UITableViewCell *(^cellForRowAtIndexPath)(UITableView *,NSIndexPath *);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setHeightForHeaderInSection, CGFloat (^)(UITableView *, NSInteger));
 
-@property (nonatomic,strong) UIView *(^viewForHeaderInSection)(UITableView *,NSInteger);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setHeightForFooterInSection, CGFloat (^)(UITableView *, NSInteger));
 
-@property (nonatomic,strong) UIView *(^viewForFooterInSection)(UITableView *,NSInteger);
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setDidSelectRowAtIndexPath, void (^)(UITableView *, NSIndexPath *));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setNumberOfSectionsInTableView, NSInteger (^)(UITableView *));
+ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setConfigDidSelectRowAtIndexPath, void(^)(UITableView *, NSIndexPath *, ZCellConfig*));
 
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setNumberOfRowsInSection, NSInteger (^)(UITableView *, NSInteger));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setCellForRowAtIndexPath, UITableViewCell *(^)(UITableView *, NSIndexPath *));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setViewForHeaderInSection, UIView *(^)(UITableView *, NSInteger));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setViewForFooterInSection, UIView *(^)(UITableView *, NSInteger));
-
-
-#pragma mark - tableView ------delegate-----
-@property (nonatomic,strong) CGFloat (^heightForRowAtIndexPath)(UITableView *,NSIndexPath *);
-
-@property (nonatomic,strong) CGFloat (^heightForHeaderInSection)(UITableView *,NSInteger);
-
-@property (nonatomic,strong) CGFloat (^heightForFooterInSection)(UITableView *,NSInteger);
-
-@property (nonatomic,strong) void (^didSelectRowAtIndexPath)(UITableView *,NSIndexPath *);
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setHeightForRowAtIndexPath, CGFloat (^)(UITableView *, NSIndexPath *));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setHeightForHeaderInSection, CGFloat (^)(UITableView *, NSInteger));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setHeightForFooterInSection, CGFloat (^)(UITableView *, NSInteger));
-
-ZCHAIN_TABLEVIEWCONTROLLERCHAIN_PROPERTY(setDidSelectRowAtIndexPath, void (^)(UITableView *, NSIndexPath *));
 @end

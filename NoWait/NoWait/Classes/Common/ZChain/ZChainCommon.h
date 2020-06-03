@@ -56,6 +56,18 @@
     };\
 }
 
+
+//设置block 多参数-4 链式
+#define BLOCKFOURTYPE(ZZParamBackType,ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType) ZZParamBackType(^)(ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType)
+#define BLOCKFOURPARAMTYPE(ZZParamBackType,ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType,value) ZZParamBackType (^value)(ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType)
+
+#define  ZCHAIN_BLOCKFOUR_IMPLEMENTATION(ZZClass, methodName, attribute, ZZParamBackType, ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType)  -(ZZClass(^)(BLOCKFOURTYPE(ZZParamBackType, ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType)))methodName {\
+    return ^ ZZClass(BLOCKFOURPARAMTYPE(ZZParamBackType, ZZParamOneType,ZZParamTwoType,ZZParamThreeType,ZZParamFourType, value)) {\
+        self.attribute = value;\
+        return self;\
+    };\
+}
+
 #pragma mark - 创建 链式
 #define ZCHAIN_OBJ_CREATE(ZZClass,ZZParamType,methodName) +(ZZClass(^)(ZZParamType))methodName;
 

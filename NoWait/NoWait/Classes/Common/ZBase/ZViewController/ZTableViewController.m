@@ -9,8 +9,37 @@
 #import "ZTableViewController.h"
 
 @interface ZTableViewController ()
+//刷新数据head
+@property (nonatomic,strong) void (^zChain_block_refreshHeaderNet)(void);
+//刷新数据footer
+@property (nonatomic,strong) void (^zChain_block_refreshMoreNet)(void);
+//更新cellConfigArr
+@property (nonatomic,strong) void (^zChain_block_updateConfigArr)(void (^)(NSMutableArray *));
 
+//tableview datasource block
+@property (nonatomic,strong) NSInteger (^zChain_block_numberOfSectionsInTableView)(UITableView *);
+
+@property (nonatomic,strong) NSInteger (^zChain_block_numberOfRowsInSection)(UITableView *,NSInteger);
+
+@property (nonatomic,strong) UITableViewCell *(^zChain_block_cellForRowAtIndexPath)(UITableView *,NSIndexPath *);
+
+@property (nonatomic,strong) UIView *(^zChain_block_viewForHeaderInSection)(UITableView *,NSInteger);
+
+@property (nonatomic,strong) UIView *(^zChain_block_viewForFooterInSection)(UITableView *,NSInteger);
+
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForRowAtIndexPath)(UITableView *,NSIndexPath *);
+
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForHeaderInSection)(UITableView *,NSInteger);
+
+@property (nonatomic,strong) CGFloat (^zChain_block_heightForFooterInSection)(UITableView *,NSInteger);
+
+@property (nonatomic,strong) void (^zChain_block_didSelectRowAtIndexPath)(UITableView *,NSIndexPath *);
+
+@property (nonatomic,strong) void (^zChain_block_configDidSelectRowAtIndexPath)(UITableView *,NSIndexPath *, ZCellConfig*);
+
+@property (nonatomic,strong) void (^zChain_block_cellConfigForRowAtIndexPath)(UITableView *,NSIndexPath *,UITableViewCell*,ZCellConfig*);
 @end
+
 
 @implementation ZTableViewController
 
@@ -49,10 +78,6 @@
     
     self.currentPage = 1;
     self.loading = YES;
-    
-    if (_updateDataSource) {
-        _updateDataSource();
-    }
 }
 
 - (void)setupMainView {
@@ -62,16 +87,12 @@
     [_iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-    if (_setMainView) {
-        _setMainView();
-    }
 }
 
 #pragma mark - handle
 - (void)initCellConfigArr {
-    if (_updateConfigArr) {
-        _updateConfigArr(^(NSMutableArray *cellConfigArr) {
+    if (_zChain_block_updateConfigArr) {
+        _zChain_block_updateConfigArr(^(NSMutableArray *cellConfigArr) {
             self.cellConfigArr = cellConfigArr;
         });
     }
@@ -158,34 +179,38 @@
 
 #pragma mark - tableView -------datasource-----
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_numberOfSectionsInTableView) {
-        return _numberOfSectionsInTableView(tableView);
+    if (_zChain_block_numberOfSectionsInTableView) {
+        return _zChain_block_numberOfSectionsInTableView(tableView);
     }
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_numberOfRowsInSection) {
-        return _numberOfRowsInSection(tableView, section);
+    if (_zChain_block_numberOfRowsInSection) {
+        return _zChain_block_numberOfRowsInSection(tableView, section);
     }
     return _cellConfigArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_cellForRowAtIndexPath) {
-        return _cellForRowAtIndexPath(tableView, indexPath);
+    if (_zChain_block_cellForRowAtIndexPath) {
+        return _zChain_block_cellForRowAtIndexPath(tableView, indexPath);
     }
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+    
+    if (_zChain_block_cellConfigForRowAtIndexPath) {
+        _zChain_block_cellConfigForRowAtIndexPath(tableView, indexPath, cell, cellConfig);
+    }
     
     return cell;
 }
 
 #pragma mark - tableView ------delegate-----
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_heightForRowAtIndexPath) {
-        return _heightForRowAtIndexPath(tableView, indexPath);
+    if (_zChain_block_heightForRowAtIndexPath) {
+        return _zChain_block_heightForRowAtIndexPath(tableView, indexPath);
     }
     ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
     CGFloat cellHeight =  cellConfig.heightOfCell;
@@ -193,67 +218,119 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (_viewForHeaderInSection) {
-        return _viewForHeaderInSection(tableView, section);
+    if (_zChain_block_viewForHeaderInSection) {
+        return _zChain_block_viewForHeaderInSection(tableView, section);
     }
     return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (_viewForFooterInSection) {
-        return _viewForFooterInSection(tableView, section);
+    if (_zChain_block_viewForFooterInSection) {
+        return _zChain_block_viewForFooterInSection(tableView, section);
     }
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_heightForHeaderInSection) {
-        return _heightForHeaderInSection(tableView, section);
+    if (_zChain_block_heightForHeaderInSection) {
+        return _zChain_block_heightForHeaderInSection(tableView, section);
     }
     return 0.01f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (_heightForFooterInSection) {
-        return _heightForFooterInSection(tableView, section);
+    if (_zChain_block_heightForFooterInSection) {
+        return _zChain_block_heightForFooterInSection(tableView, section);
     }
     return 0.01f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_didSelectRowAtIndexPath) {
-        return _didSelectRowAtIndexPath(tableView, indexPath);
+    if (_zChain_block_didSelectRowAtIndexPath) {
+        return _zChain_block_didSelectRowAtIndexPath(tableView, indexPath);
+    }
+    
+    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+    if (_zChain_block_configDidSelectRowAtIndexPath) {
+        _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
     }
 }
 
 
 #pragma mark - 网络数据请求
 - (void)refreshData {
-    if (_refreshHead) {
-        _refreshHead();
+    if (_zChain_block_refreshHeaderNet) {
+        _zChain_block_refreshHeaderNet();
     }
 }
 
 - (void)refreshMoreData {
-    if (_refreshMore) {
-        _refreshMore();
+    if (_zChain_block_refreshMoreNet) {
+        _zChain_block_refreshMoreNet();
     }
 }
 
-#pragma mark - setMainView datasource
-ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetDataSource, updateDataSource, void , void)
-
-ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetMainView, setMainView, void , void)
-
-#pragma mark - refresh data
-- (ZTableViewController *(^)(void))refreshNetData {
-    return ^ ZTableViewController *(void) {
-        [self refreshData];
+#pragma mark - Chain function (设置数据、UI)********************************
+-(ZTableViewController *(^)(void (^)(void)))zChain_updateDataSource {
+    return ^ ZTableViewController *(void (^delegateBlock)(void)) {
+        [self setDataSource];
+        delegateBlock();
         return self;
     };
 }
 
-- (ZTableViewController *(^)(void))reloadData {
+-(ZTableViewController *(^)(void (^)(void)))zChain_resetMainView {
+    return ^ ZTableViewController *(void (^delegateBlock)(void)) {
+        [self setupMainView];
+        delegateBlock();
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(NSString *))zChain_setNavTitle {
+    return ^ ZTableViewController *(NSString *text) {
+        [self.navigationItem setTitle:text];
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(void))zChain_setTableViewGary {
+    return ^ ZTableViewController *(void) {
+        [self setTableViewGaryBack];
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(void))zChain_setTableViewWhite {
+    return ^ ZTableViewController *(void) {
+        [self setTableViewWhiteBack];
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(void))zChain_addRefreshHeader {
+    return ^ ZTableViewController *(void) {
+        [self setTableViewRefreshHeader];
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(void))zChain_addLoadMoreFooter {
+    return ^ ZTableViewController *(void) {
+        [self setTableViewRefreshFooter];
+        return self;
+    };
+}
+
+- (ZTableViewController *(^)(void))zChain_addEmptyDataDelegate {
+    return ^ ZTableViewController *(void) {
+        [self setTableViewEmptyDataDelegate];
+        return self;
+    };
+}
+
+#pragma mark - Chain function (刷新数据、UI)********************************
+- (ZTableViewController *(^)(void))zChain_reload_ui {
     return ^ ZTableViewController *(void) {
         [self initCellConfigArr];
         [self.iTableView reloadData];
@@ -261,79 +338,50 @@ ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, resetMainView, setMainView, 
     };
 }
 
-ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, setRefreshNet, refreshHead, void, void)
-
-ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, setRefreshMoreNet, refreshMore, void, void)
-
-#pragma mark - handle- set view
-- (ZTableViewController *(^)(NSString *))setNavTitle {
-    return ^ ZTableViewController *(NSString *text) {
-        [self.navigationItem setTitle:text];
-        return self;
-    };
-}
-
-- (ZTableViewController *(^)(void))setTableViewGary {
+- (ZTableViewController *(^)(void))zChain_reload_Net {
     return ^ ZTableViewController *(void) {
-        [self setTableViewGaryBack];
+        [self refreshData];
         return self;
     };
 }
 
-- (ZTableViewController *(^)(void))setTableViewWhite {
-    return ^ ZTableViewController *(void) {
-        [self setTableViewWhiteBack];
-        return self;
-    };
-}
+#pragma mark - Chain block(获取数据header、获取数据footer) ************************
+ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setRefreshHeaderNet, zChain_block_refreshHeaderNet, void, void)
 
-- (ZTableViewController *(^)(void))setRefreshHeader {
-    return ^ ZTableViewController *(void) {
-        [self setTableViewRefreshHeader];
-        return self;
-    };
-}
+ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setRefreshMoreNet, zChain_block_refreshMoreNet, void, void)
 
-- (ZTableViewController *(^)(void))setRefreshFooter {
-    return ^ ZTableViewController *(void) {
-        [self setTableViewRefreshFooter];
-        return self;
-    };
-}
 
-- (ZTableViewController *(^)(void))setEmptyDataDelegate {
-    return ^ ZTableViewController *(void) {
-        [self setTableViewEmptyDataDelegate];
-        return self;
-    };
-}
-
-#pragma mark - block set
-- (ZTableViewController *(^)(void (^)(void (^)(NSMutableArray *))))setUpdateConfigArr {
+#pragma mark - Chain block update cellConfigData
+- (ZTableViewController *(^)(void (^)(void (^)(NSMutableArray *))))zChain_block_setUpdateCellConfigData {
     return ^ ZTableViewController *(void (^value)(void (^)(NSMutableArray *))) {
-            self.updateConfigArr = value;
+            self.zChain_block_updateConfigArr = value;
             return self;
         };
 }
 
-#pragma mark - tableview block - datasource
-ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, setNumberOfSectionsInTableView, numberOfSectionsInTableView, NSInteger, UITableView *)
+#pragma mark - Chain block  tableview-datasource
+ZCHAIN_BLOCK_IMPLEMENTATION(ZTableViewController *, zChain_block_setNumberOfSectionsInTableView, zChain_block_numberOfSectionsInTableView, NSInteger, UITableView *)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setNumberOfRowsInSection, numberOfRowsInSection, NSInteger, UITableView *, NSInteger)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setNumberOfRowsInSection, zChain_block_numberOfRowsInSection, NSInteger, UITableView *, NSInteger)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setCellForRowAtIndexPath, cellForRowAtIndexPath, UITableViewCell *, UITableView *, NSIndexPath *)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setCellForRowAtIndexPath, zChain_block_cellForRowAtIndexPath, UITableViewCell *, UITableView *, NSIndexPath *)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setViewForHeaderInSection, viewForHeaderInSection, UIView *, UITableView *, NSInteger)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setViewForHeaderInSection, zChain_block_viewForHeaderInSection, UIView *, UITableView *, NSInteger)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setViewForFooterInSection, viewForFooterInSection, UIView *, UITableView *, NSInteger)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setViewForFooterInSection, zChain_block_viewForFooterInSection, UIView *, UITableView *, NSInteger)
 
+//tableview setcell block 设置tableViewCell block
+ZCHAIN_BLOCKFOUR_IMPLEMENTATION(ZTableViewController *, zChain_block_setCellConfigForRowAtIndexPath, zChain_block_cellConfigForRowAtIndexPath, void, UITableView *, NSIndexPath *, UITableViewCell *, ZCellConfig *)
 
 #pragma mark - tableview block - delegate
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setHeightForRowAtIndexPath, heightForRowAtIndexPath, CGFloat , UITableView *, NSIndexPath *)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightForRowAtIndexPath, zChain_block_heightForRowAtIndexPath, CGFloat , UITableView *, NSIndexPath *)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setHeightForHeaderInSection, heightForHeaderInSection, CGFloat , UITableView *, NSInteger)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightForHeaderInSection, zChain_block_heightForHeaderInSection, CGFloat , UITableView *, NSInteger)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setHeightForFooterInSection, heightForFooterInSection, CGFloat , UITableView *, NSInteger)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setHeightForFooterInSection, zChain_block_heightForFooterInSection, CGFloat , UITableView *, NSInteger)
 
-ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, setDidSelectRowAtIndexPath, didSelectRowAtIndexPath, void, UITableView *, NSIndexPath *)
+ZCHAIN_BLOCKTWO_IMPLEMENTATION(ZTableViewController *, zChain_block_setDidSelectRowAtIndexPath, zChain_block_didSelectRowAtIndexPath, void, UITableView *, NSIndexPath *)
+
+//tableview setcell block 设置tableView didSelect block
+ZCHAIN_BLOCKTHREE_IMPLEMENTATION(ZTableViewController *, zChain_block_setConfigDidSelectRowAtIndexPath, zChain_block_configDidSelectRowAtIndexPath, void, UITableView *, NSIndexPath *, ZCellConfig *)
 @end
