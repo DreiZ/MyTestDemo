@@ -44,6 +44,8 @@
     self.placeholderArr = @[].mutableCopy;
     self.classifyArr = @[].mutableCopy;
     
+    [self.param setObject:@"0" forKey:@"sort_type"];
+    
     NSArray *advers = [ZStudentMainViewModel mainBannerData];
     NSArray *placeholder = [ZStudentMainViewModel mainPlaceholderData];
     NSArray *classify = [ZStudentMainViewModel mainClassifyOneData];

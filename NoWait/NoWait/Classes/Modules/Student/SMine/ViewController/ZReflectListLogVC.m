@@ -20,30 +20,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    __weak typeof(self) weakSelf = self;
-    self.setNavTitle(@"提现记录").setEmptyDataDelegate()
-    .setRefreshHeader().setRefreshFooter()
-    .setUpdateConfigArr(^(void (^update)(NSMutableArray *)) {
-        [weakSelf.cellConfigArr removeAllObjects];
-        [weakSelf.dataSources enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZReflectListLogCell className] title:@"ZReflectListLogCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZReflectListLogCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:obj];
-            
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-        }];
-        update(weakSelf.cellConfigArr);
-    }).setRefreshNet(^{
-        weakSelf.currentPage = 1;
-        weakSelf.loading = YES;
-        [weakSelf refreshHeadData:[weakSelf setPostCommonData]];
-    }).setRefreshMoreNet(^{
-        [weakSelf refreshNetMoreData];
-    });
-    
-    self.refreshNetData();
-    self.reloadData();
+    [self setTableViewEmptyDataDelegate];
+    [self setTableViewRefreshFooter];
+    [self setTableViewRefreshHeader];
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+    [self refreshData];
 }
 
+
+- (void)setNavigation {
+    [self.navigationItem setTitle:@"提现记录"];
+}
+
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
+    
+    [self.dataSources enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZReflectListLogCell className] title:@"ZReflectListLogCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZReflectListLogCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:obj];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }];
+//    
+//    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZReflectListLogCell className] title:@"ZReflectListLogCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZReflectListLogCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+//
+//    [self.cellConfigArr addObject:menuCellConfig];
+//    [self.cellConfigArr addObject:menuCellConfig];
+//    [self.cellConfigArr addObject:menuCellConfig];
+//    [self.cellConfigArr addObject:menuCellConfig];
+//    [self.cellConfigArr addObject:menuCellConfig];
+    
+}
+
+
 #pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
     [ZRewardCenterViewModel refectList:param completeBlock:^(BOOL isSuccess, ZRewardReflectModel *data) {
@@ -51,8 +67,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            
-            weakSelf.reloadData();
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -68,7 +84,7 @@
     }];
 }
 
-- (void)refreshNetMoreData {
+- (void)refreshMoreData {
     self.currentPage++;
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
@@ -78,8 +94,8 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            
-            weakSelf.reloadData();
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

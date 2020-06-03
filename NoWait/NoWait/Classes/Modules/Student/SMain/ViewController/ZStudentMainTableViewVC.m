@@ -103,14 +103,16 @@
                 if ([tdata isKindOfClass:[ZMainClassifyOneModel class]]) {
                     ZMainClassifyOneModel *twoModel = tdata;
                     [weakSelf.param setObject:SafeStr(twoModel.classify_id) forKey:@"category"];
-                    [weakSelf.param removeObjectForKey:@"sort_type"];
+//                    [weakSelf.param removeObjectForKey:@"sort_type"];
+                    [weakSelf.param setObject:@"0" forKey:@"sort_type"];
                 }
             }
             
             if (tDict && [tDict objectForKey:@"sort"]) {
                 [weakSelf.param setObject:tDict[@"sort"] forKey:@"sort_type"];
             }else{
-                [weakSelf.param removeObjectForKey:@"sort_type"];
+//                [weakSelf.param removeObjectForKey:@"sort_type"];
+                [weakSelf.param setObject:@"0" forKey:@"sort_type"];
             }
             
             [weakSelf refreshData];

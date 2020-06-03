@@ -15,6 +15,7 @@
 @interface ZMineSwitchRoleVC ()
 @property (nonatomic,strong) UIView *navView;
 @property (nonatomic,strong) UIImageView *backImageView;
+
 @end
 
 @implementation ZMineSwitchRoleVC
@@ -28,79 +29,73 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.refreshNetData();
+    [self refreshData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    __weak typeof(self) weakSelf = self;
-    self.setUpdateConfigArr(^(void (^update)(NSMutableArray *)) {
-        [weakSelf.cellConfigArr removeAllObjects];
-        {
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"切换身份";
-            model.cellTitle = @"title";
-            model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
-            model.leftMargin = CGFloatIn750(50);
-            model.isHiddenLine = YES;
-            model.cellHeight = CGFloatIn750(126);
-            
-            ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [weakSelf.cellConfigArr addObject:titleCellConfig];
-        }
-        
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZUserRolesListModel *user = self.dataSources[i];
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.cellTitle = @"user";
-            if ([user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
-                model.isSelected = YES;
-            }else{
-                model.isSelected = NO;
-            }
-            model.data = self.dataSources[i];
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-        }
-        
-        if (weakSelf.cellConfigArr.count < 2) {
-            [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
-            
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"换个新账号登录";
-            model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
-            model.cellTitle = @"switch";
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-        }
-        update(weakSelf.cellConfigArr);
-    }).setDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath) {
-        ZCellConfig *cellConfig = [weakSelf.cellConfigArr objectAtIndex:indexPath.row];
-        if ([cellConfig.title isEqualToString:@"user"]){
-            ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-            ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
-            lvc.model = cellModel.data;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
-        }
-    }).setRefreshNet(^{
-        [ZLoginViewModel getUserRolesWithBlock:^(BOOL isSuccess, ZUserRolesListNetModel *data) {
-            if (isSuccess && data) {
-                [weakSelf.dataSources removeAllObjects];
-                [weakSelf.dataSources addObjectsFromArray:data.list];
-                weakSelf.reloadData();
-            }
-            [weakSelf.iTableView tt_endRefreshing];
-        }];
-    }).self.setRefreshHeader();
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
     
-    self.reloadData();
 }
 
 #pragma mark - set data
+
+- (void)initCellConfigArr {
+    [super initCellConfigArr];
+    
+    {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"切换身份";
+        model.cellTitle = @"title";
+        model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
+        model.leftMargin = CGFloatIn750(50);
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(126);
+        
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:titleCellConfig];
+    }
+    
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZUserRolesListModel *user = self.dataSources[i];
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.cellTitle = @"user";
+        if ([user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
+            model.isSelected = YES;
+        }else{
+            model.isSelected = NO;
+        }
+        model.data = self.dataSources[i];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+    
+    if (self.cellConfigArr.count < 2) {
+        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
+        
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"换个新账号登录";
+        model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
+        model.cellTitle = @"switch";
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        
+        [self.cellConfigArr addObject:menuCellConfig];
+    }
+}
+
+
 - (void)setNavigation {
     self.isHidenNaviBar = YES;
     
@@ -135,6 +130,7 @@
             make.center.equalTo(backBtn);
         }];
     }
+    
     return _navView;
 }
 
@@ -147,11 +143,47 @@
     return _backImageView;
 }
 
+#pragma mark tableView -------datasource-----
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+     if ([cellConfig.title isEqualToString:@"user"]){
+         ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
+//         if (!cellModel.isSelected) {
+//             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
+//             [self.navigationController popToRootViewControllerAnimated:YES];
+//             ZUser *user = cellModel.data;
+//             [[ZUserHelper sharedHelper] switchUser:user];
+//             [self initCellConfigArr];
+//             [self.iTableView reloadData];
+             
+             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+             lvc.model = cellModel.data;
+             [self.navigationController pushViewController:lvc animated:YES];
+//         }
+         
+     }
+}
+
+
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
     // darkmodel change
-    self.reloadData();
+    [self initCellConfigArr];
+    [self.iTableView reloadData];
+}
+
+
+#pragma mark - refresha
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [ZLoginViewModel getUserRolesWithBlock:^(BOOL isSuccess, ZUserRolesListNetModel *data) {
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }
+    }];
 }
 @end

@@ -125,6 +125,24 @@
          
          [self.cellConfigArr addObject:textCellConfig];
      }
+    {
+
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"密码只能包含字母数字和下划线，且长度在8-16位之间";
+        model.cellTitle = @"hint";
+        model.leftFont = [UIFont fontMin];
+        model.leftColor = [UIColor colorTextGray1];
+        model.leftDarkColor = [UIColor colorTextGray1Dark];
+        model.leftMargin = CGFloatIn750(60);
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(60);
+
+
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+        [self.cellConfigArr addObject:titleCellConfig];
+        
+    }
 }
 
 
@@ -242,7 +260,7 @@
 }
 
 - (BOOL)checkPassword:(NSString *)password {
-    NSString *newPattern = @"^[a-zA-Z][a-zA-Z0-9_]{7,17}$";
+    NSString *newPattern = @"^[a-zA-Z0-9_]{7,17}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",newPattern];
     
     BOOL isMatch = [pred evaluateWithObject:password];

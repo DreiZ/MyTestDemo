@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewController.h"
+#import "ZViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZReflectListLogVC : ZTableViewController
+@interface ZReflectListLogVC : ZTableViewViewController
 
 @end
 

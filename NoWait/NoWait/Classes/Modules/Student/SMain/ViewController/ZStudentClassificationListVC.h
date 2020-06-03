@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentClassificationListVC : ZTableViewViewController
+@interface ZStudentClassificationListVC : ZTableViewController
 @property (nonatomic,strong) NSString *vcTitle;
 @property (nonatomic,strong) NSString *type;
 
