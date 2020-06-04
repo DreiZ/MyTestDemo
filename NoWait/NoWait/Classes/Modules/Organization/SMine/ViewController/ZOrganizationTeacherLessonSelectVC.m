@@ -60,8 +60,8 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -102,6 +102,7 @@
 }
 #pragma mark - tableview delegate
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZOrganizationTeacherLessonSelectCell"]) {
         ZOriganizationLessonListModel *model;
         for (int i = 0; i < self.dataSources.count; i++) {
@@ -114,29 +115,23 @@
         lcell.handleBlock = ^(NSString *text) {
             model.teacherPirce = text;
         };
+        
+        lcell.selectedBlock = ^{
+            ZOriganizationLessonListModel *model;
+            for (int i = 0; i < weakSelf.dataSources.count; i++) {
+                if (indexPath.row == i) {
+                    model = weakSelf.dataSources[i];
+                }
+            }
+        };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationTeacherLessonSelectCell"]) {
-        ZOriganizationLessonListModel *model;
-        for (int i = 0; i < self.dataSources.count; i++) {
-            if (indexPath.row == i) {
-                model = self.dataSources[i];
-            }
-        }
-        
-        model.isSelected = !model.isSelected;
-        [weakSelf initCellConfigArr];
-        [weakSelf.iTableView reloadData];
-        
-        if ([self getSelect].count == self.dataSources.count) {
-            [_navLeftBtn setTitle:@"全不选" forState:UIControlStateNormal];
-        }else{
-            [_navLeftBtn setTitle:@"全选" forState:UIControlStateNormal];
-        }
-    }
+//    __weak typeof(self) weakSelf = self;
+//    if ([cellConfig.title isEqualToString:@"ZOrganizationTeacherLessonSelectCell"]) {
+//
+//    }
 }
 
 
@@ -150,25 +145,25 @@
     }
     return list;
 }
-
-- (void)handleAll{
-    if ([self getSelect].count == self.dataSources.count) {
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZOriganizationStudentListModel *model = self.dataSources[i];
-            model.isSelected = NO;
-        }
-        [self.navLeftBtn setTitle:@"全选" forState:UIControlStateNormal];
-    }else{
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZOriganizationStudentListModel *model = self.dataSources[i];
-            model.isSelected = YES;
-        }
-        [self.navLeftBtn setTitle:@"全不选" forState:UIControlStateNormal];
-    }
-    
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
+//
+//- (void)handleAll{
+//    if ([self getSelect].count == self.dataSources.count) {
+//        for (int i = 0; i < self.dataSources.count; i++) {
+//            ZOriganizationStudentListModel *model = self.dataSources[i];
+//            model.isSelected = NO;
+//        }
+//        [self.navLeftBtn setTitle:@"全选" forState:UIControlStateNormal];
+//    }else{
+//        for (int i = 0; i < self.dataSources.count; i++) {
+//            ZOriganizationStudentListModel *model = self.dataSources[i];
+//            model.isSelected = YES;
+//        }
+//        [self.navLeftBtn setTitle:@"全不选" forState:UIControlStateNormal];
+//    }
+//
+//    [self initCellConfigArr];
+//    [self.iTableView reloadData];
+//}
 
 #pragma mark - 数据处理
 - (void)refreshData {

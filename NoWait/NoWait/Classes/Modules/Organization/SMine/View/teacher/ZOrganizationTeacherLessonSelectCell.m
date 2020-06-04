@@ -17,6 +17,7 @@
 
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UITextField *inputTextField;
+@property (nonatomic,strong) UIButton *selectedBtn;
 
 @end
 
@@ -75,7 +76,11 @@
         make.height.mas_equalTo(CGFloatIn750(80));
     }];
     
-    
+    [self.contView addSubview:self.selectedBtn];
+    [self.selectedBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.contView);
+        make.right.equalTo(self.inputTextField.mas_left);
+    }];
 }
 
 - (void)btnLong:(id)sender {
@@ -157,6 +162,29 @@
     return _leftImageView;
 }
 
+- (UIButton *)selectedBtn {
+    if (!_selectedBtn) {
+        __weak typeof(self) weakSelf = self;
+        _selectedBtn = [[UIButton alloc] init];
+        [_selectedBtn bk_addEventHandler:^(id sender) {
+            weakSelf.model.isSelected = !weakSelf.model.isSelected;
+            
+            if (!weakSelf.model.isSelected) {
+                weakSelf.inputTextField.text = @"";
+            }else{
+                weakSelf.inputTextField.text = weakSelf.model.teacherPirce;
+            }
+            
+            weakSelf.leftImageView.image = weakSelf.model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
+            
+            if (weakSelf.selectedBlock) {
+                weakSelf.selectedBlock();
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectedBtn;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:ZFormatterTypeDecimal];
 }
@@ -166,6 +194,11 @@
     
     if (self.handleBlock) {
         self.handleBlock(textField.text);
+    }
+    if (textField.text.length > 0) {
+        self.model.isSelected = YES;
+        _leftImageView.image = self.model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
+
     }
 }
 

@@ -14,5 +14,6 @@
 @property (nonatomic,strong) ZOriganizationLessonListModel *model;
 
 @property (nonatomic,strong) void (^handleBlock)(NSString *);
+@property (nonatomic,strong) void (^selectedBlock)(void);
 @end
 
