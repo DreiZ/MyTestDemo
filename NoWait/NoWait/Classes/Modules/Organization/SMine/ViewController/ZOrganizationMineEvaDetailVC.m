@@ -253,13 +253,14 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]) {
-        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-        ZOrderListModel *model = [[ZOrderListModel alloc] init];
-        model.isStudent = NO;
-        model.order_id = self.detailModel.order_id;
-        evc.model = model;
-        [self.navigationController pushViewController:evc animated:YES];
-
+        if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
+            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+            ZOrderListModel *model = [[ZOrderListModel alloc] init];
+            model.isStudent = NO;
+            model.order_id = self.detailModel.order_id;
+            evc.model = model;
+            [self.navigationController pushViewController:evc animated:YES];
+        }
     }
 }
 

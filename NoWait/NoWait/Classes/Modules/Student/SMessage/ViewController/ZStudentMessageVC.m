@@ -278,6 +278,7 @@
                     ZOrderEvaListModel *smodel = [[ZOrderEvaListModel alloc] init];
                     smodel.stores_id = model.extra.stores_id;
                     smodel.order_id = model.extra.order_id;
+                    smodel.isTeacher = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? YES:NO;
                     ZOrganizationMineEvaDetailVC *dvc =
                     [[ZOrganizationMineEvaDetailVC alloc] init];
                     dvc.listModel = smodel;

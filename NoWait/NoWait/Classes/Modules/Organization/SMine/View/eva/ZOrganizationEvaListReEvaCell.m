@@ -11,6 +11,8 @@
 @interface ZOrganizationEvaListReEvaCell ()
 
 @property (nonatomic,strong) UILabel *evaTitleLabel;
+@property (nonatomic,strong) UIView *bottomLineView;
+
 @end
 
 @implementation ZOrganizationEvaListReEvaCell
@@ -33,10 +35,10 @@
         make.right.equalTo(self.contentView.mas_right).offset(CGFloatIn750(-30));
         make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(20));
     }];
-    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlackDark], [UIColor colorTextBlack]);
-    [self.contentView addSubview:bottomLineView];
-    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    
+    [self.contentView addSubview:self.bottomLineView];
+    [self.bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(50));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
         make.width.mas_equalTo(3);
@@ -46,6 +48,13 @@
 
 
 #pragma mark -Getter
+- (UIView *)bottomLineView {
+    if (!_bottomLineView) {
+        _bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+        _bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlackDark], [UIColor colorTextBlack]);
+    }
+    return _bottomLineView;
+}
 
 - (UILabel *)evaTitleLabel {
     if (!_evaTitleLabel) {
@@ -67,7 +76,7 @@
     
     CGSize tsize = [eva tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(92+60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
 
-    return CGFloatIn750(32) + tsize.height;
+    return CGFloatIn750(34) + tsize.height;
 }
 
 - (void)setEvaDes:(NSString *)evaDes {

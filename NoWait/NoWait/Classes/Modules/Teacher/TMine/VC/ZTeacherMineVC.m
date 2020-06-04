@@ -65,6 +65,7 @@
     [self setupMainView];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    [self setTableViewGaryBack];
 }
 
 - (void)setDataSource {

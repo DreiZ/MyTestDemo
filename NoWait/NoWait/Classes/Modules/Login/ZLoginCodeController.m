@@ -346,7 +346,7 @@
                 make.width.height.mas_equalTo(CGFloatIn750(120));
             }];
         }else{
-            UIView *rightView = [self getMenuBtnWithImageName:@"loginUserName" title:@"游客模式" tag:2];
+            UIView *rightView = [self getMenuBtnWithImageName:@"visitorLogin" title:@"游客模式" tag:2];
             [_footerView addSubview:rightView];
             
 //            [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
