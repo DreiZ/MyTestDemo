@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonManageListCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 
-#import "ZStudentLessonDetailVC.h"
+#import "ZOrganizationLessonDetailVC.h"
 
 @interface ZOrganizationSearchLessonListVC ()
 @property (nonatomic,strong) NSString *name;
@@ -77,8 +77,19 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-            dvc.model = cellConfig.dataModel;
+            ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
+            ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
+            dvc.addModel.status = listmodel.status;
+            dvc.addModel.statusStr = listmodel.statusStr;
+            dvc.addModel.name = listmodel.name;
+            dvc.addModel.short_name = listmodel.short_name;
+            dvc.addModel.price = listmodel.price;
+            dvc.addModel.pay_nums = listmodel.pay_nums;
+            dvc.addModel.score = listmodel.score;
+            dvc.addModel.image_url = listmodel.image_url;
+            dvc.addModel.fail = listmodel.fail;
+            dvc.addModel.lessonID = listmodel.lessonID;
+            dvc.addModel.lessonType = listmodel.type;
             [self.navigationController pushViewController:dvc animated:YES];
     }
 }

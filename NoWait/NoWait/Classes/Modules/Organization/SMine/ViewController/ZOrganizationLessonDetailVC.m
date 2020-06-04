@@ -85,6 +85,15 @@
     return _addModel;
 }
 
+-(void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZOrganizationLessonDetailHeaderCell"]) {
+        ZOrganizationLessonDetailHeaderCell *lcell = (ZOrganizationLessonDetailHeaderCell *)cell;
+        lcell.bannerBlock = ^(ZStudentBannerModel *model, NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
+        };
+    }
+}
 #pragma mark - scrollview delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 获取到tableView偏移量
