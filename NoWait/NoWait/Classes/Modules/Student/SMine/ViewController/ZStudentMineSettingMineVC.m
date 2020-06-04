@@ -15,7 +15,7 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationViewModel.h"
 #import "ZAlertDataSinglePickerView.h"
-
+#import "ZStudentTestCell.h"
 
 @interface ZStudentMineSettingMineVC ()
 @property (nonatomic,strong) id avterImage;
