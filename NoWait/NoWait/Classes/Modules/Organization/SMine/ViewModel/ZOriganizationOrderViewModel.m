@@ -33,7 +33,9 @@
 
 
 + (void)refundPayOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_pay params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -170,7 +172,9 @@
 
 
 + (void)cancleOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_close_order params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -188,7 +192,9 @@
 
 
 + (void)deleteOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_del_order params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -206,7 +212,9 @@
 
 
 + (void)evaOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_add_comment params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -318,7 +326,9 @@
 }
 
 + (void)replyEvaOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_reply_commen params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -336,7 +346,9 @@
 
 
 + (void)refundOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -354,7 +366,9 @@
 
 //学员同意t商家退款或再商议
 + (void)refundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_again params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -373,7 +387,9 @@
 
 //商家退款或再商议
 + (void)ogriganizationRefundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_confirm params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -392,7 +408,9 @@
 
 //商家退款或再商议
 + (void)refundOrderCanle:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_cancle params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
@@ -410,7 +428,9 @@
 
 
 + (void)appointmentOrder:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_update_appointment_order params:params completionHandler:^(id data, NSError *error) {
+        [TLUIUtility hiddenLoading];
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {

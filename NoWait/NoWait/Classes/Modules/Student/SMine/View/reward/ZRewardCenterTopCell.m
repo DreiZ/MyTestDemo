@@ -140,7 +140,7 @@
 
 - (void)setModel:(ZRewardInfoModel *)model {
     _model = model;
-    _midLabel.text = [NSString stringWithFormat:@"MID:%@",SafeStr(model.inviter_code)];
+    _midLabel.text = [NSString stringWithFormat:@"MID(邀请码):%@",SafeStr(model.inviter_code)];
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _nameLabel.text = [ZUserHelper sharedHelper].user.nikeName;
 }

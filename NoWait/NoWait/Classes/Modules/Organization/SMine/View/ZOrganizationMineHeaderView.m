@@ -477,7 +477,7 @@
     }
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     self.nameLabel.text = name;
-    _midLabel.text = [NSString stringWithFormat:@"MID：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
+    _midLabel.text = [NSString stringWithFormat:@"MID(邀请码)：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
     
     NSString *typestr = @"学员端";
     //    1：学员 2：教师 6：校区 8：机构

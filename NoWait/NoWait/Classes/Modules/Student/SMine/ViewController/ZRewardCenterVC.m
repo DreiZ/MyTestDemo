@@ -41,6 +41,7 @@
     [self initCellConfigArr];
     [self.iTableView reloadData];
     [self setTableViewRefreshHeader];
+    [self setTableViewGaryBack];
 }
 
 

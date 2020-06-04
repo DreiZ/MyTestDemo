@@ -57,8 +57,8 @@
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(10));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(0));
     }];
     
     [self.menuBackView mas_makeConstraints:^(MASConstraintMaker *make) {

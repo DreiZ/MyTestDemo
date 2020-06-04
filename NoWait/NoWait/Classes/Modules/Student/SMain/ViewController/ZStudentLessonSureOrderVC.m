@@ -267,6 +267,7 @@
         lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
     }else if ([cellConfig.title isEqualToString:@"coupons"]) {
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+        
         lcell.handleBlock = ^(ZCellConfig *cellConfig) {
             [ZCouponListView setAlertWithTitle:@"使用优惠券" type:@"use" stores_id:self.detailModel.stores_id course_id:self.detailModel.course_id teacher_id:self.detailModel.teacher_id  handlerBlock:^(ZOriganizationCardListModel * model) {
                 weakSelf.cartModel = model;
@@ -348,7 +349,7 @@
     model.isHiddenLine = YES;
     model.lineLeftMargin = CGFloatIn750(30);
     model.lineRightMargin = CGFloatIn750(30);
-    model.cellHeight = CGFloatIn750(62);
+    model.cellHeight = CGFloatIn750(64);
     model.leftFont = [UIFont boldFontSmall];
     model.rightFont = [UIFont fontSmall];
     model.rightColor = [UIColor colorRedDefault];

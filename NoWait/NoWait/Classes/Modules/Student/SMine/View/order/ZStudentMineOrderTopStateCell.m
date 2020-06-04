@@ -156,7 +156,7 @@
         if (second < 10) {
             str_second = [NSString stringWithFormat:@"0%ld秒",(long)second];
         }
-        surplusTime = [NSString stringWithFormat:@" 请于：%@%@%@%@完成支付，超时订单将自动取消",str_day,str_hour,str_minute,str_second];
+        surplusTime = [NSString stringWithFormat:@" 请于%@%@%@%@完成支付，超时订单将自动取消",str_day,str_hour,str_minute,str_second];
     }
     return surplusTime;
 }

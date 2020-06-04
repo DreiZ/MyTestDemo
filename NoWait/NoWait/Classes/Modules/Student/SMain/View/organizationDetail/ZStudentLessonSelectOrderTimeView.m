@@ -40,6 +40,7 @@
     self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
+    ViewRadius(self, CGFloatIn750(40));
 
     __weak typeof(self) weakSelf = self;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectZero];
