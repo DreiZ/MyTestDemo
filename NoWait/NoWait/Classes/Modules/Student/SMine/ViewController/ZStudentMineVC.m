@@ -98,6 +98,7 @@
     
     [self.iTableView setContentInset:UIEdgeInsetsMake(kHeaderHeight+kStatusBarHeight, 0, 0, 0)];
     [self.iTableView addSubview:self.headerView];
+    [self setTableViewGaryBack];
 }
 
 #pragma mark - lazy loading...

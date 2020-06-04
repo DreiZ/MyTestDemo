@@ -39,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setTableViewGaryBack];
+    
     self.detailModel.isStudent = YES;
     self.detailModel.status = @"1";
     self.detailModel.type = @"2";
