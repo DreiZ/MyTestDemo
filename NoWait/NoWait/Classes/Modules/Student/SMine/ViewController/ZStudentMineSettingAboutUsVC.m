@@ -7,11 +7,12 @@
 //
 
 #import "ZStudentMineSettingAboutUsVC.h"
+#import "ZAlertView.h"
 
 @interface ZStudentMineSettingAboutUsVC ()
 @property (nonatomic,strong) UIView *topView;
-@property (nonatomic,strong) UILabel *versionLabel;
 @end
+
 @implementation ZStudentMineSettingAboutUsVC
 
 - (void)viewDidLoad {
@@ -34,7 +35,7 @@
         temp = [NSString stringWithFormat:@"v%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
     }
 
-    NSArray <NSArray *>*titleArr = @[@[@"当前版本", temp],@[@"微信公众号", @"xiangcenter"]];
+    NSArray <NSArray *>*titleArr = @[@[@"当前版本", temp, @"version"],@[@"微信公众号", @"xiangcenter", @"weixin"]];
 
     for (int i = 0; i < titleArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -42,7 +43,7 @@
         model.rightTitle = titleArr[i][1];
         model.leftFont = [UIFont fontContent];
         model.cellHeight = CGFloatIn750(110);
-        model.cellTitle = titleArr[i][0];
+        model.cellTitle = titleArr[i][2];
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
@@ -54,12 +55,10 @@
     }
 }
 
-
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"关于"];
 }
-
 
 #pragma mark lazy loading...
 - (UIView *)topView {
@@ -89,34 +88,23 @@
             make.centerX.equalTo(self.topView);
             make.top.equalTo(logoImageView.mas_bottom).offset(CGFloatIn750(28));
         }];
-//
-//        [_topView addSubview:self.versionLabel];
-//        [self.versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerX.equalTo(self.topView);
-//            make.top.equalTo(nameLabel.mas_bottom).offset(CGFloatIn750(28));
-//        }];
-        
     }
     
     return _topView;
 }
 
-- (UILabel *)versionLabel {
-    if (!_versionLabel) {
-        _versionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _versionLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        _versionLabel.text = @"V1.1.0";
-        _versionLabel.numberOfLines = 1;
-        _versionLabel.textAlignment = NSTextAlignmentCenter;
-        [_versionLabel setFont:[UIFont fontTitle]];
-    }
-    return _versionLabel;
-}
 
 #pragma mark tableView ------delegate-----
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
-   
+    if ([cellConfig.title isEqualToString:@"weixin"]) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = @"xiangcenter";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ZAlertView setAlertWithTitle:@"已复制微信号到粘贴板" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                
+            }];
+        });
+    }
 }
 
 @end
