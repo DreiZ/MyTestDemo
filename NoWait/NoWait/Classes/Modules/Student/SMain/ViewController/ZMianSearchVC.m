@@ -37,8 +37,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.loading = NO;
     self.name = @"";
+    [self setTableViewRefreshHeader];
+    [self setTableViewRefreshFooter];
+    [self setTableViewEmptyDataDelegate];
 }
 
 - (void)setupMainView{

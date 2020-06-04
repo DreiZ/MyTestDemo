@@ -73,13 +73,20 @@
 #pragma mark - setModel
 - (void)setModel:(ZStoresListModel *)model {
     [super setModel:model];
-    
     [_cellConfigArr removeAllObjects];
-    for (int i = 0; i < model.course.count; i++) {
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListItemCell className] title:[ZStudentMainOrganizationSearchListItemCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZStudentMainOrganizationSearchListItemCell z_getCellSize:model.course[i]] cellType:ZCellTypeClass dataModel:model.course[i]];
-        
-        [self.cellConfigArr addObject:cellConfig];
+
+    if (ValidArray(model.course)) {
+        for (int i = 0; i < model.course.count; i++) {
+            ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListItemCell className] title:[ZStudentMainOrganizationSearchListItemCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZStudentMainOrganizationSearchListItemCell z_getCellSize:model.course[i]] cellType:ZCellTypeClass dataModel:model.course[i]];
+            
+            [self.cellConfigArr addObject:cellConfig];
+        }
+        self.funBackView.hidden = NO;
+    }else{
+        self.funBackView.hidden = YES;
     }
+    
+    
     [self.iCollectionView reloadData];
 }
 

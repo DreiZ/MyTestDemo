@@ -85,6 +85,13 @@
                 if (weakSelf.handleBlock) {
                     weakSelf.handleBlock(temp, YES);
                 }
+                for (int i = 0; i < temp.count; i++) {
+                    ZOriganizationLessonListModel *model = temp[i];
+                    if (ValidStr(model.teacherPirce) && [model.teacherPirce doubleValue] < 1) {
+                        [TLUIUtility showInfoHint:@"教师带课价格不可小于1元"];
+                        return;
+                    }
+                }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [TLUIUtility showErrorHint:@"您还没有选择课程"];

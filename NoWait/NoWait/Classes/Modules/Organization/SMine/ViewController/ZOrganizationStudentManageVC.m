@@ -297,7 +297,8 @@
             if (index == 1) {
                 if (data) {
                     NSInteger tIndex = 0;
-                    NSArray *titleArr = @[@"全部",@"待排课",@"待开课",@"已结课",@"待补课",@"已过期"];
+//                    0:全部 1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
+                    NSArray *titleArr = @[@"全部",@"待排课",@"待开课",@"已开课",@"已结课",@"待补课",@"已过期"];
                     if (ValidStr(data)) {
                         [weakSelf.filterView setLeftName:nil right:SafeStr(data)];
                         NSString *str = SafeStr(data);

@@ -137,6 +137,7 @@
             [ZAlertStoresTeacherCheckBoxView setAlertName:@"选择教师" stores_id:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
                 if (model) {
                     weakSelf.listModel = model;
+                    weakSelf.weekTitleView.title = weakSelf.listModel.teacher_name;
                     [weakSelf refreshCurriculumList];
                 }
             }];

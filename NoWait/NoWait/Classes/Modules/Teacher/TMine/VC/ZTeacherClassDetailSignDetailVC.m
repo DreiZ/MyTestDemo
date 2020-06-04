@@ -40,6 +40,7 @@
     [super viewDidLoad];
     _list = @[].mutableCopy;
     
+    self.isTeacher = [[ZUserHelper sharedHelper].user.type intValue] == 2?YES:NO;
     
     [self refreshData];
     [self setNavigation];
@@ -90,7 +91,7 @@
     _topTitleView.model = self.model;
     _topTitleView.time = self.detailModel.sign_time;
     
-    if (![self.detailModel.sign_time isEqualToString:@"0"] && !ValidArray(self.detailModel.image)) {
+    if (![self.detailModel.sign_time isEqualToString:@"0"] && !ValidArray(self.detailModel.image) && self.isTeacher) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
     }else{
        [self.navigationItem setRightBarButtonItem:nil];
@@ -102,7 +103,9 @@
     self.isHidenNaviBar = NO;
     
     [self.navigationItem setTitle:self.model.stores_courses_name];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    if (!self.isTeacher) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    }
 }
 
 - (void)setupMainView {

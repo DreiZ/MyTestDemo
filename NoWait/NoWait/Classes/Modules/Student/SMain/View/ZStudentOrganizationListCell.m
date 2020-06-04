@@ -230,6 +230,9 @@
         }];
     }
 
+    if (!ValidArray(ttArr)) {
+        return;
+    }
     __block CGFloat leftX = 0;
     __block CGFloat leftY = 0;
     

@@ -157,7 +157,8 @@
 }
 
 - (void)setPostCommonData {
-    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];;
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [_param setObject:@"1" forKey:@"status"];
 }
 
 

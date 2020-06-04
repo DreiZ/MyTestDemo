@@ -169,18 +169,35 @@
                                 ZBaseMenuModel *menuModel = [[ZBaseMenuModel alloc] init];
                                 menuModel.name =  SafeStr([allKey[i] zz_indexToWeek]);
                                 menuModel.uid = allKey[i];
-                                
+                                menuModel.isSelected = YES;
                                 NSMutableArray *unit = @[].mutableCopy;
                                 if (ValidArray(tempDict1[allKey[i]])) {
                                     NSArray*timeArr = tempDict1[allKey[i]];
                                     if (ValidArray(timeArr)) {
                                         NSArray *dataArr = timeArr;
+//                                        for (int k = 0; k < dataArr.count; k++) {
+//                                            if (ValidStr(dataArr[k])) {
+//                                                NSString *str = dataArr[k];
+//                                                ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];说点
+//                                                umodel.data = SafeStr(str);
+//                                                [unit addObject:umodel];
+//                                            }
+//                                        }
                                         for (int k = 0; k < dataArr.count; k++) {
                                             if (ValidStr(dataArr[k])) {
                                                 NSString *str = dataArr[k];
-                                                ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
-                                                umodel.data = SafeStr(str);
-                                                [unit addObject:umodel];
+                                                NSArray *array = [str componentsSeparatedByString:@"~"];
+                                                if (ValidArray(array) && array.count == 2) {
+                                                    NSString *hour = array[0];
+                                                    NSArray *hourArray = [hour componentsSeparatedByString:@":"];
+                                                    if (ValidArray(hourArray) && hourArray.count == 2) {
+                                                        ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
+                                                        umodel.data = str;
+                                                        umodel.name = [NSString stringWithFormat:@"%d",[hourArray[0] intValue]];
+                                                        umodel.subName = [NSString stringWithFormat:@"%d",[hourArray[1] intValue]];
+                                                        [unit addObject:umodel];
+                                                    }
+                                                }
                                             }
                                         }
                                     }

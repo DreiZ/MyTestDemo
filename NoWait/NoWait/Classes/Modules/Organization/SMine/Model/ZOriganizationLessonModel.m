@@ -297,7 +297,7 @@
                                         NSArray *hourArray = [hour componentsSeparatedByString:@":"];
                                         if (ValidArray(hourArray) && hourArray.count == 2) {
                                             ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
-                                            umodel.data = hour;
+                                            umodel.data = str;
                                             umodel.name = [NSString stringWithFormat:@"%d",[hourArray[0] intValue]];
                                             umodel.subName = [NSString stringWithFormat:@"%d",[hourArray[1] intValue]];
                                             [unit addObject:umodel];
