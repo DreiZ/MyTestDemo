@@ -16,13 +16,23 @@
 
 @implementation ZOrganizationSearchCouponVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.searchView.iTextField && self.searchView.iTextField.text.length == 0) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.loading = NO;
+    self.iTableView.tableFooterView = nil;
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 
 
@@ -37,8 +47,10 @@
 
     if (self.cellConfigArr.count > 0) {
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        self.iTableView.tableFooterView = self.safeFooterView;
     }else{
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        self.iTableView.tableFooterView = nil;
     }
 }
 

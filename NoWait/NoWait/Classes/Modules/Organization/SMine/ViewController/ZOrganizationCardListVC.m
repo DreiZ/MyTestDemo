@@ -74,13 +74,13 @@
                 [weakSelf.navigationController pushViewController:svc animated:YES];
             }else{
                 if ([weakSelf.status intValue] == 1) {
-                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"停用卡券" leftBtnTitle:@"取消" rightBtnTitle:@"停用" handlerBlock:^(NSInteger index) {
+                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定停用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"停用" handlerBlock:^(NSInteger index) {
                         if (index == 1) {
                             [weakSelf handleCard:model];
                         }
                     }];
                 }else{
-                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"启用卡券" leftBtnTitle:@"取消" rightBtnTitle:@"启用" handlerBlock:^(NSInteger index) {
+                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定启用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"启用" handlerBlock:^(NSInteger index) {
                         if (index == 1) {
                             [weakSelf handleCard:model];
                         }

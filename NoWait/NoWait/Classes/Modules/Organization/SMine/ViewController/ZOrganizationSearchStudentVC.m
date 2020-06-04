@@ -26,8 +26,17 @@
 
 @implementation ZOrganizationSearchStudentVC
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.searchView.iTextField && self.searchView.iTextField.text.length == 0) {
+        [self.searchView.iTextField becomeFirstResponder];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.loading = NO;
     
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -38,6 +47,7 @@
     self.isEdit = YES;
     [self setTableViewRefreshFooter];
     [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
 }
 //
 //- (void)cancleBtnOnClick {

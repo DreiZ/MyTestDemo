@@ -177,7 +177,7 @@
         make.bottom.equalTo(self.view);
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
-        make.top.equalTo(self.view.mas_top).offset(10);
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(20));
     }];
     self.iTableView.tableFooterView = bottomView;
 }

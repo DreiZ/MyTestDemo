@@ -43,7 +43,7 @@
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(0));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-0));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
         make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(20));
     }];
     
@@ -168,9 +168,6 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(212);
+    return CGFloatIn750(202);
 }
-
 @end
-
-
