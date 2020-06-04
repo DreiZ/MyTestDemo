@@ -548,7 +548,8 @@
     
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
     model.leftTitle = self.addModel.price;
-    model.rightTitle = self.addModel.course_number;
+    model.rightTitle = self.addModel.pay_nums;
+    model.data = self.addModel.score;
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];
