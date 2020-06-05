@@ -227,6 +227,7 @@
         _searchTopView.hint = @"搜索学员";
         _searchTopView.handleBlock = ^(NSInteger index) {
             ZOrganizationSearchStudentVC *svc = [[ZOrganizationSearchStudentVC alloc] init];
+            svc.navTitle = @"搜索学员";
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
