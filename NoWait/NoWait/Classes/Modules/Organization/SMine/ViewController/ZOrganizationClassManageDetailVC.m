@@ -80,6 +80,12 @@
     }
     
     for (int i = 0; i < textArr.count; i++) {
+        if ([textArr[i][3] isEqualToString:@"detail"]) {
+            if ([self.model.now_progress intValue] == 0) {
+                continue;
+            }
+        }
+        
         if ([textArr[i][3] isEqualToString:@"beginTime"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
