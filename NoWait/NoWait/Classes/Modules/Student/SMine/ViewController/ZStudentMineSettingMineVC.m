@@ -115,8 +115,15 @@
             model.name = temp[i];
             [items addObject:model];
          }
-         [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-            weakSelf.user.sex = [NSString stringWithFormat:@"%ld",index + 1];
+//         [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
+//             weakSelf.user.sex = [NSString stringWithFormat:@"%ld",index + 1];
+//             [weakSelf initCellConfigArr];
+//             [weakSelf.iTableView reloadData];
+//             [weakSelf updateUserInfo:@{@"sex":SafeStr(weakSelf.user.sex)}];
+//         }];
+//         
+         [ZAlertDataSinglePickerView setAlertName:@"性别选择" selectedIndex:[self.user.sex intValue] > 0 ? [self.user.sex intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
+             weakSelf.user.sex = [NSString stringWithFormat:@"%ld",index + 1];
              [weakSelf initCellConfigArr];
              [weakSelf.iTableView reloadData];
              [weakSelf updateUserInfo:@{@"sex":SafeStr(weakSelf.user.sex)}];

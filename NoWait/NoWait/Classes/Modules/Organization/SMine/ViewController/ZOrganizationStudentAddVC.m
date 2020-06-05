@@ -124,7 +124,7 @@
         [self.cellConfigArr addObject:textCellConfig];
     }
     
-    if (ValidStr(self.viewModel.addModel.specialty_desc)) {
+    if (ValidStr(self.viewModel.addModel.is_star) && [self.viewModel.addModel.is_star intValue] == 1) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"明星学员介绍";
         model.leftFont = [UIFont boldFontTitle];
@@ -138,7 +138,7 @@
         [self.cellConfigArr addObject:textCellConfig];
     }
     
-    if(ValidArray(self.viewModel.addModel.images_list)){
+    if(ValidStr(self.viewModel.addModel.is_star) && [self.viewModel.addModel.is_star intValue] == 1){
         {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"明星学员相册";

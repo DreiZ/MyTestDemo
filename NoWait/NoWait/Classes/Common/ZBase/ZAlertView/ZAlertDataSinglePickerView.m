@@ -193,9 +193,33 @@ static ZAlertDataSinglePickerView *sharedManager;
     [self.pickView reloadAllComponents];
 }
 
+
+- (void)setName:(NSString *)title selectedIndex:(NSInteger)index items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock {
+    self.handleBlock = handleBlock;
+    self.nameLabel.text = title;
+    self.data1 = data;
+    self.proIndex = index;
+    
+    self.alpha = 0;
+    self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    [[AppDelegate shareAppDelegate].window addSubview:self];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 1;
+        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    }];
+    [self.pickView reloadAllComponents];
+    [self.pickView selectRow:self.proIndex inComponent:0 animated:YES];
+}
+
 + (void)setAlertName:(NSString *)title items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock  {
     [[ZAlertDataSinglePickerView sharedManager] setName:title items:data handlerBlock:handleBlock];
 }
+
+
++ (void)setAlertName:(NSString *)title selectedIndex:(NSInteger)index items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock  {
+    [[ZAlertDataSinglePickerView sharedManager] setName:title selectedIndex:index items:data handlerBlock:handleBlock];
+}
+
 
 
 #pragma mark -datapicker delegate

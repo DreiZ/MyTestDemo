@@ -188,6 +188,8 @@
 @property (nonatomic,strong) NSString *total_progress;
 @property (nonatomic,strong) NSString *now_progress;
 @property (nonatomic,strong) NSString *replenish_nums;
+@property (nonatomic,strong) NSString *expire_time;
+
 
 @property (nonatomic,strong) NSString *stores_coach_id;
 @property (nonatomic,strong) NSString *stores_courses_class_id;

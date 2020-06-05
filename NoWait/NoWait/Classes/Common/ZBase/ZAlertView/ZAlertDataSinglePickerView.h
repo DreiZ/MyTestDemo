@@ -11,6 +11,9 @@
 
 @interface ZAlertDataSinglePickerView : UIView
 + (void)setAlertName:(NSString *)title items:(NSArray <ZAlertDataItemModel *>*)data handlerBlock:(void(^)(NSInteger))handleBlock ;
+
+
++ (void)setAlertName:(NSString *)title selectedIndex:(NSInteger)index items:(NSMutableArray <ZAlertDataItemModel *> *)data handlerBlock:(void(^)(NSInteger))handleBlock;
 @end
 
 
