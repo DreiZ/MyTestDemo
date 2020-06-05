@@ -63,6 +63,7 @@
         default:
             break;
     }
+    status = [NSString stringWithFormat:@"%@/%@节 %@",self.model.now_progress, self.model.total_progress,status];
     
     NSMutableArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],

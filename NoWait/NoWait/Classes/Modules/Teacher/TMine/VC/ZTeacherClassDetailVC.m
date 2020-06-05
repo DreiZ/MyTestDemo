@@ -56,7 +56,6 @@
             break;
         case 2:
             status = @"已开课";
-            status = [NSString stringWithFormat:@"已开课%@/%@",ValidStr(self.model.now_progress)? self.model.now_progress:@"0",ValidStr(self.model.now_progress)? self.model.total_progress:@"0"];
             break;
         case 3:
             status = @"已结课";
@@ -65,6 +64,7 @@
         default:
             break;
     }
+    status = [NSString stringWithFormat:@"%@/%@节   %@",ValidStr(self.model.now_progress)? self.model.now_progress:@"0",ValidStr(self.model.now_progress)? self.model.total_progress:@"0", status];
     
     NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
