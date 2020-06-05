@@ -12,6 +12,8 @@
 #import "ZStudentMineLessonProgressCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"
+#import "ZStudentMineLessonNoTimetableCell.h"
+#import "ZStudentMineNoLessonProgressCell.h"
 
 #import "ZStudentMineEvaListHadVC.h"
 #import "ZStudentMineOrderListVC.h"
@@ -191,7 +193,15 @@
             dvc.student_id = model.student_id;
             [self.navigationController pushViewController:dvc animated:YES];
         };
-    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
+    }else if([cellConfig.title isEqualToString:@"ZStudentMineNoLessonProgressCell"]) {
+        ZStudentMineNoLessonProgressCell *lcell = (ZStudentMineNoLessonProgressCell *)cell;
+        lcell.moreBlock = ^(NSInteger index) {
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }];
+        };
+    } else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
         ZStudentMineLessonTimetableCell *tcell = (ZStudentMineLessonTimetableCell *)cell;
         tcell.moreBlock = ^(NSInteger index) {
             ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
@@ -205,6 +215,12 @@
             dvc.courses_class_id = model.courses_class_id;
             dvc.student_id = model.student_id;
             [self.navigationController pushViewController:dvc animated:YES];
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
+        ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;
+        tcell.moreBlock = ^(NSInteger index) {
+            ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
+            [self.navigationController pushViewController:lvc animated:YES];
         };
     }
 }
@@ -259,16 +275,19 @@
     if (_lessonList.count > 0) {
         ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
         [self.cellConfigArr addObject:timeCellConfig];
+    }else {
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonNoTimetableCell className] title:[ZStudentMineLessonNoTimetableCell className] showInfoMethod:nil heightOfCell:[ZStudentMineLessonNoTimetableCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:timeCellConfig];
     }
     
     if (_classList.count > 0) {
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonProgressCell className] title:[ZStudentMineLessonProgressCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonProgressCell z_getCellHeight:_classList] cellType:ZCellTypeClass dataModel:_classList];
         [self.cellConfigArr addObject:progressCellConfig];
+    }else {
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineNoLessonProgressCell className] title:[ZStudentMineNoLessonProgressCell className] showInfoMethod:nil heightOfCell:[ZStudentMineNoLessonProgressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr addObject:progressCellConfig];
     }
     
-    
-    
-
     [self.iTableView reloadData];
 }
 
