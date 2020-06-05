@@ -937,10 +937,16 @@
 
             [self.items removeAllObjects];
             [self.items addObjectsFromArray:items];
-            [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
-                weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
-               [weakSelf initCellConfigArr];
-               [weakSelf.iTableView reloadData];
+//            [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
+//                weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
+//               [weakSelf initCellConfigArr];
+//               [weakSelf.iTableView reloadData];
+//            }];
+            
+            [ZAlertDataSinglePickerView setAlertName:@"级别选择" selectedIndex:[weakSelf.viewModel.addModel.level intValue] > 0 ? [weakSelf.viewModel.addModel.level intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
+                weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index + 1];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
             }];
         }
         

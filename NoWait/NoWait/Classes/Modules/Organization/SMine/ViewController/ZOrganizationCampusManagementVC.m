@@ -18,8 +18,6 @@
 #import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationSwitchSchoolCell.h"
 
-#import "ZAlertDataPickerView.h"
-#import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDataModel.h"
 
 #import "ZOrganizationCampusManagementAddressVC.h"

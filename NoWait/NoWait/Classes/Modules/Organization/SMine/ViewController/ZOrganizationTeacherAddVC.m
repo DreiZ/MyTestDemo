@@ -623,8 +623,13 @@
            [items addObject:model];
         }
         
-        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-           weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
+//        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
+//           weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
+//            [weakSelf initCellConfigArr];
+//            [weakSelf.iTableView reloadData];
+//        }];
+        [ZAlertDataSinglePickerView setAlertName:@"性别选择" selectedIndex:[weakSelf.viewModel.addModel.sex intValue] > 0 ? [weakSelf.viewModel.addModel.sex intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
+            weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }];
@@ -638,7 +643,13 @@
             [items addObject:model];
         }
         
-        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
+//        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
+//            weakSelf.viewModel.addModel.c_level = [NSString stringWithFormat:@"%ld",index + 1];
+//            [weakSelf initCellConfigArr];
+//            [weakSelf.iTableView reloadData];
+//        }];
+        
+        [ZAlertDataSinglePickerView setAlertName:@"教师等级" selectedIndex:[weakSelf.viewModel.addModel.c_level intValue] > 0 ? [weakSelf.viewModel.addModel.c_level intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
             weakSelf.viewModel.addModel.c_level = [NSString stringWithFormat:@"%ld",index + 1];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

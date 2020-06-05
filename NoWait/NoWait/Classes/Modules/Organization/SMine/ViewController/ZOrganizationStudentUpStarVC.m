@@ -15,7 +15,6 @@
 #import "ZOrganizationCampusTextLabelCell.h"
 
 #import "ZBaseUnitModel.h"
-#import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDataPickerView.h"
 
 #import "ZOrganizationCampusManageAddLabelVC.h"
