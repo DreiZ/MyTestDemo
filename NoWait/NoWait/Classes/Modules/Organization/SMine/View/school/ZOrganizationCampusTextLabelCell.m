@@ -19,7 +19,7 @@
 @property (nonatomic,strong) UITextField *inputTextField;
 @property (nonatomic,strong) UIView *bottomLineView;
 @property (nonatomic,strong) UIView *inputLine;
-@property (nonatomic,strong) UIImageView *arrowImageView;
+
 @property (nonatomic,strong) UIView *backContentView;
 
 @property (nonatomic,strong) NSMutableArray *hotSearchBtn;

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCampusTextLabelCell : ZBaseCell
 @property (nonatomic,strong) ZBaseTextFieldCellModel *model;
-
+@property (nonatomic,strong) UIImageView *arrowImageView;
 
 @end
 

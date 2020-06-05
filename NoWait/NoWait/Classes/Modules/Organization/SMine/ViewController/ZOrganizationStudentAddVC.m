@@ -13,6 +13,7 @@
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
+#import "ZAddPhotosCell.h"
 
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataSinglePickerView.h"
@@ -121,6 +122,57 @@
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"ZOriganizationTextViewCell" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
         [self.cellConfigArr addObject:textCellConfig];
+    }
+    
+    if (ValidStr(self.viewModel.addModel.specialty_desc)) {
+        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+        model.leftTitle = @"明星学员介绍";
+        model.leftFont = [UIFont boldFontTitle];
+        model.isHiddenLine = YES;
+        model.cellHeight = CGFloatIn750(92);
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"specialty_desc" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
+        [self.cellConfigArr addObject:textCellConfig];
+    }
+    
+    if(ValidArray(self.viewModel.addModel.images_list)){
+        {
+            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.leftTitle = @"明星学员相册";
+            model.leftFont = [UIFont boldFontTitle];
+            model.isHiddenLine = YES;
+            model.cellHeight = CGFloatIn750(92);
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
+        
+        ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
+        NSMutableArray *menulist = @[].mutableCopy;
+        for (int j = 0; j < self.viewModel.addModel.images_list.count; j++) {
+            ZBaseUnitModel *model = [[ZBaseUnitModel alloc] init];
+            if (j < self.viewModel.addModel.images_list.count) {
+                if (![self.viewModel.addModel.images_list[j] isKindOfClass:[UIImage class]]) {
+                    model.data = imageFullUrl(self.viewModel.addModel.images_list[j]);
+                }else{
+                    model.data = self.viewModel.addModel.images_list[j];
+                }
+                model.uid = [NSString stringWithFormat:@"%d", j];
+            }
+            
+            model.isEdit = YES;
+            [menulist addObject:model];
+        }
+        model.uid = @"9";
+        model.name = @"添加图片";
+        model.subName = @"选填";
+        model.units = menulist;
+        
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZAddPhotosCell className] title:[ZAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:progressCellConfig];
     }
 }
 
@@ -233,6 +285,14 @@
                 [otherDict setObject:self.viewModel.addModel.emergency_contact forKey:@"emergency_contact"];
             }
             
+            if (ValidStr(self.viewModel.addModel.is_star)) {
+                [otherDict setObject:self.viewModel.addModel.is_star forKey:@"is_star"];
+            }
+            
+            if (ValidStr(self.viewModel.addModel.specialty_desc)) {
+                [otherDict setObject:self.viewModel.addModel.specialty_desc forKey:@"specialty_desc"];
+            }
+            
             if (ValidStr(self.viewModel.addModel.remark)) {
                 [otherDict setObject:self.viewModel.addModel.remark forKey:@"remark"];
             }
@@ -251,11 +311,7 @@
         [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"3",@"imageKey":@{@"file":self.viewModel.addModel.image}} completeBlock:^(BOOL isSuccess, NSString *message) {
             if (isSuccess) {
                 weakSelf.viewModel.addModel.image = message;
-                if (weakSelf.isEdit) {
-                    [weakSelf editOtherDataWithParams:otherDict];
-                }else{
-                    [weakSelf updateOtherDataWithParams:otherDict];
-                }
+                [weakSelf updatePhotosStep1WithOtherParams:otherDict];
             }else{
                 [TLUIUtility hiddenLoading];
                 [TLUIUtility showErrorHint:message];
@@ -264,17 +320,92 @@
         return;
     }
     
-    if (self.isEdit) {
-        [self editOtherDataWithParams:otherDict];
-    }else{
-        [self updateOtherDataWithParams:otherDict];
+    [self updatePhotosStep1WithOtherParams:otherDict];
+}
+
+
+- (NSInteger)checkIsHavePhotos {
+    NSInteger index = 0;
+    for (int i = 0; i < self.viewModel.addModel.images_list.count; i++) {
+        id temp = self.viewModel.addModel.images_list[i];
+        if ([temp isKindOfClass:[UIImage class]]) {
+            index++;
+        }else if ([temp isKindOfClass:[NSString class]]){
+            NSString *tempStr = temp;
+            if (tempStr.length > 0) {
+                index++;
+            }
+        }
     }
+    return index;
+}
+
+- (void)updatePhotosStep1WithOtherParams:(NSMutableDictionary *)otherDict {
+    if ([self checkIsHavePhotos] > 0) {
+        [TLUIUtility showLoading:@"上传明星学员相册中"];
+        NSInteger tindex = 0;
+        [self updatePhotosStep2WithImage:tindex otherParams:otherDict];
+    }else{
+        if (self.isEdit) {
+            [self editOtherDataWithParams:otherDict];
+        }else{
+            [self updateOtherDataWithParams:otherDict];
+        }
+    }
+    
+}
+
+ - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
+         if (index == self.viewModel.addModel.images_list.count-1) {
+             if (self.isEdit) {
+                 [self editOtherDataWithParams:otherDict];
+             }else{
+                 [self updateOtherDataWithParams:otherDict];
+             }
+         }else{
+             index++;
+             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+         }
+    }];
+}
+
+- (void)updatePhotosStep3WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict complete:(void(^)(BOOL, NSInteger))complete{
+    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传明星学员相册中 %ld/%ld",index+1,self.viewModel.addModel.images_list.count]];
+    
+    id temp = self.viewModel.addModel.images_list[index];
+    UIImage *image;
+    if ([temp isKindOfClass:[UIImage class]]) {
+        image = temp;
+    }
+    if (!image) {
+        complete(YES,index);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":image}} completeBlock:^(BOOL isSuccess, NSString *message) {
+        if (isSuccess) {
+            [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:message];
+            complete(YES,index);
+        }else{
+            [TLUIUtility hiddenLoading];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
 }
 
 - (void)updateOtherDataWithParams:(NSMutableDictionary *)otherDict {
     if (ValidStr(self.viewModel.addModel.image)) {
         [otherDict setObject:self.viewModel.addModel.image forKey:@"image"];
     }
+    if (ValidArray(self.viewModel.addModel.images_list)) {
+        NSMutableArray *imageList = @[].mutableCopy;
+        for (int i = 0; i < self.viewModel.addModel.images_list.count; i++) {
+            [imageList addObject:self.viewModel.addModel.images_list[i]];
+        }
+        [otherDict setObject:imageList forKey:@"images_list"];
+    }
+    
     
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationStudentViewModel addStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
@@ -294,6 +425,15 @@
     if (ValidStr(self.viewModel.addModel.image)) {
         [otherDict setObject:self.viewModel.addModel.image forKey:@"image"];
     }
+    
+    if (ValidArray(self.viewModel.addModel.images_list)) {
+        NSMutableArray *imageList = @[].mutableCopy;
+        for (int i = 0; i < self.viewModel.addModel.images_list.count; i++) {
+            [imageList addObject:self.viewModel.addModel.images_list[i]];
+        }
+        [otherDict setObject:imageList forKey:@"images_list"];
+    }
+    
     
     if (ValidStr(self.viewModel.addModel.studentID)) {
         [otherDict setObject:self.viewModel.addModel.studentID forKey:@"id"];
@@ -393,10 +533,46 @@
         lcell.textChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.remark = text;
         };
+    }else  if ([cellConfig.title isEqualToString:@"specialty_desc"]) {
+        ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
+        lcell.max = 300;
+        lcell.hint = @"选填";
+        lcell.content = self.viewModel.addModel.specialty_desc;
+        lcell.textChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.specialty_desc = text;
+        };
     }else if([cellConfig.title isEqualToString:@"now_progress"]){
         ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.now_progress = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
+        ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
+        tCell.seeBlock = ^(NSInteger index) {
+            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
+        } ;
+        tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
+            [weakSelf.iTableView endEditing:YES];
+            if (isAdd) {
+                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.addModel.images_list.count;
+                
+                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                    if (list && list.count > 0){;
+                        for (LLImagePickerModel *model in list) {
+//                            [weakSelf.uploadArr addObject:model.image];
+                            [weakSelf.viewModel.addModel.images_list addObject:model.image];
+                        }
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
+                    }
+                }];
+            }else{
+                if (index < weakSelf.viewModel.addModel.images_list.count) {
+                    [weakSelf.viewModel.addModel.images_list removeObjectAtIndex:index];
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                }
+            }
         };
     }
 }

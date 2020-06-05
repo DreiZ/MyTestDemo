@@ -55,7 +55,7 @@
         if ([textArr[i][0] isEqualToString:@"特长技能"] || [textArr[i][0] isEqualToString:@"任课课程"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
-            cellModel.isTextEnabled = NO;
+            cellModel.isTextEnabled = YES;
             cellModel.isHiddenLine = YES;
             cellModel.cellWidth = KScreenWidth;
             cellModel.cellHeight = CGFloatIn750(108);
@@ -69,11 +69,11 @@
             }else{
                 NSMutableArray *temp = @[].mutableCopy;
                 for (ZOriganizationLessonListModel *tmodel in self.addModel.lessonList) {
-                    [temp addObject:[NSString stringWithFormat:@"%@    %@元    %@元",tmodel.short_name,SafeStr(tmodel.price),ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce) : SafeStr(tmodel.price)]];
+                    [temp addObject:[NSString stringWithFormat:@"%@  %@元    %@元",tmodel.short_name,SafeStr(tmodel.price),ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce) : SafeStr(tmodel.price)]];
                 }
                 cellModel.data = temp;
             }
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:@"content" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:@"labelCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -127,7 +127,7 @@
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
-    {
+    if (ValidArray(self.addModel.images_list)) {
         ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
         
         NSMutableArray *menulist = @[].mutableCopy;
@@ -182,6 +182,9 @@
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }
         };
+    }else if([cellConfig.title isEqualToString:@"labelCell"]){
+        ZOrganizationCampusTextLabelCell *lcell = (ZOrganizationCampusTextLabelCell *)cell;
+        lcell.arrowImageView.hidden = YES;
     }
     
 }

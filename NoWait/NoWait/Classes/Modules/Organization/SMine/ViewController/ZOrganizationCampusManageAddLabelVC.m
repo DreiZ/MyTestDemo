@@ -101,7 +101,7 @@
     _userNameTF.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
 //    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
     _userNameTF.rightView = self.addBtn;
-    _userNameTF.rightViewMode = UITextFieldViewModeWhileEditing;
+    _userNameTF.rightViewMode = UITextFieldViewModeAlways;
 
     [self.view addSubview:self.userNameTF];
     [self.userNameTF mas_makeConstraints:^(MASConstraintMaker *make) {

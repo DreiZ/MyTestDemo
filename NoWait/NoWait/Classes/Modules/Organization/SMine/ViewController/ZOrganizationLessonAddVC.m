@@ -145,7 +145,7 @@
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"预览" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
             ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
@@ -677,7 +677,7 @@
     ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
     cellModel.leftTitle = @"选择日期";
     cellModel.isTextEnabled = NO;
-    cellModel.rightImage = @"rightBlackArrowN";
+    cellModel.rightImage = ValidStr(self.viewModel.addModel.lessonID)? @"":@"rightBlackArrowN";
     cellModel.cellTitle = @"lessonTime";
     cellModel.isHiddenLine = YES;
     cellModel.cellHeight = CGFloatIn750(60);
