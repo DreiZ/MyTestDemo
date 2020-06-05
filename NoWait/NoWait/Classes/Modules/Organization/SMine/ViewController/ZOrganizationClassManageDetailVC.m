@@ -50,14 +50,14 @@
     self.isOpen = YES;
     switch ([SafeStr(self.model.status) intValue]) {
         case 1:
-            status = @"待开课";
+            status = @"待开班";
             self.isOpen = NO;
             break;
         case 2:
-            status = @"已开课";
+            status = @"已开班";
             break;
         case 3:
-            status = @"已结课";
+            status = @"已结班";
             break;
             
         default:

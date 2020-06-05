@@ -297,19 +297,19 @@
     
     _numLabel.hidden = NO;
     _stateLabel.hidden = YES;
-//    ：全部 1：待开课 2：已开课 3：已结课
-    NSString *status = @"待排课";
+//    ：全部 1：待开班 2：已开班 3：已结班
+    NSString *status = @"待开班";
     if ([model.status intValue] == 1) {
-        status = @"待开课";
+        status = @"待开班";
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
-        status = @"已开课";
+        status = @"已开班";
         status = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }else if ([model.status intValue] == 3) {
-        status = @"已结课";
+        status = @"已结班";
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     

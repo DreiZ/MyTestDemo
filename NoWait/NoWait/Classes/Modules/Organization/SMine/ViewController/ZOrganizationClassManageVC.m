@@ -70,7 +70,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"全部", @"待开课", @"已开课", @"已结课"].mutableCopy;
+        _titleArr = @[@"全部", @"待开班", @"已开班", @"已结班"].mutableCopy;
     }
     return _titleArr;
 }

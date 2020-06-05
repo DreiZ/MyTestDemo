@@ -312,7 +312,7 @@
     switch ([model.status intValue]) {
         case 1:
         {
-            _stateLabel.text = @"待开课";
+            _stateLabel.text = @"待开班";
             _openBtn.hidden = NO;
             _deleteBtn.hidden = NO;
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -333,7 +333,7 @@
             break;
         case 2:
         {
-            _stateLabel.text = @"已开课";
+            _stateLabel.text = @"已开班";
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
                 [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -355,7 +355,7 @@
             break;
         case 3:
         {
-            _stateLabel.text = @"已结课";
+            _stateLabel.text = @"已结班";
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
                 [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {

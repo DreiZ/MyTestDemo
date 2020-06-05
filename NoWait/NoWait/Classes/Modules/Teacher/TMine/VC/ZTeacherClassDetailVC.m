@@ -48,17 +48,17 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
 //    self.model.status  = @"3";
-//     0：全部 1：待开课 2：已开课 3：已结课
+//     0：全部 1：待开班 2：已开班 3：已结班
     NSString *status = @"";
     switch ([SafeStr(self.model.status) intValue]) {
         case 1:
-            status = @"待开课";
+            status = @"待开班";
             break;
         case 2:
-            status = @"已开课";
+            status = @"已开班";
             break;
         case 3:
-            status = @"已结课";
+            status = @"已结班";
             break;
             
         default:
