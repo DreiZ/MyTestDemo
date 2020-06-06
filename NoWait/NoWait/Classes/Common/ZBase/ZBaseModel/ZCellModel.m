@@ -139,18 +139,18 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_rightMultiLine, BOOL, isRightMultiLine)
     return self;
 }
 
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(colorText, UIColor *, textColor)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(colorDarkText, UIColor *, textDarkColor)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(fontText, UIFont *, textFont)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(alignmentText, NSTextAlignment, textAlignment)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(formatter, ZFormatterType, formatterType)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(placeholder, NSString *, placeholderText)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(max, NSInteger, maxLength)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorText, UIColor *, textColor)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorDarkText, UIColor *, textDarkColor)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_fontText, UIFont *, textFont)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_alignmentText, NSTextAlignment, textAlignment)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_formatter, ZFormatterType, formatterType)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_placeholder, NSString *, placeholderText)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_max, NSInteger, maxLength)
 
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(content, NSString *, textContent)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(heightTextField, CGFloat, textFieldHeight)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_content, NSString *, textContent)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_heightTextField, CGFloat, textFieldHeight)
 
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(lineInputHidden, BOOL, isHiddenInputLine)
-ZCHAIN_LINECELLMODEL_IMPLEMENTATION(textEnabled, BOOL, isTextEnabled)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_lineInputHidden, BOOL, isHiddenInputLine)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_textEnabled, BOOL, isTextEnabled)
 
 @end
