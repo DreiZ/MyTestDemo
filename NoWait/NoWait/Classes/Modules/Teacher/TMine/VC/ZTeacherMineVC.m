@@ -13,6 +13,7 @@
 #import "ZTableViewListCell.h"
 #import "ZStudentMineLessonTimetableCell.h"
 #import "ZTeacherMineEntryStoresCell.h"
+#import "ZStudentMineLessonNoTimetableCell.h"
 
 #import "ZTeacherMineEvaListVC.h"
 #import "ZTeacherMineSignListVC.h"
@@ -171,6 +172,12 @@
             dvc.model.name = model.name;
             [self.navigationController pushViewController:dvc animated:YES];
         };
+    }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
+        ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;
+        tcell.moreBlock = ^(NSInteger index) {
+            ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
+            [self.navigationController pushViewController:lvc animated:YES];
+        };
     }
 }
 
@@ -214,15 +221,12 @@
     }
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
-    
-//    for (int i = 0; i < 10; i++) {
-//        ZOriganizationLessonListModel *limo = [[ZOriganizationLessonListModel alloc] init];
-//        limo.time = @"11:21~12:12";
-//        limo.course_name = @"感受感受";
-//        [_lessonList addObject:limo];
-//    }
+ 
     if (_lessonList.count > 0) {
         ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonTimetableCell className] title:[ZStudentMineLessonTimetableCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZStudentMineLessonTimetableCell z_getCellHeight:_lessonList] cellType:ZCellTypeClass dataModel:_lessonList];
+        [self.cellConfigArr addObject:timeCellConfig];
+    }else {
+        ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineLessonNoTimetableCell className] title:[ZStudentMineLessonNoTimetableCell className] showInfoMethod:nil heightOfCell:[ZStudentMineLessonNoTimetableCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:timeCellConfig];
     }
     
@@ -269,7 +273,4 @@
         }
     }];
 }
-
 @end
-
-

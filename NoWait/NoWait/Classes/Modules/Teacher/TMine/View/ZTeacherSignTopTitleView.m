@@ -68,6 +68,8 @@
         make.centerX.equalTo(self.titleLabel.mas_centerX);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(6));
     }];
+    
+    self.stateImageView.hidden = YES;
 }
 
 
