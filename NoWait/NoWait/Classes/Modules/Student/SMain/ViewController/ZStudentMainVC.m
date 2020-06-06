@@ -6,6 +6,8 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 #import "ZStudentMainVC.h"
+#import "ZRewardAlertView.h"
+#import "ZLaunchManager.h"
 
 @interface ZStudentMainVC ()
 
@@ -30,6 +32,17 @@
         }
     }];
     [[ZLocationManager shareManager] startLocation];
+    
+    NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
+    if (!isRewardFirst) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [ZRewardAlertView showRewardSeeBlock:^{
+                [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+            }];
+        });
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
+    }
 }
 
 - (void)setDataSource {

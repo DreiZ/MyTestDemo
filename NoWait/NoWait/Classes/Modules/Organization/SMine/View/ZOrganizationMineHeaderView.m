@@ -148,7 +148,7 @@
     }];
     
     
-    [self addSubview:self.qrCodeBtn];
+    [self.scanView addSubview:self.qrCodeBtn];
     [self.qrCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(CGFloatIn750(80));
         make.center.equalTo(self.scanView);
@@ -245,7 +245,7 @@
 //        self.midLabel.textColor = [UIColor colorWithWhite:(0.9) alpha:1];
 //    }
     
-    self.qrCodeBtn.hidden = YES;
+//    self.qrCodeBtn.hidden = YES;
 //    self.scanQRCodeImageView.hidden = YES;
 //    self.scanView.hidden = YES;
 }
@@ -435,7 +435,6 @@
     if (!_scanView) {
         _scanView = [[UIView alloc] init];
         _scanView.layer.masksToBounds = YES;
-//        _scanView.backgroundColor =[UIColor colorWhite];
     }
     return _scanView;
 }
