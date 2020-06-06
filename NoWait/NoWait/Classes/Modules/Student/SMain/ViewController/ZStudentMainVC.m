@@ -36,7 +36,7 @@
     
     if ([ZUserHelper sharedHelper].user) {
         if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
-            NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
+            NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirstLogin"];
             if (!isRewardFirst) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [ZRewardAlertView showRewardSeeBlock:^{
@@ -45,7 +45,7 @@
                     }];
                 });
                 
-                [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
+                [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirstLogin" forKey:@"isRewardFirstLogin"];
             }
         }
     }else{
