@@ -266,7 +266,7 @@
     [_studentImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)]];
     //@property (nonatomic,strong) UILabel *timeLabel;
-    _numLabel.text = [NSString stringWithFormat:@"%@节",model.total_progress];
+    _numLabel.text = [NSString stringWithFormat:@"%@/%@节",ValidStr(model.now_progress)?SafeStr(model.now_progress):@"0",model.total_progress];
     _userLabel.text = model.teacher_name;
     if (model.isEdit) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
