@@ -9,6 +9,7 @@
 #import "ZTeacherMineSignListVC.h"
 #import "ZTeacherMineSignListCell.h"
 
+#import "ZTeacherClassDetailSignDetailVC.h"
 #import "ZTeacherClassDetailVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationClassDetailStudentListVC.h"
@@ -71,12 +72,27 @@
 //                lvc.type = 1;
                 lvc.isEnd = [model.status intValue] == 3;
                 [self.navigationController pushViewController:lvc animated:YES];
-            }else{
+            }else if(index == 1){
                 [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开始课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
                     if (index == 1) {
                         [weakSelf openClass:model];
                     }
                 }];
+            }else if (index == 2){
+                ZOriganizationClassDetailModel *smodel = [[ZOriganizationClassDetailModel alloc] init];
+                smodel.now_progress = model.now_progress;
+                smodel.stores_courses_name = model.stores_courses_name;
+                smodel.courses_name = model.courses_name;
+                smodel.classID = model.classID;
+                smodel.name = model.name;
+                smodel.nums = model.nums;
+                smodel.status = model.status;
+                
+                ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
+                sdvc.isTeacher = YES;
+                sdvc.model = smodel;
+                
+                [self.navigationController pushViewController:sdvc animated:YES];
             }
         };
     }

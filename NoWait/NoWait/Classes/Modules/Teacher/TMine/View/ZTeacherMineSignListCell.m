@@ -17,11 +17,13 @@
 
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *userLabel;
+@property (nonatomic,strong) UIView *topLineView;
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *openBtn;
 @property (nonatomic,strong) UIButton *studentListBtn;
+@property (nonatomic,strong) UIButton *signBtn;
 @end
 
 @implementation ZTeacherMineSignListCell
@@ -110,10 +112,9 @@
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
     
-    UIView *topLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
-    [_bottomView addSubview:topLineView];
-    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [_bottomView addSubview:self.topLineView];
+    [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.bottomView);
         make.top.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(40));
         make.height.mas_equalTo(1);
@@ -122,7 +123,7 @@
     [self.bottomView addSubview:self.openBtn];
     [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.equalTo(self.bottomView);
-        make.top.equalTo(topLineView.mas_bottom);
+        make.top.equalTo(self.topLineView.mas_bottom);
         make.left.equalTo(self.bottomView.mas_centerX);
     }];
     
@@ -130,21 +131,36 @@
     [self.bottomView addSubview:self.studentListBtn];
     [self.studentListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.equalTo(self.bottomView);
-        make.top.equalTo(topLineView.mas_bottom);
+        make.top.equalTo(self.topLineView.mas_bottom);
         make.right.equalTo(self.bottomView.mas_centerX);
     }];
     
-    
+    [self.bottomView addSubview:self.signBtn];
+    [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bottomView.mas_left);
+    }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
-    [self.bottomView addSubview:bottomLineView];
+    [self.studentListBtn addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.bottomView.mas_centerX);
-        make.top.equalTo(topLineView.mas_bottom).offset(CGFloatIn750(40));
+        make.right.equalTo(self.studentListBtn.mas_right);
+        make.top.equalTo(self.topLineView.mas_bottom).offset(CGFloatIn750(40));
         make.height.mas_equalTo(CGFloatIn750(30));
         make.width.mas_equalTo(1);
     }];
+    
+    UIView *sbottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    sbottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.signBtn addSubview:sbottomLineView];
+    [sbottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.signBtn.mas_right);
+        make.top.equalTo(self.topLineView.mas_bottom).offset(CGFloatIn750(40));
+        make.height.mas_equalTo(CGFloatIn750(30));
+        make.width.mas_equalTo(1);
+    }];
+    
+    self.signBtn.hidden = YES;
 }
 
 
@@ -158,6 +174,17 @@
     }
     return _bottomView;
 }
+
+
+- (UIView *)topLineView {
+    if (!_topLineView) {
+        _topLineView = [[UIView alloc] init];
+        _topLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    }
+    return _topLineView;
+}
+
+
 
 - (UIView *)contView {
     if (!_contView) {
@@ -271,6 +298,23 @@
 }
 
 
+- (UIButton *)signBtn {
+    if (!_signBtn) {
+        __weak typeof(self) weakSelf = self;
+        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        [_signBtn setTitle:@"班级签到" forState:UIControlStateNormal];
+        [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_signBtn.titleLabel setFont:[UIFont fontContent]];
+        [_signBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(2,self.model);
+            };
+        }forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _signBtn;
+}
+
+
 - (UIButton *)studentListBtn {
     if (!_studentListBtn) {
         __weak typeof(self) weakSelf = self;
@@ -332,6 +376,42 @@
         make.centerY.equalTo(self.userImageView.mas_centerY);
         make.width.mas_equalTo(tempSize.width + 2);
     }];
+    
+    if (ValidStr(model.now_progress) && [model.now_progress intValue] > 0) {
+        [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.bottom.equalTo(self.bottomView);
+            make.top.equalTo(self.topLineView.mas_bottom);
+            make.left.equalTo(self.bottomView.mas_right).multipliedBy(2.0/3);
+        }];
+        
+        [self.studentListBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.equalTo(self.bottomView);
+            make.top.equalTo(self.topLineView.mas_bottom);
+            make.right.equalTo(self.bottomView.mas_right).multipliedBy(1.0/3);
+        }];
+        
+        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.studentListBtn.mas_right);
+            make.top.equalTo(self.topLineView.mas_bottom);
+            make.bottom.equalTo(self.bottomView);
+            make.right.equalTo(self.openBtn.mas_left);
+        }];
+        self.signBtn.hidden = NO;
+    }else {
+        [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.bottom.equalTo(self.bottomView);
+            make.top.equalTo(self.topLineView.mas_bottom);
+            make.left.equalTo(self.bottomView.mas_centerX);
+        }];
+        
+        [self.studentListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.equalTo(self.bottomView);
+            make.top.equalTo(self.topLineView.mas_bottom);
+            make.right.equalTo(self.bottomView.mas_centerX);
+        }];
+        
+        self.signBtn.hidden = YES;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
