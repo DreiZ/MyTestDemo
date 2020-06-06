@@ -33,13 +33,17 @@
     
     if (ValidArray(self.infoModel.account )) {
         [self.infoModel.account enumerateObjectsUsingBlock:^(ZMessageAccountModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"ZLineCellModel");
+            
             model.leftTitle = obj.nick_name;
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(96);
             model.leftFont = [UIFont fontContent];
+            model.leftImage = obj.image;
+            model.leftImageH = CGFloatIn750(70);
+            model.imageLeftRadius(YES);
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
             [self.cellConfigArr addObject:menuCellConfig];
         }];
