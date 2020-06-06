@@ -17,6 +17,7 @@
 @property (nonatomic,strong) UILabel *validityTimeLabel;
 @property (nonatomic,strong) UILabel *conditionLabel;
 @property (nonatomic,strong) UILabel *remainNumLabel;
+@property (nonatomic,strong) UILabel *storeLabel;
 
 @property (nonatomic,strong) UIView *menuBackView;
 @property (nonatomic,strong) UIView *backContentView;
@@ -50,7 +51,7 @@
     [self.backContentView addSubview:self.validityTimeLabel];
     [self.backContentView addSubview:self.conditionLabel];
     [self.backContentView addSubview:self.remainNumLabel];
-    
+    [self.backContentView addSubview:self.storeLabel];
     [self.backContentView addSubview:self.openBtn];
     [self.menuBackView addSubview:self.seeBtn];
     
@@ -64,6 +65,12 @@
     [self.menuBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.bottom.equalTo(self.backContentView);
         make.height.mas_equalTo(CGFloatIn750(100));
+    }];
+    
+    [self.storeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.validityTimeLabel.mas_left);
+        make.top.equalTo(self.validityTimeLabel.mas_bottom).offset(CGFloatIn750(20));
+        make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
     }];
     
     [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -205,6 +212,18 @@
 }
 
 
+- (UILabel *)storeLabel {
+    if (!_storeLabel) {
+        _storeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _storeLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        
+        _storeLabel.numberOfLines = 1;
+        _storeLabel.textAlignment = NSTextAlignmentLeft;
+        [_storeLabel setFont:[UIFont fontMin]];
+    }
+    return _storeLabel;
+}
+
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
@@ -288,7 +307,7 @@
     
     _nameLabel.text = SafeStr(model.title);
     _conditionLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
-    
+    _storeLabel.text = [NSString stringWithFormat:@"适用校区：%@", SafeStr(model.store_name)];
     
     if ([model.type intValue] == 1) {
         _seeBtn.enabled = NO;
@@ -329,6 +348,12 @@
             ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
             _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         }
+    }
+    
+    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+        self.storeLabel.hidden = NO;
+    }else {
+        self.storeLabel.hidden = YES;
     }
     
 }

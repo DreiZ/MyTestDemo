@@ -61,14 +61,6 @@
     [super initCellConfigArr];
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationLessonListModel *listModel = self.dataSources[i];
-//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-//        model.leftTitle = listModel.name;
-//        model.leftMargin = CGFloatIn750(60);
-//        model.rightMargin = CGFloatIn750(60);
-//        model.cellHeight = CGFloatIn750(108);
-//        model.leftFont = [UIFont fontMaxTitle];
-//        model.isHiddenLine = YES;
-
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:@"ZStudentOrganizationLessonListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:listModel] cellType:ZCellTypeClass dataModel:listModel];
 
         [self.cellConfigArr addObject:menuCellConfig];

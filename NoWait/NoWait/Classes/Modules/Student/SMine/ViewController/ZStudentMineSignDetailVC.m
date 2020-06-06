@@ -12,6 +12,7 @@
 #import "ZSignViewModel.h"
 #import "ZSignModel.h"
 #import "ZOriganizationClassViewModel.h"
+#import "ZAlertView.h"
 
 @interface ZStudentMineSignDetailVC ()
 @property (nonatomic,strong) ZSignInfoModel *detailModel;
@@ -180,17 +181,27 @@
     }else{
         [param setObject:@"3" forKey:@"type"];
     }
-    
     [param setObject:@[@{@"student_id":SafeStr(self.student_id),@"nums":model.nums}] forKey:@"students"];
-    [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
-        if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-            [self refreshData];
-            
-        }else{
-            [TLUIUtility showErrorHint:data];
+    
+    NSString *notice = @"";
+    if ([param objectForKey:@"type"]) {
+        if ([param[@"type"] isEqualToString:@"2"]) {
+            notice = [NSString stringWithFormat:@"确定为这位学生签课吗？"];
+        }else if ([param[@"type"] isEqualToString:@"3"]) {
+            notice = [NSString stringWithFormat:@"确定为这位学生补签吗？"];
         }
-        
+    }
+    [ZAlertView setAlertWithTitle:@"提示" subTitle:notice leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+        if (index == 1) {
+            [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:data];
+                    [self refreshData];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+        }
     }];
 }
 
