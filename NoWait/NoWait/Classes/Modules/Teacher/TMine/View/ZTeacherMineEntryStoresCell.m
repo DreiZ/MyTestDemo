@@ -27,6 +27,7 @@
 -(void)setupView
 {
     [super setupView];
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     [self.contentView addSubview:self.organizationImageView];
     [self.contentView addSubview:self.nameLabel];
