@@ -8,6 +8,7 @@
 #import "ZStudentMainVC.h"
 #import "ZRewardAlertView.h"
 #import "ZLaunchManager.h"
+#import "ZRewardCenterVC.h"
 
 @interface ZStudentMainVC ()
 
@@ -33,15 +34,32 @@
     }];
     [[ZLocationManager shareManager] startLocation];
     
-    NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
-    if (!isRewardFirst) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [ZRewardAlertView showRewardSeeBlock:^{
-                [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
-            }];
-        });
-        
-        [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
+    if ([ZUserHelper sharedHelper].user) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
+            NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
+            if (!isRewardFirst) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [ZRewardAlertView showRewardSeeBlock:^{
+                        ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
+                        [self.navigationController pushViewController:cvc animated:YES];
+                    }];
+                });
+                
+                [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
+            }
+        }
+    }else{
+        NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
+        if (!isRewardFirst) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [ZRewardAlertView showRewardSeeBlock:^{
+                    
+                    [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+                }];
+            });
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
+        }
     }
 }
 
