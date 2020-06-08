@@ -107,7 +107,7 @@
         @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
         
         @[@"报名须知", @""]].mutableCopy;
-        if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] != 2 && ValidStr(self.addModel.courses_class_id) && [self.addModel.courses_class_id intValue] != 0) {
             if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
                 [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
             }

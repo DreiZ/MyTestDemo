@@ -70,7 +70,14 @@
         for (int i = 0; i < self.titleArr.count; i++) {
             ZOrganizationClassDetailStudentListAddListVC *lvc = [[ZOrganizationClassDetailStudentListAddListVC alloc] init];
             lvc.model = self.model;
-            lvc.type = i;
+            if (i == 0) {
+                lvc.type = 0;
+            }else if(i == 1) {
+                lvc.type = 1;
+            }else if(i == 2) {
+                lvc.type = 5;
+            }
+            
             [_vcArr addObject:lvc];
         }
     }
