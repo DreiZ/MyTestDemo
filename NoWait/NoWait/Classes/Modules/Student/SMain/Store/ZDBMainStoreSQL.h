@@ -145,4 +145,29 @@
 
 #define     SQL_CLEAN_CLASSIFY_TWO                 @"DELETE FROM  %@"
 
+
+
+#pragma mark - search history
+#define     MAIN_TABLE_SEARCH_HISTORY               @"search_history"
+
+#define     SQL_CREATE_SEARCH_HISTORY_TABLE         @"CREATE TABLE IF NOT EXISTS %@(\
+                                                    search_title TEXT,\
+                                                    search_type TEXT,\
+                                                    ext1 TEXT,\
+                                                    ext2 TEXT,\
+                                                    ext3 TEXT,\
+                                                    ext4 TEXT,\
+                                                    ext5 TEXT,\
+                                                    PRIMARY KEY(search_title, search_type))"
+
+#define     SQL_UPDATE_SEARCH_HISTORY                @"REPLACE INTO %@ (search_title, search_type, ext1, ext2, ext3, ext4, ext5) VALUES ( ?, ?, ?, ?,  ?, ?, ?)"
+
+#define     SQL_SELECT_SEARCH_HISTORY_BY_ID          @"SELECT * FROM %@ WHERE  search_title = %@"
+
+#define     SQL_SELECT_SEARCH_HISTORY                @"SELECT * FROM %@"
+
+#define     SQL_DELETE_SEARCH_HISTORY                @"DELETE FROM %@ WHERE  search_type = %@"
+
+#define     SQL_CLEAN_SEARCH_HISTORY                 @"DELETE FROM  %@"
+
 #endif /* ZDBMainStoreSQL_h */

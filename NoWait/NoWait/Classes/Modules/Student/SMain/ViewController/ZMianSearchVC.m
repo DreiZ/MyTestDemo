@@ -12,6 +12,8 @@
 #import "ZStudentLessonDetailVC.h"
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
+#import "ZDBMainStore.h"
+#import "ZHistoryModel.h"
 
 @interface ZMianSearchVC ()
 @property (nonatomic,strong) NSString *name;
@@ -42,6 +44,14 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
+    
+    NSArray *arr = [[ZDBMainStore shareManager] mainSearchHistoryBySpuerID:@"the"];
+    
+    if (arr) {
+        [arr enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"arr - %@ -- %@", obj.search_title, obj.search_type);
+        }];
+    }
 }
 
 - (void)setupMainView{
@@ -81,6 +91,11 @@
     self.name = SafeStr(text);
     if (self.name) {
         [self refreshData];
+        
+        ZHistoryModel *history = [[ZHistoryModel alloc] init];
+        history.search_title = self.name;
+        history.search_type = kSearchHistoryMainSearch;
+        [[ZDBMainStore shareManager] updateMainSearchHistory:history];
     }
 }
 

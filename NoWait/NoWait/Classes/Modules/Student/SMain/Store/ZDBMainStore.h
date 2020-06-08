@@ -12,6 +12,7 @@
 @class ZMainClassifyOneModel;
 @class ZMainClassifyOneModel;
 @class ZMainClassifyOneModel;
+@class ZHistoryModel;
 
 @interface ZDBMainStore : ZDBBaseStore
 
@@ -131,7 +132,7 @@
 /**
  *  获取ClassifyOne信息
 */
-- (NSArray <ZMainClassifyOneModel *>*)mainClassifyOneData;
+- (NSMutableArray <ZMainClassifyOneModel *>*)mainClassifyOneData;
 
 /**
  *  删除ClassifyOne
@@ -157,12 +158,12 @@
 /**
  *  获取ClassifyTwo信息
 */
-- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id;
+- (NSMutableArray <ZMainClassifyOneModel *>*)mainClassifyTwoBySpuerID:(NSString *)superClassify_id;
 
 /**
  *  获取ClassifyTwo信息
 */
-- (NSArray <ZMainClassifyOneModel *>*)mainClassifyTwoData;
+- (NSMutableArray <ZMainClassifyOneModel *>*)mainClassifyTwoData;
 
 /**
  *  删除ClassifyTwo
@@ -173,6 +174,38 @@
  *  删除ClassifyTwo
  */
 - (BOOL)cleanClassifyTwo;
+
+
+#pragma mark - search history
+/**
+ *  更新history信息
+*/
+- (BOOL)updateMainSearchHistory:(ZHistoryModel *)history;
+
+/**
+ *  更新history信息
+ */
+- (BOOL)updateMainSearchHistorys:(NSArray <ZHistoryModel *>*)historys;
+
+/**
+ *  获取history信息
+*/
+- (NSArray <ZHistoryModel *>*)mainSearchHistoryBySpuerID:(NSString *)search_type;
+
+/**
+ *  获取history信息
+*/
+- (NSArray <ZHistoryModel *>*)mainSearchHistoryData;
+
+/**
+*  删除history
+*/
+- (BOOL)deleteSearchHistoryBySuperId:(NSString *)search_type;
+
+/**
+ *  删除history
+ */
+- (BOOL)cleanSearchHistory;
 @end
 
 
