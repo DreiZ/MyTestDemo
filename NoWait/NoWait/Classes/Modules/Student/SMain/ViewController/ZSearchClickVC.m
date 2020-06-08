@@ -138,7 +138,7 @@
     if (ValidStr(text)) {
         __block ZHistoryModel *lmodel = [[ZHistoryModel alloc] init];
         lmodel.search_title = text;
-        lmodel.search_type = kSearchHistoryMainSearch;
+        lmodel.search_type = self.searchType;
         __block BOOL isHad = NO;
         __block NSInteger index = 0;
         NSMutableArray *tempArr = [[ZDBMainStore shareManager] searchHistorysByID:self.searchType];

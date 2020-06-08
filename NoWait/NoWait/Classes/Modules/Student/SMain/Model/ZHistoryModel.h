@@ -8,7 +8,8 @@
 
 #import "ZBaseModel.h"
 
-#define kSearchHistoryMainSearch    @"10002"
+#define kSearchHistoryMainSearch      @"10002"
+#define kSearchHistoryLessonSearch    @"10003"
 
 @interface ZHistoryModel : ZBaseModel
 @property (nonatomic,copy) NSString *search_title;
