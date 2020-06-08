@@ -77,7 +77,7 @@
 }
 
 - (void)searchClick:(NSString *)text{
-    [super valueChange:text];
+    [super searchClick:text];
     self.name = SafeStr(text);
     if (self.name.length > 0) {
         [self refreshData];
