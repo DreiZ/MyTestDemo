@@ -15,6 +15,8 @@
 #import "ZDBMainStore.h"
 #import "ZHistoryModel.h"
 
+#import "ZOriganizationModel.h"
+
 @interface ZMianSearchVC ()
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -44,12 +46,19 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    
-    NSArray *arr = [[ZDBMainStore shareManager] mainSearchHistoryBySpuerID:@"the"];
+
+    NSArray *arr = [[ZDBMainStore shareManager] searchHistoryData];
     
     if (arr) {
         [arr enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"arr - %@ -- %@", obj.search_title, obj.search_type);
+            DLog(@"all history **--%@--%@-", obj.search_title, obj.search_type);
+        }];
+    }
+    
+    NSArray *arrs = [[ZDBMainStore shareManager] searchHistorysByID:kSearchHistoryMainSearch];
+    if (arrs) {
+        [arrs enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            DLog(@"list history ** - %@", obj.search_title);
         }];
     }
 }
@@ -92,10 +101,10 @@
     if (self.name) {
         [self refreshData];
         
-        ZHistoryModel *history = [[ZHistoryModel alloc] init];
-        history.search_title = self.name;
-        history.search_type = kSearchHistoryMainSearch;
-        [[ZDBMainStore shareManager] updateMainSearchHistory:history];
+        ZHistoryModel *lmodel = [[ZHistoryModel alloc] init];
+        lmodel.search_title = self.name;
+        lmodel.search_type = kSearchHistoryMainSearch;
+        [[ZDBMainStore shareManager] updateHistorySearch:lmodel];
     }
 }
 

@@ -58,6 +58,8 @@
         if (!ok_search_history) {
             DLog(@"DB: search_history表创建失败");
         }
+        
+        
     }
     return self;
 }
@@ -559,36 +561,36 @@
 }
 
 
-
-#pragma mark - search history
+#pragma mark - search tableview
 - (BOOL)createSearchHistoryTable
 {
-    NSString *sqlString = [NSString stringWithFormat:SQL_CREATE_SEARCH_HISTORY_TABLE, MAIN_TABLE_SEARCH_HISTORY];
-    return [self createTable:MAIN_TABLE_SEARCH_HISTORY withSQL:sqlString];
+    NSString *sqlString = [NSString stringWithFormat:SQL_CREATE_HISTORYSEARCH_TABLE, MAIN_TABLE_HISTORYSEARCH];
+    return [self createTable:MAIN_TABLE_HISTORYSEARCH withSQL:sqlString];
 }
 
-
-- (BOOL)updateMainSearchHistory:(ZHistoryModel *)history
+- (BOOL)updateHistorySearch:(ZHistoryModel *)history
 {
     if (!history || history.search_title.length == 0) {
         return NO;
     }
-    NSString *sqlString = [NSString stringWithFormat:SQL_UPDATE_SEARCH_HISTORY, MAIN_TABLE_SEARCH_HISTORY];
+    NSString *sqlString = [NSString stringWithFormat:SQL_UPDATE_HISTORYSEARCH, MAIN_TABLE_HISTORYSEARCH];
     NSArray *arrPara = [NSArray arrayWithObjects:
-                        TLNoNilString(history.search_title),
                         TLNoNilString(history.search_type),
-                        @"", @"", @"", @"", @"", nil];
+                        TLNoNilString(history.search_title),
+                        @"", @"", @"", @"", @"", @"", nil];
     BOOL ok = [self excuteSQL:sqlString withArrParameter:arrPara];
     return ok;
 }
 
+
 /**
- *  更新history信息
+ *  更新banners信息
  */
-- (BOOL)updateMainSearchHistorys:(NSArray <ZHistoryModel *>*)historys{
+- (BOOL)updateHistorySearchs:(NSArray <ZHistoryModel *>*)banners{
+    [self cleanSearchHistory];
     __block NSInteger index = 0;
-    [historys enumerateObjectsUsingBlock:^(ZHistoryModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        BOOL update_ok = [self updateMainSearchHistory:obj];
+    [banners enumerateObjectsUsingBlock:^(ZHistoryModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BOOL update_ok = [self updateHistorySearch:obj];
         if (!update_ok) {
             index++;
         }
@@ -600,11 +602,41 @@
 }
 
 
-- (NSArray <ZHistoryModel *>*)mainSearchHistoryBySpuerID:(NSString *)search_type
+- (ZHistoryModel *)searchHistoryByID:(NSString *)search_id
 {
-    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_SEARCH_HISTORY_BY_ID, MAIN_TABLE_SEARCH_HISTORY, search_type];
+    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_HISTORYSEARCH_BY_ID, MAIN_TABLE_HISTORYSEARCH, search_id];
+    __block ZHistoryModel * history;
+    [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
+        while ([retSet next]) {
+            history = [self p_createSearchHistoryByFMResultSet:retSet];
+        }
+        [retSet close];
+    }];
+    return history;
+}
+
+
+- (NSArray *)searchHistorysByID:(NSString *)search_type
+{
+    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_HISTORYSEARCHS_BY_ID, MAIN_TABLE_HISTORYSEARCH, search_type];
     
     __block NSMutableArray *data = [[NSMutableArray alloc] init];
+    [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
+        while ([retSet next]) {
+            ZHistoryModel *classify = [self p_createSearchHistoryByFMResultSet:retSet];
+            [data addObject:classify];
+        }
+        [retSet close];
+    }];
+    return data;
+}
+
+
+- (NSArray <ZHistoryModel *>*)searchHistoryData
+{
+    __block NSMutableArray *data = [[NSMutableArray alloc] init];
+    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_HISTORYSEARCHS, MAIN_TABLE_HISTORYSEARCH];
+    
     [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
         while ([retSet next]) {
             ZHistoryModel *history = [self p_createSearchHistoryByFMResultSet:retSet];
@@ -612,34 +644,19 @@
         }
         [retSet close];
     }];
-    return data;
-}
-
-- (NSArray <ZHistoryModel *>*)mainSearchHistoryData
-{
-    __block NSMutableArray *data = [[NSMutableArray alloc] init];
-    NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_SEARCH_HISTORY, MAIN_TABLE_SEARCH_HISTORY];
-    
-    [self excuteQuerySQL:sqlString resultBlock:^(FMResultSet *retSet) {
-        while ([retSet next]) {
-            ZHistoryModel *history = [self p_createSearchHistoryByFMResultSet:retSet];
-            [data addObject:history];
-        }
-        [retSet close];
-    }];
     
     return data;
 }
 
-- (BOOL)deleteSearchHistoryBySuperId:(NSString *)search_type
+- (BOOL)deleteSearchHistoryByAdId:(NSString *)search_id
 {
-    NSString *sqlString = [NSString stringWithFormat:SQL_DELETE_SEARCH_HISTORY, MAIN_TABLE_SEARCH_HISTORY,search_type];
+    NSString *sqlString = [NSString stringWithFormat:SQL_DELETE_HISTORYSEARCH, MAIN_TABLE_HISTORYSEARCH, search_id];
     BOOL ok = [self excuteSQL:sqlString, nil];
     return ok;
 }
 
 - (BOOL)cleanSearchHistory {
-    NSString *sqlString = [NSString stringWithFormat:SQL_CLEAN_SEARCH_HISTORY, MAIN_TABLE_SEARCH_HISTORY];
+    NSString *sqlString = [NSString stringWithFormat:SQL_CLEAN_HISTORYSEARCH, MAIN_TABLE_HISTORYSEARCH];
     BOOL ok = [self excuteSQL:sqlString, nil];
     return ok;
 }
@@ -653,4 +670,5 @@
     
     return history;
 }
+
 @end

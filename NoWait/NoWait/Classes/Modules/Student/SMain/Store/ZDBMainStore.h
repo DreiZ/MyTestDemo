@@ -178,34 +178,38 @@
 
 #pragma mark - search history
 /**
- *  更新history信息
+ *  更新search history信息
 */
-- (BOOL)updateMainSearchHistory:(ZHistoryModel *)history;
+- (BOOL)updateHistorySearch:(ZHistoryModel *)history;
 
 /**
- *  更新history信息
+ *  更新search history信息
  */
-- (BOOL)updateMainSearchHistorys:(NSArray <ZHistoryModel *>*)historys;
+- (BOOL)updateHistorySearchs:(NSArray <ZHistoryModel *>*)banners;
 
 /**
- *  获取history信息
+ *  获取search history信息
 */
-- (NSArray <ZHistoryModel *>*)mainSearchHistoryBySpuerID:(NSString *)search_type;
+- (ZHistoryModel *)searchHistoryByID:(NSString *)search_id;
 
 /**
- *  获取history信息
+ *  获取search historys信息
 */
-- (NSArray <ZHistoryModel *>*)mainSearchHistoryData;
+- (NSArray *)searchHistorysByID:(NSString *)search_type;
 
 /**
-*  删除history
+ *  获取search history信息
 */
-- (BOOL)deleteSearchHistoryBySuperId:(NSString *)search_type;
+- (NSArray <ZHistoryModel *>*)searchHistoryData;
 
 /**
- *  删除history
+ *  删除search history
+ */
+- (BOOL)deleteSearchHistoryByAdId:(NSString *)search_id;
+
+/**
+ *  删除search history
  */
 - (BOOL)cleanSearchHistory;
+
 @end
-
-
