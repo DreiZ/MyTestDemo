@@ -43,6 +43,8 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 
 - (void)updateToken:(BOOL)isOpen;
 
+- (void)deleteUserStore:(NSString *)userCodeID;
+
 //更新用户信息
 - (void)updateUserInfoWithCompleteBlock:(void(^)(BOOL))completeBlock;
 

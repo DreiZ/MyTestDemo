@@ -105,6 +105,57 @@
     [self.navigationItem setTitle:@"切换账号"];
 }
 
+
+#pragma mark - 删除列表
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
+    if ([cellConfig.title isEqualToString:@"user"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
+    if ([cellConfig.title isEqualToString:@"user"]) {
+        ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
+        ZUser *user = cellModel.data;
+        
+        if (![user.userCodeID isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+            return UITableViewCellEditingStyleDelete;
+        }
+        return UITableViewCellEditingStyleNone;
+    }else{
+        return UITableViewCellEditingStyleNone;
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
+    if ([cellConfig.title isEqualToString:@"user"]) {
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
+            ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
+            ZUser *user = cellModel.data;
+            [[ZUserHelper sharedHelper] deleteUserStore:user.userCodeID];
+            [self initCellConfigArr];
+            [self.iTableView reloadData];
+        }
+    }else{
+         
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
+    if ([cellConfig.title isEqualToString:@"user"]) {
+        return @"删除";
+    }else{
+        return nil;
+    }
+}
+
+
 #pragma mark tableView ------delegate-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"user"]) {

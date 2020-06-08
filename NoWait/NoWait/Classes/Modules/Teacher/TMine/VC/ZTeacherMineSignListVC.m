@@ -73,7 +73,7 @@
                 lvc.isEnd = [model.status intValue] == 3;
                 [self.navigationController pushViewController:lvc animated:YES];
             }else if(index == 1){
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开始课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定此班级开课吗" leftBtnTitle:@"取消" rightBtnTitle:@"确定开课" handlerBlock:^(NSInteger index) {
                     if (index == 1) {
                         [weakSelf openClass:model];
                     }

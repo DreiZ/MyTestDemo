@@ -9,7 +9,7 @@
 #import "ZOriganizationClassStudentListCell.h"
 
 @interface ZOriganizationClassStudentListCell ()
-
+@property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 
@@ -46,15 +46,22 @@
     }];
     
 
+    [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.numLabel];
     [self.contentView addSubview:self.userBtn];
     
     [self.contentView addSubview:self.seeBtn];
     [self.contentView addSubview:self.delView];
+    
+    [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.width.height.mas_equalTo(CGFloatIn750(60));
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
+    }];
 
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left);
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
         make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
         make.centerY.equalTo(self.mas_centerY);
     }];
@@ -103,6 +110,15 @@
 
 
 #pragma mark - Getter
+- (UIImageView *)userImageView {
+    if (!_userImageView) {
+        _userImageView = [[UIImageView alloc] init];
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _userImageView.layer.masksToBounds = YES;
+        _userImageView.layer.cornerRadius = CGFloatIn750(30);
+    }
+    return _userImageView;
+}
 
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
@@ -118,7 +134,7 @@
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         
         _nameLabel.numberOfLines = 1;
-        _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
     }
     return _nameLabel;
@@ -228,7 +244,7 @@
     _model = model;
     _nameLabel.text = model.name;
     _numLabel.text = [NSString stringWithFormat:@"%d/%@",[model.now_progress intValue] + [model.replenish_nums intValue],model.total_progress];
-    
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     if (model.isEdit) {
         _selectedBtn.hidden = NO;
         _rightImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
@@ -243,21 +259,21 @@
     _isEnd = isEnd;
     if (isEnd || [[ZUserHelper sharedHelper].user.type intValue] == 2) {
         [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView.mas_left);
-            make.width.equalTo(self.mas_width).multipliedBy(1/3.0);
+            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+            make.width.mas_equalTo(KScreenWidth/3.0 - CGFloatIn750(90));
             make.centerY.equalTo(self.mas_centerY);
         }];
         
         [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_right);
-            make.width.equalTo(self.mas_width).multipliedBy(1/3.0);
+            make.width.mas_equalTo(KScreenWidth/3.0);
             make.centerY.equalTo(self.mas_centerY);
         }];
         
         [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
             make.top.bottom.equalTo(self);
-            make.width.mas_equalTo(KScreenWidth/3.0f);
+            make.width.mas_equalTo(KScreenWidth/3.0);
         }];
         
         
@@ -275,21 +291,21 @@
         self.delView.hidden = YES;
     }else{
         [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView.mas_left);
-            make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
+            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+            make.width.mas_equalTo(KScreenWidth/4.0 - CGFloatIn750(90));
             make.centerY.equalTo(self.mas_centerY);
         }];
         
         [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel.mas_right);
-            make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
+            make.width.mas_equalTo(KScreenWidth/4.0);
             make.centerY.equalTo(self.mas_centerY);
         }];
         
         [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
             make.top.bottom.equalTo(self);
-            make.width.mas_equalTo(KScreenWidth/4.0f);
+            make.width.mas_equalTo(KScreenWidth/4.0);
         }];
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -301,7 +317,7 @@
         
         [self.delView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right);
-            make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
+            make.width.mas_equalTo(KScreenWidth/4.0);
             make.top.bottom.equalTo(self);
         }];
         if (self.model.isEdit) {
