@@ -343,6 +343,9 @@
     if ([cellConfig.title isEqualToString:@"openTime"]) {
         if (!self.isOpen) {
             [ZDatePickerManager showDatePickerWithTitle:@"开课日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+                date.hour = 0;
+                date.minute = 0;
+                date.second = 0;
                 weakSelf.model.start_time = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];

@@ -91,6 +91,7 @@
 		B23DECF42474C74C005A9E72 /* UIControl+JQ.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF22474C74C005A9E72 /* UIControl+JQ.m */; };
 		B23DECF82474CB43005A9E72 /* ZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF72474CB43005A9E72 /* ZButton.m */; };
 		B247A405247E5E4500EF53A9 /* ZNoDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B247A404247E5E4400EF53A9 /* ZNoDataCell.m */; };
+		B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */; };
 		B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992423FB98C00078A458 /* POIAnnotation.m */; };
 		B24D992923FBA61F0078A458 /* ZOrganizationAddressSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992823FBA61F0078A458 /* ZOrganizationAddressSearchView.m */; };
 		B24D992C23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992B23FBA78D0078A458 /* ZOrganizationAddressSearchResultCell.m */; };
@@ -818,6 +819,8 @@
 		B23DECF72474CB43005A9E72 /* ZButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZButton.m; sourceTree = "<group>"; };
 		B247A403247E5E4400EF53A9 /* ZNoDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZNoDataCell.h; sourceTree = "<group>"; };
 		B247A404247E5E4400EF53A9 /* ZNoDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZNoDataCell.m; sourceTree = "<group>"; };
+		B24A29E6248DCE52005BB97C /* ZHitoryLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHitoryLabelCell.h; sourceTree = "<group>"; };
+		B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHitoryLabelCell.m; sourceTree = "<group>"; };
 		B24D992423FB98C00078A458 /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
 		B24D992523FB98C00078A458 /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
 		B24D992723FBA61F0078A458 /* ZOrganizationAddressSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationAddressSearchView.h; sourceTree = "<group>"; };
@@ -4004,6 +4007,8 @@
 				B252ED9724163FDA00190804 /* ZStudentOrganizationCouponCell.m */,
 				B2BA39712433273B005A3FFB /* ZStudentLabelCell.h */,
 				B2BA39722433273B005A3FFB /* ZStudentLabelCell.m */,
+				B24A29E6248DCE52005BB97C /* ZHitoryLabelCell.h */,
+				B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */,
 				B29795982425F6EC004490F5 /* ZStudentLessonBuySelectViem.h */,
 				B29795992425F6EC004490F5 /* ZStudentLessonBuySelectViem.m */,
 				B297959B2425F7B9004490F5 /* ZStudentLessonSelectMainNewView.h */,
@@ -4840,6 +4845,7 @@
 				B28D90D1240621D10021E05A /* ZOrganizationClassManageListVC.m in Sources */,
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B28EA672240E4A1400C8E225 /* ZOrganizationCardListVC.m in Sources */,
+				B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */,
 				B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */,
 				B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
