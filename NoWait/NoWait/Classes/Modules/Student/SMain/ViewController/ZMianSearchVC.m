@@ -14,6 +14,7 @@
 #import "ZLocationManager.h"
 #import "ZDBMainStore.h"
 #import "ZHistoryModel.h"
+#import "ZLabelListCell.h"
 
 #import "ZOriganizationModel.h"
 
@@ -46,21 +47,8 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-
-    NSArray *arr = [[ZDBMainStore shareManager] searchHistoryData];
     
-    if (arr) {
-        [arr enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            DLog(@"all history **--%@--%@-", obj.search_title, obj.search_type);
-        }];
-    }
-    
-    NSArray *arrs = [[ZDBMainStore shareManager] searchHistorysByID:kSearchHistoryMainSearch];
-    if (arrs) {
-        [arrs enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            DLog(@"list history ** - %@", obj.search_title);
-        }];
-    }
+    [self initCellConfigArr];
 }
 
 - (void)setupMainView{
@@ -84,14 +72,40 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    for (int i = 0; i < self.dataSources.count; i++) {
-        id data = self.dataSources[i];
-        if ([data isKindOfClass:[ZStoresListModel class]]) {
-            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListCell className] title:@"ZStudentMainOrganizationSearchListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationSearchListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-            [self.cellConfigArr addObject:orCellCon1fig];
-            
-            [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+    
+    if (ValidArray(self.dataSources)) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            id data = self.dataSources[i];
+            if ([data isKindOfClass:[ZStoresListModel class]]) {
+                ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationSearchListCell className] title:@"ZStudentMainOrganizationSearchListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMainOrganizationSearchListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+                [self.cellConfigArr addObject:orCellCon1fig];
+                
+                [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+            }
         }
+    }else {
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
+        .zz_titleLeft(@"历史搜索")
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(50))
+        .zz_fontLeft([UIFont boldFontTitle]);
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        
+        NSArray *mainArr = [[ZDBMainStore shareManager] searchHistorysByID:kSearchHistoryMainSearch];
+        __block NSMutableArray *tempArr = @[].mutableCopy;
+        [mainArr enumerateObjectsUsingBlock:^(ZHistoryModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [tempArr addObject:SafeStr(obj.search_title)];
+        }];
+        
+        ZCellConfig *historyCellConfig = [ZCellConfig cellConfigWithClassName:[ZLabelListCell className] title:@"history" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZLabelListCell z_getCellHeight:tempArr] cellType:ZCellTypeClass dataModel:tempArr];
+
+        [self.cellConfigArr addObject:historyCellConfig];
+        
+        [self.iTableView reloadData];
     }
 }
 
@@ -124,6 +138,12 @@
             lmodel.lessonID = model.course_id;
             dvc.model = lmodel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
+        };
+    }else if([cellConfig.title isEqualToString:@"history"]){
+        ZLabelListCell *lcell = (ZLabelListCell *)cell;
+        lcell.handleBlock = ^(NSString * text) {
+            weakSelf.searchView.iTextField.text = text;
+            [weakSelf searchClick:text];
         };
     }
 }
