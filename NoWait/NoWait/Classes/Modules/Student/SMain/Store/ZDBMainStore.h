@@ -195,12 +195,12 @@
 /**
  *  获取search historys信息
 */
-- (NSArray *)searchHistorysByID:(NSString *)search_type;
+- (NSMutableArray *)searchHistorysByID:(NSString *)search_type;
 
 /**
  *  获取search history信息
 */
-- (NSArray <ZHistoryModel *>*)searchHistoryData;
+- (NSMutableArray <ZHistoryModel *>*)searchHistoryData;
 
 /**
  *  删除search history

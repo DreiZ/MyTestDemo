@@ -616,7 +616,7 @@
 }
 
 
-- (NSArray *)searchHistorysByID:(NSString *)search_type
+- (NSMutableArray *)searchHistorysByID:(NSString *)search_type
 {
     NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_HISTORYSEARCHS_BY_ID, MAIN_TABLE_HISTORYSEARCH, search_type];
     
@@ -632,7 +632,7 @@
 }
 
 
-- (NSArray <ZHistoryModel *>*)searchHistoryData
+- (NSMutableArray <ZHistoryModel *>*)searchHistoryData
 {
     __block NSMutableArray *data = [[NSMutableArray alloc] init];
     NSString *sqlString = [NSString stringWithFormat:SQL_SELECT_HISTORYSEARCHS, MAIN_TABLE_HISTORYSEARCH];
