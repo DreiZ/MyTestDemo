@@ -78,7 +78,12 @@
     if (!_noDataLabel) {
         _noDataLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _noDataLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _noDataLabel.text = @"暂无课程进度";
+        _noDataLabel.text = @"";
+        if ([ZUserHelper sharedHelper].user) {
+            _noDataLabel.text = @"暂无课程进度";
+        }else{
+            _noDataLabel.text = @"登录查看课程进度";
+        }
         _noDataLabel.numberOfLines = 0;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [_noDataLabel setFont:[UIFont boldFontContent]];

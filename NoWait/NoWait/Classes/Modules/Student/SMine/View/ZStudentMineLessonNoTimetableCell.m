@@ -98,7 +98,11 @@
     if (!_noDataLabel) {
         _noDataLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _noDataLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _noDataLabel.text = @"今日暂无课程";
+        if ([ZUserHelper sharedHelper].user) {
+            _noDataLabel.text = @"今日暂无课程";
+        }else{
+            _noDataLabel.text = @"登录查看今日课程表";
+        }
         _noDataLabel.numberOfLines = 0;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [_noDataLabel setFont:[UIFont boldFontContent]];

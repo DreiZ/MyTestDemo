@@ -53,8 +53,9 @@
         if (!isRewardFirst) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [ZRewardAlertView showRewardSeeBlock:^{
-                    
-                    [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+                    if ([ZLaunchManager sharedInstance].tabBarController.selectedIndex != 2) {
+                        [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+                    }
                 }];
             });
             
