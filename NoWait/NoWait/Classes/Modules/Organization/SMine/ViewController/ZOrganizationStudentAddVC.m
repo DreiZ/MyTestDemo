@@ -66,33 +66,13 @@
                          @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         
-                         @[@"身份证号码", @"请输入身份号(选填)", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         
-                         @[@"微信", @"选填", @YES, @"", @"weixin",SafeStr(self.viewModel.addModel.wechat),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"推荐人", @"选填", @YES, @"", @"Recommend",SafeStr(self.viewModel.addModel.referees),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.viewModel.addModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.viewModel.addModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                        @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.viewModel.addModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+                         @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     if (ValidStr(self.viewModel.addModel.studentID)) {
         textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
          @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         
-         @[@"身份证号码", @"请输入身份号(选填)", @YES, @"", @"cid",SafeStr   (self.viewModel.addModel.id_card),@18,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"工作单位", @"选填", @YES, @"", @"work",SafeStr(self.viewModel.addModel.work_place),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"来源渠道", @"选填", @YES, @"", @"channel",SafeStr(self.viewModel.addModel.source),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         
-         @[@"微信", @"选填", @YES, @"", @"weixin",SafeStr(self.viewModel.addModel.wechat),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"推荐人", @"选填", @YES, @"", @"Recommend",SafeStr(self.viewModel.addModel.referees),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.viewModel.addModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.viewModel.addModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                    @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.viewModel.addModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+         @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     }
     for (int i = 0; i < textArr.count; i++) {
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -253,37 +233,14 @@
                 [otherDict setObject:@"0" forKey:@"now_progress"];
             }
             
-            if (ValidStr(self.viewModel.addModel.id_card)) {
-                [otherDict setObject:self.viewModel.addModel.id_card forKey:@"id_card"];
-                [otherDict setObject:@"1" forKey:@"card_type"];
-            }
             if (ValidStr(self.viewModel.addModel.birthday)) {
                 [otherDict setObject:self.viewModel.addModel.birthday forKey:@"birthday"];
             }
-            if (ValidStr(self.viewModel.addModel.work_place)) {
-                [otherDict setObject:self.viewModel.addModel.work_place forKey:@"work_place"];
-            }
+            
             if (ValidStr(self.viewModel.addModel.sign_up_at)) {
                 [otherDict setObject:self.viewModel.addModel.sign_up_at forKey:@"sign_up_at"];
             }
-            if (ValidStr(self.viewModel.addModel.source)) {
-                [otherDict setObject:self.viewModel.addModel.source forKey:@"source"];
-            }
-            if (ValidStr(self.viewModel.addModel.wechat)) {
-                [otherDict setObject:self.viewModel.addModel.wechat forKey:@"wechat"];
-            }
-            if (ValidStr(self.viewModel.addModel.referees)) {
-                [otherDict setObject:self.viewModel.addModel.referees forKey:@"referees"];
-            }
-            if (ValidStr(self.viewModel.addModel.emergency_name)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_name forKey:@"emergency_name"];
-            }
-            if (ValidStr(self.viewModel.addModel.emergency_phone)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_phone forKey:@"emergency_phone"];
-            }
-            if (ValidStr(self.viewModel.addModel.emergency_contact)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_contact forKey:@"emergency_contact"];
-            }
+            
             
             if (ValidStr(self.viewModel.addModel.is_star)) {
                 [otherDict setObject:self.viewModel.addModel.is_star forKey:@"is_star"];
@@ -484,46 +441,6 @@
         ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.phone = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"cid"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.id_card = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"channel"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.source = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"work"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.work_place = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"weixin"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.wechat = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"Recommend"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.referees = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"contactName"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.emergency_name = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"contactTel"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.emergency_phone = text;
-        };
-    }else  if ([cellConfig.title isEqualToString:@"relationship"]) {
-        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
-        lcell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.viewModel.addModel.emergency_contact = text;
         };
     }else  if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]) {
         ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;

@@ -48,14 +48,10 @@
                          @[@"手机号",SafeStr(self.addModel.phone)],
                          @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
                          @[@"出生日期",[SafeStr(self.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"]],
-                         @[@"身份证号码",SafeStr(self.addModel.id_card)],
                          @[@"所属校区",SafeStr(self.addModel.stores_name)],
                          @[@"报名日期",[SafeStr(self.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"]],
                          @[@"报名课程",SafeStr(self.addModel.courses_name)],
-                         @[@"分配教师",SafeStr(self.addModel.teacher_name)],
-                         @[@"紧急联系人姓名",SafeStr(self.addModel.emergency_name)],
-                         @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
-                         @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
+                         @[@"分配教师",SafeStr(self.addModel.teacher_name)]].mutableCopy;
     
     if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
         textArr = @[@[@"真实姓名",SafeStr(self.addModel.name)],
@@ -65,10 +61,7 @@
         @[@"所属校区",SafeStr(self.addModel.stores_name)],
         @[@"报名日期",[SafeStr(self.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"]],
         @[@"报名课程",SafeStr(self.addModel.courses_name)],
-        @[@"分配教师",SafeStr(self.addModel.teacher_name)],
-        @[@"紧急联系人姓名",SafeStr(self.addModel.emergency_name)],
-        @[@"紧急联系人电话",SafeStr(self.addModel.emergency_phone)],
-        @[@"紧急联系人关系",SafeStr(self.addModel.emergency_contact)]].mutableCopy;
+        @[@"分配教师",SafeStr(self.addModel.teacher_name)]].mutableCopy;
     }
     
     if (ValidStr(self.addModel.courses_class_id)) {
