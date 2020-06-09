@@ -75,8 +75,8 @@
                         TLNoNilString(banner.ad_image),
                         TLNoNilString(banner.ad_url),
                         TLNoNilString(banner.ad_type),
-                        TLNoNilString([banner.ad_type_content tranModelToJSON]),
                         TLNoNilString(banner.name),
+                        TLNoNilString([banner.ad_type_content tranModelToJSON]),
                         @"", @"", @"", @"", @"", @"", nil];
     BOOL ok = [self excuteSQL:sqlString withArrParameter:arrPara];
     return ok;
@@ -176,8 +176,8 @@
                         TLNoNilString(banner.ad_image),
                         TLNoNilString(banner.ad_url),
                         TLNoNilString(banner.ad_type),
-                        TLNoNilString([banner.ad_type_content tranModelToJSON]),
                         TLNoNilString(banner.name),
+                        TLNoNilString([banner.ad_type_content tranModelToJSON]),
                         @"", @"", @"", @"", @"", @"", nil];
     BOOL ok = [self excuteSQL:sqlString withArrParameter:arrPara];
     return ok;

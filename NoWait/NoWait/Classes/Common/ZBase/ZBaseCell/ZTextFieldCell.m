@@ -74,7 +74,8 @@
     [self.contentView addSubview:self.inputLine];
     [self.inputLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
-        make.left.right.equalTo(self.inputTextField);
+        make.left.equalTo(self.inputTextField);
+        make.right.equalTo(self.mas_right);
         make.top.equalTo(self.inputTextField.mas_bottom);
     }];
     
@@ -196,7 +197,7 @@
 }
 
 
-#pragma mark -setModel
+#pragma mark - setModel
 - (void)setModel:(ZBaseTextFieldCellModel *)model {
     _model = model;
     self.formatterType = model.formatterType;
@@ -223,6 +224,7 @@
     
     _bottomLineView.hidden = model.isHiddenLine;
     _inputLine.hidden = model.isHiddenInputLine;
+    _inputLine.backgroundColor = model.inputLineColor;
     
     [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView);

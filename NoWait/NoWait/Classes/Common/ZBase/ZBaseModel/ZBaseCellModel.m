@@ -100,6 +100,7 @@
         self.max = 6;
         self.cellHeight = kCellNormalHeight;
         self.rightImageWidth = CGFloatIn750(10);
+        self.inputLineColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
         self.isHiddenInputLine = YES;
         self.isTextEnabled = YES;
         

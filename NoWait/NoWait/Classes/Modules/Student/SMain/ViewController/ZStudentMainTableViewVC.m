@@ -52,10 +52,7 @@
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
     }];
-    
-    
 }
-
 
 #pragma mark - lazy loading
 - (ZStudentMainTopSearchView *)searchView {

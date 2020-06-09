@@ -112,7 +112,7 @@
 @property (nonatomic,strong) NSString *rightImage;
 @property (nonatomic,strong) NSString *subTitle;
 
-
+@property (nonatomic,strong) UIColor *inputLineColor;
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,assign) BOOL isHiddenInputLine;
 @property (nonatomic,assign) BOOL isTextEnabled;

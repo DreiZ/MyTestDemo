@@ -44,7 +44,7 @@
 }
 
 
-#pragma mark -Getter
+#pragma mark - Getter
 - (UIView *)funBackView {
     if (!_funBackView) {
         _funBackView = [[UIView alloc] init];
@@ -68,6 +68,7 @@
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
         
         [_iCollectionView setBounces:NO];
+        _iCollectionView.scrollEnabled = NO;
         _iCollectionView.clipsToBounds = YES;
         [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
         [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark])];
