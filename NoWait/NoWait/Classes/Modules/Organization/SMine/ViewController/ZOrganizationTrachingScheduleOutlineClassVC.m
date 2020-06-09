@@ -320,7 +320,7 @@
                 weakSelf.viewModel.addModel.courses_id = model.lessonID;
                 weakSelf.viewModel.addModel.courses_name = model.short_name;
                 weakSelf.viewModel.addModel.course_min = model.course_min;
-                
+                weakSelf.viewModel.addModel.lessonTimeArr = model.fix_timeArr;
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }

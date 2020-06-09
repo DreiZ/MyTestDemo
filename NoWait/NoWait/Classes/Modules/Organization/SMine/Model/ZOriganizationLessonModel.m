@@ -148,6 +148,55 @@
     return ZOrganizationLessonTypeClose;
 }
 
+- (NSMutableArray *)fix_timeArr {
+    if (!_fix_timeArr) {
+        _fix_timeArr = @[].mutableCopy;
+        
+        if (ValidDict(self.fix_time)) {
+            id tempDict1 = self.fix_time;
+            if (ValidDict(tempDict1)) {
+                NSArray *allKey = [tempDict1 allKeys];
+                for (int i = 0; i < allKey.count; i++) {
+                    
+                    if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
+                        ZBaseMenuModel *menuModel = [[ZBaseMenuModel alloc] init];
+                        menuModel.name = SafeStr([allKey[i] zz_indexToWeek]);
+                        menuModel.uid = allKey[i];
+                        
+                        NSMutableArray *unit = @[].mutableCopy;
+                        
+                        if (ValidStr(tempDict1[allKey[i]])) {
+                            NSArray *dataArr = [tempDict1[allKey[i]] zz_JSONValue];
+                            for (int k = 0; k < dataArr.count; k++) {
+                                if (ValidStr(dataArr[k])) {
+                                    NSString *str = dataArr[k];
+                                    NSArray *array = [str componentsSeparatedByString:@"~"];
+                                    if (ValidArray(array) && array.count == 2) {
+                                        NSString *hour = array[0];
+                                        NSArray *hourArray = [hour componentsSeparatedByString:@":"];
+                                        if (ValidArray(hourArray) && hourArray.count == 2) {
+                                            ZBaseUnitModel *umodel = [[ZBaseUnitModel alloc] init];
+                                            umodel.data = str;
+                                            umodel.name = [NSString stringWithFormat:@"%d",[hourArray[0] intValue]];
+                                            umodel.subName = [NSString stringWithFormat:@"%d",[hourArray[1] intValue]];
+                                            [unit addObject:umodel];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        menuModel.units = unit;
+                        
+                        [_fix_timeArr addObject:menuModel];
+                    }
+                }
+            }
+        }
+    }
+    
+    return _fix_timeArr;
+}
 @end
 
 
