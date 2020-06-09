@@ -111,7 +111,7 @@
 #pragma mark - setDetailData
 - (void)setLessonName {
     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.addModel.short_name;
+    model.leftTitle = self.addModel.name;
     model.rightTitle = self.addModel.school;
     model.isHiddenLine = YES;
     model.leftFont = [UIFont boldFontMax1Title];
