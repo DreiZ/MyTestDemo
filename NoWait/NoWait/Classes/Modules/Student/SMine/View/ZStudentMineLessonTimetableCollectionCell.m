@@ -70,10 +70,10 @@
     if (!_lessonLabel) {
         _lessonLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonLabel.textColor = [UIColor colorWhite];
-        _lessonLabel.numberOfLines = 1;
+        _lessonLabel.numberOfLines = 0;
         _lessonLabel.textAlignment = NSTextAlignmentCenter;
         [_lessonLabel setFont:[UIFont boldFontSmall]];
-        [_lessonLabel setAdjustsFontSizeToFitWidth:YES];
+//        [_lessonLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _lessonLabel;
 }
