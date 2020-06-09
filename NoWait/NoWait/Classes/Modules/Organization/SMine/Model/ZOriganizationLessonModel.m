@@ -156,6 +156,7 @@
             id tempDict1 = self.fix_time;
             if (ValidDict(tempDict1)) {
                 NSArray *allKey = [tempDict1 allKeys];
+                allKey = [self arraySortDESC:allKey];
                 for (int i = 0; i < allKey.count; i++) {
                     
                     if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
@@ -196,6 +197,14 @@
     }
     
     return _fix_timeArr;
+}
+
+- (NSArray *)arraySortDESC:(NSArray *)array{
+    NSArray *result = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+
+        return [obj1 compare:obj2]; //降序
+    }];
+    return result;
 }
 @end
 
@@ -326,6 +335,7 @@
             id tempDict1 = self.fix_time;
             if (ValidDict(tempDict1)) {
                 NSArray *allKey = [tempDict1 allKeys];
+                allKey = [self arraySortDESC:allKey];
                 for (int i = 0; i < allKey.count; i++) {
                     
                     if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
@@ -371,6 +381,14 @@
     return @{@"lessonID" : @"id",
              @"fixType" : @"type",
             };
+}
+
+- (NSArray *)arraySortDESC:(NSArray *)array{
+    NSArray *result = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+
+        return [obj1 compare:obj2]; //降序
+    }];
+    return result;
 }
 @end
 

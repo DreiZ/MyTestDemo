@@ -148,6 +148,7 @@
                     id tempDict1 = [model.fix_time_net zz_JSONValue];
                     if (ValidDict(tempDict1)) {
                         NSArray *allKey = [tempDict1 allKeys];
+                        allKey = [ZOriganizationLessonViewModel arraySortDESC:allKey];
                         for (int i = 0; i < allKey.count; i++) {
                             
                             if ([allKey[i] intValue] <= 7 && [allKey[i] intValue] > 0) {
@@ -229,6 +230,15 @@
         }
         completeBlock(NO, @"操作失败");
     }];
+}
+
+
++ (NSArray *)arraySortDESC:(NSArray *)array{
+    NSArray *result = [array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+
+        return [obj1 compare:obj2]; //降序
+    }];
+    return result;
 }
 
 + (void)closeLesson:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
