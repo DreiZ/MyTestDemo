@@ -81,9 +81,10 @@
 
 - (void)setupMainView {
     [super setupMainView];
+    [self setTableViewGaryBack];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(180))];
-    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+    bottomView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.tableFooterView = bottomView;
     
     [bottomView addSubview:self.bottomBtn];

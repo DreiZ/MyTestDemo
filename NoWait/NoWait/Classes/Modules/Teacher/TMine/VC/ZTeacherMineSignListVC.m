@@ -81,6 +81,7 @@
             }else if (index == 2){
                 ZOriganizationClassDetailModel *smodel = [[ZOriganizationClassDetailModel alloc] init];
                 smodel.now_progress = model.now_progress;
+                smodel.total_progress = model.total_progress;
                 smodel.stores_courses_name = model.stores_courses_name;
                 smodel.courses_name = model.courses_name;
                 smodel.classID = model.classID;

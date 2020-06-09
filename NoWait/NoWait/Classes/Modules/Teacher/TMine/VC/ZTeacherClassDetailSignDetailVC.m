@@ -79,6 +79,9 @@
         }else if ([self.detailModel.sign_time length] == 10){
             model.isOpen = YES;
         }
+        if ([self.model.status intValue] == 3) {
+            model.isOpen = NO;
+        }
         model.isTeacher = self.isTeacher;
         cellmodel.data = model;
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineSignListDetailTitleCell className] title:[ZTeacherMineSignListDetailTitleCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZTeacherMineSignListDetailTitleCell z_getCellHeight:cellmodel] cellType:ZCellTypeClass dataModel:cellmodel];

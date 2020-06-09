@@ -154,6 +154,12 @@
         _lastBtn.hidden = NO;
     }
     
+    if ([model.total_progress intValue] == model.index) {
+        _nextBtn.hidden = YES;
+    }else {
+        _nextBtn.hidden = NO;
+    }
+    
     
     _titleLabel.text = [NSString stringWithFormat:@"第%ld节课",model.index];
 }
