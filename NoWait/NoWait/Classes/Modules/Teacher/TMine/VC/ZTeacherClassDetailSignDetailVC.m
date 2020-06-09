@@ -257,6 +257,7 @@
         };
     }
 }
+
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
          ZOriganizationClassListModel *model = cellConfig.dataModel;

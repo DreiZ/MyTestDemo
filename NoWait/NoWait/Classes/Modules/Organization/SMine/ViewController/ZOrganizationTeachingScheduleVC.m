@@ -121,7 +121,7 @@
         _searchBtn.title = @"搜索学员";
         _searchBtn.handleBlock = ^{
             ZOrganizationSearchTeachingScheduleVC *svc = [[ZOrganizationSearchTeachingScheduleVC alloc] init];
-            svc.title = @"搜索学员";
+            svc.navTitle = @"输入教师名称";
             svc.stores_courses_id = weakSelf.stores_courses_id;
             svc.type = weakSelf.selectIndex;
             svc.lessonModel = weakSelf.lessonModel;
