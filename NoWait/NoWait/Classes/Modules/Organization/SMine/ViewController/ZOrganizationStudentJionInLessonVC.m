@@ -45,10 +45,7 @@
     [self.cellConfigArr addObject:progressCellConfig];
     
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.viewModel.addModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.viewModel.addModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                        @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.viewModel.addModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+                         @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (int i = 0; i < textArr.count; i++) {
        ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -61,9 +58,6 @@
         cellModel.max = [textArr[i][6] intValue];
         cellModel.formatterType = [textArr[i][7] intValue];
         cellModel.isHiddenLine = YES;
-        if ([textArr[i][4] isEqualToString:@"now_progress"]) {
-            cellModel.rightTitle = @"节";
-        }
         cellModel.cellHeight = CGFloatIn750(108);
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [configArr addObject:textCellConfig];
@@ -123,17 +117,6 @@
             
             [otherDict setObject:self.viewModel.addModel.courses_class_id forKey:@"courses_class_id"];
             [otherDict setObject:self.viewModel.addModel.stores_id forKey:@"stores_id"];
-            
-            if (ValidStr(self.viewModel.addModel.emergency_name)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_name forKey:@"emergency_name"];
-            }
-            if (ValidStr(self.viewModel.addModel.emergency_phone)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_phone forKey:@"emergency_phone"];
-            }
-            if (ValidStr(self.viewModel.addModel.emergency_contact)) {
-                [otherDict setObject:self.viewModel.addModel.emergency_contact forKey:@"emergency_contact"];
-            }
-            
             
             [weakSelf updateOtherDataWithParams:otherDict];
         } forControlEvents:UIControlEventTouchUpInside];

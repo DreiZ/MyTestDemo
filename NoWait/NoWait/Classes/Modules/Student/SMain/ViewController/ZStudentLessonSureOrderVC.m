@@ -199,26 +199,6 @@
                 [params setObject:self.cartModel.couponsID forKey:@"coupons_id"];
             }
             
-            if (ValidStr(weakSelf.detailModel.emergency_name)) {
-                [params setObject:weakSelf.detailModel.emergency_name forKey:@"emergency_name"];
-                
-                if (!ValidStr(weakSelf.detailModel.emergency_phone)) {
-                    [TLUIUtility showErrorHint:@"您还没有输入紧急联系人电话"];
-                    return;
-                }
-            }
-            if (ValidStr(weakSelf.detailModel.emergency_phone)) {
-                if (weakSelf.detailModel.emergency_phone.length != 11) {
-                    [TLUIUtility showErrorHint:@"请输入正确的紧急联系人电话"];
-                    return;
-                }
-                [params setObject:weakSelf.detailModel.emergency_phone forKey:@"emergency_phone"];
-            }
-            if (ValidStr(weakSelf.detailModel.emergency_contact)) {
-                [params setObject:weakSelf.detailModel.emergency_contact forKey:@"emergency_contact"];
-            }
-            
-            
             [TLUIUtility showLoading:@"获取支付信息"];
             [ZOriganizationOrderViewModel addOrder:params completeBlock:^(BOOL isSuccess, id data) {
                 [TLUIUtility hiddenLoading];
@@ -300,21 +280,6 @@
                 ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
                 tCell.valueChangeBlock = ^(NSString * text) {
                     weakSelf.detailModel.account_phone = text;
-                };
-            }else if ([cellConfig.title isEqualToString:@"contactName"]) {
-                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
-                tCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.emergency_name = text;
-                };
-            }else if ([cellConfig.title isEqualToString:@"contactTel"]) {
-                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
-                tCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.emergency_phone = text;
-                };
-            }else if ([cellConfig.title isEqualToString:@"relationship"]) {
-                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
-                tCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.emergency_contact = text;
                 };
             }
         };
@@ -464,10 +429,7 @@
 //    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
     self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.detailModel.students_name),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"紧急联系人姓名", @"选填", @YES, @"", @"contactName",SafeStr(self.detailModel.emergency_name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"紧急联系人电话", @"选填", @YES, @"", @"contactTel",SafeStr(self.detailModel.emergency_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-                         @[@"紧急联系人与学员关系",@"选填", @YES, @"", @"relationship",SafeStr(self.detailModel.emergency_contact),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+                         @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (int i = 0; i < textArr.count; i++) {
         ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];

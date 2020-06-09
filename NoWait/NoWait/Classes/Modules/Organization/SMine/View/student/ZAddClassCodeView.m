@@ -32,7 +32,7 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.layer.cornerRadius = CGFloatIn750(20);
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
@@ -272,6 +272,7 @@
 - (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _bottomView;
 }
