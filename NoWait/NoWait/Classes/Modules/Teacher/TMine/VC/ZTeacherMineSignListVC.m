@@ -16,8 +16,10 @@
 #import "ZAlertView.h"
 
 @interface ZTeacherMineSignListVC ()
+@property (nonatomic,strong) UIButton *rightNavBtn;
 
 @end
+
 @implementation ZTeacherMineSignListVC
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -47,6 +49,8 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"我的签课"];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.rightNavBtn]];
 }
 
 - (void)setupMainView {
@@ -59,7 +63,20 @@
     }];
 }
 
-
+- (UIButton *)rightNavBtn {
+    if (!_rightNavBtn) {
+        __weak typeof(self) weakSelf = self;
+        _rightNavBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_rightNavBtn setTitle:@"刷新" forState:UIControlStateNormal];
+        [_rightNavBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_rightNavBtn.titleLabel setFont:[UIFont fontContent]];
+        [_rightNavBtn bk_addEventHandler:^(id sender) {
+            [weakSelf.rightNavBtn setTitle:@"刷新中" forState:UIControlStateNormal];
+            [weakSelf refreshAllData];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavBtn;
+}
 #pragma mark tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
@@ -122,6 +139,7 @@
     __weak typeof(self) weakSelf = self;
     [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
+        [weakSelf.rightNavBtn setTitle:@"刷新" forState:UIControlStateNormal];
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -149,6 +167,7 @@
     
     __weak typeof(self) weakSelf = self;
      [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
+         [weakSelf.rightNavBtn setTitle:@"刷新中" forState:UIControlStateNormal];
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

@@ -54,7 +54,7 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     self.model.index = [self.model.now_progress intValue];
-//    /类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课
+//    /类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课 7:未设置课程进度
     
     if (ValidArray(self.detailModel.image)) {
         ZCellConfig *listCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineSignListDetailImageCell className] title:[ZMineSignListDetailImageCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZMineSignListDetailImageCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
@@ -65,8 +65,8 @@
     
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     
-    NSArray *tarr = @[@"签课",@"教师代签",@"补签",@"请假",@"旷课",@"待签课"];
-    NSArray *iarr = @[@"signbu",@"signbu",@"signbu",@"signbu",@"signbu",@"signbu"];
+    NSArray *tarr = @[@"签课",@"教师代签",@"补签",@"请假",@"旷课",@"待签课",@"待设置课程进度"];
+    NSArray *iarr = @[@"signzheng",@"signzheng",@"signbu",@"signqing",@"signkuang",@"signkuang",@"signkuang"];
     for (ZOriganizationSignListModel *model in self.detailModel.list) {
         ZBaseSingleCellModel *cellmodel = [[ZBaseSingleCellModel alloc] init];
          cellmodel.rightTitle = [NSString stringWithFormat:@"%ld人",model.list.count];
