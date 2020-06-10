@@ -55,6 +55,10 @@
             [self.cellConfigArr addObject:progressCellConfig];
         }
     }
+    
+    if (self.editChangeBlock) {
+        self.editChangeBlock(self.isEdit);
+    }
 }
 
 - (void)setNavigation {

@@ -84,6 +84,7 @@
     [topView addSubview:self.lessonNameLabel];
     [self.lessonNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(88));
     }];
 
