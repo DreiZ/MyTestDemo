@@ -193,10 +193,16 @@
                      [[NSUserDefaults standardUserDefaults] setObject:@"hadLogin" forKey:@"hadLogin"];
                     if (weakSelf.loginSuccess) {
                         weakSelf.loginSuccess();
+                        if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                            [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+                        }
                     }else{
                         if (isSuccess) {
                             //进入主页
                             [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                            if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
+                                [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];
+                            }
                         }
                     }
                     [TLUIUtility showSuccessHint:message];

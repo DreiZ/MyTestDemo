@@ -503,7 +503,7 @@
     
     ZViewController *target;
     for (ZViewController *controller in reversedArray) {
-        if ([controller isKindOfClass:[NSClassFromString(@"ZMineSwitchRoleVC") class]]) {
+        if ([controller isKindOfClass:[NSClassFromString(@"ZMineMainVC") class]]) {
             target = controller;
             break;
         }
