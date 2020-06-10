@@ -63,7 +63,7 @@ static ZAlertDateHourPickerView *sharedManager;
     
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(400));
+        make.height.mas_equalTo(CGFloatIn750(500));
         make.width.mas_equalTo(CGFloatIn750(690));
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(80));

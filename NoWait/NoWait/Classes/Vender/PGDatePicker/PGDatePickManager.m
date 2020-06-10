@@ -143,7 +143,7 @@
 
 - (void)setupStyleAlert {
     CGFloat rowHeight = self.datePicker.rowHeight;
-    CGFloat datePickerHeight = rowHeight * 3;
+    CGFloat datePickerHeight = rowHeight * 5;
     CGFloat headerViewHeight = self.headerHeight;
     CGFloat contentViewMarginLeft = 15;
     CGFloat contentViewWidth = self.view.bounds.size.width - contentViewMarginLeft * 2;
