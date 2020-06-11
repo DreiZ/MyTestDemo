@@ -76,7 +76,7 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.studentImageView.mas_right).offset(CGFloatIn750(18));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(40));
-        make.right.equalTo(topView.mas_centerX).offset(CGFloatIn750(20));
+        make.right.equalTo(topView.mas_centerX).offset(CGFloatIn750(100));
     }];
 
 

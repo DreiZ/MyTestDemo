@@ -296,5 +296,13 @@
         _rightImageView.image =  [UIImage imageNamed:@"unSelectedCycleMin"];
     }
     
+    CGSize stateSize = [SafeStr(_typeLabel.text) tt_sizeWithFont:[UIFont fontContent]];
+    
+    [self.typeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.numLabel.mas_right);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(stateSize.width + 2);
+    }];
+    
 }
 @end
