@@ -26,7 +26,8 @@
         
         _bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pop_update_up_background"]];
         _bgImageView.contentMode = UIViewContentModeTop;
-        _downImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pop_update_dw_background"]];
+        _downImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor colorWhite]]];
+        
         _downImageView.contentMode = UIViewContentModeScaleAspectFill;
         
         _titleLabel = ({
@@ -70,16 +71,13 @@
         });
         
         {
-            UIImage *bgImage = [LKUIUtils getRoundImageWithCutOuter:YES corners:UIRectCornerAllCorners size:CGSizeMake(50, 46) radius:23 backgroundColor:[UIColor colorTextGray1]];
-            bgImage = [bgImage stretchableImageWithLeftCapWidth:25 topCapHeight:23];
             
             _cancleButton = ({
                 UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 aButton.frame = (CGRect){0,0,50,40};
-                aButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-                [aButton setTitleColor:UIColorHex(0xffffff) forState:UIControlStateNormal];
-                [aButton setBackgroundImage:bgImage forState:UIControlStateNormal];
-                [aButton setTitle:@"下次再说" forState:UIControlStateNormal];
+                aButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+                [aButton setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
+                [aButton setTitle:@"以后再说" forState:UIControlStateNormal];
                 aButton;
             });
         }
@@ -143,8 +141,8 @@
     [_cancleButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_titleLabel);
         make.right.mas_equalTo(-25);
-        make.height.mas_equalTo(46);
-        make.top.equalTo(_updateButton.mas_bottom).offset(CGFloatIn750(20));
+        make.height.mas_equalTo(36);
+        make.top.equalTo(_updateButton.mas_bottom).offset(CGFloatIn750(10));
     }];
 }
 
@@ -162,7 +160,7 @@
     [paragraphStyle setLineSpacing:6];
     [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
     [attriText addAttributes:@{NSFontAttributeName:[UIFont fontContent],
-                               NSForegroundColorAttributeName:UIColorHex(0x222222),
+                               NSForegroundColorAttributeName:UIColorHex(0x848484),
                                NSParagraphStyleAttributeName:paragraphStyle}
                        range:NSMakeRange(0, _contentText.length)];
     
@@ -182,7 +180,7 @@
         self.size = CGSizeMake(260, 202 + 12 + 46 + 20 + contentSize.height);
     }else{
         _cancleButton.hidden = NO;
-        self.size = CGSizeMake(260, 262 + 12 + 46 + 20 + contentSize.height);
+        self.size = CGSizeMake(260, 242 + 12 + 46 + 20 + contentSize.height);
     }
 }
 
