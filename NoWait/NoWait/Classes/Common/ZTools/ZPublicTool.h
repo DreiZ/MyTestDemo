@@ -59,6 +59,8 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 + (BOOL)getNetworkStatus;
 
 + (void)checkUpdateVersion;
+
++ (void)settingCheckUpdateVersion;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,6 +23,8 @@
     [self initCellConfigArr];
     [self.iTableView reloadData];
     self.iTableView.tableHeaderView = self.topView;
+    
+    [ZPublicTool settingCheckUpdateVersion];
 }
 
 

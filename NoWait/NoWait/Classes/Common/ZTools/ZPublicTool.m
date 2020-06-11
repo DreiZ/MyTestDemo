@@ -374,6 +374,22 @@
 
 #pragma mark - 强制更新处理
 + (void)checkUpdateVersion {
+    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateInApp];
+    if (isFirst) {
+        NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
+        if (nowTime - [isFirst intValue] <= 24*60*60*3) {//24*60*60*3
+            return;
+        }
+    }
+        
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kUpdateInApp];
+    
+    [[ZUserHelper sharedHelper] updateVersionWithParams:@{} block:^(BOOL isSuccess, NSDictionary *data) {
+        [ZPublicTool checkUpdate:data];
+    }];
+}
+
++ (void)settingCheckUpdateVersion {
     [[ZUserHelper sharedHelper] updateVersionWithParams:@{} block:^(BOOL isSuccess, NSDictionary *data) {
         [ZPublicTool checkUpdate:data];
     }];
