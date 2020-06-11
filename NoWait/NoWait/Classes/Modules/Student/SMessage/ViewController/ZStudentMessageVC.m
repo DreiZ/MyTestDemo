@@ -22,8 +22,9 @@
 #import "ZOrganizationAccountVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZStudentMineEvaDetailVC.h"
+#import <TLTabBarControllerProtocol.h>
 
-@interface ZStudentMessageVC ()
+@interface ZStudentMessageVC ()<TLTabBarControllerProtocol>
 @property (nonatomic,strong) NSMutableDictionary *param;
 
 @end
@@ -319,5 +320,9 @@
             
             break;
     }
+}
+
+- (void)tabBarItemDidDoubleClick {
+    [self refreshAllData];
 }
 @end

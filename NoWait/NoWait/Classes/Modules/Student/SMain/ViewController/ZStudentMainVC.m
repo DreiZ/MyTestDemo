@@ -9,8 +9,9 @@
 #import "ZRewardAlertView.h"
 #import "ZLaunchManager.h"
 #import "ZRewardCenterVC.h"
+#import <TLTabBarControllerProtocol.h>
 
-@interface ZStudentMainVC ()
+@interface ZStudentMainVC ()<TLTabBarControllerProtocol>
 
 @end
 
@@ -280,5 +281,11 @@
             [weakSelf.iTableView reloadData];
         }
     }];
+}
+
+- (void)tabBarItemDidDoubleClick {
+    [self refreshAllData];
+    [self getAdverData];
+    [self getCategoryList];
 }
 @end

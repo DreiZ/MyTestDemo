@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationMineVC : ZTableViewViewController
-
+- (void)updateNetData;
 @end
 
 NS_ASSUME_NONNULL_END

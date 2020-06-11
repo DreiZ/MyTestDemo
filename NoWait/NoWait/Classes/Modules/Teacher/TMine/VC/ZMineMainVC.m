@@ -12,8 +12,9 @@
 #import "ZTeacherMineVC.h"
 
 #import "ZUserHelper.h"
+#import <TLTabBarControllerProtocol.h>
 
-@interface ZMineMainVC ()
+@interface ZMineMainVC ()<TLTabBarControllerProtocol>
 @property (nonatomic,strong) ZStudentMineVC *studentVC;
 @property (nonatomic,strong) ZTeacherMineVC *teacherVC;
 @property (nonatomic,strong) ZOrganizationMineVC *organizationVC;
@@ -148,4 +149,17 @@
     return _organizationVC;
 }
 
+- (void)tabBarItemDidDoubleClick {
+    if (_studentVC) {
+        [_studentVC updateNetData];
+    }
+    
+    if (_teacherVC) {
+        [_teacherVC updateNetData];
+    }
+    
+    if (_organizationVC) {
+        [_organizationVC updateNetData];
+    }
+}
 @end

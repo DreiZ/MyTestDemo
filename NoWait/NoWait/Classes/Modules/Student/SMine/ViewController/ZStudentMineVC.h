@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineVC : ZTableViewViewController
-
+- (void)updateNetData;
 @end
 
 NS_ASSUME_NONNULL_END

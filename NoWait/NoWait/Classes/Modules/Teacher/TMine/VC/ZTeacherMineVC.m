@@ -273,4 +273,9 @@
         }
     }];
 }
+
+- (void)updateNetData {
+    [self getStoresStatistical];
+    [self refreshCurriculumList];
+}
 @end

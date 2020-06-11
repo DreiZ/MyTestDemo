@@ -354,5 +354,9 @@
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
+
+- (void)updateNetData {
+    [self getSchoolList];
+}
 @end
 

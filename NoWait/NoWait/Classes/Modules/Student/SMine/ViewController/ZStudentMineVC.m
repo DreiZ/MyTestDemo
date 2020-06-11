@@ -335,4 +335,8 @@
     }];
 }
 
+- (void)updateNetData {
+    [self refreshCurriculumList];
+    [self refreshMyClass];
+}
 @end
