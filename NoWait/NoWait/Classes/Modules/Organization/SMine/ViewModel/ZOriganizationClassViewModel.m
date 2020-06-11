@@ -130,7 +130,7 @@
         if (data) {
             if ([dataModel.code integerValue] == 0 ) {
                 ZTeacherSignNetModel *model = [ZTeacherSignNetModel mj_objectWithKeyValues:dataModel.data];
-                if (!model && [model.code intValue] != 1) {
+                if (!model || [model.code intValue] != 1) {
                     model = [[ZTeacherSignNetModel alloc] init];
                     model.notice_msg = dataModel.message;
                 }
