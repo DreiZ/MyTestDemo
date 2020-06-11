@@ -285,7 +285,7 @@
 
 - (void)tabBarItemDidDoubleClick {
     [self refreshAllData];
-    [self getAdverData];
-    [self getCategoryList];
+//    [self getAdverData];
+//    [self getCategoryList];
 }
 @end

@@ -476,6 +476,9 @@
     }
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     [LKUIUtils downloadShareImage:SafeStr([ZUserHelper sharedHelper].user.avatar) complete:^(UIImage *image) {
+        if (!image) {
+            image = [UIImage imageNamed:@"default_head"];
+        }
         [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
             
         } completion:^{
