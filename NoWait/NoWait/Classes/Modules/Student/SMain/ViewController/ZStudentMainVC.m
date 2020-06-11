@@ -62,6 +62,8 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
         }
     }
+    
+    [ZPublicTool checkUpdateVersion];
 }
 
 - (void)setDataSource {

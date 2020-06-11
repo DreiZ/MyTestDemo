@@ -12,8 +12,25 @@
 #import "AppDelegate+AppService.h"
 #import "AFNetworkReachabilityManager.h"
 #import "ZAlertView.h"
+#import "HNShowPopViewHandler.h"
+#import "HNUpdateAlertView.h"
+
+@interface ZPublicTool ()
+@property (nonatomic, strong) HNShowPopViewHandler *showPopViewHandler;
+@end
 
 @implementation ZPublicTool
+
++ (ZPublicTool *)shareManager
+{
+    static ZPublicTool *helper;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        helper = [[ZPublicTool alloc] init];
+    });
+    return helper;
+}
+
 
 + (void)callTel:(NSString *)tel {
     if (!tel) {
@@ -355,4 +372,97 @@
     }
 }
 
+#pragma mark - 强制更新处理
++ (void)checkUpdateVersion {
+    [[ZUserHelper sharedHelper] updateVersionWithParams:@{} block:^(BOOL isSuccess, NSDictionary *data) {
+        [ZPublicTool checkUpdate:data];
+    }];
+}
+
++ (void)checkUpdate:(NSDictionary *)verDic
+{
+    NSString *versionNum;
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    if ([infoDictionary objectForKey:@"CFBundleShortVersionString"]) {
+        versionNum = [NSString stringWithFormat:@"%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    }
+    
+    if (verDic && [verDic objectForKey:@"version"]  && [verDic objectForKey:@"force_upgrade"]) {
+        NSString *newVersionNum = [NSString stringWithFormat:@"%@", verDic[@"version"]];
+        
+        if(newVersionNum) {
+            NSComparisonResult comResult = [versionNum compare:newVersionNum options:NSNumericSearch];
+            if(comResult == NSOrderedAscending) {
+                NSString *alertMsgStr = @"似锦APP已更新，请从App Store下载全新版本";
+                if ([verDic objectForKey:@"info"]) {
+                    alertMsgStr = verDic[@"info"];
+                }
+                
+                NSString *isForce = [NSString stringWithFormat:@"%@", verDic[@"force_upgrade"]];
+                
+                if(isForce && [isForce isEqualToString:@"2"]) {
+                    [self showForceUpateAlertView:alertMsgStr versionStr:newVersionNum force_upgrade:YES];
+                }else {
+                    [self showForceUpateAlertView:alertMsgStr versionStr:newVersionNum force_upgrade:NO];
+                }
+            }
+        }
+    }
+}
+
++ (void)showForceUpateAlertView:(NSString *)alertMsgStr versionStr:(NSString *)versionStr force_upgrade:(BOOL)force_upgrade
+{
+    if ([ZPublicTool shareManager].showPopViewHandler) {
+        [[ZPublicTool shareManager].showPopViewHandler dissmiss];
+    }
+    
+    HNUpdateAlertView *updateAlertView = [[HNUpdateAlertView alloc] init];
+    updateAlertView.versionLabel.text = [NSString stringWithFormat:@"V%@", versionStr];
+//    updateAlertView.contentText = alertMsgStr;
+    [updateAlertView setContentText:alertMsgStr force_upgrade:force_upgrade];
+    
+    [ZPublicTool shareManager].showPopViewHandler = [HNShowPopViewHandler showContentView:updateAlertView
+                                                inContainerView:[AppDelegate shareAppDelegate].window
+                                              useBlurBackground:NO
+                                                        popType:HNShowPopViewTypeSpringTop];
+    [ZPublicTool shareManager].showPopViewHandler.backgroundView.backgroundColor = [UIColorHex(0x000000) colorWithAlphaComponent:0.5];
+    [ZPublicTool shareManager].showPopViewHandler.backgroundView.enabled = YES;
+    [[ZPublicTool shareManager].showPopViewHandler.backgroundView removeAllTargets];
+    
+    @weakify(self)
+    [updateAlertView.updateButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        
+        [self openAppStore];
+    }];
+    
+    [updateAlertView.cancleButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [[ZPublicTool shareManager].showPopViewHandler dissmiss];
+    }];
+}
+
++ (void)openAppStore
+{
+    NSString *urlStr;
+//    if(_verInfoDic && _verInfoDic[@"url"]) {
+//        urlStr = _verInfoDic[@"url"];
+//    }
+    
+    if (!urlStr) {
+        urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", kStoreAppId];
+    }
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                
+            }];
+        } else {
+            // Fallback on earlier versions
+        }
+    }else {
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 @end

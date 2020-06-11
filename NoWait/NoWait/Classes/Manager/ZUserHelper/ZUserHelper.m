@@ -317,6 +317,29 @@
 }
 
 
+//device token
+- (void)updateVersionWithParams:(NSDictionary *)params block:(backResultBlock)block {
+    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateInApp];
+    if (isFirst) {
+        NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
+        if (nowTime - [isFirst intValue] <= 24*60*60*3) {//24*60*60*3
+            return;
+        }
+    }
+        
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kUpdateInApp];
+    
+    
+    [ZNetworkingManager postServerType:ZServerTypeUser url:URL_version_v1_version_info params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0) {
+            if (dataModel.data && ValidDict(dataModel.data)) {
+                block(YES ,dataModel.data);
+            }
+        }
+    }];
+}
 
 //device token
 - (void)unbindDeviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block {

@@ -11,6 +11,7 @@
 #import "ZOriganizationModel.h"
 
 typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
+typedef void (^backResultBlock)(BOOL isSuccess, NSDictionary *data);
 
 @interface ZUserHelper : NSObject
 
@@ -57,6 +58,8 @@ typedef void (^loginUserResultBlock)(BOOL isSuccess, NSString *message);
 //device token
 - (void)deviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
 
+
+- (void)updateVersionWithParams:(NSDictionary *)params block:(backResultBlock)block;
 
 - (void)getDeviceTokenWithParams:(NSDictionary *)params block:(loginUserResultBlock)block;
 @end

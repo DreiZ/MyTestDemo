@@ -90,6 +90,9 @@
 		B23DECEC24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECEB24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m */; };
 		B23DECF42474C74C005A9E72 /* UIControl+JQ.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF22474C74C005A9E72 /* UIControl+JQ.m */; };
 		B23DECF82474CB43005A9E72 /* ZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF72474CB43005A9E72 /* ZButton.m */; };
+		B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */; };
+		B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E82491C49600F828A6 /* LKUIUtils.m */; };
+		B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */; };
 		B247A405247E5E4500EF53A9 /* ZNoDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B247A404247E5E4400EF53A9 /* ZNoDataCell.m */; };
 		B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */; };
 		B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D992423FB98C00078A458 /* POIAnnotation.m */; };
@@ -817,6 +820,12 @@
 		B23DECF32474C74C005A9E72 /* UIControl+JQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+JQ.h"; sourceTree = "<group>"; };
 		B23DECF62474CB43005A9E72 /* ZButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZButton.h; sourceTree = "<group>"; };
 		B23DECF72474CB43005A9E72 /* ZButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZButton.m; sourceTree = "<group>"; };
+		B24324E32491C1F900F828A6 /* HNUpdateAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNUpdateAlertView.h; sourceTree = "<group>"; };
+		B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNUpdateAlertView.m; sourceTree = "<group>"; };
+		B24324E72491C49600F828A6 /* LKUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKUIUtils.h; sourceTree = "<group>"; };
+		B24324E82491C49600F828A6 /* LKUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKUIUtils.m; sourceTree = "<group>"; };
+		B24324EA2491C7C400F828A6 /* HNShowPopViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNShowPopViewHandler.h; sourceTree = "<group>"; };
+		B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNShowPopViewHandler.m; sourceTree = "<group>"; };
 		B247A403247E5E4400EF53A9 /* ZNoDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZNoDataCell.h; sourceTree = "<group>"; };
 		B247A404247E5E4400EF53A9 /* ZNoDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZNoDataCell.m; sourceTree = "<group>"; };
 		B24A29E6248DCE52005BB97C /* ZHitoryLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHitoryLabelCell.h; sourceTree = "<group>"; };
@@ -2213,6 +2222,15 @@
 			path = ZButton;
 			sourceTree = "<group>";
 		};
+		B24324E62491C49600F828A6 /* UIUtils */ = {
+			isa = PBXGroup;
+			children = (
+				B24324E72491C49600F828A6 /* LKUIUtils.h */,
+				B24324E82491C49600F828A6 /* LKUIUtils.m */,
+			);
+			path = UIUtils;
+			sourceTree = "<group>";
+		};
 		B24D994F23FD17740078A458 /* school */ = {
 			isa = PBXGroup;
 			children = (
@@ -2962,6 +2980,8 @@
 		B2A77F8123BDEAA000407BF0 /* ZAlertView */ = {
 			isa = PBXGroup;
 			children = (
+				B24324EA2491C7C400F828A6 /* HNShowPopViewHandler.h */,
+				B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */,
 				B2A77F8223BDEAA000407BF0 /* ZPhoneAlertView.h */,
 				B2A77F8623BDEAA000407BF0 /* ZAlertView.h */,
 				B2A77F8923BDEAA000407BF0 /* ZPhoneAlertView.m */,
@@ -2992,6 +3012,8 @@
 				B2BA396C24331AC1005A3FFB /* ZAlertMoreView.m */,
 				B26880F92477C22D00BF8FCD /* ZAlertClassifyPickerView.h */,
 				B26880FA2477C22D00BF8FCD /* ZAlertClassifyPickerView.m */,
+				B24324E32491C1F900F828A6 /* HNUpdateAlertView.h */,
+				B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */,
 			);
 			path = ZAlertView;
 			sourceTree = "<group>";
@@ -3158,6 +3180,7 @@
 		B2A77FFA23BDEDD300407BF0 /* UIUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				B24324E62491C49600F828A6 /* UIUtils */,
 				B23DECF12474C74C005A9E72 /* UIControl+JQ */,
 				B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */,
 				B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */,
@@ -4754,6 +4777,7 @@
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2EE5BC623F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m in Sources */,
+				B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */,
 				B252ED8024160F7100190804 /* ZStudentOrganizationLessonListVC.m in Sources */,
 				B24D992923FBA61F0078A458 /* ZOrganizationAddressSearchView.m in Sources */,
 				B2B86A5624471C16001C3F40 /* ZAddPhotosCell.m in Sources */,
@@ -4804,6 +4828,7 @@
 				B268814C247BBDA100BF8FCD /* ZMessageListCell.m in Sources */,
 				B28D9136240766940021E05A /* PGDatePicker+Logic.m in Sources */,
 				B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */,
+				B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */,
 				B29795912425C5A6004490F5 /* ZStudentStudentInfoDesCell.m in Sources */,
 				B2A77EAA23BDE20200407BF0 /* ZVideoPlayerManager.m in Sources */,
 				B2A7809A23BDFB0100407BF0 /* ReachState.m in Sources */,
@@ -4954,6 +4979,7 @@
 				B251468F23CEBDDC009A64D4 /* ZStudentMineOrderDetailHandleBottomView.m in Sources */,
 				B2C35035243DB4F4002929A8 /* ZSearchClickVC.m in Sources */,
 				B20C48142400DF7D00E0CE35 /* ZOriganizationStudentListCell.m in Sources */,
+				B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */,
 				B24D993E23FBEA380078A458 /* ZOrganizationTimeHourCell.m in Sources */,
 				B251469823CEDD60009A64D4 /* ZStudentMineSignListCell.m in Sources */,
 				B29795972425E363004490F5 /* ZStudentOrganizationDetailEnteryCell.m in Sources */,

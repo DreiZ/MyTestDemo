@@ -33,11 +33,14 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 //appy启动过
 #define kHadInApp    @"userHadEnterApp"
 
+//app update启动过
+#define kUpdateInApp    @"userUpdateInApp"
+
 //healthkit启动过
 #define kHadHealthKit    @"kHadHealthKit"
 
 //appstore id
-#define kStoreAppId    @"1450127914" //@"1095204149"
+#define kStoreAppId    @"1509880786" 
 
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"

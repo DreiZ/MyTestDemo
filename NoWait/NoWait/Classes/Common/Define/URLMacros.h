@@ -198,6 +198,7 @@
 
 #define URL_account_v1_get_account_list                       @"account/v1/get_account_list"
 
+#define URL_version_v1_version_info                  @"version/v1/version/info"
 //意见反馈
 #define URL_account_v1_add_feedback                  @"account/v1/add_feedback"
 
