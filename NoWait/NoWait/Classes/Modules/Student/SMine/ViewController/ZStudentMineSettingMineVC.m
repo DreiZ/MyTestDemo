@@ -22,6 +22,11 @@
 @end
 @implementation ZStudentMineSettingMineVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isHidenNaviBar = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,13 +58,12 @@
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
                 [weakSelf.cellConfigArr addObject:menuCellConfig];
             }else{
-                model.zz_imageRight(titleArr[i][1]);
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+                model.zz_imageRight(titleArr[i][1]).zz_imageRightHeight(CGFloatIn750(14));
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
         }
-    })
-    .zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
          if ([cellConfig.title isEqualToString:@"头像"]){
             [ZPhotoManager sharedManager].maxImageSelected = 1;
             [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
@@ -106,8 +110,7 @@
                  [weakSelf updateUserInfo:@{@"birthday":SafeStr(weakSelf.user.birthday)}];
              }];
          }
-    })
-    .zChain_block_setRefreshHeaderNet(^{
+    }).zChain_block_setRefreshHeaderNet(^{
         __weak typeof(self) weakSelf = self;
         [ZOriganizationViewModel getUserInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
             if (isSuccess) {

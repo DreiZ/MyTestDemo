@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMineSettingVC : ZTableViewViewController
+@interface ZStudentMineSettingVC : ZTableViewController
 
 @end
 
