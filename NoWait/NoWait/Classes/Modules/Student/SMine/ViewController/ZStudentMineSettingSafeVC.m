@@ -18,50 +18,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setNavigation];
-    [self setTableViewGaryBack];
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
-
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassword"]];
-//    @[@"更换绑定手机号", @"rightBlackArrowN", @"188*****553",@"changePhone"]
-    for (int i = 0; i < titleArr.count; i++) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = titleArr[i][0];
-        model.rightImage = titleArr[i][1];
-        model.rightTitle = titleArr[i][2];
-        model.cellTitle = titleArr[i][3];
-        
-        model.leftFont = [UIFont fontContent];
-        model.cellHeight = CGFloatIn750(110);
-        model.isHiddenLine = NO;
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-}
-
-
-- (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"账号与安全"];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    self.zChain_setNavTitle(@"账号与安全").zChain_setTableViewGary();
+    self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        
+        NSArray <NSArray *>*titleArr = @[@[@"修改密码", @"rightBlackArrowN", @"已设置",@"changePassword"]];
+        for (int i = 0; i < titleArr.count; i++) {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(titleArr[i][3])
+            .zz_titleLeft(titleArr[i][0])
+            .zz_imageRight(titleArr[i][1])
+            .zz_titleRight(titleArr[i][2])
+            .zz_fontLeft([UIFont fontContent])
+            .zz_cellHeight(CGFloatIn750(110))
+            .zz_lineHidden(NO)
+            .zz_imageRightHeight(CGFloatIn750(14));
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"changePassword"]) {
+            ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
+            [weakSelf.navigationController pushViewController:pvc animated:YES];
+        }
+    });
+    
+    self.zChain_reload_ui();
 }
-
-#pragma mark tableView -------datasource----------delegate-----
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"changePassword"]) {
-        ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
-        [self.navigationController pushViewController:pvc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"changePhone"]) {
-        ZAccountChangePhoneVC *pvc = [[ZAccountChangePhoneVC alloc] init];
-        [self.navigationController pushViewController:pvc animated:YES];
-    }
-}
-
 @end
