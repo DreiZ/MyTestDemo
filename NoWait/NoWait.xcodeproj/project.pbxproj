@@ -5172,7 +5172,7 @@
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5190,7 +5190,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -5286,7 +5286,7 @@
 				CODE_SIGN_ENTITLEMENTS = "NoWait/莫等闲.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RS5CZ75KMY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5304,7 +5304,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
