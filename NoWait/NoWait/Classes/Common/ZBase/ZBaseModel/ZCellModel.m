@@ -139,6 +139,8 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_rightMultiLine, BOOL, isRightMultiLine)
     return self;
 }
 
+ZCHAIN_CLASS_CREATE(ZTextFieldModel, NSString *, zz_textCellModel_create, cellTitle)
+
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorText, UIColor *, textColor)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorDarkText, UIColor *, textDarkColor)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_fontText, UIFont *, textFont)

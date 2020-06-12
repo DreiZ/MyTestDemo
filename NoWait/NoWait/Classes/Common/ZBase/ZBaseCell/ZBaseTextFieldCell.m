@@ -175,4 +175,12 @@
     self.inputTextField.enabled = model.isTextEnabled;
     self.inputLine.hidden = model.isHiddenInputLine;
 }
+
++ (CGFloat)z_getCellHeight:(id)sender {
+    if (sender && [sender isKindOfClass:[ZTextFieldModel class]]) {
+        ZTextFieldModel *model = sender;
+        return model.cellHeight;
+    }
+    return 0.01f;
+}
 @end

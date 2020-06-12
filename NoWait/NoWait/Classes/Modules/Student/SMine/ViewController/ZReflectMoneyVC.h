@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewController.h"
 #import "ZRewardModel.h"
 
-@interface ZReflectMoneyVC : ZTableViewViewController
+@interface ZReflectMoneyVC : ZTableViewController
 @property (nonatomic,strong) ZRewardInfoModel *infoModel;
 @end
 

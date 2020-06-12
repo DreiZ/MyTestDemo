@@ -173,6 +173,8 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_rightMultiLine, BOOL)
 @property (nonatomic,assign) BOOL isHiddenInputLine;
 @property (nonatomic,assign) BOOL isTextEnabled;
 
+ZCHAIN_OBJ_CREATE(ZTextFieldModel *, NSString *,zz_textCellModel_create)
+
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorText, UIColor *)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorDarkText, UIColor *)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_fontText, UIFont *)
