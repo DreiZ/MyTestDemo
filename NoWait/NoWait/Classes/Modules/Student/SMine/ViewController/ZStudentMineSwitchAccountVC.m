@@ -22,89 +22,111 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self setTableViewGaryBack];
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
-
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.cellHeight = CGFloatIn750(180);
-        model.leftTitle = @"切换账号";
-        model.cellTitle = @"title";
-        model.leftFont = [UIFont boldFontMax2Title];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-    
-    NSArray *userList = [[ZUserHelper sharedHelper] userList];
-    
-    for (int i = 0; i < userList.count; i++) {
-        if ([userList[i] isKindOfClass:[ZUser class]]) {
-            ZUser *user = userList[i];
-            NSString *typestr = @"学员端";
-            //    1：学员 2：教师 6：校区 8：机构
-            if ([user.type intValue] == 1) {
-                typestr = @"学员端";
-            }else if ([user.type intValue] == 2) {
-                typestr = @"教师端";
-            }else if ([user.type intValue] == 6) {
-                typestr = @"校区端";
-            }else if ([user.type intValue] == 8) {
-                typestr = @"机构端";
-            }
-            
-            
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.cellHeight = CGFloatIn750(116);
-            model.leftTitle = [NSString stringWithFormat:@"%@(%@)",user.phone,typestr];
-            model.cellTitle = @"user";
-            model.leftImage = ValidStr(user.avatar)? imageFullUrl(user.avatar):@"default_head";
-            if (i == userList.count-1) {
-                model.isHiddenLine = YES;
-            }
-            if ([user.userCodeID isEqualToString:[ZUserHelper sharedHelper].uuid]) {
-                model.rightImage = @"selectedCycle";
-            }else{
-                model.rightImage = @"unSelectedCycle";
-            }
-            model.rightImageH = @80;
-            model.data = user;
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }
-    }
-    
-    if (self.cellConfigArr.count < 12) {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
-        
-        
-        
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"换个新账号登录";
-        model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
-        model.cellTitle = @"switch";
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    } 
-}
-
-
-- (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"切换账号"];
+    
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"切换账号").zChain_setTableViewGary();
+    
+    self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+            .zz_titleLeft(@"切换账号")
+            .zz_fontLeft([UIFont boldFontMax2Title])
+            .zz_cellHeight(CGFloatIn750(180));
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+        }
+        
+        NSArray *userList = [[ZUserHelper sharedHelper] userList];
+        
+        for (int i = 0; i < userList.count; i++) {
+            if ([userList[i] isKindOfClass:[ZUser class]]) {
+                ZUser *user = userList[i];
+                NSString *typestr = @"学员端";
+                //    1：学员 2：教师 6：校区 8：机构
+                if ([user.type intValue] == 1) {
+                    typestr = @"学员端";
+                }else if ([user.type intValue] == 2) {
+                    typestr = @"教师端";
+                }else if ([user.type intValue] == 6) {
+                    typestr = @"校区端";
+                }else if ([user.type intValue] == 8) {
+                    typestr = @"机构端";
+                }
+                ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user")
+                .zz_cellHeight(CGFloatIn750(116))
+                .zz_titleLeft([NSString stringWithFormat:@"%@(%@)",user.phone,typestr])
+                .zz_imageLeft(ValidStr(user.avatar)? imageFullUrl(user.avatar):@"default_head")
+                .zz_imageRightHeight(CGFloatIn750(30))
+                .zz_imageLeftHeight(CGFloatIn750(80))
+                .zz_imageLeftRadius(YES)
+                .zz_setData(user);
+                
+                if (i == userList.count-1) {
+                    model.zz_lineHidden(YES);
+                }else{
+                    model.zz_lineHidden(NO);
+                }
+                if ([user.userCodeID isEqualToString:[ZUserHelper sharedHelper].uuid]) {
+                    model.zz_imageRight(@"selectedCycle");
+                }else{
+                    model.zz_imageRight(@"unSelectedCycle");
+                }
+                
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
+            }
+        }
+        
+        if (weakSelf.cellConfigArr.count < 12) {
+            [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(60))];
+            
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"switch")
+            .zz_titleLeft(@"换个新账号登录")
+            .zz_imageRight(isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN")
+            .zz_imageRightHeight(CGFloatIn750(14));
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+        }
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"switch"]){
+            ZLoginTypeController *loginvc = [[ZLoginTypeController alloc] init];
+            loginvc.loginSuccess = ^{
+                weakSelf.zChain_reload_ui();
+                
+                NSArray *viewControllers = weakSelf.navigationController.viewControllers;
+                NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
+                
+                ZViewController *target;
+                for (ZViewController *controller in reversedArray) {
+                    if ([controller isKindOfClass:[NSClassFromString(@"ZStudentMineSwitchAccountVC") class]]) {
+                        target = controller;
+                        break;
+                    }
+                }
+                
+                if (target) {
+                    [weakSelf.navigationController popToViewController:target animated:YES];
+                    return;
+                }
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            };
+            loginvc.isSwitch = YES;
+            [weakSelf.navigationController pushViewController:loginvc animated:YES];
+        }else if ([cellConfig.title isEqualToString:@"user"]){
+            ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
+            ZUser *user = cellModel.data;
+            [[ZUserHelper sharedHelper] switchUser:user];
+            
+            weakSelf.zChain_reload_ui();
+        }
+    });
+    self.zChain_reload_ui();
 }
-
 
 #pragma mark - 删除列表
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,7 +150,6 @@
     }else{
         return UITableViewCellEditingStyleNone;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,11 +159,8 @@
             ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
             ZUser *user = cellModel.data;
             [[ZUserHelper sharedHelper] deleteUserStore:user.userCodeID];
-            [self initCellConfigArr];
-            [self.iTableView reloadData];
+            self.zChain_reload_ui();
         }
-    }else{
-         
     }
 }
 
@@ -155,64 +173,9 @@
     }
 }
 
-
-#pragma mark tableView ------delegate-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"user"]) {
-        ZSingleLineCell *lcell = (ZSingleLineCell *)cell;
-        lcell.leftImageView.layer.cornerRadius = CGFloatIn750(40);
-        [lcell.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(lcell.mas_left).offset(CGFloatIn750(30));
-            make.width.height.mas_equalTo(CGFloatIn750(80));
-            make.centerY.equalTo(lcell.mas_centerY);
-        }];
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-     if ([cellConfig.title isEqualToString:@"switch"]){
-         ZLoginTypeController *loginvc = [[ZLoginTypeController alloc] init];
-         loginvc.loginSuccess = ^{
-             [weakSelf initCellConfigArr];
-             [weakSelf.iTableView reloadData];
-             
-             NSArray *viewControllers = self.navigationController.viewControllers;
-             NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
-             
-             ZViewController *target;
-             for (ZViewController *controller in reversedArray) {
-                 if ([controller isKindOfClass:[NSClassFromString(@"ZStudentMineSwitchAccountVC") class]]) {
-                     target = controller;
-                     break;
-                 }
-             }
-             
-             if (target) {
-                 [weakSelf.navigationController popToViewController:target animated:YES];
-                 return;
-             }
-             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-         };
-         loginvc.isSwitch = YES;
-         [self.navigationController pushViewController:loginvc animated:YES];
-     }else if ([cellConfig.title isEqualToString:@"user"]){
-         ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-         ZUser *user = cellModel.data;
-         [[ZUserHelper sharedHelper] switchUser:user];
-         [self initCellConfigArr];
-         [self.iTableView reloadData];
-     }
-}
-
-
-
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
-    
-    // darkmodel change
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    self.zChain_reload_ui();
 }
 @end

@@ -421,11 +421,8 @@
             return model.cellHeight;
         }
     }
-    
     return 0.01;
 }
-
-
 
 + (CGFloat)getViewHeight:(ZLineCellModel *)model {
     CGFloat cellHeight = 0;
