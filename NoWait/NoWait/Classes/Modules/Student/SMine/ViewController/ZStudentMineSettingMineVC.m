@@ -35,9 +35,7 @@
     self.zChain_updateDataSource(^{
         weakSelf.user = [ZUserHelper sharedHelper].user;
         weakSelf.avterImage = weakSelf.user.avatar;
-    })
-    .zChain_setNavTitle(@"个人信息")
-    .zChain_setTableViewGary();
+    }).zChain_setNavTitle(@"个人信息").zChain_setTableViewGary();
     
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];

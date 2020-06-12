@@ -35,7 +35,6 @@
     [self setMainView];
 }
 
-
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"设置昵称"];
