@@ -214,7 +214,7 @@
 
 - (UIButton *)selectPhotoButton {
     if (_selectPhotoButton == nil) {
-        UIButton *selectPhotoButton = [[ZButton alloc] init];
+        UIButton *selectPhotoButton = [[UIButton alloc] init];
         [selectPhotoButton addTarget:self action:@selector(selectPhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:selectPhotoButton];
         _selectPhotoButton = selectPhotoButton;
@@ -260,7 +260,7 @@
 
 - (UIButton *)cannotSelectLayerButton {
     if (_cannotSelectLayerButton == nil) {
-        UIButton *cannotSelectLayerButton = [[ZButton alloc] init];
+        UIButton *cannotSelectLayerButton = [[UIButton alloc] init];
         [self.contentView addSubview:cannotSelectLayerButton];
         _cannotSelectLayerButton = cannotSelectLayerButton;
     }
@@ -433,7 +433,7 @@
 
 - (UIButton *)selectedCountButton {
     if (_selectedCountButton == nil) {
-        UIButton *selectedCountButton = [[ZButton alloc] init];
+        UIButton *selectedCountButton = [[UIButton alloc] init];
         selectedCountButton.layer.cornerRadius = 12;
         selectedCountButton.clipsToBounds = YES;
         selectedCountButton.backgroundColor = [UIColor redColor];

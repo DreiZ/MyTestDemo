@@ -114,7 +114,7 @@
 - (UIButton *)searchBtn {
     if (!_searchBtn) {
         __weak typeof(self) weakSelf = self;
-        _searchBtn = [[ZButton alloc] init];
+        _searchBtn = [[UIButton alloc] init];
         _searchBtn.clipsToBounds = YES;
         [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
         [_searchBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
@@ -134,7 +134,7 @@
 
 - (UIButton *)backBtn {
     if (!_backBtn) {
-        _backBtn = [[ZButton alloc] init];
+        _backBtn = [[UIButton alloc] init];
         _backBtn.clipsToBounds = YES;
         [_backBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         _backBtn.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);

@@ -58,7 +58,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -72,7 +72,7 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         _navRightBtn.layer.masksToBounds = YES;
         _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

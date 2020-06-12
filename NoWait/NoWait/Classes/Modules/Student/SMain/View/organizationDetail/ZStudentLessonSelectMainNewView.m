@@ -40,7 +40,7 @@
     _orderModel = [[ZOrderAddModel alloc] init];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [weakSelf removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];

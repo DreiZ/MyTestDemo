@@ -54,7 +54,7 @@
     
     
     __weak typeof(self) weakSelf = self;
-    UIButton *detailBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [detailBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.detailBlock) {
             weakSelf.detailBlock(weakSelf.userImageView);

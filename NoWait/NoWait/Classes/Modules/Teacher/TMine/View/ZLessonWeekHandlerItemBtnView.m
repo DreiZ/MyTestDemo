@@ -51,7 +51,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *seletBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *seletBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [seletBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handerBlock) {
             weakSelf.handerBlock(0);

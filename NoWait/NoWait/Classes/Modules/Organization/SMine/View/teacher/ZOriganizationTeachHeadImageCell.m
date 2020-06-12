@@ -47,7 +47,7 @@
     self.openBtn.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
-    UIButton *userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
@@ -84,7 +84,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontSmall]];
         [_openBtn setTitle:@"查看教师课表" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];

@@ -52,7 +52,7 @@ static ZAlertClassifyPickerView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self closeView];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -77,7 +77,7 @@ static ZAlertClassifyPickerView *sharedManager;
         make.left.right.top.equalTo(self.contView);
     }];
     
-    UIButton *closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn setTitle:@"取消" forState:UIControlStateNormal];
     [closeBtn.titleLabel setFont:[UIFont fontContent]];
     [closeBtn setTitleColor:[UIColor colorTextGray1] forState:UIControlStateNormal];
@@ -169,7 +169,7 @@ static ZAlertClassifyPickerView *sharedManager;
 - (UIButton *)sureBtn {
     if (!_sureBtn) {
         __weak typeof(self) weakSelf = self;
-        _sureBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _sureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_sureBtn.titleLabel setFont:[UIFont fontContent]];

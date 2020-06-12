@@ -123,7 +123,7 @@
         
         
         __weak typeof(self) weakSelf = self;
-        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn setImage:[UIImage imageNamed:@"left_arrow"] forState:UIControlStateNormal];
         [backBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.presentingViewController) {

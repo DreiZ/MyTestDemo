@@ -48,7 +48,7 @@
     
     
     __weak typeof(self) weakSelf = self;
-    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
@@ -60,7 +60,7 @@
         make.edges.equalTo(self.leftImageView);
     }];
     
-    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);

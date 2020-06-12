@@ -168,7 +168,7 @@
 
 - (UIButton *)payBtn {
     if (!_payBtn) {
-        _payBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _payBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_payBtn setTitle:@"立即支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];

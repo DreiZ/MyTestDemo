@@ -20,7 +20,7 @@
 
 -(void)setupView
 {
-    UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     doneBtn.layer.masksToBounds = YES;
     doneBtn.layer.cornerRadius = CGFloatIn750(50);
     [doneBtn setTitle:@"提现" forState:UIControlStateNormal];

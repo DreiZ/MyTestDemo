@@ -35,7 +35,7 @@
     [self.hintView addSubview:self.detailImageView];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [seeBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.seeBlock) {
             weakSelf.seeBlock();
@@ -95,7 +95,7 @@
 
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
-        _deleteBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _deleteBtn.backgroundColor = [UIColor blackColor];
         [_deleteBtn setImage:[UIImage imageNamed:@"LoginClose"] forState:UIControlStateNormal];
         [_deleteBtn.titleLabel setFont:[UIFont fontMin]];
@@ -107,7 +107,7 @@
 - (UIButton *)deleteBigBtn {
     if (!_deleteBigBtn) {
         __weak typeof(self) weakSelf = self;
-        _deleteBigBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _deleteBigBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_deleteBigBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.delBlock) {
                 weakSelf.delBlock();

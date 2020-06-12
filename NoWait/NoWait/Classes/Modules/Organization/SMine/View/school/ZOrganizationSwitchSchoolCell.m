@@ -75,7 +75,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *addBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);

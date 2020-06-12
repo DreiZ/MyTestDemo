@@ -94,7 +94,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];

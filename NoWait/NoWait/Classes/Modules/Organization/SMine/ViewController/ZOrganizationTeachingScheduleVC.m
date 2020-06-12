@@ -99,7 +99,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navLeftBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];

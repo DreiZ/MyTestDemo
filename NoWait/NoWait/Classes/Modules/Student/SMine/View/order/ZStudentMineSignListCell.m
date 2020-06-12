@@ -258,7 +258,7 @@
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
-        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_signBtn setTitle:@"去签课" forState:UIControlStateNormal];
         [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];

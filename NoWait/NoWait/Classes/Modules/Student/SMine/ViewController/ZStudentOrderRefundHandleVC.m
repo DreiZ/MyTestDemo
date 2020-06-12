@@ -62,7 +62,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
@@ -113,7 +113,7 @@
 -(UIButton *)handleView {
     if (!_handleView) {
         __weak typeof(self) weakSelf = self;
-        _handleView = [[ZButton alloc] initWithFrame:CGRectZero];
+        _handleView = [[UIButton alloc] initWithFrame:CGRectZero];
         [_handleView bk_addEventHandler:^(id sender) {
             NSMutableDictionary *params = @{}.mutableCopy;
             if (ValidStr(weakSelf.detailModel.refund_msg)) {

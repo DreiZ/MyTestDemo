@@ -51,7 +51,7 @@ static ZOrganizationTopFilterView *sharedManager;
     self.cellConfigArr = @[].mutableCopy;
     self.dataSources = @[].mutableCopy;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];

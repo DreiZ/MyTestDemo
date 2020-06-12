@@ -173,7 +173,7 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
@@ -411,7 +411,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *addBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addView addSubview:addBtn];
     [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isStartAndEnd) {
@@ -461,7 +461,7 @@
 //        }];
 //
 //        __weak typeof(self) weakSelf = self;
-//        UIButton *magciBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+//        UIButton *magciBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //        [addView addSubview:magciBtn];
 //        [magciBtn bk_addEventHandler:^(id sender) {
 //            [weakSelf aiAddTime];

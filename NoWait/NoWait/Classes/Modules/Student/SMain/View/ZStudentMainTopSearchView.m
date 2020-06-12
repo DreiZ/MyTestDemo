@@ -74,7 +74,7 @@
         make.centerY.equalTo(self.addressHintImageView);
     }];
     
-    UIButton *addressBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *addressBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addressBtn bk_addEventHandler:^(id sender) {
         
     } forControlEvents:UIControlEventTouchUpInside];
@@ -85,7 +85,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *searchBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [searchBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.searchBlock) {
             weakSelf.searchBlock(0);

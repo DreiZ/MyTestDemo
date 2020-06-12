@@ -317,7 +317,7 @@
 - (UIButton *)editBtn {
     if (!_editBtn) {
         __weak typeof(self) weakSelf = self;
-        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_editBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_editBtn.titleLabel setFont:[UIFont fontContent]];
@@ -334,7 +334,7 @@
 - (UIButton *)closeBtn {
     if (!_closeBtn) {
         __weak typeof(self) weakSelf = self;
-        _closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_closeBtn setTitle:@"关闭课程" forState:UIControlStateNormal];
         [_closeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_closeBtn.titleLabel setFont:[UIFont fontContent]];
@@ -351,7 +351,7 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
@@ -369,7 +369,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"开放课程" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_openBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];

@@ -80,7 +80,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *clubtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *clubtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [clubtn bk_addEventHandler:^(id sender) {
         if (weakSelf.evaBlock) {
             weakSelf.evaBlock(1);

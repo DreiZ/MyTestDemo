@@ -69,7 +69,7 @@
 
 - (UIButton *)handleBtn {
     if (!_handleBtn) {
-        _handleBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _handleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
@@ -88,7 +88,7 @@
 
 - (UIButton *)telBtn {
     if (!_telBtn) {
-        _telBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _telBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //        [_telBtn setImage:[UIImage imageNamed:@"telGray"] forState:UIControlStateNormal];
         UIImageView *telImage = [[UIImageView alloc] init];
         telImage.image = [UIImage imageNamed:@"telGray"];
@@ -112,7 +112,7 @@
 
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
-        _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_collectionBtn addSubview:self.messageImageView];
         [self.messageImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.collectionBtn);

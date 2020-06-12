@@ -46,7 +46,7 @@
         make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(10));
     }];
     
-    ZButton *detailBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [detailBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(self.model, 1);

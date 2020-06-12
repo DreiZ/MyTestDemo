@@ -152,7 +152,7 @@
     if (!_checkSelfBtn) {
         __weak  typeof(self) weakSelf = self;
         UIImage *checkSelfImage = [UIImage imageNamed:@"hng_im_lbs_self"];
-        _checkSelfBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        _checkSelfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
         [_checkSelfBtn setBackgroundImage:checkSelfImage forState:UIControlStateNormal];
         [_checkSelfBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iMapView setCenterCoordinate:weakSelf.cureUserLocation.location.coordinate animated:YES];
@@ -195,7 +195,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"保存设置" forState:UIControlStateNormal];

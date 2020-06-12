@@ -126,7 +126,7 @@
 - (UIButton *)selectBtn {
     if (!_selectBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_selectBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.selectBlock) {
                 weakSelf.selectBlock();

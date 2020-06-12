@@ -159,7 +159,7 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -193,7 +193,7 @@
         _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
         _footerView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         
-        UIButton *doneBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         doneBtn.layer.masksToBounds = YES;
         doneBtn.layer.cornerRadius = CGFloatIn750(50);
         [doneBtn setTitle:@"确定" forState:UIControlStateNormal];

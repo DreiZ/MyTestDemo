@@ -41,7 +41,7 @@ static const NSUInteger showtime = 5;
         // 2.跳过按钮
         CGFloat btnW = 60;
         CGFloat btnH = 30;
-        _countBtn = [[ZButton alloc] initWithFrame:CGRectMake(kScreenWidth - btnW - 24, [UIApplication sharedApplication].statusBarFrame.size.height + btnH, btnW, btnH)];
+        _countBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - btnW - 24, [UIApplication sharedApplication].statusBarFrame.size.height + btnH, btnW, btnH)];
         [_countBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
         [_countBtn setTitle:[NSString stringWithFormat:@"跳过%zd", showtime] forState:UIControlStateNormal];
         _countBtn.titleLabel.font = [UIFont systemFontOfSize:15];

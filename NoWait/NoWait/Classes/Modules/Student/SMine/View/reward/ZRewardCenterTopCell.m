@@ -64,7 +64,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *inviteBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *inviteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [inviteBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(1);

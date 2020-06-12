@@ -47,7 +47,7 @@ static ZPayAlertTypeView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -115,7 +115,7 @@ static ZPayAlertTypeView *sharedManager;
     }];
     
     
-    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(0);
@@ -127,7 +127,7 @@ static ZPayAlertTypeView *sharedManager;
         make.edges.equalTo(leftView);
     }];
     
-    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
             self.handleBlock(1);

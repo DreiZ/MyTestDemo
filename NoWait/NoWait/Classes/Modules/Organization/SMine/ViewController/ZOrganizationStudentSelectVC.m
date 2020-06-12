@@ -52,7 +52,7 @@
 - (UIButton *)selectBtn {
     if (!_selectBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_selectBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_selectBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_selectBtn.titleLabel setFont:[UIFont fontContent]];

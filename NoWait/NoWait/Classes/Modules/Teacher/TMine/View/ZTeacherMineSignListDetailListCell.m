@@ -91,7 +91,7 @@
 - (UIButton *)moreBtn {
     if (!_moreBtn) {
         __weak typeof(self) weakSelf = self;
-        _moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_moreBtn setTitle:@"..." forState:UIControlStateNormal];
         [_moreBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_moreBtn.titleLabel setFont:[UIFont boldFontTitle]];

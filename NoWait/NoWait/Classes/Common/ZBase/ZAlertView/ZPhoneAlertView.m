@@ -47,7 +47,7 @@ static ZPhoneAlertView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self closeView];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -101,7 +101,7 @@ static ZPhoneAlertView *sharedManager;
 //        make.left.equalTo(telImageView.mas_right).offset(CGFloatIn750(30));
 //    }];
 //
-//    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+//    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //    [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
 //    [leftBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
 //    [leftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -120,7 +120,7 @@ static ZPhoneAlertView *sharedManager;
 //        make.right.equalTo(self.contView.mas_centerX);
 //    }];
 //
-//    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+//    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //    [rightBtn setTitle:@"呼叫" forState:UIControlStateNormal];
 //    [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
 //    [rightBtn.titleLabel setFont:[UIFont fontContent]];
@@ -247,7 +247,7 @@ static ZPhoneAlertView *sharedManager;
     }];
 
    
-    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitle:@"拨打电话" forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont boldFontContent]];
@@ -276,7 +276,7 @@ static ZPhoneAlertView *sharedManager;
    }];
     
 
-    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:@"取消拨打" forState:UIControlStateNormal];
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];

@@ -290,7 +290,7 @@
 - (UIButton *)navRightBtn {
      if (!_navRightBtn) {
          __weak typeof(self) weakSelf = self;
-         _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
          [_navRightBtn setTitle:@"编辑" forState:UIControlStateNormal];
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
@@ -307,7 +307,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"升级明星学员" forState:UIControlStateNormal];

@@ -74,7 +74,7 @@
 - (UIButton *)getBtnWithText:(NSString *)text index:(NSInteger)index{
     ZMainClassifyOneModel *model = _classifysArr[index];
     
-    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = index;
     __weak typeof(self) weakSelf = self;
     [menuBtn bk_addEventHandler:^(id sender) {
@@ -82,7 +82,6 @@
     } forControlEvents:UIControlEventTouchUpInside];
     [menuBtn setTitle:text forState:UIControlStateNormal];
     [menuBtn.titleLabel setFont:[UIFont fontSmall]];
-    menuBtn.JQ_acceptEventInterval = 0.5;
     
     if (model.isSelected) {
         menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorMainSub], [UIColor colorMainSub]);

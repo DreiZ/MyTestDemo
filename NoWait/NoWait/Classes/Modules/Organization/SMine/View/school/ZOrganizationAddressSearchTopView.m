@@ -82,7 +82,7 @@
         make.centerY.equalTo(self.addressHintImageView);
     }];
     
-    UIButton *addressBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *addressBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addressBtn bk_addEventHandler:^(id sender) {
         
     } forControlEvents:UIControlEventTouchUpInside];
@@ -156,7 +156,7 @@
 - (UIButton *)cancleBtn {
     if (!_cancleBtn) {
         __weak typeof(self) weakSelf = self;
-        _cancleBtn = [[ZButton alloc] init];
+        _cancleBtn = [[UIButton alloc] init];
         [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];

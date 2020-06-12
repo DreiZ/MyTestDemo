@@ -54,7 +54,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
@@ -97,7 +97,7 @@
         make.top.equalTo(self.amountLabel.mas_bottom).offset(CGFloatIn750(12));
     }];
     
-    UIButton *allBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [allBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(3);

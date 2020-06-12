@@ -87,7 +87,7 @@
     self.arrowImageView.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
-    UIButton *midBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *midBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [midBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.moreBlock) {
             weakSelf.moreBlock(3);
@@ -131,7 +131,7 @@
 - (UIButton *)lastBtn {
     if (!_lastBtn) {
         __weak typeof(self) weakSelf = self;
-        _lastBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _lastBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_lastBtn setTitle:@"上周" forState:UIControlStateNormal];
         [_lastBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_lastBtn.titleLabel setFont:[UIFont fontContent]];
@@ -148,7 +148,7 @@
 - (UIButton *)nextBtn {
     if (!_nextBtn) {
         __weak typeof(self) weakSelf = self;
-        _nextBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _nextBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_nextBtn setTitle:@"下周" forState:UIControlStateNormal];
         [_nextBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_nextBtn.titleLabel setFont:[UIFont fontContent]];
