@@ -378,14 +378,14 @@
             break;
     }
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .imageLeft(image).titleLeft(type)
-        .fontLeft([UIFont boldFontTitle])
-        .fontRight([UIFont fontSmall])
-        .titleRight(SafeStr(messageModel.time)).colorRight([UIColor colorTextGray1])
-        .colorDarkRight([UIColor colorTextGray1Dark])
-        .imageLeftHeight(CGFloatIn750(30))
-        .lineHidden(YES)
-        .height(CGFloatIn750(54));
+        .zz_imageLeft(image).zz_titleLeft(type)
+        .zz_fontLeft([UIFont boldFontTitle])
+        .zz_fontRight([UIFont fontSmall])
+        .zz_titleRight(SafeStr(messageModel.time)).zz_colorRight([UIColor colorTextGray1])
+        .zz_colorDarkRight([UIColor colorTextGray1Dark])
+        .zz_imageLeftHeight(CGFloatIn750(30))
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(54));
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
@@ -394,16 +394,16 @@
 
 + (ZCellConfig *)setMessageContent:(ZMessgeModel *)messageModel {
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-    .titleLeft(SafeStr(messageModel.body))
-    .fontLeft([UIFont fontContent])
-    .colorLeft([UIColor colorTextGray])
-    .colorDarkLeft([UIColor colorTextGrayDark])
-    .width(KScreenWidth - CGFloatIn750(60))
-    .marginRight(CGFloatIn750(32))
-    .leftMultiLine(YES)
-    .lineHidden(YES)
-    .height(CGFloatIn750(36))
-    .spaceLine(CGFloatIn750(12));
+    .zz_titleLeft(SafeStr(messageModel.body))
+    .zz_fontLeft([UIFont fontContent])
+    .zz_colorLeft([UIColor colorTextGray])
+    .zz_colorDarkLeft([UIColor colorTextGrayDark])
+    .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+    .zz_marginRight(CGFloatIn750(32))
+    .zz_leftMultiLine(YES)
+    .zz_lineHidden(YES)
+    .zz_cellHeight(CGFloatIn750(36))
+    .zz_spaceLine(CGFloatIn750(12));
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     return tempCellConfig;
@@ -411,12 +411,12 @@
 
 + (ZCellConfig *)setMessageSend:(ZMessgeModel *)messageModel {
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-    .titleRight(SafeStr(messageModel.extra.store_name))
-        .colorRight([UIColor colorTextBlack])
-        .colorDarkRight([UIColor colorTextBlackDark])
-        .fontRight([UIFont boldFontSmall])
-        .lineHidden(YES)
-        .height(CGFloatIn750(30));
+    .zz_titleRight(SafeStr(messageModel.extra.store_name))
+        .zz_colorRight([UIColor colorTextBlack])
+        .zz_colorDarkRight([UIColor colorTextBlackDark])
+        .zz_fontRight([UIFont boldFontSmall])
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(30));
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -425,12 +425,12 @@
 
 + (ZCellConfig *)setSeeDetail:(NSString *)seeDetail {
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"seeDetail")
-    .titleLeft(SafeStr(seeDetail))
-    .fontLeft([UIFont fontSmall])
-    .imageRight(@"rightBlackArrowN")
-    .imageRightHeight(CGFloatIn750(12))
-    .lineHidden(YES)
-    .height(CGFloatIn750(54));
+    .zz_titleLeft(SafeStr(seeDetail))
+    .zz_fontLeft([UIFont fontSmall])
+    .zz_imageRight(@"rightBlackArrowN")
+    .zz_imageRightHeight(CGFloatIn750(12))
+    .zz_lineHidden(YES)
+    .zz_cellHeight(CGFloatIn750(54));
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     return tempCellConfig;
@@ -438,11 +438,11 @@
 
 + (ZCellConfig *)setTeacher:(ZMessgeModel *)messageModel {
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-        .titleLeft(SafeStr(messageModel.extra.teacher))
-        .imageLeft(SafeStr(messageModel.extra.teacher_image))
-        .imageLeftHeight(CGFloatIn750(44))
-        .lineHidden(YES)
-    .height(CGFloatIn750(74)).imageLeftRadius(YES);
+        .zz_titleLeft(SafeStr(messageModel.extra.teacher))
+        .zz_imageLeft(SafeStr(messageModel.extra.teacher_image))
+        .zz_imageLeftHeight(CGFloatIn750(44))
+        .zz_lineHidden(YES)
+    .zz_cellHeight(CGFloatIn750(74)).zz_imageLeftRadius(YES);
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     
@@ -456,10 +456,10 @@
 
 + (ZCellConfig *)setLineCell:(CGFloat)height {
      ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"message")
-       .lineHidden(NO)
-       .height(height)
-       .contentSpaceLeft(CGFloatIn750(46))
-       .contentSpaceRight(CGFloatIn750(46));
+       .zz_lineHidden(NO)
+       .zz_cellHeight(height)
+       .zz_contentSpaceLeft(CGFloatIn750(46))
+       .zz_contentSpaceRight(CGFloatIn750(46));
 
     ZCellConfig *tempCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     return tempCellConfig;

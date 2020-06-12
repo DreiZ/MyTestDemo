@@ -13,13 +13,22 @@
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
 
+#import "ZOriganizationModel.h"
+
 @interface ZMianSearchVC ()
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSMutableDictionary *param;
-
 @end
 
 @implementation ZMianSearchVC
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryMainSearch;
+    }
+    return self;
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -42,16 +51,17 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
+    
 }
 
 - (void)setupMainView{
     [super setupMainView];
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-           make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-           make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-           make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-           make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(0));
-       }];
+       make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+       make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+       make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+       make.top.equalTo(self.searchView.mas_bottom).offset(-CGFloatIn750(0));
+    }];
 }
 
 #pragma mark - lazy loading
@@ -65,6 +75,7 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
     for (int i = 0; i < self.dataSources.count; i++) {
         id data = self.dataSources[i];
         if ([data isKindOfClass:[ZStoresListModel class]]) {
@@ -84,6 +95,7 @@
     }
 }
 
+
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
@@ -101,7 +113,7 @@
             dvc.model = lmodel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         };
-    }
+    } 
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationSearchListCell"]) {

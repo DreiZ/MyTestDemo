@@ -57,10 +57,10 @@
             [configArr addObject:cellConfig];
         }
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
-        .titleLeft(@"提现到支付宝")
-        .lineHidden(YES)
-        .height(CGFloatIn750(50))
-        .fontLeft([UIFont boldFontContent]);
+        .zz_titleLeft(@"提现到支付宝")
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(50))
+        .zz_fontLeft([UIFont boldFontContent]);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -99,10 +99,10 @@
     {
         [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"hint")
-        .titleLeft(@"提现金额")
-        .lineHidden(YES)
-        .height(CGFloatIn750(30))
-        .fontLeft([UIFont boldFontContent]);
+        .zz_titleLeft(@"提现金额")
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(30))
+        .zz_fontLeft([UIFont boldFontContent]);
    
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -129,10 +129,10 @@
     
     {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
-        .lineHidden(NO)
-        .marginLineLeft(CGFloatIn750(50))
-        .marginLineRight(CGFloatIn750(50))
-        .height(CGFloatIn750(2));
+        .zz_lineHidden(NO)
+        .zz_marginLineLeft(CGFloatIn750(50))
+        .zz_marginLineRight(CGFloatIn750(50))
+        .zz_cellHeight(CGFloatIn750(2));
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
@@ -141,17 +141,17 @@
     
     {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"last")
-        .lineHidden(YES)
-        .height(CGFloatIn750(100))
-        .fontLeft([UIFont fontSmall]);
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(100))
+        .zz_fontLeft([UIFont fontSmall]);
         
         NSString *hintStr = [NSString stringWithFormat:@"剩余可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
         if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
             hintStr = @"超出可提现金额";
             
-            model.colorLeft([UIColor colorRedDefault]).colorDarkLeft([UIColor colorRedDefault]).titleLeft(hintStr);
+            model.zz_colorLeft([UIColor colorRedDefault]).zz_colorDarkLeft([UIColor colorRedDefault]).zz_titleLeft(hintStr);
         }else{
-            model.colorLeft([UIColor colorTextGray]).colorDarkLeft([UIColor colorTextGrayDark]).titleLeft(hintStr);
+            model.zz_colorLeft([UIColor colorTextGray]).zz_colorDarkLeft([UIColor colorTextGrayDark]).zz_titleLeft(hintStr);
         }
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -203,17 +203,17 @@
                     weakSelf.handleModel.amount = text;
                     
                    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"last")
-                    .lineHidden(YES)
-                    .height(CGFloatIn750(100))
-                    .fontLeft([UIFont fontSmall]);
+                    .zz_lineHidden(YES)
+                    .zz_cellHeight(CGFloatIn750(100))
+                    .zz_fontLeft([UIFont fontSmall]);
                     
                     NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
                     if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
                         hintStr = @"超出可提现金额";
                         
-                        model.colorLeft([UIColor colorRedDefault]).colorDarkLeft([UIColor colorRedDefault]).titleLeft(hintStr);
+                        model.zz_colorLeft([UIColor colorRedDefault]).zz_colorDarkLeft([UIColor colorRedDefault]).zz_titleLeft(hintStr);
                     }else{
-                        model.colorLeft([UIColor colorTextGray]).colorDarkLeft([UIColor colorTextGrayDark]).titleLeft(hintStr);
+                        model.zz_colorLeft([UIColor colorTextGray]).zz_colorDarkLeft([UIColor colorTextGrayDark]).zz_titleLeft(hintStr);
                     }
                     
                     if (weakSelf.hintCell) {

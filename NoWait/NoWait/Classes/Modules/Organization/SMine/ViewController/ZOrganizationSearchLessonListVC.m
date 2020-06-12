@@ -20,6 +20,15 @@
 
 @implementation ZOrganizationSearchLessonListVC
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryLessonSearch;
+    }
+    return self;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.searchView.iTextField) {

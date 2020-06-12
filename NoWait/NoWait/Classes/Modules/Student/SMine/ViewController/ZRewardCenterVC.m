@@ -101,12 +101,12 @@
     for (NSArray *tArr in tempArr) {
 
        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[1])
-        .imageLeft(tArr[0]).titleLeft(tArr[2])
-        .contentSpaceLeft(CGFloatIn750(50))
-        .fontLeft([UIFont fontContent])
-        .imageLeftHeight(CGFloatIn750(50))
-        .lineHidden(YES)
-        .height(CGFloatIn750(96));
+        .zz_imageLeft(tArr[0]).zz_titleLeft(tArr[2])
+        .zz_contentSpaceLeft(CGFloatIn750(50))
+        .zz_fontLeft([UIFont fontContent])
+        .zz_imageLeftHeight(CGFloatIn750(50))
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(96));
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
@@ -127,13 +127,13 @@
         {
             NSString *title = self.infoModel.annotations;
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
-            .titleLeft(title)
-            .fontLeft([UIFont fontContent])
-            .colorLeft([UIColor colorTextGray])
-            .colorDarkLeft([UIColor colorTextGrayDark])
-            .leftMultiLine(YES)
-            .lineHidden(YES)
-            .height(CGFloatIn750(30));
+            .zz_titleLeft(title)
+            .zz_fontLeft([UIFont fontContent])
+            .zz_colorLeft([UIColor colorTextGray])
+            .zz_colorDarkLeft([UIColor colorTextGrayDark])
+            .zz_leftMultiLine(YES)
+            .zz_lineHidden(YES)
+            .zz_cellHeight(CGFloatIn750(30));
 
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             

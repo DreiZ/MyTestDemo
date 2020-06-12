@@ -41,7 +41,7 @@
             model.leftFont = [UIFont fontContent];
             model.leftImage = obj.image;
             model.leftImageH = CGFloatIn750(70);
-            model.imageLeftRadius(YES);
+            model.zz_imageLeftRadius(YES);
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
