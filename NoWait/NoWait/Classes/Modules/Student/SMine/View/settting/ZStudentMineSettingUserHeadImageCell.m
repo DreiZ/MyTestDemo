@@ -140,7 +140,7 @@
     return _bottomLineView;
 }
 
-- (void)setModel:(ZBaseSingleCellModel *)model {
+- (void)setModel:(ZLineCellModel *)model {
     _model = model;
     _leftTitleLabel.text = model.leftTitle;
     _rightTitleLabel.text = model.rightTitle;
@@ -154,7 +154,7 @@
     self.bottomLineView.hidden = model.isHiddenLine;
     self.bottomLineView.backgroundColor = adaptAndDarkColor(model.lineColor, model.lineDarkColor);
     
-    if (model.leftImage && model.leftImage.length > 0) {
+    if (model.leftImage) {
         self.leftImageView.image = [UIImage imageNamed:model.leftImage];
         
         [self.leftImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -172,13 +172,13 @@
         self.leftImageView.hidden = YES;
     }
     
-    if (model.rightImageH) {
-        if (model.rightImageH && [model.rightImageH isKindOfClass:[NSString class]] && ((NSString *)model.rightImageH).length > 0) {
-            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.rightImageH)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    if (model.data) {
+        if (model.data && [model.data isKindOfClass:[NSString class]] && ((NSString *)model.data).length > 0) {
+            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.data)] placeholderImage:[UIImage imageNamed:@"default_head"]];
             
             self.rightImageView.hidden = NO;
-        }else if (model.rightImageH && [model.rightImageH isKindOfClass:[UIImage class]] ){
-            self.rightImageView.image = model.rightImageH;
+        }else if (model.data && [model.data isKindOfClass:[UIImage class]] ){
+            self.rightImageView.image = model.data;
             
             self.rightImageView.hidden = NO;
         }else{

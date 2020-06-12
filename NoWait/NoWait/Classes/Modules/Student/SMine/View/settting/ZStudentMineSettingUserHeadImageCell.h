@@ -10,7 +10,7 @@
 
 
 @interface ZStudentMineSettingUserHeadImageCell : ZBaseCell
-@property (nonatomic,strong) ZBaseSingleCellModel *model;
+@property (nonatomic,strong) ZLineCellModel *model;
 
 @end
 
