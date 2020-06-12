@@ -66,7 +66,7 @@
 - (UIButton *)rightNavBtn {
     if (!_rightNavBtn) {
         __weak typeof(self) weakSelf = self;
-        _rightNavBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_rightNavBtn setTitle:@"刷新" forState:UIControlStateNormal];
         [_rightNavBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_rightNavBtn.titleLabel setFont:[UIFont fontContent]];

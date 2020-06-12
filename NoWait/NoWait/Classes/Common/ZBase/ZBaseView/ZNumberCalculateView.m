@@ -113,7 +113,7 @@
     _segmentReduce.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     _segmentAdd.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     
-    UIButton *reduceTempBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *reduceTempBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [reduceTempBtn addTarget:self action:@selector(reduceNumberClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:reduceTempBtn];
     [reduceTempBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,7 +127,7 @@
     [reduceTempBtn addGestureRecognizer:reduceLongPress];
     
     
-    UIButton *addTempBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *addTempBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addTempBtn addTarget:self action:@selector(addNumberClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:addTempBtn];
     [addTempBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,7 +181,7 @@
 
 -(UIButton *)reduceBtn {
     if (!_reduceBtn) {
-        _reduceBtn = [[ZButton alloc] init];
+        _reduceBtn = [[UIButton alloc] init];
         [_reduceBtn setImage:[UIImage imageNamed:@"btn_num_minus"] forState:UIControlStateNormal];
         [_reduceBtn addTarget:self action:@selector(reduceNumberClick) forControlEvents:UIControlEventTouchUpInside];
         //button长按事件
@@ -195,7 +195,7 @@
 
 -(UIButton *)addBtn {
     if (!_addBtn) {
-        _addBtn = [[ZButton alloc] init];
+        _addBtn = [[UIButton alloc] init];
         [_addBtn setImage:[UIImage imageNamed:@"btn_num_add"] forState:UIControlStateNormal];
         [_addBtn addTarget:self action:@selector(addNumberClick) forControlEvents:UIControlEventTouchUpInside];
         //button长按事件

@@ -193,7 +193,7 @@
         __weak typeof(self) weakSelf = self;
         _bottomView = [[UIView alloc] init];
         _bottomView.backgroundColor = [UIColor colorMain];
-        UIButton *bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [bottomBtn setTitle:@"将每天都设置此时间" forState:UIControlStateNormal];
         [bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [bottomBtn bk_addEventHandler:^(id sender) {

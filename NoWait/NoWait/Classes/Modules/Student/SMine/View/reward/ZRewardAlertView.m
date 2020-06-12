@@ -89,7 +89,7 @@
     [ZPublicTool setLineSpacing:CGFloatIn750(12) label:twoLabel];
     [ZPublicTool setLineSpacing:CGFloatIn750(12) label:oneLabel];
     
-    UIButton *seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [seeBtn setTitle:@"去看看" forState:UIControlStateNormal];
     [seeBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [seeBtn.titleLabel setFont:[UIFont fontContent]];
@@ -113,7 +113,7 @@
         make.top.equalTo(twoLabel.mas_bottom).offset(CGFloatIn750(18));
     }];
     
-    UIButton *closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn setImage:[[UIImage imageNamed:@"lessonSelectClose"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     closeBtn.tintColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlack]);
     [closeBtn bk_addEventHandler:^(id sender) {

@@ -216,7 +216,7 @@
 -(UIButton*) getHotSearchBtnItem:(NSInteger)index
 {
     if (index >= _btnArr.count) {
-        UIButton *btn = [ZButton buttonWithType:UIButtonTypeCustom];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = index;
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

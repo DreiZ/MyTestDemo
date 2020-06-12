@@ -40,83 +40,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self initCellConfigArr];
-    self.iTableView.scrollEnabled = NO;
-    [self.iTableView reloadData];;
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    _loginViewModel = [[ZLoginViewModel alloc] init];
-}
-
-
-- (void)setupMainView {
-    [super setupMainView];
-    
-    [self.view addSubview:self.navView];
-    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
-        make.height.mas_equalTo(CGFloatIn750(88));
-    }];
-    
-    self.iTableView.tableFooterView = self.footerView;
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.navView.mas_bottom).offset(0);
-    }];
-}
-
-
-#pragma mark - set data
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
- 
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"绑定新手机号码";
-    model.cellTitle = @"title";
-    model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
-    model.leftMargin = CGFloatIn750(50);
-    model.isHiddenLine = YES;
-    model.cellHeight = CGFloatIn750(126);
-
-    ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-
-    [self.cellConfigArr addObject:titleCellConfig];
-    
-    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(180))];
-    
-
-   ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
-   
-   [self.cellConfigArr addObject:textCellConfig];
-    {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"修改密码")
+    .zChain_resetMainView(^{
+        weakSelf.iTableView.scrollEnabled = NO;
+    }).zChain_updateDataSource(^{
+        weakSelf.loginViewModel = [[ZLoginViewModel alloc] init];
+    }).zChain_resetMainView(^{
+        [weakSelf.view addSubview:weakSelf.navView];
+        [weakSelf.navView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.top.equalTo(weakSelf.view.mas_top).offset(kStatusBarHeight);
+            make.height.mas_equalTo(CGFloatIn750(88));
+        }];
         
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
+        weakSelf.iTableView.tableFooterView = weakSelf.footerView;
+        [weakSelf.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom);
+            make.top.equalTo(weakSelf.navView.mas_bottom).offset(0);
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+        .zz_titleLeft(@"绑定新手机号码")
+        .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(52)])
+        .zz_marginLeft(CGFloatIn750(50))
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(126));
+        
+         ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+         [self.cellConfigArr addObject:titleCellConfig];
+         
+         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(180))];
+         
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
         
         [self.cellConfigArr addObject:textCellConfig];
-    }
+         {
+             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             
+             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
+             
+             [self.cellConfigArr addObject:textCellConfig];
+         }
+         
+         {
+             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"短信验证码"];
+             
+             [self.cellConfigArr addObject:textCellConfig];
+         }
+    });
     
-    {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"短信验证码"];
-        
-        [self.cellConfigArr addObject:textCellConfig];
-    }
+    self.zChain_reload_ui();
 }
-
-
-- (void)setNavigation {
-    self.isHidenNaviBar = YES;
-
-    [self.navigationItem setTitle:@"修改密码"];
-}
-
 
 #pragma mark - lazy loading...
 - (UIView *)navView {
@@ -267,9 +247,6 @@
     [super traitCollectionDidChange:previousTraitCollection];
     _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
     // darkmodel change
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    self.zChain_reload_ui();
 }
 @end
-
-

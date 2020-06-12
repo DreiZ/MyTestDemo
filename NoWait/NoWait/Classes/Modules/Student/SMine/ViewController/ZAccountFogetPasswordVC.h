@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZAccountFogetPasswordVC : ZTableViewViewController
+@interface ZAccountFogetPasswordVC : ZTableViewController
 @property (nonatomic, assign) BOOL isSwitch;
 
 @property (nonatomic, copy) void (^loginSuccess)(void);

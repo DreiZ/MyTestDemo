@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentCollectionOrganizationVC : ZTableViewViewController
+@interface ZStudentCollectionOrganizationVC : ZTableViewController
 
 @end
 

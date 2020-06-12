@@ -40,104 +40,150 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setNavigation];
-    [self initCellConfigArr];
-    self.iTableView.scrollEnabled = NO;
-    [self.iTableView reloadData];;
-}
-
-
-- (void)setupMainView {
-    [super setupMainView];
-    
-    [self.view addSubview:self.navView];
-    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
-        make.height.mas_equalTo(CGFloatIn750(88));
-    }];
-    
-    self.iTableView.tableFooterView = self.footerView;
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.navView.mas_bottom).offset(0);
-    }];
-}
-
-
-- (void)setDataSource {
-    [super setDataSource];
-    _loginViewModel = [[ZLoginViewModel alloc] init];
-    _loginViewModel.loginModel.tel = [ZUserHelper sharedHelper].user.phone;
-}
-
-
-#pragma mark - set data
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
- 
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"找回密码";
-    model.cellTitle = @"title";
-    model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
-    model.leftMargin = CGFloatIn750(50);
-    model.isHiddenLine = YES;
-    model.cellHeight = CGFloatIn750(126);
-
-
-    ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-
-    [self.cellConfigArr addObject:titleCellConfig];
-    
-    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
-    
-    
-    {
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"修改密码")
+    .zChain_resetMainView(^{
+        weakSelf.iTableView.scrollEnabled = NO;
         
-        [self.cellConfigArr addObject:textCellConfig];
+        [weakSelf.view addSubview:weakSelf.navView];
+        [weakSelf.navView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
+            make.height.mas_equalTo(CGFloatIn750(88));
+        }];
         
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-    }
-    
-    {
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
-        
-        [self.cellConfigArr addObject:textCellConfig];
-        
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-    }
-    
-   ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-   
-   [self.cellConfigArr addObject:textCellConfig];
-    {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
-        
-        [self.cellConfigArr addObject:textCellConfig];
-    }
-    
-     
-     {
-         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+        weakSelf.iTableView.tableFooterView = weakSelf.footerView;
+        [weakSelf.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom);
+            make.top.equalTo(weakSelf.navView.mas_bottom).offset(0);
+        }];
+    }).zChain_updateDataSource(^{
+        weakSelf.loginViewModel = [[ZLoginViewModel alloc] init];
+        weakSelf.loginViewModel.loginModel.tel = [ZUserHelper sharedHelper].user.phone;
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+
+         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+         .zz_titleLeft(@"找回密码")
+         .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(52)])
+         .zz_marginLeft(CGFloatIn750(50))
+         .zz_lineHidden(YES)
+         .zz_cellHeight(CGFloatIn750(126));
          
-         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
+          ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+          [self.cellConfigArr addObject:titleCellConfig];
          
-         [self.cellConfigArr addObject:textCellConfig];
-     }
+         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
+         {
+             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
+             
+             [self.cellConfigArr addObject:textCellConfig];
+             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+         }
+         
+         {
+             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
+             
+             [self.cellConfigArr addObject:textCellConfig];
+             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+         }
+         
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+
+        [self.cellConfigArr addObject:textCellConfig];
+         {
+             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
+             
+             [self.cellConfigArr addObject:textCellConfig];
+         }
+         
+        {
+          [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+          ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
+          
+          [self.cellConfigArr addObject:textCellConfig];
+        }
+    });
+    
+    self.zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"phone"]) {
+                ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+                bCell.type = 0;
+                bCell.max = 11;
+                bCell.formatterType = ZFormatterTypePhoneNumber;
+                bCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.loginViewModel.loginModel.tel = text;
+                };
+            weakSelf.codeCell = bCell;
+            }else if ([cellConfig.title isEqualToString:@"imageCode"]) {
+                ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+                bCell.type = 2;
+                bCell.max = 4;
+                bCell.formatterType = ZFormatterTypeAny;
+                bCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.loginViewModel.loginModel.code = text;
+                };
+                bCell.imageCodeBlock = ^(NSString * ckey) {
+                    weakSelf.loginViewModel.loginModel.ckey = ckey;
+                };
+        //        _codeCell = bCell;
+                [bCell getImageCode];
+            }else if ([cellConfig.title isEqualToString:@"code"]) {
+                ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+                bCell.placeholder = @"请输入验证码";
+                bCell.type = 1;
+                bCell.max = 6;
+                bCell.formatterType = ZFormatterTypeNumber;
+                bCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.loginViewModel.loginModel.messageCode = text;
+                };
+                bCell.getCodeBlock = ^(void (^success)(NSString *)) {
+                    if (!weakSelf.loginViewModel.loginModel.tel || weakSelf.loginViewModel.loginModel.tel.length != 11) {
+                       [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
+                       //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+                       return;
+                   }
+                   
+                   if (!weakSelf.loginViewModel.loginModel.code || weakSelf.loginViewModel.loginModel.code.length != 4) {
+                       [TLUIUtility showErrorHint:@"请输入图形验证码" ];
+                       //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
+                       return;
+                   }
+                   
+                   NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.code,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
+                   [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
+                      if (isSuccess) {
+                          [TLUIUtility showSuccessHint:message];
+                          if (success) {
+                              success(message);
+                          }
+                      }else{
+                          [TLUIUtility showErrorHint:message];
+                      }
+                   }];
+                };
+            }else if ([cellConfig.title isEqualToString:@"password"] ) {
+                ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+                bCell.type = 3;
+                bCell.max = 20;
+                bCell.formatterType = ZFormatterTypeAny;
+                bCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.loginViewModel.loginModel.pwd = text;
+                };
+            }else if ([cellConfig.title isEqualToString:@"repassword"]) {
+                ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
+                bCell.type = 3;
+                bCell.max = 20;
+                bCell.formatterType = ZFormatterTypeAny;
+                bCell.valueChangeBlock = ^(NSString * text) {
+                    weakSelf.loginViewModel.loginModel.rePwd = text;
+                };
+            }
+    });
+    self.zChain_reload_ui();
 }
-
-
-- (void)setNavigation {
-    self.isHidenNaviBar = YES;
-
-    [self.navigationItem setTitle:@"修改密码"];
-}
-
 
 #pragma mark - lazy loading...
 - (UIView *)navView {
@@ -258,92 +304,13 @@
     return isMatch;
 }
 
-
-#pragma mark - tableview
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"phone"]) {
-        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 0;
-        bCell.max = 11;
-        bCell.formatterType = ZFormatterTypePhoneNumber;
-        bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.tel = text;
-        };
-        _codeCell = bCell;
-    }else if ([cellConfig.title isEqualToString:@"imageCode"]) {
-        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 2;
-        bCell.max = 4;
-        bCell.formatterType = ZFormatterTypeAny;
-        bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.code = text;
-        };
-        bCell.imageCodeBlock = ^(NSString * ckey) {
-            weakSelf.loginViewModel.loginModel.ckey = ckey;
-        };
-//        _codeCell = bCell;
-        [bCell getImageCode];
-    }else if ([cellConfig.title isEqualToString:@"code"]) {
-        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.placeholder = @"请输入验证码";
-        bCell.type = 1;
-        bCell.max = 6;
-        bCell.formatterType = ZFormatterTypeNumber;
-        bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.messageCode = text;
-        };
-        bCell.getCodeBlock = ^(void (^success)(NSString *)) {
-            if (!weakSelf.loginViewModel.loginModel.tel || weakSelf.loginViewModel.loginModel.tel.length != 11) {
-               [TLUIUtility showErrorHint:@"请输入正确的手机号" ];
-               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
-               return;
-           }
-           
-           if (!weakSelf.loginViewModel.loginModel.code || weakSelf.loginViewModel.loginModel.code.length != 4) {
-               [TLUIUtility showErrorHint:@"请输入图形验证码" ];
-               //        [[HNPublicTool shareInstance] showHudMessage:@"请输入正确的手机号"];
-               return;
-           }
-           
-           NSMutableDictionary *params = @{@"ckey":weakSelf.loginViewModel.loginModel.ckey,@"captcha":weakSelf.loginViewModel.loginModel.code,@"phone":weakSelf.loginViewModel.loginModel.tel}.mutableCopy;
-           [ZLoginViewModel codeWithParams:params block:^(BOOL isSuccess, id message) {
-              if (isSuccess) {
-                  [TLUIUtility showSuccessHint:message];
-                  if (success) {
-                      success(message);
-                  }
-              }else{
-                  [TLUIUtility showErrorHint:message];
-              }
-           }];
-        };
-    }else if ([cellConfig.title isEqualToString:@"password"] ) {
-        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 3;
-        bCell.max = 20;
-        bCell.formatterType = ZFormatterTypeAny;
-        bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.pwd = text;
-        };
-    }else if ([cellConfig.title isEqualToString:@"repassword"]) {
-        ZMineAccountTextFieldCell *bCell = (ZMineAccountTextFieldCell *)cell;
-        bCell.type = 3;
-        bCell.max = 20;
-        bCell.formatterType = ZFormatterTypeAny;
-        bCell.valueChangeBlock = ^(NSString * text) {
-            weakSelf.loginViewModel.loginModel.rePwd = text;
-        };
-    }
-}
-
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
     // darkmodel change
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    
+    self.zChain_reload_ui();
 }
 @end
 

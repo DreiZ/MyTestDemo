@@ -165,7 +165,7 @@
 - (UIButton *)selectedBtn {
     if (!_selectedBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectedBtn = [[ZButton alloc] init];
+        _selectedBtn = [[UIButton alloc] init];
         [_selectedBtn bk_addEventHandler:^(id sender) {
             weakSelf.model.isSelected = !weakSelf.model.isSelected;
             

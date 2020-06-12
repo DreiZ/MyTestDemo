@@ -32,32 +32,62 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.detailModel.refund_amount = self.detailModel.pay_amount;
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"申请退款");
+    self.zChain_updateDataSource(^{
+        weakSelf.detailModel.refund_amount = weakSelf.detailModel.pay_amount;
+    }).zChain_setTableViewGary()
+    .zChain_resetMainView(^{
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
+        [weakSelf.navigationItem setLeftBarButtonItem:item];
+        
+        [weakSelf.view addSubview:weakSelf.handleView];
+        [weakSelf.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-safeAreaBottom());
+            make.height.mas_equalTo(CGFloatIn750(88));
+        }];
+        
+        [weakSelf.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.handleView.mas_top);
+            make.top.equalTo(weakSelf.view.mas_top).offset(0);
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        
+        weakSelf.detailModel.status = @"1";
+        [weakSelf setOrderDetailCell];
+        [weakSelf setUserCell];
+    });
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
-
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    if (!self.detailModel) {
-        return;
-    }
+    self.zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
+            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+            lcell.titleLabel.font = [UIFont fontContent];
+            lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+            lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
+        }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
+            ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+            lcell.cellSetBlock = ^(UITableViewCell *tcell, NSIndexPath *tindexPath, ZCellConfig *tcellConfig) {
+                if ([tcellConfig.title isEqualToString:@"name"]) {
+                    ZTextFieldCell *fCell = (ZTextFieldCell *)tcell;
+                    fCell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.detailModel.refund_msg = text;
+                    };
+                }else if ([tcellConfig.title isEqualToString:@"price"]){
+                    ZTextFieldCell *fCell = (ZTextFieldCell *)tcell;
+                    fCell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.detailModel.refund_amount = text;
+                    };
+                }
+            };
+        }
+    });
     
-    self.detailModel.status = @"1";
-    [self setOrderDetailCell];
-    [self setUserCell];
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"申请退款"];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
-    [self.navigationItem setLeftBarButtonItem:item];
+    self.zChain_reload_ui();
 }
-
 
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
@@ -90,23 +120,6 @@
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
-}
-
-
-- (void)setupMainView {
-    [super setupMainView];
-    [self.view addSubview:self.handleView];
-    [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-        make.height.mas_equalTo(CGFloatIn750(88));
-    }];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.handleView.mas_top);
-        make.top.equalTo(self.view.mas_top).offset(0);
-    }];
 }
 
 #pragma mark - lazy loading...
@@ -159,39 +172,6 @@
     return _handleView;
 }
 
-#pragma mark - tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
-        ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
-        lcell.titleLabel.font = [UIFont fontContent];
-        lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
-    }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
-        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
-        lcell.cellSetBlock = ^(UITableViewCell *tcell, NSIndexPath *tindexPath, ZCellConfig *tcellConfig) {
-            if ([tcellConfig.title isEqualToString:@"name"]) {
-                ZTextFieldCell *fCell = (ZTextFieldCell *)tcell;
-                fCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.refund_msg = text;
-                };
-            }else if ([tcellConfig.title isEqualToString:@"price"]){
-                ZTextFieldCell *fCell = (ZTextFieldCell *)tcell;
-                fCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.refund_amount = text;
-                };
-            }
-        };
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-          
-    }
-}
-
-
 #pragma mark - set cell
 - (void)setOrderDetailCell {
     ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailCell className] title:[ZStudentMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderDetailCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
@@ -232,6 +212,4 @@
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
     [self.cellConfigArr addObject:bottomCellConfig];
 }
-#pragma mark - 网络数据
 @end
-

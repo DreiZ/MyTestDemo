@@ -63,7 +63,7 @@
            leftX = CGFloatIn750(30);
        }
            
-       UIButton *tBtn = [[ZButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
+       UIButton *tBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
        tBtn.tag = i;
         [tBtn setTitle:title forState:UIControlStateNormal];
         [tBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];

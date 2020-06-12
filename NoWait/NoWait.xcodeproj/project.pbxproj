@@ -88,8 +88,6 @@
 		B23DECE324723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECE224723018005A9E72 /* ZStudentMainOrganizationSearchListItemCell.m */; };
 		B23DECE624725D0A005A9E72 /* ZReflectHintTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECE524725D0A005A9E72 /* ZReflectHintTopCell.m */; };
 		B23DECEC24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECEB24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m */; };
-		B23DECF42474C74C005A9E72 /* UIControl+JQ.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF22474C74C005A9E72 /* UIControl+JQ.m */; };
-		B23DECF82474CB43005A9E72 /* ZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B23DECF72474CB43005A9E72 /* ZButton.m */; };
 		B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */; };
 		B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E82491C49600F828A6 /* LKUIUtils.m */; };
 		B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */; };
@@ -819,10 +817,6 @@
 		B23DECE524725D0A005A9E72 /* ZReflectHintTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZReflectHintTopCell.m; sourceTree = "<group>"; };
 		B23DECEA24726FD6005A9E72 /* ZStudentOrganizationBannerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentOrganizationBannerCell.h; sourceTree = "<group>"; };
 		B23DECEB24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentOrganizationBannerCell.m; sourceTree = "<group>"; };
-		B23DECF22474C74C005A9E72 /* UIControl+JQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+JQ.m"; sourceTree = "<group>"; };
-		B23DECF32474C74C005A9E72 /* UIControl+JQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+JQ.h"; sourceTree = "<group>"; };
-		B23DECF62474CB43005A9E72 /* ZButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZButton.h; sourceTree = "<group>"; };
-		B23DECF72474CB43005A9E72 /* ZButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZButton.m; sourceTree = "<group>"; };
 		B24324E32491C1F900F828A6 /* HNUpdateAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNUpdateAlertView.h; sourceTree = "<group>"; };
 		B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNUpdateAlertView.m; sourceTree = "<group>"; };
 		B24324E72491C49600F828A6 /* LKUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKUIUtils.h; sourceTree = "<group>"; };
@@ -2213,24 +2207,6 @@
 			path = ZBaseView;
 			sourceTree = "<group>";
 		};
-		B23DECF12474C74C005A9E72 /* UIControl+JQ */ = {
-			isa = PBXGroup;
-			children = (
-				B23DECF22474C74C005A9E72 /* UIControl+JQ.m */,
-				B23DECF32474C74C005A9E72 /* UIControl+JQ.h */,
-			);
-			path = "UIControl+JQ";
-			sourceTree = "<group>";
-		};
-		B23DECF52474CB1C005A9E72 /* ZButton */ = {
-			isa = PBXGroup;
-			children = (
-				B23DECF62474CB43005A9E72 /* ZButton.h */,
-				B23DECF72474CB43005A9E72 /* ZButton.m */,
-			);
-			path = ZButton;
-			sourceTree = "<group>";
-		};
 		B24324E62491C49600F828A6 /* UIUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2943,7 +2919,6 @@
 			isa = PBXGroup;
 			children = (
 				B235903624888159008C953A /* ZBaseView */,
-				B23DECF52474CB1C005A9E72 /* ZButton */,
 				B2A77F8123BDEAA000407BF0 /* ZAlertView */,
 				B2A77FC023BDEAA100407BF0 /* ZBaseCell */,
 				B2A77F7E23BDEAA000407BF0 /* ZBaseModel */,
@@ -3190,7 +3165,6 @@
 			isa = PBXGroup;
 			children = (
 				B24324E62491C49600F828A6 /* UIUtils */,
-				B23DECF12474C74C005A9E72 /* UIControl+JQ */,
 				B29A71CC23F172C7000AEF5F /* UIColor+ZChat.h */,
 				B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */,
 				B29A71CD23F172C8000AEF5F /* UIFont+ZChat.h */,
@@ -4722,7 +4696,6 @@
 				B23DECE624725D0A005A9E72 /* ZReflectHintTopCell.m in Sources */,
 				B2A7809723BDFB0100407BF0 /* PingFoundation.m in Sources */,
 				B2C9D2E6243C637300D67558 /* ZMineOrderListCell.m in Sources */,
-				B23DECF42474C74C005A9E72 /* UIControl+JQ.m in Sources */,
 				B21A0EEB240A0C7400133213 /* ZAlertQRCodeView.m in Sources */,
 				B2DB9B4F241CC15400340464 /* ZMineOrderDetailCell.m in Sources */,
 				B262B541244D500100A27542 /* ZStudentClassFiltrateSectionView.m in Sources */,
@@ -4786,7 +4759,6 @@
 				B2342C9123FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.m in Sources */,
 				B2A77F6623BDE5B900407BF0 /* ZShortcutMethod.m in Sources */,
 				B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */,
-				B23DECF82474CB43005A9E72 /* ZButton.m in Sources */,
 				B2F70BE4241203DF008C693C /* ZStudentMineOrderDetailCell.m in Sources */,
 				B2B22DEF24930F45000BD20D /* ZLabelListCell.m in Sources */,
 				B2A77EC823BDE29E00407BF0 /* MWPhotoBrowser.m in Sources */,

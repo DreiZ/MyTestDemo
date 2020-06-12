@@ -27,75 +27,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loading = YES;
-    [self setTableViewRefreshFooter];
-    [self setTableViewRefreshHeader];
-    [self setTableViewEmptyDataDelegate];
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (ZStoresListModel *model in self.dataSources) {
-        model.isStudentCollection = YES;
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:[ZStudentOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:orderCellConfig];
-    }
-}
-
-
-- (void)setNavigation {
-    self.isHidenNaviBar = YES;
-    [self.navigationItem setTitle:@"机构收藏"];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    [self.view addSubview:self.iTableView];
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(10);
-    }];
-}
-
-
-#pragma mark tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
-        ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
-        lcell.handleBlock = ^(ZStoresListModel *model) {
-            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此机构？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消机构" handlerBlock:^(NSInteger index) {
-                if (index == 1) {
-                    [weakSelf collectionStore:NO model:model];
-                }
-            }];
-            
-        };
-        lcell.moreBlock = ^(ZStoresListModel *model) {
-            model.isMore = !model.isMore;
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        };
-    }
-}
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-         ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-         dvc.listModel = cellConfig.dataModel;
-         [self.navigationController pushViewController:dvc animated:YES];
-    }
+    self.zChain_setNavTitle(@"机构收藏")
+    .zChain_addRefreshHeader()
+    .zChain_addLoadMoreFooter()
+    .zChain_addEmptyDataDelegate()
+    .zChain_updateDataSource(^{
+        weakSelf.loading = YES;
+    }).zChain_resetMainView(^{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom);
+            make.top.equalTo(self.view.mas_top).offset(10);
+        }];
+    });
+    
+    self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        
+        for (ZStoresListModel *model in self.dataSources) {
+            model.isStudentCollection = YES;
+            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:[ZStudentOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [weakSelf.cellConfigArr addObject:orderCellConfig];
+        }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
+            ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
+            lcell.handleBlock = ^(ZStoresListModel *model) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此机构？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消机构" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [weakSelf collectionStore:NO model:model];
+                    }
+                }];
+            };
+            lcell.moreBlock = ^(ZStoresListModel *model) {
+                model.isMore = !model.isMore;
+                weakSelf.zChain_reload_ui();
+            };
+        }
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
+             ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+             dvc.listModel = cellConfig.dataModel;
+             [weakSelf.navigationController pushViewController:dvc animated:YES];
+        }
+    });
+    
+    self.zChain_block_setRefreshHeaderNet(^{
+        weakSelf.currentPage = 1;
+        weakSelf.loading = YES;
+        [weakSelf refreshHeadData:[weakSelf setPostCommonData]];
+    }).zChain_block_setRefreshMoreNet(^{
+        [weakSelf refreshTableMoreData];
+    });
 }
 
 
 #pragma mark - 数据处理
-- (void)refreshData {
-    self.currentPage = 1;
-    self.loading = YES;
-    [self refreshHeadData:[self setPostCommonData]];
-}
-
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
     [ZStudentCollectionViewModel getCollectionOrganizationList:param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
@@ -103,8 +91,7 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -120,7 +107,7 @@
     }];
 }
 
-- (void)refreshMoreData {
+- (void)refreshTableMoreData {
     self.currentPage++;
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
@@ -130,8 +117,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -179,4 +165,3 @@
     }];
 }
 @end
-
