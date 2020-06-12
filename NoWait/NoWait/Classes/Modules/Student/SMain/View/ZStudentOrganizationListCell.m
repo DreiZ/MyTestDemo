@@ -147,7 +147,7 @@
         }];
         
         __weak typeof(self) weakSelf = self;
-        UIButton *moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [moreBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.moreBlock) {
                 weakSelf.moreBlock(weakSelf.model);
@@ -164,7 +164,7 @@
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
         __weak typeof(self) weakSelf = self;
-        _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         UIImageView *collectionImageView = [[UIImageView alloc] init];
         collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];
         collectionImageView.layer.masksToBounds = YES;

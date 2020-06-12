@@ -130,7 +130,7 @@
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
-        _leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_leftBtn setTitle:@"复制邀请链接" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -152,7 +152,7 @@
 - (UIButton *)rightBtn {
     if (!_rightBtn) {
         __weak typeof(self) weakSelf = self;
-        _rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_rightBtn setTitle:@"保存图片到相册" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorGrayBG]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontContent]];

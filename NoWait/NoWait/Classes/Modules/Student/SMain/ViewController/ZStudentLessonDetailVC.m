@@ -119,7 +119,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(50), CGFloatIn750(50))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(50), CGFloatIn750(50))];
         [_navLeftBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(25));
@@ -134,7 +134,7 @@
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
-        _navRightBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
         _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];

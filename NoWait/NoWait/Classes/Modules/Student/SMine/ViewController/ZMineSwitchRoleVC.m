@@ -115,7 +115,7 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];

@@ -107,7 +107,7 @@
         leftX = actLabel.right + kLabelSpace;
         
         __weak typeof(self) weakSelf = self;
-        UIButton *tBtn = [[ZButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
+        UIButton *tBtn = [[UIButton alloc] initWithFrame:CGRectMake(leftX, topY, tempSize.width+kLabelAddWidth, kLabelHeight)];
         tBtn.tag = i;
         [tBtn bk_addEventHandler:^(id sender) {
             [weakSelf btnClick:i];

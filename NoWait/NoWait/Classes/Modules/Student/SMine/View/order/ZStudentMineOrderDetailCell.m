@@ -108,7 +108,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *clubBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [clubBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(ZLessonOrderHandleTypeClub, weakSelf.model);
@@ -160,7 +160,7 @@
     }];
  
 
-    UIButton *lessonBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *lessonBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [lessonBtn bk_addEventHandler:^(id sender) {
        if (weakSelf.handleBlock) {
            weakSelf.handleBlock(ZLessonOrderHandleTypeLesson, weakSelf.model);
@@ -348,7 +348,7 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"申请退款" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];

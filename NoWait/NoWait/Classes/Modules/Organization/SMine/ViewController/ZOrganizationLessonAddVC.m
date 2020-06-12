@@ -143,7 +143,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"预览" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -160,7 +160,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
         [_bottomBtn setTitle:@"提交" forState:UIControlStateNormal];

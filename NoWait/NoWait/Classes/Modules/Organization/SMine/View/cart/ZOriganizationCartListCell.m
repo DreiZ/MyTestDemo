@@ -227,7 +227,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
         ViewBorderRadius(_openBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
@@ -244,7 +244,7 @@
 - (UIButton *)useBtn {
     if (!_useBtn) {
         __weak typeof(self) weakSelf = self;
-        _useBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _useBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_useBtn.titleLabel setFont:[UIFont fontSmall]];
         [_useBtn setTitle:@"去使用" forState:UIControlStateNormal];
         ViewBorderRadius(_useBtn, CGFloatIn750(26), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
@@ -261,7 +261,7 @@
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
         __weak typeof(self) weakSelf = self;
-        _seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_seeBtn setTitle:@"查看可用课程 >" forState:UIControlStateNormal];
         [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_seeBtn.titleLabel setFont:[UIFont fontSmall]];

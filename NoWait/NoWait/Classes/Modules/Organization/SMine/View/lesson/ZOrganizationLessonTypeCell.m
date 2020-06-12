@@ -71,7 +71,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isEdit) {
             if (weakSelf.handleBlock) {
@@ -87,7 +87,7 @@
         make.right.equalTo(self.leftImageView.mas_right);
     }];
     
-    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isEdit) {
             if (weakSelf.handleBlock) {
@@ -103,7 +103,7 @@
         make.right.equalTo(self.rightImageView.mas_right);
     }];
     
-    UIButton *hintBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *hintBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [hintBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(2);

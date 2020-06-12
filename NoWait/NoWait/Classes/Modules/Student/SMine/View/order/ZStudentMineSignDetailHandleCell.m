@@ -98,7 +98,7 @@
 
 - (UIButton *)signBtn {
     if (!_signBtn) {
-        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         ViewRadius(_signBtn, CGFloatIn750(24));
         
         

@@ -88,7 +88,7 @@
 
 -(UIButton *)btnFlash {
     if (!_btnFlash) {
-        _btnFlash = [[ZButton alloc]init];
+        _btnFlash = [[UIButton alloc]init];
          [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
         [_btnFlash addTarget:self action:@selector(openOrCloseFlash) forControlEvents:UIControlEventTouchUpInside];
 
@@ -98,7 +98,7 @@
 
 - (UIButton *)btnPhoto {
     if (!_btnPhoto) {
-        _btnPhoto = [[ZButton alloc]init];
+        _btnPhoto = [[UIButton alloc]init];
         _btnPhoto.bounds = _btnFlash.bounds;
         [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_nor"] forState:UIControlStateNormal];
         [_btnPhoto setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_photo_down"] forState:UIControlStateHighlighted];
@@ -257,7 +257,7 @@
 
 - (UIButton *)fromPhotoBtn {
     if (!_fromPhotoBtn) {
-        _fromPhotoBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _fromPhotoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_fromPhotoBtn setTitle:@"从相册识别" forState:UIControlStateNormal];
         [_fromPhotoBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_fromPhotoBtn.titleLabel setFont:[UIFont boldFontTitle]];

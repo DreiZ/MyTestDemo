@@ -194,7 +194,7 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(80), CGFloatIn750(80))];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(80), CGFloatIn750(80))];
         [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontMaxTitle]];
@@ -336,7 +336,7 @@
         if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 2 ||
             [self.detailModel.refund_status intValue] == 3 ||
             [self.detailModel.refund_status intValue] == 4) {
-            UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+            UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
             sureBtn.layer.masksToBounds = YES;
             sureBtn.layer.cornerRadius = 3;
             sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

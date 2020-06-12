@@ -148,7 +148,7 @@
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"营业时间"];
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];

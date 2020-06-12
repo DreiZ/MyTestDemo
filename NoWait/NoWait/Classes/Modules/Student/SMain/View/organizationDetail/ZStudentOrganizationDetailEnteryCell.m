@@ -99,7 +99,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontMin]];
         [_openBtn setTitle:@"进入机构" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];

@@ -54,7 +54,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -120,7 +120,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     }];
     
    
-    UIButton *leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [leftBtn setTitle:@"取消" forState:UIControlStateNormal];
     [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
     [leftBtn.titleLabel setFont:[UIFont fontContent]];
@@ -135,7 +135,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
         make.top.equalTo(topView);
     }];
     
-    UIButton *rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];

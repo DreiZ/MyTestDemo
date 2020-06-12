@@ -82,7 +82,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *clubBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *clubBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [clubBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(100, weakSelf.model);
@@ -367,7 +367,7 @@
 - (UIButton *)payBtn {
     if (!_payBtn) {
         __weak typeof(self) weakSelf = self;
-        _payBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _payBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont fontContent]];
@@ -386,7 +386,7 @@
 - (UIButton *)cancleBtn {
     if (!_cancleBtn) {
         __weak typeof(self) weakSelf = self;
-        _cancleBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _cancleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_cancleBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         [_cancleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_cancleBtn.titleLabel setFont:[UIFont fontContent]];
@@ -403,7 +403,7 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"删除订单" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontContent]];
@@ -421,7 +421,7 @@
 - (UIButton *)evaBtn {
     if (!_evaBtn) {
         __weak typeof(self) weakSelf = self;
-        _evaBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_evaBtn setTitle:@"评价" forState:UIControlStateNormal];
         [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont fontContent]];
@@ -439,7 +439,7 @@
 - (UIButton *)receivedBtn {
     if (!_receivedBtn) {
         __weak typeof(self) weakSelf = self;
-        _receivedBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _receivedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_receivedBtn setTitle:@"接受预约" forState:UIControlStateNormal];
         [_receivedBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_receivedBtn.titleLabel setFont:[UIFont fontContent]];
@@ -458,7 +458,7 @@
 - (UIButton *)receivedNOBtn {
     if (!_receivedNOBtn) {
         __weak typeof(self) weakSelf = self;
-        _receivedNOBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _receivedNOBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_receivedNOBtn setTitle:@"拒绝预约" forState:UIControlStateNormal];
         [_receivedNOBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_receivedNOBtn.titleLabel setFont:[UIFont fontContent]];
@@ -475,7 +475,7 @@
 - (UIButton *)refundSureBtn {
     if (!_refundSureBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundSureBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundSureBtn setTitle:@"接受退款" forState:UIControlStateNormal];
         [_refundSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundSureBtn.titleLabel setFont:[UIFont fontContent]];
@@ -493,7 +493,7 @@
 - (UIButton *)refundRefectBtn {
     if (!_refundRefectBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundRefectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundRefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundRefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
         [_refundRefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_refundRefectBtn.titleLabel setFont:[UIFont fontContent]];
@@ -511,7 +511,7 @@
 - (UIButton *)refundCancle {
     if (!_refundCancle) {
         __weak typeof(self) weakSelf = self;
-        _refundCancle = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundCancle = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundCancle setTitle:@"取消退款" forState:UIControlStateNormal];
         [_refundCancle setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_refundCancle.titleLabel setFont:[UIFont fontContent]];
@@ -529,7 +529,7 @@
 - (UIButton *)refundOSureBtn {
     if (!_refundOSureBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundOSureBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundOSureBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundOSureBtn setTitle:@"同意退款" forState:UIControlStateNormal];
         [_refundOSureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundOSureBtn.titleLabel setFont:[UIFont fontContent]];
@@ -548,7 +548,7 @@
 - (UIButton *)refundORefectBtn {
     if (!_refundORefectBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundORefectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundORefectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundORefectBtn setTitle:@"协商退款" forState:UIControlStateNormal];
         [_refundORefectBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_refundORefectBtn.titleLabel setFont:[UIFont fontContent]];
@@ -566,7 +566,7 @@
 - (UIButton *)refundPayBtn {
     if (!_refundPayBtn) {
         __weak typeof(self) weakSelf = self;
-        _refundPayBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _refundPayBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_refundPayBtn setTitle:@"支付退款" forState:UIControlStateNormal];
         [_refundPayBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_refundPayBtn.titleLabel setFont:[UIFont fontContent]];

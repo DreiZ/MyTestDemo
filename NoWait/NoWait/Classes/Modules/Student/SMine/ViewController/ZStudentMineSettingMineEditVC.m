@@ -41,7 +41,7 @@
     [self.navigationItem setTitle:@"设置昵称"];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 3;
     sureBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

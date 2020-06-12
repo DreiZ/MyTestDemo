@@ -118,7 +118,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(10);
@@ -135,7 +135,7 @@
     }];
     
     
-    UIButton *setBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [setBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(1);
@@ -154,7 +154,7 @@
         make.center.equalTo(self.scanView);
     }];
     
-    UIButton *switchBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *switchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [switchBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.topHandleBlock) {
             weakSelf.topHandleBlock(3);
@@ -254,7 +254,7 @@
 - (UIButton *)stateBtn {
     if (!_stateBtn) {
         __weak typeof(self) weakSelf = self;
-        _stateBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _stateBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_stateBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(5);
@@ -267,7 +267,7 @@
 - (UIButton *)qrCodeBtn {
     if (!_qrCodeBtn) {
         __weak typeof(self) weakSelf = self;
-        _qrCodeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _qrCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_qrCodeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(8);
@@ -338,7 +338,7 @@
 - (UIButton *)userInfoBtn {
     if (!_userInfoBtn) {
         __weak typeof(self) weakSelf = self;
-        _userInfoBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _userInfoBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_userInfoBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.topHandleBlock) {
                 weakSelf.topHandleBlock(0);
@@ -353,7 +353,7 @@
         __weak typeof(self) weakSelf = self;
         UIImage *image = [[UIImage imageNamed:@"switchUser"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [_switchUserBtn.imageView setTintColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
-        _switchUserBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _switchUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_switchUserBtn setTitle:@"" forState:UIControlStateNormal];
         [_switchUserBtn setImage:image forState:UIControlStateNormal];
         [_switchUserBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
@@ -370,7 +370,7 @@
 - (UIButton *)rewardBtn {
     if (!_rewardBtn) {
         __weak typeof(self) weakSelf = self;
-        _rewardBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _rewardBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //        _rewardBtn.backgroundColor = [UIColor colorMain];
 //        ViewBorderRadius(_rewardBtn, CGFloatIn750(20), 1, [UIColor colorMain]);
 //        ViewRadius(_rewardBtn, CGFloatIn750(20));

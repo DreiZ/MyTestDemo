@@ -95,7 +95,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
@@ -116,7 +116,7 @@
 - (UIButton *)sendBtn {
     if (!_sendBtn) {
         __weak typeof(self) weakSelf = self;
-        _sendBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_sendBtn setTitle:@"发通知" forState:UIControlStateNormal];
         [_sendBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_sendBtn.titleLabel setFont:[UIFont fontContent]];
@@ -141,7 +141,7 @@
 - (UIButton *)allBtn {
     if (!_allBtn) {
         __weak typeof(self) weakSelf = self;
-        _allBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_allBtn setTitle:@"全选" forState:UIControlStateNormal];
         [_allBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_allBtn.titleLabel setFont:[UIFont boldFontContent]];

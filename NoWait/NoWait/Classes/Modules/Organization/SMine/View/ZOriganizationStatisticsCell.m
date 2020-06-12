@@ -207,7 +207,7 @@
 
 
 - (UIButton *)getBtnWithText:(NSString *)text index:(NSInteger)index{
-    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = index;
     __weak typeof(self) weakSelf = self;
     [menuBtn bk_addEventHandler:^(id sender) {

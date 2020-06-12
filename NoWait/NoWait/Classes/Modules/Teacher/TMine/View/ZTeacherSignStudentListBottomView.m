@@ -66,7 +66,7 @@
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
-        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_signBtn setTitle:@"  签课" forState:UIControlStateNormal];
         [_signBtn setImage:[UIImage imageNamed:@"signzheng"] forState:UIControlStateNormal];
         [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
@@ -84,7 +84,7 @@
 - (UIButton *)qingBtn {
     if (!_qingBtn) {
         __weak typeof(self) weakSelf = self;
-        _qingBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _qingBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_qingBtn setTitle:@"  请假" forState:UIControlStateNormal];
         [_qingBtn setImage:[UIImage imageNamed:@"signqing"] forState:UIControlStateNormal];
         [_qingBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
@@ -102,7 +102,7 @@
 - (UIButton *)kuangBtn {
     if (!_kuangBtn) {
         __weak typeof(self) weakSelf = self;
-        _kuangBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _kuangBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_kuangBtn setTitle:@"  旷课" forState:UIControlStateNormal];
         [_kuangBtn setImage:[UIImage imageNamed:@"signkuang"] forState:UIControlStateNormal];
         [_kuangBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
@@ -120,7 +120,7 @@
 - (UIButton *)buBtn {
     if (!_buBtn) {
         __weak typeof(self) weakSelf = self;
-        _buBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _buBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_buBtn setTitle:@"  补签" forState:UIControlStateNormal];
         [_buBtn setImage:[UIImage imageNamed:@"signbu"] forState:UIControlStateNormal];
         [_buBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];

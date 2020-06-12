@@ -115,7 +115,7 @@
     if (!_checkSelfBtn) {
         __weak  typeof(self) weakSelf = self;
         UIImage *checkSelfImage = [UIImage imageNamed:@"hng_im_lbs_self"];
-        _checkSelfBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        _checkSelfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
         [_checkSelfBtn setBackgroundImage:checkSelfImage forState:UIControlStateNormal];
         [_checkSelfBtn bk_addEventHandler:^(id sender) {
             [weakSelf.iMapView setCenterCoordinate:weakSelf.cureUserLocation.location.coordinate animated:YES];
@@ -189,7 +189,7 @@
 
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
-        _seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _seeBtn.layer.masksToBounds = YES;
         _seeBtn.layer.cornerRadius = CGFloatIn750(34);
         _seeBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

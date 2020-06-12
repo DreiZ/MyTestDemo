@@ -51,7 +51,7 @@
         make.left.right.top.equalTo(self);
     }];
     
-    UIButton *closeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [closeBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
     [closeBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.closeBlock) {
@@ -148,7 +148,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"提交预约" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];
@@ -165,7 +165,7 @@
 - (UIButton *)lastStepBtn {
     if (!_lastStepBtn) {
         __weak typeof(self) weakSelf = self;
-        _lastStepBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _lastStepBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_lastStepBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         [_lastStepBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.lastStepBlock) {

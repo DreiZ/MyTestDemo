@@ -176,7 +176,7 @@
         _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
         __weak typeof(self) weakSelf  = self;
         
-        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [backBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -218,7 +218,7 @@
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
         __weak typeof(self) weakSelf = self;
-        _loginBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isCode) {
                 [weakSelf codeLogin];
@@ -404,7 +404,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *menuBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *menuBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     menuBtn.tag = tag;
     [menuBtn bk_addEventHandler:^(id sender) {
         if (tag == 0) {

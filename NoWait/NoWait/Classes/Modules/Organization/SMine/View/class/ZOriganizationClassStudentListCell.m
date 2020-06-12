@@ -148,7 +148,7 @@
 - (UIButton *)userBtn {
     if (!_userBtn) {
         __weak typeof(self) weakSelf = self;
-        _userBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_userBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2,weakSelf.model);
@@ -161,7 +161,7 @@
 - (UIButton *)seeBtn {
     if (!_seeBtn) {
         __weak typeof(self) weakSelf = self;
-        _seeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _seeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_seeBtn setTitle:@"签课详情" forState:UIControlStateNormal];
         [_seeBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         ViewBorderRadius(_seeBtn, CGFloatIn750(28), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
@@ -178,7 +178,7 @@
 - (UIButton *)delBtn {
     if (!_delBtn) {
         __weak typeof(self) weakSelf = self;
-        _delBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _delBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_delBtn setTitle:@"移除班级" forState:UIControlStateNormal];
         [_delBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_delBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -196,7 +196,7 @@
 - (UIButton *)selectedBtn {
     if (!_selectedBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectedBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _selectedBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_selectedBtn addSubview:self.rightImageView];
         [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.selectedBtn);

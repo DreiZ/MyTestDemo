@@ -64,7 +64,7 @@
 - (UIButton *)searchBtn {
     if (!_searchBtn) {
         __weak typeof(self) weakSelf = self;
-        _searchBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_searchBtn setTitle:@"搜索教师" forState:UIControlStateNormal];
         [_searchBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_searchBtn.titleLabel setFont:[UIFont fontSmall]];

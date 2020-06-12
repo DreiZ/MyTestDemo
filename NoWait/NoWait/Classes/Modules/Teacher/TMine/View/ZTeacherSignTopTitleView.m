@@ -115,7 +115,7 @@
 - (UIButton *)lastBtn {
     if (!_lastBtn) {
         __weak typeof(self) weakSelf = self;
-        _lastBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _lastBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_lastBtn setTitle:@"上一节" forState:UIControlStateNormal];
         [_lastBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_lastBtn.titleLabel setFont:[UIFont boldFontSmall]];
@@ -132,7 +132,7 @@
 - (UIButton *)nextBtn {
     if (!_nextBtn) {
         __weak typeof(self) weakSelf = self;
-        _nextBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _nextBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_nextBtn setTitle:@"下一节" forState:UIControlStateNormal];
         [_nextBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_nextBtn.titleLabel setFont:[UIFont boldFontSmall]];

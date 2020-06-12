@@ -103,7 +103,7 @@
 - (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
-        UIButton *moreBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [moreBtn setTitle:@"查看全部课程  >" forState:UIControlStateNormal];
         [moreBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [moreBtn.titleLabel setFont:[UIFont fontSmall]];

@@ -46,7 +46,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *coverBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [coverBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);

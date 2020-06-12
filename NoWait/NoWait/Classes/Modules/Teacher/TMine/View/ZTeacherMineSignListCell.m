@@ -284,7 +284,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"开始上课" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];
@@ -301,7 +301,7 @@
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
-        _signBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _signBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_signBtn setTitle:@"班级签到" forState:UIControlStateNormal];
         [_signBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_signBtn.titleLabel setFont:[UIFont fontContent]];
@@ -318,7 +318,7 @@
 - (UIButton *)studentListBtn {
     if (!_studentListBtn) {
         __weak typeof(self) weakSelf = self;
-        _studentListBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _studentListBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_studentListBtn setTitle:@"学员列表" forState:UIControlStateNormal];
         [_studentListBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_studentListBtn.titleLabel setFont:[UIFont fontContent]];

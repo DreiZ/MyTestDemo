@@ -110,7 +110,7 @@
 - (UIButton *)leftBtn {
     if (!_leftBtn) {
         __weak typeof(self) weakSelf = self;
-        _leftBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_leftBtn setTitle:@"带课教师" forState:UIControlStateNormal];
         [_leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_leftBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -143,7 +143,7 @@
 - (UIButton *)midBtn {
     if (!_midBtn) {
         __weak typeof(self) weakSelf = self;
-        _midBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _midBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_midBtn setTitle:@"学员状态" forState:UIControlStateNormal];
         [_midBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_midBtn.titleLabel setFont:[UIFont fontSmall]];
@@ -175,7 +175,7 @@
 
 - (UIButton *)rightBtn {
     if (!_rightBtn) {
-        _rightBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _rightBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_rightBtn setTitle:@"来源渠道" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_rightBtn.titleLabel setFont:[UIFont fontSmall]];

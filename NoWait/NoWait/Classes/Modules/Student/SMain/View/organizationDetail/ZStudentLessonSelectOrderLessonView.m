@@ -81,7 +81,7 @@
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
-        _bottomBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_bottomBtn setTitle:@"预约时间" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont boldFontContent]];

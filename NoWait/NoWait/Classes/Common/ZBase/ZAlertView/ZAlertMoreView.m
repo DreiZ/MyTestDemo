@@ -49,7 +49,7 @@ static ZAlertMoreView *sharedManager;
     self.layer.masksToBounds = YES;
     _cellConfigArr = @[].mutableCopy;
     
-    UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self closeView];
     } forControlEvents:UIControlEventTouchUpInside];

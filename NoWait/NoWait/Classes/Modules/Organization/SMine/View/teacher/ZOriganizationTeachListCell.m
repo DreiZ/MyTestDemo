@@ -94,7 +94,7 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *coverBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [coverBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
             weakSelf.handleBlock(0);
@@ -202,7 +202,7 @@
 - (UIButton *)selectBtn {
     if (!_selectBtn) {
         __weak typeof(self) weakSelf = self;
-        _selectBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _selectBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_selectBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(10);

@@ -93,7 +93,7 @@
 
 - (UIButton *)editBtn {
     if (!_editBtn) {
-        _editBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _editBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         __weak typeof(self) weakSelf = self;
         [_editBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {

@@ -27,7 +27,7 @@
     _icon.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:_icon];
     
-    _deleteButton = [[ZButton alloc] init];
+    _deleteButton = [[UIButton alloc] init];
     [_deleteButton setBackgroundImage:[UIImage imageNamed:@"LLImagePicker.bundle/deleteButton" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(clickDeleteButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_deleteButton];

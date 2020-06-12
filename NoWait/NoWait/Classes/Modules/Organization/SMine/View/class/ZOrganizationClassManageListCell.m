@@ -239,7 +239,7 @@
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         __weak typeof(self) weakSelf = self;
-        _deleteBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
         [_deleteBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         [_deleteBtn.titleLabel setFont:[UIFont fontContent]];
@@ -256,7 +256,7 @@
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
-        _openBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_openBtn.titleLabel setFont:[UIFont fontContent]];

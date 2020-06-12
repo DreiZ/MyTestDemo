@@ -117,7 +117,7 @@ static NSTimer *retrieveTimer = nil;
 - (UIButton *)getCodeBtn {
     if (!_getCodeBtn) {
         __weak typeof(self) weakSelf = self;
-        _getCodeBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _getCodeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_getCodeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.getCodeBlock) {
                 [weakSelf.inputTextField becomeFirstResponder];
@@ -254,7 +254,7 @@ static NSTimer *retrieveTimer = nil;
 - (UIButton *)pooCodeView{
     if (!_pooCodeView) {
         __weak typeof(self) weakSelf = self;
-       _pooCodeView = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
+       _pooCodeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 188, 28)];
        [_pooCodeView setTitle:@"图形验证码" forState:UIControlStateNormal];
        [_pooCodeView setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
        [_pooCodeView.titleLabel setFont:[UIFont fontSmall]];

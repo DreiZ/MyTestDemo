@@ -167,7 +167,7 @@
 - (UIButton *)collectionBtn {
     if (!_collectionBtn) {
         __weak typeof(self) weakSelf = self;
-        _collectionBtn = [[ZButton alloc] initWithFrame:CGRectZero];
+        _collectionBtn = [[UIButton alloc] initWithFrame:CGRectZero];
 //        [_collectionBtn setImage:[UIImage imageNamed:@"collectionHandle"] forState:UIControlStateNormal];
         UIImageView *collectionImageView = [[UIImageView alloc] init];
         collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];

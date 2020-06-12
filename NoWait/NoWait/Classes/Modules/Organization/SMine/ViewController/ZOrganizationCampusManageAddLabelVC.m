@@ -50,7 +50,7 @@
     [self.navigationItem setTitle:_navTitle? _navTitle: @"添加标签"];
     
     __weak typeof(self) weakSelf = self;
-    UIButton *sureBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+    UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
     [sureBtn setTitle:@"完成" forState:UIControlStateNormal];
     [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontContent]];
@@ -138,7 +138,7 @@
 - (UIButton *)addBtn {
     if (!_addBtn) {
         __weak typeof(self) weakSelf = self;
-        _addBtn = [[ZButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(60), CGFloatIn750(50))];
+        _addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(60), CGFloatIn750(50))];
         [_addBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_addBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
