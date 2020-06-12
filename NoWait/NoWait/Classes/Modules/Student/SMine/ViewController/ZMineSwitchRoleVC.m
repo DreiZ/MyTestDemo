@@ -13,8 +13,6 @@
 #import "ZLoginViewModel.h"
 
 @interface ZMineSwitchRoleVC ()
-@property (nonatomic,strong) UIView *navView;
-@property (nonatomic,strong) UIImageView *backImageView;
 
 @end
 
@@ -43,147 +41,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-    
-}
-
-#pragma mark - set data
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"切换身份";
-        model.cellTitle = @"title";
-        model.leftFont = [UIFont boldSystemFontOfSize:CGFloatIn750(52)];
-        model.leftMargin = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(126);
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"切换身份")
+    .zChain_block_setRefreshHeaderNet(^{
+        [ZLoginViewModel getUserRolesWithBlock:^(BOOL isSuccess, ZUserRolesListNetModel *data) {
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                
+                weakSelf.zChain_reload_ui();
+            }
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
         
-        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZLineCellModel *titleModel = ZLineCellModel.zz_lineCellModel_create(@"title");
+        titleModel.zz_titleLeft(@"切换身份")
+        .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(52)])
+        .zz_marginLeft(CGFloatIn750(50))
+        .zz_cellHeight(CGFloatIn750(126))
+        .zz_lineHidden(YES);
         
-        [self.cellConfigArr addObject:titleCellConfig];
-    }
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZUserRolesListModel *user = self.dataSources[i];
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.cellTitle = @"user";
-        if ([user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
-            model.isSelected = YES;
-        }else{
-            model.isSelected = NO;
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:titleModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:titleModel] cellType:ZCellTypeClass dataModel:titleModel];
+        [weakSelf.cellConfigArr addObject:titleCellConfig];
+        
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
+            ZUserRolesListModel *user = weakSelf.dataSources[i];
+            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+            model.cellTitle = @"user";
+            if ([user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
+                model.isSelected = YES;
+            }else{
+                model.isSelected = NO;
+            }
+            model.data = weakSelf.dataSources[i];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }
-        model.data = self.dataSources[i];
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingSwitchUserCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingSwitchUserCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-    
-    if (self.cellConfigArr.count < 2) {
-        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(40))];
-        
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"换个新账号登录";
-        model.rightImage = isDarkModel() ? @"rightBlackArrowDarkN" : @"rightBlackArrowN";
-        model.cellTitle = @"switch";
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-    }
-}
-
-
-- (void)setNavigation {
-    self.isHidenNaviBar = YES;
-    
-    [self.view addSubview:self.navView];
-    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight);
-        make.height.mas_equalTo(CGFloatIn750(88));
-    }];
-    [self.navigationItem setTitle:@"切换身份"];
-}
-
-
-#pragma mark - lazy loading...
-- (UIView *)navView {
-    if (!_navView) {
-        _navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(88))];
-        __weak typeof(self) weakSelf  = self;
-        
-        UIButton *backBtn = [[ZButton alloc] initWithFrame:CGRectZero];
-        [backBtn bk_addEventHandler:^(id sender) {
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        } forControlEvents:UIControlEventTouchUpInside];
-        [_navView addSubview:backBtn];
-        [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(CGFloatIn750(98));
-            make.top.bottom.left.equalTo(self.navView);
-        }];
-        
-        [backBtn addSubview:self.backImageView];
-        [self.backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(backBtn);
-        }];
-    }
-    
-    return _navView;
-}
-
-- (UIImageView *)backImageView {
-    if (!_backImageView) {
-        _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [[UIImage imageNamed:@"navleftBack"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorWhite]);
-    }
-    return _backImageView;
-}
-
-#pragma mark tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"user"]){
-         ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-//         if (!cellModel.isSelected) {
-//             [ZUserHelper sharedHelper].user.type = [NSString stringWithFormat:@"%d",arc4random()%3];
-//             [self.navigationController popToRootViewControllerAnimated:YES];
-//             ZUser *user = cellModel.data;
-//             [[ZUserHelper sharedHelper] switchUser:user];
-//             [self initCellConfigArr];
-//             [self.iTableView reloadData];
-             
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"user"]){
+             ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
              ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
              lvc.model = cellModel.data;
-             [self.navigationController pushViewController:lvc animated:YES];
-//         }
-         
-     }
+             [weakSelf.navigationController pushViewController:lvc animated:YES];
+        }
+    });
+    
+    self.zChain_reload_ui();
 }
 
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
-    _backImageView.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
-    // darkmodel change
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
-
-
-#pragma mark - refresha
-- (void)refreshData {
-    __weak typeof(self) weakSelf = self;
-    [ZLoginViewModel getUserRolesWithBlock:^(BOOL isSuccess, ZUserRolesListNetModel *data) {
-        if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }
-    }];
+    
+    self.zChain_reload_ui();
 }
 @end
