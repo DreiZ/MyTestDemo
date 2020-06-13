@@ -10,7 +10,6 @@
 #import "ZOriganizationStudentListCell.h"
 #import "ZSchoolAccountTopMainView.h"
 #import "ZOrganizationAccountSchoolCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZTableViewListCell.h"
 
 #import "ZOrganizationSchoolAccountListVC.h"
@@ -86,18 +85,13 @@
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:[ZSingleLineCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [configArr addObject:textCellConfig];
             }else{
-                ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                model.rightTitle = text;
-                model.isHiddenLine = YES;
-                model.cellWidth = KScreenWidth - CGFloatIn750(60);
-                model.singleCellHeight = CGFloatIn750(44);
-                model.cellHeight = CGFloatIn750(46);
-                model.lineSpace = CGFloatIn750(8);
-                model.rightFont = [UIFont fontContent];
-                model.rightColor = [UIColor colorTextBlack];
-                model.rightDarkColor =  [UIColor colorTextBlackDark];
+                ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"text")
+                .zz_titleLeft(text)
+                .zz_lineHidden(YES)
+                .zz_leftMultiLine(YES)
+                .zz_cellWidth(KScreenWidth-CGFloatIn750(60));
                 
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [configArr addObject:menuCellConfig];
                 [configArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
             }

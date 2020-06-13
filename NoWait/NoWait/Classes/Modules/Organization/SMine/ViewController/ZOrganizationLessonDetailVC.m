@@ -255,19 +255,17 @@
     }
     
     {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.singleCellHeight = CGFloatIn750(80);
-        model.isHiddenLine = YES;
-        model.rightTitle = self.addModel.info;
-        model.leftFont = [UIFont fontContent];
-        model.isHiddenLine = NO;
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
+        .zz_titleLeft(self.addModel.info)
+        .zz_leftMultiLine(YES)
+        .zz_cellHeight(CGFloatIn750(80))
+        .zz_lineHidden(YES);
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
         
         {
-            ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(30) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-            [self.cellConfigArr addObject:topCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.cellHeight = CGFloatIn750(54);
@@ -279,14 +277,13 @@
             [self.cellConfigArr addObject:menuCellConfig];
         }
         {
-            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-            model.singleCellHeight = CGFloatIn750(80);
-            model.isHiddenLine = YES;
-            model.rightTitle = self.addModel.p_information;
-            model.leftFont = [UIFont fontContent];
-            model.isHiddenLine = NO;
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"p_information")
+            .zz_titleLeft(self.addModel.p_information)
+            .zz_leftMultiLine(YES)
+            .zz_cellHeight(CGFloatIn750(80))
+            .zz_lineHidden(YES);
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }
     }

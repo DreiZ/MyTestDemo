@@ -10,7 +10,6 @@
 #import "ZOriganizationTeachAddHeadImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
@@ -154,19 +153,13 @@
         }
         
         if ([textArr[i][0] isEqualToString:@"报名须知"]) {
-            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-            model.rightTitle = self.addModel.p_information;
-            model.isHiddenLine = YES;
-            model.cellWidth = KScreenWidth ;
-            model.singleCellHeight = CGFloatIn750(86);
-            model.cellHeight = CGFloatIn750(88);
-            model.lineSpace = CGFloatIn750(10);
-            model.rightFont = [UIFont fontContent];
-            model.rightColor = [UIColor colorTextGray];
-            model.rightDarkColor =  [UIColor colorTextGrayDark];
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"p_information")
+            .zz_titleLeft(self.addModel.p_information)
+            .zz_leftMultiLine(YES)
+            .zz_cellHeight(CGFloatIn750(88))
+            .zz_lineHidden(YES);
             
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
             [self.cellConfigArr  addObject:menuCellConfig];
         }
@@ -201,13 +194,15 @@
             [self.cellConfigArr addObject:menuCellConfig];
           
             
-            ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-            mModel.isHiddenLine = YES;
-            mModel.rightFont = [UIFont fontContent];
-            mModel.rightColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-            mModel.singleCellHeight = CGFloatIn750(50);
-            mModel.rightTitle = self.addModel.specialty_desc;
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+            ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"specialty_desc")
+            .zz_titleLeft(self.addModel.specialty_desc)
+            .zz_leftMultiLine(YES)
+            .zz_cellHeight(CGFloatIn750(50))
+            .zz_lineHidden(YES)
+            .zz_colorDarkLeft([UIColor colorTextGrayDark])
+            .zz_colorLeft([UIColor colorTextGray]);
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
             [self.cellConfigArr addObject:textCellConfig];
             
             [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
