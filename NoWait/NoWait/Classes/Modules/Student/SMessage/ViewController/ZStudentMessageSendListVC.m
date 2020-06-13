@@ -19,55 +19,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-    [self refreshHeadData];
-}
-
-- (void)setNavigation {
-    [self.navigationItem setTitle:@"收件人列表"];
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    if (ValidArray(self.infoModel.account )) {
-        [self.infoModel.account enumerateObjectsUsingBlock:^(ZMessageAccountModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"ZLineCellModel");
-            
-            model.leftTitle = obj.nick_name;
-            model.isHiddenLine = YES;
-            model.cellHeight = CGFloatIn750(96);
-            model.leftFont = [UIFont fontContent];
-            model.leftImage = obj.image;
-            model.leftImageH = CGFloatIn750(70);
-            model.zz_imageLeftRadius(YES);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
-            [self.cellConfigArr addObject:menuCellConfig];
-        }];
-    }
-}
-
-
-- (void)refreshHeadData {
     __weak typeof(self) weakSelf = self;
-    self.loading = YES;
-    [ZOriganizationStudentViewModel getSendMessageInfo:@{@"id":SafeStr(self.model.message_id)} completeBlock:^(BOOL isSuccess, ZMessageInfoModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            weakSelf.infoModel = data;
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+    self.zChain_setNavTitle(@"收件人列表")
+    .zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
 
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
-        }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        if (ValidArray(self.infoModel.account )) {
+            [self.infoModel.account enumerateObjectsUsingBlock:^(ZMessageAccountModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"ZLineCellModel");
+                
+                model.leftTitle = obj.nick_name;
+                model.isHiddenLine = YES;
+                model.cellHeight = CGFloatIn750(96);
+                model.leftFont = [UIFont fontContent];
+                model.leftImage = obj.image;
+                model.leftImageH = CGFloatIn750(70);
+                model.zz_imageLeftRadius(YES);
+                
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                
+                [self.cellConfigArr addObject:menuCellConfig];
+            }];
         }
-    }];
+    }).zChain_block_setRefreshHeaderNet(^{
+        self.loading = YES;
+        [ZOriganizationStudentViewModel getSendMessageInfo:@{@"id":SafeStr(self.model.message_id)} completeBlock:^(BOOL isSuccess, ZMessageInfoModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                weakSelf.infoModel = data;
+                
+                weakSelf.zChain_reload_ui();
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    });
+
+    self.zChain_reload_Net();
 }
+
 @end

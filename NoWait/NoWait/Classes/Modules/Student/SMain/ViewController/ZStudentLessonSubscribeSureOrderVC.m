@@ -9,7 +9,6 @@
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 
 #import "ZStudentMineOrderDetailHandleBottomView.h"
-
 #import "ZStudentMineOrderTopStateCell.h"
 #import "ZStudentMineOrderDetailCell.h"
 #import "ZMultiseriateContentLeftLineCell.h"
@@ -40,81 +39,95 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
-    
-    self.detailModel.isStudent = YES;
-    self.detailModel.status = @"1";
-    self.detailModel.type = @"2";
-//    self.detailModel.students_name = [ZUserHelper sharedHelper].user.nikeName;
-    self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-    
     __weak typeof(self) weakSelf = self;
-    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
-        if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *backDict = notfication.object;
-            if (backDict && [backDict objectForKey:@"payState"]) {
-                if ([backDict[@"payState"] integerValue] == 0) {
-                    
-                }else if ([backDict[@"payState"] integerValue] == 1) {
-                    if (backDict && [backDict objectForKey:@"msg"]) {
-                        [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
-                    }
-                }else if ([backDict[@"payState"] integerValue] == 2) {
+    self.zChain_setNavTitle(@"确认预约")
+    .zChain_setTableViewGary()
+    .zChain_updateDataSource(^{
+        self.detailModel.isStudent = YES;
+        self.detailModel.status = @"1";
+        self.detailModel.type = @"2";
+        self.detailModel.account_phone = [ZUserHelper sharedHelper].user.phone;
+        
+        [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+            if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *backDict = notfication.object;
+                if (backDict && [backDict objectForKey:@"payState"]) {
+                    if ([backDict[@"payState"] integerValue] == 0) {
+                        
+                    }else if ([backDict[@"payState"] integerValue] == 1) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
+                    }else if ([backDict[@"payState"] integerValue] == 2) {
 
-                }else if ([backDict[@"payState"] integerValue] == 3) {
-                    if (backDict && [backDict objectForKey:@"msg"]) {
-                        [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                    }else if ([backDict[@"payState"] integerValue] == 3) {
+                        if (backDict && [backDict objectForKey:@"msg"]) {
+                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+                        }
                     }
+                    ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                    ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                    listModel.order_id = weakSelf.order_id;
+                    listModel.stores_id = weakSelf.detailModel.stores_id;
+                    listModel.isStudent = YES;
+                    evc.model = listModel;
+                    [weakSelf.navigationController pushViewController:evc animated:YES];
                 }
-                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                listModel.order_id = weakSelf.order_id;
-                listModel.stores_id = weakSelf.detailModel.stores_id;
-                listModel.isStudent = YES;
-                evc.model = listModel;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
-//                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-//                listModel.order_id = self.order_id;
-//                listModel.stores_id = self.detailModel.stores_id;
-//                [self.navigationController pushViewController:evc animated:YES];
             }
+        }];
+    }).zChain_resetMainView(^{
+        [self.view addSubview:self.handleView];
+        [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.handleView.mas_top);
+            make.top.equalTo(self.view.mas_top).offset(0);
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        [self setOrderDetailCell];
+        [self setUserCell];
+        [self setPayTypeCell];
+        [self setTipsCell];
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
+            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+            lcell.titleLabel.font = [UIFont fontContent];
+            lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+            lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
+        }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
+            ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
+            lcell.cellSetBlock = ^(UITableViewCell *cell, NSIndexPath *index, ZCellConfig *cellConfig) {
+                if ([cellConfig.title isEqualToString:@"name"]) {
+                    ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                    tCell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.detailModel.students_name = text;
+                    };
+                }else if ([cellConfig.title isEqualToString:@"phone"]) {
+                    ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+                    tCell.valueChangeBlock = ^(NSString * text) {
+                        weakSelf.detailModel.account_phone = text;
+                    };
+                }
+            };
+            lcell.handleBlock = ^(ZCellConfig *scellConfig) {
+                if ([scellConfig.title isEqualToString:@"wepaylist"]){
+                    self.isAlipay = NO;
+                    self.zChain_reload_ui();
+                }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
+                    self.isAlipay = YES;
+                    self.zChain_reload_ui();
+                }
+            };
         }
-    }];
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-  
-    [self setOrderDetailCell];
-    [self setUserCell];
-//    [self setOrderPriceCell];
-    [self setPayTypeCell];
-    [self setTipsCell];
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"确认预约"];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    [self.view addSubview:self.handleView];
-    [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
-    }];
+    });
     
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.handleView.mas_top);
-        make.top.equalTo(self.view.mas_top).offset(0);
-    }];
+    self.zChain_reload_ui();
 }
-
 
 #pragma mark - lazy loading...
 - (UIView *)handleView {
@@ -150,7 +163,6 @@
             make.height.mas_equalTo(0.5);
         }];
     }
-    
     return _handleView;
 }
 
@@ -204,24 +216,10 @@
                     if (weakSelf.isAlipay) {
                         [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"2",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
                             
-//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-//                            listModel.order_id = weakSelf.order_id;
-//                            listModel.stores_id = weakSelf.detailModel.stores_id;
-//                            listModel.isStudent = YES;
-//                            evc.model = listModel;
-//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }else{
                         [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"1",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
                             
-//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-//                            listModel.order_id = weakSelf.order_id;
-//                            listModel.stores_id = weakSelf.detailModel.stores_id;
-//                            listModel.isStudent = YES;
-//                            evc.model = listModel;
-//                            [weakSelf.navigationController pushViewController:evc animated:YES];
                         }];
                     }
                 }else{
@@ -233,99 +231,27 @@
     return _payBtn;
 }
 
-#pragma mark - tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
-        ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
-        lcell.titleLabel.font = [UIFont fontContent];
-        lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        lcell.contentView.backgroundColor = HexAColor(0xf4f4f4, 1);
-    }else if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]) {
-        ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
-        lcell.cellSetBlock = ^(UITableViewCell *cell, NSIndexPath *index, ZCellConfig *cellConfig) {
-            if ([cellConfig.title isEqualToString:@"name"]) {
-                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
-                tCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.students_name = text;
-                };
-            }else if ([cellConfig.title isEqualToString:@"phone"]) {
-                ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
-                tCell.valueChangeBlock = ^(NSString * text) {
-                    weakSelf.detailModel.account_phone = text;
-                };
-            }
-        };
-        lcell.handleBlock = ^(ZCellConfig *scellConfig) {
-            if ([scellConfig.title isEqualToString:@"wepaylist"]){
-                 self.isAlipay = NO;
-                 [self initCellConfigArr];
-                 [self.iTableView reloadData];
-            }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
-                 self.isAlipay = YES;
-                [self initCellConfigArr];
-                [self.iTableView reloadData];
-            }
-        };
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     
-}
-
 #pragma mark - set cell
 - (void)setOrderDetailCell {
     ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderDetailCell className] title:[ZStudentMineOrderDetailCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderDetailCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:orderCellConfig];
 }
 
-- (void)setOrderPriceCell {
-    NSArray *tempArr ;
-    
-    tempArr = @[@[@"合计", SafeStr(self.detailModel.order_amount)],@[@"",[NSString stringWithFormat:@"订单合计：￥%@",self.detailModel.pay_amount]]];
-    
-    NSMutableArray *configArr = @[].mutableCopy;
-    for (NSArray *tArr in tempArr) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
-        model.isHiddenLine = YES;
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont boldFontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [configArr addObject:menuCellConfig];
-    }
-    
-    ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
-    [self.cellConfigArr addObject:bottomCellConfig];
-}
-
 - (void)setPayTypeCell {
     NSArray *tempArr = @[@[@"wepaylist", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipaylist", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = tArr[1];
-        model.rightImage = tArr[2];
-        model.leftImage = tArr[0];
-        model.cellTitle = tArr[0];
-        model.isHiddenLine = YES;
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont boldFontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[0])
+        .zz_titleLeft(tArr[1])
+        .zz_imageRight(tArr[2])
+        .zz_imageLeft(tArr[0])
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontSmall])
+        .zz_cellHeight(CGFloatIn750(62))
+        .zz_imageLeftHeight(CGFloatIn750(40))
+        .zz_imageRightHeight(CGFloatIn750(30));
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [configArr addObject:menuCellConfig];
     }
     
@@ -333,10 +259,7 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 
-
-
 - (void)setUserCell {
-    
     NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.detailModel.students_name),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"联系方式", @"请输入联系方式", @YES, @"", @"phone",SafeStr(self.detailModel.account_phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]]];
     NSMutableArray *configArr = @[].mutableCopy;
@@ -364,26 +287,22 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 
-
-
 - (void)setTipsCell {
     NSArray *tempArr = @[@[@"小提醒", @"支付后预约课程不可取消"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont fontSmall];
-        model.rightFont = [UIFont fontSmall];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[0])
+        .zz_titleLeft(tArr[0])
+        .zz_titleRight(tArr[1])
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontSmall])
+        .zz_fontRight([UIFont fontSmall])
+        .zz_cellHeight(CGFloatIn750(62))
+        .zz_alignmentRight(NSTextAlignmentLeft)
+        .zz_colorRight([UIColor colorTextGray])
+        .zz_colorRight([UIColor colorTextGrayDark]);
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [configArr addObject:menuCellConfig];
     }
     
@@ -391,4 +310,3 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 @end
-

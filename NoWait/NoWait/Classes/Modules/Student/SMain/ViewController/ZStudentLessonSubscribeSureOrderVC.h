@@ -6,13 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 #import "ZStudentMineModel.h"
 #import "ZOriganizationModel.h"
 #import "ZOrderModel.h"
 
 
-@interface ZStudentLessonSubscribeSureOrderVC : ZTableViewViewController
+@interface ZStudentLessonSubscribeSureOrderVC : ZTableViewController
 @property (nonatomic,strong) ZOrderDetailModel *detailModel;
 
 

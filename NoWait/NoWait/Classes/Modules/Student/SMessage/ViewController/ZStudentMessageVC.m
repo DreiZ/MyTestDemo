@@ -46,71 +46,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loading = YES;
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-    if (ValidStr([ZUserHelper sharedHelper].user_id)) {
-        self.emptyDataStr = @"您还没有收到过消息";
-    }else{
-        self.emptyDataStr = @"您还没有登录";
-    }
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    NSInteger hadRead = 0;
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZMessgeModel *model = self.dataSources[i];
-        if ([model.is_read intValue] >= 1) {
-            hadRead++;
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"消息")
+    .zChain_setTableViewGary()
+    .zChain_addRefreshHeader()
+    .zChain_addLoadMoreFooter()
+    .zChain_addEmptyDataDelegate()
+    .zChain_resetMainView(^{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
+            make.top.equalTo(self.view.mas_top).offset(10);
+        }];
+    }).zChain_updateDataSource(^{
+        self.loading = YES;
+        self.param = @{}.mutableCopy;
+        if (ValidStr([ZUserHelper sharedHelper].user_id)) {
+            self.emptyDataStr = @"您还没有收到过消息";
+        }else{
+            self.emptyDataStr = @"您还没有登录";
         }
-        if (i != 0 && hadRead == 1) {
-            ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+
+        NSInteger hadRead = 0;
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZMessgeModel *model = self.dataSources[i];
+            if ([model.is_read intValue] >= 1) {
+                hadRead++;
+            }
+            if (i != 0 && hadRead == 1) {
+                ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
+                [self.cellConfigArr addObject:messageCellConfig];
+            }
+            ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:messageCellConfig];
         }
-        ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:messageCellConfig];
-    }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {
+            ZMessageListCell *lcell = (ZMessageListCell *)cell;
+            lcell.handleBlock = ^(ZMessgeModel * message, NSInteger index) {
+                [weakSelf setHandleModel:message index:index];
+            };
+        }
+    }).zChain_block_setRefreshHeaderNet(^{
+        [weakSelf refreshData];
+    }).zChain_block_setRefreshMoreNet(^{
+        [weakSelf refreshMoreData];
+    });
 }
-
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"消息"];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
-        make.top.equalTo(self.view.mas_top).offset(10);
-    }];
-}
-
-
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {
-        ZMessageListCell *lcell = (ZMessageListCell *)cell;
-        lcell.handleBlock = ^(ZMessgeModel * message, NSInteger index) {
-            [weakSelf setHandleModel:message index:index];
-        };
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-
-}
-
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -128,8 +112,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -155,8 +139,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

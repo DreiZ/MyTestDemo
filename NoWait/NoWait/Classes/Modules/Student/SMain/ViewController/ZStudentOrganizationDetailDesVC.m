@@ -54,30 +54,109 @@
     [super viewDidAppear:animated];
     
     [self refreshDetailData];
-    [self refreshData];
+    self.zChain_reload_Net();
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.loading = YES;
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
+    __weak typeof(self) weakSelf = self;
+    self.zChain_addLoadMoreFooter()
+    .zChain_addEmptyDataDelegate()
+    .zChain_resetMainView(^{
+        self.isHidenNaviBar = NO;
+        [self.navigationItem setTitle:self.listModel.name];
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+        
+        [self.view addSubview:self.bottomView];
+        [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(88) + safeAreaBottom());
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(self.view);
+            make.bottom.equalTo(self.bottomView.mas_top);
+        }];
+    }).zChain_updateDataSource(^{
+        self.loading = YES;
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [self initCellConfigArr];
+    }).zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
+    }).zChain_block_setRefreshHeaderNet(^{
+        [self refreshData];
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
+               ZStudentOrganizationBannerCell *lcell = (ZStudentOrganizationBannerCell *)cell;
+               lcell.bannerBlock = ^(ZImagesModel * model) {
+                   ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
+                   ivc.imageModel = model;
+                   ivc.detailModel = weakSelf.detailModel;
+                   [weakSelf.navigationController pushViewController:ivc animated:YES];
+               };
+       }else if ([cellConfig.title isEqualToString:@"starStudent"]){
+           ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
+           lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
+               ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
+               dvc.student_id = model.account_id;
+               [self.navigationController pushViewController:dvc animated:YES];
+           };
     
-    [self.view addSubview:self.bottomView];
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(88) + safeAreaBottom());
-    }];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.view);
-        make.bottom.equalTo(self.bottomView.mas_top);
-    }];
+       }else if ([cellConfig.title isEqualToString:@"starCoach"]){
+           ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
+           lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
+               ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
+               mvc.teacher_id = model.account_id;
+               mvc.stores_id = weakSelf.detailModel.schoolID;
+               [weakSelf.navigationController pushViewController:mvc animated:YES];
+           };
+       }else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
+           ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
+           lcell.handleBlock = ^(NSInteger index) {
+               if (index == 1) {
+                   ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
+                   avc.detailModel = weakSelf.detailModel;
+                   [weakSelf.navigationController pushViewController:avc animated:YES];
+               }else if (index == 2){
+                   [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
+                       [[ZUserHelper sharedHelper] checkLogin:^{
+                           if ([model.received intValue] == 1) {
+                               [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
+                                   if (isSuccess) {
+                                       [[ZCouponListView sharedManager] refreshData];
+                                       [TLUIUtility showSuccessHint:data];
+                                   }else{
+                                       [TLUIUtility showErrorHint:data];
+                                   }
+                               }];
+                           }
+                       }];
+                   }];
+               }
+           };
+       }
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
+            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            dvc.model = cellConfig.dataModel;
+            [self.navigationController pushViewController:dvc animated:YES];
+        }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
+            ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+            lvc.type = 0;
+            lvc.stores_id = self.listModel.stores_id;
+            [self.navigationController pushViewController:lvc animated:YES];
+        }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
+            ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
+            lvc.type = 1;
+            lvc.stores_id = self.listModel.stores_id;
+            [self.navigationController pushViewController:lvc animated:YES];
+        }else if ([cellConfig.title isEqualToString:@"allLesson"]){
+            ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
+            lvc.detailModel = self.detailModel;
+            [self.navigationController pushViewController:lvc animated:YES];
+        }
+    });
 }
 
 #pragma mark - lazy loading
@@ -178,35 +257,22 @@
     return _param;
 }
 
-#pragma mark - set cell config
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:self.listModel.name];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
-}
-
-
 - (void)initCellConfigArr {
-    [super initCellConfigArr];
+    [self.cellConfigArr removeAllObjects];
     
-    {
-        ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationBannerCell className] title:[ZStudentOrganizationBannerCell className] showInfoMethod:@selector(setImages_list:) heightOfCell:[ZStudentOrganizationBannerCell z_getCellHeight:self.detailModel.images_list] cellType:ZCellTypeClass dataModel:self.detailModel.images_list];
-        [self.cellConfigArr addObject:bannerCellConfig];
-        
-    }
-    
+    ZCellConfig *bannerCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationBannerCell className] title:[ZStudentOrganizationBannerCell className] showInfoMethod:@selector(setImages_list:) heightOfCell:[ZStudentOrganizationBannerCell z_getCellHeight:self.detailModel.images_list] cellType:ZCellTypeClass dataModel:self.detailModel.images_list];
+    [self.cellConfigArr addObject:bannerCellConfig];
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroCell className] title:[ZStudentOrganizationDetailIntroCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:desCellConfig];
     
     if (self.detailModel.teacher_list && self.detailModel.teacher_list.count > 0) {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-//        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+
         ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
         moreModel.leftTitle = @"教师团队";
         ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
-        
         
         NSMutableArray *peoples = @[].mutableCopy;
         for (int i = 0; i < self.detailModel.teacher_list.count; i++) {
@@ -265,13 +331,13 @@
         
         if (self.dataSources.count > 0) {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"机构评价";
-            model.leftFont = [UIFont boldFontTitle];
-            model.cellHeight = CGFloatIn750(50);
-            model.isHiddenLine = YES;
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"evaTitle");
+            model.zz_titleLeft(@"机构评价");
+            model.zz_cellHeight(CGFloatIn750(50));
+            model.zz_lineHidden(YES);
+            model.zz_fontLeft([UIFont boldFontTitle]);
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }
         if (self.dataSources.count > 0) {
@@ -285,84 +351,6 @@
     
     _bottomView.isCollection = [self.detailModel.collection intValue] == 1 ? YES:NO;
 }
-
-#pragma mark - tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig
-{
-    __weak typeof(self) weakSelf = self;
-    if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
-        ZStudentOrganizationBannerCell *lcell = (ZStudentOrganizationBannerCell *)cell;
-        lcell.bannerBlock = ^(ZImagesModel * model) {
-            ZStudentOrganizationDetailIntroVC *ivc = [[ZStudentOrganizationDetailIntroVC alloc] initWithTitle:weakSelf.detailModel.images_list];
-            ivc.imageModel = model;
-            ivc.detailModel = weakSelf.detailModel;
-            [weakSelf.navigationController pushViewController:ivc animated:YES];
-        };
-    }else if ([cellConfig.title isEqualToString:@"starStudent"]){
-        ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
-        lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
-            ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
-            dvc.student_id = model.account_id;
-            [self.navigationController pushViewController:dvc animated:YES];
-        };
- 
-    }else if ([cellConfig.title isEqualToString:@"starCoach"]){
-        ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
-        lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
-            ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
-            mvc.teacher_id = model.account_id;
-            mvc.stores_id = weakSelf.detailModel.schoolID;
-            [weakSelf.navigationController pushViewController:mvc animated:YES];
-        };
-    }else if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailIntroCell"]){
-        ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
-        lcell.handleBlock = ^(NSInteger index) {
-            if (index == 1) {
-                ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
-                avc.detailModel = weakSelf.detailModel;
-                [weakSelf.navigationController pushViewController:avc animated:YES];
-            }else if (index == 2){
-                [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
-                    [[ZUserHelper sharedHelper] checkLogin:^{
-                        if ([model.received intValue] == 1) {
-                            [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
-                                if (isSuccess) {
-                                    [[ZCouponListView sharedManager] refreshData];
-                                    [TLUIUtility showSuccessHint:data];
-                                }else{
-                                    [TLUIUtility showErrorHint:data];
-                                }
-                            }];
-                        }
-                    }];
-                }];
-            }
-        };
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-        ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-        dvc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:dvc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
-        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
-        lvc.type = 0;
-        lvc.stores_id = self.listModel.stores_id;
-        [self.navigationController pushViewController:lvc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
-        ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
-        lvc.type = 1;
-        lvc.stores_id = self.listModel.stores_id;
-        [self.navigationController pushViewController:lvc animated:YES];
-    }else if ([cellConfig.title isEqualToString:@"allLesson"]){
-        ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
-        lvc.detailModel = self.detailModel;
-        [self.navigationController pushViewController:lvc animated:YES];
-    }
-}
-
 
 #pragma mark - refresha
 - (void)refreshDetailData {

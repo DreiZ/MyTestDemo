@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentTeacherDetailEvaListVC : ZTableViewViewController
+@interface ZStudentTeacherDetailEvaListVC : ZTableViewController
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *teacher_name;

@@ -25,102 +25,99 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self refreshHeadData:@{}];
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
     
-    [self.navigationItem setTitle:@"举报"];
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = self.sTitle;
-        model.isHiddenLine = YES;
-        model.leftTitle = @"举报";
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(78);
-        model.cellHeight = CGFloatIn750(80);
-        model.lineSpace = CGFloatIn750(2);
-        model.rightFont = [UIFont boldFontContent];
-        model.leftFont = [UIFont fontContent];
-        model.rightColor = [UIColor colorTextBlack];
-        model.rightDarkColor =  [UIColor colorTextBlackDark];
-        model.leftColor = [UIColor colorTextGray];
-        model.leftDarkColor =  [UIColor colorTextGrayDark];
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"举报")
+    .zChain_resetMainView(^{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(120))];
+        [bottomView addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(40));
+            make.right.equalTo(bottomView.mas_right).offset(-CGFloatIn750(40));
+            make.bottom.equalTo(bottomView.mas_bottom);
+            make.height.mas_offset(CGFloatIn750(80));
+        }];
+        self.iTableView.tableFooterView = bottomView;
+    }).zChain_block_setRefreshHeaderNet(^{
+        __weak typeof(self) weakSelf = self;
+        [ZStudentMainViewModel getComplaintType:@{} completeBlock:^(BOOL isSuccess, ZComplaintNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                
+                weakSelf.zChain_reload_ui();
+            }else{
+                [weakSelf.iTableView reloadData];
+            }
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+            .zz_cellHeight(CGFloatIn750(80))
+            .zz_fontLeft([UIFont fontContent])
+            .zz_titleLeft(@"举报")
+            .zz_fontRight([UIFont boldFontContent])
+            .zz_titleRight(self.sTitle)
+            .zz_alignmentRight(NSTextAlignmentLeft);
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+            [self.cellConfigArr  addObject:menuCellConfig];
+        }
+        
+        {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+            .zz_cellHeight(CGFloatIn750(80))
+            .zz_fontLeft([UIFont fontContent])
+            .zz_titleLeft(@"选择你想要举报的类型");
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+            [self.cellConfigArr  addObject:menuCellConfig];
+        }
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:self.dataSources] cellType:ZCellTypeClass dataModel:self.dataSources];
         
         [self.cellConfigArr  addObject:menuCellConfig];
-    }
+        {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+            .zz_cellHeight(CGFloatIn750(92))
+            .zz_fontLeft([UIFont fontContent])
+            .zz_titleLeft(@"补充说明(140字以为)");
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr  addObject:menuCellConfig];
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"ZOriganizationTextViewCell" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
+            [self.cellConfigArr addObject:textCellConfig];
+        }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"label"]) {
+            ZStudentLabelCell *lcell = (ZStudentLabelCell *)cell;
+            lcell.handleBlock = ^(ZComplaintModel *model) {
+                weakSelf.model = model;
+            };
+        }else if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]) {
+            ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
+            lcell.max = 140;
+            lcell.hint = @"选填";
+            lcell.content = self.des;
+            lcell.textChangeBlock = ^(NSString * text) {
+                weakSelf.des = text;
+            };
+        }
+    });
     
-    {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = @"选择你想要举报的类型";
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(78);
-        model.cellHeight = CGFloatIn750(80);
-        model.lineSpace = CGFloatIn750(2);
-        model.leftFont = [UIFont fontContent];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr  addObject:menuCellConfig];
-    }
-    
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:self.dataSources] cellType:ZCellTypeClass dataModel:self.dataSources];
-    
-    [self.cellConfigArr  addObject:menuCellConfig];
-    
-    
-    {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"补充说明(140字以为)";
-        model.leftFont = [UIFont boldFontContent];
-        model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(92);
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [self.cellConfigArr addObject:menuCellConfig];
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"ZOriganizationTextViewCell" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
-        
-        [self.cellConfigArr addObject:textCellConfig];
-    }
+    self.zChain_reload_Net();
 }
+
 #pragma mark - setview
-- (void)setupMainView {
-    [super setupMainView];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(120))];
-    [bottomView addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(40));
-        make.right.equalTo(bottomView.mas_right).offset(-CGFloatIn750(40));
-        make.bottom.equalTo(bottomView.mas_bottom);
-        make.height.mas_offset(CGFloatIn750(80));
-    }];
-    self.iTableView.tableFooterView = bottomView;
-}
-
-
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
@@ -137,41 +134,6 @@
     }
     return _bottomBtn;
 }
-
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"label"]) {
-        ZStudentLabelCell *lcell = (ZStudentLabelCell *)cell;
-        lcell.handleBlock = ^(ZComplaintModel *model) {
-            weakSelf.model = model;
-        };
-    }else if ([cellConfig.title isEqualToString:@"ZOriganizationTextViewCell"]) {
-        ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
-        lcell.max = 140;
-        lcell.hint = @"选填";
-        lcell.content = self.des;
-        lcell.textChangeBlock = ^(NSString * text) {
-            weakSelf.des = text;
-        };
-    }
-}
-
-
-- (void)refreshHeadData:(NSDictionary *)param {
-    __weak typeof(self) weakSelf = self;
-    [ZStudentMainViewModel getComplaintType:param completeBlock:^(BOOL isSuccess, ZComplaintNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }else{
-            [weakSelf.iTableView reloadData];
-        }
-    }];
-}
-
 
 - (void)addReport{
     __weak typeof(self) weakSelf = self;

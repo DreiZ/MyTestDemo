@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 #import "ZMessgeModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMessageSendListVC : ZTableViewViewController
+@interface ZStudentMessageSendListVC : ZTableViewController
 @property (nonatomic,strong) ZMessgeModel *model;
 
 @end

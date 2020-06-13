@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 #import "ZOrderModel.h"
 
-@interface ZStudentOrganizationDetailDesVC : ZTableViewViewController
+@interface ZStudentOrganizationDetailDesVC : ZTableViewController
 @property (nonatomic,strong) ZStoresListModel *listModel;
 @end
 

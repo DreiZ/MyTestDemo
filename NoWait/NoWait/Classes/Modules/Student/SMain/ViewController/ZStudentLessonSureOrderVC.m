@@ -207,27 +207,13 @@
                     weakSelf.order_id = payModel.order_id;
                     if (weakSelf.isAlipay) {
                         [[ZPayManager  sharedManager] getAliPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"2",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
-//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-//                            listModel.order_id = weakSelf.order_id;
-//                            listModel.stores_id = weakSelf.detailModel.stores_id;
-//                            listModel.isStudent = YES;
-//                            evc.model = listModel;
-//                            [weakSelf.navigationController pushViewController:evc animated:YES];
+                            
                         }];
                     }else{
                         [[ZPayManager sharedManager] getWechatPayInfo:@{@"stores_id":SafeStr(self.detailModel.stores_id),@"pay_type":@"1",@"order_id":SafeStr(payModel.order_id)} complete:^(BOOL isSuccess, NSString *message) {
-//                            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//                            ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-//                            listModel.order_id = weakSelf.order_id;
-//                            listModel.stores_id = weakSelf.detailModel.stores_id;
-//                            listModel.isStudent = YES;
-//                            evc.model = listModel;
-//                            [weakSelf.navigationController pushViewController:evc animated:YES];
+                            
                         }];
                     }
-//                    ZOrderAddNetModel *model = data;
-//                    [TLUIUtility showSuccessHint:model.message];
                 }else{
                     [TLUIUtility showErrorHint:data];
                 }
@@ -296,32 +282,30 @@
     [self.cellConfigArr addObject:orderCellConfig];
 }
 
-
 - (void)setCouponsCell {
     if (!(self.hadCard)) {
         return;
     }
     NSMutableArray *configArr = @[].mutableCopy;
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"平台优惠";
+    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"couponsamount")
+    .zz_titleLeft(@"平台优惠")
+    .zz_lineHidden(YES)
+    .zz_fontLeft([UIFont boldFontSmall])
+    .zz_fontRight([UIFont fontSmall])
+    .zz_cellHeight(CGFloatIn750(62))
+    .zz_colorRight([UIColor colorRedDefault])
+    .zz_colorRight([UIColor colorRedDefault])
+    .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+    .zz_imageRight(@"rightBlackArrowN")
+    .zz_imageRightHeight(CGFloatIn750(14));
+    
     if (self.cartModel) {
-        model.rightTitle = [NSString stringWithFormat:@"￥%@",self.cartModel.amount];
+        model.zz_titleRight([NSString stringWithFormat:@"￥%@",self.cartModel.amount]);
     }else{
-        model.rightTitle = [NSString stringWithFormat:@"%@",@"不使用优惠券"];
+        model.zz_titleRight([NSString stringWithFormat:@"%@",@"不使用优惠券"]);
     }
     
-    model.rightImage = @"rightBlackArrowN";
-    model.isHiddenLine = YES;
-    model.lineLeftMargin = CGFloatIn750(30);
-    model.lineRightMargin = CGFloatIn750(30);
-    model.cellHeight = CGFloatIn750(64);
-    model.leftFont = [UIFont boldFontSmall];
-    model.rightFont = [UIFont fontSmall];
-    model.rightColor = [UIColor colorRedDefault];
-    model.rightDarkColor = [UIColor colorRedDefault];
-    
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"couponsamount" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-    
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [configArr addObject:menuCellConfig];
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:@"coupons" showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
@@ -352,19 +336,15 @@
     }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
-        model.isHiddenLine = YES;
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont boldFontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[0])
+        .zz_titleLeft(tArr[0])
+        .zz_titleRight(tArr[1])
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontSmall])
+        .zz_fontRight([UIFont fontSmall])
+        .zz_cellHeight(CGFloatIn750(62));
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [configArr addObject:menuCellConfig];
     }
     
@@ -376,21 +356,17 @@
     NSArray *tempArr = @[@[@"wepaylist", @"微信", self.isAlipay ?@"unSelectedCycle":@"selectedCycle"],@[@"alipaylist", @"支付宝", self.isAlipay ?@"selectedCycle":@"unSelectedCycle"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = tArr[1];
-        model.rightImage = tArr[2];
-        model.leftImage = tArr[0];
-        model.cellTitle = tArr[0];
-        model.isHiddenLine = YES;
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont boldFontSmall];
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[0])
+        .zz_titleLeft(tArr[1])
+        .zz_imageRight(tArr[2])
+        .zz_imageLeft(tArr[0])
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontSmall])
+        .zz_cellHeight(CGFloatIn750(62))
+        .zz_imageLeftHeight(CGFloatIn750(40))
+        .zz_imageRightHeight(CGFloatIn750(30));
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [configArr addObject:menuCellConfig];
     }
     
@@ -398,25 +374,24 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 
-
 - (void)setTipsCell {
     NSArray *tempArr = @[@[@"小提醒", @"订单金额不可小于1元，若使用优惠券后，订单金额小于1元，将按照最低1元支付"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont fontSmall];
-        model.rightFont = [UIFont fontSmall];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tArr[0])
+        .zz_titleLeft(tArr[0])
+        .zz_titleRight(tArr[1])
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontSmall])
+        .zz_fontRight([UIFont fontSmall])
+        .zz_cellHeight(CGFloatIn750(62))
+        .zz_alignmentRight(NSTextAlignmentLeft)
+        .zz_rightMultiLine(YES)
+        .zz_colorRight([UIColor colorTextGray])
+        .zz_colorRight([UIColor colorTextGrayDark])
+        .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [configArr addObject:menuCellConfig];
     }
     
