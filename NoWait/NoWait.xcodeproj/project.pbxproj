@@ -23,7 +23,6 @@
 		B20E57B12484AE0600D4226D /* ZTableViewChain.m in Sources */ = {isa = PBXBuildFile; fileRef = B20E57B02484AE0600D4226D /* ZTableViewChain.m */; };
 		B20E57B424851AEB00D4226D /* ZOrganizationDetailNumAndMinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B20E57B324851AEB00D4226D /* ZOrganizationDetailNumAndMinCell.m */; };
 		B20E57BD2486374D00D4226D /* ZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B20E57BC2486374D00D4226D /* ZTableViewController.m */; };
-		B20E57C0248642C000D4226D /* ZOrganizationTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20E57BF248642C000D4226D /* ZOrganizationTestVC.m */; };
 		B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843E23CD6544007618CE /* MGWaterDorpView.m */; };
 		B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B215843F23CD6544007618CE /* UIColor+MGHexColor.m */; };
 		B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B218063A24760D1F00A124D9 /* ZDBMainStore.m */; };
@@ -689,8 +688,6 @@
 		B20E57B324851AEB00D4226D /* ZOrganizationDetailNumAndMinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationDetailNumAndMinCell.m; sourceTree = "<group>"; };
 		B20E57BB2486374D00D4226D /* ZTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTableViewController.h; sourceTree = "<group>"; };
 		B20E57BC2486374D00D4226D /* ZTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTableViewController.m; sourceTree = "<group>"; };
-		B20E57BE248642C000D4226D /* ZOrganizationTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTestVC.h; sourceTree = "<group>"; };
-		B20E57BF248642C000D4226D /* ZOrganizationTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTestVC.m; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
 		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
 		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
@@ -3736,8 +3733,6 @@
 				B296E3A22404F7F400507509 /* ZOrganizationTimeSelectVC.m */,
 				B2A780E223BEDA0C00407BF0 /* ZOrganizationMineVC.h */,
 				B2A780E323BEDA0C00407BF0 /* ZOrganizationMineVC.m */,
-				B20E57BE248642C000D4226D /* ZOrganizationTestVC.h */,
-				B20E57BF248642C000D4226D /* ZOrganizationTestVC.m */,
 				B2EE5BBE23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.h */,
 				B2EE5BBF23F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m */,
 				B2D83EA123FA866F0099C2C9 /* ZOrganizationCampusManagementAddressVC.h */,
@@ -4546,7 +4541,6 @@
 				B230F1BF2445AC970084BCC6 /* ZLessonWeekHandlerView.m in Sources */,
 				B230F1B02444881F0084BCC6 /* ZLocationManager.m in Sources */,
 				B28EA65D240DFBEB00C8E225 /* ZBaseTextViewCell.m in Sources */,
-				B20E57C0248642C000D4226D /* ZOrganizationTestVC.m in Sources */,
 				B2A780A023BDFB0100407BF0 /* FSMStateUtil.m in Sources */,
 				B230F1AC244457560084BCC6 /* ZTeacherSignStudentListBottomView.m in Sources */,
 				B29795A924260ACF004490F5 /* ZAlertDataCheckBoxBottomView.m in Sources */,

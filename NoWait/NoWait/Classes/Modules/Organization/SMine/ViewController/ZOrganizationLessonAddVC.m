@@ -907,23 +907,7 @@
             }
         }];
     }else if ([cellConfig.title isEqualToString:@"school"]) {
-//        NSMutableArray *items = @[].mutableCopy;
-//        for (int i = 0; i < self.schoolList.count; i++) {
-//            ZOriganizationSchoolListModel *smodel = self.schoolList[i];
-//            ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-//            model.name = smodel.name;
-//            [items addObject:model];
-//        }
-//
-//        [self.items removeAllObjects];
-//        [self.items addObjectsFromArray:items];
-//        [ZAlertDataSinglePickerView setAlertName:@"校区类型" items:self.items handlerBlock:^(NSInteger index) {
-//            ZOriganizationSchoolListModel *smodel = self.schoolList[index];
-//            weakSelf.viewModel.addModel.school = smodel.name;
-//            weakSelf.viewModel.addModel.stores_id = smodel.schoolID;
-//           [weakSelf initCellConfigArr];
-//           [weakSelf.iTableView reloadData];
-//        }];
+
     }else if ([cellConfig.title isEqualToString:@"class"]) {
         [self.iTableView endEditing:YES];
         if (!ValidStr(self.viewModel.addModel.lessonID)) {
@@ -937,12 +921,6 @@
 
             [self.items removeAllObjects];
             [self.items addObjectsFromArray:items];
-//            [ZAlertDataSinglePickerView setAlertName:@"级别选择" items:self.items handlerBlock:^(NSInteger index) {
-//                weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index+1];
-//               [weakSelf initCellConfigArr];
-//               [weakSelf.iTableView reloadData];
-//            }];
-            
             [ZAlertDataSinglePickerView setAlertName:@"级别选择" selectedIndex:[weakSelf.viewModel.addModel.level intValue] > 0 ? [weakSelf.viewModel.addModel.level intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
                 weakSelf.viewModel.addModel.level = [NSString stringWithFormat:@"%ld",index + 1];
                 [weakSelf initCellConfigArr];
