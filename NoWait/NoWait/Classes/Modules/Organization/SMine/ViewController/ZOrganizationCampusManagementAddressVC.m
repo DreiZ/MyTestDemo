@@ -9,7 +9,6 @@
 #import "ZOrganizationCampusManagementAddressVC.h"
 #import "ZBaseCellModel.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 
 @interface ZOrganizationCampusManagementAddressVC ()
 @property (nonatomic,strong) NSString *province;
@@ -37,24 +36,17 @@
     NSArray *tempTitleArr = @[@"local", @"text"];
     for (int i = 0; i < tempArr.count; i++) {
         if (i == 0) {
-            ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-            model.leftTitle = tempArr[0];
-            model.rightTitle = [NSString stringWithFormat:@"%@",SafeStr(self.address)].length > 0 ? [NSString stringWithFormat:@"%@",SafeStr(self.brief_address)] : @"请选择地址";
-            model.isHiddenLine = YES;
-            model.cellWidth = KScreenWidth;
-            model.rightColor = [UIColor colorBlack];
-            model.singleCellHeight = CGFloatIn750(118);
-            model.lineLeftMargin = CGFloatIn750(30);
-            model.lineRightMargin = CGFloatIn750(30);
-            model.cellHeight = CGFloatIn750(120);
-            model.leftFont = [UIFont boldFontTitle];
-            model.rightFont = [UIFont fontContent];
-            model.rightImage = @"hnglocaladdress";
-            model.rightImageWidth = CGFloatIn750(20);
-            model.cellTitle = tempTitleArr[i];
-    
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(tempTitleArr[i]);
+            model.zz_titleLeft(tempArr[0]);
+            model.zz_titleRight([NSString stringWithFormat:@"%@",SafeStr(self.address)].length > 0 ? [NSString stringWithFormat:@"%@",SafeStr(self.brief_address)] : @"请选择地址");
+            model.zz_lineHidden(YES);
+            model.zz_cellHeight(CGFloatIn750(118));
+            model.zz_fontLeft([UIFont boldFontTitle]);
+            model.zz_imageRight(@"hnglocaladdress");
+            model.zz_imageRightHeight(CGFloatIn750(20));
+            model.zz_rightMultiLine(YES);
+           
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             
             [self.cellConfigArr addObject:menuCellConfig];
         }else{

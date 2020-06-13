@@ -9,7 +9,6 @@
 #import "ZStudentMineEvaDetailVC.h"
 #import "ZOrganizationEvaListLessonCell.h"
 #import "ZOrganizationEvaDetailTitleCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationEvaListEvaTextViewCell.h"
 #import "ZOrganizationEvaListEvaBtnCell.h"
 #import "ZStudentEvaDetailReEvaCell.h"

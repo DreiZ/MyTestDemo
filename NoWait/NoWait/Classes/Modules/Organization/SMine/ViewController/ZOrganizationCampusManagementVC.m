@@ -15,7 +15,6 @@
 #import "ZOrganizationCampusTextFieldCell.h"
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationSwitchSchoolCell.h"
 
 #import "ZAlertDataModel.h"
@@ -101,23 +100,19 @@
         }else{
             if ([textArr[i][4] isEqualToString:@"address"]) {
                 if (self.model.address && self.model.address.length > 0) {
-                    ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                    model.leftTitle = textArr[i][0];
-                    model.rightTitle = [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)].length > 0 ? [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)] : @"请选择地址";
-                    model.isHiddenLine = YES;
-                    model.cellWidth = KScreenWidth - CGFloatIn750(60);
-                    model.rightColor = [UIColor colorBlack];
-                    model.singleCellHeight = CGFloatIn750(106);
-                    model.lineLeftMargin = CGFloatIn750(30);
-                    model.lineRightMargin = CGFloatIn750(30);
-                    model.cellHeight = CGFloatIn750(108);
-                    model.leftFont = [UIFont boldFontTitle];
-                    model.rightFont = [UIFont fontContent];
-                    model.cellTitle = textArr[i][4];
-                    model.leftMargin = CGFloatIn750(20);
-                    model.rightImage = @"rightBlackArrowN";
+                    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(textArr[i][4])
+                    .zz_titleLeft(textArr[i][0])
+                    .zz_titleRight([NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)].length > 0 ? [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)] : @"请选择地址")
+                    .zz_lineHidden(YES)
+                    .zz_rightMultiLine(YES)
+                    .zz_cellHeight(CGFloatIn750(106))
+                    .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+                    .zz_marginLeft(CGFloatIn750(20))
+                    .zz_imageRight(@"rightBlackArrowN")
+                    .zz_imageRightHeight(CGFloatIn750(14))
+                    .zz_fontLeft([UIFont boldFontTitle]);
                     
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                     
                     [self.cellConfigArr addObject:menuCellConfig];
                     

@@ -10,7 +10,6 @@
 #import "ZOrganizationEvaListUserInfoCell.h"
 #import "ZOrganizationEvaListLessonCell.h"
 #import "ZOrganizationEvaListEvaBtnCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationEvaListEvaTextViewCell.h"
 #import "ZOrganizationEvaListReEvaCell.h"
 #import "ZSpaceEmptyCell.h"
@@ -139,16 +138,14 @@
     CGFloat cellHeight = 0;
     cellHeight += [ZOrganizationEvaListUserInfoCell z_getCellHeight:nil];
     if(ValidStr(evaModel.des)){
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = evaModel.des;
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(120);
-        model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.rightFont = [UIFont fontSmall];
-        cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des")
+        .zz_lineHidden(YES)
+        .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+        .zz_titleRight(evaModel.des)
+        .zz_titleLeft(evaModel.des)
+        .zz_fontLeft([UIFont fontSmall]);
+        
+        cellHeight += [ZBaseLineCell z_getCellHeight:model];
         cellHeight += CGFloatIn750(20);
     }
     
@@ -186,20 +183,14 @@
     }
     
     if(ValidStr(_model.des)){
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = self.model.des;
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.rightFont = [UIFont fontSmall];
-        model.rightColor = [UIColor colorTextBlack];
-        model.rightDarkColor =  [UIColor colorTextBlackDark];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des")
+        .zz_lineHidden(YES)
+        .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+        .zz_titleRight(self.model.des)
+        .zz_titleLeft(self.model.des)
+        .zz_fontLeft([UIFont fontSmall]);
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr  addObject:menuCellConfig];
         
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];

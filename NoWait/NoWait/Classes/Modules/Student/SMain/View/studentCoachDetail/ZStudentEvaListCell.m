@@ -8,7 +8,6 @@
 
 #import "ZStudentEvaListCell.h"
 #import "ZOrganizationEvaListUserInfoCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZStudentEvaListReEvaCell.h"
 
 @interface ZStudentEvaListCell ()<UITableViewDelegate, UITableViewDataSource>
@@ -123,46 +122,27 @@
     }
     
     if (ValidStr(evaModel.des)) {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = evaModel.des;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(60);
-        model.leftMargin = CGFloatIn750(86);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.isHiddenLine = YES;
-        cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
+        model.zz_titleLeft(evaModel.des);
+        model.zz_leftMultiLine(YES);
+        model.zz_marginLeft(CGFloatIn750(86));
+        model.zz_marginRight(CGFloatIn750(30));
+        model.zz_cellHeight(CGFloatIn750(62));
+        model.zz_fontLeft([UIFont fontContent]);
+        
+        cellHeight += [ZBaseLineCell z_getCellHeight:model];
     }
     {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = evaModel.stores_courses_name;
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(42);
-        model.leftMargin = CGFloatIn750(86);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(46);
-        model.leftFont = [UIFont fontMin];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
+        model.zz_cellHeight(CGFloatIn750(46));
         
-        cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
+        cellHeight += [ZBaseLineCell z_getCellHeight:model];
     }
-//    {
-//        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-//        model.leftTitle = [evaModel.update_at timeStringWithFormatter:@"yyyy-MM-dd  HH:mm"];
-//        model.isHiddenLine = YES;
-//        model.cellWidth = KScreenWidth;
-//        model.singleCellHeight = CGFloatIn750(42);
-//        model.leftMargin = CGFloatIn750(86);
-//        model.rightMargin = CGFloatIn750(30);
-//        model.cellHeight = CGFloatIn750(46);
-//        model.leftFont = [UIFont fontMin];
-//        
-//        cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:model];
-//    }
-     if ([evaModel.is_reply intValue] == 1) {
-         cellHeight += [ZStudentEvaListReEvaCell z_getCellHeight:evaModel.reply_desc];
-         cellHeight += CGFloatIn750(20);
-     }
+    
+    if ([evaModel.is_reply intValue] == 1) {
+     cellHeight += [ZStudentEvaListReEvaCell z_getCellHeight:evaModel.reply_desc];
+     cellHeight += CGFloatIn750(20);
+    }
     
     return  cellHeight;
 }
@@ -179,27 +159,22 @@
     
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(24))];
-        
         ZCellConfig *top1CellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListUserInfoCell className] title:[ZOrganizationEvaListUserInfoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListUserInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
         [self.cellConfigArr addObject:top1CellConfig];
-        
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
     }
     
     if (ValidStr(self.model.des)) {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.rightTitle = self.model.des;
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(60);
-        model.leftMargin = CGFloatIn750(86);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.rightFont = [UIFont fontContent];
-        model.rightColor = [UIColor colorTextBlack];
-        model.rightDarkColor =  [UIColor colorTextBlackDark];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
+        model.zz_titleLeft(self.model.des);
+        model.zz_lineHidden(YES);
+        model.zz_leftMultiLine(YES);
+        model.zz_marginLeft(CGFloatIn750(86));
+        model.zz_marginRight(CGFloatIn750(30));
+        model.zz_cellHeight(CGFloatIn750(62));
+        model.zz_fontLeft([UIFont fontContent]);
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr  addObject:menuCellConfig];
     }
@@ -209,41 +184,20 @@
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
     }
     {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = self.model.stores_courses_name;
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth;
-        model.singleCellHeight = CGFloatIn750(42);
-        model.leftMargin = CGFloatIn750(86);
-        model.rightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(46);
-        model.leftFont = [UIFont fontMin];
-        model.leftColor = [UIColor colorTextGray1];
-        model.leftDarkColor = [UIColor colorTextGray1Dark];
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
+        model.zz_titleLeft(self.model.stores_courses_name);
+        model.zz_lineHidden(YES);
+        model.zz_marginLeft(CGFloatIn750(86));
+        model.zz_marginRight(CGFloatIn750(30));
+        model.zz_cellHeight(CGFloatIn750(46));
+        model.zz_fontLeft([UIFont fontMin]);
+        model.zz_colorLeft([UIColor colorTextGray1]);
+        model.zz_colorDarkLeft([UIColor colorTextGray1]);
+
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr  addObject:menuCellConfig];
     }
-//    {
-//        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-//        model.leftTitle = [self.model.update_at timeStringWithFormatter:@"yyyy-MM-dd  HH:mm"];
-//        model.isHiddenLine = YES;
-//        model.cellWidth = KScreenWidth;
-//        model.singleCellHeight = CGFloatIn750(42);
-//        model.leftMargin = CGFloatIn750(86);
-//        model.rightMargin = CGFloatIn750(30);
-//        model.cellHeight = CGFloatIn750(46);
-//        model.leftFont = [UIFont fontMin];
-//        model.leftColor = [UIColor colorTextGray1];
-//        model.leftDarkColor = [UIColor colorTextGray1Dark];
-//
-//        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//
-//        [self.cellConfigArr  addObject:menuCellConfig];
-//    }
 }
 
 @end
-
-

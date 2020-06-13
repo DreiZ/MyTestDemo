@@ -9,7 +9,6 @@
 #import "ZStudentStudentDetailVC.h"
 #import "ZStudentStudentInfoDesCell.h"
 #import "ZStudentCoachInfoTitleCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZStudentImageCollectionCell.h"
 #import "ZOriganizationStudentViewModel.h"
 

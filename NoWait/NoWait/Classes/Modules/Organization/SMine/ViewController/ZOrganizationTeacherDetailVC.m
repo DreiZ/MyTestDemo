@@ -12,7 +12,6 @@
 #import "ZOriganizationTextViewCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZOrganizationTeacherAddVC.h"
 #import "ZTeacherLessonDetailListVC.h"
@@ -102,17 +101,17 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
       
+        ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"des")
+        .zz_colorLeft([UIColor colorTextGray])
+        .zz_colorDarkLeft([UIColor colorTextGrayDark])
+        .zz_cellHeight(CGFloatIn750(50))
+        .zz_titleLeft(self.addModel.des)
+        .zz_leftMultiLine(YES);
         
-        ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-        mModel.rightFont = [UIFont fontContent];
-        mModel.rightColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        mModel.singleCellHeight = CGFloatIn750(50);
-        mModel.rightTitle = self.addModel.des;
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
         [self.cellConfigArr addObject:textCellConfig];
         
-        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:bottomCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
     }
     
     {

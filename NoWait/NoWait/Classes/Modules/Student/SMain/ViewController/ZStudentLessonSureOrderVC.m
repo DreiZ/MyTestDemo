@@ -12,7 +12,6 @@
 
 #import "ZStudentMineOrderTopStateCell.h"
 #import "ZStudentMineOrderDetailCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineSettingBottomCell.h"
 
