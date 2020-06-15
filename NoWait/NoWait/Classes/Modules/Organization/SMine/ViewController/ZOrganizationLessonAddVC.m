@@ -335,7 +335,7 @@
             .zz_colorDarkText([UIColor colorTextGray1Dark])
             .zz_colorSubRight([UIColor colorTextGray1])
             .zz_colorDarkSubRight([UIColor colorTextGray1Dark])
-            .zz_textEnabled([obj[2] boolValue]);
+            .zz_textEnabled(NO);
         }else{
             model.zz_colorText([UIColor colorTextBlack])
             .zz_colorDarkText([UIColor colorTextBlackDark])

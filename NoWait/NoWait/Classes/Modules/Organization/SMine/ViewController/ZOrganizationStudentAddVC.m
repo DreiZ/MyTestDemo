@@ -61,7 +61,7 @@
         [self.cellConfigArr addObject:progressCellConfig];
     }
     
-    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@30,[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
+    NSArray <NSArray *>*textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@30,[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"MID", @"请输入MID", @YES, @"", @"MID",SafeStr(self.viewModel.addModel.code_id),@12,[NSNumber numberWithInt:ZFormatterTypeNumber]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -70,27 +70,44 @@
                          @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
-    if (ValidStr(self.viewModel.addModel.studentID)) {
-        textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",SafeStr(self.viewModel.addModel.name),@10,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"手机号", @"请输入手机号", @YES, @"", @"phone",SafeStr(self.viewModel.addModel.phone),@11,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
-         @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
-         @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]]];
-    }
-    for (int i = 0; i < textArr.count; i++) {
-       ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-        cellModel.leftTitle = textArr[i][0];
-        cellModel.placeholder = textArr[i][1];
-        cellModel.isTextEnabled = [textArr[i][2] boolValue];
-        cellModel.rightImage = textArr[i][3];
-        cellModel.cellTitle = textArr[i][4];
-        cellModel.content = textArr[i][5];
-        cellModel.max = [textArr[i][6] intValue];
-        cellModel.formatterType = [textArr[i][7] intValue];
-        cellModel.isHiddenLine = YES;
-        cellModel.cellHeight = CGFloatIn750(108);
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-        [self.cellConfigArr addObject:textCellConfig];
-    }
+
+    [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[4]))
+        .zz_heightTextField(CGFloatIn750(84))
+        .zz_titleLeft(SafeStr(obj[0]))
+        .zz_placeholder(SafeStr(obj[1]))
+        .zz_textEnabled([obj[2] boolValue])
+        .zz_content(SafeStr(obj[5]))
+        .zz_max([SafeStr(obj[6]) intValue])
+        .zz_formatter([SafeStr(obj[7]) intValue])
+        .zz_cellHeight(CGFloatIn750(86));
+        
+        if (ValidStr(self.viewModel.addModel.studentID)
+            && ([SafeStr(obj[4]) isEqualToString:@"MID"]
+            || [SafeStr(obj[4]) isEqualToString:@"registrationDate"]
+            || [SafeStr(obj[4]) isEqualToString:@"lesson"]
+            || [SafeStr(obj[4]) isEqualToString:@"now_progress"]
+            || [SafeStr(obj[4]) isEqualToString:@"teacher"])) {
+            model.zz_colorText([UIColor colorTextGray1])
+            .zz_colorDarkText([UIColor colorTextGray1Dark])
+            .zz_colorSubRight([UIColor colorTextGray1])
+            .zz_colorDarkSubRight([UIColor colorTextGray1Dark])
+            .zz_textEnabled(NO);
+        }else {
+            model.zz_colorText([UIColor colorTextBlack])
+            .zz_colorDarkText([UIColor colorTextBlackDark])
+            .zz_colorSubRight([UIColor colorTextBlack])
+            .zz_colorDarkSubRight([UIColor colorTextBlackDark])
+            .zz_textEnabled([obj[2] boolValue]);
+            if (ValidStr(obj[3])) {
+                model.zz_imageRight(SafeStr(obj[3]))
+                .zz_imageRightHeight(CGFloatIn750(14));
+            }
+        }
+        
+        ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:nameCellConfig];
+    }];
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -172,14 +189,26 @@
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(180))];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.tableFooterView = bottomView;
     
-    [bottomView addSubview:self.bottomBtn];
+    [self.view addSubview:bottomView];
+    [self.view addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(bottomView.mas_centerY);
+        make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
+    }];
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+        make.height.mas_equalTo(CGFloatIn750(80));
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(bottomView.mas_top);
+        make.top.equalTo(self.view.mas_top);
     }];
 }
 
@@ -507,12 +536,6 @@
            model.name = temp[i];
            [items addObject:model];
         }
-        
-//        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-//            weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }];
         [ZAlertDataSinglePickerView setAlertName:@"性别选择" selectedIndex:[weakSelf.viewModel.addModel.sex intValue] > 0 ? [weakSelf.viewModel.addModel.sex intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
             weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
             [weakSelf initCellConfigArr];
@@ -526,35 +549,41 @@
             [weakSelf.iTableView reloadData];
         }];
     }else if ([cellConfig.title isEqualToString:@"registrationDate"]) {
-        [self.iTableView endEditing:YES];
-        [ZDatePickerManager showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
-            weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }];
-    }else if ([cellConfig.title isEqualToString:@"lesson"]) {
-        [self.iTableView endEditing:YES];
-        [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
-            if (model) {
-                weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
-                weakSelf.viewModel.addModel.courses_name = model.short_name;
+        if (!ValidStr(self.viewModel.addModel.studentID)) {
+            [self.iTableView endEditing:YES];
+            [ZDatePickerManager showDatePickerWithTitle:@"报名日期" type:PGDatePickerModeDate handle:^(NSDateComponents * date) {
+                weakSelf.viewModel.addModel.sign_up_at = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
-            }
-        }];
-    }else if ([cellConfig.title isEqualToString:@"teacher"]) {
-        [self.iTableView endEditing:YES];
-        if (ValidStr(self.viewModel.addModel.stores_courses_class_id)) {
-            [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.viewModel.addModel.stores_courses_class_id  handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+            }];
+        }
+    }else if ([cellConfig.title isEqualToString:@"lesson"]) {
+        if (!ValidStr(self.viewModel.addModel.studentID)) {
+            [self.iTableView endEditing:YES];
+            [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
                 if (model) {
-                    weakSelf.viewModel.addModel.teacher = model.teacher_name;
-                    weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
+                    weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
+                    weakSelf.viewModel.addModel.courses_name = model.short_name;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
                 }
             }];
-        }else{
-            [TLUIUtility showErrorHint:@"请先选择课程"];
+        }
+    }else if ([cellConfig.title isEqualToString:@"teacher"]) {
+        if (!ValidStr(self.viewModel.addModel.studentID)) {
+            [self.iTableView endEditing:YES];
+            if (ValidStr(self.viewModel.addModel.stores_courses_class_id)) {
+                [ZAlertTeacherCheckBoxView  setAlertName:@"选择教师" schoolID:self.viewModel.addModel.stores_courses_class_id  handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
+                    if (model) {
+                        weakSelf.viewModel.addModel.teacher = model.teacher_name;
+                        weakSelf.viewModel.addModel.teacher_id  = model.teacherID;
+                        [weakSelf initCellConfigArr];
+                        [weakSelf.iTableView reloadData];
+                    }
+                }];
+            }else{
+                [TLUIUtility showErrorHint:@"请先选择课程"];
+            }
         }
     }
 }
