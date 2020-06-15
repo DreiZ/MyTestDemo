@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationLessonAddImageCell : ZBaseCell
 @property (nonatomic,strong) id image;
+@property (nonatomic,strong) void (^valueChangeBlock)(NSString *, NSInteger);
+@property (nonatomic,strong) void (^imageBlock)(NSInteger);
+@property (nonatomic,strong) NSDictionary *data;
 
 @end
 

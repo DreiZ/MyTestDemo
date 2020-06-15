@@ -7,12 +7,14 @@
 //
 
 #import "ZOrganizationLessonAddImageCell.h"
-@interface ZOrganizationLessonAddImageCell ()
+@interface ZOrganizationLessonAddImageCell ()<UITextFieldDelegate>
 
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UIImageView *contImageView;
 
+@property (nonatomic,strong) UITextField *nameTextField;
+@property (nonatomic,strong) UITextField *abbTextField;
 @property (nonatomic,strong) UIView *backContentView;
 @end
 
@@ -28,29 +30,39 @@
 
 -(void)setupView {
     [super setupView];
-    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     
+    UIView *contBackView = [[UIView alloc] initWithFrame:CGRectZero];
+    contBackView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    ViewRadius(contBackView, CGFloatIn750(16));
     
-    [self.contentView addSubview:self.leftImageView];
-    [self.contentView addSubview:self.contImageView];
-    [self.contentView addSubview:self.backContentView];
+    [self.contentView addSubview:contBackView];
+    [contBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(240));
+        make.height.mas_equalTo(CGFloatIn750(160));
+    }];
+    
+    [contBackView addSubview:self.leftImageView];
+    [contBackView addSubview:self.contImageView];
+    [contBackView addSubview:self.backContentView];
     [self.backContentView addSubview:self.titleLabel];
     
     [self.backContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(62));
-        make.left.right.bottom.equalTo(self);
+        make.height.mas_equalTo(CGFloatIn750(40));
+        make.left.right.bottom.equalTo(self.contImageView);
     }];
     
     [self.contImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.contentView);
-        make.bottom.equalTo(self.backContentView.mas_top);
+        make.edges.equalTo(contBackView);
     }];
     self.contImageView.hidden = YES;
     
     [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY).offset(CGFloatIn750(-20));
-        make.width.height.mas_equalTo(CGFloatIn750(54));
+        make.centerX.equalTo(self.contImageView.mas_centerX);
+        make.centerY.equalTo(self.contImageView.mas_centerY).offset(CGFloatIn750(-20));
+        make.width.height.mas_equalTo(CGFloatIn750(40));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,10 +87,55 @@
         make.width.mas_equalTo(CGFloatIn750(4));
     }];
 
+    
+    [self.contentView addSubview:self.nameTextField];
+    [self.contentView addSubview:self.abbTextField];
+    
+    UIView *nameLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    nameLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.nameTextField addSubview:nameLineView];
+    [nameLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.nameTextField);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    UIView *abbLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    abbLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.abbTextField addSubview:abbLineView];
+    [abbLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.abbTextField);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    [self.nameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contImageView.mas_right).offset(CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.height.mas_equalTo(CGFloatIn750(64));
+        make.bottom.equalTo(self.contImageView.mas_centerY);
+    }];
+    
+    [self.abbTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contImageView.mas_right).offset(CGFloatIn750(20));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.height.mas_equalTo(CGFloatIn750(64));
+        make.bottom.equalTo(self.contImageView.mas_bottom);
+    }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *imagBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [imagBtn bk_addEventHandler:^(id sender) {
+        if (weakSelf.imageBlock) {
+            weakSelf.imageBlock(0);
+        }
+    } forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:imagBtn];
+    [imagBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contImageView);
+    }];
 }
 
 
-#pragma mark -Getter
+#pragma mark - Getter
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -86,11 +143,45 @@
         _titleLabel.text = @"上传课程封面";
         _titleLabel.numberOfLines = 1;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_titleLabel setFont:[UIFont fontContent]];
+        [_titleLabel setFont:[UIFont fontMin]];
     }
     return _titleLabel;
 }
 
+
+- (UITextField *)nameTextField {
+    if (!_nameTextField ) {
+        _nameTextField = [[UITextField alloc] init];
+        [_nameTextField setFont:[UIFont boldFontContent]];
+        _nameTextField.leftViewMode = UITextFieldViewModeAlways;
+        [_nameTextField setBorderStyle:UITextBorderStyleNone];
+        [_nameTextField setBackgroundColor:[UIColor clearColor]];
+        [_nameTextField setReturnKeyType:UIReturnKeyDone];
+        [_nameTextField setTextAlignment:NSTextAlignmentLeft];
+        [_nameTextField setPlaceholder:@"请输入课程名称"];
+        [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        _nameTextField.delegate = self;
+        [_nameTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _nameTextField;
+}
+
+- (UITextField *)abbTextField {
+    if (!_abbTextField ) {
+        _abbTextField = [[UITextField alloc] init];
+        [_abbTextField setFont:[UIFont boldFontContent]];
+        _abbTextField.leftViewMode = UITextFieldViewModeAlways;
+        [_abbTextField setBorderStyle:UITextBorderStyleNone];
+        [_abbTextField setBackgroundColor:[UIColor clearColor]];
+        [_abbTextField setReturnKeyType:UIReturnKeyDone];
+        [_abbTextField setTextAlignment:NSTextAlignmentLeft];
+        [_abbTextField setPlaceholder:@"请输入课程简称"];
+        [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        _abbTextField.delegate = self;
+        [_abbTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _abbTextField;
+}
 
 
 - (UIImageView *)leftImageView {
@@ -138,7 +229,58 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(400) + CGFloatIn750(62);
+    return CGFloatIn750(240);
+}
+
+- (void)setData:(NSDictionary *)data {
+    _data = data;
+    if ([data objectForKey:@"image"]) {
+        self.image = data[@"image"];
+    }
+    
+    if ([data objectForKey:@"edit"]) {
+        [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+        [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+    }else{
+        [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+    }
+    
+    if ([data objectForKey:@"name"]) {
+        _nameTextField.text = data[@"name"];
+    }else{
+        _nameTextField.text = @"";
+    }
+    
+    if ([data objectForKey:@"subName"]) {
+        _abbTextField.text = data[@"subName"];
+    }else{
+        _abbTextField.text = @"";
+    }
+}
+
+#pragma mark - -textField delegate
+- (void)textFieldDidChange:(UITextField *)textField {
+    if (textField == _abbTextField) {
+        [ZPublicTool textField:textField maxLenght:18 type:ZFormatterTypeAnyByte];
+        if (self.valueChangeBlock) {
+            self.valueChangeBlock(textField.text, 1);
+        }
+    }else{
+        [ZPublicTool textField:textField maxLenght:60 type:ZFormatterTypeAnyByte];
+        if (self.valueChangeBlock) {
+            self.valueChangeBlock(textField.text, 0);
+        }
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [ZPublicTool textField:textField shouldChangeCharactersInRange:range replacementString:string type:ZFormatterTypeAnyByte];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

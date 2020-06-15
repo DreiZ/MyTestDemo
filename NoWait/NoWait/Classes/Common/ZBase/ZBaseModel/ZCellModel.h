@@ -22,6 +22,9 @@
 
 #define ZCHAIN_LINECELLMODEL_IMPLEMENTATION(methodName,ZZParamType,attribute) ZCHAIN_IMPLEMENTATION(ZLineCellModel *,methodName,ZZParamType,attribute)
 
+#define  ZCHAIN_TEXTCELLMODEL_PROPERTY(methodName,ZZParamType) ZCHAIN_PROPERTY ZCHAIN_BLOCK(ZTextFieldModel *, methodName, ZZParamType)
+
+#define ZCHAIN_TEXTCELLMODEL_IMPLEMENTATION(methodName,ZZParamType,attribute) ZCHAIN_IMPLEMENTATION(ZTextFieldModel *,methodName,ZZParamType,attribute)
 
 
 #define kLineLeftMargin CGFloatIn750(30)
@@ -157,7 +160,6 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_rightMultiLine, BOOL)
 
 
 @interface ZTextFieldModel : ZLineCellModel
-
 @property (nonatomic,strong) UIColor *textColor;
 @property (nonatomic,strong) UIColor *textDarkColor;
 @property (nonatomic,strong) UIFont *textFont;
@@ -175,15 +177,68 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_rightMultiLine, BOOL)
 
 ZCHAIN_OBJ_CREATE(ZTextFieldModel *, NSString *,zz_textCellModel_create)
 
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorText, UIColor *)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorDarkText, UIColor *)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_fontText, UIFont *)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_alignmentText, NSTextAlignment)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_formatter, ZFormatterType)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_placeholder, NSString *)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_max, NSInteger)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_content, NSString *)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_heightTextField, CGFloat)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_lineInputHidden, BOOL)
-ZCHAIN_LINECELLMODEL_PROPERTY(zz_textEnabled, BOOL)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_selected, BOOL)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_cellWidth, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_cellHeight, CGFloat)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_lineHidden, BOOL)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorLine, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkLine, UIColor *)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_marginLineLeft, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_marginLineRight, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_setData, id)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_marginLeft, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_marginRight, CGFloat)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_imageLeftHeight, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_imageLeft, id)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_imageLeftRadius, BOOL)
+
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_titleLeft, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorLeft, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkLeft, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_fontLeft, UIFont *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_alignmentLeft, NSTextAlignment)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_imageRightHeight, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_imageRight, id)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_subTitleLeft, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorSubLeft, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkSubLeft, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_fontSubLeft, UIFont *)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorRight, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkRight, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_fontRight, UIFont *)
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_titleRight, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_alignmentRight, NSTextAlignment)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_subTitleRight, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorSubRight, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkSubRight, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_fontSubRight, UIFont *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_contentSpaceLeft, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_contentSpaceRight, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_spaceLine, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_contentLeftWidth, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_leftMultiLine, BOOL)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_rightMultiLine, BOOL)
+//----------------------------------------------------------------
+
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorText, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkText, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_fontText, UIFont *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_alignmentText, NSTextAlignment)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_formatter, ZFormatterType)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_placeholder, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_max, NSInteger)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_content, NSString *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_heightTextField, CGFloat)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_lineInputHidden, BOOL)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_textEnabled, BOOL)
 @end

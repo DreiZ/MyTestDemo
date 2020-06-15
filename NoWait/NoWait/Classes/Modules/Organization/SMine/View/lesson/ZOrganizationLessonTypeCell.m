@@ -128,7 +128,7 @@
         _leftTitleLabel.text = @"固定时间开课";
         _leftTitleLabel.numberOfLines = 1;
         _leftTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_leftTitleLabel setFont:[UIFont boldFontTitle]];
+        [_leftTitleLabel setFont:[UIFont fontContent]];
     }
     return _leftTitleLabel;
 }
@@ -141,7 +141,7 @@
         _rightTitleLabel.text = @"人满开课";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_rightTitleLabel setFont:[UIFont boldFontTitle]];
+        [_rightTitleLabel setFont:[UIFont fontContent]];
     }
     return _rightTitleLabel;
 }
@@ -187,7 +187,7 @@
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(116);
+    return CGFloatIn750(86);
 }
 @end
 

@@ -164,8 +164,8 @@
 }
 
 - (void)setModel:(ZTextFieldModel *)model {
-    [super setModel:model];
     _model = model;
+    [super setModel:model];
     self.inputTextField.textColor = adaptAndDarkColor(model.textColor, model.textDarkColor);
     self.inputTextField.font = model.textFont;
     self.formatterType = model.formatterType;
