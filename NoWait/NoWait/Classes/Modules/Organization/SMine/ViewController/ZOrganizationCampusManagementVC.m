@@ -71,7 +71,6 @@
         [classify addObject:model.name];
     }
     
-    
     NSArray *textArr = @[@[@"校区名称", @"请输入校区名称", [[NSNumber alloc] initWithBool: ![SafeStr(self.model.hash_update_name) boolValue]], @NO, @"name",self.model? SafeStr(self.model.name):@""],
                          @[@"校区类型", @"请选择校区类型", @YES, @YES, @"type", classify],
                          @[@"校区电话", @"请输入校区电话", @YES, @NO, @"phone", self.model? SafeStr(self.model.phone):@""],
@@ -83,17 +82,22 @@
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][3] boolValue]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftFont = [UIFont boldFontTitle];
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.leftTitle = textArr[i][0];
             cellModel.placeholder = textArr[i][1];
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
             cellModel.rightMargin = CGFloatIn750(30);
             cellModel.leftMargin = CGFloatIn750(30);
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.data = textArr[i][5];
             cellModel.cellWidth = KScreenWidth - CGFloatIn750(60);
+            if ([SafeStr(self.model.hash_update_store_type_id) boolValue]) {
+                cellModel.isTextEnabled = NO;
+            }else{
+                cellModel.isTextEnabled = [textArr[i][2] boolValue];
+            }
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
@@ -105,12 +109,20 @@
                     .zz_titleRight([NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)].length > 0 ? [NSString stringWithFormat:@"%@%@",SafeStr(self.model.brief_address),SafeStr(self.model.address)] : @"请选择地址")
                     .zz_lineHidden(YES)
                     .zz_rightMultiLine(YES)
-                    .zz_cellHeight(CGFloatIn750(106))
+                    .zz_cellHeight(CGFloatIn750(86))
                     .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
                     .zz_marginLeft(CGFloatIn750(20))
-                    .zz_imageRight(@"rightBlackArrowN")
-                    .zz_imageRightHeight(CGFloatIn750(14))
-                    .zz_fontLeft([UIFont boldFontTitle]);
+                    .zz_imageRightHeight(CGFloatIn750(14));
+                    
+                    if ([SafeStr(self.model.hash_update_address) boolValue]) {
+                        model.zz_colorRight([UIColor colorTextGray1])
+                        .zz_colorDarkRight([UIColor colorTextGray1Dark])
+                        .zz_imageRight(nil);
+                    }else{
+                        model.zz_colorRight([UIColor colorTextBlack])
+                        .zz_colorDarkRight([UIColor colorTextBlackDark])
+                        .zz_imageRight(@"rightBlackArrowN");
+                    }
                     
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                     
@@ -120,7 +132,7 @@
                 }
             }
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftFont = [UIFont boldFontTitle];
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.leftTitle = textArr[i][0];
             cellModel.placeholder = textArr[i][1];
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
@@ -133,6 +145,13 @@
             }else if ([textArr[i][4] isEqualToString:@"name"]) {
                 cellModel.max = 60;
                 cellModel.formatterType = ZFormatterTypeAnyByte;
+                if ([SafeStr(self.model.hash_update_name) boolValue]) {
+                    cellModel.rightColor = [UIColor colorTextGray1];
+                    cellModel.rightDarkColor = [UIColor colorTextGray1Dark];
+                }else{
+                    cellModel.rightColor = [UIColor colorTextBlack];
+                    cellModel.rightDarkColor = [UIColor colorTextBlackDark];
+                }
             }
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
