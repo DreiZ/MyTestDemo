@@ -66,10 +66,7 @@
         level = temp[[_viewModel.addModel.c_level intValue] - 1];
     }
     
-//    ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachAddHeadImageCell className] title:[ZOriganizationTeachAddHeadImageCell className] showInfoMethod:@selector(setImage:) heightOfCell:[ZOriganizationTeachAddHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.image];
-//    [self.cellConfigArr addObject:progressCellConfig];
-    
-    NSArray *textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
+    NSArray <NSArray *>*textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@30,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",@2,[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",@11,SafeStr(self.viewModel.addModel.phone),[NSNumber numberWithInt:ZFormatterTypeNumber]],
@@ -79,19 +76,19 @@
                         @[@"任课课程", @"请选择课程", @YES, @"rightBlackArrowN", @"lesson",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"特长技能", @"请添加特长技能", @YES, @"rightBlackArrowN", @"skill",@40,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
-    for (int i = 0; i < textArr.count; i++) {
-        if ([textArr[i][4] isEqualToString:@"skill"] || [textArr[i][4] isEqualToString:@"lesson"]) {
+    [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj[4] isEqualToString:@"skill"] || [obj[4] isEqualToString:@"lesson"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = textArr[i][0];
-            cellModel.placeholder = textArr[i][1];
-            cellModel.isTextEnabled = [textArr[i][2] boolValue];
-            cellModel.rightImage = textArr[i][3];
+            cellModel.leftTitle = obj[0];
+            cellModel.placeholder = obj[1];
+            cellModel.isTextEnabled = [obj[2] boolValue];
+            cellModel.rightImage = obj[3];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
-            cellModel.leftFont = [UIFont boldFontTitle];
-            if ([textArr[i][4] isEqualToString:@"skill"]) {
+            cellModel.leftFont = [UIFont fontContent];
+            if ([obj[4] isEqualToString:@"skill"]) {
                 cellModel.data = self.viewModel.addModel.skills;
             }else{
                 NSMutableArray *temp = @[].mutableCopy;
@@ -101,53 +98,34 @@
                 cellModel.data = temp;
             }
             
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:obj[4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{
-            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = textArr[i][0];
-            cellModel.placeholder = textArr[i][1];
+            ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[4]))
+            .zz_heightTextField(CGFloatIn750(84))
+            .zz_titleLeft(SafeStr(obj[0]))
+            .zz_placeholder(SafeStr(obj[1]))
+            .zz_textEnabled([obj[2] boolValue])
+            .zz_content(SafeStr(obj[5]))
+            .zz_max([SafeStr(obj[6]) intValue])
+            .zz_formatter([SafeStr(obj[7]) intValue])
+            .zz_cellHeight(CGFloatIn750(86));
             
-            cellModel.isTextEnabled = [textArr[i][2] boolValue];
-            if ([textArr[i][4] isEqualToString:@"cid"]) {
-                if (_isEdit) {
-                    cellModel.isTextEnabled = NO;
-                }
+            if (ValidStr(obj[3])) {
+                model.zz_imageRight(SafeStr(obj[3]))
+                .zz_imageRightHeight(CGFloatIn750(14));
             }
-            
-            cellModel.rightImage = textArr[i][3];
-            cellModel.max = [textArr[i][5] intValue];
-            cellModel.content = textArr[i][6];
-            cellModel.formatterType = [textArr[i][7] intValue];
-            cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:textArr[i][4] showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-            [self.cellConfigArr addObject:textCellConfig];
-            
-            NSMutableArray *tempArr = @[].mutableCopy;
-            if (self.viewModel.addModel.cardImageUp) {
-                [tempArr addObject:self.viewModel.addModel.cardImageUp];
-            }else{
-                [tempArr addObject:@""];
-            }
-            if (self.viewModel.addModel.cardImageDown) {
-                [tempArr addObject:self.viewModel.addModel.cardImageDown];
-            }else{
-                [tempArr addObject:@""];
-            }
-            if ([textArr[i][4] isEqualToString:@"cid"]) {
-                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationIDCardCell className] title:@"IDCard" showInfoMethod:@selector(setImages:) heightOfCell:[ZOriganizationIDCardCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempArr];
-                [self.cellConfigArr addObject:textCellConfig];
-            }
+            ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:nameCellConfig];
         }
-    }
+    }];
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"教师简介";
-        model.leftFont = [UIFont boldFontTitle];
+        model.leftFont = [UIFont boldFontContent];
         model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(92);
+        model.cellHeight = CGFloatIn750(86);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
@@ -161,9 +139,9 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"教师相册";
-        model.leftFont = [UIFont boldFontTitle];
+        model.leftFont = [UIFont boldFontContent];
         model.isHiddenLine = YES;
-        model.cellHeight = CGFloatIn750(92);
+        model.cellHeight = CGFloatIn750(86);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
@@ -214,23 +192,28 @@
 - (void)setupMainView {
     [super setupMainView];
    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
-        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
-    }];
-    
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(160))];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.tableFooterView = bottomView;
     
-    [bottomView addSubview:self.bottomBtn];
+    [self.view addSubview:bottomView];
+    [self.view addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
-        make.centerY.equalTo(bottomView.mas_centerY);
+        make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
+    }];
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+        make.height.mas_equalTo(CGFloatIn750(80));
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(bottomView.mas_top);
+        make.top.equalTo(self.view.mas_top);
     }];
 }
 
@@ -560,17 +543,6 @@
                         [weakSelf.iTableView reloadData];
                     }
                 }];
-//                [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 74/111.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
-//                    if (list && list.count > 0) {
-//                        if (index < weakSelf.viewModel.addModel.images_list.count) {
-//                            LLImagePickerModel *model = list[0];
-//                            [weakSelf.viewModel.addModel.images_list replaceObjectAtIndex:index withObject:model.image];
-//                            [weakSelf.viewModel.addModel.images_list_net replaceObjectAtIndex:index withObject:@""];
-//                            [weakSelf initCellConfigArr];
-//                            [weakSelf.iTableView reloadData];
-//                        }
-//                    }
-//                }];
             }else{
                 if (index < weakSelf.viewModel.addModel.images_list.count) {
                     [weakSelf.viewModel.addModel.images_list removeObjectAtIndex:index];
@@ -623,11 +595,6 @@
            [items addObject:model];
         }
         
-//        [ZAlertDataSinglePickerView setAlertName:@"性别选择" items:items handlerBlock:^(NSInteger index) {
-//           weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }];
         [ZAlertDataSinglePickerView setAlertName:@"性别选择" selectedIndex:[weakSelf.viewModel.addModel.sex intValue] > 0 ? [weakSelf.viewModel.addModel.sex intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
             weakSelf.viewModel.addModel.sex = [NSString stringWithFormat:@"%ld",index + 1];
             [weakSelf initCellConfigArr];
@@ -642,13 +609,6 @@
             model.name = temp[i];
             [items addObject:model];
         }
-        
-//        [ZAlertDataSinglePickerView setAlertName:@"教师等级" items:items handlerBlock:^(NSInteger index) {
-//            weakSelf.viewModel.addModel.c_level = [NSString stringWithFormat:@"%ld",index + 1];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//        }];
-        
         [ZAlertDataSinglePickerView setAlertName:@"教师等级" selectedIndex:[weakSelf.viewModel.addModel.c_level intValue] > 0 ? [weakSelf.viewModel.addModel.c_level intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
             weakSelf.viewModel.addModel.c_level = [NSString stringWithFormat:@"%ld",index + 1];
             [weakSelf initCellConfigArr];

@@ -141,7 +141,6 @@
             .zz_lineHidden(YES);
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            
             [self.cellConfigArr  addObject:menuCellConfig];
         }
     }

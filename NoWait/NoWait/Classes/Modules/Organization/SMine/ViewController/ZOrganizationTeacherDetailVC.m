@@ -57,10 +57,10 @@
             cellModel.isTextEnabled = YES;
             cellModel.isHiddenLine = YES;
             cellModel.cellWidth = KScreenWidth;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
-            cellModel.leftFont = [UIFont boldFontTitle];
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.textColor = [UIColor colorTextGray];
             cellModel.textDarkColor = [UIColor colorTextGrayDark];
             if ([textArr[i][0] isEqualToString:@"特长技能"]) {
@@ -75,26 +75,25 @@
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:@"labelCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{
-            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-            cellModel.leftTitle = textArr[i][0];
-            cellModel.isTextEnabled = NO;
-            cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
-            cellModel.content = textArr[i][1];
-            cellModel.textColor = [UIColor colorTextGray];
-            cellModel.textDarkColor = [UIColor colorTextGrayDark];
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:@"content" showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-            [self.cellConfigArr addObject:textCellConfig];
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"content")
+            .zz_titleLeft(textArr[i][0])
+            .zz_titleRight(textArr[i][1])
+            .zz_rightMultiLine(YES)
+            .zz_cellHeight(CGFloatIn750(88))
+            .zz_lineHidden(YES);
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            
+            [self.cellConfigArr  addObject:menuCellConfig];
         }
     }
     
     {
-        ZCellConfig *topCellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:CGFloatIn750(20) cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-        [self.cellConfigArr addObject:topCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"教师简介";
-        model.leftFont = [UIFont boldFontTitle];
+        model.leftFont = [UIFont boldFontContent];
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(52);
         
@@ -117,7 +116,7 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"教师相册";
-        model.leftFont = [UIFont boldFontTitle];
+        model.leftFont = [UIFont boldFontContent];
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(92);
         

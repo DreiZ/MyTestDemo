@@ -58,7 +58,7 @@
         make.left.equalTo(self.backContentView.mas_left).offset(CGFloatIn750(0));
         make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(0));
         make.top.equalTo(self.backContentView);
-        make.height.mas_equalTo(CGFloatIn750(108));
+        make.height.mas_equalTo(CGFloatIn750(86));
     }];
     
     
@@ -227,7 +227,7 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     ZBaseTextFieldCellModel *model = sender;
     if (!model) {
-        return CGFloatIn750(108);
+        return CGFloatIn750(86);
     }
     if (model.data && [model.data isKindOfClass:[NSArray class]]) {
         NSArray *_hotProductArr = (NSArray *)model.data;
@@ -239,7 +239,7 @@
         
         CGFloat maxWidth = labelWidth - leftX ;
         CGFloat offSetX = labelWidth - leftX;
-        CGFloat offSetY = CGFloatIn750(28);
+        CGFloat offSetY = CGFloatIn750(17);
         for (int i = 0; i < _hotProductArr.count; i++) {
             NSString *btnTitle = _hotProductArr[i];
             CGFloat width =  [btnTitle tt_sizeWithFont:[UIFont fontContent]].width;
@@ -251,9 +251,9 @@
             offSetX += (-leftX-width);
         }
         
-        return offSetY + btnHeight + CGFloatIn750(28);
+        return offSetY + btnHeight + CGFloatIn750(17);
     }else {
-        return CGFloatIn750(108);
+        return CGFloatIn750(86);
     }
 }
 
@@ -389,7 +389,7 @@
     
     CGFloat maxWidth = labelWidth - leftX ;
     CGFloat offSetX = labelWidth - leftX - self.model.rightMargin;
-    CGFloat offSetY = CGFloatIn750(28);
+    CGFloat offSetY = CGFloatIn750(17);
     for (int i = 0; i < _hotProductArr.count; i++) {
         
         UILabel *btn = [self getHotSearchBtnItem:i];
