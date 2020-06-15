@@ -52,17 +52,6 @@
                          @[@"报名课程",SafeStr(self.addModel.courses_name)],
                          @[@"分配教师",SafeStr(self.addModel.teacher_name)]].mutableCopy;
     
-    if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
-        textArr = @[@[@"真实姓名",SafeStr(self.addModel.name)],
-        @[@"手机号",SafeStr(self.addModel.phone)],
-        @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
-        @[@"出生日期",[SafeStr(self.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"]],
-        @[@"所属校区",SafeStr(self.addModel.stores_name)],
-        @[@"报名日期",[SafeStr(self.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"]],
-        @[@"报名课程",SafeStr(self.addModel.courses_name)],
-        @[@"分配教师",SafeStr(self.addModel.teacher_name)]].mutableCopy;
-    }
-    
     if (ValidStr(self.addModel.courses_class_id)) {
         NSString *statusStr = @"";
         switch ([self.addModel.status intValue]) {
@@ -80,7 +69,6 @@
                 if ([self.addModel.end_class_type intValue] == 1) {
                     statusStr = @"已结课(已退款)";
                 }
-                
                 break;
             case 5:
                 statusStr = @"待补课";
@@ -97,58 +85,51 @@
         @[@"学员状态", statusStr],
                                  @[@"开课日期", [SafeStr(self.addModel.start_time) isEqualToString:@"0"]?@"": [SafeStr(self.addModel.start_time) timeStringWithFormatter:@"yyyy-MM-dd"]],
         @[@"班级名称", SafeStr(self.addModel.courses_class_name)],
-        
         @[@"报名须知", @""]].mutableCopy;
         if ([[ZUserHelper sharedHelper].user.type intValue] != 2 && ValidStr(self.addModel.courses_class_id) && [self.addModel.courses_class_id intValue] != 0) {
             if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4 || [self.addModel.status intValue] == 5) {
                 [temp insertObject:@[@"签到详情", @"查看"] atIndex:4];
             }
         }
-        
         [textArr addObjectsFromArray:temp];
     }
+    
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][0] isEqualToString:@"开课日期"] && [textArr[i][1] length] == 0) {
             continue;
         }
-       ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
-        cellModel.leftTitle = textArr[i][0];
-        cellModel.isTextEnabled = NO;
-        cellModel.isHiddenLine = YES;
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+        .zz_titleLeft(textArr[i][0])
+        .zz_rightMultiLine(YES)
+        .zz_cellHeight(CGFloatIn750(86))
+        .zz_lineHidden(YES);
+        model.zz_titleRight(textArr[i][1]);
         if ([textArr[i][0] isEqualToString:@"报名须知"]) {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
-            cellModel.cellHeight = CGFloatIn750(48);
+            model.zz_fontLeft([UIFont boldFontContent]);
         }else{
-            cellModel.cellHeight = CGFloatIn750(108);
+            model.zz_fontLeft([UIFont fontContent]);
         }
-        
         if ([textArr[i][0] isEqualToString:@"签到详情"]) {
-            cellModel.cellTitle = @"sign";
-            cellModel.rightImage = @"rightBlackArrowN";
+            model.cellTitle = @"sign";
+            model.rightImage = @"rightBlackArrowN";
         }
-        
-        cellModel.content = textArr[i][1];
-        cellModel.textColor = [UIColor colorTextGray];
-        cellModel.textDarkColor = [UIColor colorTextGrayDark];
-        cellModel.leftContentWidth = CGFloatIn750(324);
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+ 
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
         
         if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4) {
-            if(i == 11){
-                [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+            if([textArr[i][0] isEqualToString:@"分配教师"]){
+                [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
                   
                 ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
                 model.isHiddenLine = NO;
                 model.lineLeftMargin = CGFloatIn750(30);
                 model.lineRightMargin = CGFloatIn750(30);
-                model.cellHeight = CGFloatIn750(1);
+                model.cellHeight = CGFloatIn750(2);
                   
               ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
               [self.cellConfigArr addObject:menuCellConfig];
-                
-              [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+              [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
             }
         }
         
@@ -186,7 +167,7 @@
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员介绍";
-            model.leftFont = [UIFont boldFontTitle];
+            model.leftFont = [UIFont boldFontContent];
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(52);
             
@@ -211,7 +192,7 @@
         if (ValidArray(self.addModel.images_list)) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员相册";
-            model.leftFont = [UIFont boldFontTitle];
+            model.leftFont = [UIFont boldFontContent];
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(92);
             

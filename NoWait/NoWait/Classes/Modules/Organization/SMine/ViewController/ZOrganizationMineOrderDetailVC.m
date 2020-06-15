@@ -551,7 +551,7 @@
         || self.detailModel.order_type == ZOrganizationOrderTypeOutTime) {
         tempArr = @[@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)]];
     }else{
-        tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)],@[@"付款时间", SafeStr(self.detailModel.pay_time)]];
+        tempArr = @[@[@"支付方式", [SafeStr(self.detailModel.pay_type) intValue] == 1 ? @"微信":@"支付宝"],@[@"订单号", SafeStr(self.detailModel.order_no)],@[@"创建时间", SafeStr(self.detailModel.create_at)],@[@"付款时间", [SafeStr(self.detailModel.pay_time) timeStringWithFormatter:@"yyyy-MM-dd HH:mm:ss"]]];
     }
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
