@@ -68,7 +68,9 @@
         cellModel.content = textArr[i][7];
         cellModel.formatterType = [textArr[i][8] intValue];
         cellModel.isHiddenLine = YES;
-        cellModel.cellHeight = CGFloatIn750(110);
+        cellModel.cellHeight = CGFloatIn750(86);
+        cellModel.leftFont = [UIFont fontContent];
+        
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
         
@@ -92,8 +94,8 @@
         model.leftTitle = @"卡券状态";
         model.rightTitle = [self.viewModel.addModel.status intValue] == 1 ? @"默认启用" : @"停用";
         model.isHiddenLine = YES;
-        model.leftFont = [UIFont boldFontTitle];
-        model.cellHeight = CGFloatIn750(110);
+        model.leftFont = [UIFont fontContent];
+        model.cellHeight = CGFloatIn750(86);
         model.cellTitle = @"status";
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
