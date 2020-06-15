@@ -202,7 +202,7 @@ static ZOrganizationTopFilterView *sharedManager;
          [self.iTableView tt_removeLoadMoreFooter];
         
         [self.cellConfigArr removeAllObjects];
-        NSArray *titleArr = @[@"待排课",@"待开课",@"已结课",@"待补课",@"已过期"];
+        NSArray *titleArr = @[@"全部",@"待排课",@"待开课",@"已结课",@"待补课",@"已过期"];
         for (int i = 0; i < titleArr.count; i++) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = titleArr[i];
@@ -219,6 +219,12 @@ static ZOrganizationTopFilterView *sharedManager;
 
 - (void)initCellConfigArr {
     [_cellConfigArr removeAllObjects];
+    
+    ZOriganizationTeacherListModel *lModel = [[ZOriganizationTeacherListModel alloc] init];
+    lModel.teacherID = @"0";
+    lModel.teacher_name = @"全部教师";
+    [self.dataSources insertObject:lModel atIndex:0];
+    
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationTeacherListModel *listModel = self.dataSources[i];
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
