@@ -56,11 +56,11 @@
                 cellModel.rightImage = textArr[i][3];
                 cellModel.cellTitle = textArr[i][4];
                 cellModel.isHiddenLine = YES;
-                cellModel.cellHeight = CGFloatIn750(116);
+                cellModel.cellHeight = CGFloatIn750(86);
                 cellModel.textColor = [UIColor colorTextGray];
                 cellModel.leftContentWidth = CGFloatIn750(260);
                 cellModel.cellTitle = @"lessonTime";
-                
+                cellModel.leftFont = [UIFont fontContent];
                 
                 NSMutableArray *multArr = @[].mutableCopy;
                 NSMutableArray *tempArr = @[].mutableCopy;
@@ -118,7 +118,9 @@
                 cellModel.rightImage = textArr[i][3];
                 cellModel.cellTitle = textArr[i][4];
                 cellModel.isHiddenLine = YES;
-                cellModel.cellHeight = CGFloatIn750(116);
+                cellModel.cellHeight = CGFloatIn750(86);
+                cellModel.leftFont = [UIFont fontContent];
+                
                 cellModel.textColor = [UIColor colorTextGray];
                 if ([textArr[i][4] isEqualToString:@"name"]) {
                     cellModel.content = self.viewModel.addModel.class_Name;

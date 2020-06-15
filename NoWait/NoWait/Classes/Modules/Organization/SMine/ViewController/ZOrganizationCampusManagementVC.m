@@ -137,7 +137,7 @@
             cellModel.placeholder = textArr[i][1];
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.content = textArr[i][5];
             if ([textArr[i][4] isEqualToString:@"phone"]) {
                 cellModel.formatterType = ZFormatterTypePhoneNumber;
