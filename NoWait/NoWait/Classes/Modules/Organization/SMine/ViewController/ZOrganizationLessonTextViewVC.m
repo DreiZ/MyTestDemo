@@ -11,7 +11,7 @@
 @interface ZOrganizationLessonTextViewVC ()<UITextViewDelegate>
 @property (nonatomic,strong) UITextView *iTextView;
 @property (nonatomic,strong) UILabel *hintLabel;
-@property (nonatomic,strong) UIView *footerView;
+@property (nonatomic,strong) UIButton *rightNavBtn;
 
 @end
 
@@ -29,11 +29,12 @@
     self.iTextView.text = self.content;
 }
 
-#pragma mark 初始化view
+#pragma mark - 初始化view
 - (void)initMainView {
     self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     
     [self.navigationItem setTitle:self.navTitle];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.rightNavBtn]];
     
     
     UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -77,15 +78,27 @@
         make.top.equalTo(self.iTextView.mas_top).offset(CGFloatIn750(16));
     }];
     
-    [self.view addSubview:self.footerView];
-    [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.height.mas_equalTo(200);
-    }];
-    
     if (ValidStr(self.content)) {
         self.hintLabel.hidden = YES;
     }
+}
+
+
+- (UIButton *)rightNavBtn {
+    if (!_rightNavBtn) {
+        __weak typeof(self) weakSelf = self;
+        _rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_rightNavBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [_rightNavBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_rightNavBtn.titleLabel setFont:[UIFont fontContent]];
+        [_rightNavBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(weakSelf.iTextView.text);
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavBtn;
 }
 
 
@@ -130,41 +143,4 @@
         textView.text = str;
     }
 }
-
--(UIView *)footerView {
-    if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
-        _footerView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        
-        UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        doneBtn.layer.masksToBounds = YES;
-        doneBtn.layer.cornerRadius = CGFloatIn750(40);
-        [doneBtn setTitle:@"提交" forState:UIControlStateNormal];
-        [doneBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        [doneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [doneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-        [doneBtn.titleLabel setFont:[UIFont fontTitle]];
-        [_footerView addSubview:doneBtn ];
-        [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(CGFloatIn750(80));
-            make.left.equalTo(self.footerView.mas_left).offset(CGFloatIn750(20));
-            make.right.equalTo(self.footerView.mas_right).offset(-CGFloatIn750(20));
-            make.bottom.equalTo(self.footerView.mas_bottom).offset(-CGFloatIn750(100));
-        }];
-        
-        __weak typeof(self) weakSelf = self;
-        [doneBtn bk_addEventHandler:^(id sender) {
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(weakSelf.iTextView.text);
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }
-            
-        } forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    return _footerView;
-}
-
 @end
-
-

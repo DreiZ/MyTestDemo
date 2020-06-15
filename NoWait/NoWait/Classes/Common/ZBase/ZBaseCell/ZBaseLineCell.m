@@ -234,6 +234,8 @@
         self.leftTitleLabel.font = self.model.leftFont;
         self.leftTitleLabel.textAlignment = self.model.leftTextAlignment;
         self.leftTitleLabel.textColor = adaptAndDarkColor(self.model.leftColor, self.model.leftDarkColor);
+        self.contentView.backgroundColor = adaptAndDarkColor(self.model.backColor, self.model.backDarkColor);
+        
         self.leftTitleLabel.numberOfLines = self.model.isLeftMultiLine ? 0:1;
         if (self.model.isLeftMultiLine) {
             [ZPublicTool setLineSpacing:self.model.lineSpace label:self.leftTitleLabel];

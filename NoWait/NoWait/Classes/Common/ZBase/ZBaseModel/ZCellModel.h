@@ -49,6 +49,9 @@
 @interface ZLineCellModel : ZCellModel
 @property (nonatomic,assign) BOOL isSelected;
 
+@property (nonatomic,strong) UIColor *backColor;
+@property (nonatomic,strong) UIColor *backDarkColor;
+
 @property (nonatomic,strong) NSString *cellTitle;
 @property (nonatomic,assign) CGFloat cellHeight;
 @property (nonatomic,assign) CGFloat cellWidth;
@@ -105,6 +108,9 @@
 @property (nonatomic,assign) BOOL isRightMultiLine;
 
 ZCHAIN_OBJ_CREATE(ZLineCellModel *, NSString *,zz_lineCellModel_create)
+
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorBack, UIColor *)
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorDarkBack, UIColor *)
 
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_selected, BOOL)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_cellWidth, CGFloat)
@@ -177,6 +183,8 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_rightMultiLine, BOOL)
 
 ZCHAIN_OBJ_CREATE(ZTextFieldModel *, NSString *,zz_textCellModel_create)
 
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorBack, UIColor *)
+ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_colorDarkBack, UIColor *)
 
 ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_selected, BOOL)
 ZCHAIN_TEXTCELLMODEL_PROPERTY(zz_cellWidth, CGFloat)

@@ -236,14 +236,18 @@
     _data = data;
     if ([data objectForKey:@"image"]) {
         self.image = data[@"image"];
+    }else{
+        self.image = nil;
     }
     
-    if ([data objectForKey:@"edit"]) {
+    if ([data objectForKey:@"edit"] && [data[@"edit"] intValue] == 1) {
         [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
+        self.nameTextField.enabled = NO;
     }else{
         [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        self.nameTextField.enabled = YES;
     }
     
     if ([data objectForKey:@"name"]) {

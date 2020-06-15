@@ -17,6 +17,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.backDarkColor = [UIColor colorBlackBGDark];
+        self.backColor = [UIColor colorWhite];
+        
         self.isHiddenLine = NO;
         self.lineColor = [UIColor colorGrayLine];
         self.lineDarkColor = [UIColor colorGrayLineDark];
@@ -63,6 +66,8 @@
 
 ZCHAIN_CLASS_CREATE(ZLineCellModel, NSString *, zz_lineCellModel_create, cellTitle)
 
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorBack, UIColor *, backColor)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorDarkBack, UIColor *, backDarkColor)
 
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_setData, id, data)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_marginLineLeft, CGFloat, lineLeftMargin)
@@ -140,6 +145,10 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_rightMultiLine, BOOL, isRightMultiLine)
 }
 
 ZCHAIN_CLASS_CREATE(ZTextFieldModel, NSString *, zz_textCellModel_create, cellTitle)
+
+
+ZCHAIN_TEXTCELLMODEL_IMPLEMENTATION(zz_colorBack, UIColor *, backColor)
+ZCHAIN_TEXTCELLMODEL_IMPLEMENTATION(zz_colorDarkBack, UIColor *, backDarkColor)
 
 ZCHAIN_TEXTCELLMODEL_IMPLEMENTATION(zz_setData, id, data)
 ZCHAIN_TEXTCELLMODEL_IMPLEMENTATION(zz_marginLineLeft, CGFloat, lineLeftMargin)
