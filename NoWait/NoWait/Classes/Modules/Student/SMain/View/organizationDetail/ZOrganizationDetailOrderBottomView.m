@@ -9,9 +9,8 @@
 #import "ZOrganizationDetailOrderBottomView.h"
 
 @interface ZOrganizationDetailOrderBottomView ()
-@property (nonatomic,strong) UIView *orderView;
 @property (nonatomic,strong) UILabel *numLabel;
-@property (nonatomic,strong) UILabel *hintLabel;
+
 @end
 
 @implementation ZOrganizationDetailOrderBottomView
@@ -53,19 +52,24 @@
         make.centerX.equalTo(self.orderView.mas_centerX);
     }];
     
-    __weak typeof(self) weakSelf = self;
-    UIButton *orderBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [orderBtn bk_addEventHandler:^(id sender) {
-        if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(3);
-        }
-    } forControlEvents:UIControlEventTouchUpInside];
-    [self.orderView addSubview:orderBtn];
-    [orderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.orderView addSubview:self.orderBtn];
+    [self.orderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.orderView);
     }];
 }
 
+- (UIButton *)orderBtn {
+    if (!_orderBtn) {
+        __weak typeof(self) weakSelf = self;
+        _orderBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_orderBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(3);
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _orderBtn;
+}
 - (UIView *)orderView {
     if (!_orderView) {
         _orderView = [[UIView alloc] init];

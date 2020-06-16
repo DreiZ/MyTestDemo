@@ -351,11 +351,15 @@
     if ([self.addModel.status intValue] != 1) {
         _bottomView.title = @"课程已下架";
         _bottomView.handleBtn.enabled = NO;
+        _bottomView.orderBtn.enabled = NO;
         _bottomView.handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray]);
+        _bottomView.orderView.backgroundColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray]);
     }else{
         _bottomView.title = @"立即购买";
         _bottomView.handleBtn.enabled = YES;
+        _bottomView.orderBtn.enabled = YES;
         _bottomView.handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+        _bottomView.orderView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }
     [self.iTableView reloadData];
     _bottomView.isCollection = [self.addModel.collection intValue] == 1 ? YES:NO;
