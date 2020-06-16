@@ -29,96 +29,81 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loading = YES;
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
-}
-
-#pragma mark - setdata mainview
-- (void)setupMainView {
-    [super setupMainView];
-    
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
-    
-    if (self.cellConfigArr.count == 0) {
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"班级列表")
+    .zChain_updateDataSource(^{
+        self.loading = YES;
+        self.param = @{}.mutableCopy;
+    }).zChain_addEmptyDataDelegate()
+    .zChain_addRefreshHeader()
+    .zChain_addLoadMoreFooter()
+    .zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
+    }).zChain_block_setRefreshHeaderNet(^{
+        [self refreshData];
+    }).zChain_resetMainView(^{
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    }else{
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [self.cellConfigArr removeAllObjects];
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [self.cellConfigArr addObject:progressCellConfig];
+        }
+        
+        if (self.cellConfigArr.count == 0) {
+            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+            self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        }else{
+            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
+            ZOriganizationClassListModel *model = cellConfig.dataModel;
+            ZOrganizationClassManageListCell *lcell = (ZOrganizationClassManageListCell *)cell;
+            lcell.handleBlock = ^(NSInteger index) {
+                if (index == 0) {
+                    [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除班级？" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
+                        if (index == 1) {
+                            [weakSelf deleteClass:model];
+                        }
+                    }];
+                }else if (index == 1){
+                    ZOriganizationClassListModel *model = cellConfig.dataModel;
+                    
+                    ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
+                    dvc.model.courses_name = model.courses_name;
+                    dvc.model.classID = model.classID;
+                    dvc.model.name = model.name;
+                    dvc.model.nums = model.nums;
+                    dvc.model.status = model.status;
+                    dvc.model.teacher_id = model.teacher_id;
+                    dvc.model.teacher_image = model.teacher_image;
+                    dvc.model.teacher_name = model.teacher_name;
+                    dvc.model.type = model.type;
+                    [self.navigationController pushViewController:dvc animated:YES];
+                }
+            };
+        }
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
+            ZOriganizationClassListModel *model = cellConfig.dataModel;
+            
+            ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
+            dvc.model.courses_name = model.courses_name;
+            dvc.model.classID = model.classID;
+            dvc.model.name = model.name;
+            dvc.model.nums = model.nums;
+            dvc.model.status = model.status;
+            dvc.model.teacher_id = model.teacher_id;
+            dvc.model.teacher_image = model.teacher_image;
+            dvc.model.teacher_name = model.teacher_name;
+            dvc.model.type = model.type;
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+    });
 }
-
-- (void)setNavigation {
-    [self.navigationItem setTitle:@"班级列表"];
-}
-
-#pragma mark - tableview
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
-        ZOriganizationClassListModel *model = cellConfig.dataModel;
-        ZOrganizationClassManageListCell *lcell = (ZOrganizationClassManageListCell *)cell;
-        lcell.handleBlock = ^(NSInteger index) {
-            if (index == 0) {
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除班级？" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
-                    if (index == 1) {
-                        [weakSelf deleteClass:model];
-                    }
-                }];
-            }else if (index == 1){
-                ZOriganizationClassListModel *model = cellConfig.dataModel;
-                
-                ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
-                dvc.model.courses_name = model.courses_name;
-                dvc.model.classID = model.classID;
-                dvc.model.name = model.name;
-                dvc.model.nums = model.nums;
-                dvc.model.status = model.status;
-                dvc.model.teacher_id = model.teacher_id;
-                dvc.model.teacher_image = model.teacher_image;
-                dvc.model.teacher_name = model.teacher_name;
-                dvc.model.type = model.type;
-                [self.navigationController pushViewController:dvc animated:YES];
-            }
-        };
-    }
-}
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-       if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
-           ZOriganizationClassListModel *model = cellConfig.dataModel;
-           
-           ZOrganizationClassManageDetailVC *dvc = [[ZOrganizationClassManageDetailVC alloc] init];
-           dvc.model.courses_name = model.courses_name;
-           dvc.model.classID = model.classID;
-           dvc.model.name = model.name;
-           dvc.model.nums = model.nums;
-           dvc.model.status = model.status;
-           dvc.model.teacher_id = model.teacher_id;
-           dvc.model.teacher_image = model.teacher_image;
-           dvc.model.teacher_name = model.teacher_name;
-           dvc.model.type = model.type;
-           [self.navigationController pushViewController:dvc animated:YES];
-       }
-}
-
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -135,8 +120,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -162,8 +147,8 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -195,9 +180,6 @@
     [_param setObject:SafeStr(self.type) forKey:@"status"];
 }
 
-
-
-
 - (void)deleteClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
  
@@ -213,7 +195,6 @@
     }];
 }
 
-
 - (void)openClass:(ZOriganizationClassListModel*)model {
     __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
@@ -227,5 +208,4 @@
         };
     }];
 }
-
 @end

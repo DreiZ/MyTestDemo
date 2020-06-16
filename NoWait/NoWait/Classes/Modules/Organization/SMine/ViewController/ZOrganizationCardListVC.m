@@ -28,74 +28,57 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
-    [self initCellConfigArr];
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    self.loading = YES;
-    _param = @{}.mutableCopy;
-}
-
-#pragma mark - setdata
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationCartListCell className] title:[ZOriganizationCartListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationCartListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"卡券列表"];
-}
-
-
-#pragma mark - tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]){
-        ZOriganizationCartListCell *enteryCell = (ZOriganizationCartListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index,ZOriganizationCardListModel *model) {
-            if (index == 2) {
-                ZOrganizationCardLessonSeeListVC *svc = [[ZOrganizationCardLessonSeeListVC alloc] init];
-                svc.coupons_id = model.couponsID;
-                if ([model.type intValue] == 1) {
-                    svc.isAll = YES;
-                    svc.stores_id = model.stores_id;
-                }
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }else{
-                if ([weakSelf.status intValue] == 1) {
-                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定停用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"停用" handlerBlock:^(NSInteger index) {
-                        if (index == 1) {
-                            [weakSelf handleCard:model];
-                        }
-                    }];
+    self.zChain_setTableViewGary()
+    .zChain_addRefreshHeader()
+    .zChain_addLoadMoreFooter()
+    .zChain_addEmptyDataDelegate()
+    .zChain_block_setRefreshHeaderNet(^{
+        [weakSelf refreshData];
+    }).zChain_block_setRefreshMoreNet(^{
+        [weakSelf refreshMoreData];
+    }).zChain_updateDataSource(^{
+        self.loading = YES;
+        self.param = @{}.mutableCopy;
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [weakSelf.cellConfigArr removeAllObjects];
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationCartListCell className] title:[ZOriganizationCartListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationCartListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+
+            [self.cellConfigArr addObject:progressCellConfig];
+        }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]){
+            ZOriganizationCartListCell *enteryCell = (ZOriganizationCartListCell *)cell;
+            enteryCell.handleBlock = ^(NSInteger index,ZOriganizationCardListModel *model) {
+                if (index == 2) {
+                    ZOrganizationCardLessonSeeListVC *svc = [[ZOrganizationCardLessonSeeListVC alloc] init];
+                    svc.coupons_id = model.couponsID;
+                    if ([model.type intValue] == 1) {
+                        svc.isAll = YES;
+                        svc.stores_id = model.stores_id;
+                    }
+                    [weakSelf.navigationController pushViewController:svc animated:YES];
                 }else{
-                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定启用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"启用" handlerBlock:^(NSInteger index) {
-                        if (index == 1) {
-                            [weakSelf handleCard:model];
-                        }
-                    }];
+                    if ([weakSelf.status intValue] == 1) {
+                        [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定停用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"停用" handlerBlock:^(NSInteger index) {
+                            if (index == 1) {
+                                [weakSelf handleCard:model];
+                            }
+                        }];
+                    }else{
+                        [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"确定启用此卡券吗？" leftBtnTitle:@"取消" rightBtnTitle:@"启用" handlerBlock:^(NSInteger index) {
+                            if (index == 1) {
+                                [weakSelf handleCard:model];
+                            }
+                        }];
+                    }
                 }
-            }
-        };
-    }
+            };
+        }
+    });
 }
 
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]) {
-        
-    }
-}
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -112,9 +95,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
             
+            weakSelf.zChain_reload_ui();
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
@@ -139,9 +121,8 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
             
+            weakSelf.zChain_reload_ui();
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
@@ -172,8 +153,6 @@
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 
-
-
 - (void)handleCard:(ZOriganizationCardListModel*)model {
     __weak typeof(self) weakSelf = self;
     NSMutableDictionary *params = @{@"id":model.couponsID}.mutableCopy;
@@ -193,6 +172,4 @@
         };
     }];
 }
-
 @end
-

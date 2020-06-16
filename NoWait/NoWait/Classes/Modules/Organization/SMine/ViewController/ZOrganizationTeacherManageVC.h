@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationTeacherManageVC : ZTableViewViewController
+@interface ZOrganizationTeacherManageVC : ZTableViewController
  
 @end
 

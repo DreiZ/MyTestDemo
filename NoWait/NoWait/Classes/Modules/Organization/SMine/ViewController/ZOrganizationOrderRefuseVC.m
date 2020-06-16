@@ -27,50 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigation];
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshFooter];
-    [self setTableViewRefreshHeader];
-    [self setTableViewEmptyDataDelegate];
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZOrderListModel *model = self.dataSources[i];
-        model.isStudent = self.isStudent;
-        model.isRefund = YES;
-        
-//        model.refund_status = @"1";
-//        if (i == 1) {
-//            model.refund_status = @"2";
-//        }
-        
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:orderCellConfig];
-    }
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"退款"];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.view.mas_top).offset(10);
-    }];
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    self.param = @{}.mutableCopy;
-    
-    [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
+    self.zChain_setNavTitle(@"退款")
+    .zChain_setTableViewGary()
+    .zChain_addLoadMoreFooter()
+    .zChain_addRefreshHeader()
+    .zChain_addEmptyDataDelegate()
+    .zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
+    }).zChain_block_setRefreshHeaderNet(^{
+        [self refreshData];
+    }).zChain_updateDataSource(^{
+        self.param = @{}.mutableCopy;
+        [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
             if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *backDict = notfication.object;
                 if (backDict && [backDict objectForKey:@"payState"]) {
@@ -90,39 +58,49 @@
                 }
             }
         }];
+    }).zChain_resetMainView(^{
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom);
+            make.top.equalTo(self.view.mas_top).offset(10);
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [self.cellConfigArr removeAllObjects];
 
-}
-
-#pragma mark tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
-    enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
-        if (index == ZLessonOrderHandleTypeORefundReject || index == ZLessonOrderHandleTypeSRefundReject) {
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-            evc.model = model;
-            [self.navigationController pushViewController:evc animated:YES];
-        }else{
-            [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
-                if (isSuccess) {
-                    [TLUIUtility showSuccessHint:data];
-                    [weakSelf refreshAllData];
-                }else{
-                    [TLUIUtility showErrorHint:data];
-                }
-            }];
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZOrderListModel *model = self.dataSources[i];
+            model.isStudent = self.isStudent;
+            model.isRefund = YES;
+            
+            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [self.cellConfigArr addObject:orderCellConfig];
         }
-    };
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
+        enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
+            if (index == ZLessonOrderHandleTypeORefundReject || index == ZLessonOrderHandleTypeSRefundReject) {
+                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                evc.model = model;
+                [self.navigationController pushViewController:evc animated:YES];
+            }else{
+                [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
+                    if (isSuccess) {
+                        [TLUIUtility showSuccessHint:data];
+                        [self refreshAllData];
+                    }else{
+                        [TLUIUtility showErrorHint:data];
+                    }
+                }];
+            }
+        };
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
+            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+            evc.model = cellConfig.dataModel;
+            [self.navigationController pushViewController:evc animated:YES];
+        }
+    });
 }
-
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-        evc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:evc animated:YES];
-    }
-}
-
 
 #pragma mark - 数据处理
 - (void)refreshData {
@@ -139,9 +117,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
             
+            weakSelf.zChain_reload_ui();
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
@@ -166,8 +143,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -200,9 +176,5 @@
     }else{
         [self.param setObject:@"1" forKey:@"type"];
     }
-    
 }
-
-
 @end
-

@@ -29,51 +29,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+    self.zChain_setNavTitle(@"待排课列表")
+    .zChain_setTableViewGary()
+    .zChain_resetMainView(^{
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+    }).zChain_updateDataSource(^{
+        self.param = @{}.mutableCopy;
+    }).zChain_addRefreshHeader()
+    .zChain_addLoadMoreFooter()
+    .zChain_addEmptyDataDelegate()
+    .zChain_block_setRefreshHeaderNet(^{
+        [self refreshData];
+    }).zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [self.cellConfigArr removeAllObjects];
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleLessonCell className] title:[ZOrganizationTeachingScheduleLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleLessonCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            [self.cellConfigArr addObject:progressCellConfig];
+        }
+    });
 }
 
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-//    for (int i = 0; i < 10; i++) {
-//        ZOriganizationLessonOrderListModel *model = [[ZOriganizationLessonOrderListModel alloc] init];
-//        model.lessonName = @"瑜伽课";
-//        model.lessonDes = @"很好学但是很痛苦哇啊啊";
-//        model.lessonNum = @"12";
-//        model.lessonHadNum = @"2";
-//        model.validity = @"2012.12.1";
-//        model.teacherName = @"史蒂夫教师";
-//        model.lessonImage = @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1gci14eu0k1j30e609gmyj.jpg";
-//        [self.dataSources addObject:model];
-//    }
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleLessonCell className] title:[ZOrganizationTeachingScheduleLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleLessonCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"待排课列表"];
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
-}
-
-- (void)setupMainView {
-    [super setupMainView];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-}
 
 #pragma mark - lazy loading
 - (NSMutableArray *)selectLessonOrderArr {
@@ -109,32 +89,6 @@
     };
 }
 
-#pragma mark - tableview
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleLessonCell"]) {
-        ZOrganizationTeachingScheduleLessonCell *lcell = (ZOrganizationTeachingScheduleLessonCell *)cell;
-        lcell.handleBlock = ^(NSInteger index, ZOriganizationLessonScheduleListModel *model) {
-            if (index == 0) {
-                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
-                svc.stores_courses_id = model.lessonID;
-                svc.lessonModel = model;
-                [weakSelf.navigationController pushViewController:svc animated:YES];
-            }else{
-                ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
-                ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
-                smodel.lessonID = model.lessonID;
-                dvc.model = smodel;
-                [self.navigationController pushViewController:dvc animated:YES];
-            }
-        };
-    }
-}
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    
-    
-}
-
 - (void)selectData:(NSInteger)index {
 //    for (int i = 0; i < self.dataSources.count; i++) {
 //        ZOriganizationStudentListModel *model = self.dataSources[i];
@@ -162,8 +116,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -189,8 +143,8 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

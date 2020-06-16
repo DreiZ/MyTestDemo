@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 
 
-@interface ZOrganizationOrderRefuseVC : ZTableViewViewController
+@interface ZOrganizationOrderRefuseVC : ZTableViewController
 @property (nonatomic,assign) BOOL isStudent;
 @end
 

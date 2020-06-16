@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZTableViewController.h"
 #import "ZStudentMineModel.h"
 
-@interface ZOrganizationMineOrderListVC : ZTableViewViewController
+@interface ZOrganizationMineOrderListVC : ZTableViewController
 @property (nonatomic,assign) ZStudentOrderType type;
 
 @end

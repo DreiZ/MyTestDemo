@@ -7,13 +7,11 @@
 //
 
 #import "ZViewController.h"
-#import "ZTableViewViewController.h"
+#import "ZTableViewController.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationCardListVC : ZTableViewViewController
- 
+@interface ZOrganizationCardListVC : ZTableViewController
 @property (nonatomic,strong) NSString *status;
-
 
 @end
 

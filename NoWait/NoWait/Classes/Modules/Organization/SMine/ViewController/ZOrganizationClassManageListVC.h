@@ -6,10 +6,10 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewController.h"
 #import "ZOriganizationModel.h"
 
-@interface ZOrganizationClassManageListVC : ZTableViewViewController
+@interface ZOrganizationClassManageListVC : ZTableViewController
  
 @property (nonatomic,strong) NSString *type;
 

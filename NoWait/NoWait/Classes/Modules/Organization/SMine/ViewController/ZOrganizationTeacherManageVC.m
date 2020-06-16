@@ -37,36 +37,96 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loading = YES;
-    [self setTableViewGaryBack];
-    [self setTableViewRefreshHeader];
-    [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+    __weak typeof(self) weakSelf = self;
+    self.zChain_setNavTitle(@"教师管理")
+    .zChain_setTableViewWhite()
+    .zChain_addLoadMoreFooter()
+    .zChain_addRefreshHeader()
+    .zChain_addEmptyDataDelegate()
+    .zChain_block_setRefreshHeaderNet(^{
+        [self refreshData];
+    }).zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
+    }).zChain_updateDataSource(^{
+        self.loading = YES;
+        self.param = @{}.mutableCopy;
+    }).zChain_resetMainView(^{
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+        
+        [self.view addSubview:self.searchTopView];
+        [self.searchTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view.mas_top);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(126));
+        }];
+        
+        [self.view addSubview:self.bottomBtn];
+        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(88));
+            make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
+        }];
+        
+        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
+            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+            make.top.equalTo(self.searchTopView.mas_bottom).offset(-CGFloatIn750(20));
+        }];
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+        [self.cellConfigArr removeAllObjects];
+        
+       for (int i = 0; i < self.dataSources.count; i++) {
+           ZOriganizationTeacherListModel *model = self.dataSources[i];
+           model.isEdit = self.isEdit;
+           ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+           [self.cellConfigArr addObject:progressCellConfig];
+       }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
+            ZOriganizationTeachListCell *enteryCell = (ZOriganizationTeachListCell *)cell;
+            enteryCell.handleBlock = ^(NSInteger index) {
+                if (weakSelf.isEdit) {
+                    if (index == 0) {
+                        ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
+                        ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                        dvc.addModel.account_id = listmodel.account_id;
+                        dvc.addModel.c_level = listmodel.c_level;
+                        dvc.addModel.teacherID = listmodel.teacherID;
+                        dvc.addModel.image = listmodel.image;
+                        dvc.addModel.nick_name = listmodel.nick_name;
+                        dvc.addModel.phone = listmodel.phone;
+                        dvc.addModel.position = listmodel.position;
+                        dvc.addModel.real_name = listmodel.teacher_name;
+                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    }else if (index == 1){
+                        
+                    }else if(index == 10){
+                        [weakSelf selectData:indexPath.row];
+                    }
+                }else{
+                    if (index == 0) {
+                        ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
+                        ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
+                        dvc.addModel.account_id = listmodel.account_id;
+                        dvc.addModel.c_level = listmodel.c_level;
+                        dvc.addModel.teacherID = listmodel.teacherID;
+                        dvc.addModel.image = listmodel.image;
+                        dvc.addModel.nick_name = listmodel.nick_name;
+                        dvc.addModel.phone = listmodel.phone;
+                        dvc.addModel.position = listmodel.position;
+                        dvc.addModel.real_name = listmodel.teacher_name;
+                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    }else if (index == 1){
+                        weakSelf.isEdit = YES;
+                    }
+                }
+            };
+        }
+    });
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.isEdit = NO;
-}
-
-- (void)setDataSource {
-    [super setDataSource];
-    _param = @{}.mutableCopy;
-}
-
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZOriganizationTeacherListModel *model = self.dataSources[i];
-        model.isEdit = self.isEdit;
-        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:progressCellConfig];
-    }
-}
-
-- (void)setNavigation {
-    self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"教师管理"];
-    
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 - (void)setIsEdit:(BOOL)isEdit {
@@ -114,36 +174,6 @@
     [self selectDataEdit:isEdit];
 }
 
-- (void)setupMainView {
-    [super setupMainView];
-    
-//    [self.view addSubview:self.switchView];
-//    [self.switchView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.right.equalTo(self.view);
-//        make.height.mas_equalTo(CGFloatIn750(126));
-//    }];
-    
-    [self.view addSubview:self.searchTopView];
-    [self.searchTopView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(126));
-    }];
-    
-    [self.view addSubview:self.bottomBtn];
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(88));
-        make.top.equalTo(self.view.mas_bottom).offset(CGFloatIn750(20));
-    }];
-    
-    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
-        make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-30));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-        make.top.equalTo(self.searchTopView.mas_bottom).offset(-CGFloatIn750(20));
-    }];
-}
 
 #pragma mark - lazy loading...
 - (UIButton *)navLeftBtn {
@@ -177,8 +207,8 @@
         [_navRightBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.isEdit) {
                 [weakSelf selectAllData];
-                [weakSelf initCellConfigArr];
-                [weakSelf.iTableView reloadData];
+                
+                weakSelf.zChain_reload_ui();
             }else{
                 ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
                 [weakSelf.navigationController pushViewController:avc animated:YES];
@@ -222,61 +252,14 @@
     return _bottomBtn;
 }
 
-#pragma mark - tableView -------datasource-----
-- (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){
-        ZOriganizationTeachListCell *enteryCell = (ZOriganizationTeachListCell *)cell;
-        enteryCell.handleBlock = ^(NSInteger index) {
-            if (weakSelf.isEdit) {
-                if (index == 0) {
-                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.addModel.account_id = listmodel.account_id;
-                    dvc.addModel.c_level = listmodel.c_level;
-                    dvc.addModel.teacherID = listmodel.teacherID;
-                    dvc.addModel.image = listmodel.image;
-                    dvc.addModel.nick_name = listmodel.nick_name;
-                    dvc.addModel.phone = listmodel.phone;
-                    dvc.addModel.position = listmodel.position;
-                    dvc.addModel.real_name = listmodel.teacher_name;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
-                }else if (index == 1){
-                    
-                }else if(index == 10){
-                    [weakSelf selectData:indexPath.row];
-                }
-            }else{
-                if (index == 0) {
-                    ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.addModel.account_id = listmodel.account_id;
-                    dvc.addModel.c_level = listmodel.c_level;
-                    dvc.addModel.teacherID = listmodel.teacherID;
-                    dvc.addModel.image = listmodel.image;
-                    dvc.addModel.nick_name = listmodel.nick_name;
-                    dvc.addModel.phone = listmodel.phone;
-                    dvc.addModel.position = listmodel.position;
-                    dvc.addModel.real_name = listmodel.teacher_name;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
-                }else if (index == 1){
-                    weakSelf.isEdit = YES;
-                }
-            }
-        };
-        
-    }
-}
-
 
 - (void)selectDataEdit:(BOOL)isEdit {
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationTeacherListModel *model = self.dataSources[i];
         model.isEdit = isEdit;
     }
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
     
+    self.zChain_reload_ui();
 }
 
 - (void)selectData:(NSInteger)index {
@@ -286,8 +269,8 @@
             model.isSelected = !model.isSelected;
         }
     }
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    
+    self.zChain_reload_ui();
     if ([self getSelectedData].count == self.dataSources.count) {
         [_navRightBtn setTitle:@"全不选" forState:UIControlStateNormal];
     }else{
@@ -313,8 +296,7 @@
         [_navRightBtn setTitle:@"全不选" forState:UIControlStateNormal];
     }
     
-    [self initCellConfigArr];
-    [self.iTableView reloadData];
+    self.zChain_reload_ui();
 }
 
 - (NSMutableArray *)getSelectedData {
@@ -343,8 +325,8 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            self.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -370,8 +352,8 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            
+            weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -401,8 +383,6 @@
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
-
-
 
 - (void)deleteTeacher:(NSArray <ZOriganizationTeacherListModel *>*)studentArr {
     __weak typeof(self) weakSelf = self;
