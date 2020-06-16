@@ -20,7 +20,6 @@
 #import "ZAlertDateWeekAndHourPickerView.h"
 #import "ZAlertDataModel.h"
 #import "ZOrganizationTimeSelectVC.h"
-#import "ZOrganizationLessonDetailVC.h"
 #import "ZOrganizationLessonTextViewVC.h"
 
 @interface ZOrganizationLessonAddVC ()

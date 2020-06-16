@@ -92,7 +92,8 @@
             cellModel.cellTitle = textArr[i][3];
             cellModel.content = textArr[i][4];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.rightFont = [UIFont fontContent];
             cellModel.rightColor = [UIColor colorTextGray];
             cellModel.rightDarkColor = [UIColor colorTextGrayDark];
@@ -154,8 +155,9 @@
             cellModel.cellTitle = textArr[i][3];
             cellModel.content = textArr[i][4];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.rightFont = [UIFont fontContent];
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.rightColor = [UIColor colorTextGray];
             cellModel.rightDarkColor = [UIColor colorTextGrayDark];
             

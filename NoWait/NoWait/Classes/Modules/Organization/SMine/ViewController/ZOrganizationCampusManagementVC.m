@@ -87,7 +87,7 @@
             cellModel.placeholder = textArr[i][1];
             cellModel.isTextEnabled = [textArr[i][2] boolValue];
             cellModel.isHiddenLine = YES;
-            cellModel.rightMargin = CGFloatIn750(30);
+            cellModel.rightMargin = CGFloatIn750(0);
             cellModel.leftMargin = CGFloatIn750(30);
             cellModel.cellHeight = CGFloatIn750(86);
             cellModel.contBackMargin = CGFloatIn750(0);

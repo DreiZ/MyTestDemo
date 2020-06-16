@@ -95,7 +95,8 @@
             cellModel.cellTitle = textArr[i][3];
             cellModel.content = textArr[i][4];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
+            cellModel.leftFont = [UIFont fontContent];
             cellModel.rightFont = [UIFont fontContent];
             cellModel.rightColor = [UIColor colorTextGray];
             cellModel.rightDarkColor = [UIColor colorTextGrayDark];
@@ -162,10 +163,11 @@
             cellModel.cellTitle = textArr[i][3];
             cellModel.content = textArr[i][4];
             cellModel.isHiddenLine = YES;
-            cellModel.cellHeight = CGFloatIn750(108);
+            cellModel.cellHeight = CGFloatIn750(86);
             cellModel.rightFont = [UIFont fontContent];
             cellModel.rightColor = [UIColor colorTextGray];
             cellModel.rightDarkColor = [UIColor colorTextGrayDark];
+            cellModel.leftFont = [UIFont fontContent];
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];

@@ -219,10 +219,18 @@
         }
     }
     if ([self.addModel.is_star intValue] == 1) {
-        self.iTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view.mas_bottom).offset(0);
+            make.height.mas_equalTo(CGFloatIn750(120));
+        }];
     }else{
-        if ([[ZUserHelper sharedHelper].user.type intValue] != 6) {
-            self.iTableView.tableFooterView = self.bottomView;
+        if ([[ZUserHelper sharedHelper].user.type intValue] == 6 || [[ZUserHelper sharedHelper].user.type intValue] == 8) {
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+                make.height.mas_equalTo(CGFloatIn750(120));
+            }];
         }
     }
 }
@@ -238,8 +246,28 @@
 
 - (void)setupMainView {
     [super setupMainView];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom).offset(0);
+        make.height.mas_equalTo(CGFloatIn750(120));
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.bottomView.mas_top);
+        make.top.equalTo(self.view.mas_top);
+    }];
+    
+    self.iTableView.tableFooterView = self.safeFooterView;
+    
     if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
-        self.iTableView.tableFooterView = self.bottomView;
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            make.height.mas_equalTo(CGFloatIn750(120));
+        }];
     }
 }
 
