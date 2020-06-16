@@ -405,11 +405,11 @@
 {
     return @{
              @"teacher_list" : @"ZOriganizationLessonTeacherModel",
-             @"coupons_list" : @"ZOriganizationCardListModel"
+             @"coupons_list" : @"ZOriganizationCardListModel",
+             @"appointment_time" : @"ZOriganizationLessonExperienceTimeModel"
              };
 }
 @end
-
 
 @implementation ZOriganizationLessonScheduleListNetModel
 + (NSDictionary *)mj_objectClassInArray

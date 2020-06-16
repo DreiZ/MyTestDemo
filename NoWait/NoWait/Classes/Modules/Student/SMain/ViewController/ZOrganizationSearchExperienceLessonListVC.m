@@ -11,7 +11,7 @@
 #import "ZOrganizationLessonManageListCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 
-#import "ZOrganizationLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZOrganizationSearchExperienceLessonListVC ()
 @property (nonatomic,strong) NSString *name;
@@ -85,18 +85,8 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
             ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
-            ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
-            dvc.addModel.status = listmodel.status;
-            dvc.addModel.statusStr = listmodel.statusStr;
-            dvc.addModel.name = listmodel.name;
-            dvc.addModel.short_name = listmodel.short_name;
-            dvc.addModel.price = listmodel.price;
-            dvc.addModel.pay_nums = listmodel.pay_nums;
-            dvc.addModel.score = listmodel.score;
-            dvc.addModel.image_url = listmodel.image_url;
-            dvc.addModel.fail = listmodel.fail;
-            dvc.addModel.lessonID = listmodel.lessonID;
-            dvc.addModel.lessonType = listmodel.type;
+            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+            dvc.model= listmodel;
             [self.navigationController pushViewController:dvc animated:YES];
     }
 }
@@ -110,7 +100,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel searchLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+    [ZOriganizationLessonViewModel getOrderLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -138,7 +128,7 @@
     NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel searchLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
+    [ZOriganizationLessonViewModel getOrderLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

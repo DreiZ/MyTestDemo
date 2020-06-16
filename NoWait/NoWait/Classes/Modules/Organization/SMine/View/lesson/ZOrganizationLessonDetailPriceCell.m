@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *priceHintLabel;
+@property (nonatomic,strong) UILabel *experiencePriceLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 
 @property (nonatomic,strong) CWStarRateView *crView;
@@ -34,6 +35,7 @@
     [self.contentView addSubview:self.priceLabel];
     [self.contentView addSubview:self.crView];
     [self.contentView addSubview:self.numLabel];
+    [self.contentView addSubview:self.experiencePriceLabel];
     
     [self.priceHintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
@@ -42,6 +44,11 @@
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.priceHintLabel.mas_right);
+        make.centerY.equalTo(self.contentView.mas_centerY);
+    }];
+    
+    [self.experiencePriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceLabel.mas_right).offset(CGFloatIn750(10));
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
@@ -72,6 +79,17 @@
     return _priceLabel;
 }
 
+- (UILabel *)experiencePriceLabel {
+    if (!_experiencePriceLabel) {
+        _experiencePriceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _experiencePriceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMainDark]);
+        _experiencePriceLabel.text = @"";
+        _experiencePriceLabel.numberOfLines = 1;
+        _experiencePriceLabel.textAlignment = NSTextAlignmentLeft;
+        [_experiencePriceLabel setFont:[UIFont boldFontTitle]];
+    }
+    return _experiencePriceLabel;
+}
 
 - (UILabel *)priceHintLabel {
     if (!_priceHintLabel) {
@@ -105,13 +123,17 @@
     return _crView;
 }
 
-
-
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
     _priceLabel.text = [NSString stringWithFormat:@"%@",model.leftTitle];
     _numLabel.text = [NSString stringWithFormat:@"已售:%@",ValidStr(model.rightTitle)? SafeStr(model.rightTitle):@"0"];
     _crView.scorePercent = [model.data intValue]/5.0f;
+    
+    if (model.isSelected) {
+        _experiencePriceLabel.text = [NSString stringWithFormat:@"(体验价:￥%@)",model.rightImage];
+    }else{
+        _experiencePriceLabel.text = @"";
+    }
 }
 
 

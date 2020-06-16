@@ -21,11 +21,13 @@
 #import "ZStudentEvaListCell.h"
 #import "ZStudentLessonSelectMainNewView.h"
 #import "ZOriganizationLessonViewModel.h"
+#import "ZStudentLessonSelectMainOrderTimeView.h"
 
 #import "ZOriganizationOrderViewModel.h"
-#import "ZOrganizationDetailBottomView.h"
+#import "ZOrganizationDetailOrderBottomView.h"
 #import "ZOrderModel.h"
 
+#import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
 #import "ZOriganizationCardViewModel.h"
@@ -44,8 +46,10 @@
 
 @property (nonatomic,strong) UIView *topNavView;
 @property (nonatomic,strong) ZStudentLessonSelectMainNewView *selectView;
+@property (nonatomic,strong) ZStudentLessonSelectMainOrderTimeView *timeView;
+
 @property (nonatomic,strong) ZOriganizationLessonDetailModel *addModel;
-@property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
+@property (nonatomic,strong) ZOrganizationDetailOrderBottomView *bottomView;
 @property (nonatomic,assign) NSInteger k;
 @property (nonatomic,strong) NSMutableDictionary *param;
 
@@ -146,19 +150,6 @@
                 rvc.course_id = self.addModel.lessonID;
                 [weakSelf.navigationController pushViewController:rvc animated:rvc];
             }];
-            
-//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
-//            NSArray *weekArr = @[@[@"投诉",@"peoples_hint",@"report"]];
-//            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
-//                if ([index isEqualToString:@"report"]) {
-//                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-//                    rvc.sTitle = self.addModel.name;
-//                    rvc.course_id = self.addModel.lessonID;
-//                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
-//                }else{
-//                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"logo"] url:@"www.baidu.com" vc:self];
-//                }
-//            }];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
@@ -206,10 +197,40 @@
 }
 
 
--(ZOrganizationDetailBottomView *)bottomView {
+- (ZStudentLessonSelectMainOrderTimeView *)timeView {
+    if (!_timeView) {
+        __weak typeof(self) weakSelf = self;
+        _timeView = [[ZStudentLessonSelectMainOrderTimeView alloc] init];
+        _timeView.completeBlock = ^(ZOriganizationLessonExperienceTimeModel * timeModel) {
+            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+            ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
+            detailModel.order_type = ZStudentOrderTypeForPay;
+            detailModel.course_id = weakSelf.addModel.lessonID;
+            detailModel.stores_id = weakSelf.addModel.stores_id;
+            detailModel.store_name = weakSelf.addModel.stores_name;
+            detailModel.course_name = weakSelf.addModel.name;
+            detailModel.pay_amount = weakSelf.addModel.experience_price;
+            detailModel.order_amount = weakSelf.addModel.experience_price;
+            detailModel.experience_price = weakSelf.addModel.experience_price;
+            detailModel.experience_duration = weakSelf.addModel.experience_duration;
+            detailModel.course_image_url = weakSelf.addModel.image_url;
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]];
+            NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)date.year,date.month,date.day,timeModel.time];
+            detailModel.schedule_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
+//            order.detailModel = detailModel;
+            detailModel.type = @"1";
+            order.detailModel = detailModel;
+            [weakSelf.navigationController pushViewController:order animated:YES];
+        };
+        
+    }
+    return _timeView;
+}
+
+-(ZOrganizationDetailOrderBottomView *)bottomView {
     if (!_bottomView) {
         __weak typeof(self) weakSelf = self;
-        _bottomView = [[ZOrganizationDetailBottomView alloc] init];
+        _bottomView = [[ZOrganizationDetailOrderBottomView alloc] init];
         _bottomView.title = @"立即购买";
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
@@ -225,6 +246,11 @@
                     }else{
                         [weakSelf collectionLesson:YES];
                     }
+                }];
+            }else if(index == 3){
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    weakSelf.timeView.experience_time = weakSelf.addModel.appointment_time;
+                    [weakSelf.timeView showToTime];
                 }];
             } else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
@@ -333,6 +359,7 @@
     }
     [self.iTableView reloadData];
     _bottomView.isCollection = [self.addModel.collection intValue] == 1 ? YES:NO;
+    _bottomView.orderPrice = self.addModel.experience_price;
 }
 
 - (void)setTime {
@@ -488,6 +515,8 @@
     model.leftTitle = self.addModel.price;
     model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.pay_nums];
     model.data = self.addModel.score;
+    model.isSelected = YES;
+    model.rightImage = self.addModel.experience_price;
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:priceCellConfig];

@@ -9,10 +9,6 @@
 #import "ZOrganizationDetailBottomView.h"
 
 @interface ZOrganizationDetailBottomView ()
-@property (nonatomic,strong) UIButton *telBtn;
-@property (nonatomic,strong) UIButton *collectionBtn;
-@property (nonatomic,strong) UIImageView *messageImageView;
-
 @end
 
 @implementation ZOrganizationDetailBottomView
@@ -32,29 +28,28 @@
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self addSubview:backView];
-    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self addSubview:self.backView];
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         make.bottom.equalTo(self.mas_bottom).offset(-safeAreaBottom());
     }];
     
-    [backView addSubview:self.telBtn];
-    [backView addSubview:self.handleBtn];
-    [backView addSubview:self.collectionBtn];
+    [self.backView addSubview:self.telBtn];
+    [self.backView addSubview:self.handleBtn];
+    [self.backView addSubview:self.collectionBtn];
     [self.telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(backView);
+        make.left.top.bottom.equalTo(self.backView);
         make.width.mas_equalTo(CGFloatIn750(128));
     }];
     
     [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(backView);
+        make.top.bottom.equalTo(self.backView);
         make.left.equalTo(self.telBtn.mas_right);
         make.width.mas_equalTo(CGFloatIn750(128));
     }];
     
     [self.handleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(backView);
+        make.right.top.bottom.equalTo(self.backView);
         make.left.equalTo(self.collectionBtn.mas_right);
     }];
     
@@ -65,6 +60,13 @@
         make.left.right.top.equalTo(self);
         make.height.mas_equalTo(0.5);
     }];
+}
+
+- (UIView *)backView {
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+    }
+    return _backView;
 }
 
 - (UIButton *)handleBtn {
