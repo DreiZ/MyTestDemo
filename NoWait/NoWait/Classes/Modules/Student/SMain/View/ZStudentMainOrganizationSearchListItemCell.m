@@ -33,8 +33,9 @@
     }];
     
     [self.pricebLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.bottom.equalTo(self.clubImageView.mas_bottom).offset(-CGFloatIn750(6));
+        make.left.equalTo(self);
+        make.height.mas_equalTo(CGFloatIn750(26));
+        make.bottom.equalTo(self.clubImageView.mas_bottom).offset(0);
     }];
     
     [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,10 +85,10 @@
     if (!_pricebLabel) {
         _pricebLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _pricebLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorTextBlackDark]);
-        
+        _pricebLabel.backgroundColor = HexAColor(0x000000, 0.5);
         _pricebLabel.numberOfLines = 1;
         _pricebLabel.textAlignment = NSTextAlignmentCenter;
-        [_pricebLabel setFont:[UIFont fontContent]];
+        [_pricebLabel setFont:[UIFont fontMin]];
     }
     return _pricebLabel;
 }

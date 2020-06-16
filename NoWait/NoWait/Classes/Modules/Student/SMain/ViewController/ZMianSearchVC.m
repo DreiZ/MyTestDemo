@@ -51,7 +51,6 @@
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
-    
 }
 
 - (void)setupMainView{

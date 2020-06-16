@@ -7,11 +7,10 @@
 //
 
 #import "ZBaseCollectionViewCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZStudentMainModel.h"
+#import "ZOriganizationLessonModel.h"
 
 @interface ZStudentExperienceLessonListItemCell : ZBaseCollectionViewCell
-
+@property (nonatomic,strong) ZOriganizationLessonListModel *model;
 @end
 
-NS_ASSUME_NONNULL_END

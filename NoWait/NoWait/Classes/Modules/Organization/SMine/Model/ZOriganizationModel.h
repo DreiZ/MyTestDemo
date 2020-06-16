@@ -485,6 +485,7 @@
 @property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*star_students;
 @property (nonatomic,strong) NSArray <ZOriganizationTeacherListModel *>*teacher_list;
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel*>*courses_list;
+@property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*appointment_courses;
 
 @property (nonatomic,strong) NSString *update_at;
 @end

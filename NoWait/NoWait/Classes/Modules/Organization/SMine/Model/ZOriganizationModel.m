@@ -353,7 +353,7 @@
               @"images_list" : @"ZImagesModel",
               @"courses_list" : @"ZOriganizationLessonListModel",
               @"star_students" : @"ZOriganizationTeacherListModel",
-              
+              @"appointment_courses" : @"ZOriganizationLessonListModel",
              };
 }
 @end

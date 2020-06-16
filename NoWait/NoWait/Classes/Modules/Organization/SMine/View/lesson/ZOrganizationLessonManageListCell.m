@@ -410,7 +410,6 @@
         case ZOrganizationLessonTypeOpen:
         {
             self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.left.bottom.right.equalTo(self.contView);
                 make.height.mas_equalTo(CGFloatIn750(136));
@@ -447,48 +446,106 @@
             break;
         case ZOrganizationLessonTypeClose:
         {
-            self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-            
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.bottom.right.equalTo(self.contView);
-                make.height.mas_equalTo(CGFloatIn750(136));
-            }];
-            
-            [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.contView);
-                make.top.equalTo(self.topView.mas_bottom);
-                make.bottom.equalTo(self.bottomView.mas_top);
-            }];
-            
-            self.bottomView.hidden = NO;
-            self.failView.hidden = YES;
-            self.editBtn.hidden = NO;
-            self.closeBtn.hidden = YES;
-            
-            self.openBtn.hidden = NO;
-            self.delBtn.hidden = NO;
-            
-            
-            [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(116));
-            }];
-            
-            [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.editBtn.mas_left).offset(CGFloatIn750(-20));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(172));
-            }];
-            
-            [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(self.bottomView.mas_centerY);
-                make.right.equalTo(self.openBtn.mas_left).offset(CGFloatIn750(-20));
-                make.height.mas_equalTo(CGFloatIn750(56));
-                make.width.mas_equalTo(CGFloatIn750(116));
-            }];
+            if ([model.edit_status boolValue]) {
+                self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+                
+                [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.bottom.right.equalTo(self.contView);
+                    make.height.mas_equalTo(CGFloatIn750(136));
+                }];
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.top.equalTo(self.topView.mas_bottom);
+                    make.bottom.equalTo(self.bottomView.mas_top);
+                }];
+                
+                self.bottomView.hidden = NO;
+                self.failView.hidden = YES;
+                self.editBtn.hidden = NO;
+                self.closeBtn.hidden = YES;
+                
+                self.openBtn.hidden = NO;
+                self.delBtn.hidden = NO;
+                
+                
+                [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+                
+                [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.editBtn.mas_left).offset(CGFloatIn750(-20));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(172));
+                }];
+                
+                [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.openBtn.mas_left).offset(CGFloatIn750(-20));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+            }else{
+                self.failHintLabel.text = @"原因：";
+                self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
+                self.salesNumLabel.text = @"";
+             
+                NSString *fail = self.model.notice_msg ? self.model.notice_msg : @"";
+                CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+                
+                [self.failView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(40));
+                    make.height.mas_equalTo(CGFloatIn750(36) + failSize.height + 4);
+                }];
+                
+                [self.failHintLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.leftImageView);
+                    make.top.equalTo(self.failView.mas_top).offset(CGFloatIn750(34));
+                }];
+                
+                
+                [self.failLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.failHintLabel.mas_right).offset(CGFloatIn750(16));
+                    make.top.equalTo(self.failHintLabel.mas_top);
+                    make.right.equalTo(self.failView.mas_right).offset(-CGFloatIn750(30));
+                }];
+                
+                [self.midView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contView);
+                    make.top.equalTo(self.topView.mas_bottom);
+                    make.bottom.equalTo(self.failView.mas_top);
+                }];
+                
+                
+                self.bottomView.hidden = YES;
+                self.failView.hidden = NO;
+                self.editBtn.hidden = YES;
+                self.closeBtn.hidden = YES;
+                           
+                self.openBtn.hidden = YES;
+                self.delBtn.hidden = NO;
+                
+                [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.bottomView.mas_right).offset(CGFloatIn750(-30));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+                
+                [self.delBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.bottomView.mas_centerY);
+                    make.right.equalTo(self.editBtn.mas_left).offset(CGFloatIn750(-20));
+                    make.height.mas_equalTo(CGFloatIn750(56));
+                    make.width.mas_equalTo(CGFloatIn750(116));
+                }];
+                
+                [ZPublicTool setLineSpacing:CGFloatIn750(10) label:self.failLabel];
+            }
         }
             break;
         case ZOrganizationLessonTypeExamine:
@@ -515,6 +572,7 @@
             break;
         case ZOrganizationLessonTypeExamineFail:
         {
+            self.failHintLabel.text = @"失败原因：";
             self.lessonStatelabel.textColor = adaptAndDarkColor([UIColor colorRedDefault],[UIColor colorRedDefault]);
             self.salesNumLabel.text = @"";
             
@@ -594,6 +652,14 @@
             NSString *fail = listModel.notice_msg ? listModel.notice_msg : @"";
             CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
             return CGFloatIn750(308) + failSize.height + CGFloatIn750(40);
+        }else if(listModel.type == ZOrganizationLessonTypeClose){
+            if (![listModel.edit_status boolValue]) {
+                NSString *fail = listModel.notice_msg ? listModel.notice_msg : @"";
+                CGSize failSize = [fail tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(30) * 2 - CGFloatIn750(30) - CGFloatIn750(16) - CGFloatIn750(240) - CGFloatIn750(30)), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(10)];
+                return CGFloatIn750(308) + failSize.height + CGFloatIn750(40);
+            }else{
+                return CGFloatIn750(404);
+            }
         } else{
             return CGFloatIn750(404);
         }

@@ -216,6 +216,15 @@
                 [otherDict setObject:self.viewModel.addModel.lessonID forKey:@"id"];
             }
             
+            if (ValidStr(weakSelf.viewModel.addModel.limit_purchase) && [weakSelf.viewModel.addModel.limit_purchase intValue] > 0) {
+                [otherDict setObject:self.viewModel.addModel.limit_purchase forKey:@"limit_purchase"];
+            }
+            
+            if (ValidStr(weakSelf.viewModel.addModel.account_limit_purchase) && [weakSelf.viewModel.addModel.account_limit_purchase intValue] > 0) {
+                [otherDict setObject:self.viewModel.addModel.account_limit_purchase forKey:@"account_limit_purchase"];
+            }
+            
+            
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.short_name forKey:@"short_name"];
             [otherDict setObject:self.viewModel.addModel.info forKey:@"info"];
@@ -305,14 +314,14 @@
     }
     
     NSArray *temp = @[@"初级",@"进阶",@"精英"];
-    NSArray <NSArray *>*textArr = @[@[@"课程价格", @"课程价格不得小于1", @YES, @"", @"元", @"lessonPrice",self.viewModel.addModel.price,@10,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
+    NSArray <NSArray *>*textArr = @[@[@"课程价格", @"课程价格不得小于1", @YES, @"", @"元", @"lessonPrice",SafeStr(self.viewModel.addModel.price),@10,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
     @[@"课程级别", @"请选择课程级别", @NO, ValidStr(self.viewModel.addModel.lessonID)? @"":@"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-    @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",self.viewModel.addModel.course_min,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-    @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",self.viewModel.addModel.course_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-    @[@"班级人数", @"请输入班级人数", @YES, @"", @"人", @"peoples",self.viewModel.addModel.course_class_number,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-    @[@"课程有效期", @"请输入课程有效期", @YES, @"", @"个月", @"validityTime",self.viewModel.addModel.valid_at,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-    @[@"总限购数", @"不填写则无限购数", @YES, @"", @"次", @"allBuy",self.viewModel.addModel.valid_at,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
-    @[@"单人限购", @"不填写则无限购数", @YES, @"", @"次", @"allBuy",self.viewModel.addModel.valid_at,@3,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
+    @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",SafeStr(self.viewModel.addModel.course_min),@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+    @[@"课程节数", @"请输入课程节数", @YES, @"", @"节", @"num",SafeStr(self.viewModel.addModel.course_number),@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+    @[@"班级人数", @"请输入班级人数", @YES, @"", @"人", @"peoples",SafeStr(self.viewModel.addModel.course_class_number),@5,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+    @[@"课程有效期", @"请输入课程有效期", @YES, @"", @"个月", @"validityTime",SafeStr(self.viewModel.addModel.valid_at),@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+    @[@"总限购数", @"不填写则无限购数", @YES, @"", @"次", @"limit_purchase",SafeStr(self.viewModel.addModel.limit_purchase),@7,[NSNumber numberWithInt:ZFormatterTypeNumber]],
+    @[@"单人限购", @"不填写则无限购数", @YES, @"", @"次", @"account_limit_purchase",SafeStr(self.viewModel.addModel.account_limit_purchase),@7,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
     
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[5]))
@@ -322,8 +331,8 @@
         .zz_textEnabled([obj[2] boolValue])
         .zz_subTitleRight(SafeStr(obj[4]))
         .zz_content(SafeStr(obj[6]))
-        .zz_max([SafeStr(obj[7]) intValue])
-        .zz_formatter([SafeStr(obj[8]) intValue])
+        .zz_max([obj[7] intValue])
+        .zz_formatter([obj[8] intValue])
         .zz_cellHeight(CGFloatIn750(86));
         if (ValidStr(obj[3])) {
             model.zz_imageRight(SafeStr(obj[3]))
@@ -692,6 +701,16 @@
         ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
         tCell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.valid_at = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"account_limit_purchase"]) {
+        ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+        tCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.account_limit_purchase = text;
+        };
+    }else if ([cellConfig.title isEqualToString:@"limit_purchase"]) {
+        ZTextFieldCell *tCell = (ZTextFieldCell *)cell;
+        tCell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.limit_purchase = text;
         };
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;

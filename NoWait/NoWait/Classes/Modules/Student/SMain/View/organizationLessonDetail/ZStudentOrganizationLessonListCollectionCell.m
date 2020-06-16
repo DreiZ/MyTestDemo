@@ -16,7 +16,6 @@
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UILabel *priceLabel;
 @property (nonatomic,strong) UILabel *favourablePriceLabel;
-@property (nonatomic,strong) UILabel *goodReputationLabel;
 @property (nonatomic,strong) UILabel *sellCountLabel;
 @property (nonatomic,strong) CWStarRateView *crView;
 @end
@@ -31,7 +30,6 @@
     [self.backView addSubview:self.titleLabel];
     [self.backView addSubview:self.priceLabel];
     [self.backView addSubview:self.favourablePriceLabel];
-    [self.backView addSubview:self.goodReputationLabel];
     [self.backView addSubview:self.sellCountLabel];
     [self.backView addSubview:self.crView];
     
@@ -47,7 +45,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonImageView.mas_left).offset(CGFloatIn750(18));
         make.top.equalTo(self.lessonImageView.mas_bottom).offset(CGFloatIn750(14));
-        make.right.equalTo(self.goodReputationLabel.mas_left).offset(-CGFloatIn750(10));
+        make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(10));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,12 +59,6 @@
         make.left.equalTo(self.priceLabel.mas_right).offset(CGFloatIn750(4));
     }];
     self.favourablePriceLabel.hidden = YES;
-    
-    [self.goodReputationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_lessThanOrEqualTo(CGFloatIn750(120));
-        make.centerY.equalTo(self.titleLabel.mas_centerY);
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-    }];
     
     [self.sellCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_lessThanOrEqualTo(CGFloatIn750(120));
@@ -141,18 +133,6 @@
     return _favourablePriceLabel;
 }
 
-- (UILabel *)goodReputationLabel {
-    if (!_goodReputationLabel) {
-        _goodReputationLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _goodReputationLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _goodReputationLabel.numberOfLines = 1;
-        _goodReputationLabel.textAlignment = NSTextAlignmentRight;
-        [_goodReputationLabel setFont:[UIFont fontSmall]];
-        [_goodReputationLabel setAdjustsFontSizeToFitWidth:YES];
-    }
-    return _goodReputationLabel;
-}
-
 - (UILabel *)sellCountLabel {
     if (!_sellCountLabel) {
         _sellCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -179,19 +159,9 @@
     [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     _titleLabel.text = model.name;
     _sellCountLabel.text = [NSString stringWithFormat:@"已售%@",model.pay_nums];
-    _goodReputationLabel.text = [NSString stringWithFormat:@"%@好评",model.score];
     _favourablePriceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
-    _goodReputationLabel.hidden = YES;
     _crView.scorePercent = [model.score intValue]/5.0f;
-    
-    CGSize tempSize = [self.goodReputationLabel.text sizeForFont:[UIFont fontSmall] size:CGSizeMake(CGFloatIn750(130), MAXFLOAT) mode:NSLineBreakByWordWrapping];
-    
-    [self.goodReputationLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(tempSize.width+2);
-        make.centerY.equalTo(self.titleLabel.mas_centerY);
-        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
-    }];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

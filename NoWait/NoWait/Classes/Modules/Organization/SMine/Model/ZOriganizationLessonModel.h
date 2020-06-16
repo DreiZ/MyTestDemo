@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 
 
 @property (nonatomic,strong) NSString *total_course_min;
+@property (nonatomic,strong) NSString *edit_status;
 
 
 @property (nonatomic,strong) NSString *experience_duration;
@@ -116,6 +117,9 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *pay_nums;
 @property (nonatomic,strong) NSString *score;
 @property (nonatomic,strong) NSString *fail;
+
+@property (nonatomic,strong) NSString *limit_purchase;
+@property (nonatomic,strong) NSString *account_limit_purchase;
 @property (nonatomic,assign) ZOrganizationLessonType lessonType;
 @end
 

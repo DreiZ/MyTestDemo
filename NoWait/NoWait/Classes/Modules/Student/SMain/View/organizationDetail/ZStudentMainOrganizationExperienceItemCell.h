@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZOriganizationModel.h"
+#import "ZBaseCollectionViewCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZStudentMainOrganizationExperienceItemCell : UICollectionViewCell
-
+@interface ZStudentMainOrganizationExperienceItemCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) UILabel *pricebLabel;
+@property (nonatomic,strong) UILabel *clubLabel;
+@property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic,strong) UIImageView *clubImageView;
+@property (nonatomic,strong) ZOriganizationLessonListModel *model;
 @end
 
-NS_ASSUME_NONNULL_END

@@ -176,6 +176,20 @@
     self.inputLine.hidden = model.isHiddenInputLine;
 }
 
+
+- (void)setFormatterType:(ZFormatterType)formatterType {
+    _formatterType = formatterType;
+    if (formatterType == ZFormatterTypeDecimal) {
+        _inputTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    }else if (formatterType == ZFormatterTypeNumber) {
+        _inputTextField.keyboardType = UIKeyboardTypeNumberPad;
+    }else if (formatterType == ZFormatterTypePhoneNumber) {
+        _inputTextField.keyboardType = UIKeyboardTypePhonePad;
+    }else {
+        _inputTextField.keyboardType = UIKeyboardTypeDefault;
+    }
+}
+
 + (CGFloat)z_getCellHeight:(id)sender {
     if (sender && [sender isKindOfClass:[ZTextFieldModel class]]) {
         ZTextFieldModel *model = sender;

@@ -15,11 +15,14 @@
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZOrganizationDetailBottomView.h"
 #import "ZStudentOrganizationBannerCell.h"
+#import "ZStudentMainOrganizationExperienceCell.h"
+#import "ZStudentMineSettingBottomCell.h"
 
 #import "ZStudentStarStudentListVC.h"
-
+#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentOrganizationDetailIntroVC.h"
 #import "ZStudentOrganizationLessonListVC.h"
+#import "ZStudentOrganizationExperienceLessonListVC.h"
 #import "ZStudentOrganizationMapAddressVC.h"
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentStudentDetailVC.h"
@@ -135,6 +138,16 @@
                    }];
                }
            };
+       }else if([cellConfig.title isEqualToString:[ZStudentMainOrganizationExperienceCell className]]){
+           ZStudentMainOrganizationExperienceCell *lcell = (ZStudentMainOrganizationExperienceCell *)cell;
+           lcell.lessonBlock = ^(ZOriganizationLessonListModel *model) {
+               ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+               dvc.model = model;
+               [weakSelf.navigationController pushViewController:dvc animated:YES];
+           };
+       }else if ([cellConfig.title isEqualToString:@"allLesson"]){
+           ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+           lcell.titleLabel.font = [UIFont fontSmall];
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
@@ -155,7 +168,12 @@
             ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
             lvc.detailModel = self.detailModel;
             [self.navigationController pushViewController:lvc animated:YES];
+        }else if ([cellConfig.title isEqualToString:@"allExperienceLesson"]){
+            ZStudentOrganizationExperienceLessonListVC *lvc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
+            lvc.schoolID = self.detailModel.schoolID;
+            [self.navigationController pushViewController:lvc animated:YES];
         }
+        
     });
 }
 
@@ -316,16 +334,34 @@
     
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        model.leftTitle = @"热门课程";
-        model.rightTitle = @"全部课程";
-        model.cellTitle = @"allLesson";
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:lessonMoreCellConfig];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
+        .zz_titleLeft(@"热门课程")
+        .zz_fontLeft([UIFont boldFontTitle])
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(50));
         
-        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+        [self.cellConfigArr addObject:menuCellConfig];
+
         for (int i = 0; i < self.detailModel.courses_list.count; i++) {
             ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel.courses_list[i]];
+            [self.cellConfigArr addObject:lessonCellConfig];
+        }
+        ZCellConfig *allLessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"allLesson" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(70) cellType:ZCellTypeClass dataModel:@"全部课程 >"];
+        [self.cellConfigArr addObject:allLessonCellConfig];
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
+        
+        {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+            model.leftTitle = @"体验课程";
+            model.rightTitle = @"更多体验课程";
+            model.cellTitle = @"allExperienceLesson";
+            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:lessonMoreCellConfig];
+
+            ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationExperienceCell className] title:[ZStudentMainOrganizationExperienceCell className] showInfoMethod:@selector(setAppointment_courses:) heightOfCell:[ZStudentMainOrganizationExperienceCell z_getCellHeight:self.detailModel.appointment_courses] cellType:ZCellTypeClass dataModel:self.detailModel.appointment_courses];
             [self.cellConfigArr addObject:lessonCellConfig];
         }
         
