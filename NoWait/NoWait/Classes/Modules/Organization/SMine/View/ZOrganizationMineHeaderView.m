@@ -245,7 +245,7 @@
 //        self.midLabel.textColor = [UIColor colorWithWhite:(0.9) alpha:1];
 //    }
     
-    self.qrCodeBtn.hidden = YES;
+//    self.qrCodeBtn.hidden = YES;
 //    self.scanQRCodeImageView.hidden = YES;
 //    self.scanView.hidden = YES;
 }
