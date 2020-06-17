@@ -47,6 +47,6 @@
 #import "ZShortcutMethod.h"
 #import "ZDatePickerManager.h"
 #import "ZUserHelper.h"
-
+#import "BANetManager.h"
 
 #endif /* CommonMacros_h */

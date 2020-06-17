@@ -44,5 +44,5 @@
 #import <NSString+Hash.h>
 #import <TLKit/TLKit.h>
 
-
+#import "BANetManager_OC.h"
 #endif /* PrefixHeader_pch */

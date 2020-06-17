@@ -189,6 +189,13 @@
 		B27077752499A62A002D147A /* ZStudentShareImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077742499A62A002D147A /* ZStudentShareImageCell.m */; };
 		B27077782499A65F002D147A /* ZStudentShareQrcodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077772499A65F002D147A /* ZStudentShareQrcodeCell.m */; };
 		B270777C2499B6E6002D147A /* ZShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B270777A2499B6E6002D147A /* ZShareView.m */; };
+		B27077812499FD14002D147A /* WYVideoCompressTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077802499FD14002D147A /* WYVideoCompressTools.m */; };
+		B27077842499FEBB002D147A /* ZVideoHandleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077832499FEBB002D147A /* ZVideoHandleManager.m */; };
+		B2707794249A0D00002D147A /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B2707788249A0CFF002D147A /* BANetManagerCache.m */; };
+		B2707796249A0D00002D147A /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778A249A0CFF002D147A /* BANetManager.m */; };
+		B2707797249A0D00002D147A /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778B249A0CFF002D147A /* UIImage+CompressImage.m */; };
+		B2707798249A0D00002D147A /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778D249A0CFF002D147A /* BADataEntity.m */; };
+		B2707799249A0D00002D147A /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = B2707793249A0CFF002D147A /* .gitkeep */; };
 		B279D04323C8430C00391A33 /* ZStudentLessonSelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04223C8430C00391A33 /* ZStudentLessonSelectTimeCell.m */; };
 		B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04823C863BC00391A33 /* ZStudentLessonSureOrderVC.m */; };
 		B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04E23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m */; };
@@ -1031,6 +1038,21 @@
 		B27077772499A65F002D147A /* ZStudentShareQrcodeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentShareQrcodeCell.m; sourceTree = "<group>"; };
 		B270777A2499B6E6002D147A /* ZShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZShareView.m; sourceTree = "<group>"; };
 		B270777B2499B6E6002D147A /* ZShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZShareView.h; sourceTree = "<group>"; };
+		B270777F2499FD14002D147A /* WYVideoCompressTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYVideoCompressTools.h; sourceTree = "<group>"; };
+		B27077802499FD14002D147A /* WYVideoCompressTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYVideoCompressTools.m; sourceTree = "<group>"; };
+		B27077822499FEBB002D147A /* ZVideoHandleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZVideoHandleManager.h; sourceTree = "<group>"; };
+		B27077832499FEBB002D147A /* ZVideoHandleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZVideoHandleManager.m; sourceTree = "<group>"; };
+		B2707787249A0CFF002D147A /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
+		B2707788249A0CFF002D147A /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
+		B270778A249A0CFF002D147A /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
+		B270778B249A0CFF002D147A /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
+		B270778C249A0CFF002D147A /* BANetManager_Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_Version.h; sourceTree = "<group>"; };
+		B270778D249A0CFF002D147A /* BADataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataEntity.m; sourceTree = "<group>"; };
+		B270778E249A0CFF002D147A /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
+		B270778F249A0CFF002D147A /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
+		B2707790249A0CFF002D147A /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
+		B2707791249A0CFF002D147A /* BANetManager_OC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_OC.h; sourceTree = "<group>"; };
+		B2707793249A0CFF002D147A /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		B279D04123C8430C00391A33 /* ZStudentLessonSelectTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectTimeCell.h; sourceTree = "<group>"; };
 		B279D04223C8430C00391A33 /* ZStudentLessonSelectTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSelectTimeCell.m; sourceTree = "<group>"; };
 		B279D04723C863BC00391A33 /* ZStudentLessonSureOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSureOrderVC.h; sourceTree = "<group>"; };
@@ -2440,6 +2462,49 @@
 			path = ZShareView;
 			sourceTree = "<group>";
 		};
+		B270777E2499FD14002D147A /* WYVideoCompressTools */ = {
+			isa = PBXGroup;
+			children = (
+				B270777F2499FD14002D147A /* WYVideoCompressTools.h */,
+				B27077802499FD14002D147A /* WYVideoCompressTools.m */,
+			);
+			path = WYVideoCompressTools;
+			sourceTree = "<group>";
+		};
+		B2707785249A0CFF002D147A /* BANetManager */ = {
+			isa = PBXGroup;
+			children = (
+				B2707786249A0CFF002D147A /* Classes */,
+				B2707792249A0CFF002D147A /* Assets */,
+			);
+			path = BANetManager;
+			sourceTree = "<group>";
+		};
+		B2707786249A0CFF002D147A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B2707787249A0CFF002D147A /* BADataEntity.h */,
+				B2707788249A0CFF002D147A /* BANetManagerCache.m */,
+				B270778A249A0CFF002D147A /* BANetManager.m */,
+				B270778B249A0CFF002D147A /* UIImage+CompressImage.m */,
+				B270778C249A0CFF002D147A /* BANetManager_Version.h */,
+				B270778D249A0CFF002D147A /* BADataEntity.m */,
+				B270778E249A0CFF002D147A /* BANetManagerCache.h */,
+				B270778F249A0CFF002D147A /* UIImage+CompressImage.h */,
+				B2707790249A0CFF002D147A /* BANetManager.h */,
+				B2707791249A0CFF002D147A /* BANetManager_OC.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B2707792249A0CFF002D147A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B2707793249A0CFF002D147A /* .gitkeep */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		B279D02E23C7228300391A33 /* lessonBuyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2776,8 +2841,11 @@
 		B2A77EA723BDE1E200407BF0 /* ZVideoPlayerManager */ = {
 			isa = PBXGroup;
 			children = (
+				B270777E2499FD14002D147A /* WYVideoCompressTools */,
 				B2A77EA823BDE20200407BF0 /* ZVideoPlayerManager.h */,
 				B2A77EA923BDE20200407BF0 /* ZVideoPlayerManager.m */,
+				B27077822499FEBB002D147A /* ZVideoHandleManager.h */,
+				B27077832499FEBB002D147A /* ZVideoHandleManager.m */,
 			);
 			path = ZVideoPlayerManager;
 			sourceTree = "<group>";
@@ -3289,6 +3357,7 @@
 		B2A7803323BDFA8D00407BF0 /* ZNetworkingManager */ = {
 			isa = PBXGroup;
 			children = (
+				B2707785249A0CFF002D147A /* BANetManager */,
 				B2A7803C23BDFB0100407BF0 /* Categories */,
 				B2A7804623BDFB0100407BF0 /* ZNetwork */,
 				B2A7804523BDFB0100407BF0 /* ZNetwork.h */,
@@ -4480,6 +4549,7 @@
 				B2A77EFC23BDE2B000407BF0 /* ImageSelectedSmallOn@3x.png in Resources */,
 				B2BA39C12435CD64005A3FFB /* photo_flash_on.png in Resources */,
 				B2A77EEE23BDE2B000407BF0 /* UIBarButtonItemGrid@3x.png in Resources */,
+				B2707799249A0D00002D147A /* .gitkeep in Resources */,
 				B223BCD723C7043F00AC0158 /* icon_star@3x.png in Resources */,
 				B223BCD423C7043F00AC0158 /* icon_star_select@2x.png in Resources */,
 				B2A77EF323BDE2B000407BF0 /* ImageSelectedSmallOff.png in Resources */,
@@ -4621,6 +4691,7 @@
 				B29795A924260ACF004490F5 /* ZAlertDataCheckBoxBottomView.m in Sources */,
 				B2D83EAC23FA9F490099C2C9 /* ZOrganizationAddressLocationCell.m in Sources */,
 				B2F371D8246B8DBA00678B19 /* ZRewardModel.m in Sources */,
+				B27077812499FD14002D147A /* WYVideoCompressTools.m in Sources */,
 				B24D993223FBC3EE0078A458 /* ZOrganizationCampusManageAddLabelVC.m in Sources */,
 				B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */,
 				B24D994E23FD0E520078A458 /* ZOrganizationLessonAddVC.m in Sources */,
@@ -4690,6 +4761,7 @@
 				B26880E324767ECC00BF8FCD /* WMZDropMenuBase.m in Sources */,
 				B28D9140240766940021E05A /* PGDatePicker+Common.m in Sources */,
 				B24D995923FD2F4B0078A458 /* ZOrganizationLessonAddPhotosItemCell.m in Sources */,
+				B2707794249A0D00002D147A /* BANetManagerCache.m in Sources */,
 				B2A7812C23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m in Sources */,
 				B2A7818123C5780A00407BF0 /* ZStudentDetailModel.m in Sources */,
 				B25146B123CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m in Sources */,
@@ -4713,6 +4785,7 @@
 				B2C35089244406A4002929A8 /* ZTeacherClassDetailSignDetailVC.m in Sources */,
 				B2F371BC246B8D9500678B19 /* ZRewardMyTeamListVC.m in Sources */,
 				B2A77ECB23BDE29E00407BF0 /* MWZoomingScrollView.m in Sources */,
+				B2707798249A0D00002D147A /* BADataEntity.m in Sources */,
 				B28EA66F240E49FC00C8E225 /* ZOrganizationCardMainVC.m in Sources */,
 				B28D913A240766940021E05A /* PGDatePicker+DateHourMinute.m in Sources */,
 				B2EE5BAA23F7DA1A00ECCFF4 /* ZOriganizationClubSelectedCell.m in Sources */,
@@ -4735,6 +4808,7 @@
 				B23590392488818A008C953A /* ZNumberCalculateView.m in Sources */,
 				B270777C2499B6E6002D147A /* ZShareView.m in Sources */,
 				B2B22DE924930E43000BD20D /* ZHistoryModel.m in Sources */,
+				B27077842499FEBB002D147A /* ZVideoHandleManager.m in Sources */,
 				B24D994523FCD6BC0078A458 /* ZOrganizationTeacherSearchVC.m in Sources */,
 				B296E3A32404F7F400507509 /* ZOrganizationTimeSelectVC.m in Sources */,
 				B2F371D3246B8DAA00678B19 /* ZRewardMoneyBottomBtnCell.m in Sources */,
@@ -4950,6 +5024,7 @@
 				B296E38B2404B11A00507509 /* ZOrganizationLessonManageVC.m in Sources */,
 				B2CF93512424CABA007AF66E /* ZOrganizationMineEvaDetailVC.m in Sources */,
 				B2F7D35623CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m in Sources */,
+				B2707796249A0D00002D147A /* BANetManager.m in Sources */,
 				B28D90CB240604C80021E05A /* ZTextFieldMultColCell.m in Sources */,
 				B26F2DA6240121C900BBF533 /* ZOrganizationStudentUpStarVC.m in Sources */,
 				B262B54D244EE9CF00A27542 /* ZOrganizationClassStudentProgressEditVC.m in Sources */,
@@ -5119,6 +5194,7 @@
 				B2EE5BC023F9244400ECCFF4 /* ZOrganizationCampusManagementVC.m in Sources */,
 				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B252ED892416191E00190804 /* ZBaseCollectionViewCell.m in Sources */,
+				B2707797249A0D00002D147A /* UIImage+CompressImage.m in Sources */,
 				B262B54A244ECA5200A27542 /* ZAddClassCodeView.m in Sources */,
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B2A77F5F23BDE42E00407BF0 /* TZImagePickerController.m in Sources */,

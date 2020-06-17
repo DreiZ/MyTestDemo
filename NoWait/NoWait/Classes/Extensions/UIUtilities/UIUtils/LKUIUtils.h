@@ -129,7 +129,7 @@
 /**
  显示textFeid的动画
  
- @param textFieldtextField UITextField
+ @param textField UITextField
  @param completion 动画完成的block
  */
 + (void)showTextFieldShakeAnimation:(UITextField *)textField completion:(void(^)(void))completion;

@@ -12,6 +12,7 @@
 #import "ZLaunchManager.h"
 #import "ZAppConfig.h"
 #import "ZAlertView.h"
+#import "BANetManager.h"
 
 @implementation ZNetworkingManager
 #pragma mark --get请求
@@ -187,6 +188,66 @@
     }];
 }
 
+
++ (id)postVideoServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler progressHandler:(void (^)(int64_t, int64_t ))procressHandler{
+    NSDictionary *newParams = [ZNetworkingManager getPostParamsWithUrl:path params:params];
+    NSString *newUrl = [ZNetworkingManager getMUrl:path serverType:serverType];
+    BAFileDataEntity *entity = [[BAFileDataEntity alloc] init];
+    entity.filePath = newUrl;
+    entity.urlString = newUrl;
+    if (newParams && [newParams objectForKey:@"fileName"]) {
+        entity.fileName = newParams[@"fileName"];
+    }
+    
+    return [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id responseObject) {
+        DLog(@"return data *** %@", responseObject);
+        if (ValidDict(responseObject)) {
+            ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
+            
+            if (backModel && backModel.code) {
+                if ([backModel.code integerValue] == 0) {
+                    completionHandler(backModel, nil);
+                    
+                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
+                    
+                    [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+                    [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
+                    completionHandler(backModel, error);
+                    [TLUIUtility showErrorHint:backModel.message];
+                    
+                }else{
+                    
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+    
+                    if (!backModel.message) {
+                        backModel.message = @"获取服务器数据错误";
+                    }
+                    
+                    completionHandler(backModel, error);
+                    
+                }
+            }else{
+                backModel = [[ZBaseNetworkBackModel alloc] init];
+                backModel.code = @"888888";
+                backModel.message = @"获取服务器数据错误";
+                completionHandler(backModel, nil);
+            }
+            
+        }else{
+            NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+            ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
+            backModel.code = @"888888";
+            backModel.message = @"连接服务器失败";
+            completionHandler(backModel, error);
+        }
+    } failureBlock:^(NSError *error) {
+        completionHandler(@"失败", error);
+    } progressBlock:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+        procressHandler(bytesProgress, totalBytesProgress);
+    }];
+}
+
 #pragma mark - 参数签名获取请求体
 + (NSDictionary *)getPostParamsWithoutUserIDWithUrl:(NSString *)path params:(NSDictionary *)params {
     
@@ -263,13 +324,6 @@
 +(NSMutableDictionary *)setCommonDict:(NSDictionary *)originalDict {
     
     NSMutableDictionary *newDict = [ZNetworkingManager setWithoutIDCommonDict:originalDict];
-
-//    if ([ZUserHelper sharedHelper].user && [ZUserHelper sharedHelper].user.userID) {
-//        [newDict setObject:[ZUserHelper sharedHelper].user.userID forKey:@"user_id"];
-//    }
-//    if ([ZUserHelper sharedHelper].user && [ZUserHelper sharedHelper].user.token) {
-//        [newDict setObject:[ZUserHelper sharedHelper].user.token forKey:@"token"];
-//    }
     return newDict;
 }
 

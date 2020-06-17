@@ -11,6 +11,8 @@
 
 #define kCompletionHandler completionHandler:(void(^)(id model, NSError *error))completionHandler
 
+#define kProgressHandler progressBlock:(void(^)(int64_t bytesProgress, int64_t totalBytesProgress))progressBlock
+
 
 @interface ZNetworkingManager : NSObject
 + (id)getWithServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
@@ -32,5 +34,8 @@
 
 #pragma mark - 上传图片
 + (id)postImageServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler;
+
+#pragma mark - 上传视频
++ (id)postVideoServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler progressHandler:(void (^)(int64_t, int64_t ))procressHandler;
 @end
 
