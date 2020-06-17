@@ -378,10 +378,10 @@
         [self.navigationController pushViewController:mvc animated:YES];
         
     }else if ([cellConfig.title isEqualToString:@"type"]) {
-//        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
-//            [TLUIUtility showErrorHint:@"类型已不可修改"];
-//            return;
-//        }
+        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
+            [TLUIUtility showErrorHint:@"类型已不可修改"];
+            return;
+        }
 
         NSMutableArray *classify = @[].mutableCopy;
         [classify addObjectsFromArray:[ZStudentMainViewModel mainClassifyOneData]];

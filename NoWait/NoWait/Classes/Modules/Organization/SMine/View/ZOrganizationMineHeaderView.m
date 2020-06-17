@@ -475,16 +475,18 @@
         name = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);;
     }
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    [LKUIUtils downloadShareImage:SafeStr([ZUserHelper sharedHelper].user.avatar) complete:^(UIImage *image) {
-        if (!image) {
-            image = [UIImage imageNamed:@"default_head"];
-        }
-        [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
-            
-        } completion:^{
-            
+    if (ValidStr([ZUserHelper sharedHelper].user.avatar)) {
+        [LKUIUtils downloadShareImage:SafeStr([ZUserHelper sharedHelper].user.avatar) complete:^(UIImage *image) {
+            if (!image) {
+                image = [UIImage imageNamed:@"default_head"];
+            }
+            [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
+                
+            } completion:^{
+                
+            }];
         }];
-    }];
+    }
     
     self.nameLabel.text = name;
     _midLabel.text = [NSString stringWithFormat:@"MID(邀请码)：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
