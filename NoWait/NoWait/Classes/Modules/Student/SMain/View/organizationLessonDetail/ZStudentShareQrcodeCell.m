@@ -68,7 +68,7 @@
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _hintLabel.text = @"扫码二维码";
+        _hintLabel.text = @"长按或扫描";
         _hintLabel.numberOfLines = 1;
         _hintLabel.textAlignment = NSTextAlignmentLeft;
         [_hintLabel setFont:[UIFont fontSmall]];

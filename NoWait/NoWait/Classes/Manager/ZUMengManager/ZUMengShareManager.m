@@ -67,7 +67,7 @@ static ZUMengShareManager *sharedManager;
     messageObject.text = @"似锦";
     [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
     
-    UMShareImageObject *imageObject = [UMShareImageObject shareObjectWithTitle:@"似锦" descr:@"点击查看" thumImage:[UIImage imageNamed:@"iconCommon"]] ;
+    UMShareImageObject *imageObject = [UMShareImageObject shareObjectWithTitle:@"似锦" descr:@"点击查看" thumImage:[UIImage imageNamed:@"logo"]] ;
     [imageObject setShareImage:image];
     //分享消息对象设置分享内容对象
     messageObject.shareObject = imageObject;
@@ -106,7 +106,7 @@ static ZUMengShareManager *sharedManager;
 
 - (void)shareToPlatformType:(UMSocialPlatformType)platformType title:(NSString *)title detail:(NSString *)detail image:(UIImage *)image url:(NSString *)url vc:(UIViewController *)vc
 {
-    UIImage *tImage = image ? image : [UIImage imageNamed:@"iconCommon"];
+    UIImage *tImage = image ? image : [UIImage imageNamed:@"logo"];
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     messageObject.text = @"幻轻";
