@@ -61,13 +61,13 @@ static ZUMengShareManager *sharedManager;
     [UMConfigure setLogEnabled:YES];//设置打开日志
 }
 
-- (void)shareUIWithType:(NSInteger)index image:(NSString *)image vc:(UIViewController *)vc {
+- (void)shareUIWithType:(NSInteger)index image:(UIImage *)image vc:(UIViewController *)vc {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     messageObject.text = @"似锦";
     [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
     
-    UMShareImageObject *imageObject = [UMShareImageObject shareObjectWithTitle:@"似锦" descr:@"邀请好友" thumImage:[UIImage imageNamed:@"iconCommon"]] ;
+    UMShareImageObject *imageObject = [UMShareImageObject shareObjectWithTitle:@"似锦" descr:@"点击查看" thumImage:[UIImage imageNamed:@"iconCommon"]] ;
     [imageObject setShareImage:image];
     //分享消息对象设置分享内容对象
     messageObject.shareObject = imageObject;

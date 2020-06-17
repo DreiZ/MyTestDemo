@@ -16,15 +16,18 @@
 #import "ZStudentOrganizationPersonnelMoreCell.h"
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZOrganizationDetailNumAndMinCell.h"
+
 #import "ZBaseUnitModel.h"
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
-#import "ZStudentLessonSelectMainNewView.h"
 #import "ZOriganizationLessonViewModel.h"
-
+#import "ZOrderModel.h"
+#import "ZStudentCollectionViewModel.h"
+#import "ZStudentLessonSelectMainNewView.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOrganizationDetailBottomView.h"
-#import "ZOrderModel.h"
+#import "ZAlertMoreView.h"
+
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
@@ -32,10 +35,10 @@
 #import "ZCouponListView.h"
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentLessonCoachListVC.h"
-#import "ZAlertMoreView.h"
+#import "ZStudentLessonDetailShareVC.h"
+
 #import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
-#import "ZStudentCollectionViewModel.h"
 #import "ZPhoneAlertView.h"
 
 @interface ZStudentLessonDetailVC ()
@@ -141,25 +144,28 @@
         [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_addEventHandler:^(id sender) {
-            [[ZUserHelper sharedHelper] checkLogin:^{
-                ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                rvc.sTitle = self.addModel.name;
-                rvc.course_id = self.addModel.lessonID;
-                [weakSelf.navigationController pushViewController:rvc animated:rvc];
-            }];
-            
-//            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
-//            NSArray *weekArr = @[@[@"投诉",@"peoples_hint",@"report"]];
-//            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
-//                if ([index isEqualToString:@"report"]) {
-//                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-//                    rvc.sTitle = self.addModel.name;
-//                    rvc.course_id = self.addModel.lessonID;
-//                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
-//                }else{
-//                    [[ZUMengShareManager sharedManager] shareUIWithType:1 Title:@"似锦" detail:@"测试" image:[UIImage imageNamed:@"logo"] url:@"www.baidu.com" vc:self];
-//                }
+//            [[ZUserHelper sharedHelper] checkLogin:^{
+//                ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+//                rvc.sTitle = self.addModel.name;
+//                rvc.course_id = self.addModel.lessonID;
+//                [weakSelf.navigationController pushViewController:rvc animated:rvc];
 //            }];
+//            
+            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+            [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+                if ([index isEqualToString:@"report"]) {
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+                        rvc.sTitle = self.addModel.name;
+                        rvc.course_id = self.addModel.lessonID;
+                        [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                    }];
+                }else{
+                    ZStudentLessonDetailShareVC *dvc = [[ZStudentLessonDetailShareVC alloc] init];
+                    dvc.addModel = weakSelf.addModel;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }
+            }];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;

@@ -27,6 +27,7 @@
 #import "ZOrganizationDetailOrderBottomView.h"
 #import "ZOrderModel.h"
 
+#import "ZStudentLessonDetailShareVC.h"
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
@@ -137,19 +138,29 @@
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-        [_navRightBtn setTitle:@"举报" forState:UIControlStateNormal];
+        [_navRightBtn setTitle:@"..." forState:UIControlStateNormal];
         _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
-        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
+        [_navRightBtn.titleLabel setFont:[UIFont boldFontMax2Title]];
         [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_addEventHandler:^(id sender) {
-            [[ZUserHelper sharedHelper] checkLogin:^{
-                ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                rvc.sTitle = self.addModel.name;
-                rvc.course_id = self.addModel.lessonID;
-                [weakSelf.navigationController pushViewController:rvc animated:rvc];
-            }];
+            NSArray *weekArr = @[@[@"分享",@"peoples_hint",@"share"],@[@"投诉",@"peoples_hint",@"report"]];
+             [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
+               if ([index isEqualToString:@"report"]) {
+                   [[ZUserHelper sharedHelper] checkLogin:^{
+                       ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+                       rvc.sTitle = self.addModel.name;
+                       rvc.course_id = self.addModel.lessonID;
+                       [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                   }];
+               }else{
+                   ZStudentLessonDetailShareVC *dvc = [[ZStudentLessonDetailShareVC alloc] init];
+                   dvc.addModel = weakSelf.addModel;
+                   dvc.isOrder = YES;
+                   [weakSelf.navigationController pushViewController:dvc animated:YES];
+               }
+           }];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;

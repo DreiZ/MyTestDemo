@@ -102,7 +102,7 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model {
     _model = model;
-    _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",ValidStr(model.now_progress) ? model.now_progress: @"0",@"/",SafeStr(model.total_progress)];
+    _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",[NSString stringWithFormat:@"%d",[SafeStr(model.now_progress) intValue] + [SafeStr(model.replenish_nums) intValue]],@"/",SafeStr(model.total_progress)];
     _lessonTitleLabel.text = model.stores_courses_short_name;
     _lessonProgressView.backgroundColor = randomColorWithNum([model.course_id intValue]);
     
