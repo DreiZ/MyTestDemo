@@ -378,45 +378,32 @@
         [self.navigationController pushViewController:mvc animated:YES];
         
     }else if ([cellConfig.title isEqualToString:@"type"]) {
-        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
-            [TLUIUtility showErrorHint:@"类型已不可修改"];
-            return;
-        }
+//        if ([SafeStr(self.model.hash_update_store_type_id) boolValue]){
+//            [TLUIUtility showErrorHint:@"类型已不可修改"];
+//            return;
+//        }
 
         NSMutableArray *classify = @[].mutableCopy;
         [classify addObjectsFromArray:[ZStudentMainViewModel mainClassifyOneData]];
-        [classify enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.name hasPrefix:@"全部"]) {
-                [classify removeObject:obj];
-            }else{
-                [obj.secondary enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([sobj.name hasPrefix:@"全部"]) {
-                        NSMutableArray *tempArr = @[].mutableCopy;
-                        [tempArr addObjectsFromArray:obj.secondary];
-                        [tempArr removeObject:sobj];
-                        obj.secondary = tempArr;
-                    }
-                }];
-            }
-        }];
-        
-        [classify enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * sobj, NSUInteger sidx, BOOL * _Nonnull sstop) {
-                [self.model.category enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * cobj, NSUInteger cidx, BOOL * _Nonnull cstop) {
-                    if ([cobj.classify_id isEqualToString:sobj.classify_id]) {
-                        obj.isSelected = YES;
-                        sobj.isSelected = YES;
-                    }
-                }];
+        if (ValidArray(classify)) {
+            [self showTypeSelect:classify];
+        }else{
+            __weak typeof(self) weakSelf = self;
+            [TLUIUtility showLoading:nil];
+            [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {
+                [TLUIUtility hiddenLoading];
+                if (isSuccess) {
+                    ZMainClassifyNetModel *model = data;
+                    [model.list enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            sobj.superClassify_id = obj.classify_id;
+                        }];
+                    }];
+                    [ZStudentMainViewModel updateMainClassifysOne:model.list];
+                    [weakSelf showTypeSelect:classify];
+                }
             }];
-        }];
-        
-        [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
-            [weakSelf.model.category removeAllObjects];
-            [weakSelf.model.category addObjectsFromArray:classify];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        }];
+        }
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
         lvc.max = 5;
@@ -458,6 +445,42 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }
     
+}
+
+- (void)showTypeSelect:(NSMutableArray *)classify {
+    __weak typeof(self) weakSelf = self;
+    [classify enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.name hasPrefix:@"全部"]) {
+            [classify removeObject:obj];
+        }else{
+            [obj.secondary enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([sobj.name hasPrefix:@"全部"]) {
+                    NSMutableArray *tempArr = @[].mutableCopy;
+                    [tempArr addObjectsFromArray:obj.secondary];
+                    [tempArr removeObject:sobj];
+                    obj.secondary = tempArr;
+                }
+            }];
+        }
+    }];
+    
+    [classify enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * sobj, NSUInteger sidx, BOOL * _Nonnull sstop) {
+            [self.model.category enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * cobj, NSUInteger cidx, BOOL * _Nonnull cstop) {
+                if ([cobj.classify_id isEqualToString:sobj.classify_id]) {
+                    obj.isSelected = YES;
+                    sobj.isSelected = YES;
+                }
+            }];
+        }];
+    }];
+    
+    [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:classify handlerBlock:^(NSMutableArray *classify) {
+        [weakSelf.model.category removeAllObjects];
+        [weakSelf.model.category addObjectsFromArray:classify];
+        [weakSelf initCellConfigArr];
+        [weakSelf.iTableView reloadData];
+    }];
 }
 
 - (void)getDataList {
