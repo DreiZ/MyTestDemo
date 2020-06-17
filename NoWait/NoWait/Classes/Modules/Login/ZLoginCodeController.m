@@ -14,6 +14,7 @@
 #import "ZLoginPasswordController.h"
 #import "ZLaunchManager.h"
 #import "ZAgreementVC.h"
+#import "ZWebBridgeViewController.h"
 
 #import "ZLoginViewModel.h"
 #import "ZLoginModel.h"
@@ -122,10 +123,9 @@
 
     [self.cellConfigArr addObject:titleCellConfig];
     {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"account_title")
         .zz_colorLeft([UIColor colorTextGray])
         .zz_colorDarkLeft([UIColor colorTextGrayDark])
-        .zz_leftMultiLine(YES)
         .zz_fontLeft([UIFont fontSmall])
         .zz_lineHidden(YES)
         .zz_cellHeight(CGFloatIn750(56))
@@ -141,11 +141,25 @@
         }else if(self.type == 6){
             model.zz_colorLeft([UIColor colorRedForLabel])
             .zz_colorDarkLeft([UIColor colorRedForLabel])
-            .zz_titleLeft(@"校区账号不可短信登录自动注册，如您需要校区账号请联系平台，申请账号");
+            .zz_titleLeft(@"校区端暂未开发注册，如有需要，")
+            .zz_titleRight(@"请申请入驻")
+            .zz_contentSpaceRight(2)
+            .zz_contentSpaceLeft(2)
+            .zz_fontRight([UIFont fontSmall])
+            .zz_colorRight([UIColor colorMain])
+            .zz_colorDarkRight([UIColor colorMain])
+            .zz_alignmentRight(NSTextAlignmentLeft);
         }else if(self.type == 8){
             model.zz_colorLeft([UIColor colorRedForLabel])
             .zz_colorDarkLeft([UIColor colorRedForLabel])
-            .zz_titleLeft(@"机构账号不可短信登录自动注册，如您需要机构账号请联系平台，申请账号");
+            .zz_titleLeft(@"机构端暂未开发注册，如有需要，")
+            .zz_titleRight(@"请申请入驻")
+            .zz_contentSpaceRight(2)
+            .zz_contentSpaceLeft(2)
+            .zz_fontRight([UIFont fontSmall])
+            .zz_colorRight([UIColor colorMain])
+            .zz_colorDarkRight([UIColor colorMain])
+            .zz_alignmentRight(NSTextAlignmentLeft);
         }
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -574,6 +588,15 @@
     }
 }
 
+- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if([cellConfig.title isEqualToString:@"account_title"]){
+       if(self.type == 6 || self.type == 8){
+           ZWebBridgeViewController *webVC = [[ZWebBridgeViewController alloc] init];
+           webVC.url = @"http://apply.xiangcenter.com/mechanism/apply.html";
+           [self.navigationController pushViewController:webVC animated:YES];
+       }
+   }
+}
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
