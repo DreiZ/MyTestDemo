@@ -67,7 +67,7 @@
             .zz_marginLeft(CGFloatIn750(30))
             .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(56)])
-            .zz_titleLeft([NSString stringWithFormat:@"体验价￥%@",self.addModel.experience_price]);
+            .zz_titleLeft([NSString stringWithFormat:@"%@￥%@",self.isOrder ?@"体验价":@"",self.isOrder ?self.addModel.experience_price:self.addModel.price]);
 
             ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:priceModel];
             [self.cellConfigArr addObject:priceCellConfig];
