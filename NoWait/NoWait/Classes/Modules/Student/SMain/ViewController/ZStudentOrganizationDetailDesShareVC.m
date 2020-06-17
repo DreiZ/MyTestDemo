@@ -31,8 +31,7 @@
     
     self.zChain_resetMainView(^{
         self.iTableView.scrollEnabled = NO;
-    });
-    self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         CGFloat cellHeight = 0;
         {
@@ -171,9 +170,7 @@
     });
     self.zChain_reload_ui();
     
-    
     [self setCoverImageView];
-    
     [self showShare];
 }
 

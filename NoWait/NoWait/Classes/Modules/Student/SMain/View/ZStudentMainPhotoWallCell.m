@@ -109,7 +109,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2, CGFloatIn750(140));
+    return CGSizeMake((KScreenWidth-CGFloatIn750(60))/2-1, CGFloatIn750(140));
 }
 
 #pragma mark 类型
