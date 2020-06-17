@@ -41,6 +41,7 @@
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(60))
             .zz_marginLeft(CGFloatIn750(70))
+            .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldFontContent])
             .zz_titleRight(@"似锦APP")
             .zz_alignmentRight(NSTextAlignmentRight)
@@ -53,17 +54,20 @@
             
             cellHeight = cellHeight + CGFloatIn750(60);
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(58))];
+            
             cellHeight = cellHeight + CGFloatIn750(58);
-            ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareImageCell className] title:@"image" showInfoMethod:@selector(setImage:) heightOfCell:CGFloatIn750(360) cellType:ZCellTypeClass dataModel:self.detailModel.image];
+            
+            ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareImageCell className] title:@"image" showInfoMethod:@selector(setImage:) heightOfCell:KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280) cellType:ZCellTypeClass dataModel:self.detailModel.image];
             [self.cellConfigArr addObject:imageCellConfig];
             
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
-            cellHeight = cellHeight + CGFloatIn750(360);
+            cellHeight = cellHeight + (KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280));
             cellHeight = cellHeight + CGFloatIn750(40);
             
             ZLineCellModel *priceModel = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(60))
             .zz_marginLeft(CGFloatIn750(30))
+            .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(36)])
             .zz_titleLeft([NSString stringWithFormat:@"%@",self.detailModel.name]);
             
@@ -128,6 +132,7 @@
             .zz_cellHeight(CGFloatIn750(60))
             .zz_marginLeft(CGFloatIn750(30))
             .zz_leftMultiLine(YES)
+            .zz_lineHidden(YES)
             .zz_fontLeft([UIFont fontSmall])
             .zz_colorLeft([UIColor colorTextGray])
             .zz_colorDarkLeft([UIColor colorTextGrayDark])
@@ -141,6 +146,7 @@
             ZLineCellModel *numModel = ZLineCellModel.zz_lineCellModel_create(@"num")
             .zz_cellHeight(CGFloatIn750(40))
             .zz_marginLeft(CGFloatIn750(30))
+            .zz_lineHidden(YES)
             .zz_colorLeft([UIColor colorTextGray])
             .zz_colorDarkLeft([UIColor colorTextGrayDark])
             .zz_fontLeft([UIFont fontSmall])
@@ -152,8 +158,11 @@
             cellHeight = cellHeight + CGFloatIn750(40);
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             cellHeight = cellHeight + CGFloatIn750(20);
-            CGFloat spaceHeigh = KScreenHeight - kTopHeight - cellHeight - CGFloatIn750(140) - CGFloatIn750(160);
             
+            CGFloat spaceHeigh = KScreenHeight - kTopHeight - cellHeight - CGFloatIn750(140) - CGFloatIn750(160);
+            if (spaceHeigh < 0) {
+                spaceHeigh = 1;
+            }
             [self.cellConfigArr addObject:getEmptyCellWithHeight(spaceHeigh)];
             
             ZCellConfig *qrcodeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareQrcodeCell className] title:@"qrcode" showInfoMethod:@selector(setImage:) heightOfCell:CGFloatIn750(140) cellType:ZCellTypeClass dataModel:nil];
@@ -198,7 +207,7 @@
     [self.view addSubview:rightImageView];
     [rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.iTableView.mas_right).offset(-CGFloatIn750(34));
-        make.top.equalTo(self.iTableView.mas_top).offset(CGFloatIn750(60 + 58 + 360 + 80));
+        make.top.equalTo(self.iTableView.mas_top).offset(CGFloatIn750(60 + 58 +  80)+(KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280)));
         make.width.mas_equalTo(CGFloatIn750(112));
         make.height.mas_equalTo(CGFloatIn750(130));
     }];
