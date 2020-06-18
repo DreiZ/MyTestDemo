@@ -216,11 +216,23 @@
         self.contImageView.hidden = YES;
         self.leftImageView.hidden = NO;
     }else if ([image isKindOfClass:[UIImage class]]) {
-        self.contImageView.image = image;
+//        self.contImageView.image = image;
+        [LKUIUtils doubleAnimaitonWithImageView:self.contImageView toImage:image duration:0.8 animations:^{
+            
+        } completion:^{
+            
+        }];
     }else if ([image isKindOfClass:[NSString class]]){
         NSString *temp = image;
         if (temp.length > 0) {
-            [self.contImageView tt_setImageWithURL:[NSURL URLWithString:temp]];
+            [LKUIUtils downloadShareImage:SafeStr(temp) complete:^(UIImage *image) {
+                [LKUIUtils doubleAnimaitonWithImageView:self.contImageView toImage:image duration:0.8 animations:^{
+                    
+                } completion:^{
+                    
+                }];
+            }];
+//            [self.contImageView tt_setImageWithURL:[NSURL URLWithString:temp]];
         }else{
             self.contImageView.hidden = YES;
             self.leftImageView.hidden = NO;

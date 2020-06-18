@@ -174,7 +174,20 @@
     
     if (model.data) {
         if (model.data && [model.data isKindOfClass:[NSString class]] && ((NSString *)model.data).length > 0) {
-            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.data)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+//            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.data)] placeholderImage:[UIImage imageNamed:@"default_head"]];
+         
+            if (ValidStr(model.data)) {
+                [LKUIUtils downloadShareImage:SafeStr(model.data) complete:^(UIImage *image) {
+                    if (!image) {
+                        image = [UIImage imageNamed:@"default_head"];
+                    }
+                    [LKUIUtils doubleAnimaitonWithImageView:self.rightImageView toImage:image duration:0.8 animations:^{
+                        
+                    } completion:^{
+                        
+                    }];
+                }];
+            }
             
             self.rightImageView.hidden = NO;
         }else if (model.data && [model.data isKindOfClass:[UIImage class]] ){
