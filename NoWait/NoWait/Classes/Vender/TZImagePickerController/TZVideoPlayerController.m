@@ -27,6 +27,8 @@
     UIStatusBarStyle _originStatusBarStyle;
 }
 @property (assign, nonatomic) BOOL needShowStatusBar;
+// iCloud无法同步提示UI
+@property (nonatomic, strong) UIView *iCloudErrorView;
 @end
 
 #pragma clang diagnostic push
@@ -54,14 +56,21 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    if (self.needShowStatusBar) {
+        [UIApplication sharedApplication].statusBarHidden = NO;
+    }
     [UIApplication sharedApplication].statusBarStyle = _originStatusBarStyle;
 }
 
 - (void)configMoviePlayer {
     [[TZImageManager manager] getPhotoWithAsset:_model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        if (!photo && [info[PHImageResultIsInCloudKey] boolValue]) {
+            self.iCloudErrorView.hidden = NO;
+        }
         if (!isDegraded && photo) {
             self->_cover = photo;
             self->_doneButton.enabled = YES;
+            self.iCloudErrorView.hidden = YES;
         }
     }];
     [[TZImageManager manager] getVideoWithAsset:_model.asset completion:^(AVPlayerItem *playerItem, NSDictionary *info) {
@@ -140,7 +149,8 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    CGFloat statusBarHeight = [TZCommonTools tz_statusBarHeight];
+    BOOL isFullScreen = self.view.tz_height == [UIScreen mainScreen].bounds.size.height;
+    CGFloat statusBarHeight = isFullScreen ? [TZCommonTools tz_statusBarHeight] : 0;
     CGFloat statusBarAndNaviBarHeight = statusBarHeight + self.navigationController.navigationBar.tz_height;
     _playerLayer.frame = self.view.bounds;
     CGFloat toolBarHeight = [TZCommonTools tz_isIPhoneX] ? 44 + (83 - 49) : 44;
@@ -209,6 +219,26 @@
     if (self.needShowStatusBar) {
         [UIApplication sharedApplication].statusBarHidden = NO;
     }
+}
+
+#pragma mark - lazy
+- (UIView *)iCloudErrorView{
+    if (!_iCloudErrorView) {
+        _iCloudErrorView = [[UIView alloc] initWithFrame:CGRectMake(0, [TZCommonTools tz_isIPhoneX] ? 88 : 64, self.view.tz_width, 28)];
+        UIImageView *icloud = [[UIImageView alloc] init];
+        icloud.image = [UIImage tz_imageNamedFromMyBundle:@"iCloudError"];
+        icloud.frame = CGRectMake(10, 0, 28, 28);
+        [_iCloudErrorView addSubview:icloud];
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(40, 0, self.view.tz_width - 50, 28);
+        label.font = [UIFont systemFontOfSize:10];
+        label.textColor = [UIColor whiteColor];
+        label.text = [NSBundle tz_localizedStringForKey:@"iCloud sync failed"];
+        [_iCloudErrorView addSubview:label];
+        [self.view addSubview:_iCloudErrorView];
+        _iCloudErrorView.hidden = YES;
+    }
+    return _iCloudErrorView;
 }
 
 - (void)dealloc {

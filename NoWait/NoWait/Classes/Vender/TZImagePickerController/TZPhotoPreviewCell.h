@@ -26,6 +26,7 @@
 
 @property (nonatomic, assign) BOOL allowCrop;
 @property (nonatomic, assign) CGRect cropRect;
+@property (nonatomic, assign) BOOL scaleAspectFillCrop;
 
 - (void)recoverSubviews;
 
@@ -37,10 +38,11 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *imageContainerView;
 @property (nonatomic, strong) TZProgressView *progressView;
+@property (nonatomic, strong) UIView *iCloudErrorView; // iCloud加载失败提示View
 
 @property (nonatomic, assign) BOOL allowCrop;
 @property (nonatomic, assign) CGRect cropRect;
-
+@property (nonatomic, assign) BOOL scaleAspectFillCrop;
 @property (nonatomic, strong) TZAssetModel *model;
 @property (nonatomic, strong) id asset;
 @property (nonatomic, copy) void (^singleTapGestureBlock)(void);

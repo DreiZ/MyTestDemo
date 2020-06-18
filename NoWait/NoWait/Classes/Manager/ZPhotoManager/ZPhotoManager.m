@@ -127,7 +127,7 @@ static ZPhotoManager *sharedPhotoManager;
 }
 
 - (void)showCropOriginalSelectMenuWithCropSize:(CGSize)cropSize complete:(LLSelecttImageBackBlock)complete {
-    _type = LLImageTypePhotoAndCamera;
+    _type = LLImageTypeAll;
     _allowCrop = YES;
     _showSelectBtn = NO;
     _cropRect = CGRectMake((KScreenWidth - cropSize.width)/2.0, (KScreenHeight - cropSize.height)/2.0, cropSize.width, cropSize.height);

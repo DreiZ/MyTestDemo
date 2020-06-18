@@ -172,7 +172,7 @@
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 if (ValidClass(weakSelf.addModel.image, [UIImage class]) || ValidStr(weakSelf.addModel.image)) {
-                    [[ZPhotoManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
+                    [[ZImagePickerManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
                 }
             }else{
                 ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];

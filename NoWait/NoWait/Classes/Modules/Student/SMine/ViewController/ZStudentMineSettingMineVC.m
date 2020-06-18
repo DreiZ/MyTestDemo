@@ -14,7 +14,7 @@
 #import "ZOriganizationViewModel.h"
 #import "ZAlertDataSinglePickerView.h"
 #import "ZStudentMineSettingUserHeadImageCell.h"
-
+#import "ZVideoPlayerManager.h"
 @interface ZStudentMineSettingMineVC ()
 @property (nonatomic,strong) id avterImage;
 @property (nonatomic,strong) ZUser *user;
@@ -63,19 +63,20 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
          if ([cellConfig.title isEqualToString:@"头像"]){
-            [ZPhotoManager sharedManager].maxImageSelected = 1;
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
-                if (list && list.count > 0) {
-                    weakSelf.avterImage = list[0].image;
-                    weakSelf.zChain_reload_ui();
-                    
-                    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"5",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
-                        if (isSuccess) {
-                            [weakSelf updateUserInfo:@{@"image":SafeStr(data)}];
-                        }
-                    }];
-                }
-            }];
+             [[ZImagePickerManager sharedManager] setAvatarSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                 if (list && list.count > 0) {
+//                      weakSelf.avterImage = list[0].image;
+//                      weakSelf.zChain_reload_ui();
+                      ZImagePickerModel *model = list[0];
+                     [TLUIUtility showLoading:@"上传中"];
+                      [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"5",@"imageKey":@{@"file":model.image}} completeBlock:^(BOOL isSuccess, id data) {
+                         if (isSuccess) {
+                             [weakSelf updateUserInfo:@{@"image":SafeStr(data)}];
+                         }
+                          [TLUIUtility hiddenLoading];
+                      }];
+                  }
+             }];
          }else if([cellConfig.title isEqualToString:@"昵称"]){
              ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
              edit.text = weakSelf.user.nikeName;

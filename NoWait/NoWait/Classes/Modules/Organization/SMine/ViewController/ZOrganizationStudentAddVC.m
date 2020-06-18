@@ -449,9 +449,9 @@
         ZOriganizationTeachAddHeadImageCell *lcell = (ZOriganizationTeachAddHeadImageCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [self.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth*0.6, KScreenWidth*0.6) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setAvatarSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0) {
-                    LLImagePickerModel *model = list[0];
+                    ZImagePickerModel *model = list[0];
                     weakSelf.viewModel.addModel.image = model.image;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
@@ -497,16 +497,14 @@
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         tCell.seeBlock = ^(NSInteger index) {
-            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
+            [[ZImagePickerManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
         } ;
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.addModel.images_list.count;
-                
-                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - weakSelf.viewModel.addModel.images_list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                     if (list && list.count > 0){;
-                        for (LLImagePickerModel *model in list) {
+                        for (ZImagePickerModel *model in list) {
 //                            [weakSelf.uploadArr addObject:model.image];
                             [weakSelf.viewModel.addModel.images_list addObject:model.image];
                         }

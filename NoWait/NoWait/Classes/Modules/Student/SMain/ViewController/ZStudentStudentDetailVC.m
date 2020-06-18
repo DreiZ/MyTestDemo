@@ -67,7 +67,7 @@
         if ([cellConfig.title isEqualToString:@"ZStudentImageCollectionCell"]){
             ZStudentImageCollectionCell *lcell = (ZStudentImageCollectionCell *)cell;
             lcell.menuBlock = ^(NSInteger index) {
-                [[ZPhotoManager sharedManager] showBrowser:weakSelf.addModel.images_list withIndex:index];
+                [[ZImagePickerManager sharedManager] showBrowser:weakSelf.addModel.images_list withIndex:index];
             };
         }
     });

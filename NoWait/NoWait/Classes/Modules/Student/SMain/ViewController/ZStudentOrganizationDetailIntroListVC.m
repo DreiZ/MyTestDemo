@@ -89,7 +89,7 @@
         ZOriganizationPhotoTypeListModel *model = self.list[i];
         [temp addObject:model.images_url];
     }
-    [[ZPhotoManager sharedManager] showBrowser:temp withIndex:indexPath.row];
+    [[ZImagePickerManager sharedManager] showBrowser:temp withIndex:indexPath.row];
 }
 
 

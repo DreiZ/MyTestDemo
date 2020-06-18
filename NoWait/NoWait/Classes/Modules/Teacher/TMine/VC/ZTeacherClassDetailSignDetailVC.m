@@ -197,13 +197,13 @@
         
         ViewRadius(_navRightBtn, CGFloatIn750(25));
         [_navRightBtn bk_addEventHandler:^(id sender) {
-            [[ZPhotoManager sharedManager] showOriginalSelectMenuWithType:LLImageTypeCamera complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:1 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     weakSelf.avterImage = list[0].image;
                     if (weakSelf.avterImage) {
                         [ZAlertImageView setAlertWithTitle:@"小提示" subTitle:@"确定上传此签到照片？" image:weakSelf.avterImage leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
                             if (index == 1) {
-                                 [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"10",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
+                                 [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"9",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
                                    if (isSuccess) {
                                        [weakSelf updateLessonSign:SafeStr(data)];
                                    }else{

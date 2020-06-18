@@ -114,7 +114,7 @@
         [tempImageList addObject:model.data];
     }
     if (tempImageList.count > 0) {
-        [[ZPhotoManager sharedManager] showBrowser:tempImageList withIndex:indexPath.row];
+        [[ZImagePickerManager sharedManager] showBrowser:tempImageList withIndex:indexPath.row];
     }
 }
 

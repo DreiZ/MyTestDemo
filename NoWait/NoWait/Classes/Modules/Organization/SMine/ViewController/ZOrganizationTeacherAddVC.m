@@ -117,6 +117,23 @@
             }
             ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:nameCellConfig];
+            
+            if ([obj[4] isEqualToString:@"cid"]) {
+                NSMutableArray *tempArr = @[].mutableCopy;
+                if (self.viewModel.addModel.cardImageUp) {
+                    [tempArr addObject:self.viewModel.addModel.cardImageUp];
+                }else{
+                    [tempArr addObject:@""];
+                }
+                if (self.viewModel.addModel.cardImageDown) {
+                    [tempArr addObject:self.viewModel.addModel.cardImageDown];
+                }else{
+                    [tempArr addObject:@""];
+                }
+                
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationIDCardCell className] title:@"IDCard" showInfoMethod:@selector(setImages:) heightOfCell:[ZOriganizationIDCardCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:tempArr];
+                [self.cellConfigArr addObject:textCellConfig];
+            }
         }
     }];
     
@@ -512,9 +529,9 @@
         ZOriganizationTeachAddHeadImageCell *lcell = (ZOriganizationTeachAddHeadImageCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             [weakSelf.iTableView endEditing:YES];
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth * (0.6), KScreenWidth*(0.6)) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setCropRect:CGSizeMake(KScreenWidth * (0.6), KScreenWidth*(0.6)) SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0) {
-                    LLImagePickerModel *model = list[0];
+                    ZImagePickerModel *model = list[0];
                     weakSelf.viewModel.addModel.image = model.image;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
@@ -525,18 +542,16 @@
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         
         tCell.seeBlock = ^(NSInteger index) {
-            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
+            [[ZImagePickerManager sharedManager] showBrowser:weakSelf.viewModel.addModel.images_list withIndex:index];
         } ;
         
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [ZPhotoManager sharedManager].maxImageSelected = 9 - weakSelf.viewModel.addModel.images_list.count;
-                
-                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                [[ZImagePickerManager sharedManager] setImagesWithMaxCount: 9 - weakSelf.viewModel.addModel.images_list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                     if (list && list.count > 0){;
-                        for (LLImagePickerModel *model in list) {
-//                            [weakSelf.uploadArr addObject:model.image];
+                        for (ZImagePickerModel *model in list) {
+    //                            [weakSelf.uploadArr addObject:model.image];
                             [weakSelf.viewModel.addModel.images_list addObject:model.image];
                         }
                         [weakSelf initCellConfigArr];
@@ -564,9 +579,9 @@
         lcell.handleBlock = ^(NSInteger index) {
             [weakSelf.iTableView endEditing:YES];
             if (!weakSelf.isEdit) {
-                [[ZPhotoManager sharedManager] showIDCropOriginalSelectMenuWithCropSize:CGSizeMake(CGFloatIn750(720), CGFloatIn750(452)) complete:^(NSArray<LLImagePickerModel *> *list) {
+                [[ZImagePickerManager sharedManager] setCardIDSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                     if (list && list.count > 0) {
-                        LLImagePickerModel *model = list[0];
+                        ZImagePickerModel *model = list[0];
                         if (index == 0) {
                             weakSelf.viewModel.addModel.cardImageUp = model.image;
                         }

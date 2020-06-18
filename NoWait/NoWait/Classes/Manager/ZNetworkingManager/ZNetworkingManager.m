@@ -193,10 +193,14 @@
     NSDictionary *newParams = [ZNetworkingManager getPostParamsWithUrl:path params:params];
     NSString *newUrl = [ZNetworkingManager getMUrl:path serverType:serverType];
     BAFileDataEntity *entity = [[BAFileDataEntity alloc] init];
-    entity.filePath = newUrl;
+    
     entity.urlString = newUrl;
     if (newParams && [newParams objectForKey:@"fileName"]) {
         entity.fileName = newParams[@"fileName"];
+    }
+    
+    if (newParams && [newParams objectForKey:@"filePath"]) {
+        entity.filePath = newParams[@"filePath"];
     }
     
     return [BANetManager ba_request_POSTWithEntity:entity successBlock:^(id responseObject) {

@@ -339,9 +339,9 @@
     }else if ([cellConfig.title isEqualToString:@"ZOrganizationSwitchSchoolCell"]){
         ZOrganizationSwitchSchoolCell *tCell = (ZOrganizationSwitchSchoolCell *)cell;
         tCell.handleBlock = ^(NSInteger index) {
-            [[ZPhotoManager sharedManager] showCropOriginalSelectMenuWithCropSize:CGSizeMake(KScreenWidth, 2/3.0f * KScreenWidth) complete:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setCropRect:CGSizeMake(KScreenWidth, 2/3.0f * KScreenWidth) SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0) {
-                    LLImagePickerModel *model = list[0];
+                    ZImagePickerModel *model = list[0];
                     weakSelf.model.image = model.image;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];

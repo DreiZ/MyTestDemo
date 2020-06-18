@@ -108,13 +108,11 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            [ZPhotoManager sharedManager].maxImageSelected = 9 - self.list.count;
-            
-            [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0){
                     [weakSelf.uploadArr removeAllObjects];
                     [weakSelf.uploadNetArr removeAllObjects];
-                    for (LLImagePickerModel *model in list) {
+                    for (ZImagePickerModel *model in list) {
                         [weakSelf.uploadArr addObject:model.image];
                     }
                     [weakSelf updatePhotosStep1];
@@ -184,7 +182,7 @@
         [tempList addObject:obj.images_url];
     }];
     
-    [[ZPhotoManager sharedManager] showBrowser:tempList withIndex:indexPath.row];
+    [[ZImagePickerManager sharedManager] showBrowser:tempList withIndex:indexPath.row];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

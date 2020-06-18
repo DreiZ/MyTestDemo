@@ -208,16 +208,14 @@
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]){
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         tCell.seeBlock = ^(NSInteger index) {
-            [[ZPhotoManager sharedManager] showBrowser:weakSelf.viewModel.model.images withIndex:index];
+            [[ZImagePickerManager sharedManager] showBrowser:weakSelf.viewModel.model.images withIndex:index];
         } ;
         tCell.menuBlock = ^(NSInteger index, BOOL isAdd) {
             [weakSelf.iTableView endEditing:YES];
             if (isAdd) {
-                [ZPhotoManager sharedManager].maxImageSelected = 2 - weakSelf.viewModel.model.images.count;
-                
-                [[ZPhotoManager sharedManager] showSelectMenu:^(NSArray<LLImagePickerModel *> *list) {
+                [[ZImagePickerManager sharedManager] setImagesWithMaxCount:2 - weakSelf.viewModel.model.images.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                     if (list && list.count > 0){;
-                        for (LLImagePickerModel *model in list) {
+                        for (ZImagePickerModel *model in list) {
                             [weakSelf.viewModel.model.images addObject:model.image];
                         }
                         [weakSelf initCellConfigArr];

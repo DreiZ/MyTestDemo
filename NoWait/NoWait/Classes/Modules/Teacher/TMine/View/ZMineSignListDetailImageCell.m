@@ -89,7 +89,7 @@
 
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-    [[ZPhotoManager sharedManager] showBrowser:_iCycleScrollView.imageURLStringsGroup withIndex:index];
+    [[ZImagePickerManager sharedManager] showBrowser:_iCycleScrollView.imageURLStringsGroup withIndex:index];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {

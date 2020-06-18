@@ -90,7 +90,7 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonDetailHeaderCell"]) {
         ZOrganizationLessonDetailHeaderCell *lcell = (ZOrganizationLessonDetailHeaderCell *)cell;
         lcell.bannerBlock = ^(ZStudentBannerModel *model, NSInteger index) {
-            [[ZPhotoManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
+            [[ZImagePickerManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
         };
     }
 }
