@@ -8,7 +8,8 @@
 
 #import "ZShortcutMethod.h"
 #import "ZNavigationController.h"
-#import "NSString+LLExtension.h"
+#import <NSString+NormalRegex.h>
+
 static NSInteger color_index = 0;
 
 ZNavigationController *addNavigationController(UIViewController *viewController)
@@ -102,7 +103,7 @@ NSString *imageFullUrl(NSString *url) {
     if (!ValidStr(url)) {
         return @"";
     }
-    if ([url isValidUrl]) {
+    if ([url tt_isValidUrl]) {
         return url;
     }
     return [NSString stringWithFormat:@"%@/%@",URL_file,url];

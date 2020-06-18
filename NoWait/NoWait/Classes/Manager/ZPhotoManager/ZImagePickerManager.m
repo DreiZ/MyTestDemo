@@ -19,7 +19,6 @@
 #import "TZAssetCell.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "LLActionSheetView.h"
 #import "AppDelegate+AppService.h"
 #import "XYTakePhotoController.h"
 #import "MWPhotoBrowser.h"
@@ -413,7 +412,6 @@ static ZImagePickerManager *sharedImagePickerManager;
     if (photos.count == assets.count) {
         for (NSInteger i = 0; i < assets.count; i++) {
             PHAsset *asset = assets[i];
-//
 //            // 图片上传operation，上传代码请写到operation内的start方法里，内有注释
 //            TZImageUploadOperation *operation = [[TZImageUploadOperation alloc] initWithAsset:asset completion:^(UIImage * photo, NSDictionary *info, BOOL isDegraded) {
 //                if (isDegraded) return;
@@ -538,8 +536,6 @@ static ZImagePickerManager *sharedImagePickerManager;
     return YES;
 }
 
-
-
 #pragma mark - <MWPhotoBrowserDelegate>
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
     return self.photos.count;
@@ -551,7 +547,6 @@ static ZImagePickerManager *sharedImagePickerManager;
     }
     return nil;
 }
-
 
 #pragma mark - Click Event
 - (void)setShowTakePhoto:(BOOL)showTakePhoto {
@@ -655,7 +650,6 @@ static ZImagePickerManager *sharedImagePickerManager;
         }else{
             model.imageUrlString = image;
         }
-        
         [tempArr addObject:model];
     }
     
@@ -785,41 +779,35 @@ static ZImagePickerManager *sharedImagePickerManager;
             break;
         case ZImageTypeCardIDFontPhotoAndCamera:
         {
-            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
-            alert.ClickIndex = ^(NSInteger index) {
-                if (index == 1){
+            [self showAlert:@[@"相册",@"相机"] selectBlock:^(NSInteger index) {
+                if (index == 0){
                     [self pushTZImagePickerController];
-                }else if (index == 2){
+                }else if (index == 1){
                     [weakSelf openIDCardCamera:0];
                 }
-            };
-            [alert show];
+            }];
         }
             break;
         case ZImageTypeCardIDBackPhotoAndCamera:
         {
-            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
-            alert.ClickIndex = ^(NSInteger index) {
-                if (index == 1){
+            [self showAlert:@[@"相册",@"相机"] selectBlock:^(NSInteger index) {
+                if (index == 0){
                     [self pushTZImagePickerController];
-                }else if (index == 2){
+                }else if (index == 1){
                     [weakSelf openIDCardCamera:1];
                 }
-            };
-            [alert show];
+            }];
         }
                 break;
         case ZImageTypePhotoAndCamera:
         {
-            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册",@"相机"] andShowCancel: YES];
-            alert.ClickIndex = ^(NSInteger index) {
-                if (index == 1){
+            [self showAlert:@[@"相册",@"相机"] selectBlock:^(NSInteger index) {
+                if (index == 0){
                     [weakSelf pushTZImagePickerController];
-                }else if (index == 2){
+                }else if (index == 1){
                     [weakSelf takePhoto];
                 }
-            };
-            [alert show];
+            }];
             break;
         }
         case ZImageTypeVideoTape:
@@ -830,22 +818,34 @@ static ZImagePickerManager *sharedImagePickerManager;
             break;
         default:
         {
-            LLActionSheetView *alert = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册", @"相机", @"录像", @"视频"] andShowCancel: YES];
-            alert.ClickIndex = ^(NSInteger index) {
-                DLog(@"%zd",index);
-                if (index == 4) {
+            [self showAlert:@[@"相册", @"相机", @"录像", @"视频"] selectBlock:^(NSInteger index) {
+                if (index == 3) {
                     [weakSelf pushTZImagePickerController];
-                }else if (index == 3){
-                    [weakSelf takePhoto];
                 }else if (index == 2){
                     [weakSelf takePhoto];
                 }else if (index == 1){
+                    [weakSelf takePhoto];
+                }else if (index == 0){
                     [weakSelf pushTZImagePickerController];
                 }
-            };
-            [alert show];
+            }];
         }
             break;
     }
+}
+
+- (void)showAlert:(NSArray *)titleArr selectBlock:(void (^)(NSInteger))selectBlock{
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    [titleArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:obj style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            selectBlock(idx);
+        }];
+        [alertController addAction:action];
+    }];
+    
+     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+     [alertController addAction:cancelAction];
+     [[self viewController] presentViewController:alertController animated:YES completion:nil];
 }
 @end
