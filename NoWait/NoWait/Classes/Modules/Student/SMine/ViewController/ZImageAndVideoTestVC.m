@@ -19,8 +19,7 @@
 @implementation ZImageAndVideoTestVC
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
+    [super viewDidLoad];    
 //    NSMutableArray <NSDictionary *>*fileArr = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"compressVideoFolder"];
 //    NSMutableArray <NSDictionary *>*fileArr = [ZFileManager readFileWithPath:[ZFileManager getTmpDirectory] folder:nil];
 //    [fileArr enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

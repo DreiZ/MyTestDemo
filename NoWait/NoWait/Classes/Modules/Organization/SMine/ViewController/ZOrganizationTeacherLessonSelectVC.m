@@ -23,6 +23,7 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+    [self setTableViewRefreshFooter];
     [self refreshData];
 }
 
