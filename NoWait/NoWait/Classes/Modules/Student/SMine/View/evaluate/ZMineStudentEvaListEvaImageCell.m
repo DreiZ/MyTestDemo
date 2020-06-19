@@ -46,10 +46,15 @@
     return _evaImageView;
 }
 
-- (void)setImage:(NSString *)image {
+- (void)setImage:(id)image {
     _image = image;
-    [_evaImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
-//    _evaImageView.image = [UIImage imageNamed:image];
+    if([image isKindOfClass:[UIImage class]]){
+        _evaImageView.image = image;
+    }else if (ValidStr(image) && [image tt_isValidUrl]) {
+        [_evaImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
+    } else if([image isKindOfClass:[NSString class]]){
+        _evaImageView.image = [UIImage imageNamed:image];
+    }
 }
 @end
 

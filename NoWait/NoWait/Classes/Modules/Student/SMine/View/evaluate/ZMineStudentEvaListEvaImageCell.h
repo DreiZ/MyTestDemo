@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMineStudentEvaListEvaImageCell : UICollectionViewCell
-@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) id image;
 
 @end
 

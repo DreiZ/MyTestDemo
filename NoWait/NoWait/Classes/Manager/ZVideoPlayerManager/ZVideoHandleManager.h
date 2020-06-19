@@ -10,6 +10,12 @@
 #import "WYVideoCompressTools.h"
 
 @interface ZVideoHandleManager : NSObject
++ (ZVideoHandleManager *)sharedInstance;
 
+- (void)videoCompressWithSourceVideoPathString:(NSString *)sourceVideoPathString
+                                  CompressType:(NSString *)compressType
+                          CompressSuccessBlock:(SuccessBlock)compressSuccessBlock
+                              CompressFailedBlock:(FailedBlock)compressFailedBlock
+                       CompressNotSupportBlock:(NotSupportBlock)compressNotSupportBlock;
 @end
 

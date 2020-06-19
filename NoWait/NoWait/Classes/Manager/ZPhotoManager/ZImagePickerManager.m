@@ -437,17 +437,24 @@ static ZImagePickerManager *sharedImagePickerManager;
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(PHAsset *)asset {
     _selectedPhotos = [NSMutableArray arrayWithArray:@[coverImage]];
     _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
+    
+    if (_selectedAssets && _selectedPhotos) {
+        [_selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+            model.asset = _selectedAssets[idx];
+            model.image = obj;
+            if (self.imageBackBlock) {
+                self.imageBackBlock(@[model]);
+            }
+        }];
+    }
+    
     // 打开这段代码发送视频
     [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetLowQuality success:^(NSString *outputPath) {
         // NSData *data = [NSData dataWithContentsOfFile:outputPath];
         DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
         // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
-        ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
-        model.asset = asset;
-        model.mediaURL = [NSURL URLWithString:outputPath];
-        if (self.imageBackBlock) {
-            self.imageBackBlock(@[model]);
-        }
+        
     } failure:^(NSString *errorMessage, NSError *error) {
         DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
     }];
@@ -689,6 +696,15 @@ static ZImagePickerManager *sharedImagePickerManager;
     [[self viewController].navigationController pushViewController:browser animated:YES];
 }
 
+- (void)showVideoBrowser:(PHAsset *)asset {
+    // 预览视频
+    TZVideoPlayerController *vc = [[TZVideoPlayerController alloc] init];
+    TZAssetModel *model = [TZAssetModel modelWithAsset:asset type:TZAssetModelMediaTypeVideo timeLength:@""];
+    vc.model = model;
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.viewController presentViewController:vc animated:YES completion:nil];
+}
+
 #pragma mark - 选择图片
 - (void)setVideoWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete{
     self.maxCount = maxCount;
@@ -868,5 +884,18 @@ static ZImagePickerManager *sharedImagePickerManager;
      UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
      [alertController addAction:cancelAction];
      [[self viewController] presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)getVideoOutputPathWith:(PHAsset *)asset success:(void (^)(NSString *))success failure:(void (^)(NSString *, NSError*))failure {
+    // 打开这段代码发送视频
+    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetLowQuality success:^(NSString *outputPath) {
+        // NSData *data = [NSData dataWithContentsOfFile:outputPath];
+        DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+        success(outputPath);
+    } failure:^(NSString *errorMessage, NSError *error) {
+        DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+        failure(errorMessage, error);
+    }];
 }
 @end

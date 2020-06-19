@@ -109,6 +109,8 @@
 		B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */; };
 		B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E82491C49600F828A6 /* LKUIUtils.m */; };
 		B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */; };
+		B2469B5F249C447F00DCB146 /* ZImageAndVideoTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B5E249C447F00DCB146 /* ZImageAndVideoTestVC.m */; };
+		B2469B63249C8D0200DCB146 /* ZFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B62249C8D0200DCB146 /* ZFileManager.m */; };
 		B247A405247E5E4500EF53A9 /* ZNoDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B247A404247E5E4400EF53A9 /* ZNoDataCell.m */; };
 		B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */; };
 		B24BCD242498675900C3D9EA /* ZStudentMainOrganizationExperienceItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24BCD232498675900C3D9EA /* ZStudentMainOrganizationExperienceItemCell.m */; };
@@ -868,6 +870,10 @@
 		B24324E82491C49600F828A6 /* LKUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKUIUtils.m; sourceTree = "<group>"; };
 		B24324EA2491C7C400F828A6 /* HNShowPopViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNShowPopViewHandler.h; sourceTree = "<group>"; };
 		B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNShowPopViewHandler.m; sourceTree = "<group>"; };
+		B2469B5D249C447F00DCB146 /* ZImageAndVideoTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZImageAndVideoTestVC.h; sourceTree = "<group>"; };
+		B2469B5E249C447F00DCB146 /* ZImageAndVideoTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZImageAndVideoTestVC.m; sourceTree = "<group>"; };
+		B2469B61249C8D0200DCB146 /* ZFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFileManager.h; sourceTree = "<group>"; };
+		B2469B62249C8D0200DCB146 /* ZFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFileManager.m; sourceTree = "<group>"; };
 		B247A403247E5E4400EF53A9 /* ZNoDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZNoDataCell.h; sourceTree = "<group>"; };
 		B247A404247E5E4400EF53A9 /* ZNoDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZNoDataCell.m; sourceTree = "<group>"; };
 		B24A29E6248DCE52005BB97C /* ZHitoryLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHitoryLabelCell.h; sourceTree = "<group>"; };
@@ -2285,6 +2291,15 @@
 			path = UIUtils;
 			sourceTree = "<group>";
 		};
+		B2469B60249C8CE400DCB146 /* ZFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				B2469B61249C8D0200DCB146 /* ZFileManager.h */,
+				B2469B62249C8D0200DCB146 /* ZFileManager.m */,
+			);
+			path = ZFileManager;
+			sourceTree = "<group>";
+		};
 		B24D994F23FD17740078A458 /* school */ = {
 			isa = PBXGroup;
 			children = (
@@ -2798,6 +2813,7 @@
 		B2A77E8923BDD8C400407BF0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B2469B60249C8CE400DCB146 /* ZFileManager */,
 				B230F1AD244487FB0084BCC6 /* ZLocationManager */,
 				B2BA39AA24358775005A3FFB /* ZUMengManager */,
 				B2BA397B24349EF3005A3FFB /* ZPayManager */,
@@ -3680,6 +3696,8 @@
 			children = (
 				B2F371DC246B8E7F00678B19 /* ZInvitationFriendVC.h */,
 				B2F371DD246B8E7F00678B19 /* ZInvitationFriendVC.m */,
+				B2469B5D249C447F00DCB146 /* ZImageAndVideoTestVC.h */,
+				B2469B5E249C447F00DCB146 /* ZImageAndVideoTestVC.m */,
 				B2F371B6246B8D9500678B19 /* ZReflectListLogVC.h */,
 				B2F371B4246B8D9500678B19 /* ZReflectListLogVC.m */,
 				B2F371AE246B8D9400678B19 /* ZReflectMoneyVC.h */,
@@ -4963,6 +4981,7 @@
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
 				B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */,
 				B2A77E6023BDC83300407BF0 /* AppDelegate.m in Sources */,
+				B2469B63249C8D0200DCB146 /* ZFileManager.m in Sources */,
 				B22B5A2424483F8D001894BB /* ZOrganizationMineOrderSearchVC.m in Sources */,
 				B24E48FD244FF5D5000FE4F0 /* ZAccountFogetPasswordVC.m in Sources */,
 				B28D9135240766940021E05A /* PGDatePickManager.m in Sources */,
@@ -5069,6 +5088,7 @@
 				B247A405247E5E4500EF53A9 /* ZNoDataCell.m in Sources */,
 				B2A77EC623BDE29E00407BF0 /* MWPhoto.m in Sources */,
 				B230F1B6244581BA0084BCC6 /* ZTeacherLessonDetailListVC.m in Sources */,
+				B2469B5F249C447F00DCB146 /* ZImageAndVideoTestVC.m in Sources */,
 				B2C35053243F3A21002929A8 /* ZOrganizationStudentJionInLessonVC.m in Sources */,
 				B2C3506D2440625D002929A8 /* ZOrganizationSendMessageVC.m in Sources */,
 				B28D91472407677A0021E05A /* ZDatePickerManager.m in Sources */,

@@ -31,13 +31,21 @@ typedef void(^ZSelectImageBackBlock)(NSArray<ZImagePickerModel *> *list);
 //身份证
 - (void)setCardIDSelectMenu:(ZSelectImageBackBlock)complete;
 
+//选择剪切图片\单张
 - (void)setCropRect:(CGSize)cropRect SelectMenu:(ZSelectImageBackBlock)complete;
 
+//选择图片
 - (void)setImagesWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete;
 
-
+//选择视频
 - (void)setVideoWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete;
 
+//展示图片
 - (void)showBrowser:(NSArray*)mediaArray withIndex:(NSInteger)index;
-@end
 
+//播放视频 asset
+- (void)showVideoBrowser:(PHAsset *)asset;
+
+//获取 视频导出到本地沙盒路径为
+- (void)getVideoOutputPathWith:(PHAsset *)asset success:(void (^)(NSString *))success failure:(void (^)(NSString *, NSError*))failure;
+@end

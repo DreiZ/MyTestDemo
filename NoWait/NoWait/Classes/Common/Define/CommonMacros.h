@@ -41,6 +41,8 @@
 #import "NSMutableDictionary+LYNil.h"
 
 #import "ZImagePickerManager.h"
+#import "ZVideoHandleManager.h"
+#import "ZVideoPlayerManager.h"
 #import "DarkModel.h"
 
 #import "ZShortcutMethod.h"

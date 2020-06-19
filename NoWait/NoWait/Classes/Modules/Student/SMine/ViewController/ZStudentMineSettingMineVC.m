@@ -14,7 +14,9 @@
 #import "ZOriganizationViewModel.h"
 #import "ZAlertDataSinglePickerView.h"
 #import "ZStudentMineSettingUserHeadImageCell.h"
-#import "ZVideoPlayerManager.h"
+
+#import "ZImageAndVideoTestVC.h"
+
 @interface ZStudentMineSettingMineVC ()
 @property (nonatomic,strong) id avterImage;
 @property (nonatomic,strong) ZUser *user;
@@ -62,6 +64,9 @@
             }
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+        ZImageAndVideoTestVC *tvc = [[ZImageAndVideoTestVC alloc] init];
+        [self.navigationController pushViewController:tvc animated:YES];
+        return;
          if ([cellConfig.title isEqualToString:@"头像"]){
              [[ZImagePickerManager sharedManager] setAvatarSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                  if (list && list.count > 0) {

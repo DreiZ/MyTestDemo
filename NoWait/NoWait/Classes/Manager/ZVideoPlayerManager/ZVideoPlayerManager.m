@@ -119,20 +119,21 @@ static ZVideoPlayerManager *videoPlayerManager;
         close.layer.masksToBounds = YES;
         close.layer.cornerRadius = CGFloatIn750(35);
         close.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [close setImage:[UIImage imageNamed:@"videoClose"] forState:UIControlStateNormal];
+        [close setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
         [close bk_addEventHandler:^(id sender) {
             [weakSelf.player stop];
             [weakSelf.compressView removeFromSuperview];
         } forControlEvents:UIControlEventTouchUpInside];
         [_compressView addSubview:close];
-//        [close mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.compressView.mas_left).offset(CGFloatIn750(20));
-//            make.top.equalTo(self.compressView.mas_top).offset(CGFloatIn750(-60)+kTopHeight);
-//            make.width.height.mas_equalTo(CGFloatIn750(70));
-//        }];
+        [close mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.compressView.mas_left).offset(CGFloatIn750(20));
+            make.top.equalTo(self.compressView.mas_top).offset(CGFloatIn750(-60)+kTopHeight);
+            make.width.height.mas_equalTo(CGFloatIn750(70));
+        }];
         
         
-        _sourceVideoSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
+        _sourceVideoSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kTopHeight, 160, 20)];
+        _sourceVideoSizeLabel.backgroundColor = [UIColor redColor];
         [_compressView addSubview:_sourceVideoSizeLabel];
        
         _compressVideoSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (kScreenHeight - 64) / 2.0, 160, 20)];
@@ -140,7 +141,7 @@ static ZVideoPlayerManager *videoPlayerManager;
         
         [_compressView addSubview:_compressVideoSizeLabel];
     }
-    return _playerView;
+    return _compressView;
 }
 
 - (void)compressVideoWithUrl:(NSString *)url oldUrl:(NSString *)oldUrl
@@ -151,30 +152,28 @@ static ZVideoPlayerManager *videoPlayerManager;
     if (_videoPlayer2) {
         [_videoPlayer2 pause];
     }
-    
-    [_playerLayer1 removeFromSuperlayer];
-    [_playerLayer2 removeFromSuperlayer];
-    _videoPlayer1 = nil;
-    _videoPlayer2 = nil;
-    _playerLayer1 = nil;
-    _playerLayer2 = nil;
+//
+//    [_playerLayer1 removeFromSuperlayer];
+//    [_playerLayer2 removeFromSuperlayer];
+//    _videoPlayer1 = nil;
+//    _videoPlayer2 = nil;
+//    _playerLayer1 = nil;
+//    _playerLayer2 = nil;
     
     // 播放效果对比
     NSURL *sourceVideoUrl = [NSURL fileURLWithPath:oldUrl];
     _videoPlayer1 = [AVPlayer playerWithURL:sourceVideoUrl];
     _playerLayer1 = [AVPlayerLayer playerLayerWithPlayer:_videoPlayer1];
-    _playerLayer1.backgroundColor = [UIColor redColor].CGColor;
-    _playerLayer1.frame = CGRectMake(0, 0, kScreenWidth, (kScreenHeight - 64) / 2.0);
+    _playerLayer1.frame = CGRectMake(0, kTopHeight+40, kScreenWidth, (kScreenHeight - 264) / 2.0);
     [self.compressView.layer addSublayer:_playerLayer1];
 
     NSURL *compressVideoUrl = [NSURL fileURLWithPath:url];
     _videoPlayer2 = [AVPlayer playerWithURL:compressVideoUrl];
     _playerLayer2 = [AVPlayerLayer playerLayerWithPlayer:_videoPlayer2];
-    _playerLayer2.backgroundColor = [UIColor orangeColor].CGColor;
-    _playerLayer2.frame = CGRectMake(0, (kScreenHeight - 64) / 2.0, kScreenWidth, (kScreenHeight - 64) / 2.0);
+    _playerLayer2.frame = CGRectMake(0, (kScreenHeight - 264) / 2.0 + 40, kScreenWidth, (kScreenHeight - 264) / 2.0);
     [self.compressView.layer addSublayer:_playerLayer2];
-    
-
+    [self.compressView addSubview:_compressVideoSizeLabel];
+    [self.compressView addSubview:_sourceVideoSizeLabel];
     
     // 文件大小对比
     NSData *sourceVideoData = [NSData dataWithContentsOfFile:oldUrl];
@@ -187,12 +186,15 @@ static ZVideoPlayerManager *videoPlayerManager;
     
     self.compressView.alpha = 0;
     self.compressView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-    [[AppDelegate shareAppDelegate].window addSubview:self.compressView];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.compressView.alpha = 1;
-        self.compressView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-        [self.videoPlayer1 play];
-        [self.videoPlayer2 play];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AppDelegate shareAppDelegate].window addSubview:self.compressView];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.compressView.alpha = 1;
+            self.compressView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+            [self.videoPlayer1 play];
+            [self.videoPlayer2 play];
+        }];
+    });
+    DLog(@"---file  %@  \n %@",sourceVideoUrl, compressVideoUrl);
 }
 @end
