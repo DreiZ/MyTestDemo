@@ -640,6 +640,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     }
 }
 
+#pragma mark - 浏览图片
 - (void)showBrowser:(NSArray*)mediaArray withIndex:(NSInteger)index {
     NSMutableArray *tempArr = @[].mutableCopy;
     
@@ -688,6 +689,22 @@ static ZImagePickerManager *sharedImagePickerManager;
     [[self viewController].navigationController pushViewController:browser animated:YES];
 }
 
+#pragma mark - 选择图片
+- (void)setVideoWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete{
+    self.maxCount = maxCount;
+    self.allowPickingImage = NO;
+    self.allowPickingVideo = YES;
+    _type = ZImageTypeVideo;
+    
+    self.showTakePhoto = NO;
+    self.showTakeVideo = YES;
+    
+    [_selectedAssets removeAllObjects];
+    [_selectedPhotos removeAllObjects];
+    
+    [self setSelectMenu:complete];
+}
+
 #pragma clang diagnostic pop
 - (void)setCropRect:(CGSize)cropRect SelectMenu:(ZSelectImageBackBlock)complete {
     self.maxCount = 1;
@@ -700,6 +717,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     self.showTakeVideo = NO;
     self.allowCrop = YES;
     self.cropRect = cropRect;
+    self.allowPickingOriginalPhoto = NO;
     
     [_selectedAssets removeAllObjects];
     [_selectedPhotos removeAllObjects];
@@ -718,6 +736,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     self.showTakeVideo = NO;
     self.allowCrop = YES;
     self.cropRect = CGSizeMake(CGFloatIn750(720), CGFloatIn750(452));
+    self.allowPickingOriginalPhoto = NO;
     
     [_selectedAssets removeAllObjects];
     [_selectedPhotos removeAllObjects];
@@ -736,6 +755,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     self.showTakeVideo = NO;
     self.allowCrop = YES;
     self.cropRect = CGSizeMake(KScreenWidth - 60, KScreenWidth - 60);
+    self.allowPickingOriginalPhoto = NO;
     
     [_selectedAssets removeAllObjects];
     [_selectedPhotos removeAllObjects];
@@ -753,6 +773,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     self.showTakePhoto = YES;
     self.showTakeVideo = NO;
     self.allowCrop = NO;
+    self.allowPickingOriginalPhoto = NO;
     
     [_selectedAssets removeAllObjects];
     [_selectedPhotos removeAllObjects];

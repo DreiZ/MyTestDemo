@@ -36,8 +36,7 @@ typedef void(^ZSelectImageBackBlock)(NSArray<ZImagePickerModel *> *list);
 - (void)setImagesWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete;
 
 
-- (void)setSelectMenu:(ZSelectImageBackBlock)complete;
-
+- (void)setVideoWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete;
 
 - (void)showBrowser:(NSArray*)mediaArray withIndex:(NSInteger)index;
 @end
