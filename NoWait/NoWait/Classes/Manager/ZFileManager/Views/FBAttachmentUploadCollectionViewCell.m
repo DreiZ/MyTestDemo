@@ -128,12 +128,14 @@ extern NSInteger const kAttachmentPhotoMaxNumber;
             [self showCleanIcon:NO];
             [self configCellProgress:1.0f * nowProcress/totalProcress];
             [self updateState];
+            NSLog(@"-------progressBlock");
         };
         
         taskModel.completeBlock = ^(id obj) {
             [self showCleanIcon:YES];
             [self showProgress:NO];
             [self updateState];
+            NSLog(@"-------completeBlock");
         };
         
         taskModel.errorBlock = ^(NSError *error) {

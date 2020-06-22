@@ -233,7 +233,8 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    if ([ZLocationManager shareManager].cureUserLocation) {
+    
+    if ([ZLocationManager shareManager].cureUserLocation.location) {
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
     }

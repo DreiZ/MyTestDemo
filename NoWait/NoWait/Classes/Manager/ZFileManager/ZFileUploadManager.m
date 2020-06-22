@@ -45,6 +45,12 @@ static ZFileUploadManager *fileUploadManager;
     [[ZFileUploadManager sharedInstance].taskModelList insertObject:taskData atIndex:0];
 }
 
++ (void)addTaskDatasToUploadWith:(NSArray <ZFileUploadDataModel *>*)taskData_list {
+    for (int i = 0; i < taskData_list.count; i++) {
+        [[ZFileUploadManager sharedInstance].taskModelList insertObject:taskData_list[i] atIndex:0];
+    }
+}
+
 //添加task 到队列
 + (void)addTaskToUploadWith:(ZFileUploadTask *)task {
     [[ZFileUploadManager sharedInstance].taskList insertObject:task atIndex:0];
@@ -156,17 +162,24 @@ static ZFileUploadManager *fileUploadManager;
 /**
 异步并行上传多张图片（用常量监控上传）
 */
-- (void)asyncConcurrentConstUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray {
+- (void)asyncConcurrentConstUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray uploading:(void (^)(CGFloat p, NSInteger index))uploading completion:(void (^)(id))completion {
 
     self.uploading = YES;
-    [ZFileUploadManager asyncConcurrentConstUploadArray:dataArray uploading:nil completion:^(id obj) {
+    [ZFileUploadManager asyncConcurrentConstUploadArray:dataArray uploading:^(CGFloat p, NSInteger index) {
+        if (uploading) {
+            uploading(p, index);
+        }
+    } completion:^(id obj) {
         self.uploading = NO;
         DLog(@"异步并行(常量)-所有的任务都完成了...");
+        if (completion) {
+            completion(obj);
+        }
     }];
 }
 
 
-+ (void)asyncConcurrentConstUploadArray:(NSArray<ZFileUploadDataModel *> *)modelArray uploading:(void (^)(void))uploading completion:(void (^)(id))completion {
++ (void)asyncConcurrentConstUploadArray:(NSArray<ZFileUploadDataModel *> *)modelArray uploading:(void (^)(CGFloat p, NSInteger index))uploading completion:(void (^)(id))completion {
     
     if (!modelArray || modelArray.count<1) {
         return ;
@@ -174,25 +187,30 @@ static ZFileUploadManager *fileUploadManager;
     
     NSAssert((modelArray && modelArray.count>0), @"图片model数组nil");
     
-    void (^endBlock)(int32_t) = ^(int32_t x){
+    NSMutableArray *dataArr = @[].mutableCopy;
+    void (^endBlock)(int32_t,id) = ^(int32_t x, id obj){
+        if (obj) {
+            [dataArr addObject:obj];
+        }
         if (x == 1) {
-            if (completion) { completion(nil); }
+            if (completion) { completion(dataArr); }
         }
     };
     
-    for (ZFileUploadDataModel *model in modelArray) {
+    for (int i = 0; i < modelArray.count; i++) {
+        ZFileUploadDataModel *model = modelArray[i];
         if (!model.image) { continue; }
         if (model.taskState != ZUploadStateWaiting) { continue; }
         
         OSAtomicIncrement32(&_longInt);
         ZFileUploadTask *task = [ZFileUploadManager asyncConcurrentUploadWithModel:model Success:^(id obj) {
             OSAtomicDecrement32(&_longInt);
-            endBlock(_longInt);
+            endBlock(_longInt, obj);
         } progress:^(int64_t p, int64_t a) {
-            if (uploading) { uploading(); }
+            if (uploading) { uploading(1.0 *p/a, i); }
         } failure:^(NSError *error) {
             OSAtomicDecrement32(&_longInt);
-            endBlock(_longInt);
+            endBlock(_longInt,nil);
         }];
         
         [[ZFileUploadManager sharedInstance].taskList addObject:task];
@@ -204,14 +222,19 @@ static ZFileUploadManager *fileUploadManager;
  异步并行
  上传图片-用dispatch_group监控所有上传完成动作-缺点是不能实时往group里添加任务
  */
-- (void)asyncConcurrentGroupUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray {
+- (void)asyncConcurrentGroupUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray uploading:(void(^)(CGFloat p, NSInteger index))uploading completion:(void (^)(id))completion {
     self.uploading = YES;
-    [ZFileUploadManager asyncConcurrentGroupUploadArray:dataArray uploading:^{
-    
+    [ZFileUploadManager asyncConcurrentGroupUploadArray:dataArray uploading:^(CGFloat p, NSInteger index) {
+        if (uploading) {
+            uploading(p, index);
+        }
     } completion:^(id obj) {
         DLog(@"异步并行(dispatch_group)-所有的任务都完成了...");
         self.uploading = NO;
-    }];
+        if (completion) {
+            completion(obj);
+        }
+    } ];
 }
 
 
@@ -221,7 +244,7 @@ static ZFileUploadManager *fileUploadManager;
  @param uploading 上传中的状态回调
  @param completion 上传完成回调
  */
-+ (void)asyncConcurrentGroupUploadArray:(NSArray<ZFileUploadDataModel *> *)modelArray uploading:(void(^)(void))uploading completion:(void (^)(id))completion {
++ (void)asyncConcurrentGroupUploadArray:(NSArray<ZFileUploadDataModel *> *)modelArray uploading:(void(^)(CGFloat p, NSInteger index))uploading completion:(void (^)(id))completion {
     
     if (!modelArray || modelArray.count<1) {
         return;
@@ -231,7 +254,8 @@ static ZFileUploadManager *fileUploadManager;
     //创建group
     dispatch_group_t uploadGroup = dispatch_group_create();
     
-    for (ZFileUploadDataModel *model in modelArray) {
+    for (int i = 0; i < modelArray.count; i++) {
+        ZFileUploadDataModel *model = modelArray[i];
         if (!model.image) { continue; }
         if (model.taskState != ZUploadStateWaiting) { continue; }
         
@@ -241,7 +265,7 @@ static ZFileUploadManager *fileUploadManager;
         ZFileUploadTask *task = [ZFileUploadManager asyncConcurrentUploadWithModel:model Success:^(id obj) {
             dispatch_group_leave(uploadGroup);
         } progress:^(int64_t p, int64_t a) {
-            
+            if (uploading) { uploading(1.0*p/a, i); }
         } failure:^(NSError *error) {
             dispatch_group_leave(uploadGroup);
         }];

@@ -68,9 +68,9 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     }
     
     [self showLoadingAnimation];
-    //异步串行
+//    //异步串行
     [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
-        
+
     } completion:^(id obj) {
         if (obj && [obj isKindOfClass:[NSArray class]]) {
             NSArray *arr = obj;
@@ -84,10 +84,11 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
                     }
                 }
             }
-            
+
             [self updateData:images];
         }
     }];
+//    asyncConcurrentGroupUpload asyncConcurrentConstUpload
 }
 
 - (void)setMainView {

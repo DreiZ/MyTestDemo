@@ -280,44 +280,61 @@
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"progress----%f",1.0f * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount);
+            DLog(@"progress----%f",1.0f * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount);
             task.progress = 1.0f * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount;
             progress(uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+            if (fileModel.progressBlock) {
+                fileModel.progressBlock(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+            }
         });
-        
     } success:^(NSURLSessionDataTask * task, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             DLog(@"return data *** %@", responseObject);
-                if (ValidDict(responseObject)) {
-                    ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
-                    
-                    if (backModel && backModel.code) {
-                        if ([backModel.code integerValue] == 0) {
-                            fileModel.taskState = ZUploadStateFinished;
-                            success(backModel);
-                        }else{
-                            NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
-            
-                            if (!backModel.message) {
-                                backModel.message = @"获取服务器数据错误";
-                            }
-                            fileModel.taskState = ZUploadStateError;
-                            failure(error);
+            if (ValidDict(responseObject)) {
+                ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
+                
+                if (backModel && backModel.code) {
+                    if ([backModel.code integerValue] == 0) {
+                        fileModel.taskState = ZUploadStateFinished;
+                        if (fileModel.completeBlock) {
+                            fileModel.completeBlock(backModel);
                         }
+                        success(backModel);
                     }else{
-                        NSError *error = [[NSError alloc] initWithDomain:@"888888" code:[@"888888" integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+                        NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+        
+                        if (!backModel.message) {
+                            backModel.message = @"获取服务器数据错误";
+                        }
                         fileModel.taskState = ZUploadStateError;
+                        if (fileModel.errorBlock) {
+                            fileModel.errorBlock(error);
+                        }
                         failure(error);
                     }
                 }else{
-                    NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+                    NSError *error = [[NSError alloc] initWithDomain:@"888888" code:[@"888888" integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
                     fileModel.taskState = ZUploadStateError;
+                    if (fileModel.errorBlock) {
+                        fileModel.errorBlock(error);
+                    }
                     failure(error);
                 }
+            }else{
+                NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+                fileModel.taskState = ZUploadStateError;
+                if (fileModel.errorBlock) {
+                    fileModel.errorBlock(error);
+                }
+                failure(error);
+            }
         });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (fileModel.errorBlock) {
+                fileModel.errorBlock(error);
+            }
             failure(error);
         });
     }];
