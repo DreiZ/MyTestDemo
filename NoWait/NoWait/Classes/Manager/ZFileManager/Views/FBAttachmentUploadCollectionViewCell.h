@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FBUploadTool.h"
+
 #import "ZFileUploadTask.h"
 
 @class FBAttachmentUploadCollectionViewCell;

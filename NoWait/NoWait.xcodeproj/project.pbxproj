@@ -117,8 +117,6 @@
 		B2469B6F249CB83A00DCB146 /* ZFileUploadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B6E249CB83A00DCB146 /* ZFileUploadTask.m */; };
 		B2469B76249DA64800DCB146 /* FBAttachmentUploadCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B71249DA64800DCB146 /* FBAttachmentUploadCollectionViewCell.m */; };
 		B2469B77249DA64800DCB146 /* FBCustomUploadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B75249DA64800DCB146 /* FBCustomUploadProgress.m */; };
-		B2469B7D249DA9CA00DCB146 /* FBUploadTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B7A249DA9C900DCB146 /* FBUploadTool.m */; };
-		B2469B7E249DA9CA00DCB146 /* FBBasicUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B7B249DA9CA00DCB146 /* FBBasicUploadModel.m */; };
 		B247A405247E5E4500EF53A9 /* ZNoDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B247A404247E5E4400EF53A9 /* ZNoDataCell.m */; };
 		B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24A29E7248DCE52005BB97C /* ZHitoryLabelCell.m */; };
 		B24BCD242498675900C3D9EA /* ZStudentMainOrganizationExperienceItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24BCD232498675900C3D9EA /* ZStudentMainOrganizationExperienceItemCell.m */; };
@@ -894,10 +892,6 @@
 		B2469B72249DA64800DCB146 /* FBAttachmentUploadCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAttachmentUploadCollectionViewCell.h; sourceTree = "<group>"; };
 		B2469B74249DA64800DCB146 /* FBCustomUploadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCustomUploadProgress.h; sourceTree = "<group>"; };
 		B2469B75249DA64800DCB146 /* FBCustomUploadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCustomUploadProgress.m; sourceTree = "<group>"; };
-		B2469B79249DA9C900DCB146 /* FBBasicUploadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBBasicUploadModel.h; sourceTree = "<group>"; };
-		B2469B7A249DA9C900DCB146 /* FBUploadTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBUploadTool.m; sourceTree = "<group>"; };
-		B2469B7B249DA9CA00DCB146 /* FBBasicUploadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBBasicUploadModel.m; sourceTree = "<group>"; };
-		B2469B7C249DA9CA00DCB146 /* FBUploadTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBUploadTool.h; sourceTree = "<group>"; };
 		B247A403247E5E4400EF53A9 /* ZNoDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZNoDataCell.h; sourceTree = "<group>"; };
 		B247A404247E5E4400EF53A9 /* ZNoDataCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZNoDataCell.m; sourceTree = "<group>"; };
 		B24A29E6248DCE52005BB97C /* ZHitoryLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHitoryLabelCell.h; sourceTree = "<group>"; };
@@ -2356,10 +2350,6 @@
 		B2469B78249DA9C900DCB146 /* YBUploadTool */ = {
 			isa = PBXGroup;
 			children = (
-				B2469B79249DA9C900DCB146 /* FBBasicUploadModel.h */,
-				B2469B7A249DA9C900DCB146 /* FBUploadTool.m */,
-				B2469B7B249DA9CA00DCB146 /* FBBasicUploadModel.m */,
-				B2469B7C249DA9CA00DCB146 /* FBUploadTool.h */,
 			);
 			path = YBUploadTool;
 			sourceTree = "<group>";
@@ -4910,7 +4900,6 @@
 				B2A7808D23BDFB0100407BF0 /* NSURL+TLNetwork.m in Sources */,
 				B2359045248B7A7D008C953A /* ZRewardAlertView.m in Sources */,
 				B2342C9123FE7CC300F31C34 /* ZOriganizationTeachSearchTopHintView.m in Sources */,
-				B2469B7E249DA9CA00DCB146 /* FBBasicUploadModel.m in Sources */,
 				B2A77F6623BDE5B900407BF0 /* ZShortcutMethod.m in Sources */,
 				B2469B69249CB68500DCB146 /* ZFileUploadManager.m in Sources */,
 				B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */,
@@ -5063,7 +5052,6 @@
 				B2DB9B37241C6AF200340464 /* ZOrganizationPhotoListCell.m in Sources */,
 				B26880FB2477C22D00BF8FCD /* ZAlertClassifyPickerView.m in Sources */,
 				B25146B423CF0DB1009A64D4 /* ZStudentMineSettingMineVC.m in Sources */,
-				B2469B7D249DA9CA00DCB146 /* FBUploadTool.m in Sources */,
 				B29795CD242A24CC004490F5 /* ZOrderModel.m in Sources */,
 				B20C47FB23FFB98500E0CE35 /* ZOriganizationIDCardCell.m in Sources */,
 				B28D90EA2406652A0021E05A /* ZOrganizationAccountVC.m in Sources */,

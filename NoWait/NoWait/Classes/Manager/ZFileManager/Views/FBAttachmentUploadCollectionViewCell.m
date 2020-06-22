@@ -71,7 +71,7 @@ extern NSInteger const kAttachmentPhotoMaxNumber;
     self.resourceImageView.frame = self.contentView.bounds;
     CGFloat cleanButtonW = 30;
     self.cleanButton.frame = CGRectMake(self.resourceImageView.width - cleanButtonW, 0, cleanButtonW, cleanButtonW);
-    self.progressView.frame = CGRectMake(5, self.contentView.height - 18 - 5, self.contentView.width - 10, 18);
+    self.progressView.frame = CGRectMake(5, self.contentView.height - 14 - 5, self.contentView.width - 10, 14);
 }
 
 - (UILabel *)stateLabel {
