@@ -102,6 +102,10 @@
 
 - (void)setModel:(ZOriganizationClassListModel *)model {
     _model = model;
+    if (!ValidStr(model.total_progress)) {
+        model.total_progress = model.now_progress;
+        _model.total_progress = _model.now_progress;
+    }
     _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",[NSString stringWithFormat:@"%d",[SafeStr(model.now_progress) intValue] + [SafeStr(model.replenish_nums) intValue]],@"/",SafeStr(model.total_progress)];
     _lessonTitleLabel.text = model.stores_courses_short_name;
     _lessonProgressView.backgroundColor = randomColorWithNum([model.course_id intValue]);
@@ -109,10 +113,18 @@
     CGSize leftSize = [model.stores_courses_short_name tt_sizeWithFont:[UIFont fontContent]];
     CGFloat labelMin = (leftSize.width + CGFloatIn750(30) + 4)/(KScreenWidth - CGFloatIn750(60));
     CGFloat labelMax = (KScreenWidth - CGFloatIn750(90))/(KScreenWidth - CGFloatIn750(60));
-    CGFloat muti = [model.now_progress floatValue] / [model.total_progress floatValue];
+    CGFloat muti = 0;
+    if (ValidStr(model.total_progress) && [SafeStr(model.total_progress) floatValue] >= [model.now_progress floatValue] && [SafeStr(model.total_progress) intValue] > 0) {
+        muti = [model.now_progress floatValue] / [SafeStr(model.total_progress) floatValue];
+    }
+    
     CGFloat min = CGFloatIn750(86)/(KScreenWidth - CGFloatIn750(60));
     if (muti > 0 && muti <= min) {
         muti = min;
+    }
+    
+    if (muti > 1) {
+        muti = 1;
     }
     
     if (muti > labelMin) {

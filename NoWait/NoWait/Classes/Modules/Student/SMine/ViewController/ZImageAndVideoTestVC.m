@@ -10,8 +10,13 @@
 #import "ZVideoPlayerManager.h"
 #import "ZMineStudentEvaListEvaImageCollectionCell.h"
 #import "ZFileManager.h"
+#import "ZFileUploadTask.h"
+#import "ZFileUploadManager.h"
+
+#import "ZFileUploadManagerVC.h"
 
 @interface ZImageAndVideoTestVC ()
+@property (nonatomic,strong) NSMutableArray *taskArr;
 @property (nonatomic,strong) NSMutableArray *photos;
 @property (nonatomic,strong) NSMutableArray <ZImagePickerModel *>*videos;
 @end
@@ -32,6 +37,37 @@
 //            }
 //        }
 //    }];
+//    _taskArr = @[].mutableCopy;
+//    ZFileUploadTask *task = [ZFileUploadManager startUploadWithURL:[NSURL URLWithString:@"sfs"] params:@{@"filePath":@"ss",@"fileName":@"sfes"} progress:^(int64_t nowProgress, int64_t totalProgress) {
+//        NSLog(@"sssss----%lld",nowProgress);
+//    } error:^(NSError * error) {
+//
+//    } complete:^(id response) {
+//        NSLog(@"sssss----end");
+//    }];
+//    task.progressBlock = ^(int64_t nowProgress, int64_t totalProgress) {
+//        NSLog(@"kkkkkk----%lld",nowProgress);
+//    };
+    
+    NSMutableArray *tasklist = @[].mutableCopy;
+    for (int i = 0; i < 3; i++) {
+//        ZFileUploadTask *task = [ZFileUploadManager startUploadWithURL:[NSURL URLWithString:@"sfs"] params:@{@"filePath":@"ss",@"fileName":@"sfes"} progress:^(int64_t nowProgress, int64_t totalProgress) {
+//            NSLog(@"sssss----%lld",nowProgress);
+//        } error:^(NSError * error) {
+//
+//        } complete:^(id response) {
+//            NSLog(@"sssss----end");
+//        }];
+        ZFileUploadDataModel *model = [[ZFileUploadDataModel alloc] init];
+        model.image = [UIImage imageNamed:@"timg"];
+        model.taskState = ZUploadStateWaiting;
+        [tasklist addObject:model];
+        [ZFileUploadManager addTaskDataToUploadWith:model];
+    }
+    //异步串行
+    [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist];
+    [[ZFileUploadManager sharedInstance] asyncConcurrentGroupUpload:tasklist];
+//    [[ZFileUploadManager sharedInstance] asyncConcurrentConstUpload:tasklist];
     
     _photos = @[@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gfwuzvkmgzj30u011iapq.jpg",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gfwui029i8j30u018yhdu.jpg"].mutableCopy;
     _videos = @[].mutableCopy;
@@ -108,13 +144,14 @@
                 self.zChain_reload_ui();
             }];
         }else if([cellConfig.title isEqualToString:@"video"]){
-            [[ZImagePickerManager sharedManager] setVideoWithMaxCount:2 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
-                NSLog(@"--%@", list);
-                [list enumerateObjectsUsingBlock:^(ZImagePickerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    [self.videos addObject:obj];
-                }];
-                self.zChain_reload_ui();
-            }];
+            [self.navigationController pushViewController:[ZFileUploadManagerVC sharedInstance] animated:YES];
+//            [[ZImagePickerManager sharedManager] setVideoWithMaxCount:2 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+//                NSLog(@"--%@", list);
+//                [list enumerateObjectsUsingBlock:^(ZImagePickerModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    [self.videos addObject:obj];
+//                }];
+//                self.zChain_reload_ui();
+//            }];
         }
     });
     
