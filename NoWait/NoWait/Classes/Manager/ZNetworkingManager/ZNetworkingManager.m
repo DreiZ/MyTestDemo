@@ -252,6 +252,78 @@
     }];
 }
 
+
++ (ZFileUploadTask *)postImageWithModel:(ZFileUploadDataModel*)fileModel success:(void(^)(id obj))success progress:(void(^)(int64_t p, int64_t a))progress failure:(void(^)(NSError *error))failure {
+    
+    if (!fileModel) { return nil; }
+    NSAssert(fileModel, @"fileModel为nil");
+    
+    ZFileUploadTask *task = [[ZFileUploadTask alloc] init];
+    task.model = fileModel;
+    task.model.taskState = ZUploadStateOnGoing;
+    
+    NSDictionary *newParams = [ZNetworkingManager getPostParamsWithUrl:URL_file_v1_upload params:@{@"type":@"1"}];
+    NSString *newUrl = [ZNetworkingManager getMUrl:URL_file_v1_upload serverType:ZServerTypeFile];
+    
+    task.uploadTask = [[ZNetworking defaultAFManager] POST:newUrl parameters:newParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        if (fileModel) {
+            UIImage *image = fileModel.image;
+            if (image == nil) {
+                return ;
+            }
+
+            NSData* tempData = UIImageJPEGRepresentation(image, 0.3);
+            if (tempData == nil) {
+                return;
+            }
+            [formData appendPartWithFileData:tempData name:[NSString stringWithFormat:@"%@",@"file"] fileName:[NSString stringWithFormat:@"%@.png",@"file"] mimeType:@"image/png"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"progress----%f",1.0f * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount);
+            task.progress = 1.0f * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount;
+            progress(uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        });
+        
+    } success:^(NSURLSessionDataTask * task, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DLog(@"return data *** %@", responseObject);
+                if (ValidDict(responseObject)) {
+                    ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
+                    
+                    if (backModel && backModel.code) {
+                        if ([backModel.code integerValue] == 0) {
+                            fileModel.taskState = ZUploadStateFinished;
+                            success(backModel);
+                        }else{
+                            NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+            
+                            if (!backModel.message) {
+                                backModel.message = @"获取服务器数据错误";
+                            }
+                            fileModel.taskState = ZUploadStateError;
+                            failure(error);
+                        }
+                    }else{
+                        NSError *error = [[NSError alloc] initWithDomain:@"888888" code:[@"888888" integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+                        fileModel.taskState = ZUploadStateError;
+                        failure(error);
+                    }
+                }else{
+                    NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+                    fileModel.taskState = ZUploadStateError;
+                    failure(error);
+                }
+        });
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(error);
+        });
+    }];
+    return task;
+}
+
 #pragma mark - 参数签名获取请求体
 + (NSDictionary *)getPostParamsWithoutUserIDWithUrl:(NSString *)path params:(NSDictionary *)params {
     
@@ -314,7 +386,6 @@
             fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_organization,URL_Service,url];
             break;
             
-            
         default:
             fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_user,URL_Service,url];
             break;
@@ -337,12 +408,7 @@
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithDictionary:originalDict];
     
     [newDict setObject:[ZAppConfig sharedConfig].version forKey:@"v"];
-//    [newDict setObject:@"customer" forKey:@"identity"];
-//    [newDict setObject:SERVICE_APP_KEY forKey:@"app_key"];
     [newDict setObject:@"ios" forKey:@"app_type"];
-//    [newDict setObject:[ZNetworking randomStringWithLength:16] forKey:@"nonce"];
-//    [newDict setObject:[[NSString stringWithFormat:@"%@%@%@",SERVICE_APP_SECRET,newDict[@"nonce"],newDict[@"curtime"]] sha1String] forKey:@"checksum"];
-    
     [newDict setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:@"timestamp"];
     return newDict;
 }
@@ -364,18 +430,6 @@
     return newDict;
 }
 
-
-//随机字符串
-+ (NSString *)randomStringWithLength:(NSInteger)len {
-    NSString *letters = @"abcdefghijklmnopqrstuvwxyz0123456789";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
-    
-    for (NSInteger i = 0; i < len; i++) {
-        [randomString appendFormat: @"%c", [letters characterAtIndex: arc4random_uniform(36)]];
-    }
-    return randomString;
-}
-
 // -签名
 +(NSMutableDictionary*)signTheParameters:(NSString *)urlStr postDic:(NSDictionary *)postDic {
     NSMutableArray *parameters = [[NSMutableArray alloc] init];
@@ -392,9 +446,7 @@
             continue;
         }else if([parameterDic[key] isKindOfClass:[NSArray class]] || [parameterDic[key] isKindOfClass:[NSDictionary class]]){
             
-//            valueStr = [ZNetworkingManager toJSONString:parameterDic[key]];
             valueStr = [ZNetworkingManager getJsonStr:parameterDic[key]];
-
             [parameterDic setObject:valueStr forKey:key];;
         } else{
             valueStr = parameterDic[key];
@@ -411,14 +463,6 @@
     NSMutableString *resultStr = [[NSMutableString alloc] init];
     for (NSString *key in sortedArray) {
         NSString *valueStr = key;
-//
-//        if([parameterDic[newKey] isKindOfClass:[NSArray class]] || [parameterDic[newKey] isKindOfClass:[NSDictionary class]]){
-//            valueStr = [ZNetworkingManager toJSONString:parameterDic[newKey]];
-//
-//            [parameterDic setObject:valueStr forKey:newKey];;
-//        }else{
-//            valueStr = parameterDic[newKey];
-//        }
         // 拼接值 字符串
         if (valueStr) {
             if ([valueStr isKindOfClass:[NSNumber class]]) {

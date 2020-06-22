@@ -8,7 +8,7 @@
 
 #import "ZFileUploadManager.h"
 #import <libkern/OSAtomic.h>
-
+#import "ZNetworkingManager.h"
 
 NSString * const FBAttachmentUploadSuccessNumber = @"successNumber";
 NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
@@ -57,7 +57,7 @@ static ZFileUploadManager *fileUploadManager;
 }
 
 #pragma mark -上传图片异步串行-
-- (void)asyncSerialUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray  {
+- (void)asyncSerialUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray progress:(void(^)(CGFloat p, NSInteger index))progress completion:(void(^)(id obj))completion{
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         for (ZFileUploadDataModel *model in dataArray) {
@@ -68,10 +68,16 @@ static ZFileUploadManager *fileUploadManager;
         [ZFileUploadManager asyncSerialUploadArray:dataArray progress:^(CGFloat p, NSInteger index) {
             self.uploading = YES;
             DLog(@"%.4f----%ld",p,(long)index);
+            if (progress) {
+                progress(p, index);
+            }
         } completion:^(id obj) {
             DLog(@"数量：%@",obj);
             self.uploading = NO;
             DLog(@"异步串行-所有的任务都完成了...");
+            if (completion) {
+                completion(obj);
+            }
         }];
     });
 }
@@ -86,7 +92,7 @@ static ZFileUploadManager *fileUploadManager;
     }
     NSAssert((modelArray && modelArray.count>0), @"upload model数组nil");
     
-    NSMutableDictionary *mutDic = [NSMutableDictionary dictionary];
+    NSMutableArray *mutDic = [NSMutableArray array];
     __block NSInteger successInt=0,failureInt=0;
     
     //创建异步串行队列
@@ -110,12 +116,13 @@ static ZFileUploadManager *fileUploadManager;
                 if (model.completeBlock) {
                     model.completeBlock(obj);
                 }
+                [mutDic addObject:obj];
             } progress:^(int64_t p, int64_t a) {
                 //单个model的进度
                 if (model.progressBlock) { model.progressBlock(p, a); }
                 //总的进度
                 if (progress) {
-                    progress(p,i);
+                    progress(1.0 * p/a,i);
                 }
             } failure:^(NSError *error) {
                 failureInt += 1;
@@ -137,8 +144,8 @@ static ZFileUploadManager *fileUploadManager;
         }
         
         //总的完成以后的回调
-        [mutDic setObject:[NSNumber numberWithInteger:successInt] forKey:FBAttachmentUploadSuccessNumber];
-        [mutDic setObject:[NSNumber numberWithInteger:failureInt] forKey: FBAttachmentUploadFailureNumber];
+//        [mutDic setObject:[NSNumber numberWithInteger:successInt] forKey:FBAttachmentUploadSuccessNumber];
+//        [mutDic setObject:[NSNumber numberWithInteger:failureInt] forKey: FBAttachmentUploadFailureNumber];
         if (completion) {
             completion(mutDic);
         }
@@ -282,39 +289,44 @@ static ZFileUploadManager *fileUploadManager;
  @param progress 进度回调
  @param failure 失败回调
  */
+//+ (ZFileUploadTask *)uploadFileWithModel:(ZFileUploadDataModel *)model success:(void(^)(id obj))success progress:(void(^)(int64_t p, int64_t a))progress failure:(void(^)(NSError *error))failure {
+//    if (!model) { return nil; }
+//    NSAssert(model, @"model为nil");
+//    
+//    ZFileUploadTask *task = [[ZFileUploadTask alloc] init];
+//    task.model = model;
+//    task.model.taskState = ZUploadStateOnGoing;
+//    for (; task.progress<=1.0f; ) {
+//        CGFloat per = (arc4random() % 100)/1000.0f;
+//        task.progress += per;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //DLog(@"index：%@----进度：%.2f",self.index,self.progress);
+//            //模拟上传中的状态
+//            if (progress) { progress(task.progress*1000, 1000); }
+//            if (task.model.progressBlock) { task.model.progressBlock(task.progress * 1000, 1000); }
+//            //模拟上传完成的状态
+//            if (task.progress>=1.) {
+//                task.model.taskState = ZUploadStateFinished;
+//                if (success) { success(@{}); }
+//                if (task.model.completeBlock) { task.model.completeBlock(@{}); }
+//                return ;
+//            }
+//            //模拟上传失败的状态
+//            if (task.progress<0) {
+//                task.model.taskState = ZUploadStateError;
+//                if (failure) { failure(nil); }
+//                if (task.model.errorBlock) { task.model.errorBlock(nil); }
+//            }
+//        });
+//        usleep(500000);
+//    }
+//    
+//    return task;
+//}
+
+#pragma mark -znetworking 上传图片
 + (ZFileUploadTask *)uploadFileWithModel:(ZFileUploadDataModel *)model success:(void(^)(id obj))success progress:(void(^)(int64_t p, int64_t a))progress failure:(void(^)(NSError *error))failure {
-    if (!model) { return nil; }
-    NSAssert(model, @"model为nil");
-    
-    ZFileUploadTask *task = [[ZFileUploadTask alloc] init];
-    task.model = model;
-    task.model.taskState = ZUploadStateOnGoing;
-    for (; task.progress<=1.0f; ) {
-        CGFloat per = (arc4random() % 100)/1000.0f;
-        task.progress += per;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //DLog(@"index：%@----进度：%.2f",self.index,self.progress);
-            //模拟上传中的状态
-            if (progress) { progress(task.progress*1000, 1000); }
-            if (task.model.progressBlock) { task.model.progressBlock(task.progress * 1000, 1000); }
-            //模拟上传完成的状态
-            if (task.progress>=1.) {
-                task.model.taskState = ZUploadStateFinished;
-                if (success) { success(@{}); }
-                if (task.model.completeBlock) { task.model.completeBlock(@{}); }
-                return ;
-            }
-            //模拟上传失败的状态
-            if (task.progress<0) {
-                task.model.taskState = ZUploadStateError;
-                if (failure) { failure(nil); }
-                if (task.model.errorBlock) { task.model.errorBlock(nil); }
-            }
-        });
-        usleep(500000);
-    }
-    
-    return task;
+    return [ZNetworkingManager postImageWithModel:model success:success progress:progress failure:failure];
 }
 
 @end

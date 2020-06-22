@@ -38,6 +38,6 @@
 /**
 异步串行
 */
-- (void)asyncSerialUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray;
+- (void)asyncSerialUpload:(NSMutableArray <ZFileUploadDataModel *>*)dataArray progress:(void(^)(CGFloat p, NSInteger index))progress completion:(void(^)(id obj))completion;
 @end
 

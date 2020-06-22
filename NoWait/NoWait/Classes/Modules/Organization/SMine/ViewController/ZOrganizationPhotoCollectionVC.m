@@ -12,6 +12,8 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZAlertView.h"
 
+#import "ZOrganizationPhotoUploadManageVC.h"
+
 @interface ZOrganizationPhotoCollectionVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -115,7 +117,15 @@
                     for (ZImagePickerModel *model in list) {
                         [weakSelf.uploadArr addObject:model.image];
                     }
-                    [weakSelf updatePhotosStep1];
+//                    [weakSelf updatePhotosStep1];
+                    ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
+                    mvc.imageArr = weakSelf.uploadArr;
+                    mvc.type = self.model.type;
+                    mvc.uploadCompleteBlock = ^{
+                        [weakSelf refreshData];
+                    };
+                    [self.navigationController pushViewController:mvc animated:YES];
+                    return;
                 }
             }];
         } forControlEvents:UIControlEventTouchUpInside];

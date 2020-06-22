@@ -65,8 +65,8 @@
         [ZFileUploadManager addTaskDataToUploadWith:model];
     }
     //异步串行
-    [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist];
-    [[ZFileUploadManager sharedInstance] asyncConcurrentGroupUpload:tasklist];
+//    [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist];
+//    [[ZFileUploadManager sharedInstance] asyncConcurrentGroupUpload:tasklist];
 //    [[ZFileUploadManager sharedInstance] asyncConcurrentConstUpload:tasklist];
     
     _photos = @[@"http://wx3.sinaimg.cn/mw600/0076BSS5ly1gfwuzvkmgzj30u011iapq.jpg",@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1gfwui029i8j30u018yhdu.jpg"].mutableCopy;

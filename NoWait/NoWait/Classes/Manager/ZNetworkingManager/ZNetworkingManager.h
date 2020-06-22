@@ -37,5 +37,9 @@
 
 #pragma mark - 上传视频
 + (id)postVideoServerType:(ZServerType)serverType url:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler progressHandler:(void (^)(int64_t, int64_t ))procressHandler;
+
+
+#pragma mark - 上传图片
++ (ZFileUploadTask *)postImageWithModel:(ZFileUploadDataModel*)fileModel success:(void(^)(id obj))success progress:(void(^)(int64_t p, int64_t a))progress failure:(void(^)(NSError *error))failure;
 @end
 

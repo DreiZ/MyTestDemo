@@ -49,5 +49,7 @@
 #import "ZDatePickerManager.h"
 #import "ZUserHelper.h"
 #import "BANetManager.h"
-
+#import "ZFileUploadTask.h"
+#import "ZFileUploadDataModel.h"
+#import "ZFileUploadManager.h"
 #endif /* CommonMacros_h */
