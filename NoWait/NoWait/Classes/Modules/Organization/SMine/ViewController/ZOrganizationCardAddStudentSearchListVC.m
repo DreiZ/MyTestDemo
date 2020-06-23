@@ -19,6 +19,15 @@
 
 @implementation ZOrganizationCardAddStudentSearchListVC
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryStudentSearch;
+    }
+    return self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.searchView.iTextField && self.searchView.iTextField.text.length == 0) {

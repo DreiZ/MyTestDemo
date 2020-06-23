@@ -162,7 +162,8 @@
         [_addBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
         [_addBtn bk_addEventHandler:^(id sender) {
-            weakSelf.zChain_reload_ui();
+            [weakSelf getStudentCodeInfo];
+             weakSelf.zChain_reload_ui();
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _addBtn;
