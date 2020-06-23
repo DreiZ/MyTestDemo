@@ -134,7 +134,7 @@
         
         [self.funBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
-            make.bottom.equalTo(self.mas_bottom);
+            make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(6));
             make.height.mas_equalTo([ZStudentOrganizationHotListCell z_getCellHeight:nil] * model.course.count);
         }];
     }else{

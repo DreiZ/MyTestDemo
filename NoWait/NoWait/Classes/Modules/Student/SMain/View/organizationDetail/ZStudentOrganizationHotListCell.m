@@ -151,6 +151,7 @@
     self.nameLabel.text = model.name;
     
     if ([model.is_experience intValue] == 1) {
+        self.hintImageView.image = [UIImage imageNamed:@"orderLesson"];
         CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontMin]];
         
         CGSize expriceSize = [[NSString stringWithFormat:@"￥%@",model.experience_price] tt_sizeWithFont:[UIFont fontMin]];
@@ -180,7 +181,7 @@
         self.orignLineView.hidden = NO;
     }else{
         CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontMin]];
-        
+        self.hintImageView.image = [UIImage imageNamed:@"hotLesson"];
         [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.hintImageView.mas_right).offset(CGFloatIn750(10));
             make.centerY.equalTo(self.contentView.mas_centerY);

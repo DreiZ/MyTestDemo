@@ -159,7 +159,7 @@
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
-        [_bottomBtn setTitle:@"发布优惠券" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"赠送优惠券" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
