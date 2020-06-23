@@ -186,7 +186,7 @@
         ZOriganizationStudentListModel *model= self.dataSources[i];
         model.isEdit = YES;
         ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle").zz_titleLeft(model.name)
-        .zz_imageLeft(model.student_image)
+        .zz_imageLeft(model.image)
         .zz_cellHeight(CGFloatIn750(90))
         .zz_imageLeftRadius(YES)
         .zz_imageLeftHeight(CGFloatIn750(60))
@@ -243,7 +243,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getCartStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -271,7 +271,7 @@
     NSMutableDictionary *param = [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-     [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+     [ZOriganizationStudentViewModel getCartStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -304,6 +304,14 @@
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
        [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
        [param setObject:self.name forKey:@"name"];
+    if (ValidArray(self.studentArr)) {
+        NSMutableArray *students = @[].mutableCopy;
+        for (int i = 0; i < self.studentArr.count; i++) {
+            ZOriganizationStudentListModel *model = self.studentArr[i];
+            [students addObject:model.code_id];
+        }
+        [param setObject:students forKey:@"student"];
+    }
     return param;
 }
 

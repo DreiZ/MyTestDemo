@@ -62,7 +62,7 @@
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];
         ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle").zz_titleLeft(model.name)
-        .zz_imageLeft(model.student_image)
+        .zz_imageLeft(model.image)
         .zz_cellHeight(CGFloatIn750(90))
         .zz_imageLeftRadius(YES)
         .zz_imageLeftHeight(CGFloatIn750(60))
@@ -127,11 +127,8 @@
     if (!_navRightBtn) {
         __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-        _navRightBtn.layer.masksToBounds = YES;
-        _navRightBtn.layer.cornerRadius = CGFloatIn750(25);
-        _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
-        [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_navRightBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_addEventHandler:^(id sender) {
             [weakSelf selectAllData];
@@ -151,6 +148,7 @@
             ZOrganizationCardAddStudentSearchListVC *svc = [[ZOrganizationCardAddStudentSearchListVC alloc] init];
             svc.title = @"搜索学员";
             svc.handleBlock = weakSelf.handleBlock;
+            svc.studentArr = weakSelf.studentArr;
             [weakSelf.navigationController pushViewController:svc animated:YES];
         };
     }
@@ -305,7 +303,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getCartStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -333,7 +331,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
+    [ZOriganizationStudentViewModel getCartStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -367,27 +365,16 @@
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
-}
-
-- (void)deleteLesson:(NSArray <ZOriganizationStudentListModel *>*)studentArr {
-    __weak typeof(self) weakSelf = self;
-    NSMutableArray *params = @[].mutableCopy;
-    for (ZOriganizationStudentListModel *model in studentArr) {
-//        NSMutableDictionary *para = @{}.mutableCopy;
-        if (model && model.studentID) {
-            [params addObject:model.studentID];
+    
+    if (ValidArray(self.studentArr)) {
+        NSMutableArray *students = @[].mutableCopy;
+        for (int i = 0; i < self.studentArr.count; i++) {
+            ZOriganizationStudentListModel *model = self.studentArr[i];
+            [students addObject:model.code_id];
         }
+        [_param setObject:students forKey:@"student"];
     }
-    [TLUIUtility showLoading:@""];
-    [ZOriganizationStudentViewModel deleteStudent:@{@"ids":params} completeBlock:^(BOOL isSuccess, NSString *message) {
-        [TLUIUtility hiddenLoading];
-        if (isSuccess) {
-            [TLUIUtility showSuccessHint:message];
-            [weakSelf refreshAllData];
-        }else{
-            [TLUIUtility showErrorHint:message];
-        };
-    }];
+    
 }
 
 @end

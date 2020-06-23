@@ -313,6 +313,9 @@
 //根据code_id 搜索学员
 #define URL_merchants_v1_get_account_info           @"merchants/v1/get/account/info"
 
+//学员列表
+#define URL_account_v1_get_student_list             @"account/v1/get/student/list"
+
 #pragma mark - 教师------------------------------------------------
 //教师list
 #define URL_account_get_teacher_list                  @"account/v1/get_teacher_list"

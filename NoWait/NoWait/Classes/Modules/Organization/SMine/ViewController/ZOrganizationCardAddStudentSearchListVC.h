@@ -12,6 +12,7 @@
 
 
 @interface ZOrganizationCardAddStudentSearchListVC : ZSearchClickVC
+@property (nonatomic,strong) NSMutableArray *studentArr;
 @property (nonatomic,strong) void (^handleBlock)(NSArray *);
 @end
 

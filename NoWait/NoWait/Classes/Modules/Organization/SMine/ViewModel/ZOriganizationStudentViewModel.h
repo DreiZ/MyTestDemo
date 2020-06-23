@@ -43,6 +43,9 @@
 
 + (void)getStudentCodeInfo:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
+
++ (void)getCartStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
+
 //发送消息
 + (void)addMessage:(NSDictionary *)params
      completeBlock:(resultDataBlock)completeBlock ;
