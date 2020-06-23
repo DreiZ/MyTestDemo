@@ -20,6 +20,15 @@
 
 @implementation ZOrganizationMineOrderSearchVC
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryOrderSearch;
+    }
+    return self;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.searchView.iTextField) {

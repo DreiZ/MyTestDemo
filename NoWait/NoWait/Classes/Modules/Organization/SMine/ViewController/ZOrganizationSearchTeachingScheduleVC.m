@@ -25,6 +25,15 @@
 
 @implementation ZOrganizationSearchTeachingScheduleVC
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryTeacherSearch;
+    }
+    return self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self refreshAllData];

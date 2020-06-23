@@ -22,6 +22,14 @@
 
 @implementation ZOrganizationClassManageListSearchVC
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryClassSearch;
+    }
+    return self;
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
     if (self.searchView.iTextField) {
         [self.searchView.iTextField resignFirstResponder];

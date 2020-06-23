@@ -23,6 +23,14 @@
 
 @implementation ZOrganizationTeacherSearchVC
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryTeacherSearch;
+    }
+    return self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.searchView.iTextField && self.searchView.iTextField.text.length == 0) {
