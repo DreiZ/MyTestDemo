@@ -37,6 +37,25 @@
     }];
 }
 
++ (void)addSengCart:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_coupons_v1_add_give_coupons params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
+
 + (void)editCart:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_coupons_v1_edit_coupons params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationCardAddStudentCell : ZBaseCell
+@property (nonatomic,strong) NSMutableArray *list;
 
 @end
 

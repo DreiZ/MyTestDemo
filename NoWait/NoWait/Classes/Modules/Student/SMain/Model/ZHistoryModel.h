@@ -10,6 +10,9 @@
 
 #define kSearchHistoryMainSearch      @"10002"
 #define kSearchHistoryLessonSearch    @"10003"
+#define kSearchHistoryStudentSearch   @"10004"
+#define kSearchHistoryTeacherSearch   @"10005"
+#define kSearchHistoryCartSearch      @"10006"
 
 @interface ZHistoryModel : ZBaseModel
 @property (nonatomic,copy) NSString *search_title;

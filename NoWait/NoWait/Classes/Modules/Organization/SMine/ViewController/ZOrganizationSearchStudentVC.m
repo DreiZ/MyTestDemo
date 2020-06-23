@@ -26,6 +26,15 @@
 
 @implementation ZOrganizationSearchStudentVC
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.searchType = kSearchHistoryStudentSearch;
+    }
+    return self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.searchView.iTextField && self.searchView.iTextField.text.length == 0) {
@@ -428,7 +437,12 @@
             model.isSelected = !model.isSelected;
         }
     }
-    [self.allBtn setTitle:[NSString stringWithFormat:@"全选(%ld)",[self getSelectedData].count] forState:UIControlStateNormal];
+    if ([self getSelectedData].count == self.dataSources.count) {
+        [self.allBtn setTitle:@"全不选" forState:UIControlStateNormal];
+    }else {
+        [self.allBtn setTitle:[NSString stringWithFormat:@"全选(%ld)",[self getSelectedData].count] forState:UIControlStateNormal];
+    }
+    
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }

@@ -204,7 +204,13 @@
 
 
 @implementation ZOriganizationCardAddModel
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _student = @[].mutableCopy;
+    }
+    return self;
+}
 @end
 
 

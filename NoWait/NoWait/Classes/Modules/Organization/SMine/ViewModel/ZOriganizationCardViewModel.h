@@ -16,6 +16,9 @@
 + (void)addCart:(NSDictionary *)params
   completeBlock:(resultDataBlock)completeBlock ;
 
+
++ (void)addSengCart:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
 + (void)editCart:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 

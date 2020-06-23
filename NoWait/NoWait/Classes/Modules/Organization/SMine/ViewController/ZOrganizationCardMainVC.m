@@ -9,14 +9,17 @@
 #import "ZOrganizationCardMainVC.h"
 #import "ZOrganizationCardListVC.h"
 #import "ZOrganizationCardAddVC.h"
+#import "ZOrganizationCardSendVC.h"
 #import "ZOrganizationSearchCouponVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
 
 
 @interface ZOrganizationCardMainVC ()
-@property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) ZOrganizationLessonTopSearchView *searchBtn;
+@property (nonatomic,strong) UIButton *addBtn;
+@property (nonatomic,strong) UIButton *sendBtn;
+@property (nonatomic,strong) UIView *bottomView;
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
@@ -48,6 +51,35 @@
         make.top.equalTo(self.view.mas_top);
         make.left.right.equalTo(self.view);
     }];
+    
+    [self.view addSubview:self.bottomView];
+    [self.bottomView addSubview:self.sendBtn];
+    [self.bottomView addSubview:self.addBtn];
+    [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.bottomView);
+        make.right.equalTo(self.bottomView.mas_centerX);
+    }];
+
+    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.right.top.bottom.equalTo(self.bottomView);
+         make.left.equalTo(self.bottomView.mas_centerX);
+    }];
+
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+    [self.bottomView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.centerX.equalTo(self.bottomView.mas_centerX);
+         make.centerY.equalTo(self.bottomView.mas_centerY);
+         make.height.mas_equalTo(CGFloatIn750(26));
+         make.width.mas_equalTo(2);
+    }];
+
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.left.right.equalTo(self.view);
+         make.height.mas_equalTo(CGFloatIn750(88));
+         make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+    }];
 }
 
 
@@ -65,9 +97,6 @@
 }
 
 - (void)setNavgation {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn];
-
-    [self.navigationItem setRightBarButtonItem:item];
     [self.navigationItem setTitle:@"卡券管理"];
 }
 
@@ -92,23 +121,6 @@
 }
 
 
-- (UIButton *)navLeftBtn {
-    if (!_navLeftBtn) {
-        __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
-        [_navLeftBtn setTitle:@"添加" forState:UIControlStateNormal];
-        [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
-        ViewRadius(_navLeftBtn, CGFloatIn750(24));
-        [_navLeftBtn bk_addEventHandler:^(id sender) {
-            ZOrganizationCardAddVC *avc = [[ZOrganizationCardAddVC alloc] init];
-            [weakSelf.navigationController pushViewController:avc animated:YES];
-        } forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _navLeftBtn;
-}
-
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
@@ -121,6 +133,49 @@
         };
     }
     return _searchBtn;
+}
+
+
+- (UIButton *)addBtn {
+    if (!_addBtn) {
+        __weak typeof(self) weakSelf = self;
+        _addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_addBtn setTitle:@"添加卡券" forState:UIControlStateNormal];
+        [_addBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_addBtn.titleLabel setFont:[UIFont fontContent]];
+        [_addBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_addBtn bk_addEventHandler:^(id sender) {
+            ZOrganizationCardAddVC *avc = [[ZOrganizationCardAddVC alloc] init];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _addBtn;
+}
+
+
+- (UIButton *)sendBtn {
+    if (!_sendBtn) {
+        __weak typeof(self) weakSelf = self;
+        _sendBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_sendBtn setTitle:@"赠送卡券" forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_sendBtn.titleLabel setFont:[UIFont fontContent]];
+        [_sendBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_sendBtn bk_addEventHandler:^(id sender) {
+            ZOrganizationCardSendVC *svc = [[ZOrganizationCardSendVC alloc] init];
+            [weakSelf.navigationController pushViewController:svc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendBtn;
+}
+
+- (UIView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] init];
+        _bottomView.layer.masksToBounds = YES;
+        _bottomView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    }
+    return _bottomView;
 }
 
 
@@ -143,7 +198,7 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGFloatIn750(106 + 78);
-    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kTopHeight);
+    return CGRectMake(0, originY, KScreenWidth, KScreenHeight - originY-kTopHeight-CGFloatIn750(88)-safeAreaBottom());
 }
 
 @end

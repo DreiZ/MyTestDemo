@@ -167,6 +167,7 @@
     self.currentPage = 1;
     self.loading = YES;
     [self setPostCommonData];
+    [self setLocationParams];
     [self refreshHeadData:self.param];
 }
 
@@ -229,6 +230,7 @@
 - (void)refreshAllData {
     self.loading = YES;
     [self setPostCommonData];
+    [self setLocationParams];
     [self.param setObject:@"1" forKey:@"page"];
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
     [self refreshHeadData:self.param];
@@ -237,6 +239,10 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     
+    [self setLocationParams];
+}
+
+- (void)setLocationParams {
     if ([ZLocationManager shareManager].cureUserLocation.location) {
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];

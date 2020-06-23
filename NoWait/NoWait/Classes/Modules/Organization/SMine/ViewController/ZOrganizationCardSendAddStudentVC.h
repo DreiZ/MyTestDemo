@@ -6,12 +6,13 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationCardSendAddStudentVC : ZViewController
-
+@interface ZOrganizationCardSendAddStudentVC : ZTableViewController
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) void (^handleBlock)(NSArray *);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewController.h"
+#import "ZTableViewViewController.h"
+#import "ZOriganizationModel.h"
+#import "ZOriganizationCardViewModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZOrganizationCardSendVC : ZTableViewController
-
+@interface ZOrganizationCardSendVC : ZTableViewViewController
+@property (nonatomic,strong) ZOriganizationCardViewModel *viewModel;
 @end
 
-NS_ASSUME_NONNULL_END
+

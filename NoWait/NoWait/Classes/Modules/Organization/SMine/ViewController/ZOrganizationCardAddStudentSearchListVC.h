@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZViewController.h"
+#import "ZSearchClickVC.h"
+#import "ZOriganizationLessonModel.h"
+#import "ZOriganizationModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationCardAddStudentSearchListVC : ZViewController
-
+@interface ZOrganizationCardAddStudentSearchListVC : ZSearchClickVC
+@property (nonatomic,strong) void (^handleBlock)(NSArray *);
 @end
 
-NS_ASSUME_NONNULL_END

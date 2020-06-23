@@ -8,10 +8,8 @@
 
 #import "ZViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ZOrganizationCardAddStudentListVC : ZViewController
-
+@interface ZOrganizationCardAddStudentListVC : ZTableViewViewController
+@property (nonatomic,strong) NSMutableArray *studentArr;
+@property (nonatomic,strong) void (^handleBlock)(NSArray *);
 @end
 
-NS_ASSUME_NONNULL_END

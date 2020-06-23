@@ -310,6 +310,8 @@
 //生成班级二维码
 #define URL_account_get_class_qrcode                 @"account/v1/get_class_qrcode"
 
+//根据code_id 搜索学员
+#define URL_merchants_v1_get_account_info           @"merchants/v1/get/account/info"
 
 #pragma mark - 教师------------------------------------------------
 //教师list
@@ -336,6 +338,8 @@
 #pragma mark - 卡券------------------------------------------------
 //添加卡券
 #define URL_coupons_v1_add_coupons                   @"coupons/v1/add_coupons"
+//赠送卡券
+#define URL_coupons_v1_add_give_coupons             @"coupons/v1/add_give_coupons"
 
 //编辑卡券
 #define URL_coupons_v1_edit_coupons                  @"coupons/v1/edit_coupons"

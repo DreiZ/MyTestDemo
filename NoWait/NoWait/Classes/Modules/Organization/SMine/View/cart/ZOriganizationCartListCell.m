@@ -107,7 +107,7 @@
     [self.remainNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.validityTimeLabel.mas_bottom).offset(CGFloatIn750(10));
-        make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
+        make.right.equalTo(self.openBtn.mas_left).offset(CGFloatIn750(0));
     }];
     
     
@@ -119,7 +119,7 @@
     
     [self.menuBackView addSubview:self.seeBtn];
     [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.menuBackView.mas_left).offset(CGFloatIn750(172));
+        make.left.equalTo(self.remainNumLabel.mas_left).offset(CGFloatIn750(0));
         make.top.bottom.equalTo(self.menuBackView);
     }];
     
@@ -299,6 +299,10 @@
     _model = model;
     _priceLabel.text = SafeStr(model.amount);
     _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@/%@张",model.unused_nums,model.nums];
+    if (ValidStr(model.limit) && [model.limit intValue] > 0) {
+        _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@/%@张    限领%@张",model.unused_nums,model.nums,model.limit];
+    }
+    
     if (![model.limit_start isEqualToString:@"0"]) {
         _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
     }else{
