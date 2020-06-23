@@ -16,6 +16,7 @@
 #import "ZStudentOrganizationListCell.h"
 #import "ZStudentMainFiltrateSectionView.h"
 #import "ZStudentOrganizationListCell.h"
+#import "ZStudentOrganizationNewListCell.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentClassificationListVC.h"

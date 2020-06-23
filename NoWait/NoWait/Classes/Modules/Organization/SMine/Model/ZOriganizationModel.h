@@ -421,6 +421,9 @@
 @property (nonatomic,copy) NSString *price;
 @property (nonatomic,copy) NSString *course_min;
 @property (nonatomic,copy) NSString *course_number;
+
+@property (nonatomic,copy) NSString *experience_price;
+@property (nonatomic,copy) NSString *is_experience;
 @end
 
 
