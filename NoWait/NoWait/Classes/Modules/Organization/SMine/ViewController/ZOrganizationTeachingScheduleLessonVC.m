@@ -12,7 +12,7 @@
 
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationTrachingScheduleOutlineClassVC.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZOrganizationTeachingScheduleLessonVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;

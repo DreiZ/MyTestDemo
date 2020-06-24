@@ -103,7 +103,7 @@
                
                ZViewController *target;
                for (ZViewController *controller in reversedArray) {
-                   if ([controller isKindOfClass:[NSClassFromString(@"ZStudentLessonDetailVC") class]]) {
+                   if ([controller isKindOfClass:[NSClassFromString(@"ZStudentExperienceLessonDetailVC") class]]) {
                        target = controller;
                        break;
                    }else if ([controller isKindOfClass:[NSClassFromString(@"ZStudentOrganizationDetailDesVC") class]]){

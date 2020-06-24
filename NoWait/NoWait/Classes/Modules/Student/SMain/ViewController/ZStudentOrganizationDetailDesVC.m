@@ -27,7 +27,7 @@
 #import "ZStudentOrganizationMapAddressVC.h"
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentStudentDetailVC.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZOriganizationReportVC.h"
 #import "ZStudentOrganizationDetailDesShareVC.h"
@@ -153,7 +153,7 @@
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             dvc.model = cellConfig.dataModel;
             [self.navigationController pushViewController:dvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){

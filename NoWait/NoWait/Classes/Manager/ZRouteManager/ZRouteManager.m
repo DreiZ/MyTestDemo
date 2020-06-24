@@ -12,7 +12,7 @@
 
 #import "ZAlertView.h"
 #import "ZWebBridgeViewController.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZRewardCenterVC.h"
 
@@ -60,7 +60,7 @@ static ZRouteManager *sharedManager;
             wvc.navTitle = model.name;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:wvc animated:YES];
         }else if ([model.ad_type isEqualToString:@"1"] && model.ad_type_content) {
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             ZOriganizationLessonListModel *listModel = [[ZOriganizationLessonListModel alloc] init];
             listModel.lessonID = model.ad_type_content.course;
             dvc.model = listModel;

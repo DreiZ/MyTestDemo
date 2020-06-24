@@ -13,7 +13,7 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationModel.h"
 
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZStudentOrganizationLessonSortListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -121,7 +121,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
     dvc.model = self.dataSources[indexPath.row];
     [self.navigationController pushViewController:dvc animated:YES];
 }

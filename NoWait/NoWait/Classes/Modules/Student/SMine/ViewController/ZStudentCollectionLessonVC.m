@@ -7,7 +7,7 @@
 //
 
 #import "ZStudentCollectionLessonVC.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentCollectionViewModel.h"
@@ -66,7 +66,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-             ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+             ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
              dvc.model = cellConfig.dataModel;
              [self.navigationController pushViewController:dvc animated:YES];
         }

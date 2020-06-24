@@ -9,7 +9,7 @@
 #import "ZMianSearchVC.h"
 #import "ZStudentMainViewModel.h"
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
 
@@ -106,7 +106,7 @@
             [weakSelf.iTableView reloadData];
         };
         lcell.lessonBlock = ^(ZStoresCourse *model) {
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             ZOriganizationLessonListModel *lmodel = [[ZOriganizationLessonListModel alloc] init];
             lmodel.lessonID = model.course_id;
             dvc.model = lmodel;

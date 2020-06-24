@@ -377,7 +377,7 @@
     _bottomView.isCollection = [self.addModel.collection intValue] == 1 ? YES:NO;
     _bottomView.orderPrice = self.addModel.experience_price;
     
-    _bottomView.isExperience = [self.addModel.is_experience boolValue];
+    _bottomView.isExperience = [self.addModel.is_experience intValue] == 1;
 }
 
 - (void)setTime {
@@ -537,9 +537,10 @@
     model.leftTitle = self.addModel.price;
     model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.pay_nums];
     model.data = self.addModel.score;
-    model.isSelected = YES;
+    model.isSelected = NO;
     if ([self.addModel.is_experience intValue] == 1) {
         model.rightImage = self.addModel.experience_price;
+        model.isSelected = YES;
     }
     
     ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];

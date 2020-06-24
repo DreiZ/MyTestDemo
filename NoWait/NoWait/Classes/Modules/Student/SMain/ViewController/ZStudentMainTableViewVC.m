@@ -187,11 +187,16 @@
                [ZRouteManager pushToVC:model.data];
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]){
-       ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
+       ZStudentOrganizationNewListCell *lcell = (ZStudentOrganizationNewListCell *)cell;
         lcell.moreBlock = ^(ZStoresListModel *model) {
             model.isMore = !model.isMore;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+        };
+        lcell.lessonBlock = ^(ZStoresCourse *model) {
+            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+            dvc.listModel = cellConfig.dataModel;
+            [self.navigationController pushViewController:dvc animated:YES];
         };
     }
 

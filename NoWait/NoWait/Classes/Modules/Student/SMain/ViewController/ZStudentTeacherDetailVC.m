@@ -20,7 +20,7 @@
 #import "ZStudentMineModel.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentTeacherDetailEvaListVC.h"
 
 @interface ZStudentTeacherDetailVC ()
@@ -144,7 +144,7 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]){
             ZOriganizationLessonListModel *model = cellConfig.dataModel;
-            ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             model.lessonID = model.courses_id;
             dvc.model = model;
             [self.navigationController pushViewController:dvc animated:YES];

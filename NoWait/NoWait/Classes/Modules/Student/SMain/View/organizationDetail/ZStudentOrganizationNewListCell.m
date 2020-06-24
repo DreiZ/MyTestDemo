@@ -114,8 +114,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if ([cellConfig.title isEqualToString:@"ZRecordWeightMoreCell"]) {
-       
+    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationHotListCell"]) {
+        if (self.lessonBlock) {
+            self.lessonBlock(cellConfig.dataModel);
+        }
     }
 }
 

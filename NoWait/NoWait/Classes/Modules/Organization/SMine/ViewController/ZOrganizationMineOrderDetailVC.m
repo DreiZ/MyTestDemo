@@ -24,7 +24,7 @@
 #import "ZStudentMineEvaEditVC.h"
 #import "ZStudentOrderRefundHandleVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZStudentLessonDetailVC.h"
+#import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
@@ -206,7 +206,7 @@
                
                ZViewController *target;
                for (ZViewController *controller in reversedArray) {
-                   if ([controller isKindOfClass:[NSClassFromString(@"ZStudentLessonDetailVC") class]]) {
+                   if ([controller isKindOfClass:[NSClassFromString(@"ZStudentExperienceLessonDetailVC") class]]) {
                        target = controller;
                        break;
                    }else if ([controller isKindOfClass:[NSClassFromString(@"ZStudentOrganizationDetailDesVC") class]]){
@@ -405,7 +405,7 @@
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
             }else if(index == ZLessonOrderHandleTypeLesson){
                 ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
-                ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+                ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
                 listmodel.lessonID = model.course_id;
                 dvc.model = listmodel;
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
@@ -431,7 +431,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
          ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
-         ZStudentLessonDetailVC *dvc = [[ZStudentLessonDetailVC alloc] init];
+         ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
          listmodel.lessonID = self.detailModel.course_id;
          dvc.model = listmodel;
          [self.navigationController pushViewController:dvc animated:YES];
