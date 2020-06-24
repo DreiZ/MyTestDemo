@@ -105,4 +105,28 @@
     _orderPrice = orderPrice;
     _numLabel.text = [NSString stringWithFormat:@"￥%@",orderPrice];
 }
+
+- (void)setIsExperience:(BOOL)isExperience {
+    _isExperience = isExperience;
+    if (isExperience) {
+        [self.orderView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.backView);
+            make.left.equalTo(self.collectionBtn.mas_right);
+            make.width.mas_equalTo(CGFloatIn750(200));
+        }];
+        
+        [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(self.backView);
+            make.left.equalTo(self.orderView.mas_right).offset(CGFloatIn750(4));
+        }];
+        self.orderView.hidden = NO;
+    }else{
+        self.orderView.hidden = YES;
+        
+        [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.top.bottom.equalTo(self.backView);
+            make.left.equalTo(self.collectionBtn.mas_right).offset(CGFloatIn750(4));
+        }];
+    }
+}
 @end

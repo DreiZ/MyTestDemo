@@ -86,7 +86,7 @@
         _experiencePriceLabel.text = @"";
         _experiencePriceLabel.numberOfLines = 1;
         _experiencePriceLabel.textAlignment = NSTextAlignmentLeft;
-        [_experiencePriceLabel setFont:[UIFont boldFontTitle]];
+        [_experiencePriceLabel setFont:[UIFont fontSmall]];
     }
     return _experiencePriceLabel;
 }

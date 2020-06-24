@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIButton *orderBtn;
 @property (nonatomic,strong) UIView *orderView;
 @property (nonatomic,strong) UILabel *hintLabel;
+
+@property (nonatomic,assign) BOOL isExperience;
 @end
 
 NS_ASSUME_NONNULL_END

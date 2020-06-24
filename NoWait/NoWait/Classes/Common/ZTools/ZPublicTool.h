@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-
 typedef NS_ENUM(NSUInteger, ZFormatterType) {
     ZFormatterTypeAny = 0,             //不过滤
     ZFormatterTypePhoneNumber,         //11位电话号码

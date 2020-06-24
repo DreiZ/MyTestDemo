@@ -8,7 +8,6 @@
 
 #import "ZOrganizationPhotoUploadManageVC.h"
 #import "FBAttachmentUploadCollectionViewCell.h"
-#import "FBAttachmentUploadCollectionViewCell.h"
 
 #import "XLPaymentSuccessHUD.h"
 #import "XLPaymentLoadingHUD.h"
@@ -16,7 +15,7 @@
 #import "ZFileManager.h"
 #import "ZFileUploadTask.h"
 #import "ZFileUploadManager.h"
-
+#import "FBCustomUploadProgress.h"
 #import "ZOriganizationPhotoViewModel.h"
 
 /**每行显示的个数*/
@@ -32,6 +31,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *uploadArr;
 @property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) FBCustomUploadProgress *progressView;
 
 @end
 
@@ -51,7 +51,6 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     self.collectionView.hidden = NO;
     
     [self setDataSource];
-    
     [self configData];
 }
 
@@ -66,11 +65,11 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
         [tasklist addObject:dataModel];
         [ZFileUploadManager addTaskDataToUploadWith:dataModel];
     }
-    
+    [self configProgress:0.01];
     [self showLoadingAnimation];
 //    //异步串行
     [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
-
+        [self configProgress:p/(tasklist.count+0.3)];
     } completion:^(id obj) {
         if (obj && [obj isKindOfClass:[NSArray class]]) {
             NSArray *arr = obj;
@@ -94,15 +93,24 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 - (void)setMainView {
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.bottomView];
+    [self.view addSubview:self.progressView];
     
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
         make.height.mas_equalTo(CGFloatIn750(200));
     }];
     
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(30));
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+        make.height.mas_equalTo(CGFloatIn750(20));
+    }];
+    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.bottomView.mas_top);
+        make.top.equalTo(self.progressView.mas_bottom).offset(CGFloatIn750(30));
     }];
 }
 
@@ -135,6 +143,15 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(200))];
     }
     return _bottomView;
+}
+
+- (FBCustomUploadProgress *)progressView {
+    if (!_progressView) {
+        _progressView = [[FBCustomUploadProgress alloc] init];
+        [_progressView configProgressBgColor:[UIColor colorWithWhite:0. alpha:.5] progressColor:[UIColor colorMain]];
+        _progressView.presentlab.font = [UIFont systemFontOfSize:14];
+    }
+    return _progressView;
 }
 
 #pragma mark - configUI
@@ -224,6 +241,12 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     NSLog(@"%@销毁了",[self class]);
 }
 
+
+- (void)configProgress:(CGFloat)progress {
+    [self.progressView setPresent:progress];
+}
+
+
 #pragma mark - 上传图片url
 - (void)updateData:(NSArray *)imageUrlArr {
     NSMutableDictionary *params = @{}.mutableCopy;
@@ -236,6 +259,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     [ZOriganizationPhotoViewModel addImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
+            [weakSelf configProgress:1];
             [weakSelf showSuccessAnimation];
             if (weakSelf.uploadCompleteBlock) {
                 weakSelf.uploadCompleteBlock();

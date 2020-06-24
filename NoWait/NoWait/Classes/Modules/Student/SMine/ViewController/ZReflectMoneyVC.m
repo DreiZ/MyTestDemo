@@ -13,6 +13,8 @@
 #import "ZRewardModel.h"
 #import "ZRewardCenterViewModel.h"
 
+#import "ZAlertView.h"
+
 @interface ZReflectMoneyVC ()
 @property (nonatomic,strong) ZRewardReflectHandleModel *handleModel;
 @property (nonatomic,strong) ZBaseLineCell *hintCell;
@@ -246,7 +248,9 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
-            [self.navigationController popViewControllerAnimated:YES];
+            [ZAlertView setAlertWithTitle:@"提现成功" subTitle:data btnTitle:@"我知道了" handlerBlock:^(NSInteger index) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
         }else {
             [TLUIUtility showErrorHint:data];
         }

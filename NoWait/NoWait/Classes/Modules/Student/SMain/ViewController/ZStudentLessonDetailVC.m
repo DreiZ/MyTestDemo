@@ -17,6 +17,8 @@
 #import "ZStudentOrganizationPersonnelListCell.h"
 #import "ZOrganizationDetailNumAndMinCell.h"
 
+#import "ZOrganizationNoDataCell.h"
+
 #import "ZBaseUnitModel.h"
 #import "ZStudentMineModel.h"
 #import "ZStudentEvaListCell.h"
@@ -282,8 +284,6 @@
             [[ZImagePickerManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
         };
     }
-    
-    
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -395,20 +395,23 @@
 }
 
 - (void)setTeacherList {
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
+     ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+     model.leftTitle = @"课程教师";
+     model.cellTitle = @"moreTeacher";
+     model.isHiddenLine = YES;
+     model.leftFont = [UIFont boldFontContent];
+     model.cellHeight = CGFloatIn750(50);
+    
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+    
+    [self.cellConfigArr addObject:menuCellConfig];
     if (!ValidArray(self.addModel.teacher_list)) {
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"2"];
+        [self.cellConfigArr addObject:coachCellConfig];
         return;
     }
-    [self.cellConfigArr addObject:getEmptyCellWithHeight(24)];
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = @"课程教师";
-    model.cellTitle = @"moreTeacher";
-    model.isHiddenLine = YES;
-    model.leftFont = [UIFont boldFontContent];
-    model.cellHeight = CGFloatIn750(50);
-   
-   ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-   
-   [self.cellConfigArr addObject:menuCellConfig];
+    
     
     
     NSMutableArray *peoples = @[].mutableCopy;
@@ -438,7 +441,7 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
         
-        {
+        if(ValidStr(self.addModel.info)){
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
             .zz_cellHeight(CGFloatIn750(62))
             .zz_lineHidden(YES)
@@ -447,6 +450,9 @@
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
+        }else{
+            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"4"];
+            [self.cellConfigArr addObject:coachCellConfig];
         }
     }
     
@@ -676,10 +682,14 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
     }
-    
-    for (ZOrderEvaListModel *evaModel in self.dataSources) {
-        ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
-        [self.cellConfigArr addObject:evaCellConfig];
+    if (ValidArray(self.dataSources)) {
+        for (ZOrderEvaListModel *evaModel in self.dataSources) {
+            ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
+            [self.cellConfigArr addObject:evaCellConfig];
+        }
+    }else{
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"3"];
+        [self.cellConfigArr addObject:coachCellConfig];
     }
 }
 

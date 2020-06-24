@@ -132,8 +132,6 @@
     return _orignLabel;
 }
 
-
-
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
