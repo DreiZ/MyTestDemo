@@ -303,6 +303,10 @@
         _remainNumLabel.text = [NSString stringWithFormat:@"剩余%@/%@张    限领%@张",model.unused_nums,model.nums,model.limit];
     }
     
+    if ([model.is_give intValue] == 1) {
+        _remainNumLabel.text = @"赠送卡券不公开展示且仅指定学员可用";
+    }
+    
     if (![model.limit_start isEqualToString:@"0"]) {
         _validityTimeLabel.text = [NSString stringWithFormat:@"有效期%@至%@",[model.limit_start timeStringWithFormatter:@"yyyy-MM-dd"],[model.limit_end timeStringWithFormatter:@"yyyy-MM-dd"]];
     }else{

@@ -359,6 +359,8 @@
 @property (nonatomic,strong) NSString *use_nums;
 @property (nonatomic,strong) NSString *store_name;
 
+@property (nonatomic,strong) NSString *is_give;
+
 @property (nonatomic,strong) NSString *received;
 @property (nonatomic,strong) NSString *limit;
 @property (nonatomic,assign) BOOL isStudent;
