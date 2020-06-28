@@ -204,7 +204,7 @@
         if ([self.model.leftImage isKindOfClass:[UIImage class]]) {
             self.leftImageView.image = self.model.leftImage;
         }else if ([self.model.leftImage tt_isValidUrl]) {
-            [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:self.model.leftImage]];
+            [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:self.model.leftImage]  placeholderImage:ValidStr(self.model.leftPlaceholderImage)?[UIImage imageNamed:self.model.leftPlaceholderImage]:nil];
         }else{
             self.leftImageView.image = [UIImage imageNamed:self.model.leftImage];
         }
@@ -213,7 +213,12 @@
             make.left.equalTo(self.contentView.mas_left).offset(self.model.leftMargin);
             
             if (self.model.leftImageH > 0.01f) {
-                make.width.height.mas_equalTo(self.model.leftImageH);
+                if (self.model.leftImageW > 0.01f) {
+                    make.height.mas_equalTo(self.model.leftImageH);
+                    make.width.mas_equalTo(self.model.leftImageW);
+                }else{
+                    make.width.height.mas_equalTo(self.model.leftImageH);
+                }
             }else{
                 make.width.mas_equalTo(CGFloatIn750(0));
             }
@@ -312,7 +317,7 @@
         if ([self.model.rightImage isKindOfClass:[UIImage class]]) {
             self.rightImageView.image = self.model.rightImage;
         }else if ([self.model.rightImage tt_isValidUrl]) {
-            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:self.model.rightImage]];
+            [self.rightImageView tt_setImageWithURL:[NSURL URLWithString:self.model.rightImage] placeholderImage:ValidStr(self.model.rightPlaceholderImage)?[UIImage imageNamed:self.model.rightPlaceholderImage]:nil];
         }else{
             self.rightImageView.image = [UIImage imageNamed:self.model.rightImage];
         }
@@ -320,7 +325,12 @@
         [self.rightImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView.mas_right).offset(-self.model.rightMargin);
             if (self.model.rightImageH > 0.01f) {
-                make.width.height.mas_equalTo(self.model.rightImageH);
+                if (self.model.rightImageW > 0.01f) {
+                    make.height.mas_equalTo(self.model.rightImageH);
+                    make.width.mas_equalTo(self.model.rightImageW);
+                }else{
+                    make.width.height.mas_equalTo(self.model.rightImageH);
+                }
             }else{
                 make.width.mas_equalTo(CGFloatIn750(0));
             }

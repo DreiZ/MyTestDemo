@@ -34,6 +34,8 @@
         self.rightMargin = kRightMargin;
 
         self.leftImageH = 0;
+        self.leftImageW = 0;
+        
         self.leftColor = [UIColor colorTextBlack];
         self.leftDarkColor = [UIColor colorTextBlackDark];
         self.leftFont = [UIFont fontContent];
@@ -44,6 +46,7 @@
         self.leftSubFont = [UIFont fontSmall];
 
         self.rightImageH = 0;
+        self.rightImageW = 0;
 
         self.rightColor = [UIColor colorTextBlack];
         self.rightDarkColor = [UIColor colorTextBlackDark];
@@ -84,7 +87,10 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_marginLeft, CGFloat, leftMargin)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_marginRight, CGFloat, rightMargin)
 
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageLeftHeight, CGFloat, leftImageH)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageLeftWidth, CGFloat, leftImageW)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageLeft, id, leftImage)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_ImageLeftPlaceholder, NSString *, leftPlaceholderImage)
+
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageLeftRadius, BOOL, isLeftImageRadius)
 
 
@@ -96,7 +102,9 @@ ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_fontLeft, UIFont *, leftFont)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_alignmentLeft, NSTextAlignment, leftTextAlignment)
 
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageRightHeight, CGFloat, rightImageH)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageRightWidth, CGFloat, rightImageW)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_imageRight, id, rightImage)
+ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_ImageRightPlaceholder, NSString *, rightPlaceholderImage)
 
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_subTitleLeft, NSString *, leftSubTitle)
 ZCHAIN_LINECELLMODEL_IMPLEMENTATION(zz_colorSubLeft, UIColor *, leftSubColor)

@@ -143,46 +143,46 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //        completionHandler(responseObject, nil);
         DLog(@"return data *** %@", responseObject);
-            if (ValidDict(responseObject)) {
-                ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
-                
-                if (backModel && backModel.code) {
-                    if ([backModel.code integerValue] == 0) {
-                        completionHandler(backModel, nil);
-                        
-                    }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
-                        
-                        [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
-                        [[ZLaunchManager sharedInstance] launchInWindow:nil];
-                        NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
-                        completionHandler(backModel, error);
-                        [TLUIUtility showErrorHint:backModel.message];
-                        
-                    }else{
-                        
-                        NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
-        
-                        if (!backModel.message) {
-                            backModel.message = @"获取服务器数据错误";
-                        }
-                        
-                        completionHandler(backModel, error);
-                        
-                    }
-                }else{
-                    backModel = [[ZBaseNetworkBackModel alloc] init];
-                    backModel.code = @"888888";
-                    backModel.message = @"获取服务器数据错误";
+        if (ValidDict(responseObject)) {
+            ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
+            
+            if (backModel && backModel.code) {
+                if ([backModel.code integerValue] == 0) {
                     completionHandler(backModel, nil);
+                    
+                }else if ([backModel.code integerValue] == 401 || [backModel.code integerValue] == 2001 || [backModel.code integerValue] == 2002 || [backModel.code integerValue] == 2005 || [backModel.code integerValue] == 100005){
+                    
+                    [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
+                    [[ZLaunchManager sharedInstance] launchInWindow:nil];
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":backModel.message}];
+                    completionHandler(backModel, error);
+                    [TLUIUtility showErrorHint:backModel.message];
+                    
+                }else{
+                    
+                    NSError *error = [[NSError alloc] initWithDomain:backModel.code code:[backModel.code integerValue] userInfo:@{@"msg":@"获取服务器数据错误"}];
+    
+                    if (!backModel.message) {
+                        backModel.message = @"获取服务器数据错误";
+                    }
+                    
+                    completionHandler(backModel, error);
+                    
                 }
-                
             }else{
-                NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
-                ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
+                backModel = [[ZBaseNetworkBackModel alloc] init];
                 backModel.code = @"888888";
-                backModel.message = @"连接服务器失败";
-                completionHandler(backModel, error);
+                backModel.message = @"获取服务器数据错误";
+                completionHandler(backModel, nil);
             }
+            
+        }else{
+            NSError *error = [[NSError alloc] initWithDomain:@"fail" code:404 userInfo:@{@"msg":@"连接服务器失败"}];
+            ZBaseNetworkBackModel *backModel = [[ZBaseNetworkBackModel alloc] init];
+            backModel.code = @"888888";
+            backModel.message = @"连接服务器失败";
+            completionHandler(backModel, error);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil, error);
     }];

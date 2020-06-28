@@ -69,8 +69,8 @@
     }];
     
 
-    NSArray *imageArr = @[@"student_login",@"teacher_login",@"all_login",@"school_login"];
-    NSArray *titleArr = @[@"我是学员",@"我是教师",@"我是机构",@"我是校区"];
+    NSArray *imageArr = @[@"student_login",@"teacher_login",@"school_login",@"all_login"];
+    NSArray *titleArr = @[@"我是学员",@"我是教师",@"我是校区",@"我是机构"];
     
     CGFloat leftY = CGFloatIn750(394);
     UIButton *sBtn = nil;
@@ -127,7 +127,7 @@
 #pragma mark - lazy loading...
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
-        //    1：学员 2：教师 6：校区 8：机构
+        //1：学员 2：教师 6：校区 8：机构
         __weak typeof(self) weakSelf = self;
         _loginBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_loginBtn bk_addEventHandler:^(id sender) {
@@ -137,9 +137,9 @@
             }else if (weakSelf.selectIndex == 1){
                 lvc.type = 2;
             }else if (weakSelf.selectIndex == 2){
-                lvc.type = 8;
-            }else if (weakSelf.selectIndex == 3){
                 lvc.type = 6;
+            }else if (weakSelf.selectIndex == 3){
+                lvc.type = 8;
             }
             lvc.isSwitch = weakSelf.isSwitch;
             lvc.loginSuccess = weakSelf.loginSuccess;

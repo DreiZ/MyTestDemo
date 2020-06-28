@@ -69,7 +69,10 @@
 @property (nonatomic,assign) CGFloat leftMargin;
 @property (nonatomic,assign) CGFloat rightMargin;
 @property (nonatomic,assign) CGFloat leftImageH;
+@property (nonatomic,assign) CGFloat leftImageW;
 @property (nonatomic,strong) id leftImage;
+@property (nonatomic,strong) NSString *leftPlaceholderImage;
+
 @property (nonatomic,assign) BOOL isLeftImageRadius;
 
 @property (nonatomic,strong) NSString *leftTitle;
@@ -84,7 +87,9 @@
 @property (nonatomic,strong) UIFont *leftSubFont;
 
 @property (nonatomic,assign) CGFloat rightImageH;
+@property (nonatomic,assign) CGFloat rightImageW;
 @property (nonatomic,strong) id rightImage;
+@property (nonatomic,strong) NSString *rightPlaceholderImage;
 
 @property (nonatomic,strong) UIColor *rightColor;
 @property (nonatomic,strong) UIColor *rightDarkColor;
@@ -128,7 +133,9 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_marginLeft, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_marginRight, CGFloat)
 
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageLeftHeight, CGFloat)
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageLeftWidth, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageLeft, id)
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_ImageLeftPlaceholder, NSString *)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageLeftRadius, BOOL)
 
 
@@ -139,7 +146,10 @@ ZCHAIN_LINECELLMODEL_PROPERTY(zz_fontLeft, UIFont *)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_alignmentLeft, NSTextAlignment)
 
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageRightHeight, CGFloat)
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageRightWidth, CGFloat)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_imageRight, id)
+ZCHAIN_LINECELLMODEL_PROPERTY(zz_ImageRightPlaceholder, NSString *)
+
 
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_subTitleLeft, NSString *)
 ZCHAIN_LINECELLMODEL_PROPERTY(zz_colorSubLeft, UIColor *)
