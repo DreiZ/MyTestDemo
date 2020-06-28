@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZFileUploadDataModel.h"
+#import <OSSTask.h>
 
 @interface ZFileUploadTask : NSObject
 
@@ -32,6 +33,8 @@
  自己懒加载创建
  */
 @property (strong,nonatomic) NSURLSessionTask *uploadTask;
+
+@property (nonatomic,strong) OSSTask *aliYunUploadTask;
 
 /**
  当前下载的字节数 用于计算速度

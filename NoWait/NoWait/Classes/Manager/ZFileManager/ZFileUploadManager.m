@@ -368,7 +368,7 @@ static ZFileUploadManager *fileUploadManager;
 //    return task;
 //}
 
-#pragma mark -znetworking 上传图片
+#pragma mark - networking 上传图片
 + (ZFileUploadTask *)uploadFileWithModel:(ZFileUploadDataModel *)model success:(void(^)(id obj))success progress:(void(^)(int64_t p, int64_t a))progress failure:(void(^)(NSError *error))failure {
     return [ZNetworkingManager postImageWithModel:model success:success progress:progress failure:failure];
 }
@@ -436,11 +436,11 @@ static ZFileUploadManager *fileUploadManager;
 
 
 #pragma mark 上传文件
-- (void)aliYunUploadType:(ZAliYunType)type file:(id)file fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self aliYunUploadType:type file:file fileName:fileName callbackUrl:nil callbackBody:nil callbackVar:nil callbackVarKey:nil complete:completeBlock];
+- (void)aliYunUploadType:(ZAliYunType)type file:(ZFileUploadDataModel *)file progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self aliYunUploadType:type file:file callbackUrl:nil callbackBody:nil callbackVar:nil callbackVarKey:nil progress:progress complete:completeBlock];
 }
 
-- (void)aliYunUploadType:(ZAliYunType)type file:(id)file fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar  callbackVarKey:(NSString *)fileKey complete:(void(^)(NSString *, NSString *))completeBlock {
+- (void)aliYunUploadType:(ZAliYunType)type file:(ZFileUploadDataModel *)file callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)fileKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
     
     OSSPutObjectRequest * put = [OSSPutObjectRequest new];
     if (type == ZAliYunTypeIM) {
@@ -450,22 +450,32 @@ static ZFileUploadManager *fileUploadManager;
     }
     
     // objectKey为云服储存的文件名
-    put.objectKey = fileName;
+    put.objectKey = file.fileName;
     
-    if ([file isKindOfClass:[UIImage class]]) {
-        UIImage *testImage = file;
+    if (file.taskType == ZUploadTypeImage ) {
+        UIImage *testImage = file.image;
         NSData *testData = UIImageJPEGRepresentation(testImage, 0.2);
         put.uploadingData = testData;
     }else{
-        NSString *testPath = file;
+        NSString *testPath = file.filePath;
         put.uploadingFileURL = [NSURL URLWithString:testPath];
     }
-    
+    ZFileUploadTask *task = [[ZFileUploadTask alloc] init];
+    task.model = file;
+    task.model.taskState = ZUploadStateOnGoing;
+    file.taskState = ZUploadStateOnGoing;
 
     // 可选字段，可不设置
     put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
         // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
         DLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
+        if (progress) {
+            progress(totalByteSent,totalBytesExpectedToSend);
+        }
+        
+        if (file.progressBlock) {
+            file.progressBlock(totalByteSent, totalBytesExpectedToSend);
+        }
     };
     // 以下可选字段的含义参考： https://docs.aliyun.com/#/pub/oss/api-reference/object&PutObject
     // put.contentType = @"";
@@ -502,6 +512,8 @@ static ZFileUploadManager *fileUploadManager;
     }
     
     OSSTask * putTask = [self.client putObject:put];
+    task.aliYunUploadTask = putTask;
+    
     [putTask continueWithBlock:^id(OSSTask *task) {
         if (!task.error) {
             DLog(@"upload object success!");
@@ -518,7 +530,13 @@ static ZFileUploadManager *fileUploadManager;
             if ([result.httpResponseHeaderFields objectForKey:@"Content-MD5"]) {
                 Content_MD5 = result.httpResponseHeaderFields[@"Content-MD5"];
             }
-            completeBlock(url, Content_MD5);
+            if (completeBlock) {
+                completeBlock(url, Content_MD5);
+            }
+            file.taskState = ZUploadStateFinished;
+            if (file.completeBlock) {
+                file.completeBlock(url);
+            }
             return nil;
         } else {
             DLog(@"upload object failed, error: %ld" , task.error.code);
@@ -526,74 +544,90 @@ static ZFileUploadManager *fileUploadManager;
                 if (reAccess > 0) {
                     [self getAccessKey:^(BOOL state) {
                         if (state) {
-                            [self aliYunUploadType:type file:file fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey complete:completeBlock];
+                            [self aliYunUploadType:type file:file callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey progress:progress complete:completeBlock];
                         }else{
-                            completeBlock(nil, nil);
+                            if (completeBlock) {
+                                completeBlock(nil, nil);
+                            }
+                            
+                            file.taskState = ZUploadStateError;
+                            if (file.errorBlock) {
+                                file.errorBlock(task.error);
+                            }
                         }
                     }];
-                    
                     return nil;
                 }
             }
         }
-        completeBlock(nil, nil);
+        file.taskState = ZUploadStateError;
+        if (file.errorBlock) {
+            file.errorBlock(task.error);
+        }
+        if (completeBlock) {
+            completeBlock(nil, nil);
+        }
         return nil;
     }];
+    [[ZFileUploadManager sharedInstance].taskList addObject:task];
     //   // 可以等待任务完成
     //    [putTask waitUntilFinished];
 }
 
 #pragma mark 上传图片
 //普通上传图片
-- (void)uploadFile:(id)uFile fileName:(NSString *)fileName  complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self uploadFileType:ZAliYunTypeApi file:uFile fileName:fileName complete:completeBlock];
+- (void)uploadFile:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeApi file:uFile progress:progress complete:completeBlock];
 }
 
-- (void)uploadFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self uploadFileType:ZAliYunTypeApi file:uFile fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+- (void)uploadFile:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeApi file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
 }
 
 //IM上传图片
-- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self uploadFileType:ZAliYunTypeIM file:uFile fileName:fileName complete:completeBlock];
+- (void)uploadIMFile:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeIM file:uFile progress:progress complete:completeBlock];
 }
 
-- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self uploadFileType:ZAliYunTypeIM file:uFile fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+- (void)uploadIMFile:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeIM file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
 }
-
 
 
 //上出图片
-- (void)uploadFileType:(ZAliYunType)type file:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
+- (void)uploadFileType:(ZAliYunType)type file:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
-        [self aliYunUploadType:type file:uFile fileName:fileName complete:completeBlock];
+        [self aliYunUploadType:type file:uFile progress:progress complete:completeBlock];
         return;
     }
     [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
         if (isSuccess) {
             reAccess = 3;
-            [self aliYunUploadType:type file:uFile fileName:fileName complete:completeBlock];
+            [self aliYunUploadType:type file:uFile progress:progress complete:completeBlock];
         }else{
-            completeBlock(nil,nil);
+            if (completeBlock) {
+                completeBlock(nil,nil);
+            }
         }
     }];
 }
 
-- (void)uploadFileType:(ZAliYunType)type file:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
+- (void)uploadFileType:(ZAliYunType)type file:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
 
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
-        [self aliYunUploadType:type file:uFile fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+        [self aliYunUploadType:type file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
         return;
     }
     [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
         if (isSuccess) {
             reAccess = 3;
-            [self aliYunUploadType:type file:uFile fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+            [self aliYunUploadType:type file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
         }else{
-            completeBlock(nil,nil);
+            if (completeBlock) {
+                completeBlock(nil,nil);
+            }
         }
     }];
 }
@@ -601,12 +635,12 @@ static ZFileUploadManager *fileUploadManager;
 
 #pragma mark - 批量上传
 //IM 批量上传
-- (void)uploadIMGroupFile:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
+- (void)uploadIMGroupFile:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float, NSInteger))uploadProgress groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
     [self uploadGroupType:ZAliYunTypeIM file:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
 }
 
-//I普通批量上传
-- (void)uploadSampleGroupFile:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
+//普通批量上传
+- (void)uploadSampleGroupFile:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float ,NSInteger))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
     [self uploadGroupType:ZAliYunTypeApi file:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
 }
 
@@ -615,7 +649,7 @@ static ZFileUploadManager *fileUploadManager;
  @param fileArr <NSDictionary> image:图片 fileName:图片名称
  @param groupCompleteBlock <NSDictionary> imageUrl:图片url Content_MD5:图片md5 fileName:图片名称
  */
-- (void)uploadGroupType:(ZAliYunType)type file:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
+- (void)uploadGroupType:(ZAliYunType)type file:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float, NSInteger))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
         _uploadIndex = 0;
@@ -631,71 +665,84 @@ static ZFileUploadManager *fileUploadManager;
             self.uploadArr = @[].mutableCopy;
             [self uploadGroupFileType:type one:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
         }else{
-            groupCompleteBlock(nil);
+            if (groupCompleteBlock) {
+                groupCompleteBlock(nil);
+            }
         }
     }];
 }
 
 //批量上传图片第一步
-- (void)uploadGroupFileType:(ZAliYunType)type one:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock  {
+- (void)uploadGroupFileType:(ZAliYunType)type one:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float, NSInteger))uploadProgress groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock  {
     if (_uploadIndex < fileArr.count) {
-        NSDictionary *fileDict = fileArr[_uploadIndex];
+        ZFileUploadDataModel *fileModel = fileArr[_uploadIndex];
         
-        [self uploadFileType:type stepTwo:fileDict[@"file"] fileName:fileDict[@"fileName"] complete:^(NSString *url, NSString *Content_MD5) {
+        [self uploadFileType:type stepTwo:fileModel progress:^(CGFloat p, CGFloat a) {
+            if (uploadProgress) {
+                uploadProgress(p/a,self.uploadIndex);
+            }
+        } complete:^(NSString *url, NSString *Content_MD5) {
             if (url && Content_MD5) {
-                [self.uploadArr addObject:@{@"fileUrl":url, @"Content_MD5":Content_MD5, @"fileName":fileDict[@"fileName"]}];
+                [self.uploadArr addObject:@{@"fileUrl":url, @"Content_MD5":Content_MD5, @"fileName":fileModel.fileName}];
             }else{
-                groupCompleteBlock(nil);
+                if (groupCompleteBlock) {
+                    groupCompleteBlock(nil);
+                }
             }
             
             self.uploadIndex++;
-            uploadProgress(self.uploadIndex);
+            if (uploadProgress) {
+                uploadProgress(1,self.uploadIndex);
+            }
             [self uploadGroupFileType:type one:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
         }];
     }else{
-        groupCompleteBlock(_uploadArr);
+        if (groupCompleteBlock) {
+            groupCompleteBlock(_uploadArr);
+        }
     }
 }
 
 //批量上传图片第二步
-- (void)uploadFileType:(ZAliYunType)type stepTwo:(id )uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
-    [self uploadFileType:type file:uFile fileName:fileName complete:completeBlock];
+- (void)uploadFileType:(ZAliYunType)type stepTwo:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:type file:uFile progress:progress complete:completeBlock];
 }
 
-
 #pragma mark 上传语音
-- (void)uploadVoice:(id)voice fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
+- (void)uploadVoice:(ZFileUploadDataModel *)voice progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
-        [self aliYunUploadType:ZAliYunTypeIM file:voice fileName:fileName complete:completeBlock];
+        [self aliYunUploadType:ZAliYunTypeIM file:voice progress:progress complete:completeBlock];
         return;
     }
     [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
         if (isSuccess) {
             reAccess = 3;
-            [self aliYunUploadType:ZAliYunTypeIM file:voice fileName:fileName complete:completeBlock];
+            [self aliYunUploadType:ZAliYunTypeIM file:voice progress:progress complete:completeBlock];
         }else{
-            completeBlock(nil,nil);
+            if (completeBlock) {
+                completeBlock(nil,nil);
+            }
         }
     }];
     
 }
 
-- (void)uploadVoice:(id)voice fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
-//    reAccess = 3;
-//    [self aliYunUploadType:ZAliYunTypeIM file:voice fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
-    
+- (void)uploadVoice:(ZFileUploadDataModel *)voice callbackUrl:(NSString *)callbackUrl callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock {
+
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
-        [self aliYunUploadType:ZAliYunTypeIM file:voice fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+        [self aliYunUploadType:ZAliYunTypeIM file:voice callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
         return;
     }
     [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
         if (isSuccess) {
             reAccess = 3;
-            [self aliYunUploadType:ZAliYunTypeIM file:voice fileName:fileName callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey complete:completeBlock];
+            [self aliYunUploadType:ZAliYunTypeIM file:voice callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
         }else{
-            completeBlock(nil,nil);
+            if (completeBlock) {
+                completeBlock(nil,nil);
+            }
         }
     }];
 }

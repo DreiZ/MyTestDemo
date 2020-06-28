@@ -59,14 +59,14 @@ typedef NS_ENUM(NSInteger, ZAliYunType) {
 
 #pragma mark 上传图片
 //普通单张上传
-- (void)uploadFile:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadFile:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 
-- (void)uploadFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadFile:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 
 //IM单张上传
-- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadIMFile:(ZFileUploadDataModel *)uFile progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 
-- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadIMFile:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 
 /**
  批量上传
@@ -75,17 +75,15 @@ typedef NS_ENUM(NSInteger, ZAliYunType) {
  @param groupCompleteBlock <NSDictionary> fileUrl:图片url Content_MD5:图片md5 fileName:图片名称
  */
 //IM 批量上传
-- (void)uploadIMGroupFile:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock;
+- (void)uploadIMGroupFile:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float,NSInteger))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock;
 
 //I普通批量上传
-- (void)uploadSampleGroupFile:(NSArray <NSDictionary *>*)fileArr  uploadProgress:(void(^)(float))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock;
+- (void)uploadSampleGroupFile:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float,NSInteger))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock;
 
-
-- (void)aliYunGetFileUrl:(NSString *)objectKey;
 
 #pragma mark 上传语音
-- (void)uploadVoice:(id)voice fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadVoice:(ZFileUploadDataModel *)voice progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 
-- (void)uploadVoice:(id)voice fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock;
+- (void)uploadVoice:(ZFileUploadDataModel *)voice callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(CGFloat p, CGFloat a))progress complete:(void(^)(NSString *, NSString *))completeBlock;
 @end
 
