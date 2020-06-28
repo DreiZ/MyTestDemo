@@ -541,80 +541,12 @@ static ZFileUploadManager *fileUploadManager;
     }];
     //   // 可以等待任务完成
     //    [putTask waitUntilFinished];
-    
 }
-
-
-//下载file
-- (void)aliYunDownLoadType:(ZAliYunType)type fineName:(NSString *)fileName complete:(void(^)(id))completeBlock {
-    
-    OSSGetObjectRequest * request = [OSSGetObjectRequest new];
-    // 必填字段
-    if (type == ZAliYunTypeIM) {
-        request.bucketName = AliYunBucketIMName;
-    }else{
-        request.bucketName = AliYunBucketName;
-    }
-    
-    request.objectKey = fileName;
-    
-    // 可选字段
-    request.downloadProgress = ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-        // 当前下载段长度、当前已经下载总长度、一共需要下载的总长度
-        DLog(@"downloadProgress - %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-    };
-    // request.range = [[OSSRange alloc] initWithStart:0 withEnd:99]; // bytes=0-99，指定范围下载
-    // request.downloadToFileURL = [NSURL fileURLWithPath:@"<filepath>"]; // 如果需要直接下载到文件，需要指明目标文件地址
-    
-    OSSTask * getTask = [self.client getObject:request];
-    [getTask continueWithBlock:^id(OSSTask *task) {
-        if (!task.error) {
-            DLog(@"download object success!");
-            OSSGetObjectResult * getResult = task.result;
-            DLog(@"download result: %@", getResult.downloadedData);
-//            UIImage *image = [UIImage imageWithData:getResult.downloadedData];
-            completeBlock(getResult.downloadedData);
-        } else {
-            DLog(@"download object failed, error: %@" ,task.error);
-            completeBlock(nil);
-        }
-        return nil;
-    }];
-    
-    // [getTask waitUntilFinished];
-    // [request cancel];
-}
-
-- (void)aliYunGetFileUrl:(NSString *)objectKey {
-    NSString * constrainURL = nil;
-    
-    // sign constrain url
-    OSSTask * task = [self.client presignConstrainURLWithBucketName:AliYunBucketName
-                                                 withObjectKey:objectKey
-                                        withExpirationInterval: 30 * 60];
-    if (!task.error) {
-        constrainURL = task.result;
-    } else {
-        DLog(@"error: %@", task.error);
-    }
-    
-    DLog(@"cons url %@", constrainURL);
-//    Connection = "keep-alive";
-//    "Content-Length" = 0;
-//    "Content-MD5" = "O5SedrA0zqoEmKusIXNL3w==";
-//    Date = "Tue, 04 Dec 2018 08:01:20 GMT";
-//    Etag = "\"3B949E76B034CEAA0498ABAC21734BDF\"";
-//    Server = AliyunOSS;
-//    "x-oss-hash-crc64ecma" = 14228473123068104999;
-//    "x-oss-request-id" = 5C063450C1655BC9BAC2B546;
-//    "x-oss-server-time" = 93;
-}
-
 
 #pragma mark 上传图片
 //普通上传图片
-- (void)uploadFile:(id)uFile fileName:(NSString *)fileName progress:(void(^)(CGFloat p, NSInteger index))progress complete:(void(^)(NSString *, NSString *))completeBlock  failure:(void(^)(NSError *error))failure{
-    [self uploadFileType:ZAliYunTypeApi file:uFile fileName:fileName progress:progress complete:completeBlock failure:failure];
+- (void)uploadFile:(id)uFile fileName:(NSString *)fileName  complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeApi file:uFile fileName:fileName complete:completeBlock];
 }
 
 - (void)uploadFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
@@ -622,8 +554,8 @@ static ZFileUploadManager *fileUploadManager;
 }
 
 //IM上传图片
-- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName progress:(void(^)(CGFloat p, NSInteger index))progress complete:(void(^)(NSString *, NSString *))completeBlock failure:(void(^)(NSError *error))failure{
-    [self uploadFileType:ZAliYunTypeIM file:uFile fileName:fileName progress:progress complete:completeBlock failure:failure];
+- (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
+    [self uploadFileType:ZAliYunTypeIM file:uFile fileName:fileName complete:completeBlock];
 }
 
 - (void)uploadIMFile:(id)uFile fileName:(NSString *)fileName callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey complete:(void(^)(NSString *, NSString *))completeBlock {
@@ -633,7 +565,7 @@ static ZFileUploadManager *fileUploadManager;
 
 
 //上出图片
-- (void)uploadFileType:(ZAliYunType)type file:(id)uFile fileName:(NSString *)fileName progress:(void(^)(CGFloat p, NSInteger index))progress complete:(void(^)(NSString *, NSString *))completeBlock failure:(void(^)(NSError *error))failure{
+- (void)uploadFileType:(ZAliYunType)type file:(id)uFile fileName:(NSString *)fileName complete:(void(^)(NSString *, NSString *))completeBlock {
     if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
         reAccess = 3;
         [self aliYunUploadType:type file:uFile fileName:fileName complete:completeBlock];
