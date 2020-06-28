@@ -66,11 +66,13 @@
 #define SERVICE_SIGN                    @"9f34c254a45dabb40009c9b55ef17a4133ee67e2"
 
 //阿里云上传图片地址
+#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
+#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
 #define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
-#define AliYunBucketName                @"cxapp-dev-app"
-#define AliYunBucketIMName              @"cxapp-dev-im"
-#define AliYunendpoint                  @"https://oss-cn-shanghai.aliyuncs.com"
-#define AliYunendpointPath              @"oss-cn-shanghai.aliyuncs.com"
+#define AliYunBucketName                @"xiangcenter"
+#define AliYunBucketIMName              @"xiangcenter"
+#define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
+#define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 
 #define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@/%@",name,[ZUserHelper sharedHelper].client_id,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
 
@@ -98,27 +100,21 @@
 //机构服务器
 #define URL_organization                @"http://api.xiangcenter.com"
 
-//IM服务器
-#define SocketServiceUrl                @"172.17.100.32"
-#define SocketServicePort               8085
-#define URL_main                        @"http://172.17.100.31:8080"
-#define URL_Socket                      @"http://172.17.100.32:8851"
-//#define URL_main @"http://192.168.11.122:8090" //展鹏
-
-
 //开发服app_key ,app_secret,sign
 #define SERVICE_APP_KEY                 @"20181120091910000002"
 #define SERVICE_APP_SECRET              @"f9590246c56c67b9a9414c9a3121cffbd7fecb38"
 #define SERVICE_SIGN                    @"9f34c254a45dabb40009c9b55ef17a4133ee67e2"
 
 //阿里云上传图片地址
-#define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
-#define AliYunBucketName                @"cxapp-dev-app"
-#define AliYunBucketIMName              @"cxapp-dev-im"
-#define AliYunendpoint                  @"https://oss-cn-shanghai.aliyuncs.com"
-#define AliYunendpointPath              @"oss-cn-shanghai.aliyuncs.com"
+#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
+#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
 
-#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@/%@",name,[ZUserHelper sharedHelper].client_id,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
+#define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
+#define AliYunBucketName                @"xiangcenter"
+#define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
+#define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
+
+#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@",name,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
 
 #define AliYunMessageImagePath          AliYunPath(@"im_image")
 #define AliYunMessageVoicePath          AliYunPath(@"im_audio")
@@ -131,11 +127,6 @@
 #elif ProductSever
 
 #pragma mark - /**生产服务器*/
-//IM服务器
-#define SocketServiceUrl                @"cimapp.chengxiguoji.com"  //socket 服务器
-#define SocketServicePort               8890
-#define URL_main                        @"http://api.chengxiguoji.com"
-#define URL_Socket                      @"http://cim.chengxiguoji.com" //会话api
 //正式服app_key ,app_secret
 #define SERVICE_APP_KEY                 @"20181120091950000002"
 #define SERVICE_APP_SECRET              @"1341a770aa2d3e7128e0b8d170da4fcb0b25fa5d"
@@ -143,14 +134,16 @@
 
 
 //阿里云上传图片地址
+#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
+#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
+
 #define AliYunImageServer               @"http://sts.chengxiguoji.com/sts.php"
-#define AliYunBucketName                @"cxapp-pro-app"
-#define AliYunBucketIMName              @"cxapp-pro-im"
-#define AliYunendpoint                  @"https://oss-cn-shanghai.aliyuncs.com"
-#define AliYunendpointPath              @"oss-cn-shanghai.aliyuncs.com"
+#define AliYunBucketName                @"xiangcenter"
+#define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
+#define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 
 
-#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@/%@",name,[ZUserHelper sharedHelper].client_id,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
+#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@",name,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
 
 #define AliYunMessageImagePath          AliYunPath(@"im_image")
 #define AliYunMessageVoicePath          AliYunPath(@"im_audio")

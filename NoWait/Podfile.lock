@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AliyunOSSiOS (2.10.8)
   - AMap2DMap (5.6.1):
     - AMapFoundation (~> 1.4)
   - AMapFoundation (1.6.3)
@@ -243,6 +244,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - AliyunOSSiOS
   - AMap2DMap
   - AMapLocation
   - AMapSearch
@@ -281,6 +283,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - AliyunOSSiOS
     - AMap2DMap
     - AMapFoundation
     - AMapLocation
@@ -343,6 +346,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AliyunOSSiOS: 8db92936545593b9e5c66d680ef2ac0738946651
   AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
   AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
   AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
@@ -380,6 +384,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: 5ac992c9e0246abe682cec9ca4cd04e804fb9537
+PODFILE CHECKSUM: 8642b78fe8a22d464d6f2e8c476b068584831eb1
 
 COCOAPODS: 1.9.1
