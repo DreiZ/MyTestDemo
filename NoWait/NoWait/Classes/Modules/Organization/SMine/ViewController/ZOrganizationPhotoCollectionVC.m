@@ -137,7 +137,7 @@
                             dataModel.image = model.image;
                             dataModel.taskType = ZUploadTypeVideo;
                             dataModel.asset = model.asset;
-                            dataModel.taskState = ZUploadStateWaiting;
+                            dataModel.taskState = ZUploadStateZiping;
 //                            dataModel.filePath = [model.mediaURL absoluteString];
                         }else{
                             dataModel.image = model.image;
