@@ -38,7 +38,11 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,strong) UIImage *image;
 
+//上传后url
 @property (nonatomic,strong) NSString *image_url;
+
+//上传后url
+@property (nonatomic,strong) NSString *video_url;
 /**
  任务id
  */
@@ -55,7 +59,10 @@ typedef enum : NSUInteger {
  文件地址
  */
 @property (copy,nonatomic)NSString *filePath;
-
+/**
+ asset
+ */
+@property (copy,nonatomic)PHAsset *asset;
 /**
  文件名
  */
@@ -77,5 +84,7 @@ typedef enum : NSUInteger {
  任务的状态
  */
 @property (assign,nonatomic)ZUploadState taskState;
+
+-(void)getVideo_url:(void(^)(NSString *))success;
 @end
 

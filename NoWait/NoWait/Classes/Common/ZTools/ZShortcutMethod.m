@@ -120,3 +120,19 @@ NSString *getJSONStr(id data) {
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     return jsonString;
 }
+
+BOOL isVideo(NSString *url) {
+    BOOL isVideo = NO;
+    NSRange range = [url rangeOfString:@"mp4"];
+    if (range.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range1 = [url rangeOfString:@"mov"];
+    if (range1.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    return isVideo;
+}
+

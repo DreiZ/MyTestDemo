@@ -84,12 +84,14 @@
 //}
 
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    NSMutableArray *temp = @[].mutableCopy;
-    for (int i = 0; i < self.list.count; i++) {
-        ZOriganizationPhotoTypeListModel *model = self.list[i];
-        [temp addObject:model.images_url];
-    }
-    [[ZImagePickerManager sharedManager] showBrowser:temp withIndex:indexPath.row];
+//    NSMutableArray *temp = @[].mutableCopy;
+//    for (int i = 0; i < self.list.count; i++) {
+//        ZOriganizationPhotoTypeListModel *model = self.list[i];
+//        [temp addObject:model.images_url];
+//    }
+//    [[ZImagePickerManager sharedManager] showBrowser:temp withIndex:indexPath.row];
+    ZOriganizationPhotoTypeListModel *model = self.list[indexPath.row];
+    [[ZVideoPlayerManager sharedInstance] playVideoWithNSUrl:[NSURL URLWithString:model.images_url] title:@"视频"];
 }
 
 

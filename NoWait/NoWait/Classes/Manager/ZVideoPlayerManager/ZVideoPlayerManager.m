@@ -47,11 +47,8 @@ static ZVideoPlayerManager *videoPlayerManager;
         
         __weak typeof(self) weakSelf = self;
         UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];
-        close.backgroundColor = [UIColor colorGrayBG];
-        close.layer.masksToBounds = YES;
-        close.layer.cornerRadius = CGFloatIn750(35);
         close.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [close setImage:[UIImage imageNamed:@"videoClose"] forState:UIControlStateNormal];
+        [close setImage:[UIImage imageNamed:@"clean_attachment_icon"] forState:UIControlStateNormal];
         [close bk_addEventHandler:^(id sender) {
             [weakSelf.player stop];
             [weakSelf.playerView removeFromSuperview];
@@ -119,7 +116,7 @@ static ZVideoPlayerManager *videoPlayerManager;
         close.layer.masksToBounds = YES;
         close.layer.cornerRadius = CGFloatIn750(35);
         close.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [close setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
+        [close setImage:[UIImage imageNamed:@"clean_attachment_icon"] forState:UIControlStateNormal];
         [close bk_addEventHandler:^(id sender) {
             [weakSelf.player stop];
             [weakSelf.compressView removeFromSuperview];
@@ -196,5 +193,26 @@ static ZVideoPlayerManager *videoPlayerManager;
         }];
     });
     DLog(@"---file  %@  \n %@",sourceVideoUrl, compressVideoUrl);
+}
+
+- (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time {
+      
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
+    NSParameterAssert(asset);
+    AVAssetImageGenerator *assetImageGenerator =[[AVAssetImageGenerator alloc] initWithAsset:asset];
+    assetImageGenerator.appliesPreferredTrackTransform = YES;
+    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels;
+      
+    CGImageRef thumbnailImageRef = NULL;
+    CFTimeInterval thumbnailImageTime = time;
+    NSError *thumbnailImageGenerationError = nil;
+    thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 60)actualTime:NULL error:&thumbnailImageGenerationError];
+      
+    if(!thumbnailImageRef)
+    NSLog(@"thumbnailImageGenerationError %@",thumbnailImageGenerationError);
+      
+    UIImage*thumbnailImage = thumbnailImageRef ? [[UIImage alloc]initWithCGImage: thumbnailImageRef] : nil;
+      
+    return thumbnailImage;
 }
 @end

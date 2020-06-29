@@ -10,6 +10,7 @@
 
 @interface ZOrganizationDetailIntroCollectionViewCell ()
 @property (nonatomic,strong) UIView *contBackView;
+@property (nonatomic,strong) UIImageView *playImageView;
 
 @end
 
@@ -29,6 +30,8 @@
     
     [self.contentView addSubview:self.contBackView];
     [self.contBackView addSubview:self.detailImageView];
+    [self.contBackView addSubview:self.playImageView];
+    self.playImageView.hidden = YES;
     
     [self.contBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self);
@@ -36,6 +39,10 @@
     
     [self.detailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contBackView);
+    }];
+    
+    [self.playImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.contBackView);
     }];
 }
 
@@ -60,10 +67,28 @@
     return _detailImageView;
 }
 
+- (UIImageView *)playImageView {
+    if (!_playImageView) {
+        _playImageView = [[UIImageView alloc] init];
+        _playImageView.layer.masksToBounds = YES;
+        _playImageView.image = [UIImage imageNamed:@"infomationVideoPlay"];
+        _playImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _playImageView;
+}
+
 - (void)setImage:(NSString *)image {
     _image = image;
-    [_detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    
+    if (isVideo(image)) {
+        self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+        self.playImageView.hidden = NO;
+    }else{
+        [_detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+        self.playImageView.hidden = YES;
+    }
 }
+
 +(CGSize)z_getCellSize:(id)sender {
     return CGSizeMake((KScreenWidth-CGFloatIn750(90))/2, (KScreenWidth-CGFloatIn750(90))/2 * (110.0f/165));
 }

@@ -27,10 +27,13 @@ static ZImagePickerManager *sharedImagePickerManager;
 
 @interface ZImagePickerManager ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MWPhotoBrowserDelegate>
 {
-    NSMutableArray *_selectedPhotos;
-    NSMutableArray *_selectedAssets;
+//    __block NSMutableArray *_selectedPhotos;
+//    __block NSMutableArray *_selectedAssets;
     BOOL _isSelectOriginalPhoto;
 }
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
+@property (nonatomic, strong) NSMutableArray *selectedAssets;
+
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
@@ -438,25 +441,41 @@ static ZImagePickerManager *sharedImagePickerManager;
     _selectedPhotos = [NSMutableArray arrayWithArray:@[coverImage]];
     _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
     
-    if (_selectedAssets && _selectedPhotos) {
-        [_selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
-            model.asset = _selectedAssets[idx];
-            model.image = obj;
-            if (self.imageBackBlock) {
-                self.imageBackBlock(@[model]);
-            }
-        }];
-    }
+//    if (_selectedAssets && _selectedPhotos) {
+//        [_selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+//            model.asset = _selectedAssets[idx];
+//            model.image = obj;
+//            model.isVideo = YES;
+//            if (self.imageBackBlock) {
+//                self.imageBackBlock(@[model]);
+//            }
+//        }];
+//    }
     
     // 打开这段代码发送视频
-    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetLowQuality success:^(NSString *outputPath) {
+    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetHighestQuality success:^(NSString *outputPath) {
         // NSData *data = [NSData dataWithContentsOfFile:outputPath];
         DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
         // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
         
+        if (self.selectedAssets && self.selectedPhotos) {
+            [self.selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+                model.asset = self.selectedAssets[idx];
+                model.image = obj;
+                model.mediaURL = [NSURL fileURLWithPath:outputPath];
+                model.isVideo = YES;
+                if (self.imageBackBlock) {
+                    self.imageBackBlock(@[model]);
+                }
+            }];
+        }
     } failure:^(NSString *errorMessage, NSError *error) {
         DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+        if (self.imageBackBlock) {
+            self.imageBackBlock(@[]);
+        }
     }];
 }
 
@@ -656,7 +675,13 @@ static ZImagePickerManager *sharedImagePickerManager;
         if ([image isKindOfClass:[UIImage class]]) {
             model.image = image;
         }else{
-            model.imageUrlString = image;
+            if (isVideo(image)) {
+                model.isVideo = YES;
+                model.mediaURL = [NSURL URLWithString:image];
+                model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+            }else{
+                model.imageUrlString = image;
+            }
         }
         [tempArr addObject:model];
     }
@@ -667,30 +692,47 @@ static ZImagePickerManager *sharedImagePickerManager;
 - (void)showPhotoBrowser:(NSArray *)mediaArray withIndex:(NSInteger)index {
     // 展示媒体
     _photos = [NSMutableArray array];
+    
+    BOOL displayActionButton = YES;
+    BOOL displaySelectionButtons = NO;
+    BOOL displayNavArrows = NO;
+    BOOL enableGrid = YES;
+    BOOL startOnGrid = NO;
+    BOOL autoPlayOnAppear = NO;
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = NO;
-    browser.alwaysShowControls = NO;
-    browser.displaySelectionButtons = NO;
+    browser.displayActionButton = displayActionButton;
+    browser.displayNavArrows = displayNavArrows;
+    browser.displaySelectionButtons = displaySelectionButtons;
+    browser.alwaysShowControls = displaySelectionButtons;
     browser.zoomPhotosToFill = YES;
-    browser.displayNavArrows = NO;
-    browser.startOnGrid = NO;
-    browser.enableGrid = YES;
-    [browser setDisplayNavArrows:YES];
-    browser.displayActionButton = NO;
+    browser.enableGrid = enableGrid;
+    browser.startOnGrid = startOnGrid;
+    browser.enableSwipeToDismiss = YES;
+    browser.autoPlayOnAppear = autoPlayOnAppear;
     
     for (ZImagePickerModel *model in mediaArray) {
-        MWPhoto *photo = [MWPhoto photoWithImage:model.image];
-        photo.caption = model.name;
+        
         if (model.isVideo) {
             if (model.mediaURL) {
+                MWPhoto *photo = [[MWPhoto alloc] initWithImage:[[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:model.mediaURL atTime:0]];
+                photo.caption = model.name;
                 photo.videoURL = model.mediaURL;
+                photo.isVideo = YES;
+                [_photos addObject:photo];
             }else {
+                MWPhoto *photo = [[MWPhoto alloc] init];
+                photo.caption = model.name;
                 photo = [photo initWithAsset:model.asset targetSize:CGSizeZero];
+                photo.isVideo = YES;
+                [_photos addObject:photo];
             }
+            
         }else if (model.imageUrlString) {
+            MWPhoto *photo = [[MWPhoto alloc] init];
+            photo.caption = model.name;
             photo = [MWPhoto photoWithURL:[NSURL URLWithString:model.imageUrlString]];
+            [_photos addObject:photo];
         }
-        [_photos addObject:photo];
     }
     [browser setCurrentPhotoIndex:index];
     [[self viewController].navigationController pushViewController:browser animated:YES];
@@ -713,6 +755,21 @@ static ZImagePickerManager *sharedImagePickerManager;
     _type = ZImageTypeVideo;
     
     self.showTakePhoto = NO;
+    self.showTakeVideo = YES;
+    
+    [_selectedAssets removeAllObjects];
+    [_selectedPhotos removeAllObjects];
+    
+    [self setSelectMenu:complete];
+}
+
+- (void)setPhotoWithMaxCount:(NSInteger)maxCount  SelectMenu:(ZSelectImageBackBlock)complete {
+    self.maxCount = maxCount;
+    self.allowPickingImage = YES;
+    self.allowPickingVideo = YES;
+    _type = ZImageTypeVideo;
+    
+    self.showTakePhoto = YES;
     self.showTakeVideo = YES;
     
     [_selectedAssets removeAllObjects];

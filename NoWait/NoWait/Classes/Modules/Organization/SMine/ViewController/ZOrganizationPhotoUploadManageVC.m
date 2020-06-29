@@ -59,11 +59,11 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     NSMutableArray *tasklist = @[].mutableCopy;
     
     for (int i = 0; i < self.imageArr.count; i++) {
-        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
-        dataModel.image = self.imageArr[i];
-        dataModel.taskState = ZUploadStateWaiting;
-        [tasklist addObject:dataModel];
-        [ZFileUploadManager addTaskDataToUploadWith:dataModel];
+//        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+//        dataModel.image = self.imageArr[i];
+//        dataModel.taskState = ZUploadStateWaiting;
+        [tasklist addObject:self.imageArr[i]];
+        [ZFileUploadManager addTaskDataToUploadWith:self.imageArr[i]];
     }
     [self configProgress:0.01];
     [self showLoadingAnimation];
@@ -75,12 +75,16 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
             NSArray *arr = obj;
             NSMutableArray *images = @[].mutableCopy;
             for (int i = 0; i < arr.count; i++) {
-                ZBaseNetworkBackModel *dataModel = arr[i];
-                if (ValidDict(dataModel.data)) {
-                    ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
-                    if ([dataModel.code integerValue] == 0 ) {
-                        [images addObject:SafeStr(imageModel.url)];
+                if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                    ZBaseNetworkBackModel *dataModel = arr[i];
+                    if (ValidDict(dataModel.data)) {
+                        ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                        if ([dataModel.code integerValue] == 0 ) {
+                            [images addObject:SafeStr(imageModel.url)];
+                        }
                     }
+                }else if([arr[i] isKindOfClass:[NSString class]]){
+                    [images addObject:SafeStr(arr[i])];
                 }
             }
 

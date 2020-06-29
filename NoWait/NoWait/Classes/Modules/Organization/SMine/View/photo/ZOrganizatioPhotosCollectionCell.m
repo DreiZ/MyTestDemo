@@ -13,6 +13,8 @@
 @property (nonatomic,strong) UIImageView *detailImageView;
 @property (nonatomic,strong) UIButton *deleteBtn;
 @property (nonatomic,strong) UIButton *deleteBigBtn;
+@property (nonatomic,strong) UIImageView *playImageView;
+
 @end
 
 @implementation ZOrganizatioPhotosCollectionCell
@@ -35,7 +37,7 @@
     [self.hintView addSubview:self.detailImageView];
     [self.hintView addSubview:self.deleteBtn];
     [self.hintView addSubview:self.deleteBigBtn];
-    
+    [self.hintView addSubview:self.playImageView];
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
@@ -54,6 +56,11 @@
         make.width.height.mas_equalTo(CGFloatIn750(80));
     }];
     
+    [self.playImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.hintView);
+    }];
+    
+    self.playImageView.hidden = YES;
     self.detailImageView.hidden = YES;
 }
 
@@ -99,6 +106,17 @@
     return _deleteBigBtn;
 }
 
+
+- (UIImageView *)playImageView {
+    if (!_playImageView) {
+        _playImageView = [[UIImageView alloc] init];
+        _playImageView.layer.masksToBounds = YES;
+        _playImageView.image = [UIImage imageNamed:@"infomationVideoPlay"];
+        _playImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _playImageView;
+}
+
 - (void)setModel:(ZOriganizationPhotoTypeListModel *)model {
     _model = model;
     self.deleteBtn.hidden = NO;
@@ -116,7 +134,13 @@
     if ([model.images_url isKindOfClass:[NSString class]]){
         NSString *temp = model.images_url;
         if (temp.length > 0) {
-            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(temp)]];
+            if (isVideo(temp)) {
+                self.playImageView.hidden = NO;
+                self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:temp] atTime:0];
+            }else{
+                self.playImageView.hidden = YES;
+                [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(temp)]];
+            }
         }else{
             self.detailImageView.hidden = YES;
         }
