@@ -29,7 +29,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    self.isHidenNaviBar = NO;
     [self refreshData];
 }
 
@@ -41,7 +41,6 @@
 }
 
 - (void)setNavigation {
-    self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:SafeStr(self.model.name)];
 }
 

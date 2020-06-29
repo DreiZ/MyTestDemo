@@ -574,6 +574,56 @@ static ZImagePickerManager *sharedImagePickerManager;
     return nil;
 }
 
+#pragma mark - MWPhotoBrowserDelegate
+//- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+//    return _photos.count;
+//}
+//
+//- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+//    if (index < _photos.count)
+//        return [_photos objectAtIndex:index];
+//    return nil;
+//}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
+    if (index < _photos.count)
+        return [_photos objectAtIndex:index];
+    return nil;
+}
+
+//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+//    MWPhoto *photo = [self.photos objectAtIndex:index];
+//    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+//    return [captionView autorelease];
+//}
+
+//- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+//    NSLog(@"ACTION!");
+//}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+}
+
+- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index {
+    return [[_photos objectAtIndex:index] boolValue];
+}
+
+//- (NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index {
+//    return [NSString stringWithFormat:@"Photo %lu", (unsigned long)index+1];
+//}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
+    [_photos replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
+    NSLog(@"Photo at index %lu selected %@", (unsigned long)index, selected ? @"YES" : @"NO");
+}
+
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
+    // If we subscribe to this method we must dismiss the view controller ourselves
+    NSLog(@"Did finish modal presentation");
+    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Click Event
 - (void)setShowTakePhoto:(BOOL)showTakePhoto {
     _showTakePhoto = showTakePhoto;
@@ -707,11 +757,10 @@ static ZImagePickerManager *sharedImagePickerManager;
     browser.zoomPhotosToFill = YES;
     browser.enableGrid = enableGrid;
     browser.startOnGrid = startOnGrid;
-    browser.enableSwipeToDismiss = YES;
+    browser.enableSwipeToDismiss = NO;
     browser.autoPlayOnAppear = autoPlayOnAppear;
     
     for (ZImagePickerModel *model in mediaArray) {
-        
         if (model.isVideo) {
             if (model.mediaURL) {
                 MWPhoto *photo = [[MWPhoto alloc] initWithImage:[[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:model.mediaURL atTime:0]];
@@ -735,7 +784,10 @@ static ZImagePickerManager *sharedImagePickerManager;
         }
     }
     [browser setCurrentPhotoIndex:index];
-    [[self viewController].navigationController pushViewController:browser animated:YES];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+           nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [[self viewController] presentViewController:nc animated:YES completion:nil];
+//    [[self viewController].navigationController pushViewController:browser animated:YES];
 }
 
 - (void)showVideoBrowser:(PHAsset *)asset {

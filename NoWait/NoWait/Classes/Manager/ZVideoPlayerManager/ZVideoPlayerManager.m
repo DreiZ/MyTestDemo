@@ -8,17 +8,12 @@
 
 #import "ZVideoPlayerManager.h"
 #import "AppDelegate.h"
-#import "SJVideoPlayer.h"
-#import <SJBaseVideoPlayer.h>
-
+#import <AVKit/AVKit.h>
 
 static ZVideoPlayerManager *videoPlayerManager;
 
 
 @interface ZVideoPlayerManager ()
-@property (nonatomic,strong) UIView *playerView;
-@property (nonatomic, strong) SJVideoPlayer *player;
-
 @property (nonatomic,strong) UIView *compressView;
 @property (nonatomic,strong) AVPlayer *videoPlayer1;
 @property (nonatomic,strong) AVPlayerLayer *playerLayer1;
@@ -39,67 +34,17 @@ static ZVideoPlayerManager *videoPlayerManager;
     return videoPlayerManager;
 }
 
-- (UIView *)playerView {
-    if (!_playerView) {
-        _playerView = [[UIView alloc] init];
-        _playerView.layer.masksToBounds = YES;
-        _playerView.backgroundColor = [UIColor blackColor];
-        
-        __weak typeof(self) weakSelf = self;
-        UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];
-        close.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [close setImage:[UIImage imageNamed:@"clean_attachment_icon"] forState:UIControlStateNormal];
-        [close bk_addEventHandler:^(id sender) {
-            [weakSelf.player stop];
-            [weakSelf.playerView removeFromSuperview];
-        } forControlEvents:UIControlEventTouchUpInside];
-        [_playerView addSubview:close];
-        [close mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.playerView.mas_left).offset(CGFloatIn750(20));
-            make.top.equalTo(self.playerView.mas_top).offset(CGFloatIn750(-60)+kTopHeight);
-            make.width.height.mas_equalTo(CGFloatIn750(70));
-        }];
-        
-        
-        _player = [SJVideoPlayer player];
-        
-        [_playerView addSubview:_player.view];
-        [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.playerView.mas_centerY).offset(-CGFloatIn750(120));
-            make.leading.trailing.offset(0);
-            make.height.equalTo(self->_player.view.mas_width).multipliedBy(9 / 16.0f);
-        }];
-        
-        
-        
-//        _player.hideBackButtonWhenOrientationIsPortrait = YES;
-        _player.pausedToKeepAppearState = YES;
-//        _player.enableFilmEditing = NO;
-        _player.filmEditingConfig.saveResultToAlbumWhenExportSuccess = YES;
-        _player.resumePlaybackWhenAppDidEnterForeground = YES;
-        
-        SJEdgeControlButtonItem *titleItem = [_player.defaultEdgeControlLayer.topAdapter itemForTag:SJEdgeControlLayerTopItem_Title];
-        titleItem.numberOfLines = 1;
-    }
-    return _playerView;
-}
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title {
-    [self playVideoWithNSUrl:[NSURL URLWithString:url] title:title];
-}
-
-- (void)playVideoWithNSUrl:(NSURL *)url title:(NSString *)title {
-    self.playerView.alpha = 0;
-    self.playerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-    [[AppDelegate shareAppDelegate].window addSubview:self.playerView];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.playerView.alpha = 1;
-        self.playerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    AVPlayerViewController *apvc = [[AVPlayerViewController alloc] init];
+    NSURL *remoteURL = [NSURL URLWithString:url];
+    AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
+    apvc.player = player;
+    apvc.showsPlaybackControls = YES;
+    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:apvc animated:YES completion:^{
+        
     }];
-    
-    _player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:url];
-    _player.URLAsset.title = title;
-    //    _player.URLAsset.playableLimit = 10;
 }
 
 
@@ -118,7 +63,8 @@ static ZVideoPlayerManager *videoPlayerManager;
         close.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [close setImage:[UIImage imageNamed:@"clean_attachment_icon"] forState:UIControlStateNormal];
         [close bk_addEventHandler:^(id sender) {
-            [weakSelf.player stop];
+            [weakSelf.videoPlayer1 pause];
+            [weakSelf.videoPlayer2 pause];
             [weakSelf.compressView removeFromSuperview];
         } forControlEvents:UIControlEventTouchUpInside];
         [_compressView addSubview:close];
