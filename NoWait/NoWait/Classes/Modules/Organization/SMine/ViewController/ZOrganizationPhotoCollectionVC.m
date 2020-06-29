@@ -137,16 +137,17 @@
                             dataModel.image = model.image;
                             dataModel.taskType = ZUploadTypeVideo;
                             dataModel.asset = model.asset;
-                            dataModel.filePath = [model.mediaURL absoluteString];
+                            dataModel.taskState = ZUploadStateWaiting;
+//                            dataModel.filePath = [model.mediaURL absoluteString];
                         }else{
                             dataModel.image = model.image;
                             dataModel.asset = model.asset;
                             dataModel.taskType = ZUploadTypeImage;
+                            dataModel.taskState = ZUploadStateWaiting;
                         }
-                        dataModel.taskState = ZUploadStateWaiting;
+                        
                         [weakSelf.uploadArr addObject:dataModel];
                     }
-//                    [weakSelf updatePhotosStep1];
                     ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
                     mvc.imageArr = weakSelf.uploadArr;
                     mvc.type = self.model.type;
@@ -154,6 +155,7 @@
                         [weakSelf refreshData];
                     };
                     [self.navigationController pushViewController:mvc animated:YES];
+//                    [weakSelf updatePhotosStep1];
                     return;
                 }
             }];

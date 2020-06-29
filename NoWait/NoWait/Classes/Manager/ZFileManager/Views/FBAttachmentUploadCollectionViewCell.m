@@ -166,6 +166,8 @@ extern NSInteger const kAttachmentPhotoMaxNumber;
         _stateLabel.text = @"上传失败";
     }else if (_taskModel.taskState == ZUploadStateFinished) {
         _stateLabel.text = @"上传完成";
+    }else if (_taskModel.taskState == ZUploadStateZiping) {
+        _stateLabel.text = @"压缩中";
     }
     [self showCleanIcon:NO];
 }

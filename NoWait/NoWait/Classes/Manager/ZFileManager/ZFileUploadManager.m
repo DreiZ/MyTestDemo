@@ -457,30 +457,6 @@ static ZFileUploadManager *fileUploadManager;
     task.model.taskState = ZUploadStateOnGoing;
     file.taskState = ZUploadStateOnGoing;
     
-    if (file.taskType == ZUploadTypeImage ) {
-        UIImage *testImage = file.image;
-        NSData *testData = UIImageJPEGRepresentation(testImage, 0.3);
-        put.uploadingData = testData;
-    }else{
-        NSString *testPath = file.filePath;
-        put.uploadingFileURL = [NSURL URLWithString:testPath];
-    }
-
-    // 可选字段，可不设置
-    put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
-        // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
-        DLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (progress) {
-                progress(totalByteSent,totalBytesExpectedToSend);
-            }
-            if (file.progressBlock) {
-                file.progressBlock(totalByteSent, totalBytesExpectedToSend);
-            }
-        });
-    };
-    
     //返回值
     if (callbackUrl) {
         //设置回调参数
@@ -503,6 +479,52 @@ static ZFileUploadManager *fileUploadManager;
             put.callbackVar = callbackVarDict;
         }
     }
+    
+    if (file.taskType == ZUploadTypeImage) {
+        UIImage *testImage = file.image;
+        NSData *testData = UIImageJPEGRepresentation(testImage, 0.3);
+        put.uploadingData = testData;
+        [self aliYunUploadWithPut:put task:task type:type file:file callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey progress:progress complete:completeBlock failure:failure];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            task.model.taskState = ZUploadStateZiping;
+            if (task.model.progressBlock) {
+                task.model.progressBlock(0.02, 1);
+            }
+        });
+        
+        [file getFilePath:^(NSString *url) {
+            NSString *testPath = file.filePath;
+            put.uploadingFileURL = [NSURL URLWithString:testPath];
+            [self aliYunUploadWithPut:put task:task type:type file:file callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey progress:progress complete:completeBlock failure:failure];
+        }];
+    }
+
+    [[ZFileUploadManager sharedInstance].taskList addObject:task];
+    //   // 可以等待任务完成
+    //    [putTask waitUntilFinished];
+    return task;
+}
+
+
+- (void)aliYunUploadWithPut:(OSSPutObjectRequest *)put task:(ZFileUploadTask *)task type:(ZAliYunType)type file:(ZFileUploadDataModel *)file callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)fileKey progress:(void(^)(int64_t p, int64_t a))progress complete:(void(^)(NSString *))completeBlock failure:(void(^)(NSError *error))failure{
+    
+    task.model.taskState = ZUploadStateOnGoing;
+    // 可选字段，可不设置
+    put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+        // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
+        DLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progress) {
+                progress(totalByteSent,totalBytesExpectedToSend);
+            }
+            if (file.progressBlock) {
+                file.progressBlock(totalByteSent, totalBytesExpectedToSend);
+            }
+        });
+    };
+    
     
     OSSTask * putTask = [self.client putObject:put];
     task.aliYunUploadTask = putTask;
@@ -573,10 +595,6 @@ static ZFileUploadManager *fileUploadManager;
             }
         }
     }];
-    [[ZFileUploadManager sharedInstance].taskList addObject:task];
-    //   // 可以等待任务完成
-    //    [putTask waitUntilFinished];
-    return task;
 }
 
 #pragma mark 上传图片

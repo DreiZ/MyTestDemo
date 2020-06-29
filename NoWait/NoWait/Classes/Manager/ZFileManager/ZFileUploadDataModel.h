@@ -20,6 +20,8 @@ typedef enum : NSUInteger {
     ZUploadStateError = 4,
     /** 完成状态*/
     ZUploadStateFinished = 5,
+    /** 正在压缩状态*/
+    ZUploadStateZiping = 6,
 } ZUploadState;
 
 
@@ -85,6 +87,6 @@ typedef enum : NSUInteger {
  */
 @property (assign,nonatomic)ZUploadState taskState;
 
--(void)getVideo_url:(void(^)(NSString *))success;
+-(void)getFilePath:(void(^)(NSString *))success;
 @end
 

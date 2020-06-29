@@ -441,42 +441,42 @@ static ZImagePickerManager *sharedImagePickerManager;
     _selectedPhotos = [NSMutableArray arrayWithArray:@[coverImage]];
     _selectedAssets = [NSMutableArray arrayWithArray:@[asset]];
     
-//    if (_selectedAssets && _selectedPhotos) {
-//        [_selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
-//            model.asset = _selectedAssets[idx];
-//            model.image = obj;
-//            model.isVideo = YES;
-//            if (self.imageBackBlock) {
-//                self.imageBackBlock(@[model]);
-//            }
-//        }];
-//    }
-    
-    // 打开这段代码发送视频
-    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetHighestQuality success:^(NSString *outputPath) {
-        // NSData *data = [NSData dataWithContentsOfFile:outputPath];
-        DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
-        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
-        
-        if (self.selectedAssets && self.selectedPhotos) {
-            [self.selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
-                model.asset = self.selectedAssets[idx];
-                model.image = obj;
-                model.mediaURL = [NSURL fileURLWithPath:outputPath];
-                model.isVideo = YES;
-                if (self.imageBackBlock) {
-                    self.imageBackBlock(@[model]);
-                }
-            }];
-        }
-    } failure:^(NSString *errorMessage, NSError *error) {
-        DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
-        if (self.imageBackBlock) {
-            self.imageBackBlock(@[]);
-        }
-    }];
+    if (_selectedAssets && _selectedPhotos) {
+        [_selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+            model.asset = _selectedAssets[idx];
+            model.image = obj;
+            model.isVideo = YES;
+            if (self.imageBackBlock) {
+                self.imageBackBlock(@[model]);
+            }
+        }];
+    }
+//
+//    // 打开这段代码发送视频
+//    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPresetHighestQuality success:^(NSString *outputPath) {
+//        // NSData *data = [NSData dataWithContentsOfFile:outputPath];
+//        DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+//        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+//
+//        if (self.selectedAssets && self.selectedPhotos) {
+//            [self.selectedPhotos enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+//                model.asset = self.selectedAssets[idx];
+//                model.image = obj;
+//                model.mediaURL = [NSURL fileURLWithPath:outputPath];
+//                model.isVideo = YES;
+//                if (self.imageBackBlock) {
+//                    self.imageBackBlock(@[model]);
+//                }
+//            }];
+//        }
+//    } failure:^(NSString *errorMessage, NSError *error) {
+//        DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+//        if (self.imageBackBlock) {
+//            self.imageBackBlock(@[]);
+//        }
+//    }];
 }
 
 // 如果用户选择了一个gif图片且allowPickingMultipleVideo是NO，下面的代理方法会被执行
