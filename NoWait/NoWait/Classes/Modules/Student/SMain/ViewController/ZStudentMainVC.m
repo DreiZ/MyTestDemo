@@ -10,7 +10,7 @@
 #import "ZLaunchManager.h"
 #import "ZRewardCenterVC.h"
 #import <TLTabBarControllerProtocol.h>
-
+#import "ZFileManager.h"
 @interface ZStudentMainVC ()<TLTabBarControllerProtocol>
 
 @end
@@ -65,6 +65,12 @@
     }
     
     [ZPublicTool checkUpdateVersion];
+//    
+//   NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getTmpDirectory] folder:nil];
+//   NSLog(@"filezzz :%@",temp);
+//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//    }];
 }
 
 - (void)setDataSource {

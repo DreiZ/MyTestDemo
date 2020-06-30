@@ -9,6 +9,7 @@
 #import "ZFileUploadManager.h"
 #import <libkern/OSAtomic.h>
 #import "ZNetworkingManager.h"
+#import "ZFileManager.h"
 
 #import <AliyunOSSiOS/OSSService.h>
 #import <AliyunOSSiOS/OSSModel.h>
@@ -554,6 +555,8 @@ static ZFileUploadManager *fileUploadManager;
                 if (file.taskType == ZUploadTypeImage) {
                     file.image_url = url;
                 }else{
+                    NSString *replacedStr = [file.filePath stringByReplacingOccurrencesOfString:@"file://"withString:@""];
+                    [ZFileManager removeDocumentWithFilePath:replacedStr];
                     file.video_url = url;
                 }
                 if (completeBlock) {

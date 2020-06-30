@@ -262,7 +262,6 @@
 		B26AEE1624A9D3DD00DF7132 /* ImageSelectedOn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B26AEDEA24A9D3DD00DF7132 /* ImageSelectedOn@3x.png */; };
 		B26AEE1724A9D3DD00DF7132 /* ImageSelectedOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B26AEDEB24A9D3DD00DF7132 /* ImageSelectedOn@2x.png */; };
 		B26AEE1824A9D3DD00DF7132 /* ImageSelectedSmallOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B26AEDEC24A9D3DD00DF7132 /* ImageSelectedSmallOn@2x.png */; };
-		B26AEE1A24A9FF9D00DF7132 /* [cikeaigei_com.mov in Resources */ = {isa = PBXBuildFile; fileRef = B26AEE1924A9FF9D00DF7132 /* [cikeaigei_com.mov */; };
 		B26F2DA6240121C900BBF533 /* ZOrganizationStudentUpStarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26F2DA5240121C900BBF533 /* ZOrganizationStudentUpStarVC.m */; };
 		B270776F2499A1F7002D147A /* ZStudentLessonDetailShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B270776E2499A1F7002D147A /* ZStudentLessonDetailShareVC.m */; };
 		B27077722499A22A002D147A /* ZStudentOrganizationDetailDesShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077712499A22A002D147A /* ZStudentOrganizationDetailDesShareVC.m */; };
@@ -1164,7 +1163,6 @@
 		B26AEDEA24A9D3DD00DF7132 /* ImageSelectedOn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ImageSelectedOn@3x.png"; sourceTree = "<group>"; };
 		B26AEDEB24A9D3DD00DF7132 /* ImageSelectedOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ImageSelectedOn@2x.png"; sourceTree = "<group>"; };
 		B26AEDEC24A9D3DD00DF7132 /* ImageSelectedSmallOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ImageSelectedSmallOn@2x.png"; sourceTree = "<group>"; };
-		B26AEE1924A9FF9D00DF7132 /* [cikeaigei_com.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "[cikeaigei_com.mov"; sourceTree = "<group>"; };
 		B26F2DA4240121C900BBF533 /* ZOrganizationStudentUpStarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationStudentUpStarVC.h; sourceTree = "<group>"; };
 		B26F2DA5240121C900BBF533 /* ZOrganizationStudentUpStarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentUpStarVC.m; sourceTree = "<group>"; };
 		B270776D2499A1F7002D147A /* ZStudentLessonDetailShareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonDetailShareVC.h; sourceTree = "<group>"; };
@@ -2883,7 +2881,6 @@
 		B2A77E1D23BDA38400407BF0 /* NoWait */ = {
 			isa = PBXGroup;
 			children = (
-				B26AEE1924A9FF9D00DF7132 /* [cikeaigei_com.mov */,
 				B2BA397A2434932B005A3FFB /* 莫等闲.entitlements */,
 				B2A77E5723BDC03F00407BF0 /* Classes */,
 				B2A77E5323BDB83000407BF0 /* Supporting Files */,
@@ -4615,7 +4612,6 @@
 				B26AEE0724A9D3DD00DF7132 /* VideoOverlay@3x.png in Resources */,
 				B223BCD723C7043F00AC0158 /* icon_star@3x.png in Resources */,
 				B223BCD423C7043F00AC0158 /* icon_star_select@2x.png in Resources */,
-				B26AEE1A24A9FF9D00DF7132 /* [cikeaigei_com.mov in Resources */,
 				B26AEE0C24A9D3DD00DF7132 /* ImageSelectedOff@2x.png in Resources */,
 				B26AEE0924A9D3DD00DF7132 /* UIBarButtonItemArrowRight@3x.png in Resources */,
 				B2BA39C22435CD64005A3FFB /* photograph@3x.png in Resources */,
