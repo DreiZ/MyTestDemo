@@ -142,7 +142,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     }
     imagePickerVc.allowTakePicture = self.showTakePhoto; // 在内部显示拍照按钮
     imagePickerVc.allowTakeVideo = self.showTakeVideo;   // 在内部显示拍视频按
-    imagePickerVc.videoMaximumDuration = 10; // 视频最大拍摄时间
+    imagePickerVc.videoMaximumDuration = 15; // 视频最大拍摄时间
     [imagePickerVc setUiImagePickerControllerSettingBlock:^(UIImagePickerController *imagePickerController) {
         imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
     }];
@@ -447,6 +447,13 @@ static ZImagePickerManager *sharedImagePickerManager;
             model.asset = _selectedAssets[idx];
             model.image = obj;
             model.isVideo = YES;
+            if (asset.duration > 15) {
+                [TLUIUtility showAlertWithTitle:@"视频不得大于15秒"];
+                if (self.imageBackBlock) {
+                    self.imageBackBlock(@[]);
+                }
+                return;
+            }
             if (self.imageBackBlock) {
                 self.imageBackBlock(@[model]);
             }

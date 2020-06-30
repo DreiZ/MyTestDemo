@@ -16,6 +16,7 @@
 
 @interface ZOrganizationPhotoCollectionVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic,strong) UIButton *navRightBtn;
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *list;
@@ -42,6 +43,7 @@
 
 - (void)setNavigation {
     [self.navigationItem setTitle:SafeStr(self.model.name)];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
 }
 
 - (void)setMainView {
@@ -78,8 +80,28 @@
     }];
 }
 
-
 #pragma mark - 懒加载
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setTitle:@"上传列表" forState:UIControlStateNormal];
+        _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
+        [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
+        [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
+        [_navRightBtn bk_addEventHandler:^(id sender) {
+            ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
+            mvc.type = self.model.type;
+            mvc.uploadCompleteBlock = ^{
+                [weakSelf refreshData];
+            };
+            [self.navigationController pushViewController:mvc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navRightBtn;
+}
+
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -137,7 +159,7 @@
                             dataModel.image = model.image;
                             dataModel.taskType = ZUploadTypeVideo;
                             dataModel.asset = model.asset;
-                            dataModel.taskState = ZUploadStateZiping;
+                            dataModel.taskState = ZUploadStateWaiting;
 //                            dataModel.filePath = [model.mediaURL absoluteString];
                         }else{
                             dataModel.image = model.image;

@@ -16,7 +16,7 @@
 @property (nonatomic,strong) UILabel *handleLabel;
 @property (nonatomic,strong) UIView *backView;
 @property (nonatomic,strong) UILabel *priceHintLabel;
-
+@property (nonatomic,strong) UILabel *typeLabel;
 @end
 
 @implementation ZStudentOrganizationCouponCell
@@ -37,7 +37,7 @@
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.mas_top);
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
-        make.height.mas_equalTo(CGFloatIn750(140));
+        make.height.mas_equalTo(CGFloatIn750(156));
     }];
     
     [self.backView addSubview:self.priceLabel];
@@ -46,6 +46,7 @@
     [self.backView addSubview:self.timeLabel];
     [self.backView addSubview:self.manLabel];
     [self.backView addSubview:self.handleLabel];
+    [self.backView addSubview:self.typeLabel];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayBGDark]);
@@ -86,6 +87,12 @@
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.priceLabel.mas_right).offset(CGFloatIn750(10));
         make.centerY.equalTo(self.manLabel.mas_centerY);
+        make.right.equalTo(bottomLineView.mas_right).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.priceLabel.mas_right).offset(CGFloatIn750(10));
+        make.top.equalTo(self.timeLabel.mas_bottom).offset(CGFloatIn750(10));
         make.right.equalTo(bottomLineView.mas_right).offset(-CGFloatIn750(20));
     }];
     
@@ -188,6 +195,19 @@
     return _timeLabel;
 }
 
+- (UILabel *)typeLabel {
+    if (!_typeLabel) {
+        _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _typeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+        
+        _typeLabel.numberOfLines = 1;
+        _typeLabel.textAlignment = NSTextAlignmentLeft;
+        [_typeLabel setFont:[UIFont fontMin]];
+        [_typeLabel setAdjustsFontSizeToFitWidth:YES];
+    }
+    return _typeLabel;
+}
+
 - (UIView *)backView {
     if (!_backView) {
         _backView = [[UIView alloc] init];
@@ -208,6 +228,11 @@
     _manLabel.text = [NSString stringWithFormat:@"满%@可用",model.min_amount];
     _nameLabel.text = model.title;
     _priceLabel.text = model.amount;
+    if ([model.type intValue] == 1) {
+        _typeLabel.text = @"全部课程可用";
+    }else{
+        _typeLabel.text = @"部分课程可用";
+    }
     if (model.isUse) {
         _handleLabel.text = @"立即使用";
     }else{
@@ -220,6 +245,7 @@
                 _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
                 _handleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
                 _timeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+                _typeLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
                 _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
                 _backView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
             }else{
@@ -238,6 +264,7 @@
                     _priceLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
                     _handleLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
                     _timeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+                    _typeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
                     _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
                     _backView.backgroundColor = [UIColor colorRedForLabelSub];
 //                }
@@ -249,6 +276,7 @@
             _priceLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
             _handleLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
             _timeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
+            _typeLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
             _priceHintLabel.textColor = adaptAndDarkColor([UIColor colorRedForLabel], [UIColor colorRedForLabel]);
             _backView.backgroundColor = [UIColor colorRedForLabelSub];
         }
@@ -256,7 +284,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(160);
+    return CGFloatIn750(180);
 }
 
 @end

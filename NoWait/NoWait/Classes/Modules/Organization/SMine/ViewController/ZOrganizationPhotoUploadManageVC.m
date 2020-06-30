@@ -58,39 +58,47 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 
     NSMutableArray *tasklist = @[].mutableCopy;
     
+    NSInteger count = 0;
     for (int i = 0; i < self.imageArr.count; i++) {
 //        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
 //        dataModel.image = self.imageArr[i];
 //        dataModel.taskState = ZUploadStateWaiting;
+        ZFileUploadDataModel *dataModel = self.imageArr[i];
+        if (dataModel.taskState == ZUploadStateWaiting) {
+            count++;
+        }
         [tasklist addObject:self.imageArr[i]];
         [ZFileUploadManager addTaskDataToUploadWith:self.imageArr[i]];
     }
-    [self configProgress:0.01];
-    [self showLoadingAnimation];
-//    //异步串行
-    [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
-        [self configProgress:p/(tasklist.count+0.3)];
-    } completion:^(id obj) {
-        if (obj && [obj isKindOfClass:[NSArray class]]) {
-            NSArray *arr = obj;
-            NSMutableArray *images = @[].mutableCopy;
-            for (int i = 0; i < arr.count; i++) {
-                if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
-                    ZBaseNetworkBackModel *dataModel = arr[i];
-                    if (ValidDict(dataModel.data)) {
-                        ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
-                        if ([dataModel.code integerValue] == 0 ) {
-                            [images addObject:SafeStr(imageModel.url)];
+    if (count > 0) {
+        [self configProgress:0.01];
+            [self showLoadingAnimation];
+        //    //异步串行
+            [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
+                [self configProgress:p/(tasklist.count+0.3)];
+            } completion:^(id obj) {
+                if (obj && [obj isKindOfClass:[NSArray class]]) {
+                    NSArray *arr = obj;
+                    NSMutableArray *images = @[].mutableCopy;
+                    for (int i = 0; i < arr.count; i++) {
+                        if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                            ZBaseNetworkBackModel *dataModel = arr[i];
+                            if (ValidDict(dataModel.data)) {
+                                ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                                if ([dataModel.code integerValue] == 0 ) {
+                                    [images addObject:SafeStr(imageModel.url)];
+                                }
+                            }
+                        }else if([arr[i] isKindOfClass:[NSString class]]){
+                            [images addObject:SafeStr(arr[i])];
                         }
                     }
-                }else if([arr[i] isKindOfClass:[NSString class]]){
-                    [images addObject:SafeStr(arr[i])];
-                }
-            }
 
-            [self updateData:images];
-        }
-    }];
+                    [self updateData:images];
+                }
+            }];
+    }
+    
 //    asyncConcurrentGroupUpload asyncConcurrentConstUpload
 }
 
@@ -98,6 +106,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.progressView];
+    self.progressView.hidden = YES;
     
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
@@ -108,7 +117,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
         make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(30));
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
-        make.height.mas_equalTo(CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(0));
     }];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {

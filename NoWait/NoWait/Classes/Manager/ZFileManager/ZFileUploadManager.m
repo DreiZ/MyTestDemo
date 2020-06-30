@@ -455,7 +455,6 @@ static ZFileUploadManager *fileUploadManager;
     ZFileUploadTask *task = [[ZFileUploadTask alloc] init];
     task.model = file;
     task.model.taskState = ZUploadStateOnGoing;
-    file.taskState = ZUploadStateOnGoing;
     
     //返回值
     if (callbackUrl) {
@@ -496,6 +495,7 @@ static ZFileUploadManager *fileUploadManager;
         [file getFilePath:^(NSString *url) {
             NSString *testPath = file.filePath;
             put.uploadingFileURL = [NSURL URLWithString:testPath];
+            task.model.taskState = ZUploadStateOnGoing;
             [self aliYunUploadWithPut:put task:task type:type file:file callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey progress:progress complete:completeBlock failure:failure];
         }];
     }
