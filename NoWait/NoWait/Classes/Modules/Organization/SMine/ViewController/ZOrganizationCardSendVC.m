@@ -176,6 +176,10 @@
                 [TLUIUtility showErrorHint:@"请输入卡券面额"];
                 return ;
             }
+            if ([weakSelf.viewModel.addModel.amount intValue] < 1) {
+                [TLUIUtility showErrorHint:@"卡券面额不得小于1元"];
+                return;
+            }
             if (ValidStr(weakSelf.viewModel.addModel.min_amount)) {
                 if ([weakSelf.viewModel.addModel.min_amount intValue] < 1) {
                     [TLUIUtility showErrorHint:@"满减金额不得小于1元"];
@@ -189,7 +193,7 @@
             }
             
             if (!ValidStr(weakSelf.viewModel.addModel.limit)) {
-                [TLUIUtility showErrorHint:@"请输入个人限领"];
+                [TLUIUtility showErrorHint:@"请输入赠送数量"];
                 return ;
             }
             

@@ -131,45 +131,14 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-//            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
-//                if (list && list.count > 0){
-//                    [weakSelf.uploadArr removeAllObjects];
-//                    [weakSelf.uploadNetArr removeAllObjects];
-//                    for (ZImagePickerModel *model in list) {
-//                        [weakSelf.uploadArr addObject:model.image];
-//                    }
-////                    [weakSelf updatePhotosStep1];
-//                    ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
-//                    mvc.imageArr = weakSelf.uploadArr;
-//                    mvc.type = self.model.type;
-//                    mvc.uploadCompleteBlock = ^{
-//                        [weakSelf refreshData];
-//                    };
-//                    [self.navigationController pushViewController:mvc animated:YES];
-//                    return;
-//                }
-//            }];
-            [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0){
                     [weakSelf.uploadArr removeAllObjects];
                     [weakSelf.uploadNetArr removeAllObjects];
                     for (ZImagePickerModel *model in list) {
-                        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
-                        if (model.isVideo) {
-                            dataModel.image = model.image;
-                            dataModel.taskType = ZUploadTypeVideo;
-                            dataModel.asset = model.asset;
-                            dataModel.taskState = ZUploadStateWaiting;
-//                            dataModel.filePath = [model.mediaURL absoluteString];
-                        }else{
-                            dataModel.image = model.image;
-                            dataModel.asset = model.asset;
-                            dataModel.taskType = ZUploadTypeImage;
-                            dataModel.taskState = ZUploadStateWaiting;
-                        }
-                        
-                        [weakSelf.uploadArr addObject:dataModel];
+                        [weakSelf.uploadArr addObject:model.image];
                     }
+//                    [weakSelf updatePhotosStep1];
                     ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
                     mvc.imageArr = weakSelf.uploadArr;
                     mvc.type = self.model.type;
@@ -177,10 +146,41 @@
                         [weakSelf refreshData];
                     };
                     [self.navigationController pushViewController:mvc animated:YES];
-//                    [weakSelf updatePhotosStep1];
                     return;
                 }
             }];
+//            [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+//                if (list && list.count > 0){
+//                    [weakSelf.uploadArr removeAllObjects];
+//                    [weakSelf.uploadNetArr removeAllObjects];
+//                    for (ZImagePickerModel *model in list) {
+//                        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+//                        if (model.isVideo) {
+//                            dataModel.image = model.image;
+//                            dataModel.taskType = ZUploadTypeVideo;
+//                            dataModel.asset = model.asset;
+//                            dataModel.taskState = ZUploadStateWaiting;
+////                            dataModel.filePath = [model.mediaURL absoluteString];
+//                        }else{
+//                            dataModel.image = model.image;
+//                            dataModel.asset = model.asset;
+//                            dataModel.taskType = ZUploadTypeImage;
+//                            dataModel.taskState = ZUploadStateWaiting;
+//                        }
+//                        
+//                        [weakSelf.uploadArr addObject:dataModel];
+//                    }
+//                    ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
+//                    mvc.imageArr = weakSelf.uploadArr;
+//                    mvc.type = self.model.type;
+//                    mvc.uploadCompleteBlock = ^{
+//                        [weakSelf refreshData];
+//                    };
+//                    [self.navigationController pushViewController:mvc animated:YES];
+////                    [weakSelf updatePhotosStep1];
+//                    return;
+//                }
+//            }];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

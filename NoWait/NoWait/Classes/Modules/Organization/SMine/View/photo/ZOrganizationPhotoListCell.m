@@ -81,7 +81,11 @@
     return _photoImageView;
 }
 - (void)setImage:(NSString *)image {
-    [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    if (isVideo(image)) {
+        self.photoImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+    }else{
+        [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    }
 }
 
 - (void)setModel:(ZOriganizationPhotoListModel *)model {
