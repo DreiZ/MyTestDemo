@@ -167,7 +167,7 @@
 //                            dataModel.taskType = ZUploadTypeImage;
 //                            dataModel.taskState = ZUploadStateWaiting;
 //                        }
-//                        
+//
 //                        [weakSelf.uploadArr addObject:dataModel];
 //                    }
 //                    ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
