@@ -270,11 +270,6 @@
 		B270777C2499B6E6002D147A /* ZShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B270777A2499B6E6002D147A /* ZShareView.m */; };
 		B27077812499FD14002D147A /* WYVideoCompressTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077802499FD14002D147A /* WYVideoCompressTools.m */; };
 		B27077842499FEBB002D147A /* ZVideoHandleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B27077832499FEBB002D147A /* ZVideoHandleManager.m */; };
-		B2707794249A0D00002D147A /* BANetManagerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B2707788249A0CFF002D147A /* BANetManagerCache.m */; };
-		B2707796249A0D00002D147A /* BANetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778A249A0CFF002D147A /* BANetManager.m */; };
-		B2707797249A0D00002D147A /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778B249A0CFF002D147A /* UIImage+CompressImage.m */; };
-		B2707798249A0D00002D147A /* BADataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = B270778D249A0CFF002D147A /* BADataEntity.m */; };
-		B2707799249A0D00002D147A /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = B2707793249A0CFF002D147A /* .gitkeep */; };
 		B279D04323C8430C00391A33 /* ZStudentLessonSelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04223C8430C00391A33 /* ZStudentLessonSelectTimeCell.m */; };
 		B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04823C863BC00391A33 /* ZStudentLessonSureOrderVC.m */; };
 		B279D04F23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B279D04E23C8744600391A33 /* ZStudentLessonSubscribeSureOrderVC.m */; };
@@ -1179,17 +1174,6 @@
 		B27077802499FD14002D147A /* WYVideoCompressTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYVideoCompressTools.m; sourceTree = "<group>"; };
 		B27077822499FEBB002D147A /* ZVideoHandleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZVideoHandleManager.h; sourceTree = "<group>"; };
 		B27077832499FEBB002D147A /* ZVideoHandleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZVideoHandleManager.m; sourceTree = "<group>"; };
-		B2707787249A0CFF002D147A /* BADataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BADataEntity.h; sourceTree = "<group>"; };
-		B2707788249A0CFF002D147A /* BANetManagerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManagerCache.m; sourceTree = "<group>"; };
-		B270778A249A0CFF002D147A /* BANetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BANetManager.m; sourceTree = "<group>"; };
-		B270778B249A0CFF002D147A /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
-		B270778C249A0CFF002D147A /* BANetManager_Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_Version.h; sourceTree = "<group>"; };
-		B270778D249A0CFF002D147A /* BADataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BADataEntity.m; sourceTree = "<group>"; };
-		B270778E249A0CFF002D147A /* BANetManagerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManagerCache.h; sourceTree = "<group>"; };
-		B270778F249A0CFF002D147A /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
-		B2707790249A0CFF002D147A /* BANetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager.h; sourceTree = "<group>"; };
-		B2707791249A0CFF002D147A /* BANetManager_OC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BANetManager_OC.h; sourceTree = "<group>"; };
-		B2707793249A0CFF002D147A /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		B279D04123C8430C00391A33 /* ZStudentLessonSelectTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSelectTimeCell.h; sourceTree = "<group>"; };
 		B279D04223C8430C00391A33 /* ZStudentLessonSelectTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentLessonSelectTimeCell.m; sourceTree = "<group>"; };
 		B279D04723C863BC00391A33 /* ZStudentLessonSureOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentLessonSureOrderVC.h; sourceTree = "<group>"; };
@@ -1436,7 +1420,7 @@
 		B29D7FF224308322004B3C00 /* ZCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCollectionViewController.m; sourceTree = "<group>"; };
 		B29D7FF42430A265004B3C00 /* ZStudentEvaListReEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentEvaListReEvaCell.h; sourceTree = "<group>"; };
 		B29D7FF52430A265004B3C00 /* ZStudentEvaListReEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentEvaListReEvaCell.m; sourceTree = "<group>"; };
-		B2A77E1B23BDA38400407BF0 /* 似锦测试.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "似锦测试.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2A77E1B23BDA38400407BF0 /* 似锦.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "似锦.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoWaitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2345,7 +2329,6 @@
 		B2469B60249C8CE400DCB146 /* ZFileManager */ = {
 			isa = PBXGroup;
 			children = (
-				B2469B78249DA9C900DCB146 /* YBUploadTool */,
 				B2469B70249DA64800DCB146 /* Views */,
 				B2469B61249C8D0200DCB146 /* ZFileManager.h */,
 				B2469B62249C8D0200DCB146 /* ZFileManager.m */,
@@ -2378,13 +2361,6 @@
 				B2469B75249DA64800DCB146 /* FBCustomUploadProgress.m */,
 			);
 			path = FBCustomUploadProgress;
-			sourceTree = "<group>";
-		};
-		B2469B78249DA9C900DCB146 /* YBUploadTool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = YBUploadTool;
 			sourceTree = "<group>";
 		};
 		B2469B8224A08BD400DCB146 /* XLPaymentHUD */ = {
@@ -2667,40 +2643,6 @@
 			path = WYVideoCompressTools;
 			sourceTree = "<group>";
 		};
-		B2707785249A0CFF002D147A /* BANetManager */ = {
-			isa = PBXGroup;
-			children = (
-				B2707786249A0CFF002D147A /* Classes */,
-				B2707792249A0CFF002D147A /* Assets */,
-			);
-			path = BANetManager;
-			sourceTree = "<group>";
-		};
-		B2707786249A0CFF002D147A /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				B2707787249A0CFF002D147A /* BADataEntity.h */,
-				B2707788249A0CFF002D147A /* BANetManagerCache.m */,
-				B270778A249A0CFF002D147A /* BANetManager.m */,
-				B270778B249A0CFF002D147A /* UIImage+CompressImage.m */,
-				B270778C249A0CFF002D147A /* BANetManager_Version.h */,
-				B270778D249A0CFF002D147A /* BADataEntity.m */,
-				B270778E249A0CFF002D147A /* BANetManagerCache.h */,
-				B270778F249A0CFF002D147A /* UIImage+CompressImage.h */,
-				B2707790249A0CFF002D147A /* BANetManager.h */,
-				B2707791249A0CFF002D147A /* BANetManager_OC.h */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		B2707792249A0CFF002D147A /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				B2707793249A0CFF002D147A /* .gitkeep */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
 		B279D02E23C7228300391A33 /* lessonBuyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2871,7 +2813,7 @@
 		B2A77E1C23BDA38400407BF0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B2A77E1B23BDA38400407BF0 /* 似锦测试.app */,
+				B2A77E1B23BDA38400407BF0 /* 似锦.app */,
 				B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */,
 				B2A77E4123BDA38600407BF0 /* NoWaitUITests.xctest */,
 			);
@@ -3397,7 +3339,6 @@
 		B2A7803323BDFA8D00407BF0 /* ZNetworkingManager */ = {
 			isa = PBXGroup;
 			children = (
-				B2707785249A0CFF002D147A /* BANetManager */,
 				B2A7803C23BDFB0100407BF0 /* Categories */,
 				B2A7804623BDFB0100407BF0 /* ZNetwork */,
 				B2A7804523BDFB0100407BF0 /* ZNetwork.h */,
@@ -4488,7 +4429,7 @@
 			);
 			name = NoWait;
 			productName = NoWait;
-			productReference = B2A77E1B23BDA38400407BF0 /* 似锦测试.app */;
+			productReference = B2A77E1B23BDA38400407BF0 /* 似锦.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B2A77E3523BDA38600407BF0 /* NoWaitTests */ = {
@@ -4607,7 +4548,6 @@
 				B2BA39C12435CD64005A3FFB /* photo_flash_on.png in Resources */,
 				B26AEE1324A9D3DD00DF7132 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				B26AEE1124A9D3DD00DF7132 /* ImageSelectedOff@3x.png in Resources */,
-				B2707799249A0D00002D147A /* .gitkeep in Resources */,
 				B26AEE1724A9D3DD00DF7132 /* ImageSelectedOn@2x.png in Resources */,
 				B26AEE0724A9D3DD00DF7132 /* VideoOverlay@3x.png in Resources */,
 				B223BCD723C7043F00AC0158 /* icon_star@3x.png in Resources */,
@@ -4815,7 +4755,6 @@
 				B26880E324767ECC00BF8FCD /* WMZDropMenuBase.m in Sources */,
 				B28D9140240766940021E05A /* PGDatePicker+Common.m in Sources */,
 				B24D995923FD2F4B0078A458 /* ZOrganizationLessonAddPhotosItemCell.m in Sources */,
-				B2707794249A0D00002D147A /* BANetManagerCache.m in Sources */,
 				B2A7812C23C31B4900407BF0 /* ZStudentMainPhotoWallCell.m in Sources */,
 				B26AEDF124A9D3DD00DF7132 /* UIImage+MWPhotoBrowser.m in Sources */,
 				B2A7818123C5780A00407BF0 /* ZStudentDetailModel.m in Sources */,
@@ -4840,7 +4779,6 @@
 				B234D08D23CC09CC00210CD8 /* ZAlertImageView.m in Sources */,
 				B2C35089244406A4002929A8 /* ZTeacherClassDetailSignDetailVC.m in Sources */,
 				B2F371BC246B8D9500678B19 /* ZRewardMyTeamListVC.m in Sources */,
-				B2707798249A0D00002D147A /* BADataEntity.m in Sources */,
 				B28EA66F240E49FC00C8E225 /* ZOrganizationCardMainVC.m in Sources */,
 				B28D913A240766940021E05A /* PGDatePicker+DateHourMinute.m in Sources */,
 				B2EE5BAA23F7DA1A00ECCFF4 /* ZOriganizationClubSelectedCell.m in Sources */,
@@ -5092,7 +5030,6 @@
 				B296E38B2404B11A00507509 /* ZOrganizationLessonManageVC.m in Sources */,
 				B2CF93512424CABA007AF66E /* ZOrganizationMineEvaDetailVC.m in Sources */,
 				B2F7D35623CD995E00F7A17D /* ZMineStudentEvaListEvaCoachCell.m in Sources */,
-				B2707796249A0D00002D147A /* BANetManager.m in Sources */,
 				B28D90CB240604C80021E05A /* ZTextFieldMultColCell.m in Sources */,
 				B26F2DA6240121C900BBF533 /* ZOrganizationStudentUpStarVC.m in Sources */,
 				B262B54D244EE9CF00A27542 /* ZOrganizationClassStudentProgressEditVC.m in Sources */,
@@ -5262,7 +5199,6 @@
 				B2A780E423BEDA0C00407BF0 /* ZOrganizationMineVC.m in Sources */,
 				B252ED892416191E00190804 /* ZBaseCollectionViewCell.m in Sources */,
 				B2292E4D249B04DC00924055 /* TZPhotoPreviewController.m in Sources */,
-				B2707797249A0D00002D147A /* UIImage+CompressImage.m in Sources */,
 				B262B54A244ECA5200A27542 /* ZAddClassCodeView.m in Sources */,
 				B29795942425DB54004490F5 /* ZStudentLessonDetailVC.m in Sources */,
 				B29795B524286CF0004490F5 /* ZOrganizationTeachingScheduleLessonVC.m in Sources */,
@@ -5529,8 +5465,8 @@
 					"\"WebP\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait1;
-				PRODUCT_NAME = "似锦测试";
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
+				PRODUCT_NAME = "似锦";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5639,8 +5575,8 @@
 					"\"WebP\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait1;
-				PRODUCT_NAME = "似锦测试";
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
+				PRODUCT_NAME = "似锦";
 				PROVISIONING_PROFILE_SPECIFIER = xiangxinlirelease0720;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

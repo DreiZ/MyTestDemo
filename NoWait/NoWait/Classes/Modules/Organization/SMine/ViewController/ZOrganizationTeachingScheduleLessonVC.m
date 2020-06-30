@@ -51,6 +51,24 @@
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleLessonCell className] title:[ZOrganizationTeachingScheduleLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleLessonCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [self.cellConfigArr addObject:progressCellConfig];
         }
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleLessonCell"]) {
+            ZOrganizationTeachingScheduleLessonCell *lcell = (ZOrganizationTeachingScheduleLessonCell *)cell;
+            lcell.handleBlock = ^(NSInteger index, ZOriganizationLessonScheduleListModel *model) {
+                if (index == 0) {
+                    ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
+                    svc.stores_courses_id = model.lessonID;
+                    svc.lessonModel = model;
+                    [self.navigationController pushViewController:svc animated:YES];
+                }else{
+                    ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
+                    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+                    smodel.lessonID = model.lessonID;
+                    dvc.model = smodel;
+                    [self.navigationController pushViewController:dvc animated:YES];
+                }
+            };
+        }
     });
 }
 
