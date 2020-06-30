@@ -96,7 +96,7 @@ static ZFileManager *fileManager;
 
     NSString *docDir = [paths objectAtIndex:0];
     if(!docDir) {
-        NSLog(@"Documents 目录未找到");
+        DLog(@"Documents 目录未找到");
     }
 
     NSArray *array = [[NSArray alloc]initWithObjects:content,@"content",nil];

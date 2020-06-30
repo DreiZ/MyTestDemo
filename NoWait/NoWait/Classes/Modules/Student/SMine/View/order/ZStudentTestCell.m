@@ -38,7 +38,7 @@
     self.number.unit = @"节  ";
     
     _number.resultNumber = ^(NSInteger number) {
-        NSLog(@"%ld>>>resultBlock>>",number);
+        DLog(@"%ld>>>resultBlock>>",number);
     };
 }
 

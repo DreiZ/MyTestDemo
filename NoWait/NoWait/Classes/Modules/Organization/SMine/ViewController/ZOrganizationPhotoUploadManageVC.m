@@ -251,7 +251,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 }
 
 - (void)dealloc {
-    NSLog(@"%@销毁了",[self class]);
+    DLog(@"%@销毁了",[self class]);
 }
 
 

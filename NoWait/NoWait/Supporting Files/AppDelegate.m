@@ -111,7 +111,7 @@
     if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
         NSURL *url = userActivity.webpageURL;
        // TODO 根据需求进行处理
-        NSLog(@"zzzwebpageURL %@",url);
+        DLog(@"zzzwebpageURL %@",url);
          return [[ZPayManager sharedManager] pay_handleUrl:url];
     }
       // TODO 根据需求进行处理
