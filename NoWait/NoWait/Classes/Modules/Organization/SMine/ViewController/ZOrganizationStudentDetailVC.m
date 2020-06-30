@@ -10,6 +10,7 @@
 #import "ZOriganizationTeachAddHeadImageCell.h"
 #import "ZOrganizationLessonAddPhotosCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
+#import "ZOrganizationNoDataCell.h"
 
 #import "ZStudentMineSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
@@ -173,22 +174,25 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
           
-            
-            ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"specialty_desc")
-            .zz_titleLeft(self.addModel.specialty_desc)
-            .zz_leftMultiLine(YES)
-            .zz_cellHeight(CGFloatIn750(50))
-            .zz_lineHidden(YES)
-            .zz_colorDarkLeft([UIColor colorTextGrayDark])
-            .zz_colorLeft([UIColor colorTextGray]);
-            
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-            [self.cellConfigArr addObject:textCellConfig];
-            
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
+            if (ValidStr(self.addModel.specialty_desc)) {
+                ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"specialty_desc")
+                .zz_titleLeft(self.addModel.specialty_desc)
+                .zz_leftMultiLine(YES)
+                .zz_cellHeight(CGFloatIn750(50))
+                .zz_lineHidden(YES)
+                .zz_colorDarkLeft([UIColor colorTextGrayDark])
+                .zz_colorLeft([UIColor colorTextGray]);
+                
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                [self.cellConfigArr addObject:textCellConfig];
+                [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
+            }else{
+                ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"4"];
+                [self.cellConfigArr addObject:coachCellConfig];
+            }
         }
             
-        if (ValidArray(self.addModel.images_list)) {
+        {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员相册";
             model.leftFont = [UIFont boldFontContent];
@@ -216,6 +220,9 @@
             
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:progressCellConfig];
+        }else{
+            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"5"];
+            [self.cellConfigArr addObject:coachCellConfig];
         }
     }
     if ([self.addModel.is_star intValue] == 1) {

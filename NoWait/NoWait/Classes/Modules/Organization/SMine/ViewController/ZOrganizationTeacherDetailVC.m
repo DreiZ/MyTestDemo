@@ -12,6 +12,7 @@
 #import "ZOriganizationTextViewCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
+#import "ZOrganizationNoDataCell.h"
 #import "ZOriganizationLessonModel.h"
 #import "ZOrganizationTeacherAddVC.h"
 #import "ZTeacherLessonDetailListVC.h"
@@ -100,17 +101,22 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
       
-        ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"des")
-        .zz_colorLeft([UIColor colorTextGray])
-        .zz_colorDarkLeft([UIColor colorTextGrayDark])
-        .zz_cellHeight(CGFloatIn750(50))
-        .zz_titleLeft(self.addModel.des)
-        .zz_leftMultiLine(YES);
-        
-        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-        [self.cellConfigArr addObject:textCellConfig];
-        
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        if (ValidStr(self.addModel.des)) {
+            ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"des")
+            .zz_colorLeft([UIColor colorTextGray])
+            .zz_colorDarkLeft([UIColor colorTextGrayDark])
+            .zz_cellHeight(CGFloatIn750(50))
+            .zz_titleLeft(self.addModel.des)
+            .zz_leftMultiLine(YES);
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+            [self.cellConfigArr addObject:textCellConfig];
+            
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        }else{
+            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"4"];
+            [self.cellConfigArr addObject:coachCellConfig];
+        }
     }
     
     {
@@ -144,6 +150,9 @@
         
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddPhotosCell className] title:[ZOrganizationLessonAddPhotosCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonAddPhotosCell z_getCellHeight:menulist] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:progressCellConfig];
+    }else{
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"5"];
+        [self.cellConfigArr addObject:coachCellConfig];
     }
 }
 

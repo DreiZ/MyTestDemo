@@ -138,8 +138,8 @@
 
 - (void)setRank:(ZRewardRankingMyModel *)rank {
     _rank = rank;
-    _codelHintLabel.text = [NSString stringWithFormat:@"距离上一名还差%@积分",rank.prev];
-    _codeLabel.text = [NSString stringWithFormat:@"%@积分",rank.total_amount];
+    _codelHintLabel.text = [NSString stringWithFormat:@"距离上一名%@元",rank.prev];
+    _codeLabel.text = [NSString stringWithFormat:@"%@云",rank.total_amount];
     _statusLabel.text = rank.rank_desc;
     _nameLabel.text = rank.name;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:rank.image] placeholderImage:[UIImage imageNamed:@"default_head"]];

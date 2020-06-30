@@ -50,6 +50,7 @@
 @property (nonatomic,strong) NSString * account_phone;
 @property (nonatomic,strong) NSString * students_name;
 @property (nonatomic,strong) NSString * nick_name;
+@property (nonatomic,strong) NSString * account_image;
 @property (nonatomic,strong) NSString * coupons_amount;
 @property (nonatomic,strong) NSString * coupons_id;
 @property (nonatomic,strong) NSString * course_id;
@@ -100,7 +101,7 @@
 @property (nonatomic,strong) NSString *refund_desc;
 @property (nonatomic,strong) NSString *refund_status_msg;
 @property (nonatomic,strong) NSString *refund_amount;
-@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态 状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态 状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功 8：退款支付成功
 
 @end
 

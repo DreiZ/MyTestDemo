@@ -82,7 +82,7 @@
             [self.cellConfigArr addObject:coachCellConfig];
         }
         
-        if (self.detailModel.class_ids && self.detailModel.class_ids.count > 0) {
+        if (self.detailModel.class_ids) {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教师带课"];
@@ -99,7 +99,7 @@
             }
             
         }
-        if (self.detailModel.images_list && self.detailModel.images_list.count > 0) {
+        if (self.detailModel.images_list) {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"教师相册"];

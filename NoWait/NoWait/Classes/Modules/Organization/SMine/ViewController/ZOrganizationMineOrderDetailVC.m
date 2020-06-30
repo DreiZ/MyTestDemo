@@ -389,6 +389,11 @@
         lcell.titleLabel.font = [UIFont fontContent];
         lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         lcell.contentView.backgroundColor = adaptAndDarkColor(HexAColor(0xf4f4f4, 1), HexAColor(0x040404, 1));
+    }else if ([cellConfig.title isEqualToString:@"refund_success"]) {
+        ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+        lcell.titleLabel.font = [UIFont fontContent];
+        lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+        lcell.contentView.backgroundColor = [UIColor colorMain];
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineOrderDetailCell"]){
         ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {
@@ -602,10 +607,15 @@
 
 //退款
 - (void)setRefuseCell {
+    if ([self.detailModel.refund_status intValue] == 7 || [self.detailModel.refund_status intValue] == 8) {
+        ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"refund_success" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"退款成功"];
+        [self.cellConfigArr addObject:bottomCellConfig];
+    }
+    
     if (!self.detailModel.isStudent) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = self.detailModel.nick_name ;
-        model.leftImage = self.detailModel.course_image_url;
+        model.leftImage = self.detailModel.account_image;
         model.isHiddenLine = YES;
         model.lineLeftMargin = CGFloatIn750(30);
         model.lineRightMargin = CGFloatIn750(30);

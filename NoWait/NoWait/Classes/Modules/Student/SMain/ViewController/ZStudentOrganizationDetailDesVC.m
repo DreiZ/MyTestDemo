@@ -289,57 +289,21 @@
     
     ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroCell className] title:[ZStudentOrganizationDetailIntroCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroCell z_getCellHeight:self.detailModel] cellType:ZCellTypeClass dataModel:self.detailModel];
     [self.cellConfigArr addObject:desCellConfig];
-    
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-
-        ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        moreModel.leftTitle = @"教师团队";
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
+        ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
+        model.leftTitle = @"体验课程";
+        model.rightTitle = @"更多体验课程";
+        model.cellTitle = @"allExperienceLesson";
+        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:lessonMoreCellConfig];
-        
-        if (self.detailModel.teacher_list && self.detailModel.teacher_list.count > 0){
-            NSMutableArray *peoples = @[].mutableCopy;
-            for (int i = 0; i < self.detailModel.teacher_list.count; i++) {
-                ZOriganizationTeacherListModel *teacherModel = self.detailModel.teacher_list[i];
-                ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
-                model.account_id = teacherModel.teacherID;
-                model.image = teacherModel.image;
-                model.name = teacherModel.nick_name;
-                model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
-                model.data = teacherModel;
-                [peoples addObject:model];
-            }
-            
-            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starCoach" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
-            [self.cellConfigArr addObject:coachCellConfig];
-        }else{
-            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"2"];
-            [self.cellConfigArr addObject:coachCellConfig];
-        }
     }
-    
-    if (self.detailModel.star_students && self.detailModel.star_students.count > 0) {
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    if (ValidArray(self.detailModel.appointment_courses)) {
         
-        ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
-        moreModel.leftTitle = @"明星学员";
-        ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarStudent" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
-        [self.cellConfigArr addObject:lessonMoreCellConfig];
-        
-        NSMutableArray *peoples = @[].mutableCopy;
-        for (int i = 0; i < self.detailModel.star_students.count; i++) {
-            ZOriganizationTeacherListModel *teacherModel = self.detailModel.star_students[i];
-            ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
-            model.account_id = teacherModel.teacherID;
-            model.image = teacherModel.image;
-            model.name = teacherModel.name;
-            model.skill = teacherModel.stores_courses_name;
-            model.data = teacherModel;
-            [peoples addObject:model];
-        }
-        
-        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starStudent" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+        ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationExperienceCell className] title:[ZStudentMainOrganizationExperienceCell className] showInfoMethod:@selector(setAppointment_courses:) heightOfCell:[ZStudentMainOrganizationExperienceCell z_getCellHeight:self.detailModel.appointment_courses] cellType:ZCellTypeClass dataModel:self.detailModel.appointment_courses];
+        [self.cellConfigArr addObject:lessonCellConfig];
+    }else{
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"1"];
         [self.cellConfigArr addObject:coachCellConfig];
     }
     
@@ -367,21 +331,57 @@
             [self.cellConfigArr addObject:coachCellConfig];
         }
     
+        
         {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            ZStudentDetailOrderSubmitListModel *model = [[ZStudentDetailOrderSubmitListModel alloc] init];
-            model.leftTitle = @"体验课程";
-            model.rightTitle = @"更多体验课程";
-            model.cellTitle = @"allExperienceLesson";
-            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+
+            ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
+            moreModel.leftTitle = @"教师团队";
+            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarCoach" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
             [self.cellConfigArr addObject:lessonMoreCellConfig];
-        }
-        if (ValidArray(self.detailModel.appointment_courses)) {
             
-            ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMainOrganizationExperienceCell className] title:[ZStudentMainOrganizationExperienceCell className] showInfoMethod:@selector(setAppointment_courses:) heightOfCell:[ZStudentMainOrganizationExperienceCell z_getCellHeight:self.detailModel.appointment_courses] cellType:ZCellTypeClass dataModel:self.detailModel.appointment_courses];
-            [self.cellConfigArr addObject:lessonCellConfig];
-        }else{
-            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"1"];
+            if (self.detailModel.teacher_list && self.detailModel.teacher_list.count > 0){
+                NSMutableArray *peoples = @[].mutableCopy;
+                for (int i = 0; i < self.detailModel.teacher_list.count; i++) {
+                    ZOriganizationTeacherListModel *teacherModel = self.detailModel.teacher_list[i];
+                    ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+                    model.account_id = teacherModel.teacherID;
+                    model.image = teacherModel.image;
+                    model.name = teacherModel.nick_name;
+                    model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
+                    model.data = teacherModel;
+                    [peoples addObject:model];
+                }
+                
+                ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starCoach" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
+                [self.cellConfigArr addObject:coachCellConfig];
+            }else{
+                ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"2"];
+                [self.cellConfigArr addObject:coachCellConfig];
+            }
+        }
+        
+        if (self.detailModel.star_students && self.detailModel.star_students.count > 0) {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            
+            ZStudentDetailOrderSubmitListModel *moreModel = [[ZStudentDetailOrderSubmitListModel alloc] init];
+            moreModel.leftTitle = @"明星学员";
+            ZCellConfig *lessonMoreCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelMoreCell className] title:@"moreStarStudent" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationPersonnelMoreCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:moreModel];
+            [self.cellConfigArr addObject:lessonMoreCellConfig];
+            
+            NSMutableArray *peoples = @[].mutableCopy;
+            for (int i = 0; i < self.detailModel.star_students.count; i++) {
+                ZOriganizationTeacherListModel *teacherModel = self.detailModel.star_students[i];
+                ZStudentDetailPersonnelModel *model = [[ZStudentDetailPersonnelModel alloc] init];
+                model.account_id = teacherModel.teacherID;
+                model.image = teacherModel.image;
+                model.name = teacherModel.name;
+                model.skill = teacherModel.stores_courses_name;
+                model.data = teacherModel;
+                [peoples addObject:model];
+            }
+            
+            ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationPersonnelListCell className] title:@"starStudent" showInfoMethod:@selector(setPeopleslList:) heightOfCell:[ZStudentOrganizationPersonnelListCell z_getCellHeight:peoples] cellType:ZCellTypeClass dataModel:peoples];
             [self.cellConfigArr addObject:coachCellConfig];
         }
         

@@ -101,6 +101,10 @@
     return HexAColor(0xffa13e, 1);
 }
 
++ (UIColor *)colorOrangeHot {
+    return HexAColor(0xff8532, 1);
+}
+
 
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar {

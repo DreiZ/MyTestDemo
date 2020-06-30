@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)colorOrangeMoment;
 + (UIColor *)colorOrangeBack;
 + (UIColor *)colorYellow ;
++ (UIColor *)colorOrangeHot;
 
 #pragma mark - 黑色
 + (UIColor *)colorBlackForNavBar;

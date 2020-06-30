@@ -101,10 +101,10 @@
     if (!_hintImageView) {
         _hintImageView = [[UIImageView alloc] init];
 //        _hintImageView.image = [UIImage imageNamed:@"<#imagename#>"];
-        _hintImageView.backgroundColor = [UIColor colorGrayLine];
+//        _hintImageView.backgroundColor = [UIColor colorGrayLine];
         _hintImageView.layer.masksToBounds = YES;
         _hintImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _hintImageView.layer.cornerRadius = CGFloatIn750(4);
+//        _hintImageView.layer.cornerRadius = CGFloatIn750(4);
     }
     return _hintImageView;
 }
@@ -115,7 +115,7 @@
         _priceLabel.textColor = [UIColor colorMain];
         _priceLabel.numberOfLines = 1;
         _priceLabel.textAlignment = NSTextAlignmentLeft;
-        [_priceLabel setFont:[UIFont fontMin]];
+        [_priceLabel setFont:[UIFont boldFontSmall]];
     }
     return _priceLabel;
 }
@@ -127,7 +127,7 @@
         _orignLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         _orignLabel.numberOfLines = 1;
         _orignLabel.textAlignment = NSTextAlignmentLeft;
-        [_orignLabel setFont:[UIFont fontMin]];
+        [_orignLabel setFont:[UIFont fontSmall]];
     }
     return _orignLabel;
 }
@@ -150,9 +150,9 @@
     
     if ([model.is_experience intValue] == 1) {
         self.hintImageView.image = [UIImage imageNamed:@"orderLesson"];
-        CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontMin]];
+        CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontSmall]];
         
-        CGSize expriceSize = [[NSString stringWithFormat:@"￥%@",model.experience_price] tt_sizeWithFont:[UIFont fontMin]];
+        CGSize expriceSize = [[NSString stringWithFormat:@"￥%@",model.experience_price] tt_sizeWithFont:[UIFont boldFontSmall]];
         
         [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.hintImageView.mas_right).offset(CGFloatIn750(10));
@@ -174,11 +174,11 @@
         
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.experience_price];
         self.orignLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
-        
+        self.priceLabel.textColor = [UIColor colorMain];
         self.orignLabel.hidden = NO;
         self.orignLineView.hidden = NO;
     }else{
-        CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont fontMin]];
+        CGSize priceSize = [[NSString stringWithFormat:@"￥%@",model.price] tt_sizeWithFont:[UIFont boldFontSmall]];
         self.hintImageView.image = [UIImage imageNamed:@"hotLesson"];
         [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.hintImageView.mas_right).offset(CGFloatIn750(10));
@@ -195,6 +195,7 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
         self.orignLabel.hidden = YES;
         self.orignLineView.hidden = YES;
+        self.priceLabel.textColor = [UIColor colorOrangeHot];
     }
 }
 

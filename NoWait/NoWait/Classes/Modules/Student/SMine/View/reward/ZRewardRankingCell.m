@@ -153,7 +153,7 @@
 
 - (void)setModel:(ZRewardRankingListModel *)model {
     _model = model;
-    _moneyLabel.text = model.total_amount;
+    _moneyLabel.text = [NSString stringWithFormat:@"%@元",model.total_amount];
     _indexLabel.text = model.index;
     if ([model.index intValue] < 4) {
         _indexLabel.backgroundColor = HexAColor(0xfebe4d, 0.1);
