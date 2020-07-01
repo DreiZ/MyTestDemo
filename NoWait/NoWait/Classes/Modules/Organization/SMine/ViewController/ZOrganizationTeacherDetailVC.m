@@ -45,9 +45,8 @@
                          @[@"昵称",SafeStr(self.addModel.nick_name)],
                          @[@"性别",[SafeStr(self.addModel.sex) intValue] == 1 ? @"男":@"女"],
                          @[@"手机号",SafeStr(self.addModel.phone)],
-                         @[@"身份证号码",SafeStr(self.addModel.id_card)],
-                         @[@"教师等级",[SafeStr(self.addModel.c_level) intValue] == 1 ? @"普通教师":@"明星教师"],
-                        @[@"教师职称",SafeStr(self.addModel.position)],
+                         @[@"身份证号",SafeStr(self.addModel.id_card)],
+                        @[@"教师职位",SafeStr(self.addModel.position)],
                         @[@"任课课程",@""],
                         @[@"特长技能", @""]];
     
@@ -177,7 +176,7 @@
     if ([cellConfig.title isEqualToString:[ZOriganizationTeachHeadImageCell className]]) {
         ZOriganizationTeachHeadImageCell *lcell = (ZOriganizationTeachHeadImageCell *)cell;
         __weak typeof(self) weakSelf = self;
-        lcell.isTeacher = NO;
+        lcell.isTeacher = YES;
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
                 if (ValidClass(weakSelf.addModel.image, [UIImage class]) || ValidStr(weakSelf.addModel.image)) {

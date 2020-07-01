@@ -465,7 +465,7 @@
 #define URL_order_v1_refund_order_list              @"order/v1/refund_order_list"
 //协商退款
 #define URL_order_v1_refund_order_again              @"order/v1/refund_order_again"
-//商家退款
+//校区退款
 #define URL_order_v1_refund_order_pay                @"order/v1/refund_by_store"
 
 //协商退款取消

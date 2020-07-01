@@ -18,11 +18,11 @@ typedef NS_ENUM(NSInteger, ZLessonOrderHandleType) {
     ZLessonOrderHandleTypeOrderNOReceive            =  40,  //拒绝预约
     ZLessonOrderHandleTypeRefund                    =  5,  //退款
     ZLessonOrderHandleTypeSRefund                   =  50,  //同意退款
-    ZLessonOrderHandleTypeSRefundReject             =  6,  //拒绝商家提议退款
+    ZLessonOrderHandleTypeSRefundReject             =  6,  //拒绝校区提议退款
     ZLessonOrderHandleTypeSRefundCancle             =  7,  //取消退款
-    ZLessonOrderHandleTypeORefund                   =  8,  //同意退款（商家）
-    ZLessonOrderHandleTypeORefundReject             =  9,  //拒绝退款重新协商（商家）
-    ZLessonOrderHandleTypeRefundPay                 =  10, //支付退款（商家）
+    ZLessonOrderHandleTypeORefund                   =  8,  //同意退款（校区）
+    ZLessonOrderHandleTypeORefundReject             =  9,  //拒绝退款重新协商（校区）
+    ZLessonOrderHandleTypeRefundPay                 =  10, //支付退款（校区）
     ZLessonOrderHandleTypeTel                       =  101,  //电话
     ZLessonOrderHandleTypeDetail                    =  102,  //详情
     ZLessonOrderHandleTypeClub                      =  103,  //校区详情
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, ZStudentOrderType) {
     ZOrganizationOrderTypeAll,                   //全部
 };
 
-//1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+//1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功
 typedef NS_ENUM(NSInteger, ZRefundOrderType) {
     ZRefundOrderTypeRefund  =   1,
     ZRefundOrderTypeOrganizationReject,

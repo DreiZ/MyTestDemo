@@ -119,7 +119,7 @@
     }];
 
     [self.salesNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.lessonNameLabel.mas_left);
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
         make.top.equalTo(self.priceLabel.mas_bottom).offset(CGFloatIn750(16));
     }];
 
@@ -130,7 +130,7 @@
 
     [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(16));
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.left.equalTo(self.lessonNameLabel.mas_left);
         make.width.offset(CGFloatIn750(100));
         make.bottom.equalTo(self.leftImageView.mas_bottom).offset(-CGFloatIn750(8));
     }];

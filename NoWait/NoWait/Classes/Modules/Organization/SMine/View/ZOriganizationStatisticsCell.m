@@ -165,7 +165,7 @@
     if (!_rightTitleLabel) {
         _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightTitleLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorGrayBG]);
-        _rightTitleLabel.text = @"今日缴费总额";
+        _rightTitleLabel.text = @"校区缴费总额";
         _rightTitleLabel.numberOfLines = 1;
         _rightTitleLabel.textAlignment = NSTextAlignmentCenter;
         [_rightTitleLabel setFont:[UIFont fontSmall]];

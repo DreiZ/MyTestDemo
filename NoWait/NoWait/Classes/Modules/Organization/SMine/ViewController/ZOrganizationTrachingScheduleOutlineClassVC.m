@@ -42,8 +42,8 @@
         NSArray *textArr = @[@[@"班级名称", @"请输入班级名称", @YES, @"", @"name"],
                              @[@"选择课程", @"选择", @NO, @"rightBlackArrowN",  @"lesson"],
                              @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"],
-                             @[@"上课时间", @"选择(非必选)", @NO, @"rightBlackArrowN", @"time"],
-                             @[@"开课日期", @"选择(非必选)", @NO, @"rightBlackArrowN",  @"openTime"]];
+                             @[@"开课日期", @"选择(非必选)", @NO, @"rightBlackArrowN",  @"openTime"],
+                             @[@"上课时间", @"选择(非必选)", @NO, @"rightBlackArrowN", @"time"]];
         
         for (int i = 0; i < textArr.count; i++) {
             if ([textArr[i][4] isEqualToString:@"time"]) {
@@ -298,7 +298,7 @@
         }
         [ZAlertTeacherCheckBoxView setAlertName:@"选择教师" schoolID:self.viewModel.addModel.courses_id handlerBlock:^(NSInteger index,ZOriganizationTeacherListModel *model) {
             if (model) {
-                weakSelf.viewModel.addModel.teacherName = model.teacher_name;
+                weakSelf.viewModel.addModel.teacherName = model.nick_name;
                 weakSelf.viewModel.addModel.teacherID  = model.teacherID;
                 weakSelf.viewModel.addModel.teacherImage  = model.image;
                 [weakSelf initCellConfigArr];

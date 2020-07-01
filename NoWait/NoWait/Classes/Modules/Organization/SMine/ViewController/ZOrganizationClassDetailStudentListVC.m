@@ -145,7 +145,7 @@
                        ZOrganizationTrachingScheduleOutlineErweimaVC *avc = [[ZOrganizationTrachingScheduleOutlineErweimaVC alloc] init];
                        avc.class_id = weakSelf.model.classID;
                        addModel.class_name = weakSelf.model.name;
-                       addModel.nick_name = weakSelf.model.teacher_name;
+                       addModel.nick_name = weakSelf.model.teacher_nick_name;
                        addModel.teacher_image = weakSelf.model.teacher_image;
                        addModel.image = weakSelf.model.stores_course_image;
                        addModel.courses_name = weakSelf.model.stores_courses_name;

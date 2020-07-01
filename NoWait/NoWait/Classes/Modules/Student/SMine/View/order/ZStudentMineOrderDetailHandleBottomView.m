@@ -22,9 +22,9 @@
 @property (nonatomic,strong) UIButton *receivedNOBtn;
 @property (nonatomic,strong) UIButton *refundSureBtn;//同意退款
 @property (nonatomic,strong) UIButton *refundRefectBtn;//协商退款
-@property (nonatomic,strong) UIButton *refundOSureBtn;//商家同意
-@property (nonatomic,strong) UIButton *refundORefectBtn;//商家拒绝
-@property (nonatomic,strong) UIButton *refundPayBtn;//商家拒绝
+@property (nonatomic,strong) UIButton *refundOSureBtn;//校区同意
+@property (nonatomic,strong) UIButton *refundORefectBtn;//校区拒绝
+@property (nonatomic,strong) UIButton *refundPayBtn;//校区拒绝
 @property (nonatomic,strong) UILabel *statusLabel;
 
 
@@ -251,7 +251,7 @@
         _telBtn.layer.masksToBounds = YES;
 //        [_telBtn setImage:[UIImage imageNamed:@"default_bigPhone_mainColor"] forState:UIControlStateNormal];
         _telBtn.imageView.size = CGSizeMake(CGFloatIn750(22), CGFloatIn750(28));
-        [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
+        [_telBtn setTitle:@"  联系校区" forState:UIControlStateNormal];
         [_telBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_telBtn.titleLabel setFont:[UIFont boldFontContent]];
         _telBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -460,7 +460,7 @@
     
     if (model.isStudent) {
         self.telBtn.hidden = NO;
-        [_telBtn setTitle:@"  联系商家" forState:UIControlStateNormal];
+        [_telBtn setTitle:@"  联系校区" forState:UIControlStateNormal];
         _telImageView.image = [[UIImage imageNamed:@"default_bigPhone_mainColor"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _telImageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         
@@ -505,16 +505,16 @@
                     make.left.equalTo(self.telBtn.mas_right);
                 }];
                 if ([model.refund_status intValue] == 1){
-                    self.statusLabel.text = @"已申请，待商家确认";
+                    self.statusLabel.text = @"已申请，待校区确认";
                 }else if ([model.refund_status intValue] == 3){
-                    self.statusLabel.text = @"已拒绝，待商家确认";
+                    self.statusLabel.text = @"已拒绝，待校区确认";
                 }else if ([model.refund_status intValue] == 4){
-                    self.statusLabel.text = @"已同意商家提议金额，待商家退款";
+                    self.statusLabel.text = @"已同意校区提议金额，待校区退款";
                 }else if ([model.refund_status intValue] == 5){
-                    self.statusLabel.text = @"商家已同意，待商家退款";
+                    self.statusLabel.text = @"校区已同意，待校区退款";
                 }else if ([model.refund_status intValue] == 6){
                     self.statusLabel.text = @"已取消退款";
-                }else if ([model.refund_status intValue] == 7){
+                }else if ([model.refund_status intValue] == 7||[model.refund_status intValue] == 8){
                     self.statusLabel.text = @"退款已完成";
                 }else{
                     self.statusLabel.hidden = YES;
@@ -543,7 +543,7 @@
         }
     }else{
         if (model.isRefund) {
-            //状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+            //状态：1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功
             if ([model.refund_status intValue] == 1 || [model.refund_status intValue] == 3) {
                 self.refundOSureBtn.hidden = NO;
                 self.refundORefectBtn.hidden = NO;
@@ -560,7 +560,7 @@
                 [self.refundPayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.top.right.bottom.equalTo(self.bottomView);
                 }];
-            }else if ([model.refund_status intValue] == 2 || [model.refund_status intValue] == 6 || [model.refund_status intValue] == 7){
+            }else if ([model.refund_status intValue] == 2 || [model.refund_status intValue] == 6 || [model.refund_status intValue] == 7|| [model.refund_status intValue] == 8){
                 
                 self.statusLabel.hidden = NO;
                 [self.statusLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -570,7 +570,7 @@
                     self.statusLabel.text = @"已拒绝学员退款，待学员确认";
                 }else if ([model.refund_status intValue] == 6) {
                     self.statusLabel.text = @"学员已取消退款";
-                }else if ([model.refund_status intValue] == 7) {
+                }else if ([model.refund_status intValue] == 7|| [model.refund_status intValue] == 8) {
                     self.statusLabel.text = @"退款已完成";
                 }
                 

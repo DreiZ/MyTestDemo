@@ -346,15 +346,19 @@
     NSString *status = @"待开班";
     if ([model.status intValue] == 1) {
         status = @"待开班";
+        status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        _numLabel.hidden = NO;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
         status = @"已开班";
-        status = [NSString stringWithFormat:@"%@%@/%@",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }else if ([model.status intValue] == 3) {
         status = @"已结班";
+        status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        _numLabel.hidden = NO;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     

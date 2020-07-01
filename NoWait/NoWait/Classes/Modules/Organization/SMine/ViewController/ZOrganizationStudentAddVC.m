@@ -125,7 +125,7 @@
     
     if (ValidStr(self.viewModel.addModel.is_star) && [self.viewModel.addModel.is_star intValue] == 1) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"明星学员介绍";
+        model.leftTitle = @"学员简介";
         model.leftFont = [UIFont boldFontTitle];
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(92);
@@ -140,7 +140,7 @@
     if(ValidStr(self.viewModel.addModel.is_star) && [self.viewModel.addModel.is_star intValue] == 1){
         {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"明星学员相册";
+            model.leftTitle = @"学员相册";
             model.leftFont = [UIFont boldFontTitle];
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(92);

@@ -364,7 +364,12 @@
                 evc.detailModel = weakSelf.detailModel;
                 [weakSelf.navigationController pushViewController:evc animated:YES];
             }else if (type == ZLessonOrderHandleTypeTel) {
-                [ZPublicTool callTel:weakSelf.detailModel.account_phone];
+                if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                    [ZPublicTool callTel:weakSelf.detailModel.phone];
+                }else{
+                    [ZPublicTool callTel:weakSelf.detailModel.account_phone];
+                }
+                
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:type data:weakSelf.detailModel completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {
@@ -654,7 +659,7 @@
                 model.content = titleArr[i][6];
                 if (i == 1) {
                     if (self.detailModel.isStudent) {
-                        //申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
+                        //申请退款中的状态  状态：1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意
                         if ([self.detailModel.refund_status intValue] == 2) {
                             model.isTextEnabled = YES;
                         }else{
@@ -680,10 +685,10 @@
             }
             
             if (self.detailModel.isStudent) {
-                //申请退款中的状态  状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意
+                //申请退款中的状态  状态：1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意
                 if ([self.detailModel.refund_status intValue] == 2) {
                     ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                    model.rightTitle = @"商家已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
+                    model.rightTitle = @"校区已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
                     model.isHiddenLine = YES;
                     model.cellWidth = KScreenWidth;
                     model.leftMargin = CGFloatIn750(160);
@@ -764,8 +769,8 @@
                               @[@"退款编号",SafeStr(self.detailModel.out_refund_no)],
                               @[@"订单编号",SafeStr(self.detailModel.order_no)],
                               @[@"申请时间",[SafeStr(self.detailModel.refund_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]].mutableCopy;
-        if (SafeStr(self.detailModel.finish_time)) {
-            [titleArr addObject:@[@"退款时间",[SafeStr(self.detailModel.finish_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]];
+        if (ValidStr(self.detailModel.refund_finish_time)) {
+            [titleArr addObject:@[@"退款时间",[SafeStr(self.detailModel.refund_finish_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]];
         }
         for (int i = 0; i < titleArr.count; i++) {
             if (i == 0) {

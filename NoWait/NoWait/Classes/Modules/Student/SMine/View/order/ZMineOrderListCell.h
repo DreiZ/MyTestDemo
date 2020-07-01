@@ -38,9 +38,9 @@
 @property (nonatomic,strong) UIButton *refundSureBtn;//同意退款
 @property (nonatomic,strong) UIButton *refundRefectBtn;//协商退款
 @property (nonatomic,strong) UIButton *refundCancle;//取消退款
-@property (nonatomic,strong) UIButton *refundOSureBtn;//商家同意
-@property (nonatomic,strong) UIButton *refundORefectBtn;//商家拒绝
-@property (nonatomic,strong) UIButton *refundPayBtn;//商家拒绝
+@property (nonatomic,strong) UIButton *refundOSureBtn;//校区同意
+@property (nonatomic,strong) UIButton *refundORefectBtn;//校区拒绝
+@property (nonatomic,strong) UIButton *refundPayBtn;//校区拒绝
 
 @property (nonatomic,strong) ZOrderListModel *model;
 

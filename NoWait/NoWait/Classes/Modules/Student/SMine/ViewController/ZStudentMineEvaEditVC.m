@@ -124,7 +124,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"视频课程"];
+    [self.navigationItem setTitle:@"评价"];
 }
 
 - (void)setupMainView {
@@ -150,7 +150,7 @@
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
-        [_bottomBtn setTitle:@"发布" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"提交评价" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];

@@ -40,7 +40,7 @@
     [self.openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_right).multipliedBy(0.75);
         make.centerY.equalTo(self.headImageView.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(66));
+        make.height.mas_equalTo(CGFloatIn750(48));
         make.width.mas_equalTo(CGFloatIn750(170));
     }];
     
@@ -88,7 +88,7 @@
         [_openBtn.titleLabel setFont:[UIFont fontSmall]];
         [_openBtn setTitle:@"查看教师课表" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
-        ViewRadius(_openBtn, CGFloatIn750(33));
+        ViewRadius(_openBtn, CGFloatIn750(24));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_openBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
@@ -104,14 +104,14 @@
     if (isTeacher) {
         [self.headImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView.mas_top).offset(CGFloatIn750(38));
-            make.centerX.equalTo(self.mas_right).multipliedBy(0.25);
+            make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
             make.height.width.mas_equalTo(CGFloatIn750(104));
         }];
         
         [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.mas_right).multipliedBy(0.75);
+            make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
             make.centerY.equalTo(self.headImageView.mas_centerY);
-            make.height.mas_equalTo(CGFloatIn750(66));
+            make.height.mas_equalTo(CGFloatIn750(48));
             make.width.mas_equalTo(CGFloatIn750(170));
         }];
         self.openBtn.hidden = NO;

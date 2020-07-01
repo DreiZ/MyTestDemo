@@ -154,7 +154,7 @@
     if ([model.type intValue] == 1) {
         self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",model.teacher_name];
     }else{
-        self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
+        self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",model.experience_duration];
     }
  
 }

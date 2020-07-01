@@ -97,11 +97,11 @@
       }else if (dropIndexPath.section == 2){
            return @[@"30分钟内",@"40分钟内",@"50分钟内",@"60分钟内",@"30km内",@"40km内",@"50km内",@"60km内"];
       }else if (dropIndexPath.section == 3){
-           if (dropIndexPath.row == 0) return @[@"四星以上",@"品牌商家"];
+           if (dropIndexPath.row == 0) return @[@"四星以上",@"品牌校区"];
            if (dropIndexPath.row == 1) return @[@"美团专送",@"到店自取"];
-           if (dropIndexPath.row == 2) return @[@"优惠商家",@"满减优惠",@"近端领券",@"折扣商品",
-                                                @"优惠商家",@"满减优惠",@"近端领券",@"折扣商品",
-                                                @"优惠商家",@"满减优惠",@"近端领券",@"折扣商品"];
+           if (dropIndexPath.row == 2) return @[@"优惠校区",@"满减优惠",@"近端领券",@"折扣商品",
+                                                @"优惠校区",@"满减优惠",@"近端领券",@"折扣商品",
+                                                @"优惠校区",@"满减优惠",@"近端领券",@"折扣商品"];
            if (dropIndexPath.row == 3) return @[@"跨天预定",@"开发票",
                                                 @{@"name":@"赠准时宝",@"image":@"menu_xinyong"},
                                                 @{@"name":@"极速退款",@"image":@"menu_xinyong"}];
@@ -111,7 +111,7 @@
       return @[];
 }
 
-#define titleArr2 @[@"品质",@"配送",@"优惠活动",@"商家特色",@"速度"]
+#define titleArr2 @[@"品质",@"配送",@"优惠活动",@"校区特色",@"速度"]
 - (NSString *)menu:(WMZDropDownMenu *)menu titleForHeadViewAtDropIndexPath:(WMZDropIndexPath *)dropIndexPath{
     if (dropIndexPath.section == 3){
         return titleArr2[dropIndexPath.row];

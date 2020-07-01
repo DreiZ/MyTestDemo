@@ -364,7 +364,7 @@
     }];
 }
 
-//学员同意t商家退款或再商议
+//学员同意t校区退款或再商议
 + (void)refundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_again params:params completionHandler:^(id data, NSError *error) {
@@ -385,7 +385,7 @@
 }
 
 
-//商家退款或再商议
+//校区退款或再商议
 + (void)ogriganizationRefundOrderAgain:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_confirm params:params completionHandler:^(id data, NSError *error) {
@@ -406,7 +406,7 @@
 }
 
 
-//商家退款或再商议
+//校区退款或再商议
 + (void)refundOrderCanle:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [TLUIUtility showLoading:nil];
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_order_v1_refund_order_cancle params:params completionHandler:^(id data, NSError *error) {
@@ -541,7 +541,7 @@
               refunAmount = model.refund_amount;
               [params setObject:model.refund_amount forKey:@"refund_amount"];
           }
-           [ZAlertView setAlertWithTitle:@"确定接受此退款金额？" subTitle:[NSString stringWithFormat:@"退款金额金额为%@,确定同意此金额后，商家将支付此退款金额给您",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"接受退款" handlerBlock:^(NSInteger index) {
+           [ZAlertView setAlertWithTitle:@"确定接受此退款金额？" subTitle:[NSString stringWithFormat:@"退款金额金额为%@,确定同意此金额后，校区将支付此退款金额给您",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"接受退款" handlerBlock:^(NSInteger index) {
                if (index == 1) {
                    [params setObject:@"2" forKey:@"refund_type"];
                    [ZOriganizationOrderViewModel refundOrderAgain:params completeBlock:completeBlock];
@@ -563,7 +563,7 @@
                refunAmount = model.refund_amount;
                [params setObject:model.refund_amount forKey:@"refund_amount"];
            }
-           [ZAlertView setAlertWithTitle:@"确定重新协商此退款金额？" subTitle:[NSString stringWithFormat:@"您提议退款金额为%@,商家接受此金额后会支付相应退款金额给您",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"提交协商金额" handlerBlock:^(NSInteger index) {
+           [ZAlertView setAlertWithTitle:@"确定重新协商此退款金额？" subTitle:[NSString stringWithFormat:@"您提议退款金额为%@,校区接受此金额后会支付相应退款金额给您",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"提交协商金额" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     [ZOriganizationOrderViewModel refundOrderAgain:params completeBlock:completeBlock];
                 }
@@ -598,7 +598,7 @@
             
         }
             break;
-        case ZLessonOrderHandleTypeORefundReject://协商退款商家
+        case ZLessonOrderHandleTypeORefundReject://协商退款校区
         {
             NSString *refunAmount = @"";
             if ([data isKindOfClass:[ZOrderListModel class]]) {
@@ -610,7 +610,7 @@
                 refunAmount = model.refund_amount;
                 [params setObject:model.refund_amount forKey:@"refund_amount"];
             }
-            [ZAlertView setAlertWithTitle:@"确定重新协商此退款？" subTitle:[NSString stringWithFormat:@"您提议金额为%@,学员同意此金额后，商家需要支付此的退款金额给用户",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"提交协商金额" handlerBlock:^(NSInteger index) {
+            [ZAlertView setAlertWithTitle:@"确定重新协商此退款？" subTitle:[NSString stringWithFormat:@"您提议金额为%@,学员同意此金额后，校区需要支付此的退款金额给用户",refunAmount] leftBtnTitle:@"取消" rightBtnTitle:@"提交协商金额" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     [params setObject:@"1" forKey:@"refund_type"];
                     [ZOriganizationOrderViewModel ogriganizationRefundOrderAgain:params completeBlock:completeBlock];

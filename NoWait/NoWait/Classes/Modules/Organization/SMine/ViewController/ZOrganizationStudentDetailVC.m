@@ -166,7 +166,7 @@
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-            model.leftTitle = @"学员介绍";
+            model.leftTitle = @"学员简介";
             model.leftFont = [UIFont boldFontContent];
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(52);

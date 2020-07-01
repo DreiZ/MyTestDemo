@@ -55,12 +55,12 @@
     [self.view addSubview:self.bottomView];
     [self.bottomView addSubview:self.sendBtn];
     [self.bottomView addSubview:self.addBtn];
-    [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.bottomView);
         make.right.equalTo(self.bottomView.mas_centerX);
     }];
 
-    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
          make.right.top.bottom.equalTo(self.bottomView);
          make.left.equalTo(self.bottomView.mas_centerX);
     }];

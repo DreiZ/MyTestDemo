@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.isStudent = [[ZUserHelper sharedHelper].user.type intValue] == 1? YES:NO;
     self.zChain_setNavTitle(@"退款")
     .zChain_setTableViewGary()
     .zChain_addLoadMoreFooter()
@@ -175,6 +176,7 @@
         [self.param setObject:@"0" forKey:@"type"];
     }else{
         [self.param setObject:@"1" forKey:@"type"];
+        [self.param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     }
 }
 @end

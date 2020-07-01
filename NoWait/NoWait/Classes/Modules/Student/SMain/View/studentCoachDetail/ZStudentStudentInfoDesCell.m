@@ -134,7 +134,7 @@
     _addModel = addModel;
     _lessonLabel.text = addModel.courses_name;
     _coachLabel.text = addModel.teacher_nick_name;
-    _nameLabel.text = addModel.name;
+    _nameLabel.text = addModel.student_name;
 
     [ _userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(addModel.image)] placeholderImage:[UIImage imageNamed:@"default_image"]];
 }

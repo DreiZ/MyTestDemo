@@ -348,7 +348,7 @@
                     model.account_id = teacherModel.teacherID;
                     model.image = teacherModel.image;
                     model.name = teacherModel.nick_name;
-                    model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
+//                    model.skill = [teacherModel.c_level intValue] == 1 ? @"普通教师":@"明星教师";
                     model.data = teacherModel;
                     [peoples addObject:model];
                 }

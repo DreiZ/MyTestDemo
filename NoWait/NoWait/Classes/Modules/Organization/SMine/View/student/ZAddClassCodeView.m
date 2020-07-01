@@ -290,7 +290,7 @@
 - (void)setModel:(ZOriganizationStudentCodeAddModel *)model {
     _model = model;
     [_codeImageView tt_setImageWithURL:[NSURL URLWithString:model.url]];
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _nameLabel.text = model.nick_name;
     _classLabel.text = [NSString stringWithFormat:@"班级：%@",model.class_name];
     _detailLabel.text = [NSString stringWithFormat:@"课程：%@",model.courses_name];

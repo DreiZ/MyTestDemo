@@ -57,6 +57,7 @@
 @property (nonatomic,strong) NSString *teacher_id;
 @property (nonatomic,strong) NSString *teacher_image;
 @property (nonatomic,strong) NSString *teacher_name;
+@property (nonatomic,strong) NSString *teacher_nick_name;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *course_id;
 @property (nonatomic,strong) NSString *can_sign;
@@ -110,6 +111,7 @@
 @property (nonatomic,strong) NSString *now_progress;
 @property (nonatomic,strong) NSString *total_progress;
 @property (nonatomic,strong) NSString *course_min;
+@property (nonatomic,strong) NSString *teacher_nick_name;
 
 @property (nonatomic,strong) NSString *stores_course_image;
 
@@ -215,7 +217,7 @@
 @property (nonatomic,strong) NSString *studentID;
 @property (nonatomic,strong) NSString *stores_id; //门店id
 @property (nonatomic,strong) NSString *stores_name;
-
+@property (nonatomic,strong) NSString *student_name; //学员姓名
 @property (nonatomic,strong) NSString *code_id; //用户code_id
 @property (nonatomic,strong) NSString *name; //学员姓名
 @property (nonatomic,strong) NSString *phone;//学员手机号

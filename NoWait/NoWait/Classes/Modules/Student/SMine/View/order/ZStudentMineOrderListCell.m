@@ -44,7 +44,7 @@
     if ([model.type intValue] == 1) {
         self.detailLabel.text = [NSString stringWithFormat:@"教师：%@",model.teacher_name];
     }else{
-        self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@",model.experience_duration];
+        self.detailLabel.text = [NSString stringWithFormat:@"体验时长：%@分钟",model.experience_duration];
     }
     
     self.failLabel.text = [NSString stringWithFormat:@"￥%@",SafeStr(model.refund_amount)];
@@ -266,7 +266,7 @@
     self.failView.hidden = NO;
     
     if (self.model.isStudent) {
-// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功 8:商家支付失败
+// 1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功 8:校区支付失败
         if ([self.model.refund_status intValue] == 1 || [self.model.refund_status intValue] == 3 || [self.model.refund_status intValue] == 4 || [self.model.refund_status intValue] == 5) {
             self.bottomView.hidden = NO;
             self.refundCancle.hidden = NO;
@@ -310,7 +310,7 @@
         }
     
     }else {
-// 1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+// 1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功
         if ([self.model.refund_status intValue] == 1 || [self.model.refund_status intValue] == 3 ) {
             self.bottomView.hidden = NO;
             self.refundOSureBtn.hidden = NO;

@@ -175,6 +175,20 @@
         make.top.equalTo(self.stateBackView.mas_top).offset(CGFloatIn750(-20));
         make.bottom.equalTo(self.stateBackView.mas_bottom).offset(CGFloatIn750(20));
     }];
+    
+    UIButton *switchTempUserBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [switchTempUserBtn bk_whenTapped:^{
+        if (weakSelf.topHandleBlock) {
+            weakSelf.topHandleBlock(3);
+        }
+    }];
+    [self addSubview:switchTempUserBtn];
+    [switchTempUserBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.switchUserBtn.mas_right).offset(CGFloatIn750(0));
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.nameLabel.mas_top).offset(-CGFloatIn750(6));
+        make.bottom.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(6));
+    }];
     [self setSubViewFrame];
 }
 
@@ -481,7 +495,7 @@
                 image = [UIImage imageNamed:@"default_head"];
             }
             [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
-                
+                self.headImageView.layer.cornerRadius = headImageHeight/2.0f;
             } completion:^{
                 
             }];
@@ -489,7 +503,7 @@
     }
     
     self.nameLabel.text = name;
-    _midLabel.text = [NSString stringWithFormat:@"MID(邀请码)：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
+    _midLabel.text = [NSString stringWithFormat:@"MID：%@",ValidStr([ZUserHelper sharedHelper].uuid)?[ZUserHelper sharedHelper].uuid :@"0000000"];
     
     NSString *typestr = @"学员端";
     //    1：学员 2：教师 6：校区 8：机构

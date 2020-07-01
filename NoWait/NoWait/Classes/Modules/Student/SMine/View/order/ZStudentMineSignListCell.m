@@ -278,7 +278,7 @@
     _classNameLabel.text = model.courses_class_name;
     _studentLabel.text = model.student_name;
     
-    _userLabel.text = model.teacher_name;
+    _userLabel.text = model.teacher_nick_name;
     _nameLabel.text = model.stores_name;
     
     _numLabel.hidden = NO;
@@ -286,16 +286,24 @@
 //    ：全部 1：待开班 2：已开班 3：已结班
     NSString *status = @"待开班";
     if ([model.status intValue] == 1) {
+        _stateLabel.hidden = NO;
+        _numLabel.hidden = NO;
         status = @"待开班";
+        status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
         status = @"已开班";
-        status = [NSString stringWithFormat:@"%@%@/%@(班级进度)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }else if ([model.status intValue] == 3) {
         status = @"已结班";
+        _numLabel.hidden = NO;
+        status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     

@@ -64,7 +64,7 @@
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.contView.mas_centerY).offset(-CGFloatIn750(6));
+        make.centerY.equalTo(self.contView.mas_centerY).offset(-CGFloatIn750(0));
         make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(10));
     }];
     
@@ -76,13 +76,13 @@
     
     [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(0));
-        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.bottom.equalTo(self.nameLabel.mas_centerY).offset(-CGFloatIn750(6));
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
     }];
     
     [self.workLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(0));
-        make.centerY.equalTo(self.typeLabel.mas_centerY);
+        make.top.equalTo(self.nameLabel.mas_centerY).offset(CGFloatIn750(6));
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
     }];
     
@@ -215,7 +215,7 @@
 - (void)setModel:(ZOriganizationTeacherListModel *)model {
     _model = model;
     _nameLabel.text = model.teacher_name;
-    _typeLabel.text = [model.c_level intValue] == 1 ? @"普通教师":@"明星教师";
+//    _typeLabel.text = [model.c_level intValue] == 1 ? @"普通教师":@"明星教师";
     _workLabel.text = model.position;
     _phoneLabel.text = model.phone;
     [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(SafeStr(model.image))] placeholderImage:[UIImage imageNamed:@"default_head"]];

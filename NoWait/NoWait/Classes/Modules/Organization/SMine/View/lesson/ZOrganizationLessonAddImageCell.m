@@ -256,10 +256,12 @@
         [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
         self.nameTextField.enabled = NO;
+        self.abbTextField.enabled = NO;
     }else{
         [_nameTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         [_abbTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         self.nameTextField.enabled = YES;
+        self.abbTextField.enabled = YES;
     }
     
     if ([data objectForKey:@"name"]) {

@@ -313,6 +313,7 @@
         case 1:
         {
             _stateLabel.text = @"待开班";
+            _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
             _openBtn.hidden = NO;
             _deleteBtn.hidden = NO;
             [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -334,6 +335,7 @@
         case 2:
         {
             _stateLabel.text = @"已开班";
+            _stateLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
                 [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -356,6 +358,7 @@
         case 3:
         {
             _stateLabel.text = @"已结班";
+            _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
                 [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {

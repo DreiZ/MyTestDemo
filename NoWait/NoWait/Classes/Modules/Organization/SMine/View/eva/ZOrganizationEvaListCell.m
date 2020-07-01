@@ -186,7 +186,6 @@
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des")
         .zz_lineHidden(YES)
         .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
-        .zz_titleRight(self.model.des)
         .zz_titleLeft(self.model.des)
         .zz_fontLeft([UIFont fontSmall]);
         

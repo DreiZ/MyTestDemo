@@ -306,7 +306,7 @@
     if (![image isKindOfClass:[UIImage class]]) {
         image = imageFullUrl(image);
     }
-    ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"image":image?image:@"",@"name":SafeStr(self.viewModel.addModel.name),@"subName":SafeStr(self.viewModel.addModel.short_name),@"edit":self.viewModel.addModel.lessonID ? @"1":@"2"}];
+    ZCellConfig *addImageCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonAddImageCell className] title:[ZOrganizationLessonAddImageCell className] showInfoMethod:@selector(setData:) heightOfCell:[ZOrganizationLessonAddImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"image":image?image:@"",@"name":SafeStr(self.viewModel.addModel.name),@"subName":SafeStr(self.viewModel.addModel.short_name),@"edit":ValidStr(self.viewModel.addModel.lessonID) ? @"1":@"2"}];
     [self.cellConfigArr addObject:addImageCellConfig];
     
     if ([self.viewModel.addModel.level intValue] < 1) {
@@ -379,7 +379,7 @@
     [self.cellConfigArr addObject:menuCellConfig];
     
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"isOrder")
-    .zz_titleLeft(@"是否接受预约体验")
+    .zz_titleLeft(@"是否添加体验课")
     .zz_cellHeight(CGFloatIn750(86));
     
     if ([self.viewModel.addModel.is_experience intValue] == 1) {
@@ -830,9 +830,9 @@
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
-        tvc.navTitle = @"课程介绍";
+        tvc.navTitle = @"课程详情";
         tvc.max = 500;
-        tvc.hintStr = @"请输入课程介绍，500字以内";
+        tvc.hintStr = @"请输入课程详情，500字以内";
         tvc.content = self.viewModel.addModel.info;
         tvc.handleBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.info = text;

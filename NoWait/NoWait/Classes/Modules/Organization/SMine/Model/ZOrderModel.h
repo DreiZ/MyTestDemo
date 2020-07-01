@@ -38,7 +38,7 @@
 @property (nonatomic,strong) NSString *refund_desc;
 @property (nonatomic,strong) NSString *refund_status_msg;
 @property (nonatomic,strong) NSString *refund_amount;
-@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态  1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功
+@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态  1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功
 
 @end
 
@@ -47,6 +47,7 @@
 @property (nonatomic,assign) BOOL isRefund;
 @property (nonatomic,assign) ZStudentOrderType order_type;
 @property (nonatomic,strong) NSString * account_id;
+@property (nonatomic,strong) NSString * phone;
 @property (nonatomic,strong) NSString * account_phone;
 @property (nonatomic,strong) NSString * students_name;
 @property (nonatomic,strong) NSString * nick_name;
@@ -61,7 +62,7 @@
 @property (nonatomic,strong) NSString * course_total_min;
 @property (nonatomic,strong) NSString * create_at;
 @property (nonatomic,strong) NSString * err_msg;
-@property (nonatomic,strong) NSString * finish_time;
+@property (nonatomic,strong) NSString * refund_finish_time;
 @property (nonatomic,strong) NSString * order_id;
 @property (nonatomic,strong) NSString * order_amount;
 @property (nonatomic,strong) NSString * order_no;
@@ -101,7 +102,7 @@
 @property (nonatomic,strong) NSString *refund_desc;
 @property (nonatomic,strong) NSString *refund_status_msg;
 @property (nonatomic,strong) NSString *refund_amount;
-@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态 状态：1：学员申请 2：商家拒绝 3：学员拒绝 4：学员同意 5：商家同意 6:学员取消 7：商家支付成功 8：退款支付成功
+@property (nonatomic,strong) NSString *refund_status;//申请退款中的状态 状态：1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意 6:学员取消 7：校区支付成功 8：退款支付成功
 
 @end
 
