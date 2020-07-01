@@ -53,6 +53,7 @@
             model.zz_titleLeft(self.detailModel.des);
             model.zz_leftMultiLine(YES);
             model.zz_cellHeight(CGFloatIn750(62));
+            model.zz_lineHidden(YES);
             
             ZCellConfig *infoCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr  addObject:infoCellConfig];

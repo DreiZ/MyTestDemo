@@ -80,7 +80,7 @@
                          @[@"机构特色", @"请添加结构特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]]];
     
     for (int i = 0; i < textArr.count; i++) {
-        if ([textArr[i][3] boolValue]) {
+        if ([textArr[i][4] isEqualToString:@"type"] || [textArr[i][4] isEqualToString:@"setting"] || [textArr[i][4] isEqualToString:@"characteristic"]) {
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftFont = [UIFont fontContent];
             cellModel.leftTitle = textArr[i][0];
@@ -93,7 +93,7 @@
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.data = textArr[i][5];
             cellModel.cellWidth = KScreenWidth - CGFloatIn750(60);
-            if ([SafeStr(self.model.hash_update_store_type_id) boolValue]) {
+            if ([SafeStr(self.model.hash_update_store_type_id) boolValue] && [textArr[i][4] isEqualToString:@"type"]) {
                 cellModel.isTextEnabled = NO;
             }else{
                 cellModel.isTextEnabled = [textArr[i][2] boolValue];
