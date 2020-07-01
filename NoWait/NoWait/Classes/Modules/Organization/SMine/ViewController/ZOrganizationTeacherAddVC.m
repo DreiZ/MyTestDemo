@@ -60,11 +60,6 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    NSString *level = @"";
-    NSArray *temp = @[@"初级教师",@"高级教师"];
-    if ([_viewModel.addModel.c_level intValue] > 0 && [_viewModel.addModel.c_level intValue] <= temp.count) {
-        level = temp[[_viewModel.addModel.c_level intValue] - 1];
-    }
     
     NSArray <NSArray *>*textArr = @[@[@"真实姓名", @"请输入真实姓名", @YES, @"", @"name",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@30,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
@@ -106,8 +101,8 @@
             .zz_titleLeft(SafeStr(obj[0]))
             .zz_placeholder(SafeStr(obj[1]))
             .zz_textEnabled([obj[2] boolValue])
-            .zz_content(SafeStr(obj[5]))
-            .zz_max([obj[6] intValue])
+            .zz_content(SafeStr(obj[6]))
+            .zz_max([obj[5] intValue])
             .zz_formatter([obj[7] intValue])
             .zz_cellHeight(CGFloatIn750(86));
             

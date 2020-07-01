@@ -51,6 +51,11 @@
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleLessonCell className] title:[ZOrganizationTeachingScheduleLessonCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleLessonCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [self.cellConfigArr addObject:progressCellConfig];
         }
+        if (self.cellConfigArr.count == 0) {
+            self.zChain_setTableViewWhite();
+        }else{
+            self.zChain_setTableViewGary();
+        }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOrganizationTeachingScheduleLessonCell"]) {
             ZOrganizationTeachingScheduleLessonCell *lcell = (ZOrganizationTeachingScheduleLessonCell *)cell;
