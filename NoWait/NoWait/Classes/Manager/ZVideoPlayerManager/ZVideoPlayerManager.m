@@ -53,7 +53,7 @@ static ZVideoPlayerManager *videoPlayerManager;
     if (!_compressView) {
         _compressView = [[UIView alloc] init];
         _compressView.layer.masksToBounds = YES;
-        _compressView.backgroundColor = [UIColor blackColor];
+        _compressView.backgroundColor = [UIColor colorBlackBGDark];
         
         __weak typeof(self) weakSelf = self;
         UIButton *close = [[UIButton alloc] initWithFrame:CGRectZero];

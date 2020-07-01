@@ -214,7 +214,7 @@
         UIPageControl *pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(kScreenWidth/2, kScreenHeight - 40, 0, 40)];
         pageControl.backgroundColor = [UIColor clearColor];
         pageControl.pageIndicatorTintColor = [UIColor  colorMain];
-        pageControl.currentPageIndicatorTintColor = adaptAndDarkColor([UIColor blackColor], [UIColor colorWhite]);
+        pageControl.currentPageIndicatorTintColor = adaptAndDarkColor([UIColor colorBlackBGDark], [UIColor colorWhite]);
         [self addSubview:pageControl];
         _pageControl = pageControl;
     }

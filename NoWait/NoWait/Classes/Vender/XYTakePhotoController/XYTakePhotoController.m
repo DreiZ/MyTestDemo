@@ -71,7 +71,7 @@ static NSString *NoCameraAccessAlertMessage = @"To turn on camera access, choose
     CAShapeLayer *fillLayer = [CAShapeLayer layer];
     fillLayer.path = path.CGPath;
     fillLayer.fillRule = kCAFillRuleEvenOdd;
-    fillLayer.fillColor = [UIColor blackColor].CGColor;
+    fillLayer.fillColor = [UIColor colorBlackBGDark].CGColor;
     fillLayer.opacity = 0.6;
     
     [self.layer addSublayer:fillLayer];
@@ -387,7 +387,7 @@ static XYTakePhotoController *_instance;
     flashItemsView.frame = CGRectMake(5, 37, 45, 45);
     [self.view addSubview:flashItemsView];
     flashItemsView.layer.cornerRadius = flashItemsView.frame.size.width/2;
-    flashItemsView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    flashItemsView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0.6];
     self.flashItemsView = flashItemsView;
     flashItemsView.clipsToBounds = YES;
     

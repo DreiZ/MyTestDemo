@@ -26,7 +26,7 @@
         _progressLayer.lineCap = kCALineCapRound;
         _progressLayer.lineWidth = 5;
         
-        [_progressLayer setShadowColor:[UIColor blackColor].CGColor];
+        [_progressLayer setShadowColor:[UIColor colorBlackBGDark].CGColor];
         [_progressLayer setShadowOffset:CGSizeMake(1, 1)];
         [_progressLayer setShadowOpacity:0.5];
         [_progressLayer setShadowRadius:2];

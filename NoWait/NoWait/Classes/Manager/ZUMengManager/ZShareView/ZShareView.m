@@ -236,7 +236,7 @@ static ZShareView *sharedManager;
     NSRange redRangeTwo = NSMakeRange([[noteStr string] rangeOfString:title].location, [[noteStr string] rangeOfString:title].length);
     
     [noteStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:CGFloatIn750(30)] range:redRangeTwo];
-    [noteStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:redRangeTwo];
+    [noteStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorBlackBGDark] range:redRangeTwo];
     
     
     [self.contentLabel setAttributedText:noteStr];

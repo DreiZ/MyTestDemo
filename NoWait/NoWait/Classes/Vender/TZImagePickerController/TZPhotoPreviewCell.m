@@ -20,7 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor colorBlackBGDark];
         [self configSubviews];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoPreviewCollectionViewDidScroll) name:@"photoPreviewCollectionViewDidScroll" object:nil];
     }
@@ -444,7 +444,7 @@
 - (void)configPlayerWithItem:(AVPlayerItem *)playerItem {
     self.player = [AVPlayer playerWithPlayerItem:playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    self.playerLayer.backgroundColor = [UIColor blackColor].CGColor;
+    self.playerLayer.backgroundColor = [UIColor colorBlackBGDark].CGColor;
     self.playerLayer.frame = self.bounds;
     [self.layer addSublayer:self.playerLayer];
     [self configPlayButton];

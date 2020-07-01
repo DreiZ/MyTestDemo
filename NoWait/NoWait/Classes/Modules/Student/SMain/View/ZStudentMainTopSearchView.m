@@ -125,7 +125,7 @@
     if (!_addressHintImageView) {
         _addressHintImageView = [[UIImageView alloc] init];
         _addressHintImageView.image = [[UIImage imageNamed:@"mineLessonDown"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
         _addressHintImageView.layer.masksToBounds = YES;
         _addressHintImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -191,7 +191,7 @@
 - (void)updateWithOffset:(CGFloat)offsetY {
     if (isDarkModel()) {
         _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
         return;
     }
     if (offsetY > 0) {
@@ -202,10 +202,10 @@
     }else {
         self.backView.alpha = 0;
         self.addressLabel.textColor = [UIColor colorTextBlack];
-        _addressHintImageView.tintColor = [UIColor blackColor];
+        _addressHintImageView.tintColor = [UIColor colorBlackBGDark];
     }
     _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
 }
 
 
@@ -217,6 +217,6 @@
     // darkmodel change
 //    [self setupDarkModel];
     _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
 }
 @end

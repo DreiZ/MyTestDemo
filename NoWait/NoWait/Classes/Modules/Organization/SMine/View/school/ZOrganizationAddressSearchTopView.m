@@ -121,7 +121,7 @@
     if (!_addressHintImageView) {
         _addressHintImageView = [[UIImageView alloc] init];
         _addressHintImageView.image = [[UIImage imageNamed:@"mineLessonDown"]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+        _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
         _addressHintImageView.layer.masksToBounds = YES;
         _addressHintImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -220,7 +220,7 @@
     // darkmodel change
 //    [self setupDarkModel];
     _searchImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorTextGray1];
-    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor blackColor];
+    _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {

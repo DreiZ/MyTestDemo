@@ -88,7 +88,7 @@
     ZStudentDetailPersonnelModel *model = _peopleslList[indexPath.row];
     [cell.userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     cell.titleLabel.text = model.name;
-    cell.skillLabel.text = model.skill;
+    cell.skillLabel.text = model.position;
     return cell;
 }
 

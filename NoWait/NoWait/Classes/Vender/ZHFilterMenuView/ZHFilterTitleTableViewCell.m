@@ -35,7 +35,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.contentView.frame.size.width - 30, self.contentView.frame.size.height)];
         _titleLabel.font = [UIFont systemFontOfSize:15];
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.textColor = [UIColor colorBlackBGDark];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_titleLabel];
     }

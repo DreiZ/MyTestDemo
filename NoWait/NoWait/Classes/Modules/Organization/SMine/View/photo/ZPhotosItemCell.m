@@ -96,7 +96,7 @@
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         _deleteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _deleteBtn.backgroundColor = [UIColor blackColor];
+        _deleteBtn.backgroundColor = [UIColor colorBlackBGDark];
         [_deleteBtn setImage:[UIImage imageNamed:@"LoginClose"] forState:UIControlStateNormal];
         [_deleteBtn.titleLabel setFont:[UIFont fontMin]];
         ViewRadius(_deleteBtn, CGFloatIn750(8));

@@ -32,6 +32,7 @@
 
 -(void)setupView
 {
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contentView addSubview:self.topLineView];
     [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top);

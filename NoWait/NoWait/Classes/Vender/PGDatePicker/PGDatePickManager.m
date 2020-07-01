@@ -87,7 +87,7 @@
             CGRect contentViewFrame = self.contentView.frame;
             contentViewFrame.origin.y = self.view.bounds.size.height;
             [UIView animateWithDuration:0.2 animations:^{
-                self.dismissView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+                self.dismissView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0];
                 self.contentView.frame = contentViewFrame;
             }completion:^(BOOL finished) {
                 [self dismissViewControllerAnimated:false completion:nil];
@@ -133,7 +133,7 @@
     self.headerView.backgroundColor = self.headerViewBackgroundColor;
     [UIView animateWithDuration:0.2 animations:^{
         if (self.isShadeBackground) {
-            self.dismissView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+            self.dismissView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0.6];
         }
         self.contentView.frame = contentViewFrame;
         self.headerView.frame = headerViewFrame;
@@ -164,7 +164,7 @@
     [UIView animateWithDuration:0.05
                      animations:^{
                          if (self.isShadeBackground) {
-                             self.dismissView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+                             self.dismissView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0.6];
                          }
                          self.contentView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                      }];
@@ -194,7 +194,7 @@
     [UIView animateWithDuration:0.05
                      animations:^{
                          if (self.isShadeBackground) {
-                             self.dismissView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+                             self.dismissView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0.6];
                          }
                          self.contentView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                      }];
@@ -205,7 +205,7 @@
 - (void)setIsShadeBackground:(BOOL)isShadeBackground {
     _isShadeBackground = isShadeBackground;
     if (isShadeBackground) {
-        self.dismissView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+        self.dismissView.backgroundColor = [[UIColor colorBlackBGDark] colorWithAlphaComponent:0];
     }else {
         self.dismissView.backgroundColor = [UIColor clearColor];
     }

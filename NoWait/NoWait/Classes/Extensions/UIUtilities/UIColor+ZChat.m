@@ -153,7 +153,7 @@
 }
 
 + (UIColor *)colorGrayBGDark {
-    return HexAColor(0x2e2e2e, 1.0);
+    return HexAColor(0x000000, 1.0);
 }
 
 + (UIColor *)colorGrayContentBGDark {
@@ -161,7 +161,7 @@
 }
 
 + (UIColor *)colorBlackBGDark {
-    return HexAColor(0x1a1a1a, 1.0);
+    return HexAColor(0x1c1c1e, 1.0);
 }
 
 + (UIColor *)colorGrayLineDark {

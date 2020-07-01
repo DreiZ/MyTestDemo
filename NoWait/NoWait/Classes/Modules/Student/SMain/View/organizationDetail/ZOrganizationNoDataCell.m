@@ -27,6 +27,7 @@
 
 -(void)setupView
 {
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contentView addSubview:self.noDataImageView];
     [self.contentView addSubview:self.nameLabel];
     

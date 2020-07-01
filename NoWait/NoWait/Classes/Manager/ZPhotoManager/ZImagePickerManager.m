@@ -127,9 +127,9 @@ static ZImagePickerManager *sharedImagePickerManager;
         return;
     }
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:self.maxCount columnNumber:self.columnNumber delegate:self pushPhotoPickerVc:YES];
-     imagePickerVc.barItemTextColor = [UIColor blackColor];
-     [imagePickerVc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-     imagePickerVc.navigationBar.tintColor = [UIColor blackColor];
+     imagePickerVc.barItemTextColor = [UIColor colorBlackBGDark];
+     [imagePickerVc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorBlackBGDark]}];
+     imagePickerVc.navigationBar.tintColor = [UIColor colorBlackBGDark];
      imagePickerVc.naviBgColor = [UIColor whiteColor];
      imagePickerVc.navigationBar.translucent = NO;
     

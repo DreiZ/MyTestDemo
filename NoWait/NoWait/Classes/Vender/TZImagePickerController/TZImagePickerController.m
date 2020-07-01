@@ -180,7 +180,7 @@
             _tipLabel.textAlignment = NSTextAlignmentCenter;
             _tipLabel.numberOfLines = 0;
             _tipLabel.font = [UIFont systemFontOfSize:16];
-            _tipLabel.textColor = [UIColor blackColor];
+            _tipLabel.textColor = [UIColor colorBlackBGDark];
             _tipLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
             NSDictionary *infoDict = [TZCommonTools tz_getInfoDictionary];

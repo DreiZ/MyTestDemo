@@ -25,7 +25,7 @@
     }
     layer.path = path.CGPath;
     layer.fillRule = kCAFillRuleEvenOdd;
-    layer.fillColor = [[UIColor blackColor] CGColor];
+    layer.fillColor = [[UIColor colorBlackBGDark] CGColor];
     layer.opacity = 0.5;
     [view.layer addSublayer:layer];
 }
