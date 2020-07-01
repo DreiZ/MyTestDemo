@@ -108,7 +108,7 @@
             if (weakSelf.isEdit) {
                 NSArray *tempArr = [weakSelf selectLessonOrderArr];
                 if (tempArr.count == 0) {
-                    [TLUIUtility showErrorHint:@"你还没有选择学生"];
+                    [TLUIUtility showErrorHint:@"你还没有选择学员"];
                     return ;
                 }
                 weakSelf.isEdit = NO;

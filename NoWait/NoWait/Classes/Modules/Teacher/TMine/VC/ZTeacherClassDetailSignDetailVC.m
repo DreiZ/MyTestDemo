@@ -325,13 +325,13 @@
     NSString *notice = @"";
     if ([param objectForKey:@"type"]) {
         if ([param[@"type"] isEqualToString:@"2"]) {
-            notice = [NSString stringWithFormat:@"确定为这%lu位学生签课吗？", (unsigned long)ids.count];
+            notice = [NSString stringWithFormat:@"确定为这%lu位学员签课吗？", (unsigned long)ids.count];
         }else if ([param[@"type"] isEqualToString:@"3"]) {
-            notice = [NSString stringWithFormat:@"确定为这%lu位学生补签吗？", (unsigned long)ids.count];
+            notice = [NSString stringWithFormat:@"确定为这%lu位学员补签吗？", (unsigned long)ids.count];
         }else if ([param[@"type"] isEqualToString:@"4"]) {
-            notice = [NSString stringWithFormat:@"确定为这%lu位学生请假吗？", (unsigned long)ids.count];
+            notice = [NSString stringWithFormat:@"确定为这%lu位学员请假吗？", (unsigned long)ids.count];
         }else if ([param[@"type"] isEqualToString:@"5"]) {
-            notice = [NSString stringWithFormat:@"确定为这%lu位学生做旷课处理吗？", (unsigned long)ids.count];
+            notice = [NSString stringWithFormat:@"确定为这%lu位学员做旷课处理吗？", (unsigned long)ids.count];
         }
     }
     [ZAlertView setAlertWithTitle:@"提示" subTitle:notice leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {

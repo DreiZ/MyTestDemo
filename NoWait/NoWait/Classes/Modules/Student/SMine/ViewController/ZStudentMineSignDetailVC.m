@@ -186,9 +186,9 @@
     NSString *notice = @"";
     if ([param objectForKey:@"type"]) {
         if ([param[@"type"] isEqualToString:@"2"]) {
-            notice = [NSString stringWithFormat:@"确定为这位学生签课吗？"];
+            notice = [NSString stringWithFormat:@"确定为这位学员签课吗？"];
         }else if ([param[@"type"] isEqualToString:@"3"]) {
-            notice = [NSString stringWithFormat:@"确定为这位学生补签吗？"];
+            notice = [NSString stringWithFormat:@"确定为这位学员补签吗？"];
         }
     }
     [ZAlertView setAlertWithTitle:@"提示" subTitle:notice leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {

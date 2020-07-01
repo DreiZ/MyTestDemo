@@ -14,6 +14,7 @@
 #import "ZOriganizationTeachingScheduleViewModel.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOrganizationStudentDetailVC.h"
+#import "ZAlertView.h"
 
 @interface ZOrganizationTeachingScheduleNoVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -98,7 +99,17 @@
             if (weakSelf.isEdit) {
                 NSArray *tempArr = [weakSelf selectLessonOrderArr];
                 if (tempArr.count == 0) {
-                    [TLUIUtility showErrorHint:@"你还没有选择学生"];
+                    [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"未选择排课学员，是否继续创建班级？之后可以在班级管理中添加学员" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                        if (index == 1) {
+                            weakSelf.isEdit = NO;
+                            ZOrganizationTrachingScheduleNewClassVC *successvc = [[ZOrganizationTrachingScheduleNewClassVC alloc] init];
+                            successvc.lessonOrderArr = @[];
+                            successvc.isBu = weakSelf.type == 2 ? YES:NO;
+                            successvc.lessonModel = weakSelf.lessonModel;
+                            [weakSelf.navigationController pushViewController:successvc animated:YES];
+                        }
+                    }];
+//                    [TLUIUtility showErrorHint:@"你还没有选择学员"];
                     return ;
                 }
                 weakSelf.isEdit = NO;

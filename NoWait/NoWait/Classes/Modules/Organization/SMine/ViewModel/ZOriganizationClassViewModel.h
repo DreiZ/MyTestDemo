@@ -36,15 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 //编辑班级
 + (void)editClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
-//班级学生列表
+//班级学员列表
 + (void)getClassStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 
 + (void)getQrcodeStudentList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
-//班级添加学生
+//班级添加学员
 + (void)addClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
-//删除班级学生
+//删除班级学员
 + (void)delClassStudent:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock ;
 
 
