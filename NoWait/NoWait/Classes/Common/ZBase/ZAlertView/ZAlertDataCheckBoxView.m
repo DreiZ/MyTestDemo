@@ -239,6 +239,7 @@ static ZAlertDataCheckBoxView *sharedManager;
     return 0.01f;
 }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     [self zz_tableView:tableView didSelectRowAtIndexPath:indexPath cellConfig:cellConfig];

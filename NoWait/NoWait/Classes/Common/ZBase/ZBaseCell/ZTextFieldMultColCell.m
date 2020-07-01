@@ -229,6 +229,7 @@
 - (UIView *)multColView {
     if (!_multColView) {
         _multColView = [[UIView alloc] init];
+        _multColView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     
     return _multColView;
@@ -299,11 +300,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
+    return 0;
 }
 
 

@@ -27,6 +27,7 @@
     
     _viewModel.addModel.lessonOrderArr = _lessonOrderArr;
     [self initCellConfigArr];
+    [self setTableViewWhiteBack];
 }
 
 - (void)setDataSource {
@@ -48,7 +49,7 @@
                              @[@"开课日期", @"选择", @NO, @"rightBlackArrowN",  @"openTime"]];
         
         for (int i = 0; i < textArr.count; i++) {
-            if (i == 1) {
+            if ([textArr[i][4] isEqualToString:@"time"]) {
                 ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
                 cellModel.leftTitle = textArr[i][0];
                 cellModel.placeholder = textArr[i][1];
@@ -56,6 +57,7 @@
                 cellModel.rightImage = textArr[i][3];
                 cellModel.cellTitle = textArr[i][4];
                 cellModel.isHiddenLine = YES;
+                cellModel.isHiddenInputLine = YES;
                 cellModel.cellHeight = CGFloatIn750(86);
                 cellModel.textColor = [UIColor colorTextGray];
                 cellModel.leftContentWidth = CGFloatIn750(260);
@@ -118,6 +120,7 @@
                 cellModel.rightImage = textArr[i][3];
                 cellModel.cellTitle = textArr[i][4];
                 cellModel.isHiddenLine = YES;
+                cellModel.isHiddenInputLine = YES;
                 cellModel.cellHeight = CGFloatIn750(86);
                 cellModel.leftFont = [UIFont fontContent];
                 

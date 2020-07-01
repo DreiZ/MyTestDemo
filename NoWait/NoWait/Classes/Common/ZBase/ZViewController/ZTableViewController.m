@@ -253,14 +253,14 @@
     if (_zChain_block_heightForHeaderInSection) {
         return _zChain_block_heightForHeaderInSection(tableView, section);
     }
-    return 0.01f;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (_zChain_block_heightForFooterInSection) {
         return _zChain_block_heightForFooterInSection(tableView, section);
     }
-    return 0.01f;
+    return 0;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
