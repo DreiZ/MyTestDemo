@@ -206,13 +206,15 @@ static ZPhoneAlertView *sharedManager;
 //    self.detailLabel.text = detail;
 //    self.telLabel.text = tel;
     
+    self.contView.alpha = 0;
     self.alpha = 0;
     self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].window addSubview:self];
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.contView.alpha = 1;
         self.alpha = 1;
-        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+//        self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     } completion:^(BOOL finished) {
         
     }];
@@ -296,11 +298,13 @@ static ZPhoneAlertView *sharedManager;
     }];
    
     
+    self.contView.alpha = 0;
     self.alpha = 0;
     self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].window addSubview:self];
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.contView.alpha = 1;
         self.alpha = 1;
         self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     } completion:^(BOOL finished) {
