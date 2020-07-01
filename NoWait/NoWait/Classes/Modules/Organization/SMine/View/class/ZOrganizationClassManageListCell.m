@@ -312,7 +312,7 @@
     switch ([model.status intValue]) {
         case 1:
         {
-            _stateLabel.text = @"待开班";
+            _stateLabel.text = [NSString stringWithFormat:@"%@(%@/%@)",@"待开班" ,SafeStr(model.now_progress),SafeStr(model.total_progress)];
             _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
             _openBtn.hidden = NO;
             _deleteBtn.hidden = NO;
@@ -334,7 +334,7 @@
             break;
         case 2:
         {
-            _stateLabel.text = @"已开班";
+            _stateLabel.text = [NSString stringWithFormat:@"%@(%@/%@)",@"已开班" ,SafeStr(model.now_progress),SafeStr(model.total_progress)];
             _stateLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
@@ -357,7 +357,7 @@
             break;
         case 3:
         {
-            _stateLabel.text = @"已结班";
+            _stateLabel.text = [NSString stringWithFormat:@"%@(%@/%@)",@"已结班" ,SafeStr(model.now_progress),SafeStr(model.total_progress)];
             _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
             if ([_model.nums intValue] == 0) {
                 _deleteBtn.hidden = NO;
