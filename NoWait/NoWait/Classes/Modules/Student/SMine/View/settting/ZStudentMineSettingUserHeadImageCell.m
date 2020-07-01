@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentMineSettingUserHeadImageCell.h"
+#import "TZImageCropManager.h"
 
 @interface ZStudentMineSettingUserHeadImageCell ()
 @property (nonatomic,strong) UIImageView *arrowImageView;
@@ -181,6 +182,7 @@
                     if (!image) {
                         image = [UIImage imageNamed:@"default_head"];
                     }
+                    image = [TZImageCropManager circularClipImage:image];
                     [LKUIUtils doubleAnimaitonWithImageView:self.rightImageView toImage:image duration:0.8 animations:^{
                         
                     } completion:^{

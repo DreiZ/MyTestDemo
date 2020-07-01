@@ -7,6 +7,7 @@
 //
 
 #import "ZOrganizationMineHeaderView.h"
+#import "TZImageCropManager.h"
 
 #define headImageHeight CGFloatIn750(120)
 #define settingImageHeight CGFloatIn750(80)
@@ -494,6 +495,7 @@
             if (!image) {
                 image = [UIImage imageNamed:@"default_head"];
             }
+            image = [TZImageCropManager circularClipImage:image];
             [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
                 self.headImageView.layer.cornerRadius = headImageHeight/2.0f;
             } completion:^{
