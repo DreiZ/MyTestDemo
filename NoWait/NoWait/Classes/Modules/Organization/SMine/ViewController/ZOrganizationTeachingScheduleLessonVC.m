@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     self.zChain_setNavTitle(@"待排课列表")
-    .zChain_setTableViewGary()
+    .zChain_setTableViewWhite()
     .zChain_resetMainView(^{
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {

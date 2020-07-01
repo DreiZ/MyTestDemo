@@ -402,8 +402,8 @@
             .zz_textEnabled([obj[2] boolValue])
             .zz_subTitleRight(SafeStr(obj[4]))
             .zz_content(SafeStr(obj[6]))
-            .zz_max([SafeStr(obj[7]) intValue])
-            .zz_formatter([SafeStr(obj[8]) intValue])
+            .zz_max([obj[7] intValue])
+            .zz_formatter([obj[8] intValue])
             .zz_cellHeight(CGFloatIn750(86));
             if (ValidStr(obj[3])) {
                 model.zz_imageRight(SafeStr(obj[3]))
