@@ -77,8 +77,8 @@ extern NSInteger const kAttachmentPhotoMaxNumber;
 - (UILabel *)stateLabel {
     if (!_stateLabel) {
         _stateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1],[UIColor colorTextGray1Dark]);
-        _stateLabel.backgroundColor = [UIColor colorWithWhite:0. alpha:.5];
+        _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _stateLabel.backgroundColor = [UIColor colorWithWhite:0. alpha:.7];
         _stateLabel.numberOfLines = 1;
         _stateLabel.textAlignment = NSTextAlignmentCenter;
         [_stateLabel setFont:[UIFont fontContent]];

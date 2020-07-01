@@ -123,7 +123,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.bottomView.mas_top);
-        make.top.equalTo(self.progressView.mas_bottom).offset(CGFloatIn750(30));
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0));
     }];
 }
 
@@ -139,7 +139,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     layout.minimumInteritemSpacing = ITEM_SPACE/2;
     layout.sectionInset = UIEdgeInsetsMake(20, SECTION_LEFT_MARGIN, 20, SECTION_LEFT_MARGIN);
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor whiteColor];
+    collectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     collectionView.alwaysBounceVertical = YES;
     collectionView.dataSource = self;
     collectionView.delegate = self;

@@ -89,7 +89,6 @@
         _navRightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, CGFloatIn750(14), 0);
         [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
-        [_navRightBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         [_navRightBtn bk_addEventHandler:^(id sender) {
             ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
             mvc.type = self.model.type;
@@ -136,7 +135,21 @@
                     [weakSelf.uploadArr removeAllObjects];
                     [weakSelf.uploadNetArr removeAllObjects];
                     for (ZImagePickerModel *model in list) {
-                        [weakSelf.uploadArr addObject:model.image];
+                        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+                        if (model.isVideo) {
+                            dataModel.image = model.image;
+                            dataModel.taskType = ZUploadTypeVideo;
+                            dataModel.asset = model.asset;
+                            dataModel.taskState = ZUploadStateWaiting;
+    //                            dataModel.filePath = [model.mediaURL absoluteString];
+                        }else{
+                            dataModel.image = model.image;
+                            dataModel.asset = model.asset;
+                            dataModel.taskType = ZUploadTypeImage;
+                            dataModel.taskState = ZUploadStateWaiting;
+                        }
+
+                        [weakSelf.uploadArr addObject:dataModel];
                     }
 //                    [weakSelf updatePhotosStep1];
                     ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
