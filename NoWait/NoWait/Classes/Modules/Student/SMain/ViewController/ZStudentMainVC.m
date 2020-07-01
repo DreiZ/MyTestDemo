@@ -21,9 +21,12 @@
     
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
     [self refreshData];
     [self getAdverData];
-    [self getCategoryList];
+    [self getCategoryList:^(BOOL isSuccess) {
+        
+    }];
     
     __weak typeof(self) weakSelf = self;
     [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
@@ -279,7 +282,7 @@
     }];
 }
 
-- (void)getCategoryList {
+- (void)getCategoryList:(void(^)(BOOL))complete {
     __weak typeof(self) weakSelf = self;
     [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
@@ -295,6 +298,14 @@
             [ZStudentMainViewModel updateMainClassifysOne:weakSelf.classifyArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+            if (complete) {
+                complete(YES);
+            }
+        }else{
+            if (complete) {
+                complete(NO);
+            }
+            [self getCategoryList:complete];
         }
     }];
 }

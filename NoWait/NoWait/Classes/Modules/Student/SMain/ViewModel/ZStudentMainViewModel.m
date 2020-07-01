@@ -166,9 +166,12 @@
 
 
 + (BOOL)updateMainClassifysOne:(NSArray <ZMainClassifyOneModel *>*)banners {
-    [[ZDBMainStore shareManager] cleanClassifyOne];
-    [[ZDBMainStore shareManager] cleanClassifyTwo];
-    return [[ZDBMainStore shareManager] updateMainClassifysOne:banners];
+    if (ValidArray(banners)) {
+        [[ZDBMainStore shareManager] cleanClassifyOne];
+        [[ZDBMainStore shareManager] cleanClassifyTwo];
+        return [[ZDBMainStore shareManager] updateMainClassifysOne:banners];
+    }
+    return NO;
 }
 
 + (NSArray <ZMainClassifyOneModel *>*)mainClassifyOneData {

@@ -51,11 +51,11 @@
 #pragma mark - setView & setdata
 - (void)initData {
     self.automaticallyCalculatesItemWidths = YES;
-    self.titleColorSelected = [UIColor colorTextBlack];
-    self.titleColorNormal = [UIColor colorTextGray];
+    self.titleColorSelected = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.titleColorNormal = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleSizeSelected = CGFloatIn750(24);
-    self.titleSizeNormal = CGFloatIn750(24);
+    self.titleSizeSelected = CGFloatIn750(28);
+    self.titleSizeNormal = CGFloatIn750(26);
     self.progressWidth = CGFloatIn750(40);
     self.progressColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.progressViewIsNaughty = YES;

@@ -164,6 +164,11 @@
         [_leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(SafeStr(model.image))] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     }else if (ValidClass(model.image, [UIImage class])) {
         _leftImageView.image = model.image;
+        [LKUIUtils doubleAnimaitonWithImageView:self.leftImageView toImage:model.image duration:0.8 animations:^{
+            
+        } completion:^{
+            
+        }];
     }
 }
 
