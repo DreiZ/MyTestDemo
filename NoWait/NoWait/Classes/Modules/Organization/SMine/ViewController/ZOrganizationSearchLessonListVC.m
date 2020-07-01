@@ -164,9 +164,7 @@
     [param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     
     [param setObject:self.name forKey:@"name"];
-    if (self.stores_id) {
-        [param setObject:self.stores_id forKey:@"stores_id"];
-    }
+    [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
     return param;
 }
 

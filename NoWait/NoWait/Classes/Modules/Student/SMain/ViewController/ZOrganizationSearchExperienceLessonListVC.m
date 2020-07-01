@@ -9,11 +9,14 @@
 #import "ZOrganizationSearchExperienceLessonListVC.h"
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOrganizationLessonManageListCell.h"
-#import "ZStudentOrganizationLessonListCell.h"
+#import "ZStudentExperienceLessonListItemCell.h"
 
 #import "ZStudentExperienceLessonDetailVC.h"
 
-@interface ZOrganizationSearchExperienceLessonListVC ()
+@interface ZOrganizationSearchExperienceLessonListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic,strong) UICollectionView *iCollectionView;
+
 @property (nonatomic,strong) NSString *name;
 
 @end
@@ -47,32 +50,13 @@
     
     self.emptyDataStr = @"暂无数据";
     self.loading = NO;
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self setTableViewRefreshFooter];
-    [self setTableViewRefreshHeader];
-    [self setTableViewEmptyDataDelegate];
-    self.iTableView.tableFooterView = nil;
-}
-
-
-#pragma mark - setdata
-- (void)initCellConfigArr {
-    [super initCellConfigArr];
     
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-        [self.cellConfigArr addObject:lessonCellConfig];
-    }
-
-    if (self.cellConfigArr.count > 0) {
-        self.iTableView.tableFooterView = self.safeFooterView;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }else{
-        self.iTableView.tableFooterView = nil;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }
+    [self setMainView];
+    [self setCollectionViewRefreshFooter];
+    [self setCollectionViewRefreshHeader];
+    [self setCollectionViewEmptyDataDelegate];
 }
+
 
 - (void)searchClick:(NSString *)text{
     [super searchClick:text];
@@ -82,13 +66,99 @@
     }
 }
 
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
-            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-            dvc.model= listmodel;
-            [self.navigationController pushViewController:dvc animated:YES];
+- (void)setCollectionViewRefreshHeader {
+    __weak typeof(self) weakSelf = self;
+    [self.iCollectionView tt_addRefreshHeaderWithAction:^{
+        [weakSelf refreshData];
+    }];
+}
+
+- (void)setCollectionViewRefreshFooter {
+    __weak typeof(self) weakSelf = self;
+    
+    [self.iCollectionView tt_addLoadMoreFooterWithAction:^{
+        [weakSelf refreshMoreData];
+    }];
+    
+    [self.iCollectionView tt_removeLoadMoreFooter];
+}
+
+- (void)setCollectionViewEmptyDataDelegate {
+    self.iCollectionView.emptyDataSetSource = self;
+    self.iCollectionView.emptyDataSetDelegate = self;
+}
+
+- (void)setMainView {
+    
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    self.iTableView.hidden = YES;
+    [self.view addSubview:self.iCollectionView];
+    [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.searchView.mas_bottom);
+    }];
+    [super setupMainView];
+}
+
+
+#pragma mark - 懒加载
+- (UICollectionView *)iCollectionView {
+    if (!_iCollectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight) collectionViewLayout:flowLayout];
+        _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _iCollectionView.dataSource = self;
+        _iCollectionView.delegate = self;
+        _iCollectionView.scrollEnabled = YES;
+        _iCollectionView.showsHorizontalScrollIndicator = NO;
+        _iCollectionView.showsVerticalScrollIndicator = NO;
+        
+//        [_iCollectionView registerClass:[ZStudentOrganizationLessonListCollectionCell class] forCellWithReuseIdentifier:[ZStudentOrganizationLessonListCollectionCell className]];
     }
+    
+    return _iCollectionView;
+}
+
+#pragma mark - collectionview delegate
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.dataSources.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZStudentExperienceLessonListItemCell *cell = [ZStudentExperienceLessonListItemCell z_cellWithCollection:collectionView indexPath:indexPath];
+    cell.model = self.dataSources[indexPath.row];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+    dvc.model = self.dataSources[indexPath.row];
+    [self.navigationController pushViewController:dvc animated:YES];
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30));
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(30);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return CGFloatIn750(30);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [ZStudentExperienceLessonListItemCell z_getCellSize:nil];
 }
 
 #pragma mark - 数据处理
@@ -106,18 +176,18 @@
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            [weakSelf.iCollectionView reloadData];
             
-            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iCollectionView tt_endLoadMore];
             }
         }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
         }
     }];
 }
@@ -132,19 +202,18 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
+            [weakSelf.iCollectionView reloadData];
             
-            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iTableView tt_removeLoadMoreFooter];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
-                [weakSelf.iTableView tt_endLoadMore];
+                [weakSelf.iCollectionView tt_endLoadMore];
             }
         }else{
-            [weakSelf.iTableView reloadData];
-            [weakSelf.iTableView tt_endRefreshing];
-            [weakSelf.iTableView tt_removeLoadMoreFooter];
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
         }
     }];
 }

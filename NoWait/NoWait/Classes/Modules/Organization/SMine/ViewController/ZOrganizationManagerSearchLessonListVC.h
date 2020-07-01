@@ -1,8 +1,8 @@
 //
-//  ZOrganizationSearchLessonListVC.h
+//  ZOrganizationManagerSearchLessonListVC.h
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/12.
+//  Created by zhuang zhang on 2020/7/1.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
@@ -11,7 +11,8 @@
 #import "ZOriganizationModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZOrganizationSearchLessonListVC : ZSearchClickVC
+@interface ZOrganizationManagerSearchLessonListVC : ZSearchClickVC
+@property (nonatomic,strong) NSString *stores_id;
 
 @end
 
