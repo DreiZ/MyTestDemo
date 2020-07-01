@@ -445,6 +445,10 @@
          listmodel.lessonID = self.detailModel.course_id;
          dvc.model = listmodel;
          [self.navigationController pushViewController:dvc animated:YES];
+     }else if ([cellConfig.title isEqualToString:@"phone"]){
+         if (!self.detailModel.isStudent) {
+             [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
+         }
      }
 }
 
@@ -769,7 +773,7 @@
                               @[@"退款编号",SafeStr(self.detailModel.out_refund_no)],
                               @[@"订单编号",SafeStr(self.detailModel.order_no)],
                               @[@"申请时间",[SafeStr(self.detailModel.refund_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]].mutableCopy;
-        if (ValidStr(self.detailModel.refund_finish_time)) {
+        if (ValidStr(self.detailModel.refund_finish_time) && ![self.detailModel.refund_finish_time isEqualToString:@"0"]) {
             [titleArr addObject:@[@"退款时间",[SafeStr(self.detailModel.refund_finish_time) timeStringWithFormatter:@"yyyy-MM-dd HH:MM:ss"]]];
         }
         for (int i = 0; i < titleArr.count; i++) {
