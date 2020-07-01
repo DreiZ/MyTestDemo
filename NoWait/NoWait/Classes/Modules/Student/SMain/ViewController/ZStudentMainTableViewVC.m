@@ -215,11 +215,11 @@
     if (section == 1) {
         return CGFloatIn750(88);
     }
-    return 0.01f;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

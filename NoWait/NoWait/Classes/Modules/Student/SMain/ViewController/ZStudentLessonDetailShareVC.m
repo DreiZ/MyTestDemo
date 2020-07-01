@@ -66,8 +66,11 @@
             .zz_cellHeight(CGFloatIn750(60))
             .zz_marginLeft(CGFloatIn750(30))
             .zz_lineHidden(YES)
-            .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(56)])
-            .zz_titleLeft([NSString stringWithFormat:@"%@￥%@",self.isOrder ?@"体验价":@"",self.isOrder ?self.addModel.experience_price:self.addModel.price]);
+            .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(36)])
+            .zz_titleLeft([NSString stringWithFormat:@"￥%@",self.addModel.price]);
+            if (ValidStr(self.addModel.experience_price)) {
+                priceModel.zz_titleLeft([NSString stringWithFormat:@"￥%@(体验价￥%@)",self.addModel.price,self.addModel.experience_price]);
+            }
 
             ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:priceModel];
             [self.cellConfigArr addObject:priceCellConfig];
