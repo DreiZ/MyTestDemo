@@ -51,7 +51,8 @@
                          @[@"所属校区",SafeStr(self.addModel.stores_name)],
                          @[@"报名日期",[SafeStr(self.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"]],
                          @[@"报名课程",SafeStr(self.addModel.courses_name)],
-                         @[@"分配教师",SafeStr(self.addModel.teacher_name)]].mutableCopy;
+                         @[@"分配教师",SafeStr(self.addModel.teacher_name)],
+                         @[@"备注",@""]].mutableCopy;
     
     if (ValidStr(self.addModel.courses_class_id)) {
         NSString *statusStr = @"";
@@ -105,8 +106,8 @@
         .zz_cellHeight(CGFloatIn750(86))
         .zz_lineHidden(YES);
         model.zz_titleRight(textArr[i][1]);
-        if ([textArr[i][0] isEqualToString:@"报名须知"]) {
-            model.zz_fontLeft([UIFont boldFontContent]);
+        if([textArr[i][0] isEqualToString:@"报名须知"]||[textArr[i][0] isEqualToString:@"备注"]) {
+            model.zz_fontLeft([UIFont boldFontMaxTitle]);
         }else{
             model.zz_fontLeft([UIFont fontContent]);
         }
@@ -114,9 +115,40 @@
             model.cellTitle = @"sign";
             model.rightImage = @"rightBlackArrowN";
         }
+        
+        if([textArr[i][0] isEqualToString:@"班级名称"] && !ValidStr(self.addModel.courses_class_name)) {
+            continue;
+        }
  
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
+        
+        if([textArr[i][0] isEqualToString:@"备注"]) {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
+                   .zz_titleLeft(self.addModel.remark)
+                   .zz_leftMultiLine(YES)
+                   .zz_cellHeight(CGFloatIn750(50))
+                   .zz_lineHidden(YES)
+                    .zz_colorLeft([UIColor colorTextGray])
+                    .zz_colorDarkLeft([UIColor colorTextGrayDark]);
+            
+           ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+           [self.cellConfigArr addObject:textCellConfig];
+            
+            {
+                [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
+                    
+                  ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+                  model.isHiddenLine = NO;
+                  model.lineLeftMargin = CGFloatIn750(30);
+                  model.lineRightMargin = CGFloatIn750(30);
+                  model.cellHeight = CGFloatIn750(1);
+                    
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+        }
+        
         
         if ([self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 3 || [self.addModel.status  intValue] == 4) {
             if([textArr[i][0] isEqualToString:@"分配教师"]){
@@ -138,8 +170,10 @@
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"p_information")
             .zz_titleLeft(self.addModel.p_information)
             .zz_leftMultiLine(YES)
-            .zz_cellHeight(CGFloatIn750(88))
-            .zz_lineHidden(YES);
+            .zz_cellHeight(CGFloatIn750(50))
+            .zz_lineHidden(YES)
+            .zz_colorLeft([UIColor colorTextGray])
+            .zz_colorDarkLeft([UIColor colorTextGrayDark]);
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr  addObject:menuCellConfig];
@@ -147,7 +181,7 @@
     }
     
     {
-         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
            
          ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
          model.isHiddenLine = NO;
@@ -158,18 +192,18 @@
        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
        [self.cellConfigArr addObject:menuCellConfig];
          
-       [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+       [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
     }
     
     if ([self.addModel.is_star intValue] == 1) {
         {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
             
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员简介";
-            model.leftFont = [UIFont boldFontContent];
+            model.leftFont = [UIFont boldFontMaxTitle];
             model.isHiddenLine = YES;
-            model.cellHeight = CGFloatIn750(52);
+            model.cellHeight = CGFloatIn750(86);
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
@@ -185,7 +219,7 @@
                 
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
                 [self.cellConfigArr addObject:textCellConfig];
-                [self.cellConfigArr addObject:getEmptyCellWithHeight(40)];
+                [self.cellConfigArr addObject:getEmptyCellWithHeight(20)];
             }else{
                 ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"4"];
                 [self.cellConfigArr addObject:coachCellConfig];
@@ -195,7 +229,7 @@
         {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = @"学员相册";
-            model.leftFont = [UIFont boldFontContent];
+            model.leftFont = [UIFont boldFontMaxTitle];
             model.isHiddenLine = YES;
             model.cellHeight = CGFloatIn750(92);
             

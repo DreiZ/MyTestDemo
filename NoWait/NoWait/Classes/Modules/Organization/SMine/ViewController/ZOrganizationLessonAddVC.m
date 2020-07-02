@@ -129,10 +129,7 @@
                 [TLUIUtility showErrorHint:@"请输入课程简称"];
                 return ;
             }
-            if (!ValidStr(weakSelf.viewModel.addModel.info)) {
-                [TLUIUtility showErrorHint:@"请添加课程详情"];
-                return ;
-            }
+            
             if (!ValidStr(weakSelf.viewModel.addModel.price)) {
                 [TLUIUtility showErrorHint:@"请输入课程价格"];
                 return ;
@@ -161,15 +158,35 @@
                 [TLUIUtility showErrorHint:@"请输入课程节数"];
                 return ;
             }
-            if (!ValidStr(weakSelf.viewModel.addModel.course_class_number)) {
-                [TLUIUtility showErrorHint:@"请输入课程人数"];
-                return ;
-            }
             if ([weakSelf.viewModel.addModel.course_number intValue] < 1) {
                 [TLUIUtility showErrorHint:@"课程节数不能小于1"];
                 return ;
             }
+            if (!ValidStr(weakSelf.viewModel.addModel.course_class_number)) {
+                [TLUIUtility showErrorHint:@"请输入班级人数"];
+                return ;
+            }
+            if ([weakSelf.viewModel.addModel.course_class_number intValue] < 1) {
+                [TLUIUtility showErrorHint:@"班级人数不能小于1"];
+                return ;
+            }
 
+            if (!ValidStr(weakSelf.viewModel.addModel.valid_at)) {
+                [TLUIUtility showErrorHint:@"请输入课程有效期"];
+                return ;
+            }
+            if ([weakSelf.viewModel.addModel.valid_at intValue] < 1) {
+                [TLUIUtility showErrorHint:@"课程有效期不能小于1个月"];
+                return ;
+            }
+            
+            if([weakSelf.viewModel.addModel.type intValue] == 1){
+                if (!ValidArray(weakSelf.viewModel.addModel.fix_time)) {
+                    [TLUIUtility showErrorHint:@"请添加固定上课时间"];
+                    return ;
+                }
+            }
+            
             if([weakSelf.viewModel.addModel.is_experience intValue] == 1){
                 if (!ValidStr(weakSelf.viewModel.addModel.experience_price)) {
                     [TLUIUtility showErrorHint:@"请输入预约价格"];
@@ -189,24 +206,10 @@
                 }
             }
             
-            
-            if (!ValidStr(weakSelf.viewModel.addModel.valid_at)) {
-                [TLUIUtility showErrorHint:@"请输入课程有效期"];
+            if (!ValidStr(weakSelf.viewModel.addModel.info)) {
+                [TLUIUtility showErrorHint:@"请添加课程详情"];
                 return ;
             }
-            
-            if([weakSelf.viewModel.addModel.type intValue] == 1){
-                if (!ValidArray(weakSelf.viewModel.addModel.fix_time)) {
-                    [TLUIUtility showErrorHint:@"请添加固定上课时间"];
-                    return ;
-                }
-            }
-            
-            if ([weakSelf.viewModel.addModel.valid_at intValue] < 1) {
-                [TLUIUtility showErrorHint:@"课程有效期不能小于1个月"];
-                return ;
-            }
-            
             if (!ValidStr(weakSelf.viewModel.addModel.p_information)) {
                 [TLUIUtility showErrorHint:@"请添加购买须知"];
                 return ;

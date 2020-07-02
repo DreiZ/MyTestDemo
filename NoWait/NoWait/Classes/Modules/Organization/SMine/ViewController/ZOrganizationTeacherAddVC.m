@@ -254,6 +254,10 @@
                 [TLUIUtility showErrorHint:@"请输入手机号"];
                 return ;
             }
+            if ([self.viewModel.addModel.phone length] != 11) {
+                [TLUIUtility showErrorHint:@"请输入正确的手机号"];
+                return ;
+            }
             if (!ValidStr(self.viewModel.addModel.id_card)) {
                 [TLUIUtility showErrorHint:@"请输入身份证号"];
                 return ;
@@ -271,7 +275,7 @@
                 return ;
             }
             if (!ValidStr(weakSelf.viewModel.addModel.des)) {
-                [TLUIUtility showErrorHint:@"请输入教师描述"];
+                [TLUIUtility showErrorHint:@"请输入教师简介"];
                 return ;
             }
             

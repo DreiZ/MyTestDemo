@@ -236,6 +236,10 @@
                 [TLUIUtility showErrorHint:@"请输入学员手机号"];
                 return ;
             }
+            if ([weakSelf.viewModel.addModel.phone length] != 11) {
+                [TLUIUtility showErrorHint:@"请输入正确的手机号"];
+                return ;
+            }
             if (!ValidStr(weakSelf.viewModel.addModel.stores_courses_class_id)) {
                 [TLUIUtility showErrorHint:@"请选择课程"];
                 return ;
