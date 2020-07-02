@@ -114,6 +114,7 @@
         if ([textArr[i][0] isEqualToString:@"签到详情"]) {
             model.cellTitle = @"sign";
             model.rightImage = @"rightBlackArrowN";
+            model.rightImageH = CGFloatIn750(12);
         }
         
         if([textArr[i][0] isEqualToString:@"班级名称"] && !ValidStr(self.addModel.courses_class_name)) {

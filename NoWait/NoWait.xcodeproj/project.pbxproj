@@ -1423,7 +1423,7 @@
 		B29D7FF224308322004B3C00 /* ZCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCollectionViewController.m; sourceTree = "<group>"; };
 		B29D7FF42430A265004B3C00 /* ZStudentEvaListReEvaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentEvaListReEvaCell.h; sourceTree = "<group>"; };
 		B29D7FF52430A265004B3C00 /* ZStudentEvaListReEvaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentEvaListReEvaCell.m; sourceTree = "<group>"; };
-		B2A77E1B23BDA38400407BF0 /* 似锦测试.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "似锦测试.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2A77E1B23BDA38400407BF0 /* 似锦.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "似锦.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A77E2A23BDA38600407BF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2A77E2F23BDA38600407BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoWaitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2816,7 +2816,7 @@
 		B2A77E1C23BDA38400407BF0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B2A77E1B23BDA38400407BF0 /* 似锦测试.app */,
+				B2A77E1B23BDA38400407BF0 /* 似锦.app */,
 				B2A77E3623BDA38600407BF0 /* NoWaitTests.xctest */,
 				B2A77E4123BDA38600407BF0 /* NoWaitUITests.xctest */,
 			);
@@ -4434,7 +4434,7 @@
 			);
 			name = NoWait;
 			productName = NoWait;
-			productReference = B2A77E1B23BDA38400407BF0 /* 似锦测试.app */;
+			productReference = B2A77E1B23BDA38400407BF0 /* 似锦.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B2A77E3523BDA38600407BF0 /* NoWaitTests */ = {
@@ -5471,8 +5471,8 @@
 					"\"WebP\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait1;
-				PRODUCT_NAME = "似锦测试";
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
+				PRODUCT_NAME = "似锦";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5581,8 +5581,8 @@
 					"\"WebP\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait1;
-				PRODUCT_NAME = "似锦测试";
+				PRODUCT_BUNDLE_IDENTIFIER = xiangXinLi.noWait;
+				PRODUCT_NAME = "似锦";
 				PROVISIONING_PROFILE_SPECIFIER = xiangxinlirelease0720;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

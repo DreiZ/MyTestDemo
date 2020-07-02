@@ -410,7 +410,7 @@
             [self.cellConfigArr addObject:coachCellConfig];
         }
     }
-    
+    _bottomView.isBuy = NO;
     _bottomView.isCollection = [self.detailModel.collection intValue] == 1 ? YES:NO;
 }
 

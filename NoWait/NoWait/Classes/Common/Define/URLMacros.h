@@ -24,7 +24,8 @@
  */
 
 #define DevelopSever    1
-#define TestSever       0
+
+#define TestSever       1
 #define ProductSever    0
 
 // 表情服务器
@@ -117,9 +118,9 @@
 //阿里云上传图片地址
 #define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
 #define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-
 #define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
 #define AliYunBucketName                @"xiangcenter"
+#define AliYunBucketIMName              @"xiangcenter"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 

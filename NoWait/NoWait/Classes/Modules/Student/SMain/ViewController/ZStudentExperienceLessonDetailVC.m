@@ -362,12 +362,14 @@
     
     if ([self.addModel.status intValue] != 1) {
         _bottomView.title = @"课程已下架";
+        _bottomView.isBuy = NO;
         _bottomView.handleBtn.enabled = NO;
         _bottomView.orderBtn.enabled = NO;
         _bottomView.handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray]);
         _bottomView.orderView.backgroundColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGray]);
     }else{
-        _bottomView.title = @"立即购买";
+        _bottomView.title = [NSString stringWithFormat:@"立即购买\n￥%@",self.addModel.price];
+        _bottomView.isBuy = YES;
         _bottomView.handleBtn.enabled = YES;
         _bottomView.orderBtn.enabled = YES;
         _bottomView.handleBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

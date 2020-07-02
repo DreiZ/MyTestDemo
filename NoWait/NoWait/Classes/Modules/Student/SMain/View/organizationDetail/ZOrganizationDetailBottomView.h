@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZOrganizationDetailBottomView : UIView
 @property (nonatomic,assign) BOOL isCollection;
 @property (nonatomic,strong) NSString *title;
-
+@property (nonatomic,assign) BOOL isBuy;
 @property (nonatomic,strong) UIButton *handleBtn;
 @property (nonatomic,strong) UIButton *telBtn;
 @property (nonatomic,strong) UIButton *collectionBtn;

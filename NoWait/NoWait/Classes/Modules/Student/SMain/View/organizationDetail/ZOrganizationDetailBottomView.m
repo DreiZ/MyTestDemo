@@ -76,7 +76,7 @@
         [_handleBtn setTitle:@"预约体验" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         [_handleBtn.titleLabel setFont:[UIFont boldFontContent]];
-        
+        _handleBtn.titleLabel.lineBreakMode = 0;
         __weak typeof(self) weakSelf = self;
         [_handleBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
@@ -151,6 +151,15 @@
 
 - (void)setTitle:(NSString *)title {
     [_handleBtn setTitle:title forState:UIControlStateNormal];
+}
+
+- (void)setIsBuy:(BOOL)isBuy {
+    _isBuy = isBuy;
+    if (isBuy) {
+        [_handleBtn.titleLabel setFont:[UIFont boldFontSmall]];
+    }else{
+        [_handleBtn.titleLabel setFont:[UIFont boldFontContent]];
+    }
 }
 
 - (void)setIsCollection:(BOOL)isCollection {
