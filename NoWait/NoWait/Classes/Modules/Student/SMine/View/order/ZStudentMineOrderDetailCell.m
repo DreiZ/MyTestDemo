@@ -415,6 +415,7 @@
         case ZOrganizationOrderTypeForPay:
             {
                 [self setOrderDetailDes];
+                [self setSubDetail];
                 self.priceLabel.text = @"";
                 CGSize temp = [self.model.experience_price tt_sizeWithFont:[UIFont boldFontContent]];
                 [self.priceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -422,7 +423,8 @@
                     make.centerY.equalTo(self.orderNameLabel.mas_centerY);
                     make.right.equalTo(self.midView.mas_right).offset(-CGFloatIn750(20));
                 }];
-                [self setOrderDetailMidViewBottom];
+//                [self setOrderDetailMidViewBottom];
+                [self setDetailSubViewBottom];
             }
             break;
         case ZStudentOrderTypeForPay://待付款（去支付，取消）
@@ -666,7 +668,12 @@
     if (sender && [sender isKindOfClass:[ZOrderDetailModel class]]) {
         ZOrderDetailModel *listModel = (ZOrderDetailModel *)sender;
         if (!listModel.isRefund && [listModel.has_can_refund intValue] == 1) {
-            return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+            if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                return CGFloatIn750(328 + 56 * 3 + 28 + 56);
+            }else{
+                return CGFloatIn750(328 + 56 * 3 + 28 );
+            }
+            
         }
         switch (listModel.order_type) {
             case ZOrganizationOrderTypeForPay:
