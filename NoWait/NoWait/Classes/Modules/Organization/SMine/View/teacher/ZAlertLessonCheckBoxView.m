@@ -41,17 +41,30 @@ static ZAlertLessonCheckBoxView *sharedLessonManager;
     [super initCellConfigArr];
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationLessonListModel *listModel = self.dataSources[i];
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = listModel.short_name;
-        model.leftMargin = CGFloatIn750(60);
-        model.rightMargin = CGFloatIn750(60);
-        model.cellHeight = CGFloatIn750(108);
-        model.leftFont = [UIFont fontMaxTitle];
-        model.rightImage = listModel.isSelected ? @"selectedCycle" :@"unSelectedCycle";
-        model.isHiddenLine = YES;
-
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-
+//        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//        model.leftTitle = listModel.name;
+//        model.leftMargin = CGFloatIn750(60);
+//        model.rightMargin = CGFloatIn750(60);
+//        model.cellHeight = CGFloatIn750(108);
+//        model.leftFont = [UIFont fontMaxTitle];
+//        model.rightImage = listModel.isSelected ? @"selectedCycle" :@"unSelectedCycle";
+//        model.isHiddenLine = YES;
+//
+//        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:@"week" showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+//
+//        [self.cellConfigArr addObject:menuCellConfig];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user")
+        .zz_cellHeight(CGFloatIn750(108))
+        .zz_titleLeft(listModel.name)
+        .zz_imageRightHeight(CGFloatIn750(30))
+        .zz_leftMultiLine(YES);
+        if (listModel.isSelected) {
+            model.zz_imageRight(@"selectedCycle");
+        }else{
+            model.zz_imageRight(@"unSelectedCycle");
+        }
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
     }
 }

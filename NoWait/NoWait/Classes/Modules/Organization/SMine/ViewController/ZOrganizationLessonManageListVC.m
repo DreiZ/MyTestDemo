@@ -70,19 +70,19 @@
         ZOrganizationLessonManageListCell *enteryCell = (ZOrganizationLessonManageListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOriganizationLessonListModel *model) {
             if (index == 1) {
-                [ZAlertView setAlertWithTitle:@"确定关闭课程？" subTitle:@"关闭的课程可编辑，或重新开启" leftBtnTitle:@"取消" rightBtnTitle:@"关闭课程" handlerBlock:^(NSInteger handle) {
+                [ZAlertView setAlertWithTitle:@"确定关闭课程？" subTitle:@"课程关闭后,学员将不能在平台上查看和购买" leftBtnTitle:@"取消" rightBtnTitle:@"关闭课程" handlerBlock:^(NSInteger handle) {
                     if (handle == 1) {
                         [weakSelf closeLesson:model];
                     }
                 }];
             }else if (index == 2) {
-                [ZAlertView setAlertWithTitle:@"删除课程" subTitle:@"确定删除课程? 删除的课程不可恢复" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger handle) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:[NSString stringWithFormat:@"确定删除%@?",model.name] leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger handle) {
                     if (handle == 1) {
                         [weakSelf deleteLesson:model];
                     }
                 }];
             }else if (index == 3) {
-                [ZAlertView setAlertWithTitle:@"确定开放课程？" subTitle:@"开放课程后台审核后方可对学员可见" leftBtnTitle:@"取消" rightBtnTitle:@"开放课程" handlerBlock:^(NSInteger handle) {
+                [ZAlertView setAlertWithTitle:@"确定开放课程？" subTitle:@"课程开放后,学员将可以在平台上查看和购买" leftBtnTitle:@"取消" rightBtnTitle:@"开放课程" handlerBlock:^(NSInteger handle) {
                     if (handle == 1) {
                         [weakSelf openLesson:model];
                     }

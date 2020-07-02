@@ -125,7 +125,7 @@
         
         if([textArr[i][0] isEqualToString:@"备注"]) {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
-                   .zz_titleLeft(self.addModel.remark)
+            .zz_titleLeft(ValidStr(self.addModel.remark)?self.addModel.remark:@"无备注")
                    .zz_leftMultiLine(YES)
                    .zz_cellHeight(CGFloatIn750(50))
                    .zz_lineHidden(YES)

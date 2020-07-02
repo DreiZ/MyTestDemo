@@ -320,7 +320,7 @@
         [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
             if (model) {
                 weakSelf.viewModel.addModel.courses_id = model.lessonID;
-                weakSelf.viewModel.addModel.courses_name = model.short_name;
+                weakSelf.viewModel.addModel.courses_name = model.name;
                 weakSelf.viewModel.addModel.course_min = model.course_min;
                 weakSelf.viewModel.addModel.lessonTimeArr = model.fix_timeArr;
                 [weakSelf initCellConfigArr];

@@ -67,7 +67,7 @@
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                         @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",SafeStr(self.viewModel.addModel.courses_name),@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                                    @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",[NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.viewModel.addModel.courses_name),ValidStr(self.viewModel.addModel.courses_name)? @"(共":@"",SafeStr(self.viewModel.addModel.total_progress),ValidStr(self.viewModel.addModel.courses_name)?@"节)":@""],@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
 
@@ -244,13 +244,23 @@
                 [TLUIUtility showErrorHint:@"请选择课程"];
                 return ;
             }
+            NSMutableDictionary *otherDict = @{}.mutableCopy;
+            if (ValidStr(self.viewModel.addModel.now_progress)) {
+                if ([self.viewModel.addModel.now_progress intValue] - [self.viewModel.addModel.total_progress intValue] >= 0) {
+                    [TLUIUtility showErrorHint:@"课程进度已大于总课程数"];
+                    return;
+                }
+                [otherDict setObject:self.viewModel.addModel.now_progress forKey:@"now_progress"];
+            }else{
+                [otherDict setObject:@"0" forKey:@"now_progress"];
+            }
             if (!ValidStr(weakSelf.viewModel.addModel.teacher_id)) {
                 [TLUIUtility showErrorHint:@"请选择教师"];
                 return ;
             }
             
             
-            NSMutableDictionary *otherDict = @{}.mutableCopy;
+            
             [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:self.viewModel.addModel.phone forKey:@"phone"];
             
@@ -262,11 +272,7 @@
             [otherDict setObject:self.viewModel.addModel.sex forKey:@"sex"];
             
             
-            if (ValidStr(self.viewModel.addModel.now_progress)) {
-                [otherDict setObject:self.viewModel.addModel.now_progress forKey:@"now_progress"];
-            }else{
-                [otherDict setObject:@"0" forKey:@"now_progress"];
-            }
+            
             
             if (ValidStr(self.viewModel.addModel.birthday)) {
                 [otherDict setObject:self.viewModel.addModel.birthday forKey:@"birthday"];
@@ -565,7 +571,8 @@
             [ZAlertLessonCheckBoxView  setAlertName:@"选择课程" schoolID:[ZUserHelper sharedHelper].school.schoolID handlerBlock:^(NSInteger index,ZOriganizationLessonListModel *model) {
                 if (model) {
                     weakSelf.viewModel.addModel.stores_courses_class_id = model.lessonID;
-                    weakSelf.viewModel.addModel.courses_name = model.short_name;
+                    weakSelf.viewModel.addModel.courses_name = model.name;
+                    weakSelf.viewModel.addModel.total_progress = model.course_number;
                     [weakSelf initCellConfigArr];
                     [weakSelf.iTableView reloadData];
                 }

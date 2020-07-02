@@ -219,6 +219,9 @@
         }
     }
     [params setObject:tempArr forKey:@"student_ids"];
+    if (ValidStr(self.lessonModel.lessonID)) {
+        [params setObject:self.lessonModel.lessonID forKey:@"courses_id"];
+    }
     
     if (self.viewModel.addModel.lessonTimeArr.count > 0) {
         NSMutableDictionary *orderDict = @{}.mutableCopy;
