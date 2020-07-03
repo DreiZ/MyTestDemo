@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZCollectionViewController.h"
+#import "ZViewController.h"
+#import <WMPageController.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCircleViewController : ZCollectionViewController
+@interface ZCircleViewController : WMPageController
 
 @end
 
-NS_ASSUME_NONNULL_END
+

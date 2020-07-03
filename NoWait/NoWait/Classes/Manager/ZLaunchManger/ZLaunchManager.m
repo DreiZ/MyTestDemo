@@ -18,6 +18,7 @@
 #import "ZStudentMessageVC.h"
 #import "ZStudentMineVC.h"
 #import "ZMineMainVC.h"
+#import "ZCircleViewController.h"
 
 @interface ZLaunchManager ()
 
@@ -152,13 +153,13 @@
     ZStudentMainVC *studentMainVC = [[ZStudentMainVC alloc] init];
     ZStudentMessageVC *studentMessageVC = [[ZStudentMessageVC alloc] init];
     ZMineMainVC *mineVC = [[ZMineMainVC alloc] init];
-
+    ZCircleViewController *finderVC = [[ZCircleViewController alloc] init];
     
     
     NSArray *data = @[addNavigationController(studentMainVC),
+                      addNavigationController(finderVC),
                       addNavigationController(studentMessageVC),
-                      addNavigationController(mineVC),
-                      ];
+                      addNavigationController(mineVC)];
     return data;
     
 }

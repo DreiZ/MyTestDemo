@@ -7,26 +7,122 @@
 //
 
 #import "ZCircleViewController.h"
+#import "ZCircleRecommendVC.h"
+#import "ZCircleFinderVC.h"
+#import "ZCircleHeaderView.h"
 
 @interface ZCircleViewController ()
+
+@property (nonatomic,strong) NSMutableArray *vcArr;
+@property (nonatomic,strong) NSMutableArray *titleArr;
+
+@property (nonatomic,strong) ZCircleHeaderView *headView;
 
 @end
 
 @implementation ZCircleViewController
 
+- (id)init
+{
+    if (self = [super init]) {
+        initTabBarItem(self.tabBarItem, LOCSTR(@"发现"), @"tabBarMessage", @"tabBarMessage_highlighted");
+    }
+    return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+    
+    [self initData];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setMainView];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setMainView {
+    [self.view addSubview:self.headView];
+    [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(88));
+        make.top.equalTo(self.menuView.mas_bottom);
+    }];
 }
-*/
 
+#pragma mark - setView & setdata
+- (void)initData {
+    self.automaticallyCalculatesItemWidths = YES;
+    self.titleColorSelected = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
+    self.titleColorNormal = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    self.menuViewStyle = WMMenuViewStyleLine;
+    self.titleSizeSelected = CGFloatIn750(28);
+    self.titleSizeNormal = CGFloatIn750(28);
+    self.progressWidth = CGFloatIn750(30);
+    self.progressColor = [UIColor colorMain];
+    self.progressHeight = 3;
+    self.progressViewIsNaughty = YES;
+    self.scrollEnable = YES;
+}
+
+- (void)setNavgation {
+    [self.navigationItem setTitle:@"卡券管理"];
+}
+
+#pragma mark - 懒加载--
+- (NSMutableArray *)titleArr {
+    if (!_titleArr) {
+        _titleArr = @[@"发现", @"推荐"].mutableCopy;
+    }
+    return _titleArr;
+}
+
+- (NSMutableArray *)vcArr {
+    if (!_vcArr) {
+        _vcArr = @[].mutableCopy;
+        ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
+        [_vcArr addObject:rvc];
+        
+        ZCircleFinderVC *fvc = [[ZCircleFinderVC alloc] init];
+        [_vcArr addObject:fvc];
+    }
+    return _vcArr;
+}
+
+- (ZCircleHeaderView *)headView {
+    if (!_headView) {
+        _headView = [[ZCircleHeaderView alloc] init];
+    }
+    return _headView;
+}
+
+#pragma mark - Datasource & Delegate
+- (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
+    return self.vcArr.count;
+}
+
+- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
+    return self.vcArr[index];
+}
+
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    return self.titleArr[index];
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView {
+    return CGRectMake(0, safeAreaTop(), KScreenWidth, CGFloatIn750(80));
+}
+
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
+    CGFloat originY = CGFloatIn750(80)+CGFloatIn750(94);
+    return CGRectMake(0, originY+ safeAreaTop(), KScreenWidth, KScreenHeight - originY-TABBAR_HEIGHT-safeAreaTop()-safeAreaBottom());
+}
 @end

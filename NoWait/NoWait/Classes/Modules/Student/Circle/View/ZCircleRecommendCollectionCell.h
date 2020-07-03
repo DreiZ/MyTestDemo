@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleRecommendCollectionCell : ZBaseCollectionViewCell
-
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END

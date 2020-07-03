@@ -316,6 +316,8 @@
             }else{
                 if (ValidStr(self.viewModel.addModel.teacherID)) {
                     [params setObject:@[] forKey:@"skills"];
+                }else{
+                    [params setObject:@[] forKey:@"skills"];
                 }
             }
             

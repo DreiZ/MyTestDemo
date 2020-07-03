@@ -7,11 +7,11 @@
 //
 
 #import "ZViewController.h"
+#import "ZCollectionViewController.h"
+#import "WSLWaterFlowLayout.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCircleRecommendVC : ZViewController
+@interface ZCircleRecommendVC : ZCollectionViewController
 
 @end
 
-NS_ASSUME_NONNULL_END

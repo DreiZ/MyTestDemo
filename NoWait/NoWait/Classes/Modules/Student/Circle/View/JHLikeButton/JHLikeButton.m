@@ -397,46 +397,46 @@
         
         // Zoom in the first circle / 放大
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _normalView.hidden = YES;
-            _circleView1.hidden = NO;
+            self->_normalView.hidden = YES;
+            self->_circleView1.hidden = NO;
             
-            [self scaleAnimationForView:_circleView1 values:@[@(0),@(1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseIn keepLastStatus:NO];
+            [self scaleAnimationForView:self->_circleView1 values:@[@(0),@(1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseIn keepLastStatus:NO];
         });
         
         // Zoom in the second circle / 放大
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             //[_normalView.layer removeAnimationForKey:@"scaleAnimation"];
-            _circleView2.hidden = NO;
+            self->_circleView2.hidden = NO;
             
-            [self scaleAnimationForView:_circleView2 values:@[@(0),@(1.1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:YES];
+            [self scaleAnimationForView:self->_circleView2 values:@[@(0),@(1.1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:YES];
         });
         
         // Zoom in the light view / 放大
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _likeView.hidden = NO;
+            self->_likeView.hidden = NO;
             
-            [self scaleAnimationForView:_likeView values:@[@(0.2),@(1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:NO];
+            [self scaleAnimationForView:self->_likeView values:@[@(0.2),@(1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:NO];
         });
         
         // Flash
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _circleView3.hidden = NO;
+            self->_circleView3.hidden = NO;
             
-            if (_type == JHLikeButtonType_Star) {
-                [self scaleAnimationForView:_circleView3 values:@[@(0.2),@(1.1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:YES];
-            }else if (_type == JHLikeButtonType_Heart) {
+            if (self->_type == JHLikeButtonType_Star) {
+                [self scaleAnimationForView:self->_circleView3 values:@[@(0.2),@(1.1)] duration:0.3 beginTimeOffset:0 timingFunction:kCAMediaTimingFunctionEaseOut keepLastStatus:YES];
+            }else if (self->_type == JHLikeButtonType_Heart) {
                 
             }
         });
         
         // Finish / 完成
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _circleView1.hidden = YES;
-            _circleView2.hidden = YES;
+            self->_circleView1.hidden = YES;
+            self->_circleView2.hidden = YES;
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                _circleView3.hidden = YES;
-                _animating = NO;
+                self->_circleView3.hidden = YES;
+                self->_animating = NO;
                 self.userInteractionEnabled = YES;
                 
                 [self clickFinish];
@@ -450,9 +450,9 @@
             
             _likeView.transform = CGAffineTransformMakeScale(0.9, 0.9);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                _normalView.hidden = NO;
-                _likeView.hidden = YES;
-                _likeView.transform = CGAffineTransformIdentity;
+                self->_normalView.hidden = NO;
+                self->_likeView.hidden = YES;
+                self->_likeView.transform = CGAffineTransformIdentity;
             });
         }else{
             _normalView.hidden = NO;
