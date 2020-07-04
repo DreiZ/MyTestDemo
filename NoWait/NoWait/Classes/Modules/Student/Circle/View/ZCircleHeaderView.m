@@ -39,6 +39,7 @@
     [self addSubview:self.contView];
     [self addSubview:self.searchBtn];
     [self addSubview:self.headImageView];
+    [self addSubview:self.headerBtn];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(self.mas_left).offset(CGFloatIn750(0));
@@ -72,6 +73,13 @@
         make.centerY.equalTo(self.searchBtn);
         make.left.equalTo(self.searchImageView.mas_right).offset(CGFloatIn750(20));
     }];
+    
+    [self.headerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headImageView.mas_left).offset(-CGFloatIn750(4));
+        make.right.equalTo(self.headImageView.mas_right).offset(CGFloatIn750(4));
+        make.top.equalTo(self.headImageView.mas_top).offset(-CGFloatIn750(4));
+        make.bottom.equalTo(self.headImageView.mas_bottom).offset(CGFloatIn750(4));
+    }];
 }
 
 #pragma mark -lazy loading
@@ -79,7 +87,7 @@
     if (!_contView) {
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
-        _contView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _contView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         ViewRadius(_contView, CGFloatIn750(16));
     }
     return _contView;
@@ -89,8 +97,8 @@
     if (!_searchBtn) {
         __weak typeof(self) weakSelf = self;
         _searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _searchBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        ViewRadius(_searchBtn, CGFloatIn750(28));
+        _searchBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        ViewRadius(_searchBtn, CGFloatIn750(38));
         ViewShadowRadius(_searchBtn, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorGrayBGDark]);
         [_searchBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {

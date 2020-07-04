@@ -22,6 +22,8 @@
 #import "ZOrganizationCampusManagementAddressVC.h"
 #import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationCampusManageTimeVC.h"
+#import "ZOrganizationLessonTextViewVC.h"
+
 #import "ZOriganizationViewModel.h"
 #import "ZOriganizationLessonViewModel.h"
 #import "ZAlertClassifyPickerView.h"
@@ -65,6 +67,11 @@
         time = @"已编辑";
     }
     
+    NSString *info = @"";
+    if (self.model && ValidStr(self.model.info)) {
+        info = @"已编辑";
+    }
+    
     NSMutableArray *classify = @[].mutableCopy;
     for (int i = 0; i < self.model.category.count; i++) {
         ZMainClassifyOneModel *model = self.model.category[i];
@@ -77,7 +84,8 @@
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
                          @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time",time],
                          @[@"基础设置", @"请添加基础设施", @YES, @YES, @"setting",self.model? self.model.stores_info:@[]],
-                         @[@"机构特色", @"请添加结构特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]]];
+                         @[@"机构特色", @"请添加结构特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]],
+                         @[@"校区简介", @"请填写校区简介", @NO, @NO, @"info",info]];
     
     for (int i = 0; i < textArr.count; i++) {
         if ([textArr[i][4] isEqualToString:@"type"] || [textArr[i][4] isEqualToString:@"setting"] || [textArr[i][4] isEqualToString:@"characteristic"]) {
@@ -267,6 +275,9 @@
             [params setObject:self.model.merchants_stores_tags forKey:@"merchants_stores_tags"];
             [params setObject:self.model.stores_info forKey:@"stores_info"];
             
+            if (ValidStr(self.model.info)) {
+                [params setObject:self.model.info forKey:@"info"];
+            }
             NSString *cat = @"";
             for (int i = 0; i < self.model.category.count; i++) {
                 ZMainClassifyOneModel *model = self.model.category[i];
@@ -443,6 +454,19 @@
             [weakSelf.iTableView reloadData];
         };
         [self.navigationController pushViewController:lvc animated:YES];
+    }else if ([cellConfig.title isEqualToString:@"info"]){
+        [self.iTableView endEditing:YES];
+        ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
+        tvc.navTitle = @"校区简介";
+        tvc.max = 1500;
+        tvc.hintStr = @"请输入校区简介，1500字节以内";
+        tvc.content = self.model.info;
+        tvc.handleBlock = ^(NSString * text) {
+            weakSelf.model.info = text;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
+        [self.navigationController pushViewController:tvc animated:YES];
     }
     
 }

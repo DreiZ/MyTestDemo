@@ -126,21 +126,22 @@
 
 
 - (void)textViewDidChange:(UITextView *)textView {
-    NSInteger _isMaxLength = self.max;
+//    NSInteger _isMaxLength = self.max;
     if (textView.text.length > 0) {
         _hintLabel.hidden = YES;
     }else {
         _hintLabel.hidden = NO;
     }
-    if (textView.text.length > _isMaxLength) {
-        [TLUIUtility showErrorHint:@"输入内容超出限制"];
-        NSString *str = textView.text;
-        NSInteger length = _isMaxLength - 1;
-        if (str.length <= length) {
-            length = str.length - 1;
-        }
-        str = [str substringToIndex:length];
-        textView.text = str;
-    }
+//    if (textView.text.length > _isMaxLength) {
+//        [TLUIUtility showErrorHint:@"输入内容超出限制"];
+//        NSString *str = textView.text;
+//        NSInteger length = _isMaxLength - 1;
+//        if (str.length <= length) {
+//            length = str.length - 1;
+//        }
+//        str = [str substringToIndex:length];
+//        textView.text = str;
+//    }
+    [ZPublicTool textView:textView maxLenght:self.max type:ZFormatterTypeAnyByte];
 }
 @end

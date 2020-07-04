@@ -110,6 +110,10 @@
        if (_handleBlock) {
            _handleBlock(2);
        }
+    }else if ([cellConfig.title isEqualToString:@"title"]) {
+       if (_handleBlock) {
+           _handleBlock(3);
+       }
     }
 }
 
@@ -126,7 +130,9 @@
         .zz_fontLeft([UIFont boldFontMax1Title])
         .zz_cellHeight(CGFloatIn750(80))
         .zz_lineHidden(YES)
-        .zz_titleLeft(self.model.name);
+        .zz_titleLeft(self.model.name)
+        .zz_imageRight(@"rightBlackArrowN")
+        .zz_imageRightHeight(CGFloatIn750(14));
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
@@ -214,7 +220,9 @@
         .zz_fontLeft([UIFont boldFontMax1Title])
         .zz_cellHeight(CGFloatIn750(80))
         .zz_lineHidden(YES)
-        .zz_titleLeft(detailModel.name);
+        .zz_titleLeft(detailModel.name)
+        .zz_imageRight(@"rightBlackArrowN")
+        .zz_imageRightHeight(CGFloatIn750(14));
         height += [ZBaseLineCell z_getCellHeight:model];
     }
     {

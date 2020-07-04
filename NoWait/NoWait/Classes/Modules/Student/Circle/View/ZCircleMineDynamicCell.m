@@ -21,4 +21,7 @@
     // Configure the view for the selected state
 }
 
++ (CGFloat)z_getCellHeight:(id)sender {
+    return CGFloatIn750(50);
+}
 @end

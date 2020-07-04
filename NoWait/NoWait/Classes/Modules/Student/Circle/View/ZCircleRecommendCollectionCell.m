@@ -285,7 +285,7 @@
     if (!_addressImageView) {
         _addressImageView = [[UIImageView alloc] init];
         _addressImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _addressImageView.image = [UIImage imageNamed:@"hnglocaladdress"];
+        _addressImageView.image = [UIImage imageNamed:@"finerLocation"];
     }
     return _addressImageView;
 }

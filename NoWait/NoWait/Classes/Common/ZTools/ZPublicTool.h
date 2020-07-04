@@ -51,6 +51,8 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 
 + (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string type:(ZFormatterType)type;
 
++ (NSString *)textView:(UITextView *)textField maxLenght:(NSInteger)maxLength type:(ZFormatterType)type;
+
 + (void)playNotifySound;
 
 +(void)pushNotifyHandle:(ZPushModel *)pushModel;

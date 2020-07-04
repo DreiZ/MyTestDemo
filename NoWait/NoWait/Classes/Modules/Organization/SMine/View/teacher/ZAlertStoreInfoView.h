@@ -1,5 +1,5 @@
 //
-//  ZCircleMineSectionView.h
+//  ZAlertStoreInfoView.h
 //  NoWait
 //
 //  Created by zhuang zhang on 2020/7/4.
@@ -10,9 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCircleMineSectionView : UIView
-@property (nonatomic,assign) BOOL isLike;
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@interface ZAlertStoreInfoView : UIView
++ (void)setAlertName:(NSString *)title data:(NSString *)data;
 @end
 
 NS_ASSUME_NONNULL_END

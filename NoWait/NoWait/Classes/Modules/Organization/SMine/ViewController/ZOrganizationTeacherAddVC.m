@@ -324,7 +324,7 @@
             if (ValidStr(weakSelf.viewModel.addModel.des)) {
                 [params setObject:weakSelf.viewModel.addModel.des forKey:@"description"];
             }else{
-                [params setObject:weakSelf.viewModel.addModel.des forKey:@"description"];
+                [params setObject:@"" forKey:@"description"];
             }
             [weakSelf updateImageWithOtherParams:params];
         } forControlEvents:UIControlEventTouchUpInside];

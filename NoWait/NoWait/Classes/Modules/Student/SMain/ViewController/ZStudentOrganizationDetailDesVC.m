@@ -43,6 +43,7 @@
 #import <NSDate+YYAdd.h>
 #import "ZUMengShareManager.h"
 #import "ZPhoneAlertView.h"
+#import "ZAlertStoreInfoView.h"
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -138,6 +139,8 @@
                            }
                        }];
                    }];
+               }else if (index == 3){
+                   [ZAlertStoreInfoView setAlertName:@"校区简介" data:self.detailModel.info];
                }
            };
        }else if([cellConfig.title isEqualToString:[ZStudentMainOrganizationExperienceCell className]]){

@@ -834,8 +834,8 @@
         [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"课程详情";
-        tvc.max = 500;
-        tvc.hintStr = @"请输入课程详情，500字以内";
+        tvc.max = 1500;
+        tvc.hintStr = @"请输入课程详情，1500字节以内";
         tvc.content = self.viewModel.addModel.info;
         tvc.handleBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.info = text;
@@ -847,8 +847,8 @@
         [self.iTableView endEditing:YES];
         ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
         tvc.navTitle = @"购买须知";
-        tvc.max = 500;
-        tvc.hintStr = @"请输入购买须知，500字以内";
+        tvc.max = 1500;
+        tvc.hintStr = @"请输入购买须知，1500字节以内";
         tvc.content = self.viewModel.addModel.p_information;
         tvc.handleBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.p_information = text;

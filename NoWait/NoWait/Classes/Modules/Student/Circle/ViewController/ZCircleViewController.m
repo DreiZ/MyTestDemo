@@ -10,11 +10,13 @@
 #import "ZCircleRecommendVC.h"
 #import "ZCircleFinderVC.h"
 #import "ZCircleHeaderView.h"
+#import "ZCircleMineVC.h"
 
 @interface ZCircleViewController ()
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
 @property (nonatomic,strong) NSMutableArray *titleArr;
+@property (nonatomic,strong) UIButton *releaseBtn;
 
 @property (nonatomic,strong) ZCircleHeaderView *headView;
 
@@ -25,7 +27,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        initTabBarItem(self.tabBarItem, LOCSTR(@"发现"), @"tabBarMessage", @"tabBarMessage_highlighted");
+        initTabBarItem(self.tabBarItem, LOCSTR(@"发现"), @"tabBarFinder", @"tabBarFinder_highlighted");
     }
     return self;
 }
@@ -53,8 +55,15 @@
     [self.view addSubview:self.headView];
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(CGFloatIn750(88));
+        make.height.mas_equalTo(CGFloatIn750(128));
         make.top.equalTo(self.menuView.mas_bottom);
+    }];
+    
+    [self.view addSubview:self.releaseBtn];
+    [self.releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.width.height.mas_equalTo(CGFloatIn750(88));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight - CGFloatIn750(44));
     }];
 }
 
@@ -74,7 +83,7 @@
 }
 
 - (void)setNavgation {
-    [self.navigationItem setTitle:@"卡券管理"];
+    [self.navigationItem setTitle:@"发现"];
 }
 
 #pragma mark - 懒加载--
@@ -99,9 +108,27 @@
 
 - (ZCircleHeaderView *)headView {
     if (!_headView) {
+        __weak typeof(self) weakSelf = self;
         _headView = [[ZCircleHeaderView alloc] init];
+        _headView.handleBlock = ^(NSInteger index) {
+            if (index == 1) {
+                ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                [weakSelf.navigationController pushViewController:mvc animated:YES];
+            }
+        };
     }
     return _headView;
+}
+
+- (UIButton *)releaseBtn {
+    if (!_releaseBtn) {
+        _releaseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_releaseBtn setImage:[UIImage imageNamed:@"finderRelease"] forState:UIControlStateNormal];
+        [_releaseBtn bk_addEventHandler:^(id sender) {
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _releaseBtn;
 }
 
 #pragma mark - Datasource & Delegate
@@ -122,7 +149,7 @@
 }
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
-    CGFloat originY = CGFloatIn750(80)+CGFloatIn750(94);
+    CGFloat originY = CGFloatIn750(80)+CGFloatIn750(128);
     return CGRectMake(0, originY+ safeAreaTop(), KScreenWidth, KScreenHeight - originY-TABBAR_HEIGHT-safeAreaTop()-safeAreaBottom());
 }
 @end

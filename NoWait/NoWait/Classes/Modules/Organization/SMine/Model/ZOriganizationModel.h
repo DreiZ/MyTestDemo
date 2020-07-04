@@ -162,6 +162,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *opend_end;
 @property (nonatomic,strong) NSString *opend_start;
+@property (nonatomic,strong) NSString *info;
 @property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *place;
 @property (nonatomic,strong) NSString *regional_id;
