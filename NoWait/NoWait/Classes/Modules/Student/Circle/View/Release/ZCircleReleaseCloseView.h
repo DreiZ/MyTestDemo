@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseCloseView : UIView
-
+@property (nonatomic,strong) void (^backBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END

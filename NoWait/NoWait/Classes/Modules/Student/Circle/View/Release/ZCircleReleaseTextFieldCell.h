@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseTextFieldCell : ZBaseCell
-
+@property (nonatomic,strong) ZBaseTextFieldCellModel *model;
+@property (nonatomic,strong) void (^valueChangeBlock)(NSString *);
 @end
 
 NS_ASSUME_NONNULL_END

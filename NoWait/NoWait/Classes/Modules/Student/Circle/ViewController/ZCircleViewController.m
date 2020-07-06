@@ -13,6 +13,7 @@
 #import "ZCircleMineVC.h"
 #import "ZCircleMineCollectionVC.h"
 #import "ZCircleSearchVC.h"
+#import "ZCircleReleaseVC.h"
 
 @interface ZCircleViewController ()
 
@@ -130,7 +131,8 @@
         _releaseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_releaseBtn setImage:[UIImage imageNamed:@"finderRelease"] forState:UIControlStateNormal];
         [_releaseBtn bk_addEventHandler:^(id sender) {
-            
+            ZCircleReleaseVC *rvc = [[ZCircleReleaseVC alloc] init];
+            [self.navigationController pushViewController:rvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _releaseBtn;

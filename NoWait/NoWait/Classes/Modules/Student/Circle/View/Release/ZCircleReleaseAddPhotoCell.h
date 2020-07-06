@@ -8,10 +8,10 @@
 
 #import "ZBaseCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ZCircleReleaseAddPhotoCell : ZBaseCell
-
+@property (nonatomic,strong) void (^menuBlock)(NSInteger, BOOL);
+@property (nonatomic,strong) void (^seeBlock)(NSInteger);
+@property (nonatomic,strong) void (^addBlock)(void);
+@property (nonatomic,strong) NSMutableArray <ZFileUploadDataModel *>*imageList;
 @end
 
-NS_ASSUME_NONNULL_END

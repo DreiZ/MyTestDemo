@@ -8,10 +8,12 @@
 
 #import "ZBaseCollectionViewCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ZCirclePhotosItemCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) UIImageView *detailImageView;
+@property (nonatomic,strong) UIImageView *playerImageView;
+@property (nonatomic,strong) ZFileUploadDataModel *model;
 
+@property (nonatomic,strong) void (^delBlock)(void);
+@property (nonatomic,strong) void (^seeBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END
