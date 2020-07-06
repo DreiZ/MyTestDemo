@@ -172,7 +172,7 @@
     [self.iTableView reloadData];
 }
 
-- (void)setHotList:(NSMutableArray *)hotList {
+- (void)setHotList:(NSArray *)hotList {
     _hotList = hotList;
     
     [self initCellConfigArr];

@@ -7,10 +7,15 @@
 //
 
 #import "ZCircleSearchVC.h"
+#import "ZCircleRecommendCollectionCell.h"
+#import "ZCircleHotLessonListCell.h"
+#import "ZCircleSectionView.h"
+#import "ZCircleHotSectionView.h"
+#import "WSLWaterFlowLayout.h"
 
-@interface ZCircleSearchVC ()
+@interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
+@property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
 @property (nonatomic,strong) NSString *name;
-
 @end
 
 @implementation ZCircleSearchVC
@@ -44,14 +49,17 @@
     
     self.emptyDataStr = @"暂无数据";
     self.loading = NO;
-    self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    [self setTableViewRefreshFooter];
-    [self setTableViewRefreshHeader];
-    [self setTableViewEmptyDataDelegate];
-    self.iTableView.tableFooterView = nil;
     
     self.hotList = @[@"",@"",@"",@""];
+    
+    [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
+    
+    [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"sectionFooter"];
+    
+    [self.iCollectionView registerClass:[ZCircleHotSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader"];
+    
+    [self initCellConfigArr];
+    [self.iCollectionView reloadData];
 }
 
 
@@ -59,13 +67,10 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-
-    if (self.cellConfigArr.count > 0) {
-        self.iTableView.tableFooterView = self.safeFooterView;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-    }else{
-        self.iTableView.tableFooterView = nil;
-        self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    for (int i = 0; i < 5; i++) {
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setTitle:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:[NSString stringWithFormat:@"%d",i+1]];
+        
+        [self.cellConfigArr addObject:cellConfig];
     }
 }
 
@@ -77,89 +82,84 @@
     }
 }
 
-- (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-//    if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-////            ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
-//             ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-//            dvc.model = cellConfig.dataModel;
-//            [self.navigationController pushViewController:dvc animated:YES];
-//    }
+
+- (void)setDataSource {
+    self.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [super setDataSource];
+//
+//    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
+//    self.minimumLineSpacing = CGFloatIn750(8);
+//    self.minimumInteritemSpacing = CGFloatIn750(8);
+    self.iCollectionView.scrollEnabled = YES;
+    self.iCollectionView.backgroundView.backgroundColor = adaptAndDarkColor([UIColor colorRedDefault], [UIColor colorGrayBGDark]);
+    [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
+    self.iCollectionView.delegate = self;
+    self.iCollectionView.dataSource = self;
+    
+    _flowLayout = [[WSLWaterFlowLayout alloc] init];
+    _flowLayout.delegate = self;
+    _flowLayout.flowLayoutStyle = WSLWaterFlowVerticalEqualWidth;
+    self.iCollectionView.collectionViewLayout = _flowLayout;
 }
 
-//#pragma mark - 数据处理
-//- (void)refreshData {
-//    self.currentPage = 1;
-//    self.loading = YES;
-//    [self refreshHeadData:[self setPostCommonData]];
+
+#pragma mark - WSLWaterFlowLayoutDelegate
+//返回每个item大小
+- (CGSize)waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(waterFlowLayout.flowLayoutStyle == (WSLWaterFlowLayoutStyle)0){
+        ZCellConfig *cellconfig = self.cellConfigArr[indexPath.row];
+        return cellconfig.sizeOfCell;
+    }else{
+        return CGSizeMake(0, 0);
+    }
+}
+
+/** 头视图Size */
+-(CGSize )waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForHeaderViewInSection:(NSInteger)section{
+    if (section == 0) {
+        return [ZCircleHotSectionView z_getCellSize:nil];
+    }
+    return CGSizeMake(KScreenWidth, CGFloatIn750(86));
+}
+/** 脚视图Size */
+-(CGSize )waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForFooterViewInSection:(NSInteger)section{
+    return CGSizeMake(0, 0);
+}
+
+/** 列数*/
+-(CGFloat)columnCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+    return 2;
+}
+///** 行数*/
+//-(CGFloat)rowCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+//    return 100;
 //}
-//
-//- (void)refreshHeadData:(NSDictionary *)param {
-//    __weak typeof(self) weakSelf = self;
-//    [ZOriganizationLessonViewModel searchLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources removeAllObjects];
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//
-//            [weakSelf.iTableView tt_endRefreshing];
-//            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-//                [weakSelf.iTableView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iTableView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iTableView reloadData];
-//            [weakSelf.iTableView tt_endRefreshing];
-//            [weakSelf.iTableView tt_removeLoadMoreFooter];
-//        }
-//    }];
-//}
-//
-//- (void)refreshMoreData {
-//    self.currentPage++;
-//    self.loading = YES;
-//    NSMutableDictionary *param = [self setPostCommonData];
-//
-//    __weak typeof(self) weakSelf = self;
-//    [ZOriganizationLessonViewModel searchLessonList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//
-//            [weakSelf.iTableView tt_endRefreshing];
-//            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-//                [weakSelf.iTableView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iTableView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iTableView reloadData];
-//            [weakSelf.iTableView tt_endRefreshing];
-//            [weakSelf.iTableView tt_removeLoadMoreFooter];
-//        }
-//    }];
-//}
-//
-//- (void)refreshAllData {
-//    self.loading = YES;
-//    NSMutableDictionary *param = [self setPostCommonData];
-//    [param setObject:@"1" forKey:@"page"];
-//    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
-//    [self refreshHeadData:param];
-//}
-//
-//- (NSMutableDictionary *)setPostCommonData {
-//    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-//    [param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
-//
-//    [param setObject:self.name forKey:@"name"];
-//    [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
-//    return param;
-//}
+/** 列间距*/
+-(CGFloat)columnMarginInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+    return CGFloatIn750(20);
+}
+/** 行间距*/
+-(CGFloat)rowMarginInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+    return CGFloatIn750(20);
+}
+/** 边缘之间的间距*/
+-(UIEdgeInsets)edgeInsetInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+    return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30));
+}
+
+//返回头脚视图
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        ZCircleHotSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader" forIndexPath:indexPath];
+        [headerView setTip:@"热门课程"];
+        headerView.list = self.hotList;
+        return headerView;
+        
+    }else{
+        ZCircleSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader" forIndexPath:indexPath];
+        [headerView setTip:@"热门发现"];
+        return headerView;
+    }
+}
 
 @end
-

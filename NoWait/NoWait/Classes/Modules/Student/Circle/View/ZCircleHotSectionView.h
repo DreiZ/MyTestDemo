@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCircleHotSectionView : UIView
+@interface ZCircleHotSectionView : UICollectionReusableView
+@property (nonatomic,strong) NSArray *list;
+- (void)setTip:(NSString *)tip;
 
++(CGSize)z_getCellSize:(id)sender;
 @end
 
-NS_ASSUME_NONNULL_END

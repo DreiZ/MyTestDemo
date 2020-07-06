@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZSearchClickVC.h"
+#import "ZCollectionSearchVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZCircleSearchVC : ZSearchClickVC
+@interface ZCircleSearchVC : ZCollectionSearchVC
 
 @end
 

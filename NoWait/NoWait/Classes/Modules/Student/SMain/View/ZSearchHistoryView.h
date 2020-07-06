@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZSearchHistoryView : UIView
 @property (nonatomic,strong) NSString *searchType;
-@property (nonatomic,strong) NSMutableArray *hotList;
+@property (nonatomic,strong) NSArray *hotList;
 @property (nonatomic,strong) void (^searchBlock)(NSString *);
 
 - (void)reloadHistoryData;
