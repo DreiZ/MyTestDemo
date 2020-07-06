@@ -10,12 +10,12 @@
 #import "ZCircleMineHeaderView.h"
 #import "ZCircleMineSectionView.h"
 #import "ZCircleMineDynamicCell.h"
-
+#import "ZCircleMineDynamicCollectionTableViewCell.h"
 @interface ZCircleMineVC ()
 
 @property (nonatomic,strong) ZCircleMineHeaderView *headView;
 @property (nonatomic,strong) ZCircleMineSectionView *sectionView;
-
+@property (nonatomic,assign) BOOL isCollection;
 @end
 
 @implementation ZCircleMineVC
@@ -28,38 +28,86 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.zChain_setNavTitle(@"个人中心");
-    self.zChain_resetMainView(^{
+    self.zChain_setNavTitle(@"个人中心")
+    .zChain_setTableViewWhite()
+    .zChain_resetMainView(^{
         self.iTableView.tableHeaderView = self.headView;
-    });
-    self.zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
+    }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 0) {
             return self.sectionView;;
         }
         return nil;
-    });
-    self.zChain_block_setHeightForHeaderInSection(^CGFloat(UITableView *tableView, NSInteger section) {
+    }).zChain_block_setHeightForHeaderInSection(^CGFloat(UITableView *tableView, NSInteger section) {
         if (section == 0) {
             return CGFloatIn750(76);
         }
         return 0;
-    });
-    self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
+    }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:nil heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        if (self.isCollection) {
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionTableViewCell className] title:@"ZCircleMineDynamicCollectionTableViewCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCollectionTableViewCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [self.cellConfigArr addObject:menuCellConfig];
+        }else{
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
+            [self.cellConfigArr addObject:menuCellConfig];
+            
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@""]] cellType:ZCellTypeClass dataModel:@[@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@""]] cellType:ZCellTypeClass dataModel:@[@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+            
+            {
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+        }
         
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
-        [self.cellConfigArr addObject:menuCellConfig];
     });
     
     
@@ -80,7 +128,16 @@
 
 - (ZCircleMineSectionView *)sectionView {
     if (!_sectionView) {
+        __weak typeof(self) weakSelf = self;
         _sectionView = [[ZCircleMineSectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(76))];
+        _sectionView.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                weakSelf.isCollection = NO;
+            }else{
+                weakSelf.isCollection = YES;
+            }
+            weakSelf.zChain_reload_ui();
+        };
     }
     return _sectionView;
 }

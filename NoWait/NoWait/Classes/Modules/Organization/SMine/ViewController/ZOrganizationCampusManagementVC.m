@@ -375,6 +375,15 @@
             return;
         }
         ZOrganizationCampusManagementAddressVC *mvc = [[ZOrganizationCampusManagementAddressVC alloc] init];
+        mvc.address = self.model.address;
+        mvc.brief_address = self.model.brief_address;
+        mvc.province = self.model.province;
+        mvc.city = self.model.city;
+        mvc.county = self.model.county;
+
+        mvc.latitude = [self.model.latitude doubleValue];
+        mvc.longitude = [self.model.longitude doubleValue];
+        
         mvc.addressBlock = ^(NSString * province, NSString * city, NSString * county, NSString * brief_address, NSString * address, double latitude, double  longitude) {
             weakSelf.model.province = province;
             weakSelf.model.city = city;

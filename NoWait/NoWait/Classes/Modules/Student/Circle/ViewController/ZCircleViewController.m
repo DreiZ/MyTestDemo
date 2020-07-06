@@ -11,6 +11,7 @@
 #import "ZCircleFinderVC.h"
 #import "ZCircleHeaderView.h"
 #import "ZCircleMineVC.h"
+#import "ZCircleMineCollectionVC.h"
 
 @interface ZCircleViewController ()
 
@@ -113,6 +114,9 @@
         _headView.handleBlock = ^(NSInteger index) {
             if (index == 1) {
                 ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                [weakSelf.navigationController pushViewController:mvc animated:YES];
+            }else{
+                ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
                 [weakSelf.navigationController pushViewController:mvc animated:YES];
             }
         };

@@ -1,27 +1,22 @@
 //
-//  ZCircleMineDynamicCell.m
+//  ZCircleMineDynamicCollectionTableViewCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/7/4.
+//  Created by zhuang zhang on 2020/7/6.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZCircleMineDynamicCell.h"
+#import "ZCircleMineDynamicCollectionTableViewCell.h"
 #import "ZCircleMineDynamicCollectionCell.h"
 
-@interface ZCircleMineDynamicCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface ZCircleMineDynamicCollectionTableViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
-@property (nonatomic,strong) UIView *timeBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
-
-@property (nonatomic,strong) UILabel *mouthLabel;
-@property (nonatomic,strong) UILabel *dayLabel;
-@property (nonatomic,strong) UILabel *yearLabel;
 @end
 
-@implementation ZCircleMineDynamicCell
+@implementation ZCircleMineDynamicCollectionTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -37,45 +32,16 @@
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
     _dataSource = @[].mutableCopy;
     
-    [self.contentView addSubview:self.timeBackView];
-    [self.timeBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.contentView);
-        make.width.mas_equalTo(CGFloatIn750(140));
-    }];
-    
-    [self.timeBackView addSubview:self.mouthLabel];
-    [self.timeBackView addSubview:self.dayLabel];
-    [self.timeBackView addSubview:self.yearLabel];
-    
-    [self.mouthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.timeBackView.mas_top).offset(CGFloatIn750(50));
-        make.right.equalTo(self.timeBackView.mas_centerX);
-    }];
-    
-    [self.dayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mouthLabel.mas_bottom);
-        make.left.equalTo(self.timeBackView.mas_centerX);
-    }];
-    
-    [self.yearLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mouthLabel.mas_bottom).offset(CGFloatIn750(20));
-        make.centerX.equalTo(self.timeBackView.mas_centerX);
-    }];
-    
     [self.contentView addSubview:self.funBackView];
     [self.funBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.top.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.timeBackView.mas_right);
+        make.left.equalTo(self.contentView);
     }];
     
     [self.contentView addSubview:self.iCollectionView];
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.funBackView);
     }];
-    
-    _mouthLabel.text = @"03";
-    _dayLabel.text = @"/08";
-    _yearLabel.text = @"2013";
 }
 
 
@@ -90,56 +56,12 @@
     return _funBackView;
 }
 
-- (UIView *)timeBackView {
-    if (!_timeBackView) {
-        _timeBackView = [[UIView alloc] init];
-        _timeBackView.layer.masksToBounds = YES;
-        _timeBackView.clipsToBounds = YES;
-        _timeBackView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
-    }
-    return _timeBackView;
-}
-
-- (UILabel *)mouthLabel {
-    if (!_mouthLabel) {
-        _mouthLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _mouthLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _mouthLabel.numberOfLines = 1;
-        _mouthLabel.textAlignment = NSTextAlignmentLeft;
-        [_mouthLabel setFont:[UIFont boldFontMaxTitle]];
-    }
-    return _mouthLabel;
-}
-
-- (UILabel *)dayLabel {
-    if (!_dayLabel) {
-        _dayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _dayLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _dayLabel.numberOfLines = 1;
-        _dayLabel.textAlignment = NSTextAlignmentLeft;
-        [_dayLabel setFont:[UIFont boldFontSmall]];
-
-    }
-    return _dayLabel;
-}
-
-- (UILabel *)yearLabel {
-    if (!_yearLabel) {
-        _yearLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _yearLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _yearLabel.numberOfLines = 1;
-        _yearLabel.textAlignment = NSTextAlignmentLeft;
-        [_yearLabel setFont:[UIFont boldFontSmall]];
-    }
-    return _yearLabel;
-}
-
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
-        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZCircleMineDynamicCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
+        _iCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, [ZCircleMineDynamicCollectionTableViewCell z_getCellHeight:nil]) collectionViewLayout:flowLayout];
         _iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
         _iCollectionView.dataSource = self;
         _iCollectionView.delegate = self;
@@ -179,7 +101,7 @@
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CGFloatIn750(50), CGFloatIn750(8), CGFloatIn750(10), CGFloatIn750(30));
+    return UIEdgeInsetsMake(CGFloatIn750(0), CGFloatIn750(30), CGFloatIn750(0), CGFloatIn750(30));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -191,17 +113,18 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [ZCircleMineDynamicCollectionCell z_getCellSize:nil];
+    return CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3 *(160.0f)/(142.0));
 }
 
 #pragma mark 类型
 
 +(CGFloat)z_getCellHeight:(id)sender {
     NSArray *list = sender;
-    if (list.count%2 > 0) {
-        return (list.count/2 + 1) * [ZCircleMineDynamicCollectionCell z_getCellSize:nil].height + ((list.count/2) * CGFloatIn750(4))+ CGFloatIn750(60);
+    CGFloat height = (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3 *(160.0f)/(142.0);
+    if (list.count%3 > 0) {
+        return (list.count/3 + 1) * height + ((list.count/3) * CGFloatIn750(4));
     }
-    return list.count/2  * [ZCircleMineDynamicCollectionCell z_getCellSize:nil].height + (list.count/2 - 1)  * CGFloatIn750(4) + CGFloatIn750(60);
+    return list.count/3  * height + (list.count/3 - 1)  * CGFloatIn750(4);
 }
 
 - (void)setList:(NSMutableArray *)list {
@@ -210,5 +133,6 @@
     [self.iCollectionView reloadData];
 }
 @end
+
 
 

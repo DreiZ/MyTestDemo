@@ -11,13 +11,7 @@
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 
 @interface ZOrganizationCampusManagementAddressVC ()
-@property (nonatomic,strong) NSString *province;
-@property (nonatomic,strong) NSString *city;
-@property (nonatomic,strong) NSString *county;
-@property (nonatomic,strong) NSString *brief_address;
-@property (nonatomic,strong) NSString *address;
-@property (nonatomic,assign) double latitude;
-@property (nonatomic,assign) double longitude;
+
 @end
 
 @implementation ZOrganizationCampusManagementAddressVC
