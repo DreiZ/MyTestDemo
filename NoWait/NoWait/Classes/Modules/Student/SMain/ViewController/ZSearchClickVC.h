@@ -16,6 +16,10 @@
 @property (nonatomic,strong) NSString *searchType;
 
 @property (nonatomic,strong) NSString *navTitle;
+
+@property (nonatomic,strong) NSArray *hotList;
+
+
 - (void)valueChange:(NSString *)text;
 - (void)searchClick:(NSString *)text;
 - (void)cancleBtnOnClick;

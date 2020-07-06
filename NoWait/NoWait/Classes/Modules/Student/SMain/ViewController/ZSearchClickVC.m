@@ -69,6 +69,11 @@
     }];
 }
 
+- (void)setHotList:(NSArray *)hotList {
+    _hotList = hotList;
+    self.historyView.hotList = self.hotList;
+}
+
 #pragma mark lazy loading...
 - (ZSearchFieldView *)searchView {
     if (!_searchView) {

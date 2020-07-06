@@ -10,6 +10,7 @@
 #import "ZDBMainStore.h"
 #import "ZHistoryModel.h"
 #import "ZLabelListCell.h"
+#import "ZHotListCell.h"
 
 @interface ZSearchHistoryView ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic,strong) UITableView *iTableView;
@@ -62,6 +63,7 @@
             }
         } else {
         }
+        _iTableView.scrollEnabled = NO;
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
         _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -91,6 +93,13 @@
                 weakSelf.searchBlock(text);
             }
         };
+    }else if([cellConfig.title isEqualToString:@"hot"]){
+        ZHotListCell *lcell = (ZHotListCell *)cell;
+        lcell.menuBlock = ^(id data) {
+            if (weakSelf.searchBlock) {
+                weakSelf.searchBlock(data);
+            }
+        };
     }
     return cell;
 }
@@ -117,6 +126,21 @@
 #pragma mark - cellConfig
 - (void)initCellConfigArr {
     [self.cellConfigArr removeAllObjects];
+    if(ValidArray(self.hotList)){
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
+        .zz_titleLeft(@"搜索发现")
+        .zz_lineHidden(YES)
+        .zz_cellHeight(CGFloatIn750(50))
+        .zz_fontLeft([UIFont boldFontTitle]);
+        
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+        ZCellConfig *historyCellConfig = [ZCellConfig cellConfigWithClassName:[ZHotListCell className] title:@"hot" showInfoMethod:@selector(setList:) heightOfCell:[ZHotListCell z_getCellHeight:self.hotList] cellType:ZCellTypeClass dataModel:self.hotList];
+
+        [self.cellConfigArr addObject:historyCellConfig];
+    }
     
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
     ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"type")
@@ -145,6 +169,13 @@
 - (void)reloadHistoryData {
     [self initCellConfigArr];
     
+    [self.iTableView reloadData];
+}
+
+- (void)setHotList:(NSMutableArray *)hotList {
+    _hotList = hotList;
+    
+    [self initCellConfigArr];
     [self.iTableView reloadData];
 }
 @end

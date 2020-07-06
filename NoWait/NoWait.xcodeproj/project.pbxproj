@@ -661,6 +661,9 @@
 		B2F5BD1124B0668F00AD1C72 /* ZCircleMineDynamicCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD1024B0668F00AD1C72 /* ZCircleMineDynamicCollectionCell.m */; };
 		B2F5BD1424B076EE00AD1C72 /* ZCircleMineCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD1324B076EE00AD1C72 /* ZCircleMineCollectionVC.m */; };
 		B2F5BD1724B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD1624B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m */; };
+		B2F5BD1A24B2CC4A00AD1C72 /* ZCircleSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD1924B2CC4A00AD1C72 /* ZCircleSearchVC.m */; };
+		B2F5BD1D24B2CE3B00AD1C72 /* ZHotListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD1C24B2CE3A00AD1C72 /* ZHotListCell.m */; };
+		B2F5BD2324B2D06F00AD1C72 /* ZHotListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BD2224B2D06F00AD1C72 /* ZHotListItemCell.m */; };
 		B2F70BE124120390008C693C /* ZStudentMineOrderTopStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F70BE024120390008C693C /* ZStudentMineOrderTopStateCell.m */; };
 		B2F70BE4241203DF008C693C /* ZStudentMineOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F70BE3241203DF008C693C /* ZStudentMineOrderDetailCell.m */; };
 		B2F70BE724121B7C008C693C /* ZStudentMineOrderDetailSubDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F70BE624121B7C008C693C /* ZStudentMineOrderDetailSubDesCell.m */; };
@@ -1957,6 +1960,12 @@
 		B2F5BD1324B076EE00AD1C72 /* ZCircleMineCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMineCollectionVC.m; sourceTree = "<group>"; };
 		B2F5BD1524B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleMineDynamicCollectionTableViewCell.h; sourceTree = "<group>"; };
 		B2F5BD1624B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMineDynamicCollectionTableViewCell.m; sourceTree = "<group>"; };
+		B2F5BD1824B2CC4A00AD1C72 /* ZCircleSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleSearchVC.h; sourceTree = "<group>"; };
+		B2F5BD1924B2CC4A00AD1C72 /* ZCircleSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleSearchVC.m; sourceTree = "<group>"; };
+		B2F5BD1B24B2CE3A00AD1C72 /* ZHotListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHotListCell.h; sourceTree = "<group>"; };
+		B2F5BD1C24B2CE3A00AD1C72 /* ZHotListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHotListCell.m; sourceTree = "<group>"; };
+		B2F5BD2124B2D06F00AD1C72 /* ZHotListItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHotListItemCell.h; sourceTree = "<group>"; };
+		B2F5BD2224B2D06F00AD1C72 /* ZHotListItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHotListItemCell.m; sourceTree = "<group>"; };
 		B2F70BDF24120390008C693C /* ZStudentMineOrderTopStateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderTopStateCell.h; sourceTree = "<group>"; };
 		B2F70BE024120390008C693C /* ZStudentMineOrderTopStateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineOrderTopStateCell.m; sourceTree = "<group>"; };
 		B2F70BE2241203DF008C693C /* ZStudentMineOrderDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineOrderDetailCell.h; sourceTree = "<group>"; };
@@ -4477,6 +4486,8 @@
 				B2F5BCFE24B0118600AD1C72 /* ZCircleMineVC.m */,
 				B2F5BD1224B076EE00AD1C72 /* ZCircleMineCollectionVC.h */,
 				B2F5BD1324B076EE00AD1C72 /* ZCircleMineCollectionVC.m */,
+				B2F5BD1824B2CC4A00AD1C72 /* ZCircleSearchVC.h */,
+				B2F5BD1924B2CC4A00AD1C72 /* ZCircleSearchVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4499,6 +4510,10 @@
 				B2F5BD1024B0668F00AD1C72 /* ZCircleMineDynamicCollectionCell.m */,
 				B2F5BD1524B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.h */,
 				B2F5BD1624B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m */,
+				B2F5BD1B24B2CE3A00AD1C72 /* ZHotListCell.h */,
+				B2F5BD1C24B2CE3A00AD1C72 /* ZHotListCell.m */,
+				B2F5BD2124B2D06F00AD1C72 /* ZHotListItemCell.h */,
+				B2F5BD2224B2D06F00AD1C72 /* ZHotListItemCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4912,6 +4927,7 @@
 				B20C480A2400DD5700E0CE35 /* ZOrganizationStudentAddVC.m in Sources */,
 				B25EC03924A18D7B0099090E /* ZStudentOrganizationNewListCell.m in Sources */,
 				B252ED8F24161DB300190804 /* UICollectionViewCell+ZCategory.m in Sources */,
+				B2F5BD2324B2D06F00AD1C72 /* ZHotListItemCell.m in Sources */,
 				B230F1BC2445AC6E0084BCC6 /* ZLessonWeekSectionView.m in Sources */,
 				B26880FE2477C5C200BF8FCD /* ZOrganizationSchoolTypeCell.m in Sources */,
 				B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */,
@@ -5101,6 +5117,7 @@
 				B2D83EA923FA9F230099C2C9 /* ZOrganizationAddressSearchTopView.m in Sources */,
 				B29D7FF324308322004B3C00 /* ZCollectionViewController.m in Sources */,
 				B2F371D1246B8DAA00678B19 /* ZRewardCenterDetailCell.m in Sources */,
+				B2F5BD1D24B2CE3B00AD1C72 /* ZHotListCell.m in Sources */,
 				B268814C247BBDA100BF8FCD /* ZMessageListCell.m in Sources */,
 				B28D9136240766940021E05A /* PGDatePicker+Logic.m in Sources */,
 				B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */,
@@ -5143,6 +5160,7 @@
 				B2F371CE246B8DAA00678B19 /* ZReflectListLogCell.m in Sources */,
 				B2F7D35923CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m in Sources */,
 				B2A7817423C567AE00407BF0 /* ZStudentOrganizationDetailDesVC.m in Sources */,
+				B2F5BD1A24B2CC4A00AD1C72 /* ZCircleSearchVC.m in Sources */,
 				B28D90D1240621D10021E05A /* ZOrganizationClassManageListVC.m in Sources */,
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B28EA672240E4A1400C8E225 /* ZOrganizationCardListVC.m in Sources */,
