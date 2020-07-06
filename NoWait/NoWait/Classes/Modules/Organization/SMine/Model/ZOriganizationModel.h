@@ -445,6 +445,8 @@
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSArray *tags;
 @property (nonatomic,strong) NSString *distance;
+@property (nonatomic,strong) NSString *score;
+
 @property (nonatomic,assign) BOOL isStudentCollection;
 @property (nonatomic,assign) BOOL isMore;
 @end

@@ -30,6 +30,7 @@
     [self.contentView addSubview:self.payPeopleNumLabel];
     [self.contentView addSubview:self.addressLabel];
     [self.contentView addSubview:self.collectionBtn];
+    [self.contentView addSubview:self.crView];
     
     [self.goodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(24));
@@ -50,8 +51,15 @@
         make.right.equalTo(self.collectionBtn.mas_left).offset(-CGFloatIn750(20));
     }];
     
-    [self.payPeopleNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(16));
         make.left.equalTo(self.goodsImageView.mas_right).offset(CGFloatIn750(20));
+        make.centerY.equalTo(self.payPeopleNumLabel.mas_centerY);
+        make.width.offset(CGFloatIn750(100));
+    }];
+    
+    [self.payPeopleNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.crView.mas_right).offset(CGFloatIn750(20));
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(10));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(20));
     }];
@@ -182,6 +190,15 @@
     return _collectionBtn;
 }
 
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
+    }
+    return _crView;
+}
+
+
 - (void)setModel:(ZStoresListModel *)model {
     _model = model;
     
@@ -212,6 +229,8 @@
     }else{
         _moreImageView.transform =  CGAffineTransformMakeRotation(M_PI);
     }
+    
+    _crView.scorePercent = [_model.score intValue]/5.0f;
 }
 
 - (void)setActivityData {

@@ -8,12 +8,14 @@
 
 #import "ZBaseCell.h"
 #import "ZOriganizationModel.h"
+#import "CWStarRateView.h"
 
 @interface ZStudentOrganizationListCell : ZBaseCell
 @property (nonatomic,strong) UIImageView *goodsImageView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UILabel *payPeopleNumLabel;
 @property (nonatomic,strong) UILabel *addressLabel;
+@property (nonatomic,strong) CWStarRateView *crView;
 
 @property (nonatomic,strong) UIView *activityView;
 @property (nonatomic,strong) UIButton *collectionBtn;
