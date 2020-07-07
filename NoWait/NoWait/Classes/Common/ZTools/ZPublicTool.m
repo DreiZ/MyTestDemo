@@ -259,6 +259,16 @@
     return textField.text;
 }
 
++ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+
+    paragraphStyle.lineSpacing = lineSpacing;// 字体的行间距
+    NSDictionary *attributes = @{
+                                NSFontAttributeName:font,
+                                NSParagraphStyleAttributeName:paragraphStyle
+                                };
+    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+}
 
 + (NSString *)textView:(UITextView *)textField maxLenght:(NSInteger)maxLength type:(ZFormatterType)type{
     if (type == ZFormatterTypeDecimal) {

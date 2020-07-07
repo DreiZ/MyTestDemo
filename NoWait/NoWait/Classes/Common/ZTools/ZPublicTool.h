@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 
 + (NSString *)textView:(UITextView *)textField maxLenght:(NSInteger)maxLength type:(ZFormatterType)type;
 
++ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font;
+
 + (void)playNotifySound;
 
 +(void)pushNotifyHandle:(ZPushModel *)pushModel;

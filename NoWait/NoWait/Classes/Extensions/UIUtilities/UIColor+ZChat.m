@@ -149,7 +149,7 @@
 
 
 + (UIColor *)colorGrayLine {
-    return HexAColor(0xf6f6f6, 1.0);
+    return HexAColor(0xeeeeee, 1.0);
 }
 
 + (UIColor *)colorGrayBGDark {

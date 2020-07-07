@@ -179,7 +179,7 @@
     if (!_seeImageView) {
         _seeImageView = [[UIImageView alloc] init];
         _seeImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _seeImageView.image = [UIImage imageNamed:@"finderPhotos"];
+        _seeImageView.image = [UIImage imageNamed:@"finderSeeNum"];
         _seeImageView.clipsToBounds = YES;
     }
     return _seeImageView;
@@ -190,7 +190,7 @@
     if (!_likeImageView) {
         _likeImageView = [[UIImageView alloc] init];
         _likeImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _likeImageView.image = [UIImage imageNamed:@"finderPhotos"];
+        _likeImageView.image = [UIImage imageNamed:@"finderLikeNum"];
     }
     return _likeImageView;
 }
