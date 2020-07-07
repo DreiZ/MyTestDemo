@@ -426,7 +426,7 @@
         }
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 5;
+        lvc.max = 15;
         lvc.list = self.model.merchants_stores_tags;
         lvc.navTitle = @"机构特色";
         lvc.handleBlock = ^(NSArray * labelArr) {
@@ -438,7 +438,7 @@
        [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"setting"]) {
         ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 5;
+        lvc.max = 15;
         lvc.list = self.model.stores_info;
         lvc.navTitle = @"基础设置";
         lvc.handleBlock = ^(NSArray * labelArr) {

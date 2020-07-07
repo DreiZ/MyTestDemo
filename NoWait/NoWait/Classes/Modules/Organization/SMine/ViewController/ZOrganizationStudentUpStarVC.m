@@ -17,7 +17,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataPickerView.h"
 
-#import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOriganizationLessonViewModel.h"

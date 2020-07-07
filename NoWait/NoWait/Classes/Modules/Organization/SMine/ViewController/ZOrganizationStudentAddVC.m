@@ -20,7 +20,6 @@
 #import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDataPickerView.h"
 
-#import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOriganizationLessonViewModel.h"
 

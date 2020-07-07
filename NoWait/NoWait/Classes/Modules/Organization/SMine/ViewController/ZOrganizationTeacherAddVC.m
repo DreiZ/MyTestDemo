@@ -633,9 +633,9 @@
     }else if ([cellConfig.title isEqualToString:@"skill"]) {
         [self.iTableView endEditing:YES];
         ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 5;
+        lvc.max = 30;
         lvc.list = self.viewModel.addModel.skills;
-        lvc.navTitle = @"特长技能s";
+        lvc.navTitle = @"特长技能";
         lvc.handleBlock = ^(NSArray * labelArr) {
             [weakSelf.self.viewModel.addModel.skills removeAllObjects];
             [weakSelf.self.viewModel.addModel.skills addObjectsFromArray:labelArr];

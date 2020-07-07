@@ -11,6 +11,10 @@
 #import "ZCircleMineSectionView.h"
 #import "ZCircleMineDynamicCell.h"
 #import "ZCircleMineDynamicCollectionTableViewCell.h"
+
+#import "ZCircleMyFocusListVC.h"
+#import "ZCircleMyFansListVC.h"
+
 @interface ZCircleMineVC ()
 
 @property (nonatomic,strong) ZCircleMineHeaderView *headView;
@@ -118,10 +122,27 @@
 #pragma mark - 懒加载--
 - (ZCircleMineHeaderView *)headView {
     if (!_headView) {
+        __weak typeof(self) weakSelf = self;
         CGSize tempSize = [@"这个颜色太神奇了" tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
         
         _headView = [[ZCircleMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(292)+tempSize.height)];
-        
+        _headView.handleBlock = ^(NSInteger index) {
+            DLog(@"----%ld", (long)index);
+            
+            if (index == 0) {
+                
+            }else if(index == 1){
+                ZCircleMyFocusListVC *lvc = [[ZCircleMyFocusListVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }else if(index == 2){
+                ZCircleMyFansListVC *lvc = [[ZCircleMyFansListVC alloc] init];
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }else if(index == 4){
+                //签名
+            }else if(index == 5){
+                //关注
+            }
+        };
     }
     return _headView;
 }

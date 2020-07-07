@@ -62,7 +62,7 @@
     [self.contView addSubview:self.followBtn];
     [self.contView addSubview:self.fansBtn];
     [self.contView addSubview:self.dynamicBtn];
-    [self.contView addSubview:self.signatureBtn];
+    [self addSubview:self.signatureBtn];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
@@ -250,6 +250,7 @@
         _signatureLabel.numberOfLines = 0;
         _signatureLabel.textAlignment = NSTextAlignmentLeft;
         [_signatureLabel setFont:[UIFont fontContent]];
+        _signatureLabel.clipsToBounds = YES;
     }
     return _signatureLabel;
 }

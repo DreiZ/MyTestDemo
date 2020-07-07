@@ -18,6 +18,7 @@
 #import "ZCircleReleaseSelectSchoolVC.h"
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
+#import "ZAlertView.h"
 
 @interface ZCircleReleaseVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -255,7 +256,15 @@
         __weak typeof(self) weakSelf = self;
         _closeView = [[ZCircleReleaseCloseView alloc] init];
         _closeView.backBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            if (ValidStr(self.releaseViewModel.model.content)) {
+                [ZAlertView setAlertWithTitle:@"提示" subTitle:@"退出后编辑文字图片将不保存" leftBtnTitle:@"取消" rightBtnTitle:@"退出" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }
+                }];
+            }else{
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
         };
     }
     

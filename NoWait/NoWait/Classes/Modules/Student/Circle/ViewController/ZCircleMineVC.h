@@ -9,6 +9,6 @@
 #import "ZTableViewController.h"
 
 @interface ZCircleMineVC : ZTableViewController
-
+@property (nonatomic,assign) BOOL isOther;
 @end
 
