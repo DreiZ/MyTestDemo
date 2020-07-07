@@ -8,8 +8,10 @@
 
 #import "ZBaseCell.h"
 #import "ZOrderModel.h"
+#import "CWStarRateView.h"
 
 @interface ZOrganizationEvaListUserInfoCell : ZBaseCell
 @property (nonatomic,strong) ZOrderEvaListModel *model;
+@property (nonatomic,strong) CWStarRateView *crView;
 @end
 

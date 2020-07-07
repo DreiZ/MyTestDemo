@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleDetailLabelCell : ZBaseCell
-
+@property (nonatomic,strong) NSMutableArray *list;
+@property (nonatomic,strong) void (^selectBlock)(NSString *);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 
 #import "ZCircleRecommendVC.h"
 #import "ZCircleRecommendCollectionCell.h"
+#import "ZCircleDetailVC.h"
 
 @interface ZCircleRecommendVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout * flowLayout;
@@ -94,5 +95,22 @@
     return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30));
 }
 
+- (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
+        ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
+        lcell.handleBlock = ^(NSInteger index) {
+            DLog(@"-----%ld", (long)index);
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        };
+        
+    }
+}
 
+-(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
+        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+}
 @end

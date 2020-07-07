@@ -7,14 +7,12 @@
 //
 
 #import "ZOrganizationEvaListUserInfoCell.h"
-#import "CWStarRateView.h"
 
 @interface ZOrganizationEvaListUserInfoCell ()
 @property (nonatomic,strong) UIImageView *userImageView;
 
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *timeLabel;
-@property (nonatomic,strong) CWStarRateView *crView;
 @end
 
 @implementation ZOrganizationEvaListUserInfoCell
@@ -109,6 +107,7 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _timeLabel.text = [model.update_at timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
     _nameLabel.text = ValidStr(model.nick_name)?  model.nick_name : @"用户****";
+    _crView.scorePercent = [model.score doubleValue]/5.0f;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

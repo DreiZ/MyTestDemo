@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleDetailUserCell : ZBaseCell
-
+@property (nonatomic,strong) void (^handleBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

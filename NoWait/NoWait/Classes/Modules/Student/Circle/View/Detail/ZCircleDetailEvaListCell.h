@@ -7,11 +7,9 @@
 //
 
 #import "ZBaseCell.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "ZOrderModel.h"
 
 @interface ZCircleDetailEvaListCell : ZBaseCell
-
+@property (nonatomic,strong) ZOrderEvaListModel *model;
 @end
 
-NS_ASSUME_NONNULL_END
