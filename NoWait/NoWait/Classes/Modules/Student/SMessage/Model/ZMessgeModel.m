@@ -8,6 +8,10 @@
 
 #import "ZMessgeModel.h"
 
+@implementation ZMessageTypeEntryModel
+
+@end
+
 
 @implementation ZMessageAccountModel
 

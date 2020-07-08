@@ -6,12 +6,12 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZBaseCell.h"
+#import "ZBaseCollectionViewCell.h"
+#import "ZMessgeModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface ZMessageTypeEntryItemCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) ZMessageTypeEntryModel *model;
 
-@interface ZMessageTypeEntryItemCell : ZBaseCell
-
+@property (nonatomic,strong) void (^handleBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END
