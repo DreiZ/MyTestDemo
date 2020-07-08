@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @class ZPushModel;
-NS_ASSUME_NONNULL_BEGIN
 
 
 typedef NS_ENUM(NSUInteger, ZFormatterType) {
@@ -53,7 +52,7 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 
 + (NSString *)textView:(UITextView *)textField maxLenght:(NSInteger)maxLength type:(ZFormatterType)type;
 
-+ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font;
++ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font textColor:(UIColor *)textColor;
 
 + (void)playNotifySound;
 
@@ -66,4 +65,3 @@ typedef NS_ENUM(NSUInteger, ZFormatterType) {
 + (void)settingCheckUpdateVersion;
 @end
 
-NS_ASSUME_NONNULL_END

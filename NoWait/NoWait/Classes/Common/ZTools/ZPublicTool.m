@@ -259,11 +259,11 @@
     return textField.text;
 }
 
-+ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font{
++ (void)textView:(UITextView *)textView lineSpacing:(CGFloat)lineSpacing font:(UIFont *)font textColor:(UIColor *)textColor{
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 
     paragraphStyle.lineSpacing = lineSpacing;// 字体的行间距
-    NSDictionary *attributes = @{
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:textColor? textColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]),
                                 NSFontAttributeName:font,
                                 NSParagraphStyleAttributeName:paragraphStyle
                                 };

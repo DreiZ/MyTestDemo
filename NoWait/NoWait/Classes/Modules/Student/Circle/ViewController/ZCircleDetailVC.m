@@ -18,7 +18,10 @@
 
 #import "ZCircleDetailEvaSectionView.h"
 
-@interface ZCircleDetailVC ()
+#import <IQKeyboardManager.h>
+#import "XHInputView.h"
+
+@interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
 
@@ -31,9 +34,13 @@
     self.isHidenNaviBar = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.zChain_resetMainView(^{
         self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -57,6 +64,7 @@
             make.top.equalTo(self.headerView.mas_bottom).offset(CGFloatIn750(20));
             make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(20));
         }];
+        
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         NSMutableArray *section1Arr = @[].mutableCopy;
@@ -101,7 +109,7 @@
             .zz_titleLeft(@"迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法")
             .zz_leftMultiLine(YES)
             .zz_fontLeft([UIFont fontContent])
-            .zz_spaceLine(CGFloatIn750(12))
+            .zz_spaceLine(CGFloatIn750(16))
             .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -119,9 +127,7 @@
             [section1Arr addObject:menuCellConfig];
         }
         [section1Arr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
-        
         [self.cellConfigArr addObject:section1Arr];
-        
         {
             NSMutableArray *section2Arr = @[].mutableCopy;
             ZOrderEvaListModel *model = [[ZOrderEvaListModel alloc] init];
@@ -151,23 +157,19 @@
             return CGFloatIn750(80);
         }
         return 0;
-    });
-    self.zChain_block_setNumberOfSectionsInTableView(^NSInteger(UITableView *tableView) {
+    }).zChain_block_setNumberOfSectionsInTableView(^NSInteger(UITableView *tableView) {
         return self.cellConfigArr.count;
-    });
-    self.zChain_block_setNumberOfRowsInSection(^NSInteger(UITableView *tableView, NSInteger section) {
+    }).zChain_block_setNumberOfRowsInSection(^NSInteger(UITableView *tableView, NSInteger section) {
         NSArray *sectionArr = self.cellConfigArr[section];
         return sectionArr.count;
-    });
-    self.zChain_block_setCellForRowAtIndexPath(^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath) {
+    }).zChain_block_setCellForRowAtIndexPath(^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *sectionArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = [sectionArr objectAtIndex:indexPath.row];
            ZBaseCell *cell;
         cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
            
         return cell;
-    });
-    self.zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
+    }).zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *sectionArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = sectionArr[indexPath.row];
         CGFloat cellHeight =  cellConfig.heightOfCell;
@@ -192,10 +194,11 @@
 
 - (ZCircleDetailBottomView *)bottomView {
     if (!_bottomView) {
+        __weak typeof(self) weakSelf = self;
         _bottomView = [[ZCircleDetailBottomView alloc] init];
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                
+                [weakSelf showXHInputViewWithStyle:InputViewStyleLarge];
             }else if(index == 1){
                 
             }else{
@@ -204,5 +207,61 @@
         };
     }
     return _bottomView;
+}
+
+
+-(void)showXHInputViewWithStyle:(InputViewStyle)style{
+    
+    [XHInputView showWithStyle:style configurationBlock:^(XHInputView *inputView) {
+        /** 请在此block中设置inputView属性 */
+        
+        /** 代理 */
+        inputView.delegate = self;
+        inputView.font = [UIFont fontContent];
+        inputView.placeholderColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        inputView.sendButtonBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        inputView.sendButtonFont = [UIFont fontTitle];
+        inputView.sendButtonTitle = @"发布";
+        
+        /** 占位符文字 */
+        inputView.placeholder = @"评论：嘴巴嘟嘟的舞蹈学校";
+        /** 设置最大输入字数 */
+        inputView.maxCount = 1200;
+        /** 输入框颜色 */
+        inputView.textViewBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        
+        /** 更多属性设置,详见XHInputView.h文件 */
+        
+    } sendBlock:^BOOL(NSString *text) {
+        if(text.length){
+            NSLog(@"输入的信息为:%@",text);
+//            _textLab.text = text;
+            return YES;//return YES,收起键盘
+        }else{
+            NSLog(@"显示提示框-请输入要评论的的内容");
+            return NO;//return NO,不收键盘
+        }
+    }];
+    
+}
+
+#pragma mark - XHInputViewDelagete
+/** XHInputView 将要显示 */
+-(void)xhInputViewWillShow:(XHInputView *)inputView{
+    
+     /** 如果你工程中有配置IQKeyboardManager,并对XHInputView造成影响,请在XHInputView将要显示时将其关闭 */
+    
+     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+     [IQKeyboardManager sharedManager].enable = NO;
+
+}
+
+/** XHInputView 将要影藏 */
+-(void)xhInputViewWillHide:(XHInputView *)inputView{
+    
+     /** 如果你工程中有配置IQKeyboardManager,并对XHInputView造成影响,请在XHInputView将要影藏时将其打开 */
+    
+     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+     [IQKeyboardManager sharedManager].enable = YES;
 }
 @end

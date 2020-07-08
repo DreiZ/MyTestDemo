@@ -76,7 +76,7 @@
         [_iTextView setFont:[UIFont fontSmall]];
         _iTextView.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         
-        [ZPublicTool textView:_iTextView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent]];
+        [ZPublicTool textView:_iTextView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent] textColor:nil];
     }
     return _iTextView;
 }
@@ -95,7 +95,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent]];
+    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent] textColor:nil];
     
     if (textView.text.length > 0) {
         _thintLabel.hidden = YES;
