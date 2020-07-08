@@ -14,6 +14,7 @@
 
 #import "ZCircleMyFocusListVC.h"
 #import "ZCircleMyFansListVC.h"
+#import "ZStudentMineSettingMineEditVC.h"
 
 @interface ZCircleMineVC ()
 
@@ -139,6 +140,20 @@
                 [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if(index == 4){
                 //签名
+                ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
+                edit.navTitle = @"设置个性签名";
+                edit.formatter = ZFormatterTypeAnyByte;
+                edit.max = 90;
+                edit.hitStr = @"签名只可有汉字字母数字下划线组成，90字节以内";
+                edit.showHitStr = @"你还没有输入任何签名";
+                edit.placeholder = @"请输入签名";
+//                edit.text = weakSelf.user.nikeName;
+                edit.handleBlock = ^(NSString *text) {
+//                    weakSelf.user.nikeName = text;
+                    weakSelf.zChain_reload_ui();
+//                    [weakSelf updateUserInfo:@{@"nick_name":SafeStr(weakSelf.user.nikeName)}];
+                };
+                [weakSelf.navigationController pushViewController:edit animated:YES];
             }else if(index == 5){
                 //关注
             }

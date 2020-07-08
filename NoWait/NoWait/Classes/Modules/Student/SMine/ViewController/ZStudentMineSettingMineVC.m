@@ -77,6 +77,12 @@
              }];
          }else if([cellConfig.title isEqualToString:@"昵称"]){
              ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
+             edit.navTitle = @"设置昵称";
+             edit.formatter = ZFormatterTypeAnyByte;
+             edit.max = 30;
+             edit.hitStr = @"昵称只可有汉字字母数字下划线组成，30字符以内";
+             edit.showHitStr = @"你还没有输入任何昵称";
+             edit.placeholder = @"请输入昵称";
              edit.text = weakSelf.user.nikeName;
              edit.handleBlock = ^(NSString *text) {
                  weakSelf.user.nikeName = text;

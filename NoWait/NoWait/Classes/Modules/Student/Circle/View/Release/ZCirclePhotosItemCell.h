@@ -13,6 +13,8 @@
 @property (nonatomic,strong) UIImageView *playerImageView;
 @property (nonatomic,strong) ZFileUploadDataModel *model;
 
+@property (nonatomic,assign) BOOL isEdit;
+
 @property (nonatomic,strong) void (^delBlock)(void);
 @property (nonatomic,strong) void (^seeBlock)(void);
 @end

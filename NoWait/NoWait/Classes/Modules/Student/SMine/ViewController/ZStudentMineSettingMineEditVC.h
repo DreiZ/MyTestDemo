@@ -11,7 +11,12 @@
 
 @interface ZStudentMineSettingMineEditVC : ZViewController
 @property (nonatomic,strong) NSString *text;
-
+@property (nonatomic,assign) NSInteger max;
+@property (nonatomic,assign) ZFormatterType formatter;
+@property (nonatomic,copy) NSString *navTitle;
+@property (nonatomic,copy) NSString *hitStr;
+@property (nonatomic,copy) NSString *showHitStr;
+@property (nonatomic,copy) NSString *placeholder;
 @property (nonatomic,strong) void (^handleBlock)(NSString *text);
 @end
 

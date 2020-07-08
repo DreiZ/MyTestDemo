@@ -14,6 +14,7 @@
 #import "ZCircleDetailLabelCell.h"
 #import "ZCircleDetailSchoolCell.h"
 #import "ZCircleDetailEvaListCell.h"
+#import "ZCircleDetailPhotoListCell.h"
 
 #import "ZCircleDetailEvaSectionView.h"
 
@@ -67,7 +68,7 @@
         
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
-            .zz_cellHeight(CGFloatIn750(62))
+            .zz_cellHeight(CGFloatIn750(40))
             .zz_lineHidden(YES)
             .zz_titleLeft(@"迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法")
             .zz_leftMultiLine(YES)
@@ -78,7 +79,21 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [section1Arr addObject:menuCellConfig];
         }
-        
+        {
+            NSMutableArray *photos = @[].mutableCopy;
+            for (int i = 0; i < 5; i++) {
+                ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+                dataModel.taskType = ZUploadTypeImage;
+                dataModel.image_url = @"https://wx2.sinaimg.cn/mw690/7868cc4cly1gbjvdczc04j22c02wsu0y.jpg";
+                dataModel.taskType = ZUploadTypeImage;
+                dataModel.taskState = ZUploadStateWaiting;
+                [photos addObject:dataModel];
+            }
+            
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailPhotoListCell className] title:@"ZCircleDetailPhotoListCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleDetailPhotoListCell z_getCellHeight:photos] cellType:ZCellTypeClass dataModel:photos];
+            [section1Arr addObject:menuCellConfig];
+        }
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
             .zz_cellHeight(CGFloatIn750(42))

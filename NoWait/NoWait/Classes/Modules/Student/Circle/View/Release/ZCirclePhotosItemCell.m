@@ -138,9 +138,23 @@
     }else{
         self.playerImageView.hidden = YES;
     }
-    self.detailImageView.image = model.image;
+    if (model.image) {
+        self.detailImageView.image = model.image;
+    }else if(model.image_url){
+        [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
+    }
+    
 }
 
+- (void)setIsEdit:(BOOL)isEdit {
+    if (isEdit) {
+        self.deleteBtn.hidden = NO;
+        self.deleteBigBtn.hidden = NO;
+    }else{
+        self.deleteBtn.hidden = YES;
+        self.deleteBigBtn.hidden = YES;
+    }
+}
 
 + (CGSize)z_getCellSize:(id)sender {
     return CGSizeMake(CGFloatIn750(213), CGFloatIn750(214));

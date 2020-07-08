@@ -37,7 +37,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"设置昵称"];
+    [self.navigationItem setTitle:self.navTitle];
     
     __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
@@ -54,7 +54,7 @@
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }else{
-            [TLUIUtility showErrorHint:@"你还没有输入任何昵称"];
+            [TLUIUtility showErrorHint:self.showHitStr];
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
@@ -75,9 +75,9 @@
     [_userNameTF setBorderStyle:UITextBorderStyleNone];
     [_userNameTF setBackgroundColor:[UIColor clearColor]];
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
-    [_userNameTF setPlaceholder:@"请输入昵称"];
+    [_userNameTF setPlaceholder:self.placeholder];
     [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-        [ZPublicTool textField:self.userNameTF maxLenght:30 type:ZFormatterTypeAnyByte];
+        [ZPublicTool textField:self.userNameTF maxLenght:self.max type:self.formatter];
     }];
     _userNameTF.delegate = self;
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -105,7 +105,7 @@
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _hintLabel.textColor = [UIColor colorTextGray];
-        _hintLabel.text = @"昵称只可有汉字字母数字下划线组成，30字符以内";
+        _hintLabel.text = self.hitStr;
         _hintLabel.numberOfLines = 0;
         _hintLabel.textAlignment = NSTextAlignmentLeft;
         [_hintLabel setFont:[UIFont fontContent]];
