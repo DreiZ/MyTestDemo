@@ -67,6 +67,8 @@
         make.width.height.mas_equalTo(CGFloatIn750(88));
         make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight - CGFloatIn750(44));
     }];
+    
+    [self setSelectIndex:self.selectIndex];
 }
 
 #pragma mark - setView & setdata
@@ -86,6 +88,7 @@
     self.progressHeight = 3;
     self.progressViewIsNaughty = YES;
     self.scrollEnable = YES;
+    self.selectIndex = 1;
 }
 
 - (void)setNavgation {
@@ -105,9 +108,10 @@
         _vcArr = @[].mutableCopy;
         ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
         [_vcArr addObject:rvc];
-        
-        ZCircleFinderVC *fvc = [[ZCircleFinderVC alloc] init];
+        ZCircleRecommendVC *fvc = [[ZCircleRecommendVC alloc] init];
         [_vcArr addObject:fvc];
+//        ZCircleFinderVC *fvc = [[ZCircleFinderVC alloc] init];
+//        [_vcArr addObject:fvc];
     }
     return _vcArr;
 }
