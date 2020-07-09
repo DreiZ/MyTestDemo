@@ -129,6 +129,8 @@
 		B23F521B24B6C7530070FB79 /* ZJCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F520D24B6C7530070FB79 /* ZJCycleView.m */; };
 		B23F521E24B6C92E0070FB79 /* ZCircleMineCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F521D24B6C92E0070FB79 /* ZCircleMineCollectionViewFlowLayout.m */; };
 		B23F522124B6EC780070FB79 /* ZCircleMineDynamicCollectionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F522024B6EC780070FB79 /* ZCircleMineDynamicCollectionListCell.m */; };
+		B23F522424B6F9B50070FB79 /* ZCircleDetailAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F522324B6F9B50070FB79 /* ZCircleDetailAddressCell.m */; };
+		B23F522824B701E20070FB79 /* WSLWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F522624B701E20070FB79 /* WSLWaterFlowLayout.m */; };
 		B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */; };
 		B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E82491C49600F828A6 /* LKUIUtils.m */; };
 		B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */; };
@@ -995,6 +997,10 @@
 		B23F521D24B6C92E0070FB79 /* ZCircleMineCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMineCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		B23F521F24B6EC780070FB79 /* ZCircleMineDynamicCollectionListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleMineDynamicCollectionListCell.h; sourceTree = "<group>"; };
 		B23F522024B6EC780070FB79 /* ZCircleMineDynamicCollectionListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMineDynamicCollectionListCell.m; sourceTree = "<group>"; };
+		B23F522224B6F9B50070FB79 /* ZCircleDetailAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleDetailAddressCell.h; sourceTree = "<group>"; };
+		B23F522324B6F9B50070FB79 /* ZCircleDetailAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleDetailAddressCell.m; sourceTree = "<group>"; };
+		B23F522624B701E20070FB79 /* WSLWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLWaterFlowLayout.m; sourceTree = "<group>"; };
+		B23F522724B701E20070FB79 /* WSLWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLWaterFlowLayout.h; sourceTree = "<group>"; };
 		B24324E32491C1F900F828A6 /* HNUpdateAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNUpdateAlertView.h; sourceTree = "<group>"; };
 		B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNUpdateAlertView.m; sourceTree = "<group>"; };
 		B24324E72491C49600F828A6 /* LKUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKUIUtils.h; sourceTree = "<group>"; };
@@ -2608,6 +2614,15 @@
 			path = ZJCycleView;
 			sourceTree = "<group>";
 		};
+		B23F522524B701E20070FB79 /* WSLWaterFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				B23F522624B701E20070FB79 /* WSLWaterFlowLayout.m */,
+				B23F522724B701E20070FB79 /* WSLWaterFlowLayout.h */,
+			);
+			path = WSLWaterFlowLayout;
+			sourceTree = "<group>";
+		};
 		B24324E62491C49600F828A6 /* UIUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -3172,6 +3187,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B23F522524B701E20070FB79 /* WSLWaterFlowLayout */,
 				B23F51FA24B6C7530070FB79 /* ZJCollectionViewSummary */,
 				B2469B8224A08BD400DCB146 /* XLPaymentHUD */,
 				B2292E27249B04DB00924055 /* TZImagePickerController */,
@@ -4508,6 +4524,8 @@
 				B2A816F524B486E5003A2E1F /* ZCircleDetailEvaListCell.m */,
 				B2A816F724B48E75003A2E1F /* ZCircleDetailPhotoListCell.h */,
 				B2A816F824B48E75003A2E1F /* ZCircleDetailPhotoListCell.m */,
+				B23F522224B6F9B50070FB79 /* ZCircleDetailAddressCell.h */,
+				B23F522324B6F9B50070FB79 /* ZCircleDetailAddressCell.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -5166,6 +5184,7 @@
 				B2A7812023C2E59D00407BF0 /* ZStudentMainViewModel.m in Sources */,
 				B23F51BC24B5AD8D0070FB79 /* ZMessageListVC.m in Sources */,
 				B24D994E23FD0E520078A458 /* ZOrganizationLessonAddVC.m in Sources */,
+				B23F522424B6F9B50070FB79 /* ZCircleDetailAddressCell.m in Sources */,
 				B2F5BCFF24B0118600AD1C72 /* ZCircleMineVC.m in Sources */,
 				B23F521424B6C7530070FB79 /* ZJWaterLayout.m in Sources */,
 				B2F5BD4E24B3390E00AD1C72 /* ZCircleReleaseDetailTextViewCell.m in Sources */,
@@ -5398,6 +5417,7 @@
 				B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */,
 				B2D83EA023FA70960099C2C9 /* ZAlertDataModel.m in Sources */,
 				B2F371F2246BEFB500678B19 /* ZBaseTextFieldCell.m in Sources */,
+				B23F522824B701E20070FB79 /* WSLWaterFlowLayout.m in Sources */,
 				B2DB9B46241C7A9C00340464 /* ZOrganizationMineOrderManageVC.m in Sources */,
 				B26880DB24767ECC00BF8FCD /* WMZDropDownMenu+DealDelegate.m in Sources */,
 				B2D83EA323FA866F0099C2C9 /* ZOrganizationCampusManagementAddressVC.m in Sources */,

@@ -15,6 +15,7 @@
 #import "ZCircleDetailSchoolCell.h"
 #import "ZCircleDetailEvaListCell.h"
 #import "ZCircleDetailPhotoListCell.h"
+#import "ZCircleDetailAddressCell.h"
 
 #import "ZCircleDetailEvaSectionView.h"
 
@@ -101,6 +102,10 @@
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailPhotoListCell className] title:@"ZCircleDetailPhotoListCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleDetailPhotoListCell z_getCellHeight:photos] cellType:ZCellTypeClass dataModel:photos];
             [section1Arr addObject:menuCellConfig];
+            
+            ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:nil heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+            [section1Arr addObject:addressCellConfig];
+            
         }
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")

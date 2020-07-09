@@ -32,21 +32,15 @@
     [super setDataSource];
 //
     self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
-//    self.minimumLineSpacing = CGFloatIn750(8);
-//    self.minimumInteritemSpacing = CGFloatIn750(8);
+    
     self.iCollectionView.scrollEnabled = YES;
     self.iCollectionView.backgroundView.backgroundColor = adaptAndDarkColor([UIColor colorRedDefault], [UIColor colorGrayBGDark]);
     
-//    _flowLayout = [[WSLWaterFlowLayout alloc] init];
-//    _flowLayout.delegate = self;
-//    _flowLayout.flowLayoutStyle = WSLWaterFlowVerticalEqualWidth;
-//    self.iCollectionView.collectionViewLayout = _flowLayout;
+    _layout = [[ZJWaterLayout alloc] init];
+    _layout.delegate = self;
+    _layout.waterDirection = ZJWaterVertical;
     
-    ZJWaterLayout *layout = [[ZJWaterLayout alloc] init];
-    layout.delegate = self;
-    layout.waterDirection = ZJWaterVertical;
-    
-    self.iCollectionView.collectionViewLayout = layout;
+    self.iCollectionView.collectionViewLayout = _layout;
 }
 
 
