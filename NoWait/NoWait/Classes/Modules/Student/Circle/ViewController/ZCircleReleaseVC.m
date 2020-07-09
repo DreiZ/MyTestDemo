@@ -164,7 +164,7 @@
         if ([cellConfig.title isEqualToString:@"ZCircleReleaseAddPhotoCell"]) {
             ZCircleReleaseAddPhotoCell *lcell = (ZCircleReleaseAddPhotoCell *)cell;
             lcell.addBlock = ^{
-                [[ZImagePickerManager sharedManager] setVideoWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                     if (list && list.count > 0){
                         for (ZImagePickerModel *model in list) {
                             ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];

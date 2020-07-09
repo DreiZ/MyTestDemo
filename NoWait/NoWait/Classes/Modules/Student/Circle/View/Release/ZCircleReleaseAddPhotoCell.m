@@ -158,6 +158,16 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
+    NSArray *list = sender;
+    if (list.count == 9) {
+        return CGFloatIn750(214)*3 + CGFloatIn750(10)*2 + CGFloatIn750(40);
+    }else{
+        NSInteger count = list.count + 1;
+        if (count%3 > 0) {
+            return (count/3 + 1) * CGFloatIn750(214) + ((count/3) * CGFloatIn750(10))+ CGFloatIn750(40);
+        }
+        return count/3  * CGFloatIn750(214) + CGFloatIn750(40);
+    }
     return CGFloatIn750(214) + CGFloatIn750(40);
 }
 @end
