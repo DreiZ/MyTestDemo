@@ -10,6 +10,7 @@
 #import "ZMessageLikeListCell.h"
 
 #import "ZCircleMineVC.h"
+#import "ZCircleDetailVC.h"
 
 @interface ZCircleMyLiskeListVC ()
 
@@ -20,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"喜欢")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
@@ -41,15 +43,40 @@
         [self.cellConfigArr addObject:menuCellConfig];
         [self.cellConfigArr addObject:menuCellConfig];
         [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
+        [self.cellConfigArr addObject:menuCellConfig];
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageLikeListCell"]) {
             ZMessageLikeListCell *lcell = (ZMessageLikeListCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
-                
+                if (index == 0) {
+                    ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                }else{
+                    ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
-        
+        if ([cellConfig.title isEqualToString:@"ZMessageLikeListCell"]) {
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
     });
     
     self.zChain_reload_ui();

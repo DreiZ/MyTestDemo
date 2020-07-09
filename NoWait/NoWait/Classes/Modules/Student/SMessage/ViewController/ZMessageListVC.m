@@ -57,7 +57,7 @@
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
 
-        NSArray *tempArr = @[@[@"finderMessageLike",@"喜欢"],@[@"finderMessageReceive",@"评论"],@[@"finderMessageFans",@"新增关注"]];
+        NSArray *tempArr = @[@[@"finderMessageLike",@"喜欢"],@[@"finderMessageReceive",@"评论"],@[@"finderMessageFans",@"新增粉丝"]];
         NSMutableArray *itemArr = @[].mutableCopy;
         for (int i = 0; i < tempArr.count; i++) {
             ZMessageTypeEntryModel *model = [[ZMessageTypeEntryModel alloc] init];

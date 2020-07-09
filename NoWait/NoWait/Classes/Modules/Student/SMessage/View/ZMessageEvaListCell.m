@@ -23,14 +23,6 @@
 
 @implementation ZMessageEvaListCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupView];
-    }
-    return self;
-}
-
 -(void)setupView {
     [super setupView];
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
@@ -113,6 +105,15 @@
         make.bottom.equalTo(self.circleImageView.mas_bottom).offset(CGFloatIn750(10));
     }];
     
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(0));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.height.mas_equalTo(0.5);
+    }];
     
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
     _nameLabel.text = @"阿萨德加感动";
@@ -203,6 +204,6 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     CGSize tempSize = [@"噶是的感受到公司的更多撒个大使馆萨嘎十大歌手光伏是的郭德纲胜多负少胜多负少的观点" tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(130) - CGFloatIn750(28) - CGFloatIn750(84) - CGFloatIn750(40) - CGFloatIn750(20), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
     
-    return CGFloatIn750(164) + tempSize.height - [UIFont fontSmall].lineHeight;
+    return CGFloatIn750(184) + tempSize.height - [UIFont fontSmall].lineHeight;
 }
 @end

@@ -20,14 +20,6 @@
 
 @implementation ZOrganizationAccountSchoolNOListCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupView];
-    }
-    return self;
-}
-
 -(void)setupView {
     [super setupView];
     

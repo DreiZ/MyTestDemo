@@ -23,14 +23,6 @@
 
 @implementation ZMessageLikeListCell
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupView];
-    }
-    return self;
-}
-
 -(void)setupView {
     [super setupView];
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
@@ -120,13 +112,23 @@
         make.bottom.equalTo(self.circleImageView.mas_bottom).offset(CGFloatIn750(10));
     }];
     
-    
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
     _nameLabel.text = @"阿萨德加感动";
     _detailLabel.text = @"喜欢了您的动态";
     _timeLabel.text = @"17:00";
     [_circleImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
     [ZPublicTool setLineSpacing:CGFloatIn750(12) label:self.detailLabel];
+    
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 

@@ -10,6 +10,7 @@
 #import "ZMessageEvaListCell.h"
 
 #import "ZCircleMineVC.h"
+#import "ZCircleDetailVC.h"
 
 @interface ZCircleMyEvaListVC ()
 
@@ -20,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"评论")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
@@ -45,19 +47,23 @@
         if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
             ZMessageEvaListCell *lcell = (ZMessageEvaListCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
-                
+                if (index == 0) {
+                    ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                }else{
+                    ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
-        
+        if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
     });
     
     self.zChain_reload_ui();
 }
 
-
 @end
-
-
-
-
