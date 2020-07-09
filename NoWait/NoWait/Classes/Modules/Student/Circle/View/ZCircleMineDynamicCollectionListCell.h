@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMineDynamicCollectionListCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) NSMutableArray *list;
 
+@property (nonatomic,strong) void (^menuBlock)(id);
 @end
 
 NS_ASSUME_NONNULL_END

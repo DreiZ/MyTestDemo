@@ -120,12 +120,13 @@
     [ZPublicTool setLineSpacing:CGFloatIn750(12) label:self.detailLabel];
     
     
+    
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
     [self.contentView addSubview:bottomLineView];
     [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
-        make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
+        make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(0));
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.height.mas_equalTo(0.5);
     }];
@@ -221,6 +222,6 @@
 +(CGFloat)z_getCellHeight:(id)sender {
     CGSize tempSize = [@"喜欢了您的动态" tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(130) - CGFloatIn750(28) - CGFloatIn750(84) - CGFloatIn750(40) - CGFloatIn750(20), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(12)];
     
-    return CGFloatIn750(164) + tempSize.height - [UIFont fontSmall].lineHeight;
+    return CGFloatIn750(174) + tempSize.height - [UIFont fontSmall].lineHeight;
 }
 @end

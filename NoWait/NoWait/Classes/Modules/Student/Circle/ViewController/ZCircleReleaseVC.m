@@ -19,6 +19,7 @@
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 #import "ZAlertView.h"
+#import "ZCircleReleaseVideoUploadVC.h"
 
 @interface ZCircleReleaseVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -236,7 +237,7 @@
 #pragma mark - lazy loading...
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
-//        __weak typeof(self) weakSelf = self;
+        __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _bottomBtn.layer.masksToBounds = YES;
         _bottomBtn.layer.cornerRadius = CGFloatIn750(40);
@@ -245,7 +246,8 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            
+            ZCircleReleaseVideoUploadVC *uvc = [[ZCircleReleaseVideoUploadVC alloc] init];
+            [weakSelf.navigationController pushViewController:uvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

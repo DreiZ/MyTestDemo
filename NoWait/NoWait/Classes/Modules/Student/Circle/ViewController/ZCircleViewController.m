@@ -15,6 +15,7 @@
 #import "ZCircleSearchVC.h"
 #import "ZCircleReleaseVC.h"
 
+
 @interface ZCircleViewController ()
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
@@ -35,13 +36,11 @@
     return self;
 }
 
-- (void)loadView
-{
+- (void)loadView {
     [super loadView];
     
     [self initData];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -76,9 +75,13 @@
     self.titleColorSelected = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     self.titleColorNormal = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleSizeSelected = CGFloatIn750(28);
+    self.menuViewLayoutMode = WMMenuViewLayoutModeCenter;
+    self.titleSizeSelected = CGFloatIn750(32);
     self.titleSizeNormal = CGFloatIn750(28);
+    self.menuViewContentMargin = CGFloatIn750(20);
+    self.automaticallyCalculatesItemWidths = NO;
     self.progressWidth = CGFloatIn750(30);
+    self.menuItemWidth = CGFloatIn750(160);
     self.progressColor = [UIColor colorMain];
     self.progressHeight = 3;
     self.progressViewIsNaughty = YES;
@@ -92,7 +95,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"发现", @"推荐"].mutableCopy;
+        _titleArr = @[@"关注", @"推荐"].mutableCopy;
     }
     return _titleArr;
 }
@@ -115,9 +118,11 @@
         _headView = [[ZCircleHeaderView alloc] init];
         _headView.handleBlock = ^(NSInteger index) {
             if (index == 1) {
-                ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
-                [weakSelf.navigationController pushViewController:mvc animated:YES];
-            }else{
+//                ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+//                [weakSelf.navigationController pushViewController:mvc animated:YES];
+                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                [weakSelf.navigationController pushViewController:cvc animated:YES];
+            }else {
                 ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];
                 [weakSelf.navigationController pushViewController:mvc animated:YES];
             }

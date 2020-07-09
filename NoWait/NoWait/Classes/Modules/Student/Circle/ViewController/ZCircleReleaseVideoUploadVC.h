@@ -8,10 +8,11 @@
 
 #import "ZViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseVideoUploadVC : ZViewController
 
+@property (nonatomic,strong) NSMutableArray *imageArr;
+@property (nonatomic,strong) NSString *type;
+@property (nonatomic,strong) void (^uploadCompleteBlock)(void);
 @end
 
-NS_ASSUME_NONNULL_END
