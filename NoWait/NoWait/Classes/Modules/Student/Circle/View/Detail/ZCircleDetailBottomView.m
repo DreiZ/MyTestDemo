@@ -76,7 +76,7 @@
     }];
     
     [self.likeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.likeImageView.mas_right).offset(CGFloatIn750(0));
+        make.left.equalTo(self.likeImageView.mas_right).offset(CGFloatIn750(4));
         make.top.equalTo(self.likeImageView.mas_top);
     }];
     
@@ -88,7 +88,7 @@
     }];
     
     [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.messageImageView.mas_right).offset(CGFloatIn750(0));
+        make.left.equalTo(self.messageImageView.mas_right).offset(CGFloatIn750(4));
         make.top.equalTo(self.messageImageView.mas_top);
     }];
     
@@ -109,6 +109,9 @@
         make.left.equalTo(self.evaImageView.mas_left).offset(-CGFloatIn750(20));
         make.right.equalTo(self.messageImageView.mas_left).offset(-CGFloatIn750(60));
     }];
+    
+    _likeLabel.text = @"23423";
+    _messageLabel.text = @"23";
 }
 
 

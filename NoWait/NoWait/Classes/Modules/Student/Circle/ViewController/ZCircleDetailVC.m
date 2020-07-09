@@ -16,6 +16,7 @@
 #import "ZCircleDetailEvaListCell.h"
 #import "ZCircleDetailPhotoListCell.h"
 #import "ZCircleDetailAddressCell.h"
+#import "ZStudentMineSettingBottomCell.h"
 
 #import "ZCircleDetailEvaSectionView.h"
 
@@ -147,8 +148,10 @@
             [section2Arr addObject:menuCellConfig];
             
             [self.cellConfigArr addObject:section2Arr];
+            
+            ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+            [section2Arr addObject:noEvaCellConfig];
         }
-        
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 1) {
             ZCircleDetailEvaSectionView *sectionView = [[ZCircleDetailEvaSectionView alloc] init];
@@ -172,7 +175,11 @@
         ZCellConfig *cellConfig = [sectionArr objectAtIndex:indexPath.row];
            ZBaseCell *cell;
         cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-           
+        if ([cellConfig.title isEqualToString:@"nodata"]) {
+            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
+            lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+            lcell.titleLabel.font = [UIFont fontSmall];
+        }
         return cell;
     }).zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *sectionArr = self.cellConfigArr[indexPath.section];
