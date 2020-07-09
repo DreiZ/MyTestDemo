@@ -295,7 +295,10 @@
                     sobj.superClassify_id = obj.classify_id;
                 }];
             }];
-            [ZStudentMainViewModel updateMainClassifysOne:weakSelf.classifyArr];
+            if (ValidArray(self.classifyArr)) {
+                [ZStudentMainViewModel updateMainClassifysOne:weakSelf.classifyArr];
+            }
+            
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             if (complete) {
@@ -305,7 +308,7 @@
             if (complete) {
                 complete(NO);
             }
-            [self getCategoryList:complete];
+//            [self getCategoryList:complete];
         }
     }];
 }

@@ -420,6 +420,8 @@
                         }];
                     }];
                     [ZStudentMainViewModel updateMainClassifysOne:model.list];
+                    [classify removeAllObjects];
+                    [classify addObjectsFromArray:model.list];
                     [weakSelf showTypeSelect:classify];
                 }
             }];
