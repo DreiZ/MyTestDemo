@@ -9,8 +9,9 @@
 #import "ZCircleReleaseAddPhotoCell.h"
 #import "ZCircleAddPhotosItemCell.h"
 #import "ZCirclePhotosItemCell.h"
+#import "ZJReorderFlowLayout.h"
 
-@interface ZCircleReleaseAddPhotoCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface ZCircleReleaseAddPhotoCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,ZJReorderCollectionViewDataSource, ZJReorderCollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) UICollectionView *iCollectionView;
@@ -68,11 +69,12 @@
 
 - (UICollectionView *)iCollectionView {
     if (!_iCollectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing= 0;
-        layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(CGFloatIn750(222), CGFloatIn750(148));
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//        layout.minimumLineSpacing= 0;
+//        layout.minimumInteritemSpacing = 0;
+//        layout.itemSize = CGSizeMake(CGFloatIn750(222), CGFloatIn750(148));
+//        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        ZJReorderFlowLayout *layout = [[ZJReorderFlowLayout alloc] init];
         _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
@@ -147,6 +149,47 @@
     ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
     CGSize cellSize =  cellConfig.sizeOfCell;
     return cellSize;
+}
+
+#pragma mark - ZJReorderCollectionViewDataSource methods
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    ZCellConfig *cellConfig = _cellConfigArr[fromIndexPath.item];
+    
+    [self.cellConfigArr removeObjectAtIndex:fromIndexPath.item];
+    [self.cellConfigArr insertObject:cellConfig atIndex:toIndexPath.item];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.imageList.count < 9 && indexPath.row == 0) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    if (self.imageList.count < 9 && toIndexPath.row == 0) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - ZJReorderCollectionViewDelegateFlowLayout methods
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"将开始拖动");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"开始拖动完成");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"将拖动完成");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"拖动完成");
 }
 
 #pragma mark 类型
