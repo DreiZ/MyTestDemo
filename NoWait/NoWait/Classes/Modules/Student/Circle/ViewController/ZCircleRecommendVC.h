@@ -8,8 +8,6 @@
 
 #import "ZViewController.h"
 #import "ZCollectionViewController.h"
-#import "WSLWaterFlowLayout.h"
-
 
 @interface ZCircleRecommendVC : ZCollectionViewController
 

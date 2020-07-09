@@ -9,10 +9,11 @@
 #import "ZCircleRecommendVC.h"
 #import "ZCircleRecommendCollectionCell.h"
 #import "ZCircleDetailVC.h"
+#import "ZJWaterLayout.h"
 
-@interface ZCircleRecommendVC ()<WSLWaterFlowLayoutDelegate>
-@property (nonatomic,strong) WSLWaterFlowLayout * flowLayout;
-
+@interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
+/** ZJWaterLayout */
+@property (nonatomic, strong) ZJWaterLayout *layout;
 @end
 
 @implementation ZCircleRecommendVC
@@ -30,16 +31,22 @@
     self.scrollDirection = UICollectionViewScrollDirectionVertical;
     [super setDataSource];
 //
-//    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
+    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
 //    self.minimumLineSpacing = CGFloatIn750(8);
 //    self.minimumInteritemSpacing = CGFloatIn750(8);
     self.iCollectionView.scrollEnabled = YES;
     self.iCollectionView.backgroundView.backgroundColor = adaptAndDarkColor([UIColor colorRedDefault], [UIColor colorGrayBGDark]);
     
-    _flowLayout = [[WSLWaterFlowLayout alloc] init];
-    _flowLayout.delegate = self;
-    _flowLayout.flowLayoutStyle = WSLWaterFlowVerticalEqualWidth;
-    self.iCollectionView.collectionViewLayout = _flowLayout;
+//    _flowLayout = [[WSLWaterFlowLayout alloc] init];
+//    _flowLayout.delegate = self;
+//    _flowLayout.flowLayoutStyle = WSLWaterFlowVerticalEqualWidth;
+//    self.iCollectionView.collectionViewLayout = _flowLayout;
+    
+    ZJWaterLayout *layout = [[ZJWaterLayout alloc] init];
+    layout.delegate = self;
+    layout.waterDirection = ZJWaterVertical;
+    
+    self.iCollectionView.collectionViewLayout = layout;
 }
 
 
@@ -54,46 +61,24 @@
     
 }
 
-#pragma mark - WSLWaterFlowLayoutDelegate
-//返回每个item大小
-- (CGSize)waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if(waterFlowLayout.flowLayoutStyle == (WSLWaterFlowLayoutStyle)0){
-        ZCellConfig *cellconfig = self.cellConfigArr[indexPath.row];
-        return cellconfig.sizeOfCell;
-    }else{
-        return CGSizeMake(0, 0);
-    }
-}
-
-/** 头视图Size */
--(CGSize )waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForHeaderViewInSection:(NSInteger)section{
-    return CGSizeMake(0, 0);
-}
-/** 脚视图Size */
--(CGSize )waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForFooterViewInSection:(NSInteger)section{
-    return CGSizeMake(0, 0);
-}
-
-/** 列数*/
--(CGFloat)columnCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
+#pragma mark - ZJWaterLayoutDelegate
+/** 几列 */
+-(NSInteger)waterFlowLayoutColumnCount:(ZJWaterLayout *)layout
+{
     return 2;
 }
-///** 行数*/
-//-(CGFloat)rowCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
-//    return 100;
-//}
-/** 列间距*/
--(CGFloat)columnMarginInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
-    return CGFloatIn750(20);
+
+-(CGFloat)waterFlowLayout:(ZJWaterLayout *)layout hieghtForItemAtIndex:(NSUInteger)index itemwidth:(CGFloat)itemwidth
+{
+    ZCellConfig *cellconfig = self.cellConfigArr[index];
+    return cellconfig.sizeOfCell.height;
 }
-/** 行间距*/
--(CGFloat)rowMarginInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
-    return CGFloatIn750(20);
+/** 边距 */
+- (UIEdgeInsets)waterFlowLayoutEdgeInsets:(ZJWaterLayout *)layout
+{
+    return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(10), CGFloatIn750(30));
 }
-/** 边缘之间的间距*/
--(UIEdgeInsets)edgeInsetInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
-    return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(30), CGFloatIn750(30));
-}
+
 
 - (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {

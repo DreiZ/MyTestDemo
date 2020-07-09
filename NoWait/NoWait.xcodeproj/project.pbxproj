@@ -683,7 +683,6 @@
 		B2F5BCEB24AEC0D800AD1C72 /* ZCircleFinderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCEA24AEC0D800AD1C72 /* ZCircleFinderVC.m */; };
 		B2F5BCEE24AEC11E00AD1C72 /* ZCircleRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCED24AEC11E00AD1C72 /* ZCircleRecommendVC.m */; };
 		B2F5BCF124AEC76400AD1C72 /* ZCircleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCF024AEC76400AD1C72 /* ZCircleHeaderView.m */; };
-		B2F5BCF524AF082000AD1C72 /* WSLWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCF324AF082000AD1C72 /* WSLWaterFlowLayout.m */; };
 		B2F5BCF824AF09B500AD1C72 /* ZCircleRecommendCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCF724AF09B500AD1C72 /* ZCircleRecommendCollectionCell.m */; };
 		B2F5BCFC24AF2B7F00AD1C72 /* JHLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCFA24AF2B7E00AD1C72 /* JHLikeButton.m */; };
 		B2F5BCFF24B0118600AD1C72 /* ZCircleMineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F5BCFE24B0118600AD1C72 /* ZCircleMineVC.m */; };
@@ -2059,8 +2058,6 @@
 		B2F5BCED24AEC11E00AD1C72 /* ZCircleRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleRecommendVC.m; sourceTree = "<group>"; };
 		B2F5BCEF24AEC76400AD1C72 /* ZCircleHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleHeaderView.h; sourceTree = "<group>"; };
 		B2F5BCF024AEC76400AD1C72 /* ZCircleHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleHeaderView.m; sourceTree = "<group>"; };
-		B2F5BCF324AF082000AD1C72 /* WSLWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLWaterFlowLayout.m; sourceTree = "<group>"; };
-		B2F5BCF424AF082000AD1C72 /* WSLWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLWaterFlowLayout.h; sourceTree = "<group>"; };
 		B2F5BCF624AF09B500AD1C72 /* ZCircleRecommendCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleRecommendCollectionCell.h; sourceTree = "<group>"; };
 		B2F5BCF724AF09B500AD1C72 /* ZCircleRecommendCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleRecommendCollectionCell.m; sourceTree = "<group>"; };
 		B2F5BCFA24AF2B7E00AD1C72 /* JHLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHLikeButton.m; sourceTree = "<group>"; };
@@ -3176,7 +3173,6 @@
 			isa = PBXGroup;
 			children = (
 				B23F51FA24B6C7530070FB79 /* ZJCollectionViewSummary */,
-				B2F5BCF224AF082000AD1C72 /* WSLWaterFlowLayout */,
 				B2469B8224A08BD400DCB146 /* XLPaymentHUD */,
 				B2292E27249B04DB00924055 /* TZImagePickerController */,
 				B26880E4247681D900BF8FCD /* ZHFilterMenuView */,
@@ -4820,15 +4816,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B2F5BCF224AF082000AD1C72 /* WSLWaterFlowLayout */ = {
-			isa = PBXGroup;
-			children = (
-				B2F5BCF324AF082000AD1C72 /* WSLWaterFlowLayout.m */,
-				B2F5BCF424AF082000AD1C72 /* WSLWaterFlowLayout.h */,
-			);
-			path = WSLWaterFlowLayout;
-			sourceTree = "<group>";
-		};
 		B2F5BCF924AF2B7E00AD1C72 /* JHLikeButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -5677,7 +5664,6 @@
 				B251468F23CEBDDC009A64D4 /* ZStudentMineOrderDetailHandleBottomView.m in Sources */,
 				B2C35035243DB4F4002929A8 /* ZSearchClickVC.m in Sources */,
 				B20C48142400DF7D00E0CE35 /* ZOriganizationStudentListCell.m in Sources */,
-				B2F5BCF524AF082000AD1C72 /* WSLWaterFlowLayout.m in Sources */,
 				B2292E4A249B04DC00924055 /* TZAssetModel.m in Sources */,
 				B2469B6F249CB83A00DCB146 /* ZFileUploadTask.m in Sources */,
 				B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */,

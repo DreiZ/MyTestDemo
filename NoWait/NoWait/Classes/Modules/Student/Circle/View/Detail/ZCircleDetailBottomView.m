@@ -127,7 +127,7 @@
         _evaLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
         _evaLabel.numberOfLines = 1;
         _evaLabel.textAlignment = NSTextAlignmentLeft;
-        _evaLabel.text = @"写评论...";
+        _evaLabel.text = @"留下您的精彩评论吧...";
         [_evaLabel setFont:[UIFont fontContent]];
     }
     return _evaLabel;
