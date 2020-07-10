@@ -78,7 +78,7 @@
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock();
+            weakSelf.handleBlock(self.model);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:addBtn];
@@ -129,6 +129,7 @@
 
 - (UIButton *)handleBtn {
     if (!_handleBtn) {
+        __weak typeof(self) weakSelf = self;
         _handleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
@@ -137,6 +138,11 @@
         [_handleBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, CGFloatIn750(4), 0, 0)];
         [_handleBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, CGFloatIn750(4))];
         ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, [UIColor colorMain]);
+        [_handleBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(self.model);
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _handleBtn;
 }

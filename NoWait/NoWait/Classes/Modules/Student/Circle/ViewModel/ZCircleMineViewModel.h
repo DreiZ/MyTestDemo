@@ -25,6 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)getFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)followUser:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)cancleFollowUser:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

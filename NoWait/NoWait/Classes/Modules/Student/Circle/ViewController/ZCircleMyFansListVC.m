@@ -43,8 +43,12 @@
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {
             ZCircleMyFocusCell *lcell = (ZCircleMyFocusCell *)cell;
-            lcell.handleBlock = ^{
-                
+            lcell.handleBlock = ^(ZCircleMinePersonModel *model) {
+                if ([model.follow_status intValue] == 1) {
+                    [self followAccount:model.account];
+                }else{
+                    [self cancleFollowAccount:model.account];
+                }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
@@ -131,6 +135,36 @@
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:@"10" forKey:@"page_size"];
     [self.param setObject:self.account forKey:@"account"];
+}
+
+
+- (void)followAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self refreshAllData];
+            self.zChain_reload_ui();
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
+
+- (void)cancleFollowAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self refreshAllData];
+            self.zChain_reload_ui();
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
 }
 @end
 

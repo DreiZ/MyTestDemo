@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMyFansNewListVC : ZTableViewController
 
+
 @end
 
 NS_ASSUME_NONNULL_END
