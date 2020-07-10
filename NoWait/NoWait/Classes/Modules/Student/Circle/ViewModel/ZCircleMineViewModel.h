@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZCircleMineViewModel : ZBaseViewModel
 
 + (void)getCircleMineData:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)updateUserAutograph:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

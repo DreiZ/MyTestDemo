@@ -658,4 +658,7 @@
 #define URL_account_v1_recommend_dynamic_tags    @"account/v1/recommend/dynamic/tags"
 
 
+//编辑签名
+#define URL_account_v1_personal_edit_autograph              @"account/v1/personal/edit/autograph"
+
 #endif /* URLMacros_h */

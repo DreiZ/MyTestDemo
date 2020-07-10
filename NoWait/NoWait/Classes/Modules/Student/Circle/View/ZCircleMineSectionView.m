@@ -148,4 +148,14 @@
     }
 }
 
+- (void)setDynamic:(NSString *)dynamic like:(NSString *)like {
+    
+    if (ValidStr(dynamic)) {
+        [_dynamicBtn setTitle:[NSString stringWithFormat:@"%@%@",@"动态",dynamic] forState:UIControlStateNormal];
+    }
+    
+    if (ValidStr(like)) {
+        [_followBtn setTitle:[NSString stringWithFormat:@"%@%@",@"喜欢",like] forState:UIControlStateNormal];
+    }
+}
 @end

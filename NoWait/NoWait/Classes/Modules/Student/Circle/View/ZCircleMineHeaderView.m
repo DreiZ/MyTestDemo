@@ -147,9 +147,10 @@
         make.top.equalTo(self.signatureLabel.mas_top).offset(-CGFloatIn750(20));
         make.bottom.equalTo(self.signatureLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
+    self.getFollowBtn.hidden = YES;
 }
 
-#pragma mark -lazy loading
+#pragma mark - lazy loading
 - (UIView *)contView {
     if (!_contView) {
         _contView = [[UIView alloc] init];
@@ -249,6 +250,7 @@
         _signatureLabel.textAlignment = NSTextAlignmentLeft;
         [_signatureLabel setFont:[UIFont fontContent]];
         _signatureLabel.clipsToBounds = YES;
+        _signatureLabel.preferredMaxLayoutWidth = KScreenWidth - CGFloatIn750(80);
     }
     return _signatureLabel;
 }
@@ -342,7 +344,7 @@
             make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
             make.height.mas_equalTo(CGFloatIn750(58));
             make.width.mas_equalTo(CGFloatIn750(460));
-            make.top.equalTo(self.headImageView.mas_bottom);
+            make.top.equalTo(self.headImageView.mas_bottom).offset(-CGFloatIn750(26));
         }];
     }else{
         self.getFollowBtn.hidden = NO;

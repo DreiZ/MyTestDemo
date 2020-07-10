@@ -25,6 +25,7 @@
 
 @interface ZCircleMineCollectionVC ()
 @property (nonatomic,strong) ZCircleMineHeaderView *headView;
+@property (nonatomic,strong) ZCircleMineSectionView *sectionView;
 @property (nonatomic,assign) BOOL isCollection;
 @property (nonatomic,strong) ZCircleMineModel *mineModel;
 @property (nonatomic,assign) CGFloat headHeight;
@@ -115,12 +116,13 @@
                 edit.hitStr = @"签名只可有汉字字母数字下划线组成，90字节以内";
                 edit.showHitStr = @"你还没有输入任何签名";
                 edit.placeholder = @"请输入签名";
-//                edit.text = weakSelf.user.nikeName;
+                edit.text = weakSelf.mineModel.autograph;
                 edit.handleBlock = ^(NSString *text) {
-//                    weakSelf.user.nikeName = text;
-                    [weakSelf initCellConfigArr];
-                    [weakSelf.iCollectionView reloadData];
-//                    [weakSelf updateUserInfo:@{@"nick_name":SafeStr(weakSelf.user.nikeName)}];
+                    if (ValidStr(text)) {
+                        weakSelf.mineModel.autograph = text;
+                        weakSelf.headView.model = weakSelf.mineModel;
+                        [weakSelf updateUserInfo:text];
+                    }
                 };
                 [weakSelf.navigationController pushViewController:edit animated:YES];
             }else if(index == 5){
@@ -158,6 +160,8 @@
                 [weakSelf initCellConfigArr];
                 [weakSelf.iCollectionView reloadData];
             };
+            [sectionView setDynamic:self.mineModel.dynamic like:self.mineModel.enjoy];
+            self.sectionView = sectionView;
         }
         return sectionView;
     }
@@ -179,6 +183,10 @@
     [ZCircleMineViewModel getCircleMineData:@{@"account":[ZUserHelper sharedHelper].user.userCodeID} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZCircleMineModel class]]) {
             weakSelf.mineModel = data;
+            if (!weakSelf.account || ([weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
+                weakSelf.mineModel.isMine = YES;
+            }
+            [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
             weakSelf.headView.model = weakSelf.mineModel;
             [weakSelf setHeadViewHeight];
         }
@@ -196,5 +204,11 @@
     
     self.headView.frame = CGRectMake(0, -self.headHeight, KScreenWidth, self.headHeight);
     self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
+}
+
+- (void)updateUserInfo:(NSString *)text {
+    [ZCircleMineViewModel updateUserAutograph:@{@"autograph":SafeStr(text)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility showInfoHint:data];
+    }];
 }
 @end

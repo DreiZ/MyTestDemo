@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZCircleMineSectionView : UICollectionReusableView
 @property (nonatomic,assign) BOOL isLike;
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+
+- (void)setDynamic:(NSString *)dynamic like:(NSString *)like;
 @end
 
 NS_ASSUME_NONNULL_END
