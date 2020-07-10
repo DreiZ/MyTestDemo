@@ -613,4 +613,45 @@
 
 //添加机构收藏
 #define URL_message_v1_collectionStore            @"account/v1/collection/store"
+
+#pragma mark - 动态
+//个人信息
+#define URL_account_v1_personal_center_info       @"account/v1/personal/center/info"
+
+//发布动态
+#define URL_account_v1_release_dynamics           @"account/v1/release/dynamics"
+
+//动态列表
+#define URL_account_v1_dynamics_list              @"account/v1/dynamics/list"
+
+//动态详情
+#define URL_account_v1_dynamics_info              @"account/v1/dynamics/info"
+
+//删除动态
+#define URL_account_v1_dynamics_remove            @"account/v1/dynamics/remove"
+
+//喜欢动态
+#define URL_account_v1_enjoy_dynamics             @"account/v1/enjoy/dynamics"
+
+//喜欢动态列表
+#define URL_account_v1_enjoy_dynamics_list        @"account/v1/enjoy/dynamics/list"
+
+//取消喜欢
+#define URL_account_v1_cancel_enjoy               @"account/v1/cancel/enjoy"
+
+//关注
+#define URL_account_v1_add_follow                 @"account/v1/add/follow"
+
+//取消关注
+#define URL_account_v1_cancel_follow              @"account/v1/cancel/follow"
+
+//关注列表
+#define URL_account_v1_follow_list                @"account/v1/follow/list"
+
+//粉丝列表
+#define URL_account_v1_fans_list                  @"account/v1/fans/list"
+
+//粉丝列表
+#define URL_account_v1_new_fans_list              @"account/v1/new/fans/list"
+
 #endif /* URLMacros_h */

@@ -19,15 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) double latitude;
 @property (nonatomic,assign) double longitude;
 
-@property (nonatomic,copy) NSString *stores_id;
-@property (nonatomic,copy) NSString *stores_name;
+@property (nonatomic,copy) NSString *store_id;
+@property (nonatomic,copy) NSString *store_name;
 
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *content;
 
 @property (nonatomic,strong) NSMutableArray *imageArr;
-@property (nonatomic,strong) NSMutableArray *labelArr;
+@property (nonatomic,strong) NSMutableArray *tags;
 
+@property (nonatomic,copy) NSString *cover;
 @end
 
 NS_ASSUME_NONNULL_END

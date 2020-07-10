@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _labelArr = @[].mutableCopy;
+        _tags = @[].mutableCopy;
         _imageArr = @[].mutableCopy;
     }
     return self;

@@ -104,12 +104,12 @@
         {
             NSString *label = @"添加标签";
             NSString *labelHad = @"0";
-            if (ValidArray(self.releaseViewModel.model.labelArr)) {
-                for (int i = 0; i < self.releaseViewModel.model.labelArr.count; i++) {
+            if (ValidArray(self.releaseViewModel.model.tags)) {
+                for (int i = 0; i < self.releaseViewModel.model.tags.count; i++) {
                     if (i == 0) {
-                        label = [NSString stringWithFormat:@"%@",self.releaseViewModel.model.labelArr[i]];
+                        label = [NSString stringWithFormat:@"%@",self.releaseViewModel.model.tags[i]];
                     }else {
-                        label = [NSString stringWithFormat:@"%@，%@",label,self.releaseViewModel.model.labelArr[i]];
+                        label = [NSString stringWithFormat:@"%@，%@",label,self.releaseViewModel.model.tags[i]];
                     }
                 }
                 labelHad = @"1";
@@ -122,16 +122,16 @@
                 addressHad = @"1";
             }
             
-            NSString *stores_name = @"校区打卡";
-            NSString *stores_nameHad = @"0";
-            if (ValidStr(self.releaseViewModel.model.stores_name)) {
-                stores_name = self.releaseViewModel.model.stores_name;
-                stores_nameHad = @"1";
+            NSString *store_name = @"校区打卡";
+            NSString *store_nameHad = @"0";
+            if (ValidStr(self.releaseViewModel.model.store_name)) {
+                store_name = self.releaseViewModel.model.store_name;
+                store_nameHad = @"1";
             }
             
             NSArray *tempArr = @[@[@"finderLabelNo",label,@"rightBlackArrowN",labelHad,@"finderLabel"],
             @[@"finderLocationNo",address,@"rightBlackArrowN",addressHad,@"finderLocationGreen"],
-            @[@"finderSchoolNo",stores_name,@"rightBlackArrowN",stores_nameHad,@"finderSchool"]];
+            @[@"finderSchoolNo",store_name,@"rightBlackArrowN",store_nameHad,@"finderSchool"]];
             
             [tempArr enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(obj[0])
@@ -204,10 +204,10 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"finderLabelNo"]) {
             ZCircleReleaseAddLabelVC *lvc = [[ZCircleReleaseAddLabelVC alloc] init];
-            lvc.list = self.releaseViewModel.model.labelArr;
+            lvc.list = self.releaseViewModel.model.tags;
             lvc.handleBlock = ^(NSArray *lableArr) {
-                [self.releaseViewModel.model.labelArr removeAllObjects];
-                [self.releaseViewModel.model.labelArr addObjectsFromArray:lableArr];
+                [self.releaseViewModel.model.tags removeAllObjects];
+                [self.releaseViewModel.model.tags addObjectsFromArray:lableArr];
                 self.zChain_reload_ui();
             };
             [self.navigationController pushViewController:lvc animated:YES];

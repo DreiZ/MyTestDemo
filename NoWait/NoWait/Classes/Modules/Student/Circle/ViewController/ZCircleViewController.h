@@ -11,7 +11,7 @@
 
 
 @interface ZCircleViewController : WMPageController
-@property (nonatomic,assign) NSInteger selectIndex;
+
 @end
 
 
