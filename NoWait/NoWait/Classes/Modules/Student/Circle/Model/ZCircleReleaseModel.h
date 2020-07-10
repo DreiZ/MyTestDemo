@@ -10,6 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface ZCircleReleaseTagModel : ZBaseModel
+@property (nonatomic,copy) NSString *tag_name;
+@property (nonatomic,copy) NSString *tag_id;
+@end
+
+@interface ZCircleReleaseTagNetModel : ZBaseModel
+@property (nonatomic,strong) NSArray *list;
+@end
+
 @interface ZCircleReleaseModel : ZBaseModel
 @property (nonatomic,copy) NSString *province;
 @property (nonatomic,copy) NSString *city;

@@ -654,4 +654,8 @@
 //粉丝列表
 #define URL_account_v1_new_fans_list              @"account/v1/new/fans/list"
 
+//推荐动态标签
+#define URL_account_v1_recommend_dynamic_tags    @"account/v1/recommend/dynamic/tags"
+
+
 #endif /* URLMacros_h */

@@ -11,12 +11,13 @@
 
 #import "XLPaymentSuccessHUD.h"
 #import "XLPaymentLoadingHUD.h"
+#import "XLPaymentErrorHUD.h"
 
 #import "ZFileManager.h"
 #import "ZFileUploadTask.h"
 #import "ZFileUploadManager.h"
 #import "FBCustomUploadProgress.h"
-#import "ZOriganizationPhotoViewModel.h"
+#import "ZCircleReleaseViewModel.h"
 
 /**每行显示的个数*/
 static CGFloat kPerLineNumber = 3;
@@ -32,6 +33,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 @property (nonatomic, strong) NSMutableArray *uploadArr;
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) FBCustomUploadProgress *progressView;
+@property (nonatomic, strong) UIButton *navLeftBtn;
 
 @end
 
@@ -39,13 +41,10 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.navigationItem setTitle:@"发布动态"];
     
     [self setMainView];
     self.collectionView.hidden = NO;
@@ -54,15 +53,28 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     [self configData];
 }
 
-- (void)setDataSource {
+- (void)setNavigation {
+    [self.navigationItem setTitle:@"发布动态"];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navLeftBtn]];
+}
 
+- (UIButton *)navLeftBtn {
+    if (!_navLeftBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(80), CGFloatIn750(50))];
+        [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"]  forState:UIControlStateNormal];
+        [_navLeftBtn bk_addEventHandler:^(id sender) {
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navLeftBtn;
+}
+
+
+- (void)setDataSource {
     NSMutableArray *tasklist = @[].mutableCopy;
-    
     NSInteger count = 0;
     for (int i = 0; i < self.imageArr.count; i++) {
-//        ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
-//        dataModel.image = self.imageArr[i];
-//        dataModel.taskState = ZUploadStateWaiting;
         ZFileUploadDataModel *dataModel = self.imageArr[i];
         if (dataModel.taskState == ZUploadStateWaiting) {
             count++;
@@ -72,31 +84,31 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     }
     if (count > 0) {
         [self configProgress:0.01];
-            [self showLoadingAnimation];
-        //    //异步串行
-            [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
-                [self configProgress:p/(tasklist.count+0.3)];
-            } completion:^(id obj) {
-                if (obj && [obj isKindOfClass:[NSArray class]]) {
-                    NSArray *arr = obj;
-                    NSMutableArray *images = @[].mutableCopy;
-                    for (int i = 0; i < arr.count; i++) {
-                        if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
-                            ZBaseNetworkBackModel *dataModel = arr[i];
-                            if (ValidDict(dataModel.data)) {
-                                ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
-                                if ([dataModel.code integerValue] == 0 ) {
-                                    [images addObject:SafeStr(imageModel.url)];
-                                }
+        [self showLoadingAnimation];
+    //    //异步串行
+        [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
+            [self configProgress:p/(tasklist.count+0.3)];
+        } completion:^(id obj) {
+            if (obj && [obj isKindOfClass:[NSArray class]]) {
+                NSArray *arr = obj;
+                NSMutableArray *images = @[].mutableCopy;
+                for (int i = 0; i < arr.count; i++) {
+                    if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                        ZBaseNetworkBackModel *dataModel = arr[i];
+                        if (ValidDict(dataModel.data)) {
+                            ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                            if ([dataModel.code integerValue] == 0 ) {
+                                [images addObject:SafeStr(imageModel.url)];
                             }
-                        }else if([arr[i] isKindOfClass:[NSString class]]){
-                            [images addObject:SafeStr(arr[i])];
                         }
+                    }else if([arr[i] isKindOfClass:[NSString class]]){
+                        [images addObject:SafeStr(arr[i])];
                     }
-
-                    [self updateData:images];
                 }
-            }];
+
+                [self updateData:images];
+            }
+        }];
     }
     
 //    asyncConcurrentGroupUpload asyncConcurrentConstUpload
@@ -250,6 +262,14 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     [XLPaymentSuccessHUD showIn:self.bottomView];
 }
 
+
+-(void)showErrorAnimation{
+    //隐藏支付中成动画
+    [XLPaymentLoadingHUD hideIn:self.bottomView];
+    //显示支付完成动画
+    [XLPaymentErrorHUD showIn:self.bottomView];
+}
+
 - (void)dealloc {
     DLog(@"%@销毁了",[self class]);
 }
@@ -262,14 +282,41 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 
 #pragma mark - 上传图片url
 - (void)updateData:(NSArray *)imageUrlArr {
-    NSMutableDictionary *params = @{}.mutableCopy;
-    [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
-    [params setObject:SafeStr(self.type) forKey:@"type"];
-    [params setObject:imageUrlArr forKey:@"images"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:self.params];
+    if (imageUrlArr.count == self.imageArr.count) {
+        NSMutableArray *imageUploadArr = @[].mutableCopy;
+        for (int i = 0; i < self.imageArr.count; i++) {
+            NSMutableDictionary *tempDict = @{}.mutableCopy;
+            ZFileUploadDataModel *model = self.imageArr[i];
+            
+            if (self.isVideo && i == 0) {
+                [params setObject:model.image_url forKey:@"cover"];
+                continue;
+            }
+            
+            if (model.taskType == ZUploadTypeVideo) {
+                [tempDict setObject:model.video_url forKey:@"url"];
+                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+            }else{
+                [tempDict setObject:model.image_url forKey:@"url"];
+            }
+            
+            CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
+            CGFloat fixelH = CGImageGetHeight(model.image.CGImage);
+            [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
+            [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
+            [imageUploadArr addObject:tempDict];
+            
+            if (i == 0 && model.taskType == ZUploadTypeImage) {
+                [params setObject:model.image_url forKey:@"cover"];
+            }
+        }
+        [params setObject:imageUploadArr forKey:@"url"];
+    }
     
     __weak typeof(self) weakSelf = self;
-    [TLUIUtility showLoading:@"上传图片中..."];
-    [ZOriganizationPhotoViewModel addImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
+    [TLUIUtility showLoading:@"上传数据中..."];
+    [ZCircleReleaseViewModel releaseDynamics:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [weakSelf configProgress:1];
@@ -280,6 +327,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
             [TLUIUtility showSuccessHint:message];
             return ;
         }else {
+            [weakSelf showErrorAnimation];
             [TLUIUtility showErrorHint:message];
         }
     }];

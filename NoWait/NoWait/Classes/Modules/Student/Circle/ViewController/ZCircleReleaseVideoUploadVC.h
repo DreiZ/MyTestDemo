@@ -10,9 +10,10 @@
 
 
 @interface ZCircleReleaseVideoUploadVC : ZViewController
+@property (nonatomic,assign) BOOL isVideo;
+@property (nonatomic,strong) NSMutableDictionary *params;
 
 @property (nonatomic,strong) NSMutableArray *imageArr;
-@property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) void (^uploadCompleteBlock)(void);
 @end
 

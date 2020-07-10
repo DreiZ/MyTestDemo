@@ -8,6 +8,23 @@
 
 #import "ZCircleReleaseModel.h"
 
+@implementation ZCircleReleaseTagModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"tag_id" : @"id",
+    };
+}
+@end
+
+@implementation ZCircleReleaseTagNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleReleaseTagModel"
+             };
+}
+@end
+
 @implementation ZCircleReleaseModel
 - (instancetype)init {
     self = [super init];

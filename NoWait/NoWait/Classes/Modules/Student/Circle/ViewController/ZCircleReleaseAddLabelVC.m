@@ -9,6 +9,8 @@
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZCircleReleaseAddLabelListCell.h"
 #import "ZCircleReleaseRecommendLabelListCell.h"
+#import "ZCircleReleaseViewModel.h"
+#import "ZCircleReleaseModel.h"
 #import "ZAlertView.h"
 
 @interface ZCircleReleaseAddLabelVC ()<UITextFieldDelegate>
@@ -73,9 +75,7 @@
         }];
     }).zChain_updateDataSource(^{
         self.labelList = @[].mutableCopy;
-        self.hotList = @[@"足球",@"体育竞技",@"篮球培训",
-                         @"游泳竞技",@"瑜伽健美",@"书法字画",
-                         @"英语",@"钢琴",@"极限运动"].mutableCopy;
+        self.hotList = @[].mutableCopy;
         if (self.list) {
             for (int i = 0; i < self.list.count; i++) {
                 [self.labelList addObject:self.list[i]];;
@@ -119,31 +119,35 @@
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleReleaseRecommendLabelListCell"]) {
             ZCircleReleaseRecommendLabelListCell *lcell = (ZCircleReleaseRecommendLabelListCell *)cell;
-            lcell.selectBlock = ^(NSString * text) {
-                if (text.length > 0) {
-                    if (self.labelList.count >= 5) {
-                        [TLUIUtility showInfoHint:@"最多添加5个标签"];
-                        return;
-                    }
-                    if (![self checkLabelIsSame:text]) {
-                        [self.labelList addObject:text];
-                        self.zChain_reload_ui();
-                    }else{
-                        [TLUIUtility showInfoHint:@"已添加了该标签"];
-                    }
+            lcell.selectBlock = ^(ZCircleReleaseTagModel * model) {
+                if (self.labelList.count >= 5) {
+                    [TLUIUtility showInfoHint:@"最多添加5个标签"];
+                    return;
+                }
+                if (![self checkLabelIsSame:model]) {
+                    [self.labelList addObject:model];
+                    self.zChain_reload_ui();
+                }else{
+                    [TLUIUtility showInfoHint:@"已添加了该标签"];
                 }
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleReleaseAddLabelListCell"]){
             ZCircleReleaseAddLabelListCell *lcell = (ZCircleReleaseAddLabelListCell *)cell;
-            lcell.selectBlock = ^(NSInteger index) {
-                if (self.labelList.count > index) {
-                    [self.labelList removeObjectAtIndex:index];
+            lcell.selectBlock = ^(ZCircleReleaseTagModel *model) {
+                if (model) {
+                    for (int i = 0; i < self.labelList.count; i++) {
+                        ZCircleReleaseTagModel *smodel = self.labelList[i];
+                        if ([smodel.tag_name isEqualToString:model.tag_name]) {
+                            [self.labelList removeObjectAtIndex:i];
+                        }
+                    }
+                    
                     self.zChain_reload_ui();
                 }
             };
         }
     });
-    
+    [self getRecommondTags];
     self.zChain_reload_ui();
 }
 
@@ -159,7 +163,10 @@
                 [TLUIUtility showInfoHint:@"最多添加5个标签"];
                 return;
             }
-            [weakSelf.labelList addObject:SafeStr(self.userNameTF.text)];
+            ZCircleReleaseTagModel *model = [[ZCircleReleaseTagModel alloc] init];
+            model.tag_name = SafeStr(self.userNameTF.text);
+            model.tag_id = @"";
+            [weakSelf.labelList addObject:model];
              weakSelf.zChain_reload_ui();
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -204,14 +211,25 @@
     [ZPublicTool textField:textField maxLenght:30 type:ZFormatterTypeAnyByte];
 }
 
-- (BOOL)checkLabelIsSame:(NSString*)text {
+- (BOOL)checkLabelIsSame:(ZCircleReleaseTagModel*)model {
     __block BOOL isSame = NO;
-    [self.labelList enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([text isEqualToString:obj]) {
+    [self.labelList enumerateObjectsUsingBlock:^(ZCircleReleaseTagModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([model.tag_name isEqualToString:obj.tag_name]) {
             isSame = YES;
         }
     }];
     return isSame;
+}
+
+- (void)getRecommondTags{
+    [ZCircleReleaseViewModel getDynamicTagList:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZCircleReleaseTagNetModel class]]) {
+            ZCircleReleaseTagNetModel *model = (ZCircleReleaseTagNetModel *)data;
+            [self.hotList removeAllObjects];
+            [self.hotList addObjectsFromArray:model.list];
+            self.zChain_reload_ui();
+        }
+    }];
 }
 @end
 

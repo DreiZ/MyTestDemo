@@ -7,12 +7,13 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZCircleReleaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseAddLabelListCell : ZBaseCell
 @property (nonatomic,strong) NSMutableArray *list;
-@property (nonatomic,strong) void (^selectBlock)(NSInteger );
+@property (nonatomic,strong) void (^selectBlock)(ZCircleReleaseTagModel *);
 @end
 
 NS_ASSUME_NONNULL_END

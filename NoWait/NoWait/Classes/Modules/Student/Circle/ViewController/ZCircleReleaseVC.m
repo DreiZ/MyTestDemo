@@ -12,13 +12,13 @@
 #import "ZCircleReleaseAddPhotoCell.h"
 #import "ZCircleReleaseDetailTextViewCell.h"
 
+#import "ZAlertView.h"
 #import "ZBaseUnitModel.h"
 #import "ZCircleReleaseViewModel.h"
 
 #import "ZCircleReleaseSelectSchoolVC.h"
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
-#import "ZAlertView.h"
 #import "ZCircleReleaseVideoUploadVC.h"
 
 @interface ZCircleReleaseVC ()
@@ -78,6 +78,8 @@
         
         ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.cellHeight = CGFloatIn750(80);
+        cellModel.max = 60;
+        cellModel.formatterType = ZFormatterTypeAnyByte;
         cellModel.textAlignment = NSTextAlignmentLeft;
         cellModel.placeholder = @"与众不同的标题会有更多喜欢哦~";
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseTextFieldCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleReleaseTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
@@ -106,10 +108,11 @@
             NSString *labelHad = @"0";
             if (ValidArray(self.releaseViewModel.model.tags)) {
                 for (int i = 0; i < self.releaseViewModel.model.tags.count; i++) {
+                    ZCircleReleaseTagModel *model = self.releaseViewModel.model.tags[i];
                     if (i == 0) {
-                        label = [NSString stringWithFormat:@"%@",self.releaseViewModel.model.tags[i]];
+                        label = [NSString stringWithFormat:@"%@",model.tag_name];
                     }else {
-                        label = [NSString stringWithFormat:@"%@，%@",label,self.releaseViewModel.model.tags[i]];
+                        label = [NSString stringWithFormat:@"%@，%@",label,model.tag_name];
                     }
                 }
                 labelHad = @"1";
@@ -164,28 +167,22 @@
         if ([cellConfig.title isEqualToString:@"ZCircleReleaseAddPhotoCell"]) {
             ZCircleReleaseAddPhotoCell *lcell = (ZCircleReleaseAddPhotoCell *)cell;
             lcell.addBlock = ^{
-                [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
-                    if (list && list.count > 0){
-                        for (ZImagePickerModel *model in list) {
-                            ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
-                            if (model.isVideo) {
-                                dataModel.image = model.image;
-                                dataModel.taskType = ZUploadTypeVideo;
-                                dataModel.asset = model.asset;
-                                dataModel.taskState = ZUploadStateWaiting;
-        //                            dataModel.filePath = [model.mediaURL absoluteString];
-                            }else{
-                                dataModel.image = model.image;
-                                dataModel.asset = model.asset;
-                                dataModel.taskType = ZUploadTypeImage;
-                                dataModel.taskState = ZUploadStateWaiting;
-                            }
-
-                            [weakSelf.releaseViewModel.model.imageArr addObject:dataModel];
-                        }
-                        self.zChain_reload_ui();
+                if (!ValidArray(weakSelf.releaseViewModel.model.imageArr)) {
+                    [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                        [weakSelf pickList:list];
+                    }];
+                }else{
+                    ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[0];
+                    if (dataModel.taskType == ZUploadTypeVideo) {
+                        [TLUIUtility showInfoHint:@"最多上传一个视频"];
+                        return;
+                    }else{
+                        [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                            [weakSelf pickList:list];
+                        }];
                     }
-                }];
+                }
+                
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleReleaseDetailTextViewCell"]){
             ZCircleReleaseDetailTextViewCell *lcell = (ZCircleReleaseDetailTextViewCell *)cell;
@@ -233,6 +230,28 @@
     self.zChain_reload_ui();
 }
 
+- (void)pickList:(NSArray<ZImagePickerModel *> *)list {
+    if (list && list.count > 0){
+        for (ZImagePickerModel *model in list) {
+            ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+            if (model.isVideo) {
+                dataModel.image = model.image;
+                dataModel.taskType = ZUploadTypeVideo;
+                dataModel.asset = model.asset;
+                dataModel.taskState = ZUploadStateWaiting;
+//                            dataModel.filePath = [model.mediaURL absoluteString];
+            }else{
+                dataModel.image = model.image;
+                dataModel.asset = model.asset;
+                dataModel.taskType = ZUploadTypeImage;
+                dataModel.taskState = ZUploadStateWaiting;
+            }
+
+            [self.releaseViewModel.model.imageArr addObject:dataModel];
+        }
+        self.zChain_reload_ui();
+    }
+}
 
 #pragma mark - lazy loading...
 - (UIButton *)bottomBtn {
@@ -246,8 +265,70 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            ZCircleReleaseVideoUploadVC *uvc = [[ZCircleReleaseVideoUploadVC alloc] init];
-            [weakSelf.navigationController pushViewController:uvc animated:YES];
+            if (!ValidStr(weakSelf.releaseViewModel.model.title)) {
+                [TLUIUtility showInfoHint:@"请输入标题"];
+                return;
+            }
+            if (!ValidArray(weakSelf.releaseViewModel.model.imageArr)) {
+                [TLUIUtility showInfoHint:@"请添加图片或视频"];
+                return;
+            }
+            if (!ValidStr(weakSelf.releaseViewModel.model.content)) {
+                [TLUIUtility showInfoHint:@"请添加正文"];
+                return;
+            }
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:weakSelf.releaseViewModel.model.title forKey:@"title"];
+            [params setObject:weakSelf.releaseViewModel.model.content forKey:@"content"];
+            
+            if (ValidStr(weakSelf.releaseViewModel.model.province) && ValidStr(weakSelf.releaseViewModel.model.city) &&
+                ValidStr(weakSelf.releaseViewModel.model.county) &&
+                ValidStr(weakSelf.releaseViewModel.model.address) &&
+                ValidStr(weakSelf.releaseViewModel.model.province) &&
+                weakSelf.releaseViewModel.model.latitude > 0.0001 &&
+                weakSelf.releaseViewModel.model.longitude > 0.0001) {
+                [params setObject:weakSelf.releaseViewModel.model.province forKey:@"province"];
+                [params setObject:weakSelf.releaseViewModel.model.city forKey:@"city"];
+                [params setObject:weakSelf.releaseViewModel.model.county forKey:@"region"];
+                [params setObject:[NSString stringWithFormat:@"%f",weakSelf.releaseViewModel.model.longitude] forKey:@"longitude"];
+                [params setObject:[NSString stringWithFormat:@"%f",weakSelf.releaseViewModel.model.latitude] forKey:@"latitude"];
+                [params setObject:weakSelf.releaseViewModel.model.address forKey:@"address"];
+            }
+            
+            if (!ValidStr(weakSelf.releaseViewModel.model.store_id)) {
+                [params setObject:weakSelf.releaseViewModel.model.store_id forKey:@"store_id"];
+            }
+            
+            NSMutableArray *tags = @[].mutableCopy;
+            if (ValidArray(self.releaseViewModel.model.tags)) {
+                for (int i = 0; i < self.releaseViewModel.model.tags.count; i++) {
+                    ZCircleReleaseTagModel *model = self.releaseViewModel.model.tags[i];
+                    [tags addObject:model.tag_name];
+                }
+            }
+            [params setObject:tags forKey:@"tags"];
+            [params setObject:@"4" forKey:@"store_id"];
+            
+            NSMutableArray *uploadArr = @[].mutableCopy;
+            [uploadArr addObjectsFromArray:self.releaseViewModel.model.imageArr];
+            for (ZFileUploadDataModel *model in self.releaseViewModel.model.imageArr) {
+                if (model.taskType == ZUploadTypeVideo) {
+                    ZFileUploadDataModel *coverModel = [[ZFileUploadDataModel alloc] init];
+                    coverModel.image = model.image;
+                    coverModel.asset = model.asset;
+                    coverModel.taskType = ZUploadTypeImage;
+                    coverModel.taskState = ZUploadStateWaiting;
+                    [uploadArr insertObject:coverModel atIndex:0];
+                }
+            }
+            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
+            mvc.params = params;
+            mvc.imageArr = uploadArr;
+            mvc.uploadCompleteBlock = ^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            };
+            [weakSelf.navigationController pushViewController:mvc animated:YES];
+            
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

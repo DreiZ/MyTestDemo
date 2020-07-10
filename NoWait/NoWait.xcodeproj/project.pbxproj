@@ -134,6 +134,7 @@
 		B24324E52491C1F900F828A6 /* HNUpdateAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E42491C1F900F828A6 /* HNUpdateAlertView.m */; };
 		B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324E82491C49600F828A6 /* LKUIUtils.m */; };
 		B24324EC2491C7C500F828A6 /* HNShowPopViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */; };
+		B24415DF24B81CB70059E813 /* XLPaymentErrorHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B24415DE24B81CB70059E813 /* XLPaymentErrorHUD.m */; };
 		B2469B5F249C447F00DCB146 /* ZImageAndVideoTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B5E249C447F00DCB146 /* ZImageAndVideoTestVC.m */; };
 		B2469B63249C8D0200DCB146 /* ZFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B62249C8D0200DCB146 /* ZFileManager.m */; };
 		B2469B66249CB30900DCB146 /* ZFileUploadManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2469B65249CB30900DCB146 /* ZFileUploadManagerVC.m */; };
@@ -1007,6 +1008,8 @@
 		B24324E82491C49600F828A6 /* LKUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKUIUtils.m; sourceTree = "<group>"; };
 		B24324EA2491C7C400F828A6 /* HNShowPopViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNShowPopViewHandler.h; sourceTree = "<group>"; };
 		B24324EB2491C7C500F828A6 /* HNShowPopViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNShowPopViewHandler.m; sourceTree = "<group>"; };
+		B24415DD24B81CB70059E813 /* XLPaymentErrorHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLPaymentErrorHUD.h; sourceTree = "<group>"; };
+		B24415DE24B81CB70059E813 /* XLPaymentErrorHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLPaymentErrorHUD.m; sourceTree = "<group>"; };
 		B2469B5D249C447F00DCB146 /* ZImageAndVideoTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZImageAndVideoTestVC.h; sourceTree = "<group>"; };
 		B2469B5E249C447F00DCB146 /* ZImageAndVideoTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZImageAndVideoTestVC.m; sourceTree = "<group>"; };
 		B2469B61249C8D0200DCB146 /* ZFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFileManager.h; sourceTree = "<group>"; };
@@ -2676,6 +2679,8 @@
 				B2469B8424A08BD400DCB146 /* XLPaymentLoadingHUD.h */,
 				B2469B8524A08BD400DCB146 /* XLPaymentLoadingHUD.m */,
 				B2469B8624A08BD400DCB146 /* XLPaymentSuccessHUD.m */,
+				B24415DD24B81CB70059E813 /* XLPaymentErrorHUD.h */,
+				B24415DE24B81CB70059E813 /* XLPaymentErrorHUD.m */,
 			);
 			path = XLPaymentHUD;
 			sourceTree = "<group>";
@@ -5163,6 +5168,7 @@
 				B28D9141240766940021E05A /* PGDatePicker+MonthDay.m in Sources */,
 				B28D90EE240666010021E05A /* ZOrganizationAccountTopMainView.m in Sources */,
 				B26880E024767ECC00BF8FCD /* WMZDropMenuParam.m in Sources */,
+				B24415DF24B81CB70059E813 /* XLPaymentErrorHUD.m in Sources */,
 				B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */,
 				B2F5BD5724B4079900AD1C72 /* ZCircleSearchTextView.m in Sources */,
 				B28D914A240792330021E05A /* ZOriganizationLessonModel.m in Sources */,
