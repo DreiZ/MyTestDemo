@@ -289,11 +289,6 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
             NSMutableDictionary *tempDict = @{}.mutableCopy;
             ZFileUploadDataModel *model = self.imageArr[i];
             
-            if (self.isVideo && i == 0) {
-                [params setObject:model.image_url forKey:@"cover"];
-                continue;
-            }
-            
             if (model.taskType == ZUploadTypeVideo) {
                 [tempDict setObject:model.video_url forKey:@"url"];
                 [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
@@ -306,11 +301,32 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
             [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
             [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
             [imageUploadArr addObject:tempDict];
+        }
+        
+        if (self.imageArr.count > 0) {
+            ZFileUploadDataModel *model = self.imageArr[0];
             
-            if (i == 0 && model.taskType == ZUploadTypeImage) {
-                [params setObject:model.image_url forKey:@"cover"];
+            if (model.taskType == ZUploadTypeImage) {
+                NSMutableDictionary *cover = @{}.mutableCopy;
+                CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
+                CGFloat fixelH = CGImageGetHeight(model.image.CGImage);
+                
+                [cover setObject:model.image_url forKey:@"url"];
+                [cover setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
+                [cover setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
+        
+                if (self.isVideo && self.imageArr.count == 2) {
+                    ZFileUploadDataModel *model = self.imageArr[1];
+                    if (model.taskType == ZUploadTypeVideo) {
+                        [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                    }
+                }
+                
+                [params setObject:cover forKey:@"cover"];
             }
         }
+        
+        
         [params setObject:imageUploadArr forKey:@"url"];
     }
     

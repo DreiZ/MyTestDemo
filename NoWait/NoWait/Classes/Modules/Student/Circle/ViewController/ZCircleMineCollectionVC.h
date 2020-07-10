@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMineCollectionVC : ZCollectionViewController
-
+@property (nonatomic,copy) NSString *account;
 @end
 
 NS_ASSUME_NONNULL_END

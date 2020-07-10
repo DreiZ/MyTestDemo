@@ -9,7 +9,7 @@
 #import "ZCircleMyLiskeListVC.h"
 #import "ZMessageLikeListCell.h"
 
-#import "ZCircleMineVC.h"
+#import "ZCircleMineCollectionVC.h"
 #import "ZCircleDetailVC.h"
 
 @interface ZCircleMyLiskeListVC ()
@@ -64,7 +64,7 @@
             ZMessageLikeListCell *lcell = (ZMessageLikeListCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 0) {
-                    ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                    ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
                     [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }else{
                     ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];

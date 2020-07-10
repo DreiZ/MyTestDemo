@@ -9,7 +9,7 @@
 #import "ZCircleMyFansNewListVC.h"
 #import "ZCircleMyFocusCell.h"
 
-#import "ZCircleMineVC.h"
+#import "ZCircleMineCollectionVC.h"
 
 @interface ZCircleMyFansNewListVC ()
 
@@ -50,7 +50,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {
-            ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+            ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
             [self.navigationController pushViewController:mvc animated:YES];
         }
     });

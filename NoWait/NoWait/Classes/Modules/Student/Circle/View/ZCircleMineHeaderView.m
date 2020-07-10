@@ -147,8 +147,6 @@
         make.top.equalTo(self.signatureLabel.mas_top).offset(-CGFloatIn750(20));
         make.bottom.equalTo(self.signatureLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
-    
-    [self updateData];
 }
 
 #pragma mark -lazy loading
@@ -331,24 +329,72 @@
 }
 
 
-- (void)updateData {
-    _followLabel.text = @"120";
-    _fansLabel.text = @"100";
-    _dynamicLabel.text = @"8";
+- (void)setModel:(ZCircleMineModel *)model {
+    _model = model;
     
-    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"已阅读并同意遵守《服务条款》和《隐私协议》"];
+    _followLabel.text = model.follow;
+    _fansLabel.text = model.fans;
+    _dynamicLabel.text = model.dynamic;
+    
+    if (model.isMine) {
+        self.getFollowBtn.hidden = YES;
+        [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+            make.height.mas_equalTo(CGFloatIn750(58));
+            make.width.mas_equalTo(CGFloatIn750(460));
+            make.top.equalTo(self.headImageView.mas_bottom);
+        }];
+    }else{
+        self.getFollowBtn.hidden = NO;
+        [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+            make.height.mas_equalTo(CGFloatIn750(58));
+            make.width.mas_equalTo(CGFloatIn750(460));
+            make.bottom.equalTo(self.headImageView.mas_bottom);
+        }];
+    }
+    
+    if ([model.follow_status intValue] == 2) {
+        [self.getFollowBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        
+        _getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+    }else if([model.follow_status intValue] == 3){
+        [self.getFollowBtn setTitle:@"互相关注" forState:UIControlStateNormal];
+        
+        _getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+    }else{
+        [self.getFollowBtn setTitle:@"关注" forState:UIControlStateNormal];
+        
+        _getFollowBtn.backgroundColor = [UIColor colorMain];
+        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+    }
+    
+    UIColor *autographColor = [UIColor colorWithHexString:@"999999"];
+    if (!ValidStr(model.autograph) && model.isMine) {
+        model.autograph = @"您还没有填写签名";
+        autographColor = [UIColor colorWithHexString:@"c8c8c8"];
+    }
+    
+    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString:SafeStr(model.autograph)];
     text.lineSpacing = 4;
     text.font = [UIFont fontContent];
-    text.color = [UIColor colorWithHexString:@"999999"];
+    text.color = autographColor;
+    if (model.isMine) {
+        YYAnimatedImageView *imageView1= [[YYAnimatedImageView alloc] initWithImage:[UIImage imageNamed:@"finderPen"]];
+        imageView1.frame = CGRectMake(0, 0, CGFloatIn750(24), CGFloatIn750(24));
+        NSMutableAttributedString *attachText1= [NSMutableAttributedString attachmentStringWithContent:imageView1 contentMode:UIViewContentModeScaleAspectFit attachmentSize:imageView1.frame.size alignToFont:[UIFont systemFontOfSize:CGFloatIn750(24)] alignment:YYTextVerticalAlignmentCenter];
+        [text appendAttributedString:attachText1];
+    }
     
-    YYAnimatedImageView *imageView1= [[YYAnimatedImageView alloc] initWithImage:[UIImage imageNamed:@"finderPen"]];
-    imageView1.frame = CGRectMake(0, 0, CGFloatIn750(24), CGFloatIn750(24));
-    NSMutableAttributedString *attachText1= [NSMutableAttributedString attachmentStringWithContent:imageView1 contentMode:UIViewContentModeScaleAspectFit attachmentSize:imageView1.frame.size alignToFont:[UIFont systemFontOfSize:CGFloatIn750(24)] alignment:YYTextVerticalAlignmentCenter];
-    [text appendAttributedString:attachText1];
     _signatureLabel.attributedText = text;
     
-    [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    if (ValidStr([ZUserHelper sharedHelper].user.avatar)) {
+//    [self.headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    if (ValidStr(model.image)) {
         [LKUIUtils downloadShareImage:SafeStr([ZUserHelper sharedHelper].user.avatar) complete:^(UIImage *image) {
             if (!image) {
                 image = [UIImage imageNamed:@"default_head"];

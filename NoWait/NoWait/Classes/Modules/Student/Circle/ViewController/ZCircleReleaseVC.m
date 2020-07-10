@@ -82,6 +82,7 @@
         cellModel.formatterType = ZFormatterTypeAnyByte;
         cellModel.textAlignment = NSTextAlignmentLeft;
         cellModel.placeholder = @"与众不同的标题会有更多喜欢哦~";
+        cellModel.content = self.releaseViewModel.model.title;
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseTextFieldCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleReleaseTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
         

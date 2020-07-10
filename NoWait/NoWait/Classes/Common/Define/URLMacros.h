@@ -70,8 +70,8 @@
 #define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
 #define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
 #define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
-#define AliYunBucketName                @"xiangcenter"
-#define AliYunBucketIMName              @"xiangcenter"
+#define AliYunBucketName                @"xiangcenter-test"
+#define AliYunBucketIMName              @"xiangcenter-test"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 

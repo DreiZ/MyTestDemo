@@ -14,8 +14,9 @@
 #import "ZCircleMineHeaderView.h"
 #import "ZCircleMineSectionView.h"
 #import "ZJWaterLayout.h"
-
 #import "ZCircleMineCollectionViewFlowLayout.h"
+#import "ZCircleMineViewModel.h"
+#import "ZCircleMineModel.h"
 
 #import "ZCircleMyFocusListVC.h"
 #import "ZCircleMyFansListVC.h"
@@ -25,6 +26,8 @@
 @interface ZCircleMineCollectionVC ()
 @property (nonatomic,strong) ZCircleMineHeaderView *headView;
 @property (nonatomic,assign) BOOL isCollection;
+@property (nonatomic,strong) ZCircleMineModel *mineModel;
+@property (nonatomic,assign) CGFloat headHeight;
 @end
 
 @implementation ZCircleMineCollectionVC
@@ -41,6 +44,7 @@
     [self setCollectionViewEmptyDataDelegate];
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
+    [self getMineInfo];
 }
 
 
@@ -48,6 +52,7 @@
     self.scrollDirection = UICollectionViewScrollDirectionVertical;
     [super setDataSource];
     
+    self.headHeight = CGFloatIn750(292);
     self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(40), CGFloatIn750(30), CGFloatIn750(40), CGFloatIn750(30));
     self.minimumLineSpacing = CGFloatIn750(4);
     self.minimumInteritemSpacing = CGFloatIn750(4);
@@ -70,60 +75,27 @@
     [self.iCollectionView registerClass:[ZCircleMineSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ZCircleMineSectionView"];  //  一定要设置
     [self.iCollectionView setCollectionViewLayout:flowLayout];
     [self.iCollectionView addSubview:self.headView];
-    self.headView.frame = CGRectMake(0, -CGFloatIn750(318), KScreenWidth, CGFloatIn750(318));
-    self.iCollectionView.contentInset = UIEdgeInsetsMake(CGFloatIn750(318), 0, 0, 0);
+    self.headView.frame = CGRectMake(0, -self.headHeight, KScreenWidth, self.headHeight);
+    self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     [self.cellConfigArr removeAllObjects];
     ZCellConfig *cellConfig;
-    if (_isCollection) {
-        cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionCell className] title:[ZCircleMineDynamicCollectionCell className] showInfoMethod:nil sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3-0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3 *(160.0f)/(142.0)) cellType:ZCellTypeClass dataModel:nil];
-    }else{
-       cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionListCell className] title:[ZCircleMineDynamicCollectionListCell className] showInfoMethod:@selector(setList:) sizeOfCell:[ZCircleMineDynamicCollectionListCell z_getCellSize:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-    }
-    
+
+    cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionCell className] title:[ZCircleMineDynamicCollectionCell className] showInfoMethod:nil sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3-0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3 *(160.0f)/(142.0)) cellType:ZCellTypeClass dataModel:nil];
+
     
     [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
-    [self.cellConfigArr addObject:cellConfig];
+    
 }
 
 #pragma mark - view
 - (ZCircleMineHeaderView *)headView {
     if (!_headView) {
         __weak typeof(self) weakSelf = self;
-        CGSize tempSize = [@"这个颜色太神奇了" tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-        
-        _headView = [[ZCircleMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(292)+tempSize.height)];
+        _headView = [[ZCircleMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, self.headHeight)];
         _headView.handleBlock = ^(NSInteger index) {
             DLog(@"----%ld", (long)index);
             if (index == 0) {
@@ -159,58 +131,6 @@
     return _headView;
 }
 
-#pragma mark - collectionview delegate
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return self.cellConfigArr.count;
-}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ZCellConfig *cellConfig = [self.cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCollectionViewCell *cell;
-    cell = (ZBaseCollectionViewCell*)[cellConfig cellOfCellConfigWithCollection:collectionView indexPath:indexPath dataModel:cellConfig.dataModel];
-    [self zz_collectionView:collectionView cell:cell cellForItemAtIndexPath:indexPath cellConfig:cellConfig];
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = [self.cellConfigArr objectAtIndex:indexPath.row];
-    [self zz_collectionView:collectionView didSelectItemAtIndexPath:indexPath cellConfig:cellConfig];
-}
-
-
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (!self.isCollection) {
-        return UIEdgeInsetsMake(0, 0, 0, 0);
-    }
-    return self.edgeInsets;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    if (!self.isCollection) {
-        return 0;
-    }
-    return self.minimumLineSpacing;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    if (!self.isCollection) {
-        return 0;
-    }
-    return self.minimumInteritemSpacing;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZCellConfig *cellConfig = self.cellConfigArr[indexPath.row];
-    CGSize cellSize =  cellConfig.sizeOfCell;
-    return cellSize;
-}
 //
 //- (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 //{
@@ -245,12 +165,36 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < 0 &&  scrollView.contentOffset.y > -CGFloatIn750(318)) {
+    if (scrollView.contentOffset.y < 0 &&  scrollView.contentOffset.y > -self.headHeight) {
         self.iCollectionView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
     }else if (scrollView.contentOffset.y >= 0) {
         self.iCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }else{
-        self.iCollectionView.contentInset = UIEdgeInsetsMake(CGFloatIn750(318), 0, 0, 0);
+        self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
     }
+}
+
+- (void)getMineInfo {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel getCircleMineData:@{@"account":[ZUserHelper sharedHelper].user.userCodeID} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZCircleMineModel class]]) {
+            weakSelf.mineModel = data;
+            weakSelf.headView.model = weakSelf.mineModel;
+            [weakSelf setHeadViewHeight];
+        }
+    }];
+}
+
+- (void)setHeadViewHeight {
+    if (ValidStr(self.mineModel.autograph)) {
+        CGSize tempSize = [self.mineModel.autograph tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        self.headHeight = tempSize.height + CGFloatIn750(292);
+    }else if(self.mineModel.isMine){
+        self.headHeight = CGFloatIn750(318);
+    }
+    
+    self.headView.frame = CGRectMake(0, -self.headHeight, KScreenWidth, self.headHeight);
+    self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
 }
 @end

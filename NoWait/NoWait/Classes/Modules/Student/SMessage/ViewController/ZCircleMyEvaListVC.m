@@ -9,7 +9,7 @@
 #import "ZCircleMyEvaListVC.h"
 #import "ZMessageEvaListCell.h"
 
-#import "ZCircleMineVC.h"
+#import "ZCircleMineCollectionVC.h"
 #import "ZCircleDetailVC.h"
 
 @interface ZCircleMyEvaListVC ()
@@ -48,7 +48,8 @@
             ZMessageEvaListCell *lcell = (ZMessageEvaListCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 0) {
-                    ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
+                    ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC
+                                                     alloc] init];
                     [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }else{
                     ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];

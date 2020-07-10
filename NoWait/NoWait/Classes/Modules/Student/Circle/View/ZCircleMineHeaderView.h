@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZCircleMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMineHeaderView : UIView
+@property (nonatomic,strong) ZCircleMineModel *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @property (nonatomic,strong) void (^valueChangeBlock)(NSString *);
 @end
