@@ -28,6 +28,8 @@
 @property (nonatomic,strong) UILabel *dynamicHintLabel;
 
 @property (nonatomic,strong) UIImageView *headImageView;
+@property (nonatomic,strong) UIImageView *sexImageView;
+
 @end
 
 @implementation ZCircleMineHeaderView
@@ -50,6 +52,7 @@
     [self addSubview:self.contView];
     
     [self.contView addSubview:self.headImageView];
+    [self.contView addSubview:self.sexImageView];
     [self addSubview:self.signatureLabel];
     [self.contView addSubview:self.fansLabel];
     [self.contView addSubview:self.followLabel];
@@ -64,6 +67,10 @@
     [self.contView addSubview:self.dynamicBtn];
     [self addSubview:self.signatureBtn];
     
+    self.dynamicBtn.hidden = YES;
+    self.dynamicLabel.hidden = YES;
+    self.dynamicHintLabel.hidden = YES;
+    
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         make.height.mas_equalTo(CGFloatIn750(218));
@@ -73,6 +80,12 @@
         make.width.height.mas_equalTo(CGFloatIn750(168));
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(40));
         make.centerY.equalTo(self.contView.mas_centerY);
+    }];
+    
+    [self.sexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.headImageView.mas_right).offset(-CGFloatIn750(8));
+        make.bottom.equalTo(self.headImageView.mas_bottom);
+        make.width.height.mas_equalTo(CGFloatIn750(36));
     }];
     
     [self.contView addSubview:self.getFollowBtn];
@@ -331,12 +344,29 @@
 }
 
 
+- (UIImageView *)sexImageView {
+    if (!_sexImageView) {
+        _sexImageView = [[UIImageView alloc] init];
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+//        finderMan
+    }
+    return _sexImageView;
+}
+
+
 - (void)setModel:(ZCircleMineModel *)model {
     _model = model;
     
     _followLabel.text = model.follow;
     _fansLabel.text = model.fans;
     _dynamicLabel.text = model.dynamic;
+    
+    
+    if ([model.sex intValue] == 1) {
+        _sexImageView.image = [UIImage imageNamed:@"finderMan"];
+    }else{
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
     
     if (model.isMine) {
         self.getFollowBtn.hidden = YES;

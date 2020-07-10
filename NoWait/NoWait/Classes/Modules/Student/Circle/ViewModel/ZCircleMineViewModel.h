@@ -16,6 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)updateUserAutograph:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getDynamicsList:(NSDictionary *)params isLike:(BOOL)isLike completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getFollowList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

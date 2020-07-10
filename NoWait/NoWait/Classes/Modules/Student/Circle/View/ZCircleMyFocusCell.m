@@ -98,11 +98,6 @@
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.height.mas_equalTo(0.5);
     }];
-    
-    [self setType:0];
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
-    _nameLabel.text = @"阿萨德加感动";
-    _subnameLabel.text = @"噶是的感受到公司的";
 }
 
 
@@ -181,9 +176,25 @@
     return _backContentView;
 }
 
+- (void)setModel:(ZCircleMinePersonModel *)model {
+    _model = model;
+    [self setType:[model.follow_status intValue]];
+    //0:关注 1：fans 2：互相
+    // 1:未关注  2：已关注  3：互相关注
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _nameLabel.text = model.nick_name;
+    _subnameLabel.text = model.autograph;
+    
+    if ([model.sex intValue] == 1) {
+        _sexImageView.image = [UIImage imageNamed:@"finderMan"];
+    }else{
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
+}
+
 - (void)setType:(NSInteger)type {
     //        messageFellow finderFollowYes finderFollowNo
-    if (type == 0) {
+    if (type == 1) {
         [_handleBtn setTitle:@"已关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         _handleBtn.imageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
@@ -196,7 +207,7 @@
             make.height.mas_equalTo(CGFloatIn750(60));
         }];
         ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-    }else if(type == 1){
+    }else if(type == 2){
         [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         _handleBtn.imageView.tintColor = [UIColor colorMain];

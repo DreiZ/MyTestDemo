@@ -46,4 +46,60 @@
         }
     }];
 }
+
++ (void)getDynamicsList:(NSDictionary *)params isLike:(BOOL)isLike completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:isLike ? URL_account_v1_enjoy_dynamics_list:URL_account_v1_dynamics_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMineDynamicNetModel *model = [ZCircleMineDynamicNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
++ (void)getFollowList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_follow_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMinePersonNetModel *model = [ZCircleMinePersonNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
++ (void)getFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_fans_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMinePersonNetModel *model = [ZCircleMinePersonNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 @end

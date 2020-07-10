@@ -622,7 +622,7 @@
 #define URL_account_v1_release_dynamics           @"account/v1/release/dynamics"
 
 //动态列表
-#define URL_account_v1_dynamics_list              @"account/v1/dynamics/list"
+#define URL_account_v1_dynamics_list              @"account/v1/account/dynamics"
 
 //动态详情
 #define URL_account_v1_dynamics_info              @"account/v1/dynamics/info"
@@ -651,7 +651,7 @@
 //粉丝列表
 #define URL_account_v1_fans_list                  @"account/v1/fans/list"
 
-//粉丝列表
+//新增粉丝列表
 #define URL_account_v1_new_fans_list              @"account/v1/new/fans/list"
 
 //推荐动态标签

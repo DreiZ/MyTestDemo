@@ -7,12 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZCircleMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMyFocusCell : ZBaseCell
 @property (nonatomic,strong) void (^handleBlock)(void);
-@property (nonatomic,assign) NSInteger type;//0:关注 1：fans 2：互相
+@property (nonatomic,strong) ZCircleMinePersonModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

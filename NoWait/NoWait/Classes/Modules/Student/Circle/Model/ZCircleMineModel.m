@@ -8,6 +8,37 @@
 
 #import "ZCircleMineModel.h"
 
+@implementation ZCircleMinePersonModel
+
+@end
+
+@implementation ZCircleMinePersonNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleMinePersonModel"
+             };
+}
+@end
+
+
+@implementation ZCircleMineDynamicPhotoModel
+
+@end
+
+@implementation ZCircleMineDynamicModel
+
+@end
+
+@implementation ZCircleMineDynamicNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleMineDynamicModel"
+             };
+}
+@end
+
 @implementation ZCircleMineModel
 
 @end

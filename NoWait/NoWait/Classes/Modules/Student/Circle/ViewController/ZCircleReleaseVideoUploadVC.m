@@ -288,7 +288,9 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
         for (int i = 0; i < self.imageArr.count; i++) {
             NSMutableDictionary *tempDict = @{}.mutableCopy;
             ZFileUploadDataModel *model = self.imageArr[i];
-            
+            if (self.isVideo && i == 0) {
+                continue;
+            }
             if (model.taskType == ZUploadTypeVideo) {
                 [tempDict setObject:model.video_url forKey:@"url"];
                 [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];

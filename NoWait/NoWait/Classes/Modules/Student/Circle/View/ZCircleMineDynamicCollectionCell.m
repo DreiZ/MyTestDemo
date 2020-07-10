@@ -93,9 +93,6 @@
         make.centerY.equalTo(self.coverImageView.mas_centerY);
         make.width.height.mas_equalTo(CGFloatIn750(60));
     }];
-    
-    _seeLabel.text = @"123";
-    _likeLabel.text = @"53";
 }
 
 #pragma mark - Getter
@@ -142,23 +139,10 @@
 
 - (UIImageView *)coverImageView {
     if (!_coverImageView) {
-        NSArray *temp = @[@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdtzaw1o9j31920u012l.jpg",
-            @"http://wx4.sinaimg.cn/mw600/0085KTY1gy1ggdszf1e9dj30cs0h10tm.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdv58xbztj30jg0t60y9.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdrr9ulh7j30jg0t64fe.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdrlahu23j30u019vass.jpg",
-        @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1ggdrex90apj30hs0haajt.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdr4fqy6ij316m0u0hdt.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdq7o5303j30jg0t6acu.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdwri1jkgj30oh10m4n5.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdwhfjcncj31900u0wud.jpg",
-        @"http://ww1.sinaimg.cn/mw600/9f0b0dd5ly1ggdvmg3xd4j20mj0s6tbo.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdvf7wgwbj30xc0m9tfh.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdv9khjdvj30u018zwl6.jpg"];
         _coverImageView = [[UIImageView alloc] init];
         _coverImageView.clipsToBounds = YES;
         _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_coverImageView tt_setImageWithURL:[NSURL URLWithString:temp[arc4random() %( temp.count - 1)]]];
+        _coverImageView.backgroundColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         ViewRadius(_coverImageView, CGFloatIn750(8));
     }
     return _coverImageView;
@@ -196,10 +180,26 @@
 }
 
 #pragma mark - setdata
-- (void)setTitle:(NSString *)title {
-    _title = title;
+- (void)setModel:(ZCircleMineDynamicModel *)model {
+    _model = model;
     
-    _seeLabel.text = @"";
+    
+    _seeLabel.text = model.browse;
+    _likeLabel.text = model.enjoy;
+    
+    if ([model.has_video intValue] == 0) {
+        self.playerImageView.hidden = YES;
+    }else{
+        self.playerImageView.hidden = NO;
+    }
+    
+    if ([model.is_many_image intValue] == 0) {
+        self.numImageVIew.hidden = YES;
+    }else{
+        self.numImageVIew.hidden = NO;
+    }
+    
+    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

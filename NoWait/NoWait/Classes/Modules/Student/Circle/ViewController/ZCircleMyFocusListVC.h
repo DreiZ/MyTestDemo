@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMyFocusListVC : ZTableViewController
+@property (nonatomic,strong) NSString *account;
 
 @end
 
