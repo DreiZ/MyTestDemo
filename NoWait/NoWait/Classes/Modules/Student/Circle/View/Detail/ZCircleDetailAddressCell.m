@@ -49,9 +49,6 @@
         make.centerY.equalTo(self.addressImageView.mas_centerY);
         make.height.mas_equalTo(CGFloatIn750(32));
     }];
-    
-    self.addressLabel.text = @"法规的弗兰克告诉对方";
-    self.distanceLabel.text = @"12km";
 }
 
 - (UIView *)addressBackView {
@@ -93,6 +90,13 @@
         _addressImageView.image = [UIImage imageNamed:@"finderLocationGreen"];
     }
     return _addressImageView;
+}
+
+- (void)setModel:(ZCircleDynamicInfo *)model {
+    _model = model;
+    
+    self.addressLabel.text = model.address;
+    self.distanceLabel.text = model.show_distance;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

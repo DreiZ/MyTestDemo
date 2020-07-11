@@ -88,7 +88,7 @@
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(40))
             .zz_lineHidden(YES)
-            .zz_titleLeft(@"迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法")
+            .zz_titleLeft(SafeStr(self.infoModel.title))
             .zz_leftMultiLine(YES)
             .zz_fontLeft([UIFont boldFontTitle])
             .zz_spaceLine(CGFloatIn750(8))
@@ -99,11 +99,17 @@
         }
         {
             NSMutableArray *photos = @[].mutableCopy;
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < self.infoModel.video.count; i++) {
+                ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+                dataModel.taskType = ZUploadTypeVideo;
+                dataModel.image_url = self.infoModel.cover.url;
+                dataModel.taskState = ZUploadStateWaiting;
+                [photos addObject:dataModel];
+            }
+            for (int i = 0; i < self.infoModel.image.count; i++) {
                 ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
                 dataModel.taskType = ZUploadTypeImage;
-                dataModel.image_url = @"https://wx2.sinaimg.cn/mw690/7868cc4cly1gbjvdczc04j22c02wsu0y.jpg";
-                dataModel.taskType = ZUploadTypeImage;
+                dataModel.image_url = self.infoModel.image[i];
                 dataModel.taskState = ZUploadStateWaiting;
                 [photos addObject:dataModel];
             }
@@ -112,15 +118,16 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailPhotoListCell className] title:@"ZCircleDetailPhotoListCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleDetailPhotoListCell z_getCellHeight:photos] cellType:ZCellTypeClass dataModel:photos];
             [section1Arr addObject:menuCellConfig];
             
-            ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:nil heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-            [section1Arr addObject:addressCellConfig];
-            
+            if (ValidStr(self.infoModel.address)) {
+                ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:nil heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+                [section1Arr addObject:addressCellConfig];
+            }
         }
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
             .zz_cellHeight(CGFloatIn750(42))
             .zz_lineHidden(YES)
-            .zz_titleLeft(@"迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法迪桑圣诞快乐给你了卡萨丁那个路口时都能分类考试拿过来卡尔安慰范围分为安慰法")
+            .zz_titleLeft(self.infoModel.content)
             .zz_leftMultiLine(YES)
             .zz_fontLeft([UIFont fontContent])
             .zz_spaceLine(CGFloatIn750(16))
@@ -129,9 +136,8 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [section1Arr addObject:menuCellConfig];
         }
-        
-        {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailLabelCell className] title:@"label" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleDetailLabelCell z_getCellHeight:@[@"时高时低",@"告诉对方",@"时低",@"对方"]] cellType:ZCellTypeClass dataModel:@[@"时高时低",@"告诉对方",@"时低",@"对方"]];
+        if (ValidArray(self.infoModel.tags)) {
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailLabelCell className] title:@"label" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleDetailLabelCell z_getCellHeight:self.infoModel.tags] cellType:ZCellTypeClass dataModel:self.infoModel.tags];
             [section1Arr addObject:menuCellConfig];
         }
         {
@@ -200,6 +206,20 @@
                     ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                     cvc.account = weakSelf.infoModel.account;
                     [weakSelf.navigationController pushViewController:cvc animated:YES];
+                }
+            };
+        }else if([cellConfig.title isEqualToString:@"ZCircleDetailPhotoListCell"]){
+            ZCircleDetailPhotoListCell *lcell = (ZCircleDetailPhotoListCell *)cell;
+            lcell.seeBlock = ^(NSInteger index) {
+                NSMutableArray *photos = @[].mutableCopy;
+                for (int i = 0; i < self.infoModel.video.count; i++) {
+                    [photos addObject:self.infoModel.video[i]];
+                }
+                for (int i = 0; i < self.infoModel.image.count; i++) {
+                    [photos addObject:self.infoModel.image[i]];
+                }
+                if (index < photos.count) {
+                    [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:index];
                 }
             };
         }
