@@ -39,6 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)getCircleDynamicInfo:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getEvaList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getDynamicLikeList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)evaDynamic:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

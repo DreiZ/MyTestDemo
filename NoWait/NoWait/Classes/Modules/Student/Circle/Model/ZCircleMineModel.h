@@ -8,6 +8,21 @@
 
 #import "ZBaseModel.h"
 
+@interface ZCircleDynamicEvaModel : ZBaseModel
+@property (nonatomic,copy) NSString *content;
+@property (nonatomic,copy) NSString *created_at;
+@property (nonatomic,copy) NSString *eva_id;
+@property (nonatomic,copy) NSString *image;
+@property (nonatomic,copy) NSString *nick_name;
+@property (nonatomic,copy) NSString *sex;
+@end
+
+@interface ZCircleDynamicEvaNetModel : ZBaseNetworkBackModel
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,copy) NSString *total;
+
+@end
+
 @interface ZCircleMinePersonModel : ZBaseModel
 @property (nonatomic,copy) NSString *account;
 @property (nonatomic,copy) NSString *autograph;

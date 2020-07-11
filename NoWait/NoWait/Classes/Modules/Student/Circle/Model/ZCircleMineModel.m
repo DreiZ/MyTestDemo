@@ -8,6 +8,23 @@
 
 #import "ZCircleMineModel.h"
 
+@implementation ZCircleDynamicEvaModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"eva_id" : @"id",
+    };
+}
+@end
+
+@implementation ZCircleDynamicEvaNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleDynamicEvaModel"
+             };
+}
+@end
+
 @implementation ZCircleMinePersonModel
 
 @end

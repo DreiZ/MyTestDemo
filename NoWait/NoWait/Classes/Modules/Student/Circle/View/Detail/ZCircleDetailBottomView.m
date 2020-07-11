@@ -7,6 +7,7 @@
 //
 
 #import "ZCircleDetailBottomView.h"
+#import "JHLikeButton.h"
 
 @interface ZCircleDetailBottomView ()
 @property (nonatomic,strong) UILabel *evaLabel;
@@ -15,13 +16,15 @@
 
 @property (nonatomic,strong) UIImageView *evaImageView;
 @property (nonatomic,strong) UIImageView *messageImageView;
-@property (nonatomic,strong) UIImageView *likeImageView;
+//@property (nonatomic,strong) UIImageView *likeImageView;
+@property (nonatomic,strong) JHLikeButton *likeImageView;
 
 @property (nonatomic,strong) UIButton *evaBtn;
 @property (nonatomic,strong) UIButton *messageBtn;
 @property (nonatomic,strong) UIButton *likeBtn;
 
 @property (nonatomic,strong) UIView *contView;
+@property (nonatomic,assign) BOOL isLike;
 @end
 
 @implementation ZCircleDetailBottomView
@@ -110,8 +113,8 @@
         make.right.equalTo(self.messageImageView.mas_left).offset(-CGFloatIn750(60));
     }];
     
-    _likeLabel.text = @"23423";
-    _messageLabel.text = @"23";
+    _likeLabel.text = @"0";
+    _messageLabel.text = @"0";
 }
 
 
@@ -182,13 +185,29 @@
     return _messageImageView;
 }
 
+//
+//- (UIImageView *)likeImageView {
+//    if (!likeImageView) {
+//        _likeImageView = [[UIImageView alloc] init];
+//        _likeImageView.image = [[UIImage imageNamed:@"finderLikeNo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        _likeImageView.contentMode = UIViewContentModeScaleAspectFill;
+//        _likeImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+//    }
+//    return _likeImageView;
+//}
 
-- (UIImageView *)likeImageView {
+
+- (JHLikeButton *)likeImageView {
     if (!_likeImageView) {
-        _likeImageView = [[UIImageView alloc] init];
-        _likeImageView.image = [[UIImage imageNamed:@"finderLikeNo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _likeImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _likeImageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _likeImageView = [[JHLikeButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(22), CGFloatIn750(22))];
+        _likeImageView.color = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        _likeImageView.enabled = NO;
+        _likeImageView.likeColor = [UIColor colorRedForButton];
+        _likeImageView.type = JHLikeButtonType_Heart;
+        [_likeImageView prepare];
+        _likeImageView.clickBlock = ^(BOOL like) {
+            
+        };
     }
     return _likeImageView;
 }
@@ -229,8 +248,17 @@
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(2);
             }
+            self.isLike = !self.isLike;
+            [self.likeImageView setLike:self.isLike animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _likeBtn;
+}
+
+- (void)setModel:(ZCircleDynamicInfo *)model {
+    _model = model;
+    
+    _likeLabel.text = @"23423";
+    _messageLabel.text = @"23";
 }
 @end

@@ -51,12 +51,12 @@
     if (!_evaBtn) {
         __weak typeof(self) weakSelf = self;
         _evaBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_evaBtn setTitle:@"回复123" forState:UIControlStateNormal];
+        [_evaBtn setTitle:@"回复0" forState:UIControlStateNormal];
         [_evaBtn.titleLabel setFont:[UIFont boldFontSmall]];
         [_evaBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_evaBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(0);
+                weakSelf.handleBlock(1);
             }
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -67,16 +67,26 @@
     if (!_likeBtn) {
         __weak typeof(self) weakSelf = self;
         _likeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        [_likeBtn setTitle:@"喜欢423" forState:UIControlStateNormal];
+        [_likeBtn setTitle:@"喜欢0" forState:UIControlStateNormal];
         [_likeBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_likeBtn.titleLabel setFont:[UIFont boldFontSmall]];
         [_likeBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(1);
+                weakSelf.handleBlock(0);
             }
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _likeBtn;
+}
+
+- (void)setLikeNum:(NSString *)like evaNum:(NSString *)eva {
+    if (like) {
+        [_likeBtn setTitle:[NSString stringWithFormat:@"喜欢%@",like] forState:UIControlStateNormal];
+    }
+    
+    if (eva) {
+        [_evaBtn setTitle:[NSString stringWithFormat:@"回复%@",like] forState:UIControlStateNormal];
+    }
 }
 
 - (void)setIsLike:(BOOL)isLike {

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZCircleDetailEvaSectionView : UIView
 @property (nonatomic,assign) BOOL isLike;
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+
+- (void)setLikeNum:(NSString *)like evaNum:(NSString *)eva;
 @end
 
 NS_ASSUME_NONNULL_END

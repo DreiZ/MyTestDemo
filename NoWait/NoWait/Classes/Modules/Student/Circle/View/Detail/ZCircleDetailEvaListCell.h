@@ -7,9 +7,9 @@
 //
 
 #import "ZBaseCell.h"
-#import "ZOrderModel.h"
+#import "ZCircleMineModel.h"
 
 @interface ZCircleDetailEvaListCell : ZBaseCell
-@property (nonatomic,strong) ZOrderEvaListModel *model;
+@property (nonatomic,strong) ZCircleDynamicEvaModel *model;
 @end
 

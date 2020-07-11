@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZCircleMineModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleDetailBottomView : UIView
+@property (nonatomic,strong) ZCircleDynamicInfo *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

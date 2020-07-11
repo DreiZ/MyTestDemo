@@ -667,4 +667,14 @@
 //发现 关注
 #define URL_account_v1_follow_account_dynamic_list    @"account/v1/follow/account/dynamic/list"
 
+
+//动态喜欢列表
+#define URL_account_v1_dynamics_enjoy_list    @"account/v1/dynamics/enjoy/list"
+
+
+//动态评论列表
+#define URL_account_v1_dynamic_comment_list    @"account/v1/dynamic/comment/list"
+
+//动态评论
+#define URL_account_v1_comment_dynamic    @"account/v1/comment/dynamic"
 #endif /* URLMacros_h */

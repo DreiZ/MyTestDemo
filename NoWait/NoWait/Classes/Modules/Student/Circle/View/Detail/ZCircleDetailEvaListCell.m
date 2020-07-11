@@ -124,7 +124,7 @@
     return  cellHeight;
 }
 
-- (void)setModel:(ZOrderEvaListModel *)model {
+- (void)setModel:(ZCircleDynamicEvaModel *)model {
     _model = model;
     
     [self initCellConfigArr];
@@ -136,14 +136,14 @@
     
     {
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(14))];
-        ZCellConfig *top1CellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListUserInfoCell className] title:[ZOrganizationEvaListUserInfoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationEvaListUserInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
+        ZCellConfig *top1CellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListUserInfoCell className] title:[ZOrganizationEvaListUserInfoCell className] showInfoMethod:@selector(setCrModel:) heightOfCell:[ZOrganizationEvaListUserInfoCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.model];
         [self.cellConfigArr addObject:top1CellConfig];
         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
     }
     
-    if (ValidStr(self.model.des)) {
+    if (ValidStr(self.model.content)) {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
-        model.zz_titleLeft(self.model.des);
+        model.zz_titleLeft(self.model.content);
         model.zz_lineHidden(YES);
         model.zz_leftMultiLine(YES);
         model.zz_marginLeft(CGFloatIn750(86));

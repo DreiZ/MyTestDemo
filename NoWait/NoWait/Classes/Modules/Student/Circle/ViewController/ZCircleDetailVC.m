@@ -32,9 +32,13 @@
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
-
+@property (nonatomic,strong) ZCircleDetailEvaSectionView *sectionView;
 @property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
 
+@property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,strong) NSMutableArray *likeList;
+@property (nonatomic,strong) NSMutableArray *evaList;
+@property (nonatomic,assign) BOOL isLike;
 @end
 
 @implementation ZCircleDetailVC
@@ -52,7 +56,11 @@
     [super viewDidLoad];
 
     __weak typeof(self) weakSelf = self;
-    self.zChain_resetMainView(^{
+    self.zChain_updateDataSource(^{
+        self.param = @{}.mutableCopy;
+        self.likeList = @[].mutableCopy;
+        self.evaList = @[].mutableCopy;
+    }).zChain_resetMainView(^{
         self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         self.iTableView.layer.cornerRadius = CGFloatIn750(16);
@@ -78,6 +86,9 @@
         
     }).zChain_block_setRefreshHeaderNet(^{
         [self getDetailInfo];
+//        [self refreshData];
+    }).zChain_block_setRefreshMoreNet(^{
+        [self refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         NSMutableArray *section1Arr = @[].mutableCopy;
@@ -153,26 +164,36 @@
         [self.cellConfigArr addObject:section1Arr];
         {
             NSMutableArray *section2Arr = @[].mutableCopy;
-            ZOrderEvaListModel *model = [[ZOrderEvaListModel alloc] init];
-            model.des = @"读书卡还的上gas电话格拉苏蒂很给力喀什东路kg阿萨德感受到了开发";
-            model.student_image = @"https://wx2.sinaimg.cn/mw690/7868cc4cgy1gfyvqm9agkj21sc1sc1l1.jpg";
-            model.nick_name = @"都发了哈萨克动感";
-            model.update_at = @"123213212";
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [section2Arr addObject:menuCellConfig];
-            [section2Arr addObject:menuCellConfig];
-            [section2Arr addObject:menuCellConfig];
+            if (self.isLike) {
+                for (int i = 0; i < self.likeList.count; i++) {
+                    ZCircleMinePersonModel *smodel = self.likeList[i];
+                    
+                    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user").zz_titleLeft(smodel.nick_name)
+                    .zz_imageLeft(smodel.image)
+                    .zz_cellHeight(CGFloatIn750(90))
+                    .zz_imageLeftRadius(YES)
+                    .zz_imageLeftHeight(CGFloatIn750(54))
+                    .zz_marginLineLeft(CGFloatIn750(74))
+                    .zz_marginLineRight(CGFloatIn750(20))
+                    .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
+                    
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                    [section2Arr addObject:menuCellConfig];
+                }
+            }else{
+                for (int i = 0; i < self.likeList.count; i++) {
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
+                   [section2Arr addObject:menuCellConfig];
+                }
+            }
             [self.cellConfigArr addObject:section2Arr];
-            
-            ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
-            [section2Arr addObject:noEvaCellConfig];
+//            ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+//            [section2Arr addObject:noEvaCellConfig];
         }
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 1) {
-            ZCircleDetailEvaSectionView *sectionView = [[ZCircleDetailEvaSectionView alloc] init];
-            
-            return sectionView;
+            self.sectionView.isLike = self.isLike;
+            return self.sectionView;
         }else {
             return nil;
         }
@@ -259,6 +280,7 @@
     self.zChain_reload_Net();
 }
 
+#pragma mark - lazy loading
 - (ZCircleDetailHeaderView *)headerView {
     if (!_headerView) {
         __weak typeof(self) weakSelf = self;
@@ -289,28 +311,35 @@
     return _bottomView;
 }
 
+- (ZCircleDetailEvaSectionView *)sectionView {
+    if (!_sectionView) {
+        __weak typeof(self) weakSelf = self;
+        _sectionView = [[ZCircleDetailEvaSectionView alloc] init];
+        _sectionView.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                weakSelf.isLike = YES;
+            }else{
+                weakSelf.isLike = NO;
+            }
+            weakSelf.sectionView.isLike = weakSelf.isLike;
+            [weakSelf refreshData];
+        };
+    }
+    return _sectionView;
+}
+
 
 -(void)showXHInputViewWithStyle:(InputViewStyle)style{
     [XHInputView showWithStyle:style configurationBlock:^(XHInputView *inputView) {
-        /** 请在此block中设置inputView属性 */
-        
-        /** 代理 */
         inputView.delegate = self;
         inputView.font = [UIFont fontContent];
         inputView.placeholderColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         inputView.sendButtonBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         inputView.sendButtonFont = [UIFont fontTitle];
         inputView.sendButtonTitle = @"发布";
-        
-        /** 占位符文字 */
         inputView.placeholder = @"评论：嘴巴嘟嘟的舞蹈学校";
-        /** 设置最大输入字数 */
         inputView.maxCount = 1200;
-        /** 输入框颜色 */
         inputView.textViewBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        
-        /** 更多属性设置,详见XHInputView.h文件 */
-        
     } sendBlock:^BOOL(NSString *text) {
         if(text.length){
             NSLog(@"输入的信息为:%@",text);
@@ -321,29 +350,22 @@
             return NO;//return NO,不收键盘
         }
     }];
-    
 }
 
 #pragma mark - XHInputViewDelagete
 /** XHInputView 将要显示 */
 -(void)xhInputViewWillShow:(XHInputView *)inputView{
-    
-     /** 如果你工程中有配置IQKeyboardManager,并对XHInputView造成影响,请在XHInputView将要显示时将其关闭 */
-    
-     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-     [IQKeyboardManager sharedManager].enable = NO;
-
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].enable = NO;
 }
 
 /** XHInputView 将要影藏 */
 -(void)xhInputViewWillHide:(XHInputView *)inputView{
-    
-     /** 如果你工程中有配置IQKeyboardManager,并对XHInputView造成影响,请在XHInputView将要影藏时将其打开 */
-    
-     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
-     [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    [IQKeyboardManager sharedManager].enable = YES;
 }
 
+#pragma mark - 网络请求
 - (void)getDetailInfo {
     __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel getCircleDynamicInfo:@{@"dynamic":self.dynamic} completeBlock:^(BOOL isSuccess, id data) {
@@ -351,10 +373,10 @@
             weakSelf.infoModel = data;
             weakSelf.zChain_reload_ui();
             weakSelf.headerView.title = weakSelf.infoModel.title;
+            weakSelf.bottomView.model = weakSelf.infoModel;
         }
     }];
 }
-
 
 - (void)followAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
@@ -384,7 +406,6 @@
     }];
 }
 
-
 - (void)collectionStore:(BOOL)isCollection {
     [TLUIUtility showLoading:@""];
     __weak typeof(self) weakSelf = self;
@@ -403,5 +424,124 @@
             [TLUIUtility showInfoHint:data];
         }
     }];
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    if (self.isLike) {
+        [ZCircleMineViewModel getDynamicLikeList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.likeList removeAllObjects];
+                [weakSelf.likeList addObjectsFromArray:data.list];
+                
+                weakSelf.zChain_reload_ui();
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }else{
+        [ZCircleMineViewModel getEvaList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.evaList removeAllObjects];
+                [weakSelf.evaList addObjectsFromArray:data.list];
+                
+                weakSelf.zChain_reload_ui();
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    if (self.isLike) {
+        [ZCircleMineViewModel getDynamicLikeList:self.param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.likeList addObjectsFromArray:data.list];
+                weakSelf.zChain_reload_ui();
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }else{
+        [ZCircleMineViewModel getEvaList:self.param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.evaList addObjectsFromArray:data.list];
+                weakSelf.zChain_reload_ui();
+                
+                [weakSelf.iTableView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iTableView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iTableView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iTableView reloadData];
+                [weakSelf.iTableView tt_endRefreshing];
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:@"10" forKey:@"page_size"];
+    [self.param setObject:self.dynamic forKey:@"dynamic"];
 }
 @end
