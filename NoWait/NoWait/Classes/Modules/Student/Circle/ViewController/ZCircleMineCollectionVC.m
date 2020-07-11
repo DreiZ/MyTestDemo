@@ -325,11 +325,12 @@
 
 - (void)followAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
+    __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-            [self getMineInfo];
+            weakSelf.mineModel.follow_status = data;
+            weakSelf.headView.model = weakSelf.mineModel;
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -338,11 +339,12 @@
 
 - (void)cancleFollowAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
+    __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-            [self getMineInfo];
+            weakSelf.mineModel.follow_status = data;
+            weakSelf.headView.model = weakSelf.mineModel;
         }else{
             [TLUIUtility showErrorHint:data];
         }

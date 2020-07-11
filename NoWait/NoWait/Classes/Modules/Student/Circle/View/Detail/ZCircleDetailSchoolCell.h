@@ -7,10 +7,12 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZCircleMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleDetailSchoolCell : ZBaseCell
+@property (nonatomic,strong) ZCircleDynamicInfo *model;
+
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @end
 

@@ -108,8 +108,13 @@
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_add_follow params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
-            if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, dataModel.message);
+            if ([dataModel.code integerValue] == 0 && ValidDict(dataModel.data)) {
+                NSDictionary *tempDict = dataModel.data;
+                if ([tempDict objectForKey:@"follow_status"]) {
+                    completeBlock(YES, [NSString stringWithFormat:@"%@",tempDict[@"follow_status"]]);
+                }else {
+                    completeBlock(YES, @"1");
+                }
                 return ;
             }else{
                 completeBlock(NO, dataModel.message);
@@ -126,8 +131,13 @@
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_cancel_follow params:params completionHandler:^(id data, NSError *error) {
         ZBaseNetworkBackModel *dataModel = data;
         if (data) {
-            if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, dataModel.message);
+            if ([dataModel.code integerValue] == 0 && ValidDict(dataModel.data)) {
+                NSDictionary *tempDict = dataModel.data;
+                if ([tempDict objectForKey:@"follow_status"]) {
+                    completeBlock(YES, [NSString stringWithFormat:@"%@",tempDict[@"follow_status"]]);
+                }else {
+                    completeBlock(YES, @"1");
+                }
                 return ;
             }else{
                 completeBlock(NO, dataModel.message);

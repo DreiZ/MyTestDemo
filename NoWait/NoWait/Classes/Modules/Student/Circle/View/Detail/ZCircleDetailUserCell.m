@@ -169,10 +169,10 @@
 - (void)setType:(NSInteger)type {
     //        messageFellow finderFollowYes finderFollowNo
     if (type == 1) {
-        [_handleBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
         _handleBtn.imageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _handleImage = [[UIImage imageNamed:@"finderFollowYes"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _handleImage = [[UIImage imageNamed:@"finderFollowNo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [self.handleBtn setImage:_handleImage forState:UIControlStateNormal];
         [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
@@ -182,10 +182,10 @@
         }];
         ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     }else if(type == 2){
-        [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
+        [_handleBtn setTitle:@"已关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         _handleBtn.imageView.tintColor = [UIColor colorMain];
-        _handleImage = [[UIImage imageNamed:@"finderFollowNo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _handleImage = [[UIImage imageNamed:@"finderFollowYes"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [self.handleBtn setImage:_handleImage forState:UIControlStateNormal];
         [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

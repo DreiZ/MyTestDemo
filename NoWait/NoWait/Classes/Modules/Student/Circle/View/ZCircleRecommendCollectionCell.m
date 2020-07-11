@@ -236,7 +236,6 @@
         _headImageView = [[UIImageView alloc] init];
         ViewRadius(_headImageView, CGFloatIn750(18));
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_headImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
     }
     return _headImageView;
 }
@@ -339,6 +338,7 @@
 - (void)setModel:(ZCircleMineDynamicModel *)model {
     _model = model;
     
+    [_headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
     _nameLabel.text = model.title;
     _userLabel.text = model.nick_name;

@@ -7,6 +7,7 @@
 //
 
 #import "ZCircleDetailSchoolCell.h"
+#import "CWStarRateView.h"
 
 @interface ZCircleDetailSchoolCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
@@ -14,6 +15,8 @@
 @property (nonatomic,strong) UILabel *lessonLabel;
 @property (nonatomic,strong) UIButton *openBtn;
 @property (nonatomic,strong) UIImageView *collectionImageView;
+@property (nonatomic,strong) CWStarRateView *crView;
+
 @end
 
 @implementation ZCircleDetailSchoolCell
@@ -26,6 +29,7 @@
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.openBtn];
     [self.contentView addSubview:self.lessonLabel];
+    [self.contentView addSubview:self.crView];
     
     [self.organizationImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
@@ -40,9 +44,16 @@
         make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
     }];
     
+    [self.crView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGFloatIn750(12));
+        make.left.equalTo(self.organizationImageView.mas_right).offset(CGFloatIn750(20));
+        make.width.offset(CGFloatIn750(100));
+        make.centerY.equalTo(self.lessonLabel.mas_centerY);
+    }];
+    
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.organizationImageView.mas_bottom).offset(-CGFloatIn750(6));
-        make.left.equalTo(self.organizationImageView.mas_right).offset(CGFloatIn750(20));
+        make.left.equalTo(self.crView.mas_right).offset(CGFloatIn750(20));
         make.right.equalTo(self.openBtn.mas_left).offset(-CGFloatIn750(20));
     }];
     
@@ -52,6 +63,18 @@
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
+    UIButton *detailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [detailBtn bk_whenTapped:^{
+        if (self.handleBlock) {
+            self.handleBlock(0);
+        }
+    }];
+    [self.contentView addSubview:detailBtn];
+    [detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left);
+        make.top.bottom.equalTo(self.contentView);
+        make.right.equalTo(self.openBtn.mas_left);
+    }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
@@ -62,8 +85,6 @@
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
         make.height.mas_equalTo(0.5);
     }];
-    
-    [self setModel];
 }
 
 - (UILabel *)nameLabel {
@@ -108,6 +129,15 @@
     return _collectionImageView;
 }
 
+
+-(CWStarRateView *)crView
+{
+    if (!_crView) {
+        _crView = [[CWStarRateView alloc] init];
+    }
+    return _crView;
+}
+
 - (UIButton *)openBtn {
     if (!_openBtn) {
         __weak typeof(self) weakSelf = self;
@@ -129,12 +159,20 @@
     return _openBtn;
 }
 
-- (void)setModel {
+- (void)setModel:(ZCircleDynamicInfo *)model {
     
-    _lessonLabel.text = [NSString stringWithFormat:@"%@个课程",@"3423"];
-    _nameLabel.text = @"第三帝国卡拉十多个";
+    _lessonLabel.text = model.store_distance;
+    _nameLabel.text = model.store_name;
 
-    [ _organizationImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx4.sinaimg.cn/mw690/7868cc4cgy1gfyvjb2yhwj21sc1scnpd.jpg"] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    [ _organizationImageView tt_setImageWithURL:[NSURL URLWithString:model.store_image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    
+    _crView.scorePercent = [model.score floatValue]/5;
+    
+    if ([model.store_collection intValue] > 0) {
+        _collectionImageView.image = [UIImage imageNamed:@"collectionHandle"];
+    }else{
+        _collectionImageView.image = [UIImage imageNamed:@"handleStore"];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

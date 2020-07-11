@@ -49,9 +49,9 @@
             lcell.handleBlock = ^(ZCircleMinePersonModel *model, NSInteger index) {
                 if (index == 1) {
                     if ([model.follow_status intValue] == 1) {
-                        [weakSelf followAccount:model.account];
+                        [weakSelf followAccount:model];
                     }else{
-                        [weakSelf cancleFollowAccount:model.account];
+                        [weakSelf cancleFollowAccount:model];
                     }
                 }else{
                     ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
@@ -62,8 +62,8 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {
-            ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
-            [self.navigationController pushViewController:mvc animated:YES];
+//            ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
+//            [self.navigationController pushViewController:mvc animated:YES];
         }
     });
     self.zChain_reload_Net();
@@ -145,14 +145,14 @@
     [self.param setObject:self.account forKey:@"account"];
 }
 
-- (void)followAccount:(NSString *)account {
+- (void)followAccount:(ZCircleMinePersonModel *)account {
     [TLUIUtility showLoading:nil];
-    [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account.account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-            [self refreshAllData];
-            self.zChain_reload_ui();
+            account.follow_status = data;
+            weakSelf.zChain_reload_ui();
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -160,14 +160,14 @@
 }
 
 
-- (void)cancleFollowAccount:(NSString *)account {
+- (void)cancleFollowAccount:(ZCircleMinePersonModel *)account {
     [TLUIUtility showLoading:nil];
-    [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account.account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-            [self refreshAllData];
-            self.zChain_reload_ui();
+            account.follow_status = data;
+            weakSelf.zChain_reload_ui();
         }else{
             [TLUIUtility showErrorHint:data];
         }

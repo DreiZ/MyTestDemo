@@ -18,6 +18,7 @@
 #import "ZCircleDetailAddressCell.h"
 #import "ZStudentMineSettingBottomCell.h"
 
+#import "ZStudentCollectionViewModel.h"
 #import "ZCircleDetailEvaSectionView.h"
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
@@ -26,6 +27,7 @@
 #import "XHInputView.h"
 
 #import "ZCircleMineCollectionVC.h"
+#import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
@@ -119,7 +121,7 @@
             [section1Arr addObject:menuCellConfig];
             
             if (ValidStr(self.infoModel.address)) {
-                ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:nil heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+                ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
                 [section1Arr addObject:addressCellConfig];
             }
         }
@@ -141,10 +143,11 @@
             [section1Arr addObject:menuCellConfig];
         }
         {
-            [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailSchoolCell className] title:@"school" showInfoMethod:nil heightOfCell:[ZCircleDetailSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-            [section1Arr addObject:menuCellConfig];
+            if (ValidStr(self.infoModel.store_id) && ValidStr(self.infoModel.store_name)) {
+                [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailSchoolCell className] title:@"school" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
+                [section1Arr addObject:menuCellConfig];
+            }
         }
         [section1Arr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
         [self.cellConfigArr addObject:section1Arr];
@@ -156,11 +159,10 @@
             model.nick_name = @"都发了哈萨克动感";
             model.update_at = @"123213212";
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"school" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [section2Arr addObject:menuCellConfig];
             [section2Arr addObject:menuCellConfig];
             [section2Arr addObject:menuCellConfig];
-            
             [self.cellConfigArr addObject:section2Arr];
             
             ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
@@ -197,11 +199,13 @@
             ZCircleDetailUserCell *lcell = (ZCircleDetailUserCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 1) {
-                    if ([weakSelf.infoModel.follow_status intValue] == 1) {
-                        [weakSelf followAccount:weakSelf.infoModel.account];
-                    }else{
-                        [weakSelf cancleFollowAccount:weakSelf.infoModel.account];
-                    }
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        if ([weakSelf.infoModel.follow_status intValue] == 1) {
+                            [weakSelf followAccount:weakSelf.infoModel.account];
+                        }else{
+                            [weakSelf cancleFollowAccount:weakSelf.infoModel.account];
+                        }
+                    }];
                 }else{
                     ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                     cvc.account = weakSelf.infoModel.account;
@@ -220,6 +224,26 @@
                 }
                 if (index < photos.count) {
                     [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:index];
+                }
+            };
+        }else if([cellConfig.title isEqualToString:@"school"]){
+            ZCircleDetailSchoolCell *lcell = (ZCircleDetailSchoolCell *)cell;
+            lcell.handleBlock = ^(NSInteger index) {
+                if (index == 0) {
+                    ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
+                    ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+                    lmodel.stores_id = weakSelf.infoModel.store_id;
+                    lmodel.name = weakSelf.infoModel.store_name;
+                    dvc.listModel = lmodel;
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                }else{
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        if ([weakSelf.infoModel.store_collection intValue] == 1) {
+                            [weakSelf collectionStore:NO];
+                        }else{
+                            [weakSelf collectionStore:YES];
+                        }
+                    }];
                 }
             };
         }
@@ -267,7 +291,6 @@
 
 
 -(void)showXHInputViewWithStyle:(InputViewStyle)style{
-    
     [XHInputView showWithStyle:style configurationBlock:^(XHInputView *inputView) {
         /** 请在此block中设置inputView属性 */
         
@@ -335,11 +358,12 @@
 
 - (void)followAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
+    __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-//            [self getMineInfo];
+            weakSelf.infoModel.follow_status = data;
+            weakSelf.zChain_reload_ui();
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -348,13 +372,35 @@
 
 - (void)cancleFollowAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
+    __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [TLUIUtility showSuccessHint:data];
-//            [self getMineInfo];
+            weakSelf.infoModel.follow_status = data;
+            weakSelf.zChain_reload_ui();
         }else{
             [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
+
+- (void)collectionStore:(BOOL)isCollection {
+    [TLUIUtility showLoading:@""];
+    __weak typeof(self) weakSelf = self;
+    [ZStudentCollectionViewModel collectionStore:@{@"store":SafeStr(self.infoModel.store_id),@"type":isCollection ? @"1":@"2"} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            if (isCollection) {
+                weakSelf.infoModel.store_collection = @"1";
+            }else{
+                weakSelf.infoModel.store_collection = @"0";
+            }
+            
+            weakSelf.zChain_reload_ui();
+            [TLUIUtility showSuccessHint:data];
+        }else{
+            [TLUIUtility showInfoHint:data];
         }
     }];
 }
