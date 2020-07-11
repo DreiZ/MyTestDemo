@@ -88,9 +88,11 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
+        ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
             DLog(@"-----%ld", (long)index);
             ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            dvc.dynamic = model.dynamic;
             [self.navigationController pushViewController:dvc animated:YES];
         };
         
@@ -99,7 +101,9 @@
 
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
+        ZCircleMineDynamicModel *model = cellConfig.dataModel;
         ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+        dvc.dynamic = model.dynamic;
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

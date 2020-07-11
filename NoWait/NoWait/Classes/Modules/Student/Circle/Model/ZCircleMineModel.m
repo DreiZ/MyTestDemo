@@ -39,6 +39,10 @@
 }
 @end
 
+@implementation ZCircleDynamicInfo
+
+@end
+
 @implementation ZCircleMineModel
 
 @end

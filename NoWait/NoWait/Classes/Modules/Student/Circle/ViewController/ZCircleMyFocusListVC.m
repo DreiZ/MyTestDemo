@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle([[ZUserHelper sharedHelper].user.userCodeID isEqualToString:self.account]? @"我的关注":@"关注")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
@@ -45,11 +46,17 @@
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {
             ZCircleMyFocusCell *lcell = (ZCircleMyFocusCell *)cell;
-            lcell.handleBlock = ^(ZCircleMinePersonModel *model) {
-                if ([model.follow_status intValue] == 1) {
-                    [self followAccount:model.account];
+            lcell.handleBlock = ^(ZCircleMinePersonModel *model, NSInteger index) {
+                if (index == 1) {
+                    if ([model.follow_status intValue] == 1) {
+                        [weakSelf followAccount:model.account];
+                    }else{
+                        [weakSelf cancleFollowAccount:model.account];
+                    }
                 }else{
-                    [self cancleFollowAccount:model.account];
+                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                    cvc.account = model.account;
+                    [weakSelf.navigationController pushViewController:cvc animated:YES];
                 }
             };
         }

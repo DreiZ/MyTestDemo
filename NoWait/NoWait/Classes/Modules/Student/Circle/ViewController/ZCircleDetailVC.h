@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleDetailVC : ZTableViewController
+@property (nonatomic,strong) NSString *dynamic;
 
 @end
 

@@ -267,7 +267,7 @@
     if (!_likeImageBtn) {
         _likeImageBtn = [[JHLikeButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(22), CGFloatIn750(22))];
         _likeImageBtn.color = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
-        
+        _likeImageBtn.enabled = NO;
         _likeImageBtn.likeColor = [UIColor colorRedForButton];
         _likeImageBtn.type = JHLikeButtonType_Heart;
         [_likeImageBtn prepare];

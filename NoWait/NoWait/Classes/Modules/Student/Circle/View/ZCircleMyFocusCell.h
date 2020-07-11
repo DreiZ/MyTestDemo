@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleMyFocusCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(ZCircleMinePersonModel *);
+@property (nonatomic,strong) void (^handleBlock)(ZCircleMinePersonModel *, NSInteger);
 @property (nonatomic,strong) ZCircleMinePersonModel *model;
 
 @end

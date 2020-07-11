@@ -11,6 +11,7 @@
 
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UIImageView *userImageView;
+@property (nonatomic,strong) UIImageView *sexImageView;
 
 @property (nonatomic,strong) UIButton *handleBtn;
 @property (nonatomic,strong) UIImage *handleImage;
@@ -26,6 +27,7 @@
     
     [self.contentView addSubview:self.backContentView];
     [self.backContentView addSubview:self.userImageView];
+    [self.backContentView addSubview:self.sexImageView];
     [self.backContentView addSubview:self.nameLabel];
     [self.backContentView addSubview:self.handleBtn];
     
@@ -40,6 +42,12 @@
         make.left.equalTo(self.backContentView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.backContentView.mas_centerY);
         make.width.height.mas_equalTo(CGFloatIn750(50));
+    }];
+    
+    [self.sexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.userImageView.mas_right);
+        make.bottom.equalTo(self.userImageView.mas_bottom);
+        make.width.height.mas_equalTo(CGFloatIn750(18));
     }];
     
     [self.handleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,7 +67,7 @@
     UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock();
+            weakSelf.handleBlock(0);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:userBtn];
@@ -92,14 +100,20 @@
 
 - (UIButton *)handleBtn {
     if (!_handleBtn) {
+        __weak typeof(self) weakSelf = self;
         _handleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         [_handleBtn.titleLabel setFont:[UIFont fontContent]];
         _handleBtn.imageView.tintColor = [UIColor colorMain];
         [_handleBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, CGFloatIn750(4), 0, 0)];
+        [_handleBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
         [_handleBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, CGFloatIn750(4))];
-        ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, [UIColor colorMain]);
+        ViewBorderRadius(_handleBtn, CGFloatIn750(25), 1, [UIColor colorMain]);
     }
     return _handleBtn;
 }
@@ -130,35 +144,71 @@
     return _backContentView;
 }
 
+
+- (void)setModel:(ZCircleDynamicInfo *)model {
+    _model = model;
+    [self setType:[model.follow_status intValue]];
+    //0:关注 1：fans 2：互相
+    // 1:未关注  2：已关注  3：互相关注
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.account_image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _nameLabel.text = model.nick_name;
+    
+    if ([model.sex intValue] == 1) {
+        _sexImageView.image = [UIImage imageNamed:@"finderMan"];
+    }else{
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
+    
+    if ([model.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+        self.handleBtn.hidden = YES;
+    }else{
+        self.handleBtn.hidden = NO;
+    }
+}
+
 - (void)setType:(NSInteger)type {
     //        messageFellow finderFollowYes finderFollowNo
-    if (type == 0) {
-        [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
-        [_handleBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]) forState:UIControlStateNormal];
-        [self.handleBtn setBackgroundColor:[UIColor colorMain] forState:UIControlStateNormal];
-        [self.handleBtn setImage:nil forState:UIControlStateNormal];
+    if (type == 1) {
+        [_handleBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        [_handleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        _handleBtn.imageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _handleImage = [[UIImage imageNamed:@"finderFollowYes"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.handleBtn setImage:_handleImage forState:UIControlStateNormal];
         [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
             make.centerY.equalTo(self.backContentView.mas_centerY);
-            make.width.mas_equalTo(CGFloatIn750(124));
-            make.height.mas_equalTo(CGFloatIn750(50));
+            make.width.mas_equalTo(CGFloatIn750(162));
+            make.height.mas_equalTo(CGFloatIn750(60));
         }];
-        ViewBorderRadius(_handleBtn, CGFloatIn750(25), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        
-    }else if(type == 1){
-        [_handleBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+    }else if(type == 2){
+        [_handleBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_handleBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         _handleBtn.imageView.tintColor = [UIColor colorMain];
-        _handleImage = [[UIImage imageNamed:@"finderFollowYes"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _handleImage = [[UIImage imageNamed:@"finderFollowNo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         [self.handleBtn setImage:_handleImage forState:UIControlStateNormal];
         [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(60));
+            make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
             make.centerY.equalTo(self.backContentView.mas_centerY);
             make.width.mas_equalTo(CGFloatIn750(162));
-            make.height.mas_equalTo(CGFloatIn750(50));
+            make.height.mas_equalTo(CGFloatIn750(60));
         }];
-        ViewBorderRadius(_handleBtn, CGFloatIn750(25), 1, [UIColor colorMain]);
+        ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, [UIColor colorMain]);
+    }else{
+        [_handleBtn setTitle:@"互相关注" forState:UIControlStateNormal];
+        [_handleBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        _handleBtn.imageView.tintColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        _handleImage = [[UIImage imageNamed:@"messageFellow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        [self.handleBtn setImage:_handleImage forState:UIControlStateNormal];
+        [self.handleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(20));
+            make.centerY.equalTo(self.backContentView.mas_centerY);
+            make.width.mas_equalTo(CGFloatIn750(180));
+            make.height.mas_equalTo(CGFloatIn750(60));
+        }];
+        ViewBorderRadius(_handleBtn, CGFloatIn750(30), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
     }
 }
 

@@ -19,13 +19,19 @@
 #import "ZStudentMineSettingBottomCell.h"
 
 #import "ZCircleDetailEvaSectionView.h"
+#import "ZCircleMineViewModel.h"
+#import "ZCircleMineModel.h"
 
 #import <IQKeyboardManager.h>
 #import "XHInputView.h"
 
+#import "ZCircleMineCollectionVC.h"
+
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
+
+@property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
 
 @end
 
@@ -38,11 +44,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    __weak typeof(self) weakSelf = self;
     self.zChain_resetMainView(^{
         self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -67,12 +74,13 @@
             make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(20));
         }];
         
+    }).zChain_block_setRefreshHeaderNet(^{
+        [self getDetailInfo];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         NSMutableArray *section1Arr = @[].mutableCopy;
         {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailUserCell className] title:@"ZCircleDetailUserCell" showInfoMethod:nil heightOfCell:[ZCircleDetailUserCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailUserCell className] title:@"ZCircleDetailUserCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailUserCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
             [section1Arr addObject:menuCellConfig];
         }
         
@@ -179,6 +187,21 @@
             ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
             lcell.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
             lcell.titleLabel.font = [UIFont fontSmall];
+        }else if([cellConfig.title isEqualToString:@"ZCircleDetailUserCell"]){
+            ZCircleDetailUserCell *lcell = (ZCircleDetailUserCell *)cell;
+            lcell.handleBlock = ^(NSInteger index) {
+                if (index == 1) {
+                    if ([weakSelf.infoModel.follow_status intValue] == 1) {
+                        [weakSelf followAccount:weakSelf.infoModel.account];
+                    }else{
+                        [weakSelf cancleFollowAccount:weakSelf.infoModel.account];
+                    }
+                }else{
+                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                    cvc.account = weakSelf.infoModel.account;
+                    [weakSelf.navigationController pushViewController:cvc animated:YES];
+                }
+            };
         }
         return cell;
     }).zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
@@ -189,6 +212,7 @@
     });
     
     self.zChain_reload_ui();
+    self.zChain_reload_Net();
 }
 
 - (ZCircleDetailHeaderView *)headerView {
@@ -198,7 +222,7 @@
         _headerView.handleBlock = ^(NSInteger index) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         };
-        _headerView.title = @"阿尕十大歌手看到您的开始那棵树的";
+        _headerView.title = @"详情";
     }
     
     return _headerView;
@@ -275,5 +299,43 @@
     
      [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
      [IQKeyboardManager sharedManager].enable = YES;
+}
+
+- (void)getDetailInfo {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel getCircleDynamicInfo:@{@"dynamic":self.dynamic} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZCircleDynamicInfo class]]) {
+            weakSelf.infoModel = data;
+            weakSelf.zChain_reload_ui();
+            weakSelf.headerView.title = weakSelf.infoModel.title;
+        }
+    }];
+}
+
+
+- (void)followAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+//            [self getMineInfo];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
+- (void)cancleFollowAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+//            [self getMineInfo];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
 }
 @end

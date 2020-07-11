@@ -56,6 +56,31 @@
 @property (nonatomic,copy) NSString *total;
 @end
 
+@interface ZCircleDynamicInfo : ZBaseModel
+@property (nonatomic,copy) NSString *account;
+@property (nonatomic,copy) NSString *account_image;
+@property (nonatomic,copy) NSString *address;
+@property (nonatomic,copy) NSString *browse;
+@property (nonatomic,copy) NSString *content;
+@property (nonatomic,strong) ZCircleMineDynamicPhotoModel *cover;
+@property (nonatomic,copy) NSString *dynamic;
+@property (nonatomic,copy) NSString *enjoy;
+@property (nonatomic,copy) NSString *follow_status;
+@property (nonatomic,strong) NSArray *image;
+@property (nonatomic,copy) NSString *nick_name;
+@property (nonatomic,copy) NSString *score;
+@property (nonatomic,copy) NSString *sex;
+@property (nonatomic,copy) NSString *show_distance;
+@property (nonatomic,copy) NSString *store_collection;
+@property (nonatomic,copy) NSString *store_distance;
+@property (nonatomic,copy) NSString *store_id;
+@property (nonatomic,copy) NSString *store_image;
+@property (nonatomic,copy) NSString *store_name;
+@property (nonatomic,strong) NSArray *tags;
+@property (nonatomic,copy) NSString *title;
+@property (nonatomic,copy) NSArray *video;
+@end
+
 @interface ZCircleMineModel : ZBaseModel
 @property (nonatomic,copy) NSString *account;
 @property (nonatomic,copy) NSString *autograph;
