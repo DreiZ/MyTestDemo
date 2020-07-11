@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.zChain_setNavTitle(@"我的关注")
+    self.zChain_setNavTitle([[ZUserHelper sharedHelper].user.userCodeID isEqualToString:self.account]? @"我的关注":@"关注")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
     .zChain_addEmptyDataDelegate()

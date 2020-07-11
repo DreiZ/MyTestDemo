@@ -127,8 +127,12 @@
                 ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                 [weakSelf.navigationController pushViewController:cvc animated:YES];
             }else {
-                ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];
-                [weakSelf.navigationController pushViewController:mvc animated:YES];
+                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                cvc.account = @"1100005";
+                [weakSelf.navigationController pushViewController:cvc animated:YES];
+//                1100005
+//                ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];
+//                [weakSelf.navigationController pushViewController:mvc animated:YES];
             }
         };
     }

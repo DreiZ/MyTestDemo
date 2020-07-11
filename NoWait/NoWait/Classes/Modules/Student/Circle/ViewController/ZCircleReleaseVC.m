@@ -312,6 +312,7 @@
             
             NSMutableArray *uploadArr = @[].mutableCopy;
             [uploadArr addObjectsFromArray:self.releaseViewModel.model.imageArr];
+            BOOL isVideo = NO;
             for (ZFileUploadDataModel *model in self.releaseViewModel.model.imageArr) {
                 if (model.taskType == ZUploadTypeVideo) {
                     ZFileUploadDataModel *coverModel = [[ZFileUploadDataModel alloc] init];
@@ -320,11 +321,13 @@
                     coverModel.taskType = ZUploadTypeImage;
                     coverModel.taskState = ZUploadStateWaiting;
                     [uploadArr insertObject:coverModel atIndex:0];
+                    isVideo = YES;
                 }
             }
             ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
             mvc.params = params;
             mvc.imageArr = uploadArr;
+            mvc.isVideo = isVideo;
             mvc.uploadCompleteBlock = ^{
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             };

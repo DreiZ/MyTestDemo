@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.zChain_setNavTitle(@"我的粉丝")
+    self.zChain_setNavTitle([[ZUserHelper sharedHelper].user.userCodeID isEqualToString:self.account]? @"粉丝列表":@"粉丝")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
     .zChain_addEmptyDataDelegate()
@@ -73,7 +73,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getFollowList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+    [ZCircleMineViewModel getFansList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];

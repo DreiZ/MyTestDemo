@@ -153,6 +153,11 @@
                 [weakSelf.navigationController pushViewController:edit animated:YES];
             }else if(index == 5){
                 //关注
+                if ([self.mineModel.follow_status intValue] == 1) {
+                    [weakSelf followAccount:weakSelf.mineModel.account];
+                }else{
+                    [weakSelf cancleFollowAccount:weakSelf.mineModel.account];
+                }
             }
         };
     }
@@ -203,9 +208,23 @@
     }
 }
 
+- (void)setHeadViewHeight {
+    if (ValidStr(self.mineModel.autograph)) {
+        CGSize tempSize = [self.mineModel.autograph tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        self.headHeight = tempSize.height + CGFloatIn750(292);
+    }else if(self.mineModel.isMine){
+        self.headHeight = CGFloatIn750(318);
+    }
+    
+    self.headView.frame = CGRectMake(0, -self.headHeight, KScreenWidth, self.headHeight);
+    self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
+}
+
+#pragma mark - 获取数据
 - (void)getMineInfo {
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getCircleMineData:@{@"account":[ZUserHelper sharedHelper].user.userCodeID} completeBlock:^(BOOL isSuccess, id data) {
+    [ZCircleMineViewModel getCircleMineData:@{@"account":self.account?self.account:[ZUserHelper sharedHelper].user.userCodeID} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZCircleMineModel class]]) {
             weakSelf.mineModel = data;
             if (!weakSelf.account || ([weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
@@ -219,18 +238,6 @@
     }];
 }
 
-- (void)setHeadViewHeight {
-    if (ValidStr(self.mineModel.autograph)) {
-        CGSize tempSize = [self.mineModel.autograph tt_sizeWithFont:[UIFont fontContent] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(60), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-        
-        self.headHeight = tempSize.height + CGFloatIn750(292);
-    }else if(self.mineModel.isMine){
-        self.headHeight = CGFloatIn750(318);
-    }
-    
-    self.headView.frame = CGRectMake(0, -self.headHeight, KScreenWidth, self.headHeight);
-    self.iCollectionView.contentInset = UIEdgeInsetsMake(self.headHeight, 0, 0, 0);
-}
 
 - (void)updateUserInfo:(NSString *)text {
     [ZCircleMineViewModel updateUserAutograph:@{@"autograph":SafeStr(text)} completeBlock:^(BOOL isSuccess, id data) {
@@ -313,5 +320,33 @@
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:@"12" forKey:@"page_size"];
     [self.param setObject:self.account? self.account:[ZUserHelper sharedHelper].user.userCodeID forKey:@"account"];
+}
+
+
+- (void)followAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel followUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self getMineInfo];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
+
+- (void)cancleFollowAccount:(NSString *)account {
+    [TLUIUtility showLoading:nil];
+    [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self getMineInfo];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
 }
 @end

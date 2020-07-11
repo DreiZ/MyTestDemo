@@ -74,20 +74,20 @@
         make.top.equalTo(self.userImageView.mas_centerY).offset(CGFloatIn750(8));
     }];
     
-    __weak typeof(self) weakSelf = self;
-    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [addBtn bk_addEventHandler:^(id sender) {
-        if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(self.model);
-        }
-    } forControlEvents:UIControlEventTouchUpInside];
-    [self.backContentView addSubview:addBtn];
-    [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.handleBtn.mas_left).offset(-CGFloatIn750(10));
-        make.right.equalTo(self.handleBtn.mas_right).offset(CGFloatIn750(10));
-        make.top.equalTo(self.handleBtn.mas_top).offset(-CGFloatIn750(10));
-        make.bottom.equalTo(self.handleBtn.mas_bottom).offset(-CGFloatIn750(10));
-    }];
+//    __weak typeof(self) weakSelf = self;
+//    UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+//    [addBtn bk_addEventHandler:^(id sender) {
+//        if (weakSelf.handleBlock) {
+//            weakSelf.handleBlock(self.model);
+//        }
+//    } forControlEvents:UIControlEventTouchUpInside];
+//    [self.backContentView addSubview:addBtn];
+//    [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.handleBtn.mas_left).offset(-CGFloatIn750(10));
+//        make.right.equalTo(self.handleBtn.mas_right).offset(CGFloatIn750(10));
+//        make.top.equalTo(self.handleBtn.mas_top).offset(-CGFloatIn750(10));
+//        make.bottom.equalTo(self.handleBtn.mas_bottom).offset(-CGFloatIn750(10));
+//    }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
@@ -195,6 +195,12 @@
         _sexImageView.image = [UIImage imageNamed:@"finderMan"];
     }else{
         _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
+    
+    if ([model.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+        self.handleBtn.hidden = YES;
+    }else{
+        self.handleBtn.hidden = NO;
     }
 }
 
