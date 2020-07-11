@@ -30,6 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)followUser:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)cancleFollowUser:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getRecommondDynamicsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getRecommondMyAttentionList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

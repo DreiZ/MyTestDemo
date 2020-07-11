@@ -661,4 +661,10 @@
 //编辑签名
 #define URL_account_v1_personal_edit_autograph              @"account/v1/personal/edit/autograph"
 
+//发现 动态
+#define URL_account_v1_recommond_dynamics_list    @"account/v1/dynamics/list"
+
+//发现 关注
+#define URL_account_v1_follow_account_dynamic_list    @"account/v1/follow/account/dynamic/list"
+
 #endif /* URLMacros_h */

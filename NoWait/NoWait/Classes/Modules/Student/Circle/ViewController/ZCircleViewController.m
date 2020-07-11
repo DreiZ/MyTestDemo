@@ -129,6 +129,7 @@
             }else {
                 ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                 cvc.account = @"1100005";
+//                cvc.account = @"8100007";
                 [weakSelf.navigationController pushViewController:cvc animated:YES];
 //                1100005
 //                ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];

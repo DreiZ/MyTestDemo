@@ -42,6 +42,13 @@
 @property (nonatomic,copy) NSString *enjoy; // 喜欢量
 @property (nonatomic,copy) NSString *has_video;// 是否有视频 0：否  1：是
 @property (nonatomic,copy) NSString *is_many_image; // 是否是多图  0：否  1：是
+
+//首页
+@property (nonatomic,copy) NSString *address;
+@property (nonatomic,copy) NSString *image;
+@property (nonatomic,copy) NSString *nick_name;
+@property (nonatomic,copy) NSString *show_distance;
+@property (nonatomic,copy) NSString *title;
 @end
 
 @interface ZCircleMineDynamicNetModel : ZBaseNetworkBackModel

@@ -14,12 +14,15 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *userLabel;
-@property (nonatomic,strong) UILabel *addressLabel;
-@property (nonatomic,strong) UILabel *distanceLabel;
 
 @property (nonatomic,strong) UIImageView *coverImageView;
 @property (nonatomic,strong) UIImageView *headImageView;
 @property (nonatomic,strong) UIImageView *likeImageView;
+@property (nonatomic,strong) UIImageView *playerImageView;
+
+
+@property (nonatomic,strong) UILabel *addressLabel;
+@property (nonatomic,strong) UILabel *distanceLabel;
 @property (nonatomic,strong) UIImageView *addressImageView;
 @property (nonatomic,strong) UIView *addressBackView;
 
@@ -48,6 +51,7 @@
     [self.backView addSubview:self.addressImageView];
     [self.backView addSubview:self.addressLabel];
     [self.backView addSubview:self.distanceLabel];
+    [self.backView addSubview:self.playerImageView];
     
     [self.contView addSubview:self.userLabel];
     [self.contView addSubview:self.nameLabel];
@@ -66,6 +70,10 @@
     [self.coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.backView);
         make.bottom.equalTo(self.contView.mas_top);
+    }];
+    
+    [self.playerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.coverImageView);
     }];
     
     [self.coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,26 +244,24 @@
 
 - (UIImageView *)coverImageView {
     if (!_coverImageView) {
-        NSArray *temp = @[@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdtzaw1o9j31920u012l.jpg",
-            @"http://wx4.sinaimg.cn/mw600/0085KTY1gy1ggdszf1e9dj30cs0h10tm.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdv58xbztj30jg0t60y9.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdrr9ulh7j30jg0t64fe.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdrlahu23j30u019vass.jpg",
-        @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1ggdrex90apj30hs0haajt.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdr4fqy6ij316m0u0hdt.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdq7o5303j30jg0t6acu.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdwri1jkgj30oh10m4n5.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdwhfjcncj31900u0wud.jpg",
-        @"http://ww1.sinaimg.cn/mw600/9f0b0dd5ly1ggdvmg3xd4j20mj0s6tbo.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdvf7wgwbj30xc0m9tfh.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdv9khjdvj30u018zwl6.jpg"];
         _coverImageView = [[UIImageView alloc] init];
         _coverImageView.clipsToBounds = YES;
         _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [_coverImageView tt_setImageWithURL:[NSURL URLWithString:temp[arc4random() %( temp.count - 1)]]];
     }
     return _coverImageView;
 }
+
+
+- (UIImageView *)playerImageView {
+    if (!_playerImageView) {
+        _playerImageView = [[UIImageView alloc] init];
+        _playerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _playerImageView.image = [UIImage imageNamed:@"finderPlayer"];
+        _playerImageView.clipsToBounds = YES;
+    }
+    return _playerImageView;
+}
+
 
 - (JHLikeButton *)likeImageBtn {
     if (!_likeImageBtn) {
@@ -330,25 +336,26 @@
 }
 
 #pragma mark - setdata
-- (void)setTitle:(NSString *)title {
-    _title = title;
+- (void)setModel:(ZCircleMineDynamicModel *)model {
+    _model = model;
     
-    _nameLabel.text = @"都是扣手机关机萨公司的公司打工三个地方跟得上";
-    _userLabel.text = @"公司的发生大范甘迪";
+    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
+    _nameLabel.text = model.title;
+    _userLabel.text = model.nick_name;
     [ZPublicTool setLineSpacing:CGFloatIn750(8) label:_nameLabel];
     
-    CGSize temp = [@"都是扣手机关机萨公司的公司打工三个地方跟得上" tt_sizeWithFont:[UIFont boldFontContent] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
+    CGSize temp = [model.title tt_sizeWithFont:[UIFont boldFontContent] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
     
     [self.contView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.backView);
         make.height.mas_equalTo(CGFloatIn750(100)+temp.height);
     }];
     
-    self.addressLabel.text = @"诗歌朗诵路过那里是个诗歌朗诵路过那里是个";
-    self.distanceLabel.text = @"80km";
-    CGSize distanceTemp = [@"80km" tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0, MAXFLOAT)];
+    self.addressLabel.text = model.address;
+    self.distanceLabel.text = model.show_distance;
+    CGSize distanceTemp = [model.show_distance tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0, MAXFLOAT)];
     
-    CGSize addressTemp = [@"诗歌朗诵路过那里是个诗歌朗诵路过那里是个" tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0-CGFloatIn750(36)-distanceTemp.width - CGFloatIn750(14)-CGFloatIn750(20), MAXFLOAT)];
+    CGSize addressTemp = [model.address tt_sizeWithFont:[UIFont fontMin] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 20 + 60))/2.0-CGFloatIn750(36)-distanceTemp.width - CGFloatIn750(14)-CGFloatIn750(20), MAXFLOAT)];
     
     [self.addressLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.addressImageView.mas_right).offset(CGFloatIn750(8));
@@ -361,10 +368,38 @@
         make.centerY.equalTo(self.addressImageView.mas_centerY);
         make.width.mas_equalTo(distanceTemp.width);
     }];
+    
+    if (ValidStr(_model.address)) {
+        _addressLabel.hidden = NO;
+        _distanceLabel.hidden = NO;
+        _addressImageView.hidden = NO;
+        _addressBackView.hidden = NO;
+    }else{
+        _addressLabel.hidden = YES;
+        _distanceLabel.hidden = YES;
+        _addressImageView.hidden = YES;
+        _addressBackView.hidden = YES;
+    }
+    
+    if ([_model.enjoy intValue] > 0) {
+        self.isLike = YES;
+    }else{
+        self.isLike = NO;
+    }
+    [self.likeImageBtn setLike:self.isLike animated:NO];
+    
+    if ([_model.has_video intValue] > 0) {
+        self.playerImageView.hidden = NO;
+    }else{
+        self.playerImageView.hidden = YES;
+    }
 }
 
 +(CGSize)z_getCellSize:(id)sender {
-    CGSize temp = [@"都是扣手机关机萨公司的公司打工三个地方跟得上" tt_sizeWithFont:[UIFont boldFontContent] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 40))/2.0, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
-    return CGSizeMake((KScreenWidth - CGFloatIn750(30) - CGFloatIn750(22))/2.0f, CGFloatIn750(220) + (arc4random() % 260)+temp.height);
+    ZCircleMineDynamicModel *model = sender;
+    CGSize temp = [model.title tt_sizeWithFont:[UIFont boldFontContent] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 40))/2.0, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
+    
+    CGFloat width = (KScreenWidth - CGFloatIn750(30) - CGFloatIn750(22))/2.0f;
+    return CGSizeMake(width-0.5, width * ([model.cover.height floatValue]/[model.cover.width floatValue]) + CGFloatIn750(80) + CGFloatIn750(20) + temp.height);
 }
 @end

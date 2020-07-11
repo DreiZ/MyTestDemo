@@ -336,7 +336,6 @@
     }];
 }
 
-
 - (void)cancleFollowAccount:(NSString *)account {
     [TLUIUtility showLoading:nil];
     [ZCircleMineViewModel cancleFollowUser:@{@"follow":SafeStr(account)} completeBlock:^(BOOL isSuccess, id data) {

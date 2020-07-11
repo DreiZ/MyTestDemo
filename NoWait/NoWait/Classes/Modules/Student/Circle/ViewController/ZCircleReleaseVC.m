@@ -78,7 +78,7 @@
         
         ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.cellHeight = CGFloatIn750(80);
-        cellModel.max = 60;
+        cellModel.max = 90;
         cellModel.formatterType = ZFormatterTypeAnyByte;
         cellModel.textAlignment = NSTextAlignmentLeft;
         cellModel.placeholder = @"与众不同的标题会有更多喜欢哦~";

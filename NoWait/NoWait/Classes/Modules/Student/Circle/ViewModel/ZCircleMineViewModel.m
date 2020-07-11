@@ -138,4 +138,42 @@
         }
     }];
 }
+
+
++ (void)getRecommondDynamicsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_recommond_dynamics_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMineDynamicNetModel *model = [ZCircleMineDynamicNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
++ (void)getRecommondMyAttentionList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_follow_account_dynamic_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMineDynamicNetModel *model = [ZCircleMineDynamicNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 @end
