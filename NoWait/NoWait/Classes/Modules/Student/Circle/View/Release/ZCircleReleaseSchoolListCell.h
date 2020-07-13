@@ -7,10 +7,11 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZCircleReleaseModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseSchoolListCell : ZBaseCell
+@property (nonatomic,strong) ZCircleReleaseSchoolModel *model;
 
 @end
 

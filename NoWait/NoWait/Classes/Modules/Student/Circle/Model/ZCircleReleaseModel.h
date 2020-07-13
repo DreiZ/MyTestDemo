@@ -10,6 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface ZCircleReleaseSchoolModel : ZBaseModel
+@property (nonatomic,copy) NSString *distance;
+@property (nonatomic,copy) NSString *store_id;
+@property (nonatomic,copy) NSString *image;
+@property (nonatomic,copy) NSString *name;
+@end
+
+
+@interface ZCircleReleaseSchoolNetModel : ZBaseModel
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) NSString *total;
+@end
+
+
 @interface ZCircleReleaseTagModel : ZBaseModel
 @property (nonatomic,copy) NSString *tag_name;
 @property (nonatomic,copy) NSString *tag_id;

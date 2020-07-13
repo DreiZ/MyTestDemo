@@ -44,9 +44,7 @@
                            .mas_right).offset(-CGFloatIn750(30));
     }];
     
-    [_schoolImageView tt_setImageWithURL:[NSURL URLWithString:@"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggi3cu0t9dj31900u0n51.jpg"]];
-    _nameLabel.text = @"打发斯蒂芬";
-    _distanceLabel.text = @"123M";
+    
 }
 
 
@@ -83,6 +81,13 @@
         [_distanceLabel setFont:[UIFont fontSmall]];
     }
     return _distanceLabel;
+}
+
+- (void)setModel:(ZCircleReleaseSchoolModel *)model {
+    _model = model;
+    [_schoolImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    _nameLabel.text = model.name;
+    _distanceLabel.text = model.distance;
 }
 
 

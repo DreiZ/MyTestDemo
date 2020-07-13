@@ -677,4 +677,7 @@
 
 //动态评论
 #define URL_account_v1_comment_dynamic    @"account/v1/comment/dynamic"
+
+//打卡校区
+#define URL_account_v1_search_store_list    @"account/v1/search/store/list"
 #endif /* URLMacros_h */

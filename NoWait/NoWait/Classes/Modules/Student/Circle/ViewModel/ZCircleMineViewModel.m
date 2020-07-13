@@ -8,6 +8,7 @@
 
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
+#import "ZCircleReleaseModel.h"
 
 @implementation ZCircleMineViewModel
 
@@ -295,6 +296,25 @@
         }else {
             completeBlock(NO, @"操作失败");
         }
+    }];
+}
+
+
++ (void)getDynamicSchoolList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_search_store_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleReleaseSchoolNetModel *model = [ZCircleReleaseSchoolNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
     }];
 }
 @end

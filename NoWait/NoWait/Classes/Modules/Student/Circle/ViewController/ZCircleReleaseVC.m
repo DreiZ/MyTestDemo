@@ -224,6 +224,11 @@
             [self.navigationController pushViewController:avc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"finderSchoolNo"]) {
             ZCircleReleaseSelectSchoolVC *svc = [[ZCircleReleaseSelectSchoolVC alloc] init];
+            svc.handleBlock = ^(ZCircleReleaseSchoolModel * school) {
+                weakSelf.releaseViewModel.model.store_id = school.store_id;
+                weakSelf.releaseViewModel.model.store_name = school.name;
+                self.zChain_reload_ui();
+            };
             [self.navigationController pushViewController:svc animated:YES];
         }
     });

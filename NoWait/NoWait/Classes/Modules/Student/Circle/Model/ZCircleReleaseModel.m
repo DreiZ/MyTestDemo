@@ -8,6 +8,23 @@
 
 #import "ZCircleReleaseModel.h"
 
+@implementation ZCircleReleaseSchoolModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"store_id" : @"id",
+    };
+}
+@end
+
+@implementation ZCircleReleaseSchoolNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleReleaseSchoolModel"
+             };
+}
+@end
+
 @implementation ZCircleReleaseTagModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{

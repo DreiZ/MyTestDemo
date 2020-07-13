@@ -7,11 +7,11 @@
 //
 
 #import "ZTableViewController.h"
-
+#import "ZCircleReleaseModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleReleaseSelectSchoolVC : ZTableViewController
-
+@property (nonatomic,strong) void (^handleBlock)(ZCircleReleaseSchoolModel *);
 @end
 
 NS_ASSUME_NONNULL_END

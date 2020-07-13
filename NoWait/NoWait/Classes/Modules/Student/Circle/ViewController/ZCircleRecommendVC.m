@@ -23,6 +23,11 @@
 
 @implementation ZCircleRecommendVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -32,8 +37,6 @@
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
     [self setCollectionViewGaryBack];
-    
-    [self refreshData];
 }
 
 - (void)setDataSource {
