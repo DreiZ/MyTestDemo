@@ -10,6 +10,6 @@
 #import "ZCollectionViewController.h"
 
 @interface ZCircleRecommendVC : ZCollectionViewController
-
+@property (nonatomic,assign) BOOL isAttention;
 @end
 

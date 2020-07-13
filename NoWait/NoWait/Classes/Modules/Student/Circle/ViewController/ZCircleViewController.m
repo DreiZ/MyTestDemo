@@ -107,11 +107,10 @@
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
         ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
+        rvc.isAttention = YES;
         [_vcArr addObject:rvc];
         ZCircleRecommendVC *fvc = [[ZCircleRecommendVC alloc] init];
         [_vcArr addObject:fvc];
-//        ZCircleFinderVC *fvc = [[ZCircleFinderVC alloc] init];
-//        [_vcArr addObject:fvc];
     }
     return _vcArr;
 }

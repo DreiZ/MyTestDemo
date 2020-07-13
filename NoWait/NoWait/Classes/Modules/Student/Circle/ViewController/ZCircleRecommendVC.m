@@ -121,27 +121,51 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            
-            [weakSelf initCellConfigArr];
-            [weakSelf.iCollectionView reloadData];
-            
-            [weakSelf.iCollectionView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+    if (self.isAttention) {
+        [ZCircleMineViewModel getFollowRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                
+                [weakSelf initCellConfigArr];
+                [weakSelf.iCollectionView reloadData];
+                
+                [weakSelf.iCollectionView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iCollectionView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iCollectionView tt_endLoadMore];
+                [weakSelf.iCollectionView reloadData];
+                [weakSelf.iCollectionView tt_endRefreshing];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iCollectionView reloadData];
-            [weakSelf.iCollectionView tt_endRefreshing];
-            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZCircleMineViewModel getRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources removeAllObjects];
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                
+                [weakSelf initCellConfigArr];
+                [weakSelf.iCollectionView reloadData];
+                
+                [weakSelf.iCollectionView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iCollectionView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iCollectionView reloadData];
+                [weakSelf.iCollectionView tt_endRefreshing];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
 }
 
 - (void)refreshMoreData {
@@ -150,25 +174,47 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getRecommondDynamicsList:self.param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
-        weakSelf.loading = NO;
-        if (isSuccess && data) {
-            [weakSelf.dataSources addObjectsFromArray:data.list];
-            [weakSelf initCellConfigArr];
-            [weakSelf.iCollectionView reloadData];
-            
-            [weakSelf.iCollectionView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
-                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+    if (self.isAttention) {
+        [ZCircleMineViewModel getFollowRecommondDynamicsList:self.param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iCollectionView reloadData];
+                
+                [weakSelf.iCollectionView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iCollectionView tt_endLoadMore];
+                }
             }else{
-                [weakSelf.iCollectionView tt_endLoadMore];
+                [weakSelf.iCollectionView reloadData];
+                [weakSelf.iCollectionView tt_endRefreshing];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }
-        }else{
-            [weakSelf.iCollectionView reloadData];
-            [weakSelf.iCollectionView tt_endRefreshing];
-            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-        }
-    }];
+        }];
+    }else{
+        [ZCircleMineViewModel getRecommondDynamicsList:self.param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+            weakSelf.loading = NO;
+            if (isSuccess && data) {
+                [weakSelf.dataSources addObjectsFromArray:data.list];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iCollectionView reloadData];
+                
+                [weakSelf.iCollectionView tt_endRefreshing];
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+                }else{
+                    [weakSelf.iCollectionView tt_endLoadMore];
+                }
+            }else{
+                [weakSelf.iCollectionView reloadData];
+                [weakSelf.iCollectionView tt_endRefreshing];
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }
+        }];
+    }
 }
 
 - (void)refreshAllData {
