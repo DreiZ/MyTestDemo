@@ -48,6 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)evaDynamic:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)enjoyDynamic:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)cancleEnjoyDynamic:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -67,6 +67,11 @@
     return _noDataLabel;
 }
 
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    _noDataLabel.text = title;
+}
+
 + (CGFloat)z_getCellHeight:(id)sender {
     return kScreenHeight;
 }

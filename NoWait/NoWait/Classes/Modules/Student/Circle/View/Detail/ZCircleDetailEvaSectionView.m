@@ -85,7 +85,7 @@
     }
     
     if (eva) {
-        [_evaBtn setTitle:[NSString stringWithFormat:@"回复%@",like] forState:UIControlStateNormal];
+        [_evaBtn setTitle:[NSString stringWithFormat:@"回复%@",eva] forState:UIControlStateNormal];
     }
 }
 

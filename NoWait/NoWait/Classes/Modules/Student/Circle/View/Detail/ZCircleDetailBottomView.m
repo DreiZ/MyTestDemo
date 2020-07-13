@@ -85,7 +85,7 @@
     
     
     [self.messageImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.likeImageView.mas_right).offset(-CGFloatIn750(82));
+        make.right.equalTo(self.likeImageView.mas_left).offset(-CGFloatIn750(82));
         make.centerY.equalTo(self.contView.mas_centerY);
         make.height.width.mas_equalTo(CGFloatIn750(28));
     }];
@@ -199,7 +199,7 @@
 
 - (JHLikeButton *)likeImageView {
     if (!_likeImageView) {
-        _likeImageView = [[JHLikeButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(22), CGFloatIn750(22))];
+        _likeImageView = [[JHLikeButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(28), CGFloatIn750(28))];
         _likeImageView.color = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _likeImageView.enabled = NO;
         _likeImageView.likeColor = [UIColor colorRedForButton];
@@ -258,7 +258,13 @@
 - (void)setModel:(ZCircleDynamicInfo *)model {
     _model = model;
     
-    _likeLabel.text = @"23423";
-    _messageLabel.text = @"23";
+    _likeLabel.text = model.enjoy;
+    _messageLabel.text = model.comment_number;
+    if ([model.enjoy_status intValue] > 0) {
+        self.isLike = YES;
+    }else{
+        self.isLike = NO;
+    }
+    [self.likeImageView setLike:self.isLike animated:YES];
 }
 @end

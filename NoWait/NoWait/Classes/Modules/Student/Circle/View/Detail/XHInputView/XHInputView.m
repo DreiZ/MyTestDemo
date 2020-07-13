@@ -258,7 +258,7 @@ static CGFloat keyboardAnimationDuration = 0.5;
         _placeholderLab.hidden = NO;
     }
     if(_maxCount>0){
-        [ZPublicTool textView:textView maxLenght:_maxCount type:ZFormatterTypeAny];
+        [ZPublicTool textView:textView maxLenght:_maxCount type:ZFormatterTypeAnyByte];
         
         if(_style == InputViewStyleLarge){
             _countLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)textView.text.length,(long)_maxCount];

@@ -10,6 +10,7 @@
 #import "ZCircleDetailHeaderView.h"
 #import "ZCircleDetailBottomView.h"
 
+#import "ZNoDataCell.h"
 #import "ZCircleDetailUserCell.h"
 #import "ZCircleDetailLabelCell.h"
 #import "ZCircleDetailSchoolCell.h"
@@ -39,6 +40,7 @@
 @property (nonatomic,strong) NSMutableArray *likeList;
 @property (nonatomic,strong) NSMutableArray *evaList;
 @property (nonatomic,assign) BOOL isLike;
+@property (nonatomic,assign) BOOL isNoData;
 @end
 
 @implementation ZCircleDetailVC
@@ -60,6 +62,7 @@
         self.param = @{}.mutableCopy;
         self.likeList = @[].mutableCopy;
         self.evaList = @[].mutableCopy;
+        self.isLike = NO;
     }).zChain_resetMainView(^{
         self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
@@ -85,8 +88,7 @@
         }];
         
     }).zChain_block_setRefreshHeaderNet(^{
-        [self getDetailInfo];
-//        [self refreshData];
+        [self refreshData];
     }).zChain_block_setRefreshMoreNet(^{
         [self refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
@@ -165,34 +167,51 @@
         {
             NSMutableArray *section2Arr = @[].mutableCopy;
             if (self.isLike) {
-                for (int i = 0; i < self.likeList.count; i++) {
-                    ZCircleMinePersonModel *smodel = self.likeList[i];
-                    
-                    ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user").zz_titleLeft(smodel.nick_name)
-                    .zz_imageLeft(smodel.image)
-                    .zz_cellHeight(CGFloatIn750(90))
-                    .zz_imageLeftRadius(YES)
-                    .zz_imageLeftHeight(CGFloatIn750(54))
-                    .zz_marginLineLeft(CGFloatIn750(74))
-                    .zz_marginLineRight(CGFloatIn750(20))
-                    .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
-                    
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                if (ValidArray(self.likeList)) {
+                    for (int i = 0; i < self.likeList.count; i++) {
+                        ZCircleMinePersonModel *smodel = self.likeList[i];
+                        
+                        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user").zz_titleLeft(smodel.nick_name)
+                        .zz_imageLeft(smodel.image)
+                        .zz_cellHeight(CGFloatIn750(90))
+                        .zz_imageLeftRadius(YES)
+                        .zz_imageLeftHeight(CGFloatIn750(54))
+                        .zz_marginLineLeft(CGFloatIn750(74))
+                        .zz_marginLineRight(CGFloatIn750(20))
+                        .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
+                        
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                        [section2Arr addObject:menuCellConfig];
+                    }
+                    if (self.isNoData) {
+                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+                        [section2Arr addObject:noEvaCellConfig];
+                    }
+                }else{
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无喜欢"];
                     [section2Arr addObject:menuCellConfig];
                 }
             }else{
-                for (int i = 0; i < self.likeList.count; i++) {
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
-                   [section2Arr addObject:menuCellConfig];
+                if (ValidArray(self.evaList)) {
+                    for (int i = 0; i < self.evaList.count; i++) {
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
+                       [section2Arr addObject:menuCellConfig];
+                    }
+                    if (self.isNoData) {
+                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+                        [section2Arr addObject:noEvaCellConfig];
+                    }
+                }else{
+                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无评价"];
+                    [section2Arr addObject:menuCellConfig];
                 }
             }
             [self.cellConfigArr addObject:section2Arr];
-//            ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
-//            [section2Arr addObject:noEvaCellConfig];
         }
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 1) {
             self.sectionView.isLike = self.isLike;
+            [self.sectionView setLikeNum:self.infoModel.enjoy evaNum:self.infoModel.comment_number];
             return self.sectionView;
         }else {
             return nil;
@@ -278,6 +297,7 @@
     
     self.zChain_reload_ui();
     self.zChain_reload_Net();
+    [self getDetailInfo];
 }
 
 #pragma mark - lazy loading
@@ -302,9 +322,12 @@
             if (index == 0) {
                 [weakSelf showXHInputViewWithStyle:InputViewStyleLarge];
             }else if(index == 1){
-                
-            }else{
-                
+                weakSelf.isNoData = NO;
+                weakSelf.isLike = NO;
+                weakSelf.sectionView.isLike = NO;
+                [weakSelf refreshData];
+            }else if(index == 2){
+                [weakSelf enjoyDynamic];
             }
         };
     }
@@ -316,6 +339,7 @@
         __weak typeof(self) weakSelf = self;
         _sectionView = [[ZCircleDetailEvaSectionView alloc] init];
         _sectionView.handleBlock = ^(NSInteger index) {
+            weakSelf.isNoData = NO;
             if (index == 0) {
                 weakSelf.isLike = YES;
             }else{
@@ -337,16 +361,20 @@
         inputView.sendButtonBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         inputView.sendButtonFont = [UIFont fontTitle];
         inputView.sendButtonTitle = @"发布";
-        inputView.placeholder = @"评论：嘴巴嘟嘟的舞蹈学校";
-        inputView.maxCount = 1200;
+        inputView.placeholder = @"留下您的精彩评论吧";
+        if (self.infoModel) {
+            inputView.placeholder = [NSString stringWithFormat:@"评论：%@",self.infoModel.title];
+        }
+        inputView.maxCount = 300;
         inputView.textViewBackgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     } sendBlock:^BOOL(NSString *text) {
         if(text.length){
-            NSLog(@"输入的信息为:%@",text);
-//            _textLab.text = text;
+            DLog(@"输入的信息为:%@",text);
+            [self evaDynamic:text];
             return YES;//return YES,收起键盘
         }else{
-            NSLog(@"显示提示框-请输入要评论的的内容");
+            DLog(@"显示提示框-请输入要评论的的内容");
+            [TLUIUtility showInfoHint:@"请输入要评论的的内容"];
             return NO;//return NO,不收键盘
         }
     }];
@@ -444,6 +472,11 @@
                 [weakSelf.likeList removeAllObjects];
                 [weakSelf.likeList addObjectsFromArray:data.list];
                 
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    weakSelf.isNoData = YES;
+                }else{
+                    weakSelf.isNoData = NO;
+                }
                 weakSelf.zChain_reload_ui();
                 
                 [weakSelf.iTableView tt_endRefreshing];
@@ -452,6 +485,8 @@
                 }else{
                     [weakSelf.iTableView tt_endLoadMore];
                 }
+                
+                
             }else{
                 [weakSelf.iTableView reloadData];
                 [weakSelf.iTableView tt_endRefreshing];
@@ -465,6 +500,11 @@
                 [weakSelf.evaList removeAllObjects];
                 [weakSelf.evaList addObjectsFromArray:data.list];
                 
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    weakSelf.isNoData = YES;
+                }else{
+                    weakSelf.isNoData = NO;
+                }
                 weakSelf.zChain_reload_ui();
                 
                 [weakSelf.iTableView tt_endRefreshing];
@@ -493,6 +533,12 @@
             weakSelf.loading = NO;
             if (isSuccess && data) {
                 [weakSelf.likeList addObjectsFromArray:data.list];
+                
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    weakSelf.isNoData = YES;
+                }else{
+                    weakSelf.isNoData = NO;
+                }
                 weakSelf.zChain_reload_ui();
                 
                 [weakSelf.iTableView tt_endRefreshing];
@@ -512,6 +558,12 @@
             weakSelf.loading = NO;
             if (isSuccess && data) {
                 [weakSelf.evaList addObjectsFromArray:data.list];
+                
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                    weakSelf.isNoData = YES;
+                }else{
+                    weakSelf.isNoData = NO;
+                }
                 weakSelf.zChain_reload_ui();
                 
                 [weakSelf.iTableView tt_endRefreshing];
@@ -543,5 +595,58 @@
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:@"10" forKey:@"page_size"];
     [self.param setObject:self.dynamic forKey:@"dynamic"];
+}
+
+- (void)enjoyDynamic{
+    __weak typeof(self) weakSelf = self;
+    if ([self.infoModel.enjoy_status intValue] > 0) {
+        [ZCircleMineViewModel cancleEnjoyDynamic:@{@"dynamic":SafeStr(self.dynamic)} completeBlock:^(BOOL isSuccess, id data) {
+            if (isSuccess) {
+                weakSelf.infoModel.enjoy_status = @"0";
+                NSInteger enjoyCount = [weakSelf.infoModel.enjoy intValue]-1;
+                if (enjoyCount < 0) {
+                    enjoyCount = 0;
+                }
+                weakSelf.infoModel.enjoy = [NSString stringWithFormat:@"%ld",(long)enjoyCount];
+                weakSelf.bottomView.model = weakSelf.infoModel;
+                
+                [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+                [weakSelf refreshData];
+            }else{
+                weakSelf.bottomView.model = weakSelf.infoModel;
+                [TLUIUtility showInfoHint:data];
+            }
+        }];
+    }else{
+        [ZCircleMineViewModel enjoyDynamic:@{@"dynamic":SafeStr(self.dynamic)} completeBlock:^(BOOL isSuccess, id data) {
+            if (isSuccess) {
+                weakSelf.infoModel.enjoy_status = @"1";
+                weakSelf.infoModel.enjoy = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.enjoy intValue]+1];
+                weakSelf.bottomView.model = weakSelf.infoModel;
+                [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+            }else{
+                weakSelf.bottomView.model = weakSelf.infoModel;
+                [TLUIUtility showInfoHint:data];
+            }
+        }];
+    }
+}
+
+- (void)evaDynamic:(NSString *)text {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel evaDynamic:@{@"dynamic":SafeStr(self.dynamic),@"content":SafeStr(text)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            weakSelf.infoModel.comment_number = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.comment_number intValue]+1];
+            weakSelf.bottomView.model = weakSelf.infoModel;
+            
+            [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+            if (!weakSelf.isLike) {
+                weakSelf.zChain_reload_Net();
+            }
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
 }
 @end

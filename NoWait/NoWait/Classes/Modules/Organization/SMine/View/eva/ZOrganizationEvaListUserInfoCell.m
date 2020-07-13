@@ -105,7 +105,7 @@
 - (void)setCrModel:(ZCircleDynamicEvaModel *)crModel {
     _crModel = crModel;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(crModel.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    _timeLabel.text = [crModel.created_at timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    _timeLabel.text = crModel.created_at;
     _nameLabel.text = ValidStr(crModel.nick_name)?  crModel.nick_name : @"用户****";
 }
 

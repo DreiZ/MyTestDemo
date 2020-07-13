@@ -100,7 +100,8 @@
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
-    ZOrderEvaListModel *evaModel = sender;
+    
+    
     
     CGFloat cellHeight = 0;
     {
@@ -108,19 +109,24 @@
         cellHeight += [ZOrganizationEvaListUserInfoCell z_getCellHeight:nil];
         cellHeight += CGFloatIn750(10);
     }
-    
-    if (ValidStr(evaModel.des)) {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
-        model.zz_titleLeft(evaModel.des);
-        model.zz_leftMultiLine(YES);
-        model.zz_marginLeft(CGFloatIn750(86));
-        model.zz_marginRight(CGFloatIn750(30));
-        model.zz_cellHeight(CGFloatIn750(62));
-        model.zz_fontLeft([UIFont fontContent]);
-        model.zz_cellWidth(KScreenWidth - CGFloatIn750(60));
-        cellHeight += [ZBaseLineCell z_getCellHeight:model];
+    if ([sender isKindOfClass:[ZCircleDynamicEvaModel class]]) {
+        ZCircleDynamicEvaModel *evaModel = sender;
+        if (ValidStr(evaModel.content)) {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"des");
+            model.zz_titleLeft(evaModel.content);
+            model.zz_lineHidden(YES);
+            model.zz_leftMultiLine(YES);
+            model.zz_marginLeft(CGFloatIn750(86));
+            model.zz_marginRight(CGFloatIn750(20));
+            model.zz_cellHeight(CGFloatIn750(52));
+            model.zz_fontLeft([UIFont fontContent]);
+            model.zz_cellWidth(KScreenWidth - CGFloatIn750(60));
+            cellHeight += [ZBaseLineCell z_getCellHeight:model];
+        }
+        cellHeight += CGFloatIn750(10);
     }
-    cellHeight += CGFloatIn750(10);
+    
+    
     return  cellHeight;
 }
 
@@ -147,9 +153,10 @@
         model.zz_lineHidden(YES);
         model.zz_leftMultiLine(YES);
         model.zz_marginLeft(CGFloatIn750(86));
-        model.zz_marginRight(CGFloatIn750(30));
-        model.zz_cellHeight(CGFloatIn750(62));
+        model.zz_marginRight(CGFloatIn750(20));
+        model.zz_cellHeight(CGFloatIn750(52));
         model.zz_fontLeft([UIFont fontContent]);
+        model.zz_cellWidth(KScreenWidth - CGFloatIn750(60));
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         

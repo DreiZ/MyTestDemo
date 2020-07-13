@@ -55,6 +55,7 @@
 @property (nonatomic,copy) NSString *browse;// 浏览量
 @property (nonatomic,copy) NSString *dynamic;
 @property (nonatomic,copy) NSString *enjoy; // 喜欢量
+@property (nonatomic,copy) NSString *enjoy_status;
 @property (nonatomic,copy) NSString *has_video;// 是否有视频 0：否  1：是
 @property (nonatomic,copy) NSString *is_many_image; // 是否是多图  0：否  1：是
 
@@ -72,6 +73,7 @@
 @end
 
 @interface ZCircleDynamicInfo : ZBaseModel
+@property (nonatomic,copy) NSString *comment_number;
 @property (nonatomic,copy) NSString *account;
 @property (nonatomic,copy) NSString *account_image;
 @property (nonatomic,copy) NSString *address;
@@ -80,6 +82,7 @@
 @property (nonatomic,strong) ZCircleMineDynamicPhotoModel *cover;
 @property (nonatomic,copy) NSString *dynamic;
 @property (nonatomic,copy) NSString *enjoy;
+@property (nonatomic,copy) NSString *enjoy_status;
 @property (nonatomic,copy) NSString *follow_status;
 @property (nonatomic,strong) NSArray *image;
 @property (nonatomic,copy) NSString *nick_name;

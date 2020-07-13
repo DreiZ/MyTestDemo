@@ -381,7 +381,7 @@
         _addressBackView.hidden = YES;
     }
     
-    if ([_model.enjoy intValue] > 0) {
+    if ([_model.enjoy_status intValue] > 0) {
         self.isLike = YES;
     }else{
         self.isLike = NO;
@@ -400,6 +400,13 @@
     CGSize temp = [model.title tt_sizeWithFont:[UIFont boldFontContent] constrainedToSize:CGSizeMake((KScreenWidth - CGFloatIn750(60 + 40))/2.0, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
     
     CGFloat width = (KScreenWidth - CGFloatIn750(30) - CGFloatIn750(22))/2.0f;
-    return CGSizeMake(width-0.5, width * ([model.cover.height floatValue]/[model.cover.width floatValue]) + CGFloatIn750(80) + CGFloatIn750(20) + temp.height);
+    
+    CGFloat ratio = 1;
+    if ([model.cover.height floatValue] - [model.cover.width floatValue] * 2 > 0) {
+        ratio = 2;
+    }else {
+        ratio = ([model.cover.height floatValue]/[model.cover.width floatValue]);
+    }
+    return CGSizeMake(width-0.5, width * ratio + CGFloatIn750(80) + CGFloatIn750(20) + temp.height);
 }
 @end
