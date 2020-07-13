@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZCircleReleaseTagModel : ZBaseModel
 @property (nonatomic,copy) NSString *tag_name;
 @property (nonatomic,copy) NSString *tag_id;
+@property (nonatomic,copy) NSString *is_hot;
 @end
 
 @interface ZCircleReleaseTagNetModel : ZBaseModel

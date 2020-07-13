@@ -13,9 +13,20 @@
 #import "ZCircleHotSectionView.h"
 #import "WSLWaterFlowLayout.h"
 
+#import "ZCircleReleaseViewModel.h"
+#import "ZCircleMineViewModel.h"
+#import "ZOriganizationLessonModel.h"
+
+#import "ZStudentExperienceLessonDetailVC.h"
+
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
 @property (nonatomic,strong) NSString *name;
+
+@property (nonatomic,strong) NSMutableDictionary *param;
+
+@property (nonatomic,strong) NSMutableArray *hotSearchList;
+@property (nonatomic,strong) NSMutableArray *lessonList;
 @end
 
 @implementation ZCircleSearchVC
@@ -24,7 +35,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.searchType = kSearchHistoryLessonSearch;
+        self.searchType = kSearchHistoryCircleSearch;
     }
     return self;
 }
@@ -50,7 +61,9 @@
     self.emptyDataStr = @"暂无数据";
     self.loading = NO;
     
-    self.hotList = @[@"",@"",@"",@""];
+    self.param = @{}.mutableCopy;
+    self.hotSearchList = @[].mutableCopy;
+    self.lessonList = @[].mutableCopy;
     
     [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
     
@@ -58,8 +71,9 @@
     
     [self.iCollectionView registerClass:[ZCircleHotSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader"];
     
-    [self initCellConfigArr];
-    [self.iCollectionView reloadData];
+//    [self initCellConfigArr];
+//    [self.iCollectionView reloadData];
+    [self getRecommondTags];
 }
 
 
@@ -67,8 +81,8 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     
-    for (int i = 0; i < 5; i++) {
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setTitle:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:[NSString stringWithFormat:@"%d",i+1]];
+    for (int i = 0; i < self.dataSources.count; i++) {
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         
         [self.cellConfigArr addObject:cellConfig];
     }
@@ -117,7 +131,10 @@
 /** 头视图Size */
 -(CGSize )waterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout sizeForHeaderViewInSection:(NSInteger)section{
     if (section == 0) {
-        return [ZCircleHotSectionView z_getCellSize:nil];
+        if (ValidArray(self.lessonList)) {
+            return [ZCircleHotSectionView z_getCellSize:nil];
+        }
+        return CGSizeMake(KScreenWidth, CGFloatIn750(86));
     }
     return CGSizeMake(KScreenWidth, CGFloatIn750(86));
 }
@@ -149,17 +166,124 @@
 
 //返回头脚视图
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    __weak typeof(self) weakSelf = self;
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        ZCircleHotSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader" forIndexPath:indexPath];
-        [headerView setTip:@"热门课程"];
-        headerView.list = self.hotList;
-        return headerView;
-        
+        if (ValidArray(self.lessonList)) {
+            ZCircleHotSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader" forIndexPath:indexPath];
+            [headerView setTip:@"热门课程"];
+            headerView.list = self.lessonList;
+            headerView.menuBlock = ^(ZCircleDynamicLessonModel *model) {
+                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
+                ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+                listmodel.lessonID = model.lesson_id;
+                dvc.model = listmodel;
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
+            };
+            return headerView;
+        }else{
+            ZCircleSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader" forIndexPath:indexPath];
+            [headerView setTip:@"热门发现"];
+            return headerView;
+        }
     }else{
         ZCircleSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader" forIndexPath:indexPath];
-        [headerView setTip:@"热门发现"];
+        [headerView setTip:@""];
         return headerView;
     }
 }
 
+- (void)getRecommondTags{
+    [ZCircleReleaseViewModel getDynamicTagList:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZCircleReleaseTagNetModel class]]) {
+            ZCircleReleaseTagNetModel *model = (ZCircleReleaseTagNetModel *)data;
+            [self.hotSearchList removeAllObjects];
+            [self.hotSearchList addObjectsFromArray:model.list];
+//            self.zChain_reload_ui();
+            self.hotList = self.hotSearchList;
+        }
+    }];
+}
+
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self setPostCommonData];
+    [self refreshHeadData:_param];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel getRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            if (ValidArray(data.course)) {
+                [weakSelf.lessonList removeAllObjects];
+                [weakSelf.lessonList addObjectsFromArray:data.course];
+            }
+            
+            [weakSelf initCellConfigArr];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel getRecommondDynamicsList:self.param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iCollectionView reloadData];
+            
+            [weakSelf.iCollectionView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iCollectionView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iCollectionView reloadData];
+            [weakSelf.iCollectionView tt_endRefreshing];
+            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshAllData {
+    self.loading = YES;
+    
+    [self setPostCommonData];
+    [_param setObject:@"1" forKey:@"page"];
+    [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    
+    [self refreshHeadData:_param];
+}
+
+- (void)setPostCommonData {
+    [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+    [self.param setObject:@"10" forKey:@"page_size"];
+    if (ValidStr(self.name)) {
+        [self.param setObject:self.name forKey:@"name"];
+    }
+}
 @end

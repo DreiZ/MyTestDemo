@@ -63,7 +63,6 @@
         
         [self.cellConfigArr addObject:cellConfig];
     }
-    
 }
 
 #pragma mark - ZJWaterLayoutDelegate

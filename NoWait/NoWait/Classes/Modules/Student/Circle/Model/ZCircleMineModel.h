@@ -8,6 +8,16 @@
 
 #import "ZBaseModel.h"
 
+@interface ZCircleDynamicLessonModel : ZBaseModel
+@property (nonatomic,copy) NSString *experience_price;
+@property (nonatomic,copy) NSString *lesson_id;
+@property (nonatomic,copy) NSString *image_url;
+@property (nonatomic,copy) NSString *is_experience;
+@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *price;
+@property (nonatomic,copy) NSString *short_name;
+@end
+
 @interface ZCircleDynamicEvaModel : ZBaseModel
 @property (nonatomic,copy) NSString *content;
 @property (nonatomic,copy) NSString *created_at;
@@ -69,6 +79,8 @@
 
 @interface ZCircleMineDynamicNetModel : ZBaseNetworkBackModel
 @property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) NSArray *course;
+
 @property (nonatomic,copy) NSString *total;
 @end
 

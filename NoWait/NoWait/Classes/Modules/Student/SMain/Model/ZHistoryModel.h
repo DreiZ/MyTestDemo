@@ -15,6 +15,7 @@
 #define kSearchHistoryCartSearch      @"10006"
 #define kSearchHistoryClassSearch     @"10007"
 #define kSearchHistoryOrderSearch     @"10003"
+#define kSearchHistoryCircleSearch    @"10008"
 
 @interface ZHistoryModel : ZBaseModel
 @property (nonatomic,copy) NSString *search_title;

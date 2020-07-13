@@ -9,6 +9,7 @@
 #import "ZSearchHistoryView.h"
 #import "ZDBMainStore.h"
 #import "ZHistoryModel.h"
+#import "ZCircleReleaseViewModel.h"
 #import "ZLabelListCell.h"
 #import "ZHotListCell.h"
 
@@ -96,8 +97,11 @@
     }else if([cellConfig.title isEqualToString:@"hot"]){
         ZHotListCell *lcell = (ZHotListCell *)cell;
         lcell.menuBlock = ^(id data) {
-            if (weakSelf.searchBlock) {
-                weakSelf.searchBlock(data);
+            if ([data isKindOfClass:[ZCircleReleaseTagModel class]]) {
+                ZCircleReleaseTagModel *model = data;
+                if (weakSelf.searchBlock) {
+                    weakSelf.searchBlock(model.tag_name);
+                }
             }
         };
     }

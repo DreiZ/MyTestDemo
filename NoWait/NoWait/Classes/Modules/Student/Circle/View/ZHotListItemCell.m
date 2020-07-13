@@ -10,9 +10,6 @@
 
 @interface ZHotListItemCell ()
 @property (nonatomic,strong) UIView *backView;
-@property (nonatomic,strong) UILabel *hotLabel;
-@property (nonatomic,strong) UIImageView *hotImageView;
-
 
 @end
 

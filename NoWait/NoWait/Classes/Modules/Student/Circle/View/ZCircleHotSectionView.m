@@ -8,6 +8,7 @@
 
 #import "ZCircleHotSectionView.h"
 #import "ZCircleHotLessonListItemCell.h"
+#import "ZCircleMineModel.h"
 
 @interface ZCircleHotSectionView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -163,15 +164,14 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ZCircleHotLessonListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZCircleHotLessonListItemCell className] forIndexPath:indexPath];
-//    ZStudentPhotoWallItemModel *model = _channelList[indexPath.row];
-//    cell.imageView.image = [UIImage imageNamed:model.imageName];
+    cell.model = _dataSource[indexPath.row];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.menuBlock) {
-//        self.menuBlock(_channelList[indexPath.row]);
-//    }
+    if (self.menuBlock) {
+        self.menuBlock(_dataSource[indexPath.row]);
+    }
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -205,7 +205,7 @@
 
 - (void)setTip:(NSString *)tip{
     self.tipLabel.text = tip;
-    self.bottomTipLabel.text = tip;
+    self.bottomTipLabel.text = @"热门发现";
 }
 
 @end

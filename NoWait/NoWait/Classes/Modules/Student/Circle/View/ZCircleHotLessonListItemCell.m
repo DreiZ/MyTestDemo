@@ -63,10 +63,6 @@
         make.centerY.equalTo(self.orignLabel.mas_centerY);
         make.height.mas_equalTo(1);
     }];
-    
-    self.nameLabel.text = @"水果可那是肯定给你";
-    self.priceLabel.text = @"￥123";
-    self.orignLabel.text = @"￥223";
 }
 
 
@@ -99,22 +95,6 @@
         _lessonImageView.layer.masksToBounds = YES;
         _lessonImageView.contentMode = UIViewContentModeScaleAspectFill;
         ViewRadius(_lessonImageView, CGFloatIn750(8));
-        
-        NSArray *temp = @[@"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdtzaw1o9j31920u012l.jpg",
-            @"http://wx4.sinaimg.cn/mw600/0085KTY1gy1ggdszf1e9dj30cs0h10tm.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdv58xbztj30jg0t60y9.jpg",
-            @"http://wx2.sinaimg.cn/mw600/0076BSS5ly1ggdrr9ulh7j30jg0t64fe.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdrlahu23j30u019vass.jpg",
-        @"http://wx4.sinaimg.cn/mw600/0076BSS5ly1ggdrex90apj30hs0haajt.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdr4fqy6ij316m0u0hdt.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdq7o5303j30jg0t6acu.jpg",
-        @"http://wx3.sinaimg.cn/mw600/0076BSS5ly1ggdwri1jkgj30oh10m4n5.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdwhfjcncj31900u0wud.jpg",
-        @"http://ww1.sinaimg.cn/mw600/9f0b0dd5ly1ggdvmg3xd4j20mj0s6tbo.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdvf7wgwbj30xc0m9tfh.jpg",
-        @"http://wx1.sinaimg.cn/mw600/0076BSS5ly1ggdv9khjdvj30u018zwl6.jpg"];
-
-        [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:temp[arc4random() %( temp.count - 1)]]];
     }
     return _lessonImageView;
 }
@@ -150,6 +130,27 @@
         [_orignLabel setFont:[UIFont fontMin]];
     }
     return _orignLabel;
+}
+
+- (void)setModel:(ZCircleDynamicLessonModel *)model {
+    _model = model;
+
+    [_lessonImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    
+    self.nameLabel.text = model.name;
+    
+    if ([model.is_experience intValue] == 1) {
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.experience_price];
+        self.orignLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+        self.priceLabel.textColor = [UIColor colorMain];
+        self.orignLabel.hidden = NO;
+        self.orignLineView.hidden = NO;
+    }else{
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",model.price];
+        self.orignLabel.hidden = YES;
+        self.orignLineView.hidden = YES;
+        self.priceLabel.textColor = [UIColor colorOrangeHot];
+    }
 }
 
 

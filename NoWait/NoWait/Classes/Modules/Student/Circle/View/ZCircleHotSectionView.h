@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZCircleMineModel.h"
 
 @interface ZCircleHotSectionView : UICollectionReusableView
 @property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) void (^menuBlock)(ZCircleDynamicLessonModel *model);
 - (void)setTip:(NSString *)tip;
 
 +(CGSize)z_getCellSize:(id)sender;

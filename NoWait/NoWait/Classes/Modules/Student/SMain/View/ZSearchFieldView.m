@@ -199,7 +199,7 @@
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    [ZPublicTool textField:textField maxLenght:30 type:ZFormatterTypeAny];
+    [ZPublicTool textField:textField maxLenght:60 type:ZFormatterTypeAnyByte];
     if (self.textChangeBlock) {
         self.textChangeBlock(textField.text);
     }

@@ -7,10 +7,11 @@
 //
 
 #import "ZBaseCollectionViewCell.h"
-
+#import "ZCircleMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZCircleHotLessonListItemCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) ZCircleDynamicLessonModel *model;
 
 @end
 

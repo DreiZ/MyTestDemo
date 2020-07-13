@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZHotListItemCell : ZBaseCollectionViewCell
-
+@property (nonatomic,strong) UILabel *hotLabel;
+@property (nonatomic,strong) UIImageView *hotImageView;
 @end
 
 NS_ASSUME_NONNULL_END

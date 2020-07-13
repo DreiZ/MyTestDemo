@@ -8,6 +8,7 @@
 
 #import "ZHotListCell.h"
 #import "ZHotListItemCell.h"
+#import "ZCircleReleaseModel.h"
 
 @interface ZHotListCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -80,7 +81,13 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ZHotListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZHotListItemCell className] forIndexPath:indexPath];
-//    ZStudentPhotoWallItemModel *model = _list[indexPath.row];
+    ZCircleReleaseTagModel  *model = _list[indexPath.row];
+    cell.hotLabel.text = model.tag_name;
+    if ([model.is_hot intValue] > 0) {
+        cell.hotImageView.hidden = NO;
+    }else{
+        cell.hotImageView.hidden = YES;
+    }
 //    cell.imageView.image = [UIImage imageNamed:model.imageName];
     return cell;
 }

@@ -8,6 +8,14 @@
 
 #import "ZCircleMineModel.h"
 
+@implementation ZCircleDynamicLessonModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"lesson_id" : @"id",
+    };
+}
+@end
+
 @implementation ZCircleDynamicEvaModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{
@@ -51,7 +59,8 @@
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"list" : @"ZCircleMineDynamicModel"
+             @"list" : @"ZCircleMineDynamicModel",
+             @"course" : @"ZCircleDynamicLessonModel"
              };
 }
 @end
