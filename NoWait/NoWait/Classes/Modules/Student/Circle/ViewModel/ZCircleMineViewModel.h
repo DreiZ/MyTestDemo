@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getNewFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 
 + (void)followUser:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
@@ -57,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getDynamicSchoolList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getFollowRecommondDynamicsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
++ (void)getCircleNewsData:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

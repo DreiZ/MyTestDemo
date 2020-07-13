@@ -155,11 +155,11 @@
     ZStudentMessageVC *studentMessageVC = [[ZStudentMessageVC alloc] init];
     ZMineMainVC *mineVC = [[ZMineMainVC alloc] init];
     ZCircleViewController *finderVC = [[ZCircleViewController alloc] init];
-    ZMessageListVC *messagevc = [[ZMessageListVC alloc] init];
+//    ZMessageListVC *messagevc = [[ZMessageListVC alloc] init];
     
     NSArray *data = @[addNavigationController(studentMainVC),
                       addNavigationController(finderVC),
-                      addNavigationController(messagevc),
+                      addNavigationController(studentMessageVC),
                       addNavigationController(mineVC)];
     return data;
     

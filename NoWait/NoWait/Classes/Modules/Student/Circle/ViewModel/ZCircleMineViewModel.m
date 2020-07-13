@@ -9,6 +9,7 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 #import "ZCircleReleaseModel.h"
+#import "ZMessgeModel.h"
 
 @implementation ZCircleMineViewModel
 
@@ -88,6 +89,25 @@
 
 + (void)getFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_fans_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMinePersonNetModel *model = [ZCircleMinePersonNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
++ (void)getNewFansList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_new_fans_list params:params completionHandler:^(id data, NSError *error) {
             DLog(@"return login code %@", data);
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
@@ -336,4 +356,25 @@
         completeBlock(NO, @"操作失败");
     }];
 }
+
+
++ (void)getCircleNewsData:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+       [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_dynamic_news_list params:params completionHandler:^(id data, NSError *error) {
+           DLog(@"return  new data %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZMessageCircleNewsModel *model = [ZMessageCircleNewsModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 @end

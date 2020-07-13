@@ -8,26 +8,36 @@
 
 #import "ZStudentMessageVC.h"
 #import "ZMessageListCell.h"
-
+#import "ZMessageTypeEntryCell.h"
 #import "ZMessageHistoryReadCell.h"
 #import "ZMessageListCell.h"
+
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
+#import "ZCircleMineViewModel.h"
+
 #import "ZStudentMessageSendListVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
-#import "ZAlertView.h"
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationAccountVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZStudentMineEvaDetailVC.h"
+
+#import "ZCircleMyLiskeListVC.h"
+#import "ZCircleMyEvaListVC.h"
+#import "ZCircleMyFansNewListVC.h"
+
 #import <TLTabBarControllerProtocol.h>
+#import "ZAlertView.h"
 
 @interface ZStudentMessageVC ()<TLTabBarControllerProtocol>
 @property (nonatomic,strong) NSMutableDictionary *param;
+@property (nonatomic,strong) ZMessageCircleNewsModel *circleModel;
 
 @end
+
 @implementation ZStudentMessageVC
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -41,6 +51,11 @@
         initTabBarItem(self.tabBarItem, LOCSTR(@"消息"), @"tabBarMessage", @"tabBarMessage_highlighted");
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getMessageNum];
 }
 
 - (void)viewDidLoad {
@@ -68,6 +83,35 @@
         }
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
+        
+        NSString *likeNum = @"0";
+        NSString *evaNum = @"0";
+        NSString *newNum = @"0";
+        if (self.circleModel) {
+            if (ValidStr(self.circleModel.enjoy)) {
+                likeNum = self.circleModel.enjoy;
+            }
+            if (ValidStr(self.circleModel.comment)) {
+                evaNum = self.circleModel.comment;
+            }
+            if (ValidStr(self.circleModel.follow)) {
+                newNum = self.circleModel.follow;
+            }
+        }
+        
+         NSArray *tempArr = @[@[@"finderMessageLike",@"喜欢",likeNum],@[@"finderMessageReceive",@"评论",evaNum],@[@"finderMessageFans",@"新增粉丝",newNum]];
+         NSMutableArray *itemArr = @[].mutableCopy;
+         for (int i = 0; i < tempArr.count; i++) {
+             ZMessageTypeEntryModel *model = [[ZMessageTypeEntryModel alloc] init];
+             model.name = tempArr[i][1];
+             model.image = tempArr[i][0];
+             model.num = tempArr[i][2];
+             model.entry_id = i;
+             [itemArr addObject:model];
+         }
+         
+         ZCellConfig *entryCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageTypeEntryCell className] title:[ZMessageTypeEntryCell className] showInfoMethod:@selector(setItemArr:) heightOfCell:[ZMessageTypeEntryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:itemArr];
+         [self.cellConfigArr addObject:entryCellConfig];
 
         NSInteger hadRead = 0;
         for (int i = 0; i < self.dataSources.count; i++) {
@@ -87,6 +131,20 @@
             ZMessageListCell *lcell = (ZMessageListCell *)cell;
             lcell.handleBlock = ^(ZMessgeModel * message, NSInteger index) {
                 [weakSelf setHandleModel:message index:index];
+            };
+        }else if ([cellConfig.title isEqualToString:@"ZMessageTypeEntryCell"]) {
+            ZMessageTypeEntryCell *lcell = (ZMessageTypeEntryCell *)cell;
+            lcell.handleBlock = ^(NSInteger index) {
+                if (index == 0) {
+                    ZCircleMyLiskeListVC *lvc = [[ZCircleMyLiskeListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }else if(index == 1){
+                    ZCircleMyEvaListVC *evc = [[ZCircleMyEvaListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:evc animated:YES];
+                }else if(index == 2){
+                    ZCircleMyFansNewListVC *lvc = [[ZCircleMyFansNewListVC alloc] init];
+                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                }
             };
         }
     }).zChain_block_setRefreshHeaderNet(^{
@@ -303,6 +361,17 @@
             
             break;
     }
+}
+
+
+- (void)getMessageNum{
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel getCircleNewsData:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZMessageCircleNewsModel class]]) {
+            weakSelf.circleModel = data;
+            self.zChain_reload_ui();
+        }
+    }];
 }
 
 - (void)tabBarItemDidDoubleClick {

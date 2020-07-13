@@ -30,11 +30,10 @@
     .zChain_updateDataSource(^{
         self.param = @{}.mutableCopy;
     }).zChain_addEmptyDataDelegate()
-    
     .zChain_block_setRefreshHeaderNet(^{
-        
+        [self refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        
+        [self refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         [self.dataSources enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -66,7 +65,7 @@
 //        }
     });
     
-    self.zChain_reload_ui();
+    self.zChain_reload_Net();
 }
 
 
@@ -80,7 +79,7 @@
 
 - (void)refreshHeadData:(NSDictionary *)param {
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getFollowList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+    [ZCircleMineViewModel getNewFansList:param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
@@ -108,7 +107,7 @@
     [self setPostCommonData];
     
     __weak typeof(self) weakSelf = self;
-    [ZCircleMineViewModel getFansList:self.param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
+    [ZCircleMineViewModel getNewFansList:self.param completeBlock:^(BOOL isSuccess, ZCircleMinePersonNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

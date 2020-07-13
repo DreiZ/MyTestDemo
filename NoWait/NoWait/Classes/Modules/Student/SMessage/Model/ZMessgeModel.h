@@ -44,9 +44,16 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
     ZCustomTerminalTypePlatform =  4,    //  平台
 };
 
+@interface ZMessageCircleNewsModel : NSObject
+@property (nonatomic,strong) NSString *comment;
+@property (nonatomic,strong) NSString *enjoy;
+@property (nonatomic,strong) NSString *follow;
+@end
+
 @interface ZMessageTypeEntryModel : NSObject
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *num;
 @property (nonatomic,assign) NSInteger entry_id;
 @end
 

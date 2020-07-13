@@ -11,8 +11,9 @@
 @interface ZMessageTypeEntryItemCell ()
 @property (nonatomic,strong) UIImageView *detailImageView;
 @property (nonatomic,strong) UILabel *nameLabel;
-
+@property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UIView *hintView;
+@property (nonatomic,strong) UIView *numBackView;
 @end
 
 @implementation ZMessageTypeEntryItemCell
@@ -33,6 +34,8 @@
     [self.contentView addSubview:self.hintView];
     [self.hintView addSubview:self.detailImageView];
     [self.hintView addSubview:self.nameLabel];
+    [self.hintView addSubview:self.numBackView];
+    [self.hintView addSubview:self.numLabel];
     
     [self.hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
@@ -50,6 +53,20 @@
         make.centerX.equalTo(self.hintView.mas_centerX);
         make.left.right.equalTo(self.hintView);
         make.top.equalTo(self.detailImageView.mas_bottom).offset(CGFloatIn750(18));
+    }];
+    
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.detailImageView.mas_right);
+        make.centerY.equalTo(self.detailImageView.mas_top);
+    }];
+    
+    [self.numBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.numLabel.mas_centerY);
+        make.centerX.equalTo(self.numLabel.mas_centerX);
+        make.left.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(8));
+        make.right.equalTo(self.numLabel.mas_right).offset(CGFloatIn750(8));
+        make.height.mas_equalTo(CGFloatIn750(32));
+        make.width.mas_greaterThanOrEqualTo(CGFloatIn750(32));
     }];
     
     UIButton *itemBtn = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -87,6 +104,16 @@
 }
 
 
+- (UIView *)numBackView {
+    if (!_numBackView) {
+        _numBackView = [[UIView alloc] init];
+        _numBackView.backgroundColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
+        ViewRadius(_numBackView, CGFloatIn750(16));
+    }
+    return _numBackView;
+}
+
+
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -98,10 +125,31 @@
     return _nameLabel;
 }
 
+
+- (UILabel *)numLabel {
+    if (!_numLabel) {
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]);
+        _numLabel.numberOfLines = 1;
+        _numLabel.textAlignment = NSTextAlignmentCenter;
+        [_numLabel setFont:[UIFont fontMin]];
+    }
+    return _numLabel;
+}
+
 - (void)setModel:(ZMessageTypeEntryModel *)model {
     _model = model;
     _nameLabel.text = model.name;
     _detailImageView.image = [UIImage imageNamed:model.image];
+    
+    if (ValidStr(model.num) && [model.num intValue] > 0) {
+        _numLabel.text = model.num;
+        _numLabel.hidden = NO;
+        _numBackView.hidden = NO;
+    }else{
+        _numLabel.hidden = YES;
+        _numBackView.hidden = YES;
+    }
 }
 
 + (CGSize)z_getCellSize:(id)sender {

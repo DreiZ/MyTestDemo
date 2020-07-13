@@ -8,6 +8,10 @@
 
 #import "ZMessgeModel.h"
 
+@implementation ZMessageCircleNewsModel
+
+@end
+
 @implementation ZMessageTypeEntryModel
 
 @end

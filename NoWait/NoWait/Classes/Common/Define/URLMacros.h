@@ -680,4 +680,8 @@
 
 //打卡校区
 #define URL_account_v1_search_store_list    @"account/v1/search/store/list"
+
+//动态消息列表
+#define URL_account_v1_dynamic_news_list    @"account/v1/dynamic/news/list"
+
 #endif /* URLMacros_h */
