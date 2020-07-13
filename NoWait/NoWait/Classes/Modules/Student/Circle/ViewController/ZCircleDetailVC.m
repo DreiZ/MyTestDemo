@@ -27,6 +27,7 @@
 #import <IQKeyboardManager.h>
 #import "XHInputView.h"
 
+#import "ZOriganizationReportVC.h"
 #import "ZCircleMineCollectionVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 
@@ -34,6 +35,8 @@
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
 @property (nonatomic,strong) ZCircleDetailEvaSectionView *sectionView;
+
+
 @property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
 
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -306,7 +309,16 @@
         __weak typeof(self) weakSelf = self;
         _headerView = [[ZCircleDetailHeaderView alloc] init];
         _headerView.handleBlock = ^(NSInteger index) {
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            if (index == 0) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }else{
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
+    //                rvc.sTitle = self.detailModel.name;
+    //                rvc.stores_id = self.detailModel.schoolID;
+                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                }];
+            }
         };
         _headerView.title = @"详情";
     }

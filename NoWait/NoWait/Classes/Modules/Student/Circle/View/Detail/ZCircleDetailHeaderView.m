@@ -12,6 +12,7 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIButton *backBtn;
 @property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UIButton *rightNavBtn;
 
 @end
 
@@ -44,10 +45,17 @@
         make.width.mas_equalTo(CGFloatIn750(90));
     }];
     
+    [self.contView addSubview:self.rightNavBtn];
+    [self.rightNavBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.top.bottom.equalTo(self.contView);
+        make.width.mas_equalTo(CGFloatIn750(90));
+    }];
+    
     [self.contView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backBtn.mas_right).offset(CGFloatIn750(30));
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(140));
+        make.right.equalTo(self.rightNavBtn.mas_left).offset(-CGFloatIn750(0));
         make.centerY.equalTo(self.backBtn.mas_centerY);
     }];
 }
@@ -86,6 +94,25 @@
     }
     return _backBtn;
 }
+
+
+#pragma mark - lazy loading
+- (UIButton *)rightNavBtn {
+    if (!_rightNavBtn) {
+        __weak typeof(self) weakSelf = self;
+        _rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_rightNavBtn setTitle:@"举报" forState:UIControlStateNormal];
+        [_rightNavBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        [_rightNavBtn.titleLabel setFont:[UIFont fontContent]];
+        [_rightNavBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(1);
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavBtn;
+}
+
 
 
 - (void)setTitle:(NSString *)title {
