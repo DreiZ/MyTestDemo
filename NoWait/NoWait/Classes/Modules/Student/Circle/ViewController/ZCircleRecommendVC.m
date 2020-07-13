@@ -45,7 +45,7 @@
 
     self.param = @{}.mutableCopy;
     
-    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(20), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
+    self.edgeInsets = UIEdgeInsetsMake(CGFloatIn750(0), CGFloatIn750(10), CGFloatIn750(20), CGFloatIn750(10));
     
     self.iCollectionView.scrollEnabled = YES;
     self.iCollectionView.backgroundView.backgroundColor = adaptAndDarkColor([UIColor colorRedDefault], [UIColor colorGrayBGDark]);
@@ -83,7 +83,7 @@
 /** 边距 */
 - (UIEdgeInsets)waterFlowLayoutEdgeInsets:(ZJWaterLayout *)layout
 {
-    return UIEdgeInsetsMake(CGFloatIn750(10), CGFloatIn750(30), CGFloatIn750(10), CGFloatIn750(30));
+    return UIEdgeInsetsMake(CGFloatIn750(0), CGFloatIn750(30), CGFloatIn750(10), CGFloatIn750(30));
 }
 
 

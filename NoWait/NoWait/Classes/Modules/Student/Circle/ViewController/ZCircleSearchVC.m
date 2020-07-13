@@ -17,6 +17,7 @@
 #import "ZCircleMineViewModel.h"
 #import "ZOriganizationLessonModel.h"
 
+#import "ZCircleDetailVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
@@ -65,6 +66,7 @@
     self.hotSearchList = @[].mutableCopy;
     self.lessonList = @[].mutableCopy;
     
+    self.iCollectionView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
     
     [self.iCollectionView registerClass:[ZCircleSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"sectionFooter"];
@@ -192,6 +194,30 @@
     }
 }
 
+
+- (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
+        ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
+        ZCircleMineDynamicModel *model = cellConfig.dataModel;
+        lcell.handleBlock = ^(NSInteger index) {
+            DLog(@"-----%ld", (long)index);
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            dvc.dynamic = model.dynamic;
+            [self.navigationController pushViewController:dvc animated:YES];
+        };
+    }
+}
+
+
+- (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
+        ZCircleMineDynamicModel *model = cellConfig.dataModel;
+        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+        dvc.dynamic = model.dynamic;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+}
+#pragma mark - network
 - (void)getRecommondTags{
     [ZCircleReleaseViewModel getDynamicTagList:@{} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZCircleReleaseTagNetModel class]]) {

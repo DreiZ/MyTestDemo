@@ -82,7 +82,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-        _nameLabel.numberOfLines = 0;
+        _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont fontContent]];
     }
@@ -155,7 +155,7 @@
 
 
 +(CGSize)z_getCellSize:(id)sender {
-    return CGSizeMake(CGFloatIn750(250), CGFloatIn750(286));
+    return CGSizeMake(CGFloatIn750(250), CGFloatIn750(266));
 }
 @end
 
