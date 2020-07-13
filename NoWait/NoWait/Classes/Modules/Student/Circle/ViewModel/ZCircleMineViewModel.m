@@ -376,5 +376,40 @@
     }];
 }
 
++ (void)getEnjoyNewsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_enjoy_dynamic_news_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMineDynamicLikeNetModel *model = [ZCircleMineDynamicLikeNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 
+
++ (void)getEvaNewsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_account_v1_comment_dynamic_news_list params:params completionHandler:^(id data, NSError *error) {
+            DLog(@"return login code %@", data);
+           ZBaseNetworkBackModel *dataModel = data;
+           if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+               ZCircleMineDynamicEvaNetModel *model = [ZCircleMineDynamicEvaNetModel mj_objectWithKeyValues:dataModel.data];
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, model);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
 @end

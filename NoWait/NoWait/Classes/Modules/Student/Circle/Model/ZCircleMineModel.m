@@ -72,3 +72,30 @@
 @implementation ZCircleMineModel
 
 @end
+
+@implementation ZCircleMineDynamicLikeModel
+
+@end
+
+
+@implementation ZCircleMineDynamicLikeNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleMineDynamicLikeModel",
+             };
+}
+@end
+
+@implementation ZCircleMineDynamicEvaModel
+@end
+
+
+@implementation ZCircleMineDynamicEvaNetModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ZCircleMineDynamicEvaModel",
+             };
+}
+@end

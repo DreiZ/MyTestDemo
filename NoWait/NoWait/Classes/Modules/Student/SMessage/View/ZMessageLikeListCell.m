@@ -87,7 +87,7 @@
     UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(0);
+            weakSelf.handleBlock(self.model,0);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:userBtn];
@@ -101,7 +101,7 @@
     UIButton *circleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [circleBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(1);
+            weakSelf.handleBlock(self.model, 1);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:circleBtn];
@@ -111,15 +111,6 @@
         make.top.equalTo(self.circleImageView.mas_top).offset(-CGFloatIn750(10));
         make.bottom.equalTo(self.circleImageView.mas_bottom).offset(CGFloatIn750(10));
     }];
-    
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
-    _nameLabel.text = @"阿萨德加感动";
-    _detailLabel.text = @"喜欢了您的动态";
-    _timeLabel.text = @"17:00";
-    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
-    [ZPublicTool setLineSpacing:CGFloatIn750(12) label:self.detailLabel];
-    
-    
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
     bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
@@ -216,6 +207,22 @@
         _backContentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }
     return _backContentView;
+}
+
+- (void)setModel:(ZCircleMineDynamicLikeModel *)model {
+    _model = model;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    _nameLabel.text = model.nickname;
+       _detailLabel.text = @"喜欢了您的动态";
+    _timeLabel.text = model.time;
+    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    [ZPublicTool setLineSpacing:CGFloatIn750(12) label:self.detailLabel];
+    
+    if ([model.sex intValue] == 1) {
+        _sexImageView.image = [UIImage imageNamed:@"finderMan"];
+    }else{
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
 }
 
 

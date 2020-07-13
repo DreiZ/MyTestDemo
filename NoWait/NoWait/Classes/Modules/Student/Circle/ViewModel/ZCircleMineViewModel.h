@@ -60,6 +60,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getFollowRecommondDynamicsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 
 + (void)getCircleNewsData:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getEnjoyNewsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getEvaNewsList:(NSDictionary *)params  completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

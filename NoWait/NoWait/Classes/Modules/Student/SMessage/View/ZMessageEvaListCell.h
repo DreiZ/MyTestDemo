@@ -7,11 +7,13 @@
 //
 
 #import "ZBaseCell.h"
-
+#import "ZCircleMineModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMessageEvaListCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) ZCircleMineDynamicEvaModel *model;
+
+@property (nonatomic,strong) void (^handleBlock)(ZCircleMineDynamicEvaModel *,NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END

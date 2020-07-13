@@ -7,11 +7,14 @@
 //
 
 #import "ZBaseCell.h"
+#import "ZCircleMineModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMessageLikeListCell : ZBaseCell
-@property (nonatomic,strong) void (^handleBlock)(NSInteger);
+@property (nonatomic,strong) ZCircleMineDynamicLikeModel *model;
+
+@property (nonatomic,strong) void (^handleBlock)(ZCircleMineDynamicLikeModel *, NSInteger);
 @end
 
 NS_ASSUME_NONNULL_END

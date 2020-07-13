@@ -80,7 +80,7 @@
     UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [userBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(0);
+            weakSelf.handleBlock(self.model,0);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:userBtn];
@@ -94,7 +94,7 @@
     UIButton *circleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [circleBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.handleBlock) {
-            weakSelf.handleBlock(1);
+            weakSelf.handleBlock(self.model,1);
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.backContentView addSubview:circleBtn];
@@ -114,13 +114,6 @@
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.height.mas_equalTo(0.5);
     }];
-    
-    [_userImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
-    _nameLabel.text = @"阿萨德加感动";
-    _detailLabel.text = @"噶是的感受到公司的更多撒个大使馆萨嘎十大歌手光伏是的郭德纲胜多负少胜多负少的观点";
-    _timeLabel.text = @"17:00";
-    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:@"https://wx1.sinaimg.cn/mw690/7868cc4cgy1gfyviwp609j21sc1sc7wl.jpg"]];
-    [ZPublicTool setLineSpacing:CGFloatIn750(8) label:self.detailLabel];
 }
 
 
@@ -200,9 +193,30 @@
     return _backContentView;
 }
 
+- (void)setModel:(ZCircleMineDynamicEvaModel *)model {
+    _model = model;
+    [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
+    
+    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    
+    _nameLabel.text = model.nickname;
+    _timeLabel.text = model.time;
+    
+    _detailLabel.text = model.content;
+    
+    [ZPublicTool setLineSpacing:CGFloatIn750(8) label:self.detailLabel];
+    
+    if ([model.sex intValue] == 1) {
+        _sexImageView.image = [UIImage imageNamed:@"finderMan"];
+    }else{
+        _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
+    }
+}
+
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    CGSize tempSize = [@"噶是的感受到公司的更多撒个大使馆萨嘎十大歌手光伏是的郭德纲胜多负少胜多负少的观点" tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(130) - CGFloatIn750(28) - CGFloatIn750(84) - CGFloatIn750(40) - CGFloatIn750(20), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
+    ZCircleMineDynamicEvaModel *model = sender;
+    CGSize tempSize = [model.content tt_sizeWithFont:[UIFont fontSmall] constrainedToSize:CGSizeMake(KScreenWidth - CGFloatIn750(130) - CGFloatIn750(28) - CGFloatIn750(84) - CGFloatIn750(40) - CGFloatIn750(20), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping lineSpace:CGFloatIn750(8)];
     
     return CGFloatIn750(184) + tempSize.height - [UIFont fontSmall].lineHeight;
 }

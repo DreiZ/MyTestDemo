@@ -684,4 +684,9 @@
 //动态消息列表
 #define URL_account_v1_dynamic_news_list    @"account/v1/dynamic/news/list"
 
+//喜欢动态消息列表
+#define URL_account_v1_enjoy_dynamic_news_list    @"account/v1/enjoy/dynamic/news/list"
+
+//评论动态消息列表
+#define URL_account_v1_comment_dynamic_news_list    @"account/v1/comment/dynamic/news/list"
 #endif /* URLMacros_h */

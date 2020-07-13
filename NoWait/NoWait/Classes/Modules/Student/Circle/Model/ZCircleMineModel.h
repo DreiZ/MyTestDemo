@@ -125,3 +125,34 @@
 @property (nonatomic,assign) BOOL isMine;
 @end
 
+@interface ZCircleMineDynamicLikeModel : ZCircleMineDynamicModel
+@property (nonatomic,copy) NSString *account;
+@property (nonatomic,copy) NSString *is_read;
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *sex;
+@property (nonatomic,copy) NSString *time;
+@end
+
+
+@interface ZCircleMineDynamicLikeNetModel : ZBaseNetworkBackModel
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,copy) NSString *total;
+@end
+
+@interface ZCircleMineDynamicEvaModel : ZCircleMineDynamicModel
+@property (nonatomic,copy) NSString *account;
+@property (nonatomic,copy) NSString *comment;
+@property (nonatomic,copy) NSString *content;
+@property (nonatomic,copy) NSString *dynamic;
+@property (nonatomic,copy) NSString *image;
+@property (nonatomic,copy) NSString *is_read;
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *sex;
+@property (nonatomic,copy) NSString *time;
+@end
+
+
+@interface ZCircleMineDynamicEvaNetModel : ZBaseNetworkBackModel
+@property (nonatomic,strong) NSArray *list;
+@property (nonatomic,copy) NSString *total;
+@end
