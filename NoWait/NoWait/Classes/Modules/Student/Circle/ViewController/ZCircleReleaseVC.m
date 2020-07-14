@@ -29,6 +29,7 @@
 @property (nonatomic,strong) NSMutableDictionary *params;
 @property (nonatomic,strong) NSMutableArray *imageArr;
 @property (nonatomic,assign) BOOL isVideo;
+@property (nonatomic,assign) BOOL isUpdate;
 @end
 
 @implementation ZCircleReleaseVC
@@ -215,7 +216,6 @@
                             }else{
                                 pmodel.image = dataModel.image;
                             }
-                            
                             [tempImageArr addObject:pmodel];
                         }
                         [[ZImagePickerManager sharedManager] showPhotoBrowser:tempImageArr withIndex:index];
@@ -452,16 +452,17 @@
                 [TLUIUtility hiddenLoading];
             }
         }];
+    }else{
+        [self updateData:@[]];
     }
-    
-//    asyncConcurrentGroupUpload asyncConcurrentConstUpload
 }
 
 
 #pragma mark - 上传图片url
 - (void)updateData:(NSArray *)imageUrlArr {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:self.params];
-    if (imageUrlArr.count == self.imageArr.count) {
+    if (self.imageArr.count > 0) {
+        //imageUrlArr.count ==
         NSMutableArray *imageUploadArr = @[].mutableCopy;
         for (int i = 0; i < self.imageArr.count; i++) {
             NSMutableDictionary *tempDict = @{}.mutableCopy;
@@ -506,7 +507,6 @@
             }
         }
         
-        
         [params setObject:imageUploadArr forKey:@"url"];
     }
     
@@ -515,16 +515,10 @@
     [ZCircleReleaseViewModel releaseDynamics:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-//            [weakSelf configProgress:1];
-//            [weakSelf showSuccessAnimation];
-//            if (weakSelf.uploadCompleteBlock) {
-//                weakSelf.uploadCompleteBlock();
-//            }
             [weakSelf.navigationController popViewControllerAnimated:YES];
             [TLUIUtility showSuccessHint:message];
             return ;
         }else {
-//            [weakSelf showErrorAnimation];
             [TLUIUtility showErrorHint:message];
         }
     }];
