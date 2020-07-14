@@ -192,12 +192,34 @@
                         }];
                     }
                 }
-                
             };
             lcell.menuBlock = ^(NSInteger index, BOOL handle) {
                 if (!handle) {
                     [self.releaseViewModel.model.imageArr removeObjectAtIndex:index];
                     self.zChain_reload_ui();
+                }
+            };
+            lcell.seeBlock = ^(NSInteger index) {
+                if (index < self.releaseViewModel.model.imageArr.count) {
+                    ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[index];
+                    if (dataModel.taskType == ZUploadTypeVideo) {
+                        [[ZImagePickerManager sharedManager] showVideoBrowser:dataModel.asset];
+                    }else{
+                        NSMutableArray *tempImageArr = @[].mutableCopy;
+                        for (int i = 0; i < self.releaseViewModel.model.imageArr.count; i++) {
+                            ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[i];
+                            ZImagePickerModel *pmodel = [[ZImagePickerModel alloc] init];
+                            if (dataModel.taskType == ZUploadTypeVideo) {
+                                pmodel.isVideo = YES;
+                                pmodel.asset = dataModel.asset;
+                            }else{
+                                pmodel.image = dataModel.image;
+                            }
+                            
+                            [tempImageArr addObject:pmodel];
+                        }
+                        [[ZImagePickerManager sharedManager] showPhotoBrowser:tempImageArr withIndex:index];
+                    }
                 }
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleReleaseDetailTextViewCell"]){

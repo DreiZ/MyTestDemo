@@ -46,6 +46,7 @@ typedef void(^ZSelectImageBackBlock)(NSArray<ZImagePickerModel *> *list);
 
 //展示图片
 - (void)showBrowser:(NSArray*)mediaArray withIndex:(NSInteger)index;
+- (void)showPhotoBrowser:(NSArray *)mediaArray withIndex:(NSInteger)index;
 
 //播放视频 asset
 - (void)showVideoBrowser:(PHAsset *)asset;

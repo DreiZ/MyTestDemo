@@ -788,6 +788,10 @@ static ZImagePickerManager *sharedImagePickerManager;
             photo.caption = model.name;
             photo = [MWPhoto photoWithURL:[NSURL URLWithString:model.imageUrlString]];
             [_photos addObject:photo];
+        }else if (model.image){
+            MWPhoto *photo = [[MWPhoto alloc] initWithImage:model.image];
+            photo.caption = model.name;
+            [_photos addObject:photo];
         }
     }
     [browser setCurrentPhotoIndex:index];
