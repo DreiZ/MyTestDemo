@@ -25,6 +25,10 @@
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) ZCircleReleaseCloseView *closeView;
 @property (nonatomic,strong) ZCircleReleaseViewModel *releaseViewModel;
+
+@property (nonatomic,strong) NSMutableDictionary *params;
+@property (nonatomic,strong) NSMutableArray *imageArr;
+@property (nonatomic,assign) BOOL isVideo;
 @end
 
 @implementation ZCircleReleaseVC
@@ -42,6 +46,11 @@
     __weak typeof(self) weakSelf = self;
     self.zChain_updateDataSource(^{
         self.releaseViewModel = [[ZCircleReleaseViewModel alloc] init];
+        if (self.selectImageArr) {
+            [self.releaseViewModel.model.imageArr addObjectsFromArray:self.selectImageArr];
+        }
+        self.params = @{}.mutableCopy;
+        self.imageArr = @[].mutableCopy;
     }).zChain_resetMainView(^{
         [self.view addSubview:self.closeView];
         [self.closeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -184,6 +193,12 @@
                     }
                 }
                 
+            };
+            lcell.menuBlock = ^(NSInteger index, BOOL handle) {
+                if (!handle) {
+                    [self.releaseViewModel.model.imageArr removeObjectAtIndex:index];
+                    self.zChain_reload_ui();
+                }
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleReleaseDetailTextViewCell"]){
             ZCircleReleaseDetailTextViewCell *lcell = (ZCircleReleaseDetailTextViewCell *)cell;
@@ -329,14 +344,18 @@
                     isVideo = YES;
                 }
             }
-            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
-            mvc.params = params;
-            mvc.imageArr = uploadArr;
-            mvc.isVideo = isVideo;
-            mvc.uploadCompleteBlock = ^{
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-            };
-            [weakSelf.navigationController pushViewController:mvc animated:YES];
+            self.isVideo = isVideo;
+            self.params = params;
+            self.imageArr = uploadArr;
+            [self updateReleaseData];
+//            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
+//            mvc.params = params;
+//            mvc.imageArr = uploadArr;
+//            mvc.isVideo = isVideo;
+//            mvc.uploadCompleteBlock = ^{
+//                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//            };
+//            [weakSelf.navigationController pushViewController:mvc animated:YES];
             
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -361,5 +380,131 @@
     }
     
     return _closeView;
+}
+
+
+- (void)updateReleaseData {
+    NSMutableArray *tasklist = @[].mutableCopy;
+    NSInteger count = 0;
+    for (int i = 0; i < self.imageArr.count; i++) {
+        ZFileUploadDataModel *dataModel = self.imageArr[i];
+        if (dataModel.taskState == ZUploadStateWaiting) {
+            count++;
+        }
+        [tasklist addObject:self.imageArr[i]];
+        [ZFileUploadManager addTaskDataToUploadWith:self.imageArr[i]];
+    }
+    if (count > 0) {
+        [TLUIUtility showLoading:@"上传数据中..."];
+    //    //异步串行
+        [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
+            DLog(@"---------------%ld", index+1);
+            if (self.isVideo) {
+                if (index==1) {
+                    [TLUIUtility showLoading:[NSString stringWithFormat:@"上传视频数据中%.0f%@",p/(tasklist.count+0.3)*100,@"%"]];
+                }else{
+                    [TLUIUtility showLoading:[NSString stringWithFormat:@"压缩视频中"]];
+                }
+            }else{
+                [TLUIUtility showLoading:[NSString stringWithFormat:@"上传图片第%ld张",(long)index+1]];
+            }
+        } completion:^(id obj) {
+            if (obj && [obj isKindOfClass:[NSArray class]]) {
+                NSArray *arr = obj;
+                NSMutableArray *images = @[].mutableCopy;
+                for (int i = 0; i < arr.count; i++) {
+                    if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                        ZBaseNetworkBackModel *dataModel = arr[i];
+                        if (ValidDict(dataModel.data)) {
+                            ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                            if ([dataModel.code integerValue] == 0 ) {
+                                [images addObject:SafeStr(imageModel.url)];
+                            }
+                        }
+                    }else if([arr[i] isKindOfClass:[NSString class]]){
+                        [images addObject:SafeStr(arr[i])];
+                    }
+                }
+                [self updateData:images];
+            }else{
+                [TLUIUtility hiddenLoading];
+            }
+        }];
+    }
+    
+//    asyncConcurrentGroupUpload asyncConcurrentConstUpload
+}
+
+
+#pragma mark - 上传图片url
+- (void)updateData:(NSArray *)imageUrlArr {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:self.params];
+    if (imageUrlArr.count == self.imageArr.count) {
+        NSMutableArray *imageUploadArr = @[].mutableCopy;
+        for (int i = 0; i < self.imageArr.count; i++) {
+            NSMutableDictionary *tempDict = @{}.mutableCopy;
+            ZFileUploadDataModel *model = self.imageArr[i];
+            if (self.isVideo && i == 0) {
+                continue;
+            }
+            if (model.taskType == ZUploadTypeVideo) {
+                [tempDict setObject:model.video_url forKey:@"url"];
+                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+            }else{
+                [tempDict setObject:model.image_url forKey:@"url"];
+            }
+            
+            CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
+            CGFloat fixelH = CGImageGetHeight(model.image.CGImage);
+            [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
+            [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
+            [imageUploadArr addObject:tempDict];
+        }
+        
+        if (self.imageArr.count > 0) {
+            ZFileUploadDataModel *model = self.imageArr[0];
+            
+            if (model.taskType == ZUploadTypeImage) {
+                NSMutableDictionary *cover = @{}.mutableCopy;
+                CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
+                CGFloat fixelH = CGImageGetHeight(model.image.CGImage);
+                
+                [cover setObject:model.image_url forKey:@"url"];
+                [cover setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
+                [cover setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
+        
+                if (self.isVideo && self.imageArr.count == 2) {
+                    ZFileUploadDataModel *model = self.imageArr[1];
+                    if (model.taskType == ZUploadTypeVideo) {
+                        [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                    }
+                }
+                
+                [params setObject:cover forKey:@"cover"];
+            }
+        }
+        
+        
+        [params setObject:imageUploadArr forKey:@"url"];
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@"上传其它数据中..."];
+    [ZCircleReleaseViewModel releaseDynamics:params completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+//            [weakSelf configProgress:1];
+//            [weakSelf showSuccessAnimation];
+//            if (weakSelf.uploadCompleteBlock) {
+//                weakSelf.uploadCompleteBlock();
+//            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [TLUIUtility showSuccessHint:message];
+            return ;
+        }else {
+//            [weakSelf showErrorAnimation];
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
 }
 @end

@@ -43,14 +43,28 @@
 - (void)initCellConfigArr {
     [self.cellConfigArr removeAllObjects];
     
-    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleAddPhotosItemCell className] title:[ZCircleAddPhotosItemCell className] showInfoMethod:nil sizeOfCell:[ZCircleAddPhotosItemCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:nil];
-    
-    [self.cellConfigArr addObject:cellConfig];
-    
     for (int i = 0; i < self.imageList.count; i++) {
         ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCirclePhotosItemCell className] title:[ZCirclePhotosItemCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZCirclePhotosItemCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:self.imageList[i]];
         
         [self.cellConfigArr addObject:cellConfig];
+    }
+    
+    
+    if (self.imageList.count != 9) {
+        if (self.imageList.count > 0) {
+            ZFileUploadDataModel *model = self.imageList[0];
+            if (model.taskType == ZUploadTypeVideo) {
+                
+            }else{
+                ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleAddPhotosItemCell className] title:[ZCircleAddPhotosItemCell className] showInfoMethod:nil sizeOfCell:[ZCircleAddPhotosItemCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:nil];
+                
+                [self.cellConfigArr addObject:cellConfig];
+            }
+        }else{
+            ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleAddPhotosItemCell className] title:[ZCircleAddPhotosItemCell className] showInfoMethod:nil sizeOfCell:[ZCircleAddPhotosItemCell z_getCellSize:nil] cellType:ZCellTypeClass dataModel:nil];
+            
+            [self.cellConfigArr addObject:cellConfig];
+        }
     }
 }
 

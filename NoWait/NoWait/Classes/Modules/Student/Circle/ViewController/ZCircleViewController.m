@@ -140,14 +140,45 @@
 
 - (UIButton *)releaseBtn {
     if (!_releaseBtn) {
+        __weak typeof(self) weakSelf = self;
         _releaseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_releaseBtn setImage:[UIImage imageNamed:@"finderRelease"] forState:UIControlStateNormal];
         [_releaseBtn bk_addEventHandler:^(id sender) {
-            ZCircleReleaseVC *rvc = [[ZCircleReleaseVC alloc] init];
-            [self.navigationController pushViewController:rvc animated:YES];
+            [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                [weakSelf pickList:list];
+            }];
+            
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _releaseBtn;
+}
+
+
+- (void)pickList:(NSArray<ZImagePickerModel *> *)list {
+    if (list && list.count > 0){
+        NSMutableArray *selectImageArr = @[].mutableCopy;
+        for (ZImagePickerModel *model in list) {
+            ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
+            if (model.isVideo) {
+                dataModel.image = model.image;
+                dataModel.taskType = ZUploadTypeVideo;
+                dataModel.asset = model.asset;
+                dataModel.taskState = ZUploadStateWaiting;
+//                            dataModel.filePath = [model.mediaURL absoluteString];
+            }else{
+                dataModel.image = model.image;
+                dataModel.asset = model.asset;
+                dataModel.taskType = ZUploadTypeImage;
+                dataModel.taskState = ZUploadStateWaiting;
+            }
+
+            [selectImageArr addObject:dataModel];
+        }
+        
+        ZCircleReleaseVC *rvc = [[ZCircleReleaseVC alloc] init];
+        rvc.selectImageArr = selectImageArr;
+        [self.navigationController pushViewController:rvc animated:YES];
+    }
 }
 
 #pragma mark - Datasource & Delegate
