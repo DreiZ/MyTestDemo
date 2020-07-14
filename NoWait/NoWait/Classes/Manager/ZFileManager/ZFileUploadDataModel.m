@@ -14,7 +14,7 @@
 -(void)getFilePath:(void(^)(NSString *))success {
     if (!_filePath) {
         // 打开这段代码发送视频
-        [[TZImageManager manager] getVideoOutputPathWithAsset:self.asset presetName:AVAssetExportPresetHighestQuality success:^(NSString *outputPath) {
+        [[TZImageManager manager] getVideoOutputPathWithAsset:self.asset presetName:AVAssetExportPresetMediumQuality success:^(NSString *outputPath) {
             // NSData *data = [NSData dataWithContentsOfFile:outputPath];
             DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
             // 导出完成，在这里写上传代码，通过路径或者通过NSData上传

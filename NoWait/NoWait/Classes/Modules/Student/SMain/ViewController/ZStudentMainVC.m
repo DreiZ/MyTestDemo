@@ -68,7 +68,7 @@
     }
     
     [ZPublicTool checkUpdateVersion];
-//    
+    
 //   NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getTmpDirectory] folder:nil];
 //   NSLog(@"filezzz :%@",temp);
 //    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
