@@ -236,7 +236,7 @@
 - (void)setModel:(ZCircleUploadModel *)model {
     _model = model;
     _dataSource = model.uploadList;
-    _titleLabel.text = model.title;
+    _titleLabel.text = [NSString stringWithFormat:@"上传动态：%@",model.title];
     
     model.progressBlock = ^(CGFloat progress) {
         [self showLoadingAnimation];

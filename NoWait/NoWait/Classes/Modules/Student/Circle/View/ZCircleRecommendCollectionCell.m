@@ -246,6 +246,7 @@
         _coverImageView = [[UIImageView alloc] init];
         _coverImageView.clipsToBounds = YES;
         _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _coverImageView.backgroundColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
     }
     return _coverImageView;
 }
@@ -339,7 +340,12 @@
     _model = model;
     
     [_headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
+    if (isVideo(model.cover.url)) {
+        self.coverImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.cover.url] atTime:0];
+    }else{
+        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
+    }
+    
     _nameLabel.text = model.title;
     _userLabel.text = model.nick_name;
     [ZPublicTool setLineSpacing:CGFloatIn750(8) label:_nameLabel];

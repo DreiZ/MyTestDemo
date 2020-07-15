@@ -45,6 +45,7 @@
        make.centerY.equalTo(self.mas_centerY);
        make.left.equalTo(self.mas_left).offset(CGFloatIn750(10));
     }];
+
     
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,4 +70,5 @@
 - (void)setTitle:(NSString *)title {
     _titleLabel.text = title;
 }
+
 @end

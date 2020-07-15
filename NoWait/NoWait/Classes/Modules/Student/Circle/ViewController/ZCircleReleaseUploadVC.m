@@ -148,27 +148,18 @@
     obj.uploadStatus = ZCircleUploadStatusUploadOtherData;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:obj.otherParams];
     
-    BOOL isVideo = NO;
-    for (int i = 0; i < obj.uploadList.count; i++) {
-        ZFileUploadDataModel *dataModel = obj.uploadList[i];
-        if (dataModel.taskType == ZUploadTypeVideo) {
-            isVideo = YES;
-        }
-    }
-    
     if (obj.uploadList) {
         NSMutableArray *imageUploadArr = @[].mutableCopy;
         for (int i = 0; i < obj.uploadList.count; i++) {
             NSMutableDictionary *tempDict = @{}.mutableCopy;
             ZFileUploadDataModel *model = obj.uploadList[i];
-            if (isVideo && i == 0) {
-                continue;
-            }
+            
             if (model.taskType == ZUploadTypeVideo) {
                 [tempDict setObject:model.video_url forKey:@"url"];
                 [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
             }else{
                 [tempDict setObject:model.image_url forKey:@"url"];
+                [tempDict setObject:@"0" forKey:@"duration"];
             }
             
             CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
@@ -176,30 +167,29 @@
             [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
             [tempDict setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
             [imageUploadArr addObject:tempDict];
-        }
-        
-        if (obj.uploadList.count > 0) {
-            ZFileUploadDataModel *model = obj.uploadList[0];
             
-            if (model.taskType == ZUploadTypeImage) {
+            if (i == 0) {
                 NSMutableDictionary *cover = @{}.mutableCopy;
+
                 CGFloat fixelW = CGImageGetWidth(model.image.CGImage);
                 CGFloat fixelH = CGImageGetHeight(model.image.CGImage);
                 
-                [cover setObject:model.image_url forKey:@"url"];
                 [cover setObject:[NSString stringWithFormat:@"%.0f",fixelW] forKey:@"width"];
                 [cover setObject:[NSString stringWithFormat:@"%.0f",fixelH] forKey:@"height"];
-        
-                if (isVideo && obj.uploadList.count == 2) {
-                    ZFileUploadDataModel *model = obj.uploadList[1];
-                    if (model.taskType == ZUploadTypeVideo) {
-                        [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
-                    }
+                
+                if (model.taskType == ZUploadTypeVideo) {
+                    [cover setObject:model.video_url forKey:@"url"];
+                    [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                }else{
+                    
+                    [cover setObject:@"0" forKey:@"duration"];
+                    [cover setObject:model.image_url forKey:@"url"];
                 }
                 
                 [params setObject:cover forKey:@"cover"];
             }
         }
+
         [params setObject:imageUploadArr forKey:@"url"];
     }
     

@@ -75,7 +75,6 @@
         make.centerY.equalTo(self.detailImageView.mas_centerY);
         make.width.height.mas_equalTo(CGFloatIn750(60));
     }];
-    
 }
 
 
@@ -83,10 +82,10 @@
     if (!_detailImageView) {
         _detailImageView = [[UIImageView alloc] init];
         _detailImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _detailImageView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     }
     return _detailImageView;
 }
-
 
 - (UIImageView *)playerImageView {
     if (!_playerImageView) {
@@ -141,9 +140,12 @@
     if (model.image) {
         self.detailImageView.image = model.image;
     }else if(model.image_url){
-        [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:model.image_url] placeholderImage:[UIImage imageNamed:@"default_loadFail292"]];
+        if (isVideo(model.image_url)) {
+            self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.image_url] atTime:0];
+        }else{
+            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
+        }
     }
-    
 }
 
 - (void)setIsEdit:(BOOL)isEdit {

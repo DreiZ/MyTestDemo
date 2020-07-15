@@ -133,6 +133,21 @@ BOOL isVideo(NSString *url) {
         isVideo = YES;
     }
     
+    NSRange range2 = [url rangeOfString:@"3gp"];
+    if (range2.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range3 = [url rangeOfString:@"mpeg"];
+    if (range3.location != NSNotFound) {
+        isVideo = YES;
+    }
+
+    NSRange range4 = [url rangeOfString:@"avi"];
+    if (range4.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
     return isVideo;
 }
 
