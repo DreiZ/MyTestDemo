@@ -1,24 +1,23 @@
 //
-//  ZNoDataCell.m
+//  ZNoDataCollectionViewCell.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/5/27.
+//  Created by zhuang zhang on 2020/7/15.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZNoDataCell.h"
+#import "ZNoDataCollectionViewCell.h"
 
-@interface ZNoDataCell ()
+@interface ZNoDataCollectionViewCell ()
 @property (nonatomic,strong) UIImageView *noDataImageView;
 @property (nonatomic,strong) UILabel *noDataLabel;
 
 @end
 
-@implementation ZNoDataCell
-
--(void)setupView
-{
+@implementation ZNoDataCollectionViewCell
+- (void)setupView {
     [super setupView];
+    
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contentView addSubview:self.noDataImageView];
     [self.contentView addSubview:self.noDataLabel];
@@ -64,7 +63,7 @@
     _noDataLabel.text = title;
 }
 
-+ (CGFloat)z_getCellHeight:(id)sender {
-    return kScreenHeight;
++ (CGSize)z_getCellSize:(id)sender {
+    return CGSizeMake(KScreenWidth, KScreenHeight);
 }
 @end

@@ -199,7 +199,12 @@
         self.numImageVIew.hidden = NO;
     }
     
-    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
+    if (isVideo(model.cover.url)) {
+        self.coverImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.cover.url] atTime:0];
+    }else{
+        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
+    }
+//    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
 }
 
 +(CGSize)z_getCellSize:(id)sender {

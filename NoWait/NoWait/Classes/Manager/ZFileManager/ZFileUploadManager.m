@@ -393,8 +393,9 @@ static ZFileUploadManager *fileUploadManager;
         NSString *securityToken = self.aliYunAccess.SecurityToken;// 可空 看后台
         id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:accessKeyid secretKeyId:secretKeyId securityToken:securityToken];
         
-//        id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:AliYunImageServer];
+//        id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:@"http://apitest.xiangcenter.com/api/web/account/v1/oss/sts/token"];
         
+//        AliYunImageServer
         // 初始化OSSClientConfiguration
         OSSClientConfiguration *config = [OSSClientConfiguration new];
         

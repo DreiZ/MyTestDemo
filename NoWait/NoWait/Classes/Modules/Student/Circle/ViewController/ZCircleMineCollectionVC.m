@@ -9,7 +9,8 @@
 #import "ZCircleMineCollectionVC.h"
 
 #import "ZCircleMineDynamicCollectionCell.h"
-#import "ZCircleMineDynamicCollectionListCell.h"
+//#import "ZCircleMineDynamicCollectionListCell.h"
+#import "ZNoDataCollectionViewCell.h"
 
 #import "ZCircleMineHeaderView.h"
 #import "ZCircleMineSectionView.h"
@@ -100,7 +101,7 @@
             [self.cellConfigArr addObject:cellConfig];
         }];
     }else{
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionCell className] title:[ZCircleMineDynamicCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3-0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))/3 *(160.0f)/(142.0)) cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCollectionViewCell className] title:[ZNoDataCollectionViewCell className] showInfoMethod:@selector(setTitle:) sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))-0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10)) *(160.0f)/(142.0)) cellType:ZCellTypeClass dataModel:@"暂无动态"];
         
         
         [self.cellConfigArr addObject:cellConfig];

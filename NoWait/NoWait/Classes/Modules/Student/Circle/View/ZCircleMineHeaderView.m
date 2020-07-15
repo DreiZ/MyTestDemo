@@ -250,6 +250,7 @@
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc] init];
         ViewRadius(_headImageView, CGFloatIn750(84));
+        _headImageView.image = [UIImage imageNamed:@"default_head"];
         _headImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _headImageView;
