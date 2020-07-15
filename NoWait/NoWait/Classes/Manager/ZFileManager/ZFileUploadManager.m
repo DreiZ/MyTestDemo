@@ -27,7 +27,7 @@ static NSInteger reAccess  = 3;
 static ZFileUploadManager *fileUploadManager;
 
 @interface ZFileUploadManager ()
-@property (nonatomic,strong) ZAliYunAccess *aliYunAccess;
+//@property (nonatomic,strong) ZAliYunAccess *aliYunAccess;
 @property (nonatomic,strong) OSSClient *client;
 
 @property (nonatomic,assign) NSInteger uploadIndex;
@@ -54,10 +54,10 @@ static ZFileUploadManager *fileUploadManager;
         _uploadCircleArr = @[].mutableCopy;
         
         _longInt = 1;
-        
-        _aliYunAccess = [[ZAliYunAccess alloc] init];
-        _aliYunAccess.AccessKeyId = AliYunAccessKeyId;
-        _aliYunAccess.AccessKeySecret = AliYunAccessKeySecret;
+//
+//        _aliYunAccess = [[ZAliYunAccess alloc] init];
+//        _aliYunAccess.AccessKeyId = AliYunAccessKeyId;
+//        _aliYunAccess.AccessKeySecret = AliYunAccessKeySecret;
     }
     return self;
 }
@@ -388,14 +388,42 @@ static ZFileUploadManager *fileUploadManager;
 - (OSSClient *)client {
     if (!_client) {
         NSString *endpoint = AliYunendpoint;
-        NSString *accessKeyid = self.aliYunAccess.AccessKeyId ;
-        NSString *secretKeyId = self.aliYunAccess.AccessKeySecret;
-        NSString *securityToken = self.aliYunAccess.SecurityToken;// 可空 看后台
-        id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:accessKeyid secretKeyId:secretKeyId securityToken:securityToken];
+//        NSString *accessKeyid = self.aliYunAccess.AccessKeyId ;
+//        NSString *secretKeyId = self.aliYunAccess.AccessKeySecret;
+//        NSString *securityToken = self.aliYunAccess.SecurityToken;// 可空 看后台
+//        id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:accessKeyid secretKeyId:secretKeyId securityToken:securityToken];
         
-//        id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:@"http://apitest.xiangcenter.com/api/web/account/v1/oss/sts/token"];
+//        id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:AliYunImageServer];
+        id<OSSCredentialProvider> credential = [[OSSFederationCredentialProvider alloc] initWithFederationTokenGetter:^OSSFederationToken * {
+            
+            OSSTaskCompletionSource * tcs = [OSSTaskCompletionSource taskCompletionSource];
+            [ZNetworkingManager postServerType:ZServerTypeOrganization url:AliYunImageServer params:@{} completionHandler:^(id data, NSError *error) {
+                if (error) {
+                    [tcs setError:error];
+                    return;
+                }
+                [tcs setResult:data];
+            }];
+
+            // 需要阻塞等待请求返回
+            [tcs.task waitUntilFinished];
+            // 解析结果
+            if (tcs.task.error) {
+                NSLog(@"get token error: %@", tcs.task.error);
+                return nil;
+            } else {
+                // 返回数据是json格式，需要解析得到token的各个字段
+                ZAliYunAccess *object = [ZAliYunAccess mj_objectWithKeyValues:tcs.task.result];
+                OSSFederationToken * token = [OSSFederationToken new];
+                token.tAccessKey = object.AccessKeyId;
+                token.tSecretKey = object.AccessKeySecret;
+                token.tToken = object.SecurityToken;
+                token.expirationTimeInGMTFormat = object.Expiration;
+                NSLog(@"get token: %@", token);
+                return token;
+            }
+        }];
         
-//        AliYunImageServer
         // 初始化OSSClientConfiguration
         OSSClientConfiguration *config = [OSSClientConfiguration new];
         
@@ -405,39 +433,20 @@ static ZFileUploadManager *fileUploadManager;
         // 设置后台上传
         config.enableBackgroundTransmitService = YES;
         // 设置session唯一标识
-        config.backgroundSesseionIdentifier = accessKeyid;
+        config.backgroundSesseionIdentifier = AliYunendpoint;
         
-//        _client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
-        _client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential clientConfiguration:config];
+        _client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
+//        _client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential clientConfiguration:config];
     }
     return _client;
 }
 
 - (void)getAccessKey:(void(^)(BOOL))completeBlock {
     reAccess--;
-    [ZNetworkingManager singlePostWithFullUrl:AliYunImageServer params:@{} completionHandler:^(id data, NSError *error) {
-        NSLog(@"--aliYunAccess---%@",data);
-    }];
+    
 //    __weak typeof(self) weakSelf = self;
 //    [ZNetworking singlePostServerUrl:AliYunImageServer params:@{} completionHandler:^(id data, NSError * error) {
-//        if (data && [data objectForKey:@"StatusCode"] && [data[@"StatusCode"] integerValue] == 200) {
-//            weakSelf.aliYunAccess = [ZAliYunAccess mj_objectWithKeyValues:data];
-//
-            NSString *endpoint = AliYunendpoint;
-            NSString *accessKeyid = self.aliYunAccess.AccessKeyId ;
-            NSString *secretKeyId = self.aliYunAccess.AccessKeySecret;
-            NSString *securityToken = self.aliYunAccess.SecurityToken;// 可空 看后台
-            
-            id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:accessKeyid secretKeyId:secretKeyId securityToken:securityToken];
-            
-            [self.client setEndpoint:endpoint];
-            [self.client setCredentialProvider:credential];
-            
-            
-            completeBlock(YES);
-//            return ;
-//        }
-//        completeBlock(NO);
+    
 //    }];
 }
 
@@ -628,41 +637,12 @@ static ZFileUploadManager *fileUploadManager;
 
 //上出图片
 - (ZFileUploadTask *)uploadFileType:(ZAliYunType)type file:(ZFileUploadDataModel *)uFile progress:(void(^)(int64_t p, int64_t a))progress complete:(void(^)(NSString *))completeBlock failure:(void(^)(NSError *error))failure{
-    if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
-        reAccess = 3;
-        return [self aliYunUploadType:type file:uFile progress:progress complete:completeBlock failure:failure];
-    }
-    return nil;
-//    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            reAccess = 3;
-//            [self aliYunUploadType:type file:uFile progress:progress complete:completeBlock];
-//        }else{
-//            if (completeBlock) {
-//                completeBlock(nil,nil);
-//            }
-//        }
-//    }];
+    return [self aliYunUploadType:type file:uFile progress:progress complete:completeBlock failure:failure];
 }
 
 - (ZFileUploadTask *)uploadFileType:(ZAliYunType)type file:(ZFileUploadDataModel *)uFile callbackUrl:(NSString *)callbackUrl  callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(int64_t p, int64_t a))progress complete:(void(^)(NSString *))completeBlock failure:(void(^)(NSError *error))failure{
-
-    if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
-        reAccess = 3;
-        return [self aliYunUploadType:type file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock failure:failure];
-    }
-    return nil;
-//    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            reAccess = 3;
-//            [self aliYunUploadType:type file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
-//        }else{
-//            if (completeBlock) {
-//                completeBlock(nil,nil);
-//            }
-//            return nil;
-//        }
-//    }];
+    
+    return [self aliYunUploadType:type file:uFile callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock failure:failure];
 }
 
 
@@ -683,26 +663,9 @@ static ZFileUploadManager *fileUploadManager;
  @param groupCompleteBlock <NSDictionary> imageUrl:图片url Content_MD5:图片md5 fileName:图片名称
  */
 - (void)uploadGroupType:(ZAliYunType)type file:(NSArray <ZFileUploadDataModel *>*)fileArr  uploadProgress:(void(^)(float, NSInteger))uploadProgress  groupComplete:(void(^)(NSArray <NSDictionary *>*))groupCompleteBlock {
-    if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
-        reAccess = 3;
-        _uploadIndex = 0;
-        _uploadArr = @[].mutableCopy;
-        [self uploadGroupFileType:type one:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
-        return;
-    }
-    
-    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-        if (isSuccess) {
-            reAccess = 3;
-            self.uploadIndex = 0;
-            self.uploadArr = @[].mutableCopy;
-            [self uploadGroupFileType:type one:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
-        }else{
-            if (groupCompleteBlock) {
-                groupCompleteBlock(nil);
-            }
-        }
-    }];
+    _uploadIndex = 0;
+    _uploadArr = @[].mutableCopy;
+    [self uploadGroupFileType:type one:fileArr uploadProgress:uploadProgress groupComplete:groupCompleteBlock];
 }
 
 //批量上传图片第一步
@@ -743,40 +706,12 @@ static ZFileUploadManager *fileUploadManager;
 
 #pragma mark 上传语音
 - (ZFileUploadTask *)uploadVoice:(ZFileUploadDataModel *)voice progress:(void(^)(int64_t p, int64_t a))progress complete:(void(^)(NSString *))completeBlock failure:(void(^)(NSError *error))failure{
-    if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
-        reAccess = 3;
-        return [self aliYunUploadType:ZAliYunTypeIM file:voice progress:progress complete:completeBlock failure:failure];
-    }
-    return nil;
-//    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            reAccess = 3;
-//            [self aliYunUploadType:ZAliYunTypeIM file:voice progress:progress complete:completeBlock];
-//        }else{
-//            if (completeBlock) {
-//                completeBlock(nil);
-//            }
-//        }
-//    }];
-//    
+    return [self aliYunUploadType:ZAliYunTypeIM file:voice progress:progress complete:completeBlock failure:failure];
 }
 
 - (ZFileUploadTask *)uploadVoice:(ZFileUploadDataModel *)voice callbackUrl:(NSString *)callbackUrl callbackBody:(NSString *)callbackBody callbackVar:(NSDictionary *)callbackVar callbackVarKey:(NSString *)callbackVarKey progress:(void(^)(int64_t p, int64_t a))progress complete:(void(^)(NSString *))completeBlock failure:(void(^)(NSError *error))failure{
 
-    if (self.aliYunAccess.AccessKeyId  && self.aliYunAccess.AccessKeySecret) {
-        reAccess = 3;
-        return [self aliYunUploadType:ZAliYunTypeIM file:voice callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock failure:failure];
-    }
-    return nil;
-//    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            reAccess = 3;
-//            [self aliYunUploadType:ZAliYunTypeIM file:voice callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock];
-//        }else{
-//            if (completeBlock) {
-//                completeBlock(nil);
-//            }
-//        }
-//    }];
+    return [self aliYunUploadType:ZAliYunTypeIM file:voice callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:callbackVarKey progress:progress complete:completeBlock failure:failure];
+    
 }
 @end

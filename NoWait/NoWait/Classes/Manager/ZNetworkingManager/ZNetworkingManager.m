@@ -56,6 +56,14 @@
 + (id)postWithUrl:(NSString *)path params:(NSDictionary *)params completionHandler:(void (^)(id, NSError *))completionHandler {
     return [ZNetworking postWithUrl:path params:params completionHandler:^(id responseObject, NSError *error) {
         DLog(@"return data *** %@", responseObject);
+        if ([path isEqualToString:[ZNetworkingManager getMUrl:AliYunImageServer serverType:ZServerTypeUser]]) {
+            if (ValidDict(responseObject)){
+                completionHandler(responseObject, nil);
+            }else{
+                completionHandler(nil, error);
+            }
+            return;
+        }
         if (ValidDict(responseObject)) {
             ZBaseNetworkBackModel *backModel = [ZBaseNetworkBackModel mj_objectWithKeyValues:responseObject];
             

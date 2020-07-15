@@ -40,10 +40,6 @@
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
-        
-    }];
 }
 
 - (void)viewDidLoad {

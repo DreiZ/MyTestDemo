@@ -68,7 +68,7 @@
 //阿里云上传图片地址
 #define AliYunAccessKeyId               @"LTAI4G1hwMQeE5DsGuUJdWDA"
 #define AliYunAccessKeySecret           @"9YXqCwWloJXdVKqcMElFijjmGvhKUu"
-#define AliYunImageServer               @"http://apitest.xiangcenter.com/api/web/account/v1/oss/sts/tokenm"
+#define AliYunImageServer               @"account/v1/oss/sts/token"
 #define AliYunBucketName                @"xiangcenter-test"
 #define AliYunBucketIMName              @"xiangcenter-test"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"

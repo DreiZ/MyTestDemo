@@ -18,9 +18,11 @@ typedef NS_ENUM(NSInteger, ZAliYunType) {
 };
 
 @interface ZAliYunAccess : NSObject
-@property (nonatomic,strong) NSString *AccessKeyId;
-@property (nonatomic,strong) NSString *AccessKeySecret;
-@property (nonatomic,strong) NSString *SecurityToken;
+@property (nonatomic,copy) NSString *AccessKeyId;
+@property (nonatomic,copy) NSString *AccessKeySecret;
+@property (nonatomic,copy) NSString *Expiration;
+@property (nonatomic,copy) NSString *SecurityToken;
+@property (nonatomic,copy) NSString *StatusCode;
 @end
 
 @interface ZFileUploadManager : NSObject
