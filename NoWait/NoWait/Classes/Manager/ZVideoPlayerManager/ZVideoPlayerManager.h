@@ -18,5 +18,7 @@
 - (void)compressVideoWithUrl:(NSString *)url oldUrl:(NSString *)oldUrl;
 
 - (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+
+- (void)getVideoPreViewImageURL:(NSURL *)path placeHolderImage:(UIImage *)placeHolder placeHolderBlock:(void(^)(UIImage *))placeHolderBlock complete:(void(^)(UIImage *))completeBlock;
 @end
 

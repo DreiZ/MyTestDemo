@@ -736,6 +736,11 @@ static ZImagePickerManager *sharedImagePickerManager;
                 model.isVideo = YES;
                 model.mediaURL = [NSURL URLWithString:image];
                 model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+//                [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:image placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+//                    
+//                } complete:^(UIImage *image) {
+//                    model.image = image;
+//                }];
             }else{
                 model.imageUrlString = image;
             }

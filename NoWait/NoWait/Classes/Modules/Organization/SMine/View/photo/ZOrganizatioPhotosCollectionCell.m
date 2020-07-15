@@ -136,7 +136,12 @@
         if (temp.length > 0) {
             if (isVideo(temp)) {
                 self.playImageView.hidden = NO;
-                self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:temp] atTime:0];
+                
+                [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:temp] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+                    
+                } complete:^(UIImage *image) {
+                    self.playImageView.image = image;
+                }];
             }else{
                 self.playImageView.hidden = YES;
                 [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(temp)]];

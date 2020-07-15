@@ -81,7 +81,12 @@
     _image = image;
     
     if (isVideo(image)) {
-        self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+
+        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:image] placeHolderImage:nil  placeHolderBlock:^(UIImage * image) {
+                   
+               } complete:^(UIImage *image) {
+            self.detailImageView.image = image;
+        }];
         self.playImageView.hidden = NO;
     }else{
         [_detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];

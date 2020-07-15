@@ -200,7 +200,12 @@
     }
     
     if (isVideo(model.cover.url)) {
-        self.coverImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.cover.url] atTime:0];
+
+        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.cover.url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+            
+        } complete:^(UIImage *image) {
+            self.coverImageView.image = image;
+        }];
     }else{
         [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
     }

@@ -341,9 +341,17 @@
     
     [_headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     if (isVideo(model.cover.url)) {
-        self.coverImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.cover.url] atTime:0];
+
+        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.cover.url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+            
+        } complete:^(UIImage *image) {
+            self.coverImageView.image = image;
+        }];
     }else{
-        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
+        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)] placeholderImage:nil options:ZWebImageLowPriority completed:^(UIImage *image, NSError *error, ZImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+//        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
     }
     
     _nameLabel.text = model.title;

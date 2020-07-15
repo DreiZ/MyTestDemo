@@ -141,7 +141,12 @@
         self.detailImageView.image = model.image;
     }else if(model.image_url){
         if (isVideo(model.image_url)) {
-            self.detailImageView.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:model.image_url] atTime:0];
+            
+            [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.image_url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+                
+            } complete:^(UIImage *image) {
+                self.detailImageView.image = image;
+            }];
         }else{
             [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
         }
