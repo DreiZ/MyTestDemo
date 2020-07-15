@@ -25,7 +25,7 @@
     [super viewDidLoad];
     
     
-    self.zChain_setNavTitle(@"动态上传中心")
+    self.zChain_setNavTitle(@"动态上传列表")
     .zChain_setTableViewGary()
     .zChain_resetMainView(^{
         [self.view addSubview:self.closeView];
@@ -36,7 +36,6 @@
         }];
         
         self.closeView.title = @"动态上传列表";
-        
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.closeView.mas_bottom);
@@ -156,7 +155,7 @@
             
             if (model.taskType == ZUploadTypeVideo) {
                 [tempDict setObject:model.video_url forKey:@"url"];
-                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)(model.asset.duration *1000)] forKey:@"duration"];
             }else{
                 [tempDict setObject:model.image_url forKey:@"url"];
                 [tempDict setObject:@"0" forKey:@"duration"];
@@ -179,7 +178,7 @@
                 
                 if (model.taskType == ZUploadTypeVideo) {
                     [cover setObject:model.video_url forKey:@"url"];
-                    [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                    [cover setObject:[NSString stringWithFormat:@"%ld",(long)(model.asset.duration *1000)] forKey:@"duration"];
                 }else{
                     
                     [cover setObject:@"0" forKey:@"duration"];
@@ -194,7 +193,6 @@
     }
     
 //    __weak typeof(self) weakSelf = self;
-    [TLUIUtility showLoading:@"上传数据中..."];
     [ZCircleReleaseViewModel releaseDynamics:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
@@ -209,7 +207,7 @@
 //            if (weakSelf.uploadCompleteBlock) {
 //                weakSelf.uploadCompleteBlock();
 //            }
-            [TLUIUtility showSuccessHint:message];
+//            [TLUIUtility showSuccessHint:message];
             return ;
         }else {
             obj.uploadStatus = ZCircleUploadStatusError;

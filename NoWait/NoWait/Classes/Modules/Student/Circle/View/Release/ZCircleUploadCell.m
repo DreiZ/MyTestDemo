@@ -239,7 +239,7 @@
     _titleLabel.text = [NSString stringWithFormat:@"上传动态：%@",model.title];
     
     model.progressBlock = ^(CGFloat progress) {
-        [self showLoadingAnimation];
+//        [self showLoadingAnimation];
     };
     model.completeBlock = ^(id obj) {
         if (model.uploadStatus == ZCircleUploadStatusUploadOtherData) {

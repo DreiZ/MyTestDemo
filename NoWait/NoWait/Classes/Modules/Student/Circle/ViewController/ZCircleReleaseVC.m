@@ -486,7 +486,7 @@
             
             if (model.taskType == ZUploadTypeVideo) {
                 [tempDict setObject:model.video_url forKey:@"url"];
-                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                [tempDict setObject:[NSString stringWithFormat:@"%ld",(long)(model.asset.duration *1000)] forKey:@"duration"];
             }else{
                 [tempDict setObject:model.image_url forKey:@"url"];
                 [tempDict setObject:@"0" forKey:@"duration"];
@@ -509,7 +509,7 @@
                 
                 if (model.taskType == ZUploadTypeVideo) {
                     [cover setObject:model.video_url forKey:@"url"];
-                    [cover setObject:[NSString stringWithFormat:@"%ld",(long)model.asset.duration] forKey:@"duration"];
+                    [cover setObject:[NSString stringWithFormat:@"%ld",(long)(model.asset.duration *1000)] forKey:@"duration"];
                 }else{
                     
                     [cover setObject:@"0" forKey:@"duration"];
