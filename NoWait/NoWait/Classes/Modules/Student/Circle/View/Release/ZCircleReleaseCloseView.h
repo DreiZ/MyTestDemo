@@ -11,5 +11,6 @@
 
 @interface ZCircleReleaseCloseView : UIView
 @property (nonatomic,strong) void (^backBlock)(void);
+@property (nonatomic,copy) NSString *title;
 @end
 

@@ -51,6 +51,8 @@ static ZFileUploadManager *fileUploadManager;
     if (self) {
         _taskList = @[].mutableCopy;
         _taskModelList = @[].mutableCopy;
+        _uploadCircleArr = @[].mutableCopy;
+        
         _longInt = 1;
         
         _aliYunAccess = [[ZAliYunAccess alloc] init];
@@ -412,6 +414,9 @@ static ZFileUploadManager *fileUploadManager;
 
 - (void)getAccessKey:(void(^)(BOOL))completeBlock {
     reAccess--;
+    [ZNetworkingManager singlePostWithFullUrl:AliYunImageServer params:@{} completionHandler:^(id data, NSError *error) {
+        NSLog(@"--aliYunAccess---%@",data);
+    }];
 //    __weak typeof(self) weakSelf = self;
 //    [ZNetworking singlePostServerUrl:AliYunImageServer params:@{} completionHandler:^(id data, NSError * error) {
 //        if (data && [data objectForKey:@"StatusCode"] && [data[@"StatusCode"] integerValue] == 200) {

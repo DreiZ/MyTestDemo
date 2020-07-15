@@ -163,6 +163,8 @@
                 [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailSchoolCell className] title:@"school" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
                 [section1Arr addObject:menuCellConfig];
+            }else{
+                [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             }
         }
         [section1Arr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];

@@ -55,7 +55,7 @@
         _funBackView.layer.masksToBounds = YES;
         _funBackView.clipsToBounds = YES;
         _funBackView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
-        ViewRadius(_funBackView, CGFloatIn750(16));
+//        ViewRadius(_funBackView, CGFloatIn750(16));
         ViewShadowRadius(_funBackView, CGFloatIn750(10), CGSizeMake(2, 2), 0.5, [UIColor colorGrayBG]);
     }
     return _funBackView;

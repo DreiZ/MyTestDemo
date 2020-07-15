@@ -10,6 +10,7 @@
 
 @interface ZCircleReleaseCloseView ()
 @property (nonatomic,strong) UIImageView *backImageView;
+@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
 
@@ -44,6 +45,28 @@
        make.centerY.equalTo(self.mas_centerY);
        make.left.equalTo(self.mas_left).offset(CGFloatIn750(10));
     }];
+    
+    [self addSubview:self.titleLabel];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(closeBtn.mas_left).offset(CGFloatIn750(20));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(110));
+        make.centerY.equalTo(self.mas_centerY);
+    }];
 }
 
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _titleLabel.numberOfLines = 1;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_titleLabel setFont:[UIFont boldFontContent]];
+    }
+    return _titleLabel;
+}
+
+- (void)setTitle:(NSString *)title {
+    _titleLabel.text = title;
+}
 @end

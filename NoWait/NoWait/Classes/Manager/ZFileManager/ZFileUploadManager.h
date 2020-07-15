@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZFileUploadTask.h"
 #import "ZFileUploadDataModel.h"
+#import "ZCircleUploadModel.h"
 
 
 typedef NS_ENUM(NSInteger, ZAliYunType) {
@@ -28,6 +29,8 @@ typedef NS_ENUM(NSInteger, ZAliYunType) {
 @property (nonatomic,strong) NSMutableArray *taskList;
 
 @property (nonatomic,strong) NSMutableArray *taskModelList;
+
+@property (nonatomic,strong) NSMutableArray <ZCircleUploadModel *>*uploadCircleArr;
 
 + (ZFileUploadManager *)sharedInstance;
 

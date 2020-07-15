@@ -69,7 +69,7 @@
 //阿里云上传图片地址
 #define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
 #define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-#define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
+#define AliYunImageServer               @"http://xxl-oss@1708871629162696.onaliyun.com"
 #define AliYunBucketName                @"xiangcenter-test"
 #define AliYunBucketIMName              @"xiangcenter-test"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
@@ -117,7 +117,7 @@
 //阿里云上传图片地址
 #define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
 #define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-#define AliYunImageServer               @"http://172.17.100.31:8081/sts.php"
+#define AliYunImageServer               @"http://xxl@1708871629162696.onaliyun.com"
 #define AliYunBucketName                @"xiangcenter"
 #define AliYunBucketIMName              @"xiangcenter"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
@@ -169,7 +169,7 @@
 #define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
 #define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
 
-#define AliYunImageServer               @"http://sts.chengxiguoji.com/sts.php"
+#define AliYunImageServer               @"http://xxl@1708871629162696.onaliyun.com"
 #define AliYunBucketName                @"xiangcenter"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"

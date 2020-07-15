@@ -15,11 +15,13 @@
 #import "ZAlertView.h"
 #import "ZBaseUnitModel.h"
 #import "ZCircleReleaseViewModel.h"
+#import "ZCircleUploadModel.h"
 
 #import "ZCircleReleaseSelectSchoolVC.h"
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 #import "ZCircleReleaseVideoUploadVC.h"
+#import "ZCircleReleaseUploadVC.h"
 
 @interface ZCircleReleaseVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -39,6 +41,9 @@
     self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
+    [[ZFileUploadManager sharedInstance] getAccessKey:^(BOOL isSuccess) {
+        
+    }];
 }
 
 - (void)viewDidLoad {
@@ -350,7 +355,10 @@
                 }
             }
             [params setObject:tags forKey:@"tags"];
-            [params setObject:@"4" forKey:@"store_id"];
+            if (ValidStr(self.releaseViewModel.model.store_id)) {
+                [params setObject:self.releaseViewModel.model.store_id forKey:@"store_id"];
+            }
+            
             
             NSMutableArray *uploadArr = @[].mutableCopy;
             [uploadArr addObjectsFromArray:self.releaseViewModel.model.imageArr];
@@ -366,18 +374,30 @@
                     isVideo = YES;
                 }
             }
+            ZCircleUploadModel *umodel = [[ZCircleUploadModel alloc] init];
+            umodel.uploadStatus = ZCircleUploadStatusWatting;
+            umodel.uploadList = uploadArr;
+            umodel.otherParams = params;
+            umodel.title = self.releaseViewModel.model.title;
+            
+            [[ZFileUploadManager sharedInstance].uploadCircleArr insertObject:umodel atIndex:0];
+            
+            ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
+            [self.navigationController pushViewController:uvc animated:YES];
+            return;
+            
             self.isVideo = isVideo;
             self.params = params;
             self.imageArr = uploadArr;
-            [self updateReleaseData];
-//            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
-//            mvc.params = params;
-//            mvc.imageArr = uploadArr;
-//            mvc.isVideo = isVideo;
-//            mvc.uploadCompleteBlock = ^{
-//                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-//            };
-//            [weakSelf.navigationController pushViewController:mvc animated:YES];
+//            [self updateReleaseData];
+            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
+            mvc.params = params;
+            mvc.imageArr = uploadArr;
+            mvc.isVideo = isVideo;
+            mvc.uploadCompleteBlock = ^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            };
+            [weakSelf.navigationController pushViewController:mvc animated:YES];
             
         } forControlEvents:UIControlEventTouchUpInside];
     }

@@ -8,10 +8,25 @@
 
 #import "ZBaseModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, ZCircleUploadStatus) {
+    ZCircleUploadStatusWatting,
+    ZCircleUploadStatusZipping,
+    ZCircleUploadStatusUploading,
+    ZCircleUploadStatusUploadOtherData,
+    ZCircleUploadStatusComplete,
+    ZCircleUploadStatusError,
+};
 
 @interface ZCircleUploadModel : ZBaseModel
+@property (nonatomic,strong) NSMutableArray <ZFileUploadDataModel *>*uploadList;
+@property (nonatomic,strong) NSMutableDictionary *otherParams;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,assign) CGFloat progress;
+@property (nonatomic,assign) ZCircleUploadStatus uploadStatus;
 
+@property (nonatomic, strong) void(^progressBlock)(CGFloat);
+@property (nonatomic, strong) void(^errorBlock)(NSError *);
+@property (nonatomic, strong) void(^completeBlock)(id);
 @end
 
-NS_ASSUME_NONNULL_END
