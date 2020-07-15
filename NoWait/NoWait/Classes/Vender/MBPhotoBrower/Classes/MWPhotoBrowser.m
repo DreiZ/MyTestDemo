@@ -1222,6 +1222,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
                 }
                 if (url) {
                     [weakSelf _playVideo:url atPhotoIndex:index];
+                    [weakSelf setVideoLoadingIndicatorVisible:NO atPageIndex:index];
                 } else {
                     [weakSelf setVideoLoadingIndicatorVisible:NO atPageIndex:index];
                 }

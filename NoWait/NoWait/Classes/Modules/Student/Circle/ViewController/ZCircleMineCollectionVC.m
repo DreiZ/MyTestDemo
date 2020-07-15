@@ -19,6 +19,7 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
+#import "ZCircleDetailVC.h"
 #import "ZCircleMyFocusListVC.h"
 #import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
@@ -106,7 +107,6 @@
         
         [self.cellConfigArr addObject:cellConfig];
     }
-    
 }
 
 #pragma mark - view
@@ -172,6 +172,15 @@
 //    [headerView addSubview:self.headView];
 //    return headerView;
 //}
+
+-(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZCircleMineDynamicCollectionCell"]) {
+        ZCircleMineDynamicModel *model = cellConfig.dataModel;
+        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+        dvc.dynamic = model.dynamic;
+        [self.navigationController pushViewController:dvc animated:YES];
+    }
+}
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     

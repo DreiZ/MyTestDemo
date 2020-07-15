@@ -83,6 +83,7 @@
             [self configPlayButton];
             [self configBottomToolBar];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayerAndShowNaviBar) name:AVPlayerItemDidPlayToEndTimeNotification object:self->_player.currentItem];
+            [self playButtonClick];
         });
     }];
 }
