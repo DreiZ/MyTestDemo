@@ -123,13 +123,13 @@
             if (index == 1) {
 //                ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
 //                [weakSelf.navigationController pushViewController:mvc animated:YES];
-                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-                [weakSelf.navigationController pushViewController:cvc animated:YES];
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                    // cvc.account = @"1100005";
+                    //  cvc.account = @"8100007";
+                    [weakSelf.navigationController pushViewController:cvc animated:YES];
+                }];
             }else {
-//                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-//                cvc.account = @"1100005";
-////                cvc.account = @"8100007";
-//                [weakSelf.navigationController pushViewController:cvc animated:YES];
                 ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];
                 [weakSelf.navigationController pushViewController:mvc animated:YES];
             }
@@ -144,10 +144,11 @@
         _releaseBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_releaseBtn setImage:[UIImage imageNamed:@"finderRelease"] forState:UIControlStateNormal];
         [_releaseBtn bk_addEventHandler:^(id sender) {
-            [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
-                [weakSelf pickList:list];
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                    [weakSelf pickList:list];
+                }];
             }];
-            
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _releaseBtn;

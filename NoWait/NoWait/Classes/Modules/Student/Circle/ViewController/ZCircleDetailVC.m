@@ -333,14 +333,18 @@
         _bottomView = [[ZCircleDetailBottomView alloc] init];
         _bottomView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [weakSelf showXHInputViewWithStyle:InputViewStyleLarge];
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    [weakSelf showXHInputViewWithStyle:InputViewStyleLarge];
+                }];
             }else if(index == 1){
                 weakSelf.isNoData = NO;
                 weakSelf.isLike = NO;
                 weakSelf.sectionView.isLike = NO;
                 [weakSelf refreshData];
             }else if(index == 2){
-                [weakSelf enjoyDynamic];
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    [weakSelf enjoyDynamic];
+                }];
             }
         };
     }

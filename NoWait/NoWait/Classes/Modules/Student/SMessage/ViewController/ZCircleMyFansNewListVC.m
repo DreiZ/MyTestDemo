@@ -46,11 +46,13 @@
             ZCircleMyFocusCell *lcell = (ZCircleMyFocusCell *)cell;
             lcell.handleBlock = ^(ZCircleMinePersonModel *model, NSInteger index) {
                 if (index == 1) {
-                    if ([model.follow_status intValue] == 1) {
-                        [weakSelf followAccount:model];
-                    }else{
-                        [weakSelf cancleFollowAccount:model];
-                    }
+                    [[ZUserHelper sharedHelper] checkLogin:^{
+                        if ([model.follow_status intValue] == 1) {
+                            [weakSelf followAccount:model];
+                        }else{
+                            [weakSelf cancleFollowAccount:model];
+                        }
+                    }];
                 }else{
                     ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                     cvc.account = model.account;
