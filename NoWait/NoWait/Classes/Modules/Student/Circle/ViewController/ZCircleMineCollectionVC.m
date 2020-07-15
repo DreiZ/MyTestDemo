@@ -42,6 +42,12 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self getMineInfo];
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
         
@@ -50,8 +56,6 @@
     [self setCollectionViewEmptyDataDelegate];
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
-    [self getMineInfo];
-    [self refreshData];
     
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];

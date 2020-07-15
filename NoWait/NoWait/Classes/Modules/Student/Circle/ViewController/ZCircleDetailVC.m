@@ -637,6 +637,9 @@
                 weakSelf.infoModel.enjoy = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.enjoy intValue]+1];
                 weakSelf.bottomView.model = weakSelf.infoModel;
                 [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+                if (self.isLike) {
+                    [weakSelf refreshData];
+                }
             }else{
                 weakSelf.bottomView.model = weakSelf.infoModel;
                 [TLUIUtility showInfoHint:data];

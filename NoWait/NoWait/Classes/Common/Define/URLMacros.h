@@ -25,7 +25,6 @@
 
 #define DevelopSever    1
 #define TestSever       0
-#define ProductSever    0
 
 // 表情服务器
 #define     IEXPRESSION_HOST_URL        @"http://123.57.155.230/ibiaoqing/admin/"
@@ -67,9 +66,9 @@
 #define SERVICE_SIGN                    @"9f34c254a45dabb40009c9b55ef17a4133ee67e2"
 
 //阿里云上传图片地址
-#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
-#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-#define AliYunImageServer               @"http://xxl-oss@1708871629162696.onaliyun.com"
+#define AliYunAccessKeyId               @"LTAI4G1hwMQeE5DsGuUJdWDA"
+#define AliYunAccessKeySecret           @"9YXqCwWloJXdVKqcMElFijjmGvhKUu"
+#define AliYunImageServer               @"http://apitest.xiangcenter.com/api/web/account/v1/oss/sts/tokenm"
 #define AliYunBucketName                @"xiangcenter-test"
 #define AliYunBucketIMName              @"xiangcenter-test"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
@@ -115,9 +114,12 @@
 #define SERVICE_SIGN                    @"9f34c254a45dabb40009c9b55ef17a4133ee67e2"
 
 //阿里云上传图片地址
-#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
-#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-#define AliYunImageServer               @"http://xxl@1708871629162696.onaliyun.com"
+//阿里云上传图片地址
+#define AliYunAccessKeyId               @"LTAI4G1hwMQeE5DsGuUJdWDA"
+#define AliYunAccessKeySecret           @"9YXqCwWloJXdVKqcMElFijjmGvhKUu"
+
+#define AliYunImageServer               @"http://api.xiangcenter.com/api/web/account/v1/oss/sts/token"
+
 #define AliYunBucketName                @"xiangcenter"
 #define AliYunBucketIMName              @"xiangcenter"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
@@ -131,58 +133,6 @@
 #define AliYunVideoPath          AliYunPath(@"user_video")
 #define AliYunFilePath           AliYunPath(@"user_file")
 #define AliYunUserFilePath       AliYunPath(@"user_avatar")
-
-
-#elif ProductSever
-
-#pragma mark - /**生产服务器*/
-
-//验证码服务器@"http://api.xiangcenter.com"
-#define URL_code                        @"http://api.xiangcenter.com"
-//用户服务器
-#define URL_user                        @"http://api.xiangcenter.com"
-//订单服务
-#define URL_order                       @"http://api.xiangcenter.com"
-//文件服务器
-#define URL_file                        @"http://api.xiangcenter.com"
-//教师服务器
-#define URL_coach                       @"http://api.xiangcenter.com"
-//机构服务器
-#define URL_organization                @"http://api.xiangcenter.com"
-
-
-//IM服务器
-#define SocketServiceUrl                @"172.17.100.32"
-#define SocketServicePort               8085
-#define URL_main                        @"http://172.17.100.31:8080"
-#define URL_Socket                      @"http://172.17.100.32:8851"
-//#define URL_main @"http://192.168.11.122:8090" //展鹏
-
-
-//正式服app_key ,app_secret
-#define SERVICE_APP_KEY                 @"20181120091950000002"
-#define SERVICE_APP_SECRET              @"1341a770aa2d3e7128e0b8d170da4fcb0b25fa5d"
-#define SERVICE_SIGN                    @"bd56bb7de99787483511dbe725e14d54e16696ee"
-
-
-//阿里云上传图片地址
-#define AliYunAccessKeyId               @"LTAI4G1MzLPn5ZbpCoA4GBjm"
-#define AliYunAccessKeySecret           @"klazcIZ21LZCOsTECAJZDYNsz9CWQ0"
-
-#define AliYunImageServer               @"http://xxl@1708871629162696.onaliyun.com"
-#define AliYunBucketName                @"xiangcenter"
-#define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
-#define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
-
-
-#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@",name,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
-
-#define AliYunImagePath          AliYunPath(@"user_image")
-#define AliYunVoicePath          AliYunPath(@"user_audio")
-#define AliYunVideoPath          AliYunPath(@"user_video")
-#define AliYunFilePath           AliYunPath(@"user_file")
-#define AliYunUserFilePath       AliYunPath(@"user_avatar")
-
 #endif
 
 
