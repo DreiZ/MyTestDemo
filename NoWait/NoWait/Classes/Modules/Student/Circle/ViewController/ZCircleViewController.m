@@ -22,6 +22,9 @@
 @property (nonatomic,strong) NSMutableArray *titleArr;
 @property (nonatomic,strong) UIButton *releaseBtn;
 
+@property (nonatomic,strong) ZCircleRecommendVC *minRvc;
+@property (nonatomic,strong) ZCircleRecommendVC *recommondRvc;
+
 @property (nonatomic,strong) ZCircleHeaderView *headView;
 
 @end
@@ -106,11 +109,11 @@
 - (NSMutableArray *)vcArr {
     if (!_vcArr) {
         _vcArr = @[].mutableCopy;
-        ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
-        rvc.isAttention = YES;
-        [_vcArr addObject:rvc];
-        ZCircleRecommendVC *fvc = [[ZCircleRecommendVC alloc] init];
-        [_vcArr addObject:fvc];
+        _minRvc = [[ZCircleRecommendVC alloc] init];
+        _minRvc.isAttention = YES;
+        [_vcArr addObject:_minRvc];
+        _recommondRvc = [[ZCircleRecommendVC alloc] init];
+        [_vcArr addObject:_recommondRvc];
     }
     return _vcArr;
 }
@@ -202,5 +205,16 @@
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForContentView:(WMScrollView *)contentView {
     CGFloat originY = CGFloatIn750(80)+CGFloatIn750(128);
     return CGRectMake(0, originY+ safeAreaTop(), KScreenWidth, KScreenHeight - originY-TABBAR_HEIGHT-safeAreaTop()-safeAreaBottom());
+}
+
+#pragma mark - tabbar
+- (void)tabBarItemDidClick:(BOOL)isSelected {
+    if (isSelected) {
+        if (self.selectIndex == 0 && _minRvc) {
+            [_minRvc.iCollectionView scrollToTopAnimated:YES];
+        }else if (self.selectIndex == 1 && _recommondRvc) {
+            [_recommondRvc.iCollectionView scrollToTopAnimated:YES];
+        }
+    }
 }
 @end

@@ -13,6 +13,8 @@
 #import "ZCircleMineModel.h"
 #import "ZCircleReleaseModel.h"
 
+#import "ZLocationManager.h"
+
 @interface ZCircleReleaseSelectSchoolVC ()
 @property (nonatomic,strong) ZCircleSearchTextView *searchView;
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -153,6 +155,15 @@
     [self.param setObject:@"10" forKey:@"page_size"];
     if (ValidStr(self.name)) {
         [self.param setObject:self.name forKey:@"name"];
+    }
+    
+    [self setLocationParams];
+}
+
+- (void)setLocationParams {
+    if ([ZLocationManager shareManager].cureUserLocation.location) {
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
     }
 }
 @end

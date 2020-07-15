@@ -377,4 +377,11 @@
 - (void)tabBarItemDidDoubleClick {
     [self refreshAllData];
 }
+
+
+- (void)tabBarItemDidClick:(BOOL)isSelected {
+    if (isSelected) {
+        [self.iTableView scrollToTopAnimated:YES];
+    }
+}
 @end

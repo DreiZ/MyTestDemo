@@ -318,4 +318,10 @@
 //    [self getAdverData];
 //    [self getCategoryList];
 }
+
+- (void)tabBarItemDidClick:(BOOL)isSelected {
+    if (isSelected) {
+        [self.iTableView scrollToTopAnimated:YES];
+    }
+}
 @end
