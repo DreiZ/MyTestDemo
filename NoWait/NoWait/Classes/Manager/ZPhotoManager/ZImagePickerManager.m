@@ -737,7 +737,7 @@ static ZImagePickerManager *sharedImagePickerManager;
                 model.mediaURL = [NSURL URLWithString:image];
                 model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
 //                [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:image placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
-//                    
+//
 //                } complete:^(UIImage *image) {
 //                    model.image = image;
 //                }];
@@ -775,7 +775,8 @@ static ZImagePickerManager *sharedImagePickerManager;
     for (ZImagePickerModel *model in mediaArray) {
         if (model.isVideo) {
             if (model.mediaURL) {
-                MWPhoto *photo = [[MWPhoto alloc] initWithImage:[[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:model.mediaURL atTime:0]];
+                MWPhoto *photo = [[MWPhoto alloc] initWithImage:model.image? model.image:[[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:model.mediaURL atTime:0]];
+//                MWPhoto *photo = [[MWPhoto alloc] initWithVideoURL:model.mediaURL];
                 photo.caption = model.name;
                 photo.videoURL = model.mediaURL;
                 photo.isVideo = YES;

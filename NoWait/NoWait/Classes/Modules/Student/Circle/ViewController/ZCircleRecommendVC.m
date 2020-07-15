@@ -13,6 +13,7 @@
 
 #import "ZCircleMineModel.h"
 #import "ZCircleMineViewModel.h"
+#import "ZLocationManager.h"
 
 @interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
 /** ZJWaterLayout */
@@ -230,5 +231,14 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:@"10" forKey:@"page_size"];
+    
+    [self setLocationParams];
+}
+
+- (void)setLocationParams {
+    if ([ZLocationManager shareManager].cureUserLocation.location) {
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+    }
 }
 @end
