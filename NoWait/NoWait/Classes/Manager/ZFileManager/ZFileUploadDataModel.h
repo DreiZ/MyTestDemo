@@ -38,6 +38,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) void(^errorBlock)(NSError *);
 @property (nonatomic, strong) void(^completeBlock)(id);
 
+//上传分类
+@property (nonatomic,strong) NSString *type;
+
 @property (nonatomic,strong) UIImage *image;
 
 //上传后url

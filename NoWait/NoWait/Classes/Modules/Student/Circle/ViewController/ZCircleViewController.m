@@ -50,6 +50,13 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_headView) {
+        [_headView updateData];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -128,6 +135,7 @@
 //                [weakSelf.navigationController pushViewController:mvc animated:YES];
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                    cvc.account = [ZUserHelper sharedHelper].user.userCodeID;
                     // cvc.account = @"1100005";
                     //  cvc.account = @"8100007";
                     [weakSelf.navigationController pushViewController:cvc animated:YES];

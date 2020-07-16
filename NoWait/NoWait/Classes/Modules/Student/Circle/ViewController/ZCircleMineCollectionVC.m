@@ -23,6 +23,7 @@
 #import "ZCircleMyFocusListVC.h"
 #import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
+#import "ZCircleReleaseUploadVC.h"
 
 
 @interface ZCircleMineCollectionVC ()
@@ -31,6 +32,7 @@
 @property (nonatomic,assign) BOOL isLike;
 @property (nonatomic,strong) ZCircleMineModel *mineModel;
 @property (nonatomic,assign) CGFloat headHeight;
+@property (nonatomic,strong) UIButton *navRightBtn;
 
 @property (nonatomic,strong) NSMutableDictionary *param;
 
@@ -60,6 +62,10 @@
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];
 //    [self setCollectionViewEmptyDataDelegate];
+    
+    if (self.account && ([self.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
+    }
 }
 
 
@@ -113,7 +119,7 @@
     }
 }
 
-#pragma mark - view
+#pragma mark - lazy loading view
 - (ZCircleMineHeaderView *)headView {
     if (!_headView) {
         __weak typeof(self) weakSelf = self;
@@ -169,6 +175,22 @@
     return _headView;
 }
 
+
+- (UIButton *)navRightBtn {
+    if (!_navRightBtn) {
+        __weak typeof(self) weakSelf = self;
+        _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
+        [_navRightBtn setTitle:@"上传列表" forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
+        _navRightBtn.titleLabel.font = [UIFont fontSmall];
+        [_navRightBtn bk_addEventHandler:^(id sender) {
+            ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
+            
+            [weakSelf.navigationController pushViewController:uvc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navRightBtn;
+}
 //
 //- (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 //{

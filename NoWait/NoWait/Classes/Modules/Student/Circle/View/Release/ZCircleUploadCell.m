@@ -27,6 +27,8 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIButton *reUploadBtn;
+
 @end
 
 @implementation ZCircleUploadCell
@@ -43,6 +45,7 @@
     [self.contView addSubview:self.topBackView];
     [self.topBackView addSubview:self.titleLabel];
     [self.funBackView addSubview:self.iCollectionView];
+    [self.bottomBackView addSubview:self.reUploadBtn];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
@@ -67,6 +70,10 @@
         make.height.mas_equalTo(CGFloatIn750(120));
     }];
     
+    [self.reUploadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.bottomBackView);
+    }];
+    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.topBackView);
         make.centerY.equalTo(self.topBackView.mas_centerY);
@@ -75,7 +82,7 @@
     [self.iCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.funBackView);
     }];
-    
+    self.reUploadBtn.hidden = YES;
     _titleLabel.text = @"";
 }
 
@@ -167,6 +174,17 @@
     return _iCollectionView;
 }
 
+- (UIButton *)reUploadBtn {
+    if (!_reUploadBtn) {
+        _reUploadBtn = [[UIButton alloc] init];
+        [_reUploadBtn bk_whenTapped:^{
+            if (self.reUploadBlock) {
+                self.reUploadBlock(self.model);
+            }
+        }];
+    }
+    return _reUploadBtn;
+}
 
 #pragma mark collectionview delegate
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -256,6 +274,7 @@
         [self showSuccessAnimation];
     }else if(model.uploadStatus == ZCircleUploadStatusError){
         [self showErrorAnimation];
+        self.reUploadBtn.hidden = NO;
     }else {
         [self showLoadingAnimation];
     }

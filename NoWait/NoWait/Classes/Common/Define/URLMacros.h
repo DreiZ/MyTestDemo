@@ -74,14 +74,14 @@
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 
-#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@",name,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
+#define AliYunPath(name,type)                [NSString stringWithFormat:@"app/%@/%@/%@/%@",name,type,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 10000] md5String]]
 
 
-#define AliYunImagePath          AliYunPath(@"user_image")
-#define AliYunVoicePath          AliYunPath(@"user_audio")
-#define AliYunVideoPath          AliYunPath(@"user_video")
-#define AliYunFilePath           AliYunPath(@"user_file")
-#define AliYunUserFilePath       AliYunPath(@"user_avatar")
+#define AliYunImagePath(type)           AliYunPath(@"user_image",type)
+#define AliYunVoicePath                 AliYunPath(@"user_audio",@"IM")
+#define AliYunVideoPath(type)           AliYunPath(@"user_video",type)
+#define AliYunFilePath                  AliYunPath(@"user_file",@"file")
+#define AliYunUserFilePath              AliYunPath(@"user_avatar",@"user")
 
 #define ImageCacheFolderOfVideo  @"videoFolder"
 #elif TestSever
@@ -100,7 +100,6 @@
 //机构服务器
 #define URL_organization                @"http://api.xiangcenter.com"
 
-
 //IM服务器
 #define SocketServiceUrl                @"172.17.100.32"
 #define SocketServicePort               8085
@@ -118,22 +117,22 @@
 //阿里云上传图片地址
 #define AliYunAccessKeyId               @"LTAI4G1hwMQeE5DsGuUJdWDA"
 #define AliYunAccessKeySecret           @"9YXqCwWloJXdVKqcMElFijjmGvhKUu"
-
-#define AliYunImageServer               @"http://api.xiangcenter.com/api/web/account/v1/oss/sts/token"
-
+#define AliYunImageServer               @"account/v1/oss/sts/token"
 #define AliYunBucketName                @"xiangcenter"
 #define AliYunBucketIMName              @"xiangcenter"
 #define AliYunendpoint                  @"https://oss-cn-beijing.aliyuncs.com"
 #define AliYunendpointPath              @"oss-cn-beijing.aliyuncs.com"
 
-#define AliYunPath(name)                [NSString stringWithFormat:@"app/%@/%@/%@",name,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 1000] md5String]]
 
+#define AliYunPath(name,type)                [NSString stringWithFormat:@"app/%@/%@/%@/%@",name,type,[[NSDate new] stringWithFormat:@"yyyyMMdd"],[[NSString stringWithFormat:@"%.0f%u",[[NSDate new] timeIntervalSince1970],arc4random() % 10000] md5String]]
 
-#define AliYunImagePath          AliYunPath(@"user_image")
-#define AliYunVoicePath          AliYunPath(@"user_audio")
-#define AliYunVideoPath          AliYunPath(@"user_video")
-#define AliYunFilePath           AliYunPath(@"user_file")
-#define AliYunUserFilePath       AliYunPath(@"user_avatar")
+#define AliYunImagePath(type)           AliYunPath(@"user_image",type)
+#define AliYunVoicePath                 AliYunPath(@"user_audio",@"IM")
+#define AliYunVideoPath(type)           AliYunPath(@"user_video",type)
+#define AliYunFilePath                  AliYunPath(@"user_file",@"file")
+#define AliYunUserFilePath              AliYunPath(@"user_avatar",@"user")
+
+#define ImageCacheFolderOfVideo  @"videoFolder"
 #endif
 
 
@@ -141,8 +140,6 @@
 
 #define URL_Service                     @"api/"
 
-//测试接口
-//NSString *const URL_Test = @"api/recharge/price/list";
 #define URL_Test                                    @"/api/cast/home/start"
 #pragma mark ---------------------------启动相关 ----------------------------
 //营销配置，用于广告宣传

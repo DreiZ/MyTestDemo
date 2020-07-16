@@ -148,7 +148,7 @@
                             dataModel.taskType = ZUploadTypeImage;
                             dataModel.taskState = ZUploadStateWaiting;
                         }
-
+                        dataModel.type = @"1";
                         [weakSelf.uploadArr addObject:dataModel];
                     }
 //                    [weakSelf updatePhotosStep1];

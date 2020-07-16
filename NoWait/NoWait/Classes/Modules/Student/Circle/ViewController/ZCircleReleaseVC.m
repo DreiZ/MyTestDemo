@@ -290,7 +290,7 @@
                 dataModel.taskType = ZUploadTypeImage;
                 dataModel.taskState = ZUploadStateWaiting;
             }
-
+            dataModel.type = @"10";
             [self.releaseViewModel.model.imageArr addObject:dataModel];
         }
         self.zChain_reload_ui();
@@ -363,6 +363,7 @@
                 if (model.taskType == ZUploadTypeVideo) {
                     isVideo = YES;
                 }
+                model.type = @"10";
             }
             ZCircleUploadModel *umodel = [[ZCircleUploadModel alloc] init];
             umodel.uploadStatus = ZCircleUploadStatusWatting;

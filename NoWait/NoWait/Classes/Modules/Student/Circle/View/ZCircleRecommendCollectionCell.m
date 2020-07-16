@@ -416,8 +416,8 @@
     CGFloat width = (KScreenWidth - CGFloatIn750(30) - CGFloatIn750(22))/2.0f;
     
     CGFloat ratio = 1;
-    if ([model.cover.height floatValue] - [model.cover.width floatValue] * 2 > 0) {
-        ratio = 2;
+    if ([model.cover.height floatValue] - [model.cover.width floatValue] * 1.5 > 0) {
+        ratio = 1.5;
     }else {
         ratio = ([model.cover.height floatValue]/[model.cover.width floatValue]);
     }

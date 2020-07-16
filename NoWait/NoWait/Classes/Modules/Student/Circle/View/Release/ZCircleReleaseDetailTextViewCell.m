@@ -86,8 +86,6 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent] textColor:nil];
-    
     if (textView.text.length > 0) {
         _thintLabel.hidden = YES;
     }else {
@@ -99,6 +97,8 @@
     if (self.textChangeBlock) {
         self.textChangeBlock(textView.text);
     }
+    
+    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent] textColor:nil];
 }
 
 - (void)setContent:(NSString *)content {

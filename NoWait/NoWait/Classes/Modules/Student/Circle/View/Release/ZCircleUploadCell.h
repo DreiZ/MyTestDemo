@@ -11,6 +11,6 @@
 
 @interface ZCircleUploadCell : ZBaseCell
 @property (nonatomic,strong) ZCircleUploadModel *model;
-
+@property (nonatomic,strong) void (^reUploadBlock)(ZCircleUploadModel *);
 @end
 

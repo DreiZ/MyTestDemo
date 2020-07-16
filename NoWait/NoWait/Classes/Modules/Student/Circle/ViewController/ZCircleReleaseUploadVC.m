@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     self.zChain_setNavTitle(@"动态上传列表")
     .zChain_setTableViewGary()
     .zChain_resetMainView(^{
@@ -107,6 +106,15 @@
 
             [self.cellConfigArr  addObject:menuCellConfig];
         }];
+    });
+    
+    self.zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"ZCircleUploadCell"]) {
+            ZCircleUploadCell *lcell = (ZCircleUploadCell *)cell;
+            lcell.reUploadBlock = ^(ZCircleUploadModel *model) {
+                [self UploadWith:model];
+            };
+        }
     });
     
     self.zChain_reload_ui();
@@ -220,5 +228,61 @@
             [TLUIUtility showErrorHint:message];
         }
     }];
+}
+
+- (void)UploadWith:(ZCircleUploadModel *)obj{
+    NSMutableArray *tasklist = @[].mutableCopy;
+    NSInteger count = 0;
+    for (int i = 0; i < obj.uploadList.count; i++) {
+        ZFileUploadDataModel *dataModel = obj.uploadList[i];
+        if (dataModel.taskState == ZUploadStateWaiting) {
+            count++;
+        }
+        [tasklist addObject:obj.uploadList[i]];
+        [ZFileUploadManager addTaskDataToUploadWith:obj.uploadList[i]];
+    }
+    
+    if (count == obj.uploadList.count) {
+        obj.progress = 0;
+        obj.uploadStatus = ZCircleUploadStatusWatting;
+    }else{
+        obj.progress = 0 + (obj.uploadList.count-count)*1.0f/obj.uploadList.count;
+    }
+    
+    if (count > 0) {
+        obj.uploadStatus = ZCircleUploadStatusUploading;
+        [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
+            obj.progress = (obj.uploadList.count-count + index)*1.0f/obj.uploadList.count + p/(tasklist.count) ;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (obj.progressBlock) {
+                    obj.progressBlock(p);
+                }
+            });
+        } completion:^(id backObj) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (obj.completeBlock) {
+                    obj.completeBlock(backObj);
+                }
+            });
+            if (backObj && [backObj isKindOfClass:[NSArray class]]) {
+                NSArray *arr = backObj;
+                NSMutableArray *images = @[].mutableCopy;
+                for (int i = 0; i < arr.count; i++) {
+                    if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                        ZBaseNetworkBackModel *dataModel = arr[i];
+                        if (ValidDict(dataModel.data)) {
+                            ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                            if ([dataModel.code integerValue] == 0 ) {
+                                [images addObject:SafeStr(imageModel.url)];
+                            }
+                        }
+                    }else if([arr[i] isKindOfClass:[NSString class]]){
+                        [images addObject:SafeStr(arr[i])];
+                    }
+                }
+                [self updateData:obj imageUrlArr:images];
+            }
+        }];
+    }
 }
 @end

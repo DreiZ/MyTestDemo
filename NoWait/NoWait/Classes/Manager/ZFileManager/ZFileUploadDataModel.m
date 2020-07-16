@@ -10,6 +10,15 @@
 #import "TZImageManager.h"
 
 @implementation ZFileUploadDataModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.type = @"9";
+//        /1：机构【资质、环境、教练、学员、校区封面】2. 课程 3. 学员【学员详情、明星学员相册】
+        // 4. 教师【教师详情、教师相册】5. 头像【用户头像】6. 广告 7. 评价 8. 意见反馈 9. 其他 10.发现
+    }
+    return self;
+}
 
 -(void)getFilePath:(void(^)(NSString *))success {
     if (!_filePath) {
@@ -34,9 +43,9 @@
 - (NSString *)fileName {
     if (!_fileName) {
         if (_taskType == ZUploadTypeImage) {
-            _fileName = [NSString stringWithFormat:@"%@.jpg",AliYunImagePath];
+            _fileName = [NSString stringWithFormat:@"%@.jpg",AliYunImagePath(self.type)];
         }else{
-            _fileName = [NSString stringWithFormat:@"%@.mp4",AliYunVideoPath];
+            _fileName = [NSString stringWithFormat:@"%@.mp4",AliYunVideoPath(self.type)];
         }
     }
     return _fileName;

@@ -69,11 +69,11 @@
     
     [ZPublicTool checkUpdateVersion];
     
-    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"videoFolder"];
-    DLog(@"filezzz :%@",temp);
-    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    //        [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-    }];
+//    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"videoFolder"];
+//    DLog(@"filezzz :%@",temp);
+//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//    //        [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//    }];
 }
 
 - (void)setDataSource {

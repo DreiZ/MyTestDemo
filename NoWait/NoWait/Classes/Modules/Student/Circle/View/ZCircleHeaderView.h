@@ -12,5 +12,7 @@
 @property (nonatomic,strong) NSString *hint;
 
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+
+- (void)updateData;
 @end
 

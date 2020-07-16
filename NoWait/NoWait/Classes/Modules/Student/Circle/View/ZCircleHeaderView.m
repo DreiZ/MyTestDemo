@@ -164,6 +164,10 @@
     _hint = hint;
     [_searchBtn setTitle:hint forState:UIControlStateNormal];
 }
+
+- (void)updateData {
+    [_headImageView tt_setImageWithURL:[NSURL URLWithString:[ZUserHelper sharedHelper].user.avatar] placeholderImage:[UIImage imageNamed:@"default_head"]];
+}
 @end
 
 

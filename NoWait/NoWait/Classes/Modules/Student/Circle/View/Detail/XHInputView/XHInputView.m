@@ -250,8 +250,6 @@ static CGFloat keyboardAnimationDuration = 0.5;
 }
 
 -(void)textViewDidChange:(UITextView *)textView{
-    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(8) font:[UIFont fontContent] textColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])];
-    
     if(textView.text.length){
         _placeholderLab.hidden = YES;
     }else{
@@ -264,6 +262,7 @@ static CGFloat keyboardAnimationDuration = 0.5;
             _countLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)textView.text.length,(long)_maxCount];
         }
     }
+    [ZPublicTool textView:textView lineSpacing:CGFloatIn750(8) font:[UIFont fontContent] textColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])];
 }
 
 #pragma mark - Action
