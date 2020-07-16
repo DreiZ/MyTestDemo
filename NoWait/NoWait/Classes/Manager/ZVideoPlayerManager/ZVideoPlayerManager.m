@@ -9,6 +9,7 @@
 #import "ZVideoPlayerManager.h"
 #import "AppDelegate.h"
 #import <AVKit/AVKit.h>
+#import "ZFileManager.h"
 
 static ZVideoPlayerManager *videoPlayerManager;
 
@@ -169,7 +170,8 @@ static ZVideoPlayerManager *videoPlayerManager;
 {
     NSString *name = [[path absoluteString] md5String];//视频链接转MD5作为图片的名字
     //NSString *name = [path absoluteString];
-    NSString *PATH = [NSString stringWithFormat:@"%@/Documents/videoFolder/%@.png",NSHomeDirectory(),name];
+//    NSString *PATH = [NSString stringWithFormat:@"%@/Documents/videoFolder/%@.png",NSHomeDirectory(),name];
+    NSString *PATH = [NSString stringWithFormat:@"%@/%@/%@.png",[ZFileManager getDocumentDirectory],ImageCacheFolderOfVideo,name];
     UIImage *imagePath = [[UIImage alloc] initWithContentsOfFile:PATH];
     if (imagePath) {
         //本地有缓存图片，加载本地图片并return
@@ -198,7 +200,8 @@ static ZVideoPlayerManager *videoPlayerManager;
         CGImageRelease(image);
         
         //创建文件夹
-        NSString *folder = [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/videoFolder"];
+//        NSString *folder = [NSHomeDirectory() stringByAppendingPathComponent:@"/Documents/videoFolder"];
+        NSString *folder = [NSString stringWithFormat:@"%@/%@",[ZFileManager getDocumentDirectory],ImageCacheFolderOfVideo];
         [[NSFileManager defaultManager] createDirectoryAtPath:folder withIntermediateDirectories:NO attributes:nil error:nil];
         [UIImagePNGRepresentation(videoImage) writeToFile:PATH atomically:YES];
     });

@@ -10,6 +10,8 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZStudentMineSettingSwitchCell.h"
 #import <SDImageCache.h>
+#import <SDWebImageManager.h>
+#import "ZFileManager.h"
 
 @interface ZStudentMineSettingCommonVC ()
 @property (nonatomic,strong) NSString *isOpen;
@@ -47,6 +49,14 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"cache"]){
             [[SDImageCache sharedImageCache] clearMemory];
+            [[SDWebImageManager sharedManager].imageCache clearDiskOnCompletion:^{
+                DLog(@"清除缓存成功");
+            }];
+            NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
+            DLog(@"filezzz :%@",temp);
+            [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+            }];
             [TLUIUtility showSuccessHint:@"操作成功"];
         }
     });
