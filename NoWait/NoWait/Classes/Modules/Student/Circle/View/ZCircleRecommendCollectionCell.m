@@ -193,7 +193,6 @@
         _userLabel.numberOfLines = 1;
         _userLabel.textAlignment = NSTextAlignmentLeft;
         [_userLabel setFont:[UIFont fontSmall]];
-        [_userLabel setAdjustsFontSizeToFitWidth:YES];
     }
     return _userLabel;
 }

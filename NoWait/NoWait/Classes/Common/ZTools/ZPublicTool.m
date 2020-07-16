@@ -263,11 +263,28 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 
     paragraphStyle.lineSpacing = lineSpacing;// 字体的行间距
-    NSDictionary *attributes = @{NSForegroundColorAttributeName:textColor? textColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]),
-                                NSFontAttributeName:font,
-                                NSParagraphStyleAttributeName:paragraphStyle
-                                };
-    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:textColor? textColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]),NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle};
+    
+    // 获取键盘输入模式
+
+    NSString *lang = [[UIApplication sharedApplication] textInputMode].primaryLanguage;
+    if ([lang isEqualToString:@"zh-Hans"]) { // zh-Hans代表简体中文输入，包括简体拼音，健体五笔，简体手写
+        UITextRange *selectedRange = [textView markedTextRange];
+
+        //获取高亮部分
+        UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
+
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position) {
+            textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+        }
+
+    } else {// 中文输入法以外的直接统计
+        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+    }
+
+
+//    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
 }
 
 + (NSString *)textView:(UITextView *)textField maxLenght:(NSInteger)maxLength type:(ZFormatterType)type{

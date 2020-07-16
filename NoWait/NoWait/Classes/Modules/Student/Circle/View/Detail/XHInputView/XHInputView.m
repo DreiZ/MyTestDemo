@@ -186,6 +186,7 @@ static CGFloat keyboardAnimationDuration = 0.5;
             _textView.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
             _textView.delegate = self;
             [_textBgView addSubview:_textView];
+            [ZPublicTool textView:_textView lineSpacing:CGFloatIn750(8) font:[UIFont fontContent] textColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])];
             
             _placeholderLab = [[UILabel alloc] initWithFrame:CGRectMake(7, 0, _textView.bounds.size.width-14, 35)];
             _placeholderLab.font = _textView.font;
@@ -259,7 +260,7 @@ static CGFloat keyboardAnimationDuration = 0.5;
         [ZPublicTool textView:textView maxLenght:_maxCount type:ZFormatterTypeAnyByte];
         
         if(_style == InputViewStyleLarge){
-            _countLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)textView.text.length,(long)_maxCount];
+            _countLab.text = [NSString stringWithFormat:@"%ld/%ld",(long)strlen([textView.text UTF8String]),(long)_maxCount];
         }
     }
     [ZPublicTool textView:textView lineSpacing:CGFloatIn750(8) font:[UIFont fontContent] textColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark])];

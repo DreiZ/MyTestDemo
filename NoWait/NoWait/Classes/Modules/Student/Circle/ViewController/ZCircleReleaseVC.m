@@ -70,13 +70,13 @@
             make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(60));
             make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
             make.height.mas_equalTo(CGFloatIn750(80));
-            make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(20));
+            make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(10));
         }];
         
         [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-            make.height.mas_equalTo(CGFloatIn750(80));
+            make.height.mas_equalTo(CGFloatIn750(100));
         }];
         
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
