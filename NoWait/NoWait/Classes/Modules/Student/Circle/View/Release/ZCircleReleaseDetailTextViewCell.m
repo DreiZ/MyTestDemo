@@ -64,7 +64,7 @@
         _iTextView = [[UITextView alloc] init];
         _iTextView.delegate = self;
         _iTextView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-        [_iTextView setFont:[UIFont fontSmall]];
+        [_iTextView setFont:[UIFont fontContent]];
         _iTextView.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         
         [ZPublicTool textView:_iTextView lineSpacing:CGFloatIn750(14) font:[UIFont fontContent] textColor:nil];
@@ -79,7 +79,7 @@
         _thintLabel.numberOfLines = 0;
         _thintLabel.textAlignment = NSTextAlignmentLeft;
         [_thintLabel setTextColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark])];
-        [_thintLabel setFont:[UIFont fontSmall]];
+        [_thintLabel setFont:[UIFont fontContent]];
         [_thintLabel setText:@"添加正文"];
     }
     return _thintLabel;

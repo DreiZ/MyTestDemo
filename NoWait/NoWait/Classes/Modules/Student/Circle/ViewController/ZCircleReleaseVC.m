@@ -75,7 +75,12 @@
         
         [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            if (safeAreaBottom() < 20) {
+                make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(30));
+            }else{
+                make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            }
+            
             make.height.mas_equalTo(CGFloatIn750(100));
         }];
         
