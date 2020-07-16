@@ -25,6 +25,7 @@
     [super viewDidLoad];
     
     self.zChain_setNavTitle(@"动态上传列表")
+    .zChain_addEmptyDataDelegate()
     .zChain_setTableViewGary()
     .zChain_resetMainView(^{
         [self.view addSubview:self.closeView];

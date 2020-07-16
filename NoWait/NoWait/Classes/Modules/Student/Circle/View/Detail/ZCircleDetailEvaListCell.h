@@ -11,5 +11,6 @@
 
 @interface ZCircleDetailEvaListCell : ZBaseCell
 @property (nonatomic,strong) ZCircleDynamicEvaModel *model;
+@property (nonatomic,strong) void (^userBlock)(ZCircleDynamicEvaModel *);
 @end
 

@@ -48,6 +48,20 @@
         make.width.offset(CGFloatIn750(110.));
         make.centerY.equalTo(self.mas_centerY);
     }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *userBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [userBtn bk_whenTapped:^{
+        if (weakSelf.userBlock) {
+            weakSelf.userBlock();
+        }
+    }];
+    [self.contentView addSubview:userBtn];
+    [userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.bottom.top.equalTo(self.contentView);
+        make.left.equalTo(self.userImageView.mas_left).offset(-CGFloatIn750(20));
+    }];
 }
 
 

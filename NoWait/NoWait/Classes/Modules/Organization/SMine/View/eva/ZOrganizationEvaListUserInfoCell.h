@@ -15,5 +15,6 @@
 @property (nonatomic,strong) ZOrderEvaListModel *model;
 @property (nonatomic,strong) ZCircleDynamicEvaModel *crModel;
 @property (nonatomic,strong) CWStarRateView *crView;
+@property (nonatomic,strong) void (^userBlock)(void);
 @end
 

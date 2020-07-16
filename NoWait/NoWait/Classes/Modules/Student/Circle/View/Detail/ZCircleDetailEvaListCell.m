@@ -70,12 +70,17 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
-//    __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
    
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListUserInfoCell"]) {
         ZOrganizationEvaListUserInfoCell *lcell = (ZOrganizationEvaListUserInfoCell *)cell;
         lcell.crView.hidden = YES;
+        lcell.userBlock = ^{
+            if (weakSelf.userBlock) {
+                weakSelf.userBlock(self.model);
+            }
+        };
     }
     return cell;
 }

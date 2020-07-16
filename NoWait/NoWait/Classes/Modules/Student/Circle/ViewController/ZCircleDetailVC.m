@@ -182,14 +182,16 @@
                         .zz_imageLeftHeight(CGFloatIn750(54))
                         .zz_marginLineLeft(CGFloatIn750(74))
                         .zz_marginLineRight(CGFloatIn750(20))
-                        .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
+                        .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+                        .zz_setData(smodel);
                         
                         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                         [section2Arr addObject:menuCellConfig];
                     }
                     if (self.isNoData) {
-                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
+                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
                     }
                 }else{
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无喜欢"];
@@ -198,12 +200,13 @@
             }else{
                 if (ValidArray(self.evaList)) {
                     for (int i = 0; i < self.evaList.count; i++) {
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"evaList" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"ZCircleDetailEvaListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
                        [section2Arr addObject:menuCellConfig];
                     }
                     if (self.isNoData) {
-                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
+                        ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
+                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
                     }
                 }else{
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无评价"];
@@ -290,13 +293,29 @@
                     }];
                 }
             };
+        }else if([cellConfig.title isEqualToString:@"ZCircleDetailEvaListCell"]){
+            ZCircleDetailEvaListCell *lcell = (ZCircleDetailEvaListCell *)cell;
+            lcell.userBlock = ^(ZCircleDynamicEvaModel *model) {
+                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+                cvc.account = model.account;
+                [weakSelf.navigationController pushViewController:cvc animated:YES];
+            };
         }
+        
         return cell;
     }).zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
         NSArray *sectionArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = sectionArr[indexPath.row];
         CGFloat cellHeight =  cellConfig.heightOfCell;
         return cellHeight;
+    }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
+         if([cellConfig.title isEqualToString:@"user"]){
+            ZLineCellModel *cellModel = (ZLineCellModel *)cellConfig.dataModel;
+            ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
+            ZCircleMinePersonModel *smodel = cellModel.data;
+            cvc.account = smodel.account;
+            [weakSelf.navigationController pushViewController:cvc animated:YES];
+        }
     });
     
     self.zChain_reload_ui();

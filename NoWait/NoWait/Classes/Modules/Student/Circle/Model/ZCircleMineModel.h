@@ -25,6 +25,7 @@
 @property (nonatomic,copy) NSString *image;
 @property (nonatomic,copy) NSString *nick_name;
 @property (nonatomic,copy) NSString *sex;
+@property (nonatomic,copy) NSString *account;
 @end
 
 @interface ZCircleDynamicEvaNetModel : ZBaseNetworkBackModel

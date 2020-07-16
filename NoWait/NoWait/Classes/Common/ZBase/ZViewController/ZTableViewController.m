@@ -199,6 +199,14 @@
     if (_zChain_block_numberOfSectionsInTableView) {
         return _zChain_block_numberOfSectionsInTableView(tableView);
     }
+    
+    if (ValidArray(_cellConfigArr)) {
+        id data = [_cellConfigArr objectAtIndex:0];
+        if ([data isKindOfClass:[NSArray class]]) {
+            
+            return _cellConfigArr.count;
+        }
+    }
     return 1;
 }
 
@@ -206,19 +214,50 @@
     if (_zChain_block_numberOfRowsInSection) {
         return _zChain_block_numberOfRowsInSection(tableView, section);
     }
-    return _cellConfigArr.count;
+    
+    if (ValidArray(_cellConfigArr)) {
+        id data = [_cellConfigArr objectAtIndex:0];
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *cellConfigTempArr = _cellConfigArr[section];
+            
+            return cellConfigTempArr.count;
+        }else if([data isKindOfClass:[ZCellConfig class]]){
+            return _cellConfigArr.count;
+        }
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_zChain_block_cellForRowAtIndexPath) {
         return _zChain_block_cellForRowAtIndexPath(tableView, indexPath);
     }
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    ZBaseCell *cell;
-    cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
     
-    if (_zChain_block_cellConfigForRowAtIndexPath) {
-        _zChain_block_cellConfigForRowAtIndexPath(tableView, indexPath, cell, cellConfig);
+    ZBaseCell *cell;
+    
+    if (ValidArray(_cellConfigArr)) {
+        id data = [_cellConfigArr objectAtIndex:0];
+        
+        if ([data isKindOfClass:[NSArray class]]) {
+            
+            NSArray *cellConfigTempArr = _cellConfigArr[indexPath.section];
+            ZCellConfig *cellConfig = [cellConfigTempArr objectAtIndex:indexPath.row];
+            
+            cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+            
+            if (_zChain_block_cellConfigForRowAtIndexPath) {
+                _zChain_block_cellConfigForRowAtIndexPath(tableView, indexPath, cell, cellConfig);
+            }
+            
+        }else if([data isKindOfClass:[ZCellConfig class]]){
+            ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+            
+            cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
+            
+            if (_zChain_block_cellConfigForRowAtIndexPath) {
+                _zChain_block_cellConfigForRowAtIndexPath(tableView, indexPath, cell, cellConfig);
+            }
+        }
     }
     
     return cell;
@@ -244,9 +283,27 @@
     if (_zChain_block_heightForRowAtIndexPath) {
         return _zChain_block_heightForRowAtIndexPath(tableView, indexPath);
     }
-    ZCellConfig *cellConfig = _cellConfigArr[indexPath.row];
-    CGFloat cellHeight =  cellConfig.heightOfCell;
-    return cellHeight;
+    
+    if (ValidArray(_cellConfigArr)) {
+        id data = [_cellConfigArr objectAtIndex:0];
+        if ([data isKindOfClass:[NSArray class]]) {
+            
+            NSArray *cellConfigTempArr = _cellConfigArr[indexPath.section];
+            ZCellConfig *cellConfig = [cellConfigTempArr objectAtIndex:indexPath.row];
+            
+            CGFloat cellHeight =  cellConfig.heightOfCell;
+            return cellHeight;
+        }else if([data isKindOfClass:[ZCellConfig class]]){
+            
+            ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+            CGFloat cellHeight =  cellConfig.heightOfCell;
+            return cellHeight;
+        }else{
+            return 0;
+        }
+    }else {
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -268,9 +325,20 @@
         return _zChain_block_didSelectRowAtIndexPath(tableView, indexPath);
     }
     
-    ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
-    if (_zChain_block_configDidSelectRowAtIndexPath) {
-        _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
+    if (ValidArray(_cellConfigArr)) {
+        id data = [_cellConfigArr objectAtIndex:0];
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *cellConfigTempArr = _cellConfigArr[indexPath.section];
+            ZCellConfig *cellConfig = [cellConfigTempArr objectAtIndex:indexPath.row];
+            if (_zChain_block_configDidSelectRowAtIndexPath) {
+                _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
+            }
+        }else if([data isKindOfClass:[ZCellConfig class]]){
+            ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
+            if (_zChain_block_configDidSelectRowAtIndexPath) {
+                _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
+            }
+        }
     }
 }
 
