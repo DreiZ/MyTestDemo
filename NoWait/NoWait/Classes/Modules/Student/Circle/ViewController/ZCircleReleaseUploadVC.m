@@ -42,7 +42,6 @@
         }];
     }).zChain_updateDataSource(^{
         NSArray <ZCircleUploadModel*>*circleUploadArr = [ZFileUploadManager sharedInstance].uploadCircleArr;
-        
         [circleUploadArr enumerateObjectsUsingBlock:^(ZCircleUploadModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSMutableArray *tasklist = @[].mutableCopy;
             NSInteger count = 0;
@@ -52,7 +51,6 @@
                     count++;
                 }
                 [tasklist addObject:obj.uploadList[i]];
-                [ZFileUploadManager addTaskDataToUploadWith:obj.uploadList[i]];
             }
             
             if (count == obj.uploadList.count) {
@@ -236,6 +234,9 @@
     NSInteger count = 0;
     for (int i = 0; i < obj.uploadList.count; i++) {
         ZFileUploadDataModel *dataModel = obj.uploadList[i];
+        if (dataModel.taskState == ZUploadStateError) {
+            dataModel.taskState = ZUploadStateWaiting;
+        }
         if (dataModel.taskState == ZUploadStateWaiting) {
             count++;
         }

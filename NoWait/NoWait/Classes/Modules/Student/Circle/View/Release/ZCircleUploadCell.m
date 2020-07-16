@@ -45,7 +45,7 @@
     [self.contView addSubview:self.topBackView];
     [self.topBackView addSubview:self.titleLabel];
     [self.funBackView addSubview:self.iCollectionView];
-    [self.bottomBackView addSubview:self.reUploadBtn];
+    [self.contentView addSubview:self.reUploadBtn];
     
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
