@@ -241,7 +241,7 @@
             count++;
         }
         [tasklist addObject:obj.uploadList[i]];
-        [ZFileUploadManager addTaskDataToUploadWith:obj.uploadList[i]];
+//        [ZFileUploadManager addTaskDataToUploadWith:obj.uploadList[i]];
     }
     
     if (count == obj.uploadList.count) {

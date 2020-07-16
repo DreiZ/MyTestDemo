@@ -417,7 +417,9 @@
     CGFloat ratio = 1;
     if ([model.cover.height floatValue] - [model.cover.width floatValue] * 1.5 > 0) {
         ratio = 1.5;
-    }else {
+    }else if([model.cover.height floatValue] * 2 - [model.cover.width floatValue] <= 0){
+        ratio = 0.5;
+    }else{
         ratio = ([model.cover.height floatValue]/[model.cover.width floatValue]);
     }
     return CGSizeMake(width-0.5, width * ratio + CGFloatIn750(80) + CGFloatIn750(20) + temp.height);

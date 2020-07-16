@@ -76,7 +76,7 @@
         [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             if (safeAreaBottom() < 20) {
-                make.bottom.equalTo(self.view.mas_bottom).offset(CGFloatIn750(30));
+                make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(30));
             }else{
                 make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
             }
@@ -381,20 +381,20 @@
             ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
             [self.navigationController pushViewController:uvc animated:YES];
             return;
-            
-            self.isVideo = isVideo;
-            self.params = params;
-            self.imageArr = uploadArr;
-//            [self updateReleaseData];
-            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
-            mvc.params = params;
-            mvc.imageArr = uploadArr;
-            mvc.isVideo = isVideo;
-            mvc.uploadCompleteBlock = ^{
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-            };
-            [weakSelf.navigationController pushViewController:mvc animated:YES];
-            
+//            
+//            self.isVideo = isVideo;
+//            self.params = params;
+//            self.imageArr = uploadArr;
+////            [self updateReleaseData];
+//            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
+//            mvc.params = params;
+//            mvc.imageArr = uploadArr;
+//            mvc.isVideo = isVideo;
+//            mvc.uploadCompleteBlock = ^{
+//                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//            };
+//            [weakSelf.navigationController pushViewController:mvc animated:YES];
+//            
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

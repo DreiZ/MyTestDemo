@@ -72,31 +72,31 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     }
     if (count > 0) {
         [self configProgress:0.01];
-            [self showLoadingAnimation];
-        //    //异步串行
-            [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
-                [self configProgress:p/(tasklist.count+0.3)];
-            } completion:^(id obj) {
-                if (obj && [obj isKindOfClass:[NSArray class]]) {
-                    NSArray *arr = obj;
-                    NSMutableArray *images = @[].mutableCopy;
-                    for (int i = 0; i < arr.count; i++) {
-                        if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
-                            ZBaseNetworkBackModel *dataModel = arr[i];
-                            if (ValidDict(dataModel.data)) {
-                                ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
-                                if ([dataModel.code integerValue] == 0 ) {
-                                    [images addObject:SafeStr(imageModel.url)];
-                                }
+        [self showLoadingAnimation];
+    //    //异步串行
+        [[ZFileUploadManager sharedInstance] asyncSerialUpload:tasklist progress:^(CGFloat p, NSInteger index) {
+            [self configProgress:p/(tasklist.count+0.3)];
+        } completion:^(id obj) {
+            if (obj && [obj isKindOfClass:[NSArray class]]) {
+                NSArray *arr = obj;
+                NSMutableArray *images = @[].mutableCopy;
+                for (int i = 0; i < arr.count; i++) {
+                    if ([arr[i] isKindOfClass:[ZBaseNetworkBackModel class]]) {
+                        ZBaseNetworkBackModel *dataModel = arr[i];
+                        if (ValidDict(dataModel.data)) {
+                            ZBaseNetworkImageBackModel *imageModel = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
+                            if ([dataModel.code integerValue] == 0 ) {
+                                [images addObject:SafeStr(imageModel.url)];
                             }
-                        }else if([arr[i] isKindOfClass:[NSString class]]){
-                            [images addObject:SafeStr(arr[i])];
                         }
+                    }else if([arr[i] isKindOfClass:[NSString class]]){
+                        [images addObject:SafeStr(arr[i])];
                     }
-
-                    [self updateData:images];
                 }
-            }];
+
+                [self updateData:images];
+            }
+        }];
     }
     
 //    asyncConcurrentGroupUpload asyncConcurrentConstUpload

@@ -148,6 +148,36 @@ BOOL isVideo(NSString *url) {
         isVideo = YES;
     }
     
+    NSRange range5 = [url rangeOfString:@"WMV"];
+    if (range5.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range6 = [url rangeOfString:@"MKV"];
+    if (range6.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range7 = [url rangeOfString:@"RMVB"];
+    if (range7.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range8 = [url rangeOfString:@"RM"];
+    if (range8.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range9 = [url rangeOfString:@"XVID"];
+    if (range9.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
+    NSRange range10 = [url rangeOfString:@"MPG"];
+    if (range10.location != NSNotFound) {
+        isVideo = YES;
+    }
+    
     return isVideo;
 }
 
