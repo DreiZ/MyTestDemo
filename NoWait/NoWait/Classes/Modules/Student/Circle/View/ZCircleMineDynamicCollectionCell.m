@@ -93,6 +93,10 @@
         make.centerY.equalTo(self.coverImageView.mas_centerY);
         make.width.height.mas_equalTo(CGFloatIn750(60));
     }];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+    longPress.minimumPressDuration = 0.5; //定义按的时间
+    [self.contentView addGestureRecognizer:longPress];
 }
 
 #pragma mark - Getter
@@ -207,6 +211,13 @@
 //    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
 }
 
+- (void)btnLong:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if (self.handleBlock) {
+            self.handleBlock(self.model);
+        }
+    }
+}
 +(CGSize)z_getCellSize:(id)sender {
     return CGSizeMake((KScreenWidth - CGFloatIn750(148) - CGFloatIn750(36))/2.0f, ((KScreenWidth - CGFloatIn750(148) - CGFloatIn750(36))/2.0f)*(160.0f)/(142.0));
 }

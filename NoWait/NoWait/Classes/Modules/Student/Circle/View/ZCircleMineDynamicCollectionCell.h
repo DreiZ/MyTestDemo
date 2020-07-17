@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZCircleMineDynamicCollectionCell : ZBaseCollectionViewCell
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) ZCircleMineDynamicModel *model;
-
+@property (nonatomic,strong) void (^handleBlock)(ZCircleMineDynamicModel*);
 @end
 
 NS_ASSUME_NONNULL_END

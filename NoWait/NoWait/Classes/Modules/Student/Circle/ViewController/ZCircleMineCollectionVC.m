@@ -24,7 +24,7 @@
 #import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 #import "ZCircleReleaseUploadVC.h"
-
+#import "ZAlertView.h"
 
 @interface ZCircleMineCollectionVC ()
 @property (nonatomic,strong) ZCircleMineHeaderView *headView;
@@ -198,6 +198,23 @@
 //    [headerView addSubview:self.headView];
 //    return headerView;
 //}
+
+- (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    __weak typeof(self) weakSelf = self;
+    if ([cellConfig.title isEqualToString:@"ZCircleMineDynamicCollectionCell"]) {
+        ZCircleMineDynamicCollectionCell *lcell = (ZCircleMineDynamicCollectionCell *)cell;
+        lcell.handleBlock = ^(ZCircleMineDynamicModel *model) {
+            if (!weakSelf.account || [weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+                [ZAlertView setAlertWithTitle:@"提示" subTitle:@"删除此动态？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [weakSelf removeDynamic:model.dynamic];
+                    }
+                }];
+            }
+            
+        };
+    }
+}
 
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleMineDynamicCollectionCell"]) {
@@ -386,4 +403,31 @@
         }
     }];
 }
+
+- (void)removeDynamic:(NSString *)dynamic {
+    [TLUIUtility showLoading:nil];
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel removeDynamic:@{@"dynamic":SafeStr(dynamic)} completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+           [TLUIUtility showSuccessHint:data];
+            if ([weakSelf.mineModel.dynamic intValue] > 0) {
+                weakSelf.mineModel.dynamic = [NSString stringWithFormat:@"%d",[weakSelf.mineModel.dynamic intValue] - 1];
+                [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
+                
+                
+                [weakSelf.dataSources enumerateObjectsUsingBlock:^(ZCircleMineDynamicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.dynamic isEqualToString:dynamic]) {
+                        [weakSelf.dataSources removeObjectAtIndex:idx];
+                    }
+                }];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iCollectionView reloadData];
+            }
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
+
 @end
