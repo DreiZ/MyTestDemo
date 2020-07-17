@@ -135,6 +135,7 @@
 #define AliYunUserFilePath              AliYunPath(@"user_avatar",@"user")
 
 #define ImageCacheFolderOfVideo  @"videoFolder"
+#define AliYunSnapshotOfVideo        @"?x-oss-process=video/snapshot,t_1000,m_fast,ar_auto"
 #endif
 
 

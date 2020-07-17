@@ -486,7 +486,7 @@ static ZFileUploadManager *fileUploadManager;
         if (callbackVar) {
             // 设置自定义变量
             NSMutableDictionary *callbackVarDict = [[NSMutableDictionary alloc] initWithDictionary:callbackVar];
-            NSString *url = [NSString stringWithFormat:@"http://%@.%@/%@",put.bucketName,AliYunendpointPath,put.objectKey];
+            NSString *url = [NSString stringWithFormat:@"https://%@.%@/%@",put.bucketName,AliYunendpointPath,put.objectKey];
             DLog(@"-----------------path %@",url);
             if (fileKey) {
                 [callbackVarDict setObject:url forKey:fileKey];
@@ -556,7 +556,7 @@ static ZFileUploadManager *fileUploadManager;
                   result.httpResponseHeaderFields,
                   result.serverReturnJsonString);
             //图片url
-            NSString *url = [NSString stringWithFormat:@"http://%@.%@/%@",put.bucketName,AliYunendpointPath,put.objectKey];
+            NSString *url = [NSString stringWithFormat:@"https://%@.%@/%@",put.bucketName,AliYunendpointPath,put.objectKey];
             NSString *Content_MD5 = nil;
             if ([result.httpResponseHeaderFields objectForKey:@"Content-MD5"]) {
                 Content_MD5 = result.httpResponseHeaderFields[@"Content-MD5"];
