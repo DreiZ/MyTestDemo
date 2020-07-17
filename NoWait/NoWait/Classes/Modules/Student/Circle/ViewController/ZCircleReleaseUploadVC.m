@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.loading = NO;
     self.zChain_setNavTitle(@"动态上传列表")
     .zChain_addEmptyDataDelegate()
     .zChain_setTableViewGary()
@@ -96,6 +96,7 @@
                 }];
             }
         }];
+        self.loading = NO;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
 

@@ -17,9 +17,11 @@
 
 //增加两个属性先
 //记录音量控制的父控件，控制它隐藏显示的 view
-@property (nonatomic, weak)UIView *volumeSuperView;
+@property (nonatomic,strong) UIView *volumeSuperView;
 //记录我们 hook 的对象信息
-@property (nonatomic, strong)id<AspectToken>hookAVPlaySingleTap;
+@property (nonatomic,strong) id<AspectToken>hookAVPlaySingleTap;
+@property (nonatomic,assign) BOOL isPlay;
+@property (nonatomic,assign) BOOL isControllHidden;
 @end
 
 @implementation ZAVPlayerViewController
@@ -29,15 +31,19 @@
     
     //添加监听播放状态
     [self HF_addNotificationForName:AVPlayerItemDidPlayToEndTimeNotification block:^(NSNotification *notification) {
-        NSLog(@"我播放结束了！");
+        DLog(@"我播放结束了！");
+        self.isPlay = NO;
 //        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     Class UIGestureRecognizerTarget = NSClassFromString(@"UIGestureRecognizerTarget");
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    _hookAVPlaySingleTap = [UIGestureRecognizerTarget aspect_hookSelector:@selector(_sendActionWithGestureRecognizer:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo>info,UIGestureRecognizer *gest){
+
+    _hookAVPlaySingleTap = [UIGestureRecognizerTarget aspect_hookSelector:@selector(_sendActionWithGestureRecognizer:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo>info,UIGestureRecognizer *gest){
+        
         if (gest.numberOfTouches == 1) {
+            NSLog(@"*****************");
             //AVVolumeButtonControl
             if (!self.volumeSuperView) {
                 UIView *view = [gest.view findViewByClassName:@"AVVolumeButtonControl"];
@@ -46,25 +52,34 @@
                         view = view.superview;
                         if ([view isKindOfClass:[NSClassFromString(@"AVTouchIgnoringView") class]]) {
                             self.volumeSuperView = view;
-                            
+                            NSLog(@"*****************%@",view.className);
                             [view HF_addObserverForKeyPath:@"hidden" block:^(__weak id object, id oldValue, id newValue) {
-                                NSLog(@"newValue ==%@",newValue);
-                        
+                                DLog(@"newValue ==%@",newValue);
+                                
+                                if ([[NSString stringWithFormat:@"%@",newValue] intValue] == 0) {
+                                    self.isControllHidden = NO;
+                                }else{
+                                    self.isControllHidden = YES;
+                                }
                             }];
                             break;
                         }
                     }
                 }
             }else{
-                [self.player pause];
+                if (self.isControllHidden) {
+                    if (gest.state == UIGestureRecognizerStateBegan) {
+                        [self.player pause];
+                        self.isPlay = NO;
+                    }
+                }
             }
         }
-        
     } error:nil];
 
-    if (self.readyForDisplay) {
-        [self.player play];
-    }
+//    if (self.readyForDisplay) {
+//        [self.player play];
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

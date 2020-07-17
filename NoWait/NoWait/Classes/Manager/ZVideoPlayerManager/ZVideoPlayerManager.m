@@ -56,7 +56,7 @@ static ZVideoPlayerManager *videoPlayerManager;
     
 //    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:apvc animated:YES completion:^{
-        [apvc.player play];
+//        [apvc.player play];
     }];
 }
 

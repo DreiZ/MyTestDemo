@@ -1272,7 +1272,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
     // Show
     [self presentViewController:apvc animated:YES completion:^{
-        [apvc.player play];
+//        [apvc.player play];
     }];
 
 }
