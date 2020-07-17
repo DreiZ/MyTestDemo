@@ -85,7 +85,7 @@
 
 #define ImageCacheFolderOfVideo      @"videoFolder"
 
-#define AliYunSnapshotOfVideo        @"?x-oss-process=video/snapshot,t_10000,m_fast"
+#define AliYunSnapshotOfVideo        @"?x-oss-process=video/snapshot,t_1000,m_fast,ar_auto"
 #elif TestSever
 
 #pragma mark - /**开发服务器*/

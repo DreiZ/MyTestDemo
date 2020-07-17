@@ -447,8 +447,14 @@ static ZImagePickerManager *sharedImagePickerManager;
             model.asset = _selectedAssets[idx];
             model.image = obj;
             model.isVideo = YES;
-            if (asset.duration > 600) {
-                [TLUIUtility showAlertWithTitle:@"视频不得大于600秒"];
+            if (asset.duration > 60) {
+                [TLUIUtility showAlertWithTitle:@"视频时长不得大于1分钟"];
+                if (self.imageBackBlock) {
+                    self.imageBackBlock(@[]);
+                }
+                return;
+            }else if(asset.duration < 5){
+                [TLUIUtility showAlertWithTitle:@"视频时长不得小于5秒"];
                 if (self.imageBackBlock) {
                     self.imageBackBlock(@[]);
                 }

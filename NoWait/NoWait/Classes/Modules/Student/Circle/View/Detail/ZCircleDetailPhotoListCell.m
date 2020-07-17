@@ -146,7 +146,7 @@
     if (imagesCount == 0) {
         return CGSizeMake(0, 0);
     }else if(imagesCount == 1){
-        return CGSizeMake(KScreenWidth - CGFloatIn750(60) - CGFloatIn750(20) - 0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(40)) * (195.0/325.0));
+        return CGSizeMake(KScreenWidth - CGFloatIn750(60) - CGFloatIn750(40) - 0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(40)) * (195.0/325.0));
     }else if(imagesCount == 2 || imagesCount == 4){
         return CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(40) - CGFloatIn750(8))/2 - 0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(40) - CGFloatIn750(8))/2);
     }else if(imagesCount == 3){

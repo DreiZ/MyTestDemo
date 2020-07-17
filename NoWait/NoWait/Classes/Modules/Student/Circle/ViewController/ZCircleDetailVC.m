@@ -190,7 +190,7 @@
                     if (self.isNoData) {
                         ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
-                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+//                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
                     }
                 }else{
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无喜欢"];
@@ -205,7 +205,7 @@
                     if (self.isNoData) {
                         ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
-                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+//                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
                     }
                 }else{
                     ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"noLike" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(460) cellType:ZCellTypeClass dataModel:@"暂无评价"];

@@ -74,7 +74,7 @@
 //    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //    //        [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
 //    }];
-//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"mov" inDirectory:nil];
+//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"MOV" inDirectory:nil];
 //    for (id item in videos) {
 //        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
 //    }

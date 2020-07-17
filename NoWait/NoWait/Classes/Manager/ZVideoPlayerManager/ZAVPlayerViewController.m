@@ -43,7 +43,6 @@
     _hookAVPlaySingleTap = [UIGestureRecognizerTarget aspect_hookSelector:@selector(_sendActionWithGestureRecognizer:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo>info,UIGestureRecognizer *gest){
         
         if (gest.numberOfTouches == 1) {
-            NSLog(@"*****************");
             //AVVolumeButtonControl
             if (!self.volumeSuperView) {
                 UIView *view = [gest.view findViewByClassName:@"AVVolumeButtonControl"];
@@ -52,7 +51,7 @@
                         view = view.superview;
                         if ([view isKindOfClass:[NSClassFromString(@"AVTouchIgnoringView") class]]) {
                             self.volumeSuperView = view;
-                            NSLog(@"*****************%@",view.className);
+                            DLog(@"*****************%@",view.className);
                             [view HF_addObserverForKeyPath:@"hidden" block:^(__weak id object, id oldValue, id newValue) {
                                 DLog(@"newValue ==%@",newValue);
                                 
