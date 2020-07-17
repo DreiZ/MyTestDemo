@@ -200,12 +200,7 @@
     }
     
     if (isVideo(model.cover.url)) {
-
-        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.cover.url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
-            
-        } complete:^(UIImage *image) {
-            self.coverImageView.image = image;
-        }];
+        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)]];
     }else{
         [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
     }

@@ -104,6 +104,10 @@ NSString *imageFullUrl(NSString *url) {
     return [NSString stringWithFormat:@"%@/%@",URL_file,url];
 }
 
+NSString *aliyunVideoFullUrl(NSString *url) {
+    return [NSString stringWithFormat:@"%@%@",url,AliYunSnapshotOfVideo];
+}
+
 ZCellConfig *getEmptyCellWithHeight(CGFloat height){
     ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZSpaceEmptyCell className] title:[ZSpaceEmptyCell className] showInfoMethod:@selector(setBackColor:) heightOfCell:height cellType:ZCellTypeClass dataModel:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
     return cellConfig;

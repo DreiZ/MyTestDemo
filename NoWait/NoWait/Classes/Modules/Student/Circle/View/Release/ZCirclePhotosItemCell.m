@@ -141,12 +141,7 @@
         self.detailImageView.image = model.image;
     }else if(model.image_url){
         if (isVideo(model.image_url)) {
-            
-            [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.image_url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
-                
-            } complete:^(UIImage *image) {
-                self.detailImageView.image = image;
-            }];
+            [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.image_url)]];
         }else{
             [self.detailImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.image_url)]];
         }

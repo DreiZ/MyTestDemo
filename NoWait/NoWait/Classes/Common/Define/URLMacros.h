@@ -83,7 +83,9 @@
 #define AliYunFilePath                  AliYunPath(@"user_file",@"file")
 #define AliYunUserFilePath              AliYunPath(@"user_avatar",@"user")
 
-#define ImageCacheFolderOfVideo  @"videoFolder"
+#define ImageCacheFolderOfVideo      @"videoFolder"
+
+#define AliYunSnapshotOfVideo        @"?x-oss-process=video/snapshot,t_10000,m_fast"
 #elif TestSever
 
 #pragma mark - /**开发服务器*/

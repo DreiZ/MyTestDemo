@@ -40,6 +40,8 @@ CGFloat safeAreaBottom(void);
 
 NSString *imageFullUrl(NSString *);
 
+NSString *aliyunVideoFullUrl(NSString *url);
+
 ZCellConfig *getEmptyCellWithHeight(CGFloat height);
 
 ZCellConfig *getGrayEmptyCellWithHeight(CGFloat height);

@@ -340,11 +340,8 @@
     
     [_headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     if (isVideo(model.cover.url)) {
-
-        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:model.cover.url] placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
+        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)] placeholderImage:nil options:ZWebImageLowPriority completed:^(UIImage *image, NSError *error, ZImageCacheType cacheType, NSURL *imageURL) {
             
-        } complete:^(UIImage *image) {
-            self.coverImageView.image = image;
         }];
     }else{
         [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)] placeholderImage:nil options:ZWebImageLowPriority completed:^(UIImage *image, NSError *error, ZImageCacheType cacheType, NSURL *imageURL) {

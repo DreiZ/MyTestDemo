@@ -735,12 +735,8 @@ static ZImagePickerManager *sharedImagePickerManager;
             if (isVideo(image)) {
                 model.isVideo = YES;
                 model.mediaURL = [NSURL URLWithString:image];
-                model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
-//                [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:image placeHolderImage:nil placeHolderBlock:^(UIImage *image) {
-//
-//                } complete:^(UIImage *image) {
-//                    model.image = image;
-//                }];
+//                model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
+                model.imageUrlString = aliyunVideoFullUrl(image);
             }else{
                 model.imageUrlString = image;
             }

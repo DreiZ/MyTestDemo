@@ -82,12 +82,7 @@
 }
 - (void)setImage:(NSString *)image {
     if (isVideo(image)) {
-
-        [[ZVideoPlayerManager sharedInstance] getVideoPreViewImageURL:[NSURL URLWithString:image] placeHolderImage:[UIImage imageNamed:@"default_image32"] placeHolderBlock:^(UIImage * image) {
-            self.photoImageView.image = image;
-        } complete:^(UIImage *image) {
-            self.photoImageView.image = image;
-        }];
+        [_photoImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(image)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     }else{
         [_photoImageView tt_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"default_image32"]];
     }
