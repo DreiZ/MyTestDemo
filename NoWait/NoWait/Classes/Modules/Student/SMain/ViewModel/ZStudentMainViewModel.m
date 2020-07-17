@@ -146,6 +146,25 @@
     }];
 }
 
+
++ (void)addDynamicComplaint:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_v1_complaint_dynamic params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                completeBlock(YES, dataModel.message);
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
 + (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners {
     [[ZDBMainStore shareManager] cleanBannder];
     return [[ZDBMainStore shareManager] updateMainBanners:banners];

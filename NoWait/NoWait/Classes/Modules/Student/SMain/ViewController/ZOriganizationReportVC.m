@@ -141,16 +141,40 @@
         if (self.stores_id) {
             [param setObject:self.stores_id forKey:@"stores_id"];
             [param setObject:@"2" forKey:@"object"];
+            if (ValidStr(self.des)) {
+                [param setObject:self.des forKey:@"desc"];
+            }
         }
         if (self.course_id) {
             [param setObject:self.course_id forKey:@"course_id"];
             [param setObject:@"1" forKey:@"object"];
+            if (ValidStr(self.des)) {
+                [param setObject:self.des forKey:@"desc"];
+            }
         }
-        if (ValidStr(self.des)) {
-            [param setObject:self.des forKey:@"desc"];
-        }
-            
         [param setObject:self.model.complaintId forKey:@"type"];
+        if (self.dynamic) {
+            [param setObject:self.dynamic forKey:@"dynamic"];
+            if (ValidStr(self.des)) {
+                [param setObject:self.des forKey:@"explain"];
+            }
+            
+            [TLUIUtility showLoading:nil];
+            [ZStudentMainViewModel addDynamicComplaint:param completeBlock:^(BOOL isSuccess, id data) {
+                [TLUIUtility hiddenLoading];
+                if (isSuccess && data) {
+    //                        [TLUIUtility showAlertWithTitle:data];
+                    [TLUIUtility showSuccessHint:data];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+            return;
+        }
+        
+            
+        
         [TLUIUtility showLoading:nil];
         [ZStudentMainViewModel addComplaint:param completeBlock:^(BOOL isSuccess, id data) {
             [TLUIUtility hiddenLoading];

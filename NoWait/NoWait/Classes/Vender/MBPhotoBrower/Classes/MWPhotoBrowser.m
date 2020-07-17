@@ -13,6 +13,7 @@
 #import "SDImageCache.h"
 #import "UIImage+MWPhotoBrowser.h"
 #import <AVKit/AVKit.h>
+#import "ZAVPlayerViewController.h"
 #define PADDING                  10
 
 static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
@@ -1234,7 +1235,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)_playVideo:(NSURL *)videoURL atPhotoIndex:(NSUInteger)index {
 
-    AVPlayerViewController *apvc = [[AVPlayerViewController alloc] init];
+    ZAVPlayerViewController *apvc = [[ZAVPlayerViewController alloc] init];
     NSURL *remoteURL = videoURL;
     AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
     apvc.player = player;
@@ -1270,7 +1271,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 //                                               object:_currentVideoPlayerViewController.moviePlayer];
 
     // Show
-    [self presentViewController:apvc animated:YES completion:nil];
+    [self presentViewController:apvc animated:YES completion:^{
+        [apvc.player play];
+    }];
 
 }
 

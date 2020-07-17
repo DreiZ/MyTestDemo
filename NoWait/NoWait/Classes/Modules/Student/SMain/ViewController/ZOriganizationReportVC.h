@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *sTitle;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *course_id;
+@property (nonatomic,strong) NSString *dynamic;
 @property (nonatomic,strong) NSString *object;
 @end
 

@@ -36,7 +36,6 @@
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
 @property (nonatomic,strong) ZCircleDetailEvaSectionView *sectionView;
 
-
 @property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
 
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -270,6 +269,10 @@
                     [photos addObject:self.infoModel.image[i]];
                 }
                 if (index < photos.count) {
+                    if (isVideo(photos[index])) {
+                        [[ZVideoPlayerManager sharedInstance] playVideoWithUrl:photos[index] title:@""];
+                        return;
+                    }
                     [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:index];
                 }
             };
@@ -334,8 +337,8 @@
             }else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-    //                rvc.sTitle = self.detailModel.name;
-    //                rvc.stores_id = self.detailModel.schoolID;
+                    rvc.sTitle = weakSelf.infoModel.title;
+                    rvc.dynamic = weakSelf.infoModel.dynamic;
                     [weakSelf.navigationController pushViewController:rvc animated:rvc];
                 }];
             }

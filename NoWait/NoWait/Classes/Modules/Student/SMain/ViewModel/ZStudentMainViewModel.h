@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
        completeBlock:(resultDataBlock)completeBlock;
 
 
++ (void)addDynamicComplaint:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
 //头部
 + (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners;
 

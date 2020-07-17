@@ -639,4 +639,6 @@
 
 //评论动态消息列表
 #define URL_account_v1_comment_dynamic_news_list    @"account/v1/comment/dynamic/news/list"
+//举报
+#define URL_account_v1_complaint_dynamic         @"account/v1/complaint/dynamic"
 #endif /* URLMacros_h */
