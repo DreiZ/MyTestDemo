@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <AVKit/AVKit.h>
 #import "ZFileManager.h"
+#import "ZAVPlayerViewController.h"
 
 static ZVideoPlayerManager *videoPlayerManager;
 
@@ -37,14 +38,25 @@ static ZVideoPlayerManager *videoPlayerManager;
 
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title {
-    AVPlayerViewController *apvc = [[AVPlayerViewController alloc] init];
+    ZAVPlayerViewController *apvc = [[ZAVPlayerViewController alloc] init];
     NSURL *remoteURL = [NSURL URLWithString:url];
     AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
     apvc.player = player;
     apvc.showsPlaybackControls = YES;
-    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    if (@available(iOS 11.0, *)) {
+        apvc.entersFullScreenWhenPlaybackBegins = YES;
+    } else {
+        // Fallback on earlier versions
+    }//开启这个播放的时候支持（全屏）横竖屏哦
+    if (@available(iOS 11.0, *)) {
+        apvc.exitsFullScreenWhenPlaybackEnds = YES;
+    } else {
+        // Fallback on earlier versions
+    }//
+    
+//    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:apvc animated:YES completion:^{
-        
+        [apvc.player play];
     }];
 }
 
