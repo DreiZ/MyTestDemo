@@ -215,7 +215,12 @@
     _nameLabel.text = model.nickname;
        _detailLabel.text = @"喜欢了您的动态";
     _timeLabel.text = model.time;
-    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    if (isVideo(model.cover.url)) {
+        [_circleImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    }else {
+        [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    }
+    
     [ZPublicTool setLineSpacing:CGFloatIn750(12) label:self.detailLabel];
     
     if ([model.sex intValue] == 1) {

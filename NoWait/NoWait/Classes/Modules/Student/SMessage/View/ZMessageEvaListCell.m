@@ -197,7 +197,12 @@
     _model = model;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     
-    [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    if (isVideo(model.cover.url)) {
+        [_circleImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    }else{
+        [_circleImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url] placeholderImage:[UIImage imageNamed:@"default_image32"]];
+    }
+    
     
     _nameLabel.text = model.nickname;
     _timeLabel.text = model.time;

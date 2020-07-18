@@ -180,7 +180,8 @@
             if ([dict objectForKey:@"source_type"] && [dict[@"source_type"] isEqualToString:@"xiangcenter.com"]) {
                 ZQRCodeMode *mainModel = [ZQRCodeMode mj_objectWithKeyValues:dict];
                 NSInteger now = [[NSDate new] timeIntervalSince1970];
-                if (now - [mainModel.timestamp intValue] > 3600*24) {
+                NSLog(@"Date--%@",mainModel.timestamp);
+                if (now - [mainModel.timestamp intValue] > 3600*24*7) {
                     [ZAlertView setAlertWithTitle:@"二维码已过期" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
                         
                     }];

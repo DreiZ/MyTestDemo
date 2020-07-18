@@ -206,7 +206,7 @@
     if (!_classHintLabel) {
         _classHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _classHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
-        _classHintLabel.text = @"此二维码仅供添加线下学员使用";
+        _classHintLabel.text = @"此二维码仅供添加线下学员使用(7天有效)";
         _classHintLabel.numberOfLines = 1;
         _classHintLabel.textAlignment = NSTextAlignmentCenter;
         [_classHintLabel setFont:[UIFont fontSmall]];
@@ -289,7 +289,8 @@
 
 - (void)setModel:(ZOriganizationStudentCodeAddModel *)model {
     _model = model;
-    [_codeImageView tt_setImageWithURL:[NSURL URLWithString:model.url]];
+    [_codeImageView setImageURL:[NSURL URLWithString:model.url]];
+//    [_codeImageView tt_setImageWithURL:[NSURL URLWithString:model.url]];
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _nameLabel.text = model.nick_name;
     _classLabel.text = [NSString stringWithFormat:@"班级：%@",model.class_name];
