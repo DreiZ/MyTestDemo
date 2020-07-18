@@ -11,7 +11,7 @@
 #define btnHeight CGFloatIn750(54)
 #define btnAddWidth CGFloatIn750(48)
 #define leftX CGFloatIn750(30)
-#define labelBack @"   X"
+#define labelBack @"  X"
 
 @interface ZOrganizationCardAddStudentCell ()
 @property (nonatomic,strong) UIView *labelView;
@@ -62,9 +62,9 @@
     for (int i = 0; i< _list.count; i++) {
         ZOriganizationStudentListModel *model = _list[i];
         UIButton *btn = [self getHotSearchBtnItem:i];
-        [btn setTitle:[NSString stringWithFormat:@"%@%@", model.name,labelBack] forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"%@-%@%@", model.name,model.phone,labelBack] forState:UIControlStateNormal];
         [self.labelView addSubview:btn];
-        CGFloat width = [self getTheStringWidth:[NSString stringWithFormat:@"%@%@", model.name,labelBack] font:[UIFont systemFontOfSize:14]];
+        CGFloat width = [self getTheStringWidth:[NSString stringWithFormat:@"%@-%@%@", model.name,model.phone,labelBack] font:[UIFont systemFontOfSize:14]];
         width += btnAddWidth;
         if (offSetX+width > maxWidth) {
             offSetX = leftX;
@@ -119,7 +119,7 @@
         CGFloat offSetY = CGFloatIn750(24);
         for (int i = 0; i< list.count; i++) {
             ZOriganizationStudentListModel *model = list[i];
-            CGFloat width = [self getTheStringWidth:[NSString stringWithFormat:@"%@%@", model.name,labelBack] font:[UIFont systemFontOfSize:14]];
+            CGFloat width = [self getTheStringWidth:[NSString stringWithFormat:@"%@-%@%@", model.name,model.phone,labelBack] font:[UIFont systemFontOfSize:14]];
             width += btnAddWidth;
             if (offSetX+width > maxWidth) {
                 offSetX = leftX;

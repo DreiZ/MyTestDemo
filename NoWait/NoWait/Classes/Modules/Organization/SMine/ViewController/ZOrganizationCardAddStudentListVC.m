@@ -61,7 +61,8 @@
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];
-        ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle").zz_titleLeft(model.name)
+        ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle")
+        .zz_titleLeft([NSString stringWithFormat:@"%@ %@",model.name,model.phone])
         .zz_imageLeft(model.image)
         .zz_cellHeight(CGFloatIn750(90))
         .zz_imageLeftRadius(YES)
