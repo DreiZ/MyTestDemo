@@ -153,13 +153,16 @@
                 edit.hitStr = @"签名只可有汉字字母数字下划线组成，90字节以内";
                 edit.showHitStr = @"你还没有输入任何签名";
                 edit.placeholder = @"请输入签名";
-                edit.text = weakSelf.mineModel.autograph;
+                edit.text = [weakSelf.mineModel.autograph isEqualToString:@"您还没有填写签名"]?@"":weakSelf.mineModel.autograph;
                 edit.handleBlock = ^(NSString *text) {
-                    if (ValidStr(text)) {
-                        weakSelf.mineModel.autograph = text;
-                        weakSelf.headView.model = weakSelf.mineModel;
-                        [weakSelf updateUserInfo:text];
-                    }
+//                    if (ValidStr(text)) {
+//                        weakSelf.mineModel.autograph = text;
+//                        weakSelf.headView.model = weakSelf.mineModel;
+//                        [weakSelf updateUserInfo:text];
+//                    }
+                    weakSelf.mineModel.autograph = SafeStr(text);
+                    weakSelf.headView.model = weakSelf.mineModel;
+                    [weakSelf updateUserInfo:SafeStr(text)];
                 };
                 [weakSelf.navigationController pushViewController:edit animated:YES];
             }else if(index == 5){

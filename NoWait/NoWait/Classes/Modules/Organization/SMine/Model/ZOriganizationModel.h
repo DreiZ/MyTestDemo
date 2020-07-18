@@ -280,6 +280,7 @@
 @property (nonatomic,strong) NSString *url;
 @property (nonatomic,strong) NSString *nick_name;
 @property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *img;
 
 @end
 

@@ -42,6 +42,7 @@
 
 @interface ZBaseNetworkImageBackModel : NSObject
 @property (nonatomic,strong) NSString *url;
+@property (nonatomic,strong) NSString *img;
 @end
 
 @interface ZBaseNetworkBackModel : NSObject

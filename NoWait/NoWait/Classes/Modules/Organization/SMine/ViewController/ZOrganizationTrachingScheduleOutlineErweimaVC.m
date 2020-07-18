@@ -40,13 +40,19 @@
         _codeImageView = [[ZAddClassCodeView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth-CGFloatIn750(60), CGFloatIn750(180) + CGFloatIn750(792) + CGFloatIn750(120) - CGFloatIn750(0))];
         _codeImageView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:SafeStr(weakSelf.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.codeAddModel.teacher_name),SafeStr(weakSelf.codeAddModel.courses_name)] image:weakSelf.codeImageView.userImageView.image url:SafeStr(weakSelf.codeAddModel.url) vc:weakSelf];
+                if (weakSelf.codeAddModel.img) {
+                    UIImage *shortImage = [ZPublicTool snapshotForView:weakSelf.codeImageView.topView];
+                    if (shortImage) {
+                        [[ZUMengShareManager sharedManager] shareUIWithType:index image:shortImage vc:weakSelf];
+                    }
+                }else{
+                    [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:SafeStr(weakSelf.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.codeAddModel.teacher_name),SafeStr(weakSelf.codeAddModel.courses_name)] image:weakSelf.codeImageView.userImageView.image url:SafeStr(weakSelf.codeAddModel.url) vc:weakSelf];
+                }
             }else if (index == 2){
                 UIImage *shortImage = [ZPublicTool snapshotForView:weakSelf.codeImageView.topView];
                 if (shortImage) {
                     [ZPublicTool saveImageToPhoto:shortImage];
                 }
-                
             }else if (index == 1){
                 
             }
@@ -97,7 +103,7 @@
     [ZOriganizationClassViewModel getClassQrcode:@{@"courses_class_id":SafeStr(self.class_id)} completeBlock:^(BOOL isSuccess, NSString *message) {
         weakSelf.loading = NO;
         if (isSuccess) {
-            weakSelf.codeAddModel.url = message;
+            weakSelf.codeAddModel.img = message;
             weakSelf.codeImageView.model = self.codeAddModel;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

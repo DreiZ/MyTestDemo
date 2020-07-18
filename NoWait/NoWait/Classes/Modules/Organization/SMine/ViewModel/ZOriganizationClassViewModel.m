@@ -379,7 +379,7 @@
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
                ZBaseNetworkImageBackModel *model = [ZBaseNetworkImageBackModel mj_objectWithKeyValues:dataModel.data];
             if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, model.url);
+                completeBlock(YES, model.img);
                 return ;
             }else{
                 completeBlock(NO, dataModel.message);

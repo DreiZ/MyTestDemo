@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentMineSettingMineEditVC.h"
+#import "ZAlertView.h"
 
 @interface ZStudentMineSettingMineEditVC ()<UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *userNameTF;
@@ -48,7 +49,14 @@
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     [sureBtn bk_addEventHandler:^(id sender) {
-        if (weakSelf.userNameTF.text > 0) {
+        if ([weakSelf.placeholder isEqualToString:@"请输入签名"]) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(weakSelf.userNameTF.text);
+            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+           return;
+        }
+        if (weakSelf.userNameTF.text.length > 0) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(weakSelf.userNameTF.text);
             }

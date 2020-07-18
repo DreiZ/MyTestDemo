@@ -289,11 +289,26 @@
 
 - (void)setModel:(ZOriganizationStudentCodeAddModel *)model {
     _model = model;
-    [_codeImageView setImageURL:[NSURL URLWithString:model.url]];
+//    [_codeImageView setImageURL:[NSURL URLWithString:model.url]];
 //    [_codeImageView tt_setImageWithURL:[NSURL URLWithString:model.url]];
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:model.teacher_image] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _nameLabel.text = model.nick_name;
     _classLabel.text = [NSString stringWithFormat:@"班级：%@",model.class_name];
     _detailLabel.text = [NSString stringWithFormat:@"课程：%@",model.courses_name];
+    
+    if (model.img) {
+        NSString *str = model.img;
+        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        str = [str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        str = [str substringFromIndex:@"data:image/png;base64,".length];
+        NSString *encodedImageStr = str;
+        NSData *decodedImgData = [[NSData alloc] initWithBase64EncodedString:encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        UIImage *image = [UIImage imageWithData:decodedImgData];
+        self.codeImageView.image = image;
+    }else if(model.url){
+        [_codeImageView tt_setImageWithURL:[NSURL URLWithString:model.url]];
+    }
+    
 }
 @end
