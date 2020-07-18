@@ -23,6 +23,7 @@ static ZVideoPlayerManager *videoPlayerManager;
 @property (nonatomic,strong) AVPlayerLayer *playerLayer2;
 @property (nonatomic,strong) UILabel *sourceVideoSizeLabel;
 @property (nonatomic,strong) UILabel *compressVideoSizeLabel;
+@property (nonatomic,strong) ZAVPlayerViewController *apvc;
 @end
 
 
@@ -38,24 +39,27 @@ static ZVideoPlayerManager *videoPlayerManager;
 
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title {
-    ZAVPlayerViewController *apvc = [[ZAVPlayerViewController alloc] init];
+    if (!_apvc) {
+        _apvc = [[ZAVPlayerViewController alloc] init];
+    }
+    
     NSURL *remoteURL = [NSURL URLWithString:url];
     AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
-    apvc.player = player;
-    apvc.showsPlaybackControls = YES;
+    _apvc.player = player;
+    _apvc.showsPlaybackControls = YES;
     if (@available(iOS 11.0, *)) {
-        apvc.entersFullScreenWhenPlaybackBegins = YES;
+        _apvc.entersFullScreenWhenPlaybackBegins = YES;
     } else {
         // Fallback on earlier versions
     }//开启这个播放的时候支持（全屏）横竖屏哦
     if (@available(iOS 11.0, *)) {
-        apvc.exitsFullScreenWhenPlaybackEnds = YES;
+        _apvc.exitsFullScreenWhenPlaybackEnds = YES;
     } else {
         // Fallback on earlier versions
     }//
     
 //    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-    [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:apvc animated:YES completion:^{
+    [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:_apvc animated:YES completion:^{
 //        [apvc.player play];
     }];
 }

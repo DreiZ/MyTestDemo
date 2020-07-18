@@ -88,6 +88,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.hookAVPlaySingleTap remove];
+    self.player = nil;
 }
 
 - (void)dimissSelf {

@@ -18,6 +18,10 @@
 
 static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
+@interface MWPhotoBrowser ()
+@property (nonatomic,strong) ZAVPlayerViewController *apvc;
+@end
+
 @implementation MWPhotoBrowser
 
 #pragma mark - Init
@@ -1234,23 +1238,24 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)_playVideo:(NSURL *)videoURL atPhotoIndex:(NSUInteger)index {
-
-    ZAVPlayerViewController *apvc = [[ZAVPlayerViewController alloc] init];
+    if (!_apvc) {
+        _apvc = [[ZAVPlayerViewController alloc] init];
+    }
     NSURL *remoteURL = videoURL;
     AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
-    apvc.player = player;
+    _apvc.player = player;
     if (@available(iOS 11.0, *)) {
-        apvc.entersFullScreenWhenPlaybackBegins = YES;
+        _apvc.entersFullScreenWhenPlaybackBegins = YES;
     } else {
         // Fallback on earlier versions
     }//开启这个播放的时候支持（全屏）横竖屏哦
     if (@available(iOS 11.0, *)) {
-        apvc.exitsFullScreenWhenPlaybackEnds = YES;
+        _apvc.exitsFullScreenWhenPlaybackEnds = YES;
     } else {
         // Fallback on earlier versions
     }//
-    apvc.showsPlaybackControls = YES;
-    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    _apvc.showsPlaybackControls = YES;
+    _apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     
 //
 //    // Setup player
@@ -1271,7 +1276,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 //                                               object:_currentVideoPlayerViewController.moviePlayer];
 
     // Show
-    [self presentViewController:apvc animated:YES completion:^{
+    [self presentViewController:_apvc animated:YES completion:^{
 //        [apvc.player play];
     }];
 
