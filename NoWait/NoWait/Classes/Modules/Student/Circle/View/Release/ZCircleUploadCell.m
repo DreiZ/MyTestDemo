@@ -285,7 +285,7 @@
 
 #pragma mark - set loading view
 -(void)showLoadingAnimation{
-    
+    [XLPaymentErrorHUD hideIn:self.bottomBackView];
     //隐藏支付完成动画
     [XLPaymentSuccessHUD hideIn:self.bottomBackView];
     //显示支付中动画
@@ -293,7 +293,7 @@
 }
 
 -(void)showSuccessAnimation{
-    
+    [XLPaymentErrorHUD hideIn:self.bottomBackView];
     //隐藏支付中成动画
     [XLPaymentLoadingHUD hideIn:self.bottomBackView];
     //显示支付完成动画
@@ -301,6 +301,7 @@
 }
 
 -(void)showErrorAnimation{
+    [XLPaymentSuccessHUD hideIn:self.bottomBackView];
     //隐藏支付中成动画
     [XLPaymentLoadingHUD hideIn:self.bottomBackView];
     //显示支付完成动画

@@ -36,46 +36,6 @@
 //        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
-    Class UIGestureRecognizerTarget = NSClassFromString(@"UIGestureRecognizerTarget");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-
-    _hookAVPlaySingleTap = [UIGestureRecognizerTarget aspect_hookSelector:@selector(_sendActionWithGestureRecognizer:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo>info,UIGestureRecognizer *gest){
-        
-        if (gest.numberOfTouches == 1) {
-            //AVVolumeButtonControl
-            if (!self.volumeSuperView) {
-                UIView *view = [gest.view findViewByClassName:@"AVVolumeButtonControl"];
-                if (view) {
-                    while (view.superview) {
-                        view = view.superview;
-                        if ([view isKindOfClass:[NSClassFromString(@"AVTouchIgnoringView") class]]) {
-                            self.volumeSuperView = view;
-                            DLog(@"*****************%@",view.className);
-                            [view HF_addObserverForKeyPath:@"hidden" block:^(__weak id object, id oldValue, id newValue) {
-                                DLog(@"newValue ==%@",newValue);
-                                
-                                if ([[NSString stringWithFormat:@"%@",newValue] intValue] == 0) {
-                                    self.isControllHidden = NO;
-                                }else{
-                                    self.isControllHidden = YES;
-                                }
-                            }];
-                            break;
-                        }
-                    }
-                }
-            }else{
-                if (self.isControllHidden) {
-                    if (gest.state == UIGestureRecognizerStateBegan) {
-                        [self.player pause];
-                        self.isPlay = NO;
-                    }
-                }
-            }
-        }
-    } error:nil];
-
 //    if (self.readyForDisplay) {
 //        [self.player play];
 //    }
@@ -83,6 +43,45 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+     Class UIGestureRecognizerTarget = NSClassFromString(@"UIGestureRecognizerTarget");
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
+
+        _hookAVPlaySingleTap = [UIGestureRecognizerTarget aspect_hookSelector:@selector(_sendActionWithGestureRecognizer:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo>info,UIGestureRecognizer *gest){
+            
+            if (gest.numberOfTouches == 1) {
+                //AVVolumeButtonControl
+                if (!self.volumeSuperView) {
+                    UIView *view = [gest.view findViewByClassName:@"AVVolumeButtonControl"];
+                    if (view) {
+                        while (view.superview) {
+                            view = view.superview;
+                            if ([view isKindOfClass:[NSClassFromString(@"AVTouchIgnoringView") class]]) {
+                                self.volumeSuperView = view;
+                                DLog(@"*****************%@",view.className);
+                                [view HF_addObserverForKeyPath:@"hidden" block:^(__weak id object, id oldValue, id newValue) {
+                                    DLog(@"newValue ==%@",newValue);
+                                    
+                                    if ([[NSString stringWithFormat:@"%@",newValue] intValue] == 0) {
+                                        self.isControllHidden = NO;
+                                    }else{
+                                        self.isControllHidden = YES;
+                                    }
+                                }];
+                                break;
+                            }
+                        }
+                    }
+                }else{
+                    if (self.isControllHidden) {
+                        if (gest.state == UIGestureRecognizerStateBegan) {
+                            [self.player pause];
+                            self.isPlay = NO;
+                        }
+                    }
+                }
+            }
+        } error:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
