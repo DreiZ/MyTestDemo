@@ -268,6 +268,7 @@
     };
     model.errorBlock = ^(NSError *error) {
         [self showErrorAnimation];
+        self.reUploadBtn.hidden = NO;
     };
     
     if (model.uploadStatus == ZCircleUploadStatusComplete) {

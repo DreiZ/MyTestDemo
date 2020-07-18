@@ -287,6 +287,8 @@
                 [self updateData:obj imageUrlArr:images];
             }
         }];
+    }else{
+        [self updateData:obj imageUrlArr:@[]];
     }
 }
 @end

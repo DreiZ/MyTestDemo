@@ -139,7 +139,7 @@
                 [section1Arr addObject:addressCellConfig];
             }
         }
-        {
+        if(ValidStr(self.infoModel.content)){
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
             .zz_cellHeight(CGFloatIn750(42))
             .zz_lineHidden(YES)

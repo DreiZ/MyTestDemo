@@ -322,13 +322,16 @@
                 [TLUIUtility showInfoHint:@"请添加图片或视频"];
                 return;
             }
-            if (!ValidStr(weakSelf.releaseViewModel.model.content)) {
-                [TLUIUtility showInfoHint:@"请添加正文"];
-                return;
-            }
+//            if (!ValidStr(weakSelf.releaseViewModel.model.content)) {
+//                [TLUIUtility showInfoHint:@"请添加正文"];
+//                return;
+//            }
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:weakSelf.releaseViewModel.model.title forKey:@"title"];
-            [params setObject:weakSelf.releaseViewModel.model.content forKey:@"content"];
+            
+            if (ValidStr(weakSelf.releaseViewModel.model.content)) {
+                [params setObject:weakSelf.releaseViewModel.model.content forKey:@"content"];
+            }
             
             if (ValidStr(weakSelf.releaseViewModel.model.province) && ValidStr(weakSelf.releaseViewModel.model.city) &&
                 ValidStr(weakSelf.releaseViewModel.model.county) &&
