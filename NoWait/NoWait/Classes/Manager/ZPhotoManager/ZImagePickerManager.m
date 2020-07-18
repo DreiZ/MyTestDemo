@@ -142,7 +142,7 @@ static ZImagePickerManager *sharedImagePickerManager;
     }
     imagePickerVc.allowTakePicture = self.showTakePhoto; // 在内部显示拍照按钮
     imagePickerVc.allowTakeVideo = self.showTakeVideo;   // 在内部显示拍视频按
-    imagePickerVc.videoMaximumDuration = 15; // 视频最大拍摄时间
+    imagePickerVc.videoMaximumDuration = 60; // 视频最大拍摄时间
     [imagePickerVc setUiImagePickerControllerSettingBlock:^(UIImagePickerController *imagePickerController) {
         imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
     }];
