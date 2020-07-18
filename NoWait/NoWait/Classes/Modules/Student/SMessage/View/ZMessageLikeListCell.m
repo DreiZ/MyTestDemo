@@ -188,6 +188,8 @@
     if (!_circleImageView) {
         _circleImageView = [[UIImageView alloc] init];
         _circleImageView.image = [UIImage imageNamed:@"default_loadFail276"];
+        _circleImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _circleImageView.clipsToBounds = YES;
     }
     return _circleImageView;
 }
