@@ -136,7 +136,7 @@
 
 - (void)addReport{
     __weak typeof(self) weakSelf = self;
-    [ZAlertView setAlertWithTitle:@"提示" subTitle:[NSString stringWithFormat:@"确定举报 %@ %@",self.sTitle,self.model.type] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+    [ZAlertView setAlertWithTitle:@"提示" subTitle:[NSString stringWithFormat:@"确定举报(%@) %@",self.sTitle,self.model.type] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
         NSMutableDictionary *param = @{}.mutableCopy;
         if (self.stores_id) {
             [param setObject:self.stores_id forKey:@"stores_id"];

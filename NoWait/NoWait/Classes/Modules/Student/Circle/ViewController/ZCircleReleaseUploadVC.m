@@ -131,11 +131,12 @@
             
             ZViewController *target;
             for (ZViewController *controller in reversedArray) {
-                if ([controller isKindOfClass:[NSClassFromString(@"ZCircleViewController") class]]) {
+                if ([controller isKindOfClass:[NSClassFromString(@"ZCircleMineCollectionVC") class]]) {
                     target = controller;
                     break;
-                }else if ([controller isKindOfClass:[NSClassFromString(@"ZStudentOrganizationDetailDesVC") class]]){
+                }else if ([controller isKindOfClass:[NSClassFromString(@"ZCircleViewController") class]]){
                     target = controller;
+                    break;
                 }
             }
             
