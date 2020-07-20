@@ -248,7 +248,7 @@
     }else{
         height = list.count/3  * w + (list.count/3 - 1)  * CGFloatIn750(4) + CGFloatIn750(40);
     }
-    return height + CGFloatIn640(200);
+    return height + CGFloatIn750(200);
 }
 
 - (void)setModel:(ZCircleUploadModel *)model {
