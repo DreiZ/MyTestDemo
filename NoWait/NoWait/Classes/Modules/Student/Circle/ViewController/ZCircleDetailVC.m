@@ -26,6 +26,7 @@
 
 #import <IQKeyboardManager.h>
 #import "XHInputView.h"
+#import "ZAlertView.h"
 
 #import "ZOriganizationReportVC.h"
 #import "ZCircleMineCollectionVC.h"
@@ -302,6 +303,10 @@
                 ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
                 cvc.account = model.account;
                 [weakSelf.navigationController pushViewController:cvc animated:YES];
+            };
+            
+            lcell.delBlock = ^(ZCircleDynamicEvaModel *model) {
+                [weakSelf delEvaDynamic:model];
             };
         }
         
@@ -691,4 +696,38 @@
         }
     }];
 }
+
+- (void)delEvaDynamic:(ZCircleDynamicEvaModel *)model {
+    [ZAlertView setAlertWithTitle:@"提示" subTitle:@"确定删除此评论？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+        if (index == 1) {
+            __weak typeof(self) weakSelf = self;
+            [ZCircleMineViewModel delEvaDynamic:@{@"dynamic":SafeStr(self.dynamic),@"id":SafeStr(model.eva_id)} completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:data];
+                    for (int i = 0; i < weakSelf.evaList.count; i++) {
+                        ZCircleDynamicEvaModel *smodel = weakSelf.evaList[i];
+                        if ([model.eva_id isEqualToString:smodel.eva_id]) {
+                            [weakSelf.evaList removeObject:smodel];
+                            break;
+                        }
+                    }
+                    
+                    weakSelf.infoModel.comment_number = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.comment_number intValue]-1];
+                    if ([weakSelf.infoModel.comment_number intValue] < 0) {
+                        weakSelf.infoModel.comment_number = @"0";
+                    }
+                    weakSelf.bottomView.model = weakSelf.infoModel;
+                    
+                    [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+                    if (!weakSelf.isLike) {
+                        weakSelf.zChain_reload_Net();
+                    }
+                }else{
+                    [TLUIUtility showInfoHint:data];
+                }
+            }];
+        }
+    }];
+}
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "ZCircleDetailEvaListCell.h"
-
+#import "ZCircleDetailEvaDelCell.h"
 #import "ZOrganizationEvaListUserInfoCell.h"
 
 @interface ZCircleDetailEvaListCell ()<UITableViewDelegate, UITableViewDataSource>
@@ -78,7 +78,14 @@
         lcell.crView.hidden = YES;
         lcell.userBlock = ^{
             if (weakSelf.userBlock) {
-                weakSelf.userBlock(self.model);
+                weakSelf.userBlock(weakSelf.model);
+            }
+        };
+    }else if([cellConfig.title isEqualToString:@"delCell"]){
+        ZCircleDetailEvaDelCell *lcell = (ZCircleDetailEvaDelCell *)cell;
+        lcell.delBlock = ^{
+            if (weakSelf.delBlock) {
+                weakSelf.delBlock(weakSelf.model);
             }
         };
     }
@@ -129,6 +136,9 @@
             cellHeight += [ZBaseLineCell z_getCellHeight:model];
         }
         cellHeight += CGFloatIn750(10);
+        if ([ZUserHelper sharedHelper].user && [evaModel.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+            cellHeight += [ZCircleDetailEvaDelCell z_getCellHeight:nil];
+        }
     }
     
     
@@ -167,6 +177,12 @@
         
         [self.cellConfigArr  addObject:menuCellConfig];
     }
+    
+    if ([ZUserHelper sharedHelper].user && [_model.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+        ZCellConfig *delCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaDelCell className] title:@"delCell" showInfoMethod:nil heightOfCell:[ZCircleDetailEvaDelCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+        [self.cellConfigArr  addObject:delCellConfig];
+    }
+    
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
 }
 

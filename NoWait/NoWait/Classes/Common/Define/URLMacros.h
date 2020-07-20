@@ -645,4 +645,8 @@
 
 //删除动态
 #define URL_account_v1_dynamics_remove           @"account/v1/dynamics/remove"
+
+//删除动态
+#define URL_account_v1_remove_dynamic_comment           @"account/v1/remove/dynamic/comment"
+
 #endif /* URLMacros_h */
