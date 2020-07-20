@@ -371,6 +371,7 @@
                 if (model.taskType == ZUploadTypeVideo) {
                     isVideo = YES;
                 }
+//                NSLog(@"-------%@",model.asset.localIdentifier);
                 model.type = @"10";
             }
             ZCircleUploadModel *umodel = [[ZCircleUploadModel alloc] init];

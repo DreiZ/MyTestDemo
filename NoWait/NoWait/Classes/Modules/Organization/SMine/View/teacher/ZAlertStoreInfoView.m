@@ -9,6 +9,7 @@
 #import "ZAlertStoreInfoView.h"
 #import "AppDelegate.h"
 #import "ZPublicTool.h"
+#import "ZOrganizationNoDataCell.h"
 
 @interface ZAlertStoreInfoView ()<UITableViewDelegate, UITableViewDataSource,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
@@ -167,6 +168,15 @@ static ZAlertStoreInfoView *sharedManager;
          ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
          [self.cellConfigArr  addObject:menuCellConfig];
+    }else{
+        CGFloat height = KScreenHeight - CGFloatIn750(750) -  CGFloatIn750(30);
+
+        CGFloat topContViewHeight = CGFloatIn750(750);
+        if (height < CGFloatIn750(60)) {
+            topContViewHeight = - CGFloatIn750(88);
+        }
+        ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:topContViewHeight cellType:ZCellTypeClass dataModel:@"4"];
+        [self.cellConfigArr addObject:coachCellConfig];
     }
     
 }
