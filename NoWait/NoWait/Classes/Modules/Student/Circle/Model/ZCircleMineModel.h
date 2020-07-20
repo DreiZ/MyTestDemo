@@ -69,7 +69,7 @@
 @property (nonatomic,copy) NSString *enjoy_status;
 @property (nonatomic,copy) NSString *has_video;// 是否有视频 0：否  1：是
 @property (nonatomic,copy) NSString *is_many_image; // 是否是多图  0：否  1：是
-
+@property (nonatomic,copy) NSString *remove;
 //首页
 @property (nonatomic,copy) NSString *address;
 @property (nonatomic,copy) NSString *image;

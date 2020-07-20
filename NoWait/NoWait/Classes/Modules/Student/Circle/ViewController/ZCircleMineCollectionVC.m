@@ -207,12 +207,14 @@
     if ([cellConfig.title isEqualToString:@"ZCircleMineDynamicCollectionCell"]) {
         ZCircleMineDynamicCollectionCell *lcell = (ZCircleMineDynamicCollectionCell *)cell;
         lcell.handleBlock = ^(ZCircleMineDynamicModel *model) {
-            if (!weakSelf.account || [weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
-                [ZAlertView setAlertWithTitle:@"提示" subTitle:@"删除此动态？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
-                    if (index == 1) {
-                        [weakSelf removeDynamic:model.dynamic];
-                    }
-                }];
+            if (!weakSelf.isLike) {
+                if (!weakSelf.account || [weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID]) {
+                    [ZAlertView setAlertWithTitle:@"提示" subTitle:@"删除此动态？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                        if (index == 1) {
+                            [weakSelf removeDynamic:model.dynamic];
+                        }
+                    }];
+                }
             }
         };
     }
@@ -221,9 +223,23 @@
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleMineDynamicCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-        dvc.dynamic = model.dynamic;
-        [self.navigationController pushViewController:dvc animated:YES];
+        if ([model.remove intValue] == 1) {
+            if ([[ZUserHelper sharedHelper].user.userCodeID isEqualToString:self.mineModel.account]) {
+                [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"动态已被删除，是否取消喜欢？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                    if (index == 1) {
+                        [self cancleEnjoyDynamic:model];
+                    }
+                }];
+            }else{
+                [ZAlertView setAlertWithTitle:@"小提醒" subTitle:@"动态已被删除" btnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }
+        }else{
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            dvc.dynamic = model.dynamic;
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
     }
 }
 
@@ -432,4 +448,20 @@
     }];
 }
 
+- (void)cancleEnjoyDynamic:(ZCircleMineDynamicModel *)model {
+    __weak typeof(self) weakSelf = self;
+    [ZCircleMineViewModel cancleEnjoyDynamic:@{@"dynamic":SafeStr(model.dynamic)} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            weakSelf.mineModel.enjoy = [NSString stringWithFormat:@"%d",[weakSelf.mineModel.enjoy intValue] - 1];
+            
+            [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
+            
+            [weakSelf.dataSources removeObject:model];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iCollectionView reloadData];
+        }else{
+            [TLUIUtility showInfoHint:data];
+        }
+    }];
+}
 @end
