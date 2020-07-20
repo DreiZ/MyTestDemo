@@ -11,6 +11,7 @@
 #import "XYTransition.h"
 #import "UIColor+YYAdd.h"
 #import "ZViewController.h"
+#import "ZCircleReleaseUploadVC.h"
 
 @interface ZNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -99,6 +100,11 @@
 
 //根视图禁用右划返回
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (self.childViewControllers.count > 1) {
+        if ([self.childViewControllers.lastObject isKindOfClass:[ZCircleReleaseUploadVC class]]) {
+            return NO;
+        }
+    }
     return self.childViewControllers.count == 1 ? NO : YES;
 }
 

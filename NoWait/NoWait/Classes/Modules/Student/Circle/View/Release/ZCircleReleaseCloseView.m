@@ -49,7 +49,7 @@
     
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(closeBtn.mas_left).offset(CGFloatIn750(20));
+        make.left.equalTo(closeBtn.mas_right).offset(CGFloatIn750(20));
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(110));
         make.centerY.equalTo(self.mas_centerY);
     }];
