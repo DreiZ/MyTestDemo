@@ -20,7 +20,7 @@
 #import "ZOrganizationSendMessageVC.h"
 
 @interface ZOrganizationStudentManageVC ()
-
+@property (nonatomic,copy) NSString *total;
 
 @end
 
@@ -46,11 +46,25 @@
 - (void)setDataSource {
     [super setDataSource];
     _param = @{}.mutableCopy;
+    _total = @"0";
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
+    {
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
+        .zz_lineHidden(YES)
+        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",self.total])
+        .zz_fontLeft([UIFont fontContent])
+        .zz_colorLeft([UIColor colorMain])
+        .zz_marginLeft(CGFloatIn750(50))
+        .zz_colorDarkLeft([UIColor colorMain])
+        .zz_cellHeight(CGFloatIn750(80));
+        
+         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+
+         [self.cellConfigArr  addObject:menuCellConfig];
+    }
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];
         model.isEdit = self.isEdit;
@@ -468,6 +482,7 @@
     [ZOriganizationStudentViewModel getStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
+            weakSelf.total = data.total;
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
@@ -496,6 +511,7 @@
     [ZOriganizationStudentViewModel getStudentList:self.param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
+            weakSelf.total = data.total;
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];

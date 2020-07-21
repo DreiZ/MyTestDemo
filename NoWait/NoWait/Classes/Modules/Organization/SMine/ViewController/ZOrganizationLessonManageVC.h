@@ -10,6 +10,7 @@
 #import <WMPageController.h>
 #import "ZOriganizationModel.h"
 @interface ZOrganizationLessonManageVC : WMPageController
- 
+@property (nonatomic,strong) NSString *stores_id;
+
 @end
 

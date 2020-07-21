@@ -62,7 +62,7 @@ static ZOrganizationTopFilterView *sharedManager;
     
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(CGFloatIn750(472 + 88));
+        make.height.mas_equalTo(CGFloatIn750(602 + 88));
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
         make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(290));
@@ -234,7 +234,7 @@ static ZOrganizationTopFilterView *sharedManager;
         model.isHiddenLine = YES;
         model.data = listModel;
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(80) cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr addObject:menuCellConfig];
     }

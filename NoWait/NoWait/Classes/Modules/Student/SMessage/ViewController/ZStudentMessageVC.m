@@ -256,6 +256,7 @@
         case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
             {
                 ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
+                mvc.stores_id = model.extra.stores_id;
                 [self.navigationController pushViewController:mvc animated:YES];
             }
                 break;

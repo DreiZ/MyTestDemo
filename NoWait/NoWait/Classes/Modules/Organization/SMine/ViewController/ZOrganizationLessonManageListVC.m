@@ -190,24 +190,29 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
-       switch (self.type) {
-           case ZOrganizationLessonTypeOpen:
-               [param setObject:@"1" forKey:@"status"];
-               break;
-               case ZOrganizationLessonTypeClose:
-               [param setObject:@"2" forKey:@"status"];
-               break;
-               case ZOrganizationLessonTypeExamineFail:
-               [param setObject:@"3" forKey:@"status"];
-               break;
-               case ZOrganizationLessonTypeAll:
-               [param setObject:@"0" forKey:@"status"];
-               break;
-               
-           default:
-               break;
-       }
+    if (self.stores_id) {
+        [param setObject:self.stores_id forKey:@"stores_id"];
+    }else{
+        [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
+    }
+       
+    switch (self.type) {
+       case ZOrganizationLessonTypeOpen:
+           [param setObject:@"1" forKey:@"status"];
+           break;
+           case ZOrganizationLessonTypeClose:
+           [param setObject:@"2" forKey:@"status"];
+           break;
+           case ZOrganizationLessonTypeExamineFail:
+           [param setObject:@"3" forKey:@"status"];
+           break;
+           case ZOrganizationLessonTypeAll:
+           [param setObject:@"0" forKey:@"status"];
+           break;
+           
+       default:
+           break;
+    }
     return param;
 }
 
