@@ -12,6 +12,7 @@
 #import "ZCircleSectionView.h"
 #import "ZCircleHotSectionView.h"
 #import "WSLWaterFlowLayout.h"
+#import "ZNoDataCollectionViewCell.h"
 
 #import "ZCircleReleaseViewModel.h"
 #import "ZCircleMineViewModel.h"
@@ -82,9 +83,15 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    
-    for (int i = 0; i < self.dataSources.count; i++) {
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+    if (ValidArray(self.dataSources)) {
+        for (int i = 0; i < self.dataSources.count; i++) {
+            ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            
+            [self.cellConfigArr addObject:cellConfig];
+        }
+    }else{
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZNoDataCollectionViewCell className] title:[ZNoDataCollectionViewCell className] showInfoMethod:@selector(setTitle:) sizeOfCell:CGSizeMake((KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10))-0.5, (KScreenWidth - CGFloatIn750(60) - CGFloatIn750(10)) *(160.0f)/(142.0)) cellType:ZCellTypeClass dataModel:@"暂无动态"];
+        
         
         [self.cellConfigArr addObject:cellConfig];
     }
@@ -147,7 +154,10 @@
 
 /** 列数*/
 -(CGFloat)columnCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{
-    return 2;
+    if (ValidArray(self.dataSources)) {
+        return 2;
+    }
+    return 1;
 }
 ///** 行数*/
 //-(CGFloat)rowCountInWaterFlowLayout:(WSLWaterFlowLayout *)waterFlowLayout{

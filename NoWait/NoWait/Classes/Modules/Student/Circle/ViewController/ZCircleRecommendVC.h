@@ -11,5 +11,7 @@
 
 @interface ZCircleRecommendVC : ZCollectionViewController
 @property (nonatomic,assign) BOOL isAttention;
+@property (nonatomic,copy) NSString *stores_id;
+@property (nonatomic,copy) NSString *stores_name;
 @end
 

@@ -69,20 +69,20 @@
     
     [ZPublicTool checkUpdateVersion];
     
-    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
-
-    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        DLog(@"filezzz :%@",obj);
-            [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-    }];
-    {
-        NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"temp"];
-
-        [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            DLog(@"filezzz :%@",obj);
-                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-        }];
-    }
+//    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
+//
+//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        DLog(@"filezzz :%@",obj);
+//            [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//    }];
+//    {
+//        NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"temp"];
+//
+//        [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            DLog(@"filezzz :%@",obj);
+//                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//        }];
+//    }
 //    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"mov" inDirectory:nil];
 //    for (id item in videos) {
 //        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);

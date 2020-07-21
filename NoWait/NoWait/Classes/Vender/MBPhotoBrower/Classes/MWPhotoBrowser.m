@@ -1241,6 +1241,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     if (!_apvc) {
         _apvc = [[ZAVPlayerViewController alloc] init];
     }
+    _apvc.showsPlaybackControls = YES;
     NSURL *remoteURL = videoURL;
     AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
     _apvc.player = player;
@@ -1255,7 +1256,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         // Fallback on earlier versions
     }//
     _apvc.showsPlaybackControls = YES;
-    _apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+//    _apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     
 //
 //    // Setup player

@@ -38,6 +38,9 @@
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
     [self setCollectionViewGaryBack];
+    if (self.stores_name) {
+        [self.navigationItem setTitle:self.stores_name];
+    }
 }
 
 - (void)setDataSource {
@@ -231,6 +234,9 @@
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [self.param setObject:@"10" forKey:@"page_size"];
+    if (self.stores_id) {
+        [self.param setObject:self.stores_id forKey:@"stores_id"];
+    }
     
     [self setLocationParams];
 }

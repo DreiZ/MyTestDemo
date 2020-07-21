@@ -28,8 +28,9 @@
     }];
     
     [self.noDataLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+//        make.left.equalTo(self.mas_left).offset(CGFloatIn750(30));
+//        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.centerX.equalTo(self.noDataImageView.mas_centerX);
         make.top.equalTo(self.noDataImageView.mas_bottom).offset(CGFloatIn750(30));
     }];
 }

@@ -868,7 +868,7 @@
     }
     [TLUIUtility showLoading:@"上传封面图片中"];
     __weak typeof(self) weakSelf = self;
-    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"coverImage":self.viewModel.addModel.image_url}} completeBlock:^(BOOL isSuccess, NSString *message) {
+    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"2",@"imageKey":@{@"file":self.viewModel.addModel.image_url}} completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             weakSelf.viewModel.addModel.image_net_url = message;
             [weakSelf updatePhotosStep1WithOtherParams:otherDict];

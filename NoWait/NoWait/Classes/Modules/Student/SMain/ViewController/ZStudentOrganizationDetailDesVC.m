@@ -31,6 +31,7 @@
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZOriganizationReportVC.h"
 #import "ZStudentOrganizationDetailDesShareVC.h"
+#import "ZCircleRecommendVC.h"
 
 #import "ZStudentLessonSelectMainOrderView.h"
 
@@ -47,7 +48,7 @@
 
 @interface ZStudentOrganizationDetailDesVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
-
+@property (nonatomic,strong) UIButton *dynamicBtn;
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
 @property (nonatomic,strong) ZStudentLessonSelectMainOrderView *selectView;
 @property (nonatomic,strong) ZStoresDetailModel *detailModel;
@@ -78,6 +79,13 @@
         [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(88) + safeAreaBottom());
+        }];
+        
+        [self.view addSubview:self.dynamicBtn];
+        [self.dynamicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+            make.width.height.mas_equalTo(CGFloatIn750(90));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(-30));
         }];
         
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -276,6 +284,24 @@
     }
     return _navRightBtn;
 }
+
+
+- (UIButton *)dynamicBtn {
+    if (!_dynamicBtn) {
+        __weak typeof(self) weakSelf = self;
+        _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(90))];
+        _dynamicBtn.backgroundColor = [UIColor colorMain];
+        ViewRadius(_dynamicBtn, CGFloatIn750(45));
+        [_dynamicBtn bk_addEventHandler:^(id sender) {
+            ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
+            rvc.stores_id = weakSelf.detailModel.schoolID;
+            rvc.stores_name = weakSelf.detailModel.name;
+            [weakSelf.navigationController pushViewController:rvc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _dynamicBtn;
+}
+
 
 - (NSMutableDictionary *)param {
     if (!_param) {
