@@ -22,9 +22,14 @@
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 #import "ZCircleReleaseVideoUploadVC.h"
 #import "ZCircleReleaseUploadVC.h"
+#import "ZAgreementVC.h"
 
 @interface ZCircleReleaseVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) UIView *agreementBottomView;
+@property (nonatomic,strong) YYLabel *protocolLabel;
+@property (nonatomic,strong) UIImageView *agreementView;
+
 @property (nonatomic,strong) ZCircleReleaseCloseView *closeView;
 @property (nonatomic,strong) ZCircleReleaseViewModel *releaseViewModel;
 
@@ -32,6 +37,7 @@
 @property (nonatomic,strong) NSMutableArray *imageArr;
 @property (nonatomic,assign) BOOL isVideo;
 @property (nonatomic,assign) BOOL isUpdate;
+@property (nonatomic,assign) BOOL isAgree;
 @end
 
 @implementation ZCircleReleaseVC
@@ -84,11 +90,20 @@
             make.height.mas_equalTo(CGFloatIn750(100));
         }];
         
+        self.iTableView.tableFooterView = self.agreementBottomView;
+        
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.bottom.equalTo(bottomView.mas_top);
             make.top.equalTo(self.closeView.mas_bottom);
         }];
+        
+        NSString *hadLogin = [[NSUserDefaults standardUserDefaults] objectForKey:@"hadReleaseCircle"];
+       if (hadLogin) {
+           self.isAgree = YES;
+       }else{
+           self.isAgree = NO;
+       }
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
         
@@ -322,6 +337,10 @@
                 [TLUIUtility showInfoHint:@"请添加图片或视频"];
                 return;
             }
+            if (!self.isAgree) {
+                [TLUIUtility showInfoHint:@"请阅读并发布动态协议"];
+                return;
+            }
 //            if (!ValidStr(weakSelf.releaseViewModel.model.content)) {
 //                [TLUIUtility showInfoHint:@"请添加正文"];
 //                return;
@@ -371,7 +390,7 @@
                 if (model.taskType == ZUploadTypeVideo) {
                     isVideo = YES;
                 }
-//                NSLog(@"-------%@",model.asset.localIdentifier);
+
                 model.type = @"10";
 //                [model getFilePath:^(NSString *ll) {
 //
@@ -382,7 +401,9 @@
             umodel.uploadList = uploadArr;
             umodel.otherParams = params;
             umodel.title = self.releaseViewModel.model.title;
-//            return;
+
+            [[NSUserDefaults standardUserDefaults] setObject:@"hadReleaseCircle" forKey:@"hadReleaseCircle"];
+             
             [[ZFileUploadManager sharedInstance].uploadCircleArr insertObject:umodel atIndex:0];
             
             ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
@@ -429,6 +450,89 @@
     return _closeView;
 }
 
+
+- (UIView *)agreementBottomView {
+    if (!_agreementBottomView) {
+        __weak typeof(self) weakSelf = self;
+        _agreementBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(120))];
+        _agreementView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _protocolLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
+        _protocolLabel.layer.masksToBounds = YES;
+        _protocolLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
+        _protocolLabel.numberOfLines = 0;
+        _protocolLabel.textAlignment = NSTextAlignmentCenter;
+        [_protocolLabel setFont:[UIFont fontContent]];
+        [_agreementBottomView addSubview:_protocolLabel];
+        [_protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.agreementBottomView.mas_centerX);
+            make.top.bottom.equalTo(self.agreementBottomView);
+        }];
+        NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"已阅读并同意遵守《服务条款》和《隐私协议》"];
+        text.lineSpacing = 0;
+        text.font = [UIFont fontSmall];
+        text.color = [UIColor colorTextGray];
+        //    __weak typeof(self) weakself = self;
+        
+        [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            avc.navTitle = @"似锦服务条款";
+            avc.type = @"service_agreement";
+            avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
+            [self.navigationController pushViewController:avc animated:YES];
+        }];
+        
+        [text setTextHighlightRange:NSMakeRange(15, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            avc.navTitle = @"隐私协议";
+            avc.type = @"privacy_policy";
+            avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
+            [self.navigationController pushViewController:avc animated:YES];
+        }];
+        
+        
+        _protocolLabel.preferredMaxLayoutWidth = kScreenWidth - CGFloatIn750(60);
+        _protocolLabel.attributedText = text;  //设置富文本
+        [_agreementBottomView addSubview:self.agreementView];
+        [self.agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.protocolLabel.mas_centerY).offset(-CGFloatIn750(0));
+            make.right.equalTo(self.protocolLabel.mas_left).offset(-5);
+            make.width.height.mas_equalTo(CGFloatIn750(32));
+        }];
+        
+        UIButton *agreementBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [agreementBtn bk_addEventHandler:^(id sender) {
+            weakSelf.isAgree = !weakSelf.isAgree;
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        [_agreementBottomView addSubview:agreementBtn];
+        [agreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.agreementBottomView);
+            make.width.mas_equalTo(CGFloatIn750(100));
+            make.centerX.equalTo(self.agreementView.mas_centerX);
+        }];
+    }
+    return _agreementBottomView;
+}
+
+
+- (UIImageView *)agreementView {
+    if (!_agreementView) {
+        _agreementView = [[UIImageView alloc] init];
+        _agreementView.layer.masksToBounds = YES;
+        _agreementView.image = [UIImage imageNamed:@"unSelectedCycle"];
+    }
+    return _agreementView;
+}
+
+- (void)setIsAgree:(BOOL)isAgree {
+    _isAgree = isAgree;
+    
+    if (isAgree) {
+        self.agreementView.image = [UIImage imageNamed:@"selectedCycle"];
+    }else{
+        self.agreementView.image = [UIImage imageNamed:@"unSelectedCycle"];
+    }
+}
 
 - (void)updateReleaseData {
     NSMutableArray *tasklist = @[].mutableCopy;
