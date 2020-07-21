@@ -396,7 +396,6 @@
     
     ZLineCellModel *model1 = ZLineCellModel.zz_lineCellModel_create(@"title")
     .zz_titleLeft([NSString stringWithFormat:@"%@月",self.addModel.valid_at])
-    .zz_fontLeft([UIFont fontSmall])
     .zz_lineHidden(YES)
     .zz_cellHeight(CGFloatIn750(42));
     
@@ -635,7 +634,6 @@
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"fix_timeTitle")
             .zz_cellHeight(CGFloatIn750(62))
             .zz_lineHidden(YES)
-            .zz_fontLeft([UIFont fontSmall])
             .zz_titleLeft([NSString stringWithFormat:@"体验课价格￥%@",self.addModel.experience_price])
             .zz_leftMultiLine(YES)
             .zz_colorLeft([UIColor colorTextGray])
@@ -648,7 +646,6 @@
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"fix_timeTitle")
             .zz_cellHeight(CGFloatIn750(62))
             .zz_lineHidden(YES)
-            .zz_fontLeft([UIFont fontSmall])
             .zz_titleLeft([NSString stringWithFormat:@"单次体验时长%@分钟",self.addModel.experience_duration])
             .zz_leftMultiLine(YES)
             .zz_colorLeft([UIColor colorTextGray])
@@ -690,8 +687,8 @@
                 .zz_titleRight(tempArr[j][1])
                 .zz_rightMultiLine(YES)
                 .zz_alignmentRight(NSTextAlignmentLeft)
-                .zz_fontLeft([UIFont fontSmall])
-                .zz_fontRight([UIFont fontSmall])
+                .zz_fontLeft([UIFont fontContent])
+                .zz_fontRight([UIFont fontContent])
                 .zz_colorLeft([UIColor colorTextGray])
                 .zz_colorDarkLeft([UIColor colorTextGray])
                 .zz_colorRight([UIColor colorTextGray])

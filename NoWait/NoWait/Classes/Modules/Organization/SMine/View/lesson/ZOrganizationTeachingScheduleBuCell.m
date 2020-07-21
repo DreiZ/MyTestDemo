@@ -267,7 +267,7 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _numLabel.text = [NSString stringWithFormat:@"%@/%@节",model.now_progress,model.total_progress];
     _userLabel.text = model.teacher_name;
-    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",[model.expire_time timeStringWithFormatter:@"yyyy-MM-dd"]];
+//    _timeLabel.text = [NSString stringWithFormat:@"有效期至%@",[model.expire_time timeStringWithFormatter:@"yyyy-MM-dd"]];
     if (model.isEdit) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.editBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

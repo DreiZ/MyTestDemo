@@ -48,13 +48,15 @@
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *lmodel = self.dataSources[i];
         lmodel.isEdit = self.isEdit;
-        if ([lmodel.status intValue] == 5) {
-            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleBuCell className] title:[ZOrganizationTeachingScheduleBuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleBuCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-            [self.cellConfigArr addObject:progressCellConfig];
-        }else{
-            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-            [self.cellConfigArr addObject:progressCellConfig];
-        }
+//        if ([lmodel.status intValue] == 5) {
+//            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleBuCell className] title:[ZOrganizationTeachingScheduleBuCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleBuCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+//            [self.cellConfigArr addObject:progressCellConfig];
+//        }else{
+//            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+//            [self.cellConfigArr addObject:progressCellConfig];
+//        }
+        ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTeachingScheduleNoCell className] title:[ZOrganizationTeachingScheduleNoCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTeachingScheduleNoCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        [self.cellConfigArr addObject:progressCellConfig];
     }
     
     if (self.editChangeBlock) {
