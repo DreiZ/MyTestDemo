@@ -46,7 +46,7 @@
 #import "ZPhoneAlertView.h"
 #import "ZAlertStoreInfoView.h"
 
-@interface ZStudentOrganizationDetailDesVC ()
+@interface ZStudentOrganizationDetailDesVC ()<UIScrollViewDelegate>
 @property (nonatomic,strong) UIButton *navRightBtn;
 @property (nonatomic,strong) UIButton *dynamicBtn;
 @property (nonatomic,strong) ZOrganizationDetailBottomView *bottomView;
@@ -549,5 +549,37 @@
             [TLUIUtility showInfoHint:data];
         }
     }];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"begin && scrollViewWillBeginDragging");
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.dynamicBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+            make.width.height.mas_equalTo(CGFloatIn750(90));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(-30));
+        }];
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"end && scrollViewDidEndDecelerating");
+    [UIView animateWithDuration:0.8 delay:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.dynamicBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+            make.width.height.mas_equalTo(CGFloatIn750(90));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(CGFloatIn750(-30));
+        }];
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    NSLog(@"end && scrollViewDidEndScrollingAnimation");
 }
 @end
