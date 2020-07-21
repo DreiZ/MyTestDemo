@@ -22,6 +22,7 @@
 @implementation ZCircleReleaseAddLabelListCell
 
 -(void)setupView {
+    [super setupView];
     _btnArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.labelView];

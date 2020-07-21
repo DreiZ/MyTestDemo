@@ -22,6 +22,7 @@
 @implementation ZCircleDetailLabelCell
 
 -(void)setupView {
+    self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     _btnArr = @[].mutableCopy;
     
     [self.contentView addSubview:self.labelView];

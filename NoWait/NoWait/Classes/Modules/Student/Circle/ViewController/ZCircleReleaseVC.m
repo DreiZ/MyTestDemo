@@ -167,11 +167,11 @@
                 .zz_imageLeftWidth(CGFloatIn750(28));
                 if ([obj[3] intValue] == 1) {
                     model.zz_colorLeft([UIColor colorMain])
-                    .zz_colorDarkBack([UIColor colorMain])
+                    .zz_colorDarkLeft([UIColor colorMain])
                     .zz_imageLeft(obj[4]);
                 }else {
                     model.zz_colorLeft([UIColor colorTextBlack])
-                    .zz_colorDarkBack([UIColor colorTextBlackDark])
+                    .zz_colorDarkLeft([UIColor colorTextBlackDark])
                     .zz_imageLeft(obj[0]);
                 }
                 

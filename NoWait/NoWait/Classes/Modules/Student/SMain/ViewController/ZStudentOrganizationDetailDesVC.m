@@ -290,7 +290,7 @@
     if (!_dynamicBtn) {
         __weak typeof(self) weakSelf = self;
         _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(90))];
-        _dynamicBtn.backgroundColor = [UIColor colorMain];
+        [_dynamicBtn setImage:[UIImage imageNamed:@"schoolDynamic"] forState:UIControlStateNormal];
         ViewRadius(_dynamicBtn, CGFloatIn750(45));
         [_dynamicBtn bk_addEventHandler:^(id sender) {
             ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];

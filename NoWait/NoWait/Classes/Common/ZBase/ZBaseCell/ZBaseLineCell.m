@@ -15,17 +15,8 @@
 
 @implementation ZBaseLineCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
-    if (self) {
-        [self initMainView];
-    }
-    
-    return self;
-}
-
-- (void)initMainView {
+- (void)setupView {
+    [super setupView];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.clipsToBounds = YES;

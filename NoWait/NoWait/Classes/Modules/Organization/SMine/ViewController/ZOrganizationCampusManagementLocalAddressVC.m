@@ -295,6 +295,7 @@
 {
     if (response.pois.count == 0)
     {
+        self.searhView.iPOIAnnotations = @[].mutableCopy;
         return;
     }
     

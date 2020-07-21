@@ -97,7 +97,7 @@
         _followBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_followBtn setTitle:@"喜欢" forState:UIControlStateNormal];
         [_followBtn.titleLabel setFont:[UIFont fontSmall]];
-        [_followBtn setTitleColor:[UIColor colorTextBlack] forState:UIControlStateNormal];
+        [_followBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_followBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(1);
@@ -114,7 +114,7 @@
         _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_dynamicBtn setTitle:@"动态" forState:UIControlStateNormal];
         [_dynamicBtn.titleLabel setFont:[UIFont boldFontSmall]];
-        [_dynamicBtn setTitleColor:[UIColor colorTextBlack] forState:UIControlStateNormal];
+        [_dynamicBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_dynamicBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(0);

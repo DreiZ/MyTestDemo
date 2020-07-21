@@ -64,6 +64,7 @@
 }
 
 - (void)setMainView {
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.view addSubview:self.headView];
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);

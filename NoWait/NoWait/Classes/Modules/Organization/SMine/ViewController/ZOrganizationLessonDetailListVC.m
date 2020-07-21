@@ -41,7 +41,7 @@
     [super viewDidLoad];
         
     self.loading = YES;
-    
+    self.index = 1;
     [self refreshData];
     [self setCollectionViewEmptyDataDelegate];
     [self initCellConfigArr];
@@ -182,6 +182,7 @@
     if (ValidStr(self.listModel.teacherID)) {
         [param setObject:SafeStr(self.listModel.teacherID) forKey:@"teacher_id"];
     }
+    NSLog(@"-----%@",param);
     [ZOriganizationLessonViewModel getWeekCurriculumList:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonWeekListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {

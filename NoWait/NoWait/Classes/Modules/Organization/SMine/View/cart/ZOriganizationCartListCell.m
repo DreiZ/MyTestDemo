@@ -363,7 +363,7 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
+//    ViewBorderRadius(_menuBackView, CGFloatIn750(26), 1, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorTextBlackDark]);
     
     if (self.model.isStudent) {
         if ([self.model.status intValue] == 2) {

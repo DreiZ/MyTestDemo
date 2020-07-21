@@ -84,8 +84,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc] init];
         _backBtn.clipsToBounds = YES;
-        [_backBtn setImage:[[UIImage imageNamed:@"navleftBack"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        _backBtn.tintColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlackBGDark]);
+        [_backBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         [_backBtn bk_addEventHandler:^(id sender) {
             if (self.handleBlock) {
                 self.handleBlock(0);
