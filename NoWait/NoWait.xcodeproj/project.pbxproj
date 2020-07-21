@@ -46,6 +46,8 @@
 		B2257E80242E17EA00862BB5 /* ZTeacherMineEntryStoresCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2257E7F242E17EA00862BB5 /* ZTeacherMineEntryStoresCell.m */; };
 		B2257E83242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2257E82242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m */; };
 		B228CFB824C53126007BBDB1 /* ZCircleDetailEvaDelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B228CFB724C53126007BBDB1 /* ZCircleDetailEvaDelCell.m */; };
+		B228CFC824C593C0007BBDB1 /* SDAVAssetExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B228CFC524C593BF007BBDB1 /* SDAVAssetExportSession.m */; };
+		B228CFC924C593C0007BBDB1 /* PHAsset+FixTargetSize.m in Sources */ = {isa = PBXBuildFile; fileRef = B228CFC624C593BF007BBDB1 /* PHAsset+FixTargetSize.m */; };
 		B2292E47249B04DC00924055 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2292E2A249B04DB00924055 /* TZImageCropManager.m */; };
 		B2292E48249B04DC00924055 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2292E2C249B04DB00924055 /* TZAssetCell.m */; };
 		B2292E49249B04DC00924055 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2292E2D249B04DB00924055 /* TZVideoPlayerController.m */; };
@@ -842,6 +844,10 @@
 		B2257E82242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineEvaDetailVC.m; sourceTree = "<group>"; };
 		B228CFB624C53126007BBDB1 /* ZCircleDetailEvaDelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleDetailEvaDelCell.h; sourceTree = "<group>"; };
 		B228CFB724C53126007BBDB1 /* ZCircleDetailEvaDelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleDetailEvaDelCell.m; sourceTree = "<group>"; };
+		B228CFC424C593BF007BBDB1 /* PHAsset+FixTargetSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+FixTargetSize.h"; sourceTree = "<group>"; };
+		B228CFC524C593BF007BBDB1 /* SDAVAssetExportSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAVAssetExportSession.m; sourceTree = "<group>"; };
+		B228CFC624C593BF007BBDB1 /* PHAsset+FixTargetSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+FixTargetSize.m"; sourceTree = "<group>"; };
+		B228CFC724C593BF007BBDB1 /* SDAVAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAVAssetExportSession.h; sourceTree = "<group>"; };
 		B2292E28249B04DB00924055 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
 		B2292E29249B04DB00924055 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
 		B2292E2A249B04DB00924055 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
@@ -2353,6 +2359,17 @@
 			path = StarRatingView;
 			sourceTree = "<group>";
 		};
+		B228CFC324C593BF007BBDB1 /* SDAVAssetExportSession */ = {
+			isa = PBXGroup;
+			children = (
+				B228CFC424C593BF007BBDB1 /* PHAsset+FixTargetSize.h */,
+				B228CFC524C593BF007BBDB1 /* SDAVAssetExportSession.m */,
+				B228CFC624C593BF007BBDB1 /* PHAsset+FixTargetSize.m */,
+				B228CFC724C593BF007BBDB1 /* SDAVAssetExportSession.h */,
+			);
+			path = SDAVAssetExportSession;
+			sourceTree = "<group>";
+		};
 		B2292E27249B04DB00924055 /* TZImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3336,6 +3353,7 @@
 		B2A77EA723BDE1E200407BF0 /* ZVideoPlayerManager */ = {
 			isa = PBXGroup;
 			children = (
+				B228CFC324C593BF007BBDB1 /* SDAVAssetExportSession */,
 				B2517CBC24C14509001741F9 /* VideoExtensions */,
 				B270777E2499FD14002D147A /* WYVideoCompressTools */,
 				B2A77EA823BDE20200407BF0 /* ZVideoPlayerManager.h */,
@@ -5371,6 +5389,7 @@
 				B230F1BC2445AC6E0084BCC6 /* ZLessonWeekSectionView.m in Sources */,
 				B26880FE2477C5C200BF8FCD /* ZOrganizationSchoolTypeCell.m in Sources */,
 				B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */,
+				B228CFC924C593C0007BBDB1 /* PHAsset+FixTargetSize.m in Sources */,
 				B2C3506A24404A0C002929A8 /* Global.m in Sources */,
 				B2A816ED24B4796D003A2E1F /* ZCircleDetailLabelCell.m in Sources */,
 				B2A7802023BDF8B200407BF0 /* ZDBAdvertiserStore.m in Sources */,
@@ -5649,6 +5668,7 @@
 				B28D90CB240604C80021E05A /* ZTextFieldMultColCell.m in Sources */,
 				B26F2DA6240121C900BBF533 /* ZOrganizationStudentUpStarVC.m in Sources */,
 				B262B54D244EE9CF00A27542 /* ZOrganizationClassStudentProgressEditVC.m in Sources */,
+				B228CFC824C593C0007BBDB1 /* SDAVAssetExportSession.m in Sources */,
 				B28D9142240766940021E05A /* PGDatePickManagerHeaderView.m in Sources */,
 				B2F371D5246B8DAA00678B19 /* ZRewardMyTeamListCell.m in Sources */,
 				B2CF933F24249DD4007AF66E /* ZOrganizationEvaListCell.m in Sources */,

@@ -69,23 +69,32 @@
     
     [ZPublicTool checkUpdateVersion];
     
-//    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"videoFolder"];
-//    DLog(@"filezzz :%@",temp);
-//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//    //        [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-//    }];
-//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"MOV" inDirectory:nil];
+    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
+
+    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        DLog(@"filezzz :%@",obj);
+            [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+    }];
+    {
+        NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"temp"];
+
+        [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            DLog(@"filezzz :%@",obj);
+                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+        }];
+    }
+//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"mov" inDirectory:nil];
 //    for (id item in videos) {
 //        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
 //    }
 }
-//- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
 //    if(error != nil) {
-//        NSLog(@"%@", error);
+//        NSLog(@"error-----%@", error);
 //    } else {
 //        NSLog(@"复制视频成功");
 //    }
-//}
+}
 
 - (void)setDataSource {
     [super setDataSource];

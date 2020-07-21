@@ -23,44 +23,59 @@
 }
 
 -(void)getFilePath:(void(^)(NSString *))success {
-//    if (!_filePath) {
-//        // 打开这段代码发送视频
-//        [[TZImageManager manager] getVideoOutputPathWithAsset:self.asset presetName:AVAssetExportPresetMediumQuality success:^(NSString *outputPath) {
-//            // NSData *data = [NSData dataWithContentsOfFile:outputPath];
-//            DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
-//            // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
-//            self.filePath = [[NSURL fileURLWithPath:outputPath] absoluteString];
-//            if (success) {
-//                success(self.filePath);
-//            }
-//        } failure:^(NSString *errorMessage, NSError *error) {
-//            DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
-//            if (success) {
-//                success(nil);
-//            }
-//        }];
-//    }else{
-//        success(nil);
-//    }
+    CGFloat pixelHeight = _asset.pixelHeight;
+    CGFloat pixelWidth = _asset.pixelWidth;
     
-    if (!_filePath) {
-        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-        options.version = PHImageRequestOptionsVersionCurrent;
-        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-
-        PHImageManager *manager = [PHImageManager defaultManager];
-        [manager requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-
-            AVURLAsset *urlAsset = (AVURLAsset *)asset;
-            NSURL *videoURL = urlAsset.URL;
-
-            [self zipVideo:videoURL asset:urlAsset success:^(NSString *url) {
-                NSLog(@"pppppp----%@",url);
-                success(url);
-            }];
-        }];
+    NSInteger maxPixel = 0;
+    if (pixelHeight > pixelWidth) {
+        maxPixel = pixelHeight;
     }else{
-        success(nil);
+        maxPixel = pixelWidth;
+    }
+    if (maxPixel <= 720) {
+        DLog(@"老----压缩");
+        if (!_filePath) {
+            // 打开这段代码发送视频
+            [[TZImageManager manager] getVideoOutputPathWithAsset:self.asset presetName:AVAssetExportPresetMediumQuality success:^(NSString *outputPath) {
+                // NSData *data = [NSData dataWithContentsOfFile:outputPath];
+                DLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+                // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+                self.filePath = [[NSURL fileURLWithPath:outputPath] absoluteString];
+                if (success) {
+                    success(self.filePath);
+                }
+                NSData *data = [NSData dataWithContentsOfFile:outputPath];
+                DLog(@"大小: %@", [self formatByte:data.length]);
+            } failure:^(NSString *errorMessage, NSError *error) {
+                DLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+                if (success) {
+                    success(nil);
+                }
+            }];
+        }else{
+            success(nil);
+        }
+    }else {
+        DLog(@"新----压缩");
+        if (!_filePath) {
+            PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+            options.version = PHImageRequestOptionsVersionCurrent;
+            options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+
+            PHImageManager *manager = [PHImageManager defaultManager];
+            [manager requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+
+                AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                NSURL *videoURL = urlAsset.URL;
+
+                [self zipVideo:videoURL asset:urlAsset success:^(NSString *url) {
+                    DLog(@"videoURL----%@",url);
+                    success(url);
+                }];
+            }];
+        }else{
+            success(nil);
+        }
     }
 }
 
@@ -92,7 +107,7 @@
     SDAVAssetExportSession *encoder = [SDAVAssetExportSession.alloc initWithAsset:anAsset];
     encoder.outputFileType = AVFileTypeMPEG4;
     encoder.outputURL = url;
-    encoder.videoSettings = [self videoSettingsWithSessionPreset:1];
+    encoder.videoSettings =  [self videoSettingsWithSessionPreset];
     
     encoder.audioSettings = @
     {
@@ -106,39 +121,47 @@
     {
         if (encoder.status == AVAssetExportSessionStatusCompleted)
         {
-            NSLog(@"----Video export succeeded");
-            NSLog(@"----%@",encoder.outputURL);
+            DLog(@"----Video export succeeded");
+            DLog(@"----%@",encoder.outputURL);
 //            self.SDvideoUrl = url;
             NSString *urlstring = [[url absoluteString] substringFromIndex:7];
             CGFloat size = [self getFileSize:urlstring];
-                       NSLog(@"1111111视频大小=%f",size);
+            DLog(@"1111111视频大小=%f",size);
             NSData *data = [NSData dataWithContentsOfFile:urlstring];
-            NSLog(@"大小: %@", [self formatByte:data.length]);
+            DLog(@"大小: %@", [self formatByte:data.length]);
             self.filePath = url.absoluteString;
             success(url.absoluteString);
         }
         else if (encoder.status == AVAssetExportSessionStatusCancelled)
         {
-            NSLog(@"------Video export cancelled");
+            DLog(@"------Video export cancelled");
             success(nil);
         }
         else
         {
-            NSLog(@"----------Video export failed with error: %@ (%ld)", encoder.error.localizedDescription, (long)encoder.error.code);
+            DLog(@"----------Video export failed with error: %@ (%ld)", encoder.error.localizedDescription, (long)encoder.error.code);
             success(nil);
         }
     }];
 }
 
-- (NSDictionary *)videoSettingsWithSessionPreset:(NSInteger)sessionPreset {
+- (NSDictionary *)videoSettingsWithSessionPreset {
+    CGFloat pixelHeight = _asset.pixelHeight;
+    CGFloat pixelWidth = _asset.pixelWidth;
     
-    switch (sessionPreset) {
-        case 0:  return [self videoSettingsPreset720];
-        case 1: return [self videoSettingsPreset1080];
-        default:
-            break;
+    if (pixelHeight > pixelWidth) {
+        if (pixelHeight < 1080) {
+            return [self videoSettingsPreset720];
+        }else{
+            return [self videoSettingsPreset1080];
+        }
+    }else{
+       if (pixelWidth < 1080) {
+           return [self videoSettingsPreset720];
+       }else{
+           return [self videoSettingsPreset1080];
+       }
     }
-    return [self videoSettingsPreset720];
 }
 
 
@@ -155,14 +178,20 @@
     CGFloat pixelWidth = _asset.pixelWidth;
     
     if (pixelHeight > pixelWidth) {
-        
         pixelWidth = (pixelWidth/pixelHeight)*720;
         pixelHeight = 720;
+        if ((long)pixelWidth/2 > 0) {
+            pixelWidth = (long)pixelWidth + 1;
+        }
     }else{
-        
         pixelHeight = (pixelHeight/pixelWidth)*720;
         pixelWidth = 720;
+        if ((long)pixelHeight/2 > 0) {
+            pixelHeight = (long)pixelHeight + 1;
+        }
     }
+    pixelHeight = (long)pixelHeight;
+    pixelWidth = (long)pixelWidth;
     
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
@@ -193,13 +222,15 @@
     }
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
-    settings[AVVideoCompressionPropertiesKey] = @{ AVVideoAverageBitRateKey: @(3000000),
+    settings[AVVideoCompressionPropertiesKey] =
+                                                @{ AVVideoAverageBitRateKey: @(3000000),
                                                    AVVideoExpectedSourceFrameRateKey : @(30),
                                                    AVVideoMaxKeyFrameIntervalKey : @(30),
                                                    AVVideoProfileLevelKey: AVVideoProfileLevelH264MainAutoLevel
                                                    };
     return settings;
 }
+
 
 //获取视频大小单位KB
 - (CGFloat) getFileSize:(NSString *)path

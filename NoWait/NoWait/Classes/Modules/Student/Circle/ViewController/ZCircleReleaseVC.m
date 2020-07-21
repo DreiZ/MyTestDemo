@@ -373,13 +373,16 @@
                 }
 //                NSLog(@"-------%@",model.asset.localIdentifier);
                 model.type = @"10";
+//                [model getFilePath:^(NSString *ll) {
+//
+//                }];
             }
             ZCircleUploadModel *umodel = [[ZCircleUploadModel alloc] init];
             umodel.uploadStatus = ZCircleUploadStatusWatting;
             umodel.uploadList = uploadArr;
             umodel.otherParams = params;
             umodel.title = self.releaseViewModel.model.title;
-            
+//            return;
             [[ZFileUploadManager sharedInstance].uploadCircleArr insertObject:umodel atIndex:0];
             
             ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];

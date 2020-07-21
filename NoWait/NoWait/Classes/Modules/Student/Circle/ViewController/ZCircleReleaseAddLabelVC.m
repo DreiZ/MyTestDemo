@@ -163,6 +163,10 @@
                 [TLUIUtility showInfoHint:@"最多添加5个标签"];
                 return;
             }
+            if (self.userNameTF.text.length < 1) {
+                [TLUIUtility showInfoHint:@"您还没有输入任何内容"];
+                return;
+            }
             ZCircleReleaseTagModel *model = [[ZCircleReleaseTagModel alloc] init];
             model.tag_name = SafeStr(self.userNameTF.text);
             model.tag_id = @"";
