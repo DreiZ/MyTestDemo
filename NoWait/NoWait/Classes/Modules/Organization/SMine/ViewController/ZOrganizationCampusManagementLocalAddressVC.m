@@ -354,7 +354,7 @@
 //    request.requireExtension    = YES;
 //
 //    /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
-//    request.cityLimit           = YES;
+    request.cityLimit           = YES;
     request.requireSubPOIs      = YES;
     
     [self.search AMapPOIKeywordsSearch:request];
