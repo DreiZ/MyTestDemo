@@ -552,7 +552,7 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    NSLog(@"begin && scrollViewWillBeginDragging");
+    DLog(@"begin && scrollViewWillBeginDragging");
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.dynamicBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
@@ -566,7 +566,7 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    NSLog(@"end && scrollViewDidEndDecelerating");
+    DLog(@"end && scrollViewDidEndDecelerating");
     [UIView animateWithDuration:0.8 delay:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.dynamicBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));

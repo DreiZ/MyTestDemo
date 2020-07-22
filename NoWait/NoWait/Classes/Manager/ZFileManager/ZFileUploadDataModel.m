@@ -150,13 +150,13 @@
     CGFloat pixelWidth = _asset.pixelWidth;
     
     if (pixelHeight > pixelWidth) {
-        if (pixelHeight < 1080) {
+        if (pixelHeight <= 1080) {
             return [self videoSettingsPreset720];
         }else{
             return [self videoSettingsPreset1080];
         }
     }else{
-       if (pixelWidth < 1080) {
+       if (pixelWidth <= 1080) {
            return [self videoSettingsPreset720];
        }else{
            return [self videoSettingsPreset1080];
@@ -196,6 +196,8 @@
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
     settings[AVVideoCompressionPropertiesKey] = @{ AVVideoAverageBitRateKey: @(3000000),
+                                                   AVVideoExpectedSourceFrameRateKey : @(30),
+                                                   AVVideoMaxKeyFrameIntervalKey : @(30),
                                                    AVVideoProfileLevelKey: AVVideoProfileLevelH264MainAutoLevel
                                                    };
     return settings;
@@ -212,7 +214,6 @@
     CGFloat pixelHeight = _asset.pixelHeight;
     CGFloat pixelWidth = _asset.pixelWidth;
     if (pixelHeight > pixelWidth) {
-        
         pixelWidth = (pixelWidth/pixelHeight)*1080;
         pixelHeight = 1080;
     }else{
@@ -223,7 +224,7 @@
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
     settings[AVVideoCompressionPropertiesKey] =
-                                                @{ AVVideoAverageBitRateKey: @(3000000),
+                                                @{ AVVideoAverageBitRateKey: @(5000000),
                                                    AVVideoExpectedSourceFrameRateKey : @(30),
                                                    AVVideoMaxKeyFrameIntervalKey : @(30),
                                                    AVVideoProfileLevelKey: AVVideoProfileLevelH264MainAutoLevel

@@ -20,7 +20,6 @@
 #import "ZCircleReleaseSelectSchoolVC.h"
 #import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
-#import "ZCircleReleaseVideoUploadVC.h"
 #import "ZCircleReleaseUploadVC.h"
 #import "ZAgreementVC.h"
 
@@ -366,10 +365,6 @@
                 [params setObject:weakSelf.releaseViewModel.model.address forKey:@"address"];
             }
             
-            if (!ValidStr(weakSelf.releaseViewModel.model.store_id)) {
-                [params setObject:weakSelf.releaseViewModel.model.store_id forKey:@"store_id"];
-            }
-            
             NSMutableArray *tags = @[].mutableCopy;
             if (ValidArray(self.releaseViewModel.model.tags)) {
                 for (int i = 0; i < self.releaseViewModel.model.tags.count; i++) {
@@ -390,7 +385,6 @@
                 if (model.taskType == ZUploadTypeVideo) {
                     isVideo = YES;
                 }
-
                 model.type = @"10";
 //                [model getFilePath:^(NSString *ll) {
 //
@@ -401,28 +395,14 @@
             umodel.uploadList = uploadArr;
             umodel.otherParams = params;
             umodel.title = self.releaseViewModel.model.title;
-
+    
             [[NSUserDefaults standardUserDefaults] setObject:@"hadReleaseCircle" forKey:@"hadReleaseCircle"];
-             
+
             [[ZFileUploadManager sharedInstance].uploadCircleArr insertObject:umodel atIndex:0];
             
             ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
             [self.navigationController pushViewController:uvc animated:YES];
-            return;
-//            
-//            self.isVideo = isVideo;
-//            self.params = params;
-//            self.imageArr = uploadArr;
-////            [self updateReleaseData];
-//            ZCircleReleaseVideoUploadVC *mvc = [[ZCircleReleaseVideoUploadVC alloc] init];
-//            mvc.params = params;
-//            mvc.imageArr = uploadArr;
-//            mvc.isVideo = isVideo;
-//            mvc.uploadCompleteBlock = ^{
-//                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-//            };
-//            [weakSelf.navigationController pushViewController:mvc animated:YES];
-//            
+            return;  
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

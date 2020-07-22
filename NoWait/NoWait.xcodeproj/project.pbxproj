@@ -119,7 +119,6 @@
 		B23F51CE24B5C4F40070FB79 /* ZMessageLikeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51CD24B5C4F40070FB79 /* ZMessageLikeListCell.m */; };
 		B23F51D124B5D9A50070FB79 /* ZCircleMyLiskeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51D024B5D9A50070FB79 /* ZCircleMyLiskeListVC.m */; };
 		B23F51D424B5DCB80070FB79 /* ZCircleMyEvaListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51D324B5DCB80070FB79 /* ZCircleMyEvaListVC.m */; };
-		B23F51D724B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51D624B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.m */; };
 		B23F521224B6C7530070FB79 /* ZJCollectionViewRightIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51FC24B6C7530070FB79 /* ZJCollectionViewRightIndex.m */; };
 		B23F521324B6C7530070FB79 /* ZJReorderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F51FF24B6C7530070FB79 /* ZJReorderFlowLayout.m */; };
 		B23F521424B6C7530070FB79 /* ZJWaterLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B23F520124B6C7530070FB79 /* ZJWaterLayout.m */; };
@@ -990,8 +989,6 @@
 		B23F51D024B5D9A50070FB79 /* ZCircleMyLiskeListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMyLiskeListVC.m; sourceTree = "<group>"; };
 		B23F51D224B5DCB80070FB79 /* ZCircleMyEvaListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleMyEvaListVC.h; sourceTree = "<group>"; };
 		B23F51D324B5DCB80070FB79 /* ZCircleMyEvaListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleMyEvaListVC.m; sourceTree = "<group>"; };
-		B23F51D524B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleReleaseVideoUploadVC.h; sourceTree = "<group>"; };
-		B23F51D624B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleReleaseVideoUploadVC.m; sourceTree = "<group>"; };
 		B23F51FC24B6C7530070FB79 /* ZJCollectionViewRightIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJCollectionViewRightIndex.m; sourceTree = "<group>"; };
 		B23F51FD24B6C7530070FB79 /* ZJCollectionViewRightIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJCollectionViewRightIndex.h; sourceTree = "<group>"; };
 		B23F51FF24B6C7530070FB79 /* ZJReorderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJReorderFlowLayout.m; sourceTree = "<group>"; };
@@ -4857,8 +4854,6 @@
 				B2F5BD6D24B42AEF00AD1C72 /* ZCircleMyFansListVC.m */,
 				B2A816E224B461B2003A2E1F /* ZCircleDetailVC.h */,
 				B2A816E324B461B2003A2E1F /* ZCircleDetailVC.m */,
-				B23F51D524B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.h */,
-				B23F51D624B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.m */,
 				B24415EF24BDA3EC0059E813 /* ZCircleReleaseUploadVC.h */,
 				B24415F024BDA3EC0059E813 /* ZCircleReleaseUploadVC.m */,
 			);
@@ -5634,7 +5629,6 @@
 				B28D913E240766940021E05A /* PGDatePicker+TimeAndSecond.m in Sources */,
 				B2DB9B26241B2E5800340464 /* ZAlertLessonCheckBoxView.m in Sources */,
 				B28D9131240766940021E05A /* PGDatePickerView.m in Sources */,
-				B23F51D724B6B6260070FB79 /* ZCircleReleaseVideoUploadVC.m in Sources */,
 				B2A77EA323BDE1AB00407BF0 /* NSDictionary+LYNil.m in Sources */,
 				B2A780AE23BDFB1F00407BF0 /* ZRouteManager.m in Sources */,
 				B2A7809F23BDFB0100407BF0 /* FSMEngine.m in Sources */,
