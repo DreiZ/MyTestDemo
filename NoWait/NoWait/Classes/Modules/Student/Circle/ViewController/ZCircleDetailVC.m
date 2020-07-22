@@ -44,6 +44,7 @@
 @property (nonatomic,strong) NSMutableArray *evaList;
 @property (nonatomic,assign) BOOL isLike;
 @property (nonatomic,assign) BOOL isNoData;
+@property (nonatomic,assign) BOOL isRemove;
 @end
 
 @implementation ZCircleDetailVC
@@ -61,7 +62,9 @@
     [super viewDidLoad];
 
     __weak typeof(self) weakSelf = self;
-    self.zChain_updateDataSource(^{
+    self.zChain_addEmptyDataDelegate()
+    .zChain_addLoadMoreFooter()
+    .zChain_updateDataSource(^{
         self.param = @{}.mutableCopy;
         self.likeList = @[].mutableCopy;
         self.evaList = @[].mutableCopy;
@@ -96,6 +99,19 @@
         [self refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [self.cellConfigArr removeAllObjects];
+        if (self.isRemove) {
+            self.emptyDataStr = @"动态已被移除";
+            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.view.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(90) + safeAreaBottom());
+            }];
+            
+            [self.headerView setRightHidden];
+            return;
+        }
+        
         NSMutableArray *section1Arr = @[].mutableCopy;
         {
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailUserCell className] title:@"ZCircleDetailUserCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailUserCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
@@ -440,10 +456,16 @@
     __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel getCircleDynamicInfo:@{@"dynamic":self.dynamic} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZCircleDynamicInfo class]]) {
+            weakSelf.isRemove = NO;
             weakSelf.infoModel = data;
             weakSelf.zChain_reload_ui();
             weakSelf.headerView.title = weakSelf.infoModel.title;
             weakSelf.bottomView.model = weakSelf.infoModel;
+        }else{
+            if ([data isKindOfClass:[NSString class]] && [data isEqualToString:@"动态已被移除"]) {
+                weakSelf.isRemove = YES;
+                weakSelf.zChain_reload_ui();
+            }
         }
     }];
 }

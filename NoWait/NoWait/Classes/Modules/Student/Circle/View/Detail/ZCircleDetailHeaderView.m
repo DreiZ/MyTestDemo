@@ -118,4 +118,8 @@
     _title = title;
     _nameLabel.text = title;
 }
+
+- (void)setRightHidden {
+    _rightNavBtn.hidden = YES;
+}
 @end

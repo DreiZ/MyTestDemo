@@ -242,7 +242,7 @@
                 return;
             }
        }
-        completeBlock(NO, @"操作失败");
+       completeBlock(NO, dataModel.message);
     }];
 }
 
