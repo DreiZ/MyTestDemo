@@ -62,7 +62,9 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
+            ZCircleMineDynamicEvaModel *model = cellConfig.dataModel;
             ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            dvc.dynamic = model.dynamic;
             [self.navigationController pushViewController:dvc animated:YES];
         }
     });

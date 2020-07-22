@@ -20,6 +20,11 @@
 
 @implementation ZCircleMyFansNewListVC
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self refreshAllData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -66,8 +71,6 @@
 //            [self.navigationController pushViewController:mvc animated:YES];
 //        }
     });
-    
-    self.zChain_reload_Net();
 }
 
 
