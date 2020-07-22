@@ -402,7 +402,7 @@
             
             ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
             [self.navigationController pushViewController:uvc animated:YES];
-            return;  
+            return;
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
@@ -447,28 +447,19 @@
             make.centerX.equalTo(self.agreementBottomView.mas_centerX);
             make.top.bottom.equalTo(self.agreementBottomView);
         }];
-        NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"已阅读并同意遵守《服务条款》和《隐私协议》"];
+        NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"已阅读并同意遵守《似锦网络社区自律公约》"];
         text.lineSpacing = 0;
         text.font = [UIFont fontSmall];
         text.color = [UIColor colorTextGray];
         //    __weak typeof(self) weakself = self;
         
-        [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        [text setTextHighlightRange:NSMakeRange(8, 12) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
             ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-            avc.navTitle = @"似锦服务条款";
-            avc.type = @"service_agreement";
-            avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
+            avc.navTitle = @"似锦网络社区自律公约";
+            avc.type = @"find_agreement";
+            avc.url = @"http://www.xiangcenter.com/User/findconvention.html";
             [self.navigationController pushViewController:avc animated:YES];
         }];
-        
-        [text setTextHighlightRange:NSMakeRange(15, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
-            avc.navTitle = @"隐私协议";
-            avc.type = @"privacy_policy";
-            avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
-            [self.navigationController pushViewController:avc animated:YES];
-        }];
-        
         
         _protocolLabel.preferredMaxLayoutWidth = kScreenWidth - CGFloatIn750(60);
         _protocolLabel.attributedText = text;  //设置富文本

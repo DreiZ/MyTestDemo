@@ -170,7 +170,7 @@
         [self.bottomLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left).offset(model.lineLeftMargin);
             make.right.equalTo(self.contentView.mas_right).offset(-model.lineRightMargin);
-            make.bottom.equalTo(self.contentView.mas_bottom);
+            make.bottom.equalTo(self.contentView.mas_bottom).offset(-0.5);
             make.height.mas_equalTo(0.5);
         }];
     }else{
