@@ -26,6 +26,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([ZUserHelper sharedHelper].user) {
+        self.emptyDataStr = @"暂无数据，点击重新加载";
+    }else {
+        self.emptyDataStr = @"您还没有登录";
+    }
     [self refreshAllData];
 }
 

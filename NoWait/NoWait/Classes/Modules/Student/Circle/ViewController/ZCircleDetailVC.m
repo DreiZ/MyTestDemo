@@ -369,9 +369,7 @@
                 weakSelf.sectionView.isLike = NO;
                 [weakSelf refreshData];
             }else if(index == 2){
-                [[ZUserHelper sharedHelper] checkLogin:^{
-                    [weakSelf enjoyDynamic];
-                }];
+                [weakSelf enjoyDynamic];
             }
         };
     }

@@ -245,11 +245,13 @@
         __weak typeof(self) weakSelf = self;
         _likeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_likeBtn bk_addEventHandler:^(id sender) {
-            if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(2);
-            }
-            self.isLike = !self.isLike;
-            [self.likeImageView setLike:self.isLike animated:YES];
+            [[ZUserHelper sharedHelper] checkLogin:^{
+                if (weakSelf.handleBlock) {
+                    weakSelf.handleBlock(2);
+                }
+                weakSelf.isLike = !weakSelf.isLike;
+                [weakSelf.likeImageView setLike:weakSelf.isLike animated:YES];
+            }];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _likeBtn;
