@@ -24,8 +24,9 @@ typedef NS_ENUM(NSInteger,ZCustomNoticeType){
     ZCustomNoticeTypeEvaluate  = 11,                        //  评价通知
     ZCustomNoticeTypeCustom  = 12,
     ZCustomNoticeTypeNotice  = 13,                        //机构老师通知
-    ZCustomNoticeTypePhoto  = 14,                        //相册审核通知
-    ZCustomNoticeTypeCircle  = 15,                        //发现审核通知
+    ZCustomNoticeTypePhoto  = 14,                        //暂无用
+    ZCustomNoticeTypeCircleEva  = 15,                        //暂无用
+    ZCustomNoticeTypeCircle  = 16,                        //发现审核通知
 };
 
 typedef NS_ENUM(NSInteger,ZCustomChannleType){

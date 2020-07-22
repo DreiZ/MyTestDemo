@@ -116,6 +116,7 @@
             case ZCustomNoticeTypeCourseEnd:                      //  结课通知
             case ZCustomNoticeTypeCourseSign:                     //  签课通知
             case ZCustomNoticeTypeEvaluate:                        //  评价通知
+            case ZCustomNoticeTypeCircle:
             case ZCustomNoticeTypeCustom:
             {
                 cellHeight = cellHeight + [ZMessageListCell setMessageContent:model].heightOfCell;
@@ -256,6 +257,7 @@
         case ZCustomNoticeTypeCourseSign:                     //  签课通知
         case ZCustomNoticeTypeEvaluate:                        //  评价通知
         case ZCustomNoticeTypeCustom:
+        case ZCustomNoticeTypeCircle:
         {
             [self.cellConfigArr addObject:[ZMessageListCell setMessageContent:self.model]];
             [self.cellConfigArr addObject:[ZMessageListCell setEmptyCell:CGFloatIn750(20) cellTitle:nil]];
