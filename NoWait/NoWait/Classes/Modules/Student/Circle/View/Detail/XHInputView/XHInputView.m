@@ -106,7 +106,7 @@ static CGFloat keyboardAnimationDuration = 0.5;
     [self addGestureRecognizer:tap];
     
     _inputView = [[UIView alloc] init];
-    _inputView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorTextBlackDark]);
+    _inputView.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
 //    _inputView.layer.cornerRadius = CGFloatIn750(16);
     [self addSubview:_inputView];
     

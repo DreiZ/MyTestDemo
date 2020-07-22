@@ -96,7 +96,7 @@
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.top.equalTo(self.iMapView.mas_bottom).offset(-10);
+        make.top.equalTo(self.iMapView.mas_bottom).offset(0);
     }];
     
     [self.view addSubview:self.searhView];
