@@ -313,14 +313,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.01f;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 0 && tableView == self.iRightTableView && _cellRightConfigArr && _cellRightConfigArr.count > 0) {
         return CGFloatIn750(60);
     }
-    return 0.01f;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
