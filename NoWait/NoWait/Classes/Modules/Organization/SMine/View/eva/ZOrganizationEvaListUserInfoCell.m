@@ -114,6 +114,13 @@
     _timeLabel.text = [model.update_at timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
     _nameLabel.text = ValidStr(model.nick_name)?  model.nick_name : @"用户****";
     _crView.scorePercent = [model.score doubleValue]/5.0f;
+    
+    CGSize timeSize = [_timeLabel.text sizeForFont:[UIFont fontMin] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_lessThanOrEqualTo(KScreenWidth - timeSize.width - CGFloatIn750(30) - CGFloatIn750(80) - CGFloatIn750(30) - CGFloatIn750(110) - CGFloatIn750(40));
+    }];
 }
 
 - (void)setCrModel:(ZCircleDynamicEvaModel *)crModel {
@@ -121,6 +128,14 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(crModel.image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _timeLabel.text = crModel.created_at;
     _nameLabel.text = ValidStr(crModel.nick_name)?  crModel.nick_name : @"用户****";
+    
+    CGSize timeSize = [crModel.created_at sizeForFont:[UIFont fontMin] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+        make.centerY.equalTo(self.userImageView.mas_centerY);
+        make.width.mas_lessThanOrEqualTo(KScreenWidth - CGFloatIn750(60) - timeSize.width - CGFloatIn750(30) - CGFloatIn750(80) - CGFloatIn750(30));
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
