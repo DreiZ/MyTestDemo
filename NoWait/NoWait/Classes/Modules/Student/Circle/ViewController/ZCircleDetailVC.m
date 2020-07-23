@@ -39,7 +39,6 @@
 @property (nonatomic,strong) ZCircleDetailEvaSectionView *sectionView;
 
 @property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
-@property (nonatomic,strong) SJVideoPlayer *player;
 
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) NSMutableArray *likeList;
@@ -57,17 +56,18 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.player vc_viewDidAppear];
+    [[ZVideoPlayerManager sharedInstance].player vc_viewDidAppear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.player vc_viewWillDisappear];
+    [[ZVideoPlayerManager sharedInstance].player vc_viewWillDisappear];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.player vc_viewDidDisappear];
+    [[ZVideoPlayerManager sharedInstance].player vc_viewDidDisappear];
+    [ZVideoPlayerManager sharedInstance].player = nil;
 }
 
 - (BOOL)shouldAutorotate {
@@ -435,10 +435,7 @@
 
 #pragma mark - 视频播放
 - (void)cell:(ZBaseCell *)cell coverItemWasTappedInCollectionView:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath model:(ZFileUploadDataModel *)model{
-    if ( _player == nil ) {
-        _player = [SJVideoPlayer player];
-        _player.resumePlaybackWhenScrollAppeared = YES; // 滚动出现时, 是否恢复播放, 此处设置为YES.
-    }
+    
     
     // 视图层次第一层
     SJPlayModel *playModel = [SJPlayModel playModelWithCollectionView:collectionView indexPath:indexPath];
@@ -447,7 +444,7 @@
     playModel.nextPlayModel = [SJPlayModel playModelWithTableView:self.iTableView indexPath:[self.iTableView indexPathForCell:cell]];
     
     // 进行播放
-    _player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:model.image_url] playModel:playModel];
+    [ZVideoPlayerManager sharedInstance].player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:model.image_url] playModel:playModel];
 }
 
 #pragma mark - 输入框

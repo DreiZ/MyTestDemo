@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SJVideoPlayer.h"
 
 @interface ZVideoPlayerManager : NSObject
 + (ZVideoPlayerManager *)sharedInstance;
-
+@property (nonatomic,strong) SJVideoPlayer *player;
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title;
 

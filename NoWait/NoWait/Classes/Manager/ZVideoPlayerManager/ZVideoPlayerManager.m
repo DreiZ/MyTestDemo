@@ -37,6 +37,14 @@ static ZVideoPlayerManager *videoPlayerManager;
     return videoPlayerManager;
 }
 
+- (SJVideoPlayer *)player {
+    if ( _player == nil ) {
+        _player = [SJVideoPlayer player];
+        _player.resumePlaybackWhenScrollAppeared = YES; // 滚动出现时, 是否恢复播放, 此处设置为YES.
+    }
+    return _player;
+}
+
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title {
     if (!_apvc) {
