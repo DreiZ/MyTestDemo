@@ -203,11 +203,16 @@
         self.numImageVIew.hidden = NO;
     }
     
-    if (isVideo(model.cover.url)) {
-        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)]];
+    if ([model.remove intValue] == 1) {
+        self.coverImageView.image = nil;
     }else{
-        [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
+        if (isVideo(model.cover.url)) {
+            [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:aliyunVideoFullUrl(model.cover.url)]];
+        }else{
+            [self.coverImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.cover.url)]];
+        }
     }
+    
 //    [_coverImageView tt_setImageWithURL:[NSURL URLWithString:model.cover.url]];
 }
 

@@ -351,15 +351,12 @@
                 [params setObject:weakSelf.releaseViewModel.model.content forKey:@"content"];
             }
             
-            if (ValidStr(weakSelf.releaseViewModel.model.province) && ValidStr(weakSelf.releaseViewModel.model.city) &&
-                ValidStr(weakSelf.releaseViewModel.model.county) &&
-                ValidStr(weakSelf.releaseViewModel.model.address) &&
-                ValidStr(weakSelf.releaseViewModel.model.province) &&
+            if (ValidStr(weakSelf.releaseViewModel.model.address) &&
                 weakSelf.releaseViewModel.model.latitude > 0.0001 &&
                 weakSelf.releaseViewModel.model.longitude > 0.0001) {
-                [params setObject:weakSelf.releaseViewModel.model.province forKey:@"province"];
-                [params setObject:weakSelf.releaseViewModel.model.city forKey:@"city"];
-                [params setObject:weakSelf.releaseViewModel.model.county forKey:@"region"];
+                [params setObject:SafeStr(weakSelf.releaseViewModel.model.province) forKey:@"province"];
+                [params setObject:SafeStr(weakSelf.releaseViewModel.model.city) forKey:@"city"];
+                [params setObject:SafeStr(weakSelf.releaseViewModel.model.county) forKey:@"region"];
                 [params setObject:[NSString stringWithFormat:@"%f",weakSelf.releaseViewModel.model.longitude] forKey:@"longitude"];
                 [params setObject:[NSString stringWithFormat:@"%f",weakSelf.releaseViewModel.model.latitude] forKey:@"latitude"];
                 [params setObject:weakSelf.releaseViewModel.model.address forKey:@"address"];

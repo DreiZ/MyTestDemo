@@ -88,13 +88,13 @@
 //        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
 //    }
 }
-- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+//- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
 //    if(error != nil) {
 //        NSLog(@"error-----%@", error);
 //    } else {
 //        NSLog(@"复制视频成功");
 //    }
-}
+//}
 
 - (void)setDataSource {
     [super setDataSource];

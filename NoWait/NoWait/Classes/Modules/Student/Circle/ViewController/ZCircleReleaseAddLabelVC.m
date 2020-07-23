@@ -159,8 +159,8 @@
         [_addBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
         [_addBtn bk_addEventHandler:^(id sender) {
-            if (self.labelList.count >= 5) {
-                [TLUIUtility showInfoHint:@"最多添加5个标签"];
+            if (self.labelList.count >= 3) {
+                [TLUIUtility showInfoHint:@"最多添加3个标签"];
                 return;
             }
             if (self.userNameTF.text.length < 1) {
