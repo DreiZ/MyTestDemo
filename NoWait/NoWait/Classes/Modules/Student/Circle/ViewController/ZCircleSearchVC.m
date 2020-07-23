@@ -20,6 +20,7 @@
 
 #import "ZCircleDetailVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
+#import "ZCircleMoreLessonVC.h"
 
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
@@ -190,6 +191,11 @@
                 listmodel.lessonID = model.lesson_id;
                 dvc.model = listmodel;
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
+            };
+            headerView.moreBlock = ^{
+                ZCircleMoreLessonVC *lvc = [[ZCircleMoreLessonVC alloc] init];
+                lvc.name = weakSelf.name;
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
             };
             return headerView;
         }else{

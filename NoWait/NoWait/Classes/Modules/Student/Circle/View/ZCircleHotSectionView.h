@@ -11,6 +11,7 @@
 
 @interface ZCircleHotSectionView : UICollectionReusableView
 @property (nonatomic,strong) NSArray *list;
+@property (nonatomic,strong) void (^moreBlock)(void);
 @property (nonatomic,strong) void (^menuBlock)(ZCircleDynamicLessonModel *model);
 - (void)setTip:(NSString *)tip;
 

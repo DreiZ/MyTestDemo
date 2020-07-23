@@ -263,7 +263,7 @@ static ZAlertDateWeekAndHourPickerView *sharedManager;
         singleHeight = CGFloatIn750(108);
     }
     
-    NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期七"];
+    NSArray *weekArr = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六",@"星期天"];
     for (int i = 0; i < weekArr.count; i++) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = weekArr[i];

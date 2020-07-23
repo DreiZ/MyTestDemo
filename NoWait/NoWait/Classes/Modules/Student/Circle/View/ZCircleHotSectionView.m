@@ -15,6 +15,8 @@
 @property (nonatomic,strong) UILabel *tipLabel;
 @property (nonatomic,strong) UIView *funBackView;
 
+@property (nonatomic,strong) UIButton *moreBtn;
+
 @property (nonatomic,strong) UILabel *bottomTipLabel;
 @property (nonatomic,strong) UIView *bottomFunBackView;
 
@@ -53,6 +55,12 @@
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headerBackView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.headerBackView.mas_centerY);
+    }];
+    
+    [self.headerBackView addSubview:self.moreBtn];
+    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.equalTo(self.headerBackView);
+        make.width.mas_equalTo(CGFloatIn750(140));
     }];
     
     [self addSubview:self.bottomFunBackView];
@@ -148,6 +156,45 @@
         _bottomTipLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _bottomTipLabel;
+}
+
+
+- (UIButton *)moreBtn {
+    if (!_moreBtn) {
+        __weak typeof(self) weakSelf = self;
+        _moreBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_moreBtn bk_whenTapped:^{
+            if (weakSelf.moreBlock) {
+                weakSelf.moreBlock();
+            }
+        }];
+        
+        UIImageView *arrowImageView = [[UIImageView alloc] init];
+        arrowImageView.image =  [UIImage imageNamed:@"rightBlackArrowN"];
+        [_moreBtn addSubview:arrowImageView];
+        [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.moreBtn.mas_centerY);
+            make.right.equalTo(self.moreBtn.mas_right).offset(-CGFloatIn750(30));
+        }];
+        
+        UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        moreLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        moreLabel.text = @"更多课程";
+        moreLabel.numberOfLines = 0;
+        moreLabel.textAlignment = NSTextAlignmentLeft;
+        [moreLabel setFont:[UIFont fontContent]];
+        [_moreBtn addSubview:moreLabel];
+        [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(arrowImageView.mas_centerY);
+            make.right.equalTo(arrowImageView.mas_left).offset(-CGFloatIn750(20));
+        }];
+        [_moreBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.moreBlock) {
+                weakSelf.moreBlock();
+            };
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _moreBtn;
 }
 
 #pragma mark collectionview delegate

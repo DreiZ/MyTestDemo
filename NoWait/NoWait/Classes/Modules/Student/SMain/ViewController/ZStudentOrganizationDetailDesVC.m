@@ -149,6 +149,38 @@
                    }];
                }else if (index == 3){
                    [ZAlertStoreInfoView setAlertName:@"校区简介" data:self.detailModel.info];
+               }else if (index == 4){
+                   NSString *time = @"音乐月份：全年";
+                   if (ValidArray(self.detailModel.months)) {
+                       if (self.detailModel.months.count == 12) {
+                           time = @"营业月份：全年";
+                       }else{
+                           time = @"营业月份:";
+                           for (int i = 0; i < self.detailModel.months.count; i++) {
+                               if (i == 0) {
+                                   time = [NSString stringWithFormat:@"%@ %@月",time,self.detailModel.months[i]];
+                               }else{
+                                   time = [NSString stringWithFormat:@"%@, %@月",time,self.detailModel.months[i]];
+                               }
+                           }
+                       }
+                   }
+                   
+                   if (ValidArray(self.detailModel.week_days)) {
+                       if (self.detailModel.week_days.count == 7) {
+                           time = [NSString stringWithFormat:@"%@\n%@月",time,@"星期一~星期天"];
+                       }else{
+                           for (int i = 0; i < self.detailModel.week_days.count; i++) {
+                               if (i == 0) {
+                                   time = [NSString stringWithFormat:@"%@\n%@",time,[self.detailModel.week_days[i] zz_indexToWeek]];
+                               }else{
+                                   time = [NSString stringWithFormat:@"%@, %@",time,[self.detailModel.week_days[i] zz_indexToWeek]];
+                               }
+                           }
+                       }
+                   }
+                   time = [NSString stringWithFormat:@"%@\n%@~%@",time,self.detailModel.opend_start,self.detailModel.opend_end];
+                   [ZAlertStoreInfoView setAlertName:@"营业时间" data:time];
                }
            };
        }else if([cellConfig.title isEqualToString:[ZStudentMainOrganizationExperienceCell className]]){

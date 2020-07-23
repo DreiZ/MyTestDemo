@@ -114,6 +114,10 @@
        if (_handleBlock) {
            _handleBlock(3);
        }
+    }else if ([cellConfig.title isEqualToString:@"time"]) {
+       if (_handleBlock) {
+           _handleBlock(4);
+       }
     }
 }
 
@@ -130,6 +134,7 @@
         .zz_fontLeft([UIFont boldFontMax1Title])
         .zz_cellHeight(CGFloatIn750(80))
         .zz_lineHidden(YES)
+        .zz_leftMultiLine(YES)
         .zz_titleLeft(self.model.name)
         .zz_imageRight(@"rightBlackArrowN")
         .zz_imageRightHeight(CGFloatIn750(14));
@@ -155,7 +160,9 @@
         .zz_fontLeft([UIFont fontContent])
         .zz_cellHeight(CGFloatIn750(60))
         .zz_lineHidden(YES)
-        .zz_titleLeft([NSString stringWithFormat:@"营业时间：%@~%@",self.model.opend_start,self.model.opend_end]);
+        .zz_titleLeft([NSString stringWithFormat:@"营业时间：%@~%@",self.model.opend_start,self.model.opend_end])
+        .zz_imageRight(@"rightBlackArrowN")
+        .zz_imageRightHeight(CGFloatIn750(14));
         
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:textCellConfig];
@@ -220,6 +227,7 @@
         .zz_fontLeft([UIFont boldFontMax1Title])
         .zz_cellHeight(CGFloatIn750(80))
         .zz_lineHidden(YES)
+        .zz_leftMultiLine(YES)
         .zz_titleLeft(detailModel.name)
         .zz_imageRight(@"rightBlackArrowN")
         .zz_imageRightHeight(CGFloatIn750(14));
