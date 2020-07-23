@@ -14,7 +14,7 @@
 @property (nonatomic,strong) void (^moreBlock)(void);
 @property (nonatomic,strong) void (^menuBlock)(ZCircleDynamicLessonModel *model);
 - (void)setTip:(NSString *)tip;
-
+- (void)setIsMore:(BOOL)isMore;
 +(CGSize)z_getCellSize:(id)sender;
 @end
 

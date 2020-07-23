@@ -25,7 +25,7 @@
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
 @property (nonatomic,strong) NSString *name;
-
+@property (nonatomic,assign) BOOL is_more;
 @property (nonatomic,strong) NSMutableDictionary *param;
 
 @property (nonatomic,strong) NSMutableArray *hotSearchList;
@@ -184,6 +184,7 @@
         if (ValidArray(self.lessonList)) {
             ZCircleHotSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"lessonHeader" forIndexPath:indexPath];
             [headerView setTip:@"热门课程"];
+            [headerView setIsMore:self.is_more];
             headerView.list = self.lessonList;
             headerView.menuBlock = ^(ZCircleDynamicLessonModel *model) {
                 ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
@@ -266,7 +267,7 @@
                 [weakSelf.lessonList removeAllObjects];
                 [weakSelf.lessonList addObjectsFromArray:data.course];
             }
-            
+            weakSelf.is_more = [data.is_more boolValue];
             [weakSelf initCellConfigArr];
             [weakSelf.iCollectionView reloadData];
             
@@ -296,7 +297,7 @@
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
             [weakSelf.iCollectionView reloadData];
-            
+            weakSelf.is_more = [data.is_more boolValue];
             [weakSelf.iCollectionView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iCollectionView tt_removeLoadMoreFooter];

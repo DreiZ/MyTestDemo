@@ -255,4 +255,8 @@
     self.bottomTipLabel.text = @"热门发现";
 }
 
+
+- (void)setIsMore:(BOOL)isMore {
+    _moreBtn.hidden = !isMore;
+}
 @end

@@ -81,6 +81,7 @@
 @interface ZCircleMineDynamicNetModel : ZBaseNetworkBackModel
 @property (nonatomic,strong) NSArray *list;
 @property (nonatomic,strong) NSArray *course;
+@property (nonatomic,strong) NSString *is_more;
 
 @property (nonatomic,copy) NSString *total;
 @end
