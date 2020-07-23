@@ -598,6 +598,56 @@
 		B2BA39C22435CD64005A3FFB /* photograph@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B82435CD63005A3FFB /* photograph@3x.png */; };
 		B2BA39C32435CD64005A3FFB /* photo_flash_allLight.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BA39B92435CD63005A3FFB /* photo_flash_allLight.png */; };
 		B2BA39C42435CD64005A3FFB /* XYTakePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BA39BA2435CD63005A3FFB /* XYTakePhotoController.m */; };
+		B2BEDB6A24C91ABD003F2F1E /* SJNotReachableControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDAF424C91ABC003F2F1E /* SJNotReachableControlLayer.m */; };
+		B2BEDB6B24C91ABD003F2F1E /* SJLoadFailedControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDAF724C91ABC003F2F1E /* SJLoadFailedControlLayer.m */; };
+		B2BEDB6C24C91ABD003F2F1E /* SJSwitchVideoDefinitionControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDAFB24C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer.m */; };
+		B2BEDB6D24C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDAFC24C91ABC003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.m */; };
+		B2BEDB6E24C91ABD003F2F1E /* SJMoreSettingControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDAFF24C91ABD003F2F1E /* SJMoreSettingControlLayer.m */; };
+		B2BEDB6F24C91ABD003F2F1E /* SJEdgeControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0124C91ABD003F2F1E /* SJEdgeControlLayer.m */; };
+		B2BEDB7024C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0724C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.m */; };
+		B2BEDB7124C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0B24C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.m */; };
+		B2BEDB7224C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0D24C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.m */; };
+		B2BEDB7324C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0E24C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m */; };
+		B2BEDB7424C91ABD003F2F1E /* SJFilmEditingResultShareItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB0F24C91ABD003F2F1E /* SJFilmEditingResultShareItem.m */; };
+		B2BEDB7524C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1224C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.m */; };
+		B2BEDB7624C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1424C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.m */; };
+		B2BEDB7724C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1524C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.m */; };
+		B2BEDB7824C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1824C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.m */; };
+		B2BEDB7924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m */; };
+		B2BEDB7A24C91ABD003F2F1E /* SJFilmEditingButtonContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1C24C91ABD003F2F1E /* SJFilmEditingButtonContainerView.m */; };
+		B2BEDB7B24C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1D24C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.m */; };
+		B2BEDB7C24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB1F24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m */; };
+		B2BEDB7D24C91ABD003F2F1E /* SJFilmEditingBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB2324C91ABD003F2F1E /* SJFilmEditingBackButton.m */; };
+		B2BEDB7E24C91ABD003F2F1E /* SJFilmEditingControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB2424C91ABD003F2F1E /* SJFilmEditingControlLayer.m */; };
+		B2BEDB7F24C91ABD003F2F1E /* SJFloatSmallViewControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB2724C91ABD003F2F1E /* SJFloatSmallViewControlLayer.m */; };
+		B2BEDB8024C91ABD003F2F1E /* SJVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB2C24C91ABD003F2F1E /* SJVideoPlayerSettings.m */; };
+		B2BEDB8124C91ABD003F2F1E /* SJFullscreenCustomStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB2E24C91ABD003F2F1E /* SJFullscreenCustomStatusBar.m */; };
+		B2BEDB8224C91ABD003F2F1E /* SJFastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3024C91ABD003F2F1E /* SJFastForwardView.m */; };
+		B2BEDB8324C91ABD003F2F1E /* SJDraggingObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3124C91ABD003F2F1E /* SJDraggingObservation.m */; };
+		B2BEDB8424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m */; };
+		B2BEDB8524C91ABD003F2F1E /* SJDraggingProgressPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3724C91ABD003F2F1E /* SJDraggingProgressPopView.m */; };
+		B2BEDB8624C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3924C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m */; };
+		B2BEDB8724C91ABD003F2F1E /* SJLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3B24C91ABD003F2F1E /* SJLoadingView.m */; };
+		B2BEDB8824C91ABD003F2F1E /* UIView+SJAnimationAdded.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB3E24C91ABD003F2F1E /* UIView+SJAnimationAdded.m */; };
+		B2BEDB8924C91ABD003F2F1E /* SJVideoPlayerControlMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB4024C91ABD003F2F1E /* SJVideoPlayerControlMaskView.m */; };
+		B2BEDB8A24C91ABD003F2F1E /* SJProgressSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB4224C91ABD003F2F1E /* SJProgressSlider.m */; };
+		B2BEDB8B24C91ABD003F2F1E /* SJCommonProgressSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB4524C91ABD003F2F1E /* SJCommonProgressSlider.m */; };
+		B2BEDB8C24C91ABD003F2F1E /* SJButtonProgressSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB4724C91ABD003F2F1E /* SJButtonProgressSlider.m */; };
+		B2BEDB8D24C91ABD003F2F1E /* SJControlLayerSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB4924C91ABD003F2F1E /* SJControlLayerSwitcher.m */; };
+		B2BEDB8E24C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5024C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.m */; };
+		B2BEDB8F24C91ABD003F2F1E /* SJEdgeControlButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5224C91ABD003F2F1E /* SJEdgeControlButtonItem.m */; };
+		B2BEDB9024C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5324C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.m */; };
+		B2BEDB9124C91ABD003F2F1E /* SJEdgeControlButtonItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5424C91ABD003F2F1E /* SJEdgeControlButtonItemView.m */; };
+		B2BEDB9224C91ABD003F2F1E /* SJEdgeControlLayerAdapters.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5624C91ABD003F2F1E /* SJEdgeControlLayerAdapters.m */; };
+		B2BEDB9324C91ABD003F2F1E /* SJVideoPlayerConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB5A24C91ABD003F2F1E /* SJVideoPlayerConst.m */; };
+		B2BEDB9424C91ABD003F2F1E /* SJVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB6524C91ABD003F2F1E /* SJVideoPlayer.m */; };
+		B2BEDB9524C91ABD003F2F1E /* SJVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB6724C91ABD003F2F1E /* SJVideoPlayerResourceLoader.m */; };
+		B2BEDB9624C91ABD003F2F1E /* SJVideoPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2BEDB6824C91ABD003F2F1E /* SJVideoPlayer.bundle */; };
+		B2BEDBA124C92B24003F2F1E /* SJNestedCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB9924C92B23003F2F1E /* SJNestedCollectionView.m */; };
+		B2BEDBA224C92B25003F2F1E /* SJTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB9C24C92B24003F2F1E /* SJTopView.m */; };
+		B2BEDBA324C92B25003F2F1E /* SJPlayerSuperview.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDB9E24C92B24003F2F1E /* SJPlayerSuperview.m */; };
+		B2BEDBA424C92B25003F2F1E /* SJPlayerSuperImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDBA024C92B24003F2F1E /* SJPlayerSuperImageView.m */; };
+		B2BEDBA824C92B3A003F2F1E /* SJVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BEDBA724C92B3A003F2F1E /* SJVideoModel.m */; };
 		B2C35032243DA695002929A8 /* ZMianSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35031243DA694002929A8 /* ZMianSearchVC.m */; };
 		B2C35035243DB4F4002929A8 /* ZSearchClickVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35034243DB4F4002929A8 /* ZSearchClickVC.m */; };
 		B2C35038243DB5F5002929A8 /* ZSearchFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C35037243DB5F5002929A8 /* ZSearchFieldView.m */; };
@@ -1901,6 +1951,114 @@
 		B2BA39B82435CD63005A3FFB /* photograph@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photograph@3x.png"; sourceTree = "<group>"; };
 		B2BA39B92435CD63005A3FFB /* photo_flash_allLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_flash_allLight.png; sourceTree = "<group>"; };
 		B2BA39BA2435CD63005A3FFB /* XYTakePhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYTakePhotoController.m; sourceTree = "<group>"; };
+		B2BEDAF024C91ABC003F2F1E /* SJVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayer.h; sourceTree = "<group>"; };
+		B2BEDAF324C91ABC003F2F1E /* SJNotReachableControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJNotReachableControlLayer.h; sourceTree = "<group>"; };
+		B2BEDAF424C91ABC003F2F1E /* SJNotReachableControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJNotReachableControlLayer.m; sourceTree = "<group>"; };
+		B2BEDAF624C91ABC003F2F1E /* SJLoadFailedControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLoadFailedControlLayer.h; sourceTree = "<group>"; };
+		B2BEDAF724C91ABC003F2F1E /* SJLoadFailedControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLoadFailedControlLayer.m; sourceTree = "<group>"; };
+		B2BEDAF924C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSwitchVideoDefinitionControlLayer.h; sourceTree = "<group>"; };
+		B2BEDAFA24C91ABC003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SJVideoPlayerURLAsset+SJExtendedDefinition.h"; sourceTree = "<group>"; };
+		B2BEDAFB24C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSwitchVideoDefinitionControlLayer.m; sourceTree = "<group>"; };
+		B2BEDAFC24C91ABC003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SJVideoPlayerURLAsset+SJExtendedDefinition.m"; sourceTree = "<group>"; };
+		B2BEDAFE24C91ABC003F2F1E /* SJMoreSettingControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJMoreSettingControlLayer.h; sourceTree = "<group>"; };
+		B2BEDAFF24C91ABD003F2F1E /* SJMoreSettingControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoreSettingControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB0124C91ABD003F2F1E /* SJEdgeControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB0224C91ABD003F2F1E /* SJEdgeControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB0624C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerFilmEditingParameters.h; sourceTree = "<group>"; };
+		B2BEDB0724C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerFilmEditingGeneratedResult.m; sourceTree = "<group>"; };
+		B2BEDB0824C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingSaveResultToAlbumHandler.h; sourceTree = "<group>"; };
+		B2BEDB0924C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerFilmEditingConfig.h; sourceTree = "<group>"; };
+		B2BEDB0A24C91ABD003F2F1E /* SJFilmEditingResultShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingResultShareItem.h; sourceTree = "<group>"; };
+		B2BEDB0B24C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerFilmEditingParameters.m; sourceTree = "<group>"; };
+		B2BEDB0C24C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerFilmEditingGeneratedResult.h; sourceTree = "<group>"; };
+		B2BEDB0D24C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingSaveResultToAlbumHandler.m; sourceTree = "<group>"; };
+		B2BEDB0E24C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerFilmEditingConfig.m; sourceTree = "<group>"; };
+		B2BEDB0F24C91ABD003F2F1E /* SJFilmEditingResultShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingResultShareItem.m; sourceTree = "<group>"; };
+		B2BEDB1124C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingGenerateResultControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB1224C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingInVideoRecordingsControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB1324C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingInGIFRecordingsControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB1424C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingGenerateResultControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB1524C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingInGIFRecordingsControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB1624C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingInVideoRecordingsControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB1824C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingResultShareItemsContainerView.m; sourceTree = "<group>"; };
+		B2BEDB1924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingCommonViewLayer.m; sourceTree = "<group>"; };
+		B2BEDB1A24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingGIFCountDownView.h; sourceTree = "<group>"; };
+		B2BEDB1B24C91ABD003F2F1E /* SJFilmEditingBackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingBackButton.h; sourceTree = "<group>"; };
+		B2BEDB1C24C91ABD003F2F1E /* SJFilmEditingButtonContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingButtonContainerView.m; sourceTree = "<group>"; };
+		B2BEDB1D24C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingVideoCountDownView.m; sourceTree = "<group>"; };
+		B2BEDB1E24C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingResultShareItemsContainerView.h; sourceTree = "<group>"; };
+		B2BEDB1F24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingGIFCountDownView.m; sourceTree = "<group>"; };
+		B2BEDB2024C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingCommonViewLayer.h; sourceTree = "<group>"; };
+		B2BEDB2124C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingVideoCountDownView.h; sourceTree = "<group>"; };
+		B2BEDB2224C91ABD003F2F1E /* SJFilmEditingButtonContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingButtonContainerView.h; sourceTree = "<group>"; };
+		B2BEDB2324C91ABD003F2F1E /* SJFilmEditingBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingBackButton.m; sourceTree = "<group>"; };
+		B2BEDB2424C91ABD003F2F1E /* SJFilmEditingControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFilmEditingControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB2524C91ABD003F2F1E /* SJFilmEditingControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB2724C91ABD003F2F1E /* SJFloatSmallViewControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFloatSmallViewControlLayer.m; sourceTree = "<group>"; };
+		B2BEDB2824C91ABD003F2F1E /* SJFloatSmallViewControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFloatSmallViewControlLayer.h; sourceTree = "<group>"; };
+		B2BEDB2B24C91ABD003F2F1E /* SJVideoPlayerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerSettings.h; sourceTree = "<group>"; };
+		B2BEDB2C24C91ABD003F2F1E /* SJVideoPlayerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerSettings.m; sourceTree = "<group>"; };
+		B2BEDB2E24C91ABD003F2F1E /* SJFullscreenCustomStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFullscreenCustomStatusBar.m; sourceTree = "<group>"; };
+		B2BEDB2F24C91ABD003F2F1E /* SJDraggingProgressPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDraggingProgressPopView.h; sourceTree = "<group>"; };
+		B2BEDB3024C91ABD003F2F1E /* SJFastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJFastForwardView.m; sourceTree = "<group>"; };
+		B2BEDB3124C91ABD003F2F1E /* SJDraggingObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDraggingObservation.m; sourceTree = "<group>"; };
+		B2BEDB3224C91ABD003F2F1E /* SJLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLoadingView.h; sourceTree = "<group>"; };
+		B2BEDB3324C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SJVideoPlayerURLAsset+SJControlAdd.h"; sourceTree = "<group>"; };
+		B2BEDB3424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJScrollingTextMarqueeView.m; sourceTree = "<group>"; };
+		B2BEDB3524C91ABD003F2F1E /* SJDraggingObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDraggingObservation.h; sourceTree = "<group>"; };
+		B2BEDB3624C91ABD003F2F1E /* SJFastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFastForwardView.h; sourceTree = "<group>"; };
+		B2BEDB3724C91ABD003F2F1E /* SJDraggingProgressPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDraggingProgressPopView.m; sourceTree = "<group>"; };
+		B2BEDB3824C91ABD003F2F1E /* SJFullscreenCustomStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFullscreenCustomStatusBar.h; sourceTree = "<group>"; };
+		B2BEDB3924C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SJVideoPlayerURLAsset+SJControlAdd.m"; sourceTree = "<group>"; };
+		B2BEDB3A24C91ABD003F2F1E /* SJScrollingTextMarqueeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJScrollingTextMarqueeView.h; sourceTree = "<group>"; };
+		B2BEDB3B24C91ABD003F2F1E /* SJLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLoadingView.m; sourceTree = "<group>"; };
+		B2BEDB3D24C91ABD003F2F1E /* UIView+SJAnimationAdded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SJAnimationAdded.h"; sourceTree = "<group>"; };
+		B2BEDB3E24C91ABD003F2F1E /* UIView+SJAnimationAdded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SJAnimationAdded.m"; sourceTree = "<group>"; };
+		B2BEDB4024C91ABD003F2F1E /* SJVideoPlayerControlMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerControlMaskView.m; sourceTree = "<group>"; };
+		B2BEDB4224C91ABD003F2F1E /* SJProgressSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJProgressSlider.m; sourceTree = "<group>"; };
+		B2BEDB4324C91ABD003F2F1E /* SJCommonProgressSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCommonProgressSlider.h; sourceTree = "<group>"; };
+		B2BEDB4424C91ABD003F2F1E /* SJButtonProgressSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJButtonProgressSlider.h; sourceTree = "<group>"; };
+		B2BEDB4524C91ABD003F2F1E /* SJCommonProgressSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCommonProgressSlider.m; sourceTree = "<group>"; };
+		B2BEDB4624C91ABD003F2F1E /* SJProgressSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJProgressSlider.h; sourceTree = "<group>"; };
+		B2BEDB4724C91ABD003F2F1E /* SJButtonProgressSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJButtonProgressSlider.m; sourceTree = "<group>"; };
+		B2BEDB4924C91ABD003F2F1E /* SJControlLayerSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJControlLayerSwitcher.m; sourceTree = "<group>"; };
+		B2BEDB4A24C91ABD003F2F1E /* SJControlLayerSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJControlLayerSwitcher.h; sourceTree = "<group>"; };
+		B2BEDB4C24C91ABD003F2F1E /* SJEdgeControlLayerAdapters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlLayerAdapters.h; sourceTree = "<group>"; };
+		B2BEDB4E24C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlButtonItemAdapterLayout.h; sourceTree = "<group>"; };
+		B2BEDB4F24C91ABD003F2F1E /* SJEdgeControlButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlButtonItem.h; sourceTree = "<group>"; };
+		B2BEDB5024C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlButtonItemAdapter.m; sourceTree = "<group>"; };
+		B2BEDB5124C91ABD003F2F1E /* SJEdgeControlButtonItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlButtonItemView.h; sourceTree = "<group>"; };
+		B2BEDB5224C91ABD003F2F1E /* SJEdgeControlButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlButtonItem.m; sourceTree = "<group>"; };
+		B2BEDB5324C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlButtonItemAdapterLayout.m; sourceTree = "<group>"; };
+		B2BEDB5424C91ABD003F2F1E /* SJEdgeControlButtonItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlButtonItemView.m; sourceTree = "<group>"; };
+		B2BEDB5524C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlButtonItemAdapter.h; sourceTree = "<group>"; };
+		B2BEDB5624C91ABD003F2F1E /* SJEdgeControlLayerAdapters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEdgeControlLayerAdapters.m; sourceTree = "<group>"; };
+		B2BEDB5724C91ABD003F2F1E /* SJVideoPlayerControlMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerControlMaskView.h; sourceTree = "<group>"; };
+		B2BEDB5924C91ABD003F2F1E /* SJVideoPlayerConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerConst.h; sourceTree = "<group>"; };
+		B2BEDB5A24C91ABD003F2F1E /* SJVideoPlayerConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerConst.m; sourceTree = "<group>"; };
+		B2BEDB5B24C91ABD003F2F1E /* SJFilmEditingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFilmEditingStatus.h; sourceTree = "<group>"; };
+		B2BEDB5D24C91ABD003F2F1E /* SJLoadingViewDefinies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLoadingViewDefinies.h; sourceTree = "<group>"; };
+		B2BEDB5E24C91ABD003F2F1E /* SJFullscreenCustomStatusBarDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFullscreenCustomStatusBarDefines.h; sourceTree = "<group>"; };
+		B2BEDB5F24C91ABD003F2F1E /* SJFastForwardViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJFastForwardViewDefines.h; sourceTree = "<group>"; };
+		B2BEDB6024C91ABD003F2F1E /* SJControlLayerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJControlLayerDefines.h; sourceTree = "<group>"; };
+		B2BEDB6124C91ABD003F2F1E /* SJScrollingTextMarqueeViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJScrollingTextMarqueeViewDefines.h; sourceTree = "<group>"; };
+		B2BEDB6224C91ABD003F2F1E /* SJVideoPlayerFilmEditingDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerFilmEditingDefines.h; sourceTree = "<group>"; };
+		B2BEDB6324C91ABD003F2F1E /* SJDraggingObservationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDraggingObservationDefines.h; sourceTree = "<group>"; };
+		B2BEDB6424C91ABD003F2F1E /* SJDraggingProgressPopViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDraggingProgressPopViewDefines.h; sourceTree = "<group>"; };
+		B2BEDB6524C91ABD003F2F1E /* SJVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayer.m; sourceTree = "<group>"; };
+		B2BEDB6724C91ABD003F2F1E /* SJVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
+		B2BEDB6824C91ABD003F2F1E /* SJVideoPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SJVideoPlayer.bundle; sourceTree = "<group>"; };
+		B2BEDB6924C91ABD003F2F1E /* SJVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
+		B2BEDB9924C92B23003F2F1E /* SJNestedCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJNestedCollectionView.m; sourceTree = "<group>"; };
+		B2BEDB9A24C92B23003F2F1E /* SJPlayerSuperImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPlayerSuperImageView.h; sourceTree = "<group>"; };
+		B2BEDB9B24C92B23003F2F1E /* SJTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJTopView.h; sourceTree = "<group>"; };
+		B2BEDB9C24C92B24003F2F1E /* SJTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJTopView.m; sourceTree = "<group>"; };
+		B2BEDB9D24C92B24003F2F1E /* SJNestedCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJNestedCollectionView.h; sourceTree = "<group>"; };
+		B2BEDB9E24C92B24003F2F1E /* SJPlayerSuperview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPlayerSuperview.m; sourceTree = "<group>"; };
+		B2BEDB9F24C92B24003F2F1E /* SJPlayerSuperview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPlayerSuperview.h; sourceTree = "<group>"; };
+		B2BEDBA024C92B24003F2F1E /* SJPlayerSuperImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPlayerSuperImageView.m; sourceTree = "<group>"; };
+		B2BEDBA624C92B3A003F2F1E /* SJVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJVideoModel.h; sourceTree = "<group>"; };
+		B2BEDBA724C92B3A003F2F1E /* SJVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJVideoModel.m; sourceTree = "<group>"; };
 		B2C35030243DA694002929A8 /* ZMianSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMianSearchVC.h; sourceTree = "<group>"; };
 		B2C35031243DA694002929A8 /* ZMianSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMianSearchVC.m; sourceTree = "<group>"; };
 		B2C35033243DB4F4002929A8 /* ZSearchClickVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSearchClickVC.h; sourceTree = "<group>"; };
@@ -3247,6 +3405,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2BEDAEF24C91ABC003F2F1E /* SJVideoPlayer */,
 				B23F522524B701E20070FB79 /* WSLWaterFlowLayout */,
 				B23F51FA24B6C7530070FB79 /* ZJCollectionViewSummary */,
 				B2469B8224A08BD400DCB146 /* XLPaymentHUD */,
@@ -4654,6 +4813,337 @@
 			path = cameraIcon;
 			sourceTree = "<group>";
 		};
+		B2BEDAEF24C91ABC003F2F1E /* SJVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB9724C92AC3003F2F1E /* SJCommon */,
+				B2BEDAF024C91ABC003F2F1E /* SJVideoPlayer.h */,
+				B2BEDAF124C91ABC003F2F1E /* ControlLayers */,
+				B2BEDB2924C91ABD003F2F1E /* Common */,
+				B2BEDB6524C91ABD003F2F1E /* SJVideoPlayer.m */,
+				B2BEDB6624C91ABD003F2F1E /* ResourceLoader */,
+			);
+			path = SJVideoPlayer;
+			sourceTree = "<group>";
+		};
+		B2BEDAF124C91ABC003F2F1E /* ControlLayers */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDAF224C91ABC003F2F1E /* SJNotReachableControlLayer */,
+				B2BEDAF524C91ABC003F2F1E /* SJLoadFailedControlLayer */,
+				B2BEDAF824C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer */,
+				B2BEDAFD24C91ABC003F2F1E /* SJMoreSettingControlLayer */,
+				B2BEDB0024C91ABD003F2F1E /* SJEdgeControlLayer */,
+				B2BEDB0324C91ABD003F2F1E /* SJFilmEditingControlLayer */,
+				B2BEDB2624C91ABD003F2F1E /* SJFloatSmallViewControlLayer */,
+			);
+			path = ControlLayers;
+			sourceTree = "<group>";
+		};
+		B2BEDAF224C91ABC003F2F1E /* SJNotReachableControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDAF324C91ABC003F2F1E /* SJNotReachableControlLayer.h */,
+				B2BEDAF424C91ABC003F2F1E /* SJNotReachableControlLayer.m */,
+			);
+			path = SJNotReachableControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDAF524C91ABC003F2F1E /* SJLoadFailedControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDAF624C91ABC003F2F1E /* SJLoadFailedControlLayer.h */,
+				B2BEDAF724C91ABC003F2F1E /* SJLoadFailedControlLayer.m */,
+			);
+			path = SJLoadFailedControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDAF824C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDAF924C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer.h */,
+				B2BEDAFA24C91ABC003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.h */,
+				B2BEDAFB24C91ABC003F2F1E /* SJSwitchVideoDefinitionControlLayer.m */,
+				B2BEDAFC24C91ABC003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.m */,
+			);
+			path = SJSwitchVideoDefinitionControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDAFD24C91ABC003F2F1E /* SJMoreSettingControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDAFE24C91ABC003F2F1E /* SJMoreSettingControlLayer.h */,
+				B2BEDAFF24C91ABD003F2F1E /* SJMoreSettingControlLayer.m */,
+			);
+			path = SJMoreSettingControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDB0024C91ABD003F2F1E /* SJEdgeControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB0124C91ABD003F2F1E /* SJEdgeControlLayer.m */,
+				B2BEDB0224C91ABD003F2F1E /* SJEdgeControlLayer.h */,
+			);
+			path = SJEdgeControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDB0324C91ABD003F2F1E /* SJFilmEditingControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB0424C91ABD003F2F1E /* Core */,
+				B2BEDB2424C91ABD003F2F1E /* SJFilmEditingControlLayer.m */,
+				B2BEDB2524C91ABD003F2F1E /* SJFilmEditingControlLayer.h */,
+			);
+			path = SJFilmEditingControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDB0424C91ABD003F2F1E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB0524C91ABD003F2F1E /* Model */,
+				B2BEDB1024C91ABD003F2F1E /* ControlLayer */,
+				B2BEDB1724C91ABD003F2F1E /* View */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		B2BEDB0524C91ABD003F2F1E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB0624C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.h */,
+				B2BEDB0724C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.m */,
+				B2BEDB0824C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.h */,
+				B2BEDB0924C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.h */,
+				B2BEDB0A24C91ABD003F2F1E /* SJFilmEditingResultShareItem.h */,
+				B2BEDB0B24C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.m */,
+				B2BEDB0C24C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.h */,
+				B2BEDB0D24C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.m */,
+				B2BEDB0E24C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m */,
+				B2BEDB0F24C91ABD003F2F1E /* SJFilmEditingResultShareItem.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B2BEDB1024C91ABD003F2F1E /* ControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB1124C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.h */,
+				B2BEDB1224C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.m */,
+				B2BEDB1324C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.h */,
+				B2BEDB1424C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.m */,
+				B2BEDB1524C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.m */,
+				B2BEDB1624C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.h */,
+			);
+			path = ControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDB1724C91ABD003F2F1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB1824C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.m */,
+				B2BEDB1924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m */,
+				B2BEDB1A24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.h */,
+				B2BEDB1B24C91ABD003F2F1E /* SJFilmEditingBackButton.h */,
+				B2BEDB1C24C91ABD003F2F1E /* SJFilmEditingButtonContainerView.m */,
+				B2BEDB1D24C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.m */,
+				B2BEDB1E24C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.h */,
+				B2BEDB1F24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m */,
+				B2BEDB2024C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.h */,
+				B2BEDB2124C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.h */,
+				B2BEDB2224C91ABD003F2F1E /* SJFilmEditingButtonContainerView.h */,
+				B2BEDB2324C91ABD003F2F1E /* SJFilmEditingBackButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2BEDB2624C91ABD003F2F1E /* SJFloatSmallViewControlLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB2724C91ABD003F2F1E /* SJFloatSmallViewControlLayer.m */,
+				B2BEDB2824C91ABD003F2F1E /* SJFloatSmallViewControlLayer.h */,
+			);
+			path = SJFloatSmallViewControlLayer;
+			sourceTree = "<group>";
+		};
+		B2BEDB2924C91ABD003F2F1E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB2A24C91ABD003F2F1E /* Settings */,
+				B2BEDB2D24C91ABD003F2F1E /* Implements */,
+				B2BEDB3C24C91ABD003F2F1E /* UIKit */,
+				B2BEDB3F24C91ABD003F2F1E /* Utils */,
+				B2BEDB5824C91ABD003F2F1E /* Const */,
+				B2BEDB5C24C91ABD003F2F1E /* Interfaces */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B2BEDB2A24C91ABD003F2F1E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB2B24C91ABD003F2F1E /* SJVideoPlayerSettings.h */,
+				B2BEDB2C24C91ABD003F2F1E /* SJVideoPlayerSettings.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B2BEDB2D24C91ABD003F2F1E /* Implements */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB2E24C91ABD003F2F1E /* SJFullscreenCustomStatusBar.m */,
+				B2BEDB2F24C91ABD003F2F1E /* SJDraggingProgressPopView.h */,
+				B2BEDB3024C91ABD003F2F1E /* SJFastForwardView.m */,
+				B2BEDB3124C91ABD003F2F1E /* SJDraggingObservation.m */,
+				B2BEDB3224C91ABD003F2F1E /* SJLoadingView.h */,
+				B2BEDB3324C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.h */,
+				B2BEDB3424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m */,
+				B2BEDB3524C91ABD003F2F1E /* SJDraggingObservation.h */,
+				B2BEDB3624C91ABD003F2F1E /* SJFastForwardView.h */,
+				B2BEDB3724C91ABD003F2F1E /* SJDraggingProgressPopView.m */,
+				B2BEDB3824C91ABD003F2F1E /* SJFullscreenCustomStatusBar.h */,
+				B2BEDB3924C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m */,
+				B2BEDB3A24C91ABD003F2F1E /* SJScrollingTextMarqueeView.h */,
+				B2BEDB3B24C91ABD003F2F1E /* SJLoadingView.m */,
+			);
+			path = Implements;
+			sourceTree = "<group>";
+		};
+		B2BEDB3C24C91ABD003F2F1E /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB3D24C91ABD003F2F1E /* UIView+SJAnimationAdded.h */,
+				B2BEDB3E24C91ABD003F2F1E /* UIView+SJAnimationAdded.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		B2BEDB3F24C91ABD003F2F1E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB4024C91ABD003F2F1E /* SJVideoPlayerControlMaskView.m */,
+				B2BEDB4124C91ABD003F2F1E /* SJProgressSlider */,
+				B2BEDB4824C91ABD003F2F1E /* Switcher */,
+				B2BEDB4B24C91ABD003F2F1E /* Adapters */,
+				B2BEDB5724C91ABD003F2F1E /* SJVideoPlayerControlMaskView.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		B2BEDB4124C91ABD003F2F1E /* SJProgressSlider */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB4224C91ABD003F2F1E /* SJProgressSlider.m */,
+				B2BEDB4324C91ABD003F2F1E /* SJCommonProgressSlider.h */,
+				B2BEDB4424C91ABD003F2F1E /* SJButtonProgressSlider.h */,
+				B2BEDB4524C91ABD003F2F1E /* SJCommonProgressSlider.m */,
+				B2BEDB4624C91ABD003F2F1E /* SJProgressSlider.h */,
+				B2BEDB4724C91ABD003F2F1E /* SJButtonProgressSlider.m */,
+			);
+			path = SJProgressSlider;
+			sourceTree = "<group>";
+		};
+		B2BEDB4824C91ABD003F2F1E /* Switcher */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB4924C91ABD003F2F1E /* SJControlLayerSwitcher.m */,
+				B2BEDB4A24C91ABD003F2F1E /* SJControlLayerSwitcher.h */,
+			);
+			path = Switcher;
+			sourceTree = "<group>";
+		};
+		B2BEDB4B24C91ABD003F2F1E /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB4C24C91ABD003F2F1E /* SJEdgeControlLayerAdapters.h */,
+				B2BEDB4D24C91ABD003F2F1E /* Core */,
+				B2BEDB5624C91ABD003F2F1E /* SJEdgeControlLayerAdapters.m */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		B2BEDB4D24C91ABD003F2F1E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB4E24C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.h */,
+				B2BEDB4F24C91ABD003F2F1E /* SJEdgeControlButtonItem.h */,
+				B2BEDB5024C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.m */,
+				B2BEDB5124C91ABD003F2F1E /* SJEdgeControlButtonItemView.h */,
+				B2BEDB5224C91ABD003F2F1E /* SJEdgeControlButtonItem.m */,
+				B2BEDB5324C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.m */,
+				B2BEDB5424C91ABD003F2F1E /* SJEdgeControlButtonItemView.m */,
+				B2BEDB5524C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		B2BEDB5824C91ABD003F2F1E /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB5924C91ABD003F2F1E /* SJVideoPlayerConst.h */,
+				B2BEDB5A24C91ABD003F2F1E /* SJVideoPlayerConst.m */,
+				B2BEDB5B24C91ABD003F2F1E /* SJFilmEditingStatus.h */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		B2BEDB5C24C91ABD003F2F1E /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB5D24C91ABD003F2F1E /* SJLoadingViewDefinies.h */,
+				B2BEDB5E24C91ABD003F2F1E /* SJFullscreenCustomStatusBarDefines.h */,
+				B2BEDB5F24C91ABD003F2F1E /* SJFastForwardViewDefines.h */,
+				B2BEDB6024C91ABD003F2F1E /* SJControlLayerDefines.h */,
+				B2BEDB6124C91ABD003F2F1E /* SJScrollingTextMarqueeViewDefines.h */,
+				B2BEDB6224C91ABD003F2F1E /* SJVideoPlayerFilmEditingDefines.h */,
+				B2BEDB6324C91ABD003F2F1E /* SJDraggingObservationDefines.h */,
+				B2BEDB6424C91ABD003F2F1E /* SJDraggingProgressPopViewDefines.h */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		B2BEDB6624C91ABD003F2F1E /* ResourceLoader */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB6724C91ABD003F2F1E /* SJVideoPlayerResourceLoader.m */,
+				B2BEDB6824C91ABD003F2F1E /* SJVideoPlayer.bundle */,
+				B2BEDB6924C91ABD003F2F1E /* SJVideoPlayerResourceLoader.h */,
+			);
+			path = ResourceLoader;
+			sourceTree = "<group>";
+		};
+		B2BEDB9724C92AC3003F2F1E /* SJCommon */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDBA524C92B29003F2F1E /* Model */,
+				B2BEDB9824C92AF9003F2F1E /* View */,
+			);
+			path = SJCommon;
+			sourceTree = "<group>";
+		};
+		B2BEDB9824C92AF9003F2F1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDB9D24C92B24003F2F1E /* SJNestedCollectionView.h */,
+				B2BEDB9924C92B23003F2F1E /* SJNestedCollectionView.m */,
+				B2BEDB9A24C92B23003F2F1E /* SJPlayerSuperImageView.h */,
+				B2BEDBA024C92B24003F2F1E /* SJPlayerSuperImageView.m */,
+				B2BEDB9F24C92B24003F2F1E /* SJPlayerSuperview.h */,
+				B2BEDB9E24C92B24003F2F1E /* SJPlayerSuperview.m */,
+				B2BEDB9B24C92B23003F2F1E /* SJTopView.h */,
+				B2BEDB9C24C92B24003F2F1E /* SJTopView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B2BEDBA524C92B29003F2F1E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B2BEDBA624C92B3A003F2F1E /* SJVideoModel.h */,
+				B2BEDBA724C92B3A003F2F1E /* SJVideoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B2C3505724403F47002929A8 /* LBXScan */ = {
 			isa = PBXGroup;
 			children = (
@@ -5123,6 +5613,7 @@
 				B2BA39BB2435CD64005A3FFB /* photo_flash_auto.png in Resources */,
 				B2A77E2B23BDA38600407BF0 /* Assets.xcassets in Resources */,
 				B2A780FA23C02F2200407BF0 /* Modules.xcassets in Resources */,
+				B2BEDB9624C91ABD003F2F1E /* SJVideoPlayer.bundle in Resources */,
 				B26AEE1224A9D3DD00DF7132 /* PlayButtonOverlayLarge@3x.png in Resources */,
 				B26AEE0124A9D3DD00DF7132 /* ImageSelectedSmallOff@2x.png in Resources */,
 				B26AEDFE24A9D3DD00DF7132 /* PlayButtonOverlayLargeTap@2x.png in Resources */,
@@ -5236,6 +5727,7 @@
 				B2F5BD6424B41B9000AD1C72 /* ZCircleReleaseModel.m in Sources */,
 				B26880F3247681D900BF8FCD /* FilterDataUtil.m in Sources */,
 				B2F5BD5124B4013D00AD1C72 /* ZCircleReleaseSelectSchoolVC.m in Sources */,
+				B2BEDBA124C92B24003F2F1E /* SJNestedCollectionView.m in Sources */,
 				B28D9141240766940021E05A /* PGDatePicker+MonthDay.m in Sources */,
 				B28D90EE240666010021E05A /* ZOrganizationAccountTopMainView.m in Sources */,
 				B26880E024767ECC00BF8FCD /* WMZDropMenuParam.m in Sources */,
@@ -5256,6 +5748,7 @@
 				B29795A924260ACF004490F5 /* ZAlertDataCheckBoxBottomView.m in Sources */,
 				B2D83EAC23FA9F490099C2C9 /* ZOrganizationAddressLocationCell.m in Sources */,
 				B23F51CB24B5C4C90070FB79 /* ZMessageEvaListCell.m in Sources */,
+				B2BEDB8B24C91ABD003F2F1E /* SJCommonProgressSlider.m in Sources */,
 				B2F371D8246B8DBA00678B19 /* ZRewardModel.m in Sources */,
 				B27077812499FD14002D147A /* WYVideoCompressTools.m in Sources */,
 				B24D993223FBC3EE0078A458 /* ZOrganizationCampusManageAddLabelVC.m in Sources */,
@@ -5263,14 +5756,17 @@
 				B23F51BC24B5AD8D0070FB79 /* ZMessageListVC.m in Sources */,
 				B24D994E23FD0E520078A458 /* ZOrganizationLessonAddVC.m in Sources */,
 				B24415EB24BD8E0D0059E813 /* ZCircleUploadModel.m in Sources */,
+				B2BEDB9024C91ABD003F2F1E /* SJEdgeControlButtonItemAdapterLayout.m in Sources */,
 				B23F522424B6F9B50070FB79 /* ZCircleDetailAddressCell.m in Sources */,
 				B2F5BCFF24B0118600AD1C72 /* ZCircleMineVC.m in Sources */,
 				B23F521424B6C7530070FB79 /* ZJWaterLayout.m in Sources */,
+				B2BEDBA424C92B25003F2F1E /* SJPlayerSuperImageView.m in Sources */,
 				B2F5BD4E24B3390E00AD1C72 /* ZCircleReleaseDetailTextViewCell.m in Sources */,
 				B2A780A923BDFB0100407BF0 /* TLNetworkStatusManager.m in Sources */,
 				B29795B824286D50004490F5 /* ZOrganizationTeachingScheduleLessonCell.m in Sources */,
 				B2A7810E23C084C300407BF0 /* ZStudentMineLessonProgressCell.m in Sources */,
 				B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */,
+				B2BEDB8E24C91ABD003F2F1E /* SJEdgeControlButtonItemAdapter.m in Sources */,
 				B2F5BD5424B401C000AD1C72 /* ZCircleReleaseSchoolListCell.m in Sources */,
 				B28EA691240FA8D800C8E225 /* ZOriganizationModel.m in Sources */,
 				B24BCD3024987D6B00C3D9EA /* ZOrganizationSearchExperienceLessonListVC.m in Sources */,
@@ -5278,6 +5774,7 @@
 				B268815A247BBFB000BF8FCD /* ZMessgeModel.m in Sources */,
 				B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */,
 				B2C3509224440D66002929A8 /* ZTeacherMineSignListDetailListItemCell.m in Sources */,
+				B2BEDB6B24C91ABD003F2F1E /* SJLoadFailedControlLayer.m in Sources */,
 				B2A77FC523BDEAA100407BF0 /* ZBaseNetworkBackModel.m in Sources */,
 				B2FCA18524138D5200D2D6A2 /* ZStudentOrganizationDetailIntroCell.m in Sources */,
 				B296E3942404BC4300507509 /* ZOrganizationLessonManageListCell.m in Sources */,
@@ -5293,11 +5790,13 @@
 				B2F5BD4B24B3276800AD1C72 /* ZCirclePhotosItemCell.m in Sources */,
 				B2A7818A23C5868700407BF0 /* ZStudentOrganizationPersonnelMoreCell.m in Sources */,
 				B2F5BD1724B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m in Sources */,
+				B2BEDB9324C91ABD003F2F1E /* SJVideoPlayerConst.m in Sources */,
 				B2A780A423BDFB0100407BF0 /* TLDownloadRequest.m in Sources */,
 				B28861F4245283370073AEE4 /* AppDelegate+PushService.m in Sources */,
 				B25146C723CF1E2C009A64D4 /* ZStudentMineSettingSwitchCell.m in Sources */,
 				B2EE5BAD23F7DA4D00ECCFF4 /* ZOriganizationStatisticsCell.m in Sources */,
 				B252ED86241612A700190804 /* ZStudentOrganizationLessonListCollectionCell.m in Sources */,
+				B2BEDB7C24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m in Sources */,
 				B2DB9B23241B222B00340464 /* ZAlertTeacherCheckBoxView.m in Sources */,
 				B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */,
 				B230F1A924444D040084BCC6 /* ZTeacherSignTopTitleView.m in Sources */,
@@ -5336,6 +5835,7 @@
 				B23184DE241F59440033F875 /* ZOriganizationCardViewModel.m in Sources */,
 				B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */,
 				B2A7802723BDF9B100407BF0 /* ZDBManager.m in Sources */,
+				B2BEDB8F24C91ABD003F2F1E /* SJEdgeControlButtonItem.m in Sources */,
 				B26880DC24767ECC00BF8FCD /* WMZDropMenuBtn.m in Sources */,
 				B2A7801F23BDF8B200407BF0 /* ZAdvertiserModel.m in Sources */,
 				B26880E324767ECC00BF8FCD /* WMZDropMenuBase.m in Sources */,
@@ -5347,15 +5847,18 @@
 				B2A7818123C5780A00407BF0 /* ZStudentDetailModel.m in Sources */,
 				B25146B123CF0B10009A64D4 /* ZStudentMineSettingBottomCell.m in Sources */,
 				B24D994223FCD6A90078A458 /* ZOrganizationTeacherManageVC.m in Sources */,
+				B2BEDB7924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m in Sources */,
 				B251468323CEA09F009A64D4 /* ZStudentMineOrderListCell.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
 				B296E3AF24050EA900507509 /* ZOrganizationTeachingScheduleVC.m in Sources */,
 				B2C35041243EC965002929A8 /* ZOrganizationAccountSchoolCell.m in Sources */,
 				B2CF933B24249BB0007AF66E /* ZOrganizationMineEvaManageVC.m in Sources */,
+				B2BEDB6A24C91ABD003F2F1E /* SJNotReachableControlLayer.m in Sources */,
 				B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */,
 				B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */,
 				B28D912F240766940021E05A /* PGDatePicker.m in Sources */,
 				B2A816E424B461B2003A2E1F /* ZCircleDetailVC.m in Sources */,
+				B2BEDB6E24C91ABD003F2F1E /* SJMoreSettingControlLayer.m in Sources */,
 				B28EA675240E4A7E00C8E225 /* ZOrganizationCardAddVC.m in Sources */,
 				B26AEDF024A9D3DD00DF7132 /* MWZoomingScrollView.m in Sources */,
 				B2A7800723BDEDD300407BF0 /* UITableViewCell+ZCategory.m in Sources */,
@@ -5377,10 +5880,14 @@
 				B228CFB824C53126007BBDB1 /* ZCircleDetailEvaDelCell.m in Sources */,
 				B2C35070244070FC002929A8 /* ZOrganizationStudentSelectVC.m in Sources */,
 				B2C350792441955D002929A8 /* ZTeacherMineEvaListVC.m in Sources */,
+				B2BEDB7524C91ABD003F2F1E /* SJFilmEditingInVideoRecordingsControlLayer.m in Sources */,
 				B20C480A2400DD5700E0CE35 /* ZOrganizationStudentAddVC.m in Sources */,
 				B25EC03924A18D7B0099090E /* ZStudentOrganizationNewListCell.m in Sources */,
+				B2BEDBA824C92B3A003F2F1E /* SJVideoModel.m in Sources */,
+				B2BEDB9124C91ABD003F2F1E /* SJEdgeControlButtonItemView.m in Sources */,
 				B252ED8F24161DB300190804 /* UICollectionViewCell+ZCategory.m in Sources */,
 				B2F5BD2324B2D06F00AD1C72 /* ZHotListItemCell.m in Sources */,
+				B2BEDB8524C91ABD003F2F1E /* SJDraggingProgressPopView.m in Sources */,
 				B230F1BC2445AC6E0084BCC6 /* ZLessonWeekSectionView.m in Sources */,
 				B26880FE2477C5C200BF8FCD /* ZOrganizationSchoolTypeCell.m in Sources */,
 				B25146B723CF0E4A009A64D4 /* ZStudentMineSettingUserHeadImageCell.m in Sources */,
@@ -5410,6 +5917,7 @@
 				B28D9139240766940021E05A /* PGDatePicker+MonthDayHourMinuteSecond.m in Sources */,
 				B2469B8724A08BD500DCB146 /* XLPaymentLoadingHUD.m in Sources */,
 				B2A7812323C309EE00407BF0 /* ZStudentBannerCell.m in Sources */,
+				B2BEDB8824C91ABD003F2F1E /* UIView+SJAnimationAdded.m in Sources */,
 				B2DB9B52241CC70D00340464 /* ZSingleLineRightImageCell.m in Sources */,
 				B2A77FCF23BDEAA100407BF0 /* JSBUtil.m in Sources */,
 				B29795CA242A1B14004490F5 /* ZOriganizationOrderViewModel.m in Sources */,
@@ -5427,6 +5935,7 @@
 				B26880E224767ECC00BF8FCD /* WMZDropDownMenu.m in Sources */,
 				B2469B76249DA64800DCB146 /* FBAttachmentUploadCollectionViewCell.m in Sources */,
 				B24D993B23FBDD1B0078A458 /* ZOrganizationTimeItemCell.m in Sources */,
+				B2BEDB7D24C91ABD003F2F1E /* SJFilmEditingBackButton.m in Sources */,
 				B2C35064244049B3002929A8 /* LBXPermissionSetting.m in Sources */,
 				B28D90D82406435F0021E05A /* ZOrganizationClassManageDetailVC.m in Sources */,
 				B2F5BD3F24B31C6B00AD1C72 /* ZCircleReleaseCloseView.m in Sources */,
@@ -5434,6 +5943,8 @@
 				B2A816F024B47B64003A2E1F /* ZCircleDetailSchoolCell.m in Sources */,
 				B29795AF242850AA004490F5 /* ZStudentLessonSelectOrderLessonView.m in Sources */,
 				B29795882425B650004490F5 /* ZStudentDetailEvaAboutCell.m in Sources */,
+				B2BEDB9424C91ABD003F2F1E /* SJVideoPlayer.m in Sources */,
+				B2BEDB7424C91ABD003F2F1E /* SJFilmEditingResultShareItem.m in Sources */,
 				B28861F7245285E80073AEE4 /* ZPushModel.m in Sources */,
 				B2342C8123FE3C4500F31C34 /* ZAlertDateWeekAndHourPickerView.m in Sources */,
 				B28861FA2454374B0073AEE4 /* ZOrganizationLessonDetailListVC.m in Sources */,
@@ -5452,6 +5963,7 @@
 				B262B541244D500100A27542 /* ZStudentClassFiltrateSectionView.m in Sources */,
 				B20C480D2400DD6A00E0CE35 /* ZOrganizationStudentDetailVC.m in Sources */,
 				B23184F024222DE50033F875 /* ZOrganizationClassManageListSearchVC.m in Sources */,
+				B2BEDB8724C91ABD003F2F1E /* SJLoadingView.m in Sources */,
 				B26AEDF224A9D3DD00DF7132 /* MWTapDetectingImageView.m in Sources */,
 				B25EC03F24A1AC3D0099090E /* ZOrganizationCardSendVC.m in Sources */,
 				B2BA397624333432005A3FFB /* ZLoginTypeController.m in Sources */,
@@ -5471,6 +5983,8 @@
 				B296E3AC240507D200507509 /* ZOrganizationTopFilterView.m in Sources */,
 				B296E3B82405175900507509 /* ZOrganizationTeachingScheduleNoCell.m in Sources */,
 				B296E3972404CDBF00507509 /* ZOrganizationLessonDetailVC.m in Sources */,
+				B2BEDB8424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m in Sources */,
+				B2BEDB8624C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m in Sources */,
 				B2F7D34623CD7D8000F7A17D /* ZStudentMineEvaListHadVC.m in Sources */,
 				B2A7808B23BDFB0100407BF0 /* UIScrollView+ZRefreshHeader.m in Sources */,
 				B23184E7241F916C0033F875 /* ZOrganizationSearchCouponVC.m in Sources */,
@@ -5486,12 +6000,14 @@
 				B2A780C223BED08300407BF0 /* ZAgreementVC.m in Sources */,
 				B20C47F823FFB69B00E0CE35 /* ZOriganizationTextViewCell.m in Sources */,
 				B252ED742415F0A700190804 /* ZStudentOrganizationDetailIntroVC.m in Sources */,
+				B2BEDB8024C91ABD003F2F1E /* SJVideoPlayerSettings.m in Sources */,
 				B2EE5BCC23F9416400ECCFF4 /* ZOrganizationRadiusCell.m in Sources */,
 				B2CF93482424ACA1007AF66E /* ZOrganizationEvaListEvaBtnCell.m in Sources */,
 				B297957F2425A504004490F5 /* ZStudentCoachInfoTitleCell.m in Sources */,
 				B223BCC223C6EF1F00AC0158 /* ZStudentLessonDetailPeoplesCell.m in Sources */,
 				B2257E7D242E058E00862BB5 /* ZStudentMineLessonTimetableCollectionCell.m in Sources */,
 				B2A7801223BDF0D000407BF0 /* ZUser.m in Sources */,
+				B2BEDB8124C91ABD003F2F1E /* SJFullscreenCustomStatusBar.m in Sources */,
 				B2292E5C249B131A00924055 /* TZImageUploadOperation.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
@@ -5506,6 +6022,7 @@
 				B2D83EA323FA866F0099C2C9 /* ZOrganizationCampusManagementAddressVC.m in Sources */,
 				B252ED712415EC3300190804 /* ZOrganizationDetailBottomView.m in Sources */,
 				B2292E54249B04DC00924055 /* TZLocationManager.m in Sources */,
+				B2BEDB7A24C91ABD003F2F1E /* SJFilmEditingButtonContainerView.m in Sources */,
 				B2A7809023BDFB0100407BF0 /* NSMutableURLRequest+TLNetwork.m in Sources */,
 				B230F1C22445B13A0084BCC6 /* ZLessonWeekHandlerItemBtnView.m in Sources */,
 				B2A77E7523BDCCFE00407BF0 /* main.m in Sources */,
@@ -5528,7 +6045,9 @@
 				B2F70BE4241203DF008C693C /* ZStudentMineOrderDetailCell.m in Sources */,
 				B2B22DEF24930F45000BD20D /* ZLabelListCell.m in Sources */,
 				B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */,
+				B2BEDB7124C91ABD003F2F1E /* SJVideoPlayerFilmEditingParameters.m in Sources */,
 				B2A780BB23BECF3600407BF0 /* ZLoginViewModel.m in Sources */,
+				B2BEDBA224C92B25003F2F1E /* SJTopView.m in Sources */,
 				B2A77EA423BDE1AB00407BF0 /* NSMutableDictionary+LYNil.m in Sources */,
 				B2EE5BC623F92A3900ECCFF4 /* ZOrganizationCampusTextFieldCell.m in Sources */,
 				B2F5BD0224B0129A00AD1C72 /* ZCircleMineHeaderView.m in Sources */,
@@ -5555,6 +6074,7 @@
 				B2C35056243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m in Sources */,
 				B2C3508F24440CFE002929A8 /* ZTeacherMineSignListDetailListCell.m in Sources */,
 				B2A7813523C32B1400407BF0 /* ZStudentMainFiltrateSectionView.m in Sources */,
+				B2BEDB7724C91ABD003F2F1E /* SJFilmEditingInGIFRecordingsControlLayer.m in Sources */,
 				B2A7809523BDFB0100407BF0 /* ZNetworking.m in Sources */,
 				B270776F2499A1F7002D147A /* ZStudentLessonDetailShareVC.m in Sources */,
 				B2BA39C42435CD64005A3FFB /* XYTakePhotoController.m in Sources */,
@@ -5562,7 +6082,9 @@
 				B2296A952409075900E299AC /* ZStudentMineSwitchAccountLoginVC.m in Sources */,
 				B2A77FE023BDEAA100407BF0 /* ZBaseCell.m in Sources */,
 				B252ED9824163FDA00190804 /* ZStudentOrganizationCouponCell.m in Sources */,
+				B2BEDB7B24C91ABD003F2F1E /* SJFilmEditingVideoCountDownView.m in Sources */,
 				B2A780CF23BED3C800407BF0 /* ZStudentMessageVC.m in Sources */,
+				B2BEDB7E24C91ABD003F2F1E /* SJFilmEditingControlLayer.m in Sources */,
 				B2A77F7123BDE89C00407BF0 /* AppDelegate+AppService.m in Sources */,
 				B2A7809123BDFB0100407BF0 /* TLNetworking.m in Sources */,
 				B235903F2489EF6C008C953A /* ZStudentMineLessonNoTimetableCell.m in Sources */,
@@ -5580,6 +6102,7 @@
 				B2A77F7B23BDE9DB00407BF0 /* XYTransition.m in Sources */,
 				B2292E59249B052200924055 /* ZImagePickerManager.m in Sources */,
 				B2257E74242C890400862BB5 /* ZStudentMineOrderLessonEvaCell.m in Sources */,
+				B2BEDB8224C91ABD003F2F1E /* SJFastForwardView.m in Sources */,
 				B24415E524B848020059E813 /* ZCircleMineModel.m in Sources */,
 				B28D90FA240752430021E05A /* ZOrganizationAccountSchoolListCell.m in Sources */,
 				B29795A324260598004490F5 /* ZStudentLessonTeacherSelectedCell.m in Sources */,
@@ -5597,6 +6120,7 @@
 				B28D9136240766940021E05A /* PGDatePicker+Logic.m in Sources */,
 				B2A816DA24B4475B003A2E1F /* ZCircleMyFocusCell.m in Sources */,
 				B2A7811A23C2E55900407BF0 /* ZStudentMainModel.m in Sources */,
+				B2BEDB6F24C91ABD003F2F1E /* SJEdgeControlLayer.m in Sources */,
 				B24324E92491C49600F828A6 /* LKUIUtils.m in Sources */,
 				B29795912425C5A6004490F5 /* ZStudentStudentInfoDesCell.m in Sources */,
 				B2A77EAA23BDE20200407BF0 /* ZVideoPlayerManager.m in Sources */,
@@ -5613,6 +6137,7 @@
 				B297958B2425BDE2004490F5 /* ZStudentImageCollectionCell.m in Sources */,
 				B296E3A92404F91900507509 /* ZOrganizationTimeRightCell.m in Sources */,
 				B27077752499A62A002D147A /* ZStudentShareImageCell.m in Sources */,
+				B2BEDB7024C91ABD003F2F1E /* SJVideoPlayerFilmEditingGeneratedResult.m in Sources */,
 				B2F371B9246B8D9500678B19 /* ZReflectMoneyVC.m in Sources */,
 				B2DB9B40241C750900340464 /* ZOrganizatioPhotosCollectionCell.m in Sources */,
 				B279D05523C9578E00391A33 /* ZStudentLessonOrderMoreInputCell.m in Sources */,
@@ -5637,21 +6162,26 @@
 				B24BCD332498960600C3D9EA /* ZStudentExperienceLessonListItemCell.m in Sources */,
 				B2F371CE246B8DAA00678B19 /* ZReflectListLogCell.m in Sources */,
 				B2F7D35923CD999000F7A17D /* ZMineStudentEvaListEvaImageCollectionCell.m in Sources */,
+				B2BEDB8D24C91ABD003F2F1E /* SJControlLayerSwitcher.m in Sources */,
 				B2A7817423C567AE00407BF0 /* ZStudentOrganizationDetailDesVC.m in Sources */,
 				B2F5BD1A24B2CC4A00AD1C72 /* ZCircleSearchVC.m in Sources */,
 				B2F5BD3524B3113B00AD1C72 /* ZCircleHotSectionView.m in Sources */,
 				B28D90D1240621D10021E05A /* ZOrganizationClassManageListVC.m in Sources */,
+				B2BEDB6C24C91ABD003F2F1E /* SJSwitchVideoDefinitionControlLayer.m in Sources */,
 				B2517CC124C14542001741F9 /* NSObject+BlockObserver.m in Sources */,
 				B2A780A623BDFB0100407BF0 /* TLBaseRequest+Private.m in Sources */,
 				B28EA672240E4A1400C8E225 /* ZOrganizationCardListVC.m in Sources */,
+				B2BEDB8324C91ABD003F2F1E /* SJDraggingObservation.m in Sources */,
 				B24A29E8248DCE52005BB97C /* ZHitoryLabelCell.m in Sources */,
 				B23F51C224B5B6790070FB79 /* ZMessageTypeEntryCell.m in Sources */,
 				B28861FD245439E10073AEE4 /* ZAlertStoresTeacherCheckBoxView.m in Sources */,
 				B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */,
+				B2BEDB8924C91ABD003F2F1E /* SJVideoPlayerControlMaskView.m in Sources */,
 				B2A7818D23C586AD00407BF0 /* ZStudentOrganizationLessonListCell.m in Sources */,
 				B24D993523FBDBDE0078A458 /* ZOrganizationCampusManageTimeVC.m in Sources */,
 				B28D914E2407926B0021E05A /* ZOriganizationLessonViewModel.m in Sources */,
 				B2A7812923C3120200407BF0 /* ZStudentMainEntryItemCell.m in Sources */,
+				B2BEDB7624C91ABD003F2F1E /* SJFilmEditingGenerateResultControlLayer.m in Sources */,
 				B2C3504A243EF9AB002929A8 /* ZOriganizationAccountFilteView.m in Sources */,
 				B2A780AA23BDFB0100407BF0 /* TLNetworkUtility.m in Sources */,
 				B28D9144240766940021E05A /* PGDatePicker+DateHourMinuteSecond.m in Sources */,
@@ -5675,6 +6205,7 @@
 				B28EA688240F56DB00C8E225 /* ZLoginPasswordController.m in Sources */,
 				B2A780A523BDFB0100407BF0 /* TLBaseRequest.m in Sources */,
 				B229401C2462526F00B3FD43 /* ZCellModel.m in Sources */,
+				B2BEDB8A24C91ABD003F2F1E /* SJProgressSlider.m in Sources */,
 				B2257E83242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m in Sources */,
 				B29795822425A537004490F5 /* ZStudentCoachInfoDesCell.m in Sources */,
 				B24BCD2D24987AA100C3D9EA /* ZStudentOrganizationExperienceLessonListVC.m in Sources */,
@@ -5724,6 +6255,7 @@
 				B23F521B24B6C7530070FB79 /* ZJCycleView.m in Sources */,
 				B29795852425B059004490F5 /* ZStudentEvaListCell.m in Sources */,
 				B20C47F523FF8CD100E0CE35 /* ZOriganizationTeachAddHeadImageCell.m in Sources */,
+				B2BEDB7224C91ABD003F2F1E /* SJFilmEditingSaveResultToAlbumHandler.m in Sources */,
 				B2F5BCE824AEBEA300AD1C72 /* ZCircleViewController.m in Sources */,
 				B28D90C8240602370021E05A /* ZAlertDataCheckBoxView.m in Sources */,
 				B2A7809223BDFB0100407BF0 /* AFHTTPRequestSerializer+SGLog.m in Sources */,
@@ -5733,12 +6265,14 @@
 				B2F5BD6024B4146A00AD1C72 /* ZCircleReleaseRecommendLabelListCell.m in Sources */,
 				B2CF93452424A8E0007AF66E /* ZOrganizationEvaListLessonCell.m in Sources */,
 				B2F5BD3B24B319A000AD1C72 /* ZCircleReleaseVC.m in Sources */,
+				B2BEDBA324C92B25003F2F1E /* SJPlayerSuperview.m in Sources */,
 				B2BA39AD24358775005A3FFB /* ZUMengShareManager.m in Sources */,
 				B28EA68E240FA88E00C8E225 /* ZOriganizationTeachingScheduleViewModel.m in Sources */,
 				B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */,
 				B22B5A2724487C70001894BB /* ZStudentTeacherDetailEvaListVC.m in Sources */,
 				B28EA663240E0A8200C8E225 /* ZMineModel.m in Sources */,
 				B24D995C23FD3B570078A458 /* ZOrganizationLessonTypeCell.m in Sources */,
+				B2BEDB7F24C91ABD003F2F1E /* SJFloatSmallViewControlLayer.m in Sources */,
 				B2FCA18824138EE500D2D6A2 /* ZStudentOrganizationDetailIntroLabelCell.m in Sources */,
 				B2A77EA523BDE1AB00407BF0 /* NSArray+LYNil.m in Sources */,
 				B2A780D423BED47200407BF0 /* ZStudentMineVC.m in Sources */,
@@ -5767,6 +6301,7 @@
 				B29D7FF024303806004B3C00 /* ZOrganizationSwitchSchoolCell.m in Sources */,
 				B2F7D35023CD85AA00F7A17D /* ZMineStudentEvaListHadEvaCell.m in Sources */,
 				B2292E51249B04DC00924055 /* TZPhotoPickerController.m in Sources */,
+				B2BEDB8C24C91ABD003F2F1E /* SJButtonProgressSlider.m in Sources */,
 				B2C3508C24440854002929A8 /* ZTeacherMineSignListDetailTitleCell.m in Sources */,
 				B24BCD392498C80500C3D9EA /* ZStudentLessonSelectMainOrderTimeView.m in Sources */,
 				B251468F23CEBDDC009A64D4 /* ZStudentMineOrderDetailHandleBottomView.m in Sources */,
@@ -5791,6 +6326,7 @@
 				B2A7803123BDFA3800407BF0 /* NSString+Message.m in Sources */,
 				B2C35066244049B3002929A8 /* LBXPermissionCamera.m in Sources */,
 				B24D992623FB98C00078A458 /* POIAnnotation.m in Sources */,
+				B2BEDB6D24C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJExtendedDefinition.m in Sources */,
 				B2A780A223BDFB0100407BF0 /* RealReachability.m in Sources */,
 				B2C35047243EF3FE002929A8 /* ZOrganizationAccountSchoolNOListCell.m in Sources */,
 				B20E57B424851AEB00D4226D /* ZOrganizationDetailNumAndMinCell.m in Sources */,
@@ -5807,6 +6343,8 @@
 				B230F1B6244581BA0084BCC6 /* ZTeacherLessonDetailListVC.m in Sources */,
 				B2F5BD2F24B3089300AD1C72 /* ZCircleHotLessonListCell.m in Sources */,
 				B2469B5F249C447F00DCB146 /* ZImageAndVideoTestVC.m in Sources */,
+				B2BEDB9524C91ABD003F2F1E /* SJVideoPlayerResourceLoader.m in Sources */,
+				B2BEDB7824C91ABD003F2F1E /* SJFilmEditingResultShareItemsContainerView.m in Sources */,
 				B2F5BD0E24B05D0D00AD1C72 /* ZAlertStoreInfoView.m in Sources */,
 				B2C35053243F3A21002929A8 /* ZOrganizationStudentJionInLessonVC.m in Sources */,
 				B2C3506D2440625D002929A8 /* ZOrganizationSendMessageVC.m in Sources */,
@@ -5827,6 +6365,7 @@
 				B20C48072400DD4300E0CE35 /* ZOrganizationStudentManageVC.m in Sources */,
 				B2D83E9D23FA621A0099C2C9 /* ZAlertDataPickerView.m in Sources */,
 				B2F37207246CDC0100678B19 /* ZStudentCollectionOrganizationVC.m in Sources */,
+				B2BEDB7324C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m in Sources */,
 				B2F371CF246B8DAA00678B19 /* ZRewardRankingBottomView.m in Sources */,
 				B296E38E2404B14E00507509 /* ZOrganizationLessonManageListVC.m in Sources */,
 				B28D912E240766940021E05A /* PGDatePicker+MinuteAndSecond.m in Sources */,
@@ -5861,6 +6400,7 @@
 				B2A77FC823BDEAA100407BF0 /* ZPhoneAlertView.m in Sources */,
 				B29795B224285754004490F5 /* ZStudentLessonSelectOrderTimeView.m in Sources */,
 				B2A77FEB23BDEB7000407BF0 /* UIButton+ZWebImage.m in Sources */,
+				B2BEDB9224C91ABD003F2F1E /* SJEdgeControlLayerAdapters.m in Sources */,
 				B251468923CEB265009A64D4 /* ZTableViewListCell.m in Sources */,
 				B2A77FD223BDEAA100407BF0 /* ZMenuItem.m in Sources */,
 				B2A77FCE23BDEAA100407BF0 /* InternalApis.m in Sources */,
@@ -6038,7 +6578,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.2.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -6148,7 +6688,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.2.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

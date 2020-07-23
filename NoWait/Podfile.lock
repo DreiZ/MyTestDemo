@@ -59,6 +59,7 @@ PODS:
   - MJExtension (3.0.17)
   - MJRefresh (3.1.17)
   - PGPickerView (1.3.8)
+  - Reachability (3.2)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -71,6 +72,51 @@ PODS:
   - SDWebImage (3.8.3):
     - SDWebImage/Core (= 3.8.3)
   - SDWebImage/Core (3.8.3)
+  - SJBaseVideoPlayer (3.3.3):
+    - Masonry
+    - Reachability
+    - SJBaseVideoPlayer/AVPlayer (= 3.3.3)
+    - SJBaseVideoPlayer/Common (= 3.3.3)
+    - SJUIKit/AttributesFactory (>= 0.0.0.38)
+    - SJUIKit/ObserverHelper
+    - SJUIKit/Queues
+    - SJUIKit/SQLite3
+  - SJBaseVideoPlayer/AVPlayer (3.3.3):
+    - Masonry
+    - Reachability
+    - SJBaseVideoPlayer/Common
+    - SJUIKit/AttributesFactory (>= 0.0.0.38)
+    - SJUIKit/ObserverHelper
+    - SJUIKit/Queues
+    - SJUIKit/SQLite3
+  - SJBaseVideoPlayer/Common (3.3.3):
+    - Masonry
+    - Reachability
+    - SJBaseVideoPlayer/ResourceLoader
+    - SJUIKit/AttributesFactory (>= 0.0.0.38)
+    - SJUIKit/ObserverHelper
+    - SJUIKit/Queues
+    - SJUIKit/SQLite3
+  - SJBaseVideoPlayer/ResourceLoader (3.3.3):
+    - Masonry
+    - Reachability
+    - SJUIKit/AttributesFactory (>= 0.0.0.38)
+    - SJUIKit/ObserverHelper
+    - SJUIKit/Queues
+    - SJUIKit/SQLite3
+  - SJUIKit/AttributesFactory (0.0.0.48):
+    - SJUIKit/AttributesFactory/Deprecated (= 0.0.0.48)
+    - SJUIKit/AttributesFactory/UIKitText (= 0.0.0.48)
+  - SJUIKit/AttributesFactory/Deprecated (0.0.0.48)
+  - SJUIKit/AttributesFactory/UIKitText (0.0.0.48)
+  - SJUIKit/ObserverHelper (0.0.0.48)
+  - SJUIKit/Queues (0.0.0.48)
+  - SJUIKit/SQLite3 (0.0.0.48):
+    - SJUIKit/SQLite3/Core (= 0.0.0.48)
+    - SJUIKit/SQLite3/Protocol (= 0.0.0.48)
+  - SJUIKit/SQLite3/Core (0.0.0.48):
+    - SJUIKit/SQLite3/Protocol
+  - SJUIKit/SQLite3/Protocol (0.0.0.48)
   - SVProgressHUD (2.2.5)
   - TLKit (0.0.27):
     - TLKit/TLCategories (= 0.0.27)
@@ -203,6 +249,7 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 2.5)
   - SDCycleScrollView
   - SDWebImage (~> 3.7)
+  - SJBaseVideoPlayer
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
   - UMCAnalytics
@@ -237,9 +284,12 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - PGPickerView
+    - Reachability
     - ReactiveCocoa
     - SDCycleScrollView
     - SDWebImage
+    - SJBaseVideoPlayer
+    - SJUIKit
     - SVProgressHUD
     - UMCAnalytics
     - UMCCommon
@@ -292,9 +342,12 @@ SPEC CHECKSUMS:
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
   MJRefresh: ee5b68f639775462faba4db0fd243baf4d42c2cf
   PGPickerView: 037acfb132a4c8054fb43aaa59a5ff50c7f747f5
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
+  SJBaseVideoPlayer: 259d13f93937c7f92e888ba7107c3d47308ee37f
+  SJUIKit: fc4b3a3e54bea1d8d9b982df5110a0d9ded27a12
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TLKit: e06e6018c04c6c13a96faefe980a13ff124ebeb1
   TLTabBarController: 6e91813f0ae019e8cd2ae35d6f4f6315085f7c44
@@ -309,6 +362,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: bba5f8f90004287626a49167635ace45218f3315
+PODFILE CHECKSUM: 6e21ff0b953a95fb002967eb93c0e1ea61fff704
 
 COCOAPODS: 1.9.1

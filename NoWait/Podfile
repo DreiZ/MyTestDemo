@@ -24,8 +24,8 @@ target :NoWait do
     pod 'DACircularProgress'
     pod 'MBProgressHUD'
 #    pod 'SJVideoPlayer'
-#    pod 'SJBaseVideoPlayer', :git => 'https://github.com/changsanjiang/SJBaseVideoPlayer.git'
-
+#sjvideo
+    pod 'SJBaseVideoPlayer'
 
 # 全能tabBarController
     pod 'TLTabBarController', :git => 'https://github.com/tbl00c/TLTabBarController.git', :tag => '0.0.6'
