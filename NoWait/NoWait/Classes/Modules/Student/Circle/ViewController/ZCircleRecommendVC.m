@@ -14,7 +14,6 @@
 #import "ZCircleMineModel.h"
 #import "ZCircleMineViewModel.h"
 #import "ZLocationManager.h"
-#import "ZVideoSjTestViewController.h"
 
 @interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
 /** ZJWaterLayout */
@@ -112,9 +111,6 @@
 }
 
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    ZVideoSjTestViewController *videvc = [[ZVideoSjTestViewController alloc] init];
-    [self.navigationController pushViewController:videvc animated:YES];
-    return;
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];

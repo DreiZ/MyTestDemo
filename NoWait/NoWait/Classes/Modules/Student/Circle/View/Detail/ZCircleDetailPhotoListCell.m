@@ -7,12 +7,12 @@
 //
 
 #import "ZCircleDetailPhotoListCell.h"
-#import "ZCirclePhotosItemCell.h"
+#import "ZCircleDetailPhotosItemCell.h"
 
 @interface ZCircleDetailPhotoListCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
-@property (nonatomic,strong) UICollectionView *iCollectionView;
+@property (nonatomic,strong) SJNestedCollectionView *iCollectionView;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
 
 @end
@@ -42,7 +42,7 @@
     [self.cellConfigArr removeAllObjects];
     
     for (int i = 0; i < self.imageList.count; i++) {
-        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCirclePhotosItemCell className] title:[ZCirclePhotosItemCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[self getItemSize:self.imageList.count] cellType:ZCellTypeClass dataModel:self.imageList[i]];
+        ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailPhotosItemCell className] title:[ZCircleDetailPhotosItemCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[self getItemSize:self.imageList.count] cellType:ZCellTypeClass dataModel:self.imageList[i]];
         
         [self.cellConfigArr addObject:cellConfig];
     }
@@ -61,19 +61,19 @@
     return _funBackView;
 }
 
-- (UICollectionView *)iCollectionView {
+- (SJNestedCollectionView *)iCollectionView {
     if (!_iCollectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumLineSpacing= 0;
         layout.minimumInteritemSpacing = 0;
         layout.itemSize = CGSizeMake(CGFloatIn750(222), CGFloatIn750(148));
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _iCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
+        _iCollectionView = [[SJNestedCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         [_iCollectionView setShowsVerticalScrollIndicator:NO];
         [_iCollectionView setShowsHorizontalScrollIndicator:NO];
         _iCollectionView.clipsToBounds = YES;
         _iCollectionView.scrollEnabled = NO;
-        [_iCollectionView registerClass:[ZCirclePhotosItemCell class] forCellWithReuseIdentifier:[ZCirclePhotosItemCell className]];
+        [_iCollectionView registerClass:[ZCircleDetailPhotosItemCell class] forCellWithReuseIdentifier:[ZCircleDetailPhotosItemCell className]];
         [_iCollectionView setBackgroundColor:adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark])];
         _iCollectionView.delegate = self;
         _iCollectionView.dataSource = self;
@@ -100,12 +100,14 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCollectionViewCell *cell;
     cell = (ZBaseCollectionViewCell*)[cellConfig cellOfCellConfigWithCollection:collectionView indexPath:indexPath dataModel:cellConfig.dataModel];
-    if ([cellConfig.title isEqualToString:@"ZCirclePhotosItemCell"]) {
-        ZCirclePhotosItemCell *lcell = (ZCirclePhotosItemCell *)cell;
-        lcell.isEdit = NO;
+    if ([cellConfig.title isEqualToString:@"ZCircleDetailPhotosItemCell"]) {
+        ZCircleDetailPhotosItemCell *lcell = (ZCircleDetailPhotosItemCell *)cell;
         lcell.seeBlock = ^{
-            if (weakSelf.seeBlock) {
-                weakSelf.seeBlock(indexPath.row);
+//            if (weakSelf.seeBlock) {
+//                weakSelf.seeBlock(indexPath.row);
+//            }
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(weakSelf, weakSelf.iCollectionView, indexPath,cellConfig.dataModel);
             }
         };
     }

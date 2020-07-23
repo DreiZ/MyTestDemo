@@ -27,6 +27,7 @@
 #import <IQKeyboardManager.h>
 #import "XHInputView.h"
 #import "ZAlertView.h"
+#import "SJVideoPlayer.h"
 
 #import "ZOriganizationReportVC.h"
 #import "ZCircleMineCollectionVC.h"
@@ -38,6 +39,7 @@
 @property (nonatomic,strong) ZCircleDetailEvaSectionView *sectionView;
 
 @property (nonatomic,strong) ZCircleDynamicInfo *infoModel;
+@property (nonatomic,strong) SJVideoPlayer *player;
 
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) NSMutableArray *likeList;
@@ -53,9 +55,27 @@
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.player vc_viewDidAppear];
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.player vc_viewWillDisappear];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.player vc_viewDidDisappear];
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden {
+    return YES;
 }
 
 - (void)viewDidLoad {
@@ -278,19 +298,22 @@
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailPhotoListCell"]){
             ZCircleDetailPhotoListCell *lcell = (ZCircleDetailPhotoListCell *)cell;
             lcell.seeBlock = ^(NSInteger index) {
-                NSMutableArray *photos = @[].mutableCopy;
-                for (int i = 0; i < self.infoModel.video.count; i++) {
-                    [photos addObject:self.infoModel.video[i]];
-                }
-                for (int i = 0; i < self.infoModel.image.count; i++) {
-                    [photos addObject:self.infoModel.image[i]];
-                }
-                if (index < photos.count) {
-                    if (isVideo(photos[index])) {
-                        [[ZVideoPlayerManager sharedInstance] playVideoWithUrl:photos[index] title:@""];
-                        return;
+                
+            };
+            lcell.handleBlock = ^(ZBaseCell * cell, UICollectionView * iCollectionView, NSIndexPath *indexPath, ZFileUploadDataModel* model) {
+                if (isVideo(model.image_url)) {
+                    [weakSelf cell:cell coverItemWasTappedInCollectionView:iCollectionView atIndexPath:indexPath model:model];
+                }else{
+                    NSMutableArray *photos = @[].mutableCopy;
+                    for (int i = 0; i < self.infoModel.video.count; i++) {
+                        [photos addObject:self.infoModel.video[i]];
                     }
-                    [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:index];
+                    for (int i = 0; i < self.infoModel.image.count; i++) {
+                        [photos addObject:self.infoModel.image[i]];
+                    }
+                    if (indexPath.row < photos.count) {
+                        [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:indexPath.row];
+                    }
                 }
             };
         }else if([cellConfig.title isEqualToString:@"school"]){
@@ -410,7 +433,24 @@
     return _sectionView;
 }
 
+#pragma mark - 视频播放
+- (void)cell:(ZBaseCell *)cell coverItemWasTappedInCollectionView:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath model:(ZFileUploadDataModel *)model{
+    if ( _player == nil ) {
+        _player = [SJVideoPlayer player];
+        _player.resumePlaybackWhenScrollAppeared = YES; // 滚动出现时, 是否恢复播放, 此处设置为YES.
+    }
+    
+    // 视图层次第一层
+    SJPlayModel *playModel = [SJPlayModel playModelWithCollectionView:collectionView indexPath:indexPath];
+    // 视图层次第二层
+    // 通过`nextPlayModel`把它们链起来. 有多少层, 就链多少层
+    playModel.nextPlayModel = [SJPlayModel playModelWithTableView:self.iTableView indexPath:[self.iTableView indexPathForCell:cell]];
+    
+    // 进行播放
+    _player.URLAsset = [[SJVideoPlayerURLAsset alloc] initWithURL:[NSURL URLWithString:model.image_url] playModel:playModel];
+}
 
+#pragma mark - 输入框
 -(void)showXHInputViewWithStyle:(InputViewStyle)style{
     [XHInputView showWithStyle:style configurationBlock:^(XHInputView *inputView) {
         inputView.delegate = self;
