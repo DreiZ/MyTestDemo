@@ -25,8 +25,8 @@
     
     __weak typeof(self) weakSelf = self;
     self.zChain_block_setRefreshHeaderNet(^{
-        self.loading = YES;
-        [ZOriganizationStudentViewModel getStoresStudentDetail:@{@"student_id":SafeStr(self.student_id),@"stores_id":SafeStr(self.stores_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
+        weakSelf.loading = YES;
+        [ZOriganizationStudentViewModel getStoresStudentDetail:@{@"student_id":SafeStr(weakSelf.student_id),@"stores_id":SafeStr(weakSelf.stores_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
             weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.addModel = addModel;
@@ -39,39 +39,39 @@
     self.zChain_setNavTitle(@"学员详情");
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-        if (!self.addModel) {
+        if (!weakSelf.addModel) {
             return;
         }
         ZCellConfig *infoCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentStudentInfoDesCell className] title:[ZStudentStudentInfoDesCell className] showInfoMethod:@selector(setAddModel:) heightOfCell:[ZStudentStudentInfoDesCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.addModel];
-        [self.cellConfigArr addObject:infoCellConfig];
+        [weakSelf.cellConfigArr addObject:infoCellConfig];
 
         ZCellConfig *descTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"学员简介"];
-        [self.cellConfigArr addObject:descTitleCellConfig];
+        [weakSelf.cellConfigArr addObject:descTitleCellConfig];
         
-        if (ValidStr(self.addModel.specialty_desc)) {
+        if (ValidStr(weakSelf.addModel.specialty_desc)) {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"desc");
-            model.zz_titleLeft(self.addModel.specialty_desc);
+            model.zz_titleLeft(weakSelf.addModel.specialty_desc);
             model.zz_leftMultiLine(YES);
             model.zz_cellHeight(CGFloatIn750(62));
             
             ZCellConfig *desCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr  addObject:desCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
+            [weakSelf.cellConfigArr  addObject:desCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
         }else{
             ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"4"];
-            [self.cellConfigArr addObject:coachCellConfig];
+            [weakSelf.cellConfigArr addObject:coachCellConfig];
         }
         
         ZCellConfig *imageTitleCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentCoachInfoTitleCell className] title:[ZStudentCoachInfoTitleCell className] showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentCoachInfoTitleCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"学员相册"];
-        [self.cellConfigArr addObject:imageTitleCellConfig];
+        [weakSelf.cellConfigArr addObject:imageTitleCellConfig];
         
-        if (ValidArray(self.addModel.images_list)) {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentImageCollectionCell className] title:[ZStudentImageCollectionCell className] showInfoMethod:@selector(setImages:) heightOfCell:[ZStudentImageCollectionCell z_getCellHeight:self.addModel.images_list] cellType:ZCellTypeClass dataModel:self.addModel.images_list];
-            [self.cellConfigArr addObject:imageCellConfig];
+        if (ValidArray(weakSelf.addModel.images_list)) {
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentImageCollectionCell className] title:[ZStudentImageCollectionCell className] showInfoMethod:@selector(setImages:) heightOfCell:[ZStudentImageCollectionCell z_getCellHeight:weakSelf.addModel.images_list] cellType:ZCellTypeClass dataModel:weakSelf.addModel.images_list];
+            [weakSelf.cellConfigArr addObject:imageCellConfig];
         }else{
             ZCellConfig *coachCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationNoDataCell className] title:@"ZOrganizationNoDataCell" showInfoMethod:@selector(setType:) heightOfCell:[ZOrganizationNoDataCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"5"];
-            [self.cellConfigArr addObject:coachCellConfig];
+            [weakSelf.cellConfigArr addObject:coachCellConfig];
         }
         
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {

@@ -44,9 +44,9 @@
     .zChain_addRefreshHeader()
     .zChain_addEmptyDataDelegate()
     .zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_updateDataSource(^{
         self.loading = YES;
         self.param = @{}.mutableCopy;
@@ -75,13 +75,13 @@
             make.top.equalTo(self.searchTopView.mas_bottom).offset(-CGFloatIn750(20));
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         
-       for (int i = 0; i < self.dataSources.count; i++) {
-           ZOriganizationTeacherListModel *model = self.dataSources[i];
-           model.isEdit = self.isEdit;
-           ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-           [self.cellConfigArr addObject:progressCellConfig];
+       for (int i = 0; i < weakSelf.dataSources.count; i++) {
+           ZOriganizationTeacherListModel *model = weakSelf.dataSources[i];
+           model.isEdit = weakSelf.isEdit;
+           ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTeachListCell className] title:[ZOriganizationTeachListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationTeachListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
+           [weakSelf.cellConfigArr addObject:progressCellConfig];
        }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOriganizationTeachListCell"]){

@@ -41,9 +41,9 @@
     }).zChain_updateDataSource(^{
         weakSelf.loading = YES;
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     });
     
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
@@ -68,7 +68,7 @@
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
              ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
              dvc.model = cellConfig.dataModel;
-             [self.navigationController pushViewController:dvc animated:YES];
+             [weakSelf.navigationController pushViewController:dvc animated:YES];
         }
     });
 }

@@ -42,7 +42,7 @@
         }];
         self.iTableView.tableFooterView = bottomView;
     }).zChain_block_setRefreshHeaderNet(^{
-        __weak typeof(self) weakSelf = self;
+        
         [ZStudentMainViewModel getComplaintType:@{} completeBlock:^(BOOL isSuccess, ZComplaintNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
@@ -67,7 +67,7 @@
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
-            [self.cellConfigArr  addObject:menuCellConfig];
+            [weakSelf.cellConfigArr  addObject:menuCellConfig];
         }
         
         {
@@ -78,12 +78,12 @@
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
-            [self.cellConfigArr  addObject:menuCellConfig];
+            [weakSelf.cellConfigArr  addObject:menuCellConfig];
         }
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:self.dataSources] cellType:ZCellTypeClass dataModel:self.dataSources];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentLabelCell className] title:@"label" showInfoMethod:@selector(setTitleArr:) heightOfCell:[ZStudentLabelCell z_getCellHeight:weakSelf.dataSources] cellType:ZCellTypeClass dataModel:weakSelf.dataSources];
         
-        [self.cellConfigArr  addObject:menuCellConfig];
+        [weakSelf.cellConfigArr  addObject:menuCellConfig];
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(92))
@@ -91,10 +91,10 @@
             .zz_titleLeft(@"补充说明(140字以为)");
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr  addObject:menuCellConfig];
+            [weakSelf.cellConfigArr  addObject:menuCellConfig];
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationTextViewCell className] title:@"ZOriganizationTextViewCell" showInfoMethod:@selector(setIsBackColor:) heightOfCell:CGFloatIn750(274) cellType:ZCellTypeClass dataModel:@"yes"];
-            [self.cellConfigArr addObject:textCellConfig];
+            [weakSelf.cellConfigArr addObject:textCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"label"]) {
@@ -106,7 +106,7 @@
             ZOriganizationTextViewCell *lcell = (ZOriganizationTextViewCell *)cell;
             lcell.max = 140;
             lcell.hint = @"选填";
-            lcell.content = self.des;
+            lcell.content = weakSelf.des;
             lcell.textChangeBlock = ^(NSString * text) {
                 weakSelf.des = text;
             };

@@ -38,7 +38,7 @@
             .zz_imageRightHeight(CGFloatIn750(14));
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"changePassword"]) {

@@ -50,17 +50,17 @@
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
         
-        if (!self.detailModel) {
+        if (!weakSelf.detailModel) {
             return;
         }
         
-        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel];
-        [self.cellConfigArr addObject:orderCellConfig];
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
+        ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListLessonCell className] title:[ZOrganizationEvaListLessonCell className] showInfoMethod:@selector(setDetailModel:) heightOfCell:[ZOrganizationEvaListLessonCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.detailModel];
+        [weakSelf.cellConfigArr addObject:orderCellConfig];
+        [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
         
-        [self lessonEva];
-        [self teacherEva];
-        [self organizationEva];
+        [weakSelf lessonEva];
+        [weakSelf teacherEva];
+        [weakSelf organizationEva];
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOrganizationEvaDetailTitleCell"]){
             ZOrganizationEvaDetailTitleCell *lcell = (ZOrganizationEvaDetailTitleCell *)cell;
@@ -74,15 +74,15 @@
         if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]){
             ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
             ZOrderListModel *model = [[ZOrderListModel alloc] init];
-            model.order_id = self.detailModel.order_id;
+            model.order_id = weakSelf.detailModel.order_id;
             evc.model = model;
             [weakSelf.navigationController pushViewController:evc animated:YES];
         }
     });
     
     self.zChain_block_setRefreshHeaderNet(^{
-        self.loading = YES;
-        [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(self.listModel.order_id),@"stores_id":SafeStr(self.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
+        weakSelf.loading = YES;
+        [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(weakSelf.listModel.order_id),@"stores_id":SafeStr(weakSelf.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
             weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.detailModel = data;

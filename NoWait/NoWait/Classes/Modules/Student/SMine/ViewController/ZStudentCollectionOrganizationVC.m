@@ -45,7 +45,7 @@
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
         
-        for (ZStoresListModel *model in self.dataSources) {
+        for (ZStoresListModel *model in weakSelf.dataSources) {
             model.isStudentCollection = YES;
             ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:[ZStudentOrganizationListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [weakSelf.cellConfigArr addObject:orderCellConfig];

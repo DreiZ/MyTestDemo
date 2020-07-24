@@ -68,16 +68,16 @@
         }
         
         ZCellConfig *entryCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageTypeEntryCell className] title:[ZMessageTypeEntryCell className] showInfoMethod:@selector(setItemArr:) heightOfCell:[ZMessageTypeEntryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:itemArr];
-        [self.cellConfigArr addObject:entryCellConfig];
+        [weakSelf.cellConfigArr addObject:entryCellConfig];
         
         
-        [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+        [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
        
         ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMessageListCell className] title:[ZStudentMessageListCell className] showInfoMethod:nil heightOfCell:[ZStudentMessageListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-        [self.cellConfigArr addObject:messageCellConfig];
-        [self.cellConfigArr addObject:messageCellConfig];
-        [self.cellConfigArr addObject:messageCellConfig];
-        [self.cellConfigArr addObject:messageCellConfig];
+        [weakSelf.cellConfigArr addObject:messageCellConfig];
+        [weakSelf.cellConfigArr addObject:messageCellConfig];
+        [weakSelf.cellConfigArr addObject:messageCellConfig];
+        [weakSelf.cellConfigArr addObject:messageCellConfig];
         
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageTypeEntryCell"]) {

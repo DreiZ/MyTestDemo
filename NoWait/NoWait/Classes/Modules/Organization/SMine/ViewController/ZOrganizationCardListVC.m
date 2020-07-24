@@ -42,10 +42,10 @@
         self.param = @{}.mutableCopy;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationCartListCell className] title:[ZOriganizationCartListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationCartListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationCartListCell className] title:[ZOriganizationCartListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationCartListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
 
-            [self.cellConfigArr addObject:progressCellConfig];
+            [weakSelf.cellConfigArr addObject:progressCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOriganizationCartListCell"]){

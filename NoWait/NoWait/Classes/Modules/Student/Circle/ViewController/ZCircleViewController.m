@@ -8,7 +8,6 @@
 
 #import "ZCircleViewController.h"
 #import "ZCircleRecommendVC.h"
-#import "ZCircleFinderVC.h"
 #import "ZCircleHeaderView.h"
 #import "ZCircleMineVC.h"
 #import "ZCircleMineCollectionVC.h"

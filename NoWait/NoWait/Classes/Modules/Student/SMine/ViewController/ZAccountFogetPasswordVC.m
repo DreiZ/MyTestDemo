@@ -72,38 +72,38 @@
          .zz_cellHeight(CGFloatIn750(126));
          
           ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-          [self.cellConfigArr addObject:titleCellConfig];
+          [weakSelf.cellConfigArr addObject:titleCellConfig];
          
-         [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
+         [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(100))];
          {
              ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"phone" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"手机号码"];
              
-             [self.cellConfigArr addObject:textCellConfig];
-             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             [weakSelf.cellConfigArr addObject:textCellConfig];
+             [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
          }
          
          {
              ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"imageCode" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"图形验证码"];
              
-             [self.cellConfigArr addObject:textCellConfig];
-             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             [weakSelf.cellConfigArr addObject:textCellConfig];
+             [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
          }
          
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"code" showInfoMethod:nil heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
 
-        [self.cellConfigArr addObject:textCellConfig];
+        [weakSelf.cellConfigArr addObject:textCellConfig];
          {
-             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+             [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
              ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"password" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"输入密码"];
              
-             [self.cellConfigArr addObject:textCellConfig];
+             [weakSelf.cellConfigArr addObject:textCellConfig];
          }
          
         {
-          [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+          [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
           ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineAccountTextFieldCell className] title:@"repassword" showInfoMethod:@selector(setPlaceholder: ) heightOfCell:[ZMineAccountTextFieldCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"再次确认密码"];
           
-          [self.cellConfigArr addObject:textCellConfig];
+          [weakSelf.cellConfigArr addObject:textCellConfig];
         }
     });
     

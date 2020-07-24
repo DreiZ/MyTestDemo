@@ -25,7 +25,7 @@
         [weakSelf.cellConfigArr removeAllObjects];
 
         if (ValidArray(self.infoModel.account )) {
-            [self.infoModel.account enumerateObjectsUsingBlock:^(ZMessageAccountModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [weakSelf.infoModel.account enumerateObjectsUsingBlock:^(ZMessageAccountModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"ZLineCellModel");
                 
                 model.leftTitle = obj.nick_name;
@@ -38,7 +38,7 @@
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }];
         }
     }).zChain_block_setRefreshHeaderNet(^{

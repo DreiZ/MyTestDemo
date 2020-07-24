@@ -28,13 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_resetMainView(^{
         self.iTableView.scrollEnabled = NO;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         CGFloat cellHeight = 0;
         {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
             
             cellHeight = cellHeight + CGFloatIn750(60);
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
@@ -49,16 +50,16 @@
             .zz_colorDarkRight([UIColor colorTextBlackDark]);
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
             
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(58))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(58))];
             cellHeight = cellHeight + CGFloatIn750(60);
             cellHeight = cellHeight + CGFloatIn750(58);
             
             ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareImageCell className] title:@"image" showInfoMethod:@selector(setImage:) heightOfCell:KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280) cellType:ZCellTypeClass dataModel:self.addModel.image_url];
-            [self.cellConfigArr addObject:imageCellConfig];
+            [weakSelf.cellConfigArr addObject:imageCellConfig];
 
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
             cellHeight = cellHeight + (KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280));
             cellHeight = cellHeight + CGFloatIn750(40);
 
@@ -68,14 +69,14 @@
             .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(36)])
             .zz_titleLeft([NSString stringWithFormat:@"￥%@",self.addModel.price]);
-            if (ValidStr(self.addModel.experience_price)) {
-                priceModel.zz_titleLeft([NSString stringWithFormat:@"￥%@(体验价￥%@)",self.addModel.price,self.addModel.experience_price]);
+            if (ValidStr(weakSelf.addModel.experience_price)) {
+                priceModel.zz_titleLeft([NSString stringWithFormat:@"￥%@(体验价￥%@)",weakSelf.addModel.price,weakSelf.addModel.experience_price]);
             }
 
             ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:priceModel];
-            [self.cellConfigArr addObject:priceCellConfig];
+            [weakSelf.cellConfigArr addObject:priceCellConfig];
             
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             cellHeight = cellHeight + CGFloatIn750(60);
             cellHeight = cellHeight + CGFloatIn750(20);
 
@@ -84,17 +85,17 @@
             .zz_marginLeft(CGFloatIn750(30))
             .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldFontTitle])
-            .zz_titleLeft(self.addModel.name);
+            .zz_titleLeft(weakSelf.addModel.name);
 
             ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:nameModel];
-            [self.cellConfigArr addObject:nameCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:nameCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
 
             cellHeight = cellHeight + CGFloatIn750(60);
             cellHeight = cellHeight + CGFloatIn750(20);
             cellHeight = cellHeight + CGFloatIn750(20);
 
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             ZLineCellModel *timeModel = ZLineCellModel.zz_lineCellModel_create(@"time")
             .zz_cellHeight(CGFloatIn750(60))
             .zz_marginLeft(CGFloatIn750(30))
@@ -105,7 +106,7 @@
             .zz_titleLeft([NSString stringWithFormat:@"%@分钟/节",self.addModel.course_min]);
 
             ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:timeModel];
-            [self.cellConfigArr addObject:timeCellConfig];
+            [weakSelf.cellConfigArr addObject:timeCellConfig];
 
             cellHeight = cellHeight + CGFloatIn750(40);
 
@@ -116,11 +117,11 @@
             .zz_colorDarkLeft([UIColor colorTextGrayDark])
             .zz_fontLeft([UIFont fontSmall])
             .zz_lineHidden(YES)
-            .zz_titleLeft([NSString stringWithFormat:@"共%@节",self.addModel.course_min]);
+            .zz_titleLeft([NSString stringWithFormat:@"共%@节",weakSelf.addModel.course_min]);
 
             ZCellConfig *numCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:numModel];
-            [self.cellConfigArr addObject:numCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:numCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
 
             cellHeight = cellHeight + CGFloatIn750(20);
             cellHeight = cellHeight + CGFloatIn750(40);
@@ -129,10 +130,10 @@
             if (spaceHeigh < 0) {
                 spaceHeigh = 1;
             }
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(spaceHeigh)];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(spaceHeigh)];
 
             ZCellConfig *qrcodeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareQrcodeCell className] title:@"qrcode" showInfoMethod:@selector(setImage:) heightOfCell:CGFloatIn750(140) cellType:ZCellTypeClass dataModel:nil];
-            [self.cellConfigArr addObject:qrcodeCellConfig];
+            [weakSelf.cellConfigArr addObject:qrcodeCellConfig];
         }
     });
     self.zChain_reload_ui();

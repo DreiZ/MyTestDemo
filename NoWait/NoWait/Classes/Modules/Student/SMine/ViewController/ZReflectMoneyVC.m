@@ -126,8 +126,8 @@
              .zz_cellHeight(CGFloatIn750(100))
              .zz_fontLeft([UIFont fontSmall]);
              
-             NSString *hintStr = [NSString stringWithFormat:@"剩余可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
-             if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
+             NSString *hintStr = [NSString stringWithFormat:@"剩余可提现余额%.2f",[weakSelf.infoModel.cash_out_amount doubleValue]];
+             if ([weakSelf.infoModel.cash_out_amount doubleValue] < [SafeStr(weakSelf.handleModel.amount) doubleValue]) {
                  hintStr = @"超出可提现金额";
                  
                  model.zz_colorLeft([UIColor colorRedDefault]).zz_colorDarkLeft([UIColor colorRedDefault]).zz_titleLeft(hintStr);
@@ -183,8 +183,8 @@
                         .zz_cellHeight(CGFloatIn750(100))
                         .zz_fontLeft([UIFont fontSmall]);
                         
-                        NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[self.infoModel.cash_out_amount doubleValue]];
-                        if ([self.infoModel.cash_out_amount doubleValue] < [SafeStr(self.handleModel.amount) doubleValue]) {
+                        NSString *hintStr = [NSString stringWithFormat:@"可提现余额%.2f",[weakSelf.infoModel.cash_out_amount doubleValue]];
+                        if ([weakSelf.infoModel.cash_out_amount doubleValue] < [SafeStr(weakSelf.handleModel.amount) doubleValue]) {
                             hintStr = @"超出可提现金额";
                             
                             model.zz_colorLeft([UIColor colorRedDefault]).zz_colorDarkLeft([UIColor colorRedDefault]).zz_titleLeft(hintStr);

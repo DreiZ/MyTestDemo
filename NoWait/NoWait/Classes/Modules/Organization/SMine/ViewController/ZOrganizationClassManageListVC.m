@@ -38,25 +38,25 @@
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
     .zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_resetMainView(^{
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-            [self.cellConfigArr addObject:progressCellConfig];
+        [weakSelf.cellConfigArr removeAllObjects];
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
+            ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
+            [weakSelf.cellConfigArr addObject:progressCellConfig];
         }
         
-        if (self.cellConfigArr.count == 0) {
-            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-            self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        if (weakSelf.cellConfigArr.count == 0) {
+            weakSelf.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+            weakSelf.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         }else{
-            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-            self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            weakSelf.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            weakSelf.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOrganizationClassManageListCell"]) {
@@ -82,7 +82,7 @@
                     dvc.model.teacher_image = model.teacher_image;
                     dvc.model.teacher_name = model.teacher_name;
                     dvc.model.type = model.type;
-                    [self.navigationController pushViewController:dvc animated:YES];
+                    [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }
             };
         }
@@ -100,7 +100,7 @@
             dvc.model.teacher_image = model.teacher_image;
             dvc.model.teacher_name = model.teacher_name;
             dvc.model.type = model.type;
-            [self.navigationController pushViewController:dvc animated:YES];
+            [weakSelf.navigationController pushViewController:dvc animated:YES];
         }
     });
 }

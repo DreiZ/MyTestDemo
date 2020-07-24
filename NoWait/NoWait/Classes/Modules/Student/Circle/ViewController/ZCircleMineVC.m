@@ -33,13 +33,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"个人中心")
     .zChain_setTableViewWhite()
     .zChain_resetMainView(^{
         self.iTableView.tableHeaderView = self.headView;
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 0) {
-            return self.sectionView;;
+            return weakSelf.sectionView;;
         }
         return nil;
     }).zChain_block_setHeightForHeaderInSection(^CGFloat(UITableView *tableView, NSInteger section) {
@@ -48,68 +49,68 @@
         }
         return 0;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         
-        if (self.isCollection) {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        if (weakSelf.isCollection) {
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
             
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionTableViewCell className] title:@"ZCircleMineDynamicCollectionTableViewCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCollectionTableViewCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }else{
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
             
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@""]] cellType:ZCellTypeClass dataModel:@[@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@""]] cellType:ZCellTypeClass dataModel:@[@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
             
             {
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
-                [self.cellConfigArr addObject:menuCellConfig];
+                [weakSelf.cellConfigArr addObject:menuCellConfig];
             }
         }
         

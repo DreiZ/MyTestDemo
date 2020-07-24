@@ -35,9 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"添加学员")
     .zChain_resetMainView(^{
-        __weak typeof(self) weakSelf = self;
         UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [sureBtn setTitle:@"选择" forState:UIControlStateNormal];
         [sureBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
@@ -98,25 +98,25 @@
             }
         }
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
-        if(self.studentModel){
-            ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"searchStuent").zz_titleLeft(self.studentModel.name)
-            .zz_imageLeft(self.studentModel.image)
+        [weakSelf.cellConfigArr removeAllObjects];
+        if(weakSelf.studentModel){
+            ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"searchStuent").zz_titleLeft(weakSelf.studentModel.name)
+            .zz_imageLeft(weakSelf.studentModel.image)
             .zz_cellHeight(CGFloatIn750(80))
             .zz_imageLeftRadius(YES)
             .zz_imageLeftHeight(CGFloatIn750(60))
-            .zz_setData(self.studentModel)
+            .zz_setData(weakSelf.studentModel)
             .zz_titleRight(@"添加");
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:sModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
             
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
         }else{
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(80))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(80))];
         }
 
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
-        if (ValidArray(self.studentArr)) {
+        [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        if (ValidArray(weakSelf.studentArr)) {
             ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle")
             .zz_titleLeft(@"已添加用户")
             .zz_fontLeft([UIFont boldFontMaxTitle])
@@ -125,28 +125,28 @@
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
             
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCardAddStudentCell className] title:@"ZOrganizationCardAddStudentCell" showInfoMethod:@selector(setList:) heightOfCell:[ZOrganizationCardAddStudentCell z_getCellHeight:self.studentArr] cellType:ZCellTypeClass dataModel:self.studentArr];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCardAddStudentCell className] title:@"ZOrganizationCardAddStudentCell" showInfoMethod:@selector(setList:) heightOfCell:[ZOrganizationCardAddStudentCell z_getCellHeight:weakSelf.studentArr] cellType:ZCellTypeClass dataModel:weakSelf.studentArr];
             
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tabelView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"searchStuent"]) {
             if (cellConfig.dataModel) {
                 ZLineCellModel *lineModel = cellConfig.dataModel;
-                if ([self checkStudentIsSame:lineModel.data]) {
-                    [self.userNameTF resignFirstResponder];
+                if ([weakSelf checkStudentIsSame:lineModel.data]) {
+                    [weakSelf.userNameTF resignFirstResponder];
                     [ZAlertView setAlertWithTitle:@"该用户已添加" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
                         
                     }];
                 }else{
-                    [self.studentArr addObject:lineModel.data];
+                    [weakSelf.studentArr addObject:lineModel.data];
                 }
                 
-                self.userNameTF.text = @"";
-                self.studentModel = nil;
-                self.zChain_reload_ui();
+                weakSelf.userNameTF.text = @"";
+                weakSelf.studentModel = nil;
+                weakSelf.zChain_reload_ui();
             }
         }
     });

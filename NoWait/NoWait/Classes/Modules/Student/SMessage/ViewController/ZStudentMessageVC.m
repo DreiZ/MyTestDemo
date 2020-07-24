@@ -88,15 +88,15 @@
         NSString *likeNum = @"0";
         NSString *evaNum = @"0";
         NSString *newNum = @"0";
-        if (self.circleModel) {
-            if (ValidStr(self.circleModel.enjoy)) {
-                likeNum = self.circleModel.enjoy;
+        if (weakSelf.circleModel) {
+            if (ValidStr(weakSelf.circleModel.enjoy)) {
+                likeNum = weakSelf.circleModel.enjoy;
             }
-            if (ValidStr(self.circleModel.comment)) {
-                evaNum = self.circleModel.comment;
+            if (ValidStr(weakSelf.circleModel.comment)) {
+                evaNum = weakSelf.circleModel.comment;
             }
-            if (ValidStr(self.circleModel.follow)) {
-                newNum = self.circleModel.follow;
+            if (ValidStr(weakSelf.circleModel.follow)) {
+                newNum = weakSelf.circleModel.follow;
             }
         }
         
@@ -112,20 +112,20 @@
          }
          
          ZCellConfig *entryCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageTypeEntryCell className] title:[ZMessageTypeEntryCell className] showInfoMethod:@selector(setItemArr:) heightOfCell:[ZMessageTypeEntryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:itemArr];
-         [self.cellConfigArr addObject:entryCellConfig];
+         [weakSelf.cellConfigArr addObject:entryCellConfig];
 
         NSInteger hadRead = 0;
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZMessgeModel *model = self.dataSources[i];
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
+            ZMessgeModel *model = weakSelf.dataSources[i];
             if ([model.is_read intValue] >= 1) {
                 hadRead++;
             }
             if (i != 0 && hadRead == 1) {
                 ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
-                [self.cellConfigArr addObject:messageCellConfig];
+                [weakSelf.cellConfigArr addObject:messageCellConfig];
             }
             ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:messageCellConfig];
+            [weakSelf.cellConfigArr addObject:messageCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {

@@ -37,7 +37,7 @@
     self.zChain_setTableViewGary()
     .zChain_setNavTitle(@"设置")
     .zChain_resetMainView(^{
-        weakSelf.isHidenNaviBar = NO;
+        self.isHidenNaviBar = NO;
     });
     
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {

@@ -75,23 +75,23 @@
             }
         }];
     }).zChain_resetMainView(^{
-        [self.view addSubview:self.handleView];
-        [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [weakSelf.view addSubview:weakSelf.handleView];
+        [weakSelf.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.bottom.right.equalTo(self.view);
             make.height.mas_equalTo(CGFloatIn750(100)+safeAreaBottom());
         }];
         
-        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.handleView.mas_top);
-            make.top.equalTo(self.view.mas_top).offset(0);
+        [weakSelf.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.handleView.mas_top);
+            make.top.equalTo(weakSelf.view.mas_top).offset(0);
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-        [self setOrderDetailCell];
-        [self setUserCell];
-        [self setPayTypeCell];
-        [self setTipsCell];
+        [weakSelf setOrderDetailCell];
+        [weakSelf setUserCell];
+        [weakSelf setPayTypeCell];
+        [weakSelf setTipsCell];
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentMineSettingBottomCell"]) {
             ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
@@ -115,11 +115,11 @@
             };
             lcell.handleBlock = ^(ZCellConfig *scellConfig) {
                 if ([scellConfig.title isEqualToString:@"wepaylist"]){
-                    self.isAlipay = NO;
-                    self.zChain_reload_ui();
+                    weakSelf.isAlipay = NO;
+                    weakSelf.zChain_reload_ui();
                 }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
-                    self.isAlipay = YES;
-                    self.zChain_reload_ui();
+                    weakSelf.isAlipay = YES;
+                    weakSelf.zChain_reload_ui();
                 }
             };
         }

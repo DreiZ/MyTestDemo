@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(SafeStr(self.teacher_name))
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
@@ -26,14 +26,14 @@
     .zChain_updateDataSource(^{
         self.loading = YES;
     }).zChain_block_setRefreshHeaderNet(^{
-        self.currentPage = 1;
-        self.loading = YES;
+        weakSelf.currentPage = 1;
+        weakSelf.loading = YES;
         NSMutableDictionary *param = @{}.mutableCopy;
-        [param setObject:SafeStr(self.teacher_id) forKey:@"teacher_id"];
-        [param setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
-        [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
+        [param setObject:SafeStr(weakSelf.teacher_id) forKey:@"teacher_id"];
+        [param setObject:SafeStr(weakSelf.stores_id) forKey:@"stores_id"];
+        [param setObject:[NSString stringWithFormat:@"%ld",weakSelf.currentPage] forKey:@"page"];
         [param setObject:@"10" forKey:@"page_size"];
-        __weak typeof(self) weakSelf = self;
+        
         [ZOriganizationOrderViewModel getTeacherCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
@@ -54,14 +54,14 @@
             }
         }];
     }).zChain_block_setRefreshMoreNet(^{
-        self.currentPage++;
-        self.loading = YES;
+        weakSelf.currentPage++;
+        weakSelf.loading = YES;
         NSMutableDictionary *param = @{}.mutableCopy;
-        [param setObject:SafeStr(self.teacher_id) forKey:@"teacher_id"];
-        [param setObject:SafeStr(self.stores_id) forKey:@"stores_id"];
+        [param setObject:SafeStr(weakSelf.teacher_id) forKey:@"teacher_id"];
+        [param setObject:SafeStr(weakSelf.stores_id) forKey:@"stores_id"];
         [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
         [param setObject:@"10" forKey:@"page_size"];
-        __weak typeof(self) weakSelf = self;
+        
         [ZOriganizationOrderViewModel getTeacherCommentListList:param completeBlock:^(BOOL isSuccess, ZOrderEvaListNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
@@ -81,11 +81,11 @@
             }
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
 
         for (ZOrderEvaListModel *evaModel in self.dataSources) {
            ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
-            [self.cellConfigArr addObject:evaCellConfig];
+            [weakSelf.cellConfigArr addObject:evaCellConfig];
         }
     });
     

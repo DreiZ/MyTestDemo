@@ -71,7 +71,7 @@
     self.zChain_addLoadMoreFooter()
     .zChain_addEmptyDataDelegate()
     .zChain_resetMainView(^{
-        self.isHidenNaviBar = NO;
+        weakSelf.isHidenNaviBar = NO;
         [self.navigationItem setTitle:self.listModel.name];
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
         
@@ -95,11 +95,11 @@
     }).zChain_updateDataSource(^{
         self.loading = YES;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self initCellConfigArr];
+        [weakSelf initCellConfigArr];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if([cellConfig.title isEqualToString:@"ZStudentOrganizationBannerCell"]){
                ZStudentOrganizationBannerCell *lcell = (ZStudentOrganizationBannerCell *)cell;
@@ -114,7 +114,7 @@
            lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
                ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
                dvc.student_id = model.account_id;
-               [self.navigationController pushViewController:dvc animated:YES];
+               [weakSelf.navigationController pushViewController:dvc animated:YES];
            };
     
        }else if ([cellConfig.title isEqualToString:@"starCoach"]){
@@ -133,7 +133,7 @@
                    avc.detailModel = weakSelf.detailModel;
                    [weakSelf.navigationController pushViewController:avc animated:YES];
                }else if (index == 2){
-                   [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:self.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
+                   [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:weakSelf.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
                        [[ZUserHelper sharedHelper] checkLogin:^{
                            if ([model.received intValue] == 1) {
                                [ZOriganizationCardViewModel receiveCoupons:@{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"coupons_id":SafeStr(model.couponsID)} completeBlock:^(BOOL isSuccess, id data) {
@@ -148,38 +148,38 @@
                        }];
                    }];
                }else if (index == 3){
-                   [ZAlertStoreInfoView setAlertName:@"校区简介" data:self.detailModel.info];
+                   [ZAlertStoreInfoView setAlertName:@"校区简介" data:weakSelf.detailModel.info];
                }else if (index == 4){
                    NSString *time = @"音乐月份：全年";
-                   if (ValidArray(self.detailModel.months)) {
-                       if (self.detailModel.months.count == 12) {
+                   if (ValidArray(weakSelf.detailModel.months)) {
+                       if (weakSelf.detailModel.months.count == 12) {
                            time = @"营业月份：全年";
                        }else{
                            time = @"营业月份:";
-                           for (int i = 0; i < self.detailModel.months.count; i++) {
+                           for (int i = 0; i < weakSelf.detailModel.months.count; i++) {
                                if (i == 0) {
-                                   time = [NSString stringWithFormat:@"%@ %@月",time,self.detailModel.months[i]];
+                                   time = [NSString stringWithFormat:@"%@ %@月",time,weakSelf.detailModel.months[i]];
                                }else{
-                                   time = [NSString stringWithFormat:@"%@, %@月",time,self.detailModel.months[i]];
+                                   time = [NSString stringWithFormat:@"%@, %@月",time,weakSelf.detailModel.months[i]];
                                }
                            }
                        }
                    }
                    
-                   if (ValidArray(self.detailModel.week_days)) {
-                       if (self.detailModel.week_days.count == 7) {
+                   if (ValidArray(weakSelf.detailModel.week_days)) {
+                       if (weakSelf.detailModel.week_days.count == 7) {
                            time = [NSString stringWithFormat:@"%@\n%@月",time,@"星期一~星期天"];
                        }else{
-                           for (int i = 0; i < self.detailModel.week_days.count; i++) {
+                           for (int i = 0; i < weakSelf.detailModel.week_days.count; i++) {
                                if (i == 0) {
-                                   time = [NSString stringWithFormat:@"%@\n%@",time,[self.detailModel.week_days[i] zz_indexToWeek]];
+                                   time = [NSString stringWithFormat:@"%@\n%@",time,[weakSelf.detailModel.week_days[i] zz_indexToWeek]];
                                }else{
-                                   time = [NSString stringWithFormat:@"%@, %@",time,[self.detailModel.week_days[i] zz_indexToWeek]];
+                                   time = [NSString stringWithFormat:@"%@, %@",time,[weakSelf.detailModel.week_days[i] zz_indexToWeek]];
                                }
                            }
                        }
                    }
-                   time = [NSString stringWithFormat:@"%@\n%@~%@",time,self.detailModel.opend_start,self.detailModel.opend_end];
+                   time = [NSString stringWithFormat:@"%@\n%@~%@",time,weakSelf.detailModel.opend_start,weakSelf.detailModel.opend_end];
                    [ZAlertStoreInfoView setAlertName:@"营业时间" data:time];
                }
            };
@@ -198,25 +198,25 @@
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
             ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             dvc.model = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+            [weakSelf.navigationController pushViewController:dvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
             ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
             lvc.type = 0;
-            lvc.stores_id = self.listModel.stores_id;
-            [self.navigationController pushViewController:lvc animated:YES];
+            lvc.stores_id = weakSelf.listModel.stores_id;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
             ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
             lvc.type = 1;
-            lvc.stores_id = self.listModel.stores_id;
-            [self.navigationController pushViewController:lvc animated:YES];
+            lvc.stores_id = weakSelf.listModel.stores_id;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"allLesson"]){
             ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
-            lvc.detailModel = self.detailModel;
-            [self.navigationController pushViewController:lvc animated:YES];
+            lvc.detailModel = weakSelf.detailModel;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"allExperienceLesson"]){
             ZStudentOrganizationExperienceLessonListVC *lvc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
-            lvc.schoolID = self.detailModel.schoolID;
-            [self.navigationController pushViewController:lvc animated:YES];
+            lvc.schoolID = weakSelf.detailModel.schoolID;
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
         }
         
     });
@@ -302,8 +302,8 @@
                 if ([index isEqualToString:@"report"]) {
                     [[ZUserHelper sharedHelper] checkLogin:^{
                         ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                        rvc.sTitle = self.detailModel.name;
-                        rvc.stores_id = self.detailModel.schoolID;
+                        rvc.sTitle = weakSelf.detailModel.name;
+                        rvc.stores_id = weakSelf.detailModel.schoolID;
                         [weakSelf.navigationController pushViewController:rvc animated:rvc];
                     }];
                 }else{

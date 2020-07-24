@@ -66,7 +66,7 @@
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
 
-        for (int i = 0; i < self.dataSources.count; i++) {
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
             ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
             [weakSelf.cellConfigArr addObject:orCellCon1fig];
         }

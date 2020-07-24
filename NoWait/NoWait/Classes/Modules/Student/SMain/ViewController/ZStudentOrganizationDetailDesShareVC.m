@@ -29,13 +29,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.zChain_resetMainView(^{
         self.iTableView.scrollEnabled = NO;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         CGFloat cellHeight = 0;
         {
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(60))];
             cellHeight = cellHeight + CGFloatIn750(60);
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(60))
@@ -49,17 +50,17 @@
             .zz_colorDarkRight([UIColor colorTextBlackDark]);
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
             
             cellHeight = cellHeight + CGFloatIn750(60);
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(58))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(58))];
             
             cellHeight = cellHeight + CGFloatIn750(58);
             
             ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareImageCell className] title:@"image" showInfoMethod:@selector(setImage:) heightOfCell:KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280) cellType:ZCellTypeClass dataModel:self.detailModel.image];
-            [self.cellConfigArr addObject:imageCellConfig];
+            [weakSelf.cellConfigArr addObject:imageCellConfig];
             
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
             cellHeight = cellHeight + (KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280));
             cellHeight = cellHeight + CGFloatIn750(40);
             
@@ -68,15 +69,15 @@
             .zz_marginLeft(CGFloatIn750(30))
             .zz_lineHidden(YES)
             .zz_fontLeft([UIFont boldSystemFontOfSize:CGFloatIn750(36)])
-            .zz_titleLeft([NSString stringWithFormat:@"%@",self.detailModel.name]);
+            .zz_titleLeft([NSString stringWithFormat:@"%@",weakSelf.detailModel.name]);
             
             ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:priceModel];
-            [self.cellConfigArr addObject:priceCellConfig];
+            [weakSelf.cellConfigArr addObject:priceCellConfig];
             cellHeight = cellHeight + CGFloatIn750(60);
             
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             cellHeight = cellHeight + CGFloatIn750(20);
-            if (ValidArray(self.detailModel.stores_info) || ValidArray(self.detailModel.merchants_stores_tags)){
+            if (ValidArray(weakSelf.detailModel.stores_info) || ValidArray(weakSelf.detailModel.merchants_stores_tags)){
                 ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
                 mModel.rightFont = [UIFont fontContent];
                 mModel.rightColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
@@ -84,11 +85,11 @@
                 mModel.cellHeight = CGFloatIn750(62);
                 mModel.isHiddenLine = YES;
                 NSMutableArray *labelArr = @[].mutableCopy;
-                if (ValidArray(self.detailModel.stores_info)) {
-                    [labelArr addObjectsFromArray:self.detailModel.stores_info];
+                if (ValidArray(weakSelf.detailModel.stores_info)) {
+                    [labelArr addObjectsFromArray:weakSelf.detailModel.stores_info];
                 }
-                if (ValidArray(self.detailModel.merchants_stores_tags)) {
-                    [labelArr addObjectsFromArray:self.detailModel.merchants_stores_tags];
+                if (ValidArray(weakSelf.detailModel.merchants_stores_tags)) {
+                    [labelArr addObjectsFromArray:weakSelf.detailModel.merchants_stores_tags];
                 }
                 mModel.data = labelArr;
                 mModel.cellTitle = @"tag";
@@ -96,14 +97,14 @@
                 mModel.rightColor = [UIColor colorMain];
                 mModel.rightDarkColor = [UIColor colorMainSub];
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-                [self.cellConfigArr addObject:textCellConfig];
+                [weakSelf.cellConfigArr addObject:textCellConfig];
                 
                 cellHeight = cellHeight + [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
             }
             
-            if (ValidArray(self.detailModel.coupons_list)){
+            if (ValidArray(weakSelf.detailModel.coupons_list)){
                 NSMutableArray *coupons = @[].mutableCopy;
-                for (ZOriganizationCardListModel *cartModel in self.detailModel.coupons_list) {
+                for (ZOriganizationCardListModel *cartModel in weakSelf.detailModel.coupons_list) {
                     [coupons addObject:cartModel.title];
                 }
                 ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
@@ -118,13 +119,13 @@
                 mModel.rightColor = [UIColor colorRedForLabel];
                 mModel.rightDarkColor = [UIColor colorRedForLabelSub];
                 ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationDetailIntroLabelCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
-                [self.cellConfigArr addObject:textCellConfig];
+                [weakSelf.cellConfigArr addObject:textCellConfig];
                 
                 cellHeight = cellHeight + [ZStudentOrganizationDetailIntroLabelCell z_getCellHeight:mModel];
             }
             
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             
             cellHeight = cellHeight + CGFloatIn750(40);
             ZLineCellModel *timeModel = ZLineCellModel.zz_lineCellModel_create(@"address")
@@ -138,7 +139,7 @@
             .zz_titleLeft([NSString stringWithFormat:@"%@%@",self.detailModel.brief_address,self.detailModel.address]);
             
             ZCellConfig *timeCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:timeModel] cellType:ZCellTypeClass dataModel:timeModel];
-            [self.cellConfigArr addObject:timeCellConfig];
+            [weakSelf.cellConfigArr addObject:timeCellConfig];
             
             cellHeight = cellHeight + [ZBaseLineCell z_getCellHeight:timeModel];
             
@@ -149,23 +150,23 @@
             .zz_colorLeft([UIColor colorTextGray])
             .zz_colorDarkLeft([UIColor colorTextGrayDark])
             .zz_fontLeft([UIFont fontSmall])
-            .zz_titleLeft([NSString stringWithFormat:@"营业时间：%@~%@",self.detailModel.opend_start,self.detailModel.opend_end]);
+            .zz_titleLeft([NSString stringWithFormat:@"营业时间：%@~%@",self.detailModel.opend_start,weakSelf.detailModel.opend_end]);
             
             ZCellConfig *numCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(40) cellType:ZCellTypeClass dataModel:numModel];
-            [self.cellConfigArr addObject:numCellConfig];
+            [weakSelf.cellConfigArr addObject:numCellConfig];
             
             cellHeight = cellHeight + CGFloatIn750(40);
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
             cellHeight = cellHeight + CGFloatIn750(20);
             
             CGFloat spaceHeigh = KScreenHeight - kTopHeight - cellHeight - CGFloatIn750(140) - CGFloatIn750(160);
             if (spaceHeigh < 0) {
                 spaceHeigh = 1;
             }
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(spaceHeigh)];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(spaceHeigh)];
             
             ZCellConfig *qrcodeCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentShareQrcodeCell className] title:@"qrcode" showInfoMethod:@selector(setImage:) heightOfCell:CGFloatIn750(140) cellType:ZCellTypeClass dataModel:nil];
-            [self.cellConfigArr addObject:qrcodeCellConfig];
+            [weakSelf.cellConfigArr addObject:qrcodeCellConfig];
         }
     });
     self.zChain_reload_ui();

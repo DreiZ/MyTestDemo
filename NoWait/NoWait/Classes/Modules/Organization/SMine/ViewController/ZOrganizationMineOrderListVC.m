@@ -62,15 +62,15 @@
             make.top.equalTo(self.view.mas_top).offset(10);
         }];
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-        for (int i = 0; i < self.dataSources.count; i++) {
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
     //        ZOrderListModel *model = self.dataSources[i];
-            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-            [self.cellConfigArr addObject:orderCellConfig];
+            ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineOrderListCell className] title:[ZStudentMineOrderListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineOrderListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
+            [weakSelf.cellConfigArr addObject:orderCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
@@ -79,7 +79,7 @@
                 if (index == ZLessonOrderHandleTypeEva) {
                     ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
                     evc.listModel = model;
-                    [self.navigationController pushViewController:evc animated:YES];
+                    [weakSelf.navigationController pushViewController:evc animated:YES];
                 }else{
                     [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                         if (isSuccess) {
@@ -96,7 +96,7 @@
         if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
             ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
             evc.model = cellConfig.dataModel;
-            [self.navigationController pushViewController:evc animated:YES];
+            [weakSelf.navigationController pushViewController:evc animated:YES];
         }
     });
 }
