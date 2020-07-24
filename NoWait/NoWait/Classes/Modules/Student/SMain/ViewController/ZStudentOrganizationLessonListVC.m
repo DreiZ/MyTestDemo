@@ -21,6 +21,10 @@
 
 @implementation ZStudentOrganizationLessonListVC
 
+- (void)dealloc {
+    DLog(@"dealloc----ZStudentOrganizationLessonListVC ");
+}
+
 - (void)loadView
 {
     [super loadView];

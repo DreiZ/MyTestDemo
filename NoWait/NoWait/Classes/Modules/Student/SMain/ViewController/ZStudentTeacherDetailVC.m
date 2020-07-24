@@ -69,7 +69,7 @@
         [weakSelf.cellConfigArr addObject:titleCellConfig];
         if (weakSelf.detailModel.comment_list && weakSelf.detailModel.comment_list.count > 0) {
             NSMutableArray *configArr = @[].mutableCopy;
-            for (ZOrderEvaListModel *evaModel in self.detailModel.comment_list) {
+            for (ZOrderEvaListModel *evaModel in weakSelf.detailModel.comment_list) {
                 evaModel.isTeacher = YES;
                 ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];
                 [configArr addObject:evaCellConfig];
@@ -118,7 +118,7 @@
         }
     }).zChain_block_setRefreshHeaderNet(^{
         weakSelf.loading = YES;
-        [ZOriganizationTeacherViewModel getStTeacherDetail:@{@"stores_id":SafeStr(self.stores_id),@"teacher_id":SafeStr(weakSelf.teacher_id)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
+        [ZOriganizationTeacherViewModel getStTeacherDetail:@{@"stores_id":SafeStr(weakSelf.stores_id),@"teacher_id":SafeStr(weakSelf.teacher_id)} completeBlock:^(BOOL isSuccess, ZOriganizationTeacherAddModel *addModel) {
             weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.detailModel = addModel;

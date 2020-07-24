@@ -18,6 +18,10 @@
 
 @implementation ZStudentOrganizationDetailIntroVC
 
+- (void)dealloc {
+    DLog(@"dealloc----ZStudentOrganizationDetailIntroVC ");
+}
+
 - (instancetype)initWithTitle:(NSArray *)titleArr {
     self = [super init];
     if (self) {

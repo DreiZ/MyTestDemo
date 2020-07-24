@@ -163,9 +163,9 @@
             }
             if (weakSelf.dataSources.count == 0 && [self.param objectForKey:@"category"]) {
                 weakSelf.iTableView.tableHeaderView = weakSelf.headView;
-                [self.param removeObjectForKey:@"category"];
-                [self.param setObject:@"3" forKey:@"sort_type"];
-                self.zChain_reload_Net();
+                [weakSelf.param removeObjectForKey:@"category"];
+                [weakSelf.param setObject:@"3" forKey:@"sort_type"];
+                weakSelf.zChain_reload_Net();
             }
         }else{
             [weakSelf.iTableView reloadData];

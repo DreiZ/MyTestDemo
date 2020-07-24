@@ -66,9 +66,11 @@
 
 - (void)dealloc
 {
+    
 #ifdef DEBUG_MEMERY
-    DLog(@"dealloc %@", self.navigationItem.title);
+    DLog(@"dealloc %@", [self className]);
 #endif
+    DLog(@"dealloc %@", [self className]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

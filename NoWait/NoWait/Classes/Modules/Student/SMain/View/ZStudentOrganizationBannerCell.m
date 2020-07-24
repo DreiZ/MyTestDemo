@@ -17,6 +17,11 @@
 @end
 
 @implementation ZStudentOrganizationBannerCell
+
+- (void)dealloc {
+    DLog(@"dealloc---ZStudentOrganizationBannerCell");
+}
+
 - (void)setupView {
     [super setupView];
     

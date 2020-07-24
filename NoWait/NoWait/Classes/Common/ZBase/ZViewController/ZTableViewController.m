@@ -44,10 +44,6 @@
 @implementation ZTableViewController
 
 #pragma mark - vc delegate
-- (void)dealloc {
-    DLog(@"dealloc %@", [self className]);
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }

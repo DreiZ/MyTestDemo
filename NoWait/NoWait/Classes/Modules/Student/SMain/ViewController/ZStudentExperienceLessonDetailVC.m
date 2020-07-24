@@ -65,6 +65,10 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)dealloc {
+    DLog(@"dealloc -- ZStudentExperienceLessonDetailVC");
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
@@ -153,8 +157,8 @@
                if ([index isEqualToString:@"report"]) {
                    [[ZUserHelper sharedHelper] checkLogin:^{
                        ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                       rvc.sTitle = self.addModel.name;
-                       rvc.course_id = self.addModel.lessonID;
+                       rvc.sTitle = weakSelf.addModel.name;
+                       rvc.course_id = weakSelf.addModel.lessonID;
                        [weakSelf.navigationController pushViewController:rvc animated:rvc];
                    }];
                }else{
@@ -296,8 +300,8 @@
         lcell.handleBlock = ^(NSInteger index) {
             ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             ZStoresListModel *listModel = [[ZStoresListModel alloc] init];
-            listModel.name = self.addModel.stores_name;
-            listModel.stores_id = self.addModel.stores_id;
+            listModel.name = weakSelf.addModel.stores_name;
+            listModel.stores_id = weakSelf.addModel.stores_id;
             dvc.listModel = listModel;
             [weakSelf.navigationController pushViewController:dvc animated:YES];
         };
