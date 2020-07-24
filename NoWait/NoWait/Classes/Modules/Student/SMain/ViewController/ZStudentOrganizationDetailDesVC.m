@@ -8,7 +8,7 @@
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentEvaListCell.h"
-
+#import "ZStudentTitleStarCell.h"
 #import "ZStudentOrganizationDetailIntroCell.h"
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
@@ -193,6 +193,9 @@
        }else if ([cellConfig.title isEqualToString:@"allLesson"]){
            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
            lcell.titleLabel.font = [UIFont fontSmall];
+       }else if([cellConfig.title isEqualToString:@"evaTitle"]){
+           ZStudentTitleStarCell *lcell = (ZStudentTitleStarCell *)cell;
+           lcell.score = @"3";
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
@@ -448,13 +451,7 @@
         
         {
             [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"evaTitle");
-            model.zz_titleLeft(@"机构评价");
-            model.zz_cellHeight(CGFloatIn750(50));
-            model.zz_lineHidden(YES);
-            model.zz_fontLeft([UIFont boldFontTitle]);
-            
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentTitleStarCell className] title:@"evaTitle" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:@"校区评价"];
             [self.cellConfigArr addObject:menuCellConfig];
             
         }

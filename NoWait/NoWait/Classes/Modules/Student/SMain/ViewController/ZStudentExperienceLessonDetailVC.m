@@ -8,7 +8,7 @@
 
 #import "ZStudentExperienceLessonDetailVC.h"
 #import "ZOrganizationLessonDetailHeaderCell.h"
-
+#import "ZStudentTitleStarCell.h"
 #import "ZOrganizationLessonDetailPriceCell.h"
 #import "ZTextFieldMultColCell.h"
 #import "ZStudentOrganizationDetailIntroLabelCell.h"
@@ -22,7 +22,7 @@
 #import "ZStudentLessonSelectMainNewView.h"
 #import "ZOriganizationLessonViewModel.h"
 #import "ZStudentLessonSelectMainOrderTimeView.h"
-
+#import "ZOrganizationLessonTPirceCell.h"
 #import "ZOrganizationNoDataCell.h"
 
 #import "ZOriganizationOrderViewModel.h"
@@ -318,6 +318,9 @@
         lcell.bannerBlock = ^(ZStudentBannerModel *model, NSInteger index) {
             [[ZImagePickerManager sharedManager] showBrowser:weakSelf.addModel.images withIndex:index];
         };
+    }else if([cellConfig.title isEqualToString:@"evaTitle"]){
+        ZStudentTitleStarCell *lcell = (ZStudentTitleStarCell *)cell;
+        lcell.score = self.addModel.score;
     }
 }
 
@@ -538,18 +541,22 @@
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailHeaderCell className] title:[ZOrganizationLessonDetailHeaderCell className] showInfoMethod:@selector(setList:) heightOfCell:[ZOrganizationLessonDetailHeaderCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:images];
     [self.cellConfigArr addObject:statisticsCellConfig];
     
-    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-    model.leftTitle = self.addModel.price;
-    model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.pay_nums];
-    model.data = self.addModel.score;
-    model.isSelected = NO;
-    if ([self.addModel.is_experience intValue] == 1) {
-        model.rightImage = self.addModel.experience_price;
-        model.isSelected = YES;
-    }
+//    ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+//    model.leftTitle = self.addModel.price;
+//    model.rightTitle = [NSString stringWithFormat:@"%@",self.addModel.pay_nums];
+//    model.data = self.addModel.score;
+//    model.isSelected = NO;
+//    if ([self.addModel.is_experience intValue] == 1) {
+//        model.rightImage = self.addModel.experience_price;
+//        model.isSelected = YES;
+//    }
+//
+//    ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+//    [self.cellConfigArr addObject:priceCellConfig];
     
-    ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonDetailPriceCell className] title:[ZOrganizationLessonDetailPriceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonDetailPriceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
+    ZCellConfig *priceCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTPirceCell className] title:[ZOrganizationLessonTPirceCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonTPirceCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.addModel];
     [self.cellConfigArr addObject:priceCellConfig];
+    
 }
 
 - (void)setLabelCellConfig{
@@ -717,15 +724,10 @@
     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
     
     {
-        ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = @"课程评价";
-        model.leftFont = [UIFont boldFontTitle];
-        model.cellHeight = CGFloatIn750(50);
-        model.isHiddenLine = YES;
-        
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentTitleStarCell className] title:@"evaTitle" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:@"课程评价"];
         [self.cellConfigArr addObject:menuCellConfig];
     }
+    
     if (ValidArray(self.dataSources)) {
         for (ZOrderEvaListModel *evaModel in self.dataSources) {
             ZCellConfig *evaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentEvaListCell className] title:[ZStudentEvaListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentEvaListCell z_getCellHeight:evaModel] cellType:ZCellTypeClass dataModel:evaModel];

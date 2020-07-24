@@ -115,6 +115,8 @@ typedef NS_ENUM(NSInteger, ZOrganizationLessonType) {
 @property (nonatomic,strong) NSString *status;//（0：全部 1：开放 2：未开放 3：审核中 4：审核失败）
 @property (nonatomic,strong) NSString *statusStr;
 @property (nonatomic,strong) NSString *pay_nums;
+@property (nonatomic,strong) NSString *experience_pay_nums;
+@property (nonatomic,strong) NSString *ordinary_pay_nums;
 @property (nonatomic,strong) NSString *score;
 @property (nonatomic,strong) NSString *fail;
 
