@@ -82,10 +82,10 @@
             }
         }
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
 
-        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
-        if (ValidArray(self.labelList)) {
+        [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
+        if (ValidArray(weakSelf.labelList)) {
             ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle")
             .zz_titleLeft(@"已选标签")
             .zz_fontLeft([UIFont boldFontMaxTitle])
@@ -94,12 +94,12 @@
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
             
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseAddLabelListCell className] title:@"ZCircleReleaseAddLabelListCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleReleaseAddLabelListCell z_getCellHeight:self.labelList] cellType:ZCellTypeClass dataModel:self.labelList];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseAddLabelListCell className] title:@"ZCircleReleaseAddLabelListCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleReleaseAddLabelListCell z_getCellHeight:weakSelf.labelList] cellType:ZCellTypeClass dataModel:weakSelf.labelList];
             
-            [self.cellConfigArr addObject:menuCellConfig];
-            [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
         }
         {
             ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle")
@@ -110,23 +110,23 @@
             
             ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
             
-            [self.cellConfigArr addObject:titleCellConfig];
+            [weakSelf.cellConfigArr addObject:titleCellConfig];
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseRecommendLabelListCell className] title:@"ZCircleReleaseRecommendLabelListCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleReleaseRecommendLabelListCell z_getCellHeight:self.hotList] cellType:ZCellTypeClass dataModel:self.hotList];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseRecommendLabelListCell className] title:@"ZCircleReleaseRecommendLabelListCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleReleaseRecommendLabelListCell z_getCellHeight:weakSelf.hotList] cellType:ZCellTypeClass dataModel:weakSelf.hotList];
             
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleReleaseRecommendLabelListCell"]) {
             ZCircleReleaseRecommendLabelListCell *lcell = (ZCircleReleaseRecommendLabelListCell *)cell;
             lcell.selectBlock = ^(ZCircleReleaseTagModel * model) {
-                if (self.labelList.count >= 5) {
+                if (weakSelf.labelList.count >= 5) {
                     [TLUIUtility showInfoHint:@"最多添加5个标签"];
                     return;
                 }
-                if (![self checkLabelIsSame:model]) {
-                    [self.labelList addObject:model];
-                    self.zChain_reload_ui();
+                if (![weakSelf checkLabelIsSame:model]) {
+                    [weakSelf.labelList addObject:model];
+                    weakSelf.zChain_reload_ui();
                 }else{
                     [TLUIUtility showInfoHint:@"已添加了该标签"];
                 }
@@ -135,14 +135,14 @@
             ZCircleReleaseAddLabelListCell *lcell = (ZCircleReleaseAddLabelListCell *)cell;
             lcell.selectBlock = ^(ZCircleReleaseTagModel *model) {
                 if (model) {
-                    for (int i = 0; i < self.labelList.count; i++) {
-                        ZCircleReleaseTagModel *smodel = self.labelList[i];
+                    for (int i = 0; i < weakSelf.labelList.count; i++) {
+                        ZCircleReleaseTagModel *smodel = weakSelf.labelList[i];
                         if ([smodel.tag_name isEqualToString:model.tag_name]) {
-                            [self.labelList removeObjectAtIndex:i];
+                            [weakSelf.labelList removeObjectAtIndex:i];
                         }
                     }
                     
-                    self.zChain_reload_ui();
+                    weakSelf.zChain_reload_ui();
                 }
             };
         }

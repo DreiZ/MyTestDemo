@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loading = NO;
+    
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"动态上传列表")
     .zChain_addEmptyDataDelegate()
     .zChain_setTableViewGary()
@@ -98,21 +100,19 @@
         }];
         self.loading = NO;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
 
         NSArray <ZCircleUploadModel*>*circleUploadArr = [ZFileUploadManager sharedInstance].uploadCircleArr;
         [circleUploadArr enumerateObjectsUsingBlock:^(ZCircleUploadModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleUploadCell className] title:@"ZCircleUploadCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleUploadCell z_getCellHeight:obj] cellType:ZCellTypeClass dataModel:obj];
 
-            [self.cellConfigArr  addObject:menuCellConfig];
+            [weakSelf.cellConfigArr  addObject:menuCellConfig];
         }];
-    });
-    
-    self.zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+    }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleUploadCell"]) {
             ZCircleUploadCell *lcell = (ZCircleUploadCell *)cell;
             lcell.reUploadBlock = ^(ZCircleUploadModel *model) {
-                [self UploadWith:model];
+                [weakSelf UploadWith:model];
             };
         }
     });

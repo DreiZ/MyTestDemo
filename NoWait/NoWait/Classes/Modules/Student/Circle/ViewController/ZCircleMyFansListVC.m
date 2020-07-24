@@ -31,16 +31,16 @@
     .zChain_updateDataSource(^{
         self.param = @{}.mutableCopy;
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         
-        for (int i = 0; i < self.dataSources.count; i++) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMyFocusCell className] title:@"ZCircleMyFocusCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleMyFocusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+        for (int i = 0; i < weakSelf.dataSources.count; i++) {
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMyFocusCell className] title:@"ZCircleMyFocusCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleMyFocusCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
             
-            [self.cellConfigArr addObject:menuCellConfig];
+            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {

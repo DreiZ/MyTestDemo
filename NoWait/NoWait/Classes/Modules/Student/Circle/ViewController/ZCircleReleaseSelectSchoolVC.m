@@ -27,14 +27,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"选择校区")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
     .zChain_addEmptyDataDelegate()
     .zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_updateDataSource(^{
         self.param = @{}.mutableCopy;
     }).zChain_resetMainView(^{
@@ -49,18 +50,18 @@
             make.top.equalTo(self.searchView.mas_bottom);
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         
         for (int i = 0; i < self.dataSources.count; i++) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseSchoolListCell className] title:@"ZCircleReleaseSchoolListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleReleaseSchoolListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseSchoolListCell className] title:@"ZCircleReleaseSchoolListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleReleaseSchoolListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
 
-            [self.cellConfigArr  addObject:menuCellConfig];
+            [weakSelf.cellConfigArr  addObject:menuCellConfig];
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
-        if (self.handleBlock) {
-            self.handleBlock(cellConfig.dataModel);
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(cellConfig.dataModel);
         }
-        [self.navigationController popViewControllerAnimated:YES];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
     });
     self.zChain_reload_Net();
 }

@@ -104,7 +104,7 @@
            self.isAgree = NO;
        }
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
+        [weakSelf.cellConfigArr removeAllObjects];
         
         ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
         cellModel.cellHeight = CGFloatIn750(80);
@@ -112,18 +112,18 @@
         cellModel.formatterType = ZFormatterTypeAnyByte;
         cellModel.textAlignment = NSTextAlignmentLeft;
         cellModel.placeholder = @"与众不同的标题会有更多喜欢哦~";
-        cellModel.content = self.releaseViewModel.model.title;
+        cellModel.content = weakSelf.releaseViewModel.model.title;
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseTextFieldCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleReleaseTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
-        [self.cellConfigArr addObject:textCellConfig];
+        [weakSelf.cellConfigArr addObject:textCellConfig];
         
         {
-            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseAddPhotoCell className] title:@"ZCircleReleaseAddPhotoCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleReleaseAddPhotoCell z_getCellHeight:self.releaseViewModel.model.imageArr] cellType:ZCellTypeClass dataModel:self.releaseViewModel.model.imageArr];
-            [self.cellConfigArr addObject:textCellConfig];
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseAddPhotoCell className] title:@"ZCircleReleaseAddPhotoCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleReleaseAddPhotoCell z_getCellHeight:weakSelf.releaseViewModel.model.imageArr] cellType:ZCellTypeClass dataModel:weakSelf.releaseViewModel.model.imageArr];
+            [weakSelf.cellConfigArr addObject:textCellConfig];
         }
         
         {
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleReleaseDetailTextViewCell className] title:@"ZCircleReleaseDetailTextViewCell" showInfoMethod:nil heightOfCell:[ZCircleReleaseDetailTextViewCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-            [self.cellConfigArr addObject:textCellConfig];
+            [weakSelf.cellConfigArr addObject:textCellConfig];
         }
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
@@ -132,14 +132,14 @@
             
              ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
-             [self.cellConfigArr  addObject:menuCellConfig];
+             [weakSelf.cellConfigArr  addObject:menuCellConfig];
         }
         {
             NSString *label = @"添加标签";
             NSString *labelHad = @"0";
-            if (ValidArray(self.releaseViewModel.model.tags)) {
-                for (int i = 0; i < self.releaseViewModel.model.tags.count; i++) {
-                    ZCircleReleaseTagModel *model = self.releaseViewModel.model.tags[i];
+            if (ValidArray(weakSelf.releaseViewModel.model.tags)) {
+                for (int i = 0; i < weakSelf.releaseViewModel.model.tags.count; i++) {
+                    ZCircleReleaseTagModel *model = weakSelf.releaseViewModel.model.tags[i];
                     if (i == 0) {
                         label = [NSString stringWithFormat:@"%@",model.tag_name];
                     }else {
@@ -151,15 +151,15 @@
             
             NSString *address = @"所在位置";
             NSString *addressHad = @"0";
-            if (ValidStr(self.releaseViewModel.model.address)) {
-                address = self.releaseViewModel.model.address;
+            if (ValidStr(weakSelf.releaseViewModel.model.address)) {
+                address = weakSelf.releaseViewModel.model.address;
                 addressHad = @"1";
             }
             
             NSString *store_name = @"校区打卡";
             NSString *store_nameHad = @"0";
-            if (ValidStr(self.releaseViewModel.model.store_name)) {
-                store_name = self.releaseViewModel.model.store_name;
+            if (ValidStr(weakSelf.releaseViewModel.model.store_name)) {
+                store_name = weakSelf.releaseViewModel.model.store_name;
                 store_nameHad = @"1";
             }
             
@@ -191,7 +191,7 @@
                 
                  ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
-                 [self.cellConfigArr  addObject:menuCellConfig];
+                 [weakSelf.cellConfigArr  addObject:menuCellConfig];
             }];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
@@ -199,16 +199,16 @@
             ZCircleReleaseAddPhotoCell *lcell = (ZCircleReleaseAddPhotoCell *)cell;
             lcell.addBlock = ^{
                 if (!ValidArray(weakSelf.releaseViewModel.model.imageArr)) {
-                    [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                    [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - weakSelf.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                         [weakSelf pickList:list];
                     }];
                 }else{
-                    ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[0];
+                    ZFileUploadDataModel *dataModel = weakSelf.releaseViewModel.model.imageArr[0];
                     if (dataModel.taskType == ZUploadTypeVideo) {
                         [TLUIUtility showInfoHint:@"最多上传一个视频"];
                         return;
                     }else{
-                        [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                        [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - weakSelf.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                             [weakSelf pickList:list];
                         }];
                     }
@@ -216,19 +216,19 @@
             };
             lcell.menuBlock = ^(NSInteger index, BOOL handle) {
                 if (!handle) {
-                    [self.releaseViewModel.model.imageArr removeObjectAtIndex:index];
-                    self.zChain_reload_ui();
+                    [weakSelf.releaseViewModel.model.imageArr removeObjectAtIndex:index];
+                    weakSelf.zChain_reload_ui();
                 }
             };
             lcell.seeBlock = ^(NSInteger index) {
-                if (index < self.releaseViewModel.model.imageArr.count) {
-                    ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[index];
+                if (index < weakSelf.releaseViewModel.model.imageArr.count) {
+                    ZFileUploadDataModel *dataModel = weakSelf.releaseViewModel.model.imageArr[index];
                     if (dataModel.taskType == ZUploadTypeVideo) {
                         [[ZImagePickerManager sharedManager] showVideoBrowser:dataModel.asset];
                     }else{
                         NSMutableArray *tempImageArr = @[].mutableCopy;
-                        for (int i = 0; i < self.releaseViewModel.model.imageArr.count; i++) {
-                            ZFileUploadDataModel *dataModel = self.releaseViewModel.model.imageArr[i];
+                        for (int i = 0; i < weakSelf.releaseViewModel.model.imageArr.count; i++) {
+                            ZFileUploadDataModel *dataModel = weakSelf.releaseViewModel.model.imageArr[i];
                             ZImagePickerModel *pmodel = [[ZImagePickerModel alloc] init];
                             if (dataModel.taskType == ZUploadTypeVideo) {
                                 pmodel.isVideo = YES;
@@ -245,27 +245,27 @@
         }else if([cellConfig.title isEqualToString:@"ZCircleReleaseDetailTextViewCell"]){
             ZCircleReleaseDetailTextViewCell *lcell = (ZCircleReleaseDetailTextViewCell *)cell;
             lcell.max = 1500;
-            lcell.content = self.releaseViewModel.model.content;
+            lcell.content = weakSelf.releaseViewModel.model.content;
             lcell.textChangeBlock = ^(NSString *text) {
                 DLog(@"text change %@",text);
-                self.releaseViewModel.model.content = text;
+                weakSelf.releaseViewModel.model.content = text;
             };
         }else if([cellConfig.title isEqualToString:@"title"]){
             ZCircleReleaseTextFieldCell *lcell = (ZCircleReleaseTextFieldCell *)cell;
             lcell.valueChangeBlock = ^(NSString * text) {
-                self.releaseViewModel.model.title = text;
+                weakSelf.releaseViewModel.model.title = text;
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"finderLabelNo"]) {
             ZCircleReleaseAddLabelVC *lvc = [[ZCircleReleaseAddLabelVC alloc] init];
-            lvc.list = self.releaseViewModel.model.tags;
+            lvc.list = weakSelf.releaseViewModel.model.tags;
             lvc.handleBlock = ^(NSArray *lableArr) {
-                [self.releaseViewModel.model.tags removeAllObjects];
-                [self.releaseViewModel.model.tags addObjectsFromArray:lableArr];
-                self.zChain_reload_ui();
+                [weakSelf.releaseViewModel.model.tags removeAllObjects];
+                [weakSelf.releaseViewModel.model.tags addObjectsFromArray:lableArr];
+                weakSelf.zChain_reload_ui();
             };
-            [self.navigationController pushViewController:lvc animated:YES];
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"finderLocationNo"]) {
             ZOrganizationCampusManagementLocalAddressVC *avc = [[ZOrganizationCampusManagementLocalAddressVC alloc] init];
             avc.addressBlock = ^(NSString *province, NSString *city, NSString *county, NSString *brief_address, NSString *address,double latitude, double longitude) {
@@ -278,15 +278,15 @@
                 weakSelf.releaseViewModel.model.longitude = longitude;
                 weakSelf.zChain_reload_ui();
             };
-            [self.navigationController pushViewController:avc animated:YES];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"finderSchoolNo"]) {
             ZCircleReleaseSelectSchoolVC *svc = [[ZCircleReleaseSelectSchoolVC alloc] init];
             svc.handleBlock = ^(ZCircleReleaseSchoolModel * school) {
                 weakSelf.releaseViewModel.model.store_id = school.store_id;
                 weakSelf.releaseViewModel.model.store_name = school.name;
-                self.zChain_reload_ui();
+                weakSelf.zChain_reload_ui();
             };
-            [self.navigationController pushViewController:svc animated:YES];
+            [weakSelf.navigationController pushViewController:svc animated:YES];
         }
     });
     
