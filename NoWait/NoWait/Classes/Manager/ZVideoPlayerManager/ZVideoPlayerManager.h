@@ -15,6 +15,8 @@
 
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title;
 
+- (void)playVideoWithAsset:(AVAsset *)asset title:(NSString *)title;
+
 - (void)compressVideoWithUrl:(NSString *)url oldUrl:(NSString *)oldUrl;
 
 - (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;

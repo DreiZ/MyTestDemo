@@ -7,7 +7,6 @@
 //
 
 #import "ZImageAndVideoTestVC.h"
-#import "ZVideoPlayerManager.h"
 #import "ZMineStudentEvaListEvaImageCollectionCell.h"
 #import "ZFileManager.h"
 #import "ZFileUploadTask.h"

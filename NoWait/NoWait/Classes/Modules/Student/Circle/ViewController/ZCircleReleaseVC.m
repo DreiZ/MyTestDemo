@@ -198,6 +198,10 @@
         if ([cellConfig.title isEqualToString:@"ZCircleReleaseAddPhotoCell"]) {
             ZCircleReleaseAddPhotoCell *lcell = (ZCircleReleaseAddPhotoCell *)cell;
             lcell.addBlock = ^{
+                [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - weakSelf.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                    [weakSelf pickList:list];
+                }];
+                return;
                 if (!ValidArray(weakSelf.releaseViewModel.model.imageArr)) {
                     [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:9 - weakSelf.releaseViewModel.model.imageArr.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                         [weakSelf pickList:list];

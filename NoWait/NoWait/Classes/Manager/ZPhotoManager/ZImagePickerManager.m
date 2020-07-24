@@ -19,6 +19,7 @@
 #import "TZAssetCell.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "ZSJCustomVidoLayerVC.h"
 #import "AppDelegate+AppService.h"
 #import "XYTakePhotoController.h"
 #import "MWPhotoBrowser.h"
@@ -741,7 +742,6 @@ static ZImagePickerManager *sharedImagePickerManager;
             if (isVideo(image)) {
                 model.isVideo = YES;
                 model.mediaURL = [NSURL URLWithString:image];
-//                model.image = [[ZVideoPlayerManager sharedInstance] thumbnailImageForVideo:[NSURL URLWithString:image] atTime:0];
                 model.imageUrlString = aliyunVideoFullUrl(image);
             }else{
                 model.imageUrlString = image;
@@ -811,11 +811,23 @@ static ZImagePickerManager *sharedImagePickerManager;
 
 - (void)showVideoBrowser:(PHAsset *)asset {
     // 预览视频
-    TZVideoPlayerController *vc = [[TZVideoPlayerController alloc] init];
-    TZAssetModel *model = [TZAssetModel modelWithAsset:asset type:TZAssetModelMediaTypeVideo timeLength:@""];
-    vc.model = model;
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.viewController presentViewController:vc animated:YES completion:nil];
+//    TZVideoPlayerController *vc = [[TZVideoPlayerController alloc] init];
+//    TZAssetModel *model = [TZAssetModel modelWithAsset:asset type:TZAssetModelMediaTypeVideo timeLength:@""];
+//    vc.model = model;
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self.viewController presentViewController:vc animated:YES completion:nil];
+    __weak typeof(self) weakSelf = self;
+    PHVideoRequestOptions *optionForCache = [[PHVideoRequestOptions alloc]init];
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:optionForCache resultHandler:^(AVAsset * avasset, AVAudioMix * audioMix, NSDictionary * info) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ZSJCustomVidoLayerVC *lvc = [[ZSJCustomVidoLayerVC alloc] init];
+            lvc.data = avasset;
+            [weakSelf.viewController presentViewController:lvc animated:YES completion:^{
+                
+            }];
+        });
+    }];
+    
 }
 
 #pragma mark - 选择图片

@@ -12,14 +12,14 @@
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
 #import "UIImage+MWPhotoBrowser.h"
+#import "ZSJCustomVidoLayerVC.h"
 #import <AVKit/AVKit.h>
-#import "ZAVPlayerViewController.h"
 #define PADDING                  10
 
 static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 @interface MWPhotoBrowser ()
-@property (nonatomic,strong) ZAVPlayerViewController *apvc;
+
 @end
 
 @implementation MWPhotoBrowser
@@ -1238,49 +1238,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)_playVideo:(NSURL *)videoURL atPhotoIndex:(NSUInteger)index {
-    if (!_apvc) {
-        _apvc = [[ZAVPlayerViewController alloc] init];
-    }
-    _apvc.showsPlaybackControls = YES;
-    NSURL *remoteURL = videoURL;
-    AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
-    _apvc.player = player;
-    if (@available(iOS 11.0, *)) {
-        _apvc.entersFullScreenWhenPlaybackBegins = YES;
-    } else {
-        // Fallback on earlier versions
-    }//开启这个播放的时候支持（全屏）横竖屏哦
-    if (@available(iOS 11.0, *)) {
-        _apvc.exitsFullScreenWhenPlaybackEnds = YES;
-    } else {
-        // Fallback on earlier versions
-    }//
-    _apvc.showsPlaybackControls = YES;
-//    _apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-    
-//
-//    // Setup player
-//    _currentVideoPlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
-//    [_currentVideoPlayerViewController.moviePlayer prepareToPlay];
-//    _currentVideoPlayerViewController.moviePlayer.shouldAutoplay = YES;
-//    _currentVideoPlayerViewController.moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-//    _currentVideoPlayerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//
-//    // Remove the movie player view controller from the "playback did finish" notification observers
-//    // Observe ourselves so we can get it to use the crossfade transition
-//    [[NSNotificationCenter defaultCenter] removeObserver:_currentVideoPlayerViewController
-//                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-//                                                  object:_currentVideoPlayerViewController.moviePlayer];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(videoFinishedCallback:)
-//                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-//                                               object:_currentVideoPlayerViewController.moviePlayer];
-
-    // Show
-    [self presentViewController:_apvc animated:YES completion:^{
-//        [apvc.player play];
+    ZSJCustomVidoLayerVC *lvc = [[ZSJCustomVidoLayerVC alloc] init];
+    lvc.data = videoURL.absoluteString;
+    [self presentViewController:lvc animated:YES completion:^{
+        
     }];
-
 }
 
 - (void)videoFinishedCallback:(NSNotification*)notification {

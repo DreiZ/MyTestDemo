@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import <AVKit/AVKit.h>
 #import "ZFileManager.h"
-#import "ZAVPlayerViewController.h"
+#import "ZSJCustomVidoLayerVC.h"
 
 static ZVideoPlayerManager *videoPlayerManager;
 
@@ -23,7 +23,6 @@ static ZVideoPlayerManager *videoPlayerManager;
 @property (nonatomic,strong) AVPlayerLayer *playerLayer2;
 @property (nonatomic,strong) UILabel *sourceVideoSizeLabel;
 @property (nonatomic,strong) UILabel *compressVideoSizeLabel;
-@property (nonatomic,strong) ZAVPlayerViewController *apvc;
 @end
 
 
@@ -46,29 +45,17 @@ static ZVideoPlayerManager *videoPlayerManager;
 }
 
 
+- (void)playVideoWithAsset:(AVAsset *)asset title:(NSString *)title {
+    ZSJCustomVidoLayerVC *lvc = [[ZSJCustomVidoLayerVC alloc] init];
+    lvc.data = asset;
+    [[[AppDelegate shareAppDelegate] getCurrentVC].navigationController pushViewController:lvc animated:YES];
+}
+
 - (void)playVideoWithUrl:(NSString *)url title:(NSString *)title {
-    if (!_apvc) {
-        _apvc = [[ZAVPlayerViewController alloc] init];
-    }
-    
-    NSURL *remoteURL = [NSURL URLWithString:url];
-    AVPlayer *player = [AVPlayer playerWithURL:remoteURL];
-    _apvc.player = player;
-    _apvc.showsPlaybackControls = YES;
-    if (@available(iOS 11.0, *)) {
-        _apvc.entersFullScreenWhenPlaybackBegins = YES;
-    } else {
-        // Fallback on earlier versions
-    }//开启这个播放的时候支持（全屏）横竖屏哦
-    if (@available(iOS 11.0, *)) {
-        _apvc.exitsFullScreenWhenPlaybackEnds = YES;
-    } else {
-        // Fallback on earlier versions
-    }//
-    
-//    apvc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-    [[AppDelegate shareAppDelegate].getCurrentVC presentViewController:_apvc animated:YES completion:^{
-//        [apvc.player play];
+    ZSJCustomVidoLayerVC *lvc = [[ZSJCustomVidoLayerVC alloc] init];
+    lvc.data = url;
+    [[[AppDelegate shareAppDelegate] getCurrentVC] presentViewController:lvc animated:YES completion:^{
+        
     }];
 }
 

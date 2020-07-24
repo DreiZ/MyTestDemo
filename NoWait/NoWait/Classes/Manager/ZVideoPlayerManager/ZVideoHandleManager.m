@@ -33,7 +33,7 @@ static ZVideoHandleManager *videoHandleManager;
     DLog(@"视频压缩中...");
     [WYVideoCompressTools compressVideoWithSourceVideoPathString:sourceVideoPathString CompressType:compressType CompressSuccessBlock:^(NSString *compressVideoPathString) {
         compressSuccessBlock(compressVideoPathString);
-        [[ZVideoPlayerManager sharedInstance] compressVideoWithUrl:sourceVideoPathString oldUrl:compressVideoPathString];
+//        [[ZVideoPlayerManager sharedInstance] compressVideoWithUrl:sourceVideoPathString oldUrl:compressVideoPathString];
         DLog(@"视频压缩结束");
         
 //        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"视频压缩成功了!" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
