@@ -380,7 +380,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return self;
 }
@@ -388,7 +388,7 @@
 - (void)setModel:(TZAlbumModel *)model {
     _model = model;
     
-    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:model.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor colorBlackBGDark]}];
+    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:model.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])}];
     NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  (%zd)",model.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     [nameString appendAttributedString:countString];
     self.titleLabel.attributedText = nameString;
@@ -440,7 +440,7 @@
     if (_titleLabel == nil) {
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.font = [UIFont boldSystemFontOfSize:17];
-        titleLabel.textColor = [UIColor colorBlackBGDark];
+        titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         titleLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:titleLabel];
         _titleLabel = titleLabel;

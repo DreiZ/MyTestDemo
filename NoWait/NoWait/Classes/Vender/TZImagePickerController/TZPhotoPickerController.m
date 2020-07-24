@@ -80,7 +80,7 @@ static CGFloat itemMargin = 5;
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     _isSelectOriginalPhoto = tzImagePickerVc.isSelectOriginalPhoto;
     _shouldScrollToBottom = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.navigationItem.title = _model.name;
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:tzImagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:tzImagePickerVc action:@selector(cancelButtonClick)];
     [TZCommonTools configBarButtonItem:cancelItem tzImagePickerVc:tzImagePickerVc];
@@ -102,6 +102,22 @@ static CGFloat itemMargin = 5;
     
     self.operationQueue = [[NSOperationQueue alloc] init];
     self.operationQueue.maxConcurrentOperationCount = 3;
+    
+    [self setNavgationColor];
+}
+
+
+- (void)setNavgationColor {
+    [self.navigationController.navigationBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
+    [self.navigationController.navigationBar setTintColor:adaptAndDarkColor([UIColor colorNavBGFont],[UIColor  colorNavBG])];
+    self.navigationController.navigationBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 - (void)fetchAssetModels {
@@ -165,7 +181,7 @@ static CGFloat itemMargin = 5;
 - (void)configCollectionView {
     _layout = [[UICollectionViewFlowLayout alloc] init];
     _collectionView = [[TZCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
-    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     _collectionView.alwaysBounceHorizontal = NO;
@@ -215,16 +231,16 @@ static CGFloat itemMargin = 5;
     if (!tzImagePickerVc.showSelectBtn) return;
     
     _bottomToolBar = [[UIView alloc] initWithFrame:CGRectZero];
-    CGFloat rgb = 253 / 255.0;
-    _bottomToolBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];
+//    CGFloat rgb = 253 / 255.0;
+    _bottomToolBar.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG],[UIColor colorGrayBGDark]);
     
     _previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_previewButton addTarget:self action:@selector(previewButtonClick) forControlEvents:UIControlEventTouchUpInside];
     _previewButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [_previewButton setTitle:tzImagePickerVc.previewBtnTitleStr forState:UIControlStateNormal];
     [_previewButton setTitle:tzImagePickerVc.previewBtnTitleStr forState:UIControlStateDisabled];
-    [_previewButton setTitleColor:[UIColor colorBlackBGDark] forState:UIControlStateNormal];
-    [_previewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    [_previewButton setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+    [_previewButton setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateDisabled];
     _previewButton.enabled = tzImagePickerVc.selectedModels.count;
     
     if (tzImagePickerVc.allowPickingOriginalPhoto) {

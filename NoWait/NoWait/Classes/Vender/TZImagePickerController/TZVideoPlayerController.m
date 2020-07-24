@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.needShowStatusBar = ![UIApplication sharedApplication].statusBarHidden;
-    self.view.backgroundColor = [UIColor colorBlackBGDark];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     if (tzImagePickerVc) {
         self.navigationItem.title = tzImagePickerVc.previewBtnTitleStr;

@@ -51,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.needShowStatusBar = ![UIApplication sharedApplication].statusBarHidden;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     self.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationBar.translucent = YES;
     [TZImageManager manager].shouldFixOrientation = NO;
@@ -717,12 +717,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirstAppear = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);;
     
     TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:imagePickerVc.cancelBtnTitleStr style:UIBarButtonItemStylePlain target:imagePickerVc action:@selector(cancelButtonClick)];
     [TZCommonTools configBarButtonItem:cancelItem tzImagePickerVc:imagePickerVc];
     self.navigationItem.rightBarButtonItem = cancelItem;
+    
+    [self setNavgationColor];
+}
+
+- (void)setNavgationColor {
+    [self.navigationController.navigationBar setBarTintColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])];
+    [self.navigationController.navigationBar setTintColor:adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG])];
+    self.navigationController.navigationBar.backIndicatorImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-2200, 0) forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :adaptAndDarkColor([UIColor  colorNavBGFont],[UIColor  colorNavBG]), NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor  colorNavBG],[UIColor  colorNavBGFont])] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -770,7 +785,7 @@
                 if (!self->_tableView) {
                     self->_tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
                     self->_tableView.rowHeight = 70;
-                    self->_tableView.backgroundColor = [UIColor whiteColor];
+                    self->_tableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
                     self->_tableView.tableFooterView = [[UIView alloc] init];
                     self->_tableView.dataSource = self;
                     self->_tableView.delegate = self;
@@ -908,7 +923,7 @@
 + (void)configBarButtonItem:(UIBarButtonItem *)item tzImagePickerVc:(TZImagePickerController *)tzImagePickerVc {
     item.tintColor = tzImagePickerVc.barItemTextColor;
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
-    textAttrs[NSForegroundColorAttributeName] = tzImagePickerVc.barItemTextColor;
+    textAttrs[NSForegroundColorAttributeName] = adaptAndDarkColor(tzImagePickerVc.barItemTextColor, [UIColor colorTextBlackDark]);
     textAttrs[NSFontAttributeName] = tzImagePickerVc.barItemTextFont;
     [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
 }
