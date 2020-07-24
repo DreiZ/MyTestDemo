@@ -1183,7 +1183,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (void)playButtonTapped:(id)sender {
     // Ignore if we're already playing a video
     if (_currentVideoIndex != NSUIntegerMax) {
-        return;
+//        return;
     }
     NSUInteger index = [self indexForPlayButton:sender];
     if (index != NSUIntegerMax) {
