@@ -70,6 +70,10 @@
     [ZVideoPlayerManager sharedInstance].player = nil;
 }
 
+- (void)dealloc {
+    NSLog(@"ZCircleDetailVC dealloc");
+}
+
 - (BOOL)shouldAutorotate {
     return NO;
 }
@@ -114,103 +118,103 @@
         }];
         
     }).zChain_block_setRefreshHeaderNet(^{
-        [self refreshData];
+        [weakSelf refreshData];
     }).zChain_block_setRefreshMoreNet(^{
-        [self refreshMoreData];
+        [weakSelf refreshMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
-        [self.cellConfigArr removeAllObjects];
-        if (self.isRemove) {
-            self.emptyDataStr = @"动态已被移除";
-            self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.view);
-                make.top.equalTo(self.view.mas_bottom);
+        [weakSelf.cellConfigArr removeAllObjects];
+        if (weakSelf.isRemove) {
+            weakSelf.emptyDataStr = @"动态已被移除";
+            weakSelf.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            [weakSelf.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(weakSelf.view);
+                make.top.equalTo(weakSelf.view.mas_bottom);
                 make.height.mas_equalTo(CGFloatIn750(90) + safeAreaBottom());
             }];
-            
-            [self.headerView setRightHidden];
+
+            [weakSelf.headerView setRightHidden];
             return;
         }
-        
+
         NSMutableArray *section1Arr = @[].mutableCopy;
         {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailUserCell className] title:@"ZCircleDetailUserCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailUserCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailUserCell className] title:@"ZCircleDetailUserCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailUserCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.infoModel];
             [section1Arr addObject:menuCellConfig];
         }
-        
+
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title")
             .zz_cellHeight(CGFloatIn750(40))
             .zz_lineHidden(YES)
-            .zz_titleLeft(SafeStr(self.infoModel.title))
+            .zz_titleLeft(SafeStr(weakSelf.infoModel.title))
             .zz_leftMultiLine(YES)
             .zz_fontLeft([UIFont boldFontTitle])
             .zz_spaceLine(CGFloatIn750(8))
             .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
-            
+
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [section1Arr addObject:menuCellConfig];
         }
         {
             NSMutableArray *photos = @[].mutableCopy;
-            for (int i = 0; i < self.infoModel.video.count; i++) {
+            for (int i = 0; i < weakSelf.infoModel.video.count; i++) {
                 ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
                 dataModel.taskType = ZUploadTypeVideo;
-                dataModel.image_url = self.infoModel.cover.url;
+                dataModel.image_url = weakSelf.infoModel.cover.url;
                 dataModel.taskState = ZUploadStateWaiting;
                 [photos addObject:dataModel];
             }
-            for (int i = 0; i < self.infoModel.image.count; i++) {
+            for (int i = 0; i < weakSelf.infoModel.image.count; i++) {
                 ZFileUploadDataModel *dataModel = [[ZFileUploadDataModel alloc] init];
                 dataModel.taskType = ZUploadTypeImage;
-                dataModel.image_url = self.infoModel.image[i];
+                dataModel.image_url = weakSelf.infoModel.image[i];
                 dataModel.taskState = ZUploadStateWaiting;
                 [photos addObject:dataModel];
             }
-            
+
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailPhotoListCell className] title:@"ZCircleDetailPhotoListCell" showInfoMethod:@selector(setImageList:) heightOfCell:[ZCircleDetailPhotoListCell z_getCellHeight:photos] cellType:ZCellTypeClass dataModel:photos];
             [section1Arr addObject:menuCellConfig];
-            
-            if (ValidStr(self.infoModel.address)) {
-                ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
+
+            if (ValidStr(weakSelf.infoModel.address)) {
+                ZCellConfig *addressCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailAddressCell className] title:@"ZCircleDetailAddressCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailAddressCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.infoModel];
                 [section1Arr addObject:addressCellConfig];
             }
         }
-        if(ValidStr(self.infoModel.content)){
+        if(ValidStr(weakSelf.infoModel.content)){
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"info")
             .zz_cellHeight(CGFloatIn750(42))
             .zz_lineHidden(YES)
-            .zz_titleLeft(self.infoModel.content)
+            .zz_titleLeft(weakSelf.infoModel.content)
             .zz_leftMultiLine(YES)
             .zz_fontLeft([UIFont fontContent])
             .zz_spaceLine(CGFloatIn750(16))
             .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
-            
+
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [section1Arr addObject:menuCellConfig];
         }
-        if (ValidArray(self.infoModel.tags)) {
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailLabelCell className] title:@"label" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleDetailLabelCell z_getCellHeight:self.infoModel.tags] cellType:ZCellTypeClass dataModel:self.infoModel.tags];
+        if (ValidArray(weakSelf.infoModel.tags)) {
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailLabelCell className] title:@"label" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleDetailLabelCell z_getCellHeight:weakSelf.infoModel.tags] cellType:ZCellTypeClass dataModel:weakSelf.infoModel.tags];
             [section1Arr addObject:menuCellConfig];
         }
         {
-            if (ValidStr(self.infoModel.store_id) && ValidStr(self.infoModel.store_name)) {
+            if (ValidStr(weakSelf.infoModel.store_id) && ValidStr(weakSelf.infoModel.store_name)) {
                 [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailSchoolCell className] title:@"school" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.infoModel];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailSchoolCell className] title:@"school" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailSchoolCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.infoModel];
                 [section1Arr addObject:menuCellConfig];
             }else{
                 [section1Arr addObject:getEmptyCellWithHeight(CGFloatIn750(30))];
             }
         }
         [section1Arr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
-        [self.cellConfigArr addObject:section1Arr];
+        [weakSelf.cellConfigArr addObject:section1Arr];
         {
             NSMutableArray *section2Arr = @[].mutableCopy;
-            if (self.isLike) {
-                if (ValidArray(self.likeList)) {
-                    for (int i = 0; i < self.likeList.count; i++) {
-                        ZCircleMinePersonModel *smodel = self.likeList[i];
-                        
+            if (weakSelf.isLike) {
+                if (ValidArray(weakSelf.likeList)) {
+                    for (int i = 0; i < weakSelf.likeList.count; i++) {
+                        ZCircleMinePersonModel *smodel = weakSelf.likeList[i];
+
                         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"user").zz_titleLeft(smodel.nick_name)
                         .zz_imageLeft(smodel.image)
                         .zz_cellHeight(CGFloatIn750(90))
@@ -220,11 +224,11 @@
                         .zz_marginLineRight(CGFloatIn750(20))
                         .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
                         .zz_setData(smodel);
-                        
+
                         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                         [section2Arr addObject:menuCellConfig];
                     }
-                    if (self.isNoData) {
+                    if (weakSelf.isNoData) {
                         ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
 //                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
@@ -234,12 +238,12 @@
                     [section2Arr addObject:menuCellConfig];
                 }
             }else{
-                if (ValidArray(self.evaList)) {
-                    for (int i = 0; i < self.evaList.count; i++) {
-                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"ZCircleDetailEvaListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:self.evaList[i]] cellType:ZCellTypeClass dataModel:self.evaList[i]];
+                if (ValidArray(weakSelf.evaList)) {
+                    for (int i = 0; i < weakSelf.evaList.count; i++) {
+                        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleDetailEvaListCell className] title:@"ZCircleDetailEvaListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZCircleDetailEvaListCell z_getCellHeight:weakSelf.evaList[i]] cellType:ZCellTypeClass dataModel:weakSelf.evaList[i]];
                        [section2Arr addObject:menuCellConfig];
                     }
-                    if (self.isNoData) {
+                    if (weakSelf.isNoData) {
                         ZCellConfig *noEvaCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"nodata" showInfoMethod:@selector(setTitle:) heightOfCell:CGFloatIn750(60) cellType:ZCellTypeClass dataModel:@"没有更多内容了~"];
                         [section2Arr addObject:noEvaCellConfig];
 //                        [section2Arr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
@@ -249,13 +253,13 @@
                     [section2Arr addObject:menuCellConfig];
                 }
             }
-            [self.cellConfigArr addObject:section2Arr];
+            [weakSelf.cellConfigArr addObject:section2Arr];
         }
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         if (section == 1) {
-            self.sectionView.isLike = self.isLike;
-            [self.sectionView setLikeNum:self.infoModel.enjoy evaNum:self.infoModel.comment_number];
-            return self.sectionView;
+            weakSelf.sectionView.isLike = weakSelf.isLike;
+            [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+            return weakSelf.sectionView;
         }else {
             return nil;
         }
@@ -265,12 +269,12 @@
         }
         return 0;
     }).zChain_block_setNumberOfSectionsInTableView(^NSInteger(UITableView *tableView) {
-        return self.cellConfigArr.count;
+        return weakSelf.cellConfigArr.count;
     }).zChain_block_setNumberOfRowsInSection(^NSInteger(UITableView *tableView, NSInteger section) {
-        NSArray *sectionArr = self.cellConfigArr[section];
+        NSArray *sectionArr = weakSelf.cellConfigArr[section];
         return sectionArr.count;
     }).zChain_block_setCellForRowAtIndexPath(^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath) {
-        NSArray *sectionArr = self.cellConfigArr[indexPath.section];
+        NSArray *sectionArr = weakSelf.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = [sectionArr objectAtIndex:indexPath.row];
            ZBaseCell *cell;
         cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
@@ -298,18 +302,18 @@
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailPhotoListCell"]){
             ZCircleDetailPhotoListCell *lcell = (ZCircleDetailPhotoListCell *)cell;
             lcell.seeBlock = ^(NSInteger index) {
-                
+
             };
             lcell.handleBlock = ^(ZBaseCell * cell, UICollectionView * iCollectionView, NSIndexPath *indexPath, ZFileUploadDataModel* model) {
                 if (isVideo(model.image_url)) {
                     [weakSelf cell:cell coverItemWasTappedInCollectionView:iCollectionView atIndexPath:indexPath model:model];
                 }else{
                     NSMutableArray *photos = @[].mutableCopy;
-                    for (int i = 0; i < self.infoModel.video.count; i++) {
-                        [photos addObject:self.infoModel.video[i]];
+                    for (int i = 0; i < weakSelf.infoModel.video.count; i++) {
+                        [photos addObject:weakSelf.infoModel.video[i]];
                     }
-                    for (int i = 0; i < self.infoModel.image.count; i++) {
-                        [photos addObject:self.infoModel.image[i]];
+                    for (int i = 0; i < weakSelf.infoModel.image.count; i++) {
+                        [photos addObject:weakSelf.infoModel.image[i]];
                     }
                     if (indexPath.row < photos.count) {
                         [[ZImagePickerManager sharedManager] showBrowser:photos withIndex:indexPath.row];
@@ -343,15 +347,15 @@
                 cvc.account = model.account;
                 [weakSelf.navigationController pushViewController:cvc animated:YES];
             };
-            
+
             lcell.delBlock = ^(ZCircleDynamicEvaModel *model) {
                 [weakSelf delEvaDynamic:model];
             };
         }
-        
+
         return cell;
     }).zChain_block_setHeightForRowAtIndexPath(^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
-        NSArray *sectionArr = self.cellConfigArr[indexPath.section];
+        NSArray *sectionArr = weakSelf.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = sectionArr[indexPath.row];
         CGFloat cellHeight =  cellConfig.heightOfCell;
         return cellHeight;
