@@ -235,8 +235,9 @@
 }
 
 - (void)sortTime {
+    __weak typeof(self) weakSelf = self;
     [self.dataSources enumerateObjectsUsingBlock:^(ZBaseMenuModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.units = [self logArrayFunction:obj.units];
+        obj.units = [weakSelf logArrayFunction:obj.units];
     }];
 }
 
@@ -415,7 +416,7 @@
     [addView addSubview:addBtn];
     [addBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.isStartAndEnd) {
-            NSString *selectDate = [self getStartAndEndLastSelectDate];
+            NSString *selectDate = [weakSelf getStartAndEndLastSelectDate];
             [ZAlertDateHourPickerView setAlertName:@"选择时间段" now:selectDate handlerBlock:^(NSString *start,NSString *end) {
                 ZBaseUnitModel *smodel = [[ZBaseUnitModel alloc] init];
                 smodel.name = start;
@@ -432,7 +433,7 @@
 //                [weakSelf checkStartAndEnd:smodel];
 //            }];
         }else{
-            NSDate *selectDate = [self getLastSelectDate];
+            NSDate *selectDate = [weakSelf getLastSelectDate];
             [ZDatePickerManager showDatePickerWithTitle:@"开始时间" type:PGDatePickerModeTime showDate:selectDate handle:^(NSDateComponents * date) {
                 [weakSelf checkSeletTime:date];
             }];

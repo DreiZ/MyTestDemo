@@ -91,11 +91,11 @@
         [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
         [_navRightBtn bk_addEventHandler:^(id sender) {
             ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
-            mvc.type = self.model.type;
+            mvc.type = weakSelf.model.type;
             mvc.uploadCompleteBlock = ^{
                 [weakSelf refreshData];
             };
-            [self.navigationController pushViewController:mvc animated:YES];
+            [weakSelf.navigationController pushViewController:mvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;
@@ -130,7 +130,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - self.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+            [[ZImagePickerManager sharedManager] setImagesWithMaxCount:9 - weakSelf.list.count SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0){
                     [weakSelf.uploadArr removeAllObjects];
                     [weakSelf.uploadNetArr removeAllObjects];
@@ -154,11 +154,11 @@
 //                    [weakSelf updatePhotosStep1];
                     ZOrganizationPhotoUploadManageVC *mvc = [[ZOrganizationPhotoUploadManageVC alloc] init];
                     mvc.imageArr = weakSelf.uploadArr;
-                    mvc.type = self.model.type;
+                    mvc.type = weakSelf.model.type;
                     mvc.uploadCompleteBlock = ^{
                         [weakSelf refreshData];
                     };
-                    [self.navigationController pushViewController:mvc animated:YES];
+                    [weakSelf.navigationController pushViewController:mvc animated:YES];
                     return;
                 }
             }];
@@ -240,11 +240,12 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    __weak typeof(self) weakSelf = self;
     ZOrganizatioPhotosCollectionCell *cell = [ZOrganizatioPhotosCollectionCell z_cellWithCollection:collectionView indexPath:indexPath];
     cell.delBlock = ^(ZOriganizationPhotoTypeListModel *model) {
         [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定删除此图片" leftBtnTitle:@"取消" rightBtnTitle:@"删除" handlerBlock:^(NSInteger index) {
             if (index == 1) {
-                [self deleteData:model];
+                [weakSelf deleteData:model];
             }
         }];
     };
@@ -358,13 +359,14 @@
 }
 
  - (void)updatePhotosStep2WithImage:(NSInteger)index {
+     __weak typeof(self) weakSelf = self;
      [self updatePhotosStep3WithImage:index complete:^(BOOL isSuccess, NSInteger index) {
-         if (index == self.uploadArr.count-1) {
+         if (index == weakSelf.uploadArr.count-1) {
              [TLUIUtility showLoading:@"上传图片中..."];
-             [self updateData];
+             [weakSelf updateData];
          }else{
              index++;
-             [self updatePhotosStep2WithImage:index];
+             [weakSelf updatePhotosStep2WithImage:index];
          }
     }];
 }
@@ -407,11 +409,12 @@
     }
     [params setObject:imageUrlArr forKey:@"images"];
     
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"上传图片中..."];
     [ZOriganizationPhotoViewModel addImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [self refreshAllData];
+            [weakSelf refreshAllData];
             [TLUIUtility showSuccessHint:message];
             return ;
         }else {
@@ -425,11 +428,12 @@
     [params setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     [params setObject:SafeStr(model.imageID) forKey:@"id"];
     
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@""];
     [ZOriganizationPhotoViewModel delImage:params completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [self refreshAllData];
+            [weakSelf refreshAllData];
             [TLUIUtility showSuccessHint:message];
             return ;
         }else {

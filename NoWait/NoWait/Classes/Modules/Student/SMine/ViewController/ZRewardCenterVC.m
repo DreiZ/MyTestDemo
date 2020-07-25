@@ -61,7 +61,7 @@
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"]  forState:UIControlStateNormal];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
              
-               NSArray *viewControllers = self.navigationController.viewControllers;
+               NSArray *viewControllers = weakSelf.navigationController.viewControllers;
                NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
                
                ZViewController *target;
@@ -155,10 +155,10 @@
         lcell.handleBlock = ^(ZCellConfig * lcellConfig) {
             if ([lcellConfig.title isEqualToString:@"team"]) {
                 ZRewardMyTeamListVC *fvc = [[ZRewardMyTeamListVC alloc] init];
-                [self.navigationController pushViewController:fvc animated:YES];
+                [weakSelf.navigationController pushViewController:fvc animated:YES];
             }else if ([lcellConfig.title isEqualToString:@"rank"]) {
                 ZRewardRankingVC *fvc = [[ZRewardRankingVC alloc] init];
-                [self.navigationController pushViewController:fvc animated:YES];
+                [weakSelf.navigationController pushViewController:fvc animated:YES];
             }else if ([lcellConfig.title isEqualToString:@"detail"]) {
                 
             }
@@ -168,7 +168,7 @@
         lcell.handleBlock = ^(NSInteger index) {
             ZInvitationFriendVC *fvc = [[ZInvitationFriendVC alloc] init];
             fvc.model = weakSelf.infoModel;
-            [self.navigationController pushViewController:fvc animated:YES];
+            [weakSelf.navigationController pushViewController:fvc animated:YES];
         };
     }else if ([cellConfig.title isEqualToString:@"ZRewardCenterDetailCell"]) {
         ZRewardCenterDetailCell *lcell = (ZRewardCenterDetailCell *)cell;
@@ -176,13 +176,13 @@
             if (index == 0) {
                 ZReflectMoneyVC *fvc = [[ZReflectMoneyVC alloc] init];
                 fvc.infoModel = weakSelf.infoModel;
-                [self.navigationController pushViewController:fvc animated:YES];
+                [weakSelf.navigationController pushViewController:fvc animated:YES];
             }else if(index == 1){
                 ZReflectListLogVC *fvc = [[ZReflectListLogVC alloc] init];
-                [self.navigationController pushViewController:fvc animated:YES];
+                [weakSelf.navigationController pushViewController:fvc animated:YES];
             }else if(index == 2){
                 ZRewardDetailsListVC *fvc = [[ZRewardDetailsListVC alloc] init];
-                [self.navigationController pushViewController:fvc animated:YES];
+                [weakSelf.navigationController pushViewController:fvc animated:YES];
             }
         };
     }

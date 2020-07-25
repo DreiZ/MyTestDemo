@@ -51,8 +51,8 @@
              [configArr addObject:menuCellConfig];
          }
          {
-             NSArray *textArr = @[@[@"真实姓名", @"必填", @"name",SafeStr(self.handleModel.realName),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                                  @[@"支付宝账号", @"必填", @"account",SafeStr(self.handleModel.aliPay),@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
+             NSArray *textArr = @[@[@"真实姓名", @"必填", @"name",SafeStr(weakSelf.handleModel.realName),@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                                  @[@"支付宝账号", @"必填", @"account",SafeStr(weakSelf.handleModel.aliPay),@30,[NSNumber numberWithInt:ZFormatterTypeAny]]];
              
              for (int i = 0; i < textArr.count; i++) {
                  ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -95,7 +95,7 @@
              cellModel.leftTitle = @"￥";
              cellModel.placeholder = @"0";
              cellModel.cellTitle = @"money";
-             cellModel.content = SafeStr(self.handleModel.amount);
+             cellModel.content = SafeStr(weakSelf.handleModel.amount);
              cellModel.max = 10;
              cellModel.formatterType = ZFormatterTypeDecimal;
              cellModel.isHiddenLine = YES;
@@ -239,6 +239,7 @@
         
     }
     
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"提交中..."];
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:self.handleModel.realName forKey:@"name"];
@@ -249,7 +250,7 @@
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
             [ZAlertView setAlertWithTitle:@"提现成功" subTitle:data btnTitle:@"我知道了" handlerBlock:^(NSInteger index) {
-                [self.navigationController popViewControllerAnimated:YES];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
             }];
         }else {
             [TLUIUtility showErrorHint:data];

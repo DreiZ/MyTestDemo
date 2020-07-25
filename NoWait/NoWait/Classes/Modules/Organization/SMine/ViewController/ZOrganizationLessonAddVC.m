@@ -215,41 +215,41 @@
                 return ;
             }
             NSMutableDictionary *otherDict = @{}.mutableCopy;
-            if (ValidStr(self.viewModel.addModel.lessonID)) {
-                [otherDict setObject:self.viewModel.addModel.lessonID forKey:@"id"];
+            if (ValidStr(weakSelf.viewModel.addModel.lessonID)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.lessonID forKey:@"id"];
             }
             
             if (ValidStr(weakSelf.viewModel.addModel.limit_purchase) && [weakSelf.viewModel.addModel.limit_purchase intValue] > 0) {
-                [otherDict setObject:self.viewModel.addModel.limit_purchase forKey:@"limit_purchase"];
+                [otherDict setObject:weakSelf.viewModel.addModel.limit_purchase forKey:@"limit_purchase"];
             }
             
             if (ValidStr(weakSelf.viewModel.addModel.account_limit_purchase) && [weakSelf.viewModel.addModel.account_limit_purchase intValue] > 0) {
-                [otherDict setObject:self.viewModel.addModel.account_limit_purchase forKey:@"account_limit_purchase"];
+                [otherDict setObject:weakSelf.viewModel.addModel.account_limit_purchase forKey:@"account_limit_purchase"];
             }
             
             
-            [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
-            [otherDict setObject:self.viewModel.addModel.short_name forKey:@"short_name"];
-            [otherDict setObject:self.viewModel.addModel.info forKey:@"info"];
-            [otherDict setObject:self.viewModel.addModel.price forKey:@"price"];
-            [otherDict setObject:self.viewModel.addModel.stores_id forKey:@"stores_id"];
-            [otherDict setObject:self.viewModel.addModel.level forKey:@"level"];
-            [otherDict setObject:self.viewModel.addModel.course_min forKey:@"course_min"];
-            [otherDict setObject:self.viewModel.addModel.course_number forKey:@"course_number"];
-            [otherDict setObject:self.viewModel.addModel.course_class_number forKey:@"course_class_number"];
-            [otherDict setObject:self.viewModel.addModel.is_experience forKey:@"is_experience"];
-            [otherDict setObject:self.viewModel.addModel.valid_at forKey:@"valid_at"];
-            [otherDict setObject:self.viewModel.addModel.type forKey:@"type"];
-            [otherDict setObject:self.viewModel.addModel.p_information forKey:@"p_information"];
+            [otherDict setObject:weakSelf.viewModel.addModel.name forKey:@"name"];
+            [otherDict setObject:weakSelf.viewModel.addModel.short_name forKey:@"short_name"];
+            [otherDict setObject:weakSelf.viewModel.addModel.info forKey:@"info"];
+            [otherDict setObject:weakSelf.viewModel.addModel.price forKey:@"price"];
+            [otherDict setObject:weakSelf.viewModel.addModel.stores_id forKey:@"stores_id"];
+            [otherDict setObject:weakSelf.viewModel.addModel.level forKey:@"level"];
+            [otherDict setObject:weakSelf.viewModel.addModel.course_min forKey:@"course_min"];
+            [otherDict setObject:weakSelf.viewModel.addModel.course_number forKey:@"course_number"];
+            [otherDict setObject:weakSelf.viewModel.addModel.course_class_number forKey:@"course_class_number"];
+            [otherDict setObject:weakSelf.viewModel.addModel.is_experience forKey:@"is_experience"];
+            [otherDict setObject:weakSelf.viewModel.addModel.valid_at forKey:@"valid_at"];
+            [otherDict setObject:weakSelf.viewModel.addModel.type forKey:@"type"];
+            [otherDict setObject:weakSelf.viewModel.addModel.p_information forKey:@"p_information"];
             
-            if([self.viewModel.addModel.is_experience intValue] == 1){
+            if([weakSelf.viewModel.addModel.is_experience intValue] == 1){
                 
-                [otherDict setObject:self.viewModel.addModel.experience_price forKey:@"experience_price"];
-                [otherDict setObject:self.viewModel.addModel.experience_duration forKey:@"experience_duration"];
+                [otherDict setObject:weakSelf.viewModel.addModel.experience_price forKey:@"experience_price"];
+                [otherDict setObject:weakSelf.viewModel.addModel.experience_duration forKey:@"experience_duration"];
                 
                 //可预约时间段
                 NSMutableDictionary *orderDict = @{}.mutableCopy;
-                for (ZBaseMenuModel *menuModel in self.viewModel.addModel.experience_time) {
+                for (ZBaseMenuModel *menuModel in weakSelf.viewModel.addModel.experience_time) {
                     if (menuModel && menuModel.units && menuModel.units.count > 0) {
                         
                         NSMutableArray *tempSubArr = @[].mutableCopy;
@@ -267,13 +267,13 @@
             
             if([weakSelf.viewModel.addModel.type intValue] == 1){
                 NSMutableDictionary *orderDict = @{}.mutableCopy;
-                for (ZBaseMenuModel *menuModel in self.viewModel.addModel.fix_time) {
+                for (ZBaseMenuModel *menuModel in weakSelf.viewModel.addModel.fix_time) {
                     if (menuModel && menuModel.units && menuModel.units.count > 0) {
                         
                         NSMutableArray *tempSubArr = @[].mutableCopy;
                         for (int k = 0; k < menuModel.units.count; k++) {
                             ZBaseUnitModel *unitModel = menuModel.units[k];
-                            [tempSubArr addObject:[NSString stringWithFormat:@"%@~%@",[self getStartTime:unitModel],[self getEndTime:unitModel]]];
+                            [tempSubArr addObject:[NSString stringWithFormat:@"%@~%@",[weakSelf getStartTime:unitModel],[weakSelf getEndTime:unitModel]]];
                             
                         }
                         
@@ -284,7 +284,7 @@
                 [otherDict setObject:orderDict forKey:@"fix_time"];
             }
             
-            [self updateImageWithOtherParams:otherDict];
+            [weakSelf updateImageWithOtherParams:otherDict];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
@@ -326,6 +326,7 @@
     @[@"总限购数", @"不填写则无限购数", @YES, @"", @"次", @"limit_purchase",SafeStr(self.viewModel.addModel.limit_purchase),@7,[NSNumber numberWithInt:ZFormatterTypeNumber]],
     @[@"单人限购", @"不填写则无限购数", @YES, @"", @"次", @"account_limit_purchase",SafeStr(self.viewModel.addModel.account_limit_purchase),@7,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
     
+    __weak typeof(self) weakSelf = self;
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[5]))
         .zz_heightTextField(CGFloatIn750(84))
@@ -393,7 +394,7 @@
     
     ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
     [self.cellConfigArr addObject:orderCellConfig];
-    
+    __weak typeof(self) weakSelf = self;
     if ([self.viewModel.addModel.is_experience intValue] == 1) {
         NSArray <NSArray *>*textArr = @[@[@"体验课价格", @"0", @YES, @"", @"元", @"tiMoney",self.viewModel.addModel.experience_price,@5,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
                          @[@"单次体验时长 ", @"0", @YES, @"", @"分钟", @"tiMin",self.viewModel.addModel.experience_duration,@5,[NSNumber numberWithInt:ZFormatterTypeNumber]]];
@@ -424,7 +425,7 @@
                 .zz_colorDarkSubRight([UIColor colorTextBlackDark]);
             }
             ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [self.cellConfigArr addObject:nameCellConfig];
+            [weakSelf.cellConfigArr addObject:nameCellConfig];
         }];
         
         [self addTimeOrder];
@@ -449,7 +450,7 @@
     NSArray <NSArray *>*titleArr = @[@[@"课程详情", @"rightBlackArrowN", @"detail",ValidStr(self.viewModel.addModel.info) ? @"已编辑":@""],
                                      @[@"购买须知", @"rightBlackArrowN", @"p_information", ValidStr(self.viewModel.addModel.p_information)? @"已编辑":@""],
                                      @[@"课程相册", @"", @"", @""]];
-    
+    __weak typeof(self) weakSelf = self;
     [titleArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZLineCellModel *titleModel = ZLineCellModel.zz_lineCellModel_create(obj[2])
         .zz_titleLeft(obj[0])
@@ -460,7 +461,7 @@
         .zz_titleRight(SafeStr(obj[3]));
 
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:titleModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:titleModel] cellType:ZCellTypeClass dataModel:titleModel];
-        [self.cellConfigArr addObject:menuCellConfig];
+        [weakSelf.cellConfigArr addObject:menuCellConfig];
     }];
     
     ZBaseMenuModel *model = [[ZBaseMenuModel alloc] init];
@@ -659,7 +660,7 @@
             }
         };
         tCell.imageBlock = ^(NSInteger index) {
-            [self.iTableView endEditing:YES];
+            [weakSelf.iTableView endEditing:YES];
             [[ZImagePickerManager sharedManager] setCropRect:CGSizeMake(KScreenWidth, (66.0/105.0)*KScreenWidth) SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
                 if (list && list.count > 0) {
                     ZImagePickerModel *model = list[0];
@@ -907,12 +908,13 @@
 }
 
  - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     __weak typeof(self) weakSelf = self;
      [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
-         if (index == self.viewModel.addModel.images.count-1) {
-             [self updateOtherDataWithParams:otherDict];
+         if (index == weakSelf.viewModel.addModel.images.count-1) {
+             [weakSelf updateOtherDataWithParams:otherDict];
          }else{
              index++;
-             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+             [weakSelf updatePhotosStep2WithImage:index otherParams:otherDict];
          }
     }];
 }
@@ -960,12 +962,13 @@
         }
         
     }
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationLessonViewModel addLesson:otherDict isEdit:ValidStr(self.viewModel.addModel.lessonID) ? YES:NO completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];

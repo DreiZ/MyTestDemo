@@ -201,7 +201,7 @@
         [_navLeftBtn setImage:isDarkModel() ? [UIImage imageNamed:@"navleftBackDark"] : [UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
              
-               NSArray *viewControllers = self.navigationController.viewControllers;
+               NSArray *viewControllers = weakSelf.navigationController.viewControllers;
                NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
                
                ZViewController *target;
@@ -430,8 +430,8 @@
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig *lcellConfig) {
             if ([lcellConfig.title isEqualToString:@"phone"]){
-                if (!self.detailModel.isStudent) {
-                    [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
+                if (!weakSelf.detailModel.isStudent) {
+                    [ZPublicTool callTel:SafeStr(weakSelf.detailModel.account_phone)];
                 }
             }
         };

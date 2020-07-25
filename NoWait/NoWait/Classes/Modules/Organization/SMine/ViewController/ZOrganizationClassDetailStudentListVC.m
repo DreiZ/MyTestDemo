@@ -257,10 +257,11 @@
         [ids addObject:@{@"student_id":studentModel.studentID,@"nums":SafeStr(studentModel.nums)}];
     }
     [param setObject:ids forKey:@"students"];
+    __weak typeof(self) weakSelf = self;
     [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
-            [self refreshData];
+            [weakSelf refreshData];
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -276,16 +277,16 @@
         lcell.handleBlock = ^(NSInteger index,ZOriganizationStudentListModel *model) {
             if (index == 0) {
                 ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-                if (self.listModel) {
-                    dvc.courses_class_id = self.listModel.classID;
+                if (weakSelf.listModel) {
+                    dvc.courses_class_id = weakSelf.listModel.classID;
                 }else{
-                    dvc.courses_class_id = self.model.classID;
+                    dvc.courses_class_id = weakSelf.model.classID;
                 }
                 
                 dvc.student_id = model.studentID;
 //                dvc.type = self.type;
 //                dvc.stores_id = model.studentID;
-                [self.navigationController pushViewController:dvc animated:YES];
+                [weakSelf.navigationController pushViewController:dvc animated:YES];
             }else if(index == 1){
                 //out
                 [ZAlertView setAlertWithTitle:@"小提醒" subTitle:[NSString stringWithFormat:@"确定将\"%@\"移除班级",model.name] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {

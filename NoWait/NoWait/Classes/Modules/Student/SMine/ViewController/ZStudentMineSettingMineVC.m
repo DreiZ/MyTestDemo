@@ -106,7 +106,7 @@
                  [weakSelf updateUserInfo:@{@"sex":SafeStr(weakSelf.user.sex)}];
              }];
          }else if([cellConfig.title isEqualToString:@"出生日期"]){
-             [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:self handle:^(NSDateComponents * date) {
+             [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:weakSelf handle:^(NSDateComponents * date) {
                   weakSelf.user.birthday = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
                  
                  weakSelf.zChain_reload_ui();
@@ -114,7 +114,6 @@
              }];
          }
     }).zChain_block_setRefreshHeaderNet(^{
-        __weak typeof(self) weakSelf = self;
         [ZOriganizationViewModel getUserInfo:@{} completeBlock:^(BOOL isSuccess, id data) {
             if (isSuccess) {
                 weakSelf.user = data;
