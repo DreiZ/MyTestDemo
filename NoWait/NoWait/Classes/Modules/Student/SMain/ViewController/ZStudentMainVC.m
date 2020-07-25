@@ -11,6 +11,8 @@
 #import "ZRewardCenterVC.h"
 #import <TLTabBarControllerProtocol.h>
 #import "ZFileManager.h"
+#import <SDImageCache.h>
+#import <SDWebImageDownloader.h>
 @interface ZStudentMainVC ()<TLTabBarControllerProtocol>
 
 @end
@@ -18,6 +20,9 @@
 @implementation ZStudentMainVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[SDImageCache sharedImageCache] setShouldDecompressImages:NO];
+    [[SDWebImageDownloader sharedDownloader] setShouldDecompressImages:NO];
     
     [self initCellConfigArr];
     [self.iTableView reloadData];

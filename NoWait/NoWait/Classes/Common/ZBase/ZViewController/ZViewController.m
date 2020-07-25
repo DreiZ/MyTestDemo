@@ -8,11 +8,16 @@
 
 #import "ZViewController.h"
 #import "AFNetworkReachabilityManager.h"
+#import <SDWebImageManager.h>
+#import <SDImageCache.h>
+
+@interface ZViewController ()
+@property (nonatomic,strong) void (^zChain_block_notShouldDecompressImages)(void);
+@end
 
 @implementation ZViewController
 
-- (id)init
-{
+- (id)init {
     if (self = [super init]) {
         [self setStatusBarStyle:UIStatusBarStyleDefault];
         self.emptyImage = isDarkModel()? @"emptyDataDark" : @"emptyData";
@@ -21,42 +26,57 @@
     return self;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle{//状态栏颜色
-
-// 黑色 UIStatusBarStyleDefault;  白色 UIStatusBarStyleLightContent
+- (UIStatusBarStyle)preferredStatusBarStyle {//状态栏颜色
+   // 黑色 UIStatusBarStyleDefault;  白色 UIStatusBarStyleLightContent
     return UIStatusBarStyleDefault;
 }
 
-#pragma mark - vc fun
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    [self setNavigation];
+- (void)dealloc {
+#ifdef DEBUG_MEMERY
+    DLog(@"dealloc %@", [self className]);
+#endif
+    DLog(@"dealloc %@", [self className]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+//收到内存警告时，释放SD缓存图片占用的内存
+//建议添加在基类
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [SDImageCache.sharedImageCache clearMemory];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.isHidenNaviBar = NO;
+    
 //    [MobClick beginLogPageView:self.analyzeTitle];
     if ([UIApplication sharedApplication].statusBarStyle != self.statusBarStyle) {
         [UIApplication sharedApplication].statusBarStyle = self.statusBarStyle;
     }
+    
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-     //设置透明的背景图，便于识别底部线条有没有被隐藏
-
-//    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
      //此处使底部线条失效
      [navigationBar setShadowImage:[UIImage imageWithColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])]];
+    
+    if (_zChain_block_notShouldDecompressImages) {
+        SDImageCache.sharedImageCache.shouldDecompressImages = NO;
+        SDWebImageDownloader.sharedDownloader.shouldDecompressImages = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 //    [MobClick endLogPageView:self.analyzeTitle];
+    
+    if (_zChain_block_notShouldDecompressImages) {
+        SDImageCache.sharedImageCache.shouldDecompressImages = YES;
+        SDWebImageDownloader.sharedDownloader.shouldDecompressImages = YES;
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -64,15 +84,21 @@
     [TLUIUtility hiddenLoading];
 }
 
-- (void)dealloc
-{
+
+
+#pragma mark - vc fun
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view setBackgroundColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark])];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-#ifdef DEBUG_MEMERY
-    DLog(@"dealloc %@", [self className]);
-#endif
-    DLog(@"dealloc %@", [self className]);
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self setNavigation];
 }
+
+#pragma mark - Chain block(sdwebimage)
+//禁用缓存解压缩图片数据
+//建议在需要加载大量图片的控制器调用
+ZCHAIN_BLOCK_IMPLEMENTATION(ZViewController *, zChain_block_setNotShouldDecompressImages, zChain_block_notShouldDecompressImages, void, void)
 
 #pragma mark - # Getter
 - (NSString *)analyzeTitle
@@ -82,16 +108,6 @@
     }
     return _analyzeTitle;
 }
-//
-//#pragma mark ————— 转场动画起始View —————
-//-(UIView *)targetTransitionView{
-//    return [UIView new];
-//}
-//
-//-(BOOL)isNeedTransition{
-//    return YES;
-//}
-
 
 - (void)setNavigation {
     [self.navigationItem setTitle:@""];

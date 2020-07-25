@@ -26,14 +26,27 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+
     if (_sectionView.menuView) {
         [self.sectionView.menuView hideMenuList];
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
+    
+    [super viewWillAppear:animated];
+}
+
+- (void)dealloc {
+    DLog(@"dealloc ZStudentClassificationListVC");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(self.vcTitle)
     .zChain_addLoadMoreFooter()
@@ -65,7 +78,7 @@
         [weakSelf refreshMyMoreData];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-
+        
         for (int i = 0; i < weakSelf.dataSources.count; i++) {
             ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
             [weakSelf.cellConfigArr addObject:orCellCon1fig];
@@ -161,7 +174,7 @@
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
             }
-            if (weakSelf.dataSources.count == 0 && [self.param objectForKey:@"category"]) {
+            if (weakSelf.dataSources.count == 0 && [weakSelf.param objectForKey:@"category"]) {
                 weakSelf.iTableView.tableHeaderView = weakSelf.headView;
                 [weakSelf.param removeObjectForKey:@"category"];
                 [weakSelf.param setObject:@"3" forKey:@"sort_type"];

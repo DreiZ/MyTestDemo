@@ -25,6 +25,8 @@ typedef void(^ZSelectImageBackBlock)(NSArray<ZImagePickerModel *> *list);
 @interface ZImagePickerManager : NSObject
 + (ZImagePickerManager *)sharedManager;
 
++ (void)initSDWebImage;
+
 //头像
 - (void)setAvatarSelectMenu:(ZSelectImageBackBlock)complete;
 

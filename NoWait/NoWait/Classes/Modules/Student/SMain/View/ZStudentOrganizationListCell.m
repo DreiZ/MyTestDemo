@@ -13,6 +13,9 @@
 
 @implementation ZStudentOrganizationListCell
 
+- (void)dealloc {
+    DLog(@"dealloc - ZStudentOrganizationListCell");
+}
 
 -(void)setupView {
     [super setupView];
@@ -176,7 +179,7 @@
         }];
         [_collectionBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(self.model);
+                weakSelf.handleBlock(weakSelf.model);
             };
         } forControlEvents:UIControlEventTouchUpInside];
     }

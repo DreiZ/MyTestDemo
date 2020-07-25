@@ -13,6 +13,8 @@
 #import "UIScrollView+EmptyDataSet.h"
 
 
+#define  ZCHAIN_VIEWCONTROLLERCHAIN_PROPERTY(methodName,ZZParamType) ZCHAIN_PROPERTY ZCHAIN_BLOCK(ZViewController *, methodName, ZZParamType)
+
 @interface ZViewController : UIViewController <XYTransitionProtocol,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 //是否在加载中
 @property (nonatomic, getter=isLoading) BOOL loading;
@@ -32,6 +34,9 @@
 
 @property (nonatomic, strong) UIImage *headerImage;
 @property (nonatomic, assign) BOOL isTransition;//是否开启转场动画
+
+#pragma mark - Chain block 设置刷新数据Block
+ZCHAIN_VIEWCONTROLLERCHAIN_PROPERTY(zChain_block_setNotShouldDecompressImages, void (^)(void));
 
 - (void)refreshData;
 - (void)setNavigation;
