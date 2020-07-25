@@ -81,7 +81,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            NSArray *temp = [self getSelect];
+            NSArray *temp = [weakSelf getSelect];
             if (temp.count > 0) {
                 weakSelf.handleBlock(temp,temp.count==weakSelf.total ? YES:NO);
                 [weakSelf.navigationController popViewControllerAnimated:YES];

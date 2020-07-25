@@ -208,39 +208,39 @@
             }
             NSMutableDictionary *params = @{}.mutableCopy;
             [params setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
-            [params setObject:self.viewModel.addModel.title forKey:@"title"];
-            [params setObject:self.viewModel.addModel.amount forKey:@"amount"];
+            [params setObject:weakSelf.viewModel.addModel.title forKey:@"title"];
+            [params setObject:weakSelf.viewModel.addModel.amount forKey:@"amount"];
             
-            [params setObject:self.viewModel.addModel.nums forKey:@"nums"];
-            [params setObject:self.viewModel.addModel.limit forKey:@"limit"];
-            [params setObject:self.viewModel.addModel.status forKey:@"status"];
+            [params setObject:weakSelf.viewModel.addModel.nums forKey:@"nums"];
+            [params setObject:weakSelf.viewModel.addModel.limit forKey:@"limit"];
+            [params setObject:weakSelf.viewModel.addModel.status forKey:@"status"];
 //            if (!ValidStr(self.viewModel.addModel.min_amount)) {
 //                 [ZAlertView setAlertWithTitle:@"不填写满减金额默认满1元可用" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
 //
 //                     }];
 //            }
             
-            if (ValidStr(self.viewModel.addModel.min_amount)) {
-                [params setObject:self.viewModel.addModel.min_amount forKey:@"min_amount"];
+            if (ValidStr(weakSelf.viewModel.addModel.min_amount)) {
+                [params setObject:weakSelf.viewModel.addModel.min_amount forKey:@"min_amount"];
             }else{
                 [params setObject:@"1" forKey:@"min_amount"];
             }
             
-            if (self.viewModel.addModel.isAll) {
+            if (weakSelf.viewModel.addModel.isAll) {
                 [params setObject:@"1" forKey:@"type"];
             }else{
                 [params setObject:@"2" forKey:@"type"];
                 
                 NSMutableArray *lesssonList = @[].mutableCopy;
-                for (ZOriganizationLessonListModel *model in self.viewModel.addModel.lessonList) {
+                for (ZOriganizationLessonListModel *model in weakSelf.viewModel.addModel.lessonList) {
                     [lesssonList addObject:model.lessonID];
                 }
                 [params setObject:lesssonList forKey:@"course_id"];
             }
             
             if (ValidStr(weakSelf.viewModel.addModel.limit_start)) {
-                [params setObject:self.viewModel.addModel.limit_start forKey:@"limit_start"];
-                [params setObject:self.viewModel.addModel.limit_end forKey:@"limit_end"];
+                [params setObject:weakSelf.viewModel.addModel.limit_start forKey:@"limit_start"];
+                [params setObject:weakSelf.viewModel.addModel.limit_end forKey:@"limit_end"];
             }
             
             [weakSelf updateDataWithParams:params];
@@ -252,11 +252,12 @@
 
 - (void)updateDataWithParams:(NSMutableDictionary *)otherDict {
     [TLUIUtility showLoading:@""];
+    __weak typeof(self) weakSelf = self;
     [ZOriganizationCardViewModel addCart:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];

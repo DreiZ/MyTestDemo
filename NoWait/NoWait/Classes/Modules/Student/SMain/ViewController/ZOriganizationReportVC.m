@@ -28,19 +28,19 @@
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"举报")
     .zChain_resetMainView(^{
-        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+        [weakSelf.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(weakSelf.view);
         }];
         
         UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(120))];
-        [bottomView addSubview:self.bottomBtn];
-        [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [bottomView addSubview:weakSelf.bottomBtn];
+        [weakSelf.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(bottomView.mas_left).offset(CGFloatIn750(40));
             make.right.equalTo(bottomView.mas_right).offset(-CGFloatIn750(40));
             make.bottom.equalTo(bottomView.mas_bottom);
             make.height.mas_offset(CGFloatIn750(80));
         }];
-        self.iTableView.tableFooterView = bottomView;
+        weakSelf.iTableView.tableFooterView = bottomView;
     }).zChain_block_setRefreshHeaderNet(^{
         
         [ZStudentMainViewModel getComplaintType:@{} completeBlock:^(BOOL isSuccess, ZComplaintNetModel *data) {

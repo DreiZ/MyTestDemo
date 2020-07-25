@@ -116,6 +116,7 @@
 #pragma mark - setModel
 - (void)setModel:(ZStoresListModel *)model {
     [super setModel:model];
+    
     [_cellConfigArr removeAllObjects];
 
     if (ValidArray(model.course)) {

@@ -44,13 +44,13 @@
         [sureBtn.titleLabel setFont:[UIFont fontContent]];
         [sureBtn bk_addEventHandler:^(id sender) {
             ZOrganizationCardAddStudentListVC *lvc = [[ZOrganizationCardAddStudentListVC alloc] init];
-            lvc.studentArr = self.studentArr;
+            lvc.studentArr = weakSelf.studentArr;
             lvc.handleBlock = ^(NSArray *ids) {
                 for (int i = 0; i < ids.count; i++) {
                     ZOriganizationStudentListModel *model = ids[i];
-                    [self.studentArr addObject:model];
+                    [weakSelf.studentArr addObject:model];
                 }
-                self.zChain_reload_ui();
+                weakSelf.zChain_reload_ui();
             };
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];

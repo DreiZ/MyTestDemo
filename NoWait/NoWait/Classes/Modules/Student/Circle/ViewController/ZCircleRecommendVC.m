@@ -14,8 +14,6 @@
 #import "ZCircleMineModel.h"
 #import "ZCircleMineViewModel.h"
 #import "ZLocationManager.h"
-#import "ZSJCustomVidoLayerVC.h"
-
 @interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
 /** ZJWaterLayout */
 @property (nonatomic, strong) ZJWaterLayout *layout;
@@ -103,11 +101,9 @@
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
             DLog(@"-----%ld", (long)index);
-//            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-//            dvc.dynamic = model.dynamic;
-//            [self.navigationController pushViewController:dvc animated:YES];
-            ZSJCustomVidoLayerVC *lvc = [[ZSJCustomVidoLayerVC alloc] init];
-            [self.navigationController pushViewController:lvc animated:YES];
+            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+            dvc.dynamic = model.dynamic;
+            [self.navigationController pushViewController:dvc animated:YES];
         };
         
     }

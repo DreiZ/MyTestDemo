@@ -252,35 +252,35 @@
             }
             
             NSMutableArray *months = @[].mutableCopy;
-            [self.model.months enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [weakSelf.model.months enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [months addObject:[obj stringByReplacingOccurrencesOfString:@"月" withString:@""]];
             }];
             
             NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:self.model.schoolID forKey:@"id"];
+            [params setObject:weakSelf.model.schoolID forKey:@"id"];
 //            [params setObject:self.model.store_type_id forKey:@"store_type_id"];
-            [params setObject:self.model.phone forKey:@"phone"];
-            [params setObject:self.model.name forKey:@"name"];
-            [params setObject:self.model.province forKey:@"province"];
-            [params setObject:self.model.city forKey:@"city"];
-            [params setObject:self.model.county forKey:@"county"];
-            [params setObject:self.model.brief_address forKey:@"brief_address"];
-            [params setObject:self.model.address forKey:@"address"];
-            [params setObject:self.model.longitude forKey:@"longitude"];
-            [params setObject:self.model.latitude forKey:@"latitude"];
-            [params setObject:self.model.week_days forKey:@"week_days"];
+            [params setObject:weakSelf.model.phone forKey:@"phone"];
+            [params setObject:weakSelf.model.name forKey:@"name"];
+            [params setObject:weakSelf.model.province forKey:@"province"];
+            [params setObject:weakSelf.model.city forKey:@"city"];
+            [params setObject:weakSelf.model.county forKey:@"county"];
+            [params setObject:weakSelf.model.brief_address forKey:@"brief_address"];
+            [params setObject:weakSelf.model.address forKey:@"address"];
+            [params setObject:weakSelf.model.longitude forKey:@"longitude"];
+            [params setObject:weakSelf.model.latitude forKey:@"latitude"];
+            [params setObject:weakSelf.model.week_days forKey:@"week_days"];
             [params setObject:months forKey:@"months"];
-            [params setObject:self.model.opend_start forKey:@"opend_start"];
-            [params setObject:self.model.opend_end forKey:@"opend_end"];
-            [params setObject:self.model.merchants_stores_tags forKey:@"merchants_stores_tags"];
-            [params setObject:self.model.stores_info forKey:@"stores_info"];
+            [params setObject:weakSelf.model.opend_start forKey:@"opend_start"];
+            [params setObject:weakSelf.model.opend_end forKey:@"opend_end"];
+            [params setObject:weakSelf.model.merchants_stores_tags forKey:@"merchants_stores_tags"];
+            [params setObject:weakSelf.model.stores_info forKey:@"stores_info"];
             
-            if (ValidStr(self.model.info)) {
-                [params setObject:self.model.info forKey:@"info"];
+            if (ValidStr(weakSelf.model.info)) {
+                [params setObject:weakSelf.model.info forKey:@"info"];
             }
             NSString *cat = @"";
-            for (int i = 0; i < self.model.category.count; i++) {
-                ZMainClassifyOneModel *model = self.model.category[i];
+            for (int i = 0; i < weakSelf.model.category.count; i++) {
+                ZMainClassifyOneModel *model = weakSelf.model.category[i];
                 if (i == 0) {
                     cat = model.classify_id;
                 }else{
@@ -319,11 +319,11 @@
     if (ValidStr(self.model.image)) {
         [params setObject:SafeStr(self.model.image) forKey:@"image"];
     }
-    
+    __weak typeof(self) weakSelf = self;
     [ZOriganizationViewModel updateSchoolDetail:params completeBlock:^(BOOL isSuccess, NSString *message) {
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];
@@ -501,7 +501,7 @@
     
     [classify enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * sobj, NSUInteger sidx, BOOL * _Nonnull sstop) {
-            [self.model.category enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * cobj, NSUInteger cidx, BOOL * _Nonnull cstop) {
+            [weakSelf.model.category enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * cobj, NSUInteger cidx, BOOL * _Nonnull cstop) {
                 if ([cobj.classify_id isEqualToString:sobj.classify_id]) {
                     obj.isSelected = YES;
                     sobj.isSelected = YES;

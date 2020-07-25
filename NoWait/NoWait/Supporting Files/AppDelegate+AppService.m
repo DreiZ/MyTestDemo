@@ -12,6 +12,8 @@
 #import "ZPayManager.h"
 #import "ZUMengShareManager.h"
 
+#import "JPFPSStatus.h"
+
 @implementation AppDelegate (AppService)
 
 #pragma mark ————— 初始化服务 —————
@@ -36,6 +38,10 @@
     }
     
     [ZImagePickerManager initSDWebImage];
+
+#if defined(DEBUG)||defined(_DEBUG)
+    [[JPFPSStatus sharedInstance] open];
+#endif
 }
 
 

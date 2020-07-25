@@ -242,35 +242,35 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            if (!ValidStr(self.viewModel.addModel.real_name)) {
+            if (!ValidStr(weakSelf.viewModel.addModel.real_name)) {
                 [TLUIUtility showErrorHint:@"请输入真实姓名"];
                 return ;
             }
-            if (!ValidStr(self.viewModel.addModel.nick_name)) {
+            if (!ValidStr(weakSelf.viewModel.addModel.nick_name)) {
                 [TLUIUtility showErrorHint:@"请输入昵称"];
                 return ;
             }
-            if (!ValidStr(self.viewModel.addModel.phone)) {
+            if (!ValidStr(weakSelf.viewModel.addModel.phone)) {
                 [TLUIUtility showErrorHint:@"请输入手机号"];
                 return ;
             }
-            if ([self.viewModel.addModel.phone length] != 11) {
+            if ([weakSelf.viewModel.addModel.phone length] != 11) {
                 [TLUIUtility showErrorHint:@"请输入正确的手机号"];
                 return ;
             }
-            if (!ValidStr(self.viewModel.addModel.id_card)) {
+            if (!ValidStr(weakSelf.viewModel.addModel.id_card)) {
                 [TLUIUtility showErrorHint:@"请输入身份证号"];
                 return ;
             }
-            if (!(ValidStr(self.viewModel.addModel.cardImageUp) || ValidClass(self.viewModel.addModel.cardImageUp, [UIImage class]))) {
+            if (!(ValidStr(weakSelf.viewModel.addModel.cardImageUp) || ValidClass(weakSelf.viewModel.addModel.cardImageUp, [UIImage class]))) {
                 [TLUIUtility showErrorHint:@"请添加身份证正面"];
                 return ;
             }
-            if (!(ValidStr(self.viewModel.addModel.cardImageDown) || ValidClass(self.viewModel.addModel.cardImageDown, [UIImage class]))) {
+            if (!(ValidStr(weakSelf.viewModel.addModel.cardImageDown) || ValidClass(weakSelf.viewModel.addModel.cardImageDown, [UIImage class]))) {
                 [TLUIUtility showErrorHint:@"请添加身份证反面"];
                 return ;
             }
-            if (!ValidStr(self.viewModel.addModel.position)) {
+            if (!ValidStr(weakSelf.viewModel.addModel.position)) {
                 [TLUIUtility showErrorHint:@"请输入教师职位"];
                 return ;
             }
@@ -293,28 +293,28 @@
             
             if (ValidArray(weakSelf.viewModel.addModel.lessonList)) {
                 NSMutableArray *temp = @[].mutableCopy;
-                for (ZOriganizationLessonListModel *model in self.viewModel.addModel.lessonList) {
+                for (ZOriganizationLessonListModel *model in weakSelf.viewModel.addModel.lessonList) {
                     [temp addObject:@{@"courses_id":SafeStr(model.lessonID),@"price":ValidStr(model.teacherPirce) ? SafeStr(model.teacherPirce):SafeStr(model.price)}];
                 }
                 if (temp.count > 0) {
                     [params setObject:temp forKey:@"class_ids"];
                 }
             }else{
-                if (ValidStr(self.viewModel.addModel.teacherID)) {
+                if (ValidStr(weakSelf.viewModel.addModel.teacherID)) {
                     [params setObject:@[] forKey:@"class_ids"];
                 }
             }
             
             if (ValidArray(weakSelf.viewModel.addModel.skills)) {
                 NSMutableArray *temp = @[].mutableCopy;
-                for (NSString *str in self.viewModel.addModel.skills) {
+                for (NSString *str in weakSelf.viewModel.addModel.skills) {
                     [temp addObject:str];
                 }
                 if (temp.count > 0) {
                     [params setObject:temp forKey:@"skills"];
                 }
             }else{
-                if (ValidStr(self.viewModel.addModel.teacherID)) {
+                if (ValidStr(weakSelf.viewModel.addModel.teacherID)) {
                     [params setObject:@[] forKey:@"skills"];
                 }else{
                     [params setObject:@[] forKey:@"skills"];
@@ -418,12 +418,13 @@
 }
 
  - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     __weak typeof(self) weakSelf = self;
      [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
-         if (index == self.viewModel.addModel.images_list.count-1) {
-             [self updateOtherDataWithParams:otherDict];
+         if (index == weakSelf.viewModel.addModel.images_list.count-1) {
+             [weakSelf updateOtherDataWithParams:otherDict];
          }else{
              index++;
-             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+             [weakSelf updatePhotosStep2WithImage:index otherParams:otherDict];
          }
     }];
 }
@@ -484,12 +485,13 @@
         [otherDict setObject:self.viewModel.addModel.teacherID forKey:@"id"];
     }
     
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationTeacherViewModel addTeacher:otherDict isEdit:ValidStr(self.viewModel.addModel.teacherID) ? YES:NO completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];

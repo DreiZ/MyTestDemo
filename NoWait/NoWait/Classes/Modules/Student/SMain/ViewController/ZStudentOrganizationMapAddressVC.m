@@ -107,7 +107,7 @@
     MAPointAnnotation *pin1 = [[MAPointAnnotation alloc] init];
     pin1.coordinate =  coordinate;
     pin1.lockedScreenPoint = CGPointMake(SCREEN_WIDTH/2, CGFloatIn750(230));
-    [_iMapView addAnnotation:pin1];
+    [self.iMapView addAnnotation:pin1];
 }
 
 #pragma mark - lazy loading

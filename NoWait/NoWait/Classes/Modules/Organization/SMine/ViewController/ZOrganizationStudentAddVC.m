@@ -69,7 +69,7 @@
                                     @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",[NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.viewModel.addModel.courses_name),ValidStr(self.viewModel.addModel.courses_name)? @"(共":@"",SafeStr(self.viewModel.addModel.total_progress),ValidStr(self.viewModel.addModel.courses_name)?@"节)":@""],@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
-
+    __weak typeof(self) weakSelf = self;
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[4]))
         .zz_heightTextField(CGFloatIn750(84))
@@ -81,7 +81,7 @@
         .zz_formatter([obj[7] intValue])
         .zz_cellHeight(CGFloatIn750(86));
         
-        if (ValidStr(self.viewModel.addModel.studentID)
+        if (ValidStr(weakSelf.viewModel.addModel.studentID)
             && ([SafeStr(obj[4]) isEqualToString:@"MID"]
             || [SafeStr(obj[4]) isEqualToString:@"registrationDate"]
             || [SafeStr(obj[4]) isEqualToString:@"lesson"]
@@ -105,7 +105,7 @@
         }
         
         ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:nameCellConfig];
+        [weakSelf.cellConfigArr addObject:nameCellConfig];
     }];
     
     {
@@ -244,12 +244,12 @@
                 return ;
             }
             NSMutableDictionary *otherDict = @{}.mutableCopy;
-            if (ValidStr(self.viewModel.addModel.now_progress)) {
-                if ([self.viewModel.addModel.now_progress intValue] - [self.viewModel.addModel.total_progress intValue] >= 0) {
+            if (ValidStr(weakSelf.viewModel.addModel.now_progress)) {
+                if ([weakSelf.viewModel.addModel.now_progress intValue] - [weakSelf.viewModel.addModel.total_progress intValue] >= 0) {
                     [TLUIUtility showErrorHint:@"课程进度已大于总课程数"];
                     return;
                 }
-                [otherDict setObject:self.viewModel.addModel.now_progress forKey:@"now_progress"];
+                [otherDict setObject:weakSelf.viewModel.addModel.now_progress forKey:@"now_progress"];
             }else{
                 [otherDict setObject:@"0" forKey:@"now_progress"];
             }
@@ -260,38 +260,38 @@
             
             
             
-            [otherDict setObject:self.viewModel.addModel.name forKey:@"name"];
-            [otherDict setObject:self.viewModel.addModel.phone forKey:@"phone"];
+            [otherDict setObject:weakSelf.viewModel.addModel.name forKey:@"name"];
+            [otherDict setObject:weakSelf.viewModel.addModel.phone forKey:@"phone"];
             
-            [otherDict setObject:self.viewModel.addModel.stores_courses_class_id forKey:@"stores_courses_class_id"];
-            [otherDict setObject:self.viewModel.addModel.teacher_id forKey:@"teacher_id"];
+            [otherDict setObject:weakSelf.viewModel.addModel.stores_courses_class_id forKey:@"stores_courses_class_id"];
+            [otherDict setObject:weakSelf.viewModel.addModel.teacher_id forKey:@"teacher_id"];
             
-            [otherDict setObject:self.viewModel.addModel.stores_id forKey:@"stores_id"];
-            [otherDict setObject:self.viewModel.addModel.code_id forKey:@"code_id"];
-            [otherDict setObject:self.viewModel.addModel.sex forKey:@"sex"];
-            
-            
+            [otherDict setObject:weakSelf.viewModel.addModel.stores_id forKey:@"stores_id"];
+            [otherDict setObject:weakSelf.viewModel.addModel.code_id forKey:@"code_id"];
+            [otherDict setObject:weakSelf.viewModel.addModel.sex forKey:@"sex"];
             
             
-            if (ValidStr(self.viewModel.addModel.birthday)) {
-                [otherDict setObject:self.viewModel.addModel.birthday forKey:@"birthday"];
+            
+            
+            if (ValidStr(weakSelf.viewModel.addModel.birthday)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.birthday forKey:@"birthday"];
             }
             
-            if (ValidStr(self.viewModel.addModel.sign_up_at)) {
-                [otherDict setObject:self.viewModel.addModel.sign_up_at forKey:@"sign_up_at"];
+            if (ValidStr(weakSelf.viewModel.addModel.sign_up_at)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.sign_up_at forKey:@"sign_up_at"];
             }
             
             
-            if (ValidStr(self.viewModel.addModel.is_star)) {
-                [otherDict setObject:self.viewModel.addModel.is_star forKey:@"is_star"];
+            if (ValidStr(weakSelf.viewModel.addModel.is_star)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.is_star forKey:@"is_star"];
             }
             
-            if (ValidStr(self.viewModel.addModel.specialty_desc)) {
-                [otherDict setObject:self.viewModel.addModel.specialty_desc forKey:@"specialty_desc"];
+            if (ValidStr(weakSelf.viewModel.addModel.specialty_desc)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.specialty_desc forKey:@"specialty_desc"];
             }
             
-            if (ValidStr(self.viewModel.addModel.remark)) {
-                [otherDict setObject:self.viewModel.addModel.remark forKey:@"remark"];
+            if (ValidStr(weakSelf.viewModel.addModel.remark)) {
+                [otherDict setObject:weakSelf.viewModel.addModel.remark forKey:@"remark"];
             }
             
             [weakSelf updateImageWithOtherParams:otherDict];
@@ -353,16 +353,17 @@
 }
 
  - (void)updatePhotosStep2WithImage:(NSInteger)index otherParams:(NSMutableDictionary *)otherDict {
+     __weak typeof(self) weakSelf = self;
      [self updatePhotosStep3WithImage:index otherParams:otherDict complete:^(BOOL isSuccess, NSInteger index) {
-         if (index == self.viewModel.addModel.images_list.count-1) {
-             if (self.isEdit) {
-                 [self editOtherDataWithParams:otherDict];
+         if (index == weakSelf.viewModel.addModel.images_list.count-1) {
+             if (weakSelf.isEdit) {
+                 [weakSelf editOtherDataWithParams:otherDict];
              }else{
-                 [self updateOtherDataWithParams:otherDict];
+                 [weakSelf updateOtherDataWithParams:otherDict];
              }
          }else{
              index++;
-             [self updatePhotosStep2WithImage:index otherParams:otherDict];
+             [weakSelf updatePhotosStep2WithImage:index otherParams:otherDict];
          }
     }];
 }
@@ -403,13 +404,13 @@
         [otherDict setObject:imageList forKey:@"images_list"];
     }
     
-    
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationStudentViewModel addStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];
@@ -436,12 +437,13 @@
         [otherDict setObject:self.viewModel.addModel.studentID forKey:@"id"];
     }
     
+    __weak typeof(self) weakSelf = self;
     [TLUIUtility showLoading:@"上传其他数据"];
     [ZOriganizationStudentViewModel editStudent:otherDict completeBlock:^(BOOL isSuccess, NSString *message) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             [TLUIUtility showSuccessHint:message];
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             return ;
         }else {
             [TLUIUtility showErrorHint:message];
