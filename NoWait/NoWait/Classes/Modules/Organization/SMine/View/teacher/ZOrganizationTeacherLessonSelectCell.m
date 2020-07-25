@@ -48,24 +48,27 @@
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
-        make.centerY.equalTo(self.contView.mas_centerY);
-        make.right.equalTo(self.contView.mas_centerX).offset(-CGFloatIn750(70));
+        make.bottom.equalTo(self.contView.mas_centerY).offset(-CGFloatIn750(4));
+        make.right.equalTo(self.inputTextField.mas_left).offset(-CGFloatIn750(40));
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contView.mas_centerX).offset(CGFloatIn750(70));
-        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(20));
+        make.top.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(4));
+        make.right.equalTo(self.inputTextField.mas_left).offset(-CGFloatIn750(40));
     }];
     
     [self.unitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contView.mas_centerY);
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(34));
     }];
     
     [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contView.mas_centerY);
         make.right.equalTo(self.unitLabel.mas_left).offset(-CGFloatIn750(20));
         make.height.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(200));
     }];
     
     [self.contView addSubview:self.selectedBtn];
@@ -84,7 +87,7 @@
 - (UITextField *)inputTextField {
     if (!_inputTextField ) {
         _inputTextField = [[UITextField alloc] init];
-        [_inputTextField setFont:[UIFont fontContent]];
+        [_inputTextField setFont:[UIFont fontSmall]];
         _inputTextField.leftViewMode = UITextFieldViewModeAlways;
         [_inputTextField setBorderStyle:UITextBorderStyleNone];
         [_inputTextField setBackgroundColor:[UIColor clearColor]];
@@ -115,8 +118,7 @@
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _nameLabel.numberOfLines = 1;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
-        [_nameLabel setFont:[UIFont fontContent]];
-        [_nameLabel setAdjustsFontSizeToFitWidth:YES];
+        [_nameLabel setFont:[UIFont fontSmall]];
     }
     return _nameLabel;
 }
@@ -125,11 +127,11 @@
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _priceLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        _priceLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
         
         _priceLabel.numberOfLines = 1;
-        _priceLabel.textAlignment = NSTextAlignmentRight;
-        [_priceLabel setFont:[UIFont boldFontContent]];
+        _priceLabel.textAlignment = NSTextAlignmentLeft;
+        [_priceLabel setFont:[UIFont fontSmall]];
     }
     return _priceLabel;
 }
@@ -141,7 +143,7 @@
         _unitLabel.numberOfLines = 1;
         _unitLabel.text = @"元";
         _unitLabel.textAlignment = NSTextAlignmentRight;
-        [_unitLabel setFont:[UIFont fontContent]];
+        [_unitLabel setFont:[UIFont fontSmall]];
     }
     return _unitLabel;
 }
@@ -196,9 +198,9 @@
 
 - (void)setModel:(ZOriganizationLessonListModel *)model {
     _model = model;
-    _nameLabel.text = model.short_name;
+    _nameLabel.text = model.name;
     _inputTextField.text = model.teacherPirce;
-    _priceLabel.text = [NSString stringWithFormat:@"%@元",model.price];
+    _priceLabel.text = [NSString stringWithFormat:@"标准价%@",model.price];
     _leftImageView.image = model.isSelected ? [UIImage imageNamed:@"selectedCycle"] : [UIImage imageNamed:@"unSelectedCycle"];
 }
 

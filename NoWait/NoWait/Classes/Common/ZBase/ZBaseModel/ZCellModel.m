@@ -20,7 +20,7 @@
         self.backDarkColor = [UIColor colorBlackBGDark];
         self.backColor = [UIColor colorWhite];
         
-        self.isHiddenLine = NO;
+        self.isHiddenLine = YES;
         self.lineColor = [UIColor colorGrayLine];
         self.lineDarkColor = [UIColor colorGrayLineDark];
         self.lineLeftMargin = kLineLeftMargin;

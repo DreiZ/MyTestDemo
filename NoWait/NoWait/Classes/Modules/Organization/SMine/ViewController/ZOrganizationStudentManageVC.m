@@ -54,7 +54,7 @@
     {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
         .zz_lineHidden(YES)
-        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",self.total])
+        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"])
         .zz_fontLeft([UIFont fontContent])
         .zz_colorLeft([UIColor colorMain])
         .zz_marginLeft(CGFloatIn750(50))
