@@ -10,7 +10,6 @@
 #import "ZMessageEvaListCell.h"
 
 #import "ZCircleMineCollectionVC.h"
-#import "ZCircleDetailVC.h"
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
@@ -54,18 +53,14 @@
                     mvc.account = model.account;
                     [weakSelf.navigationController pushViewController:mvc animated:YES];
                 }else{
-                    ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-                    dvc.dynamic = model.dynamic;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    pushViewController(ZRoute_circle_detial, model.dynamic, nil);
                 }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
             ZCircleMineDynamicEvaModel *model = cellConfig.dataModel;
-            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-            dvc.dynamic = model.dynamic;
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
         }
     });
     

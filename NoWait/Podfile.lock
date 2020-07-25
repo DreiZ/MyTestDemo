@@ -104,6 +104,9 @@ PODS:
     - SJUIKit/ObserverHelper
     - SJUIKit/Queues
     - SJUIKit/SQLite3
+  - SJRouter (1.0.0):
+    - SJRouter/Core (= 1.0.0)
+  - SJRouter/Core (1.0.0)
   - SJUIKit/AttributesFactory (0.0.0.48):
     - SJUIKit/AttributesFactory/Deprecated (= 0.0.0.48)
     - SJUIKit/AttributesFactory/UIKitText (= 0.0.0.48)
@@ -250,6 +253,7 @@ DEPENDENCIES:
   - SDCycleScrollView
   - SDWebImage (~> 3.7)
   - SJBaseVideoPlayer
+  - SJRouter
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
   - UMCAnalytics
@@ -289,6 +293,7 @@ SPEC REPOS:
     - SDCycleScrollView
     - SDWebImage
     - SJBaseVideoPlayer
+    - SJRouter
     - SJUIKit
     - SVProgressHUD
     - UMCAnalytics
@@ -347,6 +352,7 @@ SPEC CHECKSUMS:
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
   SJBaseVideoPlayer: 259d13f93937c7f92e888ba7107c3d47308ee37f
+  SJRouter: a866e7884fc9219bed523be0a0318c3a84e85022
   SJUIKit: fc4b3a3e54bea1d8d9b982df5110a0d9ded27a12
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TLKit: e06e6018c04c6c13a96faefe980a13ff124ebeb1
@@ -362,6 +368,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: 6e21ff0b953a95fb002967eb93c0e1ea61fff704
+PODFILE CHECKSUM: a95747b839be4b8846f222282c5fb1a2c485de3e
 
 COCOAPODS: 1.9.1

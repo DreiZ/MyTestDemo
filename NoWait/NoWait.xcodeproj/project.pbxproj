@@ -854,6 +854,7 @@
 		B20E57B324851AEB00D4226D /* ZOrganizationDetailNumAndMinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationDetailNumAndMinCell.m; sourceTree = "<group>"; };
 		B20E57BB2486374D00D4226D /* ZTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTableViewController.h; sourceTree = "<group>"; };
 		B20E57BC2486374D00D4226D /* ZTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTableViewController.m; sourceTree = "<group>"; };
+		B20EEC8524CC1AEF00776930 /* ZRoutePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZRoutePath.h; sourceTree = "<group>"; };
 		B215843D23CD6544007618CE /* UIColor+MGHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MGHexColor.h"; sourceTree = "<group>"; };
 		B215843E23CD6544007618CE /* MGWaterDorpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWaterDorpView.m; sourceTree = "<group>"; };
 		B215843F23CD6544007618CE /* UIColor+MGHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MGHexColor.m"; sourceTree = "<group>"; };
@@ -3465,6 +3466,7 @@
 				B2A77F6323BDE5B900407BF0 /* ZMacros.h */,
 				B2A77E8523BDD76000407BF0 /* CommonMacros.h */,
 				B2A77E8623BDD78100407BF0 /* URLMacros.h */,
+				B20EEC8524CC1AEF00776930 /* ZRoutePath.h */,
 			);
 			path = Define;
 			sourceTree = "<group>";

@@ -19,7 +19,6 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
-#import "ZCircleDetailVC.h"
 #import "ZCircleMyFocusListVC.h"
 #import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
@@ -236,9 +235,7 @@
                 }];
             }
         }else{
-            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-            dvc.dynamic = model.dynamic;
-            [self.navigationController pushViewController:dvc animated:YES];
+            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
         }
     }
 }

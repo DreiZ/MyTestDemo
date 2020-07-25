@@ -26,6 +26,7 @@ target :NoWait do
 #    pod 'SJVideoPlayer'
 #sjvideo
     pod 'SJBaseVideoPlayer'
+    pod 'SJRouter'
 
 # 全能tabBarController
     pod 'TLTabBarController', :git => 'https://github.com/tbl00c/TLTabBarController.git', :tag => '0.0.6'

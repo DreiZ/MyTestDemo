@@ -792,3 +792,24 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZCircleDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_detial;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
+    dvc.dynamic = request.prts;
+    [topViewController.navigationController pushViewController:dvc animated:YES];
+    if (completionHandler) {
+        completionHandler(@"ZCircleDetailVC",nil);
+    }
+}
+@end

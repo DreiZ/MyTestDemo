@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DarkModel.h"
 #import "ZCellConfig.h"
+#import <SJRouter.h>
 
 /**
  * 为ViewController添加navController
@@ -19,6 +20,11 @@ UINavigationController *addNavigationController(UIViewController *viewController
  * 初始化tabBarItem
  */
 void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, NSString *imageHL);
+
+/**
+ * 路由push
+*/
+void pushViewController(NSString *path, id data, SJCompletionHandler handler);
 
 UIColor *randomColor(void);
 

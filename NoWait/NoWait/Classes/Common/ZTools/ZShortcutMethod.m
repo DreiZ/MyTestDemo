@@ -27,6 +27,11 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
     [tabBarItem setSelectedImage:[[UIImage imageNamed:imageHL] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 }
 
+void pushViewController(NSString *path, id data, SJCompletionHandler handler) {
+    SJRouteRequest *reqeust = [[SJRouteRequest alloc] initWithPath:path parameters:data];
+    [SJRouter.shared handleRequest:reqeust completionHandler:handler];
+}
+
 UIColor *randomColor(void) {
     NSArray *temp = @[@"f7e155",@"ff7674",@"48e8a1",@"ffc15c",@"4dd599",
     @"ff9900",@"fccfba",@"b7ae8f",@"abb0b9",@"f1939c",@"f26b1f",@"F7C173",@"B89485",

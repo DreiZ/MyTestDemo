@@ -8,12 +8,12 @@
 
 #import "ZCircleRecommendVC.h"
 #import "ZCircleRecommendCollectionCell.h"
-#import "ZCircleDetailVC.h"
 #import "ZJWaterLayout.h"
 
 #import "ZCircleMineModel.h"
 #import "ZCircleMineViewModel.h"
 #import "ZLocationManager.h"
+
 @interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
 /** ZJWaterLayout */
 @property (nonatomic, strong) ZJWaterLayout *layout;
@@ -100,21 +100,19 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            DLog(@"-----%ld", (long)index);
-            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-            dvc.dynamic = model.dynamic;
-            [self.navigationController pushViewController:dvc animated:YES];
+            pushViewController(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+                
+            });
         };
-        
     }
 }
 
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-        dvc.dynamic = model.dynamic;
-        [self.navigationController pushViewController:dvc animated:YES];
+        pushViewController(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+            
+        });
     }
 }
 

@@ -18,7 +18,6 @@
 #import "ZCircleMineViewModel.h"
 #import "ZOriganizationLessonModel.h"
 
-#import "ZCircleDetailVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 #import "ZCircleMoreLessonVC.h"
 
@@ -217,10 +216,7 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            DLog(@"-----%ld", (long)index);
-            ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-            dvc.dynamic = model.dynamic;
-            [self.navigationController pushViewController:dvc animated:YES];
+            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
         };
     }
 }
@@ -229,9 +225,7 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-        dvc.dynamic = model.dynamic;
-        [self.navigationController pushViewController:dvc animated:YES];
+        pushViewController(ZRoute_circle_detial, model.dynamic, nil);
     }
 }
 #pragma mark - network
