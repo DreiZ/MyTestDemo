@@ -123,6 +123,7 @@
         }];
         [ZPublicTool setLineSpacing:CGFloatIn750(8) label:nameLabel];
         
+        __weak typeof(self) weakSelf = self;
         UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [leftBtn setTitle:@"用户协议" forState:UIControlStateNormal];
         [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
@@ -132,7 +133,7 @@
             avc.navTitle = @"似锦服务条款";
             avc.type = @"service_agreement";
             avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
-            [self.navigationController pushViewController:avc animated:YES];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
         [_bottomView addSubview:leftBtn];
         [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,7 +151,7 @@
             avc.navTitle = @"似锦隐私协议";
             avc.type = @"privacy_policy";
             avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
-            [self.navigationController pushViewController:avc animated:YES];
+            [weakSelf.navigationController pushViewController:avc animated:YES];
         }];
         [_bottomView addSubview:rightBtn];
         [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
