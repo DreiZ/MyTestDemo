@@ -20,7 +20,6 @@
 #import "ZCircleMineModel.h"
 
 #import "ZStudentMineSettingMineEditVC.h"
-#import "ZCircleReleaseUploadVC.h"
 #import "ZAlertView.h"
 
 @interface ZCircleMineCollectionVC ()
@@ -180,9 +179,7 @@
         [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
         _navRightBtn.titleLabel.font = [UIFont fontSmall];
         [_navRightBtn bk_addEventHandler:^(id sender) {
-            ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
-            
-            [weakSelf.navigationController pushViewController:uvc animated:YES];
+            routePushVC(ZRoute_circle_releaseUpload, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navRightBtn;

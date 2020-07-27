@@ -34,4 +34,6 @@
 
 #define ZRoute_circle_recommend         @"controller/circle/recommend"
 
+#define ZRoute_circle_releaseUpload     @"controller/circle/releaseUpload"
+
 #endif /* ZRoutePath_h */

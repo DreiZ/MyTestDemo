@@ -18,7 +18,6 @@
 #import "ZCircleUploadModel.h"
 
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
-#import "ZCircleReleaseUploadVC.h"
 #import "ZAgreementVC.h"
 
 @interface ZCircleReleaseVC ()
@@ -394,9 +393,7 @@
 
             [[ZFileUploadManager sharedInstance].uploadCircleArr insertObject:umodel atIndex:0];
             
-            ZCircleReleaseUploadVC *uvc = [[ZCircleReleaseUploadVC alloc] init];
-            [self.navigationController pushViewController:uvc animated:YES];
-            return;
+            routePushVC(ZRoute_circle_releaseUpload, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;

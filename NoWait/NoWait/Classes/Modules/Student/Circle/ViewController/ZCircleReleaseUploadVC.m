@@ -291,6 +291,21 @@
         [self updateData:obj imageUrlArr:@[]];
     }
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZCircleReleaseUploadVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZCircleReleaseUploadVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_releaseUpload;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleReleaseUploadVC *routevc = [[ZCircleReleaseUploadVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end
