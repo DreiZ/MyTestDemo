@@ -234,3 +234,30 @@
     }
 }
 @end
+
+
+#pragma mark - RouteHandler
+@interface ZStudentClassificationListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentClassificationListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_classification;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentClassificationListVC *routevc = [[ZStudentClassificationListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"vcTitle"]) {
+            routevc.vcTitle = tempDict[@"vcTitle"];
+        }
+        if ([tempDict objectForKey:@"type"]) {
+            routevc.type = tempDict[@"type"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

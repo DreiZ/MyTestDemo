@@ -9,7 +9,7 @@
 #import "ZStudentOrganizationExperienceLessonListVC.h"
 #import "ZStudentDetailModel.h"
 #import "ZStudentExperienceLessonListItemCell.h"
-#import "ZOrganizationSearchExperienceLessonListVC.h"
+
 
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationModel.h"
@@ -111,10 +111,7 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchExperienceLessonListVC *svc = [[ZOrganizationSearchExperienceLessonListVC alloc] init];
-            svc.navTitle = @"搜索课程名称";
-            svc.stores_id = weakSelf.schoolID;
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_main_searchOrderLesson, @{@"navTitle":@"搜索课程名称",@"stores_id":@"weakSelf.schoolID"}, nil);
         };
     }
     return _searchBtn;

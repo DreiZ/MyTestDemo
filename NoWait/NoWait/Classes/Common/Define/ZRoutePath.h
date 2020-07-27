@@ -98,5 +98,16 @@
 
 #define ZRoute_mine_teacherDetailList   @"controller/mine/teacherDetailList"
 
+#pragma mark - mine main
+
+#define ZRoute_main_coachList           @"controller/mine/coachList"
+
+#define ZRoute_main_mapAddress          @"controller/mine/mapAddress"
+
+#define ZRoute_main_searchOrderLesson   @"controller/mine/searchOrderLesson"
+
+#define ZRoute_main_lessonList          @"controller/mine/lessonList"
+
+#define ZRoute_main_classification      @"controller/mine/classification"
 
 #endif /* ZRoutePath_h */

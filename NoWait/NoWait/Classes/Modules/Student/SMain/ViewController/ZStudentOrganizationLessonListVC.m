@@ -129,3 +129,21 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentOrganizationLessonListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrganizationLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_lessonList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrganizationLessonListVC *routevc = [[ZStudentOrganizationLessonListVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -18,7 +18,6 @@
 #import "ZStudentOrganizationNewListCell.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZStudentClassificationListVC.h"
 
 #import "ZPhoneAlertView.h"
 #import "ZAlertView.h"

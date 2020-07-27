@@ -36,7 +36,7 @@
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
 #import "ZStudentTeacherDetailVC.h"
-#import "ZStudentLessonCoachListVC.h"
+
 #import "ZAlertMoreView.h"
 #import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
@@ -343,15 +343,8 @@
             }];
         }];
     }else if([cellConfig.title isEqualToString:@"moreTeacher"]){
-        ZStudentLessonCoachListVC *lvc = [[ZStudentLessonCoachListVC alloc] init];
-        lvc.lesson_id = self.model.lessonID;
-        lvc.stores_id = self.addModel.stores_id;
-        
-        lvc.type = 1;
-        [self.navigationController pushViewController:lvc animated:YES];
+        routePushVC(ZRoute_main_coachList, @{@"lesson_id":SafeStr(self.model.lessonID),@"stores_id":SafeStr(self.addModel.stores_id), @"type":@"1"}, nil);
     }
-    
-    
 }
 
 #pragma mark - setDetailData

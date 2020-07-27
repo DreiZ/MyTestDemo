@@ -88,3 +88,34 @@
     return param;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentLessonCoachListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentLessonCoachListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_coachList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentLessonCoachListVC *routevc = [[ZStudentLessonCoachListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"lesson_id"]) {
+            routevc.lesson_id = tempDict[@"lesson_id"];
+        }
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+        
+        if ([tempDict objectForKey:@"type"]) {
+            routevc.type = [tempDict[@"type"] intValue];
+        }
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

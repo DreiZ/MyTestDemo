@@ -22,9 +22,8 @@
 #import "ZStudentStarStudentListVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentOrganizationDetailIntroVC.h"
-#import "ZStudentOrganizationLessonListVC.h"
+
 #import "ZStudentOrganizationExperienceLessonListVC.h"
-#import "ZStudentOrganizationMapAddressVC.h"
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentStudentDetailVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
@@ -128,9 +127,7 @@
            ZStudentOrganizationDetailIntroCell *lcell = (ZStudentOrganizationDetailIntroCell *)cell;
            lcell.handleBlock = ^(NSInteger index) {
                if (index == 1) {
-                   ZStudentOrganizationMapAddressVC *avc = [[ZStudentOrganizationMapAddressVC alloc] init];
-                   avc.detailModel = weakSelf.detailModel;
-                   [weakSelf.navigationController pushViewController:avc animated:YES];
+                   routePushVC(ZRoute_main_mapAddress, weakSelf.detailModel, nil);
                }else if (index == 2){
                    [ZCouponListView setAlertWithTitle:@"领取优惠券" type:@"school" stores_id:weakSelf.detailModel.schoolID course_id:nil teacher_id:nil handlerBlock:^(ZOriganizationCardListModel * model) {
                        [[ZUserHelper sharedHelper] checkLogin:^{
@@ -212,9 +209,7 @@
             lvc.stores_id = weakSelf.listModel.stores_id;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"allLesson"]){
-            ZStudentOrganizationLessonListVC *lvc = [[ZStudentOrganizationLessonListVC alloc] init];
-            lvc.detailModel = weakSelf.detailModel;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
+            routePushVC(ZRoute_main_lessonList, weakSelf.detailModel, nil);
         }else if ([cellConfig.title isEqualToString:@"allExperienceLesson"]){
             ZStudentOrganizationExperienceLessonListVC *lvc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
             lvc.schoolID = weakSelf.detailModel.schoolID;

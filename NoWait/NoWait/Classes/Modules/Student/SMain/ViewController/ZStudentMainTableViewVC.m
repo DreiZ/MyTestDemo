@@ -171,10 +171,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMainEnteryCell"]) {
         ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
         lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
-            ZStudentClassificationListVC *lvc = [[ZStudentClassificationListVC alloc] init];
-            lvc.vcTitle = model.name;
-            lvc.type = model.sid;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
+            routePushVC(ZRoute_main_classification, @{@"vcTitle":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentBannerCell"]){
         ZStudentBannerCell *lcell = (ZStudentBannerCell *)cell;

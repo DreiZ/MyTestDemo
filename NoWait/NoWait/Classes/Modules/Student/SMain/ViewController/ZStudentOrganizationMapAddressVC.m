@@ -328,3 +328,21 @@
     return gps;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentOrganizationMapAddressVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrganizationMapAddressVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_mapAddress;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrganizationMapAddressVC *routevc = [[ZStudentOrganizationMapAddressVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
