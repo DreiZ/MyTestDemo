@@ -50,3 +50,20 @@
     self.zChain_reload_ui();
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSettingSafeVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSettingSafeVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_settingSafe;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSettingSafeVC *routevc = [[ZStudentMineSettingSafeVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

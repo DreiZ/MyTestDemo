@@ -147,3 +147,20 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSettingMineVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSettingMineVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_settingMineUs;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSettingMineVC *routevc = [[ZStudentMineSettingMineVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

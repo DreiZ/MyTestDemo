@@ -11,7 +11,7 @@
 #import "ZMineStudentEvaListHadEvaCell.h"
 
 #import "ZOriganizationOrderViewModel.h"
-#import "ZStudentMineEvaDetailVC.h"
+
 #import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZStudentMineEvaListHadVC ()
@@ -79,9 +79,7 @@
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
 
             }else{
-                ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
-                dvc.listModel = cellConfig.dataModel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
             }
         };
 //        enteryCell.evaBlock = ^(NSInteger index) {
@@ -94,9 +92,7 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZMineStudentEvaListHadEvaCell"]) {
-        ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
-        dvc.listModel = cellConfig.dataModel;
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
     }
 }
 

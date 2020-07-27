@@ -19,7 +19,7 @@
 #import "ZStudentMineOrderListVC.h"
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
-#import "ZStudentMineSettingVC.h"
+
 #import "ZOrganizationOrderRefuseVC.h"
 
 #import "ZOriganizationLessonViewModel.h"
@@ -29,9 +29,7 @@
 #import "DIYScanViewController.h"
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSignDetailVC.h"
-#import "ZStudentMineSettingMineVC.h"
 #import "ZRewardCenterVC.h"
-#import "ZStudentCollectionPageVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -116,8 +114,7 @@
             }else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     if (index == 1) {
-                        ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                        [weakSelf.navigationController pushViewController:svc animated:YES];
+                        routePushVC(ZRoute_mine_setting, nil, nil);
                     }else if (index == 3){
                         ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                         [weakSelf.navigationController pushViewController:avc animated:YES];
@@ -127,9 +124,7 @@
                         DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
                         [weakSelf.navigationController pushViewController:dvc animated:YES];
                     }else if(index == 10){
-                        ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
-                        
-                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                        routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                     }else if(index == 12){
                         ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
                         
@@ -171,8 +166,7 @@
                     ZRewardCenterVC *lvc = [[ZRewardCenterVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }else if ([scellConfig.title isEqualToString:@"store"]) {
-                    ZStudentCollectionPageVC *lvc = [[ZStudentCollectionPageVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_mine_studentCollection, nil, nil);
                 }
             }];
             

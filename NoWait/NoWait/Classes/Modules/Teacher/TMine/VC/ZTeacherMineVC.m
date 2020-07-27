@@ -17,14 +17,12 @@
 
 #import "ZTeacherMineEvaListVC.h"
 #import "ZTeacherMineSignListVC.h"
-#import "ZStudentMineSettingVC.h"
 
 #import "ZMineSwitchRoleVC.h"
 #import "DIYScanViewController.h"
 #import "ZTeacherViewModel.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZTeacherLessonDetailListVC.h"
-#import "ZStudentMineSettingMineVC.h"
 #import "ZTeacherClassDetailVC.h"
 #import "ZRewardCenterVC.h"
 
@@ -109,8 +107,7 @@
                     [weakSelf.navigationController pushViewController:dvc animated:YES];
                 }else{
                     if (index == 1) {
-                        ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                        [weakSelf.navigationController pushViewController:svc animated:YES];
+                        routePushVC(ZRoute_mine_setting, nil, nil);
                     }else if (index == 3){
                         ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                         [weakSelf.navigationController pushViewController:avc animated:YES];
@@ -118,9 +115,7 @@
                         DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
                         [weakSelf.navigationController pushViewController:dvc animated:YES];
                     }else if(index == 10){
-                        ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
-                        
-                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                        routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                     }else if(index == 12){
                         ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
                         

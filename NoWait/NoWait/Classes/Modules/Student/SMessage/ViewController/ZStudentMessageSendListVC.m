@@ -72,7 +72,7 @@
 @implementation ZStudentMessageSendListVC (RouteHandler)
 
 + (NSString *)routePath {
-    return ZRoute_circle_messageSend;
+    return ZRoute_message_messageSend;
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {

@@ -212,3 +212,21 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentOrderRefundHandleVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrderRefundHandleVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_OrderRefundHandle;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrderRefundHandleVC *routevc = [[ZStudentOrderRefundHandleVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -175,3 +175,21 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineEvaDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineEvaDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_evaDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineEvaDetailVC *routevc = [[ZStudentMineEvaDetailVC alloc] init];
+    routevc.listModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

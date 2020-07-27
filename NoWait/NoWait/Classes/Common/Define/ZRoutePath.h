@@ -44,6 +44,23 @@
 
 #pragma mark - message 消息
 
-#define ZRoute_circle_messageSend       @"controller/circle/messageSend"
+#define ZRoute_message_messageSend      @"controller/message/messageSend"
 
+#pragma mark - mine student
+
+#define ZRoute_mine_studentCollection   @"controller/mine/studentCollection"
+
+#define ZRoute_mine_OrderRefundHandle   @"controller/mine/OrderRefundHandle"
+
+#define ZRoute_mine_evaDetail           @"controller/mine/evaDetail"
+
+#define ZRoute_mine_settingAboutUs      @"controller/mine/settingAboutUs"
+
+#define ZRoute_mine_settingSafe         @"controller/mine/settingSafe"
+
+#define ZRoute_mine_settingCommonUs     @"controller/mine/settingCommonUs"
+
+#define ZRoute_mine_settingMineUs       @"controller/mine/settingMineUs"
+
+#define ZRoute_mine_setting             @"controller/mine/setting"
 #endif /* ZRoutePath_h */

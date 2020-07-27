@@ -16,13 +16,11 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
 
-#import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationAccountVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
-#import "ZStudentMineEvaDetailVC.h"
 
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
@@ -279,8 +277,7 @@
                 break;
         case ZCustomNoticeTypeRegister:                       //  注册通知
             {
-                ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_mine_settingMineUs, nil, nil);
             }
                 break;
         case ZCustomNoticeTypeAppointment:                     //  预约通知
@@ -322,9 +319,8 @@
                     ZOrderEvaListModel *smodel = [[ZOrderEvaListModel alloc] init];
                     smodel.stores_id = model.extra.stores_id;
                     smodel.order_id = model.extra.order_id;
-                    ZStudentMineEvaDetailVC *dvc = [[ZStudentMineEvaDetailVC alloc] init];
-                    dvc.listModel = smodel;
-                    [self.navigationController pushViewController:dvc animated:YES];
+                    
+                    routePushVC(ZRoute_mine_evaDetail, smodel, nil);
                 }
             }
                 break;
@@ -337,11 +333,11 @@
             {
                 if (index == 0) {
                     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                        routePushVC(ZRoute_circle_messageSend, model, nil);
+                        routePushVC(ZRoute_message_messageSend, model, nil);
                     }
                 }else{
                     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                        routePushVC(ZRoute_circle_messageSend, model, nil);
+                        routePushVC(ZRoute_message_messageSend, model, nil);
                     }
                 }
             }

@@ -10,10 +10,6 @@
 
 #import "ZStudentMineSettingBottomCell.h"
 
-#import "ZStudentMineSettingMineVC.h"
-#import "ZStudentMineSettingCommonVC.h"
-#import "ZStudentMineSettingSafeVC.h"
-#import "ZStudentMineSettingAboutUsVC.h"
 #import "ZStudentMineSwitchAccountVC.h"
 #import "ZMineFeedbackVC.h"
 #import "ZUserHelper.h"
@@ -63,17 +59,17 @@
         [weakSelf.cellConfigArr addObject:loginOutCellConfig];
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"us"]){
-            ZStudentMineSettingMineVC *dvc = [[ZStudentMineSettingMineVC alloc] init];
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_mine_settingMineUs, nil, nil);
         }else if ([cellConfig.title isEqualToString:@"common"]) {
-            ZStudentMineSettingCommonVC *cvc = [[ZStudentMineSettingCommonVC alloc] init];
-            [weakSelf.navigationController pushViewController:cvc animated:YES];
+            
+            routePushVC(ZRoute_mine_settingCommonUs, nil, nil);
+            
         }else if ([cellConfig.title isEqualToString:@"safe"]) {
-            ZStudentMineSettingSafeVC *svc = [[ZStudentMineSettingSafeVC alloc] init];
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_mine_settingSafe, nil, nil);
         }else if( [cellConfig.title isEqualToString:@"about"]){
-            ZStudentMineSettingAboutUsVC *avc = [[ZStudentMineSettingAboutUsVC alloc] init];
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            
+            routePushVC(ZRoute_mine_settingAboutUs, nil, nil);
+            
         }else if ([cellConfig.title isEqualToString:@"logout"]){
             [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
             [[ZUserHelper sharedHelper] updateToken:NO];
@@ -90,4 +86,21 @@
     self.zChain_reload_ui();
 }
 
+@end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSettingVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSettingVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_setting;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSettingVC *routevc = [[ZStudentMineSettingVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

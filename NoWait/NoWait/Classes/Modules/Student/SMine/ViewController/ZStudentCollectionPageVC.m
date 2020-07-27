@@ -99,3 +99,19 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZStudentCollectionPageVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentCollectionPageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_studentCollection;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentCollectionPageVC *routevc = [[ZStudentCollectionPageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

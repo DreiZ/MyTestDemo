@@ -19,7 +19,7 @@
 #import "ZStudentMineOrderListVC.h"
 #import "ZStudentMineCardListVC.h"
 #import "ZStudentMineSignListVC.h"
-#import "ZStudentMineSettingVC.h"
+
 #import "ZOrganizationTeacherManageVC.h"
 #import "ZOrganizationStudentManageVC.h"
 #import "ZOrganizationTeachingScheduleVC.h"
@@ -33,7 +33,6 @@
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
-#import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationLessonDetailListVC.h"
 #import "ZRewardCenterVC.h"
 #import "ZOriganizationViewModel.h"
@@ -114,8 +113,7 @@
         _headerView.topHandleBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
                 if (index == 1) {
-                    ZStudentMineSettingVC *svc = [[ZStudentMineSettingVC alloc] init];
-                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                    routePushVC(ZRoute_mine_setting, nil, nil);
                 }else if (index == 3){
                     ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
                     [weakSelf.navigationController pushViewController:avc animated:YES];
@@ -123,9 +121,7 @@
                     ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
                     [weakSelf.navigationController pushViewController:svc animated:YES];
                 }else if(index == 10){
-                    ZStudentMineSettingMineVC *mvc = [[ZStudentMineSettingMineVC alloc] init];
-                    
-                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                 }else if(index == 12){
                     ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
                     

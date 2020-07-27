@@ -22,7 +22,7 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZStudentMineEvaEditVC.h"
-#import "ZStudentOrderRefundHandleVC.h"
+
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 
@@ -403,9 +403,7 @@
         ZStudentMineOrderDetailCell *lcell = (ZStudentMineOrderDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index, ZOrderDetailModel *model) {
             if (index == ZLessonOrderHandleTypeRefund) {
-                ZStudentOrderRefundHandleVC *handlevc = [[ZStudentOrderRefundHandleVC alloc] init];
-                handlevc.detailModel = weakSelf.detailModel;
-                [weakSelf.navigationController pushViewController:handlevc animated:YES];
+                routePushVC(ZRoute_mine_OrderRefundHandle, weakSelf.detailModel, nil);
             }else if (index == ZLessonOrderHandleTypeClub){
                 ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                 ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
