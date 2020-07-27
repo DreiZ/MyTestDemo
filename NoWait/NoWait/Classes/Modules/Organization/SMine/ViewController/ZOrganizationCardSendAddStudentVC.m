@@ -56,12 +56,25 @@
         } forControlEvents:UIControlEventTouchUpInside];
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
         
+        UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        hintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        hintLabel.text = @"卡券赠送至账号，同一手机账号下任意选择一名学员即可。";
+        hintLabel.numberOfLines = 0;
+        hintLabel.textAlignment = NSTextAlignmentLeft;
+        [hintLabel setFont:[UIFont fontSmall]];
+        [self.view addSubview:hintLabel];
+        [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+            make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+            make.top.equalTo(self.view.mas_top).offset(20);
+        }];
+        
         [self.view addSubview:self.userNameTF];
         [self.userNameTF mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view);
             make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
             make.height.mas_equalTo(CGFloatIn750(100));
-            make.top.equalTo(self.view.mas_top).offset(20);
+            make.top.equalTo(hintLabel.mas_bottom).offset(10);
         }];
         
         UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -137,7 +150,7 @@
                 ZLineCellModel *lineModel = cellConfig.dataModel;
                 if ([weakSelf checkStudentIsSame:lineModel.data]) {
                     [weakSelf.userNameTF resignFirstResponder];
-                    [ZAlertView setAlertWithTitle:@"该用户已添加" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                    [ZAlertView setAlertWithTitle:@"该手机账号下已选择过学员" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
                         
                     }];
                 }else{

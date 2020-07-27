@@ -71,7 +71,7 @@
 
 - (void)setTimeModel:(ZOriganizationLessonExperienceTimeModel *)timeModel {
     _timeModel = timeModel;
-    NSString *week = [[[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]] formatWeekday];
+    NSString *week = [[[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue] + 8 * 60*60] formatWeekday];
     NSString *data = [timeModel.date timeStringWithFormatter:[NSString stringWithFormat:@"MM月dd日"]];
     _titleLabel.text = [NSString stringWithFormat:@"%@(%@)",data,week];
     

@@ -13,6 +13,8 @@
 #import "ZOrganizationCampusTextLabelCell.h"
 #import "ZOriganizationTeachHeadImageCell.h"
 #import "ZOrganizationNoDataCell.h"
+#import "ZOrganizationTextLabelListCell.h"
+
 #import "ZOriganizationLessonModel.h"
 #import "ZOrganizationTeacherAddVC.h"
 #import "ZTeacherLessonDetailListVC.h"
@@ -51,7 +53,7 @@
                         @[@"特长技能", @""]];
     
     for (int i = 0; i < textArr.count; i++) {
-        if ([textArr[i][0] isEqualToString:@"特长技能"] || [textArr[i][0] isEqualToString:@"任课课程"]) {
+        if ([textArr[i][0] isEqualToString:@"任课课程"]){
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = textArr[i][0];
             cellModel.isTextEnabled = YES;
@@ -63,15 +65,28 @@
             cellModel.leftFont = [UIFont fontContent];
             cellModel.textColor = [UIColor colorTextGray];
             cellModel.textDarkColor = [UIColor colorTextGrayDark];
-            if ([textArr[i][0] isEqualToString:@"特长技能"]) {
-                cellModel.data = self.addModel.skills;
-            }else{
-                NSMutableArray *temp = @[].mutableCopy;
-                for (ZOriganizationLessonListModel *tmodel in self.addModel.lessonList) {
-                    [temp addObject:[NSString stringWithFormat:@"%@  %@元    %@元",tmodel.short_name,SafeStr(tmodel.price),ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce) : SafeStr(tmodel.price)]];
-                }
-                cellModel.data = temp;
+            NSMutableArray *temp = @[].mutableCopy;
+            for (ZOriganizationLessonListModel *tmodel in self.addModel.lessonList) {
+                [temp addObject:@{@"title":SafeStr(tmodel.short_name),@"price":SafeStr(tmodel.price),@"teacherPrice":ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce):SafeStr(tmodel.price)}];
             }
+            cellModel.data = temp;
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTextLabelListCell className] title:@"labelCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTextLabelListCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+        }else if ([textArr[i][0] isEqualToString:@"特长技能"]) {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = textArr[i][0];
+            cellModel.isTextEnabled = YES;
+            cellModel.isHiddenLine = YES;
+            cellModel.cellWidth = KScreenWidth;
+            cellModel.cellHeight = CGFloatIn750(86);
+            cellModel.contBackMargin = CGFloatIn750(0);
+            cellModel.contentSpace = CGFloatIn750(30);
+            cellModel.leftFont = [UIFont fontContent];
+            cellModel.textColor = [UIColor colorTextGray];
+            cellModel.textDarkColor = [UIColor colorTextGrayDark];
+            cellModel.data = self.addModel.skills;
+            
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:@"labelCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];
         }else{

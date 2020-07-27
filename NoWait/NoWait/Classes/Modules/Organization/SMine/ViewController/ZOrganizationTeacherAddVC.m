@@ -13,6 +13,7 @@
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
+#import "ZOrganizationTextLabelListCell.h"
 
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataSinglePickerView.h"
@@ -72,7 +73,8 @@
                         @[@"特长技能", @"请添加特长技能", @YES, @"rightBlackArrowN", @"skill",@40,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]]];
     
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj[4] isEqualToString:@"skill"] || [obj[4] isEqualToString:@"lesson"]) {
+        if ([obj[4] isEqualToString:@"lesson"]) {
+            
             ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
             cellModel.leftTitle = obj[0];
             cellModel.placeholder = obj[1];
@@ -83,15 +85,27 @@
             cellModel.contBackMargin = CGFloatIn750(0);
             cellModel.contentSpace = CGFloatIn750(30);
             cellModel.leftFont = [UIFont fontContent];
-            if ([obj[4] isEqualToString:@"skill"]) {
-                cellModel.data = self.viewModel.addModel.skills;
-            }else{
-                NSMutableArray *temp = @[].mutableCopy;
-                for (ZOriganizationLessonListModel *tmodel in self.viewModel.addModel.lessonList) {
-                    [temp addObject:[NSString stringWithFormat:@"%@    %@元    %@元",tmodel.short_name,SafeStr(tmodel.price),ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce) : SafeStr(tmodel.price)]];
-                }
-                cellModel.data = temp;
+            
+            NSMutableArray *temp = @[].mutableCopy;
+            for (ZOriganizationLessonListModel *tmodel in self.viewModel.addModel.lessonList) {
+                [temp addObject:@{@"title":SafeStr(tmodel.short_name),@"price":SafeStr(tmodel.price),@"teacherPrice":ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce):SafeStr(tmodel.price)}];
             }
+            cellModel.data = temp;
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationTextLabelListCell className] title:obj[4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationTextLabelListCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+        }else if ([obj[4] isEqualToString:@"skill"]) {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = obj[0];
+            cellModel.placeholder = obj[1];
+            cellModel.isTextEnabled = [obj[2] boolValue];
+            cellModel.rightImage = obj[3];
+            cellModel.isHiddenLine = YES;
+            cellModel.cellHeight = CGFloatIn750(86);
+            cellModel.contBackMargin = CGFloatIn750(0);
+            cellModel.contentSpace = CGFloatIn750(30);
+            cellModel.leftFont = [UIFont fontContent];
+            cellModel.data = self.viewModel.addModel.skills;
             
             ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationCampusTextLabelCell className] title:obj[4] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationCampusTextLabelCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
             [self.cellConfigArr addObject:textCellConfig];

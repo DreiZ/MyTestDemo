@@ -342,7 +342,7 @@
             model.zz_imageRight(SafeStr(obj[3]))
             .zz_imageRightHeight(CGFloatIn750(14));
         }
-        if (ValidStr(self.viewModel.addModel.lessonID) && ![SafeStr(obj[5]) isEqualToString:@"lessonPrice"]) {
+        if (ValidStr(weakSelf.viewModel.addModel.lessonID) && ![SafeStr(obj[5]) isEqualToString:@"lessonPrice"]) {
             model.zz_colorText([UIColor colorTextGray1])
             .zz_colorDarkText([UIColor colorTextGray1Dark])
             .zz_colorSubRight([UIColor colorTextGray1])
@@ -357,7 +357,7 @@
         }
         
         ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [self.cellConfigArr addObject:nameCellConfig];
+        [weakSelf.cellConfigArr addObject:nameCellConfig];
     }];
     
     ZCellConfig *typeCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.type];
