@@ -20,10 +20,6 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationClassViewModel.h"
 
-#import "ZMineSwitchRoleVC.h"
-#import "DIYScanViewController.h"
-#import "ZTeacherLessonDetailListVC.h"
-#import "ZStudentMineSignDetailVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -103,20 +99,17 @@
         _headerView.userType = @"1";
         _headerView.topHandleBlock = ^(NSInteger index) {
             if (index == 8) {
-                DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_mine_diyScan, nil, nil);
             }else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
                     if (index == 1) {
                         routePushVC(ZRoute_mine_setting, nil, nil);
                     }else if (index == 3){
-                        ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
-                        [weakSelf.navigationController pushViewController:avc animated:YES];
+                        routePushVC(ZRoute_mine_switchRole, nil, nil);
                     }else if (index == 5){
                         
                     }else if (index == 8){
-                        DIYScanViewController *dvc = [[DIYScanViewController alloc] init];
-                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                        routePushVC(ZRoute_mine_diyScan, nil, nil);
                     }else if(index == 10){
                         routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                     }else if(index == 12){
@@ -175,11 +168,7 @@
         
         lcell.handleBlock = ^(ZOriganizationClassListModel * model) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-                //            dvc.type = 0;
-                dvc.courses_class_id = model.courses_class_id;
-                dvc.student_id = model.student_id;
-                [self.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
             }];
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentMineNoLessonProgressCell"]) {
@@ -193,25 +182,18 @@
         ZStudentMineLessonTimetableCell *tcell = (ZStudentMineLessonTimetableCell *)cell;
         tcell.moreBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
-                [self.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_mine_teacherDetailList, nil, nil);
             }];
         };
         
         tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
-            ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-//            dvc.type = 0;
-            //未完成
-            dvc.courses_class_id = model.courses_class_id;
-            dvc.student_id = model.student_id;
-            [self.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
         ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;
         tcell.moreBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
-                [self.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_mine_teacherDetailList, nil, nil);
             }];
         };
     }

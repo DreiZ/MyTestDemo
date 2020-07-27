@@ -21,7 +21,7 @@
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
-#import "ZMineSwitchRoleVC.h"
+
 #import "ZOrganizationMineEvaManageVC.h"
 #import "ZOrganizationCardMainVC.h"
 #import "ZOrganizationPhotoManageVC.h"
@@ -111,8 +111,7 @@
                 if (index == 1) {
                     routePushVC(ZRoute_mine_setting, nil, nil);
                 }else if (index == 3){
-                    ZMineSwitchRoleVC *avc = [[ZMineSwitchRoleVC alloc] init];
-                    [weakSelf.navigationController pushViewController:avc animated:YES];
+                    routePushVC(ZRoute_mine_switchRole, nil, nil);
                 }else if (index == 5){
                     ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
                     [weakSelf.navigationController pushViewController:svc animated:YES];

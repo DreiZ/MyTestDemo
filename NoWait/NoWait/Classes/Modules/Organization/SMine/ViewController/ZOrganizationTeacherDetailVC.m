@@ -17,7 +17,6 @@
 
 #import "ZOriganizationLessonModel.h"
 #import "ZOrganizationTeacherAddVC.h"
-#import "ZTeacherLessonDetailListVC.h"
 
 @interface ZOrganizationTeacherDetailVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -198,9 +197,7 @@
                     [[ZImagePickerManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
                 }
             }else{
-                ZTeacherLessonDetailListVC *lvc = [[ZTeacherLessonDetailListVC alloc] init];
-                lvc.teacher_id = weakSelf.addModel.teacherID;
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_mine_teacherDetailList, weakSelf.addModel.teacherID, nil);
             }
         };
     }else if([cellConfig.title isEqualToString:@"labelCell"]){

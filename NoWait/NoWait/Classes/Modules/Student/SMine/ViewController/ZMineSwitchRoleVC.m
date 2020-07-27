@@ -98,3 +98,20 @@
     self.zChain_reload_ui();
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZMineSwitchRoleVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZMineSwitchRoleVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_switchRole;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZMineSwitchRoleVC *routevc = [[ZMineSwitchRoleVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

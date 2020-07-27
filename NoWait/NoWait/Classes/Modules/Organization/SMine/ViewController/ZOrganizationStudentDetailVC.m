@@ -12,7 +12,6 @@
 #import "ZOriganizationTeachHeadImageCell.h"
 #import "ZOrganizationNoDataCell.h"
 
-#import "ZStudentMineSignDetailVC.h"
 #import "ZOrganizationStudentUpStarVC.h"
 #import "ZOrganizationStudentAddVC.h"
 
@@ -394,10 +393,8 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"sign"]) {
-        ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-        dvc.student_id = self.addModel.studentID;
-        dvc.courses_class_id = self.addModel.courses_class_id;
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(self.addModel.courses_class_id), @"student_id":SafeStr(self.addModel.studentID)}, nil);
+        
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
     }

@@ -206,3 +206,30 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSignDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSignDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_signDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSignDetailVC *routevc = [[ZStudentMineSignDetailVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"courses_class_id"]) {
+            routevc.courses_class_id = tempDict[@"courses_class_id"];
+        }
+        if ([tempDict objectForKey:@"student_id"]) {
+            routevc.student_id = tempDict[@"student_id"];
+        }
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

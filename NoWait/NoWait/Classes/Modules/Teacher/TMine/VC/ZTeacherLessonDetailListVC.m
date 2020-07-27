@@ -11,9 +11,7 @@
 #import "ZLessonTimeTableCollectionCell.h"
 #import "ZLessonWeekHandlerView.h"
 #import "ZLessonWeekSectionView.h"
-#import "ZStudentMineSignDetailVC.h"
 #import "ZTeacherClassDetailVC.h"
-#import "ZStudentMineSignDetailVC.h"
 
 @interface ZTeacherLessonDetailListVC ()
 
@@ -138,12 +136,8 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-//        dvc.type = 0;
-        //未完成
-        dvc.courses_class_id = model.courses_class_id;
-        dvc.student_id = model.student_id;
-        [self.navigationController pushViewController:dvc animated:YES];
+        
+        routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
         ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
@@ -177,3 +171,20 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZTeacherLessonDetailListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZTeacherLessonDetailListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_teacherDetailList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZTeacherLessonDetailListVC *routevc = [[ZTeacherLessonDetailListVC alloc] init];
+    routevc.teacher_id = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -11,9 +11,9 @@
 #import "ZLessonTimeTableCollectionCell.h"
 #import "ZLessonWeekHandlerView.h"
 #import "ZLessonWeekSectionView.h"
-#import "ZStudentMineSignDetailVC.h"
+
 #import "ZTeacherClassDetailVC.h"
-#import "ZStudentMineSignDetailVC.h"
+
 #import "ZOriganizationTeacherViewModel.h"
 
 #import "ZOriganizationModel.h"
@@ -157,12 +157,8 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-//        dvc.type = 0;
-        //未完成
-        dvc.courses_class_id = model.courses_class_id;
-        dvc.student_id = model.student_id;
-        [self.navigationController pushViewController:dvc animated:YES];
+        
+        routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
         ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];

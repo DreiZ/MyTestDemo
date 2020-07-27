@@ -90,4 +90,13 @@
 
 #define ZRoute_mine_invitationFriend    @"controller/mine/invitationFriend"
 
+#define ZRoute_mine_switchRole          @"controller/mine/switchRole"
+
+#define ZRoute_mine_diyScan             @"controller/mine/diyScan"
+
+#define ZRoute_mine_signDetail          @"controller/mine/signDetail"
+
+#define ZRoute_mine_teacherDetailList   @"controller/mine/teacherDetailList"
+
+
 #endif /* ZRoutePath_h */

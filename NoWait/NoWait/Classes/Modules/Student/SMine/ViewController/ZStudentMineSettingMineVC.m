@@ -7,7 +7,6 @@
 //
 
 #import "ZStudentMineSettingMineVC.h"
-#import "ZStudentMineSignDetailVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 
 #import "ZOriganizationLessonViewModel.h"

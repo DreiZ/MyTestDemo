@@ -336,3 +336,19 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface DIYScanViewController (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation DIYScanViewController (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_diyScan;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    DIYScanViewController *routevc = [[DIYScanViewController alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -9,7 +9,6 @@
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOriganizationClassStudentListCell.h"
 
-#import "ZStudentMineSignDetailVC.h"
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOrganizationStudentDetailVC.h"
@@ -276,17 +275,7 @@
         lcell.isEnd = self.isEnd;
         lcell.handleBlock = ^(NSInteger index,ZOriganizationStudentListModel *model) {
             if (index == 0) {
-                ZStudentMineSignDetailVC *dvc = [[ZStudentMineSignDetailVC alloc] init];
-                if (weakSelf.listModel) {
-                    dvc.courses_class_id = weakSelf.listModel.classID;
-                }else{
-                    dvc.courses_class_id = weakSelf.model.classID;
-                }
-                
-                dvc.student_id = model.studentID;
-//                dvc.type = self.type;
-//                dvc.stores_id = model.studentID;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":weakSelf.listModel?weakSelf.listModel.classID:weakSelf.model.classID, @"student_id":SafeStr(model.studentID)}, nil);
             }else if(index == 1){
                 //out
                 [ZAlertView setAlertWithTitle:@"小提醒" subTitle:[NSString stringWithFormat:@"确定将\"%@\"移除班级",model.name] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
