@@ -19,8 +19,6 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
-#import "ZCircleMyFocusListVC.h"
-#import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 #import "ZCircleReleaseUploadVC.h"
 #import "ZAlertView.h"
@@ -128,21 +126,17 @@
             if (index == 0) {
                 
             }else if(index == 1){
-                ZCircleMyFocusListVC *lvc = [[ZCircleMyFocusListVC alloc] init];
                 if (weakSelf.account) {
-                    lvc.account = weakSelf.account;
+                    routePushVC(ZRoute_circle_myFocus, weakSelf.account, nil);
                 }else{
-                    lvc.account = [ZUserHelper sharedHelper].user.userCodeID;
+                    routePushVC(ZRoute_circle_myFocus, [ZUserHelper sharedHelper].user.userCodeID, nil);
                 }
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if(index == 2){
-                ZCircleMyFansListVC *lvc = [[ZCircleMyFansListVC alloc] init];
                 if (weakSelf.account) {
-                    lvc.account = weakSelf.account;
+                    routePushVC(ZRoute_circle_myFans, weakSelf.account, nil);
                 }else{
-                    lvc.account = [ZUserHelper sharedHelper].user.userCodeID;
+                    routePushVC(ZRoute_circle_myFans, [ZUserHelper sharedHelper].user.userCodeID, nil);
                 }
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
             }else if(index == 4){
                 //签名
                 ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];

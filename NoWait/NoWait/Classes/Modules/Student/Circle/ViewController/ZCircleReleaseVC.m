@@ -17,8 +17,6 @@
 #import "ZCircleReleaseViewModel.h"
 #import "ZCircleUploadModel.h"
 
-#import "ZCircleReleaseSelectSchoolVC.h"
-#import "ZCircleReleaseAddLabelVC.h"
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
 #import "ZCircleReleaseUploadVC.h"
 #import "ZAgreementVC.h"
@@ -262,14 +260,11 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"finderLabelNo"]) {
-            ZCircleReleaseAddLabelVC *lvc = [[ZCircleReleaseAddLabelVC alloc] init];
-            lvc.list = weakSelf.releaseViewModel.model.tags;
-            lvc.handleBlock = ^(NSArray *lableArr) {
+            routePushVC(ZRoute_circle_addLabel, weakSelf.releaseViewModel.model.tags, ^(NSArray *lableArr, NSError * _Nullable error) {
                 [weakSelf.releaseViewModel.model.tags removeAllObjects];
                 [weakSelf.releaseViewModel.model.tags addObjectsFromArray:lableArr];
                 weakSelf.zChain_reload_ui();
-            };
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
+            });
         }else if ([cellConfig.title isEqualToString:@"finderLocationNo"]) {
             ZOrganizationCampusManagementLocalAddressVC *avc = [[ZOrganizationCampusManagementLocalAddressVC alloc] init];
             avc.addressBlock = ^(NSString *province, NSString *city, NSString *county, NSString *brief_address, NSString *address,double latitude, double longitude) {
@@ -284,13 +279,11 @@
             };
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"finderSchoolNo"]) {
-            ZCircleReleaseSelectSchoolVC *svc = [[ZCircleReleaseSelectSchoolVC alloc] init];
-            svc.handleBlock = ^(ZCircleReleaseSchoolModel * school) {
+            routePushVC(ZRoute_circle_choseSchool, nil, ^(ZCircleReleaseSchoolModel* school, NSError * _Nullable error) {
                 weakSelf.releaseViewModel.model.store_id = school.store_id;
                 weakSelf.releaseViewModel.model.store_name = school.name;
                 weakSelf.zChain_reload_ui();
-            };
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            });
         }
     });
     
@@ -620,5 +613,23 @@
             [TLUIUtility showErrorHint:message];
         }
     }];
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZCircleReleaseVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleReleaseVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_release;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleReleaseVC *routevc = [[ZCircleReleaseVC alloc] init];
+    routevc.selectImageArr = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

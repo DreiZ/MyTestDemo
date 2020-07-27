@@ -172,3 +172,22 @@
     }];
 }
 @end
+
+
+#pragma mark - RouteHandler
+@interface ZCircleMyFocusListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleMyFocusListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_myFocus;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMyFocusListVC *routevc = [[ZCircleMyFocusListVC alloc] init];
+    routevc.account = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

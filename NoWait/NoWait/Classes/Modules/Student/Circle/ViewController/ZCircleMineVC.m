@@ -12,8 +12,6 @@
 #import "ZCircleMineDynamicCell.h"
 #import "ZCircleMineDynamicCollectionTableViewCell.h"
 
-#import "ZCircleMyFocusListVC.h"
-#import "ZCircleMyFansListVC.h"
 #import "ZStudentMineSettingMineEditVC.h"
 
 @interface ZCircleMineVC ()
@@ -134,11 +132,9 @@
             if (index == 0) {
                 
             }else if(index == 1){
-                ZCircleMyFocusListVC *lvc = [[ZCircleMyFocusListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_circle_myFocus, nil, nil);
             }else if(index == 2){
-                ZCircleMyFansListVC *lvc = [[ZCircleMyFansListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_circle_myFans, nil, nil);
             }else if(index == 4){
                 //签名
                 ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];

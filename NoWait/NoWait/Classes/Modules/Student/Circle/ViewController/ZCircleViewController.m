@@ -9,10 +9,6 @@
 #import "ZCircleViewController.h"
 #import "ZCircleRecommendVC.h"
 #import "ZCircleHeaderView.h"
-#import "ZCircleMineVC.h"
-#import "ZCircleSearchVC.h"
-#import "ZCircleReleaseVC.h"
-
 
 @interface ZCircleViewController ()
 
@@ -134,8 +130,7 @@
                     routePushVC(ZRoute_circle_mine, [ZUserHelper sharedHelper].user.userCodeID, nil);
                 }];
             }else {
-                ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];
-                [weakSelf.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_circle_search, nil, nil);
             }
         };
     }
@@ -179,10 +174,7 @@
 
             [selectImageArr addObject:dataModel];
         }
-        
-        ZCircleReleaseVC *rvc = [[ZCircleReleaseVC alloc] init];
-        rvc.selectImageArr = selectImageArr;
-        [self.navigationController pushViewController:rvc animated:YES];
+        routePushVC(ZRoute_circle_release, selectImageArr, nil);
     }
 }
 

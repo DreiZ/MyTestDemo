@@ -13,5 +13,8 @@
 @property (nonatomic,assign) BOOL isAttention;
 @property (nonatomic,copy) NSString *stores_id;
 @property (nonatomic,copy) NSString *stores_name;
+
+@property (nonatomic,strong) NSDictionary *routeDict;
+
 @end
 

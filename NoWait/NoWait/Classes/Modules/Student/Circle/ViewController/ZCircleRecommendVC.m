@@ -36,6 +36,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (_routeDict) {
+        if ([_routeDict objectForKey:@"stores_id"]) {
+            _stores_id = _routeDict[@"stores_id"];
+        }
+        
+        if ([_routeDict objectForKey:@"stores_name"]) {
+            _stores_name = _routeDict[@"stores_name"];
+        }
+    }
+    
     [self setCollectionViewEmptyDataDelegate];
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];
@@ -248,5 +258,23 @@
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
         [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
     }
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZCircleRecommendVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleRecommendVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_recommend;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleRecommendVC *routevc = [[ZCircleRecommendVC alloc] init];
+    routevc.routeDict = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

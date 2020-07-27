@@ -171,3 +171,21 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZCircleMyFansListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleMyFansListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_myFans;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMyFansListVC *routevc = [[ZCircleMyFansListVC alloc] init];
+    routevc.account = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

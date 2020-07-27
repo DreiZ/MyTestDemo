@@ -19,7 +19,6 @@
 #import "ZOriganizationLessonModel.h"
 
 #import "ZStudentExperienceLessonDetailVC.h"
-#import "ZCircleMoreLessonVC.h"
 
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
@@ -193,9 +192,7 @@
                 [weakSelf.navigationController pushViewController:dvc animated:YES];
             };
             headerView.moreBlock = ^{
-                ZCircleMoreLessonVC *lvc = [[ZCircleMoreLessonVC alloc] init];
-                lvc.name = weakSelf.name;
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_circle_moreLesson, weakSelf.name, nil);
             };
             return headerView;
         }else{
@@ -322,5 +319,22 @@
     if (ValidStr(self.name)) {
         [self.param setObject:self.name forKey:@"name"];
     }
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZCircleSearchVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleSearchVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_search;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleSearchVC *routevc = [[ZCircleSearchVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

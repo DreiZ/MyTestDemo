@@ -138,5 +138,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZCircleMoreLessonVC (RouteHandler)<SJRouteHandler>
 
+@end
 
+@implementation ZCircleMoreLessonVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_release;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMoreLessonVC *routevc = [[ZCircleMoreLessonVC alloc] init];
+    routevc.name = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

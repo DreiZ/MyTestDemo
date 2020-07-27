@@ -237,3 +237,26 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZCircleReleaseAddLabelVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleReleaseAddLabelVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_addLabel;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleReleaseAddLabelVC *routevc = [[ZCircleReleaseAddLabelVC alloc] init];
+    routevc.list = request.prts;
+    routevc.handleBlock = ^(NSArray * list) {
+        if (completionHandler) {
+            completionHandler(list,nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+    
+}
+@end

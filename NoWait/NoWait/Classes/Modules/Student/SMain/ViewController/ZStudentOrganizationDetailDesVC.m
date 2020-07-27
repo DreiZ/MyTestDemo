@@ -31,7 +31,6 @@
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZOriganizationReportVC.h"
 #import "ZStudentOrganizationDetailDesShareVC.h"
-#import "ZCircleRecommendVC.h"
 
 #import "ZStudentLessonSelectMainOrderView.h"
 
@@ -327,10 +326,7 @@
         _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(90))];
         [_dynamicBtn setImage:[UIImage imageNamed:@"schoolDynamic"] forState:UIControlStateNormal];
         [_dynamicBtn bk_addEventHandler:^(id sender) {
-            ZCircleRecommendVC *rvc = [[ZCircleRecommendVC alloc] init];
-            rvc.stores_id = weakSelf.detailModel.schoolID;
-            rvc.stores_name = weakSelf.detailModel.name;
-            [weakSelf.navigationController pushViewController:rvc animated:YES];
+            routePushVC(ZRoute_circle_recommend, @{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"stores_name":SafeStr(weakSelf.detailModel.name)}, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _dynamicBtn;

@@ -168,3 +168,26 @@
     }
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZCircleReleaseSelectSchoolVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleReleaseSelectSchoolVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_choseSchool;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleReleaseSelectSchoolVC *routevc = [[ZCircleReleaseSelectSchoolVC alloc] init];
+    routevc.handleBlock = ^(ZCircleReleaseSchoolModel * model) {
+        if (completionHandler) {
+            completionHandler(model,nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+    
+}
+@end
