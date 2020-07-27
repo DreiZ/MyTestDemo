@@ -10,7 +10,6 @@
 #import "ZCircleRecommendVC.h"
 #import "ZCircleHeaderView.h"
 #import "ZCircleMineVC.h"
-#import "ZCircleMineCollectionVC.h"
 #import "ZCircleSearchVC.h"
 #import "ZCircleReleaseVC.h"
 
@@ -131,14 +130,8 @@
         _headView = [[ZCircleHeaderView alloc] init];
         _headView.handleBlock = ^(NSInteger index) {
             if (index == 1) {
-//                ZCircleMineVC *mvc = [[ZCircleMineVC alloc] init];
-//                [weakSelf.navigationController pushViewController:mvc animated:YES];
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-                    cvc.account = [ZUserHelper sharedHelper].user.userCodeID;
-                    // cvc.account = @"1100005";
-                    //  cvc.account = @"8100007";
-                    [weakSelf.navigationController pushViewController:cvc animated:YES];
+                    routePushVC(ZRoute_circle_mine, [ZUserHelper sharedHelper].user.userCodeID, nil);
                 }];
             }else {
                 ZCircleSearchVC *mvc = [[ZCircleSearchVC alloc] init];

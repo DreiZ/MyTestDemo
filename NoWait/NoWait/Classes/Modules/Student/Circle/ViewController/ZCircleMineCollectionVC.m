@@ -235,7 +235,7 @@
                 }];
             }
         }else{
-            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
         }
     }
 }
@@ -460,5 +460,22 @@
             [TLUIUtility showInfoHint:data];
         }
     }];
+}
+@end
+#pragma mark - RouteHandler
+@interface ZCircleMineCollectionVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleMineCollectionVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_mine;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMineCollectionVC *routevc = [[ZCircleMineCollectionVC alloc] init];
+    routevc.account = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

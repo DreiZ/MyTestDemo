@@ -100,7 +100,7 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            pushViewController(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+            routePushVC(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
                 
             });
         };
@@ -110,7 +110,7 @@
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        pushViewController(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+        routePushVC(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
             
         });
     }

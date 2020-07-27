@@ -30,7 +30,6 @@
 #import "SJVideoPlayer.h"
 
 #import "ZOriganizationReportVC.h"
-#import "ZCircleMineCollectionVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
@@ -294,9 +293,7 @@
                         }
                     }];
                 }else{
-                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-                    cvc.account = weakSelf.infoModel.account;
-                    [weakSelf.navigationController pushViewController:cvc animated:YES];
+                    routePushVC(ZRoute_circle_mine, weakSelf.infoModel.account, nil);
                 }
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailPhotoListCell"]){
@@ -343,9 +340,7 @@
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailEvaListCell"]){
             ZCircleDetailEvaListCell *lcell = (ZCircleDetailEvaListCell *)cell;
             lcell.userBlock = ^(ZCircleDynamicEvaModel *model) {
-                ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-                cvc.account = model.account;
-                [weakSelf.navigationController pushViewController:cvc animated:YES];
+                routePushVC(ZRoute_circle_mine, model.account, nil);
             };
 
             lcell.delBlock = ^(ZCircleDynamicEvaModel *model) {
@@ -362,10 +357,9 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
          if([cellConfig.title isEqualToString:@"user"]){
             ZLineCellModel *cellModel = (ZLineCellModel *)cellConfig.dataModel;
-            ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
             ZCircleMinePersonModel *smodel = cellModel.data;
-            cvc.account = smodel.account;
-            [weakSelf.navigationController pushViewController:cvc animated:YES];
+
+            routePushVC(ZRoute_circle_mine, smodel.account, nil);
         }
     });
     

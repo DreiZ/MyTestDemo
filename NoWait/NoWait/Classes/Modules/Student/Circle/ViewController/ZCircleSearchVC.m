@@ -216,7 +216,7 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
         };
     }
 }
@@ -225,7 +225,7 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        pushViewController(ZRoute_circle_detial, model.dynamic, nil);
+        routePushVC(ZRoute_circle_detial, model.dynamic, nil);
     }
 }
 #pragma mark - network

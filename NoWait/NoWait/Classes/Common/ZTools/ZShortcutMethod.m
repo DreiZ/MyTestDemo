@@ -27,7 +27,7 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
     [tabBarItem setSelectedImage:[[UIImage imageNamed:imageHL] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 }
 
-void pushViewController(NSString *path, id data, SJCompletionHandler handler) {
+void routePushVC(NSString *path, id data, SJCompletionHandler handler) {
     SJRouteRequest *reqeust = [[SJRouteRequest alloc] initWithPath:path parameters:data];
     [SJRouter.shared handleRequest:reqeust completionHandler:handler];
 }

@@ -28,7 +28,6 @@
 #import "ZCircleMyLiskeListVC.h"
 #import "ZCircleMyEvaListVC.h"
 #import "ZCircleMyFansNewListVC.h"
-#import "ZCircleMineCollectionVC.h"
 
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
@@ -366,9 +365,7 @@
             break;
         case ZCustomNoticeTypeCircle:
         {
-            ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-            cvc.account = [ZUserHelper sharedHelper].user.userCodeID;
-            [self.navigationController pushViewController:cvc animated:YES];
+            routePushVC(ZRoute_circle_mine, [ZUserHelper sharedHelper].user.userCodeID, nil);
         }
             break;
             

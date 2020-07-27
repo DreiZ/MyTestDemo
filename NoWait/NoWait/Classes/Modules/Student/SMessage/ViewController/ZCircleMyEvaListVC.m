@@ -9,7 +9,6 @@
 #import "ZCircleMyEvaListVC.h"
 #import "ZMessageEvaListCell.h"
 
-#import "ZCircleMineCollectionVC.h"
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
@@ -49,18 +48,16 @@
             ZMessageEvaListCell *lcell = (ZMessageEvaListCell *)cell;
             lcell.handleBlock = ^(ZCircleMineDynamicEvaModel *model, NSInteger index) {
                 if (index == 0) {
-                    ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
-                    mvc.account = model.account;
-                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_circle_mine, model.account, nil);
                 }else{
-                    pushViewController(ZRoute_circle_detial, model.dynamic, nil);
+                    routePushVC(ZRoute_circle_detial, model.dynamic, nil);
                 }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
             ZCircleMineDynamicEvaModel *model = cellConfig.dataModel;
-            pushViewController(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
         }
     });
     

@@ -24,7 +24,7 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
 /**
  * 路由push
 */
-void pushViewController(NSString *path, id data, SJCompletionHandler handler);
+void routePushVC(NSString *path, id data, SJCompletionHandler handler);
 
 UIColor *randomColor(void);
 

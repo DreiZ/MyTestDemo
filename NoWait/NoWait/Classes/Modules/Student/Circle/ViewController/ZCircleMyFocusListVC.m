@@ -12,8 +12,6 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
-#import "ZCircleMineCollectionVC.h"
-
 @interface ZCircleMyFocusListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 
@@ -56,16 +54,14 @@
                         }
                     }];
                 }else{
-                    ZCircleMineCollectionVC *cvc = [[ZCircleMineCollectionVC alloc] init];
-                    cvc.account = model.account;
-                    [weakSelf.navigationController pushViewController:cvc animated:YES];
+                    routePushVC(ZRoute_circle_mine, model
+                                .account, nil);
                 }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZCircleMyFocusCell"]) {
-//            ZCircleMineCollectionVC *mvc = [[ZCircleMineCollectionVC alloc] init];
-//            [self.navigationController pushViewController:mvc animated:YES];
+            
         }
     });
     self.zChain_reload_Net();
