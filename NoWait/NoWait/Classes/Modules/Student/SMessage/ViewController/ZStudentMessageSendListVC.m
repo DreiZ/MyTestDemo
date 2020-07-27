@@ -63,3 +63,21 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMessageSendListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMessageSendListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_messageSend;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMessageSendListVC *routevc = [[ZStudentMessageSendListVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -12,7 +12,7 @@
 #pragma mark - main
 
 
-#pragma mark - Circle
+#pragma mark - Circle 发现
 
 #define ZRoute_circle_detial            @"controller/circle/detail"
 
@@ -41,5 +41,9 @@
 #define ZRoute_circle_likeList          @"controller/circle/likeList"
 
 #define ZRoute_circle_newFans           @"controller/circle/newFans"
+
+#pragma mark - message 消息
+
+#define ZRoute_circle_messageSend       @"controller/circle/messageSend"
 
 #endif /* ZRoutePath_h */

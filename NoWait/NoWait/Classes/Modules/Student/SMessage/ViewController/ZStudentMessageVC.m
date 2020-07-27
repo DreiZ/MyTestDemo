@@ -16,7 +16,6 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
 
-#import "ZStudentMessageSendListVC.h"
 #import "ZStudentMineSettingMineVC.h"
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
@@ -338,15 +337,11 @@
             {
                 if (index == 0) {
                     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                        ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
-                        svc.model = model;
-                        [self.navigationController pushViewController:svc animated:YES];
+                        routePushVC(ZRoute_circle_messageSend, model, nil);
                     }
                 }else{
                     if ([[ZUserHelper sharedHelper].user.type intValue] != 1) {
-                        ZStudentMessageSendListVC *svc = [[ZStudentMessageSendListVC alloc] init];
-                        svc.model = model;
-                        [self.navigationController pushViewController:svc animated:YES];
+                        routePushVC(ZRoute_circle_messageSend, model, nil);
                     }
                 }
             }
