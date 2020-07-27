@@ -139,3 +139,20 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZCircleMyEvaListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleMyEvaListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_evaList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMyEvaListVC *routevc = [[ZCircleMyEvaListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

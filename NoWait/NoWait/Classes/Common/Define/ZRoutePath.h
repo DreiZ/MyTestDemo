@@ -36,4 +36,10 @@
 
 #define ZRoute_circle_releaseUpload     @"controller/circle/releaseUpload"
 
+#define ZRoute_circle_evaList           @"controller/circle/evaList"
+
+#define ZRoute_circle_likeList          @"controller/circle/likeList"
+
+#define ZRoute_circle_newFans           @"controller/circle/newFans"
+
 #endif /* ZRoutePath_h */

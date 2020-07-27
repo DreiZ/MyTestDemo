@@ -138,5 +138,21 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZCircleMyLiskeListVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZCircleMyLiskeListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_likeList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMyLiskeListVC *routevc = [[ZCircleMyLiskeListVC alloc] init];
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
 

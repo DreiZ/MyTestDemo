@@ -25,10 +25,6 @@
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZStudentMineEvaDetailVC.h"
 
-#import "ZCircleMyLiskeListVC.h"
-#import "ZCircleMyEvaListVC.h"
-#import "ZCircleMyFansNewListVC.h"
-
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
 
@@ -136,14 +132,11 @@
             ZMessageTypeEntryCell *lcell = (ZMessageTypeEntryCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 0) {
-                    ZCircleMyLiskeListVC *lvc = [[ZCircleMyLiskeListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_circle_likeList, nil, nil);
                 }else if(index == 1){
-                    ZCircleMyEvaListVC *evc = [[ZCircleMyEvaListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:evc animated:YES];
+                    routePushVC(ZRoute_circle_evaList, nil, nil);
                 }else if(index == 2){
-                    ZCircleMyFansNewListVC *lvc = [[ZCircleMyFansNewListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_circle_newFans, nil, nil);
                 }
             };
         }

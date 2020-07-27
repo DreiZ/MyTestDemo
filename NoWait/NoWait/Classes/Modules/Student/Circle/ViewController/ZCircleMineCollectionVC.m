@@ -147,11 +147,6 @@
                 edit.placeholder = @"请输入签名";
                 edit.text = [weakSelf.mineModel.autograph isEqualToString:@"您还没有填写签名"]?@"":weakSelf.mineModel.autograph;
                 edit.handleBlock = ^(NSString *text) {
-//                    if (ValidStr(text)) {
-//                        weakSelf.mineModel.autograph = text;
-//                        weakSelf.headView.model = weakSelf.mineModel;
-//                        [weakSelf updateUserInfo:text];
-//                    }
                     weakSelf.mineModel.autograph = SafeStr(text);
                     weakSelf.headView.model = weakSelf.mineModel;
                     [weakSelf updateUserInfo:SafeStr(text)];

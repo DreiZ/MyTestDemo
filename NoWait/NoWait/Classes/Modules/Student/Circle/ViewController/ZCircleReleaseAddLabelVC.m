@@ -257,6 +257,5 @@
         }
     };
     [topViewController.navigationController pushViewController:routevc animated:YES];
-    
 }
 @end

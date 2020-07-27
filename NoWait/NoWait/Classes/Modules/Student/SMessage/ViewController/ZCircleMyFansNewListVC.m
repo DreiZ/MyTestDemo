@@ -174,3 +174,20 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZCircleMyFansNewListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZCircleMyFansNewListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_circle_newFans;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZCircleMyFansNewListVC *routevc = [[ZCircleMyFansNewListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
