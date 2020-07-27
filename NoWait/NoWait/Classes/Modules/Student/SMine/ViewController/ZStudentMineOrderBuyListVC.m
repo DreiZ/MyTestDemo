@@ -12,7 +12,6 @@
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentMineEvaEditVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZStudentMineOrderBuyListVC ()
@@ -77,9 +76,7 @@
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
             if (index == ZLessonOrderHandleTypeEva) {
-                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-                evc.listModel = model;
-                [self.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_mine_evaEdit, model, nil);
             }else if (index == 100){
                 ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                 ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
@@ -209,3 +206,20 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZStudentMineOrderBuyListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineOrderBuyListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_orderBuyList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineOrderBuyListVC *routevc = [[ZStudentMineOrderBuyListVC alloc] init];
+    routevc.type = [request.prts intValue];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

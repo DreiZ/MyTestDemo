@@ -208,10 +208,6 @@
         ZOrganizationEvaListLessonCell *lcell = (ZOrganizationEvaListLessonCell *)cell;
         lcell.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         lcell.contView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-//        enteryCell.evaBlock = ^{
-////            ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-////            [self.navigationController pushViewController:evc animated:YES];
-//        };
     }else if([cellConfig.title isEqualToString:@"course_reply_text"]){
         ZOrganizationEvaListEvaTextViewCell *tCell = (ZOrganizationEvaListEvaTextViewCell *)cell;
         tCell.content = self.course_reply_text;

@@ -171,3 +171,21 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSignListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSignListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_signList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSignListVC *routevc = [[ZStudentMineSignListVC alloc] init];
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

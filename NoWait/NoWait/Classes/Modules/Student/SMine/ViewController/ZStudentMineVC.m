@@ -15,11 +15,6 @@
 #import "ZStudentMineLessonNoTimetableCell.h"
 #import "ZStudentMineNoLessonProgressCell.h"
 
-#import "ZStudentMineEvaListHadVC.h"
-#import "ZStudentMineOrderListVC.h"
-#import "ZStudentMineCardListVC.h"
-#import "ZStudentMineSignListVC.h"
-
 #import "ZOrganizationOrderRefuseVC.h"
 
 #import "ZOriganizationLessonViewModel.h"
@@ -29,7 +24,6 @@
 #import "DIYScanViewController.h"
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZStudentMineSignDetailVC.h"
-#import "ZRewardCenterVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -126,9 +120,7 @@
                     }else if(index == 10){
                         routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                     }else if(index == 12){
-                        ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
-                        
-                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                        routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                     }
                 }];
             }
@@ -147,24 +139,26 @@
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
             [[ZUserHelper sharedHelper] checkLogin:^{
                 if ([scellConfig.title isEqualToString:@"eva"]) {
-                    ZStudentMineEvaListHadVC *elvc = [[ZStudentMineEvaListHadVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    
+                    routePushVC(ZRoute_mine_evaListHad, nil, nil);
+                    
                 }else if ([scellConfig.title isEqualToString:@"order"]){
-                    ZStudentMineOrderListVC *elvc = [[ZStudentMineOrderListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    
+                    routePushVC(ZRoute_mine_orderList, nil, nil);
+                    
                 }else if ([scellConfig.title isEqualToString:@"card"]) {
-                    ZStudentMineCardListVC *lvc = [[ZStudentMineCardListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    
+                    routePushVC(ZRoute_mine_cardList, nil, nil);
+                    
                 }else if ([scellConfig.title isEqualToString:@"refund"]) {
                     ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                     lvc.isStudent = YES;
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }else if ([scellConfig.title isEqualToString:@"sign"]) {
-                    ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    
+                    routePushVC(ZRoute_mine_signList, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"reward"]) {
-                    ZRewardCenterVC *lvc = [[ZRewardCenterVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"store"]) {
                     routePushVC(ZRoute_mine_studentCollection, nil, nil);
                 }
@@ -175,8 +169,7 @@
         ZStudentMineLessonProgressCell *lcell = (ZStudentMineLessonProgressCell *)cell;
         lcell.moreBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_mine_signList, nil, nil);
             }];
         };
         
@@ -193,8 +186,7 @@
         ZStudentMineNoLessonProgressCell *lcell = (ZStudentMineNoLessonProgressCell *)cell;
         lcell.moreBlock = ^(NSInteger index) {
             [[ZUserHelper sharedHelper] checkLogin:^{
-                ZStudentMineSignListVC *lvc = [[ZStudentMineSignListVC alloc] init];
-                [weakSelf.navigationController pushViewController:lvc animated:YES];
+                routePushVC(ZRoute_mine_signList, nil, nil);
             }];
         };
     } else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){

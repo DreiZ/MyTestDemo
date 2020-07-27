@@ -13,13 +13,6 @@
 #import "ZTableViewListCell.h"
 #import "ZReflectHintTopCell.h"
 
-#import "ZInvitationFriendVC.h"
-#import "ZReflectMoneyVC.h"
-#import "ZReflectListLogVC.h"
-#import "ZRewardDetailsListVC.h"
-#import "ZRewardMyTeamListVC.h"
-#import "ZRewardRankingVC.h"
-
 #import "ZRewardCenterViewModel.h"
 
 @interface ZRewardCenterVC ()
@@ -154,11 +147,11 @@
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;
         lcell.handleBlock = ^(ZCellConfig * lcellConfig) {
             if ([lcellConfig.title isEqualToString:@"team"]) {
-                ZRewardMyTeamListVC *fvc = [[ZRewardMyTeamListVC alloc] init];
-                [weakSelf.navigationController pushViewController:fvc animated:YES];
+                routePushVC(ZRoute_mine_rewardTeamList, nil, nil);
             }else if ([lcellConfig.title isEqualToString:@"rank"]) {
-                ZRewardRankingVC *fvc = [[ZRewardRankingVC alloc] init];
-                [weakSelf.navigationController pushViewController:fvc animated:YES];
+                
+                routePushVC(ZRoute_mine_rewardRanking, nil, nil);
+                
             }else if ([lcellConfig.title isEqualToString:@"detail"]) {
                 
             }
@@ -166,23 +159,17 @@
     }else if ([cellConfig.title isEqualToString:@"ZRewardCenterTopCell"]) {
         ZRewardCenterTopCell *lcell = (ZRewardCenterTopCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
-            ZInvitationFriendVC *fvc = [[ZInvitationFriendVC alloc] init];
-            fvc.model = weakSelf.infoModel;
-            [weakSelf.navigationController pushViewController:fvc animated:YES];
+            routePushVC(ZRoute_mine_invitationFriend, weakSelf.infoModel, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"ZRewardCenterDetailCell"]) {
         ZRewardCenterDetailCell *lcell = (ZRewardCenterDetailCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                ZReflectMoneyVC *fvc = [[ZReflectMoneyVC alloc] init];
-                fvc.infoModel = weakSelf.infoModel;
-                [weakSelf.navigationController pushViewController:fvc animated:YES];
+                routePushVC(ZRoute_mine_reflectMoney, weakSelf.infoModel, nil);
             }else if(index == 1){
-                ZReflectListLogVC *fvc = [[ZReflectListLogVC alloc] init];
-                [weakSelf.navigationController pushViewController:fvc animated:YES];
+                routePushVC(ZRoute_mine_reflectListLog, nil, nil);
             }else if(index == 2){
-                ZRewardDetailsListVC *fvc = [[ZRewardDetailsListVC alloc] init];
-                [weakSelf.navigationController pushViewController:fvc animated:YES];
+                routePushVC(ZRoute_mine_rewardDetails, nil, nil);
             }
         };
     }
@@ -202,3 +189,19 @@
 }
 @end
    
+#pragma mark - RouteHandler
+@interface ZRewardCenterVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZRewardCenterVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_rewardCenter;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZRewardCenterVC *routevc = [[ZRewardCenterVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

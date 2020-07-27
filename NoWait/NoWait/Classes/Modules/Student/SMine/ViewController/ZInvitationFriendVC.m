@@ -194,3 +194,21 @@
     return _erwermaImageView;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZInvitationFriendVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZInvitationFriendVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_invitationFriend;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZInvitationFriendVC *routevc = [[ZInvitationFriendVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

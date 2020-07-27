@@ -150,3 +150,20 @@
     return param;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZRewardRankingVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZRewardRankingVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_rewardRanking;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZRewardRankingVC *routevc = [[ZRewardRankingVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

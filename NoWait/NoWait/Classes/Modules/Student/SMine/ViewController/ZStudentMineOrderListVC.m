@@ -142,3 +142,20 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineOrderListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineOrderListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_orderList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineOrderListVC *routevc = [[ZStudentMineOrderListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

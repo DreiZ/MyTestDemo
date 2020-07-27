@@ -8,7 +8,7 @@
 #import "ZStudentMainVC.h"
 #import "ZRewardAlertView.h"
 #import "ZLaunchManager.h"
-#import "ZRewardCenterVC.h"
+
 #import <TLTabBarControllerProtocol.h>
 #import "ZFileManager.h"
 #import <SDImageCache.h>
@@ -49,8 +49,7 @@
             if (!isRewardFirst) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [ZRewardAlertView showRewardSeeBlock:^{
-                        ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
-                        [self.navigationController pushViewController:cvc animated:YES];
+                        routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                     }];
                 });
                 

@@ -24,7 +24,6 @@
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZTeacherLessonDetailListVC.h"
 #import "ZTeacherClassDetailVC.h"
-#import "ZRewardCenterVC.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -117,9 +116,7 @@
                     }else if(index == 10){
                         routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                     }else if(index == 12){
-                        ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
-                        
-                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                        routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                     }
                 }
             }];

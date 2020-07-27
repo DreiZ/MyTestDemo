@@ -243,3 +243,28 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineEvaEditVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineEvaEditVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_evaEdit;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineEvaEditVC *routevc = [[ZStudentMineEvaEditVC alloc] init];
+    if ([request.prts isKindOfClass:[ZOrderListModel class]]) {
+        routevc.listModel = request.prts;
+    }else if ([request.prts isKindOfClass:[ZOrderDetailModel class]]) {
+        routevc.detailModel = request.prts;
+    }else {
+        routevc.evaDetailModel = request.prts;
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

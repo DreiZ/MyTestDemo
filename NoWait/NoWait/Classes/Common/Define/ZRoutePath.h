@@ -63,4 +63,31 @@
 #define ZRoute_mine_settingMineUs       @"controller/mine/settingMineUs"
 
 #define ZRoute_mine_setting             @"controller/mine/setting"
+
+#define ZRoute_mine_signList            @"controller/mine/signList"
+
+#define ZRoute_mine_cardList            @"controller/mine/cardList"
+
+#define ZRoute_mine_orderBuyList        @"controller/mine/orderBuyList"
+
+#define ZRoute_mine_orderList           @"controller/mine/orderList"
+
+#define ZRoute_mine_evaEdit             @"controller/mine/evaEdit"
+
+#define ZRoute_mine_evaListHad          @"controller/mine/evaListHad"
+
+#define ZRoute_mine_rewardRanking       @"controller/mine/rewardRanking"
+
+#define ZRoute_mine_rewardTeamList      @"controller/mine/rewardTeamList"
+
+#define ZRoute_mine_rewardDetails       @"controller/mine/rewardDetails"
+
+#define ZRoute_mine_rewardCenter        @"controller/mine/rewardCenter"
+
+#define ZRoute_mine_reflectMoney        @"controller/mine/reflectMoney"
+
+#define ZRoute_mine_reflectListLog      @"controller/mine/reflectListLog"
+
+#define ZRoute_mine_invitationFriend    @"controller/mine/invitationFriend"
+
 #endif /* ZRoutePath_h */

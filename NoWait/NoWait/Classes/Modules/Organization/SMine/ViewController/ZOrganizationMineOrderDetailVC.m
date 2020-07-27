@@ -21,7 +21,6 @@
 
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
-#import "ZStudentMineEvaEditVC.h"
 
 #import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
@@ -360,9 +359,7 @@
         _handleView = [[ZStudentMineOrderDetailHandleBottomView alloc] init];
         _handleView.handleBlock = ^(ZLessonOrderHandleType type) {
             if (type == ZLessonOrderHandleTypeEva) {
-                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-                evc.detailModel = weakSelf.detailModel;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_mine_evaEdit, weakSelf.detailModel, nil);
             }else if (type == ZLessonOrderHandleTypeTel) {
                 if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
                     [ZPublicTool callTel:weakSelf.detailModel.phone];

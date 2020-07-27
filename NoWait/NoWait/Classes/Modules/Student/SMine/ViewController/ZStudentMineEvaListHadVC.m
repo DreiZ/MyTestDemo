@@ -171,3 +171,19 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZStudentMineEvaListHadVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineEvaListHadVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_evaListHad;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineEvaListHadVC *routevc = [[ZStudentMineEvaListHadVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

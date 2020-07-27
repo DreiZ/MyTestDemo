@@ -110,3 +110,20 @@
     return param;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZReflectListLogVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZReflectListLogVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_reflectListLog;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZReflectListLogVC *routevc = [[ZReflectListLogVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

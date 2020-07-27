@@ -15,7 +15,6 @@
 
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
-#import "ZStudentMineEvaEditVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZStudentMineEvaDetailVC ()
@@ -65,9 +64,7 @@
         if ([cellConfig.title isEqualToString:@"ZOrganizationEvaDetailTitleCell"]){
             ZOrganizationEvaDetailTitleCell *lcell = (ZOrganizationEvaDetailTitleCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
-                ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-                evc.evaDetailModel = weakSelf.detailModel;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_mine_evaEdit, weakSelf.detailModel, nil);
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {

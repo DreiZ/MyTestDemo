@@ -160,9 +160,21 @@
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:@"1" forKey:@"status"];
 }
+@end
 
-
+#pragma mark - RouteHandler
+@interface ZStudentMineCardListVC (RouteHandler)<SJRouteHandler>
 
 @end
 
+@implementation ZStudentMineCardListVC (RouteHandler)
 
++ (NSString *)routePath {
+    return ZRoute_mine_cardList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineCardListVC *routevc = [[ZStudentMineCardListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

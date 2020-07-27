@@ -14,7 +14,6 @@
 #import "ZWebBridgeViewController.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZRewardCenterVC.h"
 
 #import "ZOriganizationModel.h"
 
@@ -79,8 +78,7 @@ static ZRouteManager *sharedManager;
                     if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
                         
                     }else{
-                        ZRewardCenterVC *cvc = [[ZRewardCenterVC alloc] init];
-                        [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:cvc animated:YES];
+                        routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                     }
                 }];
             }

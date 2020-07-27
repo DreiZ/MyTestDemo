@@ -16,10 +16,6 @@
 #import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationLessonManageVC.h"
 
-#import "ZStudentMineOrderListVC.h"
-#import "ZStudentMineCardListVC.h"
-#import "ZStudentMineSignListVC.h"
-
 #import "ZOrganizationTeacherManageVC.h"
 #import "ZOrganizationStudentManageVC.h"
 #import "ZOrganizationTeachingScheduleVC.h"
@@ -34,7 +30,7 @@
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
 #import "ZOrganizationLessonDetailListVC.h"
-#import "ZRewardCenterVC.h"
+
 #import "ZOriganizationViewModel.h"
 
 #define kHeaderHeight CGFloatIn750(270)
@@ -123,9 +119,7 @@
                 }else if(index == 10){
                     routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                 }else if(index == 12){
-                    ZRewardCenterVC *mvc = [[ZRewardCenterVC alloc] init];
-                    
-                    [weakSelf.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_mine_rewardCenter, nil, nil);
                 }
             }];
         };

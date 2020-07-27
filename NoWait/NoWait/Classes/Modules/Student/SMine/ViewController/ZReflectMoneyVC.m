@@ -258,3 +258,21 @@
     } ];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZReflectMoneyVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZReflectMoneyVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_reflectMoney;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZReflectMoneyVC *routevc = [[ZReflectMoneyVC alloc] init];
+    routevc.infoModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

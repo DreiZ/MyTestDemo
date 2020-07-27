@@ -113,3 +113,20 @@
     return param;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZRewardMyTeamListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZRewardMyTeamListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_rewardTeamList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZRewardMyTeamListVC *routevc = [[ZRewardMyTeamListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

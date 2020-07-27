@@ -11,7 +11,6 @@
 #import "ZStudentMineOrderListCell.h"
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
-#import "ZStudentMineEvaEditVC.h"
 
 @interface ZOrganizationMineOrderListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -77,9 +76,7 @@
             ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
             enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
                 if (index == ZLessonOrderHandleTypeEva) {
-                    ZStudentMineEvaEditVC *evc = [[ZStudentMineEvaEditVC alloc] init];
-                    evc.listModel = model;
-                    [weakSelf.navigationController pushViewController:evc animated:YES];
+                    routePushVC(ZRoute_mine_evaEdit, model, nil);
                 }else{
                     [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                         if (isSuccess) {
