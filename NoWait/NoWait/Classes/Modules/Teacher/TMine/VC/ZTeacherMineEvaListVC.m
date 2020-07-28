@@ -160,3 +160,20 @@
     [self.param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZTeacherMineEvaListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZTeacherMineEvaListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_teacherEvaList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZTeacherMineEvaListVC *routevc = [[ZTeacherMineEvaListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -7,9 +7,7 @@
 //
 
 #import "ZTeacherClassDetailSignDetailVC.h"
-#import "ZTeacherMineSignListCell.h"
 
-#import "ZTeacherClassDetailVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZAlertView.h"
@@ -259,16 +257,7 @@
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-     if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
-         ZOriganizationClassListModel *model = cellConfig.dataModel;
-         ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
-         dvc.model.courses_name = model.courses_name;
-         dvc.model.classID = model.classID;
-         dvc.model.name = model.name;
-         dvc.model.nums = model.nums;
-         dvc.model.status = model.status;
-         [self.navigationController pushViewController:dvc animated:YES];
-    }
+     
 }
 
 
@@ -387,4 +376,28 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZTeacherClassDetailSignDetailVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZTeacherClassDetailSignDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_classSignDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZTeacherClassDetailSignDetailVC *routevc = [[ZTeacherClassDetailSignDetailVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"isTeacher"]) {
+            routevc.isTeacher = [tempDict[@"isTeacher"] boolValue];
+        }
+        if ([tempDict objectForKey:@"model"]) {
+            routevc.model = tempDict[@"model"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

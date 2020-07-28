@@ -9,8 +9,6 @@
 #import "ZTeacherMineSignListVC.h"
 #import "ZTeacherMineSignListCell.h"
 
-#import "ZTeacherClassDetailSignDetailVC.h"
-#import "ZTeacherClassDetailVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZAlertView.h"
@@ -106,11 +104,7 @@
                 smodel.nums = model.nums;
                 smodel.status = model.status;
                 
-                ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
-                sdvc.isTeacher = YES;
-                sdvc.model = smodel;
-                
-                [self.navigationController pushViewController:sdvc animated:YES];
+                routePushVC(ZRoute_mine_classSignDetail, @{@"isTeacher":@YES,@"model":smodel}, nil);
             }
         };
     }
@@ -118,13 +112,15 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
          ZOriganizationClassListModel *model = cellConfig.dataModel;
-         ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
-         dvc.model.courses_name = model.courses_name;
-         dvc.model.classID = model.classID;
-         dvc.model.name = model.name;
-         dvc.model.nums = model.nums;
-         dvc.model.status = model.status;
-         [self.navigationController pushViewController:dvc animated:YES];
+         
+         ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
+         detailModel.courses_name = model.courses_name;
+         detailModel.classID = model.classID;
+         detailModel.name = model.name;
+         detailModel.nums = model.nums;
+         detailModel.status = model.status;
+         
+         routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
     }
 }
 
@@ -228,3 +224,19 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZTeacherMineSignListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZTeacherMineSignListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_teacherSignList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZTeacherMineSignListVC *routevc = [[ZTeacherMineSignListVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

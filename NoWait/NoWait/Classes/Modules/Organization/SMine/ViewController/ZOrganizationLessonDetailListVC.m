@@ -12,8 +12,6 @@
 #import "ZLessonWeekHandlerView.h"
 #import "ZLessonWeekSectionView.h"
 
-#import "ZTeacherClassDetailVC.h"
-
 #import "ZOriganizationTeacherViewModel.h"
 
 #import "ZOriganizationModel.h"
@@ -161,12 +159,14 @@
         routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
-        dvc.model.courses_name = model.courses_name;
-        dvc.model.classID = model.courses_class_id;
-        dvc.model.name = model.name;
-        dvc.model.status = model.status;
-        [self.navigationController pushViewController:dvc animated:YES];
+        
+        ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
+        detailModel.courses_name = model.courses_name;
+        detailModel.classID = model.courses_class_id;
+        detailModel.name = model.name;
+        detailModel.status = model.status;
+        
+        routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
     }
     
 }

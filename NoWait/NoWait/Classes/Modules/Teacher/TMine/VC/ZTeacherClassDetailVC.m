@@ -13,7 +13,7 @@
 #import "ZOrganizationClassDetailStudentListVC.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
-#import "ZTeacherClassDetailSignDetailVC.h"
+
 #import "ZOrganizationSendMessageVC.h"
 
 #import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
@@ -316,10 +316,7 @@
 //        lvc.type = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? 1:2;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
-        ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
-        sdvc.isTeacher = YES;
-        sdvc.model = self.model;
-        [self.navigationController pushViewController:sdvc animated:YES];
+        routePushVC(ZRoute_mine_classSignDetail, @{@"isTeacher":@YES,@"model":self.model}, nil);
     }
 }
 
@@ -339,3 +336,20 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZTeacherClassDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZTeacherClassDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_teacherClassDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZTeacherClassDetailVC *routevc = [[ZTeacherClassDetailVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

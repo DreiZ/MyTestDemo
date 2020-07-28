@@ -15,12 +15,9 @@
 #import "ZTeacherMineEntryStoresCell.h"
 #import "ZStudentMineLessonNoTimetableCell.h"
 
-#import "ZTeacherMineEvaListVC.h"
-#import "ZTeacherMineSignListVC.h"
-
 #import "ZTeacherViewModel.h"
 #import "ZStudentOrganizationDetailDesVC.h"
-#import "ZTeacherClassDetailVC.h"
+
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -129,11 +126,9 @@
         lcell.handleBlock = ^(ZCellConfig *scellConfig) {
             [[ZUserHelper sharedHelper] checkLogin:^{
                 if ([scellConfig.title isEqualToString:@"eva"]) {
-                    ZTeacherMineEvaListVC *elvc = [[ZTeacherMineEvaListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    routePushVC(ZRoute_mine_teacherEvaList, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"sign"]) {
-                    ZTeacherMineSignListVC *lvc = [[ZTeacherMineSignListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_mine_teacherSignList, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
                     ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                     ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
@@ -151,11 +146,12 @@
             routePushVC(ZRoute_mine_teacherDetailList, nil, nil);
         };
         tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
-            ZTeacherClassDetailVC *dvc = [[ZTeacherClassDetailVC alloc] init];
-            dvc.model.courses_name = model.courses_name;
-            dvc.model.classID = model.courses_class_id;
-            dvc.model.name = model.name;
-            [self.navigationController pushViewController:dvc animated:YES];
+            ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
+            detailModel.courses_name = model.courses_name;
+            detailModel.classID = model.courses_class_id;
+            detailModel.name = model.name;
+            
+            routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
         ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;

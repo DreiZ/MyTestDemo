@@ -14,7 +14,7 @@
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
 #import "ZOrganizationTimeSelectVC.h"
-#import "ZTeacherClassDetailSignDetailVC.h"
+
 #import "ZAlertMoreView.h"
 #import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
 
@@ -360,9 +360,7 @@
 //        lvc.type = 2;
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
-        ZTeacherClassDetailSignDetailVC *sdvc = [[ZTeacherClassDetailSignDetailVC alloc] init];
-        sdvc.model = self.model;
-        [self.navigationController pushViewController:sdvc animated:YES];
+        routePushVC(ZRoute_mine_classSignDetail, @{@"isTeacher":@NO,@"model":self.model}, nil);
     }
 }
 
