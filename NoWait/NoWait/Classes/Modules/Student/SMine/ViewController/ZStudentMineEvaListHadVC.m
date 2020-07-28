@@ -12,8 +12,6 @@
 
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentOrganizationDetailDesVC.h"
-
 @interface ZStudentMineEvaListHadVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 
@@ -71,13 +69,11 @@
         enteryCell.evaBlock = ^(NSInteger index) {
             if (index == 1) {
                 ZOrderEvaListModel *listModel = cellConfig.dataModel;
-                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                 ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
                 lmodel.stores_id = listModel.stores_id;
                 lmodel.name = listModel.stores_name;
-                dvc.listModel = lmodel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
-
+                
+                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
             }else{
                 routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
             }

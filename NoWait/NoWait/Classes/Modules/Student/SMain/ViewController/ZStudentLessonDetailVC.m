@@ -30,8 +30,6 @@
 #import "ZOrganizationDetailBottomView.h"
 #import "ZAlertMoreView.h"
 
-
-#import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentLessonSureOrderVC.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
@@ -263,12 +261,11 @@
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailEnteryCell"]) {
         ZStudentOrganizationDetailEnteryCell *lcell = (ZStudentOrganizationDetailEnteryCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             ZStoresListModel *listModel = [[ZStoresListModel alloc] init];
             listModel.name = self.addModel.stores_name;
             listModel.stores_id = self.addModel.stores_id;
-            dvc.listModel = listModel;
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            
+            routePushVC(ZRoute_main_organizationDetail, listModel, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"starCoach"]) {
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;

@@ -8,7 +8,6 @@
 
 #import "ZMianSearchVC.h"
 #import "ZStudentMainViewModel.h"
-#import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
@@ -123,9 +122,7 @@
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationSearchListCell"]) {
-        ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-        dvc.listModel = cellConfig.dataModel;
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
     }
 }
 

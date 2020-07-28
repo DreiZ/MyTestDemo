@@ -12,8 +12,6 @@
 #import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentOrganizationDetailDesVC.h"
-
 @interface ZStudentMineOrderBuyListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 @end
@@ -78,12 +76,11 @@
             if (index == ZLessonOrderHandleTypeEva) {
                 routePushVC(ZRoute_mine_evaEdit, model, nil);
             }else if (index == 100){
-                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                 ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
                 lmodel.stores_id = model.stores_id;
                 lmodel.name = model.stores_name;
-                dvc.listModel = lmodel;
-                [self.navigationController pushViewController:dvc animated:YES];
+                
+                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {

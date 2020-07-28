@@ -22,7 +22,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentOrganizationDetailDesVC.h"
 #import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZOrganizationMineOrderDetailVC ()
@@ -402,12 +401,10 @@
             if (index == ZLessonOrderHandleTypeRefund) {
                 routePushVC(ZRoute_mine_OrderRefundHandle, weakSelf.detailModel, nil);
             }else if (index == ZLessonOrderHandleTypeClub){
-                ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                 ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
                 lmodel.stores_id = model.stores_id;
                 lmodel.name = model.store_name;
-                dvc.listModel = lmodel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
             }else if(index == ZLessonOrderHandleTypeLesson){
                 ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
                 ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];

@@ -12,7 +12,6 @@
 #import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
 
-#import "ZStudentOrganizationDetailDesVC.h"
 #import "ZLocationManager.h"
 
 @interface ZStudentClassificationListVC ()
@@ -95,9 +94,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
         }
     });
     

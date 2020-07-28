@@ -7,7 +7,6 @@
 //
 
 #import "ZStudentCollectionOrganizationVC.h"
-#import "ZStudentOrganizationDetailDesVC.h"
 
 #import "ZStudentOrganizationListCell.h"
 #import "ZStudentCollectionViewModel.h"
@@ -67,9 +66,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-             ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-             dvc.listModel = cellConfig.dataModel;
-             [weakSelf.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
         }
     });
     

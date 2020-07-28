@@ -606,8 +606,22 @@
         
     }];
 }
+@end
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    NSLog(@"end && scrollViewDidEndScrollingAnimation");
+#pragma mark - RouteHandler
+@interface ZStudentOrganizationDetailDesVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrganizationDetailDesVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_organizationDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrganizationDetailDesVC *routevc = [[ZStudentOrganizationDetailDesVC alloc] init];
+    routevc.listModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

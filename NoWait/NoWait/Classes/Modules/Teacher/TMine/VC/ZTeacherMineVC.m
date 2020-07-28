@@ -16,8 +16,6 @@
 #import "ZStudentMineLessonNoTimetableCell.h"
 
 #import "ZTeacherViewModel.h"
-#import "ZStudentOrganizationDetailDesVC.h"
-
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -130,13 +128,12 @@
                 }else if ([scellConfig.title isEqualToString:@"sign"]) {
                     routePushVC(ZRoute_mine_teacherSignList, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
-                    ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                     ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
                     ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
                     lmodel.stores_id = detailModel.stores_id;
                     lmodel.name = detailModel.stores_name;
-                    dvc.listModel = lmodel;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    
+                    routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
                 }
             }];
         };

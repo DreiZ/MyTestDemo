@@ -17,8 +17,6 @@
 #import "ZStudentMainFiltrateSectionView.h"
 #import "ZStudentOrganizationNewListCell.h"
 
-#import "ZStudentOrganizationDetailDesVC.h"
-
 #import "ZPhoneAlertView.h"
 #import "ZAlertView.h"
 

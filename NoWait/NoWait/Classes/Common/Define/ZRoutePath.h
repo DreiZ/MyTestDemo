@@ -118,6 +118,7 @@
 
 #define ZRoute_main_classification      @"controller/main/classification"
 
+#define ZRoute_main_organizationDetail  @"controller/main/organizationDetail"
 
 
 #endif /* ZRoutePath_h */

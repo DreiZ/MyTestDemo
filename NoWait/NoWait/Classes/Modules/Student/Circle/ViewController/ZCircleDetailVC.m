@@ -30,7 +30,6 @@
 #import "SJVideoPlayer.h"
 
 #import "ZOriganizationReportVC.h"
-#import "ZStudentOrganizationDetailDesVC.h"
 
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
@@ -321,12 +320,11 @@
             ZCircleDetailSchoolCell *lcell = (ZCircleDetailSchoolCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 0) {
-                    ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
                     ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
                     lmodel.stores_id = weakSelf.infoModel.store_id;
                     lmodel.name = weakSelf.infoModel.store_name;
-                    dvc.listModel = lmodel;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    
+                    routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
                 }else{
                     [[ZUserHelper sharedHelper] checkLogin:^{
                         if ([weakSelf.infoModel.store_collection intValue] == 1) {

@@ -195,9 +195,7 @@
             [weakSelf.iTableView reloadData];
         };
         lcell.lessonBlock = ^(ZStoresCourse *model) {
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
         };
     }
 
@@ -235,9 +233,7 @@
         NSArray *tempArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = tempArr[indexPath.row];
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]) {
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
         }
     }
 }

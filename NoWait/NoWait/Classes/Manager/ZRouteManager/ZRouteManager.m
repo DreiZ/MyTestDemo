@@ -13,7 +13,6 @@
 #import "ZAlertView.h"
 #import "ZWebBridgeViewController.h"
 #import "ZStudentExperienceLessonDetailVC.h"
-#import "ZStudentOrganizationDetailDesVC.h"
 
 #import "ZOriganizationModel.h"
 
@@ -66,11 +65,10 @@ static ZRouteManager *sharedManager;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
 
         }else if ([model.ad_type isEqualToString:@"2"] && model.ad_type_content) {
-            ZStudentOrganizationDetailDesVC *dvc = [[ZStudentOrganizationDetailDesVC alloc] init];
             ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
             lmodel.stores_id = model.ad_type_content.stores;
-            dvc.listModel = lmodel;
-            [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
+            
+            routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
 
         }else if ([model.ad_type isEqualToString:@"4"] && model.ad_type_content) {
             if ([model.ad_type_content.fix isEqualToString:@"reward_center"]) {
