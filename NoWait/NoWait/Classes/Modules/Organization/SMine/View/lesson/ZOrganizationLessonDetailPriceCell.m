@@ -118,7 +118,7 @@
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
     _priceLabel.text = [NSString stringWithFormat:@"%@",model.leftTitle];
-    _numLabel.text = [NSString stringWithFormat:@"已售:%@",ValidStr(model.rightTitle)? SafeStr(model.rightTitle):@"0"];
+    _numLabel.text = [NSString stringWithFormat:@"已售 %@",ValidStr(model.rightTitle)? SafeStr(model.rightTitle):@"0"];
     _crView.scorePercent = [model.data intValue]/5.0f;
     
     if (model.isSelected) {

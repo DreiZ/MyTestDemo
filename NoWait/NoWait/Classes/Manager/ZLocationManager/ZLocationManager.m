@@ -34,6 +34,8 @@ static ZLocationManager *shareManager = NULL;
     self.locationManager = [[AMapLocationManager alloc] init];
 
     [self.locationManager setDelegate:self];
+    
+    [self.locationManager setDistanceFilter:1000];
 
     [self.locationManager setPausesLocationUpdatesAutomatically:NO];
 
@@ -55,7 +57,7 @@ static ZLocationManager *shareManager = NULL;
 - (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
 {
     //定位错误
-    NSLog(@"%s, amapLocationManager = %@, error = %@", __func__, [manager class], error);
+    DLog(@"%s, amapLocationManager = %@, error = %@", __func__, [manager class], error);
 }
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location

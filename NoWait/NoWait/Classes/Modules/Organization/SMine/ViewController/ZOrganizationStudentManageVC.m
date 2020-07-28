@@ -21,6 +21,8 @@
 
 @interface ZOrganizationStudentManageVC ()
 @property (nonatomic,copy) NSString *total;
+@property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) UILabel *totalLabel;
 
 @end
 
@@ -51,20 +53,21 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    {
-        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
-        .zz_lineHidden(YES)
-        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"])
-        .zz_fontLeft([UIFont fontContent])
-        .zz_colorLeft([UIColor colorMain])
-        .zz_marginLeft(CGFloatIn750(50))
-        .zz_colorDarkLeft([UIColor colorMain])
-        .zz_cellHeight(CGFloatIn750(80));
-        
-         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-
-         [self.cellConfigArr  addObject:menuCellConfig];
-    }
+//    {
+//        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
+//        .zz_lineHidden(YES)
+//        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"])
+//        .zz_fontLeft([UIFont fontContent])
+//        .zz_colorLeft([UIColor colorMain])
+//        .zz_marginLeft(CGFloatIn750(50))
+//        .zz_colorDarkLeft([UIColor colorMain])
+//        .zz_cellHeight(CGFloatIn750(80));
+//
+//         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+//
+//         [self.cellConfigArr  addObject:menuCellConfig];
+//    }
+    self.totalLabel.text = [NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"];
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];
         model.isEdit = self.isEdit;
@@ -185,6 +188,8 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
         make.top.equalTo(self.filterView.mas_bottom).offset(-CGFloatIn750(20));
     }];
+    
+    self.iTableView.tableHeaderView = self.headView;
 }
 
 #pragma mark - lazy loading...
@@ -351,6 +356,25 @@
         };
     }
     return _filterView;
+}
+
+-(UIView *)headView {
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(80))];
+        _headView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+        _totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _totalLabel.textColor = [UIColor colorMain];
+        _totalLabel.text = @"";
+        _totalLabel.numberOfLines = 0;
+        _totalLabel.textAlignment = NSTextAlignmentLeft;
+        [_totalLabel setFont:[UIFont fontContent]];
+        [_headView addSubview:_totalLabel];
+        [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headView.mas_left).offset(CGFloatIn750(30));
+            make.centerY.equalTo(self.headView.mas_centerY);
+        }];
+    }
+    return _headView;
 }
 
 

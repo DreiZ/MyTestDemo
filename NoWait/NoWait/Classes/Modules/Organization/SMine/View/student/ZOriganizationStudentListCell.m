@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *lessonLabel;
+@property (nonatomic,strong) UILabel *teacherLabel;
 @property (nonatomic,strong) UILabel *typeLabel;
 @property (nonatomic,strong) UILabel *numLabel;
 @property (nonatomic,strong) UILabel *buLabel;
@@ -38,6 +39,8 @@
     [self.contView addSubview:self.numLabel];
     [self.contView addSubview:self.rightImageView];
     [self.contView addSubview:self.buLabel];
+    [self.contView addSubview:self.teacherLabel];
+    [self.contView addSubview:self.selectBtn];
     
     [self.rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
@@ -53,7 +56,7 @@
     
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.lessonLabel.mas_centerY);
+        make.centerY.equalTo(self.teacherLabel.mas_centerY);
         make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(10));
         make.width.mas_equalTo(CGFloatIn750(140));
     }];
@@ -71,16 +74,27 @@
     }];
     
     
-    
-    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.contView.mas_centerY).offset(-CGFloatIn750(6));
-        make.right.equalTo(self.typeLabel.mas_left).offset(-CGFloatIn750(0));
+    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contView);
+        make.left.equalTo(self.contView.mas_left);
+        make.width.mas_equalTo(CGFloatIn750(160));
     }];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.centerY.equalTo(self.contView.mas_centerY).offset(-CGFloatIn750(0));
+        make.right.equalTo(self.rightImageView.mas_left).offset(-CGFloatIn750(20));
+    }];
+    
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.bottom.equalTo(self.lessonLabel.mas_top).offset(-CGFloatIn750(8));
+        make.right.equalTo(self.typeLabel.mas_left).offset(-CGFloatIn750(0));
+    }];
+    
+    [self.teacherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left).offset(CGFloatIn750(0));
-        make.top.equalTo(self.contView.mas_centerY).offset(CGFloatIn750(6));
+        make.top.equalTo(self.lessonLabel.mas_bottom).offset(CGFloatIn750(8));
         make.right.equalTo(self.typeLabel.mas_left);
     }];
     
@@ -93,11 +107,15 @@
         make.height.mas_equalTo(CGFloatIn750(24));
     }];
     
-    [self.contView addSubview:self.selectBtn];
-    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.contView);
-        make.left.equalTo(self.contView.mas_left);
-        make.width.mas_equalTo(CGFloatIn750(160));
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    bottomLineView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    [self.contentView addSubview:bottomLineView];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self);
+        make.left.equalTo(self.userImageView.mas_right);
+        make.height.mas_equalTo(0.5);
+        make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -177,6 +195,17 @@
     return _lessonLabel;
 }
 
+- (UILabel *)teacherLabel {
+    if (!_teacherLabel) {
+        _teacherLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _teacherLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
+        _teacherLabel.numberOfLines = 1;
+        _teacherLabel.textAlignment = NSTextAlignmentLeft;
+        [_teacherLabel setFont:[UIFont fontContent]];
+    }
+    return _teacherLabel;
+}
+
 - (UILabel *)typeLabel {
     if (!_typeLabel) {
         _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -234,7 +263,7 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(150);
+    return CGFloatIn750(170);
 }
 
 - (void)setModel:(ZOriganizationStudentListModel *)model {
@@ -243,7 +272,8 @@
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
     _buLabel.hidden = YES;
     _nameLabel.text = model.name;
-    _lessonLabel.text = [NSString stringWithFormat:@"%@-%@",SafeStr(model.courses_name),SafeStr(model.teacher_name)];
+    _lessonLabel.text = [NSString stringWithFormat:@"%@",SafeStr(model.courses_name)];
+    _teacherLabel.text = [NSString stringWithFormat:@"带课教师：%@",model.teacher_name];
 //1：待排课 2：待开课 3：已开课 4：已结课 5：待补课 6：已过期
     switch ([model.status intValue]) {
         case 1:
