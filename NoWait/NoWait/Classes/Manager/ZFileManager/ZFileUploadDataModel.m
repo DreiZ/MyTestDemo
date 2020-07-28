@@ -224,7 +224,7 @@
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
     settings[AVVideoCompressionPropertiesKey] =
-                                                @{ AVVideoAverageBitRateKey: @(5000000),
+                                                @{ AVVideoAverageBitRateKey: @(3000000),
                                                    AVVideoExpectedSourceFrameRateKey : @(30),
                                                    AVVideoMaxKeyFrameIntervalKey : @(30),
                                                    AVVideoProfileLevelKey: AVVideoProfileLevelH264MainAutoLevel
