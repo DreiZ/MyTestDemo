@@ -39,9 +39,9 @@
     
     [ZImagePickerManager initSDWebImage];
 
-#if defined(DEBUG)||defined(_DEBUG)
-    [[JPFPSStatus sharedInstance] open];
-#endif
+//#if defined(DEBUG)||defined(_DEBUG)
+//    [[JPFPSStatus sharedInstance] open];
+//#endif
 }
 
 

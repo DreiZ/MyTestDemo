@@ -1045,17 +1045,17 @@ static ZImagePickerManager *sharedImagePickerManager;
     //建议全局设置，调节以下属性(可选)
 
     //内存缓存中所有图片的像素的最大数量
-    SDImageCache.sharedImageCache.maxMemoryCost = 100 * 1024 * 1024;
+    SDImageCache.sharedImageCache.maxMemoryCost = 80 * 1024 * 1024;
     //内存缓存中所有图片占用内存大小总和，单位bytes
-    //maxCacheSize与maxMemoryCost要同时设置才能生效 cache超过100M就删除cache
-    SDImageCache.sharedImageCache.maxCacheSize = 100 * 1024 * 1024;
+    //maxCacheSize与maxMemoryCost要同时设置才能生效 cache超过80M就删除cache
+    SDImageCache.sharedImageCache.maxCacheSize = 80 * 1024 * 1024;
 
     // 清除沙盒中所有使用SD缓存的过期图片（缓存时长 > 一个星期）
     [[SDImageCache sharedImageCache] cleanDisk];
     //在内存中保留时间，单位为秒
     SDImageCache.sharedImageCache.maxCacheAge = 7 * 24 * 60 * 60;
     //缓存的最大单元数，按需，这里我设置15
-    SDWebImageManager.sharedManager.imageCache.maxMemoryCountLimit = 150;
+    SDWebImageManager.sharedManager.imageCache.maxMemoryCountLimit = 80;
 
 }
 @end

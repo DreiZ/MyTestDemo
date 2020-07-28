@@ -497,7 +497,13 @@ static ZFileUploadManager *fileUploadManager;
     
     if (file.taskType == ZUploadTypeImage) {
         UIImage *testImage = file.image;
-        NSData *testData = UIImageJPEGRepresentation(testImage, 0.3);
+        NSData *testData;
+        if ([file.type isEqualToString:@"5"]) {
+            testData = UIImageJPEGRepresentation(testImage, 0.1);
+        }else{
+            testData = UIImageJPEGRepresentation(testImage, 0.3);
+        }
+        
         put.uploadingData = testData;
         [self aliYunUploadWithPut:put task:task type:type file:file callbackUrl:callbackUrl callbackBody:callbackBody callbackVar:callbackVar callbackVarKey:fileKey progress:progress complete:completeBlock failure:failure];
     }else{
