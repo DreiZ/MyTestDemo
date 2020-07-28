@@ -32,6 +32,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
+    
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];

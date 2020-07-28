@@ -24,7 +24,11 @@
 @implementation ZCircleRecommendVC
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
     [super viewWillAppear:animated];
+    
     if ([ZUserHelper sharedHelper].user) {
         self.emptyDataStr = @"暂无数据，点击重新加载";
     }else {

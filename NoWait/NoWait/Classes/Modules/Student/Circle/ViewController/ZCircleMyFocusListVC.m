@@ -19,6 +19,13 @@
 
 @implementation ZCircleMyFocusListVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

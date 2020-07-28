@@ -37,6 +37,9 @@
 @implementation ZCircleMineCollectionVC
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
     [super viewWillAppear:animated];
 }
 

@@ -41,6 +41,13 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
+    [super viewWillAppear:animated];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.searchView.iTextField) {

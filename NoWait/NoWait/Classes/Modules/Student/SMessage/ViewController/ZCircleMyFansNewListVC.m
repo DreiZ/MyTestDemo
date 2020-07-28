@@ -18,6 +18,13 @@
 
 @implementation ZCircleMyFansNewListVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.zChain_block_setNotShouldDecompressImages(^{
+
+    });
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self refreshAllData];
