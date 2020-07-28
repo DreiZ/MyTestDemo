@@ -53,6 +53,8 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 
 #define KNotificationPayBack @"payBack"
 
+#define KNotificationPoiBack @"locationPoi"
+
 #define kNotificationUpdateToken  @"token"
 
 

@@ -16,12 +16,14 @@
 
 
 @interface ZLocationManager : NSObject
-@property (nonatomic,strong) MAUserLocation *cureUserLocation;
-@property (nonatomic,strong) void (^locationMainBlock)(MAUserLocation *);
+@property (nonatomic,strong) CLLocation *location;
+@property (nonatomic,strong) NSString *city;
+
+@property (nonatomic,strong) void (^locationMainBlock)(CLLocation *);
 + (ZLocationManager *)shareManager;
 - (void)startLocation;
 
-- (NSString *)getDistanceWithLocation:(CLLocationCoordinate2D)loc1  locationOther:(CLLocationCoordinate2D )loc2;
+//- (NSString *)getDistanceWithLocation:(CLLocationCoordinate2D)loc1  locationOther:(CLLocationCoordinate2D )loc2;
 @end
 
 

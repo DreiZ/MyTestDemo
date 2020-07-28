@@ -57,7 +57,7 @@
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contView.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(70));
+        make.width.mas_equalTo(CGFloatIn750(100));
     }];
     
     [self.addressHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +68,7 @@
     
     [self.contView addSubview:self.searhBackView];
     [self.searhBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.addressHintImageView.mas_right).offset(CGFloatIn750(2));
+        make.left.equalTo(self.addressLabel.mas_right).offset(CGFloatIn750(2));
         make.height.mas_equalTo(CGFloatIn750(64));
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.addressHintImageView);
@@ -113,10 +113,10 @@
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _addressLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorWhite]);
-        _addressLabel.text = @"徐州";
+        _addressLabel.text = @"-";
         _addressLabel.numberOfLines = 1;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        [_addressLabel setFont:[UIFont fontContent]];
+        [_addressLabel setFont:[UIFont fontSmall]];
     }
     return _addressLabel;
 }
@@ -208,7 +208,22 @@
     _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
 }
 
-
+- (void)setAddress:(NSString *)city {
+    if (city) {
+        _addressLabel.text = city;
+    }else{
+        _addressLabel.text = @"-";
+    }
+    
+    CGSize citySize = [city sizeForFont:[UIFont fontSmall] size:CGSizeMake(CGFloatIn750(200), MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    
+    [self.addressLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.contView.mas_centerY);
+        make.width.mas_equalTo(citySize.width > CGFloatIn750(100)?citySize.width:CGFloatIn750(100));
+    }];
+}
 
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{

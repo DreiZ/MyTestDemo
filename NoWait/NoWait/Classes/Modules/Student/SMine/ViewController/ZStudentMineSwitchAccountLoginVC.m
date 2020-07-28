@@ -83,6 +83,8 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.top.equalTo(self.userImageView.mas_bottom).offset(CGFloatIn750(24));
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
     }];
     
     UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -253,7 +255,7 @@
         }
         NSString *temp = (ValidStr(self.model.nick_name) ? self.model.nick_name:self.model.phone);
         _nameLabel.text = [NSString stringWithFormat:@"%@(%@)",temp,typestr];
-        _nameLabel.numberOfLines = 1;
+        _nameLabel.numberOfLines = 0;
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         [_nameLabel setFont:[UIFont boldFontMaxTitle]];
     }

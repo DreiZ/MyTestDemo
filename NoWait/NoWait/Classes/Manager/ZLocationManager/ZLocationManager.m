@@ -7,15 +7,15 @@
 //
 
 #import "ZLocationManager.h"
-
-
+#import <AMapSearchKit/AMapSearchKit.h>
 
 static ZLocationManager *shareManager = NULL;
 
-@interface ZLocationManager ()<MAMapViewDelegate,AMapSearchDelegate>
+@interface ZLocationManager ()<MAMapViewDelegate,AMapSearchDelegate,AMapLocationManagerDelegate>
 
 @property (nonatomic,strong) MAMapView *iMapView;
-
+@property (nonatomic,strong) AMapSearchAPI *search;
+@property (nonatomic,strong) AMapLocationManager *locationManager;
 @end
 
 @implementation ZLocationManager
@@ -25,44 +25,63 @@ static ZLocationManager *shareManager = NULL;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         helper = [[ZLocationManager alloc] init];
+        [helper configLocationManager];
     });
     return helper;
 }
+- (void)configLocationManager
+{
+    self.locationManager = [[AMapLocationManager alloc] init];
 
-- (void)startLocation {
-    // 开启定位
-    self.iMapView.showsUserLocation = YES;
-    self.iMapView.userTrackingMode = MAUserTrackingModeFollow;
+    [self.locationManager setDelegate:self];
+
+    [self.locationManager setPausesLocationUpdatesAutomatically:NO];
+
+    [self.locationManager setAllowsBackgroundLocationUpdates:NO];
 }
 
-- (MAMapView *)iMapView {
-    if (!_iMapView) {
-        _iMapView = [[MAMapView alloc] init];
-        _iMapView.delegate = self;
-    }
-    return _iMapView;
+- (void)startLocation
+{
+    //开始定位
+    [self.locationManager startUpdatingLocation];
 }
 
+- (void)stopSerialLocation
+{
+    //停止定位
+    [self.locationManager stopUpdatingLocation];
+}
 
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
-    _cureUserLocation = userLocation;
+- (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error
+{
+    //定位错误
+    NSLog(@"%s, amapLocationManager = %@, error = %@", __func__, [manager class], error);
+}
+
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
+{
     if (self.locationMainBlock) {
-        self.locationMainBlock(userLocation);
+        self.locationMainBlock(location);
     }
-
-}
-
-
-- (NSString *)getDistanceWithLocation:(CLLocationCoordinate2D)loc1  locationOther:(CLLocationCoordinate2D )loc2{
-    MAMapPoint p1 = MAMapPointForCoordinate(loc1);
-    MAMapPoint p2 = MAMapPointForCoordinate(loc2);
-    
-    CLLocationDistance distance =  MAMetersBetweenMapPoints(p1, p2);
-    if (distance < 1000) {
-        return [NSString stringWithFormat:@"距离您%.0fm",distance];
-    }else{
-         return [NSString stringWithFormat:@"距离您%.2fkm",distance/1000];
-    }
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location
+                   completionHandler:^(NSArray <CLPlacemark *>*placemarks, NSError *error) {
+        if (!error) {
+            for (CLPlacemark *place in placemarks) {
+                DLog(@"name,%@",place.name); // 位置名
+                DLog(@"thoroughfare,%@",place.thoroughfare);// 街道
+                DLog(@"subThoroughfare,%@",place.subThoroughfare);// 子街道
+                DLog(@"locality,%@",place.locality);// 市                          NSLog(@"subLocality,%@",place.subLocality);        // 区
+                DLog(@"country,%@",place.country); // 国家
+                self.city = place.locality;
+                
+            }
+            [self stopSerialLocation];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationPoiBack object:nil];
+    }];
+    //定位结果
+    DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
 }
 
 @end

@@ -21,9 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[SDImageCache sharedImageCache] setShouldDecompressImages:NO];
-    [[SDWebImageDownloader sharedDownloader] setShouldDecompressImages:NO];
-    
     [self initCellConfigArr];
     [self.iTableView reloadData];
     
@@ -34,12 +31,16 @@
     }];
     
     __weak typeof(self) weakSelf = self;
-    [[ZLocationManager shareManager] setLocationMainBlock:^(MAUserLocation *userLocation) {
-        if (!weakSelf.isLoacation && userLocation) {
-             DLog(@"userLocation %f-%f",userLocation.location.coordinate.longitude,userLocation.location.coordinate.latitude);
+    [[ZLocationManager shareManager] setLocationMainBlock:^(CLLocation *location) {
+        if (!weakSelf.isLoacation && location) {
+             DLog(@"userLocation %f-%f",location.coordinate.longitude,location.coordinate.latitude);
             [weakSelf refreshData];
             weakSelf.isLoacation = YES;
+            [weakSelf.searchView setAddress:@"-"];
         }
+    }];
+    [[kNotificationCenter rac_addObserverForName:KNotificationPoiBack object:nil] subscribeNext:^(NSNotification *notfication) {
+        [weakSelf.searchView setAddress:[ZLocationManager shareManager].city];
     }];
     [[ZLocationManager shareManager] startLocation];
     
@@ -72,6 +73,8 @@
     }
     
     [ZPublicTool checkUpdateVersion];
+    
+    
     
 //    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
 //
@@ -202,6 +205,8 @@
     [self setPostCommonData];
     [self setLocationParams];
     [self refreshHeadData:self.param];
+    
+    [[ZLocationManager shareManager] startLocation];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
@@ -276,9 +281,9 @@
 }
 
 - (void)setLocationParams {
-    if ([ZLocationManager shareManager].cureUserLocation.location) {
-        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.longitude] forKey:@"longitude"];
-        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].cureUserLocation.coordinate.latitude] forKey:@"latitude"];
+    if ([ZLocationManager shareManager].location) {
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.longitude] forKey:@"longitude"];
+        [self.param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.latitude] forKey:@"latitude"];
     }
 }
 

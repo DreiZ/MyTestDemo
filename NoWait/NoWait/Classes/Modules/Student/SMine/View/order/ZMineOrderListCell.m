@@ -65,6 +65,7 @@
     [self.clubLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userImgeView.mas_right).offset(CGFloatIn750(20));
         make.centerY.equalTo(self.topView.mas_centerY);
+        make.right.lessThanOrEqualTo(self.statelabel.mas_left).offset(CGFloatIn750(-20));
     }];
     
     [self.topView addSubview:self.clubImageView];

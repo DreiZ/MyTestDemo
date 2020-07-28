@@ -25,6 +25,7 @@
         [self.clubLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
             make.centerY.equalTo(self.topView.mas_centerY);
+            make.right.lessThanOrEqualTo(self.statelabel.mas_left).offset(CGFloatIn750(-20));
         }];
     }else{
         self.clubImageView.hidden = YES;
@@ -34,6 +35,7 @@
         [self.clubLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.userImgeView.mas_right).offset(CGFloatIn750(20));
             make.centerY.equalTo(self.topView.mas_centerY);
+            make.right.lessThanOrEqualTo(self.statelabel.mas_left).offset(CGFloatIn750(-20));
         }];
     }
     [self.leftImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.courses_image_url)] placeholderImage:[UIImage imageNamed:@"default_image32"]];
@@ -224,6 +226,14 @@
             }
         break;
     }
+    
+    CGSize stateSize = [SafeStr(self.statelabel.text) sizeForFont:[UIFont boldFontSmall] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    [self.statelabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.topView.mas_centerY);
+        make.width.mas_equalTo(stateSize.width + 2);
+    }];
 }
 
 - (void)setRefundHandle {
