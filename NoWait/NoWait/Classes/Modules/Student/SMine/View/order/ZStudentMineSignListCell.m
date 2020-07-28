@@ -76,6 +76,7 @@
     [self.topView addSubview:self.lessonNameLabel];
     [self.lessonNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.top.equalTo(self.topView.mas_top).offset(CGFloatIn750(88));
     }];
 
@@ -85,22 +86,24 @@
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
-    [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
-        make.centerY.equalTo(self.userImageView.mas_centerY);
+    [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.lessonNameLabel.mas_bottom).offset(CGFloatIn750(20));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
     }];
 
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.userLabel.mas_left).offset(-CGFloatIn750(10));
-        make.bottom.equalTo(self.topView.mas_bottom);
+        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.classNameLabel.mas_bottom).offset(CGFloatIn750(20));
         make.width.height.mas_equalTo(CGFloatIn750(44));
     }];
     
-    
-    [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.topView.mas_left).offset(CGFloatIn750(30));
+    [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.userImageView.mas_centerY);
     }];
+    
     
     [self.bottomView addSubview:self.signBtn];
     [self.signBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -191,7 +194,7 @@
         _userLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         
         _userLabel.numberOfLines = 1;
-        _userLabel.textAlignment = NSTextAlignmentRight;
+        _userLabel.textAlignment = NSTextAlignmentLeft;
         [_userLabel setFont:[UIFont fontSmall]];
     }
     return _userLabel;
@@ -215,7 +218,7 @@
         _classNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _classNameLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         
-        _classNameLabel.numberOfLines = 1;
+        _classNameLabel.numberOfLines = 0;
         _classNameLabel.textAlignment = NSTextAlignmentLeft;
         [_classNameLabel setFont:[UIFont fontContent]];
     }
@@ -227,7 +230,7 @@
         _lessonNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _lessonNameLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         
-        _lessonNameLabel.numberOfLines = 1;
+        _lessonNameLabel.numberOfLines = 0;
         _lessonNameLabel.textAlignment = NSTextAlignmentLeft;
         [_lessonNameLabel setFont:[UIFont boldFontTitle]];
     }
@@ -343,11 +346,19 @@
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
-//    ZOriganizationClassListModel *model = sender;
-//    if ([model.can_operation intValue] != 1 || [model.status intValue] == 3) {
-//        return CGFloatIn750(246);
-//    }
-    return CGFloatIn750(348);
+    if ([sender isKindOfClass:[ZOriganizationClassListModel class]]) {
+        ZOriganizationClassListModel *model = sender;
+        CGFloat height = CGFloatIn750(348);
+        
+        CGSize classSize = [SafeStr(model.courses_class_name) sizeForFont:[UIFont fontContent] size:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) mode:NSLineBreakByWordWrapping];
+        
+        CGSize lessonSize = [SafeStr(model.stores_courses_name) sizeForFont:[UIFont boldFontTitle] size:CGSizeMake(KScreenWidth - CGFloatIn750(120), MAXFLOAT) mode:NSLineBreakByWordWrapping];
+        
+        height = height + classSize.height - [UIFont fontContent].lineHeight;
+        height = height + lessonSize.height - [UIFont boldFontTitle].lineHeight;
+        return height + CGFloatIn750(44);
+    }
+    return CGFloatIn750(348) + CGFloatIn750(44);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

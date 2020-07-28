@@ -75,8 +75,8 @@
 
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
-        make.bottom.equalTo(topView.mas_bottom).offset(-CGFloatIn750(50));
-        make.right.equalTo(self.nameLabel.mas_right);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(CGFloatIn750(16));
+        make.right.equalTo(self.userImageView.mas_left).offset(-CGFloatIn750(30));
     }];
     
     
@@ -93,7 +93,7 @@
     
     [self.userLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.numLabel.mas_right);
-        make.centerY.equalTo(self.detailLabel.mas_centerY);
+        make.top.equalTo(self.detailLabel.mas_top).offset(CGFloatIn750(8));
     }];
 
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,7 +132,7 @@
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _detailLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         _detailLabel.text = @"";
-        _detailLabel.numberOfLines = 1;
+        _detailLabel.numberOfLines = 0;
         _detailLabel.textAlignment = NSTextAlignmentLeft;
         [_detailLabel setFont:[UIFont fontSmall]];
     }
@@ -289,6 +289,14 @@
             
         }];
     }
+    
+    CGSize userSize = [SafeStr(model.teacher_name) sizeForFont:[UIFont fontSmall] size:CGSizeMake(KScreenWidth, MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    [self.userLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.numLabel.mas_right);
+        make.top.equalTo(self.detailLabel.mas_top).offset(CGFloatIn750(8));
+        make.width.mas_equalTo(userSize.width + 2);
+    }];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

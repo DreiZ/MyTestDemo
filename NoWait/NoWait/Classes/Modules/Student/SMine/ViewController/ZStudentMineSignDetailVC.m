@@ -79,17 +79,16 @@
     
     
     {
-       ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-       model.leftTitle = self.detailModel.courses_name;
-       model.isHiddenLine = NO;
-       model.lineLeftMargin = CGFloatIn750(30);
-       model.lineRightMargin = CGFloatIn750(30);
-       model.cellHeight = CGFloatIn750(110);
-       model.leftFont = [UIFont boldFontContent];
-       
-       ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-       
-       [self.cellConfigArr addObject:menuCellConfig];
+        ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"stuentTitle")
+        .zz_titleLeft(self.detailModel.courses_name)
+        .zz_fontLeft([UIFont boldFontContent])
+        .zz_cellHeight(CGFloatIn750(90))
+        .zz_lineHidden(YES)
+        .zz_leftMultiLine(YES);
+        
+        ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:@"title" showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
+        
+        [self.cellConfigArr addObject:titleCellConfig];
    }
    {
        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
