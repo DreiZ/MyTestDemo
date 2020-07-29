@@ -180,15 +180,9 @@
     if (pixelHeight > pixelWidth) {
         pixelWidth = (pixelWidth/pixelHeight)*720;
         pixelHeight = 720;
-        if ((long)pixelWidth/2 > 0) {
-            pixelWidth = (long)pixelWidth + 1;
-        }
     }else{
         pixelHeight = (pixelHeight/pixelWidth)*720;
         pixelWidth = 720;
-        if ((long)pixelHeight/2 > 0) {
-            pixelHeight = (long)pixelHeight + 1;
-        }
     }
     pixelHeight = (long)pixelHeight;
     pixelWidth = (long)pixelWidth;
@@ -221,6 +215,9 @@
         pixelHeight = (pixelHeight/pixelWidth)*1080;
         pixelWidth = 1080;
     }
+    pixelHeight = (long)pixelHeight;
+    pixelWidth = (long)pixelWidth;
+    
     settings[AVVideoHeightKey] = @(pixelHeight);
     settings[AVVideoWidthKey] = @(pixelWidth);
     settings[AVVideoCompressionPropertiesKey] =

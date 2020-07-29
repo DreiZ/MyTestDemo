@@ -56,6 +56,7 @@
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.right.equalTo(self.mas_centerX).offset(CGFloatIn750(160));
         make.centerY.equalTo(self.mas_centerY);
     }];
     
@@ -90,7 +91,7 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorWhite]);
         
-        _nameLabel.numberOfLines = 1;
+        _nameLabel.numberOfLines = 0;
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         [_nameLabel setFont:[UIFont boldFontContent]];
     }

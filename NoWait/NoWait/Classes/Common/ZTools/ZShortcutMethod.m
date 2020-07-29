@@ -29,7 +29,9 @@ void initTabBarItem(UITabBarItem *tabBarItem, NSString *tilte, NSString *image, 
 
 void routePushVC(NSString *path, id data, SJCompletionHandler handler) {
     SJRouteRequest *reqeust = [[SJRouteRequest alloc] initWithPath:path parameters:data];
-    [SJRouter.shared handleRequest:reqeust completionHandler:handler];
+    if ([SJRouter.shared canHandleRoutePath:reqeust.requestPath]) {
+        [SJRouter.shared handleRequest:reqeust completionHandler:handler];
+    }
 }
 
 UIColor *randomColor(void) {
