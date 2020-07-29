@@ -7,13 +7,11 @@
 //
 
 #import "ZOrganizationCardAddStudentListVC.h"
-#import "ZOrganizationSearchStudentVC.h"
 
 #import "ZAlertDataModel.h"
 #import "ZAlertDataPickerView.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZAlertMoreView.h"
-#import "ZOrganizationSendMessageVC.h"
 #import "ZOrganizationCardAddStudentSearchListVC.h"
 
 #import "ZOrganizationStudentTopFilterSeaarchView.h"
@@ -147,7 +145,7 @@
         __weak typeof(self) weakSelf = self;
         _searchBtn.handleBlock = ^{
             ZOrganizationCardAddStudentSearchListVC *svc = [[ZOrganizationCardAddStudentSearchListVC alloc] init];
-            svc.title = @"搜索学员";
+            svc.navTitle = @"搜索学员";
             svc.handleBlock = weakSelf.handleBlock;
             svc.studentArr = weakSelf.studentArr;
             [weakSelf.navigationController pushViewController:svc animated:YES];

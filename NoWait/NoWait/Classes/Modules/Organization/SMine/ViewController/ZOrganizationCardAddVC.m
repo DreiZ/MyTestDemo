@@ -7,15 +7,12 @@
 //
 
 #import "ZOrganizationCardAddVC.h"
-#import "ZOrganizationCardAddLessonListVC.h"
 #import "ZAlertBeginAndEndTimeView.h"
 #import "ZAlertTimeQuantumView.h"
 
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataPickerView.h"
 #import "ZAlertView.h"
-
-#import "ZOrganizationCardLessonListVC.h"
 
 @interface ZOrganizationCardAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -302,14 +299,17 @@
     __weak typeof(self) weakSelf = self;;
     if ([cellConfig.title isEqualToString:@"type"]) {
         [self.iTableView endEditing:YES];
-        ZOrganizationCardAddLessonListVC *lvc = [[ZOrganizationCardAddLessonListVC alloc] init];
-        lvc.handleBlock = ^(NSArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
-            weakSelf.viewModel.addModel.lessonList = list;
-            weakSelf.viewModel.addModel.isAll = isAll;
+        routePushVC(ZRoute_org_cartAddLesson, nil, ^(NSDictionary *result, NSError * _Nullable error) {
+            if (result && [result objectForKey:@"list"]) {
+                weakSelf.viewModel.addModel.lessonList = result[@"list"];
+            }
+            if (result && [result objectForKey:@"isAll"]) {
+                weakSelf.viewModel.addModel.isAll = result[@"isAll"];;
+            }
+            
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:lvc animated:YES];
+        });
     }else if ([cellConfig.title isEqualToString:@"time"]) {
         [self.iTableView endEditing:YES];
         [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {
@@ -321,9 +321,7 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"lessonList"]){
         [self.iTableView endEditing:YES];
-        ZOrganizationCardLessonListVC *lvc = [[ZOrganizationCardLessonListVC alloc] init];
-        lvc.lessonList = self.viewModel.addModel.lessonList;
-        [self.navigationController pushViewController:lvc animated:YES];
+        routePushVC(ZRoute_org_cartLessonList, self.viewModel.addModel.lessonList, nil);
     }else if ([cellConfig.title isEqualToString:@"status"]) {
 
     }

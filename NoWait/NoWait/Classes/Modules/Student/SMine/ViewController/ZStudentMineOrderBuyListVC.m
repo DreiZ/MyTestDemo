@@ -211,7 +211,10 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentMineOrderBuyListVC *routevc = [[ZStudentMineOrderBuyListVC alloc] init];
-    routevc.type = [request.prts intValue];
+    if (request.prts) {
+        routevc.type = [request.prts intValue];
+    }
+    
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

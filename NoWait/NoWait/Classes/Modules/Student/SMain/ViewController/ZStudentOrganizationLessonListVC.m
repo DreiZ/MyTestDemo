@@ -9,7 +9,6 @@
 #import "ZStudentOrganizationLessonListVC.h"
 #import "ZStudentOrganizationLessonSortListVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
-#import "ZOrganizationSearchLessonListVC.h"
 
 
 @interface ZStudentOrganizationLessonListVC ()
@@ -97,9 +96,7 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchLessonListVC *svc = [[ZOrganizationSearchLessonListVC alloc] init];
-            svc.navTitle = @"搜索课程名称";
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_org_lessonListSearch, @"搜索课程名称", nil);
         };
     }
     return _searchBtn;

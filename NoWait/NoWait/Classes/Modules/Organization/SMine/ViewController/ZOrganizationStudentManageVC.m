@@ -7,7 +7,6 @@
 //
 
 #import "ZOrganizationStudentManageVC.h"
-#import "ZOrganizationSearchStudentVC.h"
 
 #import "ZOriganizationStudentListCell.h"
 
@@ -15,7 +14,7 @@
 #import "ZAlertDataPickerView.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZAlertMoreView.h"
-#import "ZOrganizationSendMessageVC.h"
+#import "ZBaseUnitModel.h"
 
 @interface ZOrganizationStudentManageVC ()
 @property (nonatomic,copy) NSString *total;
@@ -242,9 +241,7 @@
         _searchTopView = [[ZOriganizationTeachSearchTopHintView alloc] init];
         _searchTopView.hint = @"搜索学员";
         _searchTopView.handleBlock = ^(NSInteger index) {
-            ZOrganizationSearchStudentVC *svc = [[ZOrganizationSearchStudentVC alloc] init];
-            svc.navTitle = @"搜索学员";
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_org_searchStudent, @"搜索学员", nil);
         };
     }
     return _searchTopView;
@@ -282,11 +279,11 @@
         [_sendBtn bk_addEventHandler:^(id sender) {
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
-                ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                ZSendMessageModel *mvc = [[ZSendMessageModel alloc] init];
                 mvc.type = @"2";
                 mvc.storesName = [ZUserHelper sharedHelper].school.name;
                 mvc.studentList = [[NSMutableArray alloc] initWithArray:ids];
-                [weakSelf.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_mine_sendMessage, mvc, nil);
             }else{
                 [TLUIUtility showErrorHint:@"你还没有选中"];
             }

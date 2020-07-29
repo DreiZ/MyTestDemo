@@ -9,7 +9,7 @@
 #import "ZOrganizationPhotoManageVC.h"
 #import "ZOrganizationPhotoListCell.h"
 #import "ZOriganizationPhotoViewModel.h"
-#import "ZOrganizationPhotoCollectionVC.h"
+
 
 @interface ZOrganizationPhotoManageVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -112,9 +112,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZOrganizationPhotoCollectionVC *cvc = [[ZOrganizationPhotoCollectionVC alloc] init];
-    cvc.model = _list[indexPath.row];
-    [self.navigationController pushViewController:cvc animated:YES];
+    routePushVC(ZRoute_org_photoManageList, _list[indexPath.row], nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -208,4 +206,19 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZOrganizationPhotoManageVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZOrganizationPhotoManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_photoManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationPhotoManageVC *routevc = [[ZOrganizationPhotoManageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

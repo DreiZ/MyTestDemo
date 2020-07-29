@@ -9,7 +9,6 @@
 #import "ZOrganizationMineEvaManageVC.h"
 #import "ZOrganizationMineEvaListVC.h"
 
-
 @interface ZOrganizationMineEvaManageVC ()
 
 @property (nonatomic,strong) NSMutableArray *vcArr;
@@ -97,6 +96,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationMineEvaManageVC (RouteHandler)<SJRouteHandler>
 
+@end
 
+@implementation ZOrganizationMineEvaManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_evaManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationMineEvaManageVC *routevc = [[ZOrganizationMineEvaManageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
 

@@ -9,7 +9,6 @@
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationLessonManageListVC.h"
 
-#import "ZOrganizationManagerSearchLessonListVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
 @interface ZOrganizationLessonManageVC ()
@@ -130,10 +129,7 @@
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
-            ZOrganizationManagerSearchLessonListVC *svc = [[ZOrganizationManagerSearchLessonListVC alloc] init];
-            svc.navTitle = @"搜索课程名称";
-            svc.stores_id = [ZUserHelper sharedHelper].school.schoolID;
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_org_lessonSearch, @{@"navTitle":@"搜索课程名称",@"stores_id":[ZUserHelper sharedHelper].school.schoolID}, nil);
         };
     }
     return _searchBtn;

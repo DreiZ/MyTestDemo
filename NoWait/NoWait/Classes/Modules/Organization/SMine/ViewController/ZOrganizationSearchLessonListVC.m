@@ -169,5 +169,22 @@
     [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
     return param;
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationSearchLessonListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationSearchLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonListSearch;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationSearchLessonListVC *routevc = [[ZOrganizationSearchLessonListVC alloc] init];
+    routevc.navTitle = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

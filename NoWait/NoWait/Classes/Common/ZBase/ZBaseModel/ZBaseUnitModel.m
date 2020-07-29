@@ -8,6 +8,18 @@
 
 #import "ZBaseUnitModel.h"
 
+@implementation ZSendMessageModel
+
+@end
+
+@implementation ZAgreementModel
+
+@end
+
+@implementation ZBaseTextVCModel
+
+@end
+
 @implementation ZBaseUnitModel
 
 @end

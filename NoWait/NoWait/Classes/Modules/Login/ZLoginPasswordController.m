@@ -10,7 +10,6 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
 
-#import "ZAccountFogetPasswordVC.h"
 #import "ZLoginViewModel.h"
 
 @interface ZLoginPasswordController ()
@@ -225,8 +224,7 @@
         }];
         
         [forgetBtn bk_addEventHandler:^(id sender) {
-            ZAccountFogetPasswordVC *pvc = [[ZAccountFogetPasswordVC alloc] init];
-            [weakSelf.navigationController pushViewController:pvc animated:YES];
+            routePushVC(ZRoute_mine_fogetPassword, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     

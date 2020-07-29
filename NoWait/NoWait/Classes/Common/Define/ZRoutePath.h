@@ -106,6 +106,20 @@
 
 #define ZRoute_mine_classSignDetail     @"controller/mine/classSignDetail"
 
+#define ZRoute_mine_textEditVC          @"controller/mine/textEditVC"
+
+#define ZRoute_mine_switchAccount       @"controller/mine/switchAccount"
+
+#define ZRoute_mine_switchRole          @"controller/mine/switchRole"
+
+#define ZRoute_mine_changePassword      @"controller/mine/changePassword"
+
+#define ZRoute_mine_fogetPassword       @"controller/mine/fogetPassword"
+
+#define ZRoute_mine_agreement           @"controller/mine/agreement"
+
+#define ZRoute_mine_sendMessage         @"controller/mine/sendMessage"
+
 #pragma mark - mine main
 
 #define ZRoute_main_coachList           @"controller/main/coachList"
@@ -174,6 +188,14 @@
 
 #define ZRoute_org_lessonList           @"controller/org/lessonList"
 
+#define ZRoute_org_lessonSearch         @"controller/org/lessonSearch"
+
+#define ZRoute_org_lessonListSearch     @"controller/org/lessonListSearch"
+
+#define ZRoute_org_cartLessonList       @"controller/org/cartLessonList"
+
+#define ZRoute_org_cartAddLesson        @"controller/org/cartAddLesson"
+
 #define ZRoute_org_studentManage        @"controller/org/studentManage"
 
 #define ZRoute_org_studentAdd           @"controller/org/studentAdd"
@@ -186,6 +208,20 @@
 
 #define ZRoute_org_evaDetail            @"controller/org/evaDetail"
 
+#define ZRoute_org_evaList              @"controller/org/evaList"
+
 #define ZRoute_org_orderDetail          @"controller/org/orderDetail"
+
+#define ZRoute_org_evaManage            @"controller/org/evaManage"
+
+#define ZRoute_org_orderManage          @"controller/org/orderManage"
+
+#define ZRoute_org_photoManageList      @"controller/org/photoManageList"
+
+#define ZRoute_org_photoManage          @"controller/org/photoManage"
+
+#define ZRoute_org_searchStudent        @"controller/org/searchStudent"
+
+#define ZRoute_org_searchCoupon         @"controller/org/searchCoupon"
 
 #endif /* ZRoutePath_h */

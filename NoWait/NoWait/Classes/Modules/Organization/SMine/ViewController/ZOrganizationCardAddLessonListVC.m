@@ -242,3 +242,26 @@
     return param;
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationCardAddLessonListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationCardAddLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_cartAddLesson;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationCardAddLessonListVC *routevc = [[ZOrganizationCardAddLessonListVC alloc] init];
+    routevc.handleBlock = ^(NSArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
+        if (completionHandler) {
+            completionHandler(@{@"list":list?list:@[],@"isAll":isAll?@YES:@NO},nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+    
+}
+@end

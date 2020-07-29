@@ -442,3 +442,21 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationPhotoCollectionVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationPhotoCollectionVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_photoManageList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationPhotoCollectionVC *routevc = [[ZOrganizationPhotoCollectionVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

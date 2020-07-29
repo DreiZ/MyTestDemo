@@ -38,7 +38,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:self.navTitle];
+    [self.navigationItem setTitle:self.model.navTitle];
     
     __weak typeof(self) weakSelf = self;
     UIButton *sureBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
@@ -49,7 +49,7 @@
     [sureBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
     [sureBtn.titleLabel setFont:[UIFont fontSmall]];
     [sureBtn bk_addEventHandler:^(id sender) {
-        if ([weakSelf.placeholder isEqualToString:@"请输入签名"]) {
+        if ([weakSelf.model.placeholder isEqualToString:@"请输入签名"]) {
             if (weakSelf.handleBlock) {
                 weakSelf.handleBlock(weakSelf.userNameTF.text);
             }
@@ -62,7 +62,7 @@
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }else{
-            [TLUIUtility showErrorHint:self.showHitStr];
+            [TLUIUtility showErrorHint:weakSelf.model.showHitStr];
         }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:sureBtn]];
@@ -70,7 +70,7 @@
 
 
 - (void)setMainView {
-//    __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     UIView *hintView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(30), CGFloatIn750(80))];
 
     _userNameTF  = [[UITextField alloc] init];
@@ -83,9 +83,9 @@
     [_userNameTF setBorderStyle:UITextBorderStyleNone];
     [_userNameTF setBackgroundColor:[UIColor clearColor]];
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
-    [_userNameTF setPlaceholder:self.placeholder];
+    [_userNameTF setPlaceholder:self.model.placeholder];
     [_userNameTF.rac_textSignal subscribeNext:^(NSString *x) {
-        [ZPublicTool textField:self.userNameTF maxLenght:self.max type:self.formatter];
+        [ZPublicTool textField:weakSelf.userNameTF maxLenght:weakSelf.model.max type:weakSelf.model.formatter];
     }];
     _userNameTF.delegate = self;
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -99,7 +99,7 @@
         make.top.equalTo(self.view.mas_top).offset(20);
     }];
     
-    self.userNameTF.text = self.text;
+    self.userNameTF.text = self.model.text;
     
     [self.view addSubview:self.hintLabel];
     [self.hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,7 +113,7 @@
     if (!_hintLabel) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _hintLabel.textColor = [UIColor colorTextGray];
-        _hintLabel.text = self.hitStr;
+        _hintLabel.text = self.model.hitStr;
         _hintLabel.numberOfLines = 0;
         _hintLabel.textAlignment = NSTextAlignmentLeft;
         [_hintLabel setFont:[UIFont fontContent]];
@@ -125,5 +125,28 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return YES;
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZStudentMineSettingMineEditVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSettingMineEditVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_textEditVC;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSettingMineEditVC *routevc = [[ZStudentMineSettingMineEditVC alloc] init];
+    routevc.model = request.prts;
+    routevc.handleBlock = ^(NSString *text) {
+        if (completionHandler) {
+            completionHandler(text,nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+    
+}
 @end

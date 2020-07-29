@@ -179,3 +179,20 @@
     self.zChain_reload_ui();
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentMineSwitchAccountVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentMineSwitchAccountVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_switchAccount;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentMineSwitchAccountVC *routevc = [[ZStudentMineSwitchAccountVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

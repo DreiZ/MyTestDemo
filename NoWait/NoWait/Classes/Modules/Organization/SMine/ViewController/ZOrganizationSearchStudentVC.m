@@ -10,7 +10,7 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOriganizationStudentListCell.h"
 
-#import "ZOrganizationSendMessageVC.h"
+#import "ZBaseUnitModel.h"
 
 @interface ZOrganizationSearchStudentVC ()
 @property (nonatomic,strong) NSString *name;
@@ -132,11 +132,11 @@
         [_sendBtn bk_addEventHandler:^(id sender) {
             NSArray *ids = [weakSelf getSelectedData];
             if (ids && ids.count > 0) {
-                ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                ZSendMessageModel *mvc = [[ZSendMessageModel alloc] init];
                 mvc.type = @"2";
                 mvc.storesName = [ZUserHelper sharedHelper].school.name;
                 mvc.studentList = [[NSMutableArray alloc] initWithArray:ids];
-                [weakSelf.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_mine_sendMessage, mvc, nil);
             }else{
                 [TLUIUtility showErrorHint:@"你还没有选中"];
             }
@@ -423,3 +423,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationSearchStudentVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationSearchStudentVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_searchStudent;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationSearchStudentVC *routevc = [[ZOrganizationSearchStudentVC alloc] init];
+    routevc.navTitle = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

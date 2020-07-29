@@ -18,7 +18,6 @@
 #import "ZCircleUploadModel.h"
 
 #import "ZOrganizationCampusManagementLocalAddressVC.h"
-#import "ZAgreementVC.h"
 
 @interface ZCircleReleaseVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -445,11 +444,11 @@
         //    __weak typeof(self) weakself = self;
         
         [text setTextHighlightRange:NSMakeRange(8, 12) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            ZAgreementModel *avc = [[ZAgreementModel alloc] init];
             avc.navTitle = @"似锦网络社区自律公约";
             avc.type = @"find_agreement";
             avc.url = @"http://www.xiangcenter.com/User/findconvention.html";
-            [self.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_mine_agreement, avc, nil);
         }];
         
         _protocolLabel.preferredMaxLayoutWidth = kScreenWidth - CGFloatIn750(60);

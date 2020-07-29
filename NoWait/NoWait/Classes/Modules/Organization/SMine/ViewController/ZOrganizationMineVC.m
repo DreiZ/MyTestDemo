@@ -17,10 +17,7 @@
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
 
-#import "ZOrganizationMineEvaManageVC.h"
 #import "ZOrganizationCardMainVC.h"
-#import "ZOrganizationPhotoManageVC.h"
-#import "ZOrganizationMineOrderManageVC.h"
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
@@ -153,17 +150,14 @@
                     svc.stores_id = [ZUserHelper sharedHelper].school.schoolID;
                     [self.navigationController pushViewController:svc animated:YES];
                 }else if ([model.uid isEqualToString:@"order"]){
-                    ZOrganizationMineOrderManageVC *elvc = [[ZOrganizationMineOrderManageVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    routePushVC(ZRoute_org_orderManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"eva"]){
-                    ZOrganizationMineEvaManageVC *elvc = [[ZOrganizationMineEvaManageVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    routePushVC(ZRoute_org_evaManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"cart"]){
                     ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
                     [weakSelf.navigationController pushViewController:elvc animated:YES];
                 }else if ([model.uid isEqualToString:@"photo"]){
-                    ZOrganizationPhotoManageVC *lvc = [[ZOrganizationPhotoManageVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_org_photoManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"refund"]){
                     ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];

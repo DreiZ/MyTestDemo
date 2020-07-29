@@ -145,3 +145,20 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationSearchCouponVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationSearchCouponVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_searchCoupon;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationSearchCouponVC *routevc = [[ZOrganizationSearchCouponVC alloc] init];
+    routevc.navTitle = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

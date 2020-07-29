@@ -10,10 +10,9 @@
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZMineAccountTextFieldCell.h"
 
-#import "ZAccountChangePasswordVC.h"
 #import "ZLoginPasswordController.h"
 #import "ZLaunchManager.h"
-#import "ZAgreementVC.h"
+#import "ZBaseUnitModel.h"
 #import "ZWebBridgeViewController.h"
 
 #import "ZLoginViewModel.h"
@@ -408,19 +407,19 @@
         //    __weak typeof(self) weakself = self;
         
         [text setTextHighlightRange:NSMakeRange(8, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            ZAgreementModel *avc = [[ZAgreementModel alloc] init];
             avc.navTitle = @"似锦服务条款";
             avc.type = @"service_agreement";
             avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
-            [self.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_mine_agreement, avc, nil);
         }];
         
         [text setTextHighlightRange:NSMakeRange(15, 6) color:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) backgroundColor:[UIColor whiteColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            ZAgreementModel *avc = [[ZAgreementModel alloc] init];
             avc.navTitle = @"隐私协议";
             avc.type = @"privacy_policy";
             avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
-            [self.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_mine_agreement, avc, nil);
         }];
         
         

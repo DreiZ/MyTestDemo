@@ -8,7 +8,8 @@
 
 #import "ZStudentMineSettingAboutUsVC.h"
 #import "ZAlertView.h"
-#import "ZAgreementVC.h"
+#import "ZBaseUnitModel.h"
+
 @interface ZStudentMineSettingAboutUsVC ()
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIView *bottomView;
@@ -129,11 +130,11 @@
         [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [leftBtn.titleLabel setFont:[UIFont boldFontSmall]];
         [leftBtn bk_whenTapped:^{
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            ZAgreementModel *avc = [[ZAgreementModel alloc] init];
             avc.navTitle = @"似锦服务条款";
             avc.type = @"service_agreement";
             avc.url = @"http://www.xiangcenter.com/User/useragreement.html";
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_mine_agreement, avc, nil);
         }];
         [_bottomView addSubview:leftBtn];
         [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -147,11 +148,11 @@
         [rightBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [rightBtn.titleLabel setFont:[UIFont boldFontSmall]];
         [rightBtn bk_whenTapped:^{
-            ZAgreementVC *avc = [[ZAgreementVC alloc] init];
+            ZAgreementModel *avc = [[ZAgreementModel alloc] init];
             avc.navTitle = @"似锦隐私协议";
             avc.type = @"privacy_policy";
             avc.url = @"http://www.xiangcenter.com/User/privacyprotocol.html";
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_mine_agreement, avc, nil);
         }];
         [_bottomView addSubview:rightBtn];
         [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {

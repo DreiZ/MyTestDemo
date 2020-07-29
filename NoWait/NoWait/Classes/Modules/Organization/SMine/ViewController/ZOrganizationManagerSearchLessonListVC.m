@@ -252,3 +252,28 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationManagerSearchLessonListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationManagerSearchLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonSearch;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationManagerSearchLessonListVC *routevc = [[ZOrganizationManagerSearchLessonListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+        if ([tempDict objectForKey:@"navTitle"]) {
+            routevc.navTitle = tempDict[@"navTitle"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -7,7 +7,7 @@
 //
 
 #import "ZStudentMineSettingMineVC.h"
-#import "ZStudentMineSettingMineEditVC.h"
+#import "ZBaseUnitModel.h"
 
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationViewModel.h"
@@ -75,7 +75,7 @@
                   }
              }];
          }else if([cellConfig.title isEqualToString:@"昵称"]){
-             ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
+             ZBaseTextVCModel *edit = [[ZBaseTextVCModel alloc] init];
              edit.navTitle = @"设置昵称";
              edit.formatter = ZFormatterTypeAnyByte;
              edit.max = 30;
@@ -83,12 +83,12 @@
              edit.showHitStr = @"你还没有输入任何昵称";
              edit.placeholder = @"请输入昵称";
              edit.text = weakSelf.user.nikeName;
-             edit.handleBlock = ^(NSString *text) {
+             
+             routePushVC(ZRoute_mine_textEditVC, edit, ^(NSString *text, NSError * _Nullable error) {
                  weakSelf.user.nikeName = text;
                  weakSelf.zChain_reload_ui();
                  [weakSelf updateUserInfo:@{@"nick_name":SafeStr(weakSelf.user.nikeName)}];
-             };
-             [weakSelf.navigationController pushViewController:edit animated:YES];
+             });
          }else if([cellConfig.title isEqualToString:@"性别"]){
              NSMutableArray *items = @[].mutableCopy;
              NSArray *temp = @[@"男",@"女"];

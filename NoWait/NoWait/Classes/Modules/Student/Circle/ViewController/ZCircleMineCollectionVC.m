@@ -19,7 +19,7 @@
 #import "ZCircleMineViewModel.h"
 #import "ZCircleMineModel.h"
 
-#import "ZStudentMineSettingMineEditVC.h"
+#import "ZBaseUnitModel.h"
 #import "ZAlertView.h"
 
 @interface ZCircleMineCollectionVC ()
@@ -141,7 +141,7 @@
                 }
             }else if(index == 4){
                 //签名
-                ZStudentMineSettingMineEditVC *edit = [[ZStudentMineSettingMineEditVC alloc] init];
+                ZBaseTextVCModel *edit = [[ZBaseTextVCModel alloc] init];
                 edit.navTitle = @"设置个性签名";
                 edit.formatter = ZFormatterTypeAnyByte;
                 edit.max = 90;
@@ -149,12 +149,12 @@
                 edit.showHitStr = @"你还没有输入任何签名";
                 edit.placeholder = @"请输入签名";
                 edit.text = [weakSelf.mineModel.autograph isEqualToString:@"您还没有填写签名"]?@"":weakSelf.mineModel.autograph;
-                edit.handleBlock = ^(NSString *text) {
+                
+                routePushVC(ZRoute_mine_textEditVC, edit, ^(NSString *text, NSError * _Nullable error) {
                     weakSelf.mineModel.autograph = SafeStr(text);
                     weakSelf.headView.model = weakSelf.mineModel;
                     [weakSelf updateUserInfo:SafeStr(text)];
-                };
-                [weakSelf.navigationController pushViewController:edit animated:YES];
+                });
             }else if(index == 5){
                 //关注
                 if ([self.mineModel.follow_status intValue] == 1) {

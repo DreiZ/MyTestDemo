@@ -9,7 +9,6 @@
 #import "ZStudentMineSettingSafeVC.h"
 #import "ZStudentDetailModel.h"
 
-#import "ZAccountChangePasswordVC.h"
 #import "ZAccountChangePhoneVC.h"
 
 @interface ZStudentMineSettingSafeVC ()
@@ -42,8 +41,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"changePassword"]) {
-            ZAccountChangePasswordVC *pvc = [[ZAccountChangePasswordVC alloc] init];
-            [weakSelf.navigationController pushViewController:pvc animated:YES];
+            routePushVC(ZRoute_mine_changePassword, @NO, nil);
         }
     });
     

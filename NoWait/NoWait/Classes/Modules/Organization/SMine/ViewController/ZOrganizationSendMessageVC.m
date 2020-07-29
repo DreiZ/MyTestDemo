@@ -41,11 +41,11 @@
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftTitle = @"收件人:";
-        if ([self.type isEqualToString:@"2"]) {
+        if ([self.model.type isEqualToString:@"2"]) {
             model.rightImage = @"rightBlackArrowN";
         }
         
-        model.rightTitle = [NSString stringWithFormat:@"已选择%ld人",self.studentList.count];
+        model.rightTitle = [NSString stringWithFormat:@"已选择%ld人",self.model.studentList.count];
         model.cellTitle = @"student";
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(106);
@@ -56,9 +56,9 @@
         [self.cellConfigArr addObject:menuCellConfig];
     }
     
-    if (self.lessonName) {
+    if (self.model.lessonName) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = self.lessonName;
+        model.leftTitle = self.model.lessonName;
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(86);
         model.leftFont = [UIFont fontContent];
@@ -89,9 +89,9 @@
         [self.cellConfigArr addObject:moreIntputCellConfig];
     }
     
-    if (self.storesName) {
+    if (self.model.storesName) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
-        model.leftTitle = self.storesName;
+        model.leftTitle = self.model.storesName;
         model.isHiddenLine = YES;
         model.cellHeight = CGFloatIn750(86);
         model.leftFont = [UIFont fontContent];
@@ -133,7 +133,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            if (!ValidArray(weakSelf.studentList)) {
+            if (!ValidArray(weakSelf.model.studentList)) {
                 [TLUIUtility showErrorHint:@"请选择学员"];
                 return ;
             }
@@ -181,7 +181,7 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableDictionary *extra = @{}.mutableCopy;
     __block NSString *name = @"";
-    [self.studentList enumerateObjectsUsingBlock:^(ZOriganizationStudentListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.model.studentList enumerateObjectsUsingBlock:^(ZOriganizationStudentListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
             name = obj.studentID;
         }else{
@@ -193,15 +193,15 @@
     [params setObject:name forKey:@"receive"];
     [params setObject:SafeStr(self.message) forKey:@"content"];
     
-    if (ValidStr(self.storesName)) {
-        [extra setObject:self.storesName forKey:@"store_name"];
+    if (ValidStr(self.model.storesName)) {
+        [extra setObject:self.model.storesName forKey:@"store_name"];
     }
     
-    if (ValidStr(self.teacherName)) {
-        [extra setObject:self.teacherName forKey:@"teacher"];
+    if (ValidStr(self.model.teacherName)) {
+        [extra setObject:self.model.teacherName forKey:@"teacher"];
     }
-    if (ValidStr(self.teacherImage)) {
-        [extra setObject:self.teacherImage forKey:@"teacher_image"];
+    if (ValidStr(self.model.teacherImage)) {
+        [extra setObject:self.model.teacherImage forKey:@"teacher_image"];
     }
     
     if ([ZUserHelper sharedHelper].stores) {
@@ -244,12 +244,12 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     __weak typeof(self) weakSelf = self;
-    if ([cellConfig.title isEqualToString:@"student"] && [self.type isEqualToString:@"2"]) {
+    if ([cellConfig.title isEqualToString:@"student"] && [self.model.type isEqualToString:@"2"]) {
        [self.iTableView endEditing:YES];
         ZOrganizationStudentSelectVC *svc = [[ZOrganizationStudentSelectVC alloc] init];
-        svc.ids = self.studentList;
+        svc.ids = self.model.studentList;
         svc.bottomBlock = ^(NSArray * students) {
-            weakSelf.studentList = [[NSMutableArray alloc] initWithArray:students];
+            weakSelf.model.studentList = [[NSMutableArray alloc] initWithArray:students];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         };
@@ -258,4 +258,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationSendMessageVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZOrganizationSendMessageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_sendMessage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationSendMessageVC *routevc = [[ZOrganizationSendMessageVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

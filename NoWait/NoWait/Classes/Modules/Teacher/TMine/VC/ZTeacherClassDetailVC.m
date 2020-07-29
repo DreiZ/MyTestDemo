@@ -14,8 +14,6 @@
 #import "ZOrganizationClassDetailStudentListAddVC.h"
 #import "ZOriganizationClassViewModel.h"
 
-#import "ZOrganizationSendMessageVC.h"
-
 #import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
 
 #import "ZAlertMoreView.h"
@@ -276,14 +274,14 @@
             [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
                     weakSelf.loading = NO;
                     if (isSuccess && data) {
-                        ZOrganizationSendMessageVC *mvc = [[ZOrganizationSendMessageVC alloc] init];
+                        ZSendMessageModel *mvc = [[ZSendMessageModel alloc] init];
                         mvc.storesName = self.model.stores_name;
                         mvc.lessonName = self.model.stores_courses_name;
                         mvc.type = @"3";
                         mvc.teacherName = self.model.teacher_name;
                         mvc.teacherImage = self.model.teacher_image;
                         mvc.studentList = [[NSMutableArray alloc] initWithArray:data.list];
-                        [weakSelf.navigationController pushViewController:mvc animated:YES];
+                        routePushVC(ZRoute_mine_sendMessage, mvc, nil);
                     }else{
                     }
                 }];

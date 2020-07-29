@@ -155,3 +155,24 @@
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.replyType] forKey:@"is_reply"];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationMineEvaListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationMineEvaListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_addLabel;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationMineEvaListVC *routevc = [[ZOrganizationMineEvaListVC alloc] init];
+    if (request.prts) {
+        routevc.replyType = [request.prts intValue];
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -45,7 +45,22 @@
 
     }
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationCardLessonListVC (RouteHandler)<SJRouteHandler>
 
 @end
 
+@implementation ZOrganizationCardLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_cartLessonList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationCardLessonListVC *routevc = [[ZOrganizationCardLessonListVC alloc] init];
+    routevc.lessonList = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

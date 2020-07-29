@@ -8,14 +8,9 @@
 
 #import "ZTableViewViewController.h"
 #import "ZOriganizationModel.h"
+#import "ZBaseUnitModel.h"
 
 @interface ZOrganizationSendMessageVC : ZTableViewViewController
-@property (nonatomic,strong) NSMutableArray <ZOriganizationStudentListModel *>*studentList;
-@property (nonatomic,strong) NSString *lessonName;
-@property (nonatomic,strong) NSString *storesName;
-@property (nonatomic,strong) NSString *teacherName;
-@property (nonatomic,strong) NSString *teacherImage;
-@property (nonatomic,strong) NSString *type;
-
+@property (nonatomic,strong) ZSendMessageModel *model;
 @end
 

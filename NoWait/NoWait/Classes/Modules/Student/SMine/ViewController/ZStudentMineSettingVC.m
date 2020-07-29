@@ -10,7 +10,6 @@
 
 #import "ZStudentMineSettingBottomCell.h"
 
-#import "ZStudentMineSwitchAccountVC.h"
 #import "ZMineFeedbackVC.h"
 #import "ZUserHelper.h"
 
@@ -75,8 +74,7 @@
             [[ZUserHelper sharedHelper] updateToken:NO];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         }else if ([cellConfig.title isEqualToString:@"switch"]){
-            ZStudentMineSwitchAccountVC *accountvc = [[ZStudentMineSwitchAccountVC alloc] init];
-            [weakSelf.navigationController pushViewController:accountvc animated:YES];
+            routePushVC(ZRoute_mine_switchAccount, nil, nil);
         }else if ([cellConfig.title isEqualToString:@"opinion"]){
             ZMineFeedbackVC *fvc = [[ZMineFeedbackVC alloc] init];
             [weakSelf.navigationController pushViewController:fvc animated:YES];

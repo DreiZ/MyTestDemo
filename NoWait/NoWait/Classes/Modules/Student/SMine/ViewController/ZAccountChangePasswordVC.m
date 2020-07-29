@@ -349,3 +349,24 @@
     [self.iTableView reloadData];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZAccountChangePasswordVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZAccountChangePasswordVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_changePassword;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZAccountChangePasswordVC *routevc = [[ZAccountChangePasswordVC alloc] init];
+    if (request.prts) {
+        routevc.isSwitch = [request.prts boolValue];
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

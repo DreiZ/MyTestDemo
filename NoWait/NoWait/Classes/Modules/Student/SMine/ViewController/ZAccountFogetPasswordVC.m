@@ -314,3 +314,27 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZAccountFogetPasswordVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZAccountFogetPasswordVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_mine_fogetPassword;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZAccountFogetPasswordVC *routevc = [[ZAccountFogetPasswordVC alloc] init];
+    if (request.prts) {
+        routevc.isSwitch = [request.prts boolValue];
+    }
+    routevc.loginSuccess = ^{
+        if (completionHandler) {
+            completionHandler(nil,nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

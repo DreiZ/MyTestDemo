@@ -143,3 +143,19 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationMineOrderManageVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationMineOrderManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_orderManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationMineOrderManageVC *routevc = [[ZOrganizationMineOrderManageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

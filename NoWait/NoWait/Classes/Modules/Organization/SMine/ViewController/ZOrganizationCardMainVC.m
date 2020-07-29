@@ -10,7 +10,6 @@
 #import "ZOrganizationCardListVC.h"
 #import "ZOrganizationCardAddVC.h"
 #import "ZOrganizationCardSendVC.h"
-#import "ZOrganizationSearchCouponVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
 
@@ -127,9 +126,7 @@
         _searchBtn.title = @"搜索卡券";
         __weak typeof(self) weakSelf = self;
         _searchBtn.handleBlock = ^{
-            ZOrganizationSearchCouponVC *svc = [[ZOrganizationSearchCouponVC alloc] init];
-            svc.title = @"搜索卡券";
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_org_searchCoupon, @"搜索卡券", nil);
         };
     }
     return _searchBtn;

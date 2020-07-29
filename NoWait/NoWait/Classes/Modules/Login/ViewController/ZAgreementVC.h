@@ -7,10 +7,9 @@
 //
 
 #import "ZViewController.h"
+#import "ZBaseUnitModel.h"
 
 @interface ZAgreementVC : ZViewController
-@property (nonatomic,copy) NSString *navTitle;
-@property (nonatomic,copy) NSString *type;
-@property (nonatomic,copy) NSString *url;
+@property (nonatomic,strong) ZAgreementModel *model;
 @end
 
