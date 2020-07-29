@@ -10,8 +10,6 @@
 #import "ZOrganizationAccountSchoolListCell.h"
 #import "ZOriganizationViewModel.h"
 
-#import "ZOrganizationSchoolAccountDetailListVC.h"
-
 @interface ZOrganizationSchoolAccountDetailVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) UILabel *accountLabel;
@@ -123,9 +121,7 @@
 #pragma mark - tableview delegate
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationAccountSchoolListCell"]) {
-        ZOrganizationSchoolAccountDetailListVC *lvc = [[ZOrganizationSchoolAccountDetailListVC alloc] init];
-        lvc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:lvc animated:YES];
+        routePushVC(ZRoute_org_schoolAccountList, cellConfig.dataModel, nil);
     }
 }
 

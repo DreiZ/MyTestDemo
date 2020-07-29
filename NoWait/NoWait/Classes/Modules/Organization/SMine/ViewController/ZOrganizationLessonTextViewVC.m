@@ -83,7 +83,6 @@
     }
 }
 
-
 - (UIButton *)rightNavBtn {
     if (!_rightNavBtn) {
         __weak typeof(self) weakSelf = self;
@@ -101,7 +100,6 @@
     return _rightNavBtn;
 }
 
-
 - (UITextView *)iTextView {
     if (!_iTextView) {
         _iTextView = [[UITextView alloc] initWithFrame:CGRectMake(CGFloatIn750(20), 0, KScreenWidth - CGFloatIn750(40), 118)];
@@ -111,7 +109,6 @@
     }
     return _iTextView;
 }
-
 
 - (UILabel *)hintLabel {
     if (!_hintLabel) {
@@ -123,25 +120,53 @@
     return _hintLabel;
 }
 
-
-
 - (void)textViewDidChange:(UITextView *)textView {
-//    NSInteger _isMaxLength = self.max;
     if (textView.text.length > 0) {
         _hintLabel.hidden = YES;
     }else {
         _hintLabel.hidden = NO;
     }
-//    if (textView.text.length > _isMaxLength) {
-//        [TLUIUtility showErrorHint:@"输入内容超出限制"];
-//        NSString *str = textView.text;
-//        NSInteger length = _isMaxLength - 1;
-//        if (str.length <= length) {
-//            length = str.length - 1;
-//        }
-//        str = [str substringToIndex:length];
-//        textView.text = str;
-//    }
     [ZPublicTool textView:textView maxLenght:self.max type:ZFormatterTypeAnyByte];
+}
+@end
+
+
+#pragma mark - RouteHandler
+@interface ZOrganizationLessonTextViewVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationLessonTextViewVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_textViewVC;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationLessonTextViewVC *routevc = [[ZOrganizationLessonTextViewVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"navTitle"]) {
+            routevc.navTitle = tempDict[@"navTitle"];
+        }
+        if ([tempDict objectForKey:@"max"]) {
+            routevc.max = [tempDict[@"max"] intValue];
+        }
+        
+        if ([tempDict objectForKey:@"hintStr"]) {
+            routevc.hintStr = tempDict[@"hintStr"];
+        }
+        
+        if ([tempDict objectForKey:@"content"]) {
+            routevc.content = tempDict[@"content"];
+        }
+    }
+    
+    routevc.handleBlock = ^(NSString *text) {
+        if (completionHandler) {
+            completionHandler(text, nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

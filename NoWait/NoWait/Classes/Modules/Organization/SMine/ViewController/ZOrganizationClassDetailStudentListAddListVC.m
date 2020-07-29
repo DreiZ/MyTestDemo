@@ -9,7 +9,6 @@
 #import "ZOrganizationClassDetailStudentListAddListVC.h"
 #import "ZOrganizationTeachingScheduleNoCell.h"
 #import "ZOriganizationStudentViewModel.h"
-#import "ZOrganizationStudentDetailVC.h"
 
 @interface ZOrganizationClassDetailStudentListAddListVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;

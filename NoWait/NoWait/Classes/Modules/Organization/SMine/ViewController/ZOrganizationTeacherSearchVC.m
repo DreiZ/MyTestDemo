@@ -10,8 +10,6 @@
 #import "ZOriganizationTeachListCell.h"
 #import "ZOriganizationTeacherViewModel.h"
 
-#import "ZOrganizationTeacherDetailVC.h"
-
 @interface ZOrganizationTeacherSearchVC ()
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) UIView *bottomView;
@@ -239,16 +237,7 @@
                 if (index == 0) {
                     
                     ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.addModel.account_id = listmodel.account_id;
-                    dvc.addModel.c_level = listmodel.c_level;
-                    dvc.addModel.teacherID = listmodel.teacherID;
-                    dvc.addModel.image = listmodel.image;
-                    dvc.addModel.nick_name = listmodel.nick_name;
-                    dvc.addModel.phone = listmodel.phone;
-                    dvc.addModel.position = listmodel.position;
-                    dvc.addModel.real_name = listmodel.teacher_name;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_teacherDetail, listmodel.teacherID, nil);
                 }else if (index == 1){
                     
                 }else if (index == 10){
@@ -257,16 +246,7 @@
             }else{
                 if (index == 0) {
                     ZOriganizationTeacherListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationTeacherDetailVC *dvc = [[ZOrganizationTeacherDetailVC alloc] init];
-                    dvc.addModel.account_id = listmodel.account_id;
-                    dvc.addModel.c_level = listmodel.c_level;
-                    dvc.addModel.teacherID = listmodel.teacherID;
-                    dvc.addModel.image = listmodel.image;
-                    dvc.addModel.nick_name = listmodel.nick_name;
-                    dvc.addModel.phone = listmodel.phone;
-                    dvc.addModel.position = listmodel.position;
-                    dvc.addModel.real_name = listmodel.teacher_name;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_teacherDetail, listmodel.teacherID, nil);
                 }else if (index == 1){
                     weakSelf.isEdit = YES;
                 }
@@ -373,3 +353,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationTeacherSearchVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationTeacherSearchVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_teacherSearch;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationTeacherSearchVC *routevc = [[ZOrganizationTeacherSearchVC alloc] init];
+    routevc.navTitle = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

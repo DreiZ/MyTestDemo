@@ -8,7 +8,6 @@
 
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationClassManageListVC.h"
-#import "ZOrganizationLessonAddVC.h"
 
 #import "ZOrganizationLessonTopSearchView.h"
 #import "ZOrganizationClassManageListSearchVC.h"

@@ -8,8 +8,6 @@
 
 #import "ZOrganizationStudentManageVC.h"
 #import "ZOrganizationSearchStudentVC.h"
-#import "ZOrganizationStudentDetailVC.h"
-#import "ZOrganizationStudentAddVC.h"
 
 #import "ZOriganizationStudentListCell.h"
 
@@ -231,8 +229,7 @@
                 [weakSelf initCellConfigArr];
                 [weakSelf.iTableView reloadData];
             }else{
-                ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
-                [weakSelf.navigationController pushViewController:avc animated:YES];
+                routePushVC(ZRoute_org_studentAdd, nil, nil);
             }
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -387,20 +384,7 @@
             if (weakSelf.isEdit) {
                 if (index == 0) {
                     ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                    dvc.addModel.studentID = listmodel.studentID;
-                    dvc.addModel.name = listmodel.name;
-                    dvc.addModel.status = listmodel.status;
-                    dvc.addModel.teacher = listmodel.teacher_name;
-                    dvc.addModel.courses_name = listmodel.courses_name;
-                    dvc.addModel.total_progress = listmodel.total_progress;
-                    dvc.addModel.now_progress = listmodel.now_progress;
-                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
-                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
-                    dvc.addModel.coach_img = listmodel.coach_img;
-                    dvc.addModel.teacher_id = listmodel.teacher_id;
-                    
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_studentDetail, listmodel.studentID, nil);
                 }else if (index == 1){
                     
                 }else if(index == 10){
@@ -409,20 +393,7 @@
             }else{
                 if (index == 0) {
                     ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                    dvc.addModel.studentID = listmodel.studentID;
-                    dvc.addModel.name = listmodel.name;
-                    dvc.addModel.status = listmodel.status;
-                    dvc.addModel.teacher = listmodel.teacher_name;
-                    dvc.addModel.courses_name = listmodel.courses_name;
-                    dvc.addModel.total_progress = listmodel.total_progress;
-                    dvc.addModel.now_progress = listmodel.now_progress;
-                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
-                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
-                    dvc.addModel.coach_img = listmodel.coach_img;
-                    dvc.addModel.teacher_id = listmodel.teacher_id;
-                    
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_studentDetail, listmodel.studentID, nil);
                 }else if (index == 1){
                     weakSelf.isEdit = YES;
                 }
@@ -594,5 +565,23 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [_navLeftBtn setImage:[UIImage imageNamed:isDarkModel() ? @"navleftBackDark":@"navleftBack"] forState:UIControlStateNormal];
+}
+@end
+
+
+#pragma mark - RouteHandler
+@interface ZOrganizationStudentManageVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationStudentManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_studentManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationStudentManageVC *routevc = [[ZOrganizationStudentManageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

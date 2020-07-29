@@ -20,7 +20,6 @@
 #import "ZAlertDateWeekAndHourPickerView.h"
 #import "ZAlertDataModel.h"
 #import "ZOrganizationTimeSelectVC.h"
-#import "ZOrganizationLessonTextViewVC.h"
 
 @interface ZOrganizationLessonAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -833,30 +832,18 @@
         [self.iTableView reloadData];
     }else if ([cellConfig.title isEqualToString:@"detail"]){
         [self.iTableView endEditing:YES];
-        ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
-        tvc.navTitle = @"课程详情";
-        tvc.max = 1500;
-        tvc.hintStr = @"请输入课程详情，1500字节以内";
-        tvc.content = self.viewModel.addModel.info;
-        tvc.handleBlock = ^(NSString * text) {
+        routePushVC(ZRoute_org_textViewVC, @{@"navTitle":@"课程详情",@"max":@"1500",@"hintStr":@"请输入课程详情，1500字节以内",@"content":SafeStr(self.viewModel.addModel.info)}, ^(NSString * text, NSError * _Nullable error) {
             weakSelf.viewModel.addModel.info = text;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:tvc animated:YES];
+        });
     }else if ([cellConfig.title isEqualToString:@"p_information"]){
         [self.iTableView endEditing:YES];
-        ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
-        tvc.navTitle = @"购买须知";
-        tvc.max = 1500;
-        tvc.hintStr = @"请输入购买须知，1500字节以内";
-        tvc.content = self.viewModel.addModel.p_information;
-        tvc.handleBlock = ^(NSString * text) {
+        routePushVC(ZRoute_org_textViewVC, @{@"navTitle":@"购买须知",@"max":@"1500",@"hintStr":@"请输入购买须知，1500字节以内",@"content":SafeStr(self.viewModel.addModel.p_information)}, ^(NSString * text, NSError * _Nullable error) {
             weakSelf.viewModel.addModel.p_information = text;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:tvc animated:YES];
+        });
     }
 }
 
@@ -975,5 +962,24 @@
         }
     }];
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationLessonAddVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationLessonAddVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonAdd;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationLessonAddVC *routevc = [[ZOrganizationLessonAddVC alloc] init];
+    if (request.prts) {
+        routevc.viewModel.addModel = request.prts;
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

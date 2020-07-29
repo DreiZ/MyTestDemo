@@ -69,7 +69,6 @@
 #pragma mark - lazy loading
 - (ZStudentMainTopSearchView *)searchView {
     if (!_searchView) {
-        __weak typeof(self) weakSelf = self;
         _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight) ];
         _searchView.searchBlock = ^(NSInteger index) {
             routePushVC(ZRoute_main_search, nil, nil);

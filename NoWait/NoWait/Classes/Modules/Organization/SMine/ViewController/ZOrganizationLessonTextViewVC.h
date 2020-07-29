@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *hintStr;
 @property (nonatomic,strong) NSString *content;
 
-
 @property (nonatomic,assign) NSInteger max;
 @property (nonatomic,strong) void (^handleBlock)(NSString *);
 @end

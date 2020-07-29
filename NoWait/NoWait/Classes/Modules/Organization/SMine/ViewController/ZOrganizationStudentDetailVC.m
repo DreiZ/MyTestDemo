@@ -12,9 +12,6 @@
 #import "ZOriganizationTeachHeadImageCell.h"
 #import "ZOrganizationNoDataCell.h"
 
-#import "ZOrganizationStudentUpStarVC.h"
-#import "ZOrganizationStudentAddVC.h"
-
 @interface ZOrganizationStudentDetailVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -339,10 +336,7 @@
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
          [_navRightBtn bk_addEventHandler:^(id sender) {
-             ZOrganizationStudentAddVC *avc = [[ZOrganizationStudentAddVC alloc] init];
-             avc.viewModel.addModel = weakSelf.addModel;
-             avc.isEdit = YES;
-             [weakSelf.navigationController pushViewController:avc animated:YES];
+             routePushVC(ZRoute_org_studentAdd, weakSelf.addModel, nil);
          } forControlEvents:UIControlEventTouchUpInside];
      }
      return _navRightBtn;
@@ -359,9 +353,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            ZOrganizationStudentUpStarVC *uvc = [[ZOrganizationStudentUpStarVC alloc] init];
-            uvc.addModel = weakSelf.addModel;
-            [weakSelf.navigationController pushViewController:uvc animated:YES];
+            routePushVC(ZRoute_org_studentUpStar, weakSelf.addModel, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
@@ -410,5 +402,26 @@
             [weakSelf.iTableView reloadData];
         }
     }];
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationStudentDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationStudentDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_studentDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationStudentDetailVC *routevc = [[ZOrganizationStudentDetailVC alloc] init];
+    if (request.prts) {
+        routevc.addModel.studentID = request.prts;
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

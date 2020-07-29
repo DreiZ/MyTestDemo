@@ -10,7 +10,6 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOriganizationStudentListCell.h"
 
-#import "ZOrganizationStudentDetailVC.h"
 #import "ZOrganizationSendMessageVC.h"
 
 @interface ZOrganizationSearchStudentVC ()
@@ -377,19 +376,7 @@
             if (weakSelf.isEdit) {
                 if (index == 0) {
                     ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                    dvc.addModel.studentID = listmodel.studentID;
-                    dvc.addModel.name = listmodel.name;
-                    dvc.addModel.status = listmodel.status;
-                    dvc.addModel.teacher = listmodel.teacher_name;
-                    dvc.addModel.courses_name = listmodel.courses_name;
-                    dvc.addModel.total_progress = listmodel.total_progress;
-                    dvc.addModel.now_progress = listmodel.now_progress;
-                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
-                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
-                    dvc.addModel.coach_img = listmodel.coach_img;
-                    dvc.addModel.teacher_id = listmodel.teacher_id;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_studentDetail, listmodel.studentID, nil);
                 }else if (index == 1){
                     
                 }else if(index == 10){
@@ -398,19 +385,7 @@
             }else{
                 if (index == 0) {
                     ZOriganizationStudentListModel *listmodel = cellConfig.dataModel;
-                    ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                    dvc.addModel.studentID = listmodel.studentID;
-                    dvc.addModel.name = listmodel.name;
-                    dvc.addModel.status = listmodel.status;
-                    dvc.addModel.teacher = listmodel.teacher_name;
-                    dvc.addModel.courses_name = listmodel.courses_name;
-                    dvc.addModel.total_progress = listmodel.total_progress;
-                    dvc.addModel.now_progress = listmodel.now_progress;
-                    dvc.addModel.stores_coach_id = listmodel.stores_coach_id;
-                    dvc.addModel.stores_courses_class_id = listmodel.stores_courses_class_id ;
-                    dvc.addModel.coach_img = listmodel.coach_img;
-                    dvc.addModel.teacher_id = listmodel.teacher_id;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_org_studentDetail, listmodel.studentID, nil);
                 }else if (index == 1){
                     weakSelf.isEdit = YES;
                 }

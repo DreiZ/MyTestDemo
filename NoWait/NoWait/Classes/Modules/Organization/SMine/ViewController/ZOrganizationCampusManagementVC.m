@@ -20,9 +20,8 @@
 #import "ZAlertDataModel.h"
 
 #import "ZOrganizationCampusManagementAddressVC.h"
-#import "ZOrganizationCampusManageAddLabelVC.h"
 #import "ZOrganizationCampusManageTimeVC.h"
-#import "ZOrganizationLessonTextViewVC.h"
+
 
 #import "ZOriganizationViewModel.h"
 #import "ZOriganizationLessonViewModel.h"
@@ -427,29 +426,29 @@
             }];
         }
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
-       ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 15;
-        lvc.list = self.model.merchants_stores_tags;
-        lvc.navTitle = @"机构特色";
-        lvc.handleBlock = ^(NSArray * labelArr) {
+        NSMutableDictionary *tempDict = @{@"navTitle":@"机构特色",@"max":@"15"}.mutableCopy;
+        if (self.model.merchants_stores_tags) {
+            [tempDict setObject:self.model.merchants_stores_tags forKey:@"list"];
+        }
+        
+        routePushVC(ZRoute_org_addLabel, tempDict, ^(NSArray *labelArr, NSError * _Nullable error) {
             [weakSelf.model.merchants_stores_tags removeAllObjects];
             [weakSelf.model.merchants_stores_tags addObjectsFromArray:labelArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-       [self.navigationController pushViewController:lvc animated:YES];
+        });
     }else if ([cellConfig.title isEqualToString:@"setting"]) {
-        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 15;
-        lvc.list = self.model.stores_info;
-        lvc.navTitle = @"基础设置";
-        lvc.handleBlock = ^(NSArray * labelArr) {
+        NSMutableDictionary *tempDict = @{@"navTitle":@"基础设置",@"max":@"15"}.mutableCopy;
+        if (self.model.stores_info) {
+            [tempDict setObject:self.model.stores_info forKey:@"list"];
+        }
+        
+        routePushVC(ZRoute_org_addLabel, tempDict, ^(NSArray *labelArr, NSError * _Nullable error) {
             [weakSelf.model.stores_info removeAllObjects];
             [weakSelf.model.stores_info addObjectsFromArray:labelArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:lvc animated:YES];
+        });
     }else if ([cellConfig.title isEqualToString:@"time"]) {
         ZOrganizationCampusManageTimeVC *lvc = [[ZOrganizationCampusManageTimeVC alloc] init];
         lvc.weeks = self.model.week_days;
@@ -467,17 +466,11 @@
         [self.navigationController pushViewController:lvc animated:YES];
     }else if ([cellConfig.title isEqualToString:@"info"]){
         [self.iTableView endEditing:YES];
-        ZOrganizationLessonTextViewVC * tvc = [[ZOrganizationLessonTextViewVC alloc] init];
-        tvc.navTitle = @"校区简介";
-        tvc.max = 1500;
-        tvc.hintStr = @"请输入校区简介，1500字节以内";
-        tvc.content = self.model.info;
-        tvc.handleBlock = ^(NSString * text) {
+        routePushVC(ZRoute_org_textViewVC, @{@"navTitle":@"校区简介",@"max":@"1500",@"hintStr":@"请输入校区简介，1500字节以内",@"content":SafeStr(self.model.info)}, ^(NSString * text, NSError * _Nullable error) {
             weakSelf.model.info = text;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:tvc animated:YES];
+        });
     }
     
 }
@@ -555,5 +548,22 @@
         }
         
     }];
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationCampusManagementVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationCampusManagementVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_schoolManager;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationCampusManagementVC *routevc = [[ZOrganizationCampusManagementVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

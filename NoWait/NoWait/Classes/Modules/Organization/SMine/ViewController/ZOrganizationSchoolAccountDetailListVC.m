@@ -60,3 +60,20 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZOrganizationSchoolAccountDetailListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationSchoolAccountDetailListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_schoolAccountList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationSchoolAccountDetailListVC *routevc = [[ZOrganizationSchoolAccountDetailListVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

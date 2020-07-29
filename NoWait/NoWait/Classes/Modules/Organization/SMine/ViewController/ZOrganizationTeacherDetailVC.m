@@ -16,7 +16,6 @@
 #import "ZOrganizationTextLabelListCell.h"
 
 #import "ZOriganizationLessonModel.h"
-#import "ZOrganizationTeacherAddVC.h"
 
 @interface ZOrganizationTeacherDetailVC ()
 @property (nonatomic,strong) UIButton *navRightBtn;
@@ -222,10 +221,7 @@
          [_navRightBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
          [_navRightBtn.titleLabel setFont:[UIFont fontContent]];
          [_navRightBtn bk_addEventHandler:^(id sender) {
-            ZOrganizationTeacherAddVC *avc = [[ZOrganizationTeacherAddVC alloc] init];
-            avc.viewModel.addModel = weakSelf.addModel;
-            avc.isEdit = YES;
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+             routePushVC(ZRoute_org_teacherAdd, weakSelf.addModel, nil);
          } forControlEvents:UIControlEventTouchUpInside];
      }
      return _navRightBtn;
@@ -239,7 +235,6 @@
     return _addModel;
 }
 
-
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
@@ -251,5 +246,23 @@
             [weakSelf.iTableView reloadData];
         }
     }];
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationTeacherDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationTeacherDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_teacherDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationTeacherDetailVC *routevc = [[ZOrganizationTeacherDetailVC alloc] init];
+    routevc.addModel.teacherID = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

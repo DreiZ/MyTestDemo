@@ -18,7 +18,6 @@
 @property (nonatomic,strong) UIView *LabelView;
 @property (nonatomic,strong) UIButton *addBtn;
 
-
 @property (nonatomic,strong) NSMutableArray *labelArr;
 @property (nonatomic,strong) NSMutableArray *btnArr;
 @end
@@ -27,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     [self setNavigation];
     [self setMainView];
@@ -271,5 +269,41 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
 //    ViewShadowRadius(_userNameTF, CGFloatIn750(24), CGSizeMake(2, 2), 0.5, isDarkModel() ? [UIColor colorGrayBG] : [UIColor colorGrayBGDark]);
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationCampusManageAddLabelVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationCampusManageAddLabelVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_addLabel;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationCampusManageAddLabelVC *routevc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"list"]) {
+            routevc.list = tempDict[@"list"];
+        }
+        if ([tempDict objectForKey:@"max"]) {
+            routevc.max = [tempDict[@"max"] intValue];
+        }
+        
+        if ([tempDict objectForKey:@"navTitle"]) {
+            routevc.navTitle = tempDict[@"navTitle"];
+        }
+    }
+    
+    routevc.handleBlock = ^(NSArray *list) {
+        if (completionHandler) {
+            completionHandler(list, nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

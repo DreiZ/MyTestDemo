@@ -148,4 +148,40 @@
 
 #define ZRoute_main_search              @"controller/main/mainSearch"
 
+#pragma mark - organization manager
+
+#define ZRoute_org_schoolManager        @"controller/org/schoolManager"
+
+#define ZRoute_org_addLabel             @"controller/org/addLabel"
+
+#define ZRoute_org_teacherManager       @"controller/org/teacherManager"
+
+#define ZRoute_org_teacherSearch        @"controller/org/teacherSearch"
+
+#define ZRoute_org_teacherAdd           @"controller/org/teacherAdd"
+
+#define ZRoute_org_teacherDetail        @"controller/org/teacherDetail"
+
+#define ZRoute_org_lessonAdd            @"controller/org/lessonAdd"
+
+#define ZRoute_org_textViewVC           @"controller/org/textViewVC"
+
+#define ZRoute_org_lessonManage         @"controller/org/lessonManage"
+
+#define ZRoute_org_lessonSelect         @"controller/org/lessonSelect"
+
+#define ZRoute_org_lessonDetail         @"controller/org/lessonDetail"
+
+#define ZRoute_org_lessonList           @"controller/org/lessonList"
+
+#define ZRoute_org_studentManage        @"controller/org/studentManage"
+
+#define ZRoute_org_studentAdd           @"controller/org/studentAdd"
+
+#define ZRoute_org_studentDetail        @"controller/org/studentDetail"
+
+#define ZRoute_org_studentUpStar        @"controller/org/studentUpStar"
+
+#define ZRoute_org_schoolAccountList    @"controller/org/schoolAccountList"
+
 #endif /* ZRoutePath_h */

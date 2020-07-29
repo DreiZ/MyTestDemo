@@ -11,8 +11,6 @@
 #import "ZOrganizationLessonManageListCell.h"
 //#import "ZStudentOrganizationLessonListCell.h"
 
-#import "ZOrganizationLessonAddVC.h"
-#import "ZOrganizationLessonDetailVC.h"
 #import "ZAlertView.h"
 
 @interface ZOrganizationManagerSearchLessonListVC ()
@@ -114,9 +112,7 @@
             }else if (index == 0){
                 [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonAddModel *addModel) {
                     if (isSuccess) {
-                        ZOrganizationLessonAddVC *dvc = [[ZOrganizationLessonAddVC alloc] init];
-                        dvc.viewModel.addModel = addModel;
-                        [weakSelf.navigationController pushViewController:dvc animated:YES];
+                        routePushVC(ZRoute_org_lessonAdd, addModel, nil);
                     }
                 }];
             }
@@ -127,19 +123,7 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationLessonManageListCell"]) {
         ZOriganizationLessonListModel  *listmodel = cellConfig.dataModel;
-        ZOrganizationLessonDetailVC *dvc = [[ZOrganizationLessonDetailVC alloc] init];
-        dvc.addModel.status = listmodel.status;
-        dvc.addModel.statusStr = listmodel.statusStr;
-        dvc.addModel.name = listmodel.name;
-        dvc.addModel.short_name = listmodel.short_name;
-        dvc.addModel.price = listmodel.price;
-        dvc.addModel.pay_nums = listmodel.pay_nums;
-        dvc.addModel.score = listmodel.score;
-        dvc.addModel.image_url = listmodel.image_url;
-        dvc.addModel.fail = listmodel.fail;
-        dvc.addModel.lessonID = listmodel.lessonID;
-        dvc.addModel.lessonType = listmodel.type;
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_org_lessonDetail, listmodel.lessonID, nil);
     }else if ([cellConfig.title isEqualToString:@"address"]){
        
     }

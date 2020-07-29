@@ -17,7 +17,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataPickerView.h"
 
-#import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZOriganizationLessonViewModel.h"
 
@@ -289,5 +288,22 @@
         }
     }];
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationStudentUpStarVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationStudentUpStarVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_studentUpStar;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationStudentUpStarVC *routevc = [[ZOrganizationStudentUpStarVC alloc] init];
+    routevc.addModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

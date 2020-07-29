@@ -20,7 +20,6 @@
 #import "ZAlertDataSinglePickerView.h"
 #import "ZAlertDataPickerView.h"
 
-#import "ZOrganizationTeacherLessonSelectVC.h"
 #import "ZOriganizationLessonViewModel.h"
 
 #import "ZAlertTeacherCheckBoxView.h"
@@ -176,6 +175,9 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
+    if (_viewModel.addModel && _viewModel.addModel.studentID) {
+        _isEdit = YES;
+    }
     if (!_isEdit) {
         [self.navigationItem setTitle:@"新增学员"];
     }else{
@@ -258,8 +260,6 @@
                 return ;
             }
             
-            
-            
             [otherDict setObject:weakSelf.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:weakSelf.viewModel.addModel.phone forKey:@"phone"];
             
@@ -270,9 +270,6 @@
             [otherDict setObject:weakSelf.viewModel.addModel.code_id forKey:@"code_id"];
             [otherDict setObject:weakSelf.viewModel.addModel.sex forKey:@"sex"];
             
-            
-            
-            
             if (ValidStr(weakSelf.viewModel.addModel.birthday)) {
                 [otherDict setObject:weakSelf.viewModel.addModel.birthday forKey:@"birthday"];
             }
@@ -280,7 +277,6 @@
             if (ValidStr(weakSelf.viewModel.addModel.sign_up_at)) {
                 [otherDict setObject:weakSelf.viewModel.addModel.sign_up_at forKey:@"sign_up_at"];
             }
-            
             
             if (ValidStr(weakSelf.viewModel.addModel.is_star)) {
                 [otherDict setObject:weakSelf.viewModel.addModel.is_star forKey:@"is_star"];
@@ -597,5 +593,22 @@
         }
     }
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationStudentAddVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationStudentAddVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_studentAdd;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationStudentAddVC *routevc = [[ZOrganizationStudentAddVC alloc] init];
+    routevc.viewModel.addModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

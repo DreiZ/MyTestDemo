@@ -11,7 +11,6 @@
 
 #import "ZOriganizationTopTitleView.h"
 #import "ZOrganizationClassDetailStudentListAddVC.h"
-#import "ZOrganizationStudentDetailVC.h"
 #import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
 #import "ZOrganizationClassStudentProgressEditVC.h"
 
@@ -284,9 +283,7 @@
                     }
                 }];
             }else if (index == 2){
-                ZOrganizationStudentDetailVC *dvc = [[ZOrganizationStudentDetailVC alloc] init];
-                dvc.addModel.studentID = model.studentID;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_org_studentDetail, model.studentID, nil);
             }
         };
     }

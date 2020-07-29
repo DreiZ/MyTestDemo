@@ -13,11 +13,6 @@
 #import "ZOriganizationStatisticsCell.h"
 #import "ZOrganizationMenuCell.h"
 
-#import "ZOrganizationCampusManagementVC.h"
-#import "ZOrganizationLessonManageVC.h"
-
-#import "ZOrganizationTeacherManageVC.h"
-#import "ZOrganizationStudentManageVC.h"
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationClassManageVC.h"
 #import "ZOrganizationAccountVC.h"
@@ -29,7 +24,6 @@
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZOrganizationTeachingScheduleLessonVC.h"
 #import "ZOrganizationSchoolAccountVC.h"
-#import "ZOrganizationLessonDetailListVC.h"
 
 #import "ZOriganizationViewModel.h"
 
@@ -139,18 +133,13 @@
                     return ;
                 }
                 if ([model.uid isEqualToString:@"lesson"]) {
-                    ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
-                    [self.navigationController pushViewController:mvc animated:YES];
-                    
+                    routePushVC(ZRoute_org_lessonManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"school"]){
-                    ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
-                    [self.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_org_schoolManager, nil, nil);
                 }else if ([model.uid isEqualToString:@"teacher"]){
-                    ZOrganizationTeacherManageVC *mvc = [[ZOrganizationTeacherManageVC alloc] init];
-                    [self.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_org_teacherManager, nil, nil);
                 }else if ([model.uid isEqualToString:@"student"]){
-                    ZOrganizationStudentManageVC *mvc = [[ZOrganizationStudentManageVC alloc] init];
-                    [self.navigationController pushViewController:mvc animated:YES];
+                    routePushVC(ZRoute_org_studentManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"manageLesson"]){
                     ZOrganizationTeachingScheduleLessonVC *lvc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
                     [self.navigationController pushViewController:lvc animated:YES];
@@ -179,8 +168,7 @@
                     ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
                     [weakSelf.navigationController pushViewController:lvc animated:YES];
                 }else if([model.uid isEqualToString:@"teacher_lesson"]){
-                    ZOrganizationLessonDetailListVC *lvc = [[ZOrganizationLessonDetailListVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_org_lessonList, nil, nil);
                 }
             }];
             

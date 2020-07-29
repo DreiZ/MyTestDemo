@@ -20,9 +20,6 @@
 #import "ZAlertDataPickerView.h"
 #import "ZOriganizationLessonViewModel.h"
 
-#import "ZOrganizationCampusManageAddLabelVC.h"
-#import "ZOrganizationTeacherLessonSelectVC.h"
-
 @interface ZOrganizationTeacherAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
 
@@ -208,6 +205,10 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
+    if (self.viewModel && self.viewModel.addModel && self.viewModel.addModel.teacherID) {
+        _isEdit = YES;
+    }
+    
     if (!_isEdit) {
         [self.navigationItem setTitle:@"新增教师"];
     }else{
@@ -648,28 +649,47 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"skill"]) {
         [self.iTableView endEditing:YES];
-        ZOrganizationCampusManageAddLabelVC *lvc = [[ZOrganizationCampusManageAddLabelVC alloc] init];
-        lvc.max = 30;
-        lvc.list = self.viewModel.addModel.skills;
-        lvc.navTitle = @"特长技能";
-        lvc.handleBlock = ^(NSArray * labelArr) {
+
+        NSMutableDictionary *tempDict = @{@"navTitle":@"特长技能",@"max":@"30"}.mutableCopy;
+        if (self.viewModel.addModel.skills) {
+            [tempDict setObject:self.viewModel.addModel.skills forKey:@"list"];
+        }
+        
+        routePushVC(ZRoute_org_addLabel, tempDict, ^(NSArray *labelArr, NSError * _Nullable error) {
             [weakSelf.self.viewModel.addModel.skills removeAllObjects];
             [weakSelf.self.viewModel.addModel.skills addObjectsFromArray:labelArr];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:lvc animated:YES];
+        });
     }else if ([cellConfig.title isEqualToString:@"lesson"]) {
         [self.iTableView endEditing:YES];
-        ZOrganizationTeacherLessonSelectVC *lvc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-        lvc.lessonList = self.viewModel.addModel.lessonList;
-        lvc.handleBlock = ^(NSMutableArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
-            weakSelf.viewModel.addModel.lessonList = list;
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        };
-        [self.navigationController pushViewController:lvc animated:YES];
+        routePushVC(ZRoute_org_lessonSelect, self.viewModel.addModel.lessonList, ^(NSDictionary *result, NSError * _Nullable error) {
+            if ([result objectForKey:@"list"]) {
+                weakSelf.viewModel.addModel.lessonList = result[@"list"];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+        });
     }
 }
+@end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationTeacherAddVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationTeacherAddVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_teacherAdd;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationTeacherAddVC *routevc = [[ZOrganizationTeacherAddVC alloc] init];
+    if (request.prts) {
+        routevc.viewModel.addModel = request.prts;
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

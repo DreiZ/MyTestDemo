@@ -224,11 +224,34 @@
     }];
 }
 
-
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
        [param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
        [param setObject:@"0" forKey:@"status"];
     return param;
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationTeacherLessonSelectVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationTeacherLessonSelectVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonSelect;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationTeacherLessonSelectVC *routevc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
+    routevc.lessonList = request.prts;
+    routevc.handleBlock = ^(NSMutableArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
+
+        if (completionHandler) {
+            completionHandler(@{@"list":list? list:@[], @"isAll":isAll?@YES:@NO},nil);
+        }
+    };
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -565,3 +565,21 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationLessonDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationLessonDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationLessonDetailVC *routevc = [[ZOrganizationLessonDetailVC alloc] init];
+    routevc.addModel.lessonID = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

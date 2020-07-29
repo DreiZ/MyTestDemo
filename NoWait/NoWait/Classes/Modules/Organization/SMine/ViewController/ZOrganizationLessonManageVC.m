@@ -8,7 +8,7 @@
 
 #import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationLessonManageListVC.h"
-#import "ZOrganizationLessonAddVC.h"
+
 #import "ZOrganizationManagerSearchLessonListVC.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
@@ -111,7 +111,6 @@
 
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
-        __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(106), CGFloatIn750(48))];
         [_navLeftBtn setTitle:@"新增课程" forState:UIControlStateNormal];
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
@@ -119,10 +118,8 @@
 //        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
 //        ViewRadius(_navLeftBtn, CGFloatIn750(24));
         [_navLeftBtn bk_addEventHandler:^(id sender) {
-            ZOrganizationLessonAddVC *avc = [[ZOrganizationLessonAddVC alloc] init];
-            [weakSelf.navigationController pushViewController:avc animated:YES];
+            routePushVC(ZRoute_org_lessonAdd, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return _navLeftBtn;
 }
@@ -167,5 +164,21 @@
 
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationLessonManageVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZOrganizationLessonManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_lessonManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationLessonManageVC *routevc = [[ZOrganizationLessonManageVC alloc] init];
+    routevc.stores_id = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
 

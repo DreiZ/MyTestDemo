@@ -16,9 +16,7 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
 
-#import "ZOrganizationCampusManagementVC.h"
 #import "ZOrganizationMineOrderDetailVC.h"
-#import "ZOrganizationLessonManageVC.h"
 #import "ZOrganizationAccountVC.h"
 #import "ZOrganizationMineEvaDetailVC.h"
 
@@ -239,15 +237,12 @@
     switch ([model.notice intValue]) {
         case ZCustomNoticeTypeSettledIn :                        //  机构入驻通知
             {
-                ZOrganizationCampusManagementVC *mvc = [[ZOrganizationCampusManagementVC alloc] init];
-                [self.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_org_schoolManager, nil, nil);
             }
                 break;
         case ZCustomNoticeTypeCourseAudit:                    //  课程审核通知
             {
-                ZOrganizationLessonManageVC *mvc = [[ZOrganizationLessonManageVC alloc] init];
-                mvc.stores_id = model.extra.stores_id;
-                [self.navigationController pushViewController:mvc animated:YES];
+                routePushVC(ZRoute_org_lessonManage, model.extra.stores_id, nil);
             }
                 break;
         case ZCustomNoticeTypePayment:                       //  支付交易通知
