@@ -197,3 +197,19 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationTeachingScheduleLessonVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationTeachingScheduleLessonVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_scheduleLesson;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationTeachingScheduleLessonVC *routevc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

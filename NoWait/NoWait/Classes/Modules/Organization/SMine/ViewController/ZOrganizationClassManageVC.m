@@ -124,3 +124,20 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationClassManageVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationClassManageVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_classManage;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationClassManageVC *routevc = [[ZOrganizationClassManageVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

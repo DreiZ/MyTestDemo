@@ -15,8 +15,6 @@
 #import "ZStudentMineLessonNoTimetableCell.h"
 #import "ZStudentMineNoLessonProgressCell.h"
 
-#import "ZOrganizationOrderRefuseVC.h"
-
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationClassViewModel.h"
 
@@ -143,9 +141,7 @@
                     routePushVC(ZRoute_mine_cardList, nil, nil);
                     
                 }else if ([scellConfig.title isEqualToString:@"refund"]) {
-                    ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
-                    lvc.isStudent = YES;
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_org_orderRefuse, @YES, nil);
                 }else if ([scellConfig.title isEqualToString:@"sign"]) {
                     
                     routePushVC(ZRoute_mine_signList, nil, nil);

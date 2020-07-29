@@ -10,8 +10,6 @@
 #import "ZOriganizationStudentListCell.h"
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationAccountTopMainView.h"
-
-#import "ZOrganizationSchoolAccountVC.h"
 #import "ZOriganizationViewModel.h"
 
 @interface ZOrganizationAccountVC ()
@@ -108,14 +106,12 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZSingleLineCell"]) {
-        ZOrganizationSchoolAccountVC *avc = [[ZOrganizationSchoolAccountVC alloc] init];
         ZBaseSingleCellModel *cellModel = cellConfig.dataModel;
         ZStoresAccountListModel *listModel = cellModel.data;
-        avc.stores_id = listModel.stores_id;
-        [self.navigationController pushViewController:avc animated:YES];
+        
+        routePushVC(ZRoute_org_schoolAccount, listModel.stores_id, nil);
     }
 }
-
 
 - (void)getAccountBill {
     __weak typeof(self) weakSelf = self;
@@ -126,5 +122,22 @@
             [weakSelf.iTableView reloadData];
         }
     }];
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationAccountVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationAccountVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_account;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationAccountVC *routevc = [[ZOrganizationAccountVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -16,8 +16,6 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
 
-#import "ZOrganizationAccountVC.h"
-
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
 
@@ -262,8 +260,7 @@
                 break;
         case ZCustomNoticeTypeMoneyBack:                      //  回款通知
             {
-                ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
-                [self.navigationController pushViewController:svc animated:YES];
+                routePushVC(ZRoute_org_account, nil, nil);
             }
                 break;
         case ZCustomNoticeTypeRegister:                       //  注册通知

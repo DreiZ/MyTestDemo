@@ -201,5 +201,20 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZOrganizationCardMainVC (RouteHandler)<SJRouteHandler>
 
+@end
+
+@implementation ZOrganizationCardMainVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_cartMain;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationCardMainVC *routevc = [[ZOrganizationCardMainVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
 

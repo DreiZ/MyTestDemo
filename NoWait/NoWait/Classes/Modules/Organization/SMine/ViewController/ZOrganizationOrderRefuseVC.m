@@ -176,3 +176,24 @@
     }
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationOrderRefuseVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationOrderRefuseVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_orderRefuse;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationOrderRefuseVC *routevc = [[ZOrganizationOrderRefuseVC alloc] init];
+    if (request.prts) {
+        routevc.isStudent = [request.prts boolValue];
+    }
+    
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

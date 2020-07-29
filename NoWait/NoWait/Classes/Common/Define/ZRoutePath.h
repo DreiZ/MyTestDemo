@@ -192,6 +192,8 @@
 
 #define ZRoute_org_lessonListSearch     @"controller/org/lessonListSearch"
 
+#define ZRoute_org_scheduleLesson       @"controller/org/scheduleLesson"
+
 #define ZRoute_org_cartLessonList       @"controller/org/cartLessonList"
 
 #define ZRoute_org_cartAddLesson        @"controller/org/cartAddLesson"
@@ -224,4 +226,13 @@
 
 #define ZRoute_org_searchCoupon         @"controller/org/searchCoupon"
 
+#define ZRoute_org_classManage          @"controller/org/classManage"
+
+#define ZRoute_org_schoolAccount        @"controller/org/schoolAccount"
+
+#define ZRoute_org_cartMain             @"controller/org/cartMain"
+
+#define ZRoute_org_orderRefuse          @"controller/org/orderRefuse"
+
+#define ZRoute_org_account              @"controller/org/account"
 #endif /* ZRoutePath_h */

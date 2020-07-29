@@ -13,15 +13,6 @@
 #import "ZOriganizationStatisticsCell.h"
 #import "ZOrganizationMenuCell.h"
 
-#import "ZOrganizationTeachingScheduleVC.h"
-#import "ZOrganizationClassManageVC.h"
-#import "ZOrganizationAccountVC.h"
-
-#import "ZOrganizationCardMainVC.h"
-#import "ZOrganizationOrderRefuseVC.h"
-#import "ZOrganizationTeachingScheduleLessonVC.h"
-#import "ZOrganizationSchoolAccountVC.h"
-
 #import "ZOriganizationViewModel.h"
 
 #define kHeaderHeight CGFloatIn750(270)
@@ -104,8 +95,7 @@
                 }else if (index == 3){
                     routePushVC(ZRoute_mine_switchRole, nil, nil);
                 }else if (index == 5){
-                    ZOrganizationAccountVC *svc = [[ZOrganizationAccountVC alloc] init];
-                    [weakSelf.navigationController pushViewController:svc animated:YES];
+                    routePushVC(ZRoute_org_account, nil, nil);
                 }else if(index == 10){
                     routePushVC(ZRoute_mine_settingMineUs, nil, nil);
                 }else if(index == 12){
@@ -138,29 +128,21 @@
                 }else if ([model.uid isEqualToString:@"student"]){
                     routePushVC(ZRoute_org_studentManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"manageLesson"]){
-                    ZOrganizationTeachingScheduleLessonVC *lvc = [[ZOrganizationTeachingScheduleLessonVC alloc] init];
-                    [self.navigationController pushViewController:lvc animated:YES];
-                    //                ZOrganizationTeachingScheduleVC *svc = [[ZOrganizationTeachingScheduleVC alloc] init];
-                    //                [self.navigationController pushViewController:svc animated:YES];
+                    routePushVC(ZRoute_org_scheduleLesson, nil, nil);
                 }else if ([model.uid isEqualToString:@"class"]){
-                    ZOrganizationClassManageVC *svc = [[ZOrganizationClassManageVC alloc] init];
-                    [self.navigationController pushViewController:svc animated:YES];
+                    routePushVC(ZRoute_org_classManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"account"]){
-                    ZOrganizationSchoolAccountVC *svc = [[ZOrganizationSchoolAccountVC alloc] init];
-                    svc.stores_id = [ZUserHelper sharedHelper].school.schoolID;
-                    [self.navigationController pushViewController:svc animated:YES];
+                    routePushVC(ZRoute_org_schoolAccount, [ZUserHelper sharedHelper].school.schoolID, nil);
                 }else if ([model.uid isEqualToString:@"order"]){
                     routePushVC(ZRoute_org_orderManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"eva"]){
                     routePushVC(ZRoute_org_evaManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"cart"]){
-                    ZOrganizationCardMainVC *elvc = [[ZOrganizationCardMainVC alloc] init];
-                    [weakSelf.navigationController pushViewController:elvc animated:YES];
+                    routePushVC(ZRoute_org_cartMain, nil, nil);
                 }else if ([model.uid isEqualToString:@"photo"]){
                     routePushVC(ZRoute_org_photoManage, nil, nil);
                 }else if ([model.uid isEqualToString:@"refund"]){
-                    ZOrganizationOrderRefuseVC *lvc = [[ZOrganizationOrderRefuseVC alloc] init];
-                    [weakSelf.navigationController pushViewController:lvc animated:YES];
+                    routePushVC(ZRoute_org_orderRefuse, nil, nil);
                 }else if([model.uid isEqualToString:@"teacher_lesson"]){
                     routePushVC(ZRoute_org_lessonList, nil, nil);
                 }
