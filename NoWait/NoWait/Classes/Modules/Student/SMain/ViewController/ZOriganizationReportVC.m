@@ -190,3 +190,37 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOriganizationReportVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOriganizationReportVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_report;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOriganizationReportVC *routevc = [[ZOriganizationReportVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"sTitle"]) {
+            routevc.sTitle = tempDict[@"sTitle"];
+        }
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+        if ([tempDict objectForKey:@"course_id"]) {
+            routevc.course_id = tempDict[@"course_id"];
+        }
+        if ([tempDict objectForKey:@"dynamic"]) {
+            routevc.dynamic = tempDict[@"dynamic"];
+        }
+        if ([tempDict objectForKey:@"object"]) {
+            routevc.object = tempDict[@"object"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

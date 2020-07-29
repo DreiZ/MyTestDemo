@@ -205,3 +205,29 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentLessonDetailShareVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentLessonDetailShareVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_lessonShare;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentLessonDetailShareVC *routevc = [[ZStudentLessonDetailShareVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"isOrder"]) {
+            routevc.isOrder = [tempDict[@"isOrder"] boolValue];
+        }
+        if ([tempDict objectForKey:@"addModel"]) {
+            routevc.addModel = tempDict[@"addModel"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -450,3 +450,21 @@
     }];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentLessonSureOrderVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentLessonSureOrderVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_sureOrder;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentLessonSureOrderVC *routevc = [[ZStudentLessonSureOrderVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -128,4 +128,24 @@
 
 #define ZRoute_main_orderLessonDetail   @"controller/main/orderLessonDetail"
 
+#define ZRoute_main_lessonShare         @"controller/main/lessonShare"
+
+#define ZRoute_main_teacherDetail       @"controller/main/teacherDetail"
+
+#define ZRoute_main_teacherEvaList      @"controller/main/teacherEvaList"
+
+#define ZRoute_main_studentDetail       @"controller/main/studentDetail"
+
+#define ZRoute_main_organizationShare   @"controller/main/organizationShare"
+
+#define ZRoute_main_sureOrder           @"controller/main/sureOrder"
+
+#define ZRoute_main_subSureOrder        @"controller/main/subSureOrder"
+
+#define ZRoute_main_starStudentList     @"controller/main/starStudentList"
+
+#define ZRoute_main_report              @"controller/main/report"
+
+#define ZRoute_main_search              @"controller/main/mainSearch"
+
 #endif /* ZRoutePath_h */

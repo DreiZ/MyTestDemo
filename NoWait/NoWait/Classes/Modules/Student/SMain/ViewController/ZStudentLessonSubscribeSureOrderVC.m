@@ -308,3 +308,21 @@
     [self.cellConfigArr addObject:bottomCellConfig];
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentLessonSubscribeSureOrderVC  (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentLessonSubscribeSureOrderVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_subSureOrder;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentLessonSubscribeSureOrderVC *routevc = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

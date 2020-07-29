@@ -13,9 +13,6 @@
 #import "ZOriganizationTeacherViewModel.h"
 #import "ZOriganizationStudentViewModel.h"
 
-#import "ZStudentTeacherDetailVC.h"
-#import "ZStudentStudentDetailVC.h"
-
 @interface ZStudentStarStudentListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -74,14 +71,9 @@
         lcell.detailBlock = ^(UIImageView * imageView) {
             ZOriganizationTeacherListModel *listModel = cellConfig.dataModel;
             if (weakSelf.type == 0) {
-                ZStudentStudentDetailVC *dvc = [[ZStudentStudentDetailVC alloc] init];
-                dvc.student_id = listModel.teacherID;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_main_studentDetail, listModel.teacherID, nil);
             }else{
-                ZStudentTeacherDetailVC *dvc = [[ZStudentTeacherDetailVC alloc] init];
-                dvc.teacher_id = listModel.teacherID;
-                dvc.stores_id = weakSelf.stores_id;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_main_teacherDetail, @{@"teacher_id":SafeStr(listModel.teacherID),@"stores_id":SafeStr(weakSelf.stores_id)}, nil);
             }
         };
     }
@@ -198,5 +190,31 @@
        [param setObject:self.stores_id forKey:@"stores_id"];
 //       [param setObject:@"0" forKey:@"status"];
     return param;
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZStudentStarStudentListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentStarStudentListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_starStudentList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentStarStudentListVC *routevc = [[ZStudentStarStudentListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"type"]) {
+            routevc.type = [tempDict[@"type"] intValue];
+        }
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

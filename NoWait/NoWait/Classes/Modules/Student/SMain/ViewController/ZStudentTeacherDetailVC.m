@@ -20,8 +20,6 @@
 #import "ZStudentMineModel.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentTeacherDetailEvaListVC.h"
-
 @interface ZStudentTeacherDetailVC ()
 @property (nonatomic,strong) ZOriganizationTeacherAddModel *detailModel;
 
@@ -134,11 +132,7 @@
         }else if ([cellConfig.title isEqualToString:@"ZStudentDetailEvaAboutCell"]){
             ZStudentDetailEvaAboutCell *lcell = (ZStudentDetailEvaAboutCell *)cell;
             lcell.handleBlock = ^(ZCellConfig *cellconfig) {
-                ZStudentTeacherDetailEvaListVC *evc = [[ZStudentTeacherDetailEvaListVC alloc] init];
-                evc.stores_id = weakSelf.stores_id;
-                evc.teacher_id = weakSelf.teacher_id;
-                evc.teacher_name = weakSelf.detailModel.nick_name;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_main_teacherEvaList, @{@"stores_id":SafeStr(weakSelf.stores_id),@"teacher_id":SafeStr(weakSelf.teacher_id),@"teacher_name":SafeStr(weakSelf.detailModel.nick_name)}, nil);
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
@@ -152,4 +146,30 @@
     self.zChain_reload_Net();
 }
 
+@end
+
+#pragma mark - RouteHandler
+@interface ZStudentTeacherDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentTeacherDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_teacherDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentTeacherDetailVC *routevc = [[ZStudentTeacherDetailVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"teacher_id"]) {
+            routevc.teacher_id = tempDict[@"teacher_id"];
+        }
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

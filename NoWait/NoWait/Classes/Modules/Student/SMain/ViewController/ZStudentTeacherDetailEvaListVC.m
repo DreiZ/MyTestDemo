@@ -92,3 +92,32 @@
     self.zChain_reload_Net();
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentTeacherDetailEvaListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentTeacherDetailEvaListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_teacherEvaList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentTeacherDetailEvaListVC *routevc = [[ZStudentTeacherDetailEvaListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *tempDict = request.prts;
+        if ([tempDict objectForKey:@"teacher_id"]) {
+            routevc.teacher_id = tempDict[@"teacher_id"];
+        }
+        if ([tempDict objectForKey:@"stores_id"]) {
+            routevc.stores_id = tempDict[@"stores_id"];
+        }
+        if ([tempDict objectForKey:@"teacher_name"]) {
+            routevc.teacher_name = tempDict[@"teacher_name"];
+        }
+    }
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

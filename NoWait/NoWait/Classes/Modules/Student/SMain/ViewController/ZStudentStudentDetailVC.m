@@ -86,3 +86,21 @@
     self.zChain_reload_Net();
 }
 @end
+
+#pragma mark - RouteHandler
+@interface ZStudentStudentDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentStudentDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_studentDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentStudentDetailVC *routevc = [[ZStudentStudentDetailVC alloc] init];
+    routevc.student_id = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

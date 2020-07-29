@@ -29,8 +29,6 @@
 #import "ZAlertView.h"
 #import "SJVideoPlayer.h"
 
-#import "ZOriganizationReportVC.h"
-
 @interface ZCircleDetailVC ()<XHInputViewDelagete>
 @property (nonatomic,strong) ZCircleDetailHeaderView *headerView;
 @property (nonatomic,strong) ZCircleDetailBottomView *bottomView;
@@ -376,10 +374,7 @@
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                    rvc.sTitle = weakSelf.infoModel.title;
-                    rvc.dynamic = weakSelf.infoModel.dynamic;
-                    [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                    routePushVC(ZRoute_main_report, @{@"sTitle":SafeStr(weakSelf.infoModel.title),@"dynamic":SafeStr(weakSelf.infoModel.dynamic)}, nil);
                 }];
             }
         };

@@ -237,3 +237,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZStudentOrganizationDetailDesShareVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrganizationDetailDesShareVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_organizationShare;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrganizationDetailDesShareVC *routevc = [[ZStudentOrganizationDetailDesShareVC alloc] init];
+    routevc.detailModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

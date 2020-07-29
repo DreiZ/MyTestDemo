@@ -207,3 +207,20 @@
 }
 
 @end
+
+#pragma mark - RouteHandler
+@interface ZMianSearchVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZMianSearchVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_search;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZMianSearchVC *routevc = [[ZMianSearchVC alloc] init];
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -175,7 +175,7 @@
         _navRightBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
         [_navRightBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
         
-        [_navLeftBtn setTitle:@"" forState:UIControlStateNormal];
+        [_navLeftBtn setTitle:@"   " forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:isDarkModel() ? @"navleftBackDark":@"navleftBack"] forState:UIControlStateNormal];
         
         [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

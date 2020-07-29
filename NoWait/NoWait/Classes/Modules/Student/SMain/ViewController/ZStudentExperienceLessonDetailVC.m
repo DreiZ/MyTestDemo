@@ -29,16 +29,10 @@
 #import "ZOrganizationDetailOrderBottomView.h"
 #import "ZOrderModel.h"
 
-#import "ZStudentLessonDetailShareVC.h"
-#import "ZStudentLessonSubscribeSureOrderVC.h"
-
-#import "ZStudentLessonSureOrderVC.h"
 #import "ZOriganizationCardViewModel.h"
 #import "ZCouponListView.h"
-#import "ZStudentTeacherDetailVC.h"
 
 #import "ZAlertMoreView.h"
-#import "ZOriganizationReportVC.h"
 #import "ZUMengShareManager.h"
 #import "ZStudentCollectionViewModel.h"
 #import "ZPhoneAlertView.h"
@@ -156,16 +150,10 @@
              [ZAlertMoreView setMoreAlertWithTitleArr:weekArr handlerBlock:^(NSString *index) {
                if ([index isEqualToString:@"report"]) {
                    [[ZUserHelper sharedHelper] checkLogin:^{
-                       ZOriganizationReportVC *rvc = [[ZOriganizationReportVC alloc] init];
-                       rvc.sTitle = weakSelf.addModel.name;
-                       rvc.course_id = weakSelf.addModel.lessonID;
-                       [weakSelf.navigationController pushViewController:rvc animated:rvc];
+                       routePushVC(ZRoute_main_report, @{@"sTitle":SafeStr(weakSelf.addModel.name),@"course_id":SafeStr(weakSelf.addModel.lessonID)}, nil);
                    }];
                }else{
-                   ZStudentLessonDetailShareVC *dvc = [[ZStudentLessonDetailShareVC alloc] init];
-                   dvc.addModel = weakSelf.addModel;
-                   dvc.isOrder = YES;
-                   [weakSelf.navigationController pushViewController:dvc animated:YES];
+                   routePushVC(ZRoute_main_lessonShare, @{@"addModel":weakSelf.addModel,@"isOrder":@YES}, nil);
                }
            }];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -188,7 +176,6 @@
         __weak typeof(self) weakSelf = self;
         _selectView = [[ZStudentLessonSelectMainNewView alloc] init];
         _selectView.completeBlock = ^(ZOrderAddModel *listModel) {
-            ZStudentLessonSureOrderVC *order = [[ZStudentLessonSureOrderVC alloc] init];
             ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
             detailModel.order_type = ZStudentOrderTypeForPay;
             detailModel.course_id = weakSelf.addModel.lessonID;
@@ -204,11 +191,7 @@
             detailModel.valid_at = weakSelf.addModel.valid_at;
             detailModel.course_image_url = weakSelf.addModel.image_url;
             detailModel.course_total_min = [NSString stringWithFormat:@"%d",[weakSelf.addModel.course_number intValue]*[weakSelf.addModel.course_min intValue]];
-            
-            order.detailModel = detailModel;
-            [weakSelf.navigationController pushViewController:order animated:YES];
-//            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
-//            [weakSelf.navigationController pushViewController:order animated:YES];
+            routePushVC(ZRoute_main_sureOrder, detailModel, nil);
         };
     }
     return _selectView;
@@ -220,7 +203,6 @@
         __weak typeof(self) weakSelf = self;
         _timeView = [[ZStudentLessonSelectMainOrderTimeView alloc] init];
         _timeView.completeBlock = ^(ZOriganizationLessonExperienceTimeModel * timeModel) {
-            ZStudentLessonSubscribeSureOrderVC *order = [[ZStudentLessonSubscribeSureOrderVC alloc] init];
             ZOrderDetailModel *detailModel = [[ZOrderDetailModel alloc] init];
             detailModel.order_type = ZStudentOrderTypeForPay;
             detailModel.course_id = weakSelf.addModel.lessonID;
@@ -235,10 +217,8 @@
             NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[timeModel.date doubleValue]];
             NSString *time = [NSString stringWithFormat:@"%lu-%lu-%lu %@",(unsigned long)date.year,date.month,date.day,timeModel.time];
             detailModel.schedule_time = [NSString stringWithFormat:@"%f",[[NSDate dateWithString:time format:@"yyyy-MM-dd HH:mm"] timeIntervalSince1970]];
-//            order.detailModel = detailModel;
             detailModel.type = @"1";
-            order.detailModel = detailModel;
-            [weakSelf.navigationController pushViewController:order animated:YES];
+            routePushVC(ZRoute_main_subSureOrder, detailModel, nil);
         };
         
     }
@@ -306,10 +286,7 @@
     }else if ([cellConfig.title isEqualToString:@"starCoach"]) {
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
         lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
-            ZStudentTeacherDetailVC *mvc = [[ZStudentTeacherDetailVC alloc] init];
-            mvc.teacher_id = model.account_id;
-            mvc.stores_id = weakSelf.addModel.stores_id;
-            [weakSelf.navigationController pushViewController:mvc animated:YES];
+            routePushVC(ZRoute_main_teacherDetail, @{@"teacher_id":SafeStr(model.account_id),@"stores_id":SafeStr(weakSelf.addModel.stores_id)}, nil);
         };
     }else if([cellConfig.title isEqualToString:@"ZOrganizationLessonDetailHeaderCell"]){
         ZOrganizationLessonDetailHeaderCell *lcell = (ZOrganizationLessonDetailHeaderCell *)cell;

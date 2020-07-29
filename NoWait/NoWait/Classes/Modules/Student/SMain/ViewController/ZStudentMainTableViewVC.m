@@ -72,8 +72,7 @@
         __weak typeof(self) weakSelf = self;
         _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight) ];
         _searchView.searchBlock = ^(NSInteger index) {
-            ZMianSearchVC *svc = [[ZMianSearchVC alloc] init];
-            [weakSelf.navigationController pushViewController:svc animated:YES];
+            routePushVC(ZRoute_main_search, nil, nil);
         };
     }
     return _searchView;
