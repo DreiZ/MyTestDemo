@@ -8,7 +8,7 @@
 
 #import "ZMianSearchVC.h"
 #import "ZStudentMainViewModel.h"
-#import "ZStudentExperienceLessonDetailVC.h"
+
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
 
@@ -112,11 +112,10 @@
             [weakSelf.iTableView reloadData];
         };
         lcell.lessonBlock = ^(ZStoresCourse *model) {
-            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             ZOriganizationLessonListModel *lmodel = [[ZOriganizationLessonListModel alloc] init];
             lmodel.lessonID = model.course_id;
-            dvc.model = lmodel;
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            
+            routePushVC(ZRoute_main_orderLessonDetail, lmodel, nil);
         };
     } 
 }

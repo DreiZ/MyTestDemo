@@ -12,7 +12,6 @@
 
 #import "ZAlertView.h"
 #import "ZWebBridgeViewController.h"
-#import "ZStudentExperienceLessonDetailVC.h"
 
 #import "ZOriganizationModel.h"
 
@@ -58,12 +57,10 @@ static ZRouteManager *sharedManager;
             wvc.navTitle = model.name;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:wvc animated:YES];
         }else if ([model.ad_type isEqualToString:@"1"] && model.ad_type_content) {
-            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
             ZOriganizationLessonListModel *listModel = [[ZOriganizationLessonListModel alloc] init];
             listModel.lessonID = model.ad_type_content.course;
-            dvc.model = listModel;
-            [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:dvc animated:YES];
-
+            
+            routePushVC(ZRoute_main_orderLessonDetail, listModel, nil);
         }else if ([model.ad_type isEqualToString:@"2"] && model.ad_type_content) {
             ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
             lmodel.stores_id = model.ad_type_content.stores;

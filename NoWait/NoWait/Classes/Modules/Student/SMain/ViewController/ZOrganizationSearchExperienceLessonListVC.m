@@ -11,8 +11,6 @@
 #import "ZOrganizationLessonManageListCell.h"
 #import "ZStudentExperienceLessonListItemCell.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZOrganizationSearchExperienceLessonListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UICollectionView *iCollectionView;
@@ -147,9 +145,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-    dvc.model = self.dataSources[indexPath.row];
-    [self.navigationController pushViewController:dvc animated:YES];
+    routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -270,3 +266,4 @@
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end
+

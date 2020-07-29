@@ -7,7 +7,6 @@
 //
 
 #import "ZStudentCollectionLessonVC.h"
-#import "ZStudentExperienceLessonDetailVC.h"
 
 #import "ZStudentOrganizationLessonListCell.h"
 #import "ZStudentCollectionViewModel.h"
@@ -66,9 +65,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-             ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-             dvc.model = cellConfig.dataModel;
-             [weakSelf.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_orderLessonDetail, cellConfig.dataModel, nil);
         }
     });
 }

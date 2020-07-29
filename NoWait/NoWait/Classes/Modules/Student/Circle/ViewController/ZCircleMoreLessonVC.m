@@ -14,8 +14,6 @@
 #import "ZOriganizationModel.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZCircleMoreLessonVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @end
@@ -61,9 +59,7 @@
 #pragma mark - collectionview delegate
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentExperienceLessonListItemCell"]) {
-        ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-        dvc.model = self.dataSources[indexPath.row];
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
     }
 }
 

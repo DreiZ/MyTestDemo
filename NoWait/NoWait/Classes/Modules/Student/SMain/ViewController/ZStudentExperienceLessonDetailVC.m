@@ -860,3 +860,20 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZStudentExperienceLessonDetailVC  (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentExperienceLessonDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_orderLessonDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentExperienceLessonDetailVC *routevc = [[ZStudentExperienceLessonDetailVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

@@ -63,7 +63,6 @@
 }
 #pragma mark lazy loading...
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
     if ([cellConfig.title isEqualToString:@"ZMineStudentEvaListHadEvaCell"]){
         ZMineStudentEvaListHadEvaCell *enteryCell = (ZMineStudentEvaListHadEvaCell *)cell;
         enteryCell.evaBlock = ^(NSInteger index) {

@@ -15,8 +15,6 @@
 #import "ZOriganizationModel.h"
 #import "ZOrganizationLessonTopSearchView.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZStudentOrganizationExperienceLessonListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) UIView *funBackView;
@@ -114,7 +112,6 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
-        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
@@ -151,9 +148,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-    dvc.model = self.dataSources[indexPath.row];
-    [self.navigationController pushViewController:dvc animated:YES];
+    routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -238,3 +233,20 @@
 @end
 
 
+#pragma mark - RouteHandler
+@interface ZStudentOrganizationExperienceLessonListVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZStudentOrganizationExperienceLessonListVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_main_orderLessonList;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZStudentOrganizationExperienceLessonListVC *routevc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
+    routevc.schoolID = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end

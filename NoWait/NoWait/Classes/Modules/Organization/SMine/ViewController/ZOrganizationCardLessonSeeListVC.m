@@ -13,8 +13,6 @@
 #import "ZOriganizationLessonModel.h"
 #import "ZStudentOrganizationLessonListCell.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZOrganizationCardLessonSeeListVC ()
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -71,9 +69,7 @@
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-        ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-        dvc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_main_orderLessonDetail, cellConfig.dataModel, nil);
     }
 }
 

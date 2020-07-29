@@ -18,8 +18,6 @@
 #import "ZCircleMineViewModel.h"
 #import "ZOriganizationLessonModel.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZCircleSearchVC ()<WSLWaterFlowLayoutDelegate>
 @property (nonatomic,strong) WSLWaterFlowLayout *flowLayout;
 @property (nonatomic,strong) NSString *name;
@@ -192,11 +190,9 @@
             [headerView setIsMore:self.is_more];
             headerView.list = self.lessonList;
             headerView.menuBlock = ^(ZCircleDynamicLessonModel *model) {
-                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
-                ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
                 listmodel.lessonID = model.lesson_id;
-                dvc.model = listmodel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
             };
             headerView.moreBlock = ^{
                 routePushVC(ZRoute_circle_moreLesson, weakSelf.name, nil);

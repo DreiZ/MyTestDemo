@@ -12,7 +12,6 @@
 
 #import "ZOrganizationTeachingScheduleVC.h"
 #import "ZOrganizationTrachingScheduleOutlineClassVC.h"
-#import "ZStudentExperienceLessonDetailVC.h"
 
 @interface ZOrganizationTeachingScheduleLessonVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
@@ -68,10 +67,8 @@
                     [weakSelf.navigationController pushViewController:svc animated:YES];
                 }else{
                     ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
-                    ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
                     smodel.lessonID = model.lessonID;
-                    dvc.model = smodel;
-                    [weakSelf.navigationController pushViewController:dvc animated:YES];
+                    routePushVC(ZRoute_main_orderLessonDetail, smodel, nil);
                 }
             };
         }

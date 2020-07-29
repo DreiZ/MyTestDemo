@@ -20,13 +20,12 @@
 #import "ZOrganizationNoDataCell.h"
 
 #import "ZStudentStarStudentListVC.h"
-#import "ZStudentExperienceLessonDetailVC.h"
+
 #import "ZStudentOrganizationDetailIntroVC.h"
 
-#import "ZStudentOrganizationExperienceLessonListVC.h"
+
 #import "ZStudentTeacherDetailVC.h"
 #import "ZStudentStudentDetailVC.h"
-#import "ZStudentExperienceLessonDetailVC.h"
 #import "ZStudentLessonSubscribeSureOrderVC.h"
 #import "ZOriganizationReportVC.h"
 #import "ZStudentOrganizationDetailDesShareVC.h"
@@ -190,9 +189,7 @@
        }else if([cellConfig.title isEqualToString:[ZStudentMainOrganizationExperienceCell className]]){
            ZStudentMainOrganizationExperienceCell *lcell = (ZStudentMainOrganizationExperienceCell *)cell;
            lcell.lessonBlock = ^(ZOriganizationLessonListModel *model) {
-               ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-               dvc.model = model;
-               [weakSelf.navigationController pushViewController:dvc animated:YES];
+               routePushVC(ZRoute_main_orderLessonDetail, model, nil);
            };
        }else if ([cellConfig.title isEqualToString:@"allLesson"]){
            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
@@ -203,9 +200,7 @@
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
-            dvc.model = cellConfig.dataModel;
-            [weakSelf.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_main_orderLessonDetail, cellConfig.dataModel, nil);
         }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
             ZStudentStarStudentListVC *lvc = [[ZStudentStarStudentListVC alloc] init];
             lvc.type = 0;
@@ -219,9 +214,7 @@
         }else if ([cellConfig.title isEqualToString:@"allLesson"]){
             routePushVC(ZRoute_main_lessonList, weakSelf.detailModel, nil);
         }else if ([cellConfig.title isEqualToString:@"allExperienceLesson"]){
-            ZStudentOrganizationExperienceLessonListVC *lvc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
-            lvc.schoolID = weakSelf.detailModel.schoolID;
-            [weakSelf.navigationController pushViewController:lvc animated:YES];
+            routePushVC(ZRoute_main_orderLessonList, weakSelf.detailModel.schoolID, nil);
         }
         
     });

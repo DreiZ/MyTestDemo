@@ -120,5 +120,12 @@
 
 #define ZRoute_main_organizationDetail  @"controller/main/organizationDetail"
 
+#define ZRoute_main_lessonDetail        @"controller/main/lessonDetail"
+
+#define ZRoute_main_searchOrderLesson   @"controller/main/searchOrderLesson"
+
+#define ZRoute_main_orderLessonList     @"controller/main/orderLessonList"
+
+#define ZRoute_main_orderLessonDetail   @"controller/main/orderLessonDetail"
 
 #endif /* ZRoutePath_h */

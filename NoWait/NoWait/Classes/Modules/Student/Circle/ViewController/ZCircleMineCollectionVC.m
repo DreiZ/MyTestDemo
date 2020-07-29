@@ -171,7 +171,6 @@
 
 - (UIButton *)navRightBtn {
     if (!_navRightBtn) {
-        __weak typeof(self) weakSelf = self;
         _navRightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
         [_navRightBtn setTitle:@"上传列表" forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];

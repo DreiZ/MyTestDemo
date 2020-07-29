@@ -122,7 +122,6 @@
 
 - (ZCircleHeaderView *)headView {
     if (!_headView) {
-        __weak typeof(self) weakSelf = self;
         _headView = [[ZCircleHeaderView alloc] init];
         _headView.handleBlock = ^(NSInteger index) {
             if (index == 1) {

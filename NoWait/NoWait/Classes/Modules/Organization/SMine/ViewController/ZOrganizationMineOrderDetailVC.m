@@ -22,8 +22,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZStudentExperienceLessonDetailVC.h"
-
 @interface ZOrganizationMineOrderDetailVC ()
 @property (nonatomic,strong) ZStudentMineOrderDetailHandleBottomView *handleView;
 @property (nonatomic,strong) ZOrderDetailModel *detailModel;
@@ -406,11 +404,9 @@
                 lmodel.name = model.store_name;
                 routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
             }else if(index == ZLessonOrderHandleTypeLesson){
-                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
-                ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
                 listmodel.lessonID = model.course_id;
-                dvc.model = listmodel;
-                [weakSelf.navigationController pushViewController:dvc animated:YES];
+                routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
             }
         };
     }else if ([cellConfig.title isEqualToString:@"refundAmout"]){
@@ -432,11 +428,9 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
-         ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];;
-         ZStudentExperienceLessonDetailVC *dvc = [[ZStudentExperienceLessonDetailVC alloc] init];
+         ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
          listmodel.lessonID = self.detailModel.course_id;
-         dvc.model = listmodel;
-         [self.navigationController pushViewController:dvc animated:YES];
+         routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
      }else if ([cellConfig.title isEqualToString:@"phone"]){
          if (!self.detailModel.isStudent) {
              [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];
