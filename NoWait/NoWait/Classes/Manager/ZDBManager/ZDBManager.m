@@ -18,7 +18,7 @@ static ZDBManager *manager;
 {
     if (manager == nil) {
         //    static dispatch_once_t once;
-        NSString *uuid = [ZUserHelper sharedHelper].uuid;
+//        NSString *uuid = [ZUserHelper sharedHelper].uuid;
 //        if (uuid && uuid.length > 0 && !manager) {
 //            manager = [[ZDBManager alloc] initWithUserID:uuid];
 //            //        dispatch_once(&once, ^{

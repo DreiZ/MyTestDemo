@@ -124,7 +124,6 @@
         }];
         [ZPublicTool setLineSpacing:CGFloatIn750(8) label:nameLabel];
         
-        __weak typeof(self) weakSelf = self;
         UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [leftBtn setTitle:@"用户协议" forState:UIControlStateNormal];
         [leftBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];

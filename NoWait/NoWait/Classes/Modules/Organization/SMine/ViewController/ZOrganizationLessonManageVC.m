@@ -125,7 +125,6 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
-        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{

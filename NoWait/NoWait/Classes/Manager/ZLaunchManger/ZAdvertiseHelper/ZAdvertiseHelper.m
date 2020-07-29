@@ -165,7 +165,7 @@ static ZAdvertiseHelper* _instance = nil;
 - (void)adClick:(NSNotification *)noti {
    DLog(@"广告 %@", self.bannerModel.title);
 //    ZDBAdvertiserStore *dbStore = [[ZDBAdvertiserStore alloc] init];
-    [ZRouteManager pushToVC:self.bannerModel];
+//    [ZRouteManager pushToVC:self.bannerModel];
 }
 
 - (void)dealloc {

@@ -85,7 +85,6 @@
 #pragma mark - lazy loading...
 - (ZOrganizationMineHeaderView *)headerView {
     if (!_headerView) {
-        __weak typeof(self) weakSelf = self;
         _headerView = [[ZOrganizationMineHeaderView alloc] initWithFrame:CGRectMake(0, -kHeaderHeight-kStatusBarHeight-[ZOrganizationMineHeaderView getNameOffset], KScreenWidth, kHeaderHeight+kStatusBarHeight+[ZOrganizationMineHeaderView getNameOffset])];
         _headerView.userType = @"8";
         _headerView.topHandleBlock = ^(NSInteger index) {

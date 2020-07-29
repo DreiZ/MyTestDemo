@@ -237,7 +237,6 @@
 
 - (ZOriganizationTeachSearchTopHintView *)searchTopView {
     if (!_searchTopView) {
-        __weak typeof(self) weakSelf = self;
         _searchTopView = [[ZOriganizationTeachSearchTopHintView alloc] init];
         _searchTopView.hint = @"搜索学员";
         _searchTopView.handleBlock = ^(NSInteger index) {

@@ -122,7 +122,6 @@
 
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    __weak typeof(self) weakSelf = self;
     
     if ([cellConfig.title isEqualToString:@"ZTableViewListCell"]){
         ZTableViewListCell *lcell = (ZTableViewListCell *)cell;

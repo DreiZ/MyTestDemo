@@ -124,7 +124,6 @@
     if (!_searchBtn) {
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索卡券";
-        __weak typeof(self) weakSelf = self;
         _searchBtn.handleBlock = ^{
             routePushVC(ZRoute_org_searchCoupon, @"搜索卡券", nil);
         };
