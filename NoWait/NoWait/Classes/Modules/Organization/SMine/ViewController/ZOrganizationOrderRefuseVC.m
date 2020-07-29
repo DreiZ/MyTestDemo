@@ -8,7 +8,6 @@
 
 #import "ZOrganizationOrderRefuseVC.h"
 #import "ZStudentMineOrderListCell.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationOrderRefuseVC ()
@@ -81,9 +80,7 @@
         ZStudentMineOrderListCell *enteryCell = (ZStudentMineOrderListCell *)cell;
         enteryCell.handleBlock = ^(NSInteger index, ZOrderListModel *model) {
             if (index == ZLessonOrderHandleTypeORefundReject || index == ZLessonOrderHandleTypeSRefundReject) {
-                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-                evc.model = model;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_org_orderDetail, model, nil);
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {
@@ -97,9 +94,7 @@
         };
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-            evc.model = cellConfig.dataModel;
-            [weakSelf.navigationController pushViewController:evc animated:YES];
+            routePushVC(ZRoute_org_orderDetail, cellConfig.dataModel, nil);
         }
     });
 }

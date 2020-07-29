@@ -9,7 +9,6 @@
 #import "ZOrganizationMineOrderListVC.h"
 
 #import "ZStudentMineOrderListCell.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 
 @interface ZOrganizationMineOrderListVC ()
@@ -91,9 +90,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-            evc.model = cellConfig.dataModel;
-            [weakSelf.navigationController pushViewController:evc animated:YES];
+            routePushVC(ZRoute_org_orderDetail, cellConfig.dataModel, nil);
         }
     });
 }

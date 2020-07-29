@@ -15,7 +15,6 @@
 
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZStudentMineEvaDetailVC ()
 @property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
@@ -69,11 +68,10 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]){
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
             ZOrderListModel *model = [[ZOrderListModel alloc] init];
             model.order_id = weakSelf.detailModel.order_id;
-            evc.model = model;
-            [weakSelf.navigationController pushViewController:evc animated:YES];
+            
+            routePushVC(ZRoute_org_orderDetail, model, nil);
         }
     });
     

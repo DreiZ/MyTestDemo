@@ -184,4 +184,8 @@
 
 #define ZRoute_org_schoolAccountList    @"controller/org/schoolAccountList"
 
+#define ZRoute_org_evaDetail            @"controller/org/evaDetail"
+
+#define ZRoute_org_orderDetail          @"controller/org/orderDetail"
+
 #endif /* ZRoutePath_h */

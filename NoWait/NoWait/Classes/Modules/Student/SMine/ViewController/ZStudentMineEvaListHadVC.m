@@ -77,11 +77,6 @@
                 routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
             }
         };
-//        enteryCell.evaBlock = ^(NSInteger index) {
-//            ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-//            dvc.listModel = cellConfig.dataModel;
-//            [self.navigationController pushViewController:dvc animated:YES];
-//        };
     }
 }
 

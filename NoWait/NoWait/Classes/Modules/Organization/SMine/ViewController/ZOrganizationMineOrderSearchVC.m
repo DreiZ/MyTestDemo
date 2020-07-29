@@ -10,7 +10,6 @@
 #import "ZStudentMineOrderListCell.h"
 
 #import "ZOriganizationOrderViewModel.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZOrganizationMineOrderSearchVC ()
 @property (nonatomic,strong) NSString *name;
@@ -96,9 +95,7 @@
 #pragma mark - tableview
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]) {
-        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-        evc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:evc animated:YES];
+        routePushVC(ZRoute_org_orderDetail, cellConfig.dataModel, nil);
     }
 }
 #pragma mark - 数据处理

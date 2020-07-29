@@ -16,9 +16,7 @@
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
 
-#import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOrganizationAccountVC.h"
-#import "ZOrganizationMineEvaDetailVC.h"
 
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
@@ -247,21 +245,19 @@
                 break;
         case ZCustomNoticeTypePayment:                       //  支付交易通知
             {
-                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
                 ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
                 orderModel.order_id = model.extra.order_id;
-                dvc.model = orderModel;
-                [self.navigationController pushViewController:dvc animated:YES];
+                
+                routePushVC(ZRoute_org_orderDetail, orderModel, nil);
             }
                 break;
         case ZCustomNoticeTypeRefund:                          //  退款通知
             {
-                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
                 ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
                 orderModel.order_id = model.extra.order_id;
                 orderModel.isRefund = YES;
-                dvc.model = orderModel;
-                [self.navigationController pushViewController:dvc animated:YES];
+                
+                routePushVC(ZRoute_org_orderDetail, orderModel, nil);
             }
                 break;
         case ZCustomNoticeTypeMoneyBack:                      //  回款通知
@@ -277,11 +273,10 @@
                 break;
         case ZCustomNoticeTypeAppointment:                     //  预约通知
             {
-                ZOrganizationMineOrderDetailVC *dvc = [[ZOrganizationMineOrderDetailVC alloc] init];
                 ZOrderListModel *orderModel = [[ZOrderListModel alloc] init];
                 orderModel.order_id = model.extra.order_id;
-                dvc.model = orderModel;
-                [self.navigationController pushViewController:dvc animated:YES];
+                
+                routePushVC(ZRoute_org_orderDetail, orderModel, nil);
             }
                 break;
         case ZCustomNoticeTypeCourseBegins:                   //  开课通知
@@ -306,10 +301,8 @@
                     smodel.stores_id = model.extra.stores_id;
                     smodel.order_id = model.extra.order_id;
                     smodel.isTeacher = [[ZUserHelper sharedHelper].user.type intValue] == 2 ? YES:NO;
-                    ZOrganizationMineEvaDetailVC *dvc =
-                    [[ZOrganizationMineEvaDetailVC alloc] init];
-                    dvc.listModel = smodel;
-                    [self.navigationController pushViewController:dvc animated:YES];
+                    
+                    routePushVC(ZRoute_org_evaDetail,smodel, nil);
                 }else{
                     ZOrderEvaListModel *smodel = [[ZOrderEvaListModel alloc] init];
                     smodel.stores_id = model.extra.stores_id;

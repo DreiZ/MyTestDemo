@@ -9,7 +9,6 @@
 #import "ZStudentMineOrderBuyListVC.h"
 
 #import "ZStudentMineOrderListCell.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOriganizationOrderViewModel.h"
 
 @interface ZStudentMineOrderBuyListVC ()
@@ -91,16 +90,12 @@
                     }
                 }];
             }
-//            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-//            [self.navigationController pushViewController:evc animated:YES];
         };
     }
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineOrderListCell"]){
-        ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
-        evc.model = cellConfig.dataModel;
-        [self.navigationController pushViewController:evc animated:YES];
+         routePushVC(ZRoute_org_orderDetail, cellConfig.dataModel, nil);
     }
 }
 

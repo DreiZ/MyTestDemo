@@ -18,7 +18,6 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOrderModel.h"
 #import "ZPayManager.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
@@ -63,13 +62,12 @@
                             [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
                         }
                     }
-                    ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
+                    
                     ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                     listModel.order_id = weakSelf.order_id;
                     listModel.stores_id = weakSelf.detailModel.stores_id;
                     listModel.isStudent = YES;
-                    evc.model = listModel;
-                    [weakSelf.navigationController pushViewController:evc animated:YES];
+                    routePushVC(ZRoute_org_orderDetail, listModel, nil);
                 }
             }
         }];

@@ -18,7 +18,6 @@
 #import "ZBaseUnitModel.h"
 #import "ZOriganizationOrderViewModel.h"
 #import "ZPayManager.h"
-#import "ZOrganizationMineOrderDetailVC.h"
 #import "ZOrderModel.h"
 #import "ZCouponListView.h"
 #import "ZOriganizationCardViewModel.h"
@@ -101,13 +100,11 @@
                     }
                 }
                 
-                ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
                 ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
                 listModel.order_id = weakSelf.order_id;
                 listModel.stores_id = weakSelf.detailModel.stores_id;
                 listModel.isStudent = YES;
-                evc.model = listModel;
-                [weakSelf.navigationController pushViewController:evc animated:YES];
+                routePushVC(ZRoute_org_orderDetail, listModel, nil);
             }
         }
     }];

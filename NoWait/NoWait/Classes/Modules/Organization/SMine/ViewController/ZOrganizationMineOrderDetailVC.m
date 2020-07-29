@@ -849,6 +849,23 @@
             }
         }];
     }
-    
+}
+@end
+
+#pragma mark - RouteHandler
+@interface ZOrganizationMineOrderDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationMineOrderDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_orderDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationMineOrderDetailVC *routevc = [[ZOrganizationMineOrderDetailVC alloc] init];
+    routevc.model = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

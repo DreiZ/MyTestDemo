@@ -7,7 +7,6 @@
 //
 
 #import "ZTeacherMineEvaListVC.h"
-#import "ZOrganizationMineEvaDetailVC.h"
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
 
@@ -69,18 +68,14 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]){
         ZOrganizationEvaListCell *enteryCell = (ZOrganizationEvaListCell *)cell;
         enteryCell.evaBlock = ^(NSInteger index) {
-            ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-            dvc.listModel = cellConfig.dataModel;
-            [self.navigationController pushViewController:dvc animated:YES];
+            routePushVC(ZRoute_org_evaDetail, cellConfig.dataModel, nil);
         };
     }
 }
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListCell"]) {
-        ZOrganizationMineEvaDetailVC *dvc = [[ZOrganizationMineEvaDetailVC alloc] init];
-        dvc.listModel = self.dataSources[indexPath.row];
-        [self.navigationController pushViewController:dvc animated:YES];
+        routePushVC(ZRoute_org_evaDetail, self.dataSources[indexPath.row], nil);
     }
 }
 

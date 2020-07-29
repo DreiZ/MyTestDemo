@@ -17,8 +17,6 @@
 #import "ZOrganizationEvaListCell.h"
 #import "ZOriganizationOrderViewModel.h"
 
-#import "ZOrganizationMineOrderDetailVC.h"
-
 @interface ZOrganizationMineEvaDetailVC ()
 @property (nonatomic,strong) ZOrderEvaDetailModel *detailModel;
 @property (nonatomic,strong) NSString *stores_reply_text;
@@ -250,12 +248,10 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZOrganizationEvaListLessonCell"]) {
         if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
-            ZOrganizationMineOrderDetailVC *evc = [[ZOrganizationMineOrderDetailVC alloc] init];
             ZOrderListModel *model = [[ZOrderListModel alloc] init];
             model.isStudent = NO;
             model.order_id = self.detailModel.order_id;
-            evc.model = model;
-            [self.navigationController pushViewController:evc animated:YES];
+            routePushVC(ZRoute_org_orderDetail, model, nil);
         }
     }
 }
@@ -316,3 +312,20 @@
 }
 @end
 
+#pragma mark - RouteHandler
+@interface ZOrganizationMineEvaDetailVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZOrganizationMineEvaDetailVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_evaDetail;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZOrganizationMineEvaDetailVC *routevc = [[ZOrganizationMineEvaDetailVC alloc] init];
+    routevc.listModel = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
+@end
