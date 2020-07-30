@@ -11,7 +11,6 @@
 
 #import "ZStudentMineOrderTopStateCell.h"
 #import "ZStudentMineOrderDetailCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZTableViewListCell.h"
 #import "ZStudentMineSettingBottomCell.h"
 #import "ZSingleLeftRoundImageCell.h"
@@ -579,21 +578,18 @@
     NSArray *tempArr = @[@[@"小提醒", @"支付后预约课程不可取消"]];
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
-        ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-        model.leftTitle = tArr[0];
-        model.rightTitle = tArr[1];
-        model.isHiddenLine = YES;
-        model.cellWidth = KScreenWidth - CGFloatIn750(60);
-        model.singleCellHeight = CGFloatIn750(60);
-        model.lineLeftMargin = CGFloatIn750(30);
-        model.lineRightMargin = CGFloatIn750(30);
-        model.cellHeight = CGFloatIn750(62);
-        model.leftFont = [UIFont fontSmall];
-        model.rightFont = [UIFont fontSmall];
+        ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"hint")
+        .zz_fontLeft([UIFont fontSmall])
+        .zz_fontRight([UIFont fontSmall])
+        .zz_cellHeight(CGFloatIn750(60))
+        .zz_cellWidth(KScreenWidth - CGFloatIn750(60))
+        .zz_rightMultiLine(YES)
+        .zz_titleLeft(tArr[0])
+        .zz_titleRight(tArr[1])
+        .zz_alignmentRight(NSTextAlignmentLeft);
         
-        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        
-        [configArr addObject:menuCellConfig];
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        [configArr addObject:textCellConfig];
     }
     
     ZCellConfig *bottomCellConfig = [ZCellConfig cellConfigWithClassName:[ZTableViewListCell className] title:[ZTableViewListCell className] showInfoMethod:@selector(setConfigList:) heightOfCell:[ZTableViewListCell z_getCellHeight:configArr] cellType:ZCellTypeClass dataModel:configArr];
@@ -677,45 +673,42 @@
             if (self.detailModel.isStudent) {
                 //申请退款中的状态  状态：1：学员申请 2：校区拒绝 3：学员拒绝 4：学员同意 5：校区同意
                 if ([self.detailModel.refund_status intValue] == 2) {
-                    ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                    model.rightTitle = @"校区已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“";
-                    model.isHiddenLine = YES;
-                    model.cellWidth = KScreenWidth;
-                    model.leftMargin = CGFloatIn750(160);
-                    model.rightMargin = CGFloatIn750(20);
-                    model.singleCellHeight = CGFloatIn750(32);
-                    model.cellHeight = CGFloatIn750(34);
-                    model.lineSpace = CGFloatIn750(10);
-                    model.rightFont = [UIFont fontSmall];
-                    model.rightColor = [UIColor colorRedForLabel];
-                    model.rightDarkColor =  [UIColor colorRedForLabel];
+                    ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+                    .zz_fontRight([UIFont fontSmall])
+                    .zz_colorRight([UIColor colorRedForLabel])
+                    .zz_colorDarkRight([UIColor colorRedForLabel])
+                    .zz_cellHeight(CGFloatIn750(34))
+                    .zz_rightMultiLine(YES)
+                    .zz_titleRight(@"校区已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“")
+                    .zz_alignmentRight(NSTextAlignmentLeft)
+                    .zz_marginLeft(CGFloatIn750(160));
                     
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                    [self.cellConfigArr addObject:menuCellConfig];
+                    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                    [self.cellConfigArr addObject:textCellConfig];
                     [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];
                 }else{
                     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
                 }
             }else{
                 if ([self.detailModel.refund_status intValue] == 1 || [self.detailModel.refund_status intValue] == 3) {
-                    ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                    model.rightTitle = @"如重新协商金额，请先修改此金额然后“协商退款”";
-                    if ([self.detailModel.refund_status intValue] == 3) {
-                        model.rightTitle = @"学员已拒绝你提供的退款金额提议,如重新协商金额，请先修改此金额然后”协商退款“";
-                    }
-                    model.isHiddenLine = YES;
-                    model.cellWidth = KScreenWidth;
-                    model.leftMargin = CGFloatIn750(160);
-                    model.rightMargin = CGFloatIn750(18);
-                    model.singleCellHeight = CGFloatIn750(32);
-                    model.cellHeight = CGFloatIn750(34);
-                    model.lineSpace = CGFloatIn750(10);
-                    model.rightFont = [UIFont fontSmall];
-                    model.rightColor = [UIColor colorRedForLabel];
-                    model.rightDarkColor =  [UIColor colorRedForLabel];
+                   
+                    ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+                    .zz_fontRight([UIFont fontSmall])
+                    .zz_colorRight([UIColor colorRedForLabel])
+                    .zz_colorDarkRight([UIColor colorRedForLabel])
+                    .zz_cellHeight(CGFloatIn750(34))
+                    .zz_rightMultiLine(YES)
+                    .zz_titleRight(@"校区已拒绝您提供的退款金额，如重新协商金额，请先修改此金额然后”协商退款“")
+                    .zz_alignmentRight(NSTextAlignmentLeft)
+                    .zz_marginLeft(CGFloatIn750(160));
                     
-                    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                    [self.cellConfigArr addObject:menuCellConfig];
+                    mModel.zz_titleRight(@"如重新协商金额，请先修改此金额然后“协商退款”");
+                    if ([self.detailModel.refund_status intValue] == 3) {
+                       mModel.zz_titleRight(@"学员已拒绝你提供的退款金额提议,如重新协商金额，请先修改此金额然后”协商退款“");
+                    }
+                    
+                    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                    [self.cellConfigArr addObject:textCellConfig];
                     [self.cellConfigArr addObject:[self getLineWithHeight:CGFloatIn750(40)]];
                 }else{
                     [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(40))];
@@ -764,21 +757,17 @@
         }
         for (int i = 0; i < titleArr.count; i++) {
             if (i == 0) {
-                ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-                model.leftTitle = titleArr[i][0];
-                model.rightTitle = titleArr[i][1];
-                model.isHiddenLine = YES;
-                model.cellWidth = KScreenWidth;
-                model.singleCellHeight = CGFloatIn750(60);
-                model.lineLeftMargin = CGFloatIn750(30);
-                model.lineRightMargin = CGFloatIn750(30);
-                model.cellHeight = CGFloatIn750(62);
-                model.leftFont = [UIFont boldFontSmall];
-                model.rightFont = [UIFont fontSmall];
+                ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+                .zz_fontRight([UIFont fontSmall])
+                .zz_fontLeft([UIFont boldFontSmall])
+                .zz_cellHeight(CGFloatIn750(60))
+                .zz_rightMultiLine(YES)
+                .zz_titleLeft(titleArr[i][0])
+                .zz_titleRight(titleArr[i][1])
+                .zz_alignmentRight(NSTextAlignmentLeft);
                 
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                
-                [self.cellConfigArr addObject:menuCellConfig];
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                [self.cellConfigArr addObject:textCellConfig];
             }else{
                 ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
                 model.leftTitle = titleArr[i][0];

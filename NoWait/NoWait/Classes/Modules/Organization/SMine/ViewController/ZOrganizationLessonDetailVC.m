@@ -9,8 +9,6 @@
 #import "ZOrganizationLessonDetailVC.h"
 #import "ZOrganizationLessonDetailHeaderCell.h"
 #import "ZOrganizationLessonDetailPriceCell.h"
-#import "ZTextFieldMultColCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZBaseUnitModel.h"
 
 @interface ZOrganizationLessonDetailVC ()
@@ -344,24 +342,20 @@
                }
                 
                 for (int j = 0; j < tempArr.count; j++) {
-                    ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-                    mModel.rightFont = [UIFont fontSmall];
-                    mModel.leftFont = [UIFont fontSmall];
-                    mModel.rightColor = [UIColor colorTextGray];
-                    mModel.leftColor = [UIColor colorTextGray];
-                    mModel.rightDarkColor = [UIColor colorTextGrayDark];
-                    mModel.leftDarkColor = [UIColor colorTextGrayDark];
-                    mModel.singleCellHeight = CGFloatIn750(50);
-                    mModel.rightTitle = tempArr[j][1];
-                    mModel.leftTitle = tempArr[j][0];
-                    mModel.leftContentSpace = CGFloatIn750(4);
-                    mModel.rightContentSpace = CGFloatIn750(4);
-                    mModel.leftMargin = CGFloatIn750(30);
-                    mModel.rightMargin = CGFloatIn750(30);
-                    mModel.isHiddenLine = YES;
-                    mModel.rightContentSpace = CGFloatIn750(30);
+                    ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+                    .zz_fontLeft([UIFont fontSmall])
+                    .zz_fontRight([UIFont fontSmall])
+                    .zz_colorLeft([UIColor colorTextGray])
+                    .zz_colorDarkLeft([UIColor colorTextGrayDark])
+                    .zz_colorRight([UIColor colorTextGray])
+                    .zz_colorDarkRight([UIColor colorTextGrayDark])
+                    .zz_cellHeight(CGFloatIn750(50))
+                    .zz_rightMultiLine(YES)
+                    .zz_titleLeft(tempArr[j][0])
+                    .zz_titleRight(tempArr[j][1])
+                    .zz_alignmentRight(NSTextAlignmentLeft);
                     
-                    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                    ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
                     [self.cellConfigArr addObject:textCellConfig];
                 }
             }
@@ -468,24 +462,20 @@
            }
             
             for (int j = 0; j < tempArr.count; j++) {
-                ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-                mModel.rightFont = [UIFont fontSmall];
-                mModel.leftFont = [UIFont fontSmall];
-                mModel.rightColor = [UIColor colorTextGray];
-                mModel.leftColor = [UIColor colorTextGray];
-                mModel.rightDarkColor = [UIColor colorTextGrayDark];
-                mModel.leftDarkColor = [UIColor colorTextGrayDark];
-                mModel.singleCellHeight = CGFloatIn750(50);
-                mModel.rightTitle = tempArr[j][1];
-                mModel.leftTitle = tempArr[j][0];
-                mModel.leftContentSpace = CGFloatIn750(4);
-                mModel.rightContentSpace = CGFloatIn750(4);
-                mModel.leftMargin = CGFloatIn750(30);
-                mModel.rightMargin = CGFloatIn750(30);
-                mModel.isHiddenLine = YES;
-                mModel.rightContentSpace = CGFloatIn750(30);
+                ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+                .zz_fontLeft([UIFont fontSmall])
+                .zz_fontRight([UIFont fontSmall])
+                .zz_colorLeft([UIColor colorTextGray])
+                .zz_colorDarkLeft([UIColor colorTextGrayDark])
+                .zz_colorRight([UIColor colorTextGray])
+                .zz_colorDarkRight([UIColor colorTextGrayDark])
+                .zz_cellHeight(CGFloatIn750(50))
+                .zz_rightMultiLine(YES)
+                .zz_titleLeft(tempArr[j][0])
+                .zz_titleRight(tempArr[j][1])
+                .zz_alignmentRight(NSTextAlignmentLeft);
                 
-                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+                ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
                 [self.cellConfigArr addObject:textCellConfig];
             }
     }

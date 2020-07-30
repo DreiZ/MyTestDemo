@@ -9,7 +9,6 @@
 #import "ZOrganizationMineEvaDetailVC.h"
 #import "ZOrganizationEvaListLessonCell.h"
 #import "ZOrganizationEvaDetailTitleCell.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 #import "ZOrganizationEvaListEvaTextViewCell.h"
 #import "ZOrganizationEvaListEvaBtnCell.h"
 #import "ZOrganizationEvaListReEvaCell.h"
@@ -69,22 +68,15 @@
          [self.cellConfigArr addObject:orderCellConfig];
      }
     if (ValidStr(self.detailModel.courses_comment_desc)) {
-         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = self.detailModel.courses_comment_desc;
-         model.isHiddenLine = YES;
-         model.cellWidth = KScreenWidth - CGFloatIn750(60);
-         model.singleCellHeight = CGFloatIn750(60);
-         model.lineLeftMargin = CGFloatIn750(30);
-         model.lineRightMargin = CGFloatIn750(30);
-         model.cellHeight = CGFloatIn750(62);
-         model.lineSpace = CGFloatIn750(10);
-         model.rightFont = [UIFont fontContent];
-         model.rightColor = [UIColor colorTextBlack];
-         model.rightDarkColor =  [UIColor colorTextBlackDark];
-         
-         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-         
-         [self.cellConfigArr  addObject:menuCellConfig];
+        ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+        .zz_fontLeft([UIFont fontContent])
+        .zz_cellHeight(CGFloatIn750(60))
+        .zz_leftMultiLine(YES)
+        .zz_titleLeft(self.detailModel.courses_comment_desc)
+        .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
+        
+        ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+        [self.cellConfigArr addObject:textCellConfig];
      }
     if ([self.detailModel.course_is_reply intValue] == 0) {
         if (!self.listModel.isTeacher) {
@@ -110,23 +102,15 @@
          [self.cellConfigArr addObject:orderCellConfig];
      }
      if (ValidStr(self.detailModel.teacher_comment_desc)) {
-
-         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = self.detailModel.teacher_comment_desc;
-         model.isHiddenLine = YES;
-         model.cellWidth = KScreenWidth - CGFloatIn750(60);
-         model.singleCellHeight = CGFloatIn750(60);
-         model.lineLeftMargin = CGFloatIn750(30);
-         model.lineRightMargin = CGFloatIn750(30);
-         model.cellHeight = CGFloatIn750(62);
-         model.lineSpace = CGFloatIn750(10);
-         model.rightFont = [UIFont fontContent];
-         model.rightColor = [UIColor colorTextBlack];
-         model.rightDarkColor =  [UIColor colorTextBlackDark];
+         ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+         .zz_fontLeft([UIFont fontContent])
+         .zz_cellHeight(CGFloatIn750(60))
+         .zz_leftMultiLine(YES)
+         .zz_titleLeft(self.detailModel.teacher_comment_desc)
+         .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
          
-         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-         
-         [self.cellConfigArr  addObject:menuCellConfig];
+         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+         [self.cellConfigArr addObject:textCellConfig];
      }
     if ([self.detailModel.teacher_is_reply intValue] == 1) {
         ZCellConfig *orderCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationEvaListReEvaCell className] title:[ZOrganizationEvaListReEvaCell className] showInfoMethod:@selector(setEvaDes:) heightOfCell:[ZOrganizationEvaListReEvaCell z_getCellHeight:SafeStr(self.detailModel.teacher_reply_desc)] cellType:ZCellTypeClass dataModel:SafeStr(self.detailModel.teacher_reply_desc)];
@@ -151,22 +135,15 @@
          [self.cellConfigArr addObject:orderCellConfig];
      }
      if (ValidStr(self.detailModel.stores_comment_desc)) {
-         ZBaseMultiseriateCellModel *model = [[ZBaseMultiseriateCellModel alloc] init];
-         model.rightTitle = self.detailModel.stores_comment_desc;
-         model.isHiddenLine = YES;
-         model.cellWidth = KScreenWidth - CGFloatIn750(60);
-         model.singleCellHeight = CGFloatIn750(60);
-         model.lineLeftMargin = CGFloatIn750(30);
-         model.lineRightMargin = CGFloatIn750(30);
-         model.cellHeight = CGFloatIn750(62);
-         model.lineSpace = CGFloatIn750(10);
-         model.rightFont = [UIFont fontContent];
-         model.rightColor = [UIColor colorTextBlack];
-         model.rightDarkColor =  [UIColor colorTextBlackDark];
+         ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"title")
+         .zz_fontLeft([UIFont fontContent])
+         .zz_cellHeight(CGFloatIn750(60))
+         .zz_leftMultiLine(YES)
+         .zz_titleLeft(self.detailModel.stores_comment_desc)
+         .zz_cellWidth(KScreenWidth - CGFloatIn750(60));
          
-         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:model.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-         
-         [self.cellConfigArr  addObject:menuCellConfig];
+         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:mModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:mModel] cellType:ZCellTypeClass dataModel:mModel];
+         [self.cellConfigArr addObject:textCellConfig];
      }
     
      if ([self.detailModel.stores_is_reply intValue] == 0) {

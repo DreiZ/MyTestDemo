@@ -10,7 +10,6 @@
 #import "ZOrganizationLessonDetailHeaderCell.h"
 #import "ZStudentTitleStarCell.h"
 #import "ZOrganizationLessonDetailPriceCell.h"
-#import "ZTextFieldMultColCell.h"
 #import "ZStudentOrganizationDetailIntroLabelCell.h"
 #import "ZStudentOrganizationDetailEnteryCell.h"
 #import "ZStudentOrganizationPersonnelMoreCell.h"
