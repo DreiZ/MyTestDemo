@@ -46,7 +46,7 @@
     
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
-    [self setTableViewEmptyDataDelegate];
+//    [self setTableViewEmptyDataDelegate];
 }
 
 

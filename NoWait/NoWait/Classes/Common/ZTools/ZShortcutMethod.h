@@ -53,3 +53,4 @@ ZCellConfig *getEmptyCellWithHeight(CGFloat height);
 ZCellConfig *getGrayEmptyCellWithHeight(CGFloat height);
 
 BOOL isVideo(NSString *url);
+

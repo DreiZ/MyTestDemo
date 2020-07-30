@@ -39,7 +39,7 @@
     
     [ZImagePickerManager initSDWebImage];
 
-#if defined(DEBUG)||defined(_DEBUG)
+#if (defined(DEBUG)||defined(_DEBUG)) && defined(LogShowFPS)
     [[JPFPSStatus sharedInstance] open];
 #endif
 }

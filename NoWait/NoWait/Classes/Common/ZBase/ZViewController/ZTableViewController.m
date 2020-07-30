@@ -73,11 +73,22 @@
 
 #pragma mark - 设置data
 - (void)setDataSource {
-    _dataSources = @[].mutableCopy;
-    _cellConfigArr = @[].mutableCopy;
-    
     self.currentPage = 1;
     self.loading = YES;
+}
+
+- (NSMutableArray *)dataSources {
+    if (!_dataSources) {
+        _dataSources = @[].mutableCopy;
+    }
+    return _dataSources;
+}
+
+- (NSMutableArray *)cellConfigArr {
+    if (!_cellConfigArr) {
+        _cellConfigArr = @[].mutableCopy;
+    }
+    return _cellConfigArr;
 }
 
 //设置列表 cellConfig
