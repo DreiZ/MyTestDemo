@@ -7,7 +7,6 @@
 //
 
 #import "ZMineOrderDetailCell.h"
-#import "ZStudentMineOrderDetailSubDesCell.h"
 
 @interface ZMineOrderDetailCell ()
 @property (nonatomic,strong) UILabel *orderNameLabel;
