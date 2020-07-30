@@ -45,7 +45,7 @@
 @property (nonatomic,strong) NSString *img;
 @end
 
-@interface ZBaseNetworkBackModel : NSObject
+@interface ZBaseNetworkBackModel : ZBaseModel
 @property (nonatomic,strong) id data;
 @property (nonatomic,strong) NSString *code;
 @property (nonatomic,strong) NSString *message;

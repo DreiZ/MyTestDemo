@@ -49,6 +49,8 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"cache"]){
             [[SDImageCache sharedImageCache] clearMemory];
+            [ZDefaultCache() removeAllObjects];
+            [ZCurrentUserCache() removeAllObjects];
             [[SDWebImageManager sharedManager].imageCache clearDiskOnCompletion:^{
                 DLog(@"清除缓存成功");
             }];

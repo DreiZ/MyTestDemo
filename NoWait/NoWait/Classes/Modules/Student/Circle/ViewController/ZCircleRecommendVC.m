@@ -19,6 +19,8 @@
 @property (nonatomic, strong) ZJWaterLayout *layout;
 @property (nonatomic, strong) NSMutableDictionary *param;
 
+@property (nonatomic,assign) BOOL loadFromLocalHistory;
+@property (nonatomic,strong) ZCircleMineDynamicNetModel *dynamicNetModel;
 @end
 
 @implementation ZCircleRecommendVC
@@ -50,15 +52,25 @@
         }
     }
     
+    [self readCacheData];
+    
     [self setCollectionViewEmptyDataDelegate];
     [self setCollectionViewRefreshFooter];
     [self setCollectionViewRefreshHeader];
     [self initCellConfigArr];
     [self.iCollectionView reloadData];
     [self setCollectionViewGaryBack];
+    
     if (self.stores_name) {
         [self.navigationItem setTitle:self.stores_name];
     }
+    
+    __weak typeof(self) weakSelf = self;
+    [self.reachability setNotifyBlock:^(YYReachability * _Nonnull reachability) {
+        if (weakSelf.loadFromLocalHistory && reachability.reachable) {
+            [weakSelf refreshData];
+        }
+    }];
 }
 
 - (void)setDataSource {
@@ -89,6 +101,29 @@
         [self.cellConfigArr addObject:cellConfig];
     }
 }
+
+
+#pragma mark - Cache
+- (void)readCacheData {
+    _loadFromLocalHistory = YES;
+    if (self.isAttention) {
+        self.dynamicNetModel = (ZCircleMineDynamicNetModel *)[ZCurrentUserCache() objectForKey:[ZCircleMineDynamicNetModel className]];
+    }else{
+       self.dynamicNetModel = (ZCircleMineDynamicNetModel *)[ZDefaultCache() objectForKey:[ZCircleMineDynamicNetModel className]];
+    }
+    
+    [self.dataSources removeAllObjects];
+    [self.dataSources addObjectsFromArray:self.dynamicNetModel.list];
+}
+
+- (void)writeDataToCache {
+    if (self.isAttention) {
+        [ZCurrentUserCache() setObject:self.dynamicNetModel forKey:[ZCircleMineDynamicNetModel className]];
+    }else{
+        [ZDefaultCache() setObject:self.dynamicNetModel forKey:[ZCircleMineDynamicNetModel className]];
+    }
+}
+
 
 #pragma mark - ZJWaterLayoutDelegate
 /** 几列 */
@@ -145,6 +180,10 @@
         [ZCircleMineViewModel getFollowRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
+                weakSelf.loadFromLocalHistory = NO;
+                weakSelf.dynamicNetModel = data;
+                [weakSelf writeDataToCache];
+                
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 
@@ -167,6 +206,10 @@
         [ZCircleMineViewModel getRecommondDynamicsList:param completeBlock:^(BOOL isSuccess, ZCircleMineDynamicNetModel *data) {
             weakSelf.loading = NO;
             if (isSuccess && data) {
+                weakSelf.loadFromLocalHistory = NO;
+                weakSelf.dynamicNetModel = data;
+                [weakSelf writeDataToCache];
+                
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 
@@ -202,6 +245,11 @@
                 [weakSelf initCellConfigArr];
                 [weakSelf.iCollectionView reloadData];
                 
+                weakSelf.loadFromLocalHistory = NO;
+                weakSelf.dynamicNetModel = data;
+                weakSelf.dynamicNetModel.list = weakSelf.dataSources;
+                [weakSelf writeDataToCache];
+                
                 [weakSelf.iCollectionView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                     [weakSelf.iCollectionView tt_removeLoadMoreFooter];
@@ -221,6 +269,11 @@
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 [weakSelf initCellConfigArr];
                 [weakSelf.iCollectionView reloadData];
+                
+                weakSelf.loadFromLocalHistory = NO;
+                weakSelf.dynamicNetModel = data;
+                weakSelf.dynamicNetModel.list = weakSelf.dataSources;
+                [weakSelf writeDataToCache];
                 
                 [weakSelf.iCollectionView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
