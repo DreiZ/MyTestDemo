@@ -266,6 +266,15 @@
 @end
 
 @implementation ZStoresListNetModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _list = @[];
+        _total = @"0";
+    }
+    return self;
+}
+
 + (NSDictionary *)mj_objectClassInArray {
     return @{ @"list" : @"ZStoresListModel"
              };

@@ -2,11 +2,11 @@
 //  HNDebug.m
 //  hntx
 //
-//  Created by 唐开福 on 2018/4/25.
-//  Copyright © 2018年 zoomwoo. All rights reserved.
+//  Created by zzz on 2018/4/25.
+//  Copyright © 2018年 zzz. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-#import "HNDebug.h"
+#import "ZDebug.h"
 #import "AFHTTPSessionManager.h"
 
 #ifdef DEBUG

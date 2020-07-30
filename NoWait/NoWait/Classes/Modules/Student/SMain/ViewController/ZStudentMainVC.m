@@ -13,7 +13,10 @@
 #import "ZFileManager.h"
 #import <SDImageCache.h>
 #import <SDWebImageDownloader.h>
+
 @interface ZStudentMainVC ()<TLTabBarControllerProtocol>
+@property (nonatomic,assign) BOOL loadFromLocalHistory;
+@property (nonatomic,strong) ZStoresListNetModel *schoolListModel;
 
 @end
 
@@ -21,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self readCacheData];
     [self initCellConfigArr];
     [self.iTableView reloadData];
     
@@ -31,10 +35,50 @@
     }];
     
     __weak typeof(self) weakSelf = self;
+    [self.reachability setNotifyBlock:^(YYReachability * _Nonnull reachability) {
+        if (weakSelf.loadFromLocalHistory && reachability.reachable) {
+            [weakSelf refreshData];
+        }
+    }];
+    
+    [ZPublicTool checkUpdateVersion];
+    
+    [self setHander];
+}
+
+//- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+//    if(error != nil) {
+//        NSLog(@"error-----%@", error);
+//    } else {
+//        NSLog(@"复制视频成功");
+//    }
+//}
+
+- (void)setHander {
+//    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
+//
+//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        DLog(@"filezzz :%@",obj);
+//            [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//    }];
+//    {
+//        NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"temp"];
+//
+//        [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            DLog(@"filezzz :%@",obj);
+//                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
+//        }];
+//    }
+//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"mov" inDirectory:nil];
+//    for (id item in videos) {
+//        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+//    }
+    
+    __weak typeof(self) weakSelf = self;
     [[ZLocationManager shareManager] setLocationMainBlock:^(CLLocation *location) {
         if (!weakSelf.isLoacation && location) {
              DLog(@"userLocation %f-%f",location.coordinate.longitude,location.coordinate.latitude);
-            [weakSelf refreshData];
+//            [weakSelf refreshData];
             weakSelf.isLoacation = YES;
             [weakSelf.searchView setAddress:@"-"];
         }
@@ -71,37 +115,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"isRewardFirst" forKey:@"isRewardFirst"];
         }
     }
-    
-    [ZPublicTool checkUpdateVersion];
-    
-    
-    
-//    NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
-//
-//    [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        DLog(@"filezzz :%@",obj);
-//            [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-//    }];
-//    {
-//        NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:@"temp"];
-//
-//        [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            DLog(@"filezzz :%@",obj);
-//                [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
-//        }];
-//    }
-//    NSArray *videos = [[NSBundle mainBundle] pathsForResourcesOfType:@"mov" inDirectory:nil];
-//    for (id item in videos) {
-//        UISaveVideoAtPathToSavedPhotosAlbum(item, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
-//    }
 }
-//- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-//    if(error != nil) {
-//        NSLog(@"error-----%@", error);
-//    } else {
-//        NSLog(@"复制视频成功");
-//    }
-//}
 
 - (void)setDataSource {
     [super setDataSource];
@@ -184,18 +198,29 @@
     NSMutableArray *section1Arr = @[].mutableCopy;
     if (self.dataSources.count > 0) {
         for (int i = 0; i < self.dataSources.count; i++) {
-//            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
-//
             ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationNewListCell className] title:@"ZStudentOrganizationNewListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationNewListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
             [section1Arr addObject:orCellCon1fig];
             [section1Arr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
-        }//
+        }
     }else {
         ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"ZNoDataCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(500) cellType:ZCellTypeClass dataModel:nil];
         [section1Arr addObject:orCellCon1fig];
     }
     
     [self.cellConfigArr addObject:section1Arr];
+}
+
+#pragma mark - Cache
+- (void)readCacheData {
+    _loadFromLocalHistory = YES;
+    
+    self.schoolListModel = (ZStoresListNetModel *)[ZDefaultCache() objectForKey:[ZStoresListNetModel className]];
+    [self.dataSources removeAllObjects];
+    [self.dataSources addObjectsFromArray:self.schoolListModel.list];
+}
+
+- (void)writeDataToCache {
+    [ZDefaultCache() setObject:self.schoolListModel forKey:[ZStoresListNetModel className]];
 }
 
 #pragma mark - 数据处理
@@ -213,6 +238,10 @@
     [ZStudentMainViewModel getIndexList:self.param completeBlock:^(BOOL isSuccess, ZStoresListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
+            weakSelf.loadFromLocalHistory = NO;
+            weakSelf.schoolListModel = data;
+            [weakSelf writeDataToCache];
+            
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
@@ -246,6 +275,11 @@
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+            
+            weakSelf.loadFromLocalHistory = NO;
+            weakSelf.schoolListModel.list = weakSelf.dataSources;
+            weakSelf.schoolListModel.total = data.total;
+            [weakSelf writeDataToCache];
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ZBaseModel : NSObject
+@interface ZBaseModel : NSObject<NSCoding, NSCopying>
 
 @end

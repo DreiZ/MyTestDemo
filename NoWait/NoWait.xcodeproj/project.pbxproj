@@ -91,7 +91,10 @@
 		B230F1BF2445AC970084BCC6 /* ZLessonWeekHandlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1BE2445AC970084BCC6 /* ZLessonWeekHandlerView.m */; };
 		B230F1C22445B13A0084BCC6 /* ZLessonWeekHandlerItemBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1C12445B13A0084BCC6 /* ZLessonWeekHandlerItemBtnView.m */; };
 		B230F54124CE86FC00A94F53 /* ZOrganizationTextLabelListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54024CE86FC00A94F53 /* ZOrganizationTextLabelListCell.m */; };
-		B230F54824D2728C00A94F53 /* HNDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54624D2728C00A94F53 /* HNDebug.m */; };
+		B230F54824D2728C00A94F53 /* ZDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54624D2728C00A94F53 /* ZDebug.m */; };
+		B230F55424D2AA3100A94F53 /* ZCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54F24D2AA3100A94F53 /* ZCache.m */; };
+		B230F55524D2AA3100A94F53 /* ZCacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F55124D2AA3100A94F53 /* ZCacheFactory.m */; };
+		B230F55624D2AA3100A94F53 /* ZBuyCardCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */; };
 		B23184DA241F2BA60033F875 /* NSData+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D7241F2BA60033F875 /* NSData+SwitchData.m */; };
 		B23184DB241F2BA60033F875 /* NSString+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D9241F2BA60033F875 /* NSString+SwitchData.m */; };
 		B23184DE241F59440033F875 /* ZOriganizationCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184DD241F59440033F875 /* ZOriganizationCardViewModel.m */; };
@@ -988,9 +991,15 @@
 		B230F1C12445B13A0084BCC6 /* ZLessonWeekHandlerItemBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLessonWeekHandlerItemBtnView.m; sourceTree = "<group>"; };
 		B230F53F24CE86FC00A94F53 /* ZOrganizationTextLabelListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationTextLabelListCell.h; sourceTree = "<group>"; };
 		B230F54024CE86FC00A94F53 /* ZOrganizationTextLabelListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationTextLabelListCell.m; sourceTree = "<group>"; };
-		B230F54524D2728B00A94F53 /* HNDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNDebug.h; sourceTree = "<group>"; };
-		B230F54624D2728C00A94F53 /* HNDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNDebug.m; sourceTree = "<group>"; };
-		B230F54724D2728C00A94F53 /* HNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNConfig.h; sourceTree = "<group>"; };
+		B230F54524D2728B00A94F53 /* ZDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDebug.h; sourceTree = "<group>"; };
+		B230F54624D2728C00A94F53 /* ZDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDebug.m; sourceTree = "<group>"; };
+		B230F54724D2728C00A94F53 /* ZConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZConfig.h; sourceTree = "<group>"; };
+		B230F54E24D2AA3100A94F53 /* ZCacheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCacheFactory.h; sourceTree = "<group>"; };
+		B230F54F24D2AA3100A94F53 /* ZCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCache.m; sourceTree = "<group>"; };
+		B230F55024D2AA3100A94F53 /* ZBuyCardCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBuyCardCache.h; sourceTree = "<group>"; };
+		B230F55124D2AA3100A94F53 /* ZCacheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCacheFactory.m; sourceTree = "<group>"; };
+		B230F55224D2AA3100A94F53 /* ZCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCache.h; sourceTree = "<group>"; };
+		B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBuyCardCache.m; sourceTree = "<group>"; };
 		B23184D5241F2BA60033F875 /* NSData+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SwitchData.h"; sourceTree = "<group>"; };
 		B23184D6241F2BA60033F875 /* NSString+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SwitchData.h"; sourceTree = "<group>"; };
 		B23184D7241F2BA60033F875 /* NSData+SwitchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SwitchData.m"; sourceTree = "<group>"; };
@@ -2676,9 +2685,6 @@
 		B22A338D24CBC6EC00A467FE /* JPFPSStatus */ = {
 			isa = PBXGroup;
 			children = (
-				B230F54724D2728C00A94F53 /* HNConfig.h */,
-				B230F54524D2728B00A94F53 /* HNDebug.h */,
-				B230F54624D2728C00A94F53 /* HNDebug.m */,
 				B22A338E24CBC6EC00A467FE /* JPFPSStatus.h */,
 				B22A338F24CBC6EC00A467FE /* JPFPSStatus.m */,
 			);
@@ -2692,6 +2698,29 @@
 				B230F1AF2444881F0084BCC6 /* ZLocationManager.m */,
 			);
 			path = ZLocationManager;
+			sourceTree = "<group>";
+		};
+		B230F54C24D2A89800A94F53 /* ZDebug */ = {
+			isa = PBXGroup;
+			children = (
+				B230F54724D2728C00A94F53 /* ZConfig.h */,
+				B230F54524D2728B00A94F53 /* ZDebug.h */,
+				B230F54624D2728C00A94F53 /* ZDebug.m */,
+			);
+			path = ZDebug;
+			sourceTree = "<group>";
+		};
+		B230F54D24D2AA3100A94F53 /* CacheService */ = {
+			isa = PBXGroup;
+			children = (
+				B230F54E24D2AA3100A94F53 /* ZCacheFactory.h */,
+				B230F54F24D2AA3100A94F53 /* ZCache.m */,
+				B230F55024D2AA3100A94F53 /* ZBuyCardCache.h */,
+				B230F55124D2AA3100A94F53 /* ZCacheFactory.m */,
+				B230F55224D2AA3100A94F53 /* ZCache.h */,
+				B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */,
+			);
+			path = CacheService;
 			sourceTree = "<group>";
 		};
 		B23184D4241F2BA60033F875 /* SwitchData */ = {
@@ -3460,6 +3489,7 @@
 		B2A77E8323BDD67600407BF0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B230F54D24D2AA3100A94F53 /* CacheService */,
 				B2F371DF246B927900678B19 /* ZChain */,
 				B2A77F7D23BDEA8500407BF0 /* ZTools */,
 				B2A77F7C23BDEA7700407BF0 /* ZBase */,
@@ -3592,6 +3622,7 @@
 		B2A77F7D23BDEA8500407BF0 /* ZTools */ = {
 			isa = PBXGroup;
 			children = (
+				B230F54C24D2A89800A94F53 /* ZDebug */,
 				B22A338D24CBC6EC00A467FE /* JPFPSStatus */,
 				B2A77F6723BDE61100407BF0 /* ZPublicTool.h */,
 				B2A77F6823BDE61100407BF0 /* ZPublicTool.m */,
@@ -5734,7 +5765,7 @@
 				B28D90E124064FDC0021E05A /* ZOriganizationClassStudentListCell.m in Sources */,
 				B2CF93422424A14D007AF66E /* ZOrganizationEvaListUserInfoCell.m in Sources */,
 				B2A77FD423BDEAA100407BF0 /* ZNavigationController.m in Sources */,
-				B230F54824D2728C00A94F53 /* HNDebug.m in Sources */,
+				B230F54824D2728C00A94F53 /* ZDebug.m in Sources */,
 				B2F5BD1424B076EE00AD1C72 /* ZCircleMineCollectionVC.m in Sources */,
 				B28EA67C240E602300C8E225 /* ZOrganizationCardAddLessonListVC.m in Sources */,
 				B2196AFB23E7D7880013F2A1 /* DarkModel.m in Sources */,
@@ -5808,6 +5839,7 @@
 				B2F5BD5424B401C000AD1C72 /* ZCircleReleaseSchoolListCell.m in Sources */,
 				B28EA691240FA8D800C8E225 /* ZOriganizationModel.m in Sources */,
 				B24BCD3024987D6B00C3D9EA /* ZOrganizationSearchExperienceLessonListVC.m in Sources */,
+				B230F55424D2AA3100A94F53 /* ZCache.m in Sources */,
 				B296E3B2240515B400507509 /* ZOrganizationTeachingScheduleNoVC.m in Sources */,
 				B268815A247BBFB000BF8FCD /* ZMessgeModel.m in Sources */,
 				B2F7D37A23CDE59B00F7A17D /* ZStudentMineOrderBuyListVC.m in Sources */,
@@ -6240,6 +6272,7 @@
 				B2CF933F24249DD4007AF66E /* ZOrganizationEvaListCell.m in Sources */,
 				B2A7802123BDF8B200407BF0 /* ZAdvertiseHelper.m in Sources */,
 				B20E57AA24849A4400D4226D /* ZMessageHistoryReadCell.m in Sources */,
+				B230F55624D2AA3100A94F53 /* ZBuyCardCache.m in Sources */,
 				B2A7818723C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.m in Sources */,
 				B25EC04524A1D2830099090E /* ZOrganizationCardAddStudentCell.m in Sources */,
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
@@ -6324,6 +6357,7 @@
 				B28D90F424074D040021E05A /* ZOriganizationTopTitleView.m in Sources */,
 				B28D9137240766940021E05A /* NSBundle+PGDatePicker.m in Sources */,
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
+				B230F55524D2AA3100A94F53 /* ZCacheFactory.m in Sources */,
 				B23F521524B6C7530070FB79 /* ZJCirleLayout.m in Sources */,
 				B234D09423CC428500210CD8 /* ZStudentStarStudentListVC.m in Sources */,
 				B230F1B3244554C00084BCC6 /* ZStudentMessageSendListVC.m in Sources */,

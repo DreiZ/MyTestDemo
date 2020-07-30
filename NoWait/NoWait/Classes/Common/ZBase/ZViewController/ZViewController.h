@@ -11,7 +11,7 @@
 #import "UIViewController+PopGesture.h"
 #import "XYTransitionProtocol.h"
 #import "UIScrollView+EmptyDataSet.h"
-
+#import <YYReachability.h>
 
 #define  ZCHAIN_VIEWCONTROLLERCHAIN_PROPERTY(methodName,ZZParamType) ZCHAIN_PROPERTY ZCHAIN_BLOCK(ZViewController *, methodName, ZZParamType)
 
@@ -27,6 +27,7 @@
 /// 当前VC stutusBar的状态，仅在viewWillAppear时生效，默认LightContent
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 
+@property (nonatomic, strong) YYReachability *reachability;
 /**
  是否隐藏导航栏
  */

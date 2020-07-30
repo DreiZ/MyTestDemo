@@ -113,6 +113,13 @@ ZCHAIN_BLOCK_IMPLEMENTATION(ZViewController *, zChain_block_setNotShouldDecompre
     _loading = loading;
 }
 
+- (YYReachability *)reachability {
+    if (!_reachability) {
+        [YYReachability reachability];
+    }
+    return _reachability;
+}
+
 #pragma mark - DZNEmptyDataSetSource Methods
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {

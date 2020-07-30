@@ -2,8 +2,8 @@
 //  Macro.h
 //  hntx
 //
-//  Created by 唐开福 on 2018/4/18.
-//  Copyright © 2018年 zoomwoo. All rights reserved.
+//  Created by zzz on 2018/4/18.
+//  Copyright © 2018年 zzz. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,7 +12,7 @@
 #define LogImageNameErrorIfNil
 
 //打印veiwDidLoad和dealloc信息
-#define LogViewDidLoadAndDealloc
+//#define LogViewDidLoadAndDealloc
 
 // 显示fps
 //#define LogShowFPS

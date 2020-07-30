@@ -59,7 +59,6 @@ NSString *const LKAvatarPlacehodlerBlurImage =  @"LKAvatarPlacehodlerBlurImage";
  *  @param isVertical      是否垂直拉伸
  *  @param isFirstOpaque   是否第一像素不透明
  *  @param highlightColor  显示的颜色
- *	@param isHighlightLeft 颜色是否显示在左边(横向拉伸时，是否现在在上面)
  *
  *  @return image
  */
