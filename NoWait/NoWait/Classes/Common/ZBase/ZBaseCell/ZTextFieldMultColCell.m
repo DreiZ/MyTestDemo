@@ -8,7 +8,6 @@
 
 #import "ZTextFieldMultColCell.h"
 #import "ZPublicTool.h"
-#import "ZMultiseriateContentLeftLineCell.h"
 
 @interface ZTextFieldMultColCell ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UILabel *subTitleLabel;
@@ -319,8 +318,8 @@
         if (tempArr.count > 0) {
             for (int i = 0; i < tempArr.count; i++) {
                    id smodel = tempArr[i];
-                   if ([smodel isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
-                       cellHeight += [ZMultiseriateContentLeftLineCell z_getCellHeight:smodel];
+                   if ([smodel isKindOfClass:[ZLineCellModel class]]) {
+                       cellHeight += [ZBaseLineCell z_getCellHeight:smodel];
                    }
                }
             return cellHeight;
@@ -618,9 +617,9 @@
         NSArray *tempArr = self.model.data;
         for (int i = 0; i < tempArr.count; i++) {
             id model = tempArr[i];
-            if ([model isKindOfClass:[ZBaseMultiseriateCellModel class]]) {
-                ZBaseMultiseriateCellModel *sModel = model;
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMultiseriateContentLeftLineCell className] title:sModel.cellTitle showInfoMethod:@selector(setMModel:) heightOfCell:[ZMultiseriateContentLeftLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
+            if ([model isKindOfClass:[ZLineCellModel class]]) {
+                ZLineCellModel *sModel = model;
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:sModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
                 
                 [self.cellConfigArr addObject:menuCellConfig];
             }

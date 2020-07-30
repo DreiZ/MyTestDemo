@@ -126,22 +126,22 @@
             }
             
             for (int j = 0; j < tempArr.count; j++) {
-                ZBaseMultiseriateCellModel *mModel = [[ZBaseMultiseriateCellModel alloc] init];
-                mModel.cellWidth = KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2;
-                mModel.rightFont = [UIFont fontSmall];
-                mModel.leftFont = [UIFont fontSmall];
-                mModel.rightColor = [UIColor colorTextGray];
-                mModel.leftColor = [UIColor colorTextGray];
-                mModel.rightDarkColor = [UIColor colorTextGrayDark];
-                mModel.leftDarkColor = [UIColor colorTextGrayDark];
-                mModel.singleCellHeight = CGFloatIn750(44);
-                mModel.rightTitle = tempArr[j][1];
-                mModel.leftTitle = tempArr[j][0];
-                mModel.leftContentSpace = CGFloatIn750(4);
-                mModel.rightContentSpace = CGFloatIn750(4);
-                mModel.leftMargin = CGFloatIn750(2);
-                mModel.rightMargin = CGFloatIn750(2);
-                mModel.isHiddenLine = YES;
+                ZLineCellModel *mModel = ZLineCellModel.zz_lineCellModel_create(@"sub")
+                .zz_titleLeft(tempArr[j][0])
+                .zz_titleRight(tempArr[j][1])
+                .zz_lineHidden(YES)
+                .zz_rightMultiLine(YES)
+                .zz_alignmentRight(NSTextAlignmentLeft)
+                .zz_marginLeft(CGFloatIn750(2))
+                .zz_marginRight(CGFloatIn750(2))
+                .zz_cellHeight(CGFloatIn750(44))
+                .zz_fontLeft([UIFont fontSmall])
+                .zz_fontRight([UIFont fontSmall])
+                .zz_colorLeft([UIColor colorTextGray])
+                .zz_colorDarkLeft([UIColor colorTextGrayDark])
+                .zz_colorRight([UIColor colorTextGray])
+                .zz_colorDarkRight([UIColor colorTextGrayDark])
+                .zz_cellWidth(KScreenWidth - cellModel.leftContentWidth - cellModel.leftMargin - cellModel.rightMargin - cellModel.contentSpace * 2);
                 
                 [multArr addObject:mModel];
             }
