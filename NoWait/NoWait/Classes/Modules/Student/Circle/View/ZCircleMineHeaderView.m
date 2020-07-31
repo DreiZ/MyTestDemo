@@ -427,19 +427,6 @@
     _signatureLabel.attributedText = text;
     
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"default_head"]];
-//    if (ValidStr(model.image)) {
-//        [LKUIUtils downloadShareImage:model.image complete:^(UIImage *image) {
-//            if (!image) {
-//                image = [UIImage imageNamed:@"default_head"];
-//            }
-//            image = [TZImageCropManager circularClipImage:image];
-//            [LKUIUtils doubleAnimaitonWithImageView:self.headImageView toImage:image duration:0.8 animations:^{
-//                self.headImageView.layer.cornerRadius = CGFloatIn750(36);
-//            } completion:^{
-//                
-//            }];
-//        }];
-//    }
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

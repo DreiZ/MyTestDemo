@@ -65,6 +65,28 @@
     if (self.account && ([self.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
     }
+    
+    // KVO
+    [[[RACSignal combineLatest:@[RACObserve(self, self.mineModel.dynamic), RACObserve(self, self.mineModel.enjoy)]
+    reduce:^(NSString *dynamic, NSString *enjoy) {
+        NSString *subTitle = [NSString stringWithFormat:@"%@%@",SafeStr(enjoy),SafeStr(dynamic)];
+        return subTitle;
+    }] distinctUntilChanged]
+    subscribeNext:^(NSString *valid) {
+        DLog(@"subscribeNext change");
+        [self.sectionView setDynamic:self.mineModel.dynamic like:self.mineModel.enjoy];
+    }];
+    
+    // KVO
+    [[[RACSignal combineLatest:@[RACObserve(self, self.mineModel.autograph), RACObserve(self, self.mineModel.follow), RACObserve(self, self.mineModel.follow_status), RACObserve(self, self.mineModel.fans), RACObserve(self, self.mineModel.dynamic)]
+    reduce:^(NSString *autograph, NSString *follow, NSString *follow_status, NSString *fans, NSString *dynamic) {
+        NSString *subTitle = [NSString stringWithFormat:@"%@%@%@%@%@",SafeStr(autograph),SafeStr(follow),SafeStr(follow_status),SafeStr(fans),SafeStr(dynamic)];
+        return subTitle;
+    }] distinctUntilChanged]
+    subscribeNext:^(NSString *valid) {
+        DLog(@"subscribeNext change");
+        self.headView.model = self.mineModel;
+    }];
 }
 
 
@@ -152,7 +174,6 @@
                 
                 routePushVC(ZRoute_mine_textEditVC, edit, ^(NSString *text, NSError * _Nullable error) {
                     weakSelf.mineModel.autograph = SafeStr(text);
-                    weakSelf.headView.model = weakSelf.mineModel;
                     [weakSelf updateUserInfo:SafeStr(text)];
                 });
             }else if(index == 5){
@@ -286,8 +307,6 @@
             if (!weakSelf.account || ([weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
                 weakSelf.mineModel.isMine = YES;
             }
-            [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
-            weakSelf.headView.model = weakSelf.mineModel;
             [weakSelf setHeadViewHeight];
             [weakSelf.navigationItem setTitle:weakSelf.mineModel.nick_name];
         }
@@ -386,7 +405,6 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             weakSelf.mineModel.follow_status = data;
-            weakSelf.headView.model = weakSelf.mineModel;
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -400,7 +418,6 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             weakSelf.mineModel.follow_status = data;
-            weakSelf.headView.model = weakSelf.mineModel;
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -416,8 +433,6 @@
            [TLUIUtility showSuccessHint:data];
             if ([weakSelf.mineModel.dynamic intValue] > 0) {
                 weakSelf.mineModel.dynamic = [NSString stringWithFormat:@"%d",[weakSelf.mineModel.dynamic intValue] - 1];
-                [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
-                
                 
                 [weakSelf.dataSources enumerateObjectsUsingBlock:^(ZCircleMineDynamicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([obj.dynamic isEqualToString:dynamic]) {
@@ -438,8 +453,6 @@
     [ZCircleMineViewModel cancleEnjoyDynamic:@{@"dynamic":SafeStr(model.dynamic)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess) {
             weakSelf.mineModel.enjoy = [NSString stringWithFormat:@"%d",[weakSelf.mineModel.enjoy intValue] - 1];
-            
-            [weakSelf.sectionView setDynamic:weakSelf.mineModel.dynamic like:weakSelf.mineModel.enjoy];
             
             [weakSelf.dataSources removeObject:model];
             [weakSelf initCellConfigArr];

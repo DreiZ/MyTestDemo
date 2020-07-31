@@ -1056,6 +1056,20 @@ static ZImagePickerManager *sharedImagePickerManager;
     SDImageCache.sharedImageCache.maxCacheAge = 7 * 24 * 60 * 60;
     //缓存的最大单元数，按需，这里我设置15
     SDWebImageManager.sharedManager.imageCache.maxMemoryCountLimit = 80;
+    
+    
+    YYCache *yyCache= ZDefaultCache();
+    [yyCache.memoryCache setCountLimit:120];//内存最大缓存数据个数
+    [yyCache.memoryCache setCostLimit:1*1024];//内存最大缓存开销 目前这个毫无用处
+    [yyCache.diskCache setCostLimit:50*1024*1024];//磁盘最大缓存开销
+    [yyCache.diskCache setCountLimit:120];//磁盘最大缓存数据个数
+    [yyCache.diskCache setAutoTrimInterval:30 * 24 * 60 * 60];//设置磁盘lru动态清理频率 默认 60秒
 
+    YYCache *yyUserCache= ZCurrentUserCache();
+    [yyUserCache.memoryCache setCountLimit:120];//内存最大缓存数据个数
+    [yyUserCache.memoryCache setCostLimit:1*1024];//内存最大缓存开销 目前这个毫无用处
+    [yyUserCache.diskCache setCostLimit:50*1024*1024];//磁盘最大缓存开销
+    [yyUserCache.diskCache setCountLimit:120];//磁盘最大缓存数据个数
+    [yyUserCache.diskCache setAutoTrimInterval:30 * 24 * 60 * 60];//设置磁盘lru动态清理频率 默认 60秒
 }
 @end

@@ -66,10 +66,6 @@
     [ZVideoPlayerManager sharedInstance].player = nil;
 }
 
-- (void)dealloc {
-    NSLog(@"ZCircleDetailVC dealloc");
-}
-
 - (BOOL)shouldAutorotate {
     return NO;
 }
@@ -359,6 +355,23 @@
         }
     });
     
+    // KVO
+    [RACObserve(self, self.infoModel.title) subscribeNext:^(NSString *enjoy) {
+        DLog(@"title------change");
+        // 用户名发生了变化
+        weakSelf.headerView.title = weakSelf.infoModel.title;
+    }];
+    
+    [[[RACSignal combineLatest:@[RACObserve(self, self.infoModel.enjoy), RACObserve(self, self.infoModel.enjoy_status), RACObserve(self, self.infoModel.comment_number)]
+    reduce:^(NSString *enjoy, NSString *enjoy_status, NSString *comment_number) {
+        NSString *subTitle = [NSString stringWithFormat:@"%@%@%@",SafeStr(enjoy),SafeStr(enjoy_status),SafeStr(comment_number)];
+        return subTitle;
+    }] distinctUntilChanged]
+    subscribeNext:^(NSString *valid) {
+        weakSelf.bottomView.model = weakSelf.infoModel;
+        [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
+    }];
+    
     self.zChain_reload_ui();
     self.zChain_reload_Net();
     [self getDetailInfo];
@@ -427,7 +440,6 @@
 #pragma mark - 视频播放
 - (void)cell:(ZBaseCell *)cell coverItemWasTappedInCollectionView:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath model:(ZFileUploadDataModel *)model{
     
-    
     // 视图层次第一层
     SJPlayModel *playModel = [SJPlayModel playModelWithCollectionView:collectionView indexPath:indexPath];
     // 视图层次第二层
@@ -487,8 +499,6 @@
             weakSelf.isRemove = NO;
             weakSelf.infoModel = data;
             weakSelf.zChain_reload_ui();
-            weakSelf.headerView.title = weakSelf.infoModel.title;
-            weakSelf.bottomView.model = weakSelf.infoModel;
         }else{
             if ([data isKindOfClass:[NSString class]] && [data isEqualToString:@"动态已被移除"]) {
                 weakSelf.isRemove = YES;
@@ -537,7 +547,6 @@
             }else{
                 weakSelf.infoModel.store_collection = @"0";
             }
-            
             weakSelf.zChain_reload_ui();
             [TLUIUtility showSuccessHint:data];
         }else{
@@ -577,8 +586,6 @@
                 }else{
                     [weakSelf.iTableView tt_endLoadMore];
                 }
-                
-                
             }else{
                 [weakSelf.iTableView reloadData];
                 [weakSelf.iTableView tt_endRefreshing];
@@ -700,12 +707,8 @@
                     enjoyCount = 0;
                 }
                 weakSelf.infoModel.enjoy = [NSString stringWithFormat:@"%ld",(long)enjoyCount];
-                weakSelf.bottomView.model = weakSelf.infoModel;
-                
-                [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
                 [weakSelf refreshData];
             }else{
-                weakSelf.bottomView.model = weakSelf.infoModel;
                 [TLUIUtility showInfoHint:data];
             }
         }];
@@ -714,13 +717,10 @@
             if (isSuccess) {
                 weakSelf.infoModel.enjoy_status = @"1";
                 weakSelf.infoModel.enjoy = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.enjoy intValue]+1];
-                weakSelf.bottomView.model = weakSelf.infoModel;
-                [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
                 if (self.isLike) {
                     [weakSelf refreshData];
                 }
             }else{
-                weakSelf.bottomView.model = weakSelf.infoModel;
                 [TLUIUtility showInfoHint:data];
             }
         }];
@@ -733,9 +733,6 @@
         if (isSuccess) {
             [TLUIUtility showSuccessHint:data];
             weakSelf.infoModel.comment_number = [NSString stringWithFormat:@"%d",[weakSelf.infoModel.comment_number intValue]+1];
-            weakSelf.bottomView.model = weakSelf.infoModel;
-            
-            [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
             if (!weakSelf.isLike) {
                 weakSelf.zChain_reload_Net();
             }
@@ -764,9 +761,6 @@
                     if ([weakSelf.infoModel.comment_number intValue] < 0) {
                         weakSelf.infoModel.comment_number = @"0";
                     }
-                    weakSelf.bottomView.model = weakSelf.infoModel;
-                    
-                    [weakSelf.sectionView setLikeNum:weakSelf.infoModel.enjoy evaNum:weakSelf.infoModel.comment_number];
                     if (!weakSelf.isLike) {
                         weakSelf.zChain_reload_Net();
                     }
