@@ -35,7 +35,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"相册管理"];
+    [self.navigationItem setTitle:@"校区相册"];
 }
 
 - (void)setMainView {

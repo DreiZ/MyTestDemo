@@ -66,7 +66,7 @@ static ZLocationManager *shareManager = NULL;
     if (self.locationMainBlock) {
         self.locationMainBlock(location);
     }
-    
+    DLog(@"update---%@",self.location);
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:location
                    completionHandler:^(NSArray <CLPlacemark *>*placemarks, NSError *error) {

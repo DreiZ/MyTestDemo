@@ -38,6 +38,7 @@
     [self.reachability setNotifyBlock:^(YYReachability * _Nonnull reachability) {
         if (weakSelf.loadFromLocalHistory && reachability.reachable) {
             [weakSelf refreshData];
+            [[ZLocationManager shareManager] startLocation];
         }
     }];
     
