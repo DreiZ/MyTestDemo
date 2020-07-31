@@ -161,6 +161,49 @@
         make.bottom.equalTo(self.signatureLabel.mas_bottom).offset(CGFloatIn750(20));
     }];
     self.getFollowBtn.hidden = YES;
+    
+    // KVO
+    [[RACSignal combineLatest:@[RACObserve(self, self.model.isMine), RACObserve(self, self.model.follow_status)]]
+    subscribeNext:^(NSString *valid) {
+        DLog(@"subscribeNext change");
+        if (self.model.isMine) {
+            self.getFollowBtn.hidden = YES;
+            [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+                make.height.mas_equalTo(CGFloatIn750(58));
+                make.width.mas_equalTo(CGFloatIn750(460));
+                make.top.equalTo(self.headImageView.mas_bottom).offset(-CGFloatIn750(26));
+            }];
+        }else{
+            self.getFollowBtn.hidden = NO;
+            [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+                make.height.mas_equalTo(CGFloatIn750(58));
+                make.width.mas_equalTo(CGFloatIn750(460));
+                make.bottom.equalTo(self.headImageView.mas_bottom);
+            }];
+        }
+        
+        if ([self.model.follow_status intValue] == 2) {
+            [self.getFollowBtn setTitle:@"已关注" forState:UIControlStateNormal];
+            
+            self.getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            ViewBorderRadius(self.getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            [self.getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        }else if([self.model.follow_status intValue] == 3){
+            [self.getFollowBtn setTitle:@"互相关注" forState:UIControlStateNormal];
+            
+            self.getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+            ViewBorderRadius(self.getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
+            [self.getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
+        }else{
+            [self.getFollowBtn setTitle:@"关注" forState:UIControlStateNormal];
+            
+            self.getFollowBtn.backgroundColor = [UIColor colorMain];
+            ViewBorderRadius(self.getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
+            [self.getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        }
+    }];
 }
 
 #pragma mark - lazy loading
@@ -354,7 +397,7 @@
     return _sexImageView;
 }
 
-
+#pragma mark - set model
 - (void)setModel:(ZCircleMineModel *)model {
     _model = model;
     
@@ -367,44 +410,6 @@
         _sexImageView.image = [UIImage imageNamed:@"finderMan"];
     }else{
         _sexImageView.image = [UIImage imageNamed:@"finderGirl"];
-    }
-    
-    if (model.isMine) {
-        self.getFollowBtn.hidden = YES;
-        [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-            make.height.mas_equalTo(CGFloatIn750(58));
-            make.width.mas_equalTo(CGFloatIn750(460));
-            make.top.equalTo(self.headImageView.mas_bottom).offset(-CGFloatIn750(26));
-        }];
-    }else{
-        self.getFollowBtn.hidden = NO;
-        [self.getFollowBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
-            make.height.mas_equalTo(CGFloatIn750(58));
-            make.width.mas_equalTo(CGFloatIn750(460));
-            make.bottom.equalTo(self.headImageView.mas_bottom);
-        }];
-    }
-    
-    if ([model.follow_status intValue] == 2) {
-        [self.getFollowBtn setTitle:@"已关注" forState:UIControlStateNormal];
-        
-        _getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-    }else if([model.follow_status intValue] == 3){
-        [self.getFollowBtn setTitle:@"互相关注" forState:UIControlStateNormal];
-        
-        _getFollowBtn.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]));
-        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateNormal];
-    }else{
-        [self.getFollowBtn setTitle:@"关注" forState:UIControlStateNormal];
-        
-        _getFollowBtn.backgroundColor = [UIColor colorMain];
-        ViewBorderRadius(_getFollowBtn, CGFloatIn750(4), 1, adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]));
-        [_getFollowBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
     }
     
     UIColor *autographColor = [UIColor colorWithHexString:@"999999"];
