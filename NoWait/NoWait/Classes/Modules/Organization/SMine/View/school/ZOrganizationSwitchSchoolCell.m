@@ -58,7 +58,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(CGFloatIn750(16));
         make.right.equalTo(self.backContentView.mas_right).offset(-CGFloatIn750(16));
-        make.top.equalTo(self.leftImageView.mas_top).offset(CGFloatIn750(4));
+        make.centerY.equalTo(self.leftImageView.mas_centerY).offset(CGFloatIn750(0));
     }];
     
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,6 +66,7 @@
         make.top.equalTo(self.titleLabel.mas_bottom).offset(CGFloatIn750(8));
     }];
     
+    self.subTitleLabel.hidden = YES;
     __weak typeof(self) weakSelf = self;
     UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addBtn bk_addEventHandler:^(id sender) {

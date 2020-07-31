@@ -461,7 +461,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentLessonSureOrderVC *routevc = [[ZStudentLessonSureOrderVC alloc] init];
-    routevc.detailModel = request.prts;
+    if (request.prts) {
+        routevc.detailModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

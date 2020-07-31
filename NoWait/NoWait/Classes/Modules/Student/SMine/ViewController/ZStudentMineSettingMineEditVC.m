@@ -140,7 +140,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentMineSettingMineEditVC *routevc = [[ZStudentMineSettingMineEditVC alloc] init];
-    routevc.model = request.prts;
+    if (request.prts) {
+        routevc.model = request.prts;
+    }
     routevc.handleBlock = ^(NSString *text) {
         if (completionHandler) {
             completionHandler(text,nil);

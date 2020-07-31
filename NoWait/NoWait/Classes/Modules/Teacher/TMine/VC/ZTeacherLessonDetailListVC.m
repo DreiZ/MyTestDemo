@@ -185,7 +185,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZTeacherLessonDetailListVC *routevc = [[ZTeacherLessonDetailListVC alloc] init];
-    routevc.teacher_id = request.prts;
+    if (request.prts) {
+        routevc.teacher_id = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -581,7 +581,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationDetailDesVC *routevc = [[ZStudentOrganizationDetailDesVC alloc] init];
-    routevc.listModel = request.prts;
+    if (request.prts) {
+        routevc.listModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

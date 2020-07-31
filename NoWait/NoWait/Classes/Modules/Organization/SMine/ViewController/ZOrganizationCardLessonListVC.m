@@ -60,7 +60,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationCardLessonListVC *routevc = [[ZOrganizationCardLessonListVC alloc] init];
-    routevc.lessonList = request.prts;
+    if (request.prts) {
+        routevc.lessonList = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -436,7 +436,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationSearchStudentVC *routevc = [[ZOrganizationSearchStudentVC alloc] init];
-    routevc.navTitle = request.prts;
+    if (request.prts) {
+        routevc.navTitle = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

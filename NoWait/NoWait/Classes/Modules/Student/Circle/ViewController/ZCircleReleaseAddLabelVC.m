@@ -250,7 +250,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleReleaseAddLabelVC *routevc = [[ZCircleReleaseAddLabelVC alloc] init];
-    routevc.list = request.prts;
+    if (request.prts) {
+        routevc.list = request.prts;
+    }
     routevc.handleBlock = ^(NSArray * list) {
         if (completionHandler) {
             completionHandler(list,nil);

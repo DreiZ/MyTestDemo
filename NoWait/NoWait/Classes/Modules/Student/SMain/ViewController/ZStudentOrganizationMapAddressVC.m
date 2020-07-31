@@ -342,7 +342,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationMapAddressVC *routevc = [[ZStudentOrganizationMapAddressVC alloc] init];
-    routevc.detailModel = request.prts;
+    if (request.prts) {
+        routevc.detailModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

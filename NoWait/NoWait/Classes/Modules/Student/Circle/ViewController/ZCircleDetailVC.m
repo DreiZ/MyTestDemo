@@ -787,7 +787,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-    dvc.dynamic = request.prts;
+    if (request.prts) {
+        dvc.dynamic = request.prts;
+    }
     [topViewController.navigationController pushViewController:dvc animated:YES];
     if (completionHandler) {
         completionHandler(@"ZCircleDetailVC",nil);

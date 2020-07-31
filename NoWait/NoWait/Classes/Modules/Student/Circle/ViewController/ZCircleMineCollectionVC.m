@@ -476,7 +476,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleMineCollectionVC *routevc = [[ZCircleMineCollectionVC alloc] init];
-    routevc.account = request.prts;
+    if (request.prts) {
+        routevc.account = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

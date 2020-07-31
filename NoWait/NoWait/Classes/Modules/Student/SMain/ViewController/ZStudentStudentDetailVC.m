@@ -100,7 +100,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentStudentDetailVC *routevc = [[ZStudentStudentDetailVC alloc] init];
-    routevc.student_id = request.prts;
+    if (request.prts) {
+        routevc.student_id = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -347,7 +347,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZTeacherClassDetailVC *routevc = [[ZTeacherClassDetailVC alloc] init];
-    routevc.model = request.prts;
+    if (request.prts) {
+        routevc.model = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

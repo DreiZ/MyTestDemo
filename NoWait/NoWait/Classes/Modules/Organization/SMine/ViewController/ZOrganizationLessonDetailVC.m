@@ -569,7 +569,10 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationLessonDetailVC *routevc = [[ZOrganizationLessonDetailVC alloc] init];
-    routevc.addModel.lessonID = request.prts;
+    if (request.prts) {
+        routevc.addModel.lessonID = request.prts;
+    }
+     
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

@@ -62,9 +62,11 @@ static ZLocationManager *shareManager = NULL;
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
+    self.location = location;
     if (self.locationMainBlock) {
         self.locationMainBlock(location);
     }
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:location
                    completionHandler:^(NSArray <CLPlacemark *>*placemarks, NSError *error) {

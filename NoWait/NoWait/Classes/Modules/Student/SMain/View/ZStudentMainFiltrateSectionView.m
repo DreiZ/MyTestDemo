@@ -69,7 +69,7 @@
 }
 
 - (NSArray*)titleArrInMenu:(WMZDropDownMenu *)menu{
-    return @[@{@"name":@"机构类型",@"normalImage":@"menu_dowm",@"selectImage":@"menu_up"},
+    return @[@{@"name":@"校区类型",@"normalImage":@"menu_dowm",@"selectImage":@"menu_up"},
              @{@"name":@"综合排序",@"normalImage":@"menu_dowm",@"selectImage":@"menu_up"}
     ];
 //    @{@"name":@"速度",@"normalImage":@"menu_dowm",@"selectImage":@"menu_up"},

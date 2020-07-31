@@ -245,7 +245,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationTeacherLessonSelectVC *routevc = [[ZOrganizationTeacherLessonSelectVC alloc] init];
-    routevc.lessonList = request.prts;
+    if (request.prts) {
+        routevc.lessonList = request.prts;
+    }
     routevc.handleBlock = ^(NSMutableArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
 
         if (completionHandler) {

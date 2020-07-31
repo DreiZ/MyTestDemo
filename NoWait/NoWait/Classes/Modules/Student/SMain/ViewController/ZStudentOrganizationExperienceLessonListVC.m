@@ -246,7 +246,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationExperienceLessonListVC *routevc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
-    routevc.schoolID = request.prts;
+    if (request.prts) {
+        routevc.schoolID = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

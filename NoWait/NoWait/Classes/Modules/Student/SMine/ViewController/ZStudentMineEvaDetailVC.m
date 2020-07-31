@@ -184,7 +184,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentMineEvaDetailVC *routevc = [[ZStudentMineEvaDetailVC alloc] init];
-    routevc.listModel = request.prts;
+    if (request.prts) {
+        routevc.listModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

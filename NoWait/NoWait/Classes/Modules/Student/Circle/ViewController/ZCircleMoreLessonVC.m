@@ -146,7 +146,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleMoreLessonVC *routevc = [[ZCircleMoreLessonVC alloc] init];
-    routevc.name = request.prts;
+    if (request.prts) {
+        routevc.name = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

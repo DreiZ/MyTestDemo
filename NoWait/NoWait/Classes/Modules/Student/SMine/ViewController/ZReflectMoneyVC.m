@@ -272,7 +272,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZReflectMoneyVC *routevc = [[ZReflectMoneyVC alloc] init];
-    routevc.infoModel = request.prts;
+    if (request.prts) {
+        routevc.infoModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

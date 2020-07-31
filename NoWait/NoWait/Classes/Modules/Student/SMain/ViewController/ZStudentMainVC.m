@@ -78,7 +78,7 @@
     [[ZLocationManager shareManager] setLocationMainBlock:^(CLLocation *location) {
         if (!weakSelf.isLoacation && location) {
              DLog(@"userLocation %f-%f",location.coordinate.longitude,location.coordinate.latitude);
-//            [weakSelf refreshData];
+            [weakSelf refreshData];
             weakSelf.isLoacation = YES;
             [weakSelf.searchView setAddress:@"-"];
         }

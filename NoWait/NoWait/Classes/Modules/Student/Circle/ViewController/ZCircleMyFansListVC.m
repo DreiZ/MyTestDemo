@@ -192,7 +192,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleMyFansListVC *routevc = [[ZCircleMyFansListVC alloc] init];
-    routevc.account = request.prts;
+    if (request.prts) {
+        routevc.account = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

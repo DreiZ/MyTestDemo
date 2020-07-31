@@ -65,7 +65,7 @@
 }
 
 - (void)setNavgation {
-    [self.navigationItem setTitle:@"机构课程"];
+    [self.navigationItem setTitle:@"全部课程"];
 }
 
 #pragma mark - 懒加载--
@@ -139,7 +139,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationLessonListVC *routevc = [[ZStudentOrganizationLessonListVC alloc] init];
-    routevc.detailModel = request.prts;
+    if (request.prts) {
+        routevc.detailModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

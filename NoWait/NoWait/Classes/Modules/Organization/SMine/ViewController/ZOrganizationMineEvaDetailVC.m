@@ -302,7 +302,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationMineEvaDetailVC *routevc = [[ZOrganizationMineEvaDetailVC alloc] init];
-    routevc.listModel = request.prts;
+    if (request.prts) {
+        routevc.listModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

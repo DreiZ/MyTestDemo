@@ -101,7 +101,7 @@
         __weak typeof(self) weakSelf = self;
         _openBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_openBtn.titleLabel setFont:[UIFont fontMin]];
-        [_openBtn setTitle:@"进入机构" forState:UIControlStateNormal];
+        [_openBtn setTitle:@"进入校区" forState:UIControlStateNormal];
         [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         ViewRadius(_openBtn, CGFloatIn750(24));
         _openBtn.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);

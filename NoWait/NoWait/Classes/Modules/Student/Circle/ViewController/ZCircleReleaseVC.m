@@ -625,7 +625,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleReleaseVC *routevc = [[ZCircleReleaseVC alloc] init];
-    routevc.selectImageArr = request.prts;
+    if (request.prts) {
+        routevc.selectImageArr = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

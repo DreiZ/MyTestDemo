@@ -164,7 +164,7 @@
 @implementation ZOrganizationMineEvaListVC (RouteHandler)
 
 + (NSString *)routePath {
-    return ZRoute_org_addLabel;
+    return ZRoute_org_evaList;
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {

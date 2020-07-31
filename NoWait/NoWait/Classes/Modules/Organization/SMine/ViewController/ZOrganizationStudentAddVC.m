@@ -608,7 +608,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationStudentAddVC *routevc = [[ZOrganizationStudentAddVC alloc] init];
-    routevc.viewModel.addModel = request.prts;
+    if (request.prts) {
+        routevc.viewModel.addModel = request.prts;
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end
