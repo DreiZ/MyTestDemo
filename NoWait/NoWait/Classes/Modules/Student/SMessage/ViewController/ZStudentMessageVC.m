@@ -11,6 +11,7 @@
 #import "ZMessageTypeEntryCell.h"
 #import "ZMessageHistoryReadCell.h"
 #import "ZMessageListCell.h"
+#import "ZNoDataCell.h"
 
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
@@ -30,17 +31,16 @@
 
 @implementation ZStudentMessageVC
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self refreshAllData];
-}
-
-- (id)init
-{
+- (id)init {
     if (self = [super init]) {
         initTabBarItem(self.tabBarItem, LOCSTR(@"消息"), @"tabBarMessage", @"tabBarMessage_highlighted");
     }
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshAllData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,18 +103,23 @@
          ZCellConfig *entryCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageTypeEntryCell className] title:[ZMessageTypeEntryCell className] showInfoMethod:@selector(setItemArr:) heightOfCell:[ZMessageTypeEntryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:itemArr];
          [weakSelf.cellConfigArr addObject:entryCellConfig];
 
-        NSInteger hadRead = 0;
-        for (int i = 0; i < weakSelf.dataSources.count; i++) {
-            ZMessgeModel *model = weakSelf.dataSources[i];
-            if ([model.is_read intValue] >= 1) {
-                hadRead++;
-            }
-            if (i != 0 && hadRead == 1) {
-                ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
+        if (!ValidArray(weakSelf.dataSources)) {
+            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"ZNoDataCell" showInfoMethod:@selector(setModel:) heightOfCell:(KScreenHeight - [ZMessageTypeEntryCell z_getCellHeight:nil] - kTopHeight - kTabBarHeight) cellType:ZCellTypeClass dataModel:@"暂无消息"];
+            [weakSelf.cellConfigArr addObject:orCellCon1fig];
+        }else{
+            NSInteger hadRead = 0;
+            for (int i = 0; i < weakSelf.dataSources.count; i++) {
+                ZMessgeModel *model = weakSelf.dataSources[i];
+                if ([model.is_read intValue] >= 1) {
+                    hadRead++;
+                }
+                if (i != 0 && hadRead == 1) {
+                    ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageHistoryReadCell className] title:[ZMessageHistoryReadCell className] showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(50) cellType:ZCellTypeClass dataModel:nil];
+                    [weakSelf.cellConfigArr addObject:messageCellConfig];
+                }
+                ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [weakSelf.cellConfigArr addObject:messageCellConfig];
             }
-            ZCellConfig *messageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMessageListCell className] title:[ZMessageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZMessageListCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [weakSelf.cellConfigArr addObject:messageCellConfig];
         }
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageListCell"]) {
@@ -394,7 +399,6 @@
 - (void)tabBarItemDidDoubleClick {
     [self refreshAllData];
 }
-
 
 - (void)tabBarItemDidClick:(BOOL)isSelected {
     if (isSelected) {
