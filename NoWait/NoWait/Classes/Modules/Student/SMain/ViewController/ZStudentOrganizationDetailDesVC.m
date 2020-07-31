@@ -340,7 +340,7 @@
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 
         [self.cellConfigArr addObject:menuCellConfig];
-        if (ValidArray(self.detailModel.coupons_list)) {
+        if (ValidArray(self.detailModel.courses_list)) {
             for (int i = 0; i < self.detailModel.courses_list.count; i++) {
                 ZCellConfig *lessonCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationLessonListCell className] title:[ZStudentOrganizationLessonListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationLessonListCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.detailModel.courses_list[i]];
                 [self.cellConfigArr addObject:lessonCellConfig];

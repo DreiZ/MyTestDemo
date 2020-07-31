@@ -18,5 +18,5 @@
 //#define LogShowFPS
 
 //打印networking return data
-//#define LogNetworkReturn
+#define LogNetworkReturn
 
