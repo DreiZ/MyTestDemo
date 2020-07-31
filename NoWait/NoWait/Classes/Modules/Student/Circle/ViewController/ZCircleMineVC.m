@@ -55,25 +55,6 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCollectionTableViewCell className] title:@"ZCircleMineDynamicCollectionTableViewCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCollectionTableViewCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
             [weakSelf.cellConfigArr addObject:menuCellConfig];
             [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(4))];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
         }else{
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleMineDynamicCell className] title:@"ZCircleMineDynamicCell" showInfoMethod:@selector(setList:) heightOfCell:[ZCircleMineDynamicCell z_getCellHeight:@[@"",@"",@""]] cellType:ZCellTypeClass dataModel:@[@"",@"",@""]];
             [weakSelf.cellConfigArr addObject:menuCellConfig];

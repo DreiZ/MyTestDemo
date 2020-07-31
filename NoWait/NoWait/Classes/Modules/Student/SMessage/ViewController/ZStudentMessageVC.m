@@ -23,6 +23,9 @@
 @property (nonatomic,strong) NSMutableDictionary *param;
 @property (nonatomic,strong) ZMessageCircleNewsModel *circleModel;
 
+
+@property (nonatomic,assign) BOOL loadFromLocalHistory;
+@property (nonatomic,strong) ZMessageNetModel *messageNetModel;
 @end
 
 @implementation ZStudentMessageVC
@@ -136,6 +139,30 @@
     }).zChain_block_setRefreshMoreNet(^{
         [weakSelf refreshMoreData];
     });
+    
+    [self readCacheData];
+    self.zChain_reload_ui();
+    [self.reachability setNotifyBlock:^(YYReachability * _Nonnull reachability) {
+        if (weakSelf.loadFromLocalHistory && reachability.reachable) {
+            [weakSelf refreshAllData];
+        }
+    }];
+    
+}
+
+
+#pragma mark - Cache
+- (void)readCacheData {
+    _loadFromLocalHistory = YES;
+    
+    self.messageNetModel = (ZMessageNetModel *)[ZCurrentUserCache() objectForKey:[ZMessageNetModel className]];
+    
+    [self.dataSources removeAllObjects];
+    [self.dataSources addObjectsFromArray:self.messageNetModel.list];
+}
+
+- (void)writeDataToCache {
+    [ZCurrentUserCache() setObject:self.messageNetModel forKey:[ZMessageNetModel className]];
 }
 
 #pragma mark - 数据处理
@@ -152,6 +179,10 @@
     [ZOriganizationStudentViewModel getMessageList:param completeBlock:^(BOOL isSuccess, ZMessageNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
+            weakSelf.loadFromLocalHistory = NO;
+            weakSelf.messageNetModel = data;
+            [weakSelf writeDataToCache];
+            
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
@@ -182,6 +213,11 @@
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
             weakSelf.zChain_reload_ui();
+            
+            weakSelf.loadFromLocalHistory = NO;
+            weakSelf.messageNetModel = data;
+            weakSelf.messageNetModel.list = weakSelf.dataSources;
+            [weakSelf writeDataToCache];
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

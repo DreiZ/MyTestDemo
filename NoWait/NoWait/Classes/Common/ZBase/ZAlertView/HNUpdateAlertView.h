@@ -1,6 +1,6 @@
 //
 //  HNUpdateAlertView.h
-//  hntx
+//  zzz
 //
 //  Created by RoyLei on 2018/9/7.
 //  Copyright © 2018年 LaKa. All rights reserved.

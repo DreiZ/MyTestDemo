@@ -47,26 +47,26 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
     ZCustomTerminalTypePlatform =  4,    //  平台
 };
 
-@interface ZMessageCircleNewsModel : NSObject
+@interface ZMessageCircleNewsModel : ZBaseModel
 @property (nonatomic,strong) NSString *comment;
 @property (nonatomic,strong) NSString *enjoy;
 @property (nonatomic,strong) NSString *follow;
 @end
 
-@interface ZMessageTypeEntryModel : NSObject
+@interface ZMessageTypeEntryModel : ZBaseModel
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *num;
 @property (nonatomic,assign) NSInteger entry_id;
 @end
 
-@interface ZMessageAccountModel : NSObject
+@interface ZMessageAccountModel : ZBaseModel
 @property (nonatomic,strong) NSString *nick_name;
 @property (nonatomic,strong) NSString *image;
 @end
 
 
-@interface ZMessageExtraModel : NSObject
+@interface ZMessageExtraModel : ZBaseModel
 @property (nonatomic,strong) NSString *account_total;
 @property (nonatomic,strong) NSString *stores_id;
 @property (nonatomic,strong) NSString *store_name;
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 
 @end
 
-@interface ZMessageInfoModel : NSObject
+@interface ZMessageInfoModel : ZBaseModel
 @property (nonatomic,strong) NSString *terminal;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *notice;
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 @property (nonatomic,strong) NSArray <ZMessageAccountModel *>*account;
 @end
 
-@interface ZMessgeModel : NSObject
+@interface ZMessgeModel : ZBaseModel
 @property (nonatomic,strong) NSString *terminal;
 @property (nonatomic,strong) NSString *type;
 @property (nonatomic,strong) NSString *notice;
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 
 @end
 
-@interface ZMessageNetModel : NSObject
+@interface ZMessageNetModel : ZBaseModel
 @property (nonatomic,strong) NSArray <ZMessgeModel *>*list;
 @property (nonatomic,strong) NSString *total;
 

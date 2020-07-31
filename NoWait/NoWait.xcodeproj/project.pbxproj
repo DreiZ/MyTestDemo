@@ -94,7 +94,6 @@
 		B230F54824D2728C00A94F53 /* ZDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54624D2728C00A94F53 /* ZDebug.m */; };
 		B230F55424D2AA3100A94F53 /* ZCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F54F24D2AA3100A94F53 /* ZCache.m */; };
 		B230F55524D2AA3100A94F53 /* ZCacheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F55124D2AA3100A94F53 /* ZCacheFactory.m */; };
-		B230F55624D2AA3100A94F53 /* ZBuyCardCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */; };
 		B23184DA241F2BA60033F875 /* NSData+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D7241F2BA60033F875 /* NSData+SwitchData.m */; };
 		B23184DB241F2BA60033F875 /* NSString+SwitchData.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184D9241F2BA60033F875 /* NSString+SwitchData.m */; };
 		B23184DE241F59440033F875 /* ZOriganizationCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B23184DD241F59440033F875 /* ZOriganizationCardViewModel.m */; };
@@ -996,10 +995,8 @@
 		B230F54724D2728C00A94F53 /* ZConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZConfig.h; sourceTree = "<group>"; };
 		B230F54E24D2AA3100A94F53 /* ZCacheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCacheFactory.h; sourceTree = "<group>"; };
 		B230F54F24D2AA3100A94F53 /* ZCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCache.m; sourceTree = "<group>"; };
-		B230F55024D2AA3100A94F53 /* ZBuyCardCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBuyCardCache.h; sourceTree = "<group>"; };
 		B230F55124D2AA3100A94F53 /* ZCacheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCacheFactory.m; sourceTree = "<group>"; };
 		B230F55224D2AA3100A94F53 /* ZCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCache.h; sourceTree = "<group>"; };
-		B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBuyCardCache.m; sourceTree = "<group>"; };
 		B23184D5241F2BA60033F875 /* NSData+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SwitchData.h"; sourceTree = "<group>"; };
 		B23184D6241F2BA60033F875 /* NSString+SwitchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SwitchData.h"; sourceTree = "<group>"; };
 		B23184D7241F2BA60033F875 /* NSData+SwitchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SwitchData.m"; sourceTree = "<group>"; };
@@ -2715,10 +2712,8 @@
 			children = (
 				B230F54E24D2AA3100A94F53 /* ZCacheFactory.h */,
 				B230F54F24D2AA3100A94F53 /* ZCache.m */,
-				B230F55024D2AA3100A94F53 /* ZBuyCardCache.h */,
 				B230F55124D2AA3100A94F53 /* ZCacheFactory.m */,
 				B230F55224D2AA3100A94F53 /* ZCache.h */,
-				B230F55324D2AA3100A94F53 /* ZBuyCardCache.m */,
 			);
 			path = CacheService;
 			sourceTree = "<group>";
@@ -6272,7 +6267,6 @@
 				B2CF933F24249DD4007AF66E /* ZOrganizationEvaListCell.m in Sources */,
 				B2A7802123BDF8B200407BF0 /* ZAdvertiseHelper.m in Sources */,
 				B20E57AA24849A4400D4226D /* ZMessageHistoryReadCell.m in Sources */,
-				B230F55624D2AA3100A94F53 /* ZBuyCardCache.m in Sources */,
 				B2A7818723C5866500407BF0 /* ZStudentOrganizationPersonnelListCell.m in Sources */,
 				B25EC04524A1D2830099090E /* ZOrganizationCardAddStudentCell.m in Sources */,
 				B2A77FE923BDEB7000407BF0 /* UIImageView+ZWebImage.m in Sources */,
