@@ -181,7 +181,7 @@
            lcell.titleLabel.font = [UIFont fontSmall];
        }else if([cellConfig.title isEqualToString:@"evaTitle"]){
            ZStudentTitleStarCell *lcell = (ZStudentTitleStarCell *)cell;
-           lcell.score = @"3";
+           lcell.score = self.detailModel.score;
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {

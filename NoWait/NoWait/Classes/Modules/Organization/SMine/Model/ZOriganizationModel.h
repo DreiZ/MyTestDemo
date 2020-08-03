@@ -502,6 +502,7 @@
 @property (nonatomic,strong) NSArray <ZOriganizationLessonListModel *>*appointment_courses;
 
 @property (nonatomic,strong) NSString *update_at;
+@property (nonatomic,strong) NSString *score;
 @end
 
 

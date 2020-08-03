@@ -487,7 +487,7 @@
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateInApp];
     if (isFirst) {
         NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
-        if (nowTime - [isFirst intValue] <= 24*60*60*3) {//24*60*60*3
+        if (nowTime - [isFirst intValue] <= 60*60) {//24*60*60*3
             return;
         }
     }

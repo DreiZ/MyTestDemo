@@ -405,6 +405,10 @@
     _fansLabel.text = model.fans;
     _dynamicLabel.text = model.dynamic;
     
+    if (!model.account || ([model.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
+        model.isMine = YES;
+    }
+    
     
     if ([model.sex intValue] == 1) {
         _sexImageView.image = [UIImage imageNamed:@"finderMan"];

@@ -303,10 +303,10 @@
     __weak typeof(self) weakSelf = self;
     [ZCircleMineViewModel getCircleMineData:@{@"account":self.account?self.account:[ZUserHelper sharedHelper].user.userCodeID} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZCircleMineModel class]]) {
-            weakSelf.mineModel = data;
             if (!weakSelf.account || ([weakSelf.account isEqualToString:[ZUserHelper sharedHelper].user.userCodeID])) {
                 weakSelf.mineModel.isMine = YES;
             }
+            weakSelf.mineModel = data;
             [weakSelf setHeadViewHeight];
             [weakSelf.navigationItem setTitle:weakSelf.mineModel.nick_name];
         }
