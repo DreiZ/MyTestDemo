@@ -14,6 +14,8 @@
 
 #define ZCHAIN_BLOCK(ZZClass,methodName,ZZParamType) ZZClass(^methodName)(ZZParamType);
 
+#define ZCHAIN_BLOCKTWO(ZZClass,methodName,ZZParamTypeOne,ZZParamTypeTwo) ZZClass(^methodName)(ZZParamTypeOne,ZZParamTypeTwo);
+
 #define ZCHAIN_IMPLEMENTATION(ZZClass,methodName,ZZParamType,attribute) -(ZZClass(^)(ZZParamType))methodName { \
     return ^ ZZClass(ZZParamType value) {\
         self.attribute = value;\

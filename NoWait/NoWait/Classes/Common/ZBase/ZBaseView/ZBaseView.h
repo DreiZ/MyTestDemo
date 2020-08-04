@@ -1,8 +1,8 @@
 //
-//  ZBaseCollectionViewCell.h
+//  ZBaseView.h
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/3/9.
+//  Created by zhuang zhang on 2020/8/4.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
@@ -10,10 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBaseCollectionViewCell : UICollectionViewCell
+@interface ZBaseView : UIView
 @property (nonatomic,strong) id (^eventAction)(id, id);
-
--(void)setupView;
 @end
 
 NS_ASSUME_NONNULL_END

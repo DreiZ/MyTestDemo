@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZChainCommon.h"
+
+#define ZCHAIN_CELLCONFIG_PROPERTY(methodName,ZZParamType) ZCHAIN_PROPERTY ZCHAIN_BLOCK(ZCellConfig *, methodName, ZZParamType)
+
+#define ZCHAIN_CELLCONFIG_IMPLEMENTATION(methodName,ZZParamType,attribute) ZCHAIN_IMPLEMENTATION(ZCellConfig *,methodName,ZZParamType,attribute)
 
 typedef NS_ENUM(NSInteger, ZCellType) {
     ZCellTypeClass,          // regular table view
     ZCellTypeNib         // preferences style table view
 };
+
 @interface ZCellConfig : NSObject
 
 /// cell类名
@@ -34,10 +40,32 @@ typedef NS_ENUM(NSInteger, ZCellType) {
 /// 预留属性remark
 @property (nonatomic, strong) NSString *remark;
 
-@property(nonatomic,strong) id dataModel;
+@property (nonatomic, strong) id dataModel;
 
 /// cellSize
 @property (nonatomic, assign) CGSize sizeOfCell;
+
+@property (nonatomic,strong) id (^handleBlock)(id, id);
+
+ZCHAIN_OBJ_CREATE(ZCellConfig *, NSString *title, zChain_create)
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_className, NSString *);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_method, SEL);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_height, CGFloat);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_type, ZCellType);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_detail, NSString *);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_remark, NSString *);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_data, id);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_size, CGSize);
+
+ZCHAIN_CELLCONFIG_PROPERTY(zChain_handle, id (^)(id, id));
 
 /**
  便利构造器
@@ -74,6 +102,13 @@ typedef NS_ENUM(NSInteger, ZCellType) {
                               dataModel:(id)dataModel;
 
 
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                           heightOfCell:(CGFloat)heightOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock;
 /**
  便利构造器
 
@@ -90,6 +125,15 @@ typedef NS_ENUM(NSInteger, ZCellType) {
                              sizeOfCell:(CGSize)sizeOfCell
                                cellType:(ZCellType)cellType
                               dataModel:(id)dataModel;
+
+
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                             sizeOfCell:(CGSize)sizeOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock;
 
 /// 根据cellConfig生成cell，重用ID为cell类名
 - (UITableViewCell *)cellOfCellConfigWithTableView:(UITableView *)tableView

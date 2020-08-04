@@ -52,8 +52,21 @@
             
             if (i == 0) {
                 model.zz_setData(titleArr[i][1]);
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingUserHeadImageCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                self.addCell(model.cellTitle).zChain_className([ZStudentMineSettingUserHeadImageCell className]).zChain_data(model).zChain_height([ZStudentMineSettingUserHeadImageCell z_getCellHeight:nil]).zChain_method(@selector(setModel:)).zChain_handle(^id(id data, id data1) {
+                    [[ZImagePickerManager sharedManager] setAvatarSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+                        if (list && list.count > 0) {
+                           ZImagePickerModel *model = list[0];
+                           [TLUIUtility showLoading:@"上传中"];
+                           [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"5",@"imageKey":@{@"file":model.image}} completeBlock:^(BOOL isSuccess, id data) {
+                               if (isSuccess) {
+                                [weakSelf updateUserInfo:@{@"image":SafeStr(data)}];
+                               }
+                               [TLUIUtility hiddenLoading];
+                           }];
+                         }
+                    }];
+                    return nil;
+                });
             }else{
                 model.zz_imageRight(titleArr[i][1]).zz_imageRightHeight(CGFloatIn750(14));
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -61,20 +74,7 @@
             }
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
-         if ([cellConfig.title isEqualToString:@"头像"]){
-             [[ZImagePickerManager sharedManager] setAvatarSelectMenu:^(NSArray<ZImagePickerModel *> *list) {
-                 if (list && list.count > 0) {
-                    ZImagePickerModel *model = list[0];
-                    [TLUIUtility showLoading:@"上传中"];
-                    [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"5",@"imageKey":@{@"file":model.image}} completeBlock:^(BOOL isSuccess, id data) {
-                        if (isSuccess) {
-                         [weakSelf updateUserInfo:@{@"image":SafeStr(data)}];
-                        }
-                        [TLUIUtility hiddenLoading];
-                    }];
-                  }
-             }];
-         }else if([cellConfig.title isEqualToString:@"昵称"]){
+        if([cellConfig.title isEqualToString:@"昵称"]){
              ZBaseTextVCModel *edit = [[ZBaseTextVCModel alloc] init];
              edit.navTitle = @"设置昵称";
              edit.formatter = ZFormatterTypeAnyByte;

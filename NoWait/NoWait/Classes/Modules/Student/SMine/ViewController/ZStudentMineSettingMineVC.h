@@ -7,10 +7,10 @@
 //
 
 #import "ZTableViewController.h"
-
+#import "ZLChainTableVC.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentMineSettingMineVC : ZTableViewController
+@interface ZStudentMineSettingMineVC : ZLChainTableVC
 
 @end
 

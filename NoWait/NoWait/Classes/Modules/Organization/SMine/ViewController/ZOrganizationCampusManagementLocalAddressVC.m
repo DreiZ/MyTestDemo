@@ -13,7 +13,6 @@
 #import "ZOrganizationRadiusCell.h"
 #import "ZOrganizationAddressSearchView.h"
 
-#import "ZCellConfig.h"
 #import "POIAnnotation.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
