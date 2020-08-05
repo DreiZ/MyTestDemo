@@ -12,10 +12,10 @@
 #define LogImageNameErrorIfNil
 
 //打印veiwDidLoad和dealloc信息
-//#define LogViewDidLoadAndDealloc
+#define LogViewDidLoadAndDealloc
 
 // 显示fps
-//#define LogShowFPS
+#define LogShowFPS
 
 //打印networking return data
 #define LogNetworkReturn
