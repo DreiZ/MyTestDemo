@@ -36,15 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 ZCHAIN_OBJ_CREATE(ZSectionConfig *, NSString *title, zChain_section_create)
 
-ZCHAIN_SECTIONCONFIG_PROPERTY(zChain_className, NSString *);
+ZCHAIN_SECTIONCONFIG_PROPERTY(zz_className, NSString *);
 
-ZCHAIN_SECTIONCONFIG_PROPERTY(zChain_method, SEL);
+ZCHAIN_SECTIONCONFIG_PROPERTY(zz_method, SEL);
 
-ZCHAIN_SECTIONCONFIG_PROPERTY(zChain_height, CGFloat);
+ZCHAIN_SECTIONCONFIG_PROPERTY(zz_height, CGFloat);
 
-ZCHAIN_SECTIONCONFIG_PROPERTY(zChain_data, id);
+ZCHAIN_SECTIONCONFIG_PROPERTY(zz_data, id);
 
-ZCHAIN_SECTIONCONFIG_PROPERTY(zChain_handle, id (^)(id, id));
+ZCHAIN_SECTIONCONFIG_PROPERTY(zz_handle, id (^)(id, id));
 
 /**
  便利构造器

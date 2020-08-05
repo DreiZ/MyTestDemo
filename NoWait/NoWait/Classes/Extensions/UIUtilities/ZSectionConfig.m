@@ -13,16 +13,16 @@
 
 ZCHAIN_CLASS_CREATE(ZSectionConfig, NSString *, zChain_section_create, title);
 
-ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zChain_className, NSString *, className);
+ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zz_className, NSString *, className);
 
-ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zChain_method, SEL, showInfoMethod);
+ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zz_method, SEL, showInfoMethod);
 
-ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zChain_height, CGFloat, heightOfSection);
+ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zz_height, CGFloat, heightOfSection);
 
-ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zChain_data, id, dataModel);
+ZCHAIN_SECTIONCONFIG_IMPLEMENTATION(zz_data, id, dataModel);
 
 
--(ZSectionConfig *(^)(id (^)(id,id)))zChain_handle {
+-(ZSectionConfig *(^)(id (^)(id,id)))zz_handle {
     return ^ ZSectionConfig *(id (^handleBlock)(id, id)) {
         self.handleBlock = handleBlock;
         return self;

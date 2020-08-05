@@ -13,25 +13,32 @@
 
 ZCHAIN_CLASS_CREATE(ZCellConfig, NSString *, zChain_create, title);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_className, NSString *, className);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_className, NSString *, className);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_method, SEL, showInfoMethod);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_method, SEL, showInfoMethod);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_height, CGFloat, heightOfCell);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_height, CGFloat, heightOfCell);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_type, ZCellType, cellType);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_type, ZCellType, cellType);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_detail, NSString *, detail);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_detail, NSString *, detail);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_remark, NSString *, remark);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_remark, NSString *, remark);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_data, id, dataModel);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_data, id, dataModel);
 
-ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_size, CGSize, sizeOfCell);
+ZCHAIN_CELLCONFIG_IMPLEMENTATION(zz_size, CGSize, sizeOfCell);
 
--(ZCellConfig *(^)(id (^)(id,id)))zChain_handle {
+-(ZCellConfig *(^)(id (^)(id,id)))zz_handle {
     return ^ ZCellConfig *(id (^handleBlock)(id, id)) {
         self.handleBlock = handleBlock;
+        return self;
+    };
+}
+
+-(ZCellConfig *(^)(void (^)(UIScrollView *, NSIndexPath *, ZCellConfig *)))zz_didSelect {
+    return ^ ZCellConfig *(void (^didSelect)(UIScrollView *, NSIndexPath *, ZCellConfig *)) {
+        self.didSelect = didSelect;
         return self;
     };
 }
@@ -55,7 +62,7 @@ ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_size, CGSize, sizeOfCell);
 }
 
 
-#pragma mark - method
+#pragma mark - method tableView
 + (instancetype)cellConfigWithClassName:(NSString *)className
                                   title:(NSString *)title
                          showInfoMethod:(SEL)showInfoMethod
@@ -80,13 +87,8 @@ ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_size, CGSize, sizeOfCell);
                                cellType:(ZCellType)cellType
                               dataModel:(id)dataModel
 {
-    ZCellConfig *cellConfig = [ZCellConfig new];
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:className title:title showInfoMethod:showInfoMethod heightOfCell:heightOfCell cellType:cellType];
     
-    cellConfig.className = className;
-    cellConfig.title = title;
-    cellConfig.showInfoMethod = showInfoMethod;
-    cellConfig.heightOfCell = heightOfCell;
-    cellConfig.cellType = cellType;
     cellConfig.dataModel = dataModel;
     return cellConfig;
 }
@@ -99,19 +101,27 @@ ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_size, CGSize, sizeOfCell);
                               dataModel:(id)dataModel
                             handleBlock:(id(^)(id, id))handleBlock
 {
-    ZCellConfig *cellConfig = [ZCellConfig new];
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:className title:title showInfoMethod:showInfoMethod heightOfCell:heightOfCell cellType:cellType dataModel:dataModel];
     
-    cellConfig.className = className;
-    cellConfig.title = title;
-    cellConfig.showInfoMethod = showInfoMethod;
-    cellConfig.heightOfCell = heightOfCell;
-    cellConfig.cellType = cellType;
-    cellConfig.dataModel = dataModel;
     cellConfig.handleBlock = handleBlock;
     return cellConfig;
 }
 
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                           heightOfCell:(CGFloat)heightOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock
+                              didSelect:(void(^)(UIScrollView *, NSIndexPath *, ZCellConfig *))didSelect {
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:className title:title showInfoMethod:showInfoMethod heightOfCell:heightOfCell cellType:cellType dataModel:dataModel handleBlock:handleBlock];
+    
+    cellConfig.didSelect = didSelect;
+    return cellConfig;
+}
 
+#pragma mark - method uicollection
 + (instancetype)cellConfigWithClassName:(NSString *)className
                                   title:(NSString *)title
                          showInfoMethod:(SEL)showInfoMethod
@@ -139,19 +149,28 @@ ZCHAIN_CELLCONFIG_IMPLEMENTATION(zChain_size, CGSize, sizeOfCell);
                               dataModel:(id)dataModel
                             handleBlock:(id(^)(id, id))handleBlock
 {
-    ZCellConfig *cellConfig = [ZCellConfig new];
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:className title:title showInfoMethod:showInfoMethod sizeOfCell:sizeOfCell cellType:cellType dataModel:dataModel];
     
-    cellConfig.className = className;
-    cellConfig.title = title;
-    cellConfig.showInfoMethod = showInfoMethod;
-    cellConfig.sizeOfCell = sizeOfCell;
-    cellConfig.cellType = cellType;
-    cellConfig.dataModel = dataModel;
     cellConfig.handleBlock = handleBlock;
     return cellConfig;
 }
 
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                             sizeOfCell:(CGSize)sizeOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock
+                              didSelect:(void(^)(UIScrollView *, NSIndexPath *, ZCellConfig *))didSelect {
+    ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:className title:title showInfoMethod:showInfoMethod sizeOfCell:sizeOfCell cellType:cellType dataModel:dataModel handleBlock:handleBlock];
+    
+    cellConfig.didSelect = didSelect;
+    return cellConfig;
+}
 
+
+#pragma mark - get cell
 /// 根据cellConfig生成cell，重用ID为cell类名
 - (UITableViewCell *)cellOfCellConfigWithTableView:(UITableView *)tableView
                                          dataModel:(id)dataModel

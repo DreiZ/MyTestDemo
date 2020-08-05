@@ -47,26 +47,32 @@ typedef NS_ENUM(NSInteger, ZCellType) {
 
 @property (nonatomic,strong) id (^handleBlock)(id, id);
 
+@property (nonatomic,strong) void (^didSelect)(UIScrollView *, NSIndexPath *indexPath, ZCellConfig *);
+
+#pragma mark - zchain
 ZCHAIN_OBJ_CREATE(ZCellConfig *, NSString *title, zChain_create)
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_className, NSString *);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_className, NSString *);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_method, SEL);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_method, SEL);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_height, CGFloat);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_height, CGFloat);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_type, ZCellType);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_type, ZCellType);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_detail, NSString *);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_detail, NSString *);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_remark, NSString *);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_remark, NSString *);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_data, id);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_data, id);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_size, CGSize);
+ZCHAIN_CELLCONFIG_PROPERTY(zz_size, CGSize);
 
-ZCHAIN_CELLCONFIG_PROPERTY(zChain_handle, id (^)(id, id));
+ZCHAIN_CELLCONFIG_PROPERTY(zz_handle, id (^)(id, id));
 
+ZCHAIN_CELLCONFIG_PROPERTY(zz_didSelect, void (^)(UIScrollView *, NSIndexPath *, ZCellConfig *));
+
+#pragma mark - fun
 /**
  便利构造器
 
@@ -109,6 +115,15 @@ ZCHAIN_CELLCONFIG_PROPERTY(zChain_handle, id (^)(id, id));
                                cellType:(ZCellType)cellType
                               dataModel:(id)dataModel
                             handleBlock:(id(^)(id, id))handleBlock;
+
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                           heightOfCell:(CGFloat)heightOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock
+                              didSelect:(void(^)(UIScrollView *, NSIndexPath *, ZCellConfig *))didSelect;
 /**
  便利构造器
 
@@ -134,6 +149,15 @@ ZCHAIN_CELLCONFIG_PROPERTY(zChain_handle, id (^)(id, id));
                                cellType:(ZCellType)cellType
                               dataModel:(id)dataModel
                             handleBlock:(id(^)(id, id))handleBlock;
+
++ (instancetype)cellConfigWithClassName:(NSString *)className
+                                  title:(NSString *)title
+                         showInfoMethod:(SEL)showInfoMethod
+                             sizeOfCell:(CGSize)sizeOfCell
+                               cellType:(ZCellType)cellType
+                              dataModel:(id)dataModel
+                            handleBlock:(id(^)(id, id))handleBlock
+                              didSelect:(void(^)(UIScrollView *, NSIndexPath *, ZCellConfig *))didSelect;
 
 /// 根据cellConfig生成cell，重用ID为cell类名
 - (UITableViewCell *)cellOfCellConfigWithTableView:(UITableView *)tableView

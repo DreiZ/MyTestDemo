@@ -382,10 +382,16 @@
             if (_zChain_block_configDidSelectRowAtIndexPath) {
                 _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
             }
+            if (cellConfig.didSelect) {
+                cellConfig.didSelect(tableView, indexPath, cellConfig);
+            }
         }else if([data isKindOfClass:[ZCellConfig class]]){
             ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
             if (_zChain_block_configDidSelectRowAtIndexPath) {
                 _zChain_block_configDidSelectRowAtIndexPath(tableView, indexPath, cellConfig);
+            }
+            if (cellConfig.didSelect) {
+                cellConfig.didSelect(tableView, indexPath, cellConfig);
             }
         }
     }

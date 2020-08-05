@@ -67,18 +67,6 @@
         make.left.right.bottom.equalTo(self.contentView);
         make.height.mas_equalTo(0.5);
     }];
-    
-    __weak typeof(self) weakSelf = self;
-    UIButton *coverBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [coverBtn bk_whenTapped:^{
-        if (weakSelf.eventAction) {
-            weakSelf.eventAction(nil, nil);
-        }
-    }];
-    [self.contentView addSubview:coverBtn];
-    [coverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
-    }];
 }
 
 
