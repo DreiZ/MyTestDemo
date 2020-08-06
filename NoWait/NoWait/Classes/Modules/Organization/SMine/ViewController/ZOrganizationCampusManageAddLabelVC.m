@@ -91,7 +91,7 @@
     [_userNameTF setBorderStyle:UITextBorderStyleNone];
     [_userNameTF setBackgroundColor:[UIColor clearColor]];
     [_userNameTF setReturnKeyType:UIReturnKeyDone];
-    [_userNameTF setPlaceholder:@"输入自定义标签，最多5个字"];
+    [_userNameTF setPlaceholder:[NSString stringWithFormat:@"输入自定义标签，最多%ld个字符",self.max]];
     _userNameTF.delegate = self;
     [_userNameTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _userNameTF.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
@@ -123,6 +123,8 @@
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(0.5);
     }];
+    
+    _numLabel.text = [NSString stringWithFormat:@"0/%ld",self.max];
 }
 
 - (UIView *)LabelView {
@@ -263,7 +265,7 @@
     [ZPublicTool textField:textField maxLenght:self.max > 0 ? self.max:20 type:ZFormatterTypeAnyByte];
 //    self.userNameTF.text = textField.text;
  
-    self.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",textField.text.length,self.max > 0 ? self.max:20];
+    self.numLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)strlen([textField.text UTF8String]),self.max > 0 ? self.max:20];
 }
 
 

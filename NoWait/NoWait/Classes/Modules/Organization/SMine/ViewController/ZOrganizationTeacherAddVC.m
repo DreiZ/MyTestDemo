@@ -650,7 +650,7 @@
     }else if ([cellConfig.title isEqualToString:@"skill"]) {
         [self.iTableView endEditing:YES];
 
-        NSMutableDictionary *tempDict = @{@"navTitle":@"特长技能",@"max":@"30"}.mutableCopy;
+        NSMutableDictionary *tempDict = @{@"navTitle":@"特长技能",@"max":@"15"}.mutableCopy;
         if (self.viewModel.addModel.skills) {
             [tempDict setObject:self.viewModel.addModel.skills forKey:@"list"];
         }

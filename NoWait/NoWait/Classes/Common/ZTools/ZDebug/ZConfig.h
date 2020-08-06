@@ -20,3 +20,5 @@
 //打印networking return data
 #define LogNetworkReturn
 
+//切换账号
+#define SwitchAccount

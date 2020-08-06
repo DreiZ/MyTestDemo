@@ -20,7 +20,7 @@
 #import "ZMineMainVC.h"
 #import "ZCircleViewController.h"
 #import "ZMessageListVC.h"
-
+#import "ZTabBarController.h"
 @interface ZLaunchManager ()
 
 @property (nonatomic, weak) UIWindow *window;
@@ -167,10 +167,10 @@
 
 
 #pragma mark - # Getters
-- (TLTabBarController *)tabBarController
+- (ZTabBarController *)tabBarController
 {
     if (!_tabBarController) {
-        TLTabBarController *tabbarController = [[TLTabBarController alloc] init];
+        ZTabBarController *tabbarController = [[ZTabBarController alloc] init];
         [tabbarController.tabBar setBackgroundColor:[UIColor colorGrayBG]];
         [tabbarController.tabBar setTintColor:[UIColor colorGreenDefault]];
         _tabBarController = tabbarController;

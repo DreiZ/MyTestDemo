@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <TLTabBarController.h>
-
+#import "ZTabBarController.h"
 
 @interface ZLaunchManager : NSObject
 
@@ -16,7 +16,7 @@
 @property (nonatomic, strong) __kindof UIViewController *curRootVC;
 
 //根tabBarController
-@property (nonatomic, strong) TLTabBarController *tabBarController;
+@property (nonatomic, strong) ZTabBarController *tabBarController;
 
 + (ZLaunchManager *)sharedInstance;
 

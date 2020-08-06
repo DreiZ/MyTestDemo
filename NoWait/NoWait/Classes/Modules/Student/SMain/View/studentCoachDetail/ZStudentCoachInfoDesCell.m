@@ -8,10 +8,10 @@
 
 #import "ZStudentCoachInfoDesCell.h"
 
-#define kLabelHeight CGFloatIn750(54)
+#define kLabelHeight CGFloatIn750(50)
 #define kLabelSpace CGFloatIn750(10)
-#define kLabelAddWidth CGFloatIn750(28)
-#define kLabelSpaceY CGFloatIn750(30)
+#define kLabelAddWidth CGFloatIn750(24)
+#define kLabelSpaceY CGFloatIn750(20)
 
 
 @interface ZStudentCoachInfoDesCell ()

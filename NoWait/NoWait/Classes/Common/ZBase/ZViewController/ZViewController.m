@@ -370,4 +370,5 @@ ZCHAIN_BLOCK_IMPLEMENTATION(ZViewController *, zChain_block_setNotShouldDecompre
 - (void)refreshData {
     
 }
+
 @end
