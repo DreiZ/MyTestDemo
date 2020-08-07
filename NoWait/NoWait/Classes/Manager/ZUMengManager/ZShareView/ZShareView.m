@@ -71,6 +71,7 @@ static ZShareView *sharedManager;
     [self.contView addSubview:self.contentLabel];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contView.mas_top).offset(CGFloatIn750(50));
+        make.left.right.equalTo(self.contView);
         make.centerX.equalTo(self.contView.mas_centerX);
     }];
     
@@ -186,7 +187,7 @@ static ZShareView *sharedManager;
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _contentLabel.textColor = [UIColor colorTextBlack];
         _contentLabel.text = @"";
-        _contentLabel.numberOfLines = 1;
+        _contentLabel.numberOfLines = 0;
         _contentLabel.textAlignment = NSTextAlignmentCenter;
         [_contentLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(30)]];
     }

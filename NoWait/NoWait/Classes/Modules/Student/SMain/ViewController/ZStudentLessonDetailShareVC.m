@@ -14,6 +14,7 @@
 #import "ZShareView.h"
 
 @interface ZStudentLessonDetailShareVC ()
+@property (nonatomic,strong) UIView *shareView;
 
 @end
 
@@ -30,6 +31,14 @@
     
     __weak typeof(self) weakSelf = self;
     self.zChain_resetMainView(^{
+        [self.view addSubview:self.shareView];
+        [self.shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.edges.equalTo(self.view);
+        }];
+        [self.shareView addSubview:self.iTableView];
+        [self.iTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.edges.equalTo(self.shareView);
+        }];
         self.iTableView.scrollEnabled = NO;
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
@@ -145,11 +154,19 @@
 }
 
 
+- (UIView *)shareView {
+    if (!_shareView) {
+        _shareView = [[UIView alloc] init];
+    }
+    return _shareView;
+}
+
+
 - (void)setCoverImageView {
     UIImageView *topImageView = [[UIImageView alloc] init];
     topImageView.image = [UIImage imageNamed:@"shareLesson2"];
     topImageView.layer.masksToBounds = YES;
-    [self.view addSubview:topImageView];
+    [self.shareView addSubview:topImageView];
     [topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iTableView.mas_left);
         make.top.equalTo(self.iTableView.mas_top);
@@ -160,7 +177,7 @@
     UIImageView *bottomImageView = [[UIImageView alloc] init];
     bottomImageView.image = [UIImage imageNamed:@"shareLesson3"];
     bottomImageView.layer.masksToBounds = YES;
-    [self.view addSubview:bottomImageView];
+    [self.shareView addSubview:bottomImageView];
     [bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iTableView.mas_left).offset(CGFloatIn750(34));
         make.bottom.equalTo(self.iTableView.mas_bottom).offset(-CGFloatIn750(100));
@@ -171,7 +188,7 @@
     UIImageView *rightImageView = [[UIImageView alloc] init];
     rightImageView.image = [UIImage imageNamed:@"shareLesson1"];
     rightImageView.layer.masksToBounds = YES;
-    [self.view addSubview:rightImageView];
+    [self.shareView addSubview:rightImageView];
     [rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.iTableView.mas_right).offset(-CGFloatIn750(34));
         make.top.equalTo(self.iTableView.mas_top).offset(CGFloatIn750(60 + 58 + 80)+(KScreenHeight > 736 ? CGFloatIn750(360):CGFloatIn750(280)));
@@ -200,7 +217,7 @@
 
 - (void)showShare {
     [ZShareView setPre_title:@"分享" reduce_weight:[NSString stringWithFormat:@"（%@）",self.addModel.name] after_title:@"到微信" handlerBlock:^(NSInteger index) {
-        UIImage *shareImage = [ZPublicTool snapshotForView:self.iTableView];
+        UIImage *shareImage = [ZPublicTool snapshotForView:self.shareView];
         [[ZUMengShareManager sharedManager] shareUIWithType:index image:shareImage vc:self];
     }];
 }

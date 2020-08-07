@@ -19,10 +19,6 @@
     // Do any additional setup after loading the view.
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return NO;
-}
-
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 //    UINavigationController *navCtl = self.viewControllers[0];
 //    if ([navCtl.topViewController isKindOfClass:[YourViewController class]]) {
