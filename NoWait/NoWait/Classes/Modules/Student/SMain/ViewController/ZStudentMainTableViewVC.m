@@ -7,6 +7,7 @@
 //
 
 #import "ZStudentMainTableViewVC.h"
+#import "ZStudentMessageVC.h"
 
 @interface ZStudentMainTableViewVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -35,7 +36,7 @@
     self.zChain_block_setNotShouldDecompressImages(^{
 
     });
-    
+    [ZStudentMessageVC refreshMessageNum];
     [super viewWillAppear:animated];
     self.isHidenNaviBar = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];

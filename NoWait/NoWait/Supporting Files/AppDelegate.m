@@ -13,6 +13,7 @@
 #import "ZPayManager.h"
 #import <UMCommon/UMCommon.h>
 #import <UMShare/UMShare.h>
+#import "ZStudentMessageVC.h"
 
 @interface AppDelegate ()
 
@@ -37,7 +38,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-
+    [ZStudentMessageVC refreshMessageNum];
 }
 
 

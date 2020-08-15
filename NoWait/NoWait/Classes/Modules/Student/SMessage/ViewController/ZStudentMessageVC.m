@@ -16,7 +16,7 @@
 #import "ZMessgeModel.h"
 #import "ZOriganizationStudentViewModel.h"
 #import "ZCircleMineViewModel.h"
-
+#import "ZLaunchManager.h"
 #import <TLTabBarControllerProtocol.h>
 #import "ZAlertView.h"
 
@@ -46,13 +46,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getMessageNum];
-    [self refreshMessageNum];
+    [ZStudentMessageVC refreshMessageNum];
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tabBarController.tabBarItem setBadgeValue:@"2"];
+    
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"消息")
     .zChain_setTableViewGary()
@@ -398,15 +398,14 @@
     }];
 }
 
-- (void)refreshMessageNum {
-    return;
++ (void)refreshMessageNum {
     [ZCircleMineViewModel getCircleNewsData:@{} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && [data isKindOfClass:[ZMessageCircleNewsModel class]]) {
             ZMessageCircleNewsModel *circleModel = data;
             if (ValidStr(circleModel.total) && [circleModel.total intValue] > 0) {
-                self.tabBarController.tabBarItem.badgeValue = circleModel.total;
+                ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = circleModel.total;
             }else{
-                self.tabBarController.tabBarItem.badgeValue = @"";
+                ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = nil;
             }
         }
     }];

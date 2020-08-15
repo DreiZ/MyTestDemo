@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMessageVC : ZTableViewController
-- (void)refreshMessageNum;
++ (void)refreshMessageNum;
 @end
 
 NS_ASSUME_NONNULL_END
