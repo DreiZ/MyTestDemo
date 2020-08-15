@@ -286,7 +286,7 @@
 - (UIImageView *)logImageView {
     if (!_logImageView) {
         _logImageView = [[UIImageView alloc] init];
-        _logImageView.image = [UIImage imageNamed:@"moneyLog"];
+        _logImageView.image = [UIImage imageNamed:@"moneyDetail"];
         _logImageView.layer.masksToBounds = YES;
         _logImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -296,7 +296,7 @@
 - (UIImageView *)detailImageView {
     if (!_detailImageView) {
         _detailImageView = [[UIImageView alloc] init];
-        _detailImageView.image = [UIImage imageNamed:@"moneyDetail"];
+        _detailImageView.image = [UIImage imageNamed:@"moneyLog"];
         _detailImageView.layer.masksToBounds = YES;
         _detailImageView.contentMode = UIViewContentModeScaleAspectFill;
     }

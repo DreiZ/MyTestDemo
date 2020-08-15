@@ -338,7 +338,7 @@
     /* 按照距离排序. */
     request.sortrule            = 0;
     request.requireExtension    = YES;
-    
+    request.types = @"080100";
     [self.search AMapPOIAroundSearch:request];
 }
 

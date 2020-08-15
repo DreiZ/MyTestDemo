@@ -94,7 +94,7 @@
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
-        make.height.mas_equalTo(CGFloatIn750(80));
+        make.height.mas_equalTo(CGFloatIn750(120)+safeAreaBottom());
     }];
     
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {

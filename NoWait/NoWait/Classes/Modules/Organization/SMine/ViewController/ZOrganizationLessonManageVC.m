@@ -116,6 +116,7 @@
         [_navLeftBtn.titleLabel setFont:[UIFont fontContent]];
 //        [_navLeftBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
 //        ViewRadius(_navLeftBtn, CGFloatIn750(24));
+        [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
             routePushVC(ZRoute_org_lessonAdd, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];

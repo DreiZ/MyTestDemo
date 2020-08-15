@@ -173,6 +173,7 @@
         model.zz_fontLeft([UIFont fontContent]);
         model.zz_cellWidth(KScreenWidth - CGFloatIn750(60));
         
+        
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr  addObject:menuCellConfig];

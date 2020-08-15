@@ -11,6 +11,7 @@
 #import "ZStudentOrganizationListCell.h"
 #import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
+#import "ZAnnotationClusterVC.h"
 
 #import "ZLocationManager.h"
 
@@ -94,7 +95,9 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+//            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+            ZAnnotationClusterVC *cvc = [[ZAnnotationClusterVC alloc] init];
+            [self.navigationController pushViewController:cvc animated:YES];
         }
     });
     
@@ -224,7 +227,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    
+    [self.param setObject:[NSString stringWithFormat:@"%d",10] forKey:@"page_size"];
     if ([ZLocationManager shareManager].location) {
         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.longitude] forKey:@"longitude"];
         [_param setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.latitude] forKey:@"latitude"];

@@ -46,11 +46,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getMessageNum];
+    [self refreshMessageNum];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.tabBarController.tabBarItem setBadgeValue:@"2"];
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"消息")
     .zChain_setTableViewGary()
@@ -392,6 +394,20 @@
         if (isSuccess && [data isKindOfClass:[ZMessageCircleNewsModel class]]) {
             weakSelf.circleModel = data;
             self.zChain_reload_ui();
+        }
+    }];
+}
+
+- (void)refreshMessageNum {
+    return;
+    [ZCircleMineViewModel getCircleNewsData:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && [data isKindOfClass:[ZMessageCircleNewsModel class]]) {
+            ZMessageCircleNewsModel *circleModel = data;
+            if (ValidStr(circleModel.total) && [circleModel.total intValue] > 0) {
+                self.tabBarController.tabBarItem.badgeValue = circleModel.total;
+            }else{
+                self.tabBarController.tabBarItem.badgeValue = @"";
+            }
         }
     }];
 }

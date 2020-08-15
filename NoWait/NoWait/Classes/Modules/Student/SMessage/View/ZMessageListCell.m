@@ -13,6 +13,8 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UITableView *iTableView;
 @property (nonatomic,strong) NSMutableArray *cellConfigArr;
+@property (nonatomic,strong) UIView *redView;
+
 @end
 
 @implementation ZMessageListCell
@@ -52,6 +54,13 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
     longPress.minimumPressDuration = 0.5; //定义按的时间
     [self.contentView addGestureRecognizer:longPress];
+    
+    [self.contentView addSubview:self.redView];
+    [self.redView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iTableView.mas_left).offset(CGFloatIn750(30) + CGFloatIn750(30)-CGFloatIn750(5));
+        make.width.height.mas_equalTo(CGFloatIn750(10));
+        make.top.equalTo(self.iTableView.mas_top).offset((CGFloatIn750(54) - CGFloatIn750(30))/2);
+    }];
 }
 
 - (void)btnLong:(UILongPressGestureRecognizer *)sender {
@@ -98,6 +107,15 @@
         ViewRadius(_contView, CGFloatIn750(20));
     }
     return _contView;
+}
+
+- (UIView *)redView {
+    if (!_redView) {
+        _redView = [[UIView alloc] init];
+        _redView.backgroundColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+        ViewRadius(_redView, CGFloatIn750(5));
+    }
+    return _redView;
 }
 
 
@@ -240,6 +258,12 @@
     _model = model;
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
+    if ([model.is_read intValue] >= 1) {
+        self.redView.hidden = YES;
+    }else{
+        self.redView.hidden = NO;
+    }
 }
 
 - (void)initCellConfigArr {

@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger,ZCustomTerminalType){
 @property (nonatomic,strong) NSString *comment;
 @property (nonatomic,strong) NSString *enjoy;
 @property (nonatomic,strong) NSString *follow;
+@property (nonatomic,strong) NSString *total;
+
 @end
 
 @interface ZMessageTypeEntryModel : ZBaseModel
