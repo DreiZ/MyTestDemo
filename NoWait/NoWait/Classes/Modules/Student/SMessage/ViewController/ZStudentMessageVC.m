@@ -404,6 +404,7 @@
             ZMessageCircleNewsModel *circleModel = data;
             if (ValidStr(circleModel.total) && [circleModel.total intValue] > 0) {
                 ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = circleModel.total;
+                ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeColor = [UIColor colorMain];
             }else{
                 ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = nil;
             }
