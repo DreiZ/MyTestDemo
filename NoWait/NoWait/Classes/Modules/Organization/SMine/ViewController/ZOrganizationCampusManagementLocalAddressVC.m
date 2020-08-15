@@ -338,7 +338,7 @@
     /* 按照距离排序. */
     request.sortrule            = 0;
     request.requireExtension    = YES;
-    request.types = @"080100";
+//    request.types = @"080100";
     [self.search AMapPOIAroundSearch:request];
 }
 
@@ -355,7 +355,7 @@
 //    /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
     request.cityLimit           = YES;
     request.requireSubPOIs      = YES;
-    
+    request.requireExtension    = YES;
     [self.search AMapPOIKeywordsSearch:request];
 }
 
