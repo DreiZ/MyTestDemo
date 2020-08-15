@@ -73,7 +73,7 @@
 }
 
 - (void)setMainView {
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+    self.view.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     [self.view addSubview:self.searchBtn];
     [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
