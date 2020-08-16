@@ -71,6 +71,13 @@ const NSInteger kCellHeight = 44;
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    AMapPOI *poi = [self.poiArray objectAtIndex:indexPath.row];
+    if (self.detailBlock) {
+        self.detailBlock(poi);
+    }
+}
+
 #pragma mark - TapGesture
 
 - (void)detailBtnTap:(UIButton *)button

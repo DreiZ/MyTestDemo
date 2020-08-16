@@ -12,6 +12,6 @@
 
 @interface ZClusterAnnotationView : MAAnnotationView
 
-@property (nonatomic, assign) NSUInteger count;
+@property (nonatomic, strong) NSDictionary *data;
 
 @end

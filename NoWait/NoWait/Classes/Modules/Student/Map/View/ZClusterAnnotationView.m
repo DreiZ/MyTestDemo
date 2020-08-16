@@ -54,31 +54,17 @@ CGFloat ScaledValueForValue(CGFloat value)
     {
         self.backgroundColor = [UIColor clearColor];
         [self setupLabel];
-        [self setCount:1];
     }
     
     return self;
 }
 
 #pragma mark Utility
-- (void)setupLabel
-{
-    _bottomLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    _bottomLineView.backgroundColor = [UIColor colorMain];
-    _bottomLineView.layer.cornerRadius = CGFloatIn750(20);
-    _bottomLineView.layer.masksToBounds = YES;
-    [self addSubview:_bottomLineView];
-    [_bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(40));
-        make.left.right.equalTo(self);
-    }];
-    
+- (void)setupLabel{
     _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 80, 36)];
     _countLabel.textColor       = [UIColor whiteColor];
     _countLabel.textAlignment   = NSTextAlignmentCenter;
-//    _countLabel.backgroundColor = [UIColor colorMain];
+    _countLabel.backgroundColor = [UIColor colorMain];
     _countLabel.layer.cornerRadius = CGFloatIn750(20);
     _countLabel.layer.masksToBounds = YES;
     _countLabel.numberOfLines = 1;
@@ -113,20 +99,54 @@ CGFloat ScaledValueForValue(CGFloat value)
     return NO;
 }
 
-- (void)setCount:(NSUInteger)count {
-    _count = count;
+#pragma mark - setdata
+- (void)setMain:(NSDictionary *)data {
+    self.countLabel.text = [NSString stringWithFormat:@"%@ \n %@个",data[@"content"],data[@"count"]];
+    self.countLabel.numberOfLines = 0;
+    CGSize tempSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
     
-    /* 按count数目设置view的大小. */
-    CGRect newBounds = CGRectMake(0, 0, roundf(44 * ScaledValueForValue(count)), roundf(44 * ScaledValueForValue(count)));
-    self.frame = CenterRect(newBounds, self.center);
-    self.frame = CGRectMake(self.center.x, self.center.y, 40, 40);
-//    CGRect newLabelBounds = CGRectMake(0, 0, newBounds.size.width / 1.3, newBounds.size.height / 1.3);
-//    self.countLabel.frame = CenterRect(newLabelBounds, RectCenter(newBounds));
-    self.countLabel.text = [@(_count) stringValue];
-    self.countLabel.text = @"阿贡火山老大哥纳斯达克";
-    CGSize tempSize = [@"阿贡火山老大哥纳斯达克" tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
-    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 10, tempSize.height + CGFloatIn750(16));
-//    [self setNeedsDisplay];
+    self.frame = CGRectMake(self.center.x, self.center.y, CGFloatIn750(120), CGFloatIn750(120));
+    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY);
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(8));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(8));
+    }];
+    self.countLabel.layer.cornerRadius = CGFloatIn750(60);
+    [self setNeedsDisplay];
+}
+
+- (void)setDetail:(NSString *)str {
+    self.countLabel.text = str;
+    self.countLabel.numberOfLines = 1;
+    CGSize tempSize = [str tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
+    
+    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY);
+        make.height.mas_equalTo(CGFloatIn750(40));
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
+    }];
+    self.countLabel.layer.cornerRadius = CGFloatIn750(20);
+    [self setNeedsDisplay];
+}
+
+- (void)setData:(NSDictionary *)data {
+    _data = data;
+    NSLog(@"setData---------%@",data);
+    if ([data objectForKey:@"type"]) {
+        
+        if ([data[@"type"] intValue] == 4) {
+            [self setDetail:data[@"content"]];
+        }else {
+            [self setMain:data];
+        }
+    }
 }
 
 #pragma mark - annimation
@@ -156,26 +176,26 @@ CGFloat ScaledValueForValue(CGFloat value)
 
 #pragma mark draw rect
 - (void)drawRect:(CGRect)rect {
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//
-//    CGContextSetAllowsAntialiasing(context, true);
-//
-//    UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
-//    UIColor *innerCircleStrokeColor = [UIColor whiteColor];
-//    UIColor *innerCircleFillColor = [UIColor colorMain];
-//
-//    CGRect circleFrame = CGRectInset(rect, 4, 4);
-//
-//    [outerCircleStrokeColor setStroke];
-//    CGContextSetLineWidth(context, 5.0);
-//    CGContextStrokeEllipseInRect(context, circleFrame);
-//
-//    [innerCircleStrokeColor setStroke];
-//    CGContextSetLineWidth(context, 4);
-//    CGContextStrokeEllipseInRect(context, circleFrame);
-//
-//    [innerCircleFillColor setFill];
-//    CGContextFillEllipseInRect(context, circleFrame);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGContextSetAllowsAntialiasing(context, true);
+
+    UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
+    UIColor *innerCircleStrokeColor = [UIColor whiteColor];
+    UIColor *innerCircleFillColor = [UIColor colorMain];
+
+    CGRect circleFrame = CGRectInset(rect, 4, 4);
+
+    [outerCircleStrokeColor setStroke];
+    CGContextSetLineWidth(context, 5.0);
+    CGContextStrokeEllipseInRect(context, circleFrame);
+
+    [innerCircleStrokeColor setStroke];
+    CGContextSetLineWidth(context, 4);
+    CGContextStrokeEllipseInRect(context, circleFrame);
+
+    [innerCircleFillColor setFill];
+    CGContextFillEllipseInRect(context, circleFrame);
 }
 @end
 

@@ -29,6 +29,8 @@
         self.backgroundColor = [UIColor clearColor];
         [self setupLabel];
         [self setCount:1];
+        self.clipsToBounds = YES;
+        self.layer.masksToBounds = YES;
         self.image = [UIImage imageNamed:@"hnglocaladdress"];
     }
     

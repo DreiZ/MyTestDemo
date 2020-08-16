@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) id<CustomCalloutViewTapDelegate> delegate;
 
+@property (nonatomic,strong) void (^detailBlock)(id);
+
 - (void)dismissCalloutView;
 
 @end
