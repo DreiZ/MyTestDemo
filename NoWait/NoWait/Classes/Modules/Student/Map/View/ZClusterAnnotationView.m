@@ -101,7 +101,26 @@ CGFloat ScaledValueForValue(CGFloat value)
 
 #pragma mark - setdata
 - (void)setMain:(NSDictionary *)data {
-    self.countLabel.text = [NSString stringWithFormat:@"%@ \n %@个",data[@"content"],data[@"count"]];
+    self.countLabel.text = [NSString stringWithFormat:@"%@\n%@个",data[@"content"],data[@"count"]];
+    self.countLabel.numberOfLines = 0;
+    CGSize tempSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
+    
+    self.frame = CGRectMake(self.center.x, self.center.y, CGFloatIn750(120), CGFloatIn750(120));
+    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.centerY.equalTo(self.mas_centerY);
+        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
+        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(8));
+        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(8));
+    }];
+    self.countLabel.layer.cornerRadius = CGFloatIn750(60);
+    [self setNeedsDisplay];
+}
+
+- (void)setSubMain:(NSDictionary *)data {
+    self.countLabel.text = [NSString stringWithFormat:@"%@个 \n  %@",data[@"count"],@"校区"];
     self.countLabel.numberOfLines = 0;
     CGSize tempSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
     self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
@@ -138,12 +157,13 @@ CGFloat ScaledValueForValue(CGFloat value)
 
 - (void)setData:(NSDictionary *)data {
     _data = data;
-    NSLog(@"setData---------%@",data);
+    
     if ([data objectForKey:@"type"]) {
-        
         if ([data[@"type"] intValue] == 4) {
             [self setDetail:data[@"content"]];
-        }else {
+        }else if ([data[@"type"] intValue] == 3) {
+            [self setSubMain:data];
+        }else{
             [self setMain:data];
         }
     }

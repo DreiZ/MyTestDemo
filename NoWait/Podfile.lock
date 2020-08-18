@@ -48,6 +48,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - HWPanModal (0.7.7)
   - IQKeyboardManager (6.5.5)
   - LBXScan/LBXNative (2.3):
     - LBXScan/Types (~> 2.2)
@@ -241,6 +242,7 @@ DEPENDENCIES:
   - DACircularProgress
   - DZNEmptyDataSet
   - FMDB (~> 2.7.2)
+  - HWPanModal
   - IQKeyboardManager
   - LBXScan/LBXNative (~> 2.3)
   - LBXScan/UI (~> 2.3)
@@ -281,6 +283,7 @@ SPEC REPOS:
     - DACircularProgress
     - DZNEmptyDataSet
     - FMDB
+    - HWPanModal
     - IQKeyboardManager
     - LBXScan
     - Masonry
@@ -345,6 +348,7 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  HWPanModal: 32021b9b19eeddafdad8ce5f405fe01fe97806e0
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -373,6 +377,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: c1a42001f956e1fe6ca1d0b7b0e6fd934472f644
+PODFILE CHECKSUM: d953a9d29376a9f9b568daf2935ac5ccb551bd91
 
 COCOAPODS: 1.9.1

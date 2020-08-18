@@ -74,6 +74,9 @@
         _searchView.searchBlock = ^(NSInteger index) {
             routePushVC(ZRoute_main_search, nil, nil);
         };
+        _searchView.addressBlock = ^(NSInteger index) {
+            routePushVC(ZRoute_org_annotationCluster, nil, nil);
+        };
     }
     return _searchView;
 }

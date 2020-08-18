@@ -235,4 +235,9 @@
 #define ZRoute_org_orderRefuse          @"controller/org/orderRefuse"
 
 #define ZRoute_org_account              @"controller/org/account"
+
+
+#pragma mark - ZAnnotationClusterVC
+#define ZRoute_org_annotationCluster     @"controller/org/annotationCluster"
+
 #endif /* ZRoutePath_h */

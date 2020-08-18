@@ -33,6 +33,7 @@
 		B217175524E66F180092E174 /* ZClusterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B217175424E66F180092E174 /* ZClusterTableViewCell.m */; };
 		B217175824E66F370092E174 /* ZCustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = B217175724E66F370092E174 /* ZCustomCalloutView.m */; };
 		B217175E24E683370092E174 /* ZMainAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B217175D24E683370092E174 /* ZMainAnnotationView.m */; };
+		B217178524EA5E820092E174 /* ZMapSchoolListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B217178424EA5E820092E174 /* ZMapSchoolListVC.m */; };
 		B218063B24760D1F00A124D9 /* ZDBMainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B218063A24760D1F00A124D9 /* ZDBMainStore.m */; };
 		B21887B22436D95700EB7155 /* ZSignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B12436D95700EB7155 /* ZSignModel.m */; };
 		B21887B62436D9F300EB7155 /* ZSignViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21887B52436D9F300EB7155 /* ZSignViewModel.m */; };
@@ -890,6 +891,8 @@
 		B217175724E66F370092E174 /* ZCustomCalloutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCustomCalloutView.m; sourceTree = "<group>"; };
 		B217175C24E683370092E174 /* ZMainAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMainAnnotationView.h; sourceTree = "<group>"; };
 		B217175D24E683370092E174 /* ZMainAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMainAnnotationView.m; sourceTree = "<group>"; };
+		B217178324EA5E820092E174 /* ZMapSchoolListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMapSchoolListVC.h; sourceTree = "<group>"; };
+		B217178424EA5E820092E174 /* ZMapSchoolListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMapSchoolListVC.m; sourceTree = "<group>"; };
 		B218063924760D1F00A124D9 /* ZDBMainStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDBMainStore.h; sourceTree = "<group>"; };
 		B218063A24760D1F00A124D9 /* ZDBMainStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZDBMainStore.m; sourceTree = "<group>"; };
 		B218063C24760D6900A124D9 /* ZDBMainStoreSQL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDBMainStoreSQL.h; sourceTree = "<group>"; };
@@ -2543,6 +2546,8 @@
 			children = (
 				B217174424E66E5D0092E174 /* ZAnnotationClusterVC.h */,
 				B217174524E66E5D0092E174 /* ZAnnotationClusterVC.m */,
+				B217178324EA5E820092E174 /* ZMapSchoolListVC.h */,
+				B217178424EA5E820092E174 /* ZMapSchoolListVC.m */,
 			);
 			path = Viewcontroller;
 			sourceTree = "<group>";
@@ -6556,6 +6561,7 @@
 				B24D995623FD18CB0078A458 /* ZOrganizationLessonAddPhotosCell.m in Sources */,
 				B2C35076244193AA002929A8 /* ZTeacherMineSignListVC.m in Sources */,
 				B2A7801E23BDF8B200407BF0 /* ZAdvertiseView.m in Sources */,
+				B217178524EA5E820092E174 /* ZMapSchoolListVC.m in Sources */,
 				B28EA666240E2B7B00C8E225 /* ZMineAccountTextFieldCell.m in Sources */,
 				B297959A2425F6EC004490F5 /* ZStudentLessonBuySelectViem.m in Sources */,
 				B28D9130240766940021E05A /* UIColor+PGHex.m in Sources */,

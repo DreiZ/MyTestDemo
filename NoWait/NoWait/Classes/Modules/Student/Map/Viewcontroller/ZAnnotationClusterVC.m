@@ -15,7 +15,10 @@
 #import "ZClusterTableViewCell.h"
 #import "ZCustomCalloutView.h"
 
+
 #import "ZOriganizationModel.h"
+#import <HWPanModal/HWPanModal.h>
+#import "ZMapSchoolListVC.h"
 
 #define kCalloutViewMargin  -12
 #define Button_Height       70.0
@@ -23,9 +26,11 @@
 @interface ZAnnotationClusterVC ()
 
 @property (nonatomic, strong) ZCoordinateQuadTree* coordinateQuadTree;
+@property (nonatomic, strong) MAUserLocation *cureUserLocation;
 
 @property (nonatomic, strong) ZCustomCalloutView *customCalloutView;
 @property (nonatomic, strong) UIButton *navLeftBtn;
+@property (nonatomic, strong) UIButton *checkSelfBtn;
 
 
 @property (nonatomic, strong) NSMutableArray *selectedPoiArray;
@@ -38,8 +43,9 @@
 
 @property (nonatomic, strong) NSArray *pois;
 
-@property (nonatomic, strong) NSString *type;//10.7(市)  10.85(大区) 12.5(小区)  14(详细)
+@property (nonatomic, strong) NSString *type;//10.7(市)  10.85(大区) 12.5(小区)  14.5(详细)
 @property (nonatomic, strong) ZStoresListNetModel *schoolListModel;
+
 @end
 
 @implementation ZAnnotationClusterVC
@@ -102,25 +108,30 @@
 }
 
 #pragma mark - MAMapViewDelegate
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+    _cureUserLocation = userLocation;
+}
+
 - (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction {
+    NSLog(@"mapView.zoomLevel      %f",mapView.zoomLevel);
     
-//    type;//10.7(市)  10.85(大区) 12.5(小区)  14(详细)
+//    type;//10.7(市)  12.0(大区) 13.0(小区)  14.5(详细)
     if (mapView.zoomLevel < 10.7) {
         if (![_type isEqualToString:@"0"]) {
             [self updateAnnotations:self.pois];
             _type = @"0";
         }
-    }else if (mapView.zoomLevel < 10.85) {
+    }else if (mapView.zoomLevel < 12.0) {
         if (![_type isEqualToString:@"1"]) {
             _type = @"1";
             [self updateAnnotations:self.pois];
         }
-    }else if (mapView.zoomLevel < 12.5) {
+    }else if (mapView.zoomLevel < 13.01) {
         if (![_type isEqualToString:@"2"]) {
             _type = @"2";
             [self updateAnnotations:self.pois];
         }
-    }else if (mapView.zoomLevel < 14) {
+    }else if (mapView.zoomLevel < 14.5) {
         if (![_type isEqualToString:@"3"]) {
             _type = @"3";
             [self updateAnnotations:self.pois];
@@ -140,24 +151,48 @@
 }
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
-    ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
-    for (AMapPOI *poi in annotation.pois)
-    {
-        [self.selectedPoiArray addObject:poi];
-    }
-    
-    [self.customCalloutView setPoiArray:self.selectedPoiArray];
-    self.customCalloutView.detailBlock = ^(AMapPOI *poi) {
-        ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-        lmodel.stores_id = poi.shopID;
+    if ([self.type isEqualToString:@"3"]) {
+        NSMutableArray *tempArr = @[].mutableCopy;
+        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
+        for (AMapPOI *poi in annotation.pois)
+        {
+            [tempArr addObject:poi];
+        }
+        NSMutableArray *schoolList = @[].mutableCopy;
+        for (AMapAOI *poi in tempArr) {
+            for (ZStoresListModel *model in self.schoolListModel.list) {
+                if ([model.stores_id isEqualToString:poi.uid]) {
+                    [schoolList addObject:model];
+                }
+            }
+        }
         
-        routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
-    };
+        ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
+        mapvc.dataSources = schoolList;
+        [self presentPanModal:mapvc completion:^{
     
-    // 调整位置
-    self.customCalloutView.center = CGPointMake(CGRectGetMidX(view.bounds), -CGRectGetMidY(self.customCalloutView.bounds) - CGRectGetMidY(view.bounds) - kCalloutViewMargin);
-    
-    [view addSubview:self.customCalloutView];
+        }];
+    }else if([self.type isEqualToString:@"4"]){
+        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
+        for (AMapPOI *poi in annotation.pois)
+        {
+            [self.selectedPoiArray addObject:poi];
+        }
+        
+        [self.customCalloutView setPoiArray:self.selectedPoiArray];
+        
+        self.customCalloutView.detailBlock = ^(AMapPOI *poi) {
+            ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
+            lmodel.stores_id = poi.shopID;
+            
+            routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+        };
+        
+        // 调整位置
+        self.customCalloutView.center = CGPointMake(CGRectGetMidX(view.bounds), -CGRectGetMidY(self.customCalloutView.bounds) - CGRectGetMidY(view.bounds) - kCalloutViewMargin);
+        
+        [view addSubview:self.customCalloutView];
+    }
 }
 
 - (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -237,7 +272,15 @@
     [self.mapView removeAnnotations:annosToRemove];
     
     NSMutableArray *tpois = @[].mutableCopy;
-    for (int i = 0; i < self.schoolListModel.list.count; i++) {
+    NSInteger count = self.schoolListModel.list.count;
+    if ([_type isEqualToString:@"0"] || [_type isEqualToString:@"1"]) {
+        count = 1;
+    }else if( [_type isEqualToString:@"2"]) {
+        count = 4;
+    }else{
+        count = self.schoolListModel.list.count;
+    }
+    for (int i = 0; i < count; i++) {
         ZStoresListModel *model = self.schoolListModel.list[i];
         AMapPOI *poi = [[AMapPOI alloc] init];
         poi.uid = model.stores_id;
@@ -246,7 +289,32 @@
         poi.address = @"安徽覅色服务和覅哦啊合规啊";
 //        latitude = "34.260789";
 //        longitude = "117.18637";
-        poi.location = [AMapGeoPoint locationWithLatitude:(34.260789 + arc4random() %( 100 - 1) * 1.0f / 5000) longitude:(117.18637 + arc4random() %( 100 - 1) * 1.0f / 5000)];
+        if (count == 1) {
+            poi.location = [AMapGeoPoint locationWithLatitude:(34.27338936) longitude:(117.18292236)];
+            poi.name = @"徐州市";
+            poi.address = @"安徽覅色服务和覅哦啊合规啊";
+        }else if(count == 4){
+            if (i == 0) {
+                poi.location = [AMapGeoPoint locationWithLatitude:(34.27963071) longitude:(117.19219208)];
+                poi.name = @"鼓楼区";
+                poi.address = @"安徽覅色服务和覅哦啊合规啊";
+            }else if(i == 1){
+                poi.location = [AMapGeoPoint locationWithLatitude:(34.26005402) longitude:(117.17227936)];
+                poi.name = @"泉山区";
+                poi.address = @"安徽覅色服务和覅哦啊合规啊";
+            }else if(i == 2){
+                poi.location = [AMapGeoPoint locationWithLatitude:(34.26317525) longitude:(117.20043182)];
+                poi.name = @"云龙区";
+                poi.address = @"安徽覅色服务和覅哦啊合规啊";
+            }else{
+                poi.location = [AMapGeoPoint locationWithLatitude:(34.23593155) longitude:(117.18978882)];
+                poi.name = @"铜山区";
+                poi.address = @"安徽覅色服务和覅哦啊合规啊";
+            }
+        }else{
+            poi.location = [AMapGeoPoint locationWithLatitude:(34.15272698 + arc4random() %( 100 - 1) * 1.0f / 1000) longitude:(117.15751648 + arc4random() %( 100 - 1) * 1.0f / 800)];
+        }
+        
         [tpois addObject:poi];
     }
     
@@ -295,6 +363,7 @@
     [super viewDidLoad];
     
     _type = @"0";
+    
     [self readCacheData];
     
     [self initMapView];
@@ -304,6 +373,13 @@
     _shouldRegionChangeReCalculate = NO;
     
     [self searchPoiWithKeyword:@"超市"];
+    
+    [self.view addSubview:self.navLeftBtn];
+    [self.navLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
+        make.width.height.mas_equalTo(CGFloatIn750(70));
+    }];
 }
 
 - (void)dealloc {
@@ -321,11 +397,18 @@
     self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - Button_Height);
     
     [self.view addSubview:self.mapView];
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     self.mapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
-//    _mapView.showsUserLocation = YES;
-//    _mapView.userTrackingMode = MAUserTrackingModeFollow;
-    
+    _mapView.showsUserLocation = YES;
+    _mapView.userTrackingMode = MAUserTrackingModeFollow;
+    [_mapView addSubview:self.checkSelfBtn];
+    [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mapView.mas_right).offset(CGFloatIn750(-20));
+        make.bottom.equalTo(self.mapView.mas_bottom).offset(-CGFloatIn750(10)-safeAreaBottom());
+    }];
 }
 
 - (void)initSearch {
@@ -337,10 +420,10 @@
 - (UIButton *)navLeftBtn {
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
-        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(50), CGFloatIn750(50))];
-        [_navLeftBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
+        _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(70), CGFloatIn750(70))];
+        [_navLeftBtn setBackgroundColor:HexAColor(0x000000, 0.7) forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
-        ViewRadius(_navLeftBtn, CGFloatIn750(25));
+        ViewRadius(_navLeftBtn, CGFloatIn750(35));
         [_navLeftBtn bk_addEventHandler:^(id sender) {
             [weakSelf.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -349,9 +432,41 @@
 }
 
 
+- (UIButton *)checkSelfBtn {
+    if (!_checkSelfBtn) {
+        __weak  typeof(self) weakSelf = self;
+        UIImage *checkSelfImage = [UIImage imageNamed:@"hng_im_lbs_self"];
+        _checkSelfBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        [_checkSelfBtn setBackgroundImage:checkSelfImage forState:UIControlStateNormal];
+        [_checkSelfBtn bk_addEventHandler:^(id sender) {
+            [weakSelf.mapView setCenterCoordinate:weakSelf.cureUserLocation.location.coordinate animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _checkSelfBtn;
+}
+
 #pragma mark - Cache
 - (void)readCacheData {
     self.schoolListModel = (ZStoresListNetModel *)[ZDefaultCache() objectForKey:[ZStoresListNetModel className]];
 }
 
+@end
+
+
+#pragma mark - RouteHandler
+@interface ZAnnotationClusterVC (RouteHandler)<SJRouteHandler>
+
+@end
+
+@implementation ZAnnotationClusterVC (RouteHandler)
+
++ (NSString *)routePath {
+    return ZRoute_org_annotationCluster;
+}
+
++ (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
+    ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
+    routevc.city = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
+}
 @end

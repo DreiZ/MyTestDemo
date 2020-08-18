@@ -10,6 +10,7 @@
 
 @interface ZStudentMainTopSearchView : UIView
 @property (nonatomic,strong) void (^searchBlock)(NSInteger);
+@property (nonatomic,strong) void (^addressBlock)(NSInteger);
 - (void)updateWithOffset:(CGFloat)offsetY;
 - (void)setAddress:(NSString *)city;
 @end

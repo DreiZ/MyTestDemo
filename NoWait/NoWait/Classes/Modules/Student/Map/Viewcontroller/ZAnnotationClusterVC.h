@@ -14,6 +14,7 @@
 
 @interface ZAnnotationClusterVC : ZViewController
 <MAMapViewDelegate, AMapSearchDelegate>
+@property (nonatomic,strong) NSString *city;
 
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) AMapSearchAPI *search;

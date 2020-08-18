@@ -74,9 +74,12 @@
         make.centerY.equalTo(self.addressHintImageView);
     }];
     
+    __weak typeof(self) weakSelf = self;
     UIButton *addressBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addressBtn bk_addEventHandler:^(id sender) {
-        
+        if (weakSelf.addressBlock) {
+            weakSelf.addressBlock(0);
+        }
     } forControlEvents:UIControlEventTouchUpInside];
     [self.contView addSubview:addressBtn];
     [addressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,7 +87,7 @@
         make.right.equalTo(self.contView.mas_right);
     }];
     
-    __weak typeof(self) weakSelf = self;
+    
     UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [searchBtn bk_addEventHandler:^(id sender) {
         if (weakSelf.searchBlock) {

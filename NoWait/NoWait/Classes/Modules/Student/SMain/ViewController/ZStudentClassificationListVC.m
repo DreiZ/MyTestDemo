@@ -11,7 +11,6 @@
 #import "ZStudentOrganizationListCell.h"
 #import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
-#import "ZAnnotationClusterVC.h"
 
 #import "ZLocationManager.h"
 
@@ -95,9 +94,7 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-//            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
-            ZAnnotationClusterVC *cvc = [[ZAnnotationClusterVC alloc] init];
-            [self.navigationController pushViewController:cvc animated:YES];
+            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
         }
     });
     
