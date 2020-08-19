@@ -145,7 +145,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
+    ZOriganizationLessonListModel *listModel = self.dataSources[indexPath.row];
+    routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

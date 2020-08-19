@@ -43,7 +43,7 @@
     [super viewDidLoad];
     
     if (_routeDict) {
-        if ([_routeDict objectForKey:@"stores_id"]) {
+        if ([_routeDict objectForKey:@"id"]) {
             _stores_id = _routeDict[@"stores_id"];
         }
         
@@ -149,7 +149,7 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            routePushVC(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+            routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, ^(id  _Nullable result, NSError * _Nullable error) {
                 
             });
         };
@@ -159,7 +159,7 @@
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        routePushVC(ZRoute_circle_detial, model.dynamic, ^(id  _Nullable result, NSError * _Nullable error) {
+        routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, ^(id  _Nullable result, NSError * _Nullable error) {
             
         });
     }

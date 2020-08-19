@@ -140,13 +140,7 @@
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
         
-        ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
-        detailModel.courses_name = model.courses_name;
-        detailModel.classID = model.courses_class_id;
-        detailModel.name = model.name;
-        detailModel.status = model.status;
-        
-        routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
+        routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
     }
     
 }
@@ -185,8 +179,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZTeacherLessonDetailListVC *routevc = [[ZTeacherLessonDetailListVC alloc] init];
-    if (request.prts) {
-        routevc.teacher_id = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.teacher_id = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

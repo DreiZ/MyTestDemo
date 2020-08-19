@@ -57,15 +57,9 @@ static ZRouteManager *sharedManager;
             wvc.navTitle = model.name;
             [[[AppDelegate shareAppDelegate] getCurrentUIVC].navigationController pushViewController:wvc animated:YES];
         }else if ([model.ad_type isEqualToString:@"1"] && model.ad_type_content) {
-            ZOriganizationLessonListModel *listModel = [[ZOriganizationLessonListModel alloc] init];
-            listModel.lessonID = model.ad_type_content.course;
-            
-            routePushVC(ZRoute_main_orderLessonDetail, listModel, nil);
+            routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.ad_type_content.course}, nil);
         }else if ([model.ad_type isEqualToString:@"2"] && model.ad_type_content) {
-            ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-            lmodel.stores_id = model.ad_type_content.stores;
-            
-            routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":model.ad_type_content.stores}, nil);
 
         }else if ([model.ad_type isEqualToString:@"4"] && model.ad_type_content) {
             if ([model.ad_type_content.fix isEqualToString:@"reward_center"]) {

@@ -190,9 +190,7 @@
             [headerView setIsMore:self.is_more];
             headerView.list = self.lessonList;
             headerView.menuBlock = ^(ZCircleDynamicLessonModel *model) {
-                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
-                listmodel.lessonID = model.lesson_id;
-                routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
+                routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.lesson_id}, nil);
             };
             headerView.moreBlock = ^{
                 routePushVC(ZRoute_circle_moreLesson, weakSelf.name, nil);
@@ -216,7 +214,7 @@
         ZCircleRecommendCollectionCell *lcell = (ZCircleRecommendCollectionCell *)cell;
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
         lcell.handleBlock = ^(NSInteger index) {
-            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, nil);
         };
     }
 }
@@ -225,7 +223,7 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZCircleRecommendCollectionCell"]) {
         ZCircleMineDynamicModel *model = cellConfig.dataModel;
-        routePushVC(ZRoute_circle_detial, model.dynamic, nil);
+        routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, nil);
     }
 }
 #pragma mark - network

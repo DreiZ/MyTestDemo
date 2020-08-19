@@ -9,7 +9,7 @@
 #import "ZStudentMineSettingVC.h"
 
 #import "ZStudentMineSettingBottomCell.h"
-
+#import "ZWebBridgeViewController.h"
 #import "ZMineFeedbackVC.h"
 #import "ZUserHelper.h"
 
@@ -53,6 +53,11 @@
     [weakSelf.cellConfigArr addObject:switchCellConfig];
 
     [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+        
+    ZCellConfig *webCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"web" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"桥接调试"];
+    [weakSelf.cellConfigArr addObject:webCellConfig];
+
+    [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
 #endif
         
         
@@ -70,6 +75,12 @@
         }else if( [cellConfig.title isEqualToString:@"about"]){
             
             routePushVC(ZRoute_mine_settingAboutUs, nil, nil);
+            
+        }else if( [cellConfig.title isEqualToString:@"web"]){
+            
+            ZWebBridgeViewController *vc = [[ZWebBridgeViewController alloc] init];
+            vc.url = @"http://192.168.0.27:8080/test";
+            [self.navigationController pushViewController:vc animated:YES];
             
         }else if ([cellConfig.title isEqualToString:@"logout"]){
             [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];

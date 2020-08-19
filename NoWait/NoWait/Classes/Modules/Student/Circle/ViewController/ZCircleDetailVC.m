@@ -286,7 +286,7 @@
                         }
                     }];
                 }else{
-                    routePushVC(ZRoute_circle_mine, weakSelf.infoModel.account, nil);
+                    routePushVC(ZRoute_circle_mine, @{@"id":SafeStr(weakSelf.infoModel.account)}, nil);
                 }
             };
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailPhotoListCell"]){
@@ -314,11 +314,7 @@
             ZCircleDetailSchoolCell *lcell = (ZCircleDetailSchoolCell *)cell;
             lcell.handleBlock = ^(NSInteger index) {
                 if (index == 0) {
-                    ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                    lmodel.stores_id = weakSelf.infoModel.store_id;
-                    lmodel.name = weakSelf.infoModel.store_name;
-                    
-                    routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+                    routePushVC(ZRoute_main_organizationDetail, @{@"id":weakSelf.infoModel.store_id}, nil);
                 }else{
                     [[ZUserHelper sharedHelper] checkLogin:^{
                         if ([weakSelf.infoModel.store_collection intValue] == 1) {
@@ -332,7 +328,7 @@
         }else if([cellConfig.title isEqualToString:@"ZCircleDetailEvaListCell"]){
             ZCircleDetailEvaListCell *lcell = (ZCircleDetailEvaListCell *)cell;
             lcell.userBlock = ^(ZCircleDynamicEvaModel *model) {
-                routePushVC(ZRoute_circle_mine, model.account, nil);
+                routePushVC(ZRoute_circle_mine, @{@"id":SafeStr(model.account)}, nil);
             };
 
             lcell.delBlock = ^(ZCircleDynamicEvaModel *model) {
@@ -351,7 +347,7 @@
             ZLineCellModel *cellModel = (ZLineCellModel *)cellConfig.dataModel;
             ZCircleMinePersonModel *smodel = cellModel.data;
 
-            routePushVC(ZRoute_circle_mine, smodel.account, nil);
+             routePushVC(ZRoute_circle_mine, @{@"id":SafeStr(smodel.account)}, nil);
         }
     });
     
@@ -787,8 +783,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleDetailVC *dvc = [[ZCircleDetailVC alloc] init];
-    if (request.prts) {
-        dvc.dynamic = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        dvc.dynamic = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:dvc animated:YES];
     if (completionHandler) {

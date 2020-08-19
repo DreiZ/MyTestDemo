@@ -126,7 +126,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
+    ZOriganizationLessonListModel *listModel = self.dataSources[indexPath.row];
+
+    routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -205,7 +207,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-    [param setObject:self.detailModel.schoolID forKey:@"stores_id"];
+    [param setObject:self.schoolID forKey:@"stores_id"];
     [param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"status"];
     return param;
 }

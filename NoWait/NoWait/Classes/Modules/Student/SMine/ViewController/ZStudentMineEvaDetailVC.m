@@ -77,7 +77,7 @@
     
     self.zChain_block_setRefreshHeaderNet(^{
         weakSelf.loading = YES;
-        [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(weakSelf.listModel.order_id),@"stores_id":SafeStr(weakSelf.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
+        [ZOriganizationOrderViewModel getEvaDetail:@{@"order_id":SafeStr(weakSelf.order_id),@"stores_id":SafeStr(weakSelf.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
             weakSelf.loading = NO;
             if (isSuccess) {
                 weakSelf.detailModel = data;
@@ -184,8 +184,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentMineEvaDetailVC *routevc = [[ZStudentMineEvaDetailVC alloc] init];
-    if (request.prts) {
-        routevc.listModel = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"order_id"] && [request.prts objectForKey:@"order_id"]){
+        routevc.order_id = request.prts[@"order_id"];
+        routevc.stores_id = request.prts[@"stores_id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

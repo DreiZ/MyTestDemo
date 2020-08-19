@@ -64,7 +64,7 @@
                         }
                     }];
                 }else{
-                    routePushVC(ZRoute_circle_mine, model.account, nil);
+                    routePushVC(ZRoute_circle_mine, @{@"id":SafeStr(model.account)}, nil);
                 }
             };
         }

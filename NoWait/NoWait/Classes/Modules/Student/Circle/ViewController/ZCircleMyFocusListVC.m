@@ -61,8 +61,8 @@
                         }
                     }];
                 }else{
-                    routePushVC(ZRoute_circle_mine, model
-                                .account, nil);
+                    routePushVC(ZRoute_circle_mine, @{@"id":model
+                    .account}, nil);
                 }
             };
         }
@@ -194,8 +194,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleMyFocusListVC *routevc = [[ZCircleMyFocusListVC alloc] init];
-    if (request.prts) {
-        routevc.account = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.account = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

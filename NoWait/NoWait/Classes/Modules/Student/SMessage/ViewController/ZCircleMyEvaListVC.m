@@ -55,16 +55,16 @@
             ZMessageEvaListCell *lcell = (ZMessageEvaListCell *)cell;
             lcell.handleBlock = ^(ZCircleMineDynamicEvaModel *model, NSInteger index) {
                 if (index == 0) {
-                    routePushVC(ZRoute_circle_mine, model.account, nil);
+                    routePushVC(ZRoute_circle_mine, @{@"id":SafeStr(model.account)}, nil);
                 }else{
-                    routePushVC(ZRoute_circle_detial, model.dynamic, nil);
+                    routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, nil);
                 }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZMessageEvaListCell"]) {
             ZCircleMineDynamicEvaModel *model = cellConfig.dataModel;
-            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, nil);
         }
     });
     

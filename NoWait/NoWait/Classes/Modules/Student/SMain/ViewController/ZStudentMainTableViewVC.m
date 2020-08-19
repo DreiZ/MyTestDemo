@@ -8,7 +8,7 @@
 
 #import "ZStudentMainTableViewVC.h"
 #import "ZStudentMessageVC.h"
-
+#import "ZWebBridgeViewController.h"
 @interface ZStudentMainTableViewVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @end
@@ -177,7 +177,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMainEnteryCell"]) {
         ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
         lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
-            routePushVC(ZRoute_main_classification, @{@"vcTitle":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
+            routePushVC(ZRoute_main_classification, @{@"name":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentBannerCell"]){
         ZStudentBannerCell *lcell = (ZStudentBannerCell *)cell;
@@ -197,7 +197,7 @@
             [weakSelf.iTableView reloadData];
         };
         lcell.lessonBlock = ^(ZStoresCourse *model) {
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+           
         };
     }
 
@@ -235,7 +235,12 @@
         NSArray *tempArr = self.cellConfigArr[indexPath.section];
         ZCellConfig *cellConfig = tempArr[indexPath.row];
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]) {
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+//            ZWebBridgeViewController *tvc = [[ZWebBridgeViewController alloc] init];
+//            tvc.url = @"http://192.168.0.27:8080/test";
+//            [self.navigationController pushViewController:tvc animated:YES];
+//            return;
+            ZStoresListModel *model = cellConfig.dataModel;
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
         }
     }
 }

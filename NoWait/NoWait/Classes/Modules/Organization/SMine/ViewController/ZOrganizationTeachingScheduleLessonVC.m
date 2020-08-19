@@ -66,9 +66,7 @@
                     svc.lessonModel = model;
                     [weakSelf.navigationController pushViewController:svc animated:YES];
                 }else{
-                    ZOriganizationLessonListModel *smodel = [[ZOriganizationLessonListModel alloc] init];
-                    smodel.lessonID = model.lessonID;
-                    routePushVC(ZRoute_main_orderLessonDetail, smodel, nil);
+                    routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.lessonID}, nil);
                 }
             };
         }

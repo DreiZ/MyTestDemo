@@ -182,10 +182,7 @@
         [self.customCalloutView setPoiArray:self.selectedPoiArray];
         
         self.customCalloutView.detailBlock = ^(AMapPOI *poi) {
-            ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-            lmodel.stores_id = poi.shopID;
-            
-            routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":poi.shopID}, nil);
         };
         
         // 调整位置

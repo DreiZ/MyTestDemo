@@ -10,6 +10,6 @@
 #import "ZOriganizationModel.h"
 
 @interface ZTeacherClassDetailVC : ZTableViewViewController
-@property (nonatomic,strong) ZOriganizationClassDetailModel *model;
+@property (nonatomic,strong) NSString *classID;
 @end
 

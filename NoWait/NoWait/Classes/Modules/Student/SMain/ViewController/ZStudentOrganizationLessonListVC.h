@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  是否隐藏导航栏
  */
 @property (nonatomic, assign) BOOL isHidenNaviBar;
-@property (nonatomic,strong) ZStoresDetailModel *detailModel;
+@property (nonatomic,strong) NSString *schoolID;
 @end
 
 NS_ASSUME_NONNULL_END

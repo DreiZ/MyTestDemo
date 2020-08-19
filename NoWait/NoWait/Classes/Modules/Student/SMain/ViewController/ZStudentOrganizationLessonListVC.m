@@ -81,7 +81,7 @@
         _vcArr = @[].mutableCopy;
         for (int i = 0; i < self.titleArr.count; i++) {
             ZStudentOrganizationLessonSortListVC *lvc = [[ZStudentOrganizationLessonSortListVC alloc] init];
-            lvc.detailModel = self.detailModel;
+            lvc.schoolID = self.schoolID;
             lvc.type = i;
             [_vcArr addObject:lvc];
         }
@@ -92,10 +92,11 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
         _searchBtn.handleBlock = ^{
-            routePushVC(ZRoute_org_lessonListSearch, @"搜索课程名称", nil);
+            routePushVC(ZRoute_org_lessonListSearch, weakSelf.schoolID, nil);
         };
     }
     return _searchBtn;
@@ -139,8 +140,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationLessonListVC *routevc = [[ZStudentOrganizationLessonListVC alloc] init];
-    if (request.prts) {
-        routevc.detailModel = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.schoolID = request.prts;
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

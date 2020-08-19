@@ -22,7 +22,7 @@
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIView *bottomView;
-
+@property (nonatomic,strong) ZOriganizationClassDetailModel *model;
 @end
 
 @implementation ZTeacherClassDetailVC
@@ -322,7 +322,7 @@
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
-    [ZOriganizationClassViewModel getClassDetail:@{@"id":SafeStr(self.model.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
+    [ZOriganizationClassViewModel getClassDetail:@{@"id":SafeStr(self.classID)} completeBlock:^(BOOL isSuccess, ZOriganizationClassDetailModel *addModel) {
         self.loading = NO;
         if (isSuccess) {
             weakSelf.model = addModel;
@@ -347,8 +347,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZTeacherClassDetailVC *routevc = [[ZTeacherClassDetailVC alloc] init];
-    if (request.prts) {
-        routevc.model = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.classID = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

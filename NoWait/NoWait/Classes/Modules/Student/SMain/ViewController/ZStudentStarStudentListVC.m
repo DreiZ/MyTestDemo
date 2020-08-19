@@ -71,7 +71,7 @@
         lcell.detailBlock = ^(UIImageView * imageView) {
             ZOriganizationTeacherListModel *listModel = cellConfig.dataModel;
             if (weakSelf.type == 0) {
-                routePushVC(ZRoute_main_studentDetail, listModel.teacherID, nil);
+                routePushVC(ZRoute_main_studentDetail, @{@"id":SafeStr(listModel.teacherID)}, nil);
             }else{
                 routePushVC(ZRoute_main_teacherDetail, @{@"teacher_id":SafeStr(listModel.teacherID),@"stores_id":SafeStr(weakSelf.stores_id)}, nil);
             }
@@ -211,8 +211,8 @@
         if ([tempDict objectForKey:@"type"]) {
             routevc.type = [tempDict[@"type"] intValue];
         }
-        if ([tempDict objectForKey:@"stores_id"]) {
-            routevc.stores_id = tempDict[@"stores_id"];
+        if ([tempDict objectForKey:@"id"]) {
+            routevc.stores_id = tempDict[@"id"];
         }
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];

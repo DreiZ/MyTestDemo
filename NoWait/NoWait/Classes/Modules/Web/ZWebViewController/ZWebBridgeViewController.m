@@ -157,6 +157,8 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     DLog(@"webView 页面加载完成");
     self.navView.hidden = YES;
+    
+    [[ZDSBridgePublicManager sharedManager] callWebBack:webView];
 }
 
 // 页面加载失败时调用

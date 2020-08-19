@@ -59,7 +59,8 @@
 #pragma mark - collectionview delegate
 -(void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentExperienceLessonListItemCell"]) {
-        routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
+        ZOriganizationLessonListModel *listModel = self.dataSources[indexPath.row];
+        routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
     }
 }
 
@@ -141,7 +142,7 @@
 @implementation ZCircleMoreLessonVC (RouteHandler)
 
 + (NSString *)routePath {
-    return ZRoute_circle_release;
+    return ZRoute_circle_moreLesson;
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {

@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOrganizationSearchLessonListVC : ZSearchClickVC
+@property (nonatomic,strong) NSString *stores_id;
 
 @end
 

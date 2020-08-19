@@ -127,11 +127,8 @@
                     routePushVC(ZRoute_mine_teacherSignList, nil, nil);
                 }else if ([scellConfig.title isEqualToString:@"ZTeacherMineEntryStoresCell"]) {
                     ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
-                    ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                    lmodel.stores_id = detailModel.stores_id;
-                    lmodel.name = detailModel.stores_name;
                     
-                    routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+                    routePushVC(ZRoute_main_organizationDetail, @{@"id":detailModel.stores_id}, nil);
                 }
             }];
         };
@@ -141,12 +138,7 @@
             routePushVC(ZRoute_mine_teacherDetailList, nil, nil);
         };
         tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
-            ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
-            detailModel.courses_name = model.courses_name;
-            detailModel.classID = model.courses_class_id;
-            detailModel.name = model.name;
-            
-            routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
+            routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
         ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;

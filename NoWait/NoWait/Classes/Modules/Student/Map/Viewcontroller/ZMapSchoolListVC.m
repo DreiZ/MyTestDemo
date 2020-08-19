@@ -92,7 +92,8 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+            ZStoresListModel *model = cellConfig.dataModel;
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
         }];
     }
 }

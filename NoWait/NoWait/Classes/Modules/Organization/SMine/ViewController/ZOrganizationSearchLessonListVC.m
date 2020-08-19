@@ -91,7 +91,8 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-        routePushVC(ZRoute_main_orderLessonDetail, cellConfig.dataModel, nil);
+        ZOriganizationLessonListModel *listModel = cellConfig.dataModel;
+        routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
     }
 }
 
@@ -166,7 +167,7 @@
     [param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
     
     [param setObject:self.name forKey:@"name"];
-    [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
+    [param setObject:self.stores_id forKey:@"stores_id"];
     return param;
 }
 @end
@@ -185,7 +186,7 @@
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationSearchLessonListVC *routevc = [[ZOrganizationSearchLessonListVC alloc] init];
     if (request.prts) {
-        routevc.navTitle = request.prts;
+        routevc.stores_id = request.prts;
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

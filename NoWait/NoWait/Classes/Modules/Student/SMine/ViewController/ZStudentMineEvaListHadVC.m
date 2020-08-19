@@ -68,11 +68,7 @@
         enteryCell.evaBlock = ^(NSInteger index) {
             if (index == 1) {
                 ZOrderEvaListModel *listModel = cellConfig.dataModel;
-                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                lmodel.stores_id = listModel.stores_id;
-                lmodel.name = listModel.stores_name;
-                
-                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+                routePushVC(ZRoute_main_organizationDetail, @{@"id":listModel.stores_id}, nil);
             }else{
                 routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
             }

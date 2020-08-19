@@ -10,7 +10,7 @@
 typedef void (^resultBlock)(BOOL isSuccess, NSString *message);
 
 typedef NS_ENUM(NSInteger,ZPayErrCode){
-    ZPayErrCodeSuccess,// 成功
+    ZPayErrCodeSuccess  =   0,// 成功
     ZPayErrCodeFailure,// 失败
     ZPayErrCodeCancel,// 取消
     ZPayErrCodeAbnormal//异常
@@ -61,5 +61,11 @@ typedef void(^PayCompleteCallBack)(ZPayErrCode errCode,NSString *errStr);
  @param payDict {order_no： order_money: pay_type:}
  */
 - (void)setPayValue:(NSDictionary *)payDict;
+
+
+//阿里支付
+- (void)aliPay:(NSString *)orderMessage;
+//微信
+- (void)wechatPayWithData:(NSDictionary *)payDict;
 @end
 

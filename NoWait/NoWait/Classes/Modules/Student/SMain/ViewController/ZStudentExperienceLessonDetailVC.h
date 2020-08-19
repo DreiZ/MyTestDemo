@@ -10,6 +10,6 @@
 #import "ZOriganizationLessonModel.h"
 
 @interface ZStudentExperienceLessonDetailVC : ZTableViewViewController
-@property (nonatomic,strong) ZOriganizationLessonListModel *model;
+@property (nonatomic,strong) NSString *lessonID;
 @end
 

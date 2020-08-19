@@ -67,7 +67,6 @@
     .zChain_addEmptyDataDelegate()
     .zChain_resetMainView(^{
         weakSelf.isHidenNaviBar = NO;
-        [self.navigationItem setTitle:self.listModel.name];
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn]];
         
         [self.view addSubview:self.bottomView];
@@ -107,7 +106,7 @@
        }else if ([cellConfig.title isEqualToString:@"starStudent"]){
            ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
            lcell.menuBlock = ^(ZStudentDetailPersonnelModel *model) {
-               routePushVC(ZRoute_main_studentDetail, model.account_id, nil);
+               routePushVC(ZRoute_main_studentDetail, @{@"id":SafeStr(model.account_id)}, nil);
            };
     
        }else if ([cellConfig.title isEqualToString:@"starCoach"]){
@@ -174,7 +173,7 @@
        }else if([cellConfig.title isEqualToString:[ZStudentMainOrganizationExperienceCell className]]){
            ZStudentMainOrganizationExperienceCell *lcell = (ZStudentMainOrganizationExperienceCell *)cell;
            lcell.lessonBlock = ^(ZOriganizationLessonListModel *model) {
-               routePushVC(ZRoute_main_orderLessonDetail, model, nil);
+               routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.lessonID}, nil);
            };
        }else if ([cellConfig.title isEqualToString:@"allLesson"]){
            ZStudentMineSettingBottomCell *lcell = (ZStudentMineSettingBottomCell *)cell;
@@ -185,15 +184,16 @@
        }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]) {
-            routePushVC(ZRoute_main_orderLessonDetail, cellConfig.dataModel, nil);
+            ZOriganizationLessonListModel *listModel = cellConfig.dataModel;
+            routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
         }else if ([cellConfig.title isEqualToString:@"moreStarStudent"]){
-            routePushVC(ZRoute_main_starStudentList, @{@"type":@"0", @"stores_id":weakSelf.listModel.stores_id}, nil);
+            routePushVC(ZRoute_main_starStudentList, @{@"type":@"0", @"id":weakSelf.stores_id}, nil);
         }else if ([cellConfig.title isEqualToString:@"moreStarCoach"]){
-            routePushVC(ZRoute_main_starStudentList, @{@"type":@"1", @"stores_id":weakSelf.listModel.stores_id}, nil);
+            routePushVC(ZRoute_main_starStudentList, @{@"type":@"1", @"id":weakSelf.stores_id}, nil);
         }else if ([cellConfig.title isEqualToString:@"allLesson"]){
-            routePushVC(ZRoute_main_lessonList, weakSelf.detailModel, nil);
+            routePushVC(ZRoute_main_lessonList, @{@"id":weakSelf.detailModel.schoolID}, nil);
         }else if ([cellConfig.title isEqualToString:@"allExperienceLesson"]){
-            routePushVC(ZRoute_main_orderLessonList, weakSelf.detailModel.schoolID, nil);
+            routePushVC(ZRoute_main_orderLessonList, @{@"id":weakSelf.detailModel.schoolID}, nil);
         }
         
     });
@@ -289,7 +289,7 @@
         _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(90))];
         [_dynamicBtn setImage:[UIImage imageNamed:@"schoolDynamic"] forState:UIControlStateNormal];
         [_dynamicBtn bk_addEventHandler:^(id sender) {
-            routePushVC(ZRoute_circle_recommend, @{@"stores_id":SafeStr(weakSelf.detailModel.schoolID),@"stores_name":SafeStr(weakSelf.detailModel.name)}, nil);
+            routePushVC(ZRoute_circle_recommend, @{@"id":SafeStr(weakSelf.detailModel.schoolID),@"stores_name":SafeStr(weakSelf.detailModel.name)}, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _dynamicBtn;
@@ -433,10 +433,11 @@
 #pragma mark - refresha
 - (void)refreshDetailData {
     __weak typeof(self) weakSelf = self;
-    [ZStudentMainViewModel getStoresDetail:@{@"stores_id":SafeStr(self.listModel.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
+    [ZStudentMainViewModel getStoresDetail:@{@"stores_id":SafeStr(self.stores_id)} completeBlock:^(BOOL isSuccess, id data) {
         weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.detailModel = data;
+            [weakSelf.navigationItem setTitle:weakSelf.detailModel.name];
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }else{
@@ -516,7 +517,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:self.listModel.stores_id forKey:@"stores_id"];
+    [self.param setObject:self.stores_id forKey:@"stores_id"];
 }
 
 
@@ -581,8 +582,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationDetailDesVC *routevc = [[ZStudentOrganizationDetailDesVC alloc] init];
-    if (request.prts) {
-        routevc.listModel = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.stores_id = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

@@ -151,15 +151,15 @@
                 
             }else if(index == 1){
                 if (weakSelf.account) {
-                    routePushVC(ZRoute_circle_myFocus, weakSelf.account, nil);
+                    routePushVC(ZRoute_circle_myFocus, @{@"id":SafeStr(weakSelf.account)}, nil);
                 }else{
-                    routePushVC(ZRoute_circle_myFocus, [ZUserHelper sharedHelper].user.userCodeID, nil);
+                    routePushVC(ZRoute_circle_myFocus, @{@"id":SafeStr([ZUserHelper sharedHelper].user.userCodeID)}, nil);
                 }
             }else if(index == 2){
                 if (weakSelf.account) {
-                    routePushVC(ZRoute_circle_myFans, weakSelf.account, nil);
+                    routePushVC(ZRoute_circle_myFans, @{@"id":SafeStr(weakSelf.account)}, nil);
                 }else{
-                    routePushVC(ZRoute_circle_myFans, [ZUserHelper sharedHelper].user.userCodeID, nil);
+                    routePushVC(ZRoute_circle_myFans, @{@"id":SafeStr([ZUserHelper sharedHelper].user.userCodeID)}, nil);
                 }
             }else if(index == 4){
                 //签名
@@ -244,7 +244,7 @@
                 }];
             }
         }else{
-            routePushVC(ZRoute_circle_detial, model.dynamic, nil);
+            routePushVC(ZRoute_circle_detial, @{@"id":SafeStr(model.dynamic)}, nil);
         }
     }
 }
@@ -476,8 +476,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZCircleMineCollectionVC *routevc = [[ZCircleMineCollectionVC alloc] init];
-    if (request.prts) {
-        routevc.account = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.account = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

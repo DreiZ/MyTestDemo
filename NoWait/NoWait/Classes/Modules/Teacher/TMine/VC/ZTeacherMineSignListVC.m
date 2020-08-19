@@ -113,14 +113,7 @@
      if ([cellConfig.title isEqualToString:@"ZTeacherMineSignListCell"]){
          ZOriganizationClassListModel *model = cellConfig.dataModel;
          
-         ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
-         detailModel.courses_name = model.courses_name;
-         detailModel.classID = model.classID;
-         detailModel.name = model.name;
-         detailModel.nums = model.nums;
-         detailModel.status = model.status;
-         
-         routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
+         routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.classID)}, nil);
     }
 }
 

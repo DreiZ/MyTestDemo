@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-@class DWKWebview;
+@class DWKWebView;
  
 @interface ZDSBridgePublicManager : NSObject
 +(instancetype)sharedManager;
+
+- (void)callWebBack:(DWKWebView *)webview;
 @end

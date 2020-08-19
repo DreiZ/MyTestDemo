@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentOrganizationLessonSortListVC : ZViewController
-@property (nonatomic,strong) ZStoresDetailModel *detailModel;
+@property (nonatomic,strong) NSString *schoolID;
 @property (nonatomic,assign) NSInteger type;
 @end
 

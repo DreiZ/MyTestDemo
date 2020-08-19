@@ -162,7 +162,12 @@ CGFloat ScaledValueForValue(CGFloat value)
         if ([data[@"type"] intValue] == 4) {
             [self setDetail:data[@"content"]];
         }else if ([data[@"type"] intValue] == 3) {
-            [self setSubMain:data];
+            if([data[@"count"] intValue] == 1){
+                [self setDetail:data[@"content"]];
+            }else{
+                [self setSubMain:data];
+            }
+            
         }else{
             [self setMain:data];
         }

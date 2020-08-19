@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZStudentMineEvaDetailVC : ZTableViewController
-@property (nonatomic,strong) ZOrderEvaListModel *listModel;
+@property (nonatomic,copy) NSString *order_id;
+@property (nonatomic,copy) NSString *stores_id;
 @end
 
 NS_ASSUME_NONNULL_END

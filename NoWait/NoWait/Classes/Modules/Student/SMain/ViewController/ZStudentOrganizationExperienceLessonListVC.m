@@ -112,10 +112,12 @@
 
 - (ZOrganizationLessonTopSearchView *)searchBtn {
     if (!_searchBtn) {
+        __weak typeof(self) weakSelf = self;
         _searchBtn = [[ZOrganizationLessonTopSearchView alloc] init];
         _searchBtn.title = @"搜索课程名称";
+        
         _searchBtn.handleBlock = ^{
-            routePushVC(ZRoute_main_searchOrderLesson, @{@"navTitle":@"搜索课程名称",@"stores_id":@"weakSelf.schoolID"}, nil);
+            routePushVC(ZRoute_main_searchOrderLesson, @{@"navTitle":@"搜索课程名称",@"stores_id":weakSelf.schoolID}, nil);
         };
     }
     return _searchBtn;
@@ -148,7 +150,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    routePushVC(ZRoute_main_orderLessonDetail, self.dataSources[indexPath.row], nil);
+    ZOriganizationLessonListModel *listModel = self.dataSources[indexPath.row];
+    routePushVC(ZRoute_main_orderLessonDetail, @{@"id":listModel.lessonID}, nil);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -246,8 +249,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentOrganizationExperienceLessonListVC *routevc = [[ZStudentOrganizationExperienceLessonListVC alloc] init];
-    if (request.prts) {
-        routevc.schoolID = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]){
+        routevc.schoolID = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

@@ -75,11 +75,7 @@
             if (index == ZLessonOrderHandleTypeEva) {
                 routePushVC(ZRoute_mine_evaEdit, model, nil);
             }else if (index == 100){
-                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                lmodel.stores_id = model.stores_id;
-                lmodel.name = model.stores_name;
-                
-                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+                routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
             }else{
                 [ZOriganizationOrderViewModel handleOrderWithIndex:index data:model completeBlock:^(BOOL isSuccess, id data) {
                     if (isSuccess) {

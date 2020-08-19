@@ -112,16 +112,14 @@
             [weakSelf.iTableView reloadData];
         };
         lcell.lessonBlock = ^(ZStoresCourse *model) {
-            ZOriganizationLessonListModel *lmodel = [[ZOriganizationLessonListModel alloc] init];
-            lmodel.lessonID = model.course_id;
-            
-            routePushVC(ZRoute_main_orderLessonDetail, lmodel, nil);
+            routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.course_id}, nil);
         };
     } 
 }
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMainOrganizationSearchListCell"]) {
-        routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+        ZStoresListModel *model = cellConfig.dataModel;
+        routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
     }
 }
 

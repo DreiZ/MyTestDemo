@@ -398,14 +398,9 @@
             if (index == ZLessonOrderHandleTypeRefund) {
                 routePushVC(ZRoute_mine_OrderRefundHandle, weakSelf.detailModel, nil);
             }else if (index == ZLessonOrderHandleTypeClub){
-                ZStoresListModel *lmodel = [[ZStoresListModel alloc] init];
-                lmodel.stores_id = model.stores_id;
-                lmodel.name = model.store_name;
-                routePushVC(ZRoute_main_organizationDetail, lmodel, nil);
+                routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
             }else if(index == ZLessonOrderHandleTypeLesson){
-                ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
-                listmodel.lessonID = model.course_id;
-                routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
+                routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.course_id}, nil);
             }
         };
     }else if ([cellConfig.title isEqualToString:@"refundAmout"]){
@@ -427,9 +422,7 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if([cellConfig.title isEqualToString:@"ZMineOrderDetailCell"]){
-         ZOriganizationLessonListModel *listmodel = [[ZOriganizationLessonListModel alloc] init];
-         listmodel.lessonID = self.detailModel.course_id;
-         routePushVC(ZRoute_main_orderLessonDetail, listmodel, nil);
+         routePushVC(ZRoute_main_orderLessonDetail, @{@"id":self.detailModel.course_id}, nil);
      }else if ([cellConfig.title isEqualToString:@"phone"]){
          if (!self.detailModel.isStudent) {
              [ZPublicTool callTel:SafeStr(self.detailModel.account_phone)];

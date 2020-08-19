@@ -94,7 +94,8 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+            ZStoresListModel *model = cellConfig.dataModel;
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
         }
     });
     
@@ -248,8 +249,8 @@
     ZStudentClassificationListVC *routevc = [[ZStudentClassificationListVC alloc] init];
     if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
         NSDictionary *tempDict = request.prts;
-        if ([tempDict objectForKey:@"vcTitle"]) {
-            routevc.vcTitle = tempDict[@"vcTitle"];
+        if ([tempDict objectForKey:@"name"]) {
+            routevc.vcTitle = tempDict[@"name"];
         }
         if ([tempDict objectForKey:@"type"]) {
             routevc.type = tempDict[@"type"];

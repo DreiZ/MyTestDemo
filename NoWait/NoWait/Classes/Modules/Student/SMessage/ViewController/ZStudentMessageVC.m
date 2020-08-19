@@ -377,7 +377,7 @@
             break;
         case ZCustomNoticeTypeCircle:
         {
-            routePushVC(ZRoute_circle_mine, [ZUserHelper sharedHelper].user.userCodeID, nil);
+            routePushVC(ZRoute_circle_mine, @{@"id":SafeStr([ZUserHelper sharedHelper].user.userCodeID)}, nil);
         }
             break;
             

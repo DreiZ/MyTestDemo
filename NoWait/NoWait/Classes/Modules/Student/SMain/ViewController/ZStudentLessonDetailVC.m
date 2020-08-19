@@ -239,11 +239,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailEnteryCell"]) {
         ZStudentOrganizationDetailEnteryCell *lcell = (ZStudentOrganizationDetailEnteryCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
-            ZStoresListModel *listModel = [[ZStoresListModel alloc] init];
-            listModel.name = self.addModel.stores_name;
-            listModel.stores_id = self.addModel.stores_id;
-            
-            routePushVC(ZRoute_main_organizationDetail, listModel, nil);
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":self.addModel.stores_id}, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"starCoach"]) {
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;

@@ -138,8 +138,7 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if([cellConfig.title isEqualToString:@"ZStudentOrganizationLessonListCell"]){
             ZOriganizationLessonListModel *model = cellConfig.dataModel;
-            model.lessonID = model.courses_id;
-            routePushVC(ZRoute_main_orderLessonDetail, model, nil);
+            routePushVC(ZRoute_main_orderLessonDetail, @{@"id":model.courses_id}, nil);
         }
     });
     

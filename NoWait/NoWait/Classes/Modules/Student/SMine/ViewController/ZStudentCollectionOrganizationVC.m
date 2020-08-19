@@ -66,7 +66,8 @@
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
-            routePushVC(ZRoute_main_organizationDetail, cellConfig.dataModel, nil);
+            ZStoresListModel *model = cellConfig.dataModel;
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
         }
     });
     

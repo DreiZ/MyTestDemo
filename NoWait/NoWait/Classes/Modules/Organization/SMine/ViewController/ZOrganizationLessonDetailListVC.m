@@ -160,13 +160,7 @@
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
         
-        ZOriganizationClassDetailModel *detailModel = [[ZOriganizationClassDetailModel alloc] init];
-        detailModel.courses_name = model.courses_name;
-        detailModel.classID = model.courses_class_id;
-        detailModel.name = model.name;
-        detailModel.status = model.status;
-        
-        routePushVC(ZRoute_mine_teacherClassDetail, detailModel, nil);
+        routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
     }
     
 }

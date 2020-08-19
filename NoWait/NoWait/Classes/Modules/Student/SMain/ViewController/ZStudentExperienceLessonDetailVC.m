@@ -277,10 +277,7 @@
     if ([cellConfig.title isEqualToString:@"ZStudentOrganizationDetailEnteryCell"]) {
         ZStudentOrganizationDetailEnteryCell *lcell = (ZStudentOrganizationDetailEnteryCell *)cell;
         lcell.handleBlock = ^(NSInteger index) {
-            ZStoresListModel *listModel = [[ZStoresListModel alloc] init];
-            listModel.name = weakSelf.addModel.stores_name;
-            listModel.stores_id = weakSelf.addModel.stores_id;
-            routePushVC(ZRoute_main_organizationDetail, listModel, nil);
+            routePushVC(ZRoute_main_organizationDetail, @{@"id":weakSelf.addModel.stores_id}, nil);
         };
     }else if ([cellConfig.title isEqualToString:@"starCoach"]) {
         ZStudentOrganizationPersonnelListCell *lcell = (ZStudentOrganizationPersonnelListCell *)cell;
@@ -317,7 +314,7 @@
             }];
         }];
     }else if([cellConfig.title isEqualToString:@"moreTeacher"]){
-        routePushVC(ZRoute_main_coachList, @{@"lesson_id":SafeStr(self.model.lessonID),@"stores_id":SafeStr(self.addModel.stores_id), @"type":@"1"}, nil);
+        routePushVC(ZRoute_main_coachList, @{@"lesson_id":SafeStr(self.lessonID),@"stores_id":SafeStr(self.addModel.stores_id), @"type":@"1"}, nil);
     }
 }
 
@@ -740,7 +737,7 @@
 - (void)refreshHeader {
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
-    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.model.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonDetailModel *addModel) {
+    [ZOriganizationLessonViewModel getLessonDetail:@{@"id":SafeStr(self.lessonID)} completeBlock:^(BOOL isSuccess, ZOriganizationLessonDetailModel *addModel) {
         weakSelf.loading = NO;
         if (isSuccess) {
             weakSelf.addModel = addModel;
@@ -812,7 +809,7 @@
 
 - (void)setPostCommonData {
     [self.param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
-    [self.param setObject:self.model.lessonID forKey:@"stores_courses_id"];
+    [self.param setObject:self.lessonID forKey:@"stores_courses_id"];
 }
 
 - (void)collectionLesson:(BOOL)isCollection {
@@ -849,8 +846,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentExperienceLessonDetailVC *routevc = [[ZStudentExperienceLessonDetailVC alloc] init];
-    if (request.prts) {
-        routevc.model = request.prts;
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"id"]) {
+        routevc.lessonID = request.prts[@"id"];
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }

@@ -32,7 +32,7 @@
 
 #define ZRoute_circle_search            @"controller/circle/search"
 
-#define ZRoute_circle_recommend         @"controller/circle/recommend"
+#define ZRoute_circle_recommend         @"controller/circle/schoolFind"
 
 #define ZRoute_circle_releaseUpload     @"controller/circle/releaseUpload"
 
@@ -60,7 +60,7 @@
 
 #define ZRoute_mine_settingCommonUs     @"controller/mine/settingCommonUs"
 
-#define ZRoute_mine_settingMineUs       @"controller/mine/settingMineUs"
+#define ZRoute_mine_settingMineUs       @"controller/mine/settingMine"
 
 #define ZRoute_mine_setting             @"controller/mine/setting"
 
@@ -80,7 +80,7 @@
 
 #define ZRoute_mine_rewardTeamList      @"controller/mine/rewardTeamList"
 
-#define ZRoute_mine_rewardDetails       @"controller/mine/rewardDetails"
+#define ZRoute_mine_rewardDetails       @"controller/mine/rewardDetail"
 
 #define ZRoute_mine_rewardCenter        @"controller/mine/rewardCenter"
 
@@ -92,11 +92,11 @@
 
 #define ZRoute_mine_switchRole          @"controller/mine/switchRole"
 
-#define ZRoute_mine_diyScan             @"controller/mine/diyScan"
+#define ZRoute_mine_diyScan             @"controller/mine/QRCodeScan"
 
 #define ZRoute_mine_signDetail          @"controller/mine/signDetail"
 
-#define ZRoute_mine_teacherDetailList   @"controller/mine/teacherDetailList"
+#define ZRoute_mine_teacherDetailList   @"controller/mine/teacherTimetable"
 
 #define ZRoute_mine_teacherSignList     @"controller/mine/teacherSignList"
 
@@ -130,9 +130,9 @@
 
 #define ZRoute_main_lessonList          @"controller/main/lessonList"
 
-#define ZRoute_main_classification      @"controller/main/classification"
+#define ZRoute_main_classification      @"controller/main/classificationList"
 
-#define ZRoute_main_organizationDetail  @"controller/main/organizationDetail"
+#define ZRoute_main_organizationDetail  @"controller/main/schoolDetail"
 
 #define ZRoute_main_lessonDetail        @"controller/main/lessonDetail"
 
@@ -140,7 +140,7 @@
 
 #define ZRoute_main_orderLessonList     @"controller/main/orderLessonList"
 
-#define ZRoute_main_orderLessonDetail   @"controller/main/orderLessonDetail"
+#define ZRoute_main_orderLessonDetail   @"controller/main/experienceLesson"
 
 #define ZRoute_main_lessonShare         @"controller/main/lessonShare"
 
@@ -150,7 +150,7 @@
 
 #define ZRoute_main_studentDetail       @"controller/main/studentDetail"
 
-#define ZRoute_main_organizationShare   @"controller/main/organizationShare"
+#define ZRoute_main_organizationShare   @"controller/main/schoolShare"
 
 #define ZRoute_main_sureOrder           @"controller/main/sureOrder"
 
@@ -238,6 +238,6 @@
 
 
 #pragma mark - ZAnnotationClusterVC
-#define ZRoute_org_annotationCluster     @"controller/org/annotationCluster"
+#define ZRoute_org_annotationCluster     @"controller/main/mapSchool"
 
 #endif /* ZRoutePath_h */

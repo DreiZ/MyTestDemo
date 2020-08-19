@@ -10,6 +10,6 @@
 #import "ZOrderModel.h"
 
 @interface ZStudentOrganizationDetailDesVC : ZTableViewController
-@property (nonatomic,strong) ZStoresListModel *listModel;
+@property (nonatomic,strong) NSString *stores_id;
 @end
 

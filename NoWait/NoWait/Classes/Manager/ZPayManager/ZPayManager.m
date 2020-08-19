@@ -179,6 +179,11 @@ static ZPayManager *sharedManager;
 
 
 //微信支付
+- (void)wechatPayWithData:(NSDictionary *)payDict {
+    ZMineOrderPayBackModel *payModel = [ZMineOrderPayBackModel mj_objectWithKeyValues:payDict];
+    [self wechatPay:payModel];
+}
+
 - (void)wechatPay:(ZMineOrderPayBackModel *)payModel {
     
     PayReq *request = [[PayReq alloc] init];

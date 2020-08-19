@@ -126,7 +126,7 @@
         _headView.handleBlock = ^(NSInteger index) {
             if (index == 1) {
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    routePushVC(ZRoute_circle_mine, [ZUserHelper sharedHelper].user.userCodeID, nil);
+                    routePushVC(ZRoute_circle_mine, @{@"id":SafeStr([ZUserHelper sharedHelper].user.userCodeID)}, nil);
                 }];
             }else {
                 routePushVC(ZRoute_circle_search, nil, nil);

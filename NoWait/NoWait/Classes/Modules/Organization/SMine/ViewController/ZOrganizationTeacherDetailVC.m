@@ -196,7 +196,7 @@
                     [[ZImagePickerManager sharedManager] showBrowser:@[weakSelf.addModel.image] withIndex:0];
                 }
             }else{
-                routePushVC(ZRoute_mine_teacherDetailList, weakSelf.addModel.teacherID, nil);
+                routePushVC(ZRoute_mine_teacherDetailList, @{@"id":SafeStr(weakSelf.addModel.teacherID)}, nil);
             }
         };
     }else if([cellConfig.title isEqualToString:@"labelCell"]){
