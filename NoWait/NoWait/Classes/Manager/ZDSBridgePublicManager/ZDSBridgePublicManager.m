@@ -58,16 +58,17 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
 
 //
 //#pragma mark 回调
-//- (NSString *)testSyn:(NSDictionary *)args {
-//
-//    return [(NSString *)[args valueForKey:@"msg"] stringByAppendingString:@"[ syn call]"];
-//
-//}
-//
-//- (NSString *)testAsyn:(NSDictionary *)args :(void (^)( NSString* _Nullable result))completionHandler {
-//    completionHandler([JSBUtil objToJsonString:@{@"iso":@"zzz"}]);
-//    return nil;
-//}
+- (NSString *)testSyn:(NSDictionary *)args {
+    NSLog(@"testSyn arts %@",args);
+    return [(NSString *)[args valueForKey:@"msg"] stringByAppendingString:@"[ syn call]"];
+
+}
+
+- (NSString *)testAsyn:(NSDictionary *)args :(void (^)( NSString* _Nullable result))completionHandler {
+    NSLog(@"testAsyn arts %@",args);
+    completionHandler([JSBUtil objToJsonString:@{@"iso":@"zzz"}]);
+    return nil;
+}
 
 
 //#pragma mark 调用web函数

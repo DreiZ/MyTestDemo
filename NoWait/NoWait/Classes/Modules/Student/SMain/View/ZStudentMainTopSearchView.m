@@ -16,6 +16,8 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIImageView *searchImageView;
 
+@property (nonatomic,strong) UIButton *mapSchoolBtn;
+@property (nonatomic,strong) UIImageView *mapSchoolImage;
 
 @property (nonatomic,strong) UIView *backView;
 
@@ -50,6 +52,7 @@
         make.bottom.equalTo(self.mas_bottom);
     }];
     
+    [self.contView addSubview:self.mapSchoolBtn];
     [self.contView addSubview:self.addressLabel];
     [self.contView addSubview:self.addressHintImageView];
     [self.contView addSubview:self.searhBackView];
@@ -58,6 +61,13 @@
         make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contView.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(100));
+    }];
+    
+    [self.mapSchoolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.contView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(100));
+        make.top.bottom.equalTo(self.contView);
     }];
     
     [self.addressHintImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,7 +80,7 @@
     [self.searhBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.addressLabel.mas_right).offset(CGFloatIn750(2));
         make.height.mas_equalTo(CGFloatIn750(64));
-        make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.mapSchoolBtn.mas_left).offset(-CGFloatIn750(0));
         make.centerY.equalTo(self.addressHintImageView);
     }];
     
@@ -96,8 +106,9 @@
     } forControlEvents:UIControlEventTouchUpInside];
     [self.contView addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.bottom.equalTo(self.contView);
+        make.top.bottom.equalTo(self.contView);
         make.left.equalTo(self.searhBackView.mas_left);
+        make.right.equalTo(self.searhBackView.mas_right);
     }];
     
     self.addressHintImageView.hidden = YES;
@@ -188,6 +199,32 @@
         _backView.alpha = 0;
     }
     return _backView;
+}
+
+- (UIButton *)mapSchoolBtn {
+    if (!_mapSchoolBtn) {
+        __weak typeof(self) weakSelf = self;
+        _mapSchoolBtn = [[UIButton alloc] init];
+        _mapSchoolImage = [[UIImageView alloc] init];
+        
+        _mapSchoolImage.image = [[UIImage imageNamed:@"mapschool"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        _mapSchoolImage.image = [UIImage imageNamed:@"mapSchool"];
+        _mapSchoolImage.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorGrayBG]);
+        
+        [_mapSchoolBtn addSubview:_mapSchoolImage];
+        [_mapSchoolImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.mapSchoolBtn);
+            make.width.mas_equalTo(CGFloatIn750(44));
+            make.height.mas_equalTo(CGFloatIn750(44));
+        }];
+        [_mapSchoolBtn bk_whenTapped:^{
+            if (weakSelf.addressBlock) {
+                weakSelf.addressBlock(1);
+            }
+        }];
+        
+    }
+    return _mapSchoolBtn;
 }
 
 #pragma mark - 更新背景色

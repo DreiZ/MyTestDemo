@@ -79,7 +79,8 @@
         }else if( [cellConfig.title isEqualToString:@"web"]){
             
             ZWebBridgeViewController *vc = [[ZWebBridgeViewController alloc] init];
-            vc.url = @"http://192.168.0.27:8080";
+//            vc.url = @"http://192.168.0.27:8080";
+            vc.url = @"http://192.168.0.13:8080";
             [self.navigationController pushViewController:vc animated:YES];
             
         }else if ([cellConfig.title isEqualToString:@"logout"]){
