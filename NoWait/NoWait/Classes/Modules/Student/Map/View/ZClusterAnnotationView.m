@@ -200,26 +200,26 @@ CGFloat ScaledValueForValue(CGFloat value)
 #pragma mark draw rect
 - (void)drawRect:(CGRect)rect {
 //    return;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetAllowsAntialiasing(context, true);
-
-    UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
-    UIColor *innerCircleStrokeColor = [UIColor whiteColor];
-    UIColor *innerCircleFillColor = self.drawColor;
-
-    CGRect circleFrame = CGRectInset(rect, 4, 4);
-
-    [outerCircleStrokeColor setStroke];
-    CGContextSetLineWidth(context, 5.0);
-    CGContextStrokeEllipseInRect(context, circleFrame);
-
-    [innerCircleStrokeColor setStroke];
-    CGContextSetLineWidth(context, 4);
-    CGContextStrokeEllipseInRect(context, circleFrame);
-
-    [innerCircleFillColor setFill];
-    CGContextFillEllipseInRect(context, circleFrame);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//
+//    CGContextSetAllowsAntialiasing(context, true);
+//
+//    UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
+//    UIColor *innerCircleStrokeColor = [UIColor whiteColor];
+//    UIColor *innerCircleFillColor = self.drawColor;
+//
+//    CGRect circleFrame = CGRectInset(rect, 4, 4);
+//
+//    [outerCircleStrokeColor setStroke];
+//    CGContextSetLineWidth(context, 5.0);
+//    CGContextStrokeEllipseInRect(context, circleFrame);
+//
+//    [innerCircleStrokeColor setStroke];
+//    CGContextSetLineWidth(context, 4);
+//    CGContextStrokeEllipseInRect(context, circleFrame);
+//
+//    [innerCircleFillColor setFill];
+//    CGContextFillEllipseInRect(context, circleFrame);
 }
 @end
 

@@ -36,16 +36,21 @@ static ZLocationManager *shareManager = NULL;
     [self.locationManager setDelegate:self];
     
     [self.locationManager setDistanceFilter:1000];
+    
+    [self.locationManager setLocatingWithReGeocode:YES];
 
     [self.locationManager setPausesLocationUpdatesAutomatically:NO];
 
     [self.locationManager setAllowsBackgroundLocationUpdates:NO];
+    
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
 }
 
 - (void)startLocation
 {
     //开始定位
-    [self.locationManager startUpdatingLocation];
+//    [self.locationManager startUpdatingLocation];
+    [self locateAction];
 }
 
 - (void)stopSerialLocation
@@ -86,6 +91,37 @@ static ZLocationManager *shareManager = NULL;
     }];
     //定位结果
     DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
+}
+
+- (void)locateAction
+{
+    //带逆地理的单次定位
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+
+        if (error)
+        {
+            DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+
+            if (error.code == AMapLocationErrorLocateFailed)
+            {
+                return;
+            }
+        }
+
+        //定位信息
+        DLog(@"location:%@", location);
+        self.location = location;
+        //逆地理信息
+        if (regeocode)
+        {
+            DLog(@"reGeocode:%@", regeocode);
+            self.city = regeocode.city;
+            self.citycode = regeocode.citycode;
+            self.district = regeocode.district;
+            self.adcode = regeocode.adcode;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationPoiBack object:nil];
+    }];
 }
 
 @end

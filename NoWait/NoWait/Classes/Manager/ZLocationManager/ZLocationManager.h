@@ -18,6 +18,9 @@
 @interface ZLocationManager : NSObject
 @property (nonatomic,strong) CLLocation *location;
 @property (nonatomic,strong) NSString *city;
+@property (nonatomic,strong) NSString *district;
+@property (nonatomic,strong) NSString *citycode;
+@property (nonatomic,strong) NSString *adcode;
 
 @property (nonatomic,strong) void (^locationMainBlock)(CLLocation *);
 + (ZLocationManager *)shareManager;

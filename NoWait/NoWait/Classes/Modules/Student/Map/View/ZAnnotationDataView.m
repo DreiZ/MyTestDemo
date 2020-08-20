@@ -116,13 +116,20 @@
     self.contentLabel.text = [NSString stringWithFormat:@"%@\n%@",data[@"content"],data[@"count"]];
     self.contentLabel.numberOfLines = 0;
     
-    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(8));
         make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(8));
+    }];
+    
+    [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
     }];
     
     self.contentLabel.layer.cornerRadius = CGFloatIn750(120);

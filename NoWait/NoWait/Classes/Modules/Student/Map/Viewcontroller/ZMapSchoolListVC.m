@@ -114,7 +114,7 @@
             [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
         }
     }else {
-        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"ZNoDataCell" showInfoMethod:@selector(setModel:) heightOfCell:CGFloatIn750(500) cellType:ZCellTypeClass dataModel:nil];
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZNoDataCell className] title:@"ZNoDataCell" showInfoMethod:@selector(setModel:) heightOfCell:kScreenHeight/2.0 cellType:ZCellTypeClass dataModel:nil];
         [self.cellConfigArr addObject:orCellCon1fig];
     }
 }

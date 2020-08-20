@@ -121,10 +121,10 @@
 //    type;//10.7(市)  12.0(大区) 13.0(小区)  14.5(详细)
     if (mapView.zoomLevel < 10.7) {
         if (![_type isEqualToString:@"0"]) {
-            [self updateAnnotations];
             _type = @"0";
+            [self updateAnnotations];
         }
-    }else if (mapView.zoomLevel < 12.0) {
+    }else if (mapView.zoomLevel < 10.7) {
         if (![_type isEqualToString:@"1"]) {
             _type = @"1";
             [self updateAnnotations];
@@ -154,9 +154,8 @@
 }
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
-    NSLog(@"*************************");
+//    NSLog(@"*************************");
 //    if ([self.type isEqualToString:@"3"]) {
-//        NSLog(@"%%%%%%%%%%%%%%%%%%%%%%");
 //        NSMutableArray *tempArr = @[].mutableCopy;
 //        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
 //        for (AMapPOI *poi in annotation.pois)
@@ -178,8 +177,6 @@
 //
 //        }];
 //    }else if([self.type isEqualToString:@"4"]){
-//        NSLog(@"#########################");
-//
 //        NSMutableArray *tempArr = @[].mutableCopy;
 //        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
 //        for (AMapPOI *poi in annotation.pois)
@@ -473,7 +470,7 @@
         }
     }
     
-    [ZStudentMainViewModel getRegionList:@{@"city":@"0516"} completeBlock:^(BOOL isSuccess, id data) {
+    [ZStudentMainViewModel getRegionList:@{@"city":SafeStr([ZLocationManager shareManager].citycode)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && data) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kMapUpdateInApp];
             

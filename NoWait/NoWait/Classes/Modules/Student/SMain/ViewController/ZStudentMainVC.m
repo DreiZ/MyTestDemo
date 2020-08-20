@@ -231,6 +231,8 @@
     [self setPostCommonData];
     [self setLocationParams];
     [self refreshHeadData:self.param];
+    
+    [[ZLocationManager shareManager] startLocation];
 }
 
 - (void)refreshHeadData:(NSDictionary *)param {
