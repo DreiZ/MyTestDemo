@@ -13,6 +13,10 @@
 #import "ZOriganizationLessonViewModel.h"
 
 @interface ZOrganizationLessonManageListVC ()
+@property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) UILabel *totalLabel;
+@property (nonatomic,strong) NSString *total;
+
 @end
 
 @implementation ZOrganizationLessonManageListVC
@@ -27,6 +31,7 @@
     [super viewDidLoad];
     
     self.loading = YES;
+    self.total = @"0";
     [self setTableViewRefreshHeader];
     [self setTableViewRefreshFooter];
     [self setTableViewEmptyDataDelegate];
@@ -35,6 +40,8 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"共%@个课程",self.total];
     
     for (int i = 0; i < self.dataSources.count; i++) {
         ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonManageListCell className] title:[ZOrganizationLessonManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationLessonManageListCell z_getCellHeight:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
@@ -55,10 +62,31 @@
 
 - (void)setupMainView {
     [super setupMainView];
+    self.iTableView.tableHeaderView = self.headView;
+    
     self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
     self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
 }
 
+
+-(UIView *)headView {
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(64))];
+        _headView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _totalLabel.textColor = [UIColor colorMain];
+        _totalLabel.text = @"";
+        _totalLabel.numberOfLines = 0;
+        _totalLabel.textAlignment = NSTextAlignmentLeft;
+        [_totalLabel setFont:[UIFont fontContent]];
+        [_headView addSubview:_totalLabel];
+        [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headView.mas_left).offset(CGFloatIn750(36));
+            make.bottom.equalTo(self.headView.mas_bottom);
+        }];
+    }
+    return _headView;
+}
 
 #pragma mark - tableView -------datasource-----
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
@@ -120,6 +148,7 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
+            weakSelf.total = data.total;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             
@@ -148,6 +177,7 @@
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
             [weakSelf initCellConfigArr];
+            weakSelf.total = data.total;
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];

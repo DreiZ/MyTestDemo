@@ -15,7 +15,9 @@
 
 @interface ZOrganizationClassManageListVC ()
 @property (nonatomic,strong) NSMutableDictionary *param;
-
+@property (nonatomic,strong) NSString *total;
+@property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) UILabel *totalLabel;
 @end
 
 @implementation ZOrganizationClassManageListVC
@@ -32,6 +34,7 @@
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"班级列表")
     .zChain_updateDataSource(^{
+        self.total = @"0";
         self.loading = YES;
         self.param = @{}.mutableCopy;
     }).zChain_addEmptyDataDelegate()
@@ -42,10 +45,12 @@
     }).zChain_block_setRefreshHeaderNet(^{
         [weakSelf refreshData];
     }).zChain_resetMainView(^{
+        self.iTableView.tableHeaderView = self.headView;
         self.safeFooterView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         self.iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
+        self.totalLabel.text = [NSString stringWithFormat:@"共%@个班级",self.total];
         for (int i = 0; i < weakSelf.dataSources.count; i++) {
             ZCellConfig *progressCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationClassManageListCell className] title:[ZOrganizationClassManageListCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationClassManageListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
             [weakSelf.cellConfigArr addObject:progressCellConfig];
@@ -105,6 +110,25 @@
     });
 }
 
+-(UIView *)headView {
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(64))];
+        _headView.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
+        _totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _totalLabel.textColor = [UIColor colorMain];
+        _totalLabel.text = @"";
+        _totalLabel.numberOfLines = 0;
+        _totalLabel.textAlignment = NSTextAlignmentLeft;
+        [_totalLabel setFont:[UIFont fontContent]];
+        [_headView addSubview:_totalLabel];
+        [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headView.mas_left).offset(CGFloatIn750(36));
+            make.bottom.equalTo(self.headView.mas_bottom);
+        }];
+    }
+    return _headView;
+}
+
 #pragma mark - 数据处理
 - (void)refreshData {
     self.currentPage = 1;
@@ -120,6 +144,7 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
+            weakSelf.total = data.total;
             
             weakSelf.zChain_reload_ui();
             
@@ -147,7 +172,7 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            
+            weakSelf.total = data.total;
             weakSelf.zChain_reload_ui();
             
             [weakSelf.iTableView tt_endRefreshing];
