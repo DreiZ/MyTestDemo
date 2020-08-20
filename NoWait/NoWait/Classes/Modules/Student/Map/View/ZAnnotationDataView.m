@@ -241,4 +241,5 @@
     }];
     self.bottomView.layer.cornerRadius = CGFloatIn750(31);
 }
+
 @end

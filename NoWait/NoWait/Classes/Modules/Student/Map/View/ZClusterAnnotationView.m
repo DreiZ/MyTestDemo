@@ -91,7 +91,9 @@ CGFloat ScaledValueForValue(CGFloat value)
 }
 
 //- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    
 //    NSArray *subViews = self.subviews;
+//    NSLog(@"pointInside---------%ld", subViews.count);
 //    if ([subViews count] > 1)
 //    {
 //        for (UIView *aSubView in subViews)

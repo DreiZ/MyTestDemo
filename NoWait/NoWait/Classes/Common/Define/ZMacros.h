@@ -36,6 +36,8 @@ typedef void(^ZBlockRequestFailureWithErrorMessage)(NSString *errMsg);
 //app update启动过
 #define kUpdateInApp    @"userUpdateInApp"
 
+#define kMapUpdateInApp    @"mapUpdateInApp"
+
 //healthkit启动过
 #define kHadHealthKit    @"kHadHealthKit"
 

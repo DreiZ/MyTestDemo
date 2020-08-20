@@ -261,7 +261,6 @@
                         }
                         
                         ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
-    //                    mapvc.dataSources = schoolList;
                         [self presentPanModal:mapvc completion:^{
                             [self getSchoolData:tArr completeBlock:^(NSArray *data) {
                                 mapvc.dataSources = data;
@@ -466,8 +465,18 @@
 - (void)getRegionData {
     __weak typeof(self) weakSelf = self;
     
+    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
+    if (isFirst) {
+        NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
+        if (nowTime - [isFirst intValue] <= 3*60*60) {//60*60*3
+            return;
+        }
+    }
+    
     [ZStudentMainViewModel getRegionList:@{@"city":@"0516"} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && data) {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kMapUpdateInApp];
+            
             weakSelf.loadFromLocalHistory = NO;
             weakSelf.regionModel = data;
             weakSelf.regionModel.city.type = @"0";
