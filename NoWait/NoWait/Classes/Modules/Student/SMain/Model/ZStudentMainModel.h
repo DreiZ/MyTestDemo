@@ -39,13 +39,37 @@
 @property (nonatomic,strong) id data;
 @end
 
-@interface ZComplaintModel : NSObject
+@interface ZComplaintModel : ZBaseModel
 @property (nonatomic,strong) NSString *complaintId;
 @property (nonatomic,strong) NSString *type;
 @end
 
 @interface ZComplaintNetModel : NSObject
 @property (nonatomic,strong) NSArray *list;
+@end
+
+
+
+@interface ZRegionLatLngModel : ZBaseModel
+@property (nonatomic,strong) NSString *longitude;
+@property (nonatomic,strong) NSString *latitude;
+@end
+
+@interface ZRegionDataModel : ZBaseModel
+@property (nonatomic,strong) NSString *re_id;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) ZRegionLatLngModel *latLng;
+@property (nonatomic,strong) NSString *num;
+//最小单位用
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *type;
+@end
+
+
+@interface ZRegionNetModel : ZBaseNetworkBackModel
+@property (nonatomic,strong) ZRegionDataModel *city;
+@property (nonatomic,strong) NSArray <ZRegionDataModel *>*region;
+@property (nonatomic,strong) NSArray <ZRegionDataModel *>*schools;
 @end
 
 @interface ZStudentMainModel : NSObject

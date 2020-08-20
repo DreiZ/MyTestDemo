@@ -649,4 +649,10 @@
 //删除动态
 #define URL_account_v1_remove_dynamic_comment           @"account/v1/remove/dynamic/comment"
 
+
+#pragma mark -map
+#define URL_merchants_v1_city_region_list          @"merchants/v1/city/region/list"
+
+#define URL_merchants_v1_get_store_list            @"merchants/v1/get/store/list"
+
 #endif /* URLMacros_h */

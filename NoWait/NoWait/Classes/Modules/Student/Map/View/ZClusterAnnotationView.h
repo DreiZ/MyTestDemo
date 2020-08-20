@@ -13,5 +13,5 @@
 @interface ZClusterAnnotationView : MAAnnotationView
 
 @property (nonatomic, strong) NSDictionary *data;
-
+@property (nonatomic,strong) void (^annBlock)(id );
 @end

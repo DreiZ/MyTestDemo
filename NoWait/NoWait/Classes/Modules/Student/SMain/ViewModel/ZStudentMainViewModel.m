@@ -164,6 +164,42 @@
     }];
 }
 
++ (void)getRegionList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_merchants_v1_city_region_list params:params completionHandler:^(id data, NSError *error) {
+        
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZRegionNetModel *model = [ZRegionNetModel mj_objectWithKeyValues:dataModel.data];
+             if ([dataModel.code integerValue] == 0 ) {
+                 completeBlock(YES, model);
+                 return ;
+             }else{
+                 completeBlock(NO, dataModel.message);
+                 return;
+             }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
++ (void)getRegionStoreList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_merchants_v1_get_store_list params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
+            ZStoresListNetModel *model = [ZStoresListNetModel mj_objectWithKeyValues:dataModel.data];
+             if ([dataModel.code integerValue] == 0 ) {
+                 completeBlock(YES, model);
+                 return ;
+             }else{
+                 completeBlock(NO, dataModel.message);
+                 return;
+             }
+        }
+        completeBlock(NO, @"操作失败");
+    }];
+}
+
+
 
 + (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners {
     [[ZDBMainStore shareManager] cleanBannder];

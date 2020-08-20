@@ -79,7 +79,7 @@
         }else if( [cellConfig.title isEqualToString:@"web"]){
             
             ZWebBridgeViewController *vc = [[ZWebBridgeViewController alloc] init];
-            vc.url = @"http://192.168.0.27:8080/test";
+            vc.url = @"https://www.jianshu.com/p/c73839a3ed18";
             [self.navigationController pushViewController:vc animated:YES];
             
         }else if ([cellConfig.title isEqualToString:@"logout"]){

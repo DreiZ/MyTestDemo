@@ -15,10 +15,12 @@
 #import "ZClusterTableViewCell.h"
 #import "ZCustomCalloutView.h"
 
-
+#import "ZStudentMainModel.h"
 #import "ZOriganizationModel.h"
 #import <HWPanModal/HWPanModal.h>
 #import "ZMapSchoolListVC.h"
+#import "ZStudentMainViewModel.h"
+#import "ZLocationManager.h"
 
 #define kCalloutViewMargin  -12
 #define Button_Height       70.0
@@ -44,8 +46,8 @@
 @property (nonatomic, strong) NSArray *pois;
 
 @property (nonatomic, strong) NSString *type;//10.7(市)  10.85(大区) 12.5(小区)  14.5(详细)
-@property (nonatomic, strong) ZStoresListNetModel *schoolListModel;
-
+@property (nonatomic, strong) ZRegionNetModel *regionModel;
+@property (nonatomic, assign) BOOL loadFromLocalHistory;
 @end
 
 @implementation ZAnnotationClusterVC
@@ -89,16 +91,17 @@
         
         /* 根据当前zoomLevel和zoomScale 进行annotation聚合. */
         MAMapRect visibleRect = self.mapView.visibleMapRect;
-        double zoomScale = self.mapView.bounds.size.width / visibleRect.size.width;
-        double zoomLevel = self.mapView.zoomLevel;
-        
+//        double zoomScale = self.mapView.bounds.size.width / visibleRect.size.width;
+//        double zoomLevel = self.mapView.zoomLevel;
+//
         /* 也可根据zoomLevel计算指定屏幕距离(以50像素为例)对应的实际距离 进行annotation聚合. */
         /* 使用：NSArray *annotations = [weakSelf.coordinateQuadTree clusteredAnnotationsWithinMapRect:visibleRect withDistance:distance]; */
         //double distance = 50.f * [self.mapView metersPerPointForZoomLevel:self.mapView.zoomLevel];
-        
+        double distance = 50.f * [self.mapView metersPerPointForZoomLevel:self.mapView.zoomLevel];
         __weak typeof(self) weakSelf = self;
         dispatch_barrier_async(self.queue, ^{
-            NSArray *annotations = [weakSelf.coordinateQuadTree clusteredAnnotationsWithinMapRect:visibleRect withZoomScale:zoomScale andZoomLevel:zoomLevel];
+//            NSArray *annotations = [weakSelf.coordinateQuadTree clusteredAnnotationsWithinMapRect:visibleRect withZoomScale:zoomScale andZoomLevel:zoomLevel];
+            NSArray *annotations = [weakSelf.coordinateQuadTree clusteredAnnotationsWithinMapRect:visibleRect withDistance:distance];
             dispatch_async(dispatch_get_main_queue(), ^{
                 /* 更新annotation. */
                 [weakSelf updateMapViewAnnotationsWithAnnotations:annotations];
@@ -118,28 +121,28 @@
 //    type;//10.7(市)  12.0(大区) 13.0(小区)  14.5(详细)
     if (mapView.zoomLevel < 10.7) {
         if (![_type isEqualToString:@"0"]) {
-            [self updateAnnotations:self.pois];
+            [self updateAnnotations];
             _type = @"0";
         }
     }else if (mapView.zoomLevel < 12.0) {
         if (![_type isEqualToString:@"1"]) {
             _type = @"1";
-            [self updateAnnotations:self.pois];
+            [self updateAnnotations];
         }
     }else if (mapView.zoomLevel < 13.01) {
         if (![_type isEqualToString:@"2"]) {
             _type = @"2";
-            [self updateAnnotations:self.pois];
+            [self updateAnnotations];
         }
     }else if (mapView.zoomLevel < 14.5) {
         if (![_type isEqualToString:@"3"]) {
             _type = @"3";
-            [self updateAnnotations:self.pois];
+            [self updateAnnotations];
         }
     }else {
         if (![_type isEqualToString:@"4"]) {
             _type = @"4";
-            [self updateAnnotations:self.pois];
+            [self updateAnnotations];
         }
     }
 }
@@ -151,45 +154,69 @@
 }
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
-    if ([self.type isEqualToString:@"3"]) {
-        NSMutableArray *tempArr = @[].mutableCopy;
-        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
-        for (AMapPOI *poi in annotation.pois)
-        {
-            [tempArr addObject:poi];
-        }
-        NSMutableArray *schoolList = @[].mutableCopy;
-        for (AMapAOI *poi in tempArr) {
-            for (ZStoresListModel *model in self.schoolListModel.list) {
-                if ([model.stores_id isEqualToString:poi.uid]) {
-                    [schoolList addObject:model];
-                }
-            }
-        }
-        
-        ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
-        mapvc.dataSources = schoolList;
-        [self presentPanModal:mapvc completion:^{
-    
-        }];
-    }else if([self.type isEqualToString:@"4"]){
-        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
-        for (AMapPOI *poi in annotation.pois)
-        {
-            [self.selectedPoiArray addObject:poi];
-        }
-        
-        [self.customCalloutView setPoiArray:self.selectedPoiArray];
-        
-        self.customCalloutView.detailBlock = ^(AMapPOI *poi) {
-            routePushVC(ZRoute_main_organizationDetail, @{@"id":poi.shopID}, nil);
-        };
-        
-        // 调整位置
-        self.customCalloutView.center = CGPointMake(CGRectGetMidX(view.bounds), -CGRectGetMidY(self.customCalloutView.bounds) - CGRectGetMidY(view.bounds) - kCalloutViewMargin);
-        
-        [view addSubview:self.customCalloutView];
-    }
+    NSLog(@"*************************");
+//    if ([self.type isEqualToString:@"3"]) {
+//        NSLog(@"%%%%%%%%%%%%%%%%%%%%%%");
+//        NSMutableArray *tempArr = @[].mutableCopy;
+//        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
+//        for (AMapPOI *poi in annotation.pois)
+//        {
+//            [tempArr addObject:poi];
+//        }
+//        NSMutableArray *schoolList = @[].mutableCopy;
+//        for (AMapAOI *poi in tempArr) {
+////            for (ZStoresListModel *model in self.schoolListModel.list) {
+////                if ([model.stores_id isEqualToString:poi.uid]) {
+////                    [schoolList addObject:model];
+////                }
+////            }
+//        }
+//
+//        ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
+//        mapvc.dataSources = schoolList;
+//        [self presentPanModal:mapvc completion:^{
+//
+//        }];
+//    }else if([self.type isEqualToString:@"4"]){
+//        NSLog(@"#########################");
+//
+//        NSMutableArray *tempArr = @[].mutableCopy;
+//        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
+//        for (AMapPOI *poi in annotation.pois)
+//        {
+//            [tempArr addObject:poi];
+//        }
+//        NSMutableArray *schoolList = @[].mutableCopy;
+//        for (AMapAOI *poi in tempArr) {
+////            for (ZStoresListModel *model in self.schoolListModel.list) {
+////                if ([model.stores_id isEqualToString:poi.uid]) {
+////                    [schoolList addObject:model];
+////                }
+////            }
+//        }
+//
+//        ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
+//        mapvc.dataSources = schoolList;
+//        [self presentPanModal:mapvc completion:^{
+//
+//        }];
+////        ZClusterAnnotation *annotation = (ZClusterAnnotation *)view.annotation;
+////        for (AMapPOI *poi in annotation.pois)
+////        {
+////            [self.selectedPoiArray addObject:poi];
+////        }
+////
+////        [self.customCalloutView setPoiArray:self.selectedPoiArray];
+////
+////        self.customCalloutView.detailBlock = ^(AMapPOI *poi) {
+////            routePushVC(ZRoute_main_organizationDetail, @{@"id":poi.shopID}, nil);
+////        };
+////
+////        // 调整位置
+////        self.customCalloutView.center = CGPointMake(CGRectGetMidX(view.bounds), -CGRectGetMidY(self.customCalloutView.bounds) - CGRectGetMidY(view.bounds) - kCalloutViewMargin);
+////
+////        [view addSubview:self.customCalloutView];
+//    }
 }
 
 - (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -197,6 +224,8 @@
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+    __weak typeof(self) weakSelf = self;
+    
     if ([annotation isKindOfClass:[ZClusterAnnotation class]]) {
         /* dequeue重用annotationView. */
         static NSString *const AnnotatioViewReuseID = @"AnnotatioViewReuseID";
@@ -213,7 +242,34 @@
         ZClusterAnnotation *ttannotation = (ZClusterAnnotation *)annotation;
         if (ttannotation.pois && ttannotation.pois.count > 0) {
             AMapPOI *poi = ttannotation.pois[0];
-            annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%ld",(long)[(ZClusterAnnotation *)annotation count]]};
+            
+            if ([poi.type isEqualToString:@"0"] || [poi.type isEqualToString:@"1"]){
+                annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%@",poi.address]};
+            }else if([poi.type isEqualToString:@"2"]){
+                annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%@",poi.address]};
+            }else{
+                annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%ld",(long)[(ZClusterAnnotation *)annotation count]]};
+            }
+            annotationView.annBlock = ^(id annotation) {
+                if ([weakSelf.type isEqualToString:@"3"] || [weakSelf.type isEqualToString:@"4"]) {
+                    ZClusterAnnotation *zannotation = (ZClusterAnnotation *)annotation;
+                    if (zannotation.pois && zannotation.pois.count > 0) {
+                        NSMutableArray *tArr = @[].mutableCopy;
+                        for (int i = 0; i < zannotation.pois.count ; i++) {
+                            AMapPOI *poi = zannotation.pois[i];
+                            [tArr addObject:poi.uid];
+                        }
+                        
+                        ZMapSchoolListVC *mapvc = [[ZMapSchoolListVC alloc] init];
+    //                    mapvc.dataSources = schoolList;
+                        [self presentPanModal:mapvc completion:^{
+                            [self getSchoolData:tArr completeBlock:^(NSArray *data) {
+                                mapvc.dataSources = data;
+                            }];
+                        }];
+                    }
+                }
+            };
         }
         
         
@@ -226,38 +282,7 @@
     return nil;
 }
 
-#pragma mark - SearchPOI
-/* 搜索POI. */
-- (void)searchPoiWithKeyword:(NSString *)keyword {
-    AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
-    
-    request.keywords            = keyword;
-    request.city                = @"0516";
-    request.requireExtension    = YES;
-    
-    self.currentRequest = request;
-    [self.search AMapPOIKeywordsSearch:request];
-}
-
-/* POI 搜索回调. */
-- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response {
-    if (response.pois.count == 0) {
-        return;
-    }
-    
-    // 只处理最新的请求
-    if (request != self.currentRequest) {
-        return;
-    }
-    
-    @synchronized(self){
-        self.pois = response.pois;
-        [self updateAnnotations:response.pois];
-    }
-
-}
-
-- (void)updateAnnotations:(NSArray *)pois {
+- (void)updateAnnotations {
     self.shouldRegionChangeReCalculate = NO;
     
     // 清理
@@ -269,52 +294,38 @@
     [self.mapView removeAnnotations:annosToRemove];
     
     NSMutableArray *tpois = @[].mutableCopy;
-    NSInteger count = self.schoolListModel.list.count;
     if ([_type isEqualToString:@"0"] || [_type isEqualToString:@"1"]) {
-        count = 1;
-    }else if( [_type isEqualToString:@"2"]) {
-        count = 4;
-    }else{
-        count = self.schoolListModel.list.count;
-    }
-    for (int i = 0; i < count; i++) {
-        ZStoresListModel *model = self.schoolListModel.list[i];
         AMapPOI *poi = [[AMapPOI alloc] init];
-        poi.uid = model.stores_id;
-        poi.shopID = model.stores_id;
-        poi.name = model.name;
-        poi.address = @"安徽覅色服务和覅哦啊合规啊";
-//        latitude = "34.260789";
-//        longitude = "117.18637";
-        if (count == 1) {
-            poi.location = [AMapGeoPoint locationWithLatitude:(34.27338936) longitude:(117.18292236)];
-            poi.name = @"徐州市";
-            poi.address = @"安徽覅色服务和覅哦啊合规啊";
-        }else if(count == 4){
-            if (i == 0) {
-                poi.location = [AMapGeoPoint locationWithLatitude:(34.27963071) longitude:(117.19219208)];
-                poi.name = @"鼓楼区";
-                poi.address = @"安徽覅色服务和覅哦啊合规啊";
-            }else if(i == 1){
-                poi.location = [AMapGeoPoint locationWithLatitude:(34.26005402) longitude:(117.17227936)];
-                poi.name = @"泉山区";
-                poi.address = @"安徽覅色服务和覅哦啊合规啊";
-            }else if(i == 2){
-                poi.location = [AMapGeoPoint locationWithLatitude:(34.26317525) longitude:(117.20043182)];
-                poi.name = @"云龙区";
-                poi.address = @"安徽覅色服务和覅哦啊合规啊";
-            }else{
-                poi.location = [AMapGeoPoint locationWithLatitude:(34.23593155) longitude:(117.18978882)];
-                poi.name = @"铜山区";
-                poi.address = @"安徽覅色服务和覅哦啊合规啊";
-            }
-        }else{
-            poi.location = [AMapGeoPoint locationWithLatitude:(34.15272698 + arc4random() %( 100 - 1) * 1.0f / 1000) longitude:(117.15751648 + arc4random() %( 100 - 1) * 1.0f / 800)];
-        }
-        
+        poi.uid = self.regionModel.city.re_id;
+        poi.shopID = self.regionModel.city.re_id;
+        poi.name = self.regionModel.city.title;
+        poi.type = self.regionModel.city.type;
+        poi.address = [NSString stringWithFormat:@"%@个校区",self.regionModel.city.num];
+        poi.location = [AMapGeoPoint locationWithLatitude:[self.regionModel.city.latLng.latitude doubleValue] longitude:[self.regionModel.city.latLng.longitude doubleValue]];
         [tpois addObject:poi];
+    }else if( [_type isEqualToString:@"2"]) {
+        for (ZRegionDataModel *model in self.regionModel.region) {
+            AMapPOI *poi = [[AMapPOI alloc] init];
+            poi.uid = model.re_id;
+            poi.shopID = model.re_id;
+            poi.name = model.title;
+            poi.type = model.type;
+            poi.address = [NSString stringWithFormat:@"%@个校区",model.num];
+            poi.location = [AMapGeoPoint locationWithLatitude:[model.latLng.latitude doubleValue] longitude:[model.latLng.longitude doubleValue]];
+            [tpois addObject:poi];
+        }
+    }else{
+        for (ZRegionDataModel *model in self.regionModel.schools) {
+            AMapPOI *poi = [[AMapPOI alloc] init];
+            poi.uid = model.re_id;
+            poi.shopID = model.re_id;
+            poi.name = model.name;
+            poi.address = model.name;
+            poi.type = model.type;
+            poi.location = [AMapGeoPoint locationWithLatitude:[model.latLng.latitude doubleValue] longitude:[model.latLng.longitude doubleValue]];
+            [tpois addObject:poi];
+        }
     }
-    
     
     __weak typeof(self) weakSelf = self;
     dispatch_async(self.queue, ^{
@@ -326,11 +337,6 @@
             [weakSelf addAnnotationsToMapView:weakSelf.mapView];
         });
     });
-}
-
-#pragma mark - Refresh Button Action
-- (void)refreshAction:(UIButton *)button {
-    [self searchPoiWithKeyword:@"小吃"];
 }
 
 #pragma mark - Life Cycle
@@ -369,14 +375,14 @@
     
     _shouldRegionChangeReCalculate = NO;
     
-    [self searchPoiWithKeyword:@"超市"];
-    
     [self.view addSubview:self.navLeftBtn];
     [self.navLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
         make.width.height.mas_equalTo(CGFloatIn750(70));
     }];
+    
+    [self getRegionData];
 }
 
 - (void)dealloc {
@@ -399,9 +405,11 @@
     }];
     
     self.mapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
+    self.mapView.zoomLevel = 15.0f;
     _mapView.showsUserLocation = YES;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
     [_mapView addSubview:self.checkSelfBtn];
+    
     [self.checkSelfBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mapView.mas_right).offset(CGFloatIn750(-20));
         make.bottom.equalTo(self.mapView.mas_bottom).offset(-CGFloatIn750(10)-safeAreaBottom());
@@ -418,7 +426,7 @@
     if (!_navLeftBtn) {
         __weak typeof(self) weakSelf = self;
         _navLeftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(70), CGFloatIn750(70))];
-        [_navLeftBtn setBackgroundColor:HexAColor(0x000000, 0.7) forState:UIControlStateNormal];
+        [_navLeftBtn setBackgroundColor:HexAColor(0xffffff, 0.7) forState:UIControlStateNormal];
         [_navLeftBtn setImage:[UIImage imageNamed:@"navleftBack"] forState:UIControlStateNormal];
         ViewRadius(_navLeftBtn, CGFloatIn750(35));
         [_navLeftBtn bk_addEventHandler:^(id sender) {
@@ -444,7 +452,56 @@
 
 #pragma mark - Cache
 - (void)readCacheData {
-    self.schoolListModel = (ZStoresListNetModel *)[ZDefaultCache() objectForKey:[ZStoresListNetModel className]];
+    _loadFromLocalHistory = YES;
+    
+    self.regionModel = (ZRegionNetModel *)[ZDefaultCache() objectForKey:[ZRegionNetModel className]];
+    [self updateAnnotations];
+}
+
+- (void)writeDataToCache {
+    [ZDefaultCache() setObject:self.regionModel forKey:[ZRegionNetModel className]];
+}
+
+
+- (void)getRegionData {
+    __weak typeof(self) weakSelf = self;
+    
+    [ZStudentMainViewModel getRegionList:@{@"city":@"0516"} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data) {
+            weakSelf.loadFromLocalHistory = NO;
+            weakSelf.regionModel = data;
+            weakSelf.regionModel.city.type = @"0";
+            for (ZRegionDataModel *model in weakSelf.regionModel.region) {
+                model.type = @"1";
+            }
+            for (ZRegionDataModel *model in weakSelf.regionModel.schools) {
+                model.type = @"4";
+            }
+            [weakSelf writeDataToCache];
+            [weakSelf updateAnnotations];
+        }
+    }];
+}
+
+- (void)getSchoolData:(NSArray *)store completeBlock:(void(^)(NSArray *))complete{
+    NSMutableDictionary *params = @{@"store":store}.mutableCopy;
+    [self setLocationParams:params];
+    [ZStudentMainViewModel getRegionStoreList:params completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess && data) {
+            ZStoresListNetModel *model = data;
+            complete(model.list);
+        }else{
+            complete(@[]);
+        }
+    }];
+}
+
+
+- (void)setLocationParams:(NSMutableDictionary *)params {
+    if ([ZLocationManager shareManager].location) {
+        [params setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.longitude] forKey:@"longitude"];
+        [params setObject:[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.latitude] forKey:@"latitude"];
+    }
 }
 
 @end

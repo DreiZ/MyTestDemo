@@ -35,6 +35,12 @@
     [self.tableView reloadData];
 }
 
+- (void)setDataSources:(NSArray *)dataSources {
+    _dataSources = dataSources;
+    [self initCellConfig];
+    [self.tableView reloadData];
+}
+
 #pragma mark - HWPanModalPresentable
 
 - (PanModalHeight)shortFormHeight {
@@ -119,7 +125,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.rowHeight = 50;
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        
+        _tableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
 
         _tableView.delegate = self;
         _tableView.dataSource = self;

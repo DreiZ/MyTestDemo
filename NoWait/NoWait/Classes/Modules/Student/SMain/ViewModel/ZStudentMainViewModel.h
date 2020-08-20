@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)addDynamicComplaint:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
++ (void)getRegionList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
++ (void)getRegionStoreList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 //头部
 + (BOOL)updateMainBanners:(NSArray <ZAdverListModel *>*)banners;

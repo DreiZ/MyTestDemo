@@ -8,7 +8,7 @@
 
 #import "ZClusterAnnotationView.h"
 #import "ZClusterAnnotation.h"
-
+#import "ZAnnotationDataView.h"
 
 static CGFloat const ScaleFactorAlpha = 0.3;
 static CGFloat const ScaleFactorBeta = 0.4;
@@ -38,9 +38,9 @@ CGFloat ScaledValueForValue(CGFloat value)
 #pragma mark -
 
 @interface ZClusterAnnotationView ()
-@property (nonatomic, strong) UILabel *countLabel;
-@property (nonatomic, strong) UIView *bottomLineView;
+@property (nonatomic, strong) ZAnnotationDataView *annDataView;
 
+@property (nonatomic, strong) UIColor *drawColor;
 @end
 
 @implementation ZClusterAnnotationView
@@ -52,126 +52,122 @@ CGFloat ScaledValueForValue(CGFloat value)
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
-        [self setupLabel];
+        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.01];
+        [self setupMainView];
     }
     
     return self;
 }
 
 #pragma mark Utility
-- (void)setupLabel{
-    _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 80, 36)];
-    _countLabel.textColor       = [UIColor whiteColor];
-    _countLabel.textAlignment   = NSTextAlignmentCenter;
-    _countLabel.backgroundColor = [UIColor colorMain];
-    _countLabel.layer.cornerRadius = CGFloatIn750(20);
-    _countLabel.layer.masksToBounds = YES;
-    _countLabel.numberOfLines = 1;
-    _countLabel.font = [UIFont boldSystemFontOfSize:CGFloatIn750(24)];
-    _countLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-    [self addSubview:_countLabel];
-    [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(40));
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
+- (void)setupMainView{
+    
+    self.drawColor = [UIColor colorMain];
+    
+    [self addSubview:self.annDataView];
+    
+    [self.annDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *annBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [annBtn bk_whenTapped:^{
+        if (weakSelf.annBlock) {
+            weakSelf.annBlock(self.annotation);
+        }
+    }];
+    [self addSubview:annBtn];
+    [annBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.annDataView);
     }];
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    NSArray *subViews = self.subviews;
-    if ([subViews count] > 1)
-    {
-        for (UIView *aSubView in subViews)
-        {
-            if ([aSubView pointInside:[self convertPoint:point toView:aSubView] withEvent:event])
-            {
-                return YES;
-            }
-        }
+- (ZAnnotationDataView *)annDataView {
+    if (!_annDataView) {
+        _annDataView = [[ZAnnotationDataView alloc] init];
     }
-    if (point.x > 0 && point.x < self.frame.size.width && point.y > 0 && point.y < self.frame.size.height)
-    {
-        return YES;
-    }
-    return NO;
+    return _annDataView;
 }
+
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    NSArray *subViews = self.subviews;
+//    if ([subViews count] > 1)
+//    {
+//        for (UIView *aSubView in subViews)
+//        {
+//            if ([aSubView pointInside:[self convertPoint:point toView:aSubView] withEvent:event])
+//            {
+//                return YES;
+//            }
+//        }
+//    }
+//    if (point.x > 0 && point.x < self.frame.size.width && point.y > 0 && point.y < self.frame.size.height)
+//    {
+//        return YES;
+//    }
+//    return YES;
+//}
 
 #pragma mark - setdata
 - (void)setMain:(NSDictionary *)data {
-    self.countLabel.text = [NSString stringWithFormat:@"%@\n%@个",data[@"content"],data[@"count"]];
-    self.countLabel.numberOfLines = 0;
-    CGSize tempSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
-    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
+    [self.annDataView setMain:data];
     
-    self.frame = CGRectMake(self.center.x, self.center.y, CGFloatIn750(120), CGFloatIn750(120));
-    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(8));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(8));
-    }];
-    self.countLabel.layer.cornerRadius = CGFloatIn750(60);
+    self.frame = CGRectMake(self.center.x, self.center.y, CGFloatIn750(240), CGFloatIn750(240));
+    
     [self setNeedsDisplay];
 }
 
+
 - (void)setSubMain:(NSDictionary *)data {
-    self.countLabel.text = [NSString stringWithFormat:@"%@个 \n  %@",data[@"count"],@"校区"];
-    self.countLabel.numberOfLines = 0;
-    CGSize tempSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
-    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
+    [self.annDataView setSubMain:data];
     
-    self.frame = CGRectMake(self.center.x, self.center.y, CGFloatIn750(120), CGFloatIn750(120));
-    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(8));
-        make.bottom.equalTo(self.mas_bottom).offset(-CGFloatIn750(8));
-    }];
-    self.countLabel.layer.cornerRadius = CGFloatIn750(60);
-    [self setNeedsDisplay];
+    CGSize contentSize = [data[@"content"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    
+    CGSize countSize = [[NSString stringWithFormat:@"%@",data[@"count"]] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    
+    
+    self.frame = CGRectMake(self.center.x, self.center.y, contentSize.width + countSize.width + CGFloatIn750(60), CGFloatIn750(60) + CGFloatIn750(16));
+}
+
+- (void)setTogether:(NSDictionary *)data {
+    [self.annDataView setTogether:data];
+    
+    CGSize tempSize = [[NSString stringWithFormat:@"%@个%@",data[@"count"],@"校区"] tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    
+    
+    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + CGFloatIn750(32), CGFloatIn750(62));
 }
 
 - (void)setDetail:(NSString *)str {
-    self.countLabel.text = str;
-    self.countLabel.numberOfLines = 1;
-    CGSize tempSize = [str tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
-    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
+    [self.annDataView setDetail:str];
     
-    [self.countLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.height.mas_equalTo(CGFloatIn750(40));
-        make.left.equalTo(self.mas_left).offset(CGFloatIn750(8));
-        make.right.equalTo(self.mas_right).offset(-CGFloatIn750(8));
-    }];
-    self.countLabel.layer.cornerRadius = CGFloatIn750(20);
-    [self setNeedsDisplay];
+    CGSize tempSize = [str tt_sizeWithFont:[UIFont systemFontOfSize:CGFloatIn750(24)] constrainedToSize:CGSizeMake(CGFloatIn750(240), CGFloatIn750(40))];
+    
+    self.frame = CGRectMake(self.center.x, self.center.y, tempSize.width + 20, tempSize.height + CGFloatIn750(16));
 }
+
 
 - (void)setData:(NSDictionary *)data {
     _data = data;
-    
     if ([data objectForKey:@"type"]) {
-        if ([data[@"type"] intValue] == 4) {
-            [self setDetail:data[@"content"]];
-        }else if ([data[@"type"] intValue] == 3) {
+        if ([data[@"type"] intValue] == 0 || [data[@"type"] intValue] == 1) {
+            self.drawColor = [UIColor colorMain];
+            [self setMain:data];
+        }else if ([data[@"type"] intValue] == 2){
+            self.drawColor = [UIColor colorWithWhite:0 alpha:0.01];
+            [self setSubMain:data];
+        }else {
             if([data[@"count"] intValue] == 1){
+                self.drawColor = [UIColor colorWithWhite:0 alpha:0.01];
                 [self setDetail:data[@"content"]];
             }else{
-                [self setSubMain:data];
+                self.drawColor = [UIColor colorWithWhite:0 alpha:0.01];
+                [self setTogether:data];
             }
-            
-        }else{
-            [self setMain:data];
         }
     }
+    [self setNeedsDisplay];
 }
 
 #pragma mark - annimation
@@ -201,13 +197,14 @@ CGFloat ScaledValueForValue(CGFloat value)
 
 #pragma mark draw rect
 - (void)drawRect:(CGRect)rect {
+//    return;
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextSetAllowsAntialiasing(context, true);
 
     UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
     UIColor *innerCircleStrokeColor = [UIColor whiteColor];
-    UIColor *innerCircleFillColor = [UIColor colorMain];
+    UIColor *innerCircleFillColor = self.drawColor;
 
     CGRect circleFrame = CGRectInset(rect, 4, 4);
 

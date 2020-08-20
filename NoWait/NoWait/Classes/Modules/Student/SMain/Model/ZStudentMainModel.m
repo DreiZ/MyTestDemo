@@ -65,6 +65,30 @@
 }
 @end
 
+@implementation ZRegionLatLngModel
+
+@end
+
+@implementation ZRegionDataModel
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"re_id" : @"id",
+             @"num" :@"count"
+    };
+}
+@end
+
+
+@implementation ZRegionNetModel 
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"region" : @"ZRegionDataModel",
+             @"schools" : @"ZRegionDataModel"
+             };
+}
+@end
+
 @implementation ZStudentMainModel
 
 @end
