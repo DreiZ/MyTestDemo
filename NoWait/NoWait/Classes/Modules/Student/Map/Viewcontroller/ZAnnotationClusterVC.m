@@ -21,6 +21,7 @@
 #import "ZMapSchoolListVC.h"
 #import "ZStudentMainViewModel.h"
 #import "ZLocationManager.h"
+#import "ZAlertView.h"
 
 #define kCalloutViewMargin  -12
 #define Button_Height       70.0
@@ -325,13 +326,16 @@
     
     __weak typeof(self) weakSelf = self;
     dispatch_async(self.queue, ^{
-        /* 建立四叉树. */
-        [weakSelf.coordinateQuadTree buildTreeWithPOIs:tpois];
-        weakSelf.shouldRegionChangeReCalculate = YES;
+        if (ValidArray(tpois)) {
+            /* 建立四叉树. */
+            [weakSelf.coordinateQuadTree buildTreeWithPOIs:tpois];
+            weakSelf.shouldRegionChangeReCalculate = YES;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf addAnnotationsToMapView:weakSelf.mapView];
+            });
+        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf addAnnotationsToMapView:weakSelf.mapView];
-        });
     });
 }
 
@@ -465,7 +469,7 @@
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
     if (isFirst) {
         NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
-        if (nowTime - [isFirst intValue] <= 3*60*60) {//60*60*3
+        if (nowTime - [isFirst intValue] <= 3*60*60 && self.regionModel) {//60*60*3
             return;
         }
     }
@@ -525,8 +529,18 @@
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
-    ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
-    routevc.city = request.prts;
-    [topViewController.navigationController pushViewController:routevc animated:YES];
+    [ZLocationManager shareManager].citycode = nil;
+    if (!ValidStr([ZLocationManager shareManager].citycode)) {
+        [ZAlertView setAlertWithTitle:@"没有获取到城市编号，已默认获取上海数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+            [ZLocationManager shareManager].citycode = @"021";
+            ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
+            routevc.city = request.prts;
+            [topViewController.navigationController pushViewController:routevc animated:YES];
+        }];
+    }else{
+        ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
+        routevc.city = request.prts;
+        [topViewController.navigationController pushViewController:routevc animated:YES];
+    }
 }
 @end

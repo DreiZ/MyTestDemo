@@ -201,7 +201,9 @@
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
-    ZRewardCenterVC *routevc = [[ZRewardCenterVC alloc] init];
-    [topViewController.navigationController pushViewController:routevc animated:YES];
+    if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
+        ZRewardCenterVC *routevc = [[ZRewardCenterVC alloc] init];
+        [topViewController.navigationController pushViewController:routevc animated:YES];
+    }
 }
 @end
