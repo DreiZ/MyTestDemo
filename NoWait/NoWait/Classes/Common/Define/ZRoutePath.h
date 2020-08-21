@@ -74,7 +74,7 @@
 
 #define ZRoute_mine_evaEdit             @"controller/mine/evaEdit"
 
-#define ZRoute_mine_evaListHad          @"controller/mine/evaListHad"
+#define ZRoute_mine_evaListHad          @"controller/mine/evaList"
 
 #define ZRoute_mine_rewardRanking       @"controller/mine/rewardRanking"
 
@@ -138,7 +138,7 @@
 
 #define ZRoute_main_searchOrderLesson   @"controller/main/searchOrderLesson"
 
-#define ZRoute_main_orderLessonList     @"controller/main/orderLessonList"
+#define ZRoute_main_orderLessonList     @"controller/main/experienceLessonList"
 
 #define ZRoute_main_orderLessonDetail   @"controller/main/experienceLesson"
 

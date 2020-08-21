@@ -40,8 +40,21 @@
         make.right.equalTo(self.backView.mas_right).offset(-CGFloatIn750(2));
         make.bottom.lessThanOrEqualTo(self.backView.mas_bottom);
     }];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(btnLong:)];
+    longPress.minimumPressDuration = 0.5; //定义按的时间
+    [self.contentView addGestureRecognizer:longPress];
 }
 
+- (void)btnLong:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if ([[ZUserHelper sharedHelper].user.type isEqualToString:@"1"] && ValidStr(self.model.note_id)) {
+            if (self.handleBlock) {
+                self.handleBlock(self.model);
+            }
+        }
+    }
+}
 
 #pragma mark - Getter
 - (UIView *)backView {

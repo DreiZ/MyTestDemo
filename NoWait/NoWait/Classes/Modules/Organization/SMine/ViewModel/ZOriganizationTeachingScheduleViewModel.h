@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZOriganizationTeachingScheduleViewModel : ZBaseViewModel
 @property (nonatomic,strong) ZOriganizationAddClassModel *addModel;
+@property (nonatomic,strong) ZOriganizationAddStudentClassModel *addStudentModel;
 
 
 //添加排课
@@ -19,6 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 //获取二维码
 + (void)addClassQrcode:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
+//学员添加排课
++ (void)addStudentCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+//学员删除排课
++ (void)delStudentCourseClass:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

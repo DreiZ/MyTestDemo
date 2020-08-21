@@ -46,6 +46,14 @@
 
 @end
 
+@interface ZOriganizationAddStudentClassModel : NSObject
+@property (nonatomic,strong) NSMutableArray *lessonTimeArr;
+@property (nonatomic,assign) NSString *singleTime;
+@property (nonatomic,strong) NSString *courses_name;
+@property (nonatomic,strong) NSString *course_num;
+
+@end
+
 
 #pragma mark - 班级管理
 @interface ZOriganizationClassListModel : ZBaseNetworkBackDataModel

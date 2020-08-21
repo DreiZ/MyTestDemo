@@ -58,7 +58,7 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
 
 //
 //#pragma mark 回调
-- (NSString *)testSyn:(NSDictionary *)args {
+- (NSString *)testSyn:(NSString *)args {
     NSLog(@"testSyn arts %@",args);
     return [(NSString *)[args valueForKey:@"msg"] stringByAppendingString:@"[ syn call]"];
 

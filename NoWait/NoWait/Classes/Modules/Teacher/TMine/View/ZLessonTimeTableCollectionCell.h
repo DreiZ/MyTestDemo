@@ -11,6 +11,7 @@
 #import "ZOriganizationModel.h"
 
 @interface ZLessonTimeTableCollectionCell : ZBaseCollectionViewCell
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationLessonListModel *);
 @property (nonatomic,strong) ZOriganizationLessonListModel *model;
 @end
 

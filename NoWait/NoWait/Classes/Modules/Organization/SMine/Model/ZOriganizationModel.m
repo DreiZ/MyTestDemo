@@ -28,6 +28,15 @@
 }
 @end
 
+@implementation ZOriganizationAddStudentClassModel
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _lessonTimeArr = @[].mutableCopy;
+    }
+    return self;
+}
+@end
 
 @implementation ZOriganizationClassListModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName {

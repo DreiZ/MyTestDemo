@@ -655,4 +655,9 @@
 
 #define URL_merchants_v1_get_store_list            @"merchants/v1/get/store/list"
 
+#pragma mark -map
+#define URL_account_v1_add_course_note         @"account/v1/add_course_note"
+
+#define URL_account_v1_del_course_note         @"account/v1/del_course_note"
+
 #endif /* URLMacros_h */

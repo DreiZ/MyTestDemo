@@ -11,8 +11,12 @@
 #import "ZLessonTimeTableCollectionCell.h"
 #import "ZLessonWeekHandlerView.h"
 #import "ZLessonWeekSectionView.h"
+#import "ZStudentAddOutlineClassVC.h"
+#import "ZAlertView.h"
+#import "ZOriganizationTeachingScheduleViewModel.h"
 
 @interface ZTeacherLessonDetailListVC ()
+@property (nonatomic,strong) UIButton *rightNavBtn;
 
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) ZLessonWeekHandlerView *weekTitleView;
@@ -52,6 +56,26 @@
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
     [self.navigationItem setTitle:@"本周课表"];
+    if ([[ZUserHelper sharedHelper].user.type isEqualToString:@"1"]) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.rightNavBtn]];
+    }
+}
+
+- (UIButton *)rightNavBtn {
+    if (!_rightNavBtn) {
+//        __weak typeof(self) weakSelf = self;
+        _rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(120), CGFloatIn750(50))];
+        [_rightNavBtn setTitle:@"添加课程" forState:UIControlStateNormal];
+        [_rightNavBtn setTitleColor:[UIColor colorWhite] forState:UIControlStateNormal];
+        [_rightNavBtn.titleLabel setFont:[UIFont fontMin]];
+        _rightNavBtn.backgroundColor = [UIColor colorMain];
+        _rightNavBtn.layer.cornerRadius = CGFloatIn750(25);
+        [_rightNavBtn bk_addEventHandler:^(id sender) {
+            ZStudentAddOutlineClassVC *cvc = [[ZStudentAddOutlineClassVC alloc] init];
+            [self.navigationController pushViewController:cvc animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavBtn;
 }
 
 - (void)setupMainView {
@@ -132,16 +156,32 @@
 }
 
 #pragma mark - tableview delegate
-- (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
-    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
-        ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        
-        routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
-    }else{
-        ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        
-        routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
+- (void)zz_collectionView:(UICollectionView *)collectionView cell:(UICollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZLessonTimeTableCollectionCell"]) {
+        ZLessonTimeTableCollectionCell *lcell = (ZLessonTimeTableCollectionCell *)cell;
+        lcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
+            [ZAlertView setAlertWithTitle:@"小提醒" subTitle:[NSString stringWithFormat:@"将%@从课表中移除？",model.course_name] leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+                if (index == 1) {
+                    [self delLessonWithID:model.note_id];
+                }
+            }];
+        };
     }
+}
+
+- (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
+    if ([cellConfig.title isEqualToString:@"ZLessonTimeTableCollectionCell"]) {
+        if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+            ZOriganizationLessonListModel *model = cellConfig.dataModel;
+            
+            routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
+        }else{
+            ZOriganizationLessonListModel *model = cellConfig.dataModel;
+            
+            routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
+        }
+    }
+    
     
 }
 
@@ -164,6 +204,21 @@
     }];
 }
 
+
+- (void)delLessonWithID:(NSString *)lessonID {
+    __weak typeof(self) weakSelf = self;
+    [TLUIUtility showLoading:@""];
+    [ZOriganizationTeachingScheduleViewModel delStudentCourseClass:@{@"note_id":SafeStr(lessonID)} completeBlock:^(BOOL isSuccess, NSString *message) {
+        [TLUIUtility hiddenLoading];
+        if (isSuccess) {
+            [weakSelf refreshCurriculumList];
+            [TLUIUtility showSuccessHint:message];
+            return ;
+        }else {
+            [TLUIUtility showErrorHint:message];
+        }
+    }];
+}
 @end
 
 #pragma mark - RouteHandler
