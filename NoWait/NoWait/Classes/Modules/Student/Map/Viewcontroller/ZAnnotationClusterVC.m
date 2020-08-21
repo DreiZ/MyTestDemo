@@ -529,7 +529,7 @@
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
-    [ZLocationManager shareManager].citycode = nil;
+
     if (!ValidStr([ZLocationManager shareManager].citycode)) {
         [ZAlertView setAlertWithTitle:@"没有获取到城市编号，已默认获取上海数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
             [ZLocationManager shareManager].citycode = @"021";

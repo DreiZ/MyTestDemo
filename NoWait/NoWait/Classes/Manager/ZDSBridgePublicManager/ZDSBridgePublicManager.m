@@ -164,13 +164,16 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
             image = args[@"image"];
         }
         if (title && detail && url && image) {
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:image options:SDWebImageDownloaderLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:image] options:SDWebImageDownloaderLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                 
             } completed:^(UIImage *simage, NSData *data, NSError *error, BOOL finished) {
                 if (simage) {
-                    [ZShareView setPre_title:@"分享" reduce_weight:title after_title:@"到微信" handlerBlock:^(NSInteger index) {
-                        [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:title detail:detail image:simage url:url vc:[[AppDelegate shareAppDelegate] getCurrentVC]];
-                    }];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [ZShareView setPre_title:@"分享" reduce_weight:title after_title:@"到微信" handlerBlock:^(NSInteger index) {
+                            [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:title detail:detail image:simage url:url vc:[[AppDelegate shareAppDelegate] getCurrentVC]];
+                        }];
+                    });
+                    
                 }
             }];
         }
@@ -238,7 +241,7 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
 
 //alipay
 - (NSString *)aliPay:(NSDictionary *)args :(void (^)( NSDictionary* _Nullable result))completionHandler {
-    if (ValidDict(args) && [args objectForKey:@"payInfo"]) {
+    if (ValidDict(args) && [args objectForKey:@"payInfo"] && ValidDict(args[@"payInfo"]) && [args objectForKey:@"pay_code"]) {
         [[ZPayManager sharedManager] aliPay:args[@"payInfo"]];
         [[kNotificationCenter rac_addObserverForName:KNotificationPayBack object:nil] subscribeNext:^(NSNotification *notfication) {
             if (notfication.object && [notfication.object isKindOfClass:[NSDictionary class]]) {
@@ -299,7 +302,14 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
 //下载图片
 - (NSString *)saveImage:(NSDictionary *)args  :(void (^)( NSDictionary* _Nullable result))completionHandler {
     if (ValidDict(args) && [args objectForKey:@"url"]) {
-        [self saveImageToNative:args[@"url"]];
+        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:args[@"url"]] options:SDWebImageDownloaderLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+        } completed:^(UIImage *simage, NSData *data, NSError *error, BOOL finished) {
+            if (simage) {
+                [self saveImageToNative:simage];
+            }
+        }];
+
         completionHandler(@{@"code":@"0"});
     }else{
         completionHandler(@{@"code":@"1"});
@@ -308,10 +318,9 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
     return nil;
 }
 
-- (void)saveImageToNative:(NSString *)urlString {
+- (void)saveImageToNative:(UIImage *)image {
     [TLUIUtility showLoading:@""];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
-    UIImage *image = [UIImage imageWithData:data]; // 取得图片
+     // 取得图片
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
 }
 

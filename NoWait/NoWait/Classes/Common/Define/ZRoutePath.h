@@ -58,7 +58,7 @@
 
 #define ZRoute_mine_settingSafe         @"controller/mine/settingSafe"
 
-#define ZRoute_mine_settingCommonUs     @"controller/mine/settingCommonUs"
+#define ZRoute_mine_settingCommonUs     @"controller/mine/settingCommon"
 
 #define ZRoute_mine_settingMineUs       @"controller/mine/settingMine"
 

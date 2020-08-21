@@ -13,7 +13,7 @@
 #import "ZStudentOrganizationNewListCell.h"
 #import "ZStudentOrganizationDetailDesVC.h"
 
-@interface ZMapSchoolListVC () <HWPanModalPresentable, UITableViewDelegate, UITableViewDataSource>
+@interface ZMapSchoolListVC () < UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *cellConfigArr;
@@ -28,7 +28,7 @@
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.edges.mas_equalTo(self.view);
     }];
     
     [self initCellConfig];
@@ -51,9 +51,9 @@
     return PanModalHeightMake(PanModalHeightTypeMax, 0);
 }
 
-- (UIScrollView *)panScrollable {
-    return self.tableView;
-}
+//- (UIScrollView *)panScrollable {
+//    return self.tableView;
+//}
 
 - (CGFloat)keyboardOffsetFromInputView {
     return 10;
@@ -124,9 +124,9 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.rowHeight = 50;
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.scrollEnabled = YES;
         _tableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-
+        
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
