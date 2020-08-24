@@ -26,12 +26,15 @@
     __weak typeof(self) weakSelf = self;
     self.zChain_block_setRefreshHeaderNet(^{
         weakSelf.loading = YES;
-        [ZOriganizationStudentViewModel getStoresStudentDetail:@{@"student_id":SafeStr(weakSelf.student_id),@"stores_id":SafeStr(weakSelf.stores_id)} completeBlock:^(BOOL isSuccess, ZOriganizationStudentAddModel *addModel) {
+        [ZOriganizationStudentViewModel getStoresStudentDetail:@{@"student_id":SafeStr(weakSelf.student_id)} completeBlock:^(BOOL isSuccess, id data) {
             weakSelf.loading = NO;
             if (isSuccess) {
+                ZOriganizationStudentAddModel *addModel = data;
                 weakSelf.addModel = addModel;
                 
                 weakSelf.zChain_reload_ui();
+            }else {
+                [TLUIUtility showErrorHint:data];
             }
         }];
     });

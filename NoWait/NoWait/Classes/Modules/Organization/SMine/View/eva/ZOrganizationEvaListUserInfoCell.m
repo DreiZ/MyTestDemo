@@ -111,7 +111,7 @@
 - (void)setModel:(ZOrderEvaListModel *)model {
     _model = model;
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.student_image)] placeholderImage:[UIImage imageNamed:@"default_head"]];
-    _timeLabel.text = [model.update_at timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
+    _timeLabel.text = [model.create_at timeStringWithFormatter:@"yyyy-MM-dd HH:mm"];
     _nameLabel.text = ValidStr(model.nick_name)?  model.nick_name : @"用户****";
     _crView.scorePercent = [model.score doubleValue]/5.0f;
     

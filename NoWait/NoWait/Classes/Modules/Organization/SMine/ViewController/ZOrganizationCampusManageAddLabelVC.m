@@ -174,7 +174,7 @@
 
 - (void)setLabel{
     [self.LabelView removeAllSubviews];
-    
+    self.btnArr = @[].mutableCopy;
     if (!self.labelArr || self.labelArr.count == 0) {
         [self.LabelView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.equalTo(self.view);
@@ -234,6 +234,20 @@
 
 - (void)selectedBtnOnClick:(UIButton *)sender {
     if (sender.tag < self.labelArr.count && self.labelArr.count == self.btnArr.count) {
+//        for (int i = 0; i < self.labelArr.count; i++) {
+//            NSString *str = self.labelArr[i];
+//            if ([str isEqualToString:sender.titleLabel.text]) {
+//                [self.labelArr removeObjectAtIndex:i];
+//                break;
+//            }
+//        }
+//        for (int i = 0; i < self.btnArr.count; i++) {
+//            UIButton *strBtn = self.btnArr[i];
+//            if ([strBtn isEqualToString:sender.titleLabel.text]) {
+//                [self.labelArr removeObjectAtIndex:i];
+//                break;
+//            }
+//        }
         [self.labelArr removeObjectAtIndex:sender.tag];
         [self.btnArr removeObjectAtIndex:sender.tag];
         [self setLabel];
