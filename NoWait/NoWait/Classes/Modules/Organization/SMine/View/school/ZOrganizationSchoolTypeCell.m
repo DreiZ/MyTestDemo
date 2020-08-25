@@ -103,7 +103,7 @@
         
     }else{
         if ([self getSelectedNum] >= 5) {
-            [TLUIUtility showInfoHint:@"机构类型最多选五个"];
+            [TLUIUtility showInfoHint:@"校区类型最多选五个"];
             return;
         }
     }

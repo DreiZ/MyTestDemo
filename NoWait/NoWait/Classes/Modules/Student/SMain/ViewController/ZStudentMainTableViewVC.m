@@ -72,10 +72,13 @@
     if (!_searchView) {
         _searchView = [[ZStudentMainTopSearchView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KSearchTopViewHeight+kStatusBarHeight) ];
         _searchView.searchBlock = ^(NSInteger index) {
-//            routePushVC(ZRoute_main_search, nil, nil);
+            routePushVC(ZRoute_main_search, nil, nil);
         };
         _searchView.addressBlock = ^(NSInteger index) {
-            routePushVC(ZRoute_org_annotationCluster, nil, nil);
+            if(index == 1) {
+                routePushVC(ZRoute_org_annotationCluster, nil, nil);
+            }
+            
         };
     }
     return _searchView;

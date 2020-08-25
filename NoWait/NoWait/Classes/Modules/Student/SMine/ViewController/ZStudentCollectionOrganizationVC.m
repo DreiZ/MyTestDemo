@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     __weak typeof(self) weakSelf = self;
-    self.zChain_setNavTitle(@"机构收藏")
+    self.zChain_setNavTitle(@"校区收藏")
     .zChain_addRefreshHeader()
     .zChain_addLoadMoreFooter()
     .zChain_addEmptyDataDelegate()
@@ -53,7 +53,7 @@
         if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
             ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
             lcell.handleBlock = ^(ZStoresListModel *model) {
-                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此机构？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消机构" handlerBlock:^(NSInteger index) {
+                [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定取消此校区？" leftBtnTitle:@"不取消" rightBtnTitle:@"取消校区" handlerBlock:^(NSInteger index) {
                     if (index == 1) {
                         [weakSelf collectionStore:NO model:model];
                     }

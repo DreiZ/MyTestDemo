@@ -309,6 +309,17 @@
 
 - (void)updateNetData {
     [self getSchoolList];
+    __weak typeof(self) weakSelf = self;
+    if ([ZUserHelper sharedHelper].user) {
+        [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
+            if (!isSuccess) {
+                
+            }else{
+                [weakSelf.headerView updateData];
+                [weakSelf.headerView updateSubViewFrame];
+            }
+        }];
+    }
 }
 @end
 

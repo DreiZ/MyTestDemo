@@ -221,6 +221,8 @@
             [ZUserHelper sharedHelper].stores = data;
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
+            [weakSelf.headerView updateData];
+            [weakSelf.headerView updateSubViewFrame];
         }
     }];
 }
@@ -242,7 +244,18 @@
 }
 
 - (void)updateNetData {
+    __weak typeof(self) weakSelf = self;
     [self getStoresStatistical];
     [self refreshCurriculumList];
+    if ([ZUserHelper sharedHelper].user) {
+        [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
+            if (!isSuccess) {
+                
+            }else{
+                [weakSelf.headerView updateData];
+                [weakSelf.headerView updateSubViewFrame];
+            }
+        }];
+    }
 }
 @end

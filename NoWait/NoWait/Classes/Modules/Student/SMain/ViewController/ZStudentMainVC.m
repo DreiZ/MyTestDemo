@@ -228,6 +228,7 @@
 - (void)refreshData {
     self.currentPage = 1;
     self.loading = YES;
+    [self getAdverData];
     [self setPostCommonData];
     [self setLocationParams];
     [self refreshHeadData:self.param];

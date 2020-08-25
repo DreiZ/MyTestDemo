@@ -94,7 +94,7 @@
     [self.contView addSubview:addressBtn];
     [addressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.contView);
-        make.right.equalTo(self.contView.mas_right);
+        make.right.equalTo(self.searhBackView.mas_left);
     }];
     
     
@@ -206,7 +206,7 @@
         __weak typeof(self) weakSelf = self;
         _mapSchoolBtn = [[UIButton alloc] init];
         _mapSchoolImage = [[UIImageView alloc] init];
-        
+        [_mapSchoolBtn setUserInteractionEnabled:YES];
         _mapSchoolImage.image = [[UIImage imageNamed:@"mapschool"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //        _mapSchoolImage.image = [UIImage imageNamed:@"mapSchool"];
         _mapSchoolImage.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorGrayBG]);

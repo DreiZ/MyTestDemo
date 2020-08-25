@@ -16,6 +16,7 @@
 #import "ZUMengShareManager.h"
 #import "ZShareView.h"
 #import "ZPayManager.h"
+#import "ZLocationManager.h"
 
 #import "AppDelegate+AppService.h"
 #import <SDWebImageDownloader.h>
@@ -232,6 +233,26 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
         [userInfoDict setObject:@{@"user_id":[ZUserHelper sharedHelper].user.userID ,@"token":[ZUserHelper sharedHelper].user.token,@"name":[ZUserHelper sharedHelper].user.nikeName,@"phone":[ZUserHelper sharedHelper].user.phone,@"code_id":[ZUserHelper sharedHelper].user.userCodeID,@"type":[ZUserHelper sharedHelper].user.type,@"avatar":[ZUserHelper sharedHelper].user.avatar} forKey:@"data"];
         
         completionHandler(userInfoDict);
+    }else{
+        completionHandler(@{@"code":@"1"});
+    }
+    completionHandler(@{@"code":@"1"});
+    return nil;
+}
+
+- (NSString *)getLocation:(NSDictionary *)args :(void (^)( NSDictionary* _Nullable result))completionHandler {
+    DLog(@"桥接-getLocationInfo %@", args);
+    if ([ZLocationManager shareManager].location) {
+        NSMutableDictionary *locationInfoDict = @{}.mutableCopy;
+        [locationInfoDict setObject:@"0" forKey:@"code"];
+        [locationInfoDict setObject:@"获取用户定位数据成功" forKey:@"info"];
+        [locationInfoDict setObject:
+         @{@"longitude":[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.longitude],
+           @"latitude":[NSString stringWithFormat:@"%f",[ZLocationManager shareManager].location.coordinate.latitude],
+           @"citycode":SafeStr([ZLocationManager shareManager].citycode)}
+                             forKey:@"data"];
+        
+        completionHandler(locationInfoDict);
     }else{
         completionHandler(@{@"code":@"1"});
     }

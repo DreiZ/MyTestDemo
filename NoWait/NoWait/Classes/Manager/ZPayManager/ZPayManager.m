@@ -207,8 +207,8 @@ static ZPayManager *sharedManager;
 
 #pragma mark - 回调
 - (BOOL)pay_handleUrl:(NSURL *)url{
-//    DLog(@"usl.host      %@",url.host);
-    if ([url.host isEqualToString:@"www.xiangcenter.com"]) {// 微信
+    DLog(@"usl.host      %@ -- %@",url.host,url.absoluteString);
+    if ([url.absoluteString hasPrefix:kAppKey_Wechat]) {// 微信
         return [WXApi handleOpenURL:url delegate:self];
     }else if ([url.host isEqualToString:@"safepay"]) {// 支付宝
         // 支付跳转支付宝钱包进行支付，处理支付结果(在app被杀模式下，通过这个方法获取支付结果）

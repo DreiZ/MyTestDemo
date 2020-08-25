@@ -83,7 +83,7 @@
                          @[@"校区地址", @"请选择校区地址", @NO, @NO, @"address", self.model?  SafeStr(self.model.address):@""],
                          @[@"营业时间", @"请选择营业时间", @NO, @NO, @"time",time],
                          @[@"基础设置", @"请添加基础设施", @YES, @YES, @"setting",self.model? self.model.stores_info:@[]],
-                         @[@"机构特色", @"请添加结构特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]],
+                         @[@"校区特色", @"请添加校区特色", @YES, @YES, @"characteristic",self.model.merchants_stores_tags? self.model.merchants_stores_tags:@[]],
                          @[@"校区简介", @"请填写校区简介", @NO, @NO, @"info",info]];
     
     for (int i = 0; i < textArr.count; i++) {
@@ -246,7 +246,7 @@
                 return ;
             }
             if (!ValidArray(weakSelf.model.merchants_stores_tags)) {
-                [TLUIUtility showErrorHint:@"请添加机构特色"];
+                [TLUIUtility showErrorHint:@"请添加校区特色"];
                 return ;
             }
             
@@ -426,7 +426,7 @@
             }];
         }
     }else if ([cellConfig.title isEqualToString:@"characteristic"]) {
-        NSMutableDictionary *tempDict = @{@"navTitle":@"机构特色",@"max":@"15"}.mutableCopy;
+        NSMutableDictionary *tempDict = @{@"navTitle":@"校区特色",@"max":@"15"}.mutableCopy;
         if (self.model.merchants_stores_tags) {
             [tempDict setObject:self.model.merchants_stores_tags forKey:@"list"];
         }

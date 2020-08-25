@@ -138,7 +138,7 @@
     [ZOriganizationViewModel updateUserInfo:param completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
-            [weakSelf refreshData];
+            weakSelf.zChain_reload_Net();
         }else{
             [TLUIUtility showErrorHint:data];
         }
