@@ -304,7 +304,7 @@
                 weakSelf.viewModel.addModel.lessonList = result[@"list"];
             }
             if (result && [result objectForKey:@"isAll"]) {
-                weakSelf.viewModel.addModel.isAll = result[@"isAll"];;
+                weakSelf.viewModel.addModel.isAll = [result[@"isAll"] boolValue];
             }
             
             [weakSelf initCellConfigArr];

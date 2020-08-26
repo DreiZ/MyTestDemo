@@ -155,17 +155,24 @@
         }
     }];
     
+    [[kNotificationCenter rac_addObserverForName:KNotificationLoginStateChange object:nil] subscribeNext:^(NSNotification *notfication) {
+        [weakSelf.dataSources removeAllObjects];
+        weakSelf.circleModel = nil;
+        weakSelf.zChain_reload_ui();
+        ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = nil;
+    }];
 }
 
 
 #pragma mark - Cache
 - (void)readCacheData {
     _loadFromLocalHistory = YES;
-    
-    self.messageNetModel = (ZMessageNetModel *)[ZCurrentUserCache() objectForKey:[ZMessageNetModel className]];
-    
-    [self.dataSources removeAllObjects];
-    [self.dataSources addObjectsFromArray:self.messageNetModel.list];
+    [[ZUserHelper sharedHelper] checkLogin:^{
+        self.messageNetModel = (ZMessageNetModel *)[ZCurrentUserCache() objectForKey:[ZMessageNetModel className]];
+        
+        [self.dataSources removeAllObjects];
+        [self.dataSources addObjectsFromArray:self.messageNetModel.list];
+    }];
 }
 
 - (void)writeDataToCache {
