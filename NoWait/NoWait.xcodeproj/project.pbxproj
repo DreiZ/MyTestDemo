@@ -6778,7 +6778,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -6888,7 +6888,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
