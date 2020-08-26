@@ -469,7 +469,7 @@
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
     if (isFirst) {
         NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
-        if (nowTime - [isFirst intValue] <= 3*60*60 && self.regionModel) {//60*60*3
+        if (nowTime - [isFirst intValue] <= 60*60 && self.regionModel && self.regionModel.region && self.regionModel.region.count > 0) {//60*60*3
             return;
         }
     }

@@ -47,7 +47,7 @@
        [self.data1 addObject:model];
     }
     
-    for (int i = 0; i < 24; i++) {
+    for (int i = 1; i < 25; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
             model.name = [NSString stringWithFormat:@"0%d:00",i];
@@ -167,6 +167,10 @@
     
     if (component == 1) {
         _cityIndex = row;
+        if (_cityIndex < _proIndex) {
+            _cityIndex = _proIndex;
+            [pickerView selectRow:_cityIndex inComponent:1 animated:YES];
+        }
     }
     if (self.handleBlock) {
         ZAlertDataItemModel *start = self.data1[_proIndex];

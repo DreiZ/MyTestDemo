@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "URLMacros.h"
 
+#if DevelopSever
 //打印图片名字为空的错误信息
 #define LogImageNameErrorIfNil
 
@@ -22,3 +24,5 @@
 
 //切换账号
 #define SwitchAccount
+
+#endif

@@ -55,10 +55,11 @@
     }];
     
     [self.view addSubview:self.navView];
+    self.navView.hidden = YES;
     [self.view addSubview:self.myProgressView];
     [self.myProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.mas_equalTo(kStatusBarHeight + kNavBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(1);
         make.height.mas_equalTo(1);
     }];
     

@@ -128,7 +128,8 @@
         .zz_fontLeft([UIFont fontSmall])
         .zz_lineHidden(YES)
         .zz_cellHeight(CGFloatIn750(56))
-        .zz_spaceLine(CGFloatIn750(6));
+        .zz_spaceLine(CGFloatIn750(6))
+        .zz_leftMultiLine(YES);
         model.zz_marginLeft(CGFloatIn750(54));
     
         if (self.type == 1) {

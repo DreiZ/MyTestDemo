@@ -107,7 +107,7 @@
 - (UIView *)numBackView {
     if (!_numBackView) {
         _numBackView = [[UIView alloc] init];
-        _numBackView.backgroundColor = adaptAndDarkColor([UIColor redColor],[UIColor redColor]);
+        _numBackView.backgroundColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
         ViewRadius(_numBackView, CGFloatIn750(16));
     }
     return _numBackView;

@@ -219,6 +219,8 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
                 completionHandler(@{@"code":@"0"});
             }];
         }
+    }else {
+        
     }
     
     return nil;
@@ -236,7 +238,6 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
     }else{
         completionHandler(@{@"code":@"1"});
     }
-    completionHandler(@{@"code":@"1"});
     return nil;
 }
 
@@ -256,7 +257,6 @@ static ZDSBridgePublicManager *shareBridgeManager = NULL;
     }else{
         completionHandler(@{@"code":@"1"});
     }
-    completionHandler(@{@"code":@"1"});
     return nil;
 }
 
