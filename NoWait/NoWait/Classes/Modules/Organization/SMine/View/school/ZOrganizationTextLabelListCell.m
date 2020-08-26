@@ -337,8 +337,8 @@
         NSArray *tempArr = model.data;
         if (tempArr.count > 0) {
             self.labelView.hidden = NO;
-            self.hotProductArr = (NSArray *)self.model.data;
-            [self setHotProductArr:self.hotProductArr];
+//            self.hotProductArr = (NSArray *)self.model.data;
+            [self setHotProductArr:(NSArray *)self.model.data];
         }else{
             self.labelView.hidden = YES;
         }
@@ -368,6 +368,7 @@
     for (UIButton *btn in _hotSearchBtn) {
         [btn removeFromSuperview];
     }
+    [_hotSearchBtn removeAllObjects];
     
     if (!hotProductArr || hotProductArr.count == 0) {
         return;

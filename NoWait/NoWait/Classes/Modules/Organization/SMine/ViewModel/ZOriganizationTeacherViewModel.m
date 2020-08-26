@@ -149,9 +149,10 @@
                             lessonModel.name = lessonModel.courses_name;
                             lessonModel.short_name = lessonModel.courses_name;
                             lessonModel.lessonID = lessonModel.courses_id;
-                            if (ValidStr(lessonModel.teacherPirce)) {
+                            if (!ValidStr(lessonModel.teacherPirce)) {
                                 lessonModel.teacherPirce = lessonModel.price;
                             }
+                            lessonModel.price = lessonModel.courses_price;
                             [model.lessonList addObject:lessonModel];
                         }
                     }
