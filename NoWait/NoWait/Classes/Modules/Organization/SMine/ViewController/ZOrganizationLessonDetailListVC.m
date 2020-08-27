@@ -155,12 +155,14 @@
 - (void)zz_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        
-        routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+        if (model) {
+            routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+        }
     }else{
         ZOriganizationLessonListModel *model = cellConfig.dataModel;
-        
-        routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
+        if (model) {
+            routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
+        }
     }
     
 }

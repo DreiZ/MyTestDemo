@@ -50,7 +50,7 @@
     for (int i = 1; i < 25; i++) {
        ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
         if (i < 10) {
-            model.name = [NSString stringWithFormat:@"0%d:00",i];
+            model.name = [NSString stringWithFormat:@"%d:00",i];
         }else{
             model.name = [NSString stringWithFormat:@"%d:00",i];
         }

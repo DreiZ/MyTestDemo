@@ -70,11 +70,11 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>似锦需要您的同意，才能访问日历。</string>
 	<key>NSCameraUsageDescription</key>
-	<string>似锦需要您的同意，才能使用拍摄照片，如不同意则无法使用拍摄发图片等功能。</string>
+	<string>似锦需要您的同意，才能使用相机进行二维码扫描、拍摄照片和视频，用于扫码、上传图片、发布动态等。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>似锦需要您的同意，才能根据您的定位数据推荐你周边的培训机构</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>似锦需要您的同意，才能使用麦克风</string>
+	<string>似锦需要您的同意，才能使用麦克风，用户发布动态。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>似锦需要您的同意，才能访问您的相册，如不同意则无法保存报告信息您的相册。</string>
 	<key>NSPhotoLibraryUsageDescription</key>

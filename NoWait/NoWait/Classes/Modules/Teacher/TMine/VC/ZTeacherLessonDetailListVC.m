@@ -173,12 +173,16 @@
     if ([cellConfig.title isEqualToString:@"ZLessonTimeTableCollectionCell"]) {
         if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
             ZOriganizationLessonListModel *model = cellConfig.dataModel;
+            if (model) {
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
+            }
             
-            routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
         }else{
             ZOriganizationLessonListModel *model = cellConfig.dataModel;
+            if (model) {
+                routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
+            }
             
-            routePushVC(ZRoute_mine_teacherClassDetail, @{@"id":SafeStr(model.courses_class_id)}, nil);
         }
     }
     
