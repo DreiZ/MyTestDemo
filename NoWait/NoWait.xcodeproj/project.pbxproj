@@ -730,6 +730,19 @@
 		B2DB9B4F241CC15400340464 /* ZMineOrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DB9B4E241CC15400340464 /* ZMineOrderDetailCell.m */; };
 		B2DB9B52241CC70D00340464 /* ZSingleLineRightImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DB9B51241CC70D00340464 /* ZSingleLineRightImageCell.m */; };
 		B2DB9B55241CD11500340464 /* ZOrganizationOrderRefuseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DB9B54241CD11500340464 /* ZOrganizationOrderRefuseVC.m */; };
+		B2E367DC24F75BF800938BCD /* ZCatagerizeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */; };
+		B2E367DF24F7864900938BCD /* ZSearchMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367DE24F7864900938BCD /* ZSearchMapView.m */; };
+		B2E367F824F7999300938BCD /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367E524F7999300938BCD /* NSString+PinYin4Cocoa.m */; };
+		B2E367F924F7999300938BCD /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2E367E624F7999300938BCD /* unicode_to_hanyu_pinyin.txt */; };
+		B2E367FA24F7999300938BCD /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367EB24F7999300938BCD /* PinyinHelper.m */; };
+		B2E367FB24F7999300938BCD /* ChineseInclude.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367ED24F7999300938BCD /* ChineseInclude.m */; };
+		B2E367FC24F7999300938BCD /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367EE24F7999300938BCD /* HanyuPinyinOutputFormat.m */; };
+		B2E367FD24F7999300938BCD /* ZYPinYinSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367EF24F7999300938BCD /* ZYPinYinSearch.m */; };
+		B2E367FE24F7999300938BCD /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367F024F7999300938BCD /* ChineseToPinyinResource.m */; };
+		B2E367FF24F7999300938BCD /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367F124F7999300938BCD /* PinyinFormatter.m */; };
+		B2E3680024F7999300938BCD /* PinYinForObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367F224F7999300938BCD /* PinYinForObjc.m */; };
+		B2E3680124F7999300938BCD /* HCSortString.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367F524F7999300938BCD /* HCSortString.m */; };
+		B2E3680224F7999300938BCD /* UIAlertController+HCAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367F624F7999300938BCD /* UIAlertController+HCAdd.m */; };
 		B2E6864C24D9122C0007D455 /* ZLChainTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E6864B24D9122C0007D455 /* ZLChainTableVC.m */; };
 		B2E6864F24D914A40007D455 /* ZSectionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E6864E24D914A40007D455 /* ZSectionConfig.m */; };
 		B2E6865E24D954EA0007D455 /* ZBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E6865D24D954EA0007D455 /* ZBaseView.m */; };
@@ -2247,6 +2260,31 @@
 		B2DB9B51241CC70D00340464 /* ZSingleLineRightImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSingleLineRightImageCell.m; sourceTree = "<group>"; };
 		B2DB9B53241CD11500340464 /* ZOrganizationOrderRefuseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationOrderRefuseVC.h; sourceTree = "<group>"; };
 		B2DB9B54241CD11500340464 /* ZOrganizationOrderRefuseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationOrderRefuseVC.m; sourceTree = "<group>"; };
+		B2E367DA24F75BF800938BCD /* ZCatagerizeMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCatagerizeMapView.h; sourceTree = "<group>"; };
+		B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCatagerizeMapView.m; sourceTree = "<group>"; };
+		B2E367DD24F7864900938BCD /* ZSearchMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSearchMapView.h; sourceTree = "<group>"; };
+		B2E367DE24F7864900938BCD /* ZSearchMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSearchMapView.m; sourceTree = "<group>"; };
+		B2E367E224F7999300938BCD /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
+		B2E367E324F7999300938BCD /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
+		B2E367E424F7999300938BCD /* ChineseInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseInclude.h; sourceTree = "<group>"; };
+		B2E367E524F7999300938BCD /* NSString+PinYin4Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin4Cocoa.m"; sourceTree = "<group>"; };
+		B2E367E624F7999300938BCD /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
+		B2E367E724F7999300938BCD /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
+		B2E367E824F7999300938BCD /* ZYPinYinSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPinYinSearch.h; sourceTree = "<group>"; };
+		B2E367E924F7999300938BCD /* PinYinForObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYinForObjc.h; sourceTree = "<group>"; };
+		B2E367EA24F7999300938BCD /* PinyinFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinFormatter.h; sourceTree = "<group>"; };
+		B2E367EB24F7999300938BCD /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinHelper.m; sourceTree = "<group>"; };
+		B2E367EC24F7999300938BCD /* NSString+PinYin4Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin4Cocoa.h"; sourceTree = "<group>"; };
+		B2E367ED24F7999300938BCD /* ChineseInclude.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseInclude.m; sourceTree = "<group>"; };
+		B2E367EE24F7999300938BCD /* HanyuPinyinOutputFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HanyuPinyinOutputFormat.m; sourceTree = "<group>"; };
+		B2E367EF24F7999300938BCD /* ZYPinYinSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPinYinSearch.m; sourceTree = "<group>"; };
+		B2E367F024F7999300938BCD /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
+		B2E367F124F7999300938BCD /* PinyinFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinFormatter.m; sourceTree = "<group>"; };
+		B2E367F224F7999300938BCD /* PinYinForObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinYinForObjc.m; sourceTree = "<group>"; };
+		B2E367F424F7999300938BCD /* UIAlertController+HCAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+HCAdd.h"; sourceTree = "<group>"; };
+		B2E367F524F7999300938BCD /* HCSortString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSortString.m; sourceTree = "<group>"; };
+		B2E367F624F7999300938BCD /* UIAlertController+HCAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+HCAdd.m"; sourceTree = "<group>"; };
+		B2E367F724F7999300938BCD /* HCSortString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSortString.h; sourceTree = "<group>"; };
 		B2E6864A24D9122C0007D455 /* ZLChainTableVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLChainTableVC.h; sourceTree = "<group>"; };
 		B2E6864B24D9122C0007D455 /* ZLChainTableVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLChainTableVC.m; sourceTree = "<group>"; };
 		B2E6864D24D914A40007D455 /* ZSectionConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSectionConfig.h; sourceTree = "<group>"; };
@@ -2571,6 +2609,10 @@
 				B217175D24E683370092E174 /* ZMainAnnotationView.m */,
 				B291B59D24EE23C500D96349 /* ZAnnotationDataView.h */,
 				B291B59E24EE23C500D96349 /* ZAnnotationDataView.m */,
+				B2E367DA24F75BF800938BCD /* ZCatagerizeMapView.h */,
+				B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */,
+				B2E367DD24F7864900938BCD /* ZSearchMapView.h */,
+				B2E367DE24F7864900938BCD /* ZSearchMapView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3567,6 +3609,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2E367E024F7999300938BCD /* HCSortAndSearch */,
 				B2BEDAEF24C91ABC003F2F1E /* SJVideoPlayer */,
 				B23F522524B701E20070FB79 /* WSLWaterFlowLayout */,
 				B23F51FA24B6C7530070FB79 /* ZJCollectionViewSummary */,
@@ -5396,6 +5439,50 @@
 			path = photo;
 			sourceTree = "<group>";
 		};
+		B2E367E024F7999300938BCD /* HCSortAndSearch */ = {
+			isa = PBXGroup;
+			children = (
+				B2E367E124F7999300938BCD /* PinYinSearchLib */,
+				B2E367F324F7999300938BCD /* HCSortString */,
+			);
+			path = HCSortAndSearch;
+			sourceTree = "<group>";
+		};
+		B2E367E124F7999300938BCD /* PinYinSearchLib */ = {
+			isa = PBXGroup;
+			children = (
+				B2E367E224F7999300938BCD /* PinyinHelper.h */,
+				B2E367E324F7999300938BCD /* HanyuPinyinOutputFormat.h */,
+				B2E367E424F7999300938BCD /* ChineseInclude.h */,
+				B2E367E524F7999300938BCD /* NSString+PinYin4Cocoa.m */,
+				B2E367E624F7999300938BCD /* unicode_to_hanyu_pinyin.txt */,
+				B2E367E724F7999300938BCD /* ChineseToPinyinResource.h */,
+				B2E367E824F7999300938BCD /* ZYPinYinSearch.h */,
+				B2E367E924F7999300938BCD /* PinYinForObjc.h */,
+				B2E367EA24F7999300938BCD /* PinyinFormatter.h */,
+				B2E367EB24F7999300938BCD /* PinyinHelper.m */,
+				B2E367EC24F7999300938BCD /* NSString+PinYin4Cocoa.h */,
+				B2E367ED24F7999300938BCD /* ChineseInclude.m */,
+				B2E367EE24F7999300938BCD /* HanyuPinyinOutputFormat.m */,
+				B2E367EF24F7999300938BCD /* ZYPinYinSearch.m */,
+				B2E367F024F7999300938BCD /* ChineseToPinyinResource.m */,
+				B2E367F124F7999300938BCD /* PinyinFormatter.m */,
+				B2E367F224F7999300938BCD /* PinYinForObjc.m */,
+			);
+			path = PinYinSearchLib;
+			sourceTree = "<group>";
+		};
+		B2E367F324F7999300938BCD /* HCSortString */ = {
+			isa = PBXGroup;
+			children = (
+				B2E367F424F7999300938BCD /* UIAlertController+HCAdd.h */,
+				B2E367F524F7999300938BCD /* HCSortString.m */,
+				B2E367F624F7999300938BCD /* UIAlertController+HCAdd.m */,
+				B2E367F724F7999300938BCD /* HCSortString.h */,
+			);
+			path = HCSortString;
+			sourceTree = "<group>";
+		};
 		B2EE5BA423F7D8EC00ECCFF4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -5770,6 +5857,7 @@
 				B2A780DF23BED9B500407BF0 /* Student.xcassets in Resources */,
 				B2A780F723BF11D300407BF0 /* login.xcassets in Resources */,
 				B2BA39C02435CD64005A3FFB /* photo_flash_off.png in Resources */,
+				B2E367F924F7999300938BCD /* unicode_to_hanyu_pinyin.txt in Resources */,
 				B26AEE1624A9D3DD00DF7132 /* ImageSelectedOn@3x.png in Resources */,
 				B2BA39A124358513005A3FFB /* AlipaySDK.bundle in Resources */,
 				B26AEE0824A9D3DD00DF7132 /* ImageError.png in Resources */,
@@ -5927,6 +6015,7 @@
 				B29795A924260ACF004490F5 /* ZAlertDataCheckBoxBottomView.m in Sources */,
 				B2D83EAC23FA9F490099C2C9 /* ZOrganizationAddressLocationCell.m in Sources */,
 				B23F51CB24B5C4C90070FB79 /* ZMessageEvaListCell.m in Sources */,
+				B2E367DF24F7864900938BCD /* ZSearchMapView.m in Sources */,
 				B2BEDB8B24C91ABD003F2F1E /* SJCommonProgressSlider.m in Sources */,
 				B2F371D8246B8DBA00678B19 /* ZRewardModel.m in Sources */,
 				B27077812499FD14002D147A /* WYVideoCompressTools.m in Sources */,
@@ -5972,6 +6061,7 @@
 				B2F5BD4B24B3276800AD1C72 /* ZCirclePhotosItemCell.m in Sources */,
 				B2A7818A23C5868700407BF0 /* ZStudentOrganizationPersonnelMoreCell.m in Sources */,
 				B2F5BD1724B2BF6700AD1C72 /* ZCircleMineDynamicCollectionTableViewCell.m in Sources */,
+				B2E367FB24F7999300938BCD /* ChineseInclude.m in Sources */,
 				B2BEDB9324C91ABD003F2F1E /* SJVideoPlayerConst.m in Sources */,
 				B2A780A423BDFB0100407BF0 /* TLDownloadRequest.m in Sources */,
 				B28861F4245283370073AEE4 /* AppDelegate+PushService.m in Sources */,
@@ -6004,6 +6094,7 @@
 				B217174F24E66EDB0092E174 /* ZQuadTree.m in Sources */,
 				B252ED772415F1A100190804 /* ZStudentOrganizationDetailIntroListVC.m in Sources */,
 				B296E3A02404ED3600507509 /* ZOrganizationLessonDetailPriceCell.m in Sources */,
+				B2E3680124F7999300938BCD /* HCSortString.m in Sources */,
 				B2F371DE246B8E7F00678B19 /* ZInvitationFriendVC.m in Sources */,
 				B2F5BD5D24B4120300AD1C72 /* ZCircleReleaseAddLabelListCell.m in Sources */,
 				B23590422489F324008C953A /* ZStudentMineNoLessonProgressCell.m in Sources */,
@@ -6034,6 +6125,7 @@
 				B24D994223FCD6A90078A458 /* ZOrganizationTeacherManageVC.m in Sources */,
 				B2BEDB7924C91ABD003F2F1E /* SJFilmEditingCommonViewLayer.m in Sources */,
 				B251468323CEA09F009A64D4 /* ZStudentMineOrderListCell.m in Sources */,
+				B2E367FD24F7999300938BCD /* ZYPinYinSearch.m in Sources */,
 				B2A7809D23BDFB0100407BF0 /* ReachStateWWAN.m in Sources */,
 				B296E3AF24050EA900507509 /* ZOrganizationTeachingScheduleVC.m in Sources */,
 				B2C35041243EC965002929A8 /* ZOrganizationAccountSchoolCell.m in Sources */,
@@ -6095,6 +6187,7 @@
 				B270777C2499B6E6002D147A /* ZShareView.m in Sources */,
 				B2B22DE924930E43000BD20D /* ZHistoryModel.m in Sources */,
 				B2469B77249DA64800DCB146 /* FBCustomUploadProgress.m in Sources */,
+				B2E367DC24F75BF800938BCD /* ZCatagerizeMapView.m in Sources */,
 				B27077842499FEBB002D147A /* ZVideoHandleManager.m in Sources */,
 				B24D994523FCD6BC0078A458 /* ZOrganizationTeacherSearchVC.m in Sources */,
 				B296E3A32404F7F400507509 /* ZOrganizationTimeSelectVC.m in Sources */,
@@ -6112,6 +6205,7 @@
 				B29A71CE23F172C8000AEF5F /* UIFont+ZChat.m in Sources */,
 				B217175824E66F370092E174 /* ZCustomCalloutView.m in Sources */,
 				B23DECEC24726FD6005A9E72 /* ZStudentOrganizationBannerCell.m in Sources */,
+				B2E367FC24F7999300938BCD /* HanyuPinyinOutputFormat.m in Sources */,
 				B2A7811D23C2E57D00407BF0 /* ZStudentMainTopSearchView.m in Sources */,
 				B28D90CE240620640021E05A /* ZOrganizationClassManageVC.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
@@ -6131,6 +6225,7 @@
 				B2A77FE123BDEAA100407BF0 /* ZSpaceEmptyCell.m in Sources */,
 				B2A816F024B47B64003A2E1F /* ZCircleDetailSchoolCell.m in Sources */,
 				B29795AF242850AA004490F5 /* ZStudentLessonSelectOrderLessonView.m in Sources */,
+				B2E367FF24F7999300938BCD /* PinyinFormatter.m in Sources */,
 				B29795882425B650004490F5 /* ZStudentDetailEvaAboutCell.m in Sources */,
 				B2BEDB9424C91ABD003F2F1E /* SJVideoPlayer.m in Sources */,
 				B2BEDB7424C91ABD003F2F1E /* SJFilmEditingResultShareItem.m in Sources */,
@@ -6168,6 +6263,8 @@
 				B2F37200246CDB7100678B19 /* ZStudentCollectionLessonVC.m in Sources */,
 				B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */,
 				B2F5BD3224B308C000AD1C72 /* ZCircleHotLessonListItemCell.m in Sources */,
+				B2E367F824F7999300938BCD /* NSString+PinYin4Cocoa.m in Sources */,
+				B2E3680024F7999300938BCD /* PinYinForObjc.m in Sources */,
 				B2F5BD6B24B42AD200AD1C72 /* ZCircleMyFocusListVC.m in Sources */,
 				B296E3AC240507D200507509 /* ZOrganizationTopFilterView.m in Sources */,
 				B296E3B82405175900507509 /* ZOrganizationTeachingScheduleNoCell.m in Sources */,
@@ -6302,6 +6399,7 @@
 				B2A77FF523BDEC1600407BF0 /* UIBarButtonItem+Back.m in Sources */,
 				B28D90C52405FEE40021E05A /* ZOrganizationTrachingScheduleNewClassVC.m in Sources */,
 				B22B5A2A2449D988001894BB /* ZStudentEvaDetailReEvaCell.m in Sources */,
+				B2E367FE24F7999300938BCD /* ChineseToPinyinResource.m in Sources */,
 				B2D83EA923FA9F230099C2C9 /* ZOrganizationAddressSearchTopView.m in Sources */,
 				B23F51C824B5C3360070FB79 /* ZCircleMyFansNewListVC.m in Sources */,
 				B29D7FF324308322004B3C00 /* ZCollectionViewController.m in Sources */,
@@ -6488,7 +6586,9 @@
 				B2A77FF423BDEC1600407BF0 /* ZWebBridgeViewController.m in Sources */,
 				B2A780DA23BED6B200407BF0 /* ZIntroductryPagesManager.m in Sources */,
 				B21887B62436D9F300EB7155 /* ZSignViewModel.m in Sources */,
+				B2E367FA24F7999300938BCD /* PinyinHelper.m in Sources */,
 				B235903C248883A7008C953A /* ZStudentTestCell.m in Sources */,
+				B2E3680224F7999300938BCD /* UIAlertController+HCAdd.m in Sources */,
 				B262B550244EEAE100A27542 /* ZOrganizationStudentProcressEditCell.m in Sources */,
 				B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */,
 				B2B86A5C24471CDF001C3F40 /* ZPhotosItemCell.m in Sources */,
@@ -6778,7 +6878,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -6888,7 +6988,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NoWait/Classes/Vender/Alipay",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

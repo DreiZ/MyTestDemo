@@ -22,6 +22,10 @@
 #import "ZStudentMainViewModel.h"
 #import "ZLocationManager.h"
 #import "ZAlertView.h"
+#import "ZAlertClassifyPickerView.h"
+#import "ZSearchMapView.h"
+#import "HCSortString.h"
+#import "ZYPinYinSearch.h"
 
 #define kCalloutViewMargin  -12
 #define Button_Height       70.0
@@ -30,13 +34,16 @@
 
 @property (nonatomic, strong) ZCoordinateQuadTree* coordinateQuadTree;
 @property (nonatomic, strong) MAUserLocation *cureUserLocation;
+@property (nonatomic, strong) ZSearchMapView *searchMapView;
 
 @property (nonatomic, strong) ZCustomCalloutView *customCalloutView;
 @property (nonatomic, strong) UIButton *navLeftBtn;
 @property (nonatomic, strong) UIButton *checkSelfBtn;
-
+@property (nonatomic, strong) UIButton *catagerizeMapBtn;
 
 @property (nonatomic, strong) NSMutableArray *selectedPoiArray;
+@property (nonatomic, strong) NSMutableArray *classifyArr;
+@property (nonatomic, strong) NSMutableArray *classifyModelArr;
 
 @property (nonatomic, assign) BOOL shouldRegionChangeReCalculate;
 
@@ -149,7 +156,6 @@
 }
 
 - (void)mapView:(MAMapView *)mapView didDeselectAnnotationView:(MAAnnotationView *)view {
-    [self.selectedPoiArray removeAllObjects];
     [self.customCalloutView dismissCalloutView];
     self.customCalloutView.delegate = nil;
 }
@@ -240,8 +246,9 @@
         ZClusterAnnotation *ttannotation = (ZClusterAnnotation *)annotation;
         if (ttannotation.pois && ttannotation.pois.count > 0) {
             AMapPOI *poi = ttannotation.pois[0];
-            
-            if ([poi.type isEqualToString:@"0"] || [poi.type isEqualToString:@"1"]){
+            if (ValidArray(self.selectedPoiArray)) {
+                annotationView.data = @{@"type":@"-1", @"content":poi.name,@"count":[NSString stringWithFormat:@"%ld",(long)[(ZClusterAnnotation *)annotation count]]};
+            }else if ([poi.type isEqualToString:@"0"] || [poi.type isEqualToString:@"1"]){
                 annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%@",poi.address]};
             }else if([poi.type isEqualToString:@"2"]){
                 annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%@",poi.address]};
@@ -249,7 +256,7 @@
                 annotationView.data = @{@"type":_type, @"content":poi.name,@"count":[NSString stringWithFormat:@"%ld",(long)[(ZClusterAnnotation *)annotation count]]};
             }
             annotationView.annBlock = ^(id annotation) {
-                if ([weakSelf.type isEqualToString:@"3"] || [weakSelf.type isEqualToString:@"4"]) {
+                if ([weakSelf.type isEqualToString:@"3"] || [weakSelf.type isEqualToString:@"4"] || ValidArray(weakSelf.selectedPoiArray)) {
                     ZClusterAnnotation *zannotation = (ZClusterAnnotation *)annotation;
                     if (zannotation.pois && zannotation.pois.count > 0) {
                         NSMutableArray *tArr = @[].mutableCopy;
@@ -283,7 +290,6 @@
     self.shouldRegionChangeReCalculate = NO;
     
     // 清理
-    [self.selectedPoiArray removeAllObjects];
     [self.customCalloutView dismissCalloutView];
     
     NSMutableArray *annosToRemove = [NSMutableArray arrayWithArray:self.mapView.annotations];
@@ -291,7 +297,18 @@
     [self.mapView removeAnnotations:annosToRemove];
     
     NSMutableArray *tpois = @[].mutableCopy;
-    if ([_type isEqualToString:@"0"] || [_type isEqualToString:@"1"]) {
+    if (ValidArray(self.selectedPoiArray)) {
+        for (ZRegionDataModel *model in self.selectedPoiArray) {
+            AMapPOI *poi = [[AMapPOI alloc] init];
+            poi.uid = model.re_id;
+            poi.shopID = model.re_id;
+            poi.name = model.name;
+            poi.address = model.name;
+            poi.type = model.type;
+            poi.location = [AMapGeoPoint locationWithLatitude:[model.latLng.latitude doubleValue] longitude:[model.latLng.longitude doubleValue]];
+            [tpois addObject:poi];
+        }
+    }else if ([_type isEqualToString:@"0"] || [_type isEqualToString:@"1"]) {
         AMapPOI *poi = [[AMapPOI alloc] init];
         poi.uid = self.regionModel.city.re_id;
         poi.shopID = self.regionModel.city.re_id;
@@ -367,6 +384,14 @@
     
     _type = @"0";
     
+    self.classifyModelArr = @[].mutableCopy;
+    self.classifyArr = @[].mutableCopy;
+    
+    NSArray *classify = [ZStudentMainViewModel mainClassifyOneData];
+    if (ValidArray(classify)) {
+        [self.classifyArr addObjectsFromArray:classify];
+    }
+    
     [self readCacheData];
     
     [self initMapView];
@@ -380,6 +405,22 @@
         make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
         make.width.height.mas_equalTo(CGFloatIn750(70));
+    }];
+    
+    [self.view addSubview:self.catagerizeMapBtn];
+    [self.catagerizeMapBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.width.mas_equalTo(CGFloatIn750(120));
+    }];
+    
+    [self.view addSubview:self.searchMapView];
+    [self.searchMapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.catagerizeMapBtn.mas_bottom).offset(CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
     [self getRegionData];
@@ -448,6 +489,117 @@
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _checkSelfBtn;
+}
+
+- (UIButton *)catagerizeMapBtn {
+    if (!_catagerizeMapBtn) {
+        __weak  typeof(self) weakSelf = self;
+        UIImage *checkSelfImage = [UIImage imageNamed:@"mineLessonDown"];
+        _catagerizeMapBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, checkSelfImage.size.width, checkSelfImage.size.height)];
+        [_catagerizeMapBtn setImage:checkSelfImage forState:UIControlStateNormal];
+        [_catagerizeMapBtn setTitle:@"全部" forState:UIControlStateNormal];
+        [_catagerizeMapBtn setTitleColor:[UIColor colorTextBlack] forState:UIControlStateNormal];
+        [_catagerizeMapBtn.titleLabel setFont:[UIFont fontSmall]];
+        [_catagerizeMapBtn bk_addEventHandler:^(id sender) {
+            [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
+                [weakSelf seletClassify:classify];
+            }];
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        ViewBorderRadius(_catagerizeMapBtn, CGFloatIn750(30), 1, [UIColor colorTextBlack]);
+        _catagerizeMapBtn.backgroundColor = [UIColor colorWhite];
+    }
+    return _catagerizeMapBtn;
+}
+
+- (ZSearchMapView *)searchMapView {
+    if (!_searchMapView) {
+        __weak typeof(self) weakSelf = self;
+        _searchMapView = [[ZSearchMapView alloc] init];
+        ViewRadius(_searchMapView, CGFloatIn750(30));
+        _searchMapView.searchBlock = ^(NSString * text) {
+            if (!weakSelf.searchMapView.isOpen) {
+                [weakSelf.searchMapView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(weakSelf.view.mas_right).offset(-CGFloatIn750(20));
+                    make.top.equalTo(weakSelf.catagerizeMapBtn.mas_bottom).offset(CGFloatIn750(20));
+                    make.height.mas_equalTo(CGFloatIn750(60));
+                    make.width.mas_equalTo(CGFloatIn750(470+40));
+                }];
+                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    [weakSelf.view layoutIfNeeded];
+                    weakSelf.searchMapView.isOpen = YES;
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }else{
+                [weakSelf searchWithName:text];
+            }
+        };
+        _searchMapView.backBlock = ^{
+            [weakSelf.searchMapView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(weakSelf.view.mas_right).offset(-CGFloatIn750(20));
+                make.top.equalTo(weakSelf.catagerizeMapBtn.mas_bottom).offset(CGFloatIn750(20));
+                make.height.mas_equalTo(CGFloatIn750(60));
+                make.width.mas_equalTo(CGFloatIn750(80));
+            }];
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [weakSelf.view layoutIfNeeded];
+                weakSelf.searchMapView.isOpen = NO;
+            } completion:^(BOOL finished) {
+                weakSelf.searchMapView.iTextField.text = nil;
+                [weakSelf.selectedPoiArray removeAllObjects];
+                [weakSelf updateAnnotations];
+            }];
+        };
+        _searchMapView.textChangeBlock = ^(NSString * text) {
+            
+        };
+    }
+    return _searchMapView;
+}
+
+#pragma mark - 分类搜索
+- (void)searchWithName:(NSString *)name {
+    [_selectedPoiArray removeAllObjects];
+    NSArray *ary = self.regionModel.schools;
+    
+     if (!name || name.length == 0) {
+         [_selectedPoiArray removeAllObjects];
+     }else {
+          ary = [ZYPinYinSearch searchWithOriginalArray:ary andSearchText:name andSearchByPropertyName:@"name"];
+         [_selectedPoiArray addObjectsFromArray:ary];
+     }
+    
+    [self updateAnnotations];
+}
+
+- (void)seletClassify:(NSArray *)classify {
+    if (classify && classify.count == 1) {
+        ZMainClassifyOneModel *model = classify[0];
+        [self.catagerizeMapBtn setTitle:model.name forState:UIControlStateNormal];
+    }else if(classify && classify.count > 1){
+        [self.catagerizeMapBtn setTitle:@"已选择分类" forState:UIControlStateNormal];
+    }else{
+        [self.catagerizeMapBtn setTitle:@"全部" forState:UIControlStateNormal];
+    }
+    CGSize tempSize = [SafeStr(self.catagerizeMapBtn.titleLabel.text) tt_sizeWithFont:[UIFont fontSmall] constrainedToWidth:KScreenWidth/2.0f];
+    [self.catagerizeMapBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(30));
+        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.width.mas_equalTo(CGFloatIn750(70) + tempSize.width);
+    }];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    [self.classifyModelArr removeAllObjects];
+    [self.classifyModelArr addObjectsFromArray:classify];
+    
 }
 
 #pragma mark - Cache

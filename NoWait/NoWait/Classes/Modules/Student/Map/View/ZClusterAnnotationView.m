@@ -153,7 +153,15 @@ CGFloat ScaledValueForValue(CGFloat value)
 - (void)setData:(NSDictionary *)data {
     _data = data;
     if ([data objectForKey:@"type"]) {
-        if ([data[@"type"] intValue] == 0 || [data[@"type"] intValue] == 1) {
+        if ([data[@"type"] intValue] == -1) {//搜索
+            if([data[@"count"] intValue] == 1){
+                self.drawColor = [UIColor colorWithWhite:0 alpha:0.01];
+                [self setDetail:data[@"content"]];
+            }else{
+                self.drawColor = [UIColor colorWithWhite:0 alpha:0.01];
+                [self setTogether:data];
+            }
+        }else if ([data[@"type"] intValue] == 0 || [data[@"type"] intValue] == 1) {
             self.drawColor = [UIColor colorMain];
             [self setMain:data];
         }else if ([data[@"type"] intValue] == 2){

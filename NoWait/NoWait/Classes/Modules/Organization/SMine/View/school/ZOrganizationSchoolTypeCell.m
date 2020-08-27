@@ -102,9 +102,16 @@
     if (model.isSelected) {
         
     }else{
-        if ([self getSelectedNum] >= 5) {
-            [TLUIUtility showInfoHint:@"校区类型最多选五个"];
-            return;
+        UIButton *menuBtn = _menuArr[index];
+        if ([menuBtn.titleLabel.text hasPrefix:@"全部"]) {
+            [self setAllSelectedNO];
+        }else{
+            [self setAllBtnSetNO];
+            
+            if ([self getSelectedNum] >= 5) {
+                [TLUIUtility showInfoHint:@"校区类型最多选五个"];
+                return;
+            }
         }
     }
     UIButton *menuBtn = _menuArr[index];
@@ -136,6 +143,46 @@
         }
     }];
     return num;
+}
+
+
+- (void)setAllSelectedNO {
+    [self.classifysArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.isSelected) {
+            obj.isSelected = NO;
+        }
+    }];
+    
+    [self.menuArr enumerateObjectsUsingBlock:^(UIButton *menuBtn, NSUInteger idx, BOOL * _Nonnull stop) {
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+            [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+            ViewBorderRadius(menuBtn, CGFloatIn750(27), 1, adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]));
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+}
+
+
+- (void)setAllBtnSetNO {
+    [self.classifysArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.name hasPrefix:@"全部"] && obj.isSelected) {
+            obj.isSelected = NO;
+        }
+    }];
+    
+    [self.menuArr enumerateObjectsUsingBlock:^(UIButton *menuBtn, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([menuBtn.titleLabel.text hasPrefix:@"全部"]) {
+            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                menuBtn.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
+                [menuBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+                ViewBorderRadius(menuBtn, CGFloatIn750(27), 1, adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]));
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }];
 }
 
 + (CGFloat)z_getCellHeight:(id)sender {
