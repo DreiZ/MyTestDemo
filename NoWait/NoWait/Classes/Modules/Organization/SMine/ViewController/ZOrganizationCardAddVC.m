@@ -13,6 +13,7 @@
 #import "ZBaseUnitModel.h"
 #import "ZAlertDataPickerView.h"
 #import "ZAlertView.h"
+#import "ZAlertDataSinglePickerView.h"
 
 @interface ZOrganizationCardAddVC ()
 @property (nonatomic,strong) UIButton *bottomBtn;
@@ -299,17 +300,32 @@
     __weak typeof(self) weakSelf = self;;
     if ([cellConfig.title isEqualToString:@"type"]) {
         [self.iTableView endEditing:YES];
-        routePushVC(ZRoute_org_cartAddLesson, nil, ^(NSDictionary *result, NSError * _Nullable error) {
-            if (result && [result objectForKey:@"list"]) {
-                weakSelf.viewModel.addModel.lessonList = result[@"list"];
+        NSMutableArray *items = @[].mutableCopy;
+        NSArray *temp = @[@"全部课程可用",@"部分课程可用"];
+        for (int i = 0; i < temp.count; i++) {
+           ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+           model.name = temp[i];
+           [items addObject:model];
+        }
+        
+        [ZAlertDataSinglePickerView setAlertName:@"请选择卡券类型" selectedIndex:0 items:items handlerBlock:^(NSInteger index) {
+            if (index == 0) {
+                weakSelf.viewModel.addModel.isAll = YES;
+                weakSelf.viewModel.addModel.lessonList = @[];
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }else{
+                routePushVC(ZRoute_org_cartAddLesson, nil, ^(NSDictionary *result, NSError * _Nullable error) {
+                    if (result && [result objectForKey:@"list"]) {
+                        weakSelf.viewModel.addModel.lessonList = result[@"list"];
+                    }
+                    weakSelf.viewModel.addModel.isAll = NO;
+                    [weakSelf initCellConfigArr];
+                    [weakSelf.iTableView reloadData];
+                });
             }
-            if (result && [result objectForKey:@"isAll"]) {
-                weakSelf.viewModel.addModel.isAll = [result[@"isAll"] boolValue];
-            }
-            
-            [weakSelf initCellConfigArr];
-            [weakSelf.iTableView reloadData];
-        });
+        }];
+        
     }else if ([cellConfig.title isEqualToString:@"time"]) {
         [self.iTableView endEditing:YES];
         [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {

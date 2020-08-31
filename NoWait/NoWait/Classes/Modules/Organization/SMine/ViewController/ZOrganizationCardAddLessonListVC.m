@@ -24,6 +24,7 @@
     
     [self setNavigation];
     [self initCellConfigArr];
+    [self setTableViewRefreshFooter];
     [self.iTableView reloadData];
     [self refreshData];
 }
@@ -41,7 +42,12 @@
    
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, CGFloatIn750(200))];
     bottomView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
-    self.iTableView.tableFooterView = bottomView;
+    [self.view addSubview:bottomView];
+    
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(200));
+    }];
     
     [bottomView addSubview:self.bottomBtn];
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -49,6 +55,11 @@
         make.right.equalTo(bottomView.mas_right).offset(CGFloatIn750(-60));
         make.height.mas_equalTo(CGFloatIn750(80));
         make.top.equalTo(bottomView.mas_top).offset(CGFloatIn750(80));
+    }];
+    
+    [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.bottom.equalTo(bottomView.mas_top);
     }];
 }
 

@@ -22,6 +22,7 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZAlertImageView.h"
 #import "ZAlertView.h"
+#import "ZAlertDataSinglePickerView.h"
 
 @interface ZTeacherClassDetailSignDetailVC ()
 @property (nonatomic,strong) ZOriganizationSignListNetModel *detailModel;
@@ -157,11 +158,29 @@
         _topTitleView.model = self.model;
         _topTitleView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] - 1];
+                if ([weakSelf.model.now_progress intValue] > 0) {
+                    weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] - 1];
+                }
             }else{
-                weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] + 1];
+                if ([weakSelf.model.now_progress intValue] < [weakSelf.model.total_progress intValue]) {
+                    weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] + 1];
+                }
             }
             [weakSelf refreshData];
+        };
+        
+        _topTitleView.titleBlock = ^(NSInteger index) {
+            NSMutableArray *items = @[].mutableCopy;
+            for (int i = 0; i < [weakSelf.model.total_progress intValue]; i++) {
+                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
+                model.name = [NSString stringWithFormat:@"第%d节",i+1];
+                [items addObject:model];
+            }
+            
+            [ZAlertDataSinglePickerView setAlertName:@"选择课程节数" selectedIndex:weakSelf.model.index-1 items:items handlerBlock:^(NSInteger index) {
+                weakSelf.model.now_progress = [NSString stringWithFormat:@"%ld",index + 1];
+                [weakSelf refreshData];
+            }];
         };
     }
     return _topTitleView;

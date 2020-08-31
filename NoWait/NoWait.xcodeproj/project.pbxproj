@@ -449,6 +449,7 @@
 		B29A71CF23F172C8000AEF5F /* UIColor+ZChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71CB23F172C7000AEF5F /* UIColor+ZChat.m */; };
 		B29A71D423F2B2FC000AEF5F /* ZDBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D223F2B2FC000AEF5F /* ZDBUserStore.m */; };
 		B29A71D723F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A71D623F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m */; };
+		B29D1ADE24FC9CA1006518AB /* ZMapLoadErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = B29D1ADD24FC9CA1006518AB /* ZMapLoadErrorView.m */; };
 		B29D7FF024303806004B3C00 /* ZOrganizationSwitchSchoolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29D7FEF24303806004B3C00 /* ZOrganizationSwitchSchoolCell.m */; };
 		B29D7FF324308322004B3C00 /* ZCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B29D7FF224308322004B3C00 /* ZCollectionViewController.m */; };
 		B29D7FF62430A265004B3C00 /* ZStudentEvaListReEvaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29D7FF52430A265004B3C00 /* ZStudentEvaListReEvaCell.m */; };
@@ -1710,6 +1711,8 @@
 		B29A71D323F2B2FC000AEF5F /* ZDBUserStoreSQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBUserStoreSQL.h; sourceTree = "<group>"; };
 		B29A71D523F3A256000AEF5F /* ZStudentMineSwitchAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZStudentMineSwitchAccountVC.h; sourceTree = "<group>"; };
 		B29A71D623F3A256000AEF5F /* ZStudentMineSwitchAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZStudentMineSwitchAccountVC.m; sourceTree = "<group>"; };
+		B29D1ADC24FC9CA1006518AB /* ZMapLoadErrorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMapLoadErrorView.h; sourceTree = "<group>"; };
+		B29D1ADD24FC9CA1006518AB /* ZMapLoadErrorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMapLoadErrorView.m; sourceTree = "<group>"; };
 		B29D7FEE24303806004B3C00 /* ZOrganizationSwitchSchoolCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationSwitchSchoolCell.h; sourceTree = "<group>"; };
 		B29D7FEF24303806004B3C00 /* ZOrganizationSwitchSchoolCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationSwitchSchoolCell.m; sourceTree = "<group>"; };
 		B29D7FF124308322004B3C00 /* ZCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCollectionViewController.h; sourceTree = "<group>"; };
@@ -2619,6 +2622,8 @@
 				B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */,
 				B2E367DD24F7864900938BCD /* ZSearchMapView.h */,
 				B2E367DE24F7864900938BCD /* ZSearchMapView.m */,
+				B29D1ADC24FC9CA1006518AB /* ZMapLoadErrorView.h */,
+				B29D1ADD24FC9CA1006518AB /* ZMapLoadErrorView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6003,6 +6008,7 @@
 				B28EA679240E4C6E00C8E225 /* ZOriganizationCartListCell.m in Sources */,
 				B2F5BD6424B41B9000AD1C72 /* ZCircleReleaseModel.m in Sources */,
 				B26880F3247681D900BF8FCD /* FilterDataUtil.m in Sources */,
+				B29D1ADE24FC9CA1006518AB /* ZMapLoadErrorView.m in Sources */,
 				B2F5BD5124B4013D00AD1C72 /* ZCircleReleaseSelectSchoolVC.m in Sources */,
 				B2BEDBA124C92B24003F2F1E /* SJNestedCollectionView.m in Sources */,
 				B28D9141240766940021E05A /* PGDatePicker+MonthDay.m in Sources */,

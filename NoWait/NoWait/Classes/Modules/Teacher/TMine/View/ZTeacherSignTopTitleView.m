@@ -70,6 +70,20 @@
     }];
     
     self.stateImageView.hidden = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    UIButton *titleBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [titleBtn bk_whenTapped:^{
+        if (weakSelf.titleBlock ) {
+            weakSelf.titleBlock(0);
+        }
+    }];
+    [self addSubview:titleBtn];
+    [titleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self);
+        make.centerX.equalTo(self.mas_centerX);
+        make.width.mas_equalTo(190);
+    }];
 }
 
 
