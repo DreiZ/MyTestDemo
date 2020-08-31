@@ -43,7 +43,7 @@
 @property (nonatomic,strong) NSString *courses_name;
 @property (nonatomic,strong) NSString *courses_id;
 @property (nonatomic,strong) NSString *course_min;
-
+@property (nonatomic,assign) BOOL is_long;
 @end
 
 @interface ZOriganizationAddStudentClassModel : NSObject

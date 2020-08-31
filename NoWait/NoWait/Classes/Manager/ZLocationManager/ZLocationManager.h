@@ -25,7 +25,7 @@
 @property (nonatomic,strong) void (^locationMainBlock)(CLLocation *);
 + (ZLocationManager *)shareManager;
 - (void)startLocation;
-
+- (void)startLocationing;
 //- (NSString *)getDistanceWithLocation:(CLLocationCoordinate2D)loc1  locationOther:(CLLocationCoordinate2D )loc2;
 @end
 

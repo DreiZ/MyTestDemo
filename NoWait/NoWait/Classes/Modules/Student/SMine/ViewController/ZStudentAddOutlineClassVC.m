@@ -12,7 +12,6 @@
 #import "ZTextFieldMultColCell.h"
 #import "ZOriganizationTeachingScheduleViewModel.h"
 #import "ZBaseUnitModel.h"
-#import "ZAlertLessonCheckBoxView.h"
 #import "ZOrganizationTrachingScheduleOutlineErweimaVC.h"
 
 @interface ZStudentAddOutlineClassVC ()

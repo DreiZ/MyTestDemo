@@ -174,6 +174,11 @@
     }
 }
 
+- (void)setLeftTitle:(NSString *)left rightTitle:(NSString *)right {
+    _rightTitleLabel.text = right;
+    _leftTitleLabel.text = left;
+}
+
 - (void)setIsEdit:(BOOL)isEdit {
     _isEdit = isEdit;
 }

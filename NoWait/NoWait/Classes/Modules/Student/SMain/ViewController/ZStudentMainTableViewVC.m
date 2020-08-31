@@ -180,6 +180,8 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMainEnteryCell"]) {
         ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
         lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
+            routePushVC(ZRoute_main_classificationList, nil, nil);
+            return;
             routePushVC(ZRoute_main_classification, @{@"name":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentBannerCell"]){

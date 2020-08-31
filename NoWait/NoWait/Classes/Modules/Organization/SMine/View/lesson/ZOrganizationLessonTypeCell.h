@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *isGu;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
+
+- (void)setLeftTitle:(NSString *)left rightTitle:(NSString *)right;
 @end
 
 NS_ASSUME_NONNULL_END

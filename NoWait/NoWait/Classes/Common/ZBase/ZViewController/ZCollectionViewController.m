@@ -187,58 +187,11 @@
 
 #pragma mark - 网络数据请求
 - (void)refreshData {
-//    self.currentPage = 1;
-//    self.loading = YES;
-//    __weak typeof(self) weakSelf = self;
-//    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-//
-//    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources removeAllObjects];
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iCollectionView reloadData];
-//
-//            [weakSelf.iCollectionView tt_endRefreshing];
-//            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
-//                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iCollectionView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iCollectionView reloadData];
-//            [weakSelf.iCollectionView tt_endRefreshing];
-//            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-//        }
-//    }];
+
 }
 
 - (void)refreshMoreData {
-//    self.currentPage++;
-//    self.loading = YES;
-//    __weak typeof(self) weakSelf = self;
-//    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-//
-//    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iCollectionView reloadData];
-//
-//            [weakSelf.iCollectionView tt_endRefreshing];
-//            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
-//                [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iCollectionView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iCollectionView reloadData];
-//            [weakSelf.iCollectionView tt_endRefreshing];
-//            [weakSelf.iCollectionView tt_removeLoadMoreFooter];
-//        }
-//    }];
+
 }
 
 @end

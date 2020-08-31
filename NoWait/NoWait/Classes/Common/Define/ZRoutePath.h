@@ -162,6 +162,8 @@
 
 #define ZRoute_main_search              @"controller/main/mainSearch"
 
+#define ZRoute_main_classificationList  @"controller/main/classList"
+
 #pragma mark - organization manager
 
 #define ZRoute_org_schoolManager        @"controller/org/schoolManager"

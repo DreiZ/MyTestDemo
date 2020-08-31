@@ -297,6 +297,7 @@
     [self.mapView removeAnnotations:annosToRemove];
     
     NSMutableArray *tpois = @[].mutableCopy;
+//    || (self.searchMapView.isOpen && self.searchMapView.iTextField.text && self.searchMapView.iTextField.text.length > 0)
     if (ValidArray(self.selectedPoiArray)) {
         for (ZRegionDataModel *model in self.selectedPoiArray) {
             AMapPOI *poi = [[AMapPOI alloc] init];
@@ -455,6 +456,7 @@
         make.right.equalTo(self.mapView.mas_right).offset(CGFloatIn750(-20));
         make.bottom.equalTo(self.mapView.mas_bottom).offset(-CGFloatIn750(10)-safeAreaBottom());
     }];
+    [[ZLocationManager shareManager] startLocationing];
 }
 
 - (void)initSearch {
@@ -503,6 +505,7 @@
         [_catagerizeMapBtn bk_addEventHandler:^(id sender) {
             [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
                 [weakSelf seletClassify:classify];
+                [weakSelf closeSearchBar];
             }];
         } forControlEvents:UIControlEventTouchUpInside];
         
@@ -536,26 +539,34 @@
             }
         };
         _searchMapView.backBlock = ^{
-            [weakSelf.searchMapView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(weakSelf.view.mas_right).offset(-CGFloatIn750(20));
-                make.top.equalTo(weakSelf.catagerizeMapBtn.mas_bottom).offset(CGFloatIn750(20));
-                make.height.mas_equalTo(CGFloatIn750(60));
-                make.width.mas_equalTo(CGFloatIn750(80));
-            }];
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                [weakSelf.view layoutIfNeeded];
-                weakSelf.searchMapView.isOpen = NO;
-            } completion:^(BOOL finished) {
-                weakSelf.searchMapView.iTextField.text = nil;
-                [weakSelf.selectedPoiArray removeAllObjects];
-                [weakSelf updateAnnotations];
-            }];
+            [weakSelf closeSearchBar];
         };
         _searchMapView.textChangeBlock = ^(NSString * text) {
             
         };
     }
     return _searchMapView;
+}
+
+- (void)closeSearchBar {
+    [self.searchMapView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.catagerizeMapBtn.mas_bottom).offset(CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.width.mas_equalTo(CGFloatIn750(80));
+    }];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.view layoutIfNeeded];
+        self.searchMapView.isOpen = NO;
+    } completion:^(BOOL finished) {
+        if (ValidArray(self.selectedPoiArray)) {
+            self.searchMapView.iTextField.text = nil;
+            [self.selectedPoiArray removeAllObjects];
+            [self updateAnnotations];
+        }else{
+            self.searchMapView.iTextField.text = nil;
+        }
+    }];
 }
 
 #pragma mark - 分类搜索
@@ -569,7 +580,9 @@
           ary = [ZYPinYinSearch searchWithOriginalArray:ary andSearchText:name andSearchByPropertyName:@"name"];
          [_selectedPoiArray addObjectsFromArray:ary];
      }
-    
+    if (!ValidArray(self.selectedPoiArray)) {
+        [TLUIUtility showErrorHint:@"没有搜索到数据"];
+    }
     [self updateAnnotations];
 }
 

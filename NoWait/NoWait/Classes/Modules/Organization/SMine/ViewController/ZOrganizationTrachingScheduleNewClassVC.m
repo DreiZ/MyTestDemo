@@ -7,7 +7,7 @@
 //
 
 #import "ZOrganizationTrachingScheduleNewClassVC.h"
-
+#import "ZOrganizationLessonTypeCell.h"
 #import "ZOrganizationTimeSelectVC.h"
 #import "ZAlertTeacherCheckBoxView.h"
 #import "ZTextFieldMultColCell.h"
@@ -137,6 +137,9 @@
             }
         }
     }
+    
+    ZCellConfig *typeCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.is_long?@"2":@"1"];
+    [self.cellConfigArr addObject:typeCellConfig];
 }
 
 
@@ -243,6 +246,7 @@
         [params setObject:self.viewModel.addModel.openTime forKey:@"start_time"];
     }
     
+    [params setObject:self.viewModel.addModel.is_long?@"1":@"2" forKey:@"class_type"];
     
     [TLUIUtility showLoading:@""];
     [ZOriganizationTeachingScheduleViewModel addCourseClass:params completeBlock:^(BOOL isSuccess, NSString *message) {
@@ -278,6 +282,19 @@
         ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.class_Name = text;
+        };
+    }else if([cellConfig.title isEqualToString:@"type"]){
+        ZOrganizationLessonTypeCell *lcell = (ZOrganizationLessonTypeCell *)cell;
+        [lcell setLeftTitle:@"普通班" rightTitle:@"长效班"];
+        lcell.isEdit = YES;
+        lcell.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                weakSelf.viewModel.addModel.is_long = NO;
+            }else{
+                weakSelf.viewModel.addModel.is_long = YES;
+            }
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         };
     }
 }

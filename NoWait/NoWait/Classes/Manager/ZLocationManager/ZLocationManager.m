@@ -35,7 +35,7 @@ static ZLocationManager *shareManager = NULL;
 
     [self.locationManager setDelegate:self];
     
-    [self.locationManager setDistanceFilter:1000];
+    [self.locationManager setDistanceFilter:100];
     
     [self.locationManager setLocatingWithReGeocode:YES];
 
@@ -46,10 +46,15 @@ static ZLocationManager *shareManager = NULL;
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
 }
 
+- (void)startLocationing{
+    //开始定位单次定位
+    [self.locationManager startUpdatingLocation];
+}
+
 - (void)startLocation
 {
-    //开始定位
-//    [self.locationManager startUpdatingLocation];
+    //开始定位单次定位
+
     [self locateAction];
 }
 
@@ -85,7 +90,7 @@ static ZLocationManager *shareManager = NULL;
                 self.city = place.locality;
                 
             }
-            [self stopSerialLocation];
+//            [self stopSerialLocation];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationPoiBack object:nil];
     }];

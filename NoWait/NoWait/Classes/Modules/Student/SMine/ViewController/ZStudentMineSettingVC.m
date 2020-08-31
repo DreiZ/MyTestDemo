@@ -15,6 +15,7 @@
 
 
 @interface ZStudentMineSettingVC ()
+@property (nonatomic,strong) NSString *webUrl;
 
 @end
 @implementation ZStudentMineSettingVC
@@ -33,6 +34,12 @@
     .zChain_setNavTitle(@"设置")
     .zChain_resetMainView(^{
         self.isHidenNaviBar = NO;
+        self.webUrl = @"http://192.168.0.6:8080";
+        
+        NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"webUrl"];
+        if (isRewardFirst) {
+            self.webUrl = isRewardFirst;
+        }
     });
     
     self.zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
@@ -54,8 +61,30 @@
 
     [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
         
-    ZCellConfig *webCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"web" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"桥接调试"];
-    [weakSelf.cellConfigArr addObject:webCellConfig];
+//    ZCellConfig *webCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"web" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"桥接调试"];
+//    [weakSelf.cellConfigArr addObject:webCellConfig];
+//
+        
+        {
+            ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
+            cellModel.leftTitle = @"输入url";
+            cellModel.placeholder = @"测试url";
+            cellModel.isTextEnabled = YES;
+            cellModel.cellTitle = @"webUrl";
+            cellModel.isHiddenLine = NO;
+            cellModel.isHiddenInputLine = YES;
+            cellModel.cellHeight = CGFloatIn750(106);
+            cellModel.leftFont = [UIFont fontContent];
+            cellModel.content = self.webUrl;
+            cellModel.max = 160;
+            cellModel.formatterType = ZFormatterTypeAnyByte;
+            
+            ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
+            [self.cellConfigArr addObject:textCellConfig];
+            
+            ZCellConfig *webCellConfig = [ZCellConfig cellConfigWithClassName:[ZStudentMineSettingBottomCell className] title:@"webTest" showInfoMethod:@selector(setTitle:) heightOfCell:[ZStudentMineSettingBottomCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"点击进入测试web页面"];
+            [weakSelf.cellConfigArr addObject:webCellConfig];
+        }
 
     [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
 #endif
@@ -92,6 +121,19 @@
         }else if ([cellConfig.title isEqualToString:@"opinion"]){
             ZMineFeedbackVC *fvc = [[ZMineFeedbackVC alloc] init];
             [weakSelf.navigationController pushViewController:fvc animated:YES];
+        }else if( [cellConfig.title isEqualToString:@"webTest"]){
+            ZWebBridgeViewController *vc = [[ZWebBridgeViewController alloc] init];
+            vc.url = weakSelf.webUrl;
+            [[NSUserDefaults standardUserDefaults] setObject:SafeStr(weakSelf.webUrl) forKey:@"webUrl"];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+    });
+    self.zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
+        if ([cellConfig.title isEqualToString:@"webUrl"]) {
+            ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+            lcell.valueChangeBlock = ^(NSString * text) {
+                weakSelf.webUrl = text;
+            };
         }
     });
     

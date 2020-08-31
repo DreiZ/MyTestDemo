@@ -195,58 +195,11 @@
 
 #pragma mark - 网络数据请求
 - (void)refreshData {
-//    self.currentPage = 1;
-//    self.loading = YES;
-//    __weak typeof(self) weakSelf = self;
-//    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-//
-//    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources removeAllObjects];
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//
-//            [weakSelf.iTableView tt_endRefreshing];
-//            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
-//                [weakSelf.iTableView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iTableView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iTableView reloadData];
-//            [weakSelf.iTableView tt_endRefreshing];
-//            [weakSelf.iTableView tt_removeLoadMoreFooter];
-//        }
-//    }];
+
 }
 
 - (void)refreshMoreData {
-//    self.currentPage++;
-//    self.loading = YES;
-//    __weak typeof(self) weakSelf = self;
-//    NSMutableDictionary *param = @{@"page_index":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-//
-//    [ZOriganizationLessonViewModel getLessonlist:param completeBlock:^(BOOL isSuccess, ZOriganizationLessonListNetModel *data) {
-//        weakSelf.loading = NO;
-//        if (isSuccess && data) {
-//            [weakSelf.dataSources addObjectsFromArray:data.list];
-//            [weakSelf initCellConfigArr];
-//            [weakSelf.iTableView reloadData];
-//
-//            [weakSelf.iTableView tt_endRefreshing];
-//            if (data && [data.pages integerValue] <= weakSelf.currentPage) {
-//                [weakSelf.iTableView tt_removeLoadMoreFooter];
-//            }else{
-//                [weakSelf.iTableView tt_endLoadMore];
-//            }
-//        }else{
-//            [weakSelf.iTableView reloadData];
-//            [weakSelf.iTableView tt_endRefreshing];
-//            [weakSelf.iTableView tt_removeLoadMoreFooter];
-//        }
-//    }];
+
 }
 
 @end

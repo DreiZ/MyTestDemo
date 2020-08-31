@@ -208,7 +208,8 @@
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
     [param setObject:self.schoolID forKey:@"stores_id"];
-    [param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"status"];
+    [param setObject:@"1" forKey:@"status"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)self.type] forKey:@"level"];
     return param;
 }
 @end

@@ -187,7 +187,7 @@
        
     if (self.isAll) {
          [param setObject:self.stores_id forKey:@"stores_id"];
-              [param setObject:@"1" forKey:@"status"];
+         [param setObject:@"1" forKey:@"status"];
     }else{
         [param setObject:self.coupons_id forKey:@"id"];
     }
