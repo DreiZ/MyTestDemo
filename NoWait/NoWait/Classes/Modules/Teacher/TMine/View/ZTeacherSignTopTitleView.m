@@ -168,7 +168,7 @@
         _lastBtn.hidden = NO;
     }
     
-    if ([model.total_progress intValue] == model.index) {
+    if ([model.now_progress intValue] <= model.index) {
         _nextBtn.hidden = YES;
     }else {
         _nextBtn.hidden = NO;

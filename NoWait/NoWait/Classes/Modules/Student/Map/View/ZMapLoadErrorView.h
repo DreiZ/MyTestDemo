@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMapLoadErrorView : UIView
+@property (nonatomic,strong) NSString *title;
+
 @property (nonatomic,strong) void (^reloadBlock)(void);
 @property (nonatomic,strong) void (^backBlock)(void);
 @end

@@ -17,6 +17,10 @@ static NSMutableDictionary * _cacheManagers = nil;
     return [self cacheWithName:@"Default"];
 }
 
++(void)removeObjectForKey:(NSString *)key {
+    [ZDefaultCache() removeObjectForKey:key];
+}
+
 + (YYCache *)currentUserCache
 {
     NSString *userId = [ZUserHelper sharedHelper].user.userCodeID;

@@ -8,6 +8,7 @@
 
 #import "ZLocationManager.h"
 #import <AMapSearchKit/AMapSearchKit.h>
+#import "ZAlertView.h"
 
 static ZLocationManager *shareManager = NULL;
 
@@ -53,8 +54,6 @@ static ZLocationManager *shareManager = NULL;
 
 - (void)startLocation
 {
-    //开始定位单次定位
-
     [self locateAction];
 }
 

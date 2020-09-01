@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _list = @[].mutableCopy;
-    
+    self.model.index = [self.model.now_progress intValue];
     self.isTeacher = [[ZUserHelper sharedHelper].user.type intValue] == 2?YES:NO;
     
     [self refreshData];
@@ -52,7 +52,7 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-    self.model.index = [self.model.now_progress intValue];
+//    self.model.index = [self.model.now_progress intValue];
 //    /类型 1：签课 2：教师代签 3：补签 4：请假 5：旷课 6:待签课 7:未设置课程进度
     
     if (ValidArray(self.detailModel.image)) {
@@ -158,12 +158,12 @@
         _topTitleView.model = self.model;
         _topTitleView.handleBlock = ^(NSInteger index) {
             if (index == 0) {
-                if ([weakSelf.model.now_progress intValue] > 0) {
-                    weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] - 1];
+                if (weakSelf.model.index > 0) {
+                    weakSelf.model.index = weakSelf.model.index - 1;
                 }
             }else{
-                if ([weakSelf.model.now_progress intValue] < [weakSelf.model.total_progress intValue]) {
-                    weakSelf.model.now_progress = [NSString stringWithFormat:@"%d",[weakSelf.model.now_progress intValue] + 1];
+                if (weakSelf.model.index < [weakSelf.model.now_progress intValue]) {
+                    weakSelf.model.index = weakSelf.model.index + 1;
                 }
             }
             [weakSelf refreshData];
@@ -178,7 +178,7 @@
             }
             
             [ZAlertDataSinglePickerView setAlertName:@"选择课程节数" selectedIndex:weakSelf.model.index-1 items:items handlerBlock:^(NSInteger index) {
-                weakSelf.model.now_progress = [NSString stringWithFormat:@"%ld",index + 1];
+                weakSelf.model.index = index + 1;
                 [weakSelf refreshData];
             }];
         };
@@ -284,7 +284,7 @@
 - (void)refreshData {
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
-    [ZOriganizationClassViewModel getMyClassSignList:@{@"courses_class_id":SafeStr(self.model.classID),@"courses_num":SafeStr(self.model.now_progress)} completeBlock:^(BOOL isSuccess, ZOriganizationSignListNetModel *addModel) {
+    [ZOriganizationClassViewModel getMyClassSignList:@{@"courses_class_id":SafeStr(self.model.classID),@"courses_num":[NSString stringWithFormat:@"%ld",(long)self.model.index]} completeBlock:^(BOOL isSuccess, ZOriganizationSignListNetModel *addModel) {
         self.loading = NO;
         if (isSuccess) {
             [weakSelf setIsEdit:NO];

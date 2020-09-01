@@ -24,6 +24,7 @@
 #import "ZAlertView.h"
 #import "ZAlertClassifyPickerView.h"
 #import "ZSearchMapView.h"
+#import "ZMapLoadErrorView.h"
 #import "HCSortString.h"
 #import "ZYPinYinSearch.h"
 
@@ -35,6 +36,8 @@
 @property (nonatomic, strong) ZCoordinateQuadTree* coordinateQuadTree;
 @property (nonatomic, strong) MAUserLocation *cureUserLocation;
 @property (nonatomic, strong) ZSearchMapView *searchMapView;
+@property (nonatomic, strong) ZMapLoadErrorView *errorView;
+
 
 @property (nonatomic, strong) ZCustomCalloutView *customCalloutView;
 @property (nonatomic, strong) UIButton *navLeftBtn;
@@ -424,6 +427,22 @@
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
     
+    [self.view addSubview:self.errorView];
+    [self.errorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.top.equalTo(self.searchMapView.mas_bottom).offset(CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(60));
+        make.width.mas_equalTo(CGFloatIn750(430));
+    }];
+    self.errorView.hidden = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    [[kNotificationCenter rac_addObserverForName:KNotificationPoiBack object:nil] subscribeNext:^(NSNotification *notfication) {
+        weakSelf.errorView.title = @"暂无数据，点击刷新数据";
+        NSLog(@"************************************** ");
+        [weakSelf refreshData];
+    }];
+    
     [self getRegionData];
 }
 
@@ -449,6 +468,8 @@
     self.mapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
     self.mapView.zoomLevel = 15.0f;
     _mapView.showsUserLocation = YES;
+    _mapView.showsCompass = NO;
+    _mapView.showsScale = NO;
     _mapView.userTrackingMode = MAUserTrackingModeFollow;
     [_mapView addSubview:self.checkSelfBtn];
     
@@ -548,6 +569,22 @@
     return _searchMapView;
 }
 
+- (ZMapLoadErrorView *)errorView {
+    if (!_errorView) {
+        __weak typeof(self) weakSelf = self;
+        _errorView = [[ZMapLoadErrorView alloc] init];
+        _errorView.backBlock = ^{
+            weakSelf.errorView.hidden = YES;
+        };
+        
+        _errorView.reloadBlock = ^{
+            [[ZLocationManager shareManager] startLocation];
+            weakSelf.errorView.title = @"暂无数据，重新定位中...";
+        };
+    }
+    return _errorView;
+}
+
 - (void)closeSearchBar {
     [self.searchMapView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).offset(-CGFloatIn750(20));
@@ -621,6 +658,9 @@
     
     self.regionModel = (ZRegionNetModel *)[ZDefaultCache() objectForKey:[ZRegionNetModel className]];
     [self updateAnnotations];
+    if (self.regionModel) {
+        self.errorView.hidden = YES;
+    }
 }
 
 - (void)writeDataToCache {
@@ -634,15 +674,22 @@
     NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
     if (isFirst) {
         NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
-        if (nowTime - [isFirst intValue] <= 60*60 && self.regionModel && self.regionModel.region && self.regionModel.region.count > 0) {//60*60*3
+        if (nowTime - [isFirst intValue] <= 60*60 && self.regionModel && self.regionModel.region && self.regionModel.region.count > 0 && [self.regionModel.city.re_id isEqualToString:SafeStr([ZLocationManager shareManager].citycode)]) {//60*60*3
             return;
         }
+    }
+    
+    //开始定位单次定位
+    if (!ValidStr([ZLocationManager shareManager].citycode) && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+        [ZAlertView setAlertWithTitle:@"定位不可用，请检查定位权限是否开启后，再重新刷新数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+            
+        }];
     }
     
     [ZStudentMainViewModel getRegionList:@{@"city":SafeStr([ZLocationManager shareManager].citycode)} completeBlock:^(BOOL isSuccess, id data) {
         if (isSuccess && data) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kMapUpdateInApp];
-            
+            weakSelf.errorView.hidden = YES;
             weakSelf.loadFromLocalHistory = NO;
             weakSelf.regionModel = data;
             weakSelf.regionModel.city.type = @"0";
@@ -654,6 +701,14 @@
             }
             [weakSelf writeDataToCache];
             [weakSelf updateAnnotations];
+            if (!ValidArray(weakSelf.regionModel.schools)) {
+                [ZAlertView setAlertWithTitle:@"该位置下暂无数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                    
+                }];
+            }
+        }else{
+            weakSelf.errorView.hidden = NO;
+            [weakSelf.view bringSubviewToFront:weakSelf.errorView];
         }
     }];
 }
@@ -695,17 +750,8 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
 
-    if (!ValidStr([ZLocationManager shareManager].citycode)) {
-        [ZAlertView setAlertWithTitle:@"没有获取到城市编号，已默认获取上海数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-            [ZLocationManager shareManager].citycode = @"021";
-            ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
-            routevc.city = request.prts;
-            [topViewController.navigationController pushViewController:routevc animated:YES];
-        }];
-    }else{
-        ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
-        routevc.city = request.prts;
-        [topViewController.navigationController pushViewController:routevc animated:YES];
-    }
+    ZAnnotationClusterVC *routevc = [[ZAnnotationClusterVC alloc] init];
+    routevc.city = request.prts;
+    [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

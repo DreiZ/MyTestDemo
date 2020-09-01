@@ -36,6 +36,8 @@
  */
 + (YYCache *)cacheWithPath:(NSString *)path;
 
++(void)removeObjectForKey:(NSString *)key;
+
 @end
 
 static inline YYCache *ZDefaultCache(void) {

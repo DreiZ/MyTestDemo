@@ -9,14 +9,9 @@
 #import "ZMapLoadErrorView.h"
 
 @interface ZMapLoadErrorView ()
-@property (nonatomic,strong) UIView *reloadBackView;
-
 @property (nonatomic,strong) UIView *contView;
 
 @property (nonatomic,strong) UIButton *reloadBtn;
-
-@property (nonatomic,strong) UIView *backView;
-
 @end
 
 @implementation ZMapLoadErrorView
@@ -31,53 +26,40 @@
 
 #pragma mark 初始化view
 - (void)initMainView {
-    self.backgroundColor = adaptAndDarkColor([UIColor colorWhite],[UIColor colorBlackBGDark]);
+    self.backgroundColor = [UIColor clearColor];
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
-    [self addSubview:self.backView];
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-    
-    
+
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         make.bottom.equalTo(self.mas_bottom);
     }];
     
-    [self.contView addSubview:self.reloadBackView];
-    
-    [self.reloadBackView addSubview:self.reloadBtn];
+    [self.contView addSubview:self.reloadBtn];
     [self.reloadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contView);
-        make.right.equalTo(self.reloadBackView.mas_right);
-        make.top.bottom.equalTo(self.reloadBackView);
-        make.width.mas_equalTo(CGFloatIn750(90));
+        make.left.equalTo(self.contView.mas_left);
+        make.top.bottom.equalTo(self.contView);
+        make.width.mas_equalTo(CGFloatIn750(320));
     }];
     
-    [self.contView addSubview:self.reloadBackView];
-    [self.reloadBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(CGFloatIn750(380));
-        make.height.mas_equalTo(CGFloatIn750(60));
-        make.right.equalTo(self.reloadBtn.mas_left).offset(-CGFloatIn750(10));
-        make.centerY.equalTo(self.contView.mas_centerY);
+    __weak typeof(self) weakSelf = self;
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    [closeBtn setImage:[UIImage imageNamed:@"lessonSelectClose"] forState:UIControlStateNormal];
+    [closeBtn bk_whenTapped:^{
+        if (weakSelf.backBlock) {
+            weakSelf.backBlock();
+        }
+    }];
+    [_contView addSubview:closeBtn];
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contView);
+        make.width.mas_equalTo(CGFloatIn750(80));
+        make.left.equalTo(self.reloadBtn.mas_right);
     }];
 
-    
-    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-    [closeBtn bk_whenTapped:^{
-//        if (weakSelf.backBlock) {
-//            weakSelf.backBlock();
-//        }
-    }];
-    [_reloadBackView addSubview:closeBtn];
-    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.reloadBackView);
-        make.right.equalTo(self.reloadBtn.mas_left);
-    }];
-    
     
 }
 
@@ -86,19 +68,9 @@
         _contView = [[UIView alloc] init];
         _contView.layer.masksToBounds = YES;
         _contView.backgroundColor = adaptAndDarkColor([UIColor colorOrangeBack],[UIColor colorOrangeBack]);
+        ViewBorderRadius(_contView, CGFloatIn750(30), 1, [UIColor colorOrangeMoment]);
     }
     return _contView;
-}
-
-
-- (UIView *)reloadBackView {
-    if (!_reloadBackView) {
-        _reloadBackView = [[UIView alloc] init];
-        _reloadBackView.layer.masksToBounds = YES;
-        _reloadBackView.backgroundColor = adaptAndDarkColor([UIColor colorOrangeBack],[UIColor colorOrangeBack]);
-        _reloadBackView.layer.cornerRadius = CGFloatIn750(32);
-    }
-    return _reloadBackView;
 }
 
 - (UIButton *)reloadBtn {
@@ -106,11 +78,9 @@
         __weak typeof(self) weakSelf = self;
         _reloadBtn = [[UIButton alloc] init];
         _reloadBtn.clipsToBounds = YES;
-        [_reloadBtn setTitle:@"" forState:UIControlStateNormal];
-        [_reloadBtn setTitleColor:adaptAndDarkColor([UIColor colorOrangeHot], [UIColor colorOrangeHot]) forState:UIControlStateNormal];
+        [_reloadBtn setTitle:@"暂无数据，重新定位获取数据" forState:UIControlStateNormal];
+        [_reloadBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
         [_reloadBtn.titleLabel setFont:[UIFont fontSmall]];
-        
-        ViewBorderRadius(_reloadBtn, CGFloatIn750(30), 1, [UIColor colorTextBlack]);
         [_reloadBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.reloadBtn) {
                 weakSelf.reloadBlock();
@@ -120,20 +90,8 @@
     return _reloadBtn;
 }
 
-
-#pragma mark - handle
-- (UIView *)backView {
-    if (!_backView) {
-        _backView = [[UIView alloc] init];
-        _backView.backgroundColor = adaptAndDarkColor([UIColor  colorMain], [UIColor colorBlackBGDark]);
-        _backView.alpha = 0;
-    }
-    return _backView;
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    [_reloadBtn setTitle:title forState:UIControlStateNormal];
 }
-
 @end
-
-
-
-
-

@@ -246,7 +246,7 @@
         [params setObject:self.viewModel.addModel.openTime forKey:@"start_time"];
     }
     
-    [params setObject:self.viewModel.addModel.is_long?@"1":@"2" forKey:@"class_type"];
+    [params setObject:self.viewModel.addModel.is_long?@"2":@"1" forKey:@"class_type"];
     
     [TLUIUtility showLoading:@""];
     [ZOriganizationTeachingScheduleViewModel addCourseClass:params completeBlock:^(BOOL isSuccess, NSString *message) {

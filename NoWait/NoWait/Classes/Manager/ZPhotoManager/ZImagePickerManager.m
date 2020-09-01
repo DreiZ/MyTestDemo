@@ -346,7 +346,7 @@ static ZImagePickerManager *sharedImagePickerManager;
                     imagePicker.allowPickingImage = YES;
                     imagePicker.needCircleCrop = self.needCircleCrop;
                     imagePicker.circleCropRadius = 100;
-                    [self.viewController.navigationController presentViewController:imagePicker animated:YES completion:nil];
+                    [[[AppDelegate shareAppDelegate] getCurrentVC] presentViewController:imagePicker animated:YES completion:nil];
                 } else {
                     [self refreshCollectionViewWithAddedAsset:assetModel.asset image:image];
                 }
@@ -377,6 +377,21 @@ static ZImagePickerManager *sharedImagePickerManager;
     if ([asset isKindOfClass:[PHAsset class]]) {
         PHAsset *phAsset = asset;
         DLog(@"location:%@",phAsset.location);
+    }
+     NSMutableArray *photoArr = @[].mutableCopy;
+    if (_selectedPhotos.count == _selectedAssets.count) {
+        for (NSInteger i = 0; i < _selectedAssets.count; i++) {
+            PHAsset *asset = _selectedAssets[i];
+
+            
+            ZImagePickerModel *model = [[ZImagePickerModel alloc] init];
+            model.image = _selectedPhotos[i];
+            model.asset = asset;
+            [photoArr addObject:model];
+        }
+        if (self.imageBackBlock) {
+            self.imageBackBlock(photoArr);
+        }
     }
 }
 

@@ -9,6 +9,7 @@
 #import "ZMianSearchVC.h"
 #import "ZStudentMainViewModel.h"
 
+#import "ZStudentHotSearchCell.h"
 #import "ZStudentMainOrganizationSearchListCell.h"
 #import "ZLocationManager.h"
 
@@ -80,6 +81,16 @@
 #pragma mark - setdata
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    for (int i = 0; i < 10; i++) {
+        ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentHotSearchCell className] title:@"ZStudentHotSearchCell" showInfoMethod:@selector(setData:) heightOfCell:[ZStudentHotSearchCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@{@"hint":@"热",@"content":@"圣诞节开发收看电视思考思考思考思考开始上课的方式快递费"}];
+        [self.cellConfigArr addObject:orCellCon1fig];
+        
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(10))];
+    }
+    [self.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
     
     for (int i = 0; i < self.dataSources.count; i++) {
         id data = self.dataSources[i];
