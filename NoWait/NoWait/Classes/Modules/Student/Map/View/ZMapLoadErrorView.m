@@ -40,7 +40,7 @@
     [self.contView addSubview:self.reloadBtn];
     [self.reloadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contView);
-        make.left.equalTo(self.contView.mas_left);
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(20));
         make.top.bottom.equalTo(self.contView);
         make.width.mas_equalTo(CGFloatIn750(320));
     }];
@@ -57,7 +57,7 @@
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contView);
         make.width.mas_equalTo(CGFloatIn750(80));
-        make.left.equalTo(self.reloadBtn.mas_right);
+        make.right.equalTo(self.contView.mas_right);
     }];
 
     

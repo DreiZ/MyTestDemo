@@ -133,7 +133,7 @@
         if (lModel.isEdit) {
             [_editBtn setTitle:@"取消" forState:UIControlStateNormal];
         }else{
-            [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+            [_editBtn setTitle:@"签课" forState:UIControlStateNormal];
         }
     }else{
         self.editBtn.hidden = YES;

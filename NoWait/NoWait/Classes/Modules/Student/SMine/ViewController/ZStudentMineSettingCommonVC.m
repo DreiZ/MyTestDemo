@@ -12,6 +12,8 @@
 #import <SDImageCache.h>
 #import <SDWebImageManager.h>
 #import "ZFileManager.h"
+#import "ZCacheFactory.h"
+#import "ZLocationManager.h"
 
 @interface ZStudentMineSettingCommonVC ()
 @property (nonatomic,strong) NSString *isOpen;
@@ -56,6 +58,8 @@
             }];
             NSArray *temp = [ZFileManager readFileWithPath:[ZFileManager getDocumentDirectory] folder:ImageCacheFolderOfVideo];
             DLog(@"filezzz :%@",temp);
+            [ZDefaultCache() removeObjectForKey:@"ZRegionNetModel"];
+            [ZLocationManager shareManager].citycode = nil;
             [temp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [ZFileManager removeDocumentWithFilePath:obj[@"path"]];
             }];

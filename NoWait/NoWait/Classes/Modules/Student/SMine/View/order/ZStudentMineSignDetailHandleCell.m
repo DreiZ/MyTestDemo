@@ -180,8 +180,14 @@
             case 4:
             {
                 _rightLabel.text = @"请假";
-                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
                     make.centerY.equalTo(self.mas_centerY);
                 }];
             }
@@ -189,8 +195,14 @@
             case 5:
             {
                 _rightLabel.text = @"旷课";
-                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
                     make.centerY.equalTo(self.mas_centerY);
                 }];
             }
@@ -362,8 +374,14 @@
             case 4:
             {
                 _rightLabel.text = @"请假";
-                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
                     make.centerY.equalTo(self.mas_centerY);
                 }];
             }
@@ -371,8 +389,14 @@
             case 5:
             {
                 _rightLabel.text = @"旷课";
-                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                _timeLabel.hidden = NO;
+                [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.mas_left).offset(CGFloatIn750(242));
+                    make.centerY.equalTo(self.mas_centerY);
+                }];
+                
+                [self.rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
                     make.centerY.equalTo(self.mas_centerY);
                 }];
             }

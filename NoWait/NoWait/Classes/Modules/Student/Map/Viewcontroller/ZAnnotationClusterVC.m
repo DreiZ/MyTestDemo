@@ -439,8 +439,7 @@
     __weak typeof(self) weakSelf = self;
     [[kNotificationCenter rac_addObserverForName:KNotificationPoiBack object:nil] subscribeNext:^(NSNotification *notfication) {
         weakSelf.errorView.title = @"暂无数据，点击刷新数据";
-        NSLog(@"************************************** ");
-        [weakSelf refreshData];
+        [weakSelf getRegionData];
     }];
     
     [self getRegionData];

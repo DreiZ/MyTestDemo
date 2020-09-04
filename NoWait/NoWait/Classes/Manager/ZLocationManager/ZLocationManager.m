@@ -100,6 +100,7 @@ static ZLocationManager *shareManager = NULL;
 - (void)locateAction
 {
     //带逆地理的单次定位
+    [self configLocationManager];
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
 
         if (error)
