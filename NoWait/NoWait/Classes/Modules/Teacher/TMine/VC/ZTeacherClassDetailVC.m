@@ -62,7 +62,12 @@
         default:
             break;
     }
-    status = [NSString stringWithFormat:@"%@/%@节   %@",ValidStr(self.model.now_progress)? self.model.now_progress:@"0",ValidStr(self.model.now_progress)? self.model.total_progress:@"0", status];
+    
+    if (self.model.class_type && [self.model.class_type intValue] == 2) {
+        status = [NSString stringWithFormat:@"第%@节   %@",ValidStr(self.model.now_progress)? self.model.now_progress:@"0", status];
+    }else {
+        status = [NSString stringWithFormat:@"%@/%@节   %@",ValidStr(self.model.now_progress)? self.model.now_progress:@"0",ValidStr(self.model.now_progress)? self.model.total_progress:@"0", status];
+    }
     
     NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
