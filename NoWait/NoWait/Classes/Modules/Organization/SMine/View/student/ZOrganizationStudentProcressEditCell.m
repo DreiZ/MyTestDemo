@@ -16,6 +16,7 @@
 
 @property (nonatomic,strong) UIImageView *leftImageView;
 @property (nonatomic,strong) UITextField *inputTextField;
+@property (nonatomic,strong) UITextField *totalTextField;
 
 @end
 
@@ -30,7 +31,53 @@
     [self.contView addSubview:self.unitLabel];
     [self.contView addSubview:self.leftImageView];
     [self.contView addSubview:self.inputTextField];
+    [self.contView addSubview:self.totalTextField];
     
+    [self.totalTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contView.mas_centerY);
+        make.right.equalTo(self.unitLabel.mas_left).offset(-CGFloatIn750(20));
+        make.height.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(120));
+    }];
+    
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectZero];
+    spaceView.backgroundColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+    [self.contentView addSubview:spaceView];
+    [spaceView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.totalTextField);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    {
+        
+        UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        tempLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);;
+        tempLabel.text = @"/";
+        tempLabel.numberOfLines = 0;
+        tempLabel.textAlignment = NSTextAlignmentCenter;
+        [tempLabel setFont:[UIFont boldFontMaxTitle]];
+        [self.contentView addSubview:tempLabel];
+        [tempLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(CGFloatIn750(50));
+            make.height.mas_equalTo(CGFloatIn750(50));
+            make.right.equalTo(self.totalTextField.mas_left);
+            make.centerY.equalTo(self.totalTextField.mas_centerY);
+        }];
+        [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contView.mas_centerY);
+            make.right.equalTo(tempLabel.mas_left).offset(-CGFloatIn750(6));
+            make.height.mas_equalTo(CGFloatIn750(120));
+            make.height.mas_equalTo(CGFloatIn750(80));
+        }];
+        
+        UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectZero];
+        spaceView1.backgroundColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        [self.contentView addSubview:spaceView1];
+        [spaceView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.inputTextField);
+            make.height.mas_equalTo(0.5);
+        }];
+    }
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
         make.left.equalTo(self.mas_left).offset(CGFloatIn750(0));
@@ -53,14 +100,6 @@
         make.centerY.equalTo(self.contView.mas_centerY);
         make.right.equalTo(self.contView.mas_right).offset(-CGFloatIn750(30));
     }];
-    
-    [self.inputTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contView.mas_centerY);
-        make.right.equalTo(self.unitLabel.mas_left).offset(-CGFloatIn750(20));
-        make.height.mas_equalTo(CGFloatIn750(80));
-    }];
-    
-    
 }
 
 - (void)btnLong:(id)sender {
@@ -78,13 +117,31 @@
         [_inputTextField setBackgroundColor:[UIColor clearColor]];
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
         [_inputTextField setTextAlignment:NSTextAlignmentRight];
-        [_inputTextField setPlaceholder:@"剩余课程节数"];
+        [_inputTextField setPlaceholder:@"已上节数"];
         _inputTextField.keyboardType = UIKeyboardTypeNumberPad;
         [_inputTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
         _inputTextField.delegate = self;
         [_inputTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _inputTextField;
+}
+
+- (UITextField *)totalTextField {
+    if (!_totalTextField ) {
+        _totalTextField = [[UITextField alloc] init];
+        [_totalTextField setFont:[UIFont fontContent]];
+        _totalTextField.leftViewMode = UITextFieldViewModeAlways;
+        [_totalTextField setBorderStyle:UITextBorderStyleNone];
+        [_totalTextField setBackgroundColor:[UIColor clearColor]];
+        [_totalTextField setReturnKeyType:UIReturnKeyDone];
+        [_totalTextField setTextAlignment:NSTextAlignmentRight];
+        [_totalTextField setPlaceholder:@"总节数"];
+        _totalTextField.keyboardType = UIKeyboardTypeNumberPad;
+        [_totalTextField setTextColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark])];
+        _totalTextField.delegate = self;
+        [_totalTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _totalTextField;
 }
 
 - (UIView *)contView {
@@ -138,7 +195,11 @@
     [ZPublicTool textField:textField maxLenght:10 type:ZFormatterTypeDecimal];
     
     if (self.handleBlock) {
-        self.handleBlock(textField.text);
+        if (textField == self.inputTextField) {
+            self.handleBlock(textField.text, 0);
+        }else{
+            self.handleBlock(textField.text, 1);
+        }
     }
 }
 

@@ -51,6 +51,7 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    [self.cellConfigArr removeAllObjects];
     if (self.isEnd) {
         self.topView.titleArr = @[@"姓名", @"上课进度", @"签到详情"];
     }else{
@@ -106,16 +107,17 @@
          make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
          make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
          make.bottom.equalTo(self.bottomBtn.mas_top).offset(-CGFloatIn750(0));
-         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
         }];
     }else{
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
          make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
          make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
          make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
-         make.top.equalTo(self.topView.mas_bottom).offset(-CGFloatIn750(0));
+         make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
         }];
     }
+    self.topView.hidden = YES;
 }
 
 #pragma mark - lazy loading...
@@ -342,7 +344,7 @@
     self.currentPage++;
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
-    
+    [param setObject:[NSString stringWithFormat:@"%d",10] forKey:@"page_size"];
     __weak typeof(self) weakSelf = self;
      [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;

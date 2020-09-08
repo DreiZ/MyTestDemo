@@ -24,6 +24,7 @@
     [self refreshData];
     self.emptyDataStr = @"暂无可设置的学员";
     [self setTableViewEmptyDataDelegate];
+    [self setTableViewRefreshFooter];
 }
 
 - (void)setNavigation {
@@ -87,7 +88,6 @@
     }
     
     for (ZOriganizationStudentListModel *model in self.dataSources) {
-        model.now_progress = @"";
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentProcressEditCell className] title:@"ZOrganizationStudentProcressEditCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZOrganizationStudentProcressEditCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         
         [self.cellConfigArr addObject:menuCellConfig];
@@ -113,8 +113,12 @@
     if ([cellConfig.title isEqualToString:@"ZOrganizationStudentProcressEditCell"]) {
         ZOriganizationStudentListModel *model = (ZOriganizationStudentListModel *)cellConfig.dataModel;
         ZOrganizationStudentProcressEditCell *ecell = (ZOrganizationStudentProcressEditCell *)cell;
-        ecell.handleBlock = ^(NSString *text) {
-            model.nowNums = text;
+        ecell.handleBlock = ^(NSString *text, NSInteger type) {
+            if (type == 0) {
+                model.nowNums = text;
+            }else {
+                model.total_progress = text;
+            }
         };
     }
 }
@@ -131,7 +135,11 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
-            [weakSelf.dataSources addObjectsFromArray:data.list];
+            for (ZOriganizationStudentListModel *model in data.list) {
+                model.nowNums = @"";
+                model.total_progress = @"";
+                [weakSelf.dataSources addObject:model];
+            }
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             
@@ -158,7 +166,11 @@
      [ZOriganizationClassViewModel getQrcodeStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
-            [weakSelf.dataSources addObjectsFromArray:data.list];
+            for (ZOriganizationStudentListModel *model in data.list) {
+                model.nowNums = @"";
+                model.total_progress = @"";
+                [weakSelf.dataSources addObject:model];
+            }
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             
@@ -196,12 +208,15 @@
     NSMutableArray *students = @[].mutableCopy;
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *listModel = self.dataSources[i];
-        if (ValidStr(listModel.nowNums)) {
-            if ([listModel.nowNums intValue] - [self.total_progress intValue] > 0) {
-                [TLUIUtility showErrorHint:[NSString stringWithFormat:@"%@的进度大于班级最大节数了",listModel.name]];
+        if (ValidStr(listModel.total_progress)) {
+            if (!ValidStr(listModel.nowNums)) {
+                listModel.nowNums = @"0";
+            }
+            if ([listModel.nowNums intValue] - [listModel.total_progress intValue] >= 0) {
+                [TLUIUtility showErrorHint:[NSString stringWithFormat:@"%@的进度不能大于等于总节数",listModel.name]];
                 return;
             }
-            [students addObject:@{@"student_id":SafeStr(listModel.studentID),@"now_progress":[NSString stringWithFormat:@"%d",[self.total_progress intValue] - [listModel.nowNums intValue]]}];
+            [students addObject:@{@"student_id":SafeStr(listModel.studentID),@"now_progress":listModel.nowNums,@"total_progress":listModel.total_progress}];
         }
     }
     if (!ValidArray(students)) {

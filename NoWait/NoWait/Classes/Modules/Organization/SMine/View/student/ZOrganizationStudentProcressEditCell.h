@@ -12,6 +12,6 @@
 @interface ZOrganizationStudentProcressEditCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationStudentListModel *model;
 
-@property (nonatomic,strong) void (^handleBlock)(NSString *);
+@property (nonatomic,strong) void (^handleBlock)(NSString *, NSInteger);
 @end
 

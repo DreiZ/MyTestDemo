@@ -29,6 +29,7 @@
     [super viewDidLoad];
     
     [self setNavigation];
+    self.viewModel.addModel.isAll = YES;
     [self initCellConfigArr];
     [self.iTableView reloadData];
 }
@@ -36,12 +37,11 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     NSString *ftitle = @"";
-    if (ValidArray(self.viewModel.addModel.lessonList)) {
-        if (self.viewModel.addModel.isAll) {
-            ftitle = @"全部课程可用";
-        }else{
-            ftitle = @"部分课程可用";
-        }
+    
+    if (self.viewModel.addModel.isAll) {
+        ftitle = @"全部课程可用";
+    }else if (ValidArray(self.viewModel.addModel.lessonList)){
+        ftitle = @"部分课程可用";
     }
     NSString *time = @"";
     if (self.viewModel.addModel.limit_start) {
@@ -74,6 +74,22 @@
         ZCellConfig *textCellConfig = [ZCellConfig cellConfigWithClassName:[ZTextFieldCell className] title:cellModel.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZTextFieldCell z_getCellHeight:cellModel] cellType:ZCellTypeClass dataModel:cellModel];
         [self.cellConfigArr addObject:textCellConfig];
         
+        if (i == 0) {
+            if (ValidArray(self.viewModel.addModel.lessonList)) {
+                ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
+                model.leftTitle = @"可用课程";
+                model.isHiddenLine = YES;
+                model.leftFont = [UIFont fontContent];
+                model.cellHeight = CGFloatIn750(110);
+                model.cellTitle = @"lessonList";
+                model.rightImage = @"rightBlackArrowN";
+                model.rightTitle = [NSString stringWithFormat:@"已选%ld门课程",self.viewModel.addModel.lessonList.count];
+                
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZSingleLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZSingleLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+                
+                [self.cellConfigArr addObject:menuCellConfig];
+            }
+        }
     }
     if (ValidArray(self.viewModel.addModel.lessonList)) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -163,7 +179,7 @@
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            if (!ValidArray(weakSelf.viewModel.addModel.lessonList)) {
+            if (!ValidArray(weakSelf.viewModel.addModel.lessonList) && !weakSelf.viewModel.addModel.isAll) {
                 [TLUIUtility showErrorHint:@"请选择可用课程"];
                 return ;
             }
@@ -310,7 +326,7 @@
            [items addObject:model];
         }
         
-        [ZAlertDataSinglePickerView setAlertName:@"请选择卡券类型" selectedIndex:0 items:items handlerBlock:^(NSInteger index) {
+        [ZAlertDataSinglePickerView setAlertName:@"请选择卡券类型" selectedIndex:self.viewModel.addModel.isAll ? 0:1 items:items handlerBlock:^(NSInteger index) {
             if (index == 0) {
                 weakSelf.viewModel.addModel.isAll = YES;
                 weakSelf.viewModel.addModel.lessonList = @[];
@@ -338,7 +354,15 @@
         }];
     }else if ([cellConfig.title isEqualToString:@"lessonList"]){
         [self.iTableView endEditing:YES];
-        routePushVC(ZRoute_org_cartLessonList, self.viewModel.addModel.lessonList, nil);
+        routePushVC(ZRoute_org_cartAddLesson, self.viewModel.addModel.lessonList, ^(NSDictionary *result, NSError * _Nullable error) {
+            if (result && [result objectForKey:@"list"]) {
+                weakSelf.viewModel.addModel.lessonList = result[@"list"];
+            }
+            weakSelf.viewModel.addModel.isAll = NO;
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        });
+//        routePushVC(ZRoute_org_cartLessonList, self.viewModel.addModel.lessonList, nil);
     }else if ([cellConfig.title isEqualToString:@"student"]) {
         ZOrganizationCardSendAddStudentVC *avc = [[ZOrganizationCardSendAddStudentVC alloc] init];
         avc.list = self.viewModel.addModel.student;

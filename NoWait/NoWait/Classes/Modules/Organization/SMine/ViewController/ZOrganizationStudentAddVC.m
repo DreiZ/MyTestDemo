@@ -66,6 +66,7 @@
                          @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                                     @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",[NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.viewModel.addModel.courses_name),ValidStr(self.viewModel.addModel.courses_name)? @"(共":@"",SafeStr(self.viewModel.addModel.total_progress),ValidStr(self.viewModel.addModel.courses_name)?@"节)":@""],@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                        @[@"课程总节数", @"请输入课程总节数", @YES, @"", @"total_progress",SafeStr(self.viewModel.addModel.total_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     __weak typeof(self) weakSelf = self;
@@ -245,6 +246,14 @@
                 [TLUIUtility showErrorHint:@"请选择课程"];
                 return ;
             }
+            if (!ValidStr(weakSelf.viewModel.addModel.total_progress)) {
+                [TLUIUtility showErrorHint:@"请输入课程总节数"];
+                return ;
+            }
+            if (!ValidStr(weakSelf.viewModel.addModel.now_progress)) {
+                weakSelf.viewModel.addModel.now_progress = @"0";
+            }
+            
             NSMutableDictionary *otherDict = @{}.mutableCopy;
             if (ValidStr(weakSelf.viewModel.addModel.now_progress)) {
                 if ([weakSelf.viewModel.addModel.now_progress intValue] - [weakSelf.viewModel.addModel.total_progress intValue] >= 0) {
@@ -259,7 +268,7 @@
                 [TLUIUtility showErrorHint:@"请选择教师"];
                 return ;
             }
-            
+            [otherDict setObject:weakSelf.viewModel.addModel.total_progress forKey:@"total_progress"];
             [otherDict setObject:weakSelf.viewModel.addModel.name forKey:@"name"];
             [otherDict setObject:weakSelf.viewModel.addModel.phone forKey:@"phone"];
             
@@ -500,6 +509,11 @@
         ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.now_progress = text;
+        };
+    }else if([cellConfig.title isEqualToString:@"total_progress"]){
+        ZTextFieldCell *lcell = (ZTextFieldCell *)cell;
+        lcell.valueChangeBlock = ^(NSString * text) {
+            weakSelf.viewModel.addModel.total_progress = text;
         };
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;

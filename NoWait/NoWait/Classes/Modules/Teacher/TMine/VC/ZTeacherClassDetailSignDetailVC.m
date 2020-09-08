@@ -289,6 +289,12 @@
         if (isSuccess) {
             [weakSelf setIsEdit:NO];
             weakSelf.detailModel = addModel;
+            if (weakSelf.detailModel.class_type && [weakSelf.detailModel.class_type intValue] == 2) {
+                weakSelf.bottomView.isLong = YES;
+            }else{
+                weakSelf.bottomView.isLong = NO;
+            }
+            
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }

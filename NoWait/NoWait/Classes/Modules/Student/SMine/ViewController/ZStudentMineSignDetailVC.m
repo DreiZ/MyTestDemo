@@ -16,6 +16,7 @@
 
 @interface ZStudentMineSignDetailVC ()
 @property (nonatomic,strong) ZSignInfoModel *detailModel;
+@property (nonatomic,strong) UIButton *bottomBtn;
 
 @end
 @implementation ZStudentMineSignDetailVC
@@ -30,6 +31,20 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    if (self.detailModel.class_type && [self.detailModel.class_type intValue] == 2 &&([self.detailModel.now_progress intValue] + [self.detailModel.replenish_nums intValue] < [self.detailModel.total_progress intValue] && [[ZUserHelper sharedHelper].user.type intValue] == 2)) {
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-safeAreaBottom());
+            make.height.mas_equalTo(CGFloatIn750(80));
+        }];
+    }else{
+        [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view.mas_bottom);
+            make.height.mas_equalTo(CGFloatIn750(80));
+        }];
+    }
     
     {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -50,11 +65,14 @@
         
         [self.cellConfigArr addObject:topCellConfig];
         
-        NSArray *tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue]]],
-                             @[@"补签", [NSString stringWithFormat:@"%@节", self.detailModel.replenish_nums]]
-                             ,@[@"请假", [NSString stringWithFormat:@"%@节", self.detailModel.vacate_nums]],
-                             @[@"旷课", [NSString stringWithFormat:@"%@节", self.detailModel.truancy_nums]],
-                             @[@"待签课", [NSString stringWithFormat:@"%@节", self.detailModel.wait_progress]]];
+        NSMutableArray *tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue]]],
+                             @[@"补签", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.replenish_nums)]]].mutableCopy;
+        if (!(self.detailModel.class_type && [self.detailModel.class_type intValue] == 2)) {
+            [tempArr addObjectsFromArray:@[@[@"请假", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.vacate_nums)]],
+                                           @[@"旷课", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.truancy_nums)]]]];
+        }
+        [tempArr addObject:@[@"待签课", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.wait_progress)]]];
+        
         for (int i = 0; i < tempArr.count; i++) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
             model.leftTitle = tempArr[i][0];
@@ -111,11 +129,40 @@
 
 - (void)setupMainView {
     [super setupMainView];
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(80));
+    }];
     [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.bottomBtn.mas_top);
         make.top.equalTo(self.view.mas_top).offset(10);
     }];
+    
+}
+
+#pragma mark - lazy loading...
+- (UIButton *)bottomBtn {
+    if (!_bottomBtn) {
+        __weak typeof(self) weakSelf = self;
+        _bottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
+        [_bottomBtn setTitle:@"补课" forState:UIControlStateNormal];
+
+        [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont fontContent]];
+        [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        
+        [_bottomBtn bk_addEventHandler:^(id sender) {
+           [ZAlertView setAlertWithTitle:@"小提示" subTitle:[NSString stringWithFormat:@"如果当前正在上课,将会签课如果当前没在上课,将会补签"] leftBtnTitle:@"取消" rightBtnTitle:@"确定补签" handlerBlock:^(NSInteger index) {
+               if (index == 1) {
+                   [weakSelf teacherSign];
+               }
+           }];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomBtn;
 }
 
 #pragma mark tableView -------datasource-----
@@ -204,6 +251,20 @@
     }];
 }
 
+
+- (void)teacherSign{
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:self.courses_class_id forKey:@"courses_class_id"];
+    [param setObject:SafeStr(self.student_id) forKey:@"student"];
+    [ZSignViewModel teacherBuSign:param completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            [TLUIUtility showSuccessHint:data];
+            [self refreshData];
+        }else{
+            [TLUIUtility showErrorHint:data];
+        }
+    }];
+}
 @end
 
 #pragma mark - RouteHandler

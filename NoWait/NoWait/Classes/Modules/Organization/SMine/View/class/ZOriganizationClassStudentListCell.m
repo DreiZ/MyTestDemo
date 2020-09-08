@@ -48,20 +48,20 @@
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.height.mas_equalTo(CGFloatIn750(60));
+        make.width.height.mas_equalTo(CGFloatIn750(80));
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(20));
     }];
 
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
-        make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
-        make.centerY.equalTo(self.mas_centerY);
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
+        make.width.equalTo(self.mas_width).multipliedBy(2/5.0);
+        make.bottom.equalTo(self.mas_centerY).offset(-CGFloatIn750(4));
     }];
     
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_right);
+        make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(20));
         make.width.equalTo(self.mas_width).multipliedBy(1/4.0);
-        make.centerY.equalTo(self.mas_centerY);
+        make.top.equalTo(self.mas_centerY).offset(CGFloatIn750(4));
     }];
     
     [self.userBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,7 +107,7 @@
         _userImageView = [[UIImageView alloc] init];
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.masksToBounds = YES;
-        _userImageView.layer.cornerRadius = CGFloatIn750(30);
+        _userImageView.layer.cornerRadius = CGFloatIn750(40);
     }
     return _userImageView;
 }
@@ -139,7 +139,7 @@
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray],[UIColor colorTextGrayDark]);
         
         _numLabel.numberOfLines = 1;
-        _numLabel.textAlignment = NSTextAlignmentCenter;
+        _numLabel.textAlignment = NSTextAlignmentLeft;
         [_numLabel setFont:[UIFont fontContent]];
     }
     return _numLabel;
@@ -225,7 +225,7 @@
 
 
 +(CGFloat)z_getCellHeight:(id)sender {
-    return CGFloatIn750(140);
+    return CGFloatIn750(136);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
@@ -250,17 +250,17 @@
 - (void)setIsEnd:(BOOL)isEnd {
     _isEnd = isEnd;
     if (isEnd || [[ZUserHelper sharedHelper].user.type intValue] == 2) {
-        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
-            make.width.mas_equalTo(KScreenWidth/3.0 - CGFloatIn750(90));
-            make.centerY.equalTo(self.mas_centerY);
-        }];
-        
-        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.nameLabel.mas_right);
-            make.width.mas_equalTo(KScreenWidth/3.0);
-            make.centerY.equalTo(self.mas_centerY);
-        }];
+//        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+//            make.width.mas_equalTo(KScreenWidth/3.0 - CGFloatIn750(90));
+//            make.centerY.equalTo(self.mas_centerY);
+//        }];
+//
+//        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.nameLabel.mas_right);
+//            make.width.mas_equalTo(KScreenWidth/3.0);
+//            make.centerY.equalTo(self.mas_centerY);
+//        }];
         
         [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
@@ -270,7 +270,7 @@
         
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.mas_right).multipliedBy(5.0/6);
+            make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
             make.centerY.equalTo(self.mas_centerY);
             make.height.mas_equalTo(CGFloatIn750(56));
             make.width.mas_equalTo(CGFloatIn750(142));
@@ -282,17 +282,17 @@
         }
         self.delView.hidden = YES;
     }else{
-        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
-            make.width.mas_equalTo(KScreenWidth/4.0 - CGFloatIn750(90));
-            make.centerY.equalTo(self.mas_centerY);
-        }];
-        
-        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.nameLabel.mas_right);
-            make.width.mas_equalTo(KScreenWidth/4.0);
-            make.centerY.equalTo(self.mas_centerY);
-        }];
+//        [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.userImageView.mas_right).offset(CGFloatIn750(10));
+//            make.width.mas_equalTo(KScreenWidth/4.0 - CGFloatIn750(90));
+//            make.centerY.equalTo(self.mas_centerY);
+//        }];
+//
+//        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.nameLabel.mas_right);
+//            make.width.mas_equalTo(KScreenWidth/4.0);
+//            make.centerY.equalTo(self.mas_centerY);
+//        }];
         
         [self.userBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
@@ -301,15 +301,15 @@
         }];
         
         [self.seeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.numLabel.mas_right);
+            make.right.equalTo(self.delView.mas_left).offset(-CGFloatIn750(20));
             make.centerY.equalTo(self.mas_centerY);
             make.height.mas_equalTo(CGFloatIn750(56));
             make.width.mas_equalTo(CGFloatIn750(142));
         }];
         
         [self.delView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right);
-            make.width.mas_equalTo(KScreenWidth/4.0);
+            make.right.equalTo(self.mas_right).offset(CGFloatIn750(-30));
+            make.width.mas_equalTo(CGFloatIn750(146));
             make.top.bottom.equalTo(self);
         }];
         if (self.model.isEdit) {

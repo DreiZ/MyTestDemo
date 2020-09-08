@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZTeacherSignStudentListBottomView : UIView
 @property (nonatomic,strong) void (^handleBlock)(NSInteger);
 @property (nonatomic,strong) NSString *type;
+@property (nonatomic,assign) BOOL isLong;
 
 @end
 

@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UIButton *navLeftBtn;
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,assign) NSInteger total;
+@property (nonatomic,strong) NSMutableArray *hadSelectArr;
 
 @end
 
@@ -201,6 +202,13 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
+            for (ZOriganizationLessonListModel *model in weakSelf.dataSources) {
+                for (ZOriganizationLessonListModel *smodel in weakSelf.hadSelectArr) {
+                    if ([model.lessonID isEqualToString:smodel.lessonID]) {
+                        model.isSelected = YES;
+                    }
+                }
+            }
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
             weakSelf.total = [data.total intValue];
@@ -248,8 +256,9 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
-       [param setObject:@"1" forKey:@"status"];
+    [param setObject:[ZUserHelper sharedHelper].school.schoolID forKey:@"stores_id"];
+    [param setObject:@"1" forKey:@"status"];
+    [param setObject:@"1000" forKey:@"page_size"];
     return param;
 }
 @end
@@ -267,6 +276,9 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZOrganizationCardAddLessonListVC *routevc = [[ZOrganizationCardAddLessonListVC alloc] init];
+    if (request.prts && [request.prts isKindOfClass:[NSArray class]]) {
+        routevc.hadSelectArr = request.prts;
+    }
     routevc.handleBlock = ^(NSArray<ZOriganizationLessonListModel *> *list, BOOL isAll) {
         if (completionHandler) {
             completionHandler(@{@"list":list?list:@[],@"isAll":isAll?@YES:@NO},nil);

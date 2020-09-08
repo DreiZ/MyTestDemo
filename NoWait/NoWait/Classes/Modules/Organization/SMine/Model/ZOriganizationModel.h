@@ -624,6 +624,8 @@
 @property (nonatomic,strong) NSArray <ZOriganizationSignListModel *>*list;
 @property (nonatomic,strong) NSArray <ZOriganizationSignListImageNetModel *>*image;
 @property (nonatomic,strong) NSString *sign_time;
+@property (nonatomic,strong) NSString *class_type;
+
 @property (nonatomic,assign) NSInteger index;
 @end
 
