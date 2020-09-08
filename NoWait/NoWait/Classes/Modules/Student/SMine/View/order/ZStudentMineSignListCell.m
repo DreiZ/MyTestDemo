@@ -294,7 +294,7 @@
     _model = model;
     _lessonNameLabel.text = model.stores_courses_name;
     _classNameLabel.text = model.courses_class_name;
-    _studentLabel.text = model.student_name;
+    _studentLabel.text = [NSString stringWithFormat:@"%@(%d/%@节)",model.student_name,([model.now_progress intValue] + [model.replenish_nums intValue]), model.total_progress];
     
     _userLabel.text = model.teacher_nick_name;
     _nameLabel.text = model.stores_name;
