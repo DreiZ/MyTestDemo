@@ -246,12 +246,22 @@
                 }];
             }else if(index == 3){
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    weakSelf.timeView.experience_time = weakSelf.addModel.appointment_time;
-                    [weakSelf.timeView showToTime];
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                        weakSelf.timeView.experience_time = weakSelf.addModel.appointment_time;
+                        [weakSelf.timeView showToTime];
+                    }else{
+                        [TLUIUtility showInfoHint:@"非学员端暂不开放购买"];
+                    }
+                    
                 }];
             } else{
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                        [weakSelf.selectView showSelectViewWithModel:weakSelf.addModel];
+                    }else{
+                        [TLUIUtility showInfoHint:@"非学员端暂不开放购买"];
+                    }
+                    
                 }];
             }
         };

@@ -221,7 +221,11 @@
                 }];
             }else {
                 [[ZUserHelper sharedHelper] checkLogin:^{
-                    [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
+                    if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
+                        [weakSelf.selectView showSelectViewWithModel:weakSelf.detailModel];
+                    }else{
+                        [TLUIUtility showInfoHint:@"非学员端暂不开放购买"];
+                    }
                 }];
             }
         };

@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *lessonNameLabel;
 @property (nonatomic,strong) UILabel *stateLabel;
 @property (nonatomic,strong) UILabel *classNameLabel;
+@property (nonatomic,strong) UILabel *longLabel;
 
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *userLabel;
@@ -21,6 +22,7 @@
 
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIButton *openBtn;
 @property (nonatomic,strong) UIButton *studentListBtn;
 @property (nonatomic,strong) UIButton *signBtn;
@@ -53,8 +55,9 @@
         make.left.top.right.equalTo(self.contView);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
+    _topView = topView;
     
-    
+    [topView addSubview:self.longLabel];
     [topView addSubview:self.userImageView];
     [topView addSubview:self.nameLabel];
     [topView addSubview:self.userLabel];
@@ -66,10 +69,19 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(30));
+        make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
+    [self.longLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(20));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(60));
+        make.height.mas_equalTo(CGFloatIn750(30));
+    }];
+
+    
     [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.longLabel.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
@@ -79,12 +91,14 @@
         make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
         make.top.equalTo(topView.mas_top).offset(CGFloatIn750(88));
     }];
-
+    
+    
     [self.stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(topView.mas_right).offset(-CGFloatIn750(30));
+        make.right.equalTo(self.longLabel.mas_left).offset(-CGFloatIn750(10));
         make.centerY.equalTo(self.lessonNameLabel.mas_centerY);
         make.width.mas_equalTo(CGFloatIn750(80));
     }];
+    
     
     [self.classNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(topView.mas_left).offset(CGFloatIn750(30));
@@ -290,6 +304,21 @@
 }
 
 
+- (UILabel *)longLabel {
+    if (!_longLabel) {
+        _longLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _longLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _longLabel.text = @"长期班";
+        _longLabel.numberOfLines = 1;
+        _longLabel.textAlignment = NSTextAlignmentCenter;
+        [_longLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        ViewBorderRadius(_longLabel, CGFloatIn750(8), 1, [UIColor colorMain]);
+        _longLabel.backgroundColor = [UIColor colorMainSub];
+    }
+    return _longLabel;
+}
+
+
 - (UIButton *)signBtn {
     if (!_signBtn) {
         __weak typeof(self) weakSelf = self;
@@ -338,17 +367,26 @@
     if ([model.status intValue] == 1) {
         status = @"待开班";
         status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = @"待开班";
+        }
         _numLabel.hidden = NO;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
         status = @"已开班";
         status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = [NSString stringWithFormat:@"%@ 第%@节",@"已开班",SafeStr(model.now_progress)];
+        }
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
     }else if ([model.status intValue] == 3) {
         status = @"已结班";
         status = [NSString stringWithFormat:@"%@(%@/%@)",status,SafeStr(model.now_progress),SafeStr(model.total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = [NSString stringWithFormat:@"%@ 第%@节",@"已结班",SafeStr(model.now_progress)];
+        }
         _numLabel.hidden = NO;
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
@@ -400,6 +438,32 @@
         
         self.signBtn.hidden = YES;
     }
+    CGSize tempSize = [SafeStr(self.numLabel.text) tt_sizeWithFont:[UIFont fontSmall]];
+    
+    if (model.class_type && [model.class_type intValue] == 2) {
+        self.longLabel.hidden = NO;
+        [self.longLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(CGFloatIn750(60));
+            make.height.mas_equalTo(CGFloatIn750(30));
+        }];
+
+        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.longLabel.mas_left).offset(-CGFloatIn750(10));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(tempSize.width + 2);
+        }];
+    }else{
+        self.longLabel.hidden = YES;
+        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(tempSize.width + 2);
+        }];
+    }
+    self.userImageView.hidden = YES;
+    self.userLabel.hidden = YES;
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
@@ -413,9 +477,9 @@
         
         height = height + classSize.height - [UIFont fontContent].lineHeight;
         height = height + lessonSize.height - [UIFont boldFontTitle].lineHeight;
-        return height + CGFloatIn750(44);
+        return height ;
     }
-    return CGFloatIn750(348) + CGFloatIn750(44);
+    return CGFloatIn750(348);
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {

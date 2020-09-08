@@ -73,6 +73,7 @@
 @property (nonatomic,strong) NSString *stores_courses_short_name;
 @property (nonatomic,strong) NSString *note_id;
 
+@property (nonatomic,strong) NSString *class_type;
 
 @property (nonatomic,strong) NSString *stores_courses_name;
 @property (nonatomic,strong) NSString *account_id;

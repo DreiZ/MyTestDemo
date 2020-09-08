@@ -76,7 +76,7 @@
     if (ValidArray(self.dataSources)) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         if (self.total_progress && [self.total_progress intValue] >= 999999) {
-            model.leftTitle = @"长效班";
+            model.leftTitle = @"长期班";
         }else{
             model.leftTitle = [NSString stringWithFormat:@"课程总节数：%@节",self.total_progress];
         }

@@ -101,7 +101,7 @@
                 [weakSelf.iCollectionView reloadData];
                 
                 [weakSelf.iCollectionView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 20) {
                     [weakSelf.iCollectionView tt_removeLoadMoreFooter];
                 }else{
                     [weakSelf.iCollectionView tt_endLoadMore];
@@ -122,7 +122,7 @@
                 [weakSelf.iCollectionView reloadData];
                 
                 [weakSelf.iCollectionView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 20) {
                     [weakSelf.iCollectionView tt_removeLoadMoreFooter];
                 }else{
                     [weakSelf.iCollectionView tt_endLoadMore];
@@ -151,7 +151,7 @@
                 [weakSelf.iCollectionView reloadData];
                 
                 [weakSelf.iCollectionView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 20) {
                     [weakSelf.iCollectionView tt_removeLoadMoreFooter];
                 }else{
                     [weakSelf.iCollectionView tt_endLoadMore];
@@ -171,7 +171,7 @@
                 [weakSelf.iCollectionView reloadData];
                 
                 [weakSelf.iCollectionView tt_endRefreshing];
-                if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                if (data && [data.total integerValue] <= weakSelf.currentPage * 20) {
                     [weakSelf.iCollectionView tt_removeLoadMoreFooter];
                 }else{
                     [weakSelf.iCollectionView tt_endLoadMore];
@@ -188,6 +188,7 @@
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
        [param setObject:self.stores_id forKey:@"stores_id"];
+    [param setObject:@"20" forKey:@"page_size"];
 //       [param setObject:@"0" forKey:@"status"];
     return param;
 }

@@ -47,7 +47,8 @@
                              @[@"上课时间", @"选择", @NO, @"rightBlackArrowN", @"time"],
                              @[@"分配教师", @"选择", @NO, @"rightBlackArrowN",  @"teacher"],
                              @[@"开课日期", @"选择", @NO, @"rightBlackArrowN",  @"openTime"]];
-        
+        ZCellConfig *typeCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.is_long?@"2":@"1"];
+        [self.cellConfigArr addObject:typeCellConfig];
         for (int i = 0; i < textArr.count; i++) {
             if ([textArr[i][4] isEqualToString:@"time"]) {
                 ZBaseTextFieldCellModel *cellModel = [[ZBaseTextFieldCellModel alloc] init];
@@ -137,9 +138,6 @@
             }
         }
     }
-    
-    ZCellConfig *typeCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationLessonTypeCell className] title:@"type" showInfoMethod:@selector(setIsGu:) heightOfCell:[ZOrganizationLessonTypeCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.viewModel.addModel.is_long?@"2":@"1"];
-    [self.cellConfigArr addObject:typeCellConfig];
 }
 
 
@@ -285,7 +283,7 @@
         };
     }else if([cellConfig.title isEqualToString:@"type"]){
         ZOrganizationLessonTypeCell *lcell = (ZOrganizationLessonTypeCell *)cell;
-        [lcell setLeftTitle:@"普通班" rightTitle:@"长效班"];
+        [lcell setLeftTitle:@"普通班" rightTitle:@"长期班"];
         lcell.isEdit = YES;
         lcell.handleBlock = ^(NSInteger index) {
             if (index == 0) {

@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UILabel *stateLabel;
 @property (nonatomic,strong) UILabel *classNameLabel;
 @property (nonatomic,strong) UILabel *studentLabel;
+@property (nonatomic,strong) UILabel *longLabel;
 
 @property (nonatomic,strong) UIImageView *userImageView;
 @property (nonatomic,strong) UILabel *userLabel;
@@ -52,7 +53,7 @@
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
     
-    
+    [self.topView addSubview:self.longLabel];
     [self.topView addSubview:self.userImageView];
     [self.topView addSubview:self.nameLabel];
     [self.topView addSubview:self.userLabel];
@@ -67,10 +68,17 @@
         make.right.equalTo(self.numLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
-    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(30));
+    [self.longLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
         make.centerY.equalTo(self.nameLabel.mas_centerY);
-        make.width.mas_equalTo(CGFloatIn750(80));
+        make.width.mas_equalTo(CGFloatIn750(60));
+        make.height.mas_equalTo(CGFloatIn750(30));
+    }];
+
+    
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.longLabel.mas_left).offset(-CGFloatIn750(10));
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
     }];
     
     [self.topView addSubview:self.lessonNameLabel];
@@ -267,6 +275,21 @@
     return _signBtn;
 }
 
+
+- (UILabel *)longLabel {
+    if (!_longLabel) {
+        _longLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _longLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        _longLabel.text = @"长期班";
+        _longLabel.numberOfLines = 1;
+        _longLabel.textAlignment = NSTextAlignmentCenter;
+        [_longLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        ViewBorderRadius(_longLabel, CGFloatIn750(8), 1, [UIColor colorMain]);
+        _longLabel.backgroundColor = [UIColor colorMainSub];
+    }
+    return _longLabel;
+}
+
 - (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
     _lessonNameLabel.text = model.stores_courses_name;
@@ -285,11 +308,17 @@
         _numLabel.hidden = NO;
         status = @"待开班";
         status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = @"待开班";
+        }
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
     }else if ([model.status intValue] == 2) {
         status = @"已开班";
         status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = [NSString stringWithFormat:@"%@ 第%@节",@"已开班",SafeStr(model.class_now_progress)];
+        }
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
@@ -298,6 +327,9 @@
         status = @"已结班";
         _numLabel.hidden = NO;
         status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
+        if (model.class_type && [model.class_type intValue] == 2) {
+            status = [NSString stringWithFormat:@"%@ 第%@节",@"已结班",SafeStr(model.class_now_progress)];
+        }
         _stateLabel.textColor = adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]);
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
@@ -343,6 +375,29 @@
         make.centerY.equalTo(self.nameLabel.mas_centerY);
         make.width.mas_equalTo(tempSize.width + 2);
     }];
+    
+    if (model.class_type && [model.class_type intValue] == 2) {
+        self.longLabel.hidden = NO;
+        [self.longLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(CGFloatIn750(60));
+            make.height.mas_equalTo(CGFloatIn750(30));
+        }];
+
+        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.longLabel.mas_left).offset(-CGFloatIn750(10));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(tempSize.width + 2);
+        }];
+    }else{
+        self.longLabel.hidden = YES;
+        [self.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.topView.mas_right).offset(-CGFloatIn750(20));
+            make.centerY.equalTo(self.nameLabel.mas_centerY);
+            make.width.mas_equalTo(tempSize.width + 2);
+        }];
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
