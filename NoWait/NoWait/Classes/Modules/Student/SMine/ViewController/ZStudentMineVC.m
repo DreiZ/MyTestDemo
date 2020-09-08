@@ -161,9 +161,14 @@
         };
         
         lcell.handleBlock = ^(ZOriganizationClassListModel * model) {
-            [[ZUserHelper sharedHelper] checkLogin:^{
-                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
-            }];
+            if (ValidStr(model.note_id)) {
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id),@"note_id":SafeStr(model.note_id)}, nil);
+            }else{
+                [[ZUserHelper sharedHelper] checkLogin:^{
+                    routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
+                    
+                }];
+            }
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentMineNoLessonProgressCell"]) {
         ZStudentMineNoLessonProgressCell *lcell = (ZStudentMineNoLessonProgressCell *)cell;
@@ -181,7 +186,12 @@
         };
         
         tcell.handleBlock = ^(ZOriganizationLessonListModel * model) {
-            routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+            if (ValidStr(model.note_id)) {
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id),@"note_id":SafeStr(model.note_id)}, nil);
+            }else{
+                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+            }
+            
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonNoTimetableCell"]){
         ZStudentMineLessonNoTimetableCell *tcell = (ZStudentMineLessonNoTimetableCell *)cell;

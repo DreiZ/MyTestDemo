@@ -71,6 +71,7 @@
 @property (nonatomic,strong) NSString *can_sign;
 @property (nonatomic,strong) NSString *can_operation;
 @property (nonatomic,strong) NSString *stores_courses_short_name;
+@property (nonatomic,strong) NSString *note_id;
 
 
 @property (nonatomic,strong) NSString *stores_courses_name;
@@ -135,6 +136,7 @@
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSString *can_operation;
+@property (nonatomic,strong) NSString *class_type;
 
 @property (nonatomic,assign) NSInteger index;
 @end
@@ -215,7 +217,7 @@
 
 @property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *nowNums;
-
+@property (nonatomic,strong) NSString *class_type;
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
 @property (nonatomic,strong) NSString *level;// 1: 初级，2：进阶 3：精英
@@ -239,6 +241,8 @@
 @property (nonatomic,strong) NSString *sign_up_at; //报名日期  如：2020-01-01
 @property (nonatomic,strong) NSString *stores_courses_class_id;//课程id
 @property (nonatomic,strong) NSString *courses_name;//课程id
+@property (nonatomic,strong) NSString *course_number;
+
 @property (nonatomic,strong) NSString *courses_image;//课程id
 @property (nonatomic,strong) NSString *source;// 来源渠道
 @property (nonatomic,strong) NSString *teacher_id;//教师id

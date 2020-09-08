@@ -14,6 +14,7 @@
 #import "ZOriganizationTextViewCell.h"
 #import "ZOriganizationIDCardCell.h"
 #import "ZOrganizationCampusTextLabelCell.h"
+#import "ZOrganizationStudentTotalCell.h"
 #import "ZAddPhotosCell.h"
 
 #import "ZBaseUnitModel.h"
@@ -65,47 +66,56 @@
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",@2,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"出生日期", @"请选择出生日期(选填)", @NO, @"rightBlackArrowN", @"birthday",[SafeStr(self.viewModel.addModel.birthday) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"报名日期", @"请选择报名日期(选填)", @NO, @"rightBlackArrowN", @"registrationDate",[SafeStr(self.viewModel.addModel.sign_up_at) timeStringWithFormatter:@"yyyy-MM-dd"],@12,[NSNumber numberWithInt:ZFormatterTypeAny]],
-                                    @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",[NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.viewModel.addModel.courses_name),ValidStr(self.viewModel.addModel.courses_name)? @"(共":@"",SafeStr(self.viewModel.addModel.total_progress),ValidStr(self.viewModel.addModel.courses_name)?@"节)":@""],@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
+                                    @[@"报名课程", @"请选择课程", @NO, @"rightBlackArrowN", @"lesson",[NSString stringWithFormat:@"%@%@%@%@",SafeStr(self.viewModel.addModel.courses_name),ValidStr(self.viewModel.addModel.courses_name)? @"(共":@"",SafeStr(self.viewModel.addModel.course_number),ValidStr(self.viewModel.addModel.courses_name)?@"节)":@""],@30,[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"课程总节数", @"请输入课程总节数", @YES, @"", @"total_progress",SafeStr(self.viewModel.addModel.total_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"已上课进度", @"请输入上课进度（默认0）", @YES, @"", @"now_progress",SafeStr(self.viewModel.addModel.now_progress),@6,[NSNumber numberWithInt:ZFormatterTypePhoneNumber]],
                          @[@"分配教师", @"请选择教师", @NO, @"rightBlackArrowN", @"teacher",SafeStr(self.viewModel.addModel.teacher),@10,[NSNumber numberWithInt:ZFormatterTypeAny]]];
     __weak typeof(self) weakSelf = self;
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[4]))
-        .zz_heightTextField(CGFloatIn750(84))
-        .zz_titleLeft(SafeStr(obj[0]))
-        .zz_placeholder(SafeStr(obj[1]))
-        .zz_textEnabled([obj[2] boolValue])
-        .zz_content(SafeStr(obj[5]))
-        .zz_max([obj[6] intValue])
-        .zz_formatter([obj[7] intValue])
-        .zz_cellHeight(CGFloatIn750(86));
-        
         if (ValidStr(weakSelf.viewModel.addModel.studentID)
-            && ([SafeStr(obj[4]) isEqualToString:@"MID"]
-            || [SafeStr(obj[4]) isEqualToString:@"registrationDate"]
-            || [SafeStr(obj[4]) isEqualToString:@"lesson"]
-            || [SafeStr(obj[4]) isEqualToString:@"now_progress"]
-            || [SafeStr(obj[4]) isEqualToString:@"teacher"])) {
-            model.zz_colorText([UIColor colorTextGray1])
-            .zz_colorDarkText([UIColor colorTextGray1Dark])
-            .zz_colorSubRight([UIColor colorTextGray1])
-            .zz_colorDarkSubRight([UIColor colorTextGray1Dark])
-            .zz_textEnabled(NO);
+        && ([SafeStr(obj[4]) isEqualToString:@"total_progress"])) {
+            ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentTotalCell className] title:@"edit_total_progress" showInfoMethod:nil heightOfCell:[ZOrganizationStudentTotalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+            [weakSelf.cellConfigArr addObject:nameCellConfig];
+            
+            
         }else {
-            model.zz_colorText([UIColor colorTextBlack])
-            .zz_colorDarkText([UIColor colorTextBlackDark])
-            .zz_colorSubRight([UIColor colorTextBlack])
-            .zz_colorDarkSubRight([UIColor colorTextBlackDark])
-            .zz_textEnabled([obj[2] boolValue]);
-            if (ValidStr(obj[3])) {
-                model.zz_imageRight(SafeStr(obj[3]))
-                .zz_imageRightHeight(CGFloatIn750(14));
+            ZTextFieldModel *model = ZTextFieldModel.zz_textCellModel_create(SafeStr(obj[4]))
+            .zz_heightTextField(CGFloatIn750(84))
+            .zz_titleLeft(SafeStr(obj[0]))
+            .zz_placeholder(SafeStr(obj[1]))
+            .zz_textEnabled([obj[2] boolValue])
+            .zz_content(SafeStr(obj[5]))
+            .zz_max([obj[6] intValue])
+            .zz_formatter([obj[7] intValue])
+            .zz_cellHeight(CGFloatIn750(86));
+            
+            if (ValidStr(weakSelf.viewModel.addModel.studentID)
+                && ([SafeStr(obj[4]) isEqualToString:@"MID"]
+                || [SafeStr(obj[4]) isEqualToString:@"registrationDate"]
+                || [SafeStr(obj[4]) isEqualToString:@"lesson"]
+                || [SafeStr(obj[4]) isEqualToString:@"now_progress"]
+                || [SafeStr(obj[4]) isEqualToString:@"teacher"])) {
+                model.zz_colorText([UIColor colorTextGray1])
+                .zz_colorDarkText([UIColor colorTextGray1Dark])
+                .zz_colorSubRight([UIColor colorTextGray1])
+                .zz_colorDarkSubRight([UIColor colorTextGray1Dark])
+                .zz_textEnabled(NO);
+            }else {
+                model.zz_colorText([UIColor colorTextBlack])
+                .zz_colorDarkText([UIColor colorTextBlackDark])
+                .zz_colorSubRight([UIColor colorTextBlack])
+                .zz_colorDarkSubRight([UIColor colorTextBlackDark])
+                .zz_textEnabled([obj[2] boolValue]);
+                if (ValidStr(obj[3])) {
+                    model.zz_imageRight(SafeStr(obj[3]))
+                    .zz_imageRightHeight(CGFloatIn750(14));
+                }
             }
+            
+            ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [weakSelf.cellConfigArr addObject:nameCellConfig];
         }
         
-        ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-        [weakSelf.cellConfigArr addObject:nameCellConfig];
     }];
     
     {
@@ -515,6 +525,14 @@
         lcell.valueChangeBlock = ^(NSString * text) {
             weakSelf.viewModel.addModel.total_progress = text;
         };
+    }else if([cellConfig.title isEqualToString:@"edit_total_progress"]){
+        ZOrganizationStudentTotalCell *lcell = (ZOrganizationStudentTotalCell *)cell;
+        lcell.valueChangeBlock = ^(NSInteger text) {
+            weakSelf.viewModel.addModel.total_progress = [NSString stringWithFormat:@"%ld",text];
+        };
+        lcell.title = @"课程总节数";
+        lcell.num = [weakSelf.viewModel.addModel.total_progress intValue];
+        lcell.min = [weakSelf.viewModel.addModel.now_progress intValue] + 1;
     }else if ([cellConfig.title isEqualToString:@"ZAddPhotosCell"]) {
         ZAddPhotosCell *tCell = (ZAddPhotosCell *)cell;
         tCell.seeBlock = ^(NSInteger index) {

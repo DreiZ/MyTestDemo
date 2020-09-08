@@ -581,6 +581,9 @@
 		B2A816F324B4810C003A2E1F /* ZCircleDetailEvaSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A816F224B4810C003A2E1F /* ZCircleDetailEvaSectionView.m */; };
 		B2A816F624B486E5003A2E1F /* ZCircleDetailEvaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A816F524B486E5003A2E1F /* ZCircleDetailEvaListCell.m */; };
 		B2A816F924B48E75003A2E1F /* ZCircleDetailPhotoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A816F824B48E75003A2E1F /* ZCircleDetailPhotoListCell.m */; };
+		B2AD8FE12507708200E690D1 /* ZMapNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AD8FE02507708200E690D1 /* ZMapNavView.m */; };
+		B2AD8FE4250776EF00E690D1 /* ZMapSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AD8FE3250776EF00E690D1 /* ZMapSearchView.m */; };
+		B2AD8FE725077E3E00E690D1 /* ZOrganizationStudentTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AD8FE625077E3E00E690D1 /* ZOrganizationStudentTotalCell.m */; };
 		B2B22DE924930E43000BD20D /* ZHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B22DE824930E43000BD20D /* ZHistoryModel.m */; };
 		B2B22DEC24930E6D000BD20D /* ZSearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B22DEB24930E6D000BD20D /* ZSearchHistoryView.m */; };
 		B2B22DEF24930F45000BD20D /* ZLabelListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B22DEE24930F45000BD20D /* ZLabelListCell.m */; };
@@ -1983,6 +1986,12 @@
 		B2A816F524B486E5003A2E1F /* ZCircleDetailEvaListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleDetailEvaListCell.m; sourceTree = "<group>"; };
 		B2A816F724B48E75003A2E1F /* ZCircleDetailPhotoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCircleDetailPhotoListCell.h; sourceTree = "<group>"; };
 		B2A816F824B48E75003A2E1F /* ZCircleDetailPhotoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCircleDetailPhotoListCell.m; sourceTree = "<group>"; };
+		B2AD8FDF2507708200E690D1 /* ZMapNavView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMapNavView.h; sourceTree = "<group>"; };
+		B2AD8FE02507708200E690D1 /* ZMapNavView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMapNavView.m; sourceTree = "<group>"; };
+		B2AD8FE2250776EF00E690D1 /* ZMapSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMapSearchView.h; sourceTree = "<group>"; };
+		B2AD8FE3250776EF00E690D1 /* ZMapSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMapSearchView.m; sourceTree = "<group>"; };
+		B2AD8FE525077E3E00E690D1 /* ZOrganizationStudentTotalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZOrganizationStudentTotalCell.h; sourceTree = "<group>"; };
+		B2AD8FE625077E3E00E690D1 /* ZOrganizationStudentTotalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationStudentTotalCell.m; sourceTree = "<group>"; };
 		B2B22DE724930E42000BD20D /* ZHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHistoryModel.h; sourceTree = "<group>"; };
 		B2B22DE824930E43000BD20D /* ZHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHistoryModel.m; sourceTree = "<group>"; };
 		B2B22DEA24930E6D000BD20D /* ZSearchHistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSearchHistoryView.h; sourceTree = "<group>"; };
@@ -2563,6 +2572,8 @@
 				B2C35055243F3CD6002929A8 /* ZOrganizationStudentJionInLessonCell.m */,
 				B262B54E244EEAE100A27542 /* ZOrganizationStudentProcressEditCell.h */,
 				B262B54F244EEAE100A27542 /* ZOrganizationStudentProcressEditCell.m */,
+				B2AD8FE525077E3E00E690D1 /* ZOrganizationStudentTotalCell.h */,
+				B2AD8FE625077E3E00E690D1 /* ZOrganizationStudentTotalCell.m */,
 			);
 			path = student;
 			sourceTree = "<group>";
@@ -2627,6 +2638,10 @@
 				B2E367DE24F7864900938BCD /* ZSearchMapView.m */,
 				B29D1ADC24FC9CA1006518AB /* ZMapLoadErrorView.h */,
 				B29D1ADD24FC9CA1006518AB /* ZMapLoadErrorView.m */,
+				B2AD8FDF2507708200E690D1 /* ZMapNavView.h */,
+				B2AD8FE02507708200E690D1 /* ZMapNavView.m */,
+				B2AD8FE2250776EF00E690D1 /* ZMapSearchView.h */,
+				B2AD8FE3250776EF00E690D1 /* ZMapSearchView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6091,6 +6106,7 @@
 				B2EE5BAD23F7DA4D00ECCFF4 /* ZOriganizationStatisticsCell.m in Sources */,
 				B252ED86241612A700190804 /* ZStudentOrganizationLessonListCollectionCell.m in Sources */,
 				B230F54124CE86FC00A94F53 /* ZOrganizationTextLabelListCell.m in Sources */,
+				B2AD8FE12507708200E690D1 /* ZMapNavView.m in Sources */,
 				B2BEDB7C24C91ABD003F2F1E /* SJFilmEditingGIFCountDownView.m in Sources */,
 				B2DB9B23241B222B00340464 /* ZAlertTeacherCheckBoxView.m in Sources */,
 				B279D04923C863BC00391A33 /* ZStudentLessonSureOrderVC.m in Sources */,
@@ -6286,6 +6302,7 @@
 				B215844123CD6544007618CE /* MGWaterDorpView.m in Sources */,
 				B2F5BD3224B308C000AD1C72 /* ZCircleHotLessonListItemCell.m in Sources */,
 				B2E367F824F7999300938BCD /* NSString+PinYin4Cocoa.m in Sources */,
+				B2AD8FE4250776EF00E690D1 /* ZMapSearchView.m in Sources */,
 				B2E3680024F7999300938BCD /* PinYinForObjc.m in Sources */,
 				B2F5BD6B24B42AD200AD1C72 /* ZCircleMyFocusListVC.m in Sources */,
 				B296E3AC240507D200507509 /* ZOrganizationTopFilterView.m in Sources */,
@@ -6416,6 +6433,7 @@
 				B24415E524B848020059E813 /* ZCircleMineModel.m in Sources */,
 				B28D90FA240752430021E05A /* ZOrganizationAccountSchoolListCell.m in Sources */,
 				B29795A324260598004490F5 /* ZStudentLessonTeacherSelectedCell.m in Sources */,
+				B2AD8FE725077E3E00E690D1 /* ZOrganizationStudentTotalCell.m in Sources */,
 				B24415E224B847D50059E813 /* ZCircleMineViewModel.m in Sources */,
 				B2F7D37423CDE54A00F7A17D /* ZStudentMineOrderListVC.m in Sources */,
 				B2A77FF523BDEC1600407BF0 /* UIBarButtonItem+Back.m in Sources */,

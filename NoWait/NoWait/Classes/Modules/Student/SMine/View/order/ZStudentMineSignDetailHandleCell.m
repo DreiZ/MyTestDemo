@@ -29,10 +29,10 @@
     [super setupView];
     
     [self.contentView addSubview:self.lessonLabel];
-    [self.contentView addSubview:self.signBtn];
+    
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.rightLabel];
-    
+    [self.contentView addSubview:self.signBtn];
     
     [self.lessonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
@@ -132,7 +132,12 @@
         switch ([model.type intValue]) {
             case 1:
             {
-                _rightLabel.text = @"已扫码签课";
+                if (model.isNote) {
+                    _rightLabel.text = @"已签课";
+                }else{
+                    _rightLabel.text = @"已扫码签课";
+                }
+                
                 _timeLabel.hidden = NO;
                 
                 [self.timeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

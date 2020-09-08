@@ -174,7 +174,11 @@
         if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
             ZOriganizationLessonListModel *model = cellConfig.dataModel;
             if (model) {
-                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
+                if (ValidStr(model.note_id)) {
+                    routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id),@"note_id":SafeStr(model.note_id)}, nil);
+                }else{
+                    routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":model.courses_class_id, @"student_id":SafeStr(model.student_id)}, nil);
+                }
             }
             
         }else{

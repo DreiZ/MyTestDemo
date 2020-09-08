@@ -252,7 +252,7 @@
             
             NSMutableArray *months = @[].mutableCopy;
             [weakSelf.model.months enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [months addObject:[obj stringByReplacingOccurrencesOfString:@"月" withString:@""]];
+                [months addObject:[[NSString stringWithFormat:@"%@",obj] stringByReplacingOccurrencesOfString:@"月" withString:@""]];
             }];
             
             NSMutableDictionary *params = @{}.mutableCopy;

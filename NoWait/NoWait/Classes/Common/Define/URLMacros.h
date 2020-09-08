@@ -651,6 +651,12 @@
 //删除动态
 #define URL_account_v1_remove_dynamic_comment           @"account/v1/remove/dynamic/comment"
 
+//课程便签签课详情
+#define URL_account_v1_course_note_sign_info           @"account/v1/course_note_sign_info"
+
+#define URL_account_v1_course_note_sign           @"account/v1/course_note_sign"
+
+
 
 #pragma mark -map
 #define URL_merchants_v1_city_region_list          @"merchants/v1/city/region/list"

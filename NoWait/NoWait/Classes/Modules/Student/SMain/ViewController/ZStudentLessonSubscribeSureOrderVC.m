@@ -18,6 +18,7 @@
 #import "ZOriganizationOrderViewModel.h"
 #import "ZOrderModel.h"
 #import "ZPayManager.h"
+#import "ZAlertView.h"
 
 @interface ZStudentLessonSubscribeSureOrderVC ()
 @property (nonatomic,strong) UIView *handleView;
@@ -50,24 +51,60 @@
                 NSDictionary *backDict = notfication.object;
                 if (backDict && [backDict objectForKey:@"payState"]) {
                     if ([backDict[@"payState"] integerValue] == 0) {
-                        
+                        [ZAlertView setAlertWithTitle:@"支付成功" subTitle:@"支付成功后，如订单显示未支付，请勿重复支付，刷新订单页查看" leftBtnTitle:@"返回" rightBtnTitle:@"查看订单" handlerBlock:^(NSInteger index) {
+                            if (index == 0) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                               listModel.order_id = weakSelf.order_id;
+                               listModel.stores_id = weakSelf.detailModel.stores_id;
+                               listModel.isStudent = YES;
+                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                            }
+                        }];
                     }else if ([backDict[@"payState"] integerValue] == 1) {
-                        if (backDict && [backDict objectForKey:@"msg"]) {
-                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
-                        }
+//                        if (backDict && [backDict objectForKey:@"msg"]) {
+//                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+//                        }
+                        [ZAlertView setAlertWithTitle:@"支付失败" subTitle:@"您可以在订单里继续支付未完成的订单，请勿重复下单" leftBtnTitle:@"返回" rightBtnTitle:@"查看订单" handlerBlock:^(NSInteger index) {
+                            if (index == 0) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                               listModel.order_id = weakSelf.order_id;
+                               listModel.stores_id = weakSelf.detailModel.stores_id;
+                               listModel.isStudent = YES;
+                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                            }
+                        }];
                     }else if ([backDict[@"payState"] integerValue] == 2) {
-
+                        [ZAlertView setAlertWithTitle:@"支付已取消" subTitle:@"您可以在订单里继续支付未完成的订单，请勿重复下单" leftBtnTitle:@"返回" rightBtnTitle:@"查看订单" handlerBlock:^(NSInteger index) {
+                            if (index == 0) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                               listModel.order_id = weakSelf.order_id;
+                               listModel.stores_id = weakSelf.detailModel.stores_id;
+                               listModel.isStudent = YES;
+                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                            }
+                        }];
                     }else if ([backDict[@"payState"] integerValue] == 3) {
-                        if (backDict && [backDict objectForKey:@"msg"]) {
-                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
-                        }
+//                        if (backDict && [backDict objectForKey:@"msg"]) {
+//                            [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
+//                        }
+                        [ZAlertView setAlertWithTitle:@"支付异常" subTitle:@"您可以在订单里继续支付未完成的订单，请勿重复下单" leftBtnTitle:@"返回" rightBtnTitle:@"查看订单" handlerBlock:^(NSInteger index) {
+                            if (index == 0) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+                               listModel.order_id = weakSelf.order_id;
+                               listModel.stores_id = weakSelf.detailModel.stores_id;
+                               listModel.isStudent = YES;
+                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                            }
+                        }];
                     }
-                    
-                    ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                    listModel.order_id = weakSelf.order_id;
-                    listModel.stores_id = weakSelf.detailModel.stores_id;
-                    listModel.isStudent = YES;
-                    routePushVC(ZRoute_org_orderDetail, listModel, nil);
                 }
             }
         }];

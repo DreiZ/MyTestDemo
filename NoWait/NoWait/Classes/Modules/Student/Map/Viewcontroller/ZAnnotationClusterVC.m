@@ -27,6 +27,8 @@
 #import "ZMapLoadErrorView.h"
 #import "HCSortString.h"
 #import "ZYPinYinSearch.h"
+#import "ZMapNavView.h"
+#import "ZMapSearchView.h"
 
 #define kCalloutViewMargin  -12
 #define Button_Height       70.0
@@ -38,6 +40,8 @@
 @property (nonatomic, strong) ZSearchMapView *searchMapView;
 @property (nonatomic, strong) ZMapLoadErrorView *errorView;
 
+@property (nonatomic, strong) ZMapNavView *navView;
+@property (nonatomic, strong) ZMapSearchView *searchView;
 
 @property (nonatomic, strong) ZCustomCalloutView *customCalloutView;
 @property (nonatomic, strong) UIButton *navLeftBtn;
@@ -58,6 +62,9 @@
 
 @property (nonatomic, strong) NSString *type;//10.7(市)  10.85(大区) 12.5(小区)  14.5(详细)
 @property (nonatomic, strong) ZRegionNetModel *regionModel;
+@property (nonatomic, strong) NSArray *category;
+@property (nonatomic, strong) NSString *name;
+
 @property (nonatomic, assign) BOOL loadFromLocalHistory;
 @end
 
@@ -404,11 +411,16 @@
     
     _shouldRegionChangeReCalculate = NO;
     
-    [self.view addSubview:self.navLeftBtn];
-    [self.navLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(self.view.mas_top).offset(CGFloatIn750(0) + safeAreaTop());
-        make.width.height.mas_equalTo(CGFloatIn750(70));
+    [self.view addSubview:self.navView];
+    [self.navView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.height.mas_equalTo(kTopHeight);
+    }];
+    [self.view addSubview:self.searchView];
+    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.navView.mas_bottom);
+        make.height.mas_equalTo(CGFloatIn750(88));
     }];
     
     [self.view addSubview:self.catagerizeMapBtn];
@@ -430,7 +442,7 @@
     [self.view addSubview:self.errorView];
     [self.errorView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.searchMapView.mas_bottom).offset(CGFloatIn750(20));
+        make.top.equalTo(self.searchView.mas_bottom).offset(CGFloatIn750(20));
         make.height.mas_equalTo(CGFloatIn750(60));
         make.width.mas_equalTo(CGFloatIn750(430));
     }];
@@ -441,6 +453,18 @@
         weakSelf.errorView.title = @"暂无数据，点击刷新数据";
         [weakSelf getRegionData];
     }];
+    
+    self.catagerizeMapBtn.hidden = YES;
+    self.searchMapView.hidden = YES;
+    
+    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
+    if (isFirst) {
+        NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
+        if (nowTime - [isFirst intValue] <= 60*60 && self.regionModel && self.regionModel.region && self.regionModel.region.count > 0 && [self.regionModel.city.re_id isEqualToString:SafeStr([ZLocationManager shareManager].citycode)]) {//60*60*3
+            [TLUIUtility hiddenLoading];
+            return;
+        }
+    }
     
     [self getRegionData];
 }
@@ -523,10 +547,34 @@
         [_catagerizeMapBtn setTitleColor:[UIColor colorTextBlack] forState:UIControlStateNormal];
         [_catagerizeMapBtn.titleLabel setFont:[UIFont fontSmall]];
         [_catagerizeMapBtn bk_addEventHandler:^(id sender) {
-            [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
-                [weakSelf seletClassify:classify];
-                [weakSelf closeSearchBar];
-            }];
+            if (ValidArray(weakSelf.classifyArr)) {
+                [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
+                    [weakSelf seletClassify:classify];
+                    [weakSelf closeSearchBar];
+                }];
+            }else{
+                __weak typeof(self) weakSelf = self;
+                [TLUIUtility showLoading:nil];
+                [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {
+                    [TLUIUtility hiddenLoading];
+                    if (isSuccess) {
+                        ZMainClassifyNetModel *model = data;
+                        [model.list enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                sobj.superClassify_id = obj.classify_id;
+                            }];
+                        }];
+                        [ZStudentMainViewModel updateMainClassifysOne:model.list];
+                        [weakSelf.classifyArr removeAllObjects];
+                        [weakSelf.classifyArr addObjectsFromArray:model.list];
+                        [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
+                            [weakSelf seletClassify:classify];
+                            [weakSelf closeSearchBar];
+                        }];
+                    }
+                }];
+            }
+            
         } forControlEvents:UIControlEventTouchUpInside];
         
         ViewBorderRadius(_catagerizeMapBtn, CGFloatIn750(30), 1, [UIColor colorTextBlack]);
@@ -605,6 +653,60 @@
     }];
 }
 
+- (ZMapNavView *)navView {
+    if (!_navView) {
+        __weak typeof(self) weakSelf = self;
+        _navView = [[ZMapNavView alloc] init];
+        _navView.handleBlock = ^(NSInteger index) {
+            if (index == 0) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }else{
+                if (ValidArray(weakSelf.classifyArr)) {
+                    [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
+                        [weakSelf seletClassify:classify];
+                        [weakSelf closeSearchBar];
+                    }];
+                }else{
+                    [TLUIUtility showLoading:nil];
+                    [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {
+                        [TLUIUtility hiddenLoading];
+                        if (isSuccess) {
+                            ZMainClassifyNetModel *model = data;
+                            [model.list enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                    sobj.superClassify_id = obj.classify_id;
+                                }];
+                            }];
+                            [ZStudentMainViewModel updateMainClassifysOne:model.list];
+                            [weakSelf.classifyArr removeAllObjects];
+                            [weakSelf.classifyArr addObjectsFromArray:model.list];
+                            [ZAlertClassifyPickerView setClassifyAlertWithClassifyArr:weakSelf.classifyArr handlerBlock:^(NSMutableArray *classify) {
+                                [weakSelf seletClassify:classify];
+                                [weakSelf closeSearchBar];
+                            }];
+                        }
+                    }];
+                }
+                
+            }
+        };
+    }
+    
+    return _navView;
+}
+
+- (ZMapSearchView *)searchView {
+    if (!_searchView) {
+        __weak typeof(self) weakSelf = self;
+        _searchView = [[ZMapSearchView alloc] init];
+        _searchView.searchBlock = ^(NSString * text) {
+            weakSelf.name = text;
+            [weakSelf getRegionData];
+        };
+    }
+    return _searchView;
+}
+
 #pragma mark - 分类搜索
 - (void)searchWithName:(NSString *)name {
     [_selectedPoiArray removeAllObjects];
@@ -626,10 +728,25 @@
     if (classify && classify.count == 1) {
         ZMainClassifyOneModel *model = classify[0];
         [self.catagerizeMapBtn setTitle:model.name forState:UIControlStateNormal];
+        self.navView.navTitleLabel.text = model.name;
+        self.category = classify;
     }else if(classify && classify.count > 1){
-        [self.catagerizeMapBtn setTitle:@"已选择分类" forState:UIControlStateNormal];
+        NSString *str = @"";
+        for (int i = 0; i < classify.count; i++) {
+            ZMainClassifyOneModel *model = classify[i];
+            if (i == 0) {
+                str = model.name;
+            }else{
+                str = [NSString stringWithFormat:@"%@,%@",str,model.name];
+            }
+        }
+        [self.catagerizeMapBtn setTitle:str forState:UIControlStateNormal];
+        self.navView.navTitleLabel.text = str;
+        self.category = classify;
     }else{
+        self.category = nil;
         [self.catagerizeMapBtn setTitle:@"全部" forState:UIControlStateNormal];
+        self.navView.navTitleLabel.text = @"全部";
     }
     CGSize tempSize = [SafeStr(self.catagerizeMapBtn.titleLabel.text) tt_sizeWithFont:[UIFont fontSmall] constrainedToWidth:KScreenWidth/2.0f];
     [self.catagerizeMapBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -648,7 +765,8 @@
     
     [self.classifyModelArr removeAllObjects];
     [self.classifyModelArr addObjectsFromArray:classify];
-    
+    [TLUIUtility showLoading:@""];
+    [self getRegionData];
 }
 
 #pragma mark - Cache
@@ -670,24 +788,41 @@
 - (void)getRegionData {
     __weak typeof(self) weakSelf = self;
     
-    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:kMapUpdateInApp];
-    if (isFirst) {
-        NSInteger nowTime = [[NSDate new] timeIntervalSince1970];
-        if (nowTime - [isFirst intValue] <= 60*60 && self.regionModel && self.regionModel.region && self.regionModel.region.count > 0 && [self.regionModel.city.re_id isEqualToString:SafeStr([ZLocationManager shareManager].citycode)]) {//60*60*3
-            return;
-        }
-    }
-    
     //开始定位单次定位
     if (!ValidStr([ZLocationManager shareManager].citycode) && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
         [ZAlertView setAlertWithTitle:@"定位不可用，请检查定位权限是否开启后，再重新刷新数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
             
         }];
     }
+    NSMutableDictionary *params = @{@"city":SafeStr([ZLocationManager shareManager].citycode)}.mutableCopy;
+    if (ValidArray(self.category)) {
+        NSMutableArray *tempArr = @[].mutableCopy;
+        
+        if (self.category.count == 1) {
+            ZMainClassifyOneModel *model = self.category[0];
+            if ([model.classify_id isEqualToString:@"0"]) {
+                
+            }else{
+                for (ZMainClassifyOneModel *model in self.category) {
+                    [tempArr addObject:SafeStr(model.classify_id)];
+                }
+                [params setObject:tempArr forKey:@"category"];
+            }
+        }else{
+            for (ZMainClassifyOneModel *model in self.category) {
+                [tempArr addObject:SafeStr(model.classify_id)];
+            }
+            [params setObject:tempArr forKey:@"category"];
+        }
+    }
     
-    [ZStudentMainViewModel getRegionList:@{@"city":SafeStr([ZLocationManager shareManager].citycode)} completeBlock:^(BOOL isSuccess, id data) {
+    if (ValidStr(self.name)) {
+        [params setObject:self.name forKey:@"name"];
+    }
+    [ZStudentMainViewModel getRegionList:params completeBlock:^(BOOL isSuccess, id data) {
+        [TLUIUtility hiddenLoading];
         if (isSuccess && data) {
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kMapUpdateInApp];
+            
             weakSelf.errorView.hidden = YES;
             weakSelf.loadFromLocalHistory = NO;
             weakSelf.regionModel = data;
@@ -698,15 +833,22 @@
             for (ZRegionDataModel *model in weakSelf.regionModel.schools) {
                 model.type = @"4";
             }
-            [weakSelf writeDataToCache];
+            if (!ValidArray(weakSelf.category) && !ValidStr(weakSelf.name)) {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(long)[[NSDate new] timeIntervalSince1970]] forKey:kMapUpdateInApp];
+                [weakSelf writeDataToCache];
+            }
             [weakSelf updateAnnotations];
+            
             if (!ValidArray(weakSelf.regionModel.schools)) {
                 [ZAlertView setAlertWithTitle:@"该位置下暂无数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
                     
                 }];
             }
         }else{
-            weakSelf.errorView.hidden = NO;
+            if (!ValidArray(weakSelf.regionModel.schools)) {
+                weakSelf.errorView.hidden = NO;
+            }
+            
             [weakSelf.view bringSubviewToFront:weakSelf.errorView];
         }
     }];

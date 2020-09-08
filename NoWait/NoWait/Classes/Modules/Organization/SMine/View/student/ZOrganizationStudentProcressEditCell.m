@@ -36,7 +36,7 @@
     [self.totalTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contView.mas_centerY);
         make.right.equalTo(self.unitLabel.mas_left).offset(-CGFloatIn750(20));
-        make.height.mas_equalTo(CGFloatIn750(80));
+        make.height.mas_equalTo(CGFloatIn750(70));
         make.width.mas_equalTo(CGFloatIn750(120));
     }];
     
@@ -58,7 +58,7 @@
         [tempLabel setFont:[UIFont boldFontMaxTitle]];
         [self.contentView addSubview:tempLabel];
         [tempLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(CGFloatIn750(50));
+            make.width.mas_equalTo(CGFloatIn750(40));
             make.height.mas_equalTo(CGFloatIn750(50));
             make.right.equalTo(self.totalTextField.mas_left);
             make.centerY.equalTo(self.totalTextField.mas_centerY);
@@ -67,7 +67,7 @@
             make.centerY.equalTo(self.contView.mas_centerY);
             make.right.equalTo(tempLabel.mas_left).offset(-CGFloatIn750(6));
             make.height.mas_equalTo(CGFloatIn750(120));
-            make.height.mas_equalTo(CGFloatIn750(80));
+            make.height.mas_equalTo(CGFloatIn750(70));
         }];
         
         UIView *spaceView1 = [[UIView alloc] initWithFrame:CGRectZero];
@@ -192,7 +192,7 @@
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    [ZPublicTool textField:textField maxLenght:10 type:ZFormatterTypeDecimal];
+    [ZPublicTool textField:textField maxLenght:3 type:ZFormatterTypeDecimal];
     
     if (self.handleBlock) {
         if (textField == self.inputTextField) {

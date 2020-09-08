@@ -17,6 +17,7 @@
 @interface ZStudentMineSignDetailVC ()
 @property (nonatomic,strong) ZSignInfoModel *detailModel;
 @property (nonatomic,strong) UIButton *bottomBtn;
+@property (nonatomic,strong) NSString *note_id;
 
 @end
 @implementation ZStudentMineSignDetailVC
@@ -31,6 +32,12 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    if (ValidStr(self.note_id)) {
+        for (ZSignInfoListModel *model in self.detailModel.list) {
+            model.isNote = YES;
+        }
+    }
     
     if (self.detailModel.class_type && [self.detailModel.class_type intValue] == 2 &&([self.detailModel.now_progress intValue] + [self.detailModel.replenish_nums intValue] < [self.detailModel.total_progress intValue] && [[ZUserHelper sharedHelper].user.type intValue] == 2)) {
         [self.bottomBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -72,6 +79,11 @@
                                            @[@"旷课", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.truancy_nums)]]]];
         }
         [tempArr addObject:@[@"待签课", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.wait_progress)]]];
+        
+        if (ValidStr(self.note_id)) {
+            tempArr = @[@[@"已签课", [NSString stringWithFormat:@"%d节",[self.detailModel.now_progress intValue]]],
+            @[@"待签课", [NSString stringWithFormat:@"%@节", SafeStr(self.detailModel.wait_progress)]]].mutableCopy;
+        }
         
         for (int i = 0; i < tempArr.count; i++) {
             ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
@@ -169,12 +181,19 @@
 - (void)zz_tableView:(UITableView *)tableView cell:(UITableViewCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZStudentMineSignDetailHandleCell"]){
         ZStudentMineSignDetailHandleCell *scell = (ZStudentMineSignDetailHandleCell *)cell;
-        scell.can_operation = self.detailModel.can_operation;
+        if (!ValidStr(self.note_id)) {
+            scell.can_operation = self.detailModel.can_operation;
+        }
+        
         scell.handleBlock = ^(ZSignInfoListModel *model ,NSInteger signType) {
             if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
                 [self teacherSign:model signType:signType];
             }else if ([[ZUserHelper sharedHelper].user.type intValue] == 1){
-                [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
+                if (ValidStr(self.note_id)) {
+                    [self noteSign:model];
+                }else{
+                    [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
+                }
             }
         };
     }
@@ -202,6 +221,21 @@
     __weak typeof(self) weakSelf = self;
     self.loading = YES;
     NSMutableDictionary *params = @{}.mutableCopy;
+    if (ValidStr(self.note_id)) {
+        if (ValidStr(self.courses_class_id)) {
+            [params setObject:SafeStr(self.note_id) forKey:@"note_id"];
+        }
+        [ZSignViewModel getNoteSignDetail:params completeBlock:^(BOOL isSuccess, ZSignInfoModel *addModel) {
+            weakSelf.loading = NO;
+            if (isSuccess) {
+                weakSelf.detailModel = addModel;
+                [weakSelf initCellConfigArr];
+                [weakSelf.iTableView reloadData];
+            }
+            [weakSelf.iTableView tt_endRefreshing];
+        }];
+        return;
+    }
     if (ValidStr(self.courses_class_id)) {
         [params setObject:SafeStr(self.courses_class_id) forKey:@"courses_class_id"];
     }
@@ -252,6 +286,28 @@
 }
 
 
+- (void)noteSign:(ZSignInfoListModel *)model {
+    NSMutableDictionary *param = @{}.mutableCopy;
+    
+    [param setObject:SafeStr(self.note_id) forKey:@"note_id"];
+    [param setObject:model.nums forKey:@"nums"];
+    
+
+    [ZAlertView setAlertWithTitle:@"提示" subTitle:@"确定签课吗？" leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
+        if (index == 1) {
+            [ZSignViewModel noteSign:param completeBlock:^(BOOL isSuccess, id data) {
+                if (isSuccess) {
+                    [TLUIUtility showSuccessHint:data];
+                    [self refreshData];
+                }else{
+                    [TLUIUtility showErrorHint:data];
+                }
+            }];
+        }
+    }];
+}
+
+
 - (void)teacherSign{
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:self.courses_class_id forKey:@"courses_class_id"];
@@ -288,6 +344,10 @@
         if ([tempDict objectForKey:@"student_id"]) {
             routevc.student_id = tempDict[@"student_id"];
         }
+        if ([tempDict objectForKey:@"note_id"]) {
+            routevc.note_id = tempDict[@"note_id"];
+        }
+        
     }
     
     [topViewController.navigationController pushViewController:routevc animated:YES];

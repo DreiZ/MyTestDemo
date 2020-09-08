@@ -50,7 +50,7 @@
                             [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
                         }
                     }else if ([backDict[@"payState"] integerValue] == 2) {
-
+                        
                     }else if ([backDict[@"payState"] integerValue] == 3) {
                         if (backDict && [backDict objectForKey:@"msg"]) {
                             [TLUIUtility showAlertWithTitle:@"支付结果" message:backDict[@"msg"]];
