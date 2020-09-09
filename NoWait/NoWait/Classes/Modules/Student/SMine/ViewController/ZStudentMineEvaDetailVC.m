@@ -184,7 +184,7 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentMineEvaDetailVC *routevc = [[ZStudentMineEvaDetailVC alloc] init];
-    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"order_id"] && [request.prts objectForKey:@"order_id"]){
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]] && [request.prts objectForKey:@"stores_id"] && [request.prts objectForKey:@"order_id"]){
         routevc.order_id = request.prts[@"order_id"];
         routevc.stores_id = request.prts[@"stores_id"];
     }

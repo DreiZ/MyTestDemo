@@ -143,9 +143,9 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     if (self.selectIndex == 0) {
-        _searchBtn.title = @"搜索未排课学员";
+        _searchBtn.title = @"搜索学员";
     }else {
-        _searchBtn.title = @"搜索待补课学员";
+        _searchBtn.title = @"搜索学员";
     }
     
     BOOL isEdit = NO;

@@ -53,7 +53,7 @@
     if (!_bottomBtn) {
         __weak typeof(self) weakSelf = self;
         _bottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(118), CGFloatIn750(50))];
-        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"修改进度" forState:UIControlStateNormal];
 
         [_bottomBtn setTitleColor:adaptAndDarkColor([UIColor colorWhite], [UIColor colorWhite]) forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont fontContent]];

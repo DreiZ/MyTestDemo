@@ -63,7 +63,7 @@
                          @[@"昵称", @"请输入昵称", @YES, @"", @"nikeName",@30,SafeStr(self.viewModel.addModel.nick_name),[NSNumber numberWithInt:ZFormatterTypeAnyByte]],
                          @[@"性别", @"请选择性别", @NO, @"rightBlackArrowN", @"sex",@2,[SafeStr(self.viewModel.addModel.sex) intValue] == 1 ? @"男":@"女",[NSNumber numberWithInt:ZFormatterTypeAny]],
                          @[@"手机号", @"请输入手机号", @YES, @"", @"phone",@11,SafeStr(self.viewModel.addModel.phone),[NSNumber numberWithInt:ZFormatterTypeNumber]],
-                         @[@"身份证号", @"请输入身份号", @YES, @"", @"cid",@18,SafeStr(self.viewModel.addModel.id_card),[NSNumber numberWithInt:ZFormatterTypeAny]],
+                                    @[@"身份证号", @"请输入身份号", ValidStr(self.viewModel.addModel.teacherID)? @NO:@YES, @"", @"cid",@18,SafeStr(self.viewModel.addModel.id_card),[NSNumber numberWithInt:ZFormatterTypeAny]],
 //                        @[@"教师等级", @"请选择等级", @NO, @"rightBlackArrowN", @"class",@18,level,[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"教师职位", @"请输入教师职位", @YES, @"", @"title",@10,SafeStr(self.viewModel.addModel.position),[NSNumber numberWithInt:ZFormatterTypeAny]],
                         @[@"任课课程", @"请选择课程", @YES, @"rightBlackArrowN", @"lesson",@30,SafeStr(self.viewModel.addModel.real_name),[NSNumber numberWithInt:ZFormatterTypeAny]],
@@ -85,7 +85,7 @@
             
             NSMutableArray *temp = @[].mutableCopy;
             for (ZOriganizationLessonListModel *tmodel in self.viewModel.addModel.lessonList) {
-                [temp addObject:@{@"title":SafeStr(tmodel.short_name),@"price":SafeStr(tmodel.price),@"teacherPrice":ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce):SafeStr(tmodel.price)}];
+                [temp addObject:@{@"title":SafeStr(tmodel.name),@"price":SafeStr(tmodel.price),@"teacherPrice":ValidStr(tmodel.teacherPirce)?  SafeStr(tmodel.teacherPirce):SafeStr(tmodel.price)}];
             }
             cellModel.data = temp;
             
@@ -120,6 +120,9 @@
             if (ValidStr(obj[3])) {
                 model.zz_imageRight(SafeStr(obj[3]))
                 .zz_imageRightHeight(CGFloatIn750(14));
+            }else if ([obj[4] isEqualToString:@"cid"] && ValidStr(self.viewModel.addModel.teacherID)) {
+                model.zz_colorText([UIColor colorTextGray1]);
+                model.zz_colorDarkText([UIColor colorTextGray1Dark]);
             }
             ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseTextFieldCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseTextFieldCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:nameCellConfig];

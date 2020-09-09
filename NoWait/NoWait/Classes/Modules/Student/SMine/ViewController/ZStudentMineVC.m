@@ -291,7 +291,7 @@
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:@"1" forKey:@"page"];
     [param setObject:@"3" forKey:@"page_size"];
-    [param setObject:@"2" forKey:@"status"];
+    [param setObject:@"0" forKey:@"status"];
     
     __weak typeof(self) weakSelf = self;
     [ZOriganizationClassViewModel getMyClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {

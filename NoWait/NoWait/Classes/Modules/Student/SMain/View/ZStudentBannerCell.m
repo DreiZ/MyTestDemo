@@ -34,6 +34,7 @@
         make.top.equalTo(self.mas_top).offset(CGFloatIn750(0));
         make.bottom.equalTo(self.mas_bottom).offset(CGFloatIn750(0));
     }];
+    ViewRadius(self.iCycleScrollView, CGFloatIn750(8));
 }
 
 #pragma mark - lazy loading

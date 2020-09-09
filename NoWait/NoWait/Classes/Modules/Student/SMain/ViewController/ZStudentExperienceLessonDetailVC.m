@@ -556,7 +556,7 @@
 }
 
 - (void)addTimeOrder {
-    if (ValidArray(self.addModel.fix_time)) {
+    if ([self.addModel.type intValue] == 1) {
         ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"fix_timeTitle")
         .zz_cellHeight(CGFloatIn750(30))
         .zz_lineHidden(YES)
@@ -566,7 +566,21 @@
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
         [self.cellConfigArr addObject:menuCellConfig];
+    }else{
+        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"fix_timeTitle")
+        .zz_cellHeight(CGFloatIn750(30))
+        .zz_lineHidden(YES)
+        .zz_fontLeft([UIFont boldFontContent])
+        .zz_titleLeft(@"人满开课")
+        .zz_leftMultiLine(YES);
         
+        ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+        [self.cellConfigArr addObject:menuCellConfig];
+        
+        [self.cellConfigArr addObject:getEmptyCellWithHeight(20)];
+    }
+    
+    if (ValidArray(self.addModel.fix_time)) {
         for (ZBaseMenuModel *menu in self.addModel.fix_time) {
             NSString *subTitle = @"";
             for (int k = 0; k < menu.units.count; k++) {
@@ -609,7 +623,7 @@
         .zz_cellHeight(CGFloatIn750(30))
         .zz_lineHidden(YES)
         .zz_fontLeft([UIFont boldFontContent])
-        .zz_titleLeft(@"接受课程预约")
+        .zz_titleLeft(@"体验课详情")
         .zz_leftMultiLine(YES);
         
         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -639,8 +653,20 @@
             ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
             [self.cellConfigArr addObject:menuCellConfig];
         }
-        
         {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"fix_timeTitle")
+            .zz_cellHeight(CGFloatIn750(62))
+            .zz_lineHidden(YES)
+            .zz_titleLeft([NSString stringWithFormat:@"可体验时间段："])
+            .zz_leftMultiLine(YES)
+            .zz_colorLeft([UIColor colorTextGray])
+            .zz_colorDarkLeft([UIColor colorTextGrayDark]);
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [self.cellConfigArr addObject:menuCellConfig];
+        }
+        {
+            
            NSMutableArray *tempArr = @[].mutableCopy;
            for (int i = 0; i < self.addModel.experience_time.count; i++) {
                ZBaseMenuModel *menuModel = self.addModel.experience_time[i];

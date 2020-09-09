@@ -73,8 +73,7 @@
     __weak typeof(self) weakSelf = self;
     [textArr enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL
                                           * _Nonnull stop) {
-        if (ValidStr(weakSelf.viewModel.addModel.studentID)
-        && ([SafeStr(obj[4]) isEqualToString:@"total_progress"])) {
+        if (([SafeStr(obj[4]) isEqualToString:@"total_progress"])) {
             ZCellConfig *nameCellConfig = [ZCellConfig cellConfigWithClassName:[ZOrganizationStudentTotalCell className] title:@"edit_total_progress" showInfoMethod:nil heightOfCell:[ZOrganizationStudentTotalCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
             [weakSelf.cellConfigArr addObject:nameCellConfig];
             

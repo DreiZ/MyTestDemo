@@ -238,7 +238,7 @@
 - (void)setModel:(ZStoresStatisticalModel *)model {
     _model = model;
     _refreshLabel.text = model.date;
-    _rightContentLabel.text = ValidStr(model.total_amount)? model.total_amount :@"0";
+    _rightContentLabel.text = ValidStr(model.total_amount)? [NSString stringWithFormat:@"￥%@",model.total_amount] :@"￥0.00";
     _leftContentLabel.text = ValidStr(model.visit_num)? model.visit_num :@"0";
 }
 

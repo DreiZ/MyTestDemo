@@ -150,6 +150,7 @@
 - (void)setPostCommonData {
     [_param setObject:[NSString stringWithFormat:@"%ld",self.currentPage] forKey:@"page"];
     [_param setObject:self.status forKey:@"status"];
+    [_param setObject:@"10" forKey:@"page_size"];
     [_param setObject:SafeStr([ZUserHelper sharedHelper].school.schoolID) forKey:@"stores_id"];
 }
 

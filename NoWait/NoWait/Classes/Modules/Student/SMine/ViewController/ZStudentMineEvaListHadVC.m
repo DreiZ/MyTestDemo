@@ -70,7 +70,8 @@
                 ZOrderEvaListModel *listModel = cellConfig.dataModel;
                 routePushVC(ZRoute_main_organizationDetail, @{@"id":listModel.stores_id}, nil);
             }else{
-                routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
+                ZOrderEvaListModel *listModel = cellConfig.dataModel;
+                routePushVC(ZRoute_mine_evaDetail, @{@"stores_id":SafeStr(listModel.stores_id),@"order_id":SafeStr(listModel.order_id)}, nil);
             }
         };
     }
@@ -78,7 +79,8 @@
 
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
     if ([cellConfig.title isEqualToString:@"ZMineStudentEvaListHadEvaCell"]) {
-        routePushVC(ZRoute_mine_evaDetail, cellConfig.dataModel, nil);
+        ZOrderEvaListModel *model = cellConfig.dataModel;
+        routePushVC(ZRoute_mine_evaDetail, @{@"stores_id":SafeStr(model.stores_id),@"order_id":SafeStr(model.order_id)}, nil);
     }
 }
 

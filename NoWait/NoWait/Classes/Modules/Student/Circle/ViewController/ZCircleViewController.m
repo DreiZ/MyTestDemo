@@ -103,7 +103,7 @@
 #pragma mark - 懒加载--
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = @[@"关注", @"推荐"].mutableCopy;
+        _titleArr = @[@"关注", @"发现"].mutableCopy;
     }
     return _titleArr;
 }

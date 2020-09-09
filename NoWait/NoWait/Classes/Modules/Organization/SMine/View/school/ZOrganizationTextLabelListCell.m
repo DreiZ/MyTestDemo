@@ -406,7 +406,7 @@
         }
 
         priceLabel.textAlignment = NSTextAlignmentLeft;
-        [priceLabel setFont:[UIFont fontSmall]];
+        [priceLabel setFont:[UIFont fontMin]];
         [btn addSubview:priceLabel];
         [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(btn.mas_left).offset(CGFloatIn750(20));

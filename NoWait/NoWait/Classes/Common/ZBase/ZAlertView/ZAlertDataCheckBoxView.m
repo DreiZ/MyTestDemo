@@ -137,6 +137,8 @@ static ZAlertDataCheckBoxView *sharedManager;
 -(UITableView *)iTableView {
     if (!_iTableView) {
         _iTableView = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
+        _iTableView.showsVerticalScrollIndicator = NO;
+        _iTableView.showsHorizontalScrollIndicator = NO;
         _iTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _iTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         if ([_iTableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {

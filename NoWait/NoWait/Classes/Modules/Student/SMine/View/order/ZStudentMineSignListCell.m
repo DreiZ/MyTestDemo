@@ -317,7 +317,7 @@
         status = @"已开班";
         status = [NSString stringWithFormat:@"%@(班级进度%@/%@)",status,SafeStr(model.class_now_progress),SafeStr(model.class_total_progress)];
         if (model.class_type && [model.class_type intValue] == 2) {
-            status = [NSString stringWithFormat:@"%@ 第%@节",@"已开班",SafeStr(model.class_now_progress)];
+            status = @"已开班";
         }
         _numLabel.hidden = NO;
         _stateLabel.hidden = YES;

@@ -170,6 +170,8 @@
 //        [_iMapView setCenterCoordinate:CLLocationCoordinate2DMake(39.992520, 116.336170)];
 //        [_iMapView addAnnotation:pin1];
         _iMapView.showsUserLocation = YES;
+        _iMapView.showsScale = NO;
+        _iMapView.showsCompass = NO;
         _iMapView.zoomLevel = 15;
         _iMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 //        _iMapView.zoomLevel = 1;

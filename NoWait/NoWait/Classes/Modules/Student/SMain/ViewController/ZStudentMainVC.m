@@ -196,6 +196,17 @@
     }
     [self.cellConfigArr addObject:sectionArr];
     
+    [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+    ZLineCellModel *sModel = ZLineCellModel.zz_lineCellModel_create(@"OrganizationTitle")
+    .zz_titleLeft(@"附近校区")
+    .zz_fontLeft([UIFont boldFontTitle])
+    .zz_cellHeight(CGFloatIn750(38))
+    .zz_lineHidden(YES);
+    
+    ZCellConfig *titleCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:@"OrganizationTitle" showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:sModel] cellType:ZCellTypeClass dataModel:sModel];
+    
+    [sectionArr addObject:titleCellConfig];
+    
     NSMutableArray *section1Arr = @[].mutableCopy;
     if (self.dataSources.count > 0) {
         for (int i = 0; i < self.dataSources.count; i++) {

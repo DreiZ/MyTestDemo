@@ -8,7 +8,7 @@
 
 #import "ZStudentClassificationListVC.h"
 #import "ZStudentMainModel.h"
-#import "ZStudentOrganizationListCell.h"
+#import "ZStudentOrganizationNewListCell.h"
 #import "ZStudentClassFiltrateSectionView.h"
 #import "ZStudentMainViewModel.h"
 
@@ -79,13 +79,14 @@
         [weakSelf.cellConfigArr removeAllObjects];
         
         for (int i = 0; i < weakSelf.dataSources.count; i++) {
-            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationListCell className] title:@"ZStudentOrganizationListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
+            ZCellConfig *orCellCon1fig = [ZCellConfig cellConfigWithClassName:[ZStudentOrganizationNewListCell className] title:@"ZStudentOrganizationNewListCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZStudentOrganizationNewListCell z_getCellHeight:weakSelf.dataSources[i]] cellType:ZCellTypeClass dataModel:weakSelf.dataSources[i]];
             [weakSelf.cellConfigArr addObject:orCellCon1fig];
+            [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
         }
 
         update(weakSelf.cellConfigArr);
     }).zChain_block_setCellConfigForRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, UITableViewCell *cell, ZCellConfig *cellConfig) {
-        if([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]){
+        if([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]){
            ZStudentOrganizationListCell *lcell = (ZStudentOrganizationListCell *)cell;
             lcell.moreBlock = ^(ZStoresListModel *model) {
                 model.isMore = !model.isMore;
@@ -93,7 +94,7 @@
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
-        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationListCell"]) {
+        if ([cellConfig.title isEqualToString:@"ZStudentOrganizationNewListCell"]) {
             ZStoresListModel *model = cellConfig.dataModel;
             routePushVC(ZRoute_main_organizationDetail, @{@"id":model.stores_id}, nil);
         }
