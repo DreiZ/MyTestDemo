@@ -10,6 +10,7 @@
 #import "ZAddClassCodeView.h"
 #import "ZUMengShareManager.h"
 #import "ZOriganizationClassViewModel.h"
+#import "ZShareView.h"
 
 @interface ZOrganizationTrachingScheduleOutlineErweimaVC ()
 @property (nonatomic,strong) ZAddClassCodeView *codeImageView;
@@ -43,7 +44,8 @@
                 if (weakSelf.codeAddModel.img) {
                     UIImage *shortImage = [ZPublicTool snapshotForView:weakSelf.codeImageView.topView];
                     if (shortImage) {
-                        [[ZUMengShareManager sharedManager] shareUIWithType:index image:shortImage vc:weakSelf];
+//                        [[ZUMengShareManager sharedManager] shareUIWithType:index image:shortImage vc:weakSelf];
+                        [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:SafeStr(weakSelf.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.codeAddModel.teacher_name),SafeStr(weakSelf.codeAddModel.courses_name)] image:shortImage url:SafeStr(weakSelf.codeAddModel.url) vc:weakSelf];
                     }
                 }else{
                     [[ZUMengShareManager sharedManager] shareUIWithType:0 Title:SafeStr(weakSelf.codeAddModel.courses_name) detail:[NSString stringWithFormat:@"赶紧扫描二维码加入课程跟着%@一起学习%@吧",SafeStr(weakSelf.codeAddModel.teacher_name),SafeStr(weakSelf.codeAddModel.courses_name)] image:weakSelf.codeImageView.userImageView.image url:SafeStr(weakSelf.codeAddModel.url) vc:weakSelf];
@@ -60,6 +62,8 @@
     }
     return _codeImageView;
 }
+
+
 
 
 - (UIButton *)navLeftBtn {
@@ -108,6 +112,14 @@
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
         }
+    }];
+}
+
+
+- (void)showShare:(NSString *)title view:(UIView *)shareView{
+    [ZShareView setPre_title:@"分享" reduce_weight:[NSString stringWithFormat:@"（%@）",title] after_title:@"到微信" handlerBlock:^(NSInteger index) {
+        UIImage *shareImage = [ZPublicTool snapshotForView:shareView];
+        [[ZUMengShareManager sharedManager] shareUIWithType:index image:shareImage vc:self];
     }];
 }
 @end

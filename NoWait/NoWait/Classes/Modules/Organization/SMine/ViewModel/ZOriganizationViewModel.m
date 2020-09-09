@@ -12,7 +12,7 @@
 
 + (void)getSchoolList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
        [ZNetworkingManager postServerType:ZServerTypeOrganization url:URL_merchants_stores_list params:params completionHandler:^(id data, NSError *error) {
-             DLog(@"return login code %@", data);
+             DLog(@"getSchoolList %@", data);
          ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
                ZOriganizationSchoolListNetModel *model = [ZOriganizationSchoolListNetModel mj_objectWithKeyValues:dataModel.data];

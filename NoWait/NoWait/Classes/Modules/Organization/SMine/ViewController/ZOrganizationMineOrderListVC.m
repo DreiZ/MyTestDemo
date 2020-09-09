@@ -54,6 +54,7 @@
             }
         }];
     }).zChain_resetMainView(^{
+        self.view.backgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.bottom.equalTo(self.view.mas_bottom);

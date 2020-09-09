@@ -134,7 +134,7 @@ static ZAlertLessonCheckBoxView *sharedLessonManager;
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 50) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -161,7 +161,7 @@ static ZAlertLessonCheckBoxView *sharedLessonManager;
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 50) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -180,6 +180,7 @@ static ZAlertLessonCheckBoxView *sharedLessonManager;
     [param setObject:self.schoolID forKey:@"stores_id"];
     [param setObject:@"0" forKey:@"status"];
     [param setObject:@"2" forKey:@"fix_time"];
+    [param setObject:@"50" forKey:@"page_size"];
     return param;
 }
 

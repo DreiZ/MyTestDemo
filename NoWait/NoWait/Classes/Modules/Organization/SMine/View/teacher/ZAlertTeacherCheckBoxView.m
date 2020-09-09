@@ -137,7 +137,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 100) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -164,7 +164,7 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 100) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -180,7 +180,8 @@ static ZAlertTeacherCheckBoxView *sharedTeacherManager;
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
-       [param setObject:self.schoolID forKey:@"course_id"];
+    [param setObject:self.schoolID forKey:@"course_id"];
+    [param setObject:@"100" forKey:@"page_size"];
 //       [param setObject:@"0" forKey:@"status"];
     return param;
 }

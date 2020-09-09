@@ -327,7 +327,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 30) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -344,7 +344,7 @@
     self.currentPage++;
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
-    [param setObject:[NSString stringWithFormat:@"%d",10] forKey:@"page_size"];
+    [param setObject:[NSString stringWithFormat:@"%d",30] forKey:@"page_size"];
     __weak typeof(self) weakSelf = self;
      [ZOriganizationClassViewModel getClassStudentList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentListNetModel *data) {
         weakSelf.loading = NO;
@@ -354,7 +354,7 @@
             [weakSelf.iTableView reloadData];
             
             [weakSelf.iTableView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 30) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iTableView tt_endLoadMore];
@@ -371,12 +371,13 @@
     self.loading = YES;
     NSMutableDictionary *param = [self setPostCommonData];
     [param setObject:@"1" forKey:@"page"];
-    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 10] forKey:@"page_size"];
+    [param setObject:[NSString stringWithFormat:@"%ld",self.currentPage * 30] forKey:@"page_size"];
     [self refreshHeadData:param];
 }
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:@"30" forKey:@"page_size"];
     if (self.listModel) {
         [param setObject:self.listModel.course_id forKey:@"stores_id"];
         [param setObject:self.listModel.classID forKey:@"courses_class_id"];

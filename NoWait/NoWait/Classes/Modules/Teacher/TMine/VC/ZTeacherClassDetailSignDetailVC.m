@@ -22,7 +22,7 @@
 #import "ZOriganizationLessonViewModel.h"
 #import "ZAlertImageView.h"
 #import "ZAlertView.h"
-#import "ZAlertDataSinglePickerView.h"
+#import "ZAlertLesssonNumPickerView.h"
 
 @interface ZTeacherClassDetailSignDetailVC ()
 @property (nonatomic,strong) ZOriganizationSignListNetModel *detailModel;
@@ -170,14 +170,7 @@
         };
         
         _topTitleView.titleBlock = ^(NSInteger index) {
-            NSMutableArray *items = @[].mutableCopy;
-            for (int i = 0; i < [weakSelf.model.total_progress intValue]; i++) {
-                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
-                model.name = [NSString stringWithFormat:@"第%d节",i+1];
-                [items addObject:model];
-            }
-            
-            [ZAlertDataSinglePickerView setAlertName:@"选择课程节数" selectedIndex:weakSelf.model.index-1 items:items handlerBlock:^(NSInteger index) {
+            [ZAlertLesssonNumPickerView setAlertName:@"选择课程节数" selectedIndex:weakSelf.model.index-1 items:[weakSelf.model.now_progress intValue] handlerBlock:^(NSInteger index) {
                 weakSelf.model.index = index + 1;
                 [weakSelf refreshData];
             }];

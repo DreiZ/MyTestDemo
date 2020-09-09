@@ -216,11 +216,16 @@
             }
             [channnliset addObject:model];
         }
+        
+        if (!ValidArray(self.topchannelList)) {
+            return;
+        }
         ZCellConfig *channelCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationClubSelectedCell className] title:[ZOriganizationClubSelectedCell className] showInfoMethod:@selector(setChannelList:) heightOfCell:[ZOriganizationClubSelectedCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:channnliset];
         [self.cellConfigArr addObject:channelCellConfig];
     }
-    
-    
+    if (!ValidArray(self.topchannelList)) {
+        return;
+    }
     ZCellConfig *statisticsCellConfig = [ZCellConfig cellConfigWithClassName:[ZOriganizationStatisticsCell className] title:[ZOriganizationStatisticsCell className] showInfoMethod:@selector(setModel:) heightOfCell:[ZOriganizationStatisticsCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:self.statisticalModel];
     [self.cellConfigArr addObject:statisticsCellConfig];
     NSArray *menuArr = @[@[@"财务管理",
@@ -285,6 +290,10 @@
                 [weakSelf.iTableView reloadData];
                 [weakSelf getStoresStatistical];
             }
+        }else{
+            [weakSelf.topchannelList removeAllObjects];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
         }
     }];
 }
