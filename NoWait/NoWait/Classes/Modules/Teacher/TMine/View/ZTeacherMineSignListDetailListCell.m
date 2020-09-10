@@ -176,9 +176,9 @@
     }
     
     if (list.count%5 > 0) {
-        return (list.count/5 + 1) * CGFloatIn750(180) + ((list.count/5) * CGFloatIn750(10));
+        return (list.count/5 + 1) * CGFloatIn750(180) + ((list.count/5) * CGFloatIn750(10)) + CGFloatIn750(20);
     }
-    return list.count/5  * CGFloatIn750(180) + (list.count/5 - 1)  * CGFloatIn750(10);
+    return list.count/5  * CGFloatIn750(180) + (list.count/5 - 1)  * CGFloatIn750(10) + CGFloatIn750(20);
 }
 @end
 

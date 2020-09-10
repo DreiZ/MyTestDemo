@@ -213,10 +213,13 @@
                     if (weakSelf.avterImage) {
                         [ZAlertImageView setAlertWithTitle:@"小提示" subTitle:@"确定上传此签到照片？" image:weakSelf.avterImage leftBtnTitle:@"取消" rightBtnTitle:@"确定" handlerBlock:^(NSInteger index) {
                             if (index == 1) {
+                                [TLUIUtility showLoading:@"..."];
                                  [ZOriganizationLessonViewModel uploadImageList:@{@"type":@"9",@"imageKey":@{@"file":list[0].image}} completeBlock:^(BOOL isSuccess, id data) {
                                    if (isSuccess) {
                                        [weakSelf updateLessonSign:SafeStr(data)];
                                    }else{
+                                       [TLUIUtility hiddenLoading];
+                                       [TLUIUtility showErrorHint:@"上传图片失败"];
                                        weakSelf.avterImage = nil;
                                    }
                                }];
@@ -381,7 +384,7 @@
 
 - (void)updateLessonSign:(NSString *)signImageStr {
     __weak typeof(self) weakSelf = self;
-    
+    [TLUIUtility showLoading:@"..."];
     [ZOriganizationClassViewModel upLessonImageStr:@{@"courses_class_id":SafeStr(self.model.classID),@"nums":[NSString stringWithFormat:@"%ld",self.model.index],@"image":getJSONStr(@[SafeStr(signImageStr)])} completeBlock:^(BOOL isSuccess, id data) {
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
