@@ -12,6 +12,7 @@
 #import "ZPublicTool.h"
 #import "UIColor+ZChat.h"      // 颜色
 #import "UIFont+ZChat.h"       // 字体
+#import "UITextView+ExtentRange.h"
 #import "UIImageView+ZWebImage.h"
 #import "UIBarButtonItem+Back.h"
 #import "SwitchHeader.h"

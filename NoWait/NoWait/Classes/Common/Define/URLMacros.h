@@ -514,6 +514,9 @@
 
 #define URL_account_v1_add_student_replenish_sign    @"account/v1/add_student_replenish_sign"
 
+#define URL_account_v1_check_sign                    @"account/v1/check_sign"
+
+
 #pragma mark - 消息
 #define URL_account_v1_get_news_list                    @"account/v1/get/news/list"
 

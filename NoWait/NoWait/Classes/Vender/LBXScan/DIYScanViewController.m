@@ -173,6 +173,7 @@
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
+    __weak typeof(self) weakSelf = self;
     if (strResult && strResult.strScanned) {
         NSString *temp = strResult.strScanned;
         NSDictionary *dict = [temp zz_JSONValue];
@@ -183,7 +184,7 @@
                 NSLog(@"Date--%@",mainModel.timestamp);
                 if (now - [mainModel.timestamp intValue] > 3600*24*7) {
                     [ZAlertView setAlertWithTitle:@"二维码已过期" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-                        
+                        [weakSelf reStartDevice];
                     }];
                     return;
                 }
@@ -207,6 +208,7 @@
                         [self.navigationController pushViewController:lvc animated:YES];
                     }else{
                         [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
+                        [weakSelf reStartDevice];
                     }
                 }else if([mainModel.qrcode_type intValue] == 3){
                     if ([[ZUserHelper sharedHelper].user.type intValue] == 1) {
@@ -219,6 +221,7 @@
                         [self.navigationController pushViewController:lvc animated:YES];
                     }else{
                         [TLUIUtility showErrorHint:@"非学员端不可加入课程"];
+                        [weakSelf reStartDevice];
                     }
                 }else if ([mainModel.qrcode_type intValue] == 1){
                     if ([[ZUserHelper sharedHelper].user.type intValue] == 2) {
@@ -235,21 +238,28 @@
                         [param setObject:ids forKey:@"students"];
                         [ZSignViewModel teacherSign:param completeBlock:^(BOOL isSuccess, id data) {
                             if (isSuccess) {
-                                [ZAlertView setAlertWithTitle:data btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-                                    
-                                }];
+                                [TLUIUtility showInfoHint:data];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [ZAlertView setAlertWithTitle:data btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                                        [weakSelf reStartDevice];
+                                    }];
+                                });
                             }else{
+                                [weakSelf reStartDevice];
                                 [TLUIUtility showErrorHint:data];
                             }
                         }];
                     }else{
-                        [TLUIUtility showErrorHint:@"非教师端不可加入课程"];
+                        [TLUIUtility showErrorHint:@"非教师端不可扫码签课"];
+                        [weakSelf reStartDevice];
                     }
+                }else{
+                    [weakSelf reStartDevice];
                 }
             }
         }else{
             [ZAlertView setAlertWithTitle:@"二维码不是本应用二维码" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-                
+                [weakSelf reStartDevice];
             }];
         }
     }

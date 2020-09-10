@@ -81,6 +81,33 @@
     }];
 }
 
++ (void)checkSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
+    [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_v1_check_sign  params:params completionHandler:^(id data, NSError *error) {
+        ZBaseNetworkBackModel *dataModel = data;
+        if (data) {
+            if ([dataModel.code integerValue] == 0 ) {
+                if ([dataModel.data isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *tempDict = dataModel.data;
+                    if ([tempDict objectForKey:@"is_sign"] && [tempDict[@"is_sign"] intValue] == 1) {
+                        completeBlock(YES, dataModel.message);
+                    }else {
+                        completeBlock(NO, dataModel.message);
+                    }
+                }else{
+                    completeBlock(NO, dataModel.message);
+                }
+                return ;
+            }else{
+                completeBlock(NO, dataModel.message);
+                return;
+            }
+        }else {
+            completeBlock(NO, @"操作失败");
+        }
+    }];
+}
+
+
 
 + (void)teacherBuSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock {
     [ZNetworkingManager postServerType:ZServerTypeOrganization url: URL_account_v1_add_student_replenish_sign  params:params completionHandler:^(id data, NSError *error) {

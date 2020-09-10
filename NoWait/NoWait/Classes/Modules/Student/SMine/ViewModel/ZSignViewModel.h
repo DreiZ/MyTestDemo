@@ -16,6 +16,7 @@
 //长效补课
 + (void)teacherBuSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 + (void)getNoteSignDetail:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
++ (void)checkSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 + (void)noteSign:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 

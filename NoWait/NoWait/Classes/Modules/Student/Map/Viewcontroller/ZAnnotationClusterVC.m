@@ -298,7 +298,6 @@
 
 - (void)updateAnnotations {
     self.shouldRegionChangeReCalculate = NO;
-    
     // 清理
     [self.customCalloutView dismissCalloutView];
     
@@ -392,7 +391,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     _type = @"0";
     
     self.classifyModelArr = @[].mutableCopy;

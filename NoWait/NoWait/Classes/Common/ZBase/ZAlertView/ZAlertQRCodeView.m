@@ -13,7 +13,7 @@
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIImageView *codeImageView;
 @property (nonatomic,strong) UILabel *titleLabel;
-
+@property (nonatomic,strong) void (^handlerBlock)(NSInteger);
 @end
 
 @implementation ZAlertQRCodeView
@@ -43,9 +43,13 @@ static ZAlertQRCodeView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
+    __weak typeof(self) weakSelf = self;
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
-        [self removeFromSuperview];
+        if (weakSelf.handlerBlock) {
+            weakSelf.handlerBlock(0);
+        }
+        [weakSelf removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backBtn];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,7 +131,7 @@ static ZAlertQRCodeView *sharedManager;
 }
 
 - (void)setTitle:(NSString *)title qrCode:(NSString *)qrCode handlerBlock:(void(^)(NSInteger))handleBlock {
-    
+    self.handlerBlock = handleBlock;
     self.titleLabel.text = title;
     [self.codeImageView tt_setImageWithURL:[NSURL URLWithString:qrCode]];
     

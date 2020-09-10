@@ -18,9 +18,20 @@
 @property (nonatomic,strong) ZSignInfoModel *detailModel;
 @property (nonatomic,strong) UIButton *bottomBtn;
 @property (nonatomic,strong) NSString *note_id;
+@property (nonatomic,strong) NSTimer *nsTime;
 
 @end
 @implementation ZStudentMineSignDetailVC
+
+- (void)dealloc {
+    
+    [self stopTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self stopTimer];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -155,6 +166,34 @@
     
 }
 
+- (void)startTime:(NSString *)nums {
+    _nsTime = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateTime:) userInfo:nums repeats:YES];
+}
+
+-(void)updateTime:(NSTimer*) timer{
+//    NSLog(@"参数为：%@",timer.userInfo);
+    __weak typeof(self) weakSelf = self;
+    [ZSignViewModel checkSign:@{@"nums":SafeStr(timer.userInfo),@"courses_class_id":SafeStr(self.courses_class_id),@"student_id":SafeStr(self.student_id)} completeBlock:^(BOOL isSuccess, ZSignInfoModel *addModel) {
+        weakSelf.loading = NO;
+        if (isSuccess) {
+            [weakSelf refreshData];
+            [weakSelf stopTimer];
+            [[ZAlertQRCodeView sharedManager] removeFromSuperview];
+            [ZAlertView setAlertWithTitle:@"教师已扫码签课" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                [weakSelf stopTimer];
+            }];
+        }
+        [weakSelf.iTableView tt_endRefreshing];
+    }];
+}
+
+// 停止定时器
+-(void)stopTimer{
+    if (_nsTime) {
+        [_nsTime invalidate];
+    }
+}
+
 #pragma mark - lazy loading...
 - (UIButton *)bottomBtn {
     if (!_bottomBtn) {
@@ -192,7 +231,7 @@
                 if (ValidStr(self.note_id)) {
                     [self noteSign:model];
                 }else{
-                    [self getSignQrcode:@{@"courses_class_id":self.courses_class_id}];
+                    [self getSignQrcode:@{@"courses_class_id":self.courses_class_id,@"student_id":SafeStr(self.student_id)} num:model.nums];
                 }
             }
         };
@@ -201,14 +240,15 @@
 
 
 #pragma mark - handele data
-- (void)getSignQrcode:(NSDictionary *)param {
+- (void)getSignQrcode:(NSDictionary *)param num:(NSString *)num{
     __weak typeof(self) weakSelf = self;
     [ZOriganizationClassViewModel getSignQrcode:param completeBlock:^(BOOL isSuccess, id data) {
         weakSelf.loading = NO;
         if (isSuccess && data) {
             ZOriganizationStudentCodeAddModel *model = data;
+            [weakSelf startTime:num];
             [ZAlertQRCodeView setAlertWithTitle:@"请教师扫码完成签课" qrCode:model.url handlerBlock:^(NSInteger index) {
-                
+                [weakSelf stopTimer];
             }];
            
         }else{

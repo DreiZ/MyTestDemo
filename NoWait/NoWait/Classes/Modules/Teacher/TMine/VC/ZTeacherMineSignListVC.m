@@ -63,14 +63,15 @@
 
 - (UIButton *)rightNavBtn {
     if (!_rightNavBtn) {
-        __weak typeof(self) weakSelf = self;
+//        __weak typeof(self) weakSelf = self;
         _rightNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(50))];
-        [_rightNavBtn setTitle:@"刷新" forState:UIControlStateNormal];
-        [_rightNavBtn setTitleColor:[UIColor colorMain] forState:UIControlStateNormal];
-        [_rightNavBtn.titleLabel setFont:[UIFont fontContent]];
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [[UIImage imageNamed:@"scanQRCode"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        imageView.tintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        [_rightNavBtn setImage:[[UIImage imageNamed:@"scanQRCode"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_rightNavBtn bk_addEventHandler:^(id sender) {
-            [weakSelf.rightNavBtn setTitle:@"刷新中" forState:UIControlStateNormal];
-            [weakSelf refreshAllData];
+            routePushVC(ZRoute_mine_diyScan, nil, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightNavBtn;

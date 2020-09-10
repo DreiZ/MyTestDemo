@@ -315,7 +315,7 @@
         self.viewModel.addModel.level = @"1";
     }
     
-    NSArray *temp = @[@"初级",@"进阶",@"精英"];
+    NSArray *temp = @[@"初级",@"中级",@"高级"];
     NSArray <NSArray *>*textArr = @[@[@"课程价格", @"课程价格不得小于1", @YES, @"", @"元", @"lessonPrice",SafeStr(self.viewModel.addModel.price),@10,[NSNumber numberWithInt:ZFormatterTypeDecimal]],
     @[@"课程级别", @"请选择课程级别", @NO, ValidStr(self.viewModel.addModel.lessonID)? @"":@"rightBlackArrowN", @"", @"class",temp[[self.viewModel.addModel.level intValue]-1],@20,[NSNumber numberWithInt:ZFormatterTypeAny]],
     @[@"单节课时", @"请输入单节课时", @YES, @"", @"分钟", @"time",SafeStr(self.viewModel.addModel.course_min),@3,[NSNumber numberWithInt:ZFormatterTypeNumber]],
@@ -797,7 +797,7 @@
         [self.iTableView endEditing:YES];
         if (!ValidStr(self.viewModel.addModel.lessonID)) {
             NSMutableArray *items = @[].mutableCopy;
-            NSArray *temp = @[@"初级",@"进阶",@"精英"];
+            NSArray *temp = @[@"初级",@"中级",@"高级"];
             for (int i = 0; i < temp.count; i++) {
                ZAlertDataItemModel *model = [[ZAlertDataItemModel alloc] init];
                model.name = temp[i];
