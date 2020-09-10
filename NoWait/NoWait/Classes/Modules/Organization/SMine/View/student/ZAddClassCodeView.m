@@ -207,7 +207,7 @@
         _classHintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _classHintLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
         _classHintLabel.text = @"此二维码仅供添加线下学员使用(7天有效)";
-        NSInteger date = [[NSDate new] timeIntervalSince1970] + 60*60*24*7;
+        NSInteger date = [[NSDate new] timeIntervalSince1970] + 60*60*24*6;
         _classHintLabel.text = [NSString stringWithFormat:@"此二维码仅供添加线下学员使用(有效期至%@）",[[NSString stringWithFormat:@"%ld",date] timeStringWithFormatter:@"MM-dd"]];
         _classHintLabel.numberOfLines = 1;
         _classHintLabel.textAlignment = NSTextAlignmentCenter;

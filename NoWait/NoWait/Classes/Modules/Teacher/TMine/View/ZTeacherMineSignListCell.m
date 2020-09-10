@@ -403,6 +403,11 @@
         _openBtn.enabled = NO;
     }
     
+    if ([model.status intValue] != 2) {
+        [_openBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray1], [UIColor colorTextGray1Dark]) forState:UIControlStateNormal];
+        _openBtn.enabled = NO;
+    }
+    
     if (ValidStr(model.now_progress) && [model.now_progress intValue] > 0) {
         [self.openBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(self.bottomView);

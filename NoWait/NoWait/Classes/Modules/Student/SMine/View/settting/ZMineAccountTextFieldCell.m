@@ -79,6 +79,7 @@ static NSTimer *retrieveTimer = nil;
         [_inputTextField setFont:[UIFont fontContent]];
         _inputTextField.leftView = leftView;
         _inputTextField.leftViewMode = UITextFieldViewModeAlways;
+        _inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [_inputTextField setBorderStyle:UITextBorderStyleNone];
         [_inputTextField setBackgroundColor:[UIColor clearColor]];
         [_inputTextField setReturnKeyType:UIReturnKeyDone];
