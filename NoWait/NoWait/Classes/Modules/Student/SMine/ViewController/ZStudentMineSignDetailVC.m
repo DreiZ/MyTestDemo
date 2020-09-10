@@ -36,13 +36,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.emptyDataStr = @"暂无数据";
     [self setTableViewRefreshHeader];
+    [self setTableViewEmptyDataDelegate];
     [self initCellConfigArr];
     [self refreshData];
 }
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    if (!self.detailModel) {
+        return;
+    }
     
     if (ValidStr(self.note_id)) {
         for (ZSignInfoListModel *model in self.detailModel.list) {
@@ -282,11 +288,15 @@
     if (ValidStr(self.student_id)) {
         [params setObject:SafeStr(self.student_id) forKey:@"student_id"];
     }
-    [ZSignViewModel getSignDetail:params completeBlock:^(BOOL isSuccess, ZSignInfoModel *addModel) {
+    [ZSignViewModel getSignDetail:params completeBlock:^(BOOL isSuccess, id data) {
         weakSelf.loading = NO;
         if (isSuccess) {
-            weakSelf.detailModel = addModel;
+            weakSelf.detailModel = data;
             [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        }else{
+            weakSelf.emptyDataStr = data;
+            [TLUIUtility showInfoHint:data];
             [weakSelf.iTableView reloadData];
         }
         [weakSelf.iTableView tt_endRefreshing];

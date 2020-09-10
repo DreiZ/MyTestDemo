@@ -16,15 +16,16 @@
            ZBaseNetworkBackModel *dataModel = data;
            if ([dataModel.code intValue] == 0 && ValidDict(dataModel.data)) {
                ZSignInfoModel *model = [ZSignInfoModel mj_objectWithKeyValues:dataModel.data];
-            if ([dataModel.code integerValue] == 0 ) {
-                completeBlock(YES, model);
-                return ;
-            }else{
-                completeBlock(NO, dataModel);
-                return;
-            }
-        }
-        completeBlock(NO, @"操作失败");
+               if ([dataModel.code integerValue] == 0 ) {
+                   completeBlock(YES, model);
+                   return ;
+               }else{
+                   completeBlock(NO, dataModel.message);
+                   return;
+               }
+           }else {
+               completeBlock(NO, dataModel.message);
+           }
     }];
 }
 
