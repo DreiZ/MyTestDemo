@@ -72,6 +72,7 @@
     NSArray *textArr = @[@[@"校区名称", @"", @"", @"schoolName",SafeStr(self.model.stores_name)],
                          @[@"班级名称", @"", @"", @"className",SafeStr(self.model.name)],
                          @[@"班级人数", @"", @"", @"",[NSString stringWithFormat:@"%@/%@人",SafeStr(self.model.nums),SafeStr(self.model.limit_nums)]],
+                         @[@"班级类型", @"", @"", @"classType",[self.model.class_type intValue] == 2? @"长期班":@"普通班"],
                          @[@"班级状态", @"", @"", @"classStutas",status],
                          @[@"课程名称", @"", @"", @"lessonName",SafeStr(self.model.stores_courses_name)],
                          @[@"教师名称", @"", @"", @"techerName",SafeStr(self.model.teacher_name)],

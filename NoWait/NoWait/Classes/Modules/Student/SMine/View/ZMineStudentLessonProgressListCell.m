@@ -43,16 +43,18 @@
         make.width.equalTo(self.lessonProgressBackView).multipliedBy(0.3);
     }];
     
+    [self.contentView addSubview:self.lessonCountLabel];
     [self.contentView addSubview:self.lessonTitleLabel];
     [self.lessonTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lessonProgressBackView.mas_left).offset(CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.lessonCountLabel.mas_left).offset(-CGFloatIn750(20));
     }];
     
-    [self.contentView addSubview:self.lessonCountLabel];
     [self.lessonCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.lessonProgressBackView.mas_right).offset(-CGFloatIn750(30));
         make.centerY.equalTo(self.contentView.mas_centerY);
+        make.width.mas_equalTo(CGFloatIn750(80));
     }];
 }
 
@@ -83,7 +85,7 @@
         
         _lessonTitleLabel.numberOfLines = 1;
         _lessonTitleLabel.textAlignment = NSTextAlignmentLeft;
-        [_lessonTitleLabel setFont:[UIFont fontContent]];
+        [_lessonTitleLabel setFont:[UIFont fontSmall]];
     }
     return _lessonTitleLabel;
 }
@@ -107,16 +109,24 @@
         _model.total_progress = _model.now_progress;
     }
     _lessonCountLabel.text = [NSString stringWithFormat:@"%@%@%@节",[NSString stringWithFormat:@"%d",[SafeStr(model.now_progress) intValue] + [SafeStr(model.replenish_nums) intValue]],@"/",SafeStr(model.total_progress)];
-    _lessonTitleLabel.text = model.stores_courses_short_name;
+    _lessonTitleLabel.text = [NSString stringWithFormat:@"%@(%@)",model.stores_courses_short_name,model.student_name];
     _lessonProgressView.backgroundColor = randomColorWithNum([model.course_id intValue]);
     
-    CGSize leftSize = [model.stores_courses_short_name tt_sizeWithFont:[UIFont fontContent]];
+    CGSize countSize = [SafeStr(_lessonCountLabel.text) tt_sizeWithFont:[UIFont fontSmall]];
+    
+    CGSize leftSize = [SafeStr(_lessonTitleLabel.text) tt_sizeWithFont:[UIFont fontSmall]];
     CGFloat labelMin = (leftSize.width + CGFloatIn750(30) + 4)/(KScreenWidth - CGFloatIn750(60));
     CGFloat labelMax = (KScreenWidth - CGFloatIn750(90))/(KScreenWidth - CGFloatIn750(60));
     CGFloat muti = 0;
     if (ValidStr(model.total_progress) && [SafeStr(model.total_progress) floatValue] >= [model.now_progress floatValue] && [SafeStr(model.total_progress) intValue] > 0) {
         muti = [model.now_progress floatValue] / [SafeStr(model.total_progress) floatValue];
     }
+    
+    [self.lessonCountLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.lessonProgressBackView.mas_right).offset(-CGFloatIn750(30));
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.width.mas_equalTo(countSize.width+2);
+    }];
     
     CGFloat min = CGFloatIn750(86)/(KScreenWidth - CGFloatIn750(60));
     if (muti > 0 && muti <= min) {

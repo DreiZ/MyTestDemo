@@ -60,7 +60,7 @@
         [_bottomBtn setBackgroundColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
         
         [_bottomBtn bk_addEventHandler:^(id sender) {
-            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"学员进度只可修改一次，请谨慎修改提交" leftBtnTitle:@"取消" rightBtnTitle:@"提交" handlerBlock:^(NSInteger index) {
+            [ZAlertView setAlertWithTitle:@"小提示" subTitle:@"确定设置学员进度？" leftBtnTitle:@"取消" rightBtnTitle:@"提交" handlerBlock:^(NSInteger index) {
                 if (index == 1) {
                     [weakSelf updateData];
                 }
