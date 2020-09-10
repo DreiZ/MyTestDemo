@@ -17,7 +17,8 @@
 
 #import "ZOriganizationLessonViewModel.h"
 #import "ZOriganizationClassViewModel.h"
-
+#import "UIScrollView+XJJRefresh.h"
+#import "XJJRefresh.h"
 
 #define kHeaderHeight (CGFloatIn750(270))
 
@@ -58,6 +59,27 @@
     [self setupMainView];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    
+    UIImageView *refreshImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, CGFloatIn750(50), CGFloatIn750(50))];
+    refreshImage.image = [[UIImage imageNamed:@"resizeApi0"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    refreshImage.tintColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+    
+    XJJHolyCrazyHeader *crazyRefresh = [XJJHolyCrazyHeader holyCrazyCustomHeaderWithCustomContentView:refreshImage];
+    
+    crazyRefresh.startPosition = CGPointMake(CGFloatIn750(30), -44.f);
+    crazyRefresh.refreshingPosition = CGPointMake(CGFloatIn750(30), 64.f);
+    
+    __weak typeof(self) weakSelf = self;
+    [self.iTableView add_xjj_refreshHeader:crazyRefresh refreshBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [weakSelf.scrollView end_xjj_refresh];
+            [weakSelf.iTableView setRefreshState:XJJRefreshStateIdle];
+        });
+        
+        [weakSelf.iTableView replace_xjj_refreshBlock:^{
+            [weakSelf updateTableNetData];
+        }];
+    }];
 }
 
 - (void)setDataSource {
@@ -284,6 +306,9 @@
         }else{
             [weakSelf.iTableView reloadData];
         }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.iTableView end_xjj_refresh];
+        });
     }];
 }
 
@@ -304,13 +329,20 @@
         }else{
             [weakSelf.iTableView reloadData];
         }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.iTableView end_xjj_refresh];
+        });
     }];
 }
 
 - (void)updateNetData {
+    [self.iTableView begin_xjj_refresh];
+}
+
+- (void)updateTableNetData {
+    __weak typeof(self) weakSelf = self;
     [self refreshCurriculumList];
     [self refreshMyClass];
-    __weak typeof(self) weakSelf = self;
     if ([ZUserHelper sharedHelper].user) {
         [[ZUserHelper sharedHelper] updateUserInfoWithCompleteBlock:^(BOOL isSuccess) {
             if (!isSuccess) {

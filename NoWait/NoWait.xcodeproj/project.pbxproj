@@ -739,6 +739,12 @@
 		B2DB9B52241CC70D00340464 /* ZSingleLineRightImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DB9B51241CC70D00340464 /* ZSingleLineRightImageCell.m */; };
 		B2DB9B55241CD11500340464 /* ZOrganizationOrderRefuseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DB9B54241CD11500340464 /* ZOrganizationOrderRefuseVC.m */; };
 		B2E2DF092509CAAC00230D16 /* UITextView+ExtentRange.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF082509CAAC00230D16 /* UITextView+ExtentRange.m */; };
+		B2E2DF13250A1A1900230D16 /* XJJRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF0C250A1A1900230D16 /* XJJRefreshControl.m */; };
+		B2E2DF14250A1A1900230D16 /* XJJHolyCrazyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF0F250A1A1900230D16 /* XJJHolyCrazyHeader.m */; };
+		B2E2DF15250A1A1900230D16 /* UIScrollView+XJJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF12250A1A1900230D16 /* UIScrollView+XJJRefresh.m */; };
+		B2E2DF1D250A1B0500230D16 /* UIScrollView+ContentOffsetObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF1A250A1B0400230D16 /* UIScrollView+ContentOffsetObserver.m */; };
+		B2E2DF1E250A1B0500230D16 /* UIScrollViewScrollInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF1B250A1B0400230D16 /* UIScrollViewScrollInfo.m */; };
+		B2E2DF1F250A1B0500230D16 /* UIScrollViewContentOffsetObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2DF1C250A1B0400230D16 /* UIScrollViewContentOffsetObserver.m */; };
 		B2E367DC24F75BF800938BCD /* ZCatagerizeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */; };
 		B2E367DF24F7864900938BCD /* ZSearchMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367DE24F7864900938BCD /* ZSearchMapView.m */; };
 		B2E367F824F7999300938BCD /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E367E524F7999300938BCD /* NSString+PinYin4Cocoa.m */; };
@@ -2287,6 +2293,20 @@
 		B2DB9B54241CD11500340464 /* ZOrganizationOrderRefuseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZOrganizationOrderRefuseVC.m; sourceTree = "<group>"; };
 		B2E2DF072509CAAC00230D16 /* UITextView+ExtentRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+ExtentRange.h"; sourceTree = "<group>"; };
 		B2E2DF082509CAAC00230D16 /* UITextView+ExtentRange.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ExtentRange.m"; sourceTree = "<group>"; };
+		B2E2DF0B250A1A1900230D16 /* XJJHolyCrazyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJJHolyCrazyHeader.h; sourceTree = "<group>"; };
+		B2E2DF0C250A1A1900230D16 /* XJJRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJJRefreshControl.m; sourceTree = "<group>"; };
+		B2E2DF0D250A1A1900230D16 /* UIScrollView+XJJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+XJJRefresh.h"; sourceTree = "<group>"; };
+		B2E2DF0E250A1A1900230D16 /* XJJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJJRefresh.h; sourceTree = "<group>"; };
+		B2E2DF0F250A1A1900230D16 /* XJJHolyCrazyHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJJHolyCrazyHeader.m; sourceTree = "<group>"; };
+		B2E2DF10250A1A1900230D16 /* XJJRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJJRefreshHeader.h; sourceTree = "<group>"; };
+		B2E2DF11250A1A1900230D16 /* XJJRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJJRefreshControl.h; sourceTree = "<group>"; };
+		B2E2DF12250A1A1900230D16 /* UIScrollView+XJJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+XJJRefresh.m"; sourceTree = "<group>"; };
+		B2E2DF17250A1B0400230D16 /* UIScrollViewScrollInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewScrollInfo.h; sourceTree = "<group>"; };
+		B2E2DF18250A1B0400230D16 /* UIScrollView+ContentOffsetObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ContentOffsetObserver.h"; sourceTree = "<group>"; };
+		B2E2DF19250A1B0400230D16 /* UIScrollViewContentOffsetObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewContentOffsetObserver.h; sourceTree = "<group>"; };
+		B2E2DF1A250A1B0400230D16 /* UIScrollView+ContentOffsetObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ContentOffsetObserver.m"; sourceTree = "<group>"; };
+		B2E2DF1B250A1B0400230D16 /* UIScrollViewScrollInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewScrollInfo.m; sourceTree = "<group>"; };
+		B2E2DF1C250A1B0400230D16 /* UIScrollViewContentOffsetObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewContentOffsetObserver.m; sourceTree = "<group>"; };
 		B2E367DA24F75BF800938BCD /* ZCatagerizeMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCatagerizeMapView.h; sourceTree = "<group>"; };
 		B2E367DB24F75BF800938BCD /* ZCatagerizeMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCatagerizeMapView.m; sourceTree = "<group>"; };
 		B2E367DD24F7864900938BCD /* ZSearchMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSearchMapView.h; sourceTree = "<group>"; };
@@ -3644,6 +3664,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2E2DF0A250A1A1900230D16 /* XJJRefresh */,
 				B2E367E024F7999300938BCD /* HCSortAndSearch */,
 				B2BEDAEF24C91ABC003F2F1E /* SJVideoPlayer */,
 				B23F522524B701E20070FB79 /* WSLWaterFlowLayout */,
@@ -5484,6 +5505,35 @@
 			path = photo;
 			sourceTree = "<group>";
 		};
+		B2E2DF0A250A1A1900230D16 /* XJJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				B2E2DF16250A1B0400230D16 /* XJJScrollViewObserver */,
+				B2E2DF0B250A1A1900230D16 /* XJJHolyCrazyHeader.h */,
+				B2E2DF0C250A1A1900230D16 /* XJJRefreshControl.m */,
+				B2E2DF0D250A1A1900230D16 /* UIScrollView+XJJRefresh.h */,
+				B2E2DF0E250A1A1900230D16 /* XJJRefresh.h */,
+				B2E2DF0F250A1A1900230D16 /* XJJHolyCrazyHeader.m */,
+				B2E2DF10250A1A1900230D16 /* XJJRefreshHeader.h */,
+				B2E2DF11250A1A1900230D16 /* XJJRefreshControl.h */,
+				B2E2DF12250A1A1900230D16 /* UIScrollView+XJJRefresh.m */,
+			);
+			path = XJJRefresh;
+			sourceTree = "<group>";
+		};
+		B2E2DF16250A1B0400230D16 /* XJJScrollViewObserver */ = {
+			isa = PBXGroup;
+			children = (
+				B2E2DF17250A1B0400230D16 /* UIScrollViewScrollInfo.h */,
+				B2E2DF18250A1B0400230D16 /* UIScrollView+ContentOffsetObserver.h */,
+				B2E2DF19250A1B0400230D16 /* UIScrollViewContentOffsetObserver.h */,
+				B2E2DF1A250A1B0400230D16 /* UIScrollView+ContentOffsetObserver.m */,
+				B2E2DF1B250A1B0400230D16 /* UIScrollViewScrollInfo.m */,
+				B2E2DF1C250A1B0400230D16 /* UIScrollViewContentOffsetObserver.m */,
+			);
+			path = XJJScrollViewObserver;
+			sourceTree = "<group>";
+		};
 		B2E367E024F7999300938BCD /* HCSortAndSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -6043,6 +6093,7 @@
 				B2BEDBA124C92B24003F2F1E /* SJNestedCollectionView.m in Sources */,
 				B28D9141240766940021E05A /* PGDatePicker+MonthDay.m in Sources */,
 				B28D90EE240666010021E05A /* ZOrganizationAccountTopMainView.m in Sources */,
+				B2E2DF1D250A1B0500230D16 /* UIScrollView+ContentOffsetObserver.m in Sources */,
 				B26880E024767ECC00BF8FCD /* WMZDropMenuParam.m in Sources */,
 				B24415DF24B81CB70059E813 /* XLPaymentErrorHUD.m in Sources */,
 				B2A780B223BDFC7800407BF0 /* ZAppConfig.m in Sources */,
@@ -6258,6 +6309,7 @@
 				B28D90CE240620640021E05A /* ZOrganizationClassManageVC.m in Sources */,
 				B2A7811123C2D4D900407BF0 /* ZMineStudentLessonProgressListCell.m in Sources */,
 				B24D995323FD18B20078A458 /* ZOrganizationLessonAddImageCell.m in Sources */,
+				B2E2DF13250A1A1900230D16 /* XJJRefreshControl.m in Sources */,
 				B28DEB6124F9E40F007D3199 /* ZStudentMainClassificationListVC.m in Sources */,
 				B25146E323D048EA009A64D4 /* ZTextFieldCell.m in Sources */,
 				B217175E24E683370092E174 /* ZMainAnnotationView.m in Sources */,
@@ -6605,7 +6657,9 @@
 				B2F5BCE824AEBEA300AD1C72 /* ZCircleViewController.m in Sources */,
 				B28D90C8240602370021E05A /* ZAlertDataCheckBoxView.m in Sources */,
 				B2A7809223BDFB0100407BF0 /* AFHTTPRequestSerializer+SGLog.m in Sources */,
+				B2E2DF1F250A1B0500230D16 /* UIScrollViewContentOffsetObserver.m in Sources */,
 				B2292E4B249B04DC00924055 /* NSBundle+TZImagePicker.m in Sources */,
+				B2E2DF1E250A1B0500230D16 /* UIScrollViewScrollInfo.m in Sources */,
 				B255A0E524C96A7B0015A8C7 /* ZCircleMoreLessonVC.m in Sources */,
 				B2A77FCB23BDEAA100407BF0 /* ZAlertView.m in Sources */,
 				B2CF934E2424C4C4007AF66E /* ZOrganizationEvaListReEvaCell.m in Sources */,
@@ -6629,6 +6683,7 @@
 				B28D90F424074D040021E05A /* ZOriganizationTopTitleView.m in Sources */,
 				B28D9137240766940021E05A /* NSBundle+PGDatePicker.m in Sources */,
 				B2A7808C23BDFB0100407BF0 /* UIView+ZEmpty.m in Sources */,
+				B2E2DF15250A1A1900230D16 /* UIScrollView+XJJRefresh.m in Sources */,
 				B230F55524D2AA3100A94F53 /* ZCacheFactory.m in Sources */,
 				B23F521524B6C7530070FB79 /* ZJCirleLayout.m in Sources */,
 				B234D09423CC428500210CD8 /* ZStudentStarStudentListVC.m in Sources */,
@@ -6719,6 +6774,7 @@
 				B2BEDB7324C91ABD003F2F1E /* SJVideoPlayerFilmEditingConfig.m in Sources */,
 				B2F371CF246B8DAA00678B19 /* ZRewardRankingBottomView.m in Sources */,
 				B296E38E2404B14E00507509 /* ZOrganizationLessonManageListVC.m in Sources */,
+				B2E2DF14250A1A1900230D16 /* XJJHolyCrazyHeader.m in Sources */,
 				B28D912E240766940021E05A /* PGDatePicker+MinuteAndSecond.m in Sources */,
 				B20E57BD2486374D00D4226D /* ZTableViewController.m in Sources */,
 				B2A780A323BDFB0100407BF0 /* TLResponse.m in Sources */,
