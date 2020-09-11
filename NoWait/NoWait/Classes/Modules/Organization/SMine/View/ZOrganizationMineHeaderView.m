@@ -489,7 +489,7 @@
     if ([ZUserHelper sharedHelper].user) {
         name = SafeStr([ZUserHelper sharedHelper].user.nikeName).length > 0 ? SafeStr([ZUserHelper sharedHelper].user.nikeName) : SafeStr([ZUserHelper sharedHelper].user.phone);;
     }
-    NSLog(@"user---%@",SafeStr([ZUserHelper sharedHelper].user.avatar));
+    DLog(@"user---%@",SafeStr([ZUserHelper sharedHelper].user.avatar));
     [self.headImageView tt_setImageWithURL:[NSURL URLWithString:SafeStr([ZUserHelper sharedHelper].user.avatar)] placeholderImage:[UIImage imageNamed:@"default_head"]];
 //    if (ValidStr([ZUserHelper sharedHelper].user.avatar)) {
 //        [LKUIUtils downloadShareImage:SafeStr([ZUserHelper sharedHelper].user.avatar) complete:^(UIImage *image) {

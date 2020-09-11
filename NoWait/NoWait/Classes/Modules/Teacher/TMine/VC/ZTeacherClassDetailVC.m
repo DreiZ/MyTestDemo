@@ -170,12 +170,25 @@
         }
     }
     if ([self.model.status intValue] == 3) {
-        self.bottomView.hidden = YES;
+        
         [self.navigationItem setRightBarButtonItem:nil] ;
+        
+        self.bottomView.hidden = NO;
+//        [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
+//            make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
+//            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+//            make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
+//        }];
+        [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.height.mas_equalTo(CGFloatIn750(182));
+        }];
+        
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(CGFloatIn750(0));
             make.right.equalTo(self.view.mas_right).offset(CGFloatIn750(-0));
-            make.bottom.equalTo(self.view.mas_bottom).offset(-CGFloatIn750(0));
+            make.bottom.equalTo(self.bottomView.mas_top).offset(-CGFloatIn750(0));
             make.top.equalTo(self.view.mas_top).offset(-CGFloatIn750(0));
         }];
     }else{

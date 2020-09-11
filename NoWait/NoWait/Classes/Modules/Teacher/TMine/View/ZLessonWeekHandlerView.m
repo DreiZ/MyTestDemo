@@ -134,6 +134,7 @@
         _lastBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_lastBtn setTitle:@"上周" forState:UIControlStateNormal];
         [_lastBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_lastBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateHighlighted];
         [_lastBtn.titleLabel setFont:[UIFont fontContent]];
         [_lastBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
@@ -151,6 +152,8 @@
         _nextBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_nextBtn setTitle:@"下周" forState:UIControlStateNormal];
         [_nextBtn setTitleColor:adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]) forState:UIControlStateNormal];
+        [_nextBtn setTitleColor:adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]) forState:UIControlStateHighlighted];
+        
         [_nextBtn.titleLabel setFont:[UIFont fontContent]];
         [_nextBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {

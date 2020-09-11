@@ -109,5 +109,33 @@
     NSArray *week = @[@"周天",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"];
     _titleLabel.text = week[date.weekday - 1];
     _timeLabel.text = [date formatMDWithSeparate:@"/"];
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.4 delay:0.2
+         usingSpringWithDamping:0.3 initialSpringVelocity:0.5
+    options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    //这里书写动画相关代码
+        [weakSelf.titleLabel setFont:[UIFont boldFontSmall]];
+        [weakSelf.timeLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        
+//        weakSelf.titleLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+//        weakSelf.timeLabel.textColor = adaptAndDarkColor([UIColor colorMain],[UIColor colorMain]);
+        
+        weakSelf.timeLabel.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        
+        weakSelf.titleLabel.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    } completion:^(BOOL finished) {
+    //动画结束后执行的代码块
+//        weakSelf.titleLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+//        weakSelf.timeLabel.textColor = adaptAndDarkColor([UIColor colorTextBlack],[UIColor colorTextBlackDark]);
+        
+        [weakSelf.titleLabel setFont:[UIFont boldFontSmall]];
+        [weakSelf.timeLabel setFont:[UIFont systemFontOfSize:CGFloatIn750(16)]];
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            weakSelf.timeLabel.transform = CGAffineTransformIdentity;
+            weakSelf.titleLabel.transform = CGAffineTransformIdentity;
+        }];
+    }];
 }
 @end

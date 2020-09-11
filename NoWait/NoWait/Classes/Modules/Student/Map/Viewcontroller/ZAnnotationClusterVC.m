@@ -656,6 +656,7 @@
         __weak typeof(self) weakSelf = self;
         _navView = [[ZMapNavView alloc] init];
         _navView.handleBlock = ^(NSInteger index) {
+            [weakSelf.searchView.iTextField resignFirstResponder];
             if (index == 0) {
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
@@ -799,7 +800,7 @@
         if (self.category.count == 1) {
             ZMainClassifyOneModel *model = self.category[0];
             if ([model.classify_id isEqualToString:@"0"]) {
-                
+                self.category = @[];
             }else{
                 for (ZMainClassifyOneModel *model in self.category) {
                     [tempArr addObject:SafeStr(model.classify_id)];
@@ -838,9 +839,27 @@
             [weakSelf updateAnnotations];
             
             if (!ValidArray(weakSelf.regionModel.schools)) {
-                [ZAlertView setAlertWithTitle:@"该位置下暂无数据" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
-                    
-                }];
+                if (ValidArray(weakSelf.category)) {
+                    [ZAlertView setAlertWithTitle:@"没有搜到该分类下的校区，换个分类试试" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
+                }else if(ValidStr(weakSelf.name)){
+                    [ZAlertView setAlertWithTitle:@"没有搜索到校区，换个名字尝试" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
+                }else{
+                    [ZAlertView setAlertWithTitle:@"没有查询到校区，重新刷新试试" btnTitle:@"知道了" handlerBlock:^(NSInteger index) {
+                        
+                    }];
+                }
+            }else{
+                if (ValidArray(weakSelf.category) && weakSelf.regionModel.schools.count < 20) {
+                    ZRegionDataModel *model = weakSelf.regionModel.schools[0];
+                    [weakSelf.mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latLng.latitude doubleValue], [model.latLng.longitude doubleValue]) animated:YES];
+                }else if(ValidStr(weakSelf.name)){
+                    ZRegionDataModel *model = weakSelf.regionModel.schools[0];
+                    [weakSelf.mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latLng.latitude doubleValue], [model.latLng.longitude doubleValue]) animated:YES];
+                }
             }
         }else{
             if (!ValidArray(weakSelf.regionModel.schools)) {

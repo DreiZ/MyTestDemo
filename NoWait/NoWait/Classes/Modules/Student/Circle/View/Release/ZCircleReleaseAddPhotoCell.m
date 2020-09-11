@@ -175,7 +175,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.imageList.count < 9 && indexPath.row == 0) {
+    if (self.imageList.count < 9 && indexPath.row == self.cellConfigArr.count - 1) {
         return NO;
     }
     return YES;
@@ -183,7 +183,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (self.imageList.count < 9 && toIndexPath.row == 0) {
+    if (self.imageList.count < 9 && toIndexPath.row == self.cellConfigArr.count - 1) {
         return NO;
     }
     return YES;
