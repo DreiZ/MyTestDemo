@@ -34,6 +34,8 @@
 
 #define ZRoute_circle_recommend         @"controller/circle/schoolFind"
 
+#define ZRoute_circle_recommendRelate   @"controller/circle/schoolFindRelate"
+
 #define ZRoute_circle_releaseUpload     @"controller/circle/releaseUpload"
 
 #define ZRoute_circle_evaList           @"controller/circle/evaList"
@@ -89,6 +91,8 @@
 #define ZRoute_mine_reflectListLog      @"controller/mine/reflectListLog"
 
 #define ZRoute_mine_invitationFriend    @"controller/mine/invitationFriend"
+
+#define ZRoute_mine_classReportForm     @"controller/mine/classReportForm"
 
 #define ZRoute_mine_switchRole          @"controller/mine/switchRole"
 
@@ -155,6 +159,8 @@
 #define ZRoute_main_sureOrder           @"controller/main/sureOrder"
 
 #define ZRoute_main_subSureOrder        @"controller/main/subSureOrder"
+
+#define ZRoute_main_sureOrderResulet    @"controller/main/sureOrderResulet"
 
 #define ZRoute_main_starStudentList     @"controller/main/starStudentList"
 

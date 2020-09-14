@@ -55,11 +55,12 @@
                             if (index == 0) {
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                               listModel.order_id = weakSelf.order_id;
-                               listModel.stores_id = weakSelf.detailModel.stores_id;
-                               listModel.isStudent = YES;
-                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                                routePushVC(ZRoute_main_sureOrderResulet, @{@"order_id":SafeStr(weakSelf.order_id)}, nil);
+//                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                               listModel.order_id = weakSelf.order_id;
+//                               listModel.stores_id = weakSelf.detailModel.stores_id;
+//                               listModel.isStudent = YES;
+//                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
                             }
                         }];
                     }else if ([backDict[@"payState"] integerValue] == 1) {
@@ -70,11 +71,12 @@
                             if (index == 0) {
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                               listModel.order_id = weakSelf.order_id;
-                               listModel.stores_id = weakSelf.detailModel.stores_id;
-                               listModel.isStudent = YES;
-                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                                routePushVC(ZRoute_main_sureOrderResulet, @{@"order_id":SafeStr(weakSelf.order_id)}, nil);
+//                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                               listModel.order_id = weakSelf.order_id;
+//                               listModel.stores_id = weakSelf.detailModel.stores_id;
+//                               listModel.isStudent = YES;
+//                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
                             }
                         }];
                     }else if ([backDict[@"payState"] integerValue] == 2) {
@@ -82,11 +84,12 @@
                             if (index == 0) {
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                               listModel.order_id = weakSelf.order_id;
-                               listModel.stores_id = weakSelf.detailModel.stores_id;
-                               listModel.isStudent = YES;
-                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                                routePushVC(ZRoute_main_sureOrderResulet, @{@"order_id":SafeStr(weakSelf.order_id)}, nil);
+//                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                               listModel.order_id = weakSelf.order_id;
+//                               listModel.stores_id = weakSelf.detailModel.stores_id;
+//                               listModel.isStudent = YES;
+//                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
                             }
                         }];
                     }else if ([backDict[@"payState"] integerValue] == 3) {
@@ -97,11 +100,12 @@
                             if (index == 0) {
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
-                               listModel.order_id = weakSelf.order_id;
-                               listModel.stores_id = weakSelf.detailModel.stores_id;
-                               listModel.isStudent = YES;
-                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
+                                routePushVC(ZRoute_main_sureOrderResulet, @{@"order_id":SafeStr(weakSelf.order_id)}, nil);
+//                                ZOrderListModel *listModel = [[ZOrderListModel alloc] init];
+//                               listModel.order_id = weakSelf.order_id;
+//                               listModel.stores_id = weakSelf.detailModel.stores_id;
+//                               listModel.isStudent = YES;
+//                               routePushVC(ZRoute_org_orderDetail, listModel, nil);
                             }
                         }];
                     }

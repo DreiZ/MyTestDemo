@@ -293,7 +293,7 @@
         _dynamicBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(90), CGFloatIn750(90))];
         [_dynamicBtn setImage:[UIImage imageNamed:@"schoolDynamic"] forState:UIControlStateNormal];
         [_dynamicBtn bk_addEventHandler:^(id sender) {
-            routePushVC(ZRoute_circle_recommend, @{@"id":SafeStr(weakSelf.detailModel.schoolID),@"stores_name":SafeStr(weakSelf.detailModel.name)}, nil);
+            routePushVC(ZRoute_circle_recommendRelate, @{@"id":SafeStr(weakSelf.detailModel.schoolID),@"stores_name":SafeStr(weakSelf.detailModel.name)}, nil);
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _dynamicBtn;

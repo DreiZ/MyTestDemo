@@ -151,7 +151,10 @@
                     ZOriganizationDetailModel *detailModel = scellConfig.dataModel;
                     
                     routePushVC(ZRoute_main_organizationDetail, @{@"id":detailModel.stores_id}, nil);
+                }else if ([scellConfig.title isEqualToString:@"form"]) {
+                    routePushVC(ZRoute_mine_classReportForm, nil, nil);
                 }
+                
             }];
         };
     }else if ([cellConfig.title isEqualToString:@"ZStudentMineLessonTimetableCell"]){
@@ -192,7 +195,9 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     NSArray *tempArr = @[@[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher",@"sign", @"我的签课", @"rightBlackArrowN"],
-                         @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"]];
+                         @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"],
+    @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"form", @"班级报表", @"rightBlackArrowN"]];
+    
     NSMutableArray *configArr = @[].mutableCopy;
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];

@@ -1,12 +1,12 @@
 //
-//  ZCircleRecommendVC.m
+//  ZCircleRecommendSchoolVC.m
 //  NoWait
 //
-//  Created by zhuang zhang on 2020/7/3.
+//  Created by zhuang zhang on 2020/9/14.
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZCircleRecommendVC.h"
+#import "ZCircleRecommendSchoolVC.h"
 #import "ZCircleRecommendCollectionCell.h"
 #import "ZJWaterLayout.h"
 
@@ -14,16 +14,18 @@
 #import "ZCircleMineViewModel.h"
 #import "ZLocationManager.h"
 
-@interface ZCircleRecommendVC ()<ZJWaterLayoutDelegate>
+@interface ZCircleRecommendSchoolVC ()<ZJWaterLayoutDelegate>
 /** ZJWaterLayout */
 @property (nonatomic, strong) ZJWaterLayout *layout;
 @property (nonatomic, strong) NSMutableDictionary *param;
+@property (nonatomic, strong) UIView *headView;
 
+@property (nonatomic,assign) BOOL isRecommond;
 @property (nonatomic,assign) BOOL loadFromLocalHistory;
 @property (nonatomic,strong) ZCircleMineDynamicNetModel *dynamicNetModel;
 @end
 
-@implementation ZCircleRecommendVC
+@implementation ZCircleRecommendSchoolVC
 
 - (void)viewWillAppear:(BOOL)animated {
     self.zChain_block_setNotShouldDecompressImages(^{
@@ -71,6 +73,18 @@
             [weakSelf refreshData];
         }
     }];
+    
+    [self.view addSubview:self.headView];
+    [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.height.mas_equalTo(CGFloatIn750(100));
+    }];
+    [self.iCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(self.headView.mas_top);
+    }];
+    self.headView.hidden = YES;
 }
 
 - (void)setDataSource {
@@ -95,6 +109,15 @@
 - (void)initCellConfigArr {
     [super initCellConfigArr];
     [self.cellConfigArr removeAllObjects];
+    
+    if (self.isRecommond) {
+        [self.iCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view.mas_bottom);
+            make.top.equalTo(self.headView.mas_bottom);
+        }];
+        self.headView.hidden = NO;
+    }
     for (int i = 0; i < self.dataSources.count; i++) {
         ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZCircleRecommendCollectionCell className] title:[ZCircleRecommendCollectionCell className] showInfoMethod:@selector(setModel:) sizeOfCell:[ZCircleRecommendCollectionCell z_getCellSize:self.dataSources[i]] cellType:ZCellTypeClass dataModel:self.dataSources[i]];
         
@@ -122,6 +145,25 @@
     }else{
         [ZDefaultCache() setObject:self.dynamicNetModel forKey:[ZCircleMineDynamicNetModel className]];
     }
+}
+
+
+- (UIView *)headView {
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(130))];
+        
+        UILabel *hintLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        hintLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
+        hintLabel.text = @"该校区没有打卡的发现动态，为您推荐";
+        hintLabel.textAlignment = NSTextAlignmentCenter;
+        [hintLabel setFont:[UIFont fontMin]];
+        [_headView addSubview:hintLabel];
+        [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.headView);
+            make.top.equalTo(self.headView.mas_top).offset(CGFloatIn750(30));
+        }];
+    }
+    return _headView;
 }
 
 
@@ -222,6 +264,12 @@
                 }else{
                     [weakSelf.iCollectionView tt_endLoadMore];
                 }
+                if (!ValidArray(weakSelf.dynamicNetModel.list) && weakSelf.stores_id) {
+                    weakSelf.isRecommond = YES;
+                    weakSelf.stores_id = nil;
+                    [weakSelf.param removeObjectForKey:@"stores_id"];
+                    [weakSelf refreshData];
+                }
             }else{
                 [weakSelf.iCollectionView reloadData];
                 [weakSelf.iCollectionView tt_endRefreshing];
@@ -319,21 +367,22 @@
 @end
 
 #pragma mark - RouteHandler
-@interface ZCircleRecommendVC (RouteHandler)<SJRouteHandler>
+@interface ZCircleRecommendSchoolVC (RouteHandler)<SJRouteHandler>
 
 @end
 
-@implementation ZCircleRecommendVC (RouteHandler)
+@implementation ZCircleRecommendSchoolVC (RouteHandler)
 
 + (NSString *)routePath {
-    return ZRoute_circle_recommend;
+    return ZRoute_circle_recommendRelate;
 }
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
-    ZCircleRecommendVC *routevc = [[ZCircleRecommendVC alloc] init];
+    ZCircleRecommendSchoolVC *routevc = [[ZCircleRecommendSchoolVC alloc] init];
     if (request.prts) {
         routevc.routeDict = request.prts;
     }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end
+
