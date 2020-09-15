@@ -17,7 +17,7 @@
 @protocol PGDatePickerDelegate;
 
 @interface PGDatePicker : UIControl
-@property (nonatomic, weak) id<PGDatePickerDelegate> delegate;
+@property (nonatomic, strong) id<PGDatePickerDelegate> delegate;
 @property (nonatomic, assign) PGDatePickerMode datePickerMode; // default is PGDatePickerModeYear
 @property(nonatomic, assign) PGDatePickerType datePickerType;
 /*

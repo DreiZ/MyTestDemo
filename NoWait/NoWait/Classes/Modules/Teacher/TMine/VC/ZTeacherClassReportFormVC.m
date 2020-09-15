@@ -11,6 +11,7 @@
 #import "ZTeacherClassReportFormTopView.h"
 #import "ZTeacherClassReportFormSectionView.h"
 #import "ZTeacherClassReportFormDayView.h"
+#import "ZAlertBeginAndEndTimeView.h"
 
 @interface ZTeacherClassReportFormVC ()
 @property (nonatomic,strong) ZTeacherClassReportFormTopView *formTopView;
@@ -79,9 +80,27 @@
 
 - (ZTeacherClassReportFormSectionView *)sectionView {
     if (!_sectionView) {
+        __weak typeof(self) weakSelf = self;
         _sectionView = [[ZTeacherClassReportFormSectionView alloc] init];
         _sectionView.handleBlock = ^(NSInteger index) {
-            if (index == 3) {
+            if (index == 4) {
+                if (weakSelf.sectionView.type == 0) {
+                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYMD handlerBlock:^(NSDate *begin, NSDate *end) {
+                    //                    weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
+                    //                    weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
+                    //
+                    //                    [weakSelf initCellConfigArr];
+                    //                    [weakSelf.iTableView reloadData];
+                                    }];
+                }else{
+                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYM handlerBlock:^(NSDate *begin, NSDate *end) {
+                    //                    weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
+                    //                    weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
+                    //
+                    //                    [weakSelf initCellConfigArr];
+                    //                    [weakSelf.iTableView reloadData];
+                                    }];
+                }
                 
             }else{
                 

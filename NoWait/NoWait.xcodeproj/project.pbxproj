@@ -95,6 +95,17 @@
 		B22FC372250F673C0076FFBD /* ZTeacherClassReportFormTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC371250F673C0076FFBD /* ZTeacherClassReportFormTopView.m */; };
 		B22FC375250F70990076FFBD /* ZTeacherClassReportFormSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC374250F70990076FFBD /* ZTeacherClassReportFormSectionView.m */; };
 		B22FC378250F796C0076FFBD /* ZTeacherClassReportFormDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC377250F796C0076FFBD /* ZTeacherClassReportFormDayView.m */; };
+		B22FC3AD25105E050076FFBD /* BRResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC39325105E050076FFBD /* BRResultModel.m */; };
+		B22FC3AE25105E050076FFBD /* BRStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC39625105E050076FFBD /* BRStringPickerView.m */; };
+		B22FC3AF25105E050076FFBD /* BRDatePickerView+BR.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC39925105E050076FFBD /* BRDatePickerView+BR.m */; };
+		B22FC3B025105E050076FFBD /* NSDate+BRPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC39B25105E050076FFBD /* NSDate+BRPickerView.m */; };
+		B22FC3B125105E050076FFBD /* BRDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC39C25105E050076FFBD /* BRDatePickerView.m */; };
+		B22FC3B225105E050076FFBD /* BRPickerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B22FC3A225105E050076FFBD /* BRPickerView.bundle */; };
+		B22FC3B325105E050076FFBD /* BRPickerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC3A325105E050076FFBD /* BRPickerStyle.m */; };
+		B22FC3B425105E050076FFBD /* BRBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC3A425105E050076FFBD /* BRBaseView.m */; };
+		B22FC3B525105E050076FFBD /* NSBundle+BRPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC3A525105E050076FFBD /* NSBundle+BRPickerView.m */; };
+		B22FC3B625105E050076FFBD /* BRAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC3A925105E050076FFBD /* BRAddressModel.m */; };
+		B22FC3B725105E050076FFBD /* BRAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B22FC3AC25105E050076FFBD /* BRAddressPickerView.m */; };
 		B230F1A924444D040084BCC6 /* ZTeacherSignTopTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1A824444D040084BCC6 /* ZTeacherSignTopTitleView.m */; };
 		B230F1AC244457560084BCC6 /* ZTeacherSignStudentListBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1AB244457560084BCC6 /* ZTeacherSignStudentListBottomView.m */; };
 		B230F1B02444881F0084BCC6 /* ZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B230F1AF2444881F0084BCC6 /* ZLocationManager.m */; };
@@ -1049,6 +1060,29 @@
 		B22FC374250F70990076FFBD /* ZTeacherClassReportFormSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherClassReportFormSectionView.m; sourceTree = "<group>"; };
 		B22FC376250F796C0076FFBD /* ZTeacherClassReportFormDayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherClassReportFormDayView.h; sourceTree = "<group>"; };
 		B22FC377250F796C0076FFBD /* ZTeacherClassReportFormDayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherClassReportFormDayView.m; sourceTree = "<group>"; };
+		B22FC39325105E050076FFBD /* BRResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRResultModel.m; sourceTree = "<group>"; };
+		B22FC39425105E050076FFBD /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
+		B22FC39525105E050076FFBD /* BRResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRResultModel.h; sourceTree = "<group>"; };
+		B22FC39625105E050076FFBD /* BRStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRStringPickerView.m; sourceTree = "<group>"; };
+		B22FC39725105E050076FFBD /* BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerView.h; sourceTree = "<group>"; };
+		B22FC39925105E050076FFBD /* BRDatePickerView+BR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRDatePickerView+BR.m"; sourceTree = "<group>"; };
+		B22FC39A25105E050076FFBD /* BRDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDatePickerView.h; sourceTree = "<group>"; };
+		B22FC39B25105E050076FFBD /* NSDate+BRPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRPickerView.m"; sourceTree = "<group>"; };
+		B22FC39C25105E050076FFBD /* BRDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDatePickerView.m; sourceTree = "<group>"; };
+		B22FC39D25105E050076FFBD /* BRDatePickerView+BR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRDatePickerView+BR.h"; sourceTree = "<group>"; };
+		B22FC39E25105E050076FFBD /* NSDate+BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRPickerView.h"; sourceTree = "<group>"; };
+		B22FC3A025105E050076FFBD /* NSBundle+BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+BRPickerView.h"; sourceTree = "<group>"; };
+		B22FC3A125105E050076FFBD /* BRPickerViewMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerViewMacro.h; sourceTree = "<group>"; };
+		B22FC3A225105E050076FFBD /* BRPickerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BRPickerView.bundle; sourceTree = "<group>"; };
+		B22FC3A325105E050076FFBD /* BRPickerStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPickerStyle.m; sourceTree = "<group>"; };
+		B22FC3A425105E050076FFBD /* BRBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseView.m; sourceTree = "<group>"; };
+		B22FC3A525105E050076FFBD /* NSBundle+BRPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+BRPickerView.m"; sourceTree = "<group>"; };
+		B22FC3A625105E050076FFBD /* BRBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseView.h; sourceTree = "<group>"; };
+		B22FC3A725105E050076FFBD /* BRPickerStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerStyle.h; sourceTree = "<group>"; };
+		B22FC3A925105E050076FFBD /* BRAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddressModel.m; sourceTree = "<group>"; };
+		B22FC3AA25105E050076FFBD /* BRAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressPickerView.h; sourceTree = "<group>"; };
+		B22FC3AB25105E050076FFBD /* BRAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressModel.h; sourceTree = "<group>"; };
+		B22FC3AC25105E050076FFBD /* BRAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddressPickerView.m; sourceTree = "<group>"; };
 		B230F1A724444D040084BCC6 /* ZTeacherSignTopTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherSignTopTitleView.h; sourceTree = "<group>"; };
 		B230F1A824444D040084BCC6 /* ZTeacherSignTopTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTeacherSignTopTitleView.m; sourceTree = "<group>"; };
 		B230F1AA244457560084BCC6 /* ZTeacherSignStudentListBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTeacherSignStudentListBottomView.h; sourceTree = "<group>"; };
@@ -2915,6 +2949,68 @@
 			path = JPFPSStatus;
 			sourceTree = "<group>";
 		};
+		B22FC39125105E050076FFBD /* BRPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B22FC39225105E050076FFBD /* StringPickerView */,
+				B22FC39725105E050076FFBD /* BRPickerView.h */,
+				B22FC39825105E050076FFBD /* DatePickerView */,
+				B22FC39F25105E050076FFBD /* Base */,
+				B22FC3A825105E050076FFBD /* AddressPickerView */,
+			);
+			path = BRPickerView;
+			sourceTree = "<group>";
+		};
+		B22FC39225105E050076FFBD /* StringPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B22FC39325105E050076FFBD /* BRResultModel.m */,
+				B22FC39425105E050076FFBD /* BRStringPickerView.h */,
+				B22FC39525105E050076FFBD /* BRResultModel.h */,
+				B22FC39625105E050076FFBD /* BRStringPickerView.m */,
+			);
+			path = StringPickerView;
+			sourceTree = "<group>";
+		};
+		B22FC39825105E050076FFBD /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B22FC39925105E050076FFBD /* BRDatePickerView+BR.m */,
+				B22FC39A25105E050076FFBD /* BRDatePickerView.h */,
+				B22FC39B25105E050076FFBD /* NSDate+BRPickerView.m */,
+				B22FC39C25105E050076FFBD /* BRDatePickerView.m */,
+				B22FC39D25105E050076FFBD /* BRDatePickerView+BR.h */,
+				B22FC39E25105E050076FFBD /* NSDate+BRPickerView.h */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
+		B22FC39F25105E050076FFBD /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B22FC3A025105E050076FFBD /* NSBundle+BRPickerView.h */,
+				B22FC3A125105E050076FFBD /* BRPickerViewMacro.h */,
+				B22FC3A225105E050076FFBD /* BRPickerView.bundle */,
+				B22FC3A325105E050076FFBD /* BRPickerStyle.m */,
+				B22FC3A425105E050076FFBD /* BRBaseView.m */,
+				B22FC3A525105E050076FFBD /* NSBundle+BRPickerView.m */,
+				B22FC3A625105E050076FFBD /* BRBaseView.h */,
+				B22FC3A725105E050076FFBD /* BRPickerStyle.h */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B22FC3A825105E050076FFBD /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B22FC3A925105E050076FFBD /* BRAddressModel.m */,
+				B22FC3AA25105E050076FFBD /* BRAddressPickerView.h */,
+				B22FC3AB25105E050076FFBD /* BRAddressModel.h */,
+				B22FC3AC25105E050076FFBD /* BRAddressPickerView.m */,
+			);
+			path = AddressPickerView;
+			sourceTree = "<group>";
+		};
 		B230F1AD244487FB0084BCC6 /* ZLocationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3700,6 +3796,7 @@
 		B2A77E7623BDCF3700407BF0 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B22FC39125105E050076FFBD /* BRPickerView */,
 				B2E2DF0A250A1A1900230D16 /* XJJRefresh */,
 				B2E367E024F7999300938BCD /* HCSortAndSearch */,
 				B2BEDAEF24C91ABC003F2F1E /* SJVideoPlayer */,
@@ -6008,6 +6105,7 @@
 				B223BCD423C7043F00AC0158 /* icon_star_select@2x.png in Resources */,
 				B26AEE0C24A9D3DD00DF7132 /* ImageSelectedOff@2x.png in Resources */,
 				B26AEE0924A9D3DD00DF7132 /* UIBarButtonItemArrowRight@3x.png in Resources */,
+				B22FC3B225105E050076FFBD /* BRPickerView.bundle in Resources */,
 				B2BA39C22435CD64005A3FFB /* photograph@3x.png in Resources */,
 				B26AEDFD24A9D3DD00DF7132 /* ImageSelectedOff.png in Resources */,
 				B26880F5247681D900BF8FCD /* ZHFilterItemTableViewCell.xib in Resources */,
@@ -6114,6 +6212,7 @@
 				B21887B22436D95700EB7155 /* ZSignModel.m in Sources */,
 				B20C47FE23FFC77A00E0CE35 /* ZOrganizationTeacherLessonSelectVC.m in Sources */,
 				B25146D123CF2B04009A64D4 /* ZStudentMineSettingAboutUsVC.m in Sources */,
+				B22FC3AE25105E050076FFBD /* BRStringPickerView.m in Sources */,
 				B26880F8247681D900BF8FCD /* ZHFilterModel.m in Sources */,
 				B285533E24DBA78800435715 /* ZTabBarController.m in Sources */,
 				B28D90D52406249F0021E05A /* ZOrganizationClassManageListCell.m in Sources */,
@@ -6248,6 +6347,7 @@
 				B29795A024260269004490F5 /* ZStudentLessonTeacherCell.m in Sources */,
 				B2F7D36223CDCAFA00F7A17D /* ZStudentMineEvaEditVC.m in Sources */,
 				B2469B6C249CB6C000DCB146 /* ZFileUploadDataModel.m in Sources */,
+				B22FC3AD25105E050076FFBD /* BRResultModel.m in Sources */,
 				B2A816F624B486E5003A2E1F /* ZCircleDetailEvaListCell.m in Sources */,
 				B23184DE241F59440033F875 /* ZOriganizationCardViewModel.m in Sources */,
 				B2F7D35F23CDA4FD00F7A17D /* ZMineStudentEvaListEvaImageCell.m in Sources */,
@@ -6271,6 +6371,7 @@
 				B296E3AF24050EA900507509 /* ZOrganizationTeachingScheduleVC.m in Sources */,
 				B2C35041243EC965002929A8 /* ZOrganizationAccountSchoolCell.m in Sources */,
 				B2CF933B24249BB0007AF66E /* ZOrganizationMineEvaManageVC.m in Sources */,
+				B22FC3B425105E050076FFBD /* BRBaseView.m in Sources */,
 				B2BEDB6A24C91ABD003F2F1E /* SJNotReachableControlLayer.m in Sources */,
 				B2A780DB23BED6B200407BF0 /* ZIntroductryPagesView.m in Sources */,
 				B2CF933824249183007AF66E /* ZOrganizationMineEvaListVC.m in Sources */,
@@ -6414,6 +6515,7 @@
 				B296E3AC240507D200507509 /* ZOrganizationTopFilterView.m in Sources */,
 				B296E3B82405175900507509 /* ZOrganizationTeachingScheduleNoCell.m in Sources */,
 				B296E3972404CDBF00507509 /* ZOrganizationLessonDetailVC.m in Sources */,
+				B22FC3B725105E050076FFBD /* BRAddressPickerView.m in Sources */,
 				B2BEDB8424C91ABD003F2F1E /* SJScrollingTextMarqueeView.m in Sources */,
 				B2BEDB8624C91ABD003F2F1E /* SJVideoPlayerURLAsset+SJControlAdd.m in Sources */,
 				B2F7D34623CD7D8000F7A17D /* ZStudentMineEvaListHadVC.m in Sources */,
@@ -6444,6 +6546,7 @@
 				B2292E5C249B131A00924055 /* TZImageUploadOperation.m in Sources */,
 				B2A77FD523BDEAA100407BF0 /* ZViewController.m in Sources */,
 				B2A77FEA23BDEB7000407BF0 /* ZImageDownLoader.m in Sources */,
+				B22FC3B125105E050076FFBD /* BRDatePickerView.m in Sources */,
 				B296E3912404B36E00507509 /* ZOrganizationLessonTopSearchView.m in Sources */,
 				B24BCD242498675900C3D9EA /* ZStudentMainOrganizationExperienceItemCell.m in Sources */,
 				B2A7812F23C31BB700407BF0 /* ZStudentMainPhotoWallItemCell.m in Sources */,
@@ -6601,6 +6704,7 @@
 				B2A77EA323BDE1AB00407BF0 /* NSDictionary+LYNil.m in Sources */,
 				B2A780AE23BDFB1F00407BF0 /* ZRouteManager.m in Sources */,
 				B2A7809F23BDFB0100407BF0 /* FSMEngine.m in Sources */,
+				B22FC3B325105E050076FFBD /* BRPickerStyle.m in Sources */,
 				B2F371D2246B8DAA00678B19 /* ZRewardDetailsListCell.m in Sources */,
 				B2B86A5924471CCD001C3F40 /* ZAddPhotosItemCell.m in Sources */,
 				B24BCD332498960600C3D9EA /* ZStudentExperienceLessonListItemCell.m in Sources */,
@@ -6653,6 +6757,7 @@
 				B2257E83242EFADC00862BB5 /* ZStudentMineEvaDetailVC.m in Sources */,
 				B29795822425A537004490F5 /* ZStudentCoachInfoDesCell.m in Sources */,
 				B24BCD2D24987AA100C3D9EA /* ZStudentOrganizationExperienceLessonListVC.m in Sources */,
+				B22FC3B025105E050076FFBD /* NSDate+BRPickerView.m in Sources */,
 				B2A7800F23BDF08000407BF0 /* ZUserHelper.m in Sources */,
 				B2342C7E23FE370700F31C34 /* ZAlertDateHourPickerView.m in Sources */,
 				B23F51CE24B5C4F40070FB79 /* ZMessageLikeListCell.m in Sources */,
@@ -6718,6 +6823,7 @@
 				B2BA39AD24358775005A3FFB /* ZUMengShareManager.m in Sources */,
 				B28EA68E240FA88E00C8E225 /* ZOriganizationTeachingScheduleViewModel.m in Sources */,
 				B2296A872408EC3A00E299AC /* ZTeacherMineVC.m in Sources */,
+				B22FC3B625105E050076FFBD /* BRAddressModel.m in Sources */,
 				B22B5A2724487C70001894BB /* ZStudentTeacherDetailEvaListVC.m in Sources */,
 				B28EA663240E0A8200C8E225 /* ZMineModel.m in Sources */,
 				B24D995C23FD3B570078A458 /* ZOrganizationLessonTypeCell.m in Sources */,
@@ -6746,6 +6852,7 @@
 				B2E3680224F7999300938BCD /* UIAlertController+HCAdd.m in Sources */,
 				B262B550244EEAE100A27542 /* ZOrganizationStudentProcressEditCell.m in Sources */,
 				B215844223CD6544007618CE /* UIColor+MGHexColor.m in Sources */,
+				B22FC3AF25105E050076FFBD /* BRDatePickerView+BR.m in Sources */,
 				B2B86A5C24471CDF001C3F40 /* ZPhotosItemCell.m in Sources */,
 				B28D913C240766940021E05A /* PGDatePicker+DateHour.m in Sources */,
 				B2BA396D24331AC1005A3FFB /* ZAlertMoreView.m in Sources */,
@@ -6805,6 +6912,7 @@
 				B251469E23CEDDAE009A64D4 /* ZStudentMineSignListVC.m in Sources */,
 				B28D913B240766940021E05A /* NSDate+PGCategory.m in Sources */,
 				B2A7809923BDFB0100407BF0 /* LocalConnection.m in Sources */,
+				B22FC3B525105E050076FFBD /* NSBundle+BRPickerView.m in Sources */,
 				B2C477762418B30200296D1B /* ZOrganizationLessonTextViewVC.m in Sources */,
 				B2A7808F23BDFB0100407BF0 /* NSHTTPURLResponse+TLNetwork.m in Sources */,
 				B2A780CA23BED36400407BF0 /* ZStudentMainVC.m in Sources */,

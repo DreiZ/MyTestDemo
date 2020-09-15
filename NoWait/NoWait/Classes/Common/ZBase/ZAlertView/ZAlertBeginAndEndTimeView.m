@@ -10,18 +10,22 @@
 #import "AppDelegate.h"
 #import "ZPublicTool.h"
 
-@interface ZAlertBeginAndEndTimeView ()<PGDatePickerDelegate>
+
+@interface ZAlertBeginAndEndTimeView ()
 @property (nonatomic,strong) UIView *contView;
 @property (nonatomic,strong) UIView *endContView;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *subLabel;
 
-@property (nonatomic,strong) PGDatePicker *dateBeginPicker;
-@property (nonatomic,strong) PGDatePicker *dateEndPicker;
-@property (nonatomic,strong) NSDateComponents *beginComponents;
-@property (nonatomic,strong) NSDateComponents *endComponents;
+@property (nonatomic,strong) BRDatePickerView *dateBeginPicker;
+@property (nonatomic,strong) BRDatePickerView *dateEndPicker;
+@property (nonatomic,strong) NSDate *beginDate;
+@property (nonatomic,strong) NSDate *endDate;
 
-@property (nonatomic,strong) void (^handleBlock)(NSDateComponents *,NSDateComponents *);
+@property (nonatomic,assign) BRDatePickerMode beginMode;
+@property (nonatomic,assign) BRDatePickerMode endMode;
+
+@property (nonatomic,strong) void (^handleBlock)(NSDate *,NSDate *);
  
 @property (nonatomic,assign) NSInteger proIndex;
 
@@ -95,7 +99,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
         [self.endContView addSubview:self.dateEndPicker];
         [self.dateEndPicker mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.endContView);
-            make.top.equalTo(topView.mas_bottom);
+            make.top.mas_equalTo(CGFloatIn750(116));
         }];
     }
     
@@ -141,7 +145,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
         if (self.handleBlock) {
-            self.handleBlock(self.beginComponents, self.endComponents);
+            self.handleBlock(self.beginDate, self.endDate);
         }
         [self removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -169,35 +173,57 @@ static ZAlertBeginAndEndTimeView *sharedManager;
    
 }
 
-- (PGDatePicker *)dateBeginPicker {
+- (BRDatePickerView *)dateBeginPicker {
     if (!_dateBeginPicker) {
-        _dateBeginPicker = [[PGDatePicker alloc]init];
-        _dateBeginPicker.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorGrayBGDark]);
-        _dateBeginPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        //设置选中行的字体颜色
-        _dateBeginPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        //设置未选中行的字体颜色
-        _dateBeginPicker.textColorOfOtherRow = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _dateBeginPicker.delegate = self;
-        _dateBeginPicker.autoSelected = YES;
-        _dateBeginPicker.datePickerMode = PGDatePickerModeDate;
+        __weak typeof(self) weakSelf = self;
+        _dateBeginPicker = [[BRDatePickerView alloc]init];
+        _dateBeginPicker.pickerMode = BRDatePickerModeYMD;
+//        _dateBeginPicker.maxDate = [NSDate date];
+        _dateBeginPicker.isAutoSelect = YES;
+        _dateBeginPicker.showUnitType = BRShowUnitTypeOnlyCenter;
+        _dateBeginPicker.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
+            DLog(@"---begin  %@  %@",selectDate, selectValue);
+            weakSelf.beginDate = selectDate;
+        };
+               
+       // 自定义选择器主题样式
+       BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
+       customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+       customStyle.separatorColor = [UIColor colorMain];
+       customStyle.selectRowTextColor = [UIColor colorMain];
+       customStyle.dateUnitTextColor = [UIColor colorMain];
+       _dateBeginPicker.pickerStyle = customStyle;
+       // 添加选择器到容器视图
+        [_dateBeginPicker addPickerToView:self.contView];
     }
     return _dateBeginPicker;
 }
 
 
-- (PGDatePicker *)dateEndPicker {
+- (BRDatePickerView *)dateEndPicker {
     if (!_dateEndPicker) {
-        _dateEndPicker = [[PGDatePicker alloc]init];
-        _dateEndPicker.backgroundColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorGrayBGDark]);
-        _dateEndPicker.lineBackgroundColor = adaptAndDarkColor([UIColor colorGrayBG], [UIColor colorGrayBGDark]);
-        //设置选中行的字体颜色
-        _dateEndPicker.textColorOfSelectedRow = adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]);
-        //设置未选中行的字体颜色
-        _dateEndPicker.textColorOfOtherRow = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
-        _dateEndPicker.delegate = self;
-        _dateEndPicker.autoSelected = YES;
-        _dateEndPicker.datePickerMode = PGDatePickerModeDate;
+        __weak typeof(self) weakSelf = self;
+        _dateEndPicker = [[BRDatePickerView alloc]init];
+        _dateEndPicker.pickerMode = BRDatePickerModeYMD;
+//        _dateEndPicker.maxDate = [NSDate date];
+        _dateEndPicker.isAutoSelect = YES;
+        _dateEndPicker.showUnitType = BRShowUnitTypeOnlyCenter;
+        _dateEndPicker.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
+            DLog(@"---begin  %@  %@",selectDate, selectValue);
+            weakSelf.endDate = selectDate;
+        };
+               
+       // 自定义选择器主题样式
+       BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
+       customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+        customStyle.separatorColor = [UIColor colorMain];
+        customStyle.selectRowTextColor = [UIColor colorMain];
+        customStyle.dateUnitTextColor = [UIColor colorMain];
+        
+       _dateEndPicker.pickerStyle = customStyle;
+       
+       // 添加选择器到容器视图
+        [_dateEndPicker addPickerToView:self.endContView];
     }
     return _dateEndPicker;
 }
@@ -250,13 +276,36 @@ static ZAlertBeginAndEndTimeView *sharedManager;
 }
 
 #pragma mark - set fun
-- (void)setName:(NSString *)title subName:(NSString *)subTitle  pickerMode:(PGDatePickerMode)model handlerBlock:(void(^)(NSDateComponents *,NSDateComponents*))handleBlock {
+- (void)setName:(NSString *)title subName:(NSString *)subTitle  pickerMode:(BRDatePickerMode)model handlerBlock:(void(^)(NSDate *,NSDate*))handleBlock {
     self.handleBlock = handleBlock;
     self.nameLabel.text = title;
     self.subLabel.text = subTitle;
-    self.dateEndPicker.datePickerMode = model;
-    self.dateBeginPicker.datePickerMode = model;
     
+    self.beginDate = [NSDate new];
+    self.endDate = [NSDate new];
+    self.beginMode = model;
+    self.endMode = model;
+    
+    self.dateBeginPicker.pickerMode = self.beginMode;
+    self.dateEndPicker.pickerMode = self.endMode;
+    
+    [self.endContView addSubview:self.dateEndPicker];
+    [self.dateEndPicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.endContView);
+        make.top.mas_equalTo(CGFloatIn750(116));
+    }];
+    
+    [self.contView addSubview:self.dateBeginPicker];
+    [self.dateBeginPicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.contView);
+        make.top.mas_equalTo(CGFloatIn750(116));
+    }];
+    
+    [self.dateBeginPicker setSelectDate:self.beginDate];
+    [self.dateEndPicker setSelectDate:self.endDate];
+    
+    
+    [self.dateEndPicker reloadData];
     self.alpha = 0;
     self.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     [[AppDelegate shareAppDelegate].window addSubview:self];
@@ -266,18 +315,8 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     }];
 }
 
-+ (void)setAlertName:(NSString *)title subName:(NSString *)subTitle pickerMode:(PGDatePickerMode)model handlerBlock:(void(^)(NSDateComponents *,NSDateComponents *))handleBlock  {
++ (void)setAlertName:(NSString *)title subName:(NSString *)subTitle pickerMode:(BRDatePickerMode)model handlerBlock:(void(^)(NSDate *,NSDate *))handleBlock  {
     [[ZAlertBeginAndEndTimeView sharedManager] setName:title subName:subTitle pickerMode:model handlerBlock:handleBlock];
 }
 
-#pragma PGDatePickerDelegate
-- (void)datePicker:(PGDatePicker *)datePicker didSelectDate:(NSDateComponents *)dateComponents {
-    DLog(@"dateComponents = %@", dateComponents);
-    if (datePicker == self.dateBeginPicker) {
-        self.beginComponents = dateComponents;
-    }
-    if (datePicker == self.dateEndPicker) {
-        self.endComponents = dateComponents;
-    }
-}
 @end

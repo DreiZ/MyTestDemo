@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "BRPickerView.h"
 
 @interface ZAlertBeginAndEndTimeView : UIView
-+ (void)setAlertName:(NSString *)title subName:(NSString *)subTitle pickerMode:(PGDatePickerMode)model handlerBlock:(void(^)(NSDateComponents *,NSDateComponents *))handleBlock;
++ (void)setAlertName:(NSString *)title subName:(NSString *)subTitle pickerMode:(BRDatePickerMode)model handlerBlock:(void(^)(NSDate *,NSDate *))handleBlock;
 @end
 
-NS_ASSUME_NONNULL_END

@@ -329,9 +329,9 @@
         
     }else if ([cellConfig.title isEqualToString:@"time"]) {
         [self.iTableView endEditing:YES];
-        [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:PGDatePickerModeDate handlerBlock:^(NSDateComponents *begin, NSDateComponents *end) {
-            weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
-            weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
+        [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYMD handlerBlock:^(NSDate *begin, NSDate *end) {
+            weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[begin timeIntervalSince1970]];
+            weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[end timeIntervalSince1970]];
             
             [weakSelf initCellConfigArr];
             [weakSelf.iTableView reloadData];
