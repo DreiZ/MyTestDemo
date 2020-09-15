@@ -14,6 +14,8 @@
 #import "ZStudentMineLessonTimetableCell.h"
 #import "ZTeacherMineEntryStoresCell.h"
 #import "ZStudentMineLessonNoTimetableCell.h"
+#import "ZTeacherMineStatisticsView.h"
+
 #import "UIScrollView+XJJRefresh.h"
 #import "XJJRefresh.h"
 #import "ZTeacherViewModel.h"
@@ -194,11 +196,19 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
+    
+    
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineStatisticsView className] title:@"ZTeacherMineStatisticsView" showInfoMethod:nil heightOfCell:[ZTeacherMineStatisticsView z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    
+    [self.cellConfigArr addObject:menuCellConfig];
+    
     NSArray *tempArr = @[@[isDarkModel() ? @"sign_teacher_dark":@"sign_teacher",@"sign", @"我的签课", @"rightBlackArrowN"],
                          @[isDarkModel() ? @"eva_teacher_dark":@"eva_teacher",@"eva", @"我的评价", @"rightBlackArrowN"],
     @[isDarkModel() ? @"classForm":@"classForm",@"form", @"班级报表", @"rightBlackArrowN"]];
     
     NSMutableArray *configArr = @[].mutableCopy;
+    
+    
     for (NSArray *tArr in tempArr) {
         ZBaseSingleCellModel *model = [[ZBaseSingleCellModel alloc] init];
         model.leftImage = tArr[0];

@@ -28,7 +28,7 @@
         make.left.equalTo(self.contentView).offset(CGFloatIn750(30));
         make.right.equalTo(self.contentView).offset(-CGFloatIn750(30));
         make.top.equalTo(self.contentView).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.contentView).offset(-CGFloatIn750(20));
+        make.bottom.equalTo(self.contentView).offset(-CGFloatIn750(10));
     }];
     
     [self.contView addSubview:self.contTopView];
@@ -160,7 +160,7 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     NSMutableArray *list = sender;
     if (list) {
-        CGFloat height = CGFloatIn750(80);
+        CGFloat height = CGFloatIn750(70);
         for (id smodel in list) {
             if ([smodel isKindOfClass:[ZCellConfig class]]) {
                 ZCellConfig *config = smodel;

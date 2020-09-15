@@ -33,6 +33,7 @@
     
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"班级报表")
+    .zChain_setTableViewGary()
     .zChain_resetMainView(^{
         [self.view addSubview:self.formTopView];
         [self.view addSubview:self.sectionView];

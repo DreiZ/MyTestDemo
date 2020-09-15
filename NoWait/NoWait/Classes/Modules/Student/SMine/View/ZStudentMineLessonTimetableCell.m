@@ -40,8 +40,8 @@
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-CGFloatIn750(30));
         make.left.equalTo(self.contentView.mas_left).offset(CGFloatIn750(30));
-        make.top.equalTo(self.mas_top).offset(CGFloatIn750(20));
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(20));
+        make.top.equalTo(self.mas_top).offset(CGFloatIn750(10));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-CGFloatIn750(10));
     }];
     
     UIView *topTitleBackView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -222,9 +222,9 @@
 + (CGFloat)z_getCellHeight:(id)sender {
     NSArray *list = sender;
     if (list.count%4 > 0) {
-        return (list.count/4 + 1) * ((KScreenWidth-CGFloatIn750(252))/4 * (64.0/62.0)) + ((list.count/4) * CGFloatIn750(20))+ CGFloatIn750(73 * 2 + 60*2) + CGFloatIn750(40);
+        return (list.count/4 + 1) * ((KScreenWidth-CGFloatIn750(252))/4 * (64.0/62.0)) + ((list.count/4) * CGFloatIn750(20))+ CGFloatIn750(73 * 2 + 60*2) + CGFloatIn750(20);
     }
-    return list.count/4  * ((KScreenWidth-CGFloatIn750(252))/4 * (64.0/62.0)) + (list.count/4 - 1)  * CGFloatIn750(20) + CGFloatIn750(73 * 2 + 60*2) + CGFloatIn750(40);
+    return list.count/4  * ((KScreenWidth-CGFloatIn750(252))/4 * (64.0/62.0)) + (list.count/4 - 1)  * CGFloatIn750(20) + CGFloatIn750(73 * 2 + 60*2) + CGFloatIn750(20);
 }
 
 
