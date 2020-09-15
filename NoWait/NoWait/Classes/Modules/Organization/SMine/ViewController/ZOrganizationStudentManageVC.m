@@ -50,20 +50,6 @@
 
 - (void)initCellConfigArr {
     [super initCellConfigArr];
-//    {
-//        ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"line")
-//        .zz_lineHidden(YES)
-//        .zz_titleLeft([NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"])
-//        .zz_fontLeft([UIFont fontContent])
-//        .zz_colorLeft([UIColor colorMain])
-//        .zz_marginLeft(CGFloatIn750(50))
-//        .zz_colorDarkLeft([UIColor colorMain])
-//        .zz_cellHeight(CGFloatIn750(80));
-//
-//         ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-//
-//         [self.cellConfigArr  addObject:menuCellConfig];
-//    }
     self.totalLabel.text = [NSString stringWithFormat:@"共:%@名学员",ValidStr(self.total)? self.total:@"0"];
     for (int i = 0; i < self.dataSources.count; i++) {
         ZOriganizationStudentListModel *model = self.dataSources[i];

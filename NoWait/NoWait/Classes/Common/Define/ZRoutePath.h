@@ -68,6 +68,8 @@
 
 #define ZRoute_mine_signList            @"controller/mine/signList"
 
+#define ZRoute_mine_signDetailList      @"controller/mine/signDetailList"
+
 #define ZRoute_mine_cardList            @"controller/mine/cardList"
 
 #define ZRoute_mine_orderBuyList        @"controller/mine/orderBuyList"

@@ -12,11 +12,17 @@
 #import "ZTeacherClassReportFormSectionView.h"
 #import "ZTeacherClassReportFormDayView.h"
 #import "ZAlertBeginAndEndTimeView.h"
+#import "ZTeacherClassFormFilterView.h"
+#import "ZOriganizationClassViewModel.h"
 
 @interface ZTeacherClassReportFormVC ()
 @property (nonatomic,strong) ZTeacherClassReportFormTopView *formTopView;
 @property (nonatomic,strong) ZTeacherClassReportFormSectionView *sectionView;
 @property (nonatomic,strong) ZTeacherClassReportFormDayView *dayView;
+@property (nonatomic,strong) ZTeacherClassFormFilterView *filterView;
+
+@property (nonatomic,strong) NSMutableArray *classArr;
+@property (nonatomic,strong) ZOriganizationClassListModel *classModel;
 
 @end
 
@@ -61,15 +67,54 @@
             
         }
     });
-    
+
     self.zChain_reload_ui();
+
+    [self getClassData:^{
+        if (ValidArray(weakSelf.classArr)) {
+            weakSelf.classModel = weakSelf.classArr[0];
+            weakSelf.formTopView.title = weakSelf.classModel.name;
+        }
+    }];
 }
 
 #pragma mark - lazy loading
 - (ZTeacherClassReportFormTopView *)formTopView {
     if (!_formTopView) {
+        __weak typeof(self) weakSelf = self;
         _formTopView = [[ZTeacherClassReportFormTopView alloc] init];
         _formTopView.moreBlock = ^(NSInteger index) {
+            
+            if (weakSelf.classArr) {
+                if (weakSelf.classModel) {
+                    weakSelf.filterView.model = weakSelf.classModel;
+                }else{
+                    if (ValidArray(weakSelf.classArr)) {
+                        weakSelf.classModel = weakSelf.classArr[0];
+                    }
+                    weakSelf.filterView.model = weakSelf.classModel;
+                }
+                
+                weakSelf.filterView.dataSources = weakSelf.classArr;
+                [weakSelf.view addSubview:weakSelf.filterView];
+            }else{
+                weakSelf.classArr = @[].mutableCopy;
+                [TLUIUtility showLoading:nil];
+                [weakSelf getClassData:^{
+                    [TLUIUtility hiddenLoading];
+                    if (weakSelf.classModel) {
+                        weakSelf.filterView.model = weakSelf.classModel;
+                    }else{
+                        if (ValidArray(weakSelf.classArr)) {
+                            weakSelf.classModel = weakSelf.classArr[0];
+                        }
+                        weakSelf.filterView.model = weakSelf.classModel;
+                    }
+                    
+                    weakSelf.filterView.dataSources = weakSelf.classArr;
+                    [weakSelf.view addSubview:weakSelf.filterView];
+                }];
+            }
             
         };
         [_formTopView setTitle:@"傲视曲安雄班级"];
@@ -86,22 +131,13 @@
             if (index == 4) {
                 if (weakSelf.sectionView.type == 0) {
                     [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYMD handlerBlock:^(NSDate *begin, NSDate *end) {
-                    //                    weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
-                    //                    weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
-                    //
-                    //                    [weakSelf initCellConfigArr];
-                    //                    [weakSelf.iTableView reloadData];
-                                    }];
+                        
+                    }];
                 }else{
                     [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYM handlerBlock:^(NSDate *begin, NSDate *end) {
-                    //                    weakSelf.viewModel.addModel.limit_start = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:begin] timeIntervalSince1970]];
-                    //                    weakSelf.viewModel.addModel.limit_end = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:end] timeIntervalSince1970]];
-                    //
-                    //                    [weakSelf initCellConfigArr];
-                    //                    [weakSelf.iTableView reloadData];
-                                    }];
+                    
+                    }];
                 }
-                
             }else{
                 
             }
@@ -118,6 +154,39 @@
     }
     
     return _dayView;
+}
+
+
+- (ZTeacherClassFormFilterView *)filterView {
+    if (!_filterView) {
+        __weak typeof(self) weakSelf = self;
+        _filterView = [[ZTeacherClassFormFilterView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+        _filterView.handleBlock = ^(ZOriganizationClassListModel *model) {
+            weakSelf.classModel = model;
+            weakSelf.formTopView.title = weakSelf.classModel.name;
+        };
+        
+    }
+    return _filterView;
+}
+
+
+#pragma mark - 数据处理
+- (void)getClassData:(void(^)(void))complete {
+    __weak typeof(self) weakSelf = self;
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%d",1]}.mutableCopy;
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    [param setObject:@"1000" forKey:@"page_size"];
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
+    
+    [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
+        if (isSuccess && data) {
+            weakSelf.classArr = @[].mutableCopy;
+            [weakSelf.classArr removeAllObjects];
+            [weakSelf.classArr addObjectsFromArray:data.list];
+            complete();
+        }
+    }];
 }
 @end
 

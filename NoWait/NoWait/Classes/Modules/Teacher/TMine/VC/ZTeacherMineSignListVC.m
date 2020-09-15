@@ -129,7 +129,6 @@
     __weak typeof(self) weakSelf = self;
     [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
         weakSelf.loading = NO;
-        [weakSelf.rightNavBtn setTitle:@"刷新" forState:UIControlStateNormal];
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -157,7 +156,6 @@
     
     __weak typeof(self) weakSelf = self;
      [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
-         [weakSelf.rightNavBtn setTitle:@"刷新中" forState:UIControlStateNormal];
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];

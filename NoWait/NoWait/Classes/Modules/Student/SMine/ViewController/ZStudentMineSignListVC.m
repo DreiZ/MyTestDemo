@@ -65,7 +65,8 @@
         ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
         enteryCell.handleBlock = ^(ZOriganizationClassListModel *model) {
             ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
-            
+            routePushVC(ZRoute_mine_signDetailList, nil, nil);
+            return;
             routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(cellmodel.courses_class_id), @"student_id":SafeStr(cellmodel.student_id)}, nil);
         };
     }
@@ -73,7 +74,8 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
          ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
-         
+         routePushVC(ZRoute_mine_signDetailList, nil, nil);
+         return;
          routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(cellmodel.courses_class_id), @"student_id":SafeStr(cellmodel.student_id)}, nil);
     }
 }

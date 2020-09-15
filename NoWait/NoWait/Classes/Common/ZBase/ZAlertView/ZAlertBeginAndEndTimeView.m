@@ -77,6 +77,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     
     {
         UIView *topView = [[UIView alloc] init];
+        topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         [self.endContView addSubview:topView];
         [topView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(CGFloatIn750(116));
@@ -99,8 +100,9 @@ static ZAlertBeginAndEndTimeView *sharedManager;
         [self.endContView addSubview:self.dateEndPicker];
         [self.dateEndPicker mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.endContView);
-            make.top.mas_equalTo(CGFloatIn750(116));
+            make.top.equalTo(topView.mas_bottom).offset(-CGFloatIn750(80));
         }];
+        [self.endContView bringSubviewToFront:topView];
     }
     
     [self addSubview:self.contView];
@@ -112,6 +114,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     }];
     
     UIView *topView = [[UIView alloc] init];
+    topView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     [self.contView addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGFloatIn750(116));
@@ -168,15 +171,16 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     [self.contView addSubview:self.dateBeginPicker];
     [self.dateBeginPicker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.contView);
-        make.top.equalTo(topView.mas_bottom);
+        make.top.equalTo(topView.mas_bottom).offset(-CGFloatIn750(80));
     }];
    
+    [self.contView bringSubviewToFront:topView];
 }
 
 - (BRDatePickerView *)dateBeginPicker {
     if (!_dateBeginPicker) {
         __weak typeof(self) weakSelf = self;
-        _dateBeginPicker = [[BRDatePickerView alloc]init];
+        _dateBeginPicker = [[BRDatePickerView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(690), CGFloatIn750(400))];
         _dateBeginPicker.pickerMode = BRDatePickerModeYMD;
 //        _dateBeginPicker.maxDate = [NSDate date];
         _dateBeginPicker.isAutoSelect = YES;
@@ -186,14 +190,16 @@ static ZAlertBeginAndEndTimeView *sharedManager;
             weakSelf.beginDate = selectDate;
         };
                
-       // 自定义选择器主题样式
-       BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
-       customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
-       customStyle.separatorColor = [UIColor colorMain];
-       customStyle.selectRowTextColor = [UIColor colorMain];
-       customStyle.dateUnitTextColor = [UIColor colorMain];
-       _dateBeginPicker.pickerStyle = customStyle;
-       // 添加选择器到容器视图
+        // 自定义选择器主题样式
+        BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
+        customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+        customStyle.separatorColor = [UIColor colorMain];
+        customStyle.selectRowTextColor = [UIColor colorMain];
+        customStyle.dateUnitTextColor = [UIColor colorMain];
+        customStyle.pickerHeight = CGFloatIn750(400);
+        customStyle.titleBarHeight = CGFloatIn750(-80);
+        _dateBeginPicker.pickerStyle = customStyle;
+        // 添加选择器到容器视图
         [_dateBeginPicker addPickerToView:self.contView];
     }
     return _dateBeginPicker;
@@ -203,7 +209,7 @@ static ZAlertBeginAndEndTimeView *sharedManager;
 - (BRDatePickerView *)dateEndPicker {
     if (!_dateEndPicker) {
         __weak typeof(self) weakSelf = self;
-        _dateEndPicker = [[BRDatePickerView alloc]init];
+        _dateEndPicker = [[BRDatePickerView alloc] initWithFrame:CGRectMake(0, 0, CGFloatIn750(690), CGFloatIn750(400))];
         _dateEndPicker.pickerMode = BRDatePickerModeYMD;
 //        _dateEndPicker.maxDate = [NSDate date];
         _dateEndPicker.isAutoSelect = YES;
@@ -213,14 +219,15 @@ static ZAlertBeginAndEndTimeView *sharedManager;
             weakSelf.endDate = selectDate;
         };
                
-       // 自定义选择器主题样式
-       BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
-       customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
+        // 自定义选择器主题样式
+        BRPickerStyle *customStyle = [[BRPickerStyle alloc]init];
+        customStyle.pickerColor = adaptAndDarkColor([UIColor whiteColor], [UIColor colorBlackBGDark]);
         customStyle.separatorColor = [UIColor colorMain];
         customStyle.selectRowTextColor = [UIColor colorMain];
         customStyle.dateUnitTextColor = [UIColor colorMain];
-        
-       _dateEndPicker.pickerStyle = customStyle;
+        customStyle.titleBarHeight = CGFloatIn750(-80);
+        customStyle.pickerHeight = CGFloatIn750(400);
+        _dateEndPicker.pickerStyle = customStyle;
        
        // 添加选择器到容器视图
         [_dateEndPicker addPickerToView:self.endContView];
@@ -288,18 +295,6 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     
     self.dateBeginPicker.pickerMode = self.beginMode;
     self.dateEndPicker.pickerMode = self.endMode;
-    
-    [self.endContView addSubview:self.dateEndPicker];
-    [self.dateEndPicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.endContView);
-        make.top.mas_equalTo(CGFloatIn750(116));
-    }];
-    
-    [self.contView addSubview:self.dateBeginPicker];
-    [self.dateBeginPicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.contView);
-        make.top.mas_equalTo(CGFloatIn750(116));
-    }];
     
     [self.dateBeginPicker setSelectDate:self.beginDate];
     [self.dateEndPicker setSelectDate:self.endDate];
