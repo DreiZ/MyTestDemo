@@ -6,11 +6,11 @@
 //  Copyright © 2020 zhuang zhang. All rights reserved.
 //
 
-#import "ZTableViewController.h"
+#import "ZLChainTableVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZStudentSignDetailListVC : ZTableViewController
+@interface ZStudentSignDetailListVC : ZLChainTableVC
 
 @end
 

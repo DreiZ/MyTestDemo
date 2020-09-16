@@ -41,20 +41,23 @@
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
         
+        
         for (int i = 0; i < 10; i++) {
-            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
-            model.zz_titleLeft(@"初级游泳课")
-            .zz_titleRight(@"李梓萌")
-            .zz_fontLeft([UIFont boldFontContent])
-            .zz_fontRight([UIFont boldFontContent])
-            .zz_colorLeft([UIColor colorMain])
-            .zz_colorRight([UIColor colorMain])
-            .zz_colorDarkLeft([UIColor colorMain])
-            .zz_colorDarkRight([UIColor colorMain])
-            .zz_cellHeight(CGFloatIn750(90));
+            NSMutableArray *sectionArr = @[].mutableCopy;
             
-            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-            [weakSelf.cellConfigArr addObject:menuCellConfig];
+//            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
+//            model.zz_titleLeft(@"初级游泳课")
+//            .zz_titleRight(@"李梓萌")
+//            .zz_fontLeft([UIFont boldFontContent])
+//            .zz_fontRight([UIFont boldFontContent])
+//            .zz_colorLeft([UIColor colorMain])
+//            .zz_colorRight([UIColor colorMain])
+//            .zz_colorDarkLeft([UIColor colorMain])
+//            .zz_colorDarkRight([UIColor colorMain])
+//            .zz_cellHeight(CGFloatIn750(90));
+//
+//            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+//            [sectionArr addObject:menuCellConfig];
             
             {
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
@@ -65,15 +68,15 @@
                 .zz_cellHeight(CGFloatIn750(80));
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                [sectionArr addObject:menuCellConfig];
             }
             {
-                [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(18))];
+                [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(18))];
                 
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailSummaryCell className] title:model.cellTitle showInfoMethod:nil heightOfCell:[ZMineStudentClassSignDetailSummaryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailSummaryCell className] title:@"ZMineStudentClassSignDetailSummaryCell" showInfoMethod:nil heightOfCell:[ZMineStudentClassSignDetailSummaryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+                [sectionArr addObject:menuCellConfig];
                 
-                [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(28))];
+                [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(28))];
             }
             {
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
@@ -84,10 +87,10 @@
                 .zz_cellHeight(CGFloatIn750(90));
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                [sectionArr addObject:menuCellConfig];
                 
                 ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailImageCell className] title:model.cellTitle showInfoMethod:@selector(setImage:) heightOfCell:[ZMineStudentClassSignDetailImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1girf1ig4ouj30u018ztma.jpg"];
-                [weakSelf.cellConfigArr addObject:imageCellConfig];
+                [sectionArr addObject:imageCellConfig];
                 
             }
             {
@@ -97,10 +100,10 @@
                 .zz_cellHeight(CGFloatIn750(90));
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                [sectionArr addObject:menuCellConfig];
             }
             {
-                [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+                [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
                 model.zz_lineHidden(NO)
                 .zz_marginLineLeft(CGFloatIn750(30))
@@ -108,11 +111,44 @@
                 .zz_cellHeight(CGFloatIn750(4));
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                [weakSelf.cellConfigArr addObject:menuCellConfig];
+                [sectionArr addObject:menuCellConfig];
             }
             
-            [weakSelf.cellConfigArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
+            
+            [weakSelf.cellConfigArr addObject:sectionArr];
         }
+    }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(90))];
+        sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlack]);
+        
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleLabel.textColor = [UIColor colorMain];
+        titleLabel.text = @"初级游泳课";
+        titleLabel.numberOfLines = 0;
+        [titleLabel setFont:[UIFont boldFontContent]];
+        [sectionView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(sectionView.mas_left).offset(CGFloatIn750(30));
+            make.centerY.equalTo(sectionView.mas_centerY);
+        }];
+        
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        nameLabel.textColor = [UIColor colorMain];
+        nameLabel.text = @"李梓萌";
+        nameLabel.numberOfLines = 0;
+        [nameLabel setFont:[UIFont boldFontContent]];
+        [sectionView addSubview:nameLabel];
+        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(sectionView.mas_right).offset(-CGFloatIn750(30));
+            make.centerY.equalTo(sectionView.mas_centerY);
+        }];
+        
+        return sectionView;
+    });
+    self.zChain_block_setHeightForHeaderInSection(^CGFloat(UITableView *tableView, NSInteger section) {
+        return CGFloatIn750(90);
     });
     
     self.zChain_reload_ui();

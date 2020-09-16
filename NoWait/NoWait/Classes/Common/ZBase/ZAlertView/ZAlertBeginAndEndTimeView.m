@@ -58,6 +58,8 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     self.clipsToBounds = YES;
     self.layer.masksToBounds = YES;
     
+    __weak typeof(self) weakSelf = self;
+    
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [backBtn bk_addEventHandler:^(id sender) {
         [self removeFromSuperview];
@@ -147,10 +149,16 @@ static ZAlertBeginAndEndTimeView *sharedManager;
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn.titleLabel setFont:[UIFont fontContent]];
     [rightBtn bk_addEventHandler:^(id sender) {
-        if (self.handleBlock) {
-            self.handleBlock(self.beginDate, self.endDate);
+        if (!weakSelf.beginDate) {
+            weakSelf.beginDate = [NSDate new];
         }
-        [self removeFromSuperview];
+        if (!weakSelf.endDate) {
+            weakSelf.endDate = [NSDate new];
+        }
+        if (weakSelf.handleBlock) {
+            weakSelf.handleBlock(weakSelf.beginDate, weakSelf.endDate);
+        }
+        [weakSelf removeFromSuperview];
     } forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:rightBtn];
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {

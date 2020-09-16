@@ -24,6 +24,11 @@
 @property (nonatomic,strong) NSMutableArray *classArr;
 @property (nonatomic,strong) ZOriganizationClassListModel *classModel;
 
+@property (nonatomic,assign) NSInteger type;
+@property (nonatomic,strong) NSString *beginDate;
+@property (nonatomic,strong) NSString *endDate;
+@property (nonatomic,strong) NSString *beginMouthDate;
+@property (nonatomic,strong) NSString *endMouthDate;
 @end
 
 @implementation ZTeacherClassReportFormVC
@@ -34,7 +39,10 @@
     __weak typeof(self) weakSelf = self;
     self.zChain_setNavTitle(@"班级报表")
     .zChain_setTableViewGary()
-    .zChain_resetMainView(^{
+    .zChain_updateDataSource(^{
+        self.type = 0;
+        
+    }).zChain_resetMainView(^{
         [self.view addSubview:self.formTopView];
         [self.view addSubview:self.sectionView];
         [self.view addSubview:self.dayView];
@@ -50,7 +58,7 @@
         [self.dayView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.sectionView.mas_bottom);
-            make.height.mas_equalTo(CGFloatIn750(60));
+            make.height.mas_equalTo(CGFloatIn750(0));
         }];
         
         [self.iTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -59,12 +67,12 @@
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
-        
+ 
         for (int i = 0; i < 10; i++) {
-            [self.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
+            [weakSelf.cellConfigArr addObject:getGrayEmptyCellWithHeight(CGFloatIn750(20))];
             ZCellConfig *cellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherClassReportFormCell className] title:[ZTeacherClassReportFormCell className] showInfoMethod:nil heightOfCell:[ZTeacherClassReportFormCell  z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
             
-            [self.cellConfigArr addObject:cellConfig];
+            [weakSelf.cellConfigArr addObject:cellConfig];
             
         }
     });
@@ -77,6 +85,8 @@
             weakSelf.formTopView.title = weakSelf.classModel.name;
         }
     }];
+    
+    [self setDayShow];
 }
 
 #pragma mark - lazy loading
@@ -116,9 +126,7 @@
                     [weakSelf.view addSubview:weakSelf.filterView];
                 }];
             }
-            
         };
-        [_formTopView setTitle:@"傲视曲安雄班级"];
     }
     
     return _formTopView;
@@ -131,27 +139,61 @@
         _sectionView.handleBlock = ^(NSInteger index) {
             if (index == 4) {
                 if (weakSelf.sectionView.type == 0) {
-                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYMD handlerBlock:^(NSDate *begin, NSDate *end) {
+                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间" pickerMode:BRDatePickerModeYMD handlerBlock:^(NSDate *begin, NSDate *end) {
+                        if (![weakSelf checkDate:begin end:end]) {
+                            [TLUIUtility showInfoHint:@"开始时期不能大于结束日期"];
+                            return;
+                        }
                         
+                        weakSelf.beginDate = [NSString stringWithFormat:@"%f",[begin timeIntervalSince1970]];
+                        weakSelf.endDate = [NSString stringWithFormat:@"%f",[end timeIntervalSince1970]];
+                        
+                        [weakSelf setDayShow];
+                        
+                        [weakSelf updateDayView];
+                        weakSelf.zChain_reload_Net();
                     }];
                 }else{
-                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间"  pickerMode:BRDatePickerModeYM handlerBlock:^(NSDate *begin, NSDate *end) {
-                    
+                    [ZAlertBeginAndEndTimeView setAlertName:@"选择开始日期" subName:@"选择结束时间" pickerMode:BRDatePickerModeYM handlerBlock:^(NSDate *begin, NSDate *end) {
+                        if (![weakSelf checkDate:begin end:end]) {
+                            [TLUIUtility showInfoHint:@"开始时期不能大于结束日期"];
+                            return;
+                        }
+                        
+                        weakSelf.beginMouthDate = [NSString stringWithFormat:@"%f",[begin timeIntervalSince1970]];
+                        weakSelf.endMouthDate = [NSString stringWithFormat:@"%f",[end timeIntervalSince1970]];
+                        [weakSelf setDayShow];
+                        
+                        [weakSelf updateDayView];
+                        weakSelf.zChain_reload_Net();
                     }];
                 }
             }else{
-                
+                weakSelf.type = index;
+                [weakSelf setDayShow];
+                [weakSelf updateDayView];
+                weakSelf.zChain_reload_Net();
             }
         };
-        _sectionView.type = 1;
     }
-    
     return _sectionView;
 }
 
 - (ZTeacherClassReportFormDayView *)dayView {
     if (!_dayView) {
+        __weak typeof(self) weakSelf = self;
         _dayView = [[ZTeacherClassReportFormDayView alloc] init];
+        _dayView.handleBlock = ^(NSInteger index) {
+            if (weakSelf.type == 0) {
+                weakSelf.beginDate = nil;
+                weakSelf.endDate = nil;
+            }else{
+                weakSelf.beginMouthDate = nil;
+                weakSelf.endMouthDate = nil;
+            }
+            [weakSelf updateDayView];
+            weakSelf.zChain_reload_Net();
+        };
     }
     
     return _dayView;
@@ -165,12 +207,169 @@
         _filterView.handleBlock = ^(ZOriganizationClassListModel *model) {
             weakSelf.classModel = model;
             weakSelf.formTopView.title = weakSelf.classModel.name;
+            [weakSelf resetFilter];
+            weakSelf.zChain_reload_Net();
         };
         
     }
     return _filterView;
 }
 
+#pragma mark - data handle
+- (void)resetFilter {
+    _type = 0;
+    [_sectionView setType:_type];
+    
+    _beginDate = nil;
+    _endDate = nil;
+    _beginMouthDate = nil;
+    _endMouthDate = nil;
+    
+    [self updateDayView];
+}
+
+- (void)updateDayView {
+    if (self.type == 0) {
+        if (self.beginDate) {
+            [self.dayView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.sectionView.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(70));
+            }];
+        }else{
+            [self.dayView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.sectionView.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(0));
+            }];
+        }
+    }else{
+        if (self.beginMouthDate) {
+            [self.dayView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.sectionView.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(70));
+            }];
+        }else{
+            [self.dayView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.top.equalTo(self.sectionView.mas_bottom);
+                make.height.mas_equalTo(CGFloatIn750(0));
+            }];
+        }
+    }
+    
+}
+
+- (BOOL)checkDate:(NSDate *)begin  end:(NSDate *)end {
+    if ([begin timeIntervalSince1970] > [end timeIntervalSince1970]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)setDayShow {
+    if (self.type == 0) {
+        [self.dayView setTime:[NSString stringWithFormat:@"%@ 至 %@",[self.beginDate timeStringWithFormatter:@"YYYY年MM月dd日"],[self.endDate timeStringWithFormatter:@"YYYY年MM月dd日"]]];
+    }else{
+        [self.dayView setTime:[NSString stringWithFormat:@"%@ 至 %@",[self.beginMouthDate timeStringWithFormatter:@"YYYY年MM月"],[self.endMouthDate timeStringWithFormatter:@"YYYY年MM月"]]];
+    }
+}
+
+
+- (NSDate *)getBeginDate:(NSDate *)date {
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+
+    [calendar setTimeZone:gmt];
+
+    NSDateComponents *components = [calendar components:NSUIntegerMax fromDate:date];
+
+    components.day-=1;
+
+    [components setHour:0];
+
+    [components setMinute:0];
+
+    [components setSecond: 0];
+
+    NSDate *startDate = [calendar dateFromComponents:components];
+
+    return startDate;
+}
+
+
+- (NSDate *)getEndDate:(NSDate *)date {
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+
+    [calendar setTimeZone:gmt];
+
+    NSDateComponents *components = [calendar components:NSUIntegerMax fromDate:date];
+
+    components.day-=1;
+
+    [components setHour:0];
+
+    [components setMinute:0];
+
+    [components setSecond: 0];
+
+    NSDate *startDate = [calendar dateFromComponents:components];
+    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+    
+    return endDate;
+}
+
+- (NSString *)getMonthFirstDayWith:(NSString *)dateStr{
+    
+    NSDateFormatter *format=[[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd"];
+    NSDate *newDate=[format dateFromString:dateStr];
+    double interval = 0;
+    NSDate *firstDate = nil;
+    NSDate *lastDate = nil;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
+    BOOL OK = [calendar rangeOfUnit:NSCalendarUnitMonth startDate:& firstDate interval:&interval forDate:newDate];
+    
+    if (OK) {
+        lastDate = [firstDate dateByAddingTimeInterval:interval - 1];
+    }else {
+        return @"";
+    }
+
+    NSDateFormatter *myDateFormatter = [[NSDateFormatter alloc] init];
+    [myDateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *firstString = [myDateFormatter stringFromDate: firstDate];
+    return firstString;
+}
+
+
+- (NSString *)getMonthLastDayWith:(NSString *)dateStr{
+    NSDateFormatter *format=[[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd"];
+    NSDate *newDate=[format dateFromString:dateStr];
+    double interval = 0;
+    NSDate *firstDate = nil;
+    NSDate *lastDate = nil;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
+    BOOL OK = [calendar rangeOfUnit:NSCalendarUnitMonth startDate:& firstDate interval:&interval forDate:newDate];
+    
+    if (OK) {
+        lastDate = [firstDate dateByAddingTimeInterval:interval - 1];
+    }else {
+        return @"";
+    }
+
+    NSDateFormatter *myDateFormatter = [[NSDateFormatter alloc] init];
+    [myDateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *lastString = [myDateFormatter stringFromDate: lastDate];
+    return lastString;
+}
 
 #pragma mark - 数据处理
 - (void)getClassData:(void(^)(void))complete {
@@ -188,6 +387,71 @@
             complete();
         }
     }];
+}
+
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            
+            weakSelf.zChain_reload_ui();
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+     [ZOriganizationClassViewModel getTeacherClassList:param completeBlock:^(BOOL isSuccess, ZOriganizationClassListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            
+            weakSelf.zChain_reload_ui();
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:[NSString stringWithFormat:@"%d",20] forKey:@"page_size"];
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.stores_id) forKey:@"stores_id"];
+    [param setObject:SafeStr([ZUserHelper sharedHelper].stores.teacher_id) forKey:@"teacher_id"];
+    return param;
 }
 @end
 
