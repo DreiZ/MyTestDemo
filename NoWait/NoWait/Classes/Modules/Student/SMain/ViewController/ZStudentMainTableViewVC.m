@@ -180,9 +180,12 @@
     if ([cellConfig.title isEqualToString:@"ZStudentMainEnteryCell"]) {
         ZStudentMainEnteryCell *lcell = (ZStudentMainEnteryCell *)cell;
         lcell.menuBlock = ^(ZStudentEnteryItemModel * model) {
-//            routePushVC(ZRoute_main_classificationList, nil, nil);
-//            return;
-            routePushVC(ZRoute_main_classification, @{@"name":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
+            if ([SafeStr(model.sid) isEqualToString:@"0"] ) {
+                routePushVC(ZRoute_main_classificationList, nil, nil);
+            }else{
+                routePushVC(ZRoute_main_classification, @{@"name":SafeStr(model.name),@"type":SafeStr(model.sid)}, nil);
+            }
+            
         };
     }else if([cellConfig.title isEqualToString:@"ZStudentBannerCell"]){
         ZStudentBannerCell *lcell = (ZStudentBannerCell *)cell;

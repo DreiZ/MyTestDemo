@@ -8,7 +8,7 @@
 
 #import "ZStudentMainClassificationListVC.h"
 #import "ZStudentClassificationLeftCell.h"
-#import "ZStudentMainEntryItemCell.h"
+#import "ZStudentMainEntryClassListItemCell.h"
 #import "ZStudentMainViewModel.h"
 
 @interface ZStudentMainClassificationListVC ()<UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -109,7 +109,7 @@
         _iCollectionView.scrollEnabled = YES;
         _iCollectionView.showsHorizontalScrollIndicator = NO;
         _iCollectionView.showsVerticalScrollIndicator = NO;
-        [_iCollectionView registerClass:[ZStudentMainEntryItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryItemCell className]];
+        [_iCollectionView registerClass:[ZStudentMainEntryClassListItemCell class] forCellWithReuseIdentifier:[ZStudentMainEntryClassListItemCell className]];
     }
     
     return _iCollectionView;
@@ -137,7 +137,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZStudentMainEntryItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainEntryItemCell className] forIndexPath:indexPath];
+    ZStudentMainEntryClassListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainEntryClassListItemCell className] forIndexPath:indexPath];
     ZMainClassifyOneModel *model = self.rightDataArr[indexPath.row];
     cell.titleLabel.text = model.name;
     [cell.imageView tt_setImageWithURL:[NSURL URLWithString:model.imageName] placeholderImage:[UIImage imageNamed:@"main_more"]];
@@ -165,7 +165,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CGSize cellSize =  CGSizeMake((KScreenWidth-CGFloatIn750(200) - CGFloatIn750(20+20))/3.0f-1.0f, (KScreenWidth-CGFloatIn750(200) - CGFloatIn750(20+20))/3.0f);
+    CGSize cellSize =  CGSizeMake((KScreenWidth-CGFloatIn750(200) - CGFloatIn750(20+20))/3.0f-1.0f, (KScreenWidth-CGFloatIn750(200) - CGFloatIn750(20+20))/3.0f+CGFloatIn750(30));
     return cellSize;
 }
 

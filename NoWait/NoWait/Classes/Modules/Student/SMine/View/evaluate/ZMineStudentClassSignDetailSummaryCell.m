@@ -154,7 +154,7 @@
 - (UILabel *)title1Label {
     if (!_title1Label) {
         _title1Label = [[UILabel alloc] initWithFrame:CGRectZero];
-        _title1Label.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _title1Label.textColor = adaptAndDarkColor(HexAColor(0xf7c173, 1), HexAColor(0xf7c173, 1));
         _title1Label.numberOfLines = 0;
         _title1Label.text = @"2节";
         _title1Label.textAlignment = NSTextAlignmentCenter;
@@ -167,7 +167,7 @@
 - (UILabel *)title2Label {
     if (!_title2Label) {
         _title2Label = [[UILabel alloc] initWithFrame:CGRectZero];
-        _title2Label.textColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
+        _title2Label.textColor = adaptAndDarkColor(HexAColor(0x5e73ce, 1), HexAColor(0x5e73ce, 1));
         _title2Label.numberOfLines = 0;
         _title2Label.text = @"12节";
         _title2Label.textAlignment = NSTextAlignmentCenter;
