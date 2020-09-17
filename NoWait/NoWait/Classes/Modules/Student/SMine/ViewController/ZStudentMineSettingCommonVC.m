@@ -45,7 +45,9 @@
                 weakSelf.isOpen = isOpen;
                 [weakSelf setTokenIsOpen:isOpen];
                 
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             };
         }
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
@@ -87,12 +89,16 @@
                 if ([status intValue] == 1) {
                     weakSelf.isOpen = @"1";
                     
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                     return;;
                 }
             }
             weakSelf.isOpen = @"2";
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }];
     }
 }

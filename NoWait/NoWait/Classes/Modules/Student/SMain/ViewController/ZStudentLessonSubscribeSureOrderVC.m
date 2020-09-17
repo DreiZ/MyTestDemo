@@ -154,10 +154,14 @@
             lcell.handleBlock = ^(ZCellConfig *scellConfig) {
                 if ([scellConfig.title isEqualToString:@"wepaylist"]){
                     weakSelf.isAlipay = NO;
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                 }else if ([scellConfig.title isEqualToString:@"alipaylist"]){
                     weakSelf.isAlipay = YES;
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                 }
             };
         }

@@ -341,7 +341,7 @@
             [weakSelf.iCollectionView reloadData];
             
             [weakSelf.iCollectionView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 12) {
                 [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iCollectionView tt_endLoadMore];
@@ -368,7 +368,7 @@
             [weakSelf.iCollectionView reloadData];
             
             [weakSelf.iCollectionView tt_endRefreshing];
-            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 12) {
                 [weakSelf.iCollectionView tt_removeLoadMoreFooter];
             }else{
                 [weakSelf.iCollectionView tt_endLoadMore];

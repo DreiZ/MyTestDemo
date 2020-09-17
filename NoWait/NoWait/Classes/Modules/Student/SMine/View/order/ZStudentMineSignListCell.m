@@ -24,6 +24,8 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) UIButton *signBtn;
+@property (nonatomic,strong) UIButton *signDetailBtn;
+
 @end
 
 @implementation ZStudentMineSignListCell
@@ -121,10 +123,19 @@
         make.height.mas_equalTo(CGFloatIn750(56));
     }];
     
+    [self.bottomView addSubview:self.signDetailBtn];
+    [self.signDetailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.bottomView);
+        make.right.equalTo(self.signBtn.mas_left).offset(-CGFloatIn750(20));
+        make.width.mas_equalTo(CGFloatIn750(146));
+        make.height.mas_equalTo(CGFloatIn750(56));
+    }];
+    
     [self.bottomView addSubview:self.studentLabel];
     [self.studentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.bottomView.mas_centerY);
         make.left.equalTo(self.bottomView.mas_left).offset(CGFloatIn750(30));
+        make.right.equalTo(self.signDetailBtn.mas_left).offset(-CGFloatIn750(20));
     }];
     
     
@@ -268,11 +279,29 @@
         ViewBorderRadius(_signBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
         [_signBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(self.model);
+                weakSelf.handleBlock(weakSelf.model, 0);
             };
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _signBtn;
+}
+
+
+- (UIButton *)signDetailBtn {
+    if (!_signDetailBtn) {
+        __weak typeof(self) weakSelf = self;
+        _signDetailBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_signDetailBtn setTitle:@"签课详情" forState:UIControlStateNormal];
+        [_signDetailBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_signDetailBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_signDetailBtn, CGFloatIn750(28), CGFloatIn750(2), adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]));
+        [_signDetailBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleBlock) {
+                weakSelf.handleBlock(weakSelf.model, 1);
+            };
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _signDetailBtn;
 }
 
 
@@ -290,6 +319,7 @@
     return _longLabel;
 }
 
+#pragma mark - set data
 - (void)setModel:(ZOriganizationClassListModel *)model{
     _model = model;
     _lessonNameLabel.text = model.stores_courses_name;
@@ -340,18 +370,24 @@
     
     if ([model.status intValue] == 3) {
         _bottomView.hidden = NO;
-        self.signBtn.hidden = NO;
-        [_signBtn setTitle:@"签课详情" forState:UIControlStateNormal];
+        self.signBtn.hidden = YES;
+//        [_signBtn setTitle:@"签课详情" forState:UIControlStateNormal];
 //        [self.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
 //            make.left.top.right.equalTo(self.contView);
 //            make.bottom.equalTo(self.bottomView.mas_top);
 ////            make.bottom.equalTo(self.contView.mas_bottom).offset(-CGFloatIn750(34));
 //       }];
         
-        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        [self.signBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.bottomView);
+//            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
+//            make.width.mas_equalTo(CGFloatIn750(176));
+//            make.height.mas_equalTo(CGFloatIn750(56));
+//        }];
+        [self.signDetailBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.bottomView);
-            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
-            make.width.mas_equalTo(CGFloatIn750(176));
+            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
+            make.width.mas_equalTo(CGFloatIn750(146));
             make.height.mas_equalTo(CGFloatIn750(56));
         }];
     }else {
@@ -366,6 +402,13 @@
             make.centerY.equalTo(self.bottomView);
             make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(30));
             make.width.mas_equalTo(CGFloatIn750(116));
+            make.height.mas_equalTo(CGFloatIn750(56));
+        }];
+        
+        [self.signDetailBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.right.equalTo(self.signBtn.mas_left).offset(-CGFloatIn750(20));
+            make.width.mas_equalTo(CGFloatIn750(146));
             make.height.mas_equalTo(CGFloatIn750(56));
         }];
     }

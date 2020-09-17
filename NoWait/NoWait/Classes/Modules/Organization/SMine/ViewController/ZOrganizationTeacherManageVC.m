@@ -193,7 +193,9 @@
             if (weakSelf.isEdit) {
                 [weakSelf selectAllData];
                 
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }else{
                 routePushVC(ZRoute_org_teacherAdd, nil, nil);
             }
@@ -357,7 +359,9 @@
             weakSelf.total = data.total;
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

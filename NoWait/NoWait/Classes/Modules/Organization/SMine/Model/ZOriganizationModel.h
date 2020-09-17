@@ -72,7 +72,7 @@
 @property (nonatomic,strong) NSString *can_operation;
 @property (nonatomic,strong) NSString *stores_courses_short_name;
 @property (nonatomic,strong) NSString *note_id;
-
+//2长期班 1普通班
 @property (nonatomic,strong) NSString *class_type;
 
 @property (nonatomic,strong) NSString *stores_courses_name;
@@ -98,6 +98,7 @@
 @property (nonatomic,strong) NSString *truancy_nums;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSString *vacate_nums;
+@property (nonatomic,assign) BOOL isSelected;
 @end
 
 @interface ZOriganizationClassListNetModel : ZBaseNetworkBackDataModel
@@ -137,6 +138,7 @@
 @property (nonatomic,strong) NSString *stores_name;
 @property (nonatomic,strong) NSString *update_at;
 @property (nonatomic,strong) NSString *can_operation;
+//2长期班 1普通班
 @property (nonatomic,strong) NSString *class_type;
 
 @property (nonatomic,assign) NSInteger index;
@@ -218,6 +220,7 @@
 
 @property (nonatomic,strong) NSString *nums;
 @property (nonatomic,strong) NSString *nowNums;
+//2长期班 1普通班
 @property (nonatomic,strong) NSString *class_type;
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) BOOL isEdit;
@@ -629,6 +632,7 @@
 @property (nonatomic,strong) NSArray <ZOriganizationSignListModel *>*list;
 @property (nonatomic,strong) NSArray <ZOriganizationSignListImageNetModel *>*image;
 @property (nonatomic,strong) NSString *sign_time;
+//2长期班 1普通班
 @property (nonatomic,strong) NSString *class_type;
 
 @property (nonatomic,assign) NSInteger index;
@@ -638,5 +642,25 @@
 @interface ZTeacherSignNetModel : ZBaseModel
 @property (nonatomic,strong) NSString *code;
 @property (nonatomic,strong) NSString *notice_msg;
+
+@end
+
+@interface ZOriganizationReportListModel : ZBaseModel
+@property (nonatomic,strong) NSString *class_name;
+@property (nonatomic,strong) NSString *date;
+@property (nonatomic,strong) NSString *replenish_nums;
+@property (nonatomic,strong) NSString *sign;
+@property (nonatomic,strong) NSString *store_name;
+@property (nonatomic,strong) NSString *truancy_nums;
+@property (nonatomic,strong) NSString *vacate_nums;
+@property (nonatomic,assign) NSInteger type;
+//2长期班 1普通班
+@property (nonatomic,strong) NSString *class_type;
+
+@end
+
+@interface ZOriganizationReportListNetModel : ZBaseModel
+@property (nonatomic,strong) NSArray <ZOriganizationReportListModel *>*list;
+@property (nonatomic,strong) NSString *total;
 
 @end

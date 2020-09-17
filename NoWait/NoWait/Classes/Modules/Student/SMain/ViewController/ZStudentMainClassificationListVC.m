@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     [self setNavigation];
     [self initCellConfigArr];
     self.iTableView.delegate = self;
@@ -31,6 +32,13 @@
     
     [self.iTableView reloadData];
     [self.iCollectionView reloadData];
+    
+    if (ValidArray(self.classify)) {
+        [self getCategoryList:^(BOOL state) {
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iCollectionView reloadData];
+        }];
+    }
 }
 
 - (void)setDataSource {
@@ -232,6 +240,33 @@
         [self.iCollectionView scrollToTop];
         [self.iCollectionView reloadData];
     }
+}
+
+
+- (void)getCategoryList:(void(^)(BOOL))complete {
+    __weak typeof(self) weakSelf = self;
+    [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {
+        if (isSuccess) {
+            ZMainClassifyNetModel *model = data;
+            NSMutableArray *classifyArr = @[].mutableCopy;
+            [classifyArr addObjectsFromArray:model.list];
+            [classifyArr enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj.secondary enumerateObjectsUsingBlock:^(ZMainClassifyOneModel *sobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    sobj.superClassify_id = obj.classify_id;
+                }];
+            }];
+            if (ValidArray(classifyArr)) {
+                weakSelf.classify = classifyArr;
+            }
+            if (complete) {
+                complete(YES);
+            }
+        }else{
+            if (complete) {
+                complete(NO);
+            }
+        }
+    }];
 }
 @end
 

@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setQrcodeStudentProgress:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 
 + (void)upLessonImageStr:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
+
+
++ (void)getMyClassSignReportList:(NSDictionary *)params completeBlock:(resultDataBlock)completeBlock;
 @end
 
 NS_ASSUME_NONNULL_END

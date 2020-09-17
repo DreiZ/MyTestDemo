@@ -128,7 +128,9 @@
                 edit.placeholder = @"请输入签名";
                 
                 routePushVC(ZRoute_mine_textEditVC, edit, ^(id  _Nullable result, NSError * _Nullable error) {
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                 });
             }else if(index == 5){
                 //关注
@@ -148,7 +150,9 @@
             }else{
                 weakSelf.isCollection = YES;
             }
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         };
     }
     return _sectionView;

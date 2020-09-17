@@ -96,7 +96,9 @@
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
@@ -122,7 +124,9 @@
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
                 [weakSelf.iTableView tt_removeLoadMoreFooter];

@@ -32,7 +32,9 @@
                 ZOriganizationStudentAddModel *addModel = data;
                 weakSelf.addModel = addModel;
                 
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }else {
                 [TLUIUtility showErrorHint:data];
             }

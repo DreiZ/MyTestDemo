@@ -163,7 +163,9 @@
         if (isSuccess) {
             weakSelf.detailModel = data;
 //            weakSelf.detailModel.status = @"2";
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             [TLUIUtility showErrorHint:data];
         }

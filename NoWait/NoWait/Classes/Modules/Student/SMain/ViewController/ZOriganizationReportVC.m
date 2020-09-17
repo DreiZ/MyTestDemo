@@ -49,7 +49,9 @@
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
                 
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }else{
                 [weakSelf.iTableView reloadData];
             }

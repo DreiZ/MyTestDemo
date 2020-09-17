@@ -158,7 +158,9 @@
     [[kNotificationCenter rac_addObserverForName:KNotificationLoginStateChange object:nil] subscribeNext:^(NSNotification *notfication) {
         [weakSelf.dataSources removeAllObjects];
         weakSelf.circleModel = nil;
-        weakSelf.zChain_reload_ui();
+        if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         ([ZLaunchManager sharedInstance].tabBarController.tabBar.items[2]).badgeValue = nil;
     }];
 }
@@ -200,7 +202,9 @@
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -226,7 +230,9 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             weakSelf.loadFromLocalHistory = NO;
             weakSelf.messageNetModel = data;

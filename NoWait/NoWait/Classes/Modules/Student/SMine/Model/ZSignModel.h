@@ -26,6 +26,7 @@
 @property (nonatomic,strong) NSString *vacate_nums;
 @property (nonatomic,strong) NSString *wait_progress;
 @property (nonatomic,strong) NSString *can_operation;
+//2长期班 1普通班
 @property (nonatomic,strong) NSString *class_type;
 
 @end

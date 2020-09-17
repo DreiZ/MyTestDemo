@@ -82,7 +82,9 @@
                         
                         routePushVC(ZRoute_mine_textEditVC, edit, ^(NSString *text, NSError * _Nullable error) {
                             weakSelf.user.nikeName = text;
-                            weakSelf.zChain_reload_ui();
+                            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                             [weakSelf updateUserInfo:@{@"nick_name":SafeStr(weakSelf.user.nikeName)}];
                         });
                     }else if([cellConfig.title isEqualToString:@"性别"]){
@@ -97,14 +99,18 @@
                         [ZAlertDataSinglePickerView setAlertName:@"性别选择" selectedIndex:[weakSelf.user.sex intValue] > 0 ? [weakSelf.user.sex intValue]-1:0 items:items handlerBlock:^(NSInteger index) {
                             weakSelf.user.sex = [NSString stringWithFormat:@"%ld",index + 1];
                             
-                            weakSelf.zChain_reload_ui();
+                            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                             [weakSelf updateUserInfo:@{@"sex":SafeStr(weakSelf.user.sex)}];
                         }];
                     }else if([cellConfig.title isEqualToString:@"出生日期"]){
                         [ZDatePickerManager showDatePickerWithTitle:@"出生日期" type:PGDatePickerModeDate viewController:weakSelf handle:^(NSDateComponents * date) {
                              weakSelf.user.birthday = [NSString stringWithFormat:@"%ld",(long)[[NSDate dateFromComponents:date] timeIntervalSince1970]];
                             
-                            weakSelf.zChain_reload_ui();
+                            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                             [weakSelf updateUserInfo:@{@"birthday":SafeStr(weakSelf.user.birthday)}];
                         }];
                     }
@@ -122,7 +128,9 @@
                 [ZUserHelper sharedHelper].user.sex = weakSelf.user.sex;
                 [ZUserHelper sharedHelper].user.type = weakSelf.user.type;
                 [[ZUserHelper sharedHelper] setUser:[ZUserHelper sharedHelper].user];
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }else{
                 [TLUIUtility showErrorHint:data];
             }

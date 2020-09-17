@@ -37,7 +37,7 @@
     
     [self addSubview:self.contView];
     [self.contView addSubview:self.dayBtn];
-    [self.contView addSubview:self.weekBtn];
+//    [self.contView addSubview:self.weekBtn];
     [self.contView addSubview:self.mouthBtn];
     [self.contView addSubview:self.fitleBtn];
     
@@ -62,16 +62,16 @@
         make.width.mas_equalTo((KScreenWidth-CGFloatIn750(176))/3.0);
     }];
     
-    [self.weekBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [self.weekBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.dayBtn.mas_right).offset(CGFloatIn750(0));
+//        make.height.mas_equalTo(CGFloatIn750(68));
+//        make.width.equalTo(self.dayBtn.mas_width);
+//    }];
+    
+    [self.mouthBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.dayBtn.mas_right).offset(CGFloatIn750(0));
         make.height.mas_equalTo(CGFloatIn750(68));
         make.width.equalTo(self.dayBtn.mas_width);
-    }];
-    
-    [self.mouthBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.weekBtn.mas_right).offset(CGFloatIn750(0));
-        make.height.mas_equalTo(CGFloatIn750(68));
-        make.width.equalTo(self.weekBtn.mas_width);
     }];
     
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -196,11 +196,11 @@
     _type = type;
     if (_type == 0) {
         [_dayBtn.titleLabel setFont:[UIFont boldFontContent]];
-        [_weekBtn.titleLabel setFont:[UIFont fontContent]];
+//        [_weekBtn.titleLabel setFont:[UIFont fontContent]];
         [_mouthBtn.titleLabel setFont:[UIFont fontContent]];
         
         [_dayBtn setSelected:YES];
-        [_weekBtn setSelected:NO];
+//        [_weekBtn setSelected:NO];
         [_mouthBtn setSelected:NO];
         [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(CGFloatIn750(6));
@@ -209,11 +209,11 @@
             make.centerX.equalTo(self.dayBtn.mas_centerX);
         }];
     }else if (_type == 1) {
-        [_weekBtn.titleLabel setFont:[UIFont boldFontContent]];
+//        [_weekBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_dayBtn.titleLabel setFont:[UIFont fontContent]];
         [_mouthBtn.titleLabel setFont:[UIFont fontContent]];
         [_dayBtn setSelected:NO];
-        [_weekBtn setSelected:YES];
+//        [_weekBtn setSelected:YES];
         [_mouthBtn setSelected:NO];
         
         [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -225,9 +225,9 @@
     }else {
         [_mouthBtn.titleLabel setFont:[UIFont boldFontContent]];
         [_dayBtn.titleLabel setFont:[UIFont fontContent]];
-        [_weekBtn.titleLabel setFont:[UIFont fontContent]];
+//        [_weekBtn.titleLabel setFont:[UIFont fontContent]];
         [_dayBtn setSelected:NO];
-        [_weekBtn setSelected:NO];
+//        [_weekBtn setSelected:NO];
         [_mouthBtn setSelected:YES];
         
         [self.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {

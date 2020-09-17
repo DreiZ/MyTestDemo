@@ -468,3 +468,14 @@
 @implementation ZTeacherSignNetModel
 
 @end
+
+@implementation ZOriganizationReportListModel
+
+@end
+
+@implementation ZOriganizationReportListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationReportListModel"
+             };
+}
+@end

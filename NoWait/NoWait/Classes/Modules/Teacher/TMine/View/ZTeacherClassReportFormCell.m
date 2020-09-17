@@ -11,7 +11,7 @@
 @interface ZTeacherClassReportFormCell ()
 @property (nonatomic,strong) UIView *funBackView;
 @property (nonatomic,strong) NSMutableArray <UILabel *>*labelArr;
-
+@property (nonatomic,strong) NSMutableArray <UILabel *>*labelTitleArr;
 @end
 
 @implementation ZTeacherClassReportFormCell
@@ -31,21 +31,21 @@
     NSArray *titleArr = @[@"日期",@"已签课",@"补签",@"请假",@"旷课"];
     NSArray *titleColorArr = @[[UIColor colorTextGray],[UIColor colorTextGray],[UIColor colorWithHexString:@"f7c173"],[UIColor colorWithHexString:@"5e73ce"],[UIColor colorWithHexString:@"ff0808"]];
     NSArray *titleDarkColorArr = @[[UIColor colorTextGrayDark],[UIColor colorTextGrayDark],[UIColor colorWithHexString:@"f7c173"],[UIColor colorWithHexString:@"5e73ce"],[UIColor colorWithHexString:@"ff0808"]];
-    NSArray *contentArr = @[@"2020年1月1日",@"20人",@"10人",@"2人",@"3人"];
+    NSArray *contentArr = @[@"2020年1月1日",@"0人",@"0人",@"0人",@"0人"];
     NSArray *contentColorArr = @[[UIColor colorTextBlack],[UIColor colorTextBlack],[UIColor colorWithHexString:@"f7c173"],[UIColor colorWithHexString:@"5e73ce"],[UIColor colorWithHexString:@"ff0808"]];
     NSArray *contentDarkColorArr = @[[UIColor colorTextBlackDark],[UIColor colorTextBlackDark],[UIColor colorWithHexString:@"f7c173"],[UIColor colorWithHexString:@"5e73ce"],[UIColor colorWithHexString:@"ff0808"]];
     
-    NSMutableArray <UILabel *>*titleLabelArr = @[].mutableCopy;
     self.labelArr = @[].mutableCopy;
+    self.labelTitleArr = @[].mutableCopy;
     
     for (int i = 0; i < titleArr.count; i++) {
         UILabel *titleLabel = [self getLabel:titleArr[i] color:titleColorArr[i] darkColor:titleDarkColorArr[i] alignment:i == 0? NSTextAlignmentLeft:NSTextAlignmentCenter];
-        [titleLabelArr addObject:titleLabel];
+        [self.labelTitleArr addObject:titleLabel];
         
         UILabel *contentLabel = [self getLabel:contentArr[i] color:contentColorArr[i] darkColor:contentDarkColorArr[i] alignment:i == 0? NSTextAlignmentLeft:NSTextAlignmentCenter];
         [self.labelArr addObject:contentLabel];
         
-        [self.funBackView addSubview:titleLabelArr[i]];
+        [self.funBackView addSubview:_labelTitleArr[i]];
         [self.funBackView addSubview:_labelArr[i]];
     }
     
@@ -53,7 +53,7 @@
         make.left.equalTo(self.funBackView.mas_left).offset(CGFloatIn750(40));
         make.top.equalTo(self.funBackView.mas_top).offset(CGFloatIn750(38));
     }];
-    [titleLabelArr[0] mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_labelTitleArr[0] mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.funBackView.mas_left).offset(CGFloatIn750(40));
         make.top.equalTo(self.labelArr[0].mas_bottom).offset(CGFloatIn750(16));
     }];
@@ -61,8 +61,8 @@
     
     UILabel *titleLabel = nil;
     UILabel *contentLabel = nil;
-    for (int i = 1; i < titleLabelArr.count; i++) {
-        [titleLabelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+    for (int i = 1; i < _labelTitleArr.count; i++) {
+        [_labelTitleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
             if (titleLabel) {
                 make.left.equalTo(titleLabel.mas_right);
                 
@@ -70,7 +70,7 @@
                 make.left.equalTo(self.funBackView.mas_left).offset(CGFloatIn750(0));
             }
             
-            if (i == titleLabelArr.count - 1) {
+            if (i == _labelTitleArr.count - 1) {
                 make.right.equalTo(self.funBackView.mas_right);
             }
             make.width.mas_equalTo((KScreenWidth-CGFloatIn750(60))/4.0f);
@@ -89,7 +89,7 @@
             make.width.mas_equalTo((KScreenWidth-CGFloatIn750(60))/4.0f);
             make.bottom.equalTo(self.funBackView.mas_bottom).offset(-CGFloatIn750(86));
         }];
-        titleLabel = titleLabelArr[i];
+        titleLabel = _labelTitleArr[i];
         contentLabel = _labelArr[i];
     }
 }
@@ -114,6 +114,26 @@
     [nameLabel setFont:[UIFont fontSmall]];
     
     return nameLabel;
+}
+
+- (void)setModel:(ZOriganizationReportListModel *)model {
+    _model = model;
+    _labelArr[0].text = model.date;
+    _labelArr[1].text = [NSString stringWithFormat:@"%@人",model.sign];
+    _labelArr[2].text = [NSString stringWithFormat:@"%@人",model.replenish_nums];
+    _labelArr[3].text = [NSString stringWithFormat:@"%@人",model.vacate_nums];
+    _labelArr[4].text = [NSString stringWithFormat:@"%@人",model.truancy_nums];
+    if (ValidStr(model.class_type) && [model.class_type intValue] == 2) {
+        _labelArr[3].hidden = YES;
+        _labelArr[4].hidden = YES;
+        _labelTitleArr[3].hidden = YES;
+        _labelTitleArr[4].hidden = YES;
+    }else{
+        _labelArr[3].hidden = NO;
+        _labelArr[4].hidden = NO;
+        _labelTitleArr[3].hidden = NO;
+        _labelTitleArr[4].hidden = NO;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

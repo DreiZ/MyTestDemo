@@ -494,11 +494,15 @@
         if (isSuccess && [data isKindOfClass:[ZCircleDynamicInfo class]]) {
             weakSelf.isRemove = NO;
             weakSelf.infoModel = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             if ([data isKindOfClass:[NSString class]] && [data isEqualToString:@"动态已被移除"]) {
                 weakSelf.isRemove = YES;
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }
         }
     }];
@@ -511,7 +515,9 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             weakSelf.infoModel.follow_status = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -525,7 +531,9 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             weakSelf.infoModel.follow_status = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -543,7 +551,9 @@
             }else{
                 weakSelf.infoModel.store_collection = @"0";
             }
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             [TLUIUtility showSuccessHint:data];
         }else{
             [TLUIUtility showInfoHint:data];
@@ -574,7 +584,9 @@
                 }else{
                     weakSelf.isNoData = NO;
                 }
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
                 [weakSelf.iTableView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -600,7 +612,9 @@
                 }else{
                     weakSelf.isNoData = NO;
                 }
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
                 [weakSelf.iTableView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -634,7 +648,9 @@
                 }else{
                     weakSelf.isNoData = NO;
                 }
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
                 [weakSelf.iTableView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -659,7 +675,9 @@
                 }else{
                     weakSelf.isNoData = NO;
                 }
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
                 [weakSelf.iTableView tt_endRefreshing];
                 if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {

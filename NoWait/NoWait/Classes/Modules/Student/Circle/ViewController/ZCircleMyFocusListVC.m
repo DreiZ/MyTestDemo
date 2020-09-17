@@ -92,7 +92,9 @@
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -118,7 +120,9 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -157,7 +161,9 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             account.follow_status = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             [TLUIUtility showErrorHint:data];
         }
@@ -172,7 +178,9 @@
         [TLUIUtility hiddenLoading];
         if (isSuccess) {
             account.follow_status = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }else{
             [TLUIUtility showErrorHint:data];
         }

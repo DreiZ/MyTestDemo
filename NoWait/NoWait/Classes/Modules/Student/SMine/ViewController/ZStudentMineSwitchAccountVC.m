@@ -96,7 +96,9 @@
         if ([cellConfig.title isEqualToString:@"switch"]){
             ZLoginTypeController *loginvc = [[ZLoginTypeController alloc] init];
             loginvc.loginSuccess = ^{
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
                 NSArray *viewControllers = weakSelf.navigationController.viewControllers;
                 NSArray *reversedArray = [[viewControllers reverseObjectEnumerator] allObjects];
@@ -122,7 +124,9 @@
             ZUser *user = cellModel.data;
             [[ZUserHelper sharedHelper] switchUser:user];
             
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }
     });
     self.zChain_reload_ui();

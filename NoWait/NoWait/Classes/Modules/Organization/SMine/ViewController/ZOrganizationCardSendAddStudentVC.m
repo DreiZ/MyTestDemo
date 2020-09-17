@@ -50,7 +50,9 @@
                     ZOriganizationStudentListModel *model = ids[i];
                     [weakSelf.studentArr addObject:model];
                 }
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             };
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -159,7 +161,9 @@
                 
                 weakSelf.userNameTF.text = @"";
                 weakSelf.studentModel = nil;
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             }
         }
     });
@@ -176,7 +180,9 @@
         [_addBtn.titleLabel setFont:[UIFont fontSmall]];
         [_addBtn bk_addEventHandler:^(id sender) {
             [weakSelf getStudentCodeInfo];
-             weakSelf.zChain_reload_ui();
+             if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _addBtn;
@@ -263,7 +269,9 @@
         weakSelf.loading = NO;
         if (isSuccess && data) {
             weakSelf.studentModel = data;
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         }
     }];
 }

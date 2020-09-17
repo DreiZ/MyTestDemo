@@ -48,8 +48,10 @@
             if (isSuccess && data) {
                 [weakSelf.dataSources removeAllObjects];
                 [weakSelf.dataSources addObjectsFromArray:data.list];
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 
-                weakSelf.zChain_reload_ui();
             }
         }];
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {

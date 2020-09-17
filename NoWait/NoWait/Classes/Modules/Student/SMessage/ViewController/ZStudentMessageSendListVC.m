@@ -48,7 +48,9 @@
             if (isSuccess && data) {
                 weakSelf.infoModel = data;
                 
-                weakSelf.zChain_reload_ui();
+                if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
                 [weakSelf.iTableView tt_endRefreshing];
                 [weakSelf.iTableView tt_removeLoadMoreFooter];
             }else{

@@ -126,7 +126,9 @@
                 }
                 if (![weakSelf checkLabelIsSame:model]) {
                     [weakSelf.labelList addObject:model];
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                 }else{
                     [TLUIUtility showInfoHint:@"已添加了该标签"];
                 }
@@ -142,7 +144,9 @@
                         }
                     }
                     
+                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
+                }
                 }
             };
         }
@@ -171,7 +175,9 @@
             model.tag_name = SafeStr(self.userNameTF.text);
             model.tag_id = @"";
             [weakSelf.labelList addObject:model];
-             weakSelf.zChain_reload_ui();
+             if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _addBtn;

@@ -12,6 +12,6 @@
 @interface ZStudentMineSignListCell : ZBaseCell
 @property (nonatomic,strong) ZOriganizationClassListModel *model;
 
-@property (nonatomic,strong) void (^handleBlock)(ZOriganizationClassListModel *);
+@property (nonatomic,strong) void (^handleBlock)(ZOriganizationClassListModel *, NSInteger);
 @end
 

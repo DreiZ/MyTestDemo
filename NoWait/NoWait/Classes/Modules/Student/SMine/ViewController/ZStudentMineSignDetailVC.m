@@ -153,7 +153,7 @@
 
 - (void)setNavigation {
     self.isHidenNaviBar = NO;
-    [self.navigationItem setTitle:@"签课详情"];
+    [self.navigationItem setTitle:@"学员签课"];
 }
 
 - (void)setupMainView {

@@ -86,7 +86,9 @@
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
@@ -113,7 +115,9 @@
         if (isSuccess && data) {
             ZOriganizationLessonListNetModel *sData = data;
             [weakSelf.dataSources addObjectsFromArray:sData.list];
-            weakSelf.zChain_reload_ui();
+            if (weakSelf) {
+                    weakSelf.zChain_reload_ui();
+                }
             
             [weakSelf.iTableView tt_endRefreshing];
             if (sData && [sData.total integerValue] <= weakSelf.currentPage * 10) {
