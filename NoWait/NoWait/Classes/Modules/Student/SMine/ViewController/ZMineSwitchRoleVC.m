@@ -83,9 +83,13 @@
     }).zChain_block_setConfigDidSelectRowAtIndexPath(^(UITableView *tableView, NSIndexPath *indexPath, ZCellConfig *cellConfig) {
         if ([cellConfig.title isEqualToString:@"user"]){
              ZBaseSingleCellModel *cellModel = (ZBaseSingleCellModel *)cellConfig.dataModel;
-             ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
-             lvc.model = cellModel.data;
-             [weakSelf.navigationController pushViewController:lvc animated:YES];
+            
+            ZUserRolesListModel *user = cellModel.data;
+            if (![user.type isEqualToString:[ZUserHelper sharedHelper].user.type]) {
+                ZStudentMineSwitchAccountLoginVC *lvc = [[ZStudentMineSwitchAccountLoginVC alloc] init];
+                lvc.model = cellModel.data;
+                [weakSelf.navigationController pushViewController:lvc animated:YES];
+            }
         }
     });
     

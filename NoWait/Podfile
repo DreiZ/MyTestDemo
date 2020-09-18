@@ -6,6 +6,7 @@ inhibit_all_warnings!
 target :NoWait do
 
     # --------------------- 第三方Pod -----------------------
+    pod 'YYKit'
     pod 'AFNetworking', '~> 3.1.0'
     pod 'SDWebImage', '~> 3.7'
     pod 'Masonry', '~> 1.1.0'
@@ -15,7 +16,7 @@ target :NoWait do
 #    pod 'ReactiveCocoa', '~> 2.5'
     pod 'ReactiveCocoa', :git => 'https://github.com/zhao0/ReactiveCocoa.git', :tag => '2.5.2'
     pod 'CocoaLumberjack', '~> 3.3.0'
-    pod 'YYKit'
+#    pod 'YYKit'
     pod 'WXSTransition'
     pod 'SDCycleScrollView'
     pod 'WMPageController'
@@ -45,7 +46,7 @@ target :NoWait do
 #umeng
     pod 'UMCCommon'
     pod 'UMCSecurityPlugins'
-    pod 'UMCAnalytics'
+#    pod 'UMCAnalytics'
     pod 'UMCPush'
  # U-Share SDK UI模块（分享面板，建议添加）
     pod 'UMCShare/UI'

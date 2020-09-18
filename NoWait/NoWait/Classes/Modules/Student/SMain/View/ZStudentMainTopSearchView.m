@@ -18,9 +18,11 @@
 
 @property (nonatomic,strong) UIButton *mapSchoolBtn;
 @property (nonatomic,strong) UIImageView *mapSchoolImage;
+@property (nonatomic,strong) NSString *city;
 
 @property (nonatomic,strong) UIView *backView;
-
+@property (nonatomic,strong) NSTimer *timer;
+@property (nonatomic,assign) NSInteger index;
 @end
 
 @implementation ZStudentMainTopSearchView
@@ -43,7 +45,6 @@
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
     
     [self addSubview:self.contView];
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,6 +88,7 @@
     __weak typeof(self) weakSelf = self;
     UIButton *addressBtn = [[UIButton alloc] initWithFrame:CGRectZero];
     [addressBtn bk_addEventHandler:^(id sender) {
+        [weakSelf startTimer];
         if (weakSelf.addressBlock) {
             weakSelf.addressBlock(0);
         }
@@ -249,6 +251,9 @@
 }
 
 - (void)setAddress:(NSString *)city {
+    [self stopTimer];
+    
+    _city = city;
     if (city) {
         _addressLabel.text = city;
     }else{
@@ -265,6 +270,45 @@
     }];
 }
 
+- (void)startTimer {
+    _index = 0;
+    _timer = [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(changeLocationTime) userInfo:nil repeats:YES];
+    NSRunLoop *main=[NSRunLoop currentRunLoop];
+    [main addTimer:_timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)changeLocationTime {
+    if (_index==0) {
+        _addressLabel.text = [NSString stringWithFormat:@"%@.",_city];
+    }else if(_index == 1){
+        _addressLabel.text = [NSString stringWithFormat:@"%@..",_city];
+    }else{
+        _addressLabel.text = [NSString stringWithFormat:@"%@...",_city];
+    }
+    
+    CGSize citySize = [[NSString stringWithFormat:@"%@...",SafeStr(self.city)] sizeForFont:[UIFont fontSmall] size:CGSizeMake(CGFloatIn750(200), MAXFLOAT) mode:NSLineBreakByWordWrapping];
+    
+    
+    [self.addressLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contView.mas_left).offset(CGFloatIn750(30));
+        make.centerY.equalTo(self.contView.mas_centerY);
+        make.width.mas_equalTo(citySize.width > CGFloatIn750(100)?citySize.width:CGFloatIn750(100));
+    }];
+    
+    if (_index == 2) {
+        _index = 0;
+    }else{
+        _index++;
+    }
+}
+
+- (void)stopTimer {
+    if ([_timer isValid]) {
+        [_timer invalidate];
+    }
+    _timer = nil;
+}
+
 #pragma mark - 处理一些特殊的情况，比如layer的CGColor、特殊的，明景和暗景造成的文字内容变化等等
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
@@ -275,3 +319,4 @@
     _addressHintImageView.tintColor = isDarkModel() ? [UIColor colorWhite] : [UIColor colorBlackBGDark];
 }
 @end
+

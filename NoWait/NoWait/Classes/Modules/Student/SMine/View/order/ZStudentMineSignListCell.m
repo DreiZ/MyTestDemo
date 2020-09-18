@@ -364,7 +364,10 @@
         _numLabel.textColor = adaptAndDarkColor([UIColor colorTextGray], [UIColor colorTextGrayDark]);
     }
     
+    
+    
     _numLabel.text = status;
+    
     _stateLabel.text = @"";
     [_userImageView tt_setImageWithURL:[NSURL URLWithString:imageFullUrl(model.teacher_image)] placeholderImage:[UIImage imageNamed:@"default_head"]] ;
     
@@ -441,6 +444,13 @@
             make.width.mas_equalTo(tempSize.width + 2);
         }];
     }
+    if (!ValidStr(model.courses_class_id)) {
+        _numLabel.text = @"未排班";
+        _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
+        _classNameLabel.hidden = YES;
+    }else{
+        _classNameLabel.hidden = NO;
+    }
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {
@@ -454,6 +464,9 @@
         
         height = height + classSize.height - [UIFont fontContent].lineHeight;
         height = height + lessonSize.height - [UIFont boldFontTitle].lineHeight;
+        if (!ValidStr(model.courses_class_id)) {
+            height -= CGFloatIn750(40);
+        }
         return height + CGFloatIn750(44);
     }
     return CGFloatIn750(348) + CGFloatIn750(44);

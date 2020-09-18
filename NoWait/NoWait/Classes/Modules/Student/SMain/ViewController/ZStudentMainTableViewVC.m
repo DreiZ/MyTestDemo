@@ -77,6 +77,8 @@
         _searchView.addressBlock = ^(NSInteger index) {
             if(index == 1) {
                 routePushVC(ZRoute_org_annotationCluster, nil, nil);
+            }else if(index == 0){
+                [[ZLocationManager shareManager] startDetailLocation];
             }
             
         };

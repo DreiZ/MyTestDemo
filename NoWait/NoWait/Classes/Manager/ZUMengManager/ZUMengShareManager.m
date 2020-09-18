@@ -13,7 +13,7 @@
 // U-Share分享面板SDK，未添加分享面板SDK可将此行去掉
 #import <UShareUI/UShareUI.h>
 #import <UMCommon/UMCommon.h>
-
+#import <UMCommon/MobClick.h>
 //微信好友和朋友圈
 #import <WXApi.h>
 #import "ZNetworking.h"
@@ -57,7 +57,7 @@ static ZUMengShareManager *sharedManager;
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:kAppKey_Wechat appSecret:kAppKey_Wechat redirectURL:@"http://mobile.umeng.com/social"];
     
     [MobClick setCrashReportEnabled:YES];//Crash收集
-    
+
     [UMConfigure setLogEnabled:YES];//设置打开日志
 }
 

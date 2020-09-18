@@ -14,6 +14,14 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
+@interface ZLocationDataModel : ZBaseModel
+@property (nonatomic,strong) NSString * latitude;
+@property (nonatomic,strong) NSString * longitude;
+@property (nonatomic,strong) NSString *city;
+@property (nonatomic,strong) NSString *district;
+@property (nonatomic,strong) NSString *citycode;
+@property (nonatomic,strong) NSString *adcode;
+@end
 
 @interface ZLocationManager : NSObject
 @property (nonatomic,strong) CLLocation *location;
@@ -26,6 +34,8 @@
 + (ZLocationManager *)shareManager;
 - (void)startLocation;
 - (void)startLocationing;
+//精确定位
+- (void)startDetailLocation;
 //- (NSString *)getDistanceWithLocation:(CLLocationCoordinate2D)loc1  locationOther:(CLLocationCoordinate2D )loc2;
 @end
 

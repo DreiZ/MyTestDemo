@@ -39,11 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.needShowStatusBar = ![UIApplication sharedApplication].statusBarHidden;
-    self.navigationController.navigationBar.barTintColor = adaptAndDarkColor([UIColor colorTextBlack], [UIColor colorTextBlackDark]);
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.translucent = YES;
-    self.view.backgroundColor = adaptAndDarkColor([UIColor colorBlack], [UIColor colorBlack]);
+    self.view.backgroundColor = [UIColor blackColor];
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     if (tzImagePickerVc) {
         self.navigationItem.title = tzImagePickerVc.previewBtnTitleStr;
@@ -68,13 +64,11 @@
 
 - (void)configMoviePlayer {
     [[TZImageManager manager] getPhotoWithAsset:_model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-        if (!photo && [info[PHImageResultIsInCloudKey] boolValue]) {
-            self.iCloudErrorView.hidden = NO;
-        }
+        BOOL iCloudSyncFailed = !photo && [TZCommonTools isICloudSyncError:info[PHImageErrorKey]];
+        self.iCloudErrorView.hidden = !iCloudSyncFailed;
         if (!isDegraded && photo) {
             self->_cover = photo;
             self->_doneButton.enabled = YES;
-            self.iCloudErrorView.hidden = YES;
         }
     }];
     [[TZImageManager manager] getVideoWithAsset:_model.asset completion:^(AVPlayerItem *playerItem, NSDictionary *info) {
@@ -87,7 +81,6 @@
             [self configPlayButton];
             [self configBottomToolBar];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayerAndShowNaviBar) name:AVPlayerItemDidPlayToEndTimeNotification object:self->_player.currentItem];
-//            [self playButtonClick];
         });
     }];
 }
@@ -229,13 +222,13 @@
 #pragma mark - lazy
 - (UIView *)iCloudErrorView{
     if (!_iCloudErrorView) {
-        _iCloudErrorView = [[UIView alloc] initWithFrame:CGRectMake(0, [TZCommonTools tz_isIPhoneX] ? 88 : 64, self.view.tz_width, 28)];
+        _iCloudErrorView = [[UIView alloc] initWithFrame:CGRectMake(0, [TZCommonTools tz_isIPhoneX] ? 88 + 10 : 64 + 10, self.view.tz_width, 28)];
         UIImageView *icloud = [[UIImageView alloc] init];
         icloud.image = [UIImage tz_imageNamedFromMyBundle:@"iCloudError"];
-        icloud.frame = CGRectMake(10, 0, 28, 28);
+        icloud.frame = CGRectMake(20, 0, 28, 28);
         [_iCloudErrorView addSubview:icloud];
         UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(40, 0, self.view.tz_width - 50, 28);
+        label.frame = CGRectMake(53, 0, self.view.tz_width - 63, 28);
         label.font = [UIFont systemFontOfSize:10];
         label.textColor = [UIColor whiteColor];
         label.text = [NSBundle tz_localizedStringForKey:@"iCloud sync failed"];

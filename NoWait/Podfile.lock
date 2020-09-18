@@ -17,10 +17,10 @@ PODS:
   - AliyunOSSiOS (2.10.8)
   - AMap2DMap (5.6.1):
     - AMapFoundation (~> 1.4)
-  - AMapFoundation (1.6.3)
-  - AMapLocation (2.6.5):
-    - AMapFoundation (~> 1.6.3)
-  - AMapSearch (7.3.0):
+  - AMapFoundation (1.6.4)
+  - AMapLocation (2.6.7):
+    - AMapFoundation (~> 1.6.4)
+  - AMapSearch (7.6.0):
     - AMapFoundation (~> 1.6.3)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
@@ -48,12 +48,12 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - HWPanModal (0.7.7)
-  - IQKeyboardManager (6.5.5)
-  - LBXScan/LBXNative (2.3):
+  - HWPanModal (0.7.9)
+  - IQKeyboardManager (6.5.6)
+  - LBXScan/LBXNative (2.5.1):
     - LBXScan/Types (~> 2.2)
-  - LBXScan/Types (2.3)
-  - LBXScan/UI (2.3):
+  - LBXScan/Types (2.5.1)
+  - LBXScan/UI (2.5.1):
     - LBXScan/Types (~> 2.2)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
@@ -73,16 +73,16 @@ PODS:
   - SDWebImage (3.8.3):
     - SDWebImage/Core (= 3.8.3)
   - SDWebImage/Core (3.8.3)
-  - SJBaseVideoPlayer (3.3.3):
+  - SJBaseVideoPlayer (3.3.9):
     - Masonry
     - Reachability
-    - SJBaseVideoPlayer/AVPlayer (= 3.3.3)
-    - SJBaseVideoPlayer/Common (= 3.3.3)
+    - SJBaseVideoPlayer/AVPlayer (= 3.3.9)
+    - SJBaseVideoPlayer/Common (= 3.3.9)
     - SJUIKit/AttributesFactory (>= 0.0.0.38)
     - SJUIKit/ObserverHelper
     - SJUIKit/Queues
     - SJUIKit/SQLite3
-  - SJBaseVideoPlayer/AVPlayer (3.3.3):
+  - SJBaseVideoPlayer/AVPlayer (3.3.9):
     - Masonry
     - Reachability
     - SJBaseVideoPlayer/Common
@@ -90,7 +90,7 @@ PODS:
     - SJUIKit/ObserverHelper
     - SJUIKit/Queues
     - SJUIKit/SQLite3
-  - SJBaseVideoPlayer/Common (3.3.3):
+  - SJBaseVideoPlayer/Common (3.3.9):
     - Masonry
     - Reachability
     - SJBaseVideoPlayer/ResourceLoader
@@ -98,7 +98,7 @@ PODS:
     - SJUIKit/ObserverHelper
     - SJUIKit/Queues
     - SJUIKit/SQLite3
-  - SJBaseVideoPlayer/ResourceLoader (3.3.3):
+  - SJBaseVideoPlayer/ResourceLoader (3.3.9):
     - Masonry
     - Reachability
     - SJUIKit/AttributesFactory (>= 0.0.0.38)
@@ -108,19 +108,22 @@ PODS:
   - SJRouter (1.0.0):
     - SJRouter/Core (= 1.0.0)
   - SJRouter/Core (1.0.0)
-  - SJUIKit/AttributesFactory (0.0.0.48):
-    - SJUIKit/AttributesFactory/Deprecated (= 0.0.0.48)
-    - SJUIKit/AttributesFactory/UIKitText (= 0.0.0.48)
-  - SJUIKit/AttributesFactory/Deprecated (0.0.0.48)
-  - SJUIKit/AttributesFactory/UIKitText (0.0.0.48)
-  - SJUIKit/ObserverHelper (0.0.0.48)
-  - SJUIKit/Queues (0.0.0.48)
-  - SJUIKit/SQLite3 (0.0.0.48):
-    - SJUIKit/SQLite3/Core (= 0.0.0.48)
-    - SJUIKit/SQLite3/Protocol (= 0.0.0.48)
-  - SJUIKit/SQLite3/Core (0.0.0.48):
+  - SJUIKit/AttributesFactory (0.0.0.51):
+    - SJUIKit/AttributesFactory/Deprecated (= 0.0.0.51)
+    - SJUIKit/AttributesFactory/UIKitText (= 0.0.0.51)
+  - SJUIKit/AttributesFactory/Deprecated (0.0.0.51)
+  - SJUIKit/AttributesFactory/UIKitText (0.0.0.51)
+  - SJUIKit/ObserverHelper (0.0.0.51)
+  - SJUIKit/Queues (0.0.0.51)
+  - SJUIKit/SQLite3 (0.0.0.51):
+    - SJUIKit/SQLite3/Core (= 0.0.0.51)
+    - SJUIKit/SQLite3/Protocol (= 0.0.0.51)
+    - YYModel
+  - SJUIKit/SQLite3/Core (0.0.0.51):
     - SJUIKit/SQLite3/Protocol
-  - SJUIKit/SQLite3/Protocol (0.0.0.48)
+    - YYModel
+  - SJUIKit/SQLite3/Protocol (0.0.0.51):
+    - YYModel
   - SVProgressHUD (2.2.5)
   - TLKit (0.0.27):
     - TLKit/TLCategories (= 0.0.27)
@@ -209,18 +212,16 @@ PODS:
     - TLKit/TLCategories/UIKit/UIWindow
   - TLKit/TLShortcut (0.0.27)
   - TLTabBarController (0.0.6)
-  - UMCAnalytics (6.1.0):
-    - UMCCommon
-  - UMCCommon (2.1.4)
-  - UMCPush (3.2.4):
+  - UMCCommon (7.1.1)
+  - UMCPush (3.2.5):
     - UMCCommon
   - UMCSecurityPlugins (1.0.6)
-  - UMCShare/Core (6.9.8):
+  - UMCShare/Core (6.9.10):
     - UMCCommon
-  - UMCShare/Social/ReducedWeChat (6.9.8):
+  - UMCShare/Social/ReducedWeChat (6.9.10):
     - UMCCommon
     - UMCShare/Core
-  - UMCShare/UI (6.9.8):
+  - UMCShare/UI (6.9.10):
     - UMCCommon
     - UMCShare/Core
   - WechatOpenSDK (1.8.7.1)
@@ -229,6 +230,7 @@ PODS:
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
+  - YYModel (1.0.4)
   - ZZFLEX (0.0.6)
 
 DEPENDENCIES:
@@ -258,7 +260,6 @@ DEPENDENCIES:
   - SJRouter
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
   - TLTabBarController (from `https://github.com/tbl00c/TLTabBarController.git`, tag `0.0.6`)
-  - UMCAnalytics
   - UMCCommon
   - UMCPush
   - UMCSecurityPlugins
@@ -298,7 +299,6 @@ SPEC REPOS:
     - SJRouter
     - SJUIKit
     - SVProgressHUD
-    - UMCAnalytics
     - UMCCommon
     - UMCPush
     - UMCSecurityPlugins
@@ -307,6 +307,7 @@ SPEC REPOS:
     - WMPageController
     - WXSTransition
     - YYKit
+    - YYModel
 
 EXTERNAL SOURCES:
   ReactiveCocoa:
@@ -340,17 +341,17 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliyunOSSiOS: 8db92936545593b9e5c66d680ef2ac0738946651
   AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
-  AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
-  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
-  AMapSearch: a048bcca3bf0b8083345070e1f193f814bd8dc01
+  AMapFoundation: 3638198dfa40be54648570c3520edefad288286b
+  AMapLocation: a46c30d9930d0f3a3bd21139d8f845d10ac3f01d
+  AMapSearch: ea3151e626c91b1ef99ec0ec72afdbdb577e16b2
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  HWPanModal: 32021b9b19eeddafdad8ce5f405fe01fe97806e0
-  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
-  LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
+  HWPanModal: a73cfef7076bb8b9a17ff06712ecbc94b0c716e7
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  LBXScan: 90ca10d0c38fb4a5a6980d7782354f3f69f50093
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
@@ -360,23 +361,23 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 3ff25b1bd992ac79c5c79b26b6c0c1713b715bb2
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
-  SJBaseVideoPlayer: 259d13f93937c7f92e888ba7107c3d47308ee37f
+  SJBaseVideoPlayer: 7ee5c057a5917834ecacaf33cf5d10e199d3ea6f
   SJRouter: a866e7884fc9219bed523be0a0318c3a84e85022
-  SJUIKit: fc4b3a3e54bea1d8d9b982df5110a0d9ded27a12
+  SJUIKit: bdf86af3648e70483c57e2bfe2fcc7531337fa54
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TLKit: e06e6018c04c6c13a96faefe980a13ff124ebeb1
   TLTabBarController: 6e91813f0ae019e8cd2ae35d6f4f6315085f7c44
-  UMCAnalytics: 3503f179f7af932b30af9ac161ac11fb48fa72b6
-  UMCCommon: b0703b0053323f598e01670ea702b8eb1e66e611
-  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
+  UMCCommon: f455f92c125342e360d6ad9eafe484945351eeb5
+  UMCPush: 078b5818e0e47c4cf8ab42a5a30e8b54a0854077
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
-  UMCShare: a250203b34a56cde25cc4c28335449b542f0255d
+  UMCShare: a4a95fbdd61ecce5b6751d8c9ed9b519e80fcbc9
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   WMPageController: 0c7624d2b48e4f1ab92371688cf6744ed701575d
   WXSTransition: 0bd758aaa1f5869a908b1bb103c4a9e26ad1d3eb
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: d953a9d29376a9f9b568daf2935ac5ccb551bd91
+PODFILE CHECKSUM: b92c474c228546001ea3a07d69f3c687e72dab8f
 
 COCOAPODS: 1.9.1

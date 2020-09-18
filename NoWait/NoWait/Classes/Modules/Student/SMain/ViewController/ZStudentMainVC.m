@@ -27,6 +27,7 @@
     [self readCacheData];
     [self initCellConfigArr];
     [self.iTableView reloadData];
+    [self.searchView setAddress:[ZLocationManager shareManager].city];
     
     [self refreshData];
     [self getAdverData];
@@ -87,7 +88,6 @@
     [[kNotificationCenter rac_addObserverForName:KNotificationPoiBack object:nil] subscribeNext:^(NSNotification *notfication) {
         [weakSelf.searchView setAddress:[ZLocationManager shareManager].city];
     }];
-    [[ZLocationManager shareManager] startLocation];
     
     if ([ZUserHelper sharedHelper].user) {
         if ([[ZUserHelper sharedHelper].user.type intValue] != 2) {
