@@ -512,9 +512,9 @@
     }
     
     if (target) {
-        [self.navigationController popToViewController:target animated:YES];
+        [self.navigationController popToViewController:target animated:NO];
         return;
     }
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 @end

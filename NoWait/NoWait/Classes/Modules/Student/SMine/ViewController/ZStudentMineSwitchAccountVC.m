@@ -112,10 +112,10 @@
                 }
                 
                 if (target) {
-                    [weakSelf.navigationController popToViewController:target animated:YES];
+                    [weakSelf.navigationController popToViewController:target animated:NO];
                     return;
                 }
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             };
             loginvc.isSwitch = YES;
             [weakSelf.navigationController pushViewController:loginvc animated:YES];

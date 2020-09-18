@@ -88,7 +88,7 @@
                }
                
                if (target) {
-                   [weakSelf.navigationController popToViewController:target animated:YES];
+                   [weakSelf.navigationController popToViewController:target animated:NO];
                    return;
                }
                [weakSelf.navigationController popViewControllerAnimated:YES];

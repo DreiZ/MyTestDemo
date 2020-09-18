@@ -115,7 +115,7 @@
         }else if ([cellConfig.title isEqualToString:@"logout"]){
             [[ZUserHelper sharedHelper] loginOutUser:[ZUserHelper sharedHelper].user];
             [[ZUserHelper sharedHelper] updateToken:NO];
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         }else if ([cellConfig.title isEqualToString:@"switch"]){
             routePushVC(ZRoute_mine_switchAccount, nil, nil);
         }else if ([cellConfig.title isEqualToString:@"opinion"]){

@@ -114,7 +114,7 @@
         [_navLeftBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]) forState:UIControlStateNormal];
         [_navLeftBtn.titleLabel setFont:[UIFont fontSmall]];
         [_navLeftBtn bk_addEventHandler:^(id sender) {
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _navLeftBtn;
