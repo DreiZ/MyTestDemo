@@ -105,7 +105,7 @@
     }else{
         NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isRewardFirst"];
         if (!isRewardFirst) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [ZRewardAlertView showRewardSeeBlock:^{
                     if ([ZLaunchManager sharedInstance].tabBarController.selectedIndex != 2) {
                         [[ZLaunchManager sharedInstance].tabBarController setSelectedIndex:2];

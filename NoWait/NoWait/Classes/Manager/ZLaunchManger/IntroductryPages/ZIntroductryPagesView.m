@@ -79,12 +79,12 @@
     __block UIView *tempImageView = nil;
     [self.imagesArray enumerateObjectsUsingBlock:^(NSArray <NSString *>* _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc]init];
+        UIImageView *imageView = [[UIImageView alloc]init];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        imageView.frame = CGRectMake(idx * kScreenWidth, 0, kScreenWidth, kScreenHeight);
 //        imageView.backgroundColor = [UIColor redColor];
         
-        YYImage *image = [YYImage imageNamed:obj[0]];
+        UIImage *image = [UIImage imageNamed:obj[0]];
         
         
         if (image) {
@@ -151,8 +151,8 @@
             tempImageView = titleLabel;
             
             if (idx == 2) {
-                YYAnimatedImageView *btnImageView = [[YYAnimatedImageView alloc]init];
-                YYImage *image = [YYImage imageNamed:@"introBtn"];
+                UIImageView *btnImageView = [[UIImageView alloc]init];
+                UIImage *image = [UIImage imageNamed:@"introBtn"];
                 if (image) {
                     [btnImageView setImage:image];
                 }else{
@@ -197,7 +197,8 @@
 - (UIScrollView *)scrollView {
     if(!_scrollView)
     {
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        UIScrollView *scrollView = [[UIScrollView alloc]
+                                    initWithFrame:self.bounds];
         [self addSubview:scrollView];
         scrollView.backgroundColor = [UIColor clearColor];
         scrollView.pagingEnabled = YES;//设置分页
