@@ -61,6 +61,7 @@
                         }
                     }];
                 }else{
+                    
                     routePushVC(ZRoute_circle_mine, @{@"id":model
                     .account}, nil);
                 }

@@ -198,7 +198,7 @@
     [super initCellConfigArr];
     
     
-    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineStatisticsView className] title:@"ZTeacherMineStatisticsView" showInfoMethod:nil heightOfCell:[ZTeacherMineStatisticsView z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
+    ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZTeacherMineStatisticsView className] title:@"ZTeacherMineStatisticsView" showInfoMethod:@selector(update) heightOfCell:[ZTeacherMineStatisticsView z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
     
     [self.cellConfigArr addObject:menuCellConfig];
     

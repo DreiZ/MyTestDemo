@@ -104,6 +104,7 @@ static CGFloat itemMargin = 5;
     
     self.operationQueue = [[NSOperationQueue alloc] init];
     self.operationQueue.maxConcurrentOperationCount = 3;
+    
 }
 
 - (void)fetchAssetModels {
@@ -141,6 +142,22 @@ static CGFloat itemMargin = 5;
         [self configBottomToolBar];
         
         [self scrollCollectionViewToBottom];
+        
+        if (self->_models) {
+            NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+            [self->_models enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(TZAssetModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [[TZImageManager manager] getPhotoWithAsset:obj.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+                    if (photo) {
+                        [tempArr addObject:obj];
+                    }
+                    if (idx == 0) {
+                        self->_models = tempArr;
+                        [self.collectionView reloadData];
+                    }
+                }];
+            }];
+        }
+        
     });
 }
 
@@ -175,7 +192,7 @@ static CGFloat itemMargin = 5;
         [_collectionView registerClass:[TZAssetCell class] forCellWithReuseIdentifier:@"TZAssetCell"];
         [_collectionView registerClass:[TZAssetCameraCell class] forCellWithReuseIdentifier:@"TZAssetCameraCell"];
     } else {
-        [_collectionView reloadData];
+//        [_collectionView reloadData];
     }
     
     if (_showTakePhotoBtn) {

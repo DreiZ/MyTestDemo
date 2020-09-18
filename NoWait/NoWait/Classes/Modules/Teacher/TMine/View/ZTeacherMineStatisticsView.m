@@ -154,6 +154,10 @@
     return _title1Label;
 }
 
+- (void)update {
+    _titleLabel.text = [ZUserHelper sharedHelper].stores.class_nums ? [ZUserHelper sharedHelper].stores.class_nums:@"0";
+    _title1Label.text = [ZUserHelper sharedHelper].stores.class_nums ? [ZUserHelper sharedHelper].stores.student_nums:@"0";
+}
 
 +(CGFloat)z_getCellHeight:(id)sender {
     return CGFloatIn750(140);

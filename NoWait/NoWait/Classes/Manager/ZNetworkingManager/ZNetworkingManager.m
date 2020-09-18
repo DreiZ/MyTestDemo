@@ -327,28 +327,35 @@
 
 + (NSString*)getMUrl:(NSString*)url serverType:(ZServerType)serverType {
     NSString *fullUrl = @"";
+    
+    NSString *webUrl = @"http://192.168.0.6:8080";
+    
+    NSString *isRewardFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"webUrl"];
+    if (isRewardFirst) {
+        webUrl = isRewardFirst;
+    }
     switch (serverType) {
         case ZServerTypeCode:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_code,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
         case ZServerTypeUser:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_user,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
         case ZServerTypeOrder:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_order,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
         case ZServerTypeFile:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_file,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
         case ZServerTypeCoach:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_coach,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
         case ZServerTypeOrganization:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_organization,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
             
         default:
-            fullUrl = [NSString stringWithFormat:@"%@/%@%@",URL_user,URL_Service,url];
+            fullUrl = [NSString stringWithFormat:@"%@/%@%@",webUrl,URL_Service,url];
             break;
     }
     

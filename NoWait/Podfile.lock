@@ -255,7 +255,7 @@ DEPENDENCIES:
   - PGPickerView
   - ReactiveCocoa (from `https://github.com/zhao0/ReactiveCocoa.git`, tag `2.5.2`)
   - SDCycleScrollView
-  - SDWebImage (~> 3.7)
+  - SDWebImage
   - SJBaseVideoPlayer
   - SJRouter
   - TLKit (from `https://github.com/tbl00c/TLKit.git`, tag `0.0.27`)
@@ -378,6 +378,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZZFLEX: f193b33e5b02fa4733ba1b180e86194f74057c00
 
-PODFILE CHECKSUM: b92c474c228546001ea3a07d69f3c687e72dab8f
+PODFILE CHECKSUM: 5db4633653f5d443c0da8374689afb003c35c4f4
 
 COCOAPODS: 1.9.1

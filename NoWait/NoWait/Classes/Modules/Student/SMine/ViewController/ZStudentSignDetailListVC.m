@@ -64,7 +64,7 @@
         {
             ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
             model.zz_titleLeft(@"上课进度")
-            .zz_titleRight([NSString stringWithFormat:@"%@/%@节",weakSelf.detailModel.now_progress,weakSelf.detailModel.total_progress])
+            .zz_titleRight([NSString stringWithFormat:@"%@/%@节",weakSelf.detailModel.now_progress?weakSelf.detailModel.now_progress:@"0",weakSelf.detailModel.total_progress?weakSelf.detailModel.total_progress:@"0"])
             .zz_fontLeft([UIFont fontContent])
             .zz_fontRight([UIFont fontContent])
             .zz_cellHeight(CGFloatIn750(80));

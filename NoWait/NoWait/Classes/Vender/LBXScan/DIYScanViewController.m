@@ -300,16 +300,43 @@
  */
 - (void)openLocalPhoto
 {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    picker.delegate = self;
-    
-    //部分机型可能导致崩溃
-    picker.allowsEditing = YES;
-    
-    [self presentViewController:picker animated:YES completion:nil];
+    [[ZImagePickerManager sharedManager] setPhotoWithMaxCount:1 SelectMenu:^(NSArray<ZImagePickerModel *> *list) {
+        if (ValidArray(list)) {
+            
+            switch ([Global sharedManager].libraryType) {
+                case SLT_Native:
+                {
+                    if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
+                    {
+                        //ios8.0之后支持
+                        __weak __typeof(self) weakSelf = self;
+                        [LBXScanNative recognizeImage:list[0].image success:^(NSArray<LBXScanResult *> *array) {
+                            [weakSelf scanResultWithArray:array];
+                        }];
+                    }
+                    else
+                    {
+                        [TLUIUtility showErrorHint:@"native低于ios8.0不支持识别图片"];
+                    }
+                }
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+    }];
+//
+//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//
+//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//
+//    picker.delegate = self;
+//
+//    //部分机型可能导致崩溃
+//    picker.allowsEditing = YES;
+//
+//    [self presentViewController:picker animated:YES completion:nil];
 }
 
 //当选择一张图片后进入这里

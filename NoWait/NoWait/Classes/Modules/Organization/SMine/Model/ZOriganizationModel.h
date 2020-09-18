@@ -27,6 +27,11 @@
 @property (nonatomic,strong) NSString *real_name;
 @property (nonatomic,strong) NSString *phone;
 @property (nonatomic,strong) NSString *stores_courses_count;
+
+@property (nonatomic,strong) NSString *class_nums;
+@property (nonatomic,strong) NSString *student_nums;
+
+
 @end
 
 

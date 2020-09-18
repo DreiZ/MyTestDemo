@@ -179,9 +179,9 @@
 - (void)setModel:(ZOriganizationStudentSignDetailListNetModel *)model {
     _model = model;
     
-    _titleLabel.text = [NSString stringWithFormat:@"%@节", model.ssigned];
-    _title1Label.text = [NSString stringWithFormat:@"%@节", model.replenish];
-    _title2Label.text = [NSString stringWithFormat:@"%@节", model.wait_sign];
+    _titleLabel.text = [NSString stringWithFormat:@"%@节", model.ssigned?model.ssigned:@"0"];
+    _title1Label.text = [NSString stringWithFormat:@"%@节", model.replenish?model.replenish:@"0"];
+    _title2Label.text = [NSString stringWithFormat:@"%@节", model.wait_sign?model.wait_sign:@"0"];
 }
 
 +(CGFloat)z_getCellHeight:(id)sender {

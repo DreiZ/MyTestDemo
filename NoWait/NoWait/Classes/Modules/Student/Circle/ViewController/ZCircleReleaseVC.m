@@ -217,9 +217,7 @@
             lcell.menuBlock = ^(NSInteger index, BOOL handle) {
                 if (!handle) {
                     [weakSelf.releaseViewModel.model.imageArr removeObjectAtIndex:index];
-                    if (weakSelf) {
                     weakSelf.zChain_reload_ui();
-                }
                 }
             };
             lcell.seeBlock = ^(NSInteger index) {
@@ -263,9 +261,7 @@
             routePushVC(ZRoute_circle_addLabel, weakSelf.releaseViewModel.model.tags, ^(NSArray *lableArr, NSError * _Nullable error) {
                 [weakSelf.releaseViewModel.model.tags removeAllObjects];
                 [weakSelf.releaseViewModel.model.tags addObjectsFromArray:lableArr];
-                if (weakSelf) {
-                    weakSelf.zChain_reload_ui();
-                }
+                weakSelf.zChain_reload_ui();
             });
         }else if ([cellConfig.title isEqualToString:@"finderLocationNo"]) {
             ZOrganizationCampusManagementLocalAddressVC *avc = [[ZOrganizationCampusManagementLocalAddressVC alloc] init];
@@ -277,18 +273,14 @@
                 weakSelf.releaseViewModel.model.address = address;
                 weakSelf.releaseViewModel.model.latitude = latitude;
                 weakSelf.releaseViewModel.model.longitude = longitude;
-                if (weakSelf) {
-                    weakSelf.zChain_reload_ui();
-                }
+                weakSelf.zChain_reload_ui();
             };
             [weakSelf.navigationController pushViewController:avc animated:YES];
         }else if ([cellConfig.title isEqualToString:@"finderSchoolNo"]) {
             routePushVC(ZRoute_circle_choseSchool, nil, ^(ZCircleReleaseSchoolModel* school, NSError * _Nullable error) {
                 weakSelf.releaseViewModel.model.store_id = school.store_id;
                 weakSelf.releaseViewModel.model.store_name = school.name;
-                if (weakSelf) {
-                    weakSelf.zChain_reload_ui();
-                }
+                weakSelf.zChain_reload_ui();
             });
         }
     });
