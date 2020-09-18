@@ -479,3 +479,19 @@
              };
 }
 @end
+
+
+@implementation ZOriganizationStudentSignDetailListModel
+
+@end
+
+@implementation ZOriganizationStudentSignDetailListNetModel
++ (NSDictionary *)mj_objectClassInArray {
+    return @{ @"list" : @"ZOriganizationStudentSignDetailListModel"
+             };
+}
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"ssigned" : @"signed"};
+}
+@end

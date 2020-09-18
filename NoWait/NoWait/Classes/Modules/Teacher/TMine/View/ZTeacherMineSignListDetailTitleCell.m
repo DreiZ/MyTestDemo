@@ -14,7 +14,7 @@
 @property (nonatomic,strong) UILabel *zhuanPriceLabel;
 @property (nonatomic,strong) UILabel *leftTitleLabel;
 @property (nonatomic,strong) UIButton *editBtn;
-
+@property (nonatomic,strong) UIButton *allBtn;
 @end
 
 @implementation ZTeacherMineSignListDetailTitleCell
@@ -49,6 +49,13 @@
     [self.contentView addSubview:self.editBtn];
     [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-CGFloatIn750(30));
+        make.width.mas_equalTo(CGFloatIn750(140));
+        make.height.mas_equalTo(CGFloatIn750(50));
+        make.centerY.equalTo(self.mas_centerY);
+    }];
+    [self.contentView addSubview:self.allBtn];
+    [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.editBtn.mas_left).offset(-CGFloatIn750(20));
         make.width.mas_equalTo(CGFloatIn750(140));
         make.height.mas_equalTo(CGFloatIn750(50));
         make.centerY.equalTo(self.mas_centerY);
@@ -103,7 +110,7 @@
         ViewBorderRadius(_editBtn, CGFloatIn750(24), 1, [UIColor colorMain]);
         [_editBtn bk_addEventHandler:^(id sender) {
             if (weakSelf.handleBlock) {
-                weakSelf.handleBlock(self.model.data);
+                weakSelf.handleBlock(weakSelf.model.data);
             };
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -111,11 +118,31 @@
 }
 
 
+
+- (UIButton *)allBtn {
+    if (!_allBtn) {
+        __weak typeof(self) weakSelf = self;
+        _allBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_allBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_allBtn setTitleColor:adaptAndDarkColor([UIColor colorMain], [UIColor colorMainDark]) forState:UIControlStateNormal];
+        [_allBtn.titleLabel setFont:[UIFont fontContent]];
+        ViewBorderRadius(_allBtn, CGFloatIn750(24), 1, [UIColor colorMain]);
+        [_allBtn bk_addEventHandler:^(id sender) {
+            if (weakSelf.handleAllBlock) {
+                weakSelf.handleAllBlock(weakSelf.model.data);
+            };
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _allBtn;
+}
+
 - (void)setModel:(ZBaseSingleCellModel *)model {
     _model = model;
     _leftTitleLabel.text = model.leftTitle;
     _zhuanPriceLabel.text = model.rightTitle;
     _stateImageView.image = [[UIImage imageNamed:model.leftImage]  imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    self.allBtn.hidden = YES;
     
     ZOriganizationSignListModel *lModel = model.data;
     if (lModel.isTeacher) {
@@ -132,11 +159,15 @@
         
         if (lModel.isEdit) {
             [_editBtn setTitle:@"取消" forState:UIControlStateNormal];
+            
+            self.allBtn.hidden = NO;
         }else{
             [_editBtn setTitle:@"签课" forState:UIControlStateNormal];
+            self.allBtn.hidden = YES;
         }
     }else{
         self.editBtn.hidden = YES;
+        self.allBtn.hidden = YES;
     }
     
 }

@@ -664,3 +664,32 @@
 @property (nonatomic,strong) NSString *total;
 
 @end
+
+
+@interface ZOriganizationStudentSignDetailListModel : ZBaseModel
+
+@property (nonatomic,strong) NSString *class_progress;
+@property (nonatomic,strong) NSString *courses_class_id;
+@property (nonatomic,strong) NSString *image;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *nums;
+@property (nonatomic,strong) NSString *sign_time;
+@property (nonatomic,strong) NSString *student_id;
+@property (nonatomic,strong) NSString *total_nums;
+@property (nonatomic,strong) NSString *type;
+
+@end
+
+@interface ZOriganizationStudentSignDetailListNetModel : ZBaseModel
+@property (nonatomic,strong) NSArray <ZOriganizationStudentSignDetailListModel *>*list;
+@property (nonatomic,strong) NSString *total;
+
+@property (nonatomic,strong) NSString *now_progress;
+@property (nonatomic,strong) NSString *replenish;
+@property (nonatomic,strong) NSString *ssigned;
+@property (nonatomic,strong) NSString *student_name;
+@property (nonatomic,strong) NSString *total_progress;
+@property (nonatomic,strong) NSString *wait_sign;
+@property (nonatomic,strong) NSString *course_name;
+@end
+

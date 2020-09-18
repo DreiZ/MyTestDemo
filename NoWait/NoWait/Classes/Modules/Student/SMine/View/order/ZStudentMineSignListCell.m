@@ -444,10 +444,19 @@
             make.width.mas_equalTo(tempSize.width + 2);
         }];
     }
+    
     if (!ValidStr(model.courses_class_id)) {
+        self.signBtn.hidden = YES;
         _numLabel.text = @"未排班";
         _numLabel.textColor = adaptAndDarkColor([UIColor colorMain], [UIColor colorMain]);
         _classNameLabel.hidden = YES;
+        
+        [self.signDetailBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.bottomView);
+            make.right.equalTo(self.bottomView.mas_right).offset(-CGFloatIn750(20));
+            make.width.mas_equalTo(CGFloatIn750(146));
+            make.height.mas_equalTo(CGFloatIn750(56));
+        }];
     }else{
         _classNameLabel.hidden = NO;
     }

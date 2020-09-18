@@ -9,8 +9,12 @@
 #import "ZStudentSignDetailListVC.h"
 #import "ZMineStudentClassSignDetailImageCell.h"
 #import "ZMineStudentClassSignDetailSummaryCell.h"
+#import "ZOriganizationClassViewModel.h"
+#import "ZOriganizationModel.h"
 
 @interface ZStudentSignDetailListVC ()
+@property (nonatomic,strong) NSString *student_id;
+@property (nonatomic,strong) ZOriganizationStudentSignDetailListNetModel *detailModel;
 
 @end
 
@@ -41,10 +45,8 @@
     }).zChain_block_setUpdateCellConfigData(^(void (^update)(NSMutableArray *)) {
         [weakSelf.cellConfigArr removeAllObjects];
         
+        NSMutableArray *sectionArr = @[].mutableCopy;
         
-        for (int i = 0; i < 10; i++) {
-            NSMutableArray *sectionArr = @[].mutableCopy;
-            
 //            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
 //            model.zz_titleLeft(@"初级游泳课")
 //            .zz_titleRight(@"李梓萌")
@@ -58,30 +60,31 @@
 //
 //            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
 //            [sectionArr addObject:menuCellConfig];
+        
+        {
+            ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
+            model.zz_titleLeft(@"上课进度")
+            .zz_titleRight([NSString stringWithFormat:@"%@/%@节",weakSelf.detailModel.now_progress,weakSelf.detailModel.total_progress])
+            .zz_fontLeft([UIFont fontContent])
+            .zz_fontRight([UIFont fontContent])
+            .zz_cellHeight(CGFloatIn750(80));
             
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
+            [sectionArr addObject:menuCellConfig];
+        }
+        {
+            [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(18))];
+            
+            ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailSummaryCell className] title:@"ZMineStudentClassSignDetailSummaryCell" showInfoMethod:@selector(setModel:) heightOfCell:[ZMineStudentClassSignDetailSummaryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:weakSelf.detailModel];
+            [sectionArr addObject:menuCellConfig];
+            
+            [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(28))];
+        }
+        for (ZOriganizationStudentSignDetailListModel *listModel in weakSelf.dataSources) {
             {
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
-                model.zz_titleLeft(@"上课进度")
-                .zz_titleRight(@"4/10节")
-                .zz_fontLeft([UIFont fontContent])
-                .zz_fontRight([UIFont fontContent])
-                .zz_cellHeight(CGFloatIn750(80));
-                
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
-                [sectionArr addObject:menuCellConfig];
-            }
-            {
-                [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(18))];
-                
-                ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailSummaryCell className] title:@"ZMineStudentClassSignDetailSummaryCell" showInfoMethod:nil heightOfCell:[ZMineStudentClassSignDetailSummaryCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:nil];
-                [sectionArr addObject:menuCellConfig];
-                
-                [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(28))];
-            }
-            {
-                ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
-                model.zz_titleLeft(@"第3节")
-                .zz_titleRight(@"2018.01.21 14:30")
+                model.zz_titleLeft([NSString stringWithFormat:@"第%@节",SafeStr(listModel.nums)])
+                .zz_titleRight(SafeStr(listModel.sign_time))
                 .zz_fontLeft([UIFont boldFontContent])
                 .zz_fontRight([UIFont fontSmall])
                 .zz_cellHeight(CGFloatIn750(90));
@@ -89,14 +92,28 @@
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
                 [sectionArr addObject:menuCellConfig];
                 
-                ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailImageCell className] title:model.cellTitle showInfoMethod:@selector(setImage:) heightOfCell:[ZMineStudentClassSignDetailImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:@"http://wx4.sinaimg.cn/mw600/0076BSS5ly1girf1ig4ouj30u018ztma.jpg"];
-                [sectionArr addObject:imageCellConfig];
-                
+                if (ValidStr(listModel.image)) {
+                    ZCellConfig *imageCellConfig = [ZCellConfig cellConfigWithClassName:[ZMineStudentClassSignDetailImageCell className] title:model.cellTitle showInfoMethod:@selector(setImage:) heightOfCell:[ZMineStudentClassSignDetailImageCell z_getCellHeight:nil] cellType:ZCellTypeClass dataModel:listModel.image];
+                    [sectionArr addObject:imageCellConfig];
+                }
             }
             {
+                //    1：签课 2：教师代签 3：补签 4：请假 5：旷课
+                NSString *state = @"";
+                if ([listModel.type intValue] == 1) {
+                    state = @"签课";
+                }else if ([listModel.type intValue] == 2) {
+                    state = @"教师代签";
+                }else if ([listModel.type intValue] == 3) {
+                    state = @"补签";
+                }else if ([listModel.type intValue] == 4) {
+                    state = @"请假";
+                }else if ([listModel.type intValue] == 5) {
+                    state = @"旷课";
+                }
                 ZLineCellModel *model = ZLineCellModel.zz_lineCellModel_create(@"title");
-                model.zz_titleLeft(@"班级名称")
-                .zz_titleRight(@"已扫码签课")
+                model.zz_titleLeft(SafeStr(listModel.name))
+                .zz_titleRight(SafeStr(listModel.type))
                 .zz_cellHeight(CGFloatIn750(90));
                 
                 ZCellConfig *menuCellConfig = [ZCellConfig cellConfigWithClassName:[ZBaseLineCell className] title:model.cellTitle showInfoMethod:@selector(setModel:) heightOfCell:[ZBaseLineCell z_getCellHeight:model] cellType:ZCellTypeClass dataModel:model];
@@ -115,9 +132,8 @@
             }
             
             [sectionArr addObject:getEmptyCellWithHeight(CGFloatIn750(20))];
-            
-            [weakSelf.cellConfigArr addObject:sectionArr];
         }
+        [weakSelf.cellConfigArr addObject:sectionArr];
     }).zChain_block_setViewForHeaderInSection(^UIView *(UITableView *tableView, NSInteger section) {
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, CGFloatIn750(90))];
         sectionView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlack]);
@@ -125,7 +141,7 @@
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.textColor = [UIColor colorMain];
-        titleLabel.text = @"初级游泳课";
+        titleLabel.text = self.detailModel.course_name;
         titleLabel.numberOfLines = 0;
         [titleLabel setFont:[UIFont boldFontContent]];
         [sectionView addSubview:titleLabel];
@@ -136,7 +152,7 @@
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         nameLabel.textColor = [UIColor colorMain];
-        nameLabel.text = @"李梓萌";
+        nameLabel.text = self.detailModel.student_name;
         nameLabel.numberOfLines = 0;
         [nameLabel setFont:[UIFont boldFontContent]];
         [sectionView addSubview:nameLabel];
@@ -152,8 +168,75 @@
     });
     
     self.zChain_reload_ui();
+    self.zChain_reload_Net();
 }
 
+
+#pragma mark - 数据处理
+- (void)refreshData {
+    self.currentPage = 1;
+    self.loading = YES;
+    [self refreshHeadData:[self setPostCommonData]];
+}
+
+- (void)refreshHeadData:(NSDictionary *)param {
+    __weak typeof(self) weakSelf = self;
+    [ZOriganizationClassViewModel getMyClassSignInfoList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentSignDetailListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources removeAllObjects];
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            weakSelf.detailModel = data;
+            
+            weakSelf.zChain_reload_ui();
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (void)refreshMoreData {
+    self.currentPage++;
+    self.loading = YES;
+    NSMutableDictionary *param = [self setPostCommonData];
+    
+    __weak typeof(self) weakSelf = self;
+     [ZOriganizationClassViewModel getMyClassSignInfoList:param completeBlock:^(BOOL isSuccess, ZOriganizationStudentSignDetailListNetModel *data) {
+        weakSelf.loading = NO;
+        if (isSuccess && data) {
+            [weakSelf.dataSources addObjectsFromArray:data.list];
+            weakSelf.detailModel = data;
+            weakSelf.zChain_reload_ui();
+            
+            [weakSelf.iTableView tt_endRefreshing];
+            if (data && [data.total integerValue] <= weakSelf.currentPage * 10) {
+                [weakSelf.iTableView tt_removeLoadMoreFooter];
+            }else{
+                [weakSelf.iTableView tt_endLoadMore];
+            }
+        }else{
+            [weakSelf.iTableView reloadData];
+            [weakSelf.iTableView tt_endRefreshing];
+            [weakSelf.iTableView tt_removeLoadMoreFooter];
+        }
+    }];
+}
+
+- (NSMutableDictionary *)setPostCommonData {
+    NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:SafeStr(_student_id) forKey:@"student_id"];
+    
+    return param;
+}
 @end
 
 #pragma mark - RouteHandler
@@ -169,7 +252,12 @@
 
 + (void)handleRequest:(SJRouteRequest *)request topViewController:(UIViewController *)topViewController completionHandler:(SJCompletionHandler)completionHandler {
     ZStudentSignDetailListVC *routevc = [[ZStudentSignDetailListVC alloc] init];
-    
+    if (request.prts && [request.prts isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dict = request.prts;
+        if ([dict objectForKey:@"student_id"]) {
+            routevc.student_id = dict[@"student_id"];
+        }
+    }
     [topViewController.navigationController pushViewController:routevc animated:YES];
 }
 @end

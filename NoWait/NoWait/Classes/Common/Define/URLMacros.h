@@ -518,6 +518,7 @@
 
 #define URL_account_v1_sign_report                 @"account/v1/class/sign/report"
 
+#define URL_account_v1_sign_info                  @"account/v1/student/sign/info"
 
 #pragma mark - 消息
 #define URL_account_v1_get_news_list                    @"account/v1/get/news/list"

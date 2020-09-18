@@ -268,6 +268,14 @@
             }
             weakSelf.bottomView.type = editModel.type;
         };
+        
+        lcell.handleAllBlock = ^(ZOriganizationSignListModel *model) {
+            [model.list enumerateObjectsUsingBlock:^(ZOriganizationSignListStudentModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.isSelected = YES;
+            }];
+            [weakSelf initCellConfigArr];
+            [weakSelf.iTableView reloadData];
+        };
     }
 }
 

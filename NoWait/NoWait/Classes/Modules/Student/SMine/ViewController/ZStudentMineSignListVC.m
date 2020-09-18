@@ -65,9 +65,11 @@
         ZStudentMineSignListCell *enteryCell = (ZStudentMineSignListCell *)cell;
         enteryCell.handleBlock = ^(ZOriganizationClassListModel *model, NSInteger index) {
             if (index == 0) {
-                routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+                if (ValidStr(model.courses_class_id)) {
+                    routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(model.courses_class_id), @"student_id":SafeStr(model.student_id)}, nil);
+                }
             }else{
-                routePushVC(ZRoute_mine_signDetailList, nil, nil);
+                routePushVC(ZRoute_mine_signDetailList, @{ @"student_id":SafeStr(model.student_id)}, nil);
             }
         };
     }
@@ -75,8 +77,9 @@
 - (void)zz_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellConfig:(ZCellConfig *)cellConfig {
      if ([cellConfig.title isEqualToString:@"ZStudentMineSignListCell"]){
          ZOriganizationClassListModel *cellmodel = cellConfig.dataModel;
-
-         routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(cellmodel.courses_class_id), @"student_id":SafeStr(cellmodel.student_id)}, nil);
+         if (ValidStr(cellmodel.courses_class_id)) {
+             routePushVC(ZRoute_mine_signDetail, @{@"courses_class_id":SafeStr(cellmodel.courses_class_id), @"student_id":SafeStr(cellmodel.student_id)}, nil);
+         }
     }
 }
 
