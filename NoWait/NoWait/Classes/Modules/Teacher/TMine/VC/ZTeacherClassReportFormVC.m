@@ -185,6 +185,7 @@
                     }];
                 }
             }else{
+                [TLUIUtility showLoading:@""];
                 weakSelf.type = index;
                 [weakSelf setDayShow];
                 [weakSelf updateDayView];
@@ -417,6 +418,7 @@
     __weak typeof(self) weakSelf = self;
     [ZOriganizationClassViewModel getMyClassSignReportList:param completeBlock:^(BOOL isSuccess, ZOriganizationReportListNetModel *data) {
         weakSelf.loading = NO;
+        [TLUIUtility hiddenLoading];
         if (isSuccess && data) {
             [weakSelf.dataSources removeAllObjects];
             [weakSelf.dataSources addObjectsFromArray:data.list];
@@ -447,6 +449,7 @@
     __weak typeof(self) weakSelf = self;
      [ZOriganizationClassViewModel getMyClassSignReportList:param completeBlock:^(BOOL isSuccess, ZOriganizationReportListNetModel *data) {
         weakSelf.loading = NO;
+         [TLUIUtility hiddenLoading];
         if (isSuccess && data) {
             [weakSelf.dataSources addObjectsFromArray:data.list];
             

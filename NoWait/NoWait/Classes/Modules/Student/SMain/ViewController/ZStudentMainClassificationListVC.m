@@ -35,6 +35,14 @@
     
     if (ValidArray(self.classify)) {
         [self getCategoryList:^(BOOL state) {
+            if (ValidArray(weakSelf.classify)) {
+                NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:weakSelf.classify];
+                ZMainClassifyOneModel *model = weakSelf.classify[0];
+                if ([model.classify_id isEqualToString:@"0"]) {
+                    [tempArr removeFirstObject];
+                }
+                weakSelf.classify = tempArr;
+            }
             [weakSelf.iTableView reloadData];
             [weakSelf.iCollectionView reloadData];
         }];
@@ -47,7 +55,14 @@
     _rightDataArr = @[].mutableCopy;
     
     _classify = [ZStudentMainViewModel mainClassifyOneData];
-    
+    if (ValidArray(_classify)) {
+        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_classify];
+        ZMainClassifyOneModel *model = _classify[0];
+        if ([model.classify_id isEqualToString:@"0"]) {
+            [tempArr removeFirstObject];
+        }
+        _classify = tempArr;
+    }
     for (int i = 0; i < _classify.count; i++) {
         ZMainClassifyOneModel *model = _classify[i];
         if (i == 0) {
@@ -148,7 +163,7 @@
     ZStudentMainEntryClassListItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ZStudentMainEntryClassListItemCell className] forIndexPath:indexPath];
     ZMainClassifyOneModel *model = self.rightDataArr[indexPath.row];
     cell.titleLabel.text = model.name;
-    [cell.imageView tt_setImageWithURL:[NSURL URLWithString:model.imageName] placeholderImage:[UIImage imageNamed:@"main_more"]];
+    [cell.imageView tt_setImageWithURL:[NSURL URLWithString:model.imageName] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 
     return cell;
 }
@@ -242,7 +257,7 @@
     }
 }
 
-
+#pragma mark - getnetdata
 - (void)getCategoryList:(void(^)(BOOL))complete {
     __weak typeof(self) weakSelf = self;
     [ZStudentMainViewModel getCategoryList:@{} completeBlock:^(BOOL isSuccess, id data) {

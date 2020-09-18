@@ -87,7 +87,7 @@
                 // Fallback on earlier versions
             }
         }
-        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+        _iTableView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
         _iTableView.delegate = self;
         _iTableView.dataSource = self;
     }
@@ -107,7 +107,7 @@
     ZCellConfig *cellConfig = [_cellConfigArr objectAtIndex:indexPath.row];
     ZBaseCell *cell;
     cell = (ZBaseCell*)[cellConfig cellOfCellConfigWithTableView:tableView dataModel:cellConfig.dataModel];
-    cell.contentView.backgroundColor = adaptAndDarkColor([UIColor colorGrayLine], [UIColor colorGrayLineDark]);
+    cell.contentView.backgroundColor = adaptAndDarkColor([UIColor colorWhite], [UIColor colorBlackBGDark]);
     
     ZLineCellModel *dataModel = cellConfig.dataModel;
     
