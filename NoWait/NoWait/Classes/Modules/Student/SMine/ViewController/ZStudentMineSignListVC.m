@@ -151,6 +151,7 @@
 
 - (NSMutableDictionary *)setPostCommonData {
     NSMutableDictionary *param = @{@"page":[NSString stringWithFormat:@"%ld",self.currentPage]}.mutableCopy;
+    [param setObject:@"1" forKey:@"has_class"];
     return param;
 }
 

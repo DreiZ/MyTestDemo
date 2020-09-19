@@ -189,7 +189,9 @@ static ZAlertClassCheckBoxView *sharedClassManager;
 -(void)setName:(NSString *)title dataSources:(NSArray *)data  handlerBlock:(void (^)(NSInteger,id))handleBlock {
     [super setName:title handlerBlock:handleBlock];
     if (ValidArray(data)) {
+        [self.dataSources removeAllObjects];
         [self.dataSources addObjectsFromArray:data];
+        [self initCellConfigArr];
         [self.iTableView reloadData];
     }else{
         [self refreshData];

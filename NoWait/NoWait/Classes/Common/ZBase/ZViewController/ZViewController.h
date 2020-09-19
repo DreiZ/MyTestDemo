@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YYAnimatedImageView.h"
 #import "UIViewController+PopGesture.h"
 #import "XYTransitionProtocol.h"
 #import "UIScrollView+EmptyDataSet.h"

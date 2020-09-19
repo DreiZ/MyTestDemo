@@ -106,6 +106,38 @@
         _formTopView = [[ZTeacherClassReportFormTopView alloc] init];
         _formTopView.moreBlock = ^(NSInteger index) {
             
+//            if (weakSelf.classArr) {
+//                if (weakSelf.classModel) {
+//                    weakSelf.filterView.model = weakSelf.classModel;
+//                }else{
+//                    if (ValidArray(weakSelf.classArr)) {
+//                        weakSelf.classModel = weakSelf.classArr[0];
+//                    }
+//                    weakSelf.filterView.model = weakSelf.classModel;
+//                }
+//
+//                weakSelf.filterView.dataSources = weakSelf.classArr;
+//                [weakSelf.view addSubview:weakSelf.filterView];
+//            }else{
+//                weakSelf.classArr = @[].mutableCopy;
+//                [TLUIUtility showLoading:nil];
+//                [weakSelf getClassData:^{
+//                    [TLUIUtility hiddenLoading];
+//                    if (weakSelf.classModel) {
+//                        weakSelf.filterView.model = weakSelf.classModel;
+//                    }else{
+//                        if (ValidArray(weakSelf.classArr)) {
+//                            weakSelf.classModel = weakSelf.classArr[0];
+//                        }
+//                        weakSelf.filterView.model = weakSelf.classModel;
+//                    }
+//
+//                    weakSelf.filterView.dataSources = weakSelf.classArr;
+//                    [weakSelf.view addSubview:weakSelf.filterView];
+//                }];
+//            }
+//
+            
             if (weakSelf.classArr) {
                 if (weakSelf.classModel) {
                     weakSelf.filterView.model = weakSelf.classModel;
@@ -115,9 +147,12 @@
                     }
                     weakSelf.filterView.model = weakSelf.classModel;
                 }
-
-                weakSelf.filterView.dataSources = weakSelf.classArr;
-                [weakSelf.view addSubview:weakSelf.filterView];
+                [ZAlertClassCheckBoxView setAlertName:@"选择班级" dataSources:weakSelf.classArr handlerBlock:^(NSInteger index, id model) {
+                    weakSelf.classModel = model;
+                    weakSelf.formTopView.title = weakSelf.classModel.name;
+                    [weakSelf resetFilter];
+                    weakSelf.zChain_reload_Net();
+                }];
             }else{
                 weakSelf.classArr = @[].mutableCopy;
                 [TLUIUtility showLoading:nil];
@@ -131,17 +166,15 @@
                         }
                         weakSelf.filterView.model = weakSelf.classModel;
                     }
-
-                    weakSelf.filterView.dataSources = weakSelf.classArr;
-                    [weakSelf.view addSubview:weakSelf.filterView];
+                    [ZAlertClassCheckBoxView setAlertName:@"选择班级" dataSources:weakSelf.classArr handlerBlock:^(NSInteger index, id model) {
+                        weakSelf.classModel = model;
+                        weakSelf.formTopView.title = weakSelf.classModel.name;
+                        [weakSelf resetFilter];
+                        weakSelf.zChain_reload_Net();
+                    }];
                 }];
             }
-//            [ZAlertClassCheckBoxView setAlertName:@"选择班级" dataSources:weakSelf.classArr handlerBlock:^(NSInteger index, id model) {
-//                weakSelf.classModel = model;
-//                weakSelf.formTopView.title = weakSelf.classModel.name;
-//                [weakSelf resetFilter];
-//                weakSelf.zChain_reload_Net();
-//            }];
+        
         };
     }
     

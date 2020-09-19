@@ -427,7 +427,7 @@
     text.font = [UIFont fontContent];
     text.color = autographColor;
     if (model.isMine) {
-        YYAnimatedImageView *imageView1= [[YYAnimatedImageView alloc] initWithImage:[UIImage imageNamed:@"finderPen"]];
+        UIImageView *imageView1= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"finderPen"]];
         imageView1.frame = CGRectMake(0, 0, CGFloatIn750(24), CGFloatIn750(24));
         NSMutableAttributedString *attachText1= [NSMutableAttributedString attachmentStringWithContent:imageView1 contentMode:UIViewContentModeScaleAspectFit attachmentSize:imageView1.frame.size alignToFont:[UIFont systemFontOfSize:CGFloatIn750(24)] alignment:YYTextVerticalAlignmentCenter];
         [text appendAttributedString:attachText1];

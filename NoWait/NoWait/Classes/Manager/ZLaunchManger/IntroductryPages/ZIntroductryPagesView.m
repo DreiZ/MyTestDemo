@@ -7,7 +7,6 @@
 //
 
 #import "ZIntroductryPagesView.h"
-#import <YYAnimatedImageView.h>
 #import <YYImage.h>
 
 @interface ZIntroductryPagesView ()<UIScrollViewDelegate>
